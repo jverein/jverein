@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+
+<plugin name="vereinsverwaltung" version="1.0"
+	class="de.jost_net.JVerein.JVereinPlugin">
+
+	<description>Jameica-Vereinsverwaltung</description>
+	<url></url>
+	<homepage>http://www.jost-net.de/projects/jverein</homepage>
+	<license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
+
+	<!-- The content of the following tag is displayed in the menu bar. //-->
+	<menu>
+
+		<!-- 
+		
+		Every item must have a "name" and an "action" attribute.
+		the class defined in the attribute "action" has to be a java class name
+		which implements from de.willuhn.jameica.gui.Action.
+	
+		Additionally you can specify a shortcut using "CTRL" or "ALT"
+		as modifier key followed by "+" and a single key.
+	
+		Hint: You can create submenus by cascading "item" tags
+
+	    <item
+	    	name="entry name"
+	    	action="com.foo.bar.gui.actions.ExampleAction"
+	    	shortcut="CTRL+E"
+	    />
+	
+		//-->
+
+		<item name="jverein">
+<!--
+
+		    <item name="Mitglieder" 
+                  shortcut="ALT+M" 
+                  action="de.jost_net.JVerein.gui.action.ProjectDetail" />
+-->
+			<!-- use "-" as name to create a separator //-->
+	<!--	    <item name="-" /> -->
+
+		    <item name="About" 
+                  action="de.jost_net.JVerein.gui.action.AboutAction" />
+		</item>
+	</menu>
+  <classfinder>
+    <include>jverein\.jar</include>
+    <include>.*\.class</include>
+  </classfinder>
+
+	<!-- the content of this tag will appear within the navigation tree on the left hand //-->
+
+	<navigation>
+
+	  <!-- Same procedure as in the menu tag //-->
+  
+	  <item name="JVerein"		
+			icon-close="folder.gif" 
+			icon-open="folderopen.gif" 	
+			action="de.jost_net.JVerein.gui.action.WelcomeAction">
+	    <item name="Mitglieder"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.MitgliedSucheAction">
+	    </item>
+	    <item name="Abbuchung"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.AbbuchungAction">
+	    </item>
+	    <item name="Zusatzabbuchung"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.ZusatzabbuchungListeAction">
+	    </item>
+	    <item name="Auswertung"		
+			icon-close="folder.gif" 
+			icon-open="folderopen.gif">
+	    
+			<item name="Mitglieder"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.AuswertungMitgliedAction">
+	    	</item>
+	    </item>
+
+	    <item name="Buchführung"		
+			icon-close="folder.gif" 
+			icon-open="folderopen.gif">
+	    
+			<item name="Buchungsübernahme"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction">
+	    	</item>
+			<item name="Buchungen"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.BuchungsListeAction">
+	    	</item>
+	    </item>
+	    <item name="Extras"		
+			icon-close="folder.gif" 
+			icon-open="folderopen.gif">
+	    
+			<item name="Stammdaten"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.StammdatenAction">
+	    	</item>
+			<item name="Buchungsarten"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
+	    	</item>
+			<item name="Beitragsgruppe"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
+	    	</item>
+	    	<item name="Import"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
+	    	</item>
+	    </item>
+    </item>
+   </navigation>
+
+	<!--
+		Here you can define your service classes. This is typically a
+	    database connection. You can list more than one service in this
+	    section. By using the depends attribute you can define a startup order
+	    for your services. Example:
+
+		<services>
+			<service name="base-service" depends="" autostart="true" class="BaseService" />
+			<service name="extended-service" depends="base-service" autostart="true" class="ExtendedService" />
+		</services>
+	    
+	//-->
+	    
+	<services>
+		<service name="database" depends="" autostart="true"
+				 class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
+	</services>
+</plugin>
+

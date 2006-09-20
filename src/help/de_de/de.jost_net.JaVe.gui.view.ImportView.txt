@@ -1,0 +1,10 @@
+<form>
+	<p>
+		<span color="header" font="header">Import</span>
+	</p>
+
+	<p>
+		Import der Daten aus dem Sparkassen-Vereinsverwaltungsprogram. Achtung. 
+		Existierende Daten werden gelöscht.
+	</p>
+</form>

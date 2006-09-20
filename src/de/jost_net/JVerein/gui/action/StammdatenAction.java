@@ -1,0 +1,58 @@
+/**********************************************************************
+ * $Source$
+ * $Revision$
+ * $Date$
+ * $Author$
+ *
+ * Copyright (c) by Heiner Jostkleigrewe
+ * All rights reserved
+ * jost@berlios.de
+ * jverein.berlios.de
+ * $Log$
+ **********************************************************************/
+package de.jost_net.JVerein.gui.action;
+
+import java.rmi.RemoteException;
+
+import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.view.StammdatenView;
+import de.jost_net.JVerein.rmi.Stammdaten;
+import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.util.ApplicationException;
+
+public class StammdatenAction implements Action
+{
+  public void handleAction(Object context) throws ApplicationException
+  {
+    Stammdaten s = null;
+
+    if (context != null && (context instanceof Stammdaten))
+    {
+      s = (Stammdaten) context;
+    }
+    else
+    {
+      try
+      {
+        try
+        {
+          s = (Stammdaten) Einstellungen.getDBService().createObject(
+              Stammdaten.class, "0");
+        }
+        catch (RemoteException e)
+        {
+          s = (Stammdaten) Einstellungen.getDBService().createObject(
+              Stammdaten.class, null);
+        }
+      }
+      catch (RemoteException e)
+      {
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines Stammdatenobjektes aus der DB", e);
+      }
+    }
+    GUI.startView(StammdatenView.class.getName(), s);
+  }
+
+}

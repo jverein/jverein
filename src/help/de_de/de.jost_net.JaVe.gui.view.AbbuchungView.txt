@@ -1,0 +1,9 @@
+<form>
+	<p>
+		<span color="header" font="header">Abbuchung</span>
+	</p>
+
+	<p>
+		Klicken Sie entweder Jahresabbuchung an oder geben Sie das Datum ein, ab dem für die Neuzugänge abgebucht werden soll.
+	</p>
+</form>
