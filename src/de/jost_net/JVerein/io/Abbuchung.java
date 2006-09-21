@@ -9,12 +9,14 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:24  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.Date;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
