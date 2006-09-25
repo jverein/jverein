@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:38:30  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -194,6 +197,7 @@ public class BuchungsControl extends AbstractControl
         }
       }
     });
+    datum.setEnabled(false);
     return datum;
   }
 
@@ -275,6 +279,8 @@ public class BuchungsControl extends AbstractControl
         {
           return;
         }
+        settings
+            .setAttribute("vondatum", Einstellungen.DATEFORMAT.format(date));
       }
     });
     return vondatum;
@@ -308,6 +314,8 @@ public class BuchungsControl extends AbstractControl
         {
           return;
         }
+        settings
+            .setAttribute("bisdatum", Einstellungen.DATEFORMAT.format(date));
       }
     });
     return bisdatum;
