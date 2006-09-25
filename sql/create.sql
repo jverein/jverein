@@ -90,5 +90,7 @@ CREATE TABLE buchungsart
 
 ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id) DEFERRABLE;
 
+INSERT INTO buchungsart (id, nummer, bezeichnung) VALUES (1,-100, 'Splitbuchung');
+
 COMMIT; 
 
