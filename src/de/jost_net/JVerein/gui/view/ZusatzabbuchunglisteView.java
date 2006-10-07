@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:10  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -32,22 +35,6 @@ public class ZusatzabbuchunglisteView extends AbstractView
     group.addLabelPair("Ausführungstag", control.getAusführungSuch());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    // Button button = new Button("suchen", new Action()
-    // {
-    // public void handleAction(Object context) throws ApplicationException
-    // {
-    // try
-    // {
-    // control.getBuchungsList();
-    // }
-    // catch (RemoteException e)
-    // {
-    // e.printStackTrace();
-    // }
-    // }
-    // }, null, true);
-    //
-    // buttons.addButton(button);
     buttons.addButton("<< Zurück", new BackAction());
 
     control.getZusatzabbuchungsList().paint(this.getParent());
