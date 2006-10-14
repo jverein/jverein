@@ -9,21 +9,28 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/09/25 19:04:27  jost
+ * Bugfix Datumvon und Datumbis
+ *
  * Revision 1.1  2006/09/20 15:38:30  jost
  * *** empty log message ***
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungAction;
+import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.GenericObject;
@@ -31,6 +38,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
@@ -41,9 +49,14 @@ import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.BackgroundTask;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class BuchungsControl extends AbstractControl
 {
@@ -321,6 +334,18 @@ public class BuchungsControl extends AbstractControl
     return bisdatum;
   }
 
+  public Button getStartAuswertungButton()
+  {
+    Button b = new Button("Start", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        starteAuswertung();
+      }
+    }, null, true); // "true" defines this button as the default button
+    return b;
+  }
+
   public void handleStore()
   {
     try
@@ -405,4 +430,94 @@ public class BuchungsControl extends AbstractControl
     }
     return buchungsList;
   }
+
+  private void starteAuswertung()
+  {
+    DBIterator list;
+    Date dVon = null;
+    Date dBis = null;
+    if (bisdatum.getValue() != null)
+    {
+      dVon = (Date) vondatum.getValue();
+    }
+    if (bisdatum.getValue() != null)
+    {
+      dBis = (Date) bisdatum.getValue();
+    }
+    try
+    {
+      list = Einstellungen.getDBService().createList(Buchungsart.class);
+      list.setOrder("ORDER BY nummer");
+
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("Ausgabedatei wählen.");
+
+      Settings settings = new Settings(this.getClass());
+
+      String path = settings.getString("lastdir", System
+          .getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      final String s = fd.open();
+
+      if (s == null || s.length() == 0)
+      {
+        return;
+      }
+
+      final File file = new File(s);
+
+      auswertungBuchungPDF(list, file, dVon, dBis);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  private void auswertungBuchungPDF(final DBIterator list, final File file,
+      final Date dVon, final Date dBis)
+  {
+    BackgroundTask t = new BackgroundTask()
+    {
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          new BuchungAuswertungPDF(list, file, monitor, dVon, dBis);
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getCurrentView().reload();
+        }
+        catch (ApplicationException ae)
+        {
+          monitor.setStatusText(ae.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(ae.getMessage());
+          throw ae;
+        }
+        catch (RemoteException re)
+        {
+          monitor.setStatusText(re.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(re.getMessage());
+          throw new ApplicationException(re);
+        }
+      }
+
+      public void interrupt()
+      {
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+  }
+
 }
