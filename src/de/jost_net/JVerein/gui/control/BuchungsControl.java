@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.3  2006/10/14 06:02:30  jost
+ * Erweiterung um Buchungsauswertung
+ *
  * Revision 1.2  2006/09/25 19:04:27  jost
  * Bugfix Datumvon und Datumbis
  *
@@ -30,6 +33,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungAction;
+import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -416,6 +420,7 @@ public class BuchungsControl extends AbstractControl
       });
       buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
           Einstellungen.DECIMALFORMAT));
+      buchungsList.setContextMenu(new BuchungMenu());
       buchungsList.setRememberColWidths(true);
       buchungsList.setRememberOrder(true);
       buchungsList.setSummary(true);
