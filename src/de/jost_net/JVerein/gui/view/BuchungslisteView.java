@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:10  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -37,6 +40,7 @@ public class BuchungslisteView extends AbstractView
     group.addLabelPair("bis Datum", control.getBisdatum());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    buttons.addButton("<< Zurück", new BackAction());
     Button button = new Button("suchen", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -53,7 +57,6 @@ public class BuchungslisteView extends AbstractView
     }, null, true);
 
     buttons.addButton(button);
-    buttons.addButton("<< Zurück", new BackAction());
 
     control.getBuchungsList().paint(this.getParent());
   }
