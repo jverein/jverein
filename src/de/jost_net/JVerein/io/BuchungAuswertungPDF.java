@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/10/14 06:03:00  jost
+ * Erweiterung um Buchungsauswertung
+ *
  * Revision 1.1  2006/09/20 15:39:24  jost
  * *** empty log message ***
  *
@@ -30,6 +33,7 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
@@ -64,7 +68,7 @@ public class BuchungAuswertungPDF
     {
       // ////////////////////////////////////////////////////////////////////////
       // Header erzeugen
-      rpt = new Document();
+      rpt = new Document(PageSize.A4, 80, 60, 60, 60);
 
       FileOutputStream fos = new FileOutputStream(file);
       PdfWriter.getInstance(rpt, fos);
