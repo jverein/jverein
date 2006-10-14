@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:24  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -32,7 +35,7 @@ public class Buchungsuebernahme
   {
     try
     {
-      String sql = "select max(umsatzid) from buchung";
+      String sql = "select max(tonumber(umsatzid)) from buchung";
       DBService service = Einstellungen.getDBService();
 
       ResultSetExtractor rs = new ResultSetExtractor()
