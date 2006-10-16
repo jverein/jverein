@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/10/14 16:11:56  jost
+ * Pagesize und Ränder gesetzt.
+ *
  * Revision 1.1  2006/10/14 06:03:00  jost
  * Erweiterung um Buchungsauswertung
  *
@@ -77,8 +80,9 @@ public class BuchungAuswertungPDF
       AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
           JVereinPlugin.class);
       rpt.addAuthor("JVerein - Version " + plugin.getManifest().getVersion());
-
-      rpt.addTitle("hier kommt noch ein Subtitle rein");
+      String subtitle = "vom " + Einstellungen.DATEFORMAT.format(dVon)
+          + " bis " + Einstellungen.DATEFORMAT.format(dBis);
+      rpt.addTitle(subtitle);
       // ////////////////////////////////////////////////////////////////////////
 
       // ////////////////////////////////////////////////////////////////////////
@@ -97,7 +101,7 @@ public class BuchungAuswertungPDF
           FontFactory.HELVETICA_BOLD, 13));
       pTitle.setAlignment(Element.ALIGN_CENTER);
       rpt.add(pTitle);
-      Paragraph psubTitle = new Paragraph("subtitle", FontFactory.getFont(
+      Paragraph psubTitle = new Paragraph(subtitle, FontFactory.getFont(
           FontFactory.HELVETICA_BOLD, 10));
       psubTitle.setAlignment(Element.ALIGN_CENTER);
       rpt.add(psubTitle);
@@ -111,7 +115,6 @@ public class BuchungAuswertungPDF
       }
       createTableContent(rpt, null, table, dVon, dBis);
 
-      System.out.println("Gesamtsumme: " + summe);
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
 
       if (rpt != null)
@@ -282,7 +285,6 @@ public class BuchungAuswertungPDF
       table.addCell(getDetailCell("Summe ohne Zuordnung", Element.ALIGN_LEFT));
     }
     summe += buchungsartSumme;
-    System.out.println(summe);
     table.addCell(getDetailCell("", Element.ALIGN_LEFT));
     table.addCell(getDetailCell("", Element.ALIGN_LEFT));
     table.addCell(getDetailCell(Einstellungen.DECIMALFORMAT
