@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:38:30  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -637,7 +640,14 @@ public class MitgliedControl extends AbstractControl
       m.setAustritt((Date) getAustritt().getValue());
       m.setAnrede((String) getAnrede().getValue());
       GenericObject o = (GenericObject) getBeitragsgruppe().getValue();
-      m.setBeitragsgruppe(new Integer(o.getID()));
+      try
+      {
+        m.setBeitragsgruppe(new Integer(o.getID()));
+      }
+      catch (NullPointerException e)
+      {
+        throw new ApplicationException("Beitragsgruppe fehlt");
+      }
       m.setBlz((String) getBlz().getValue());
       m.setEintritt((Date) getEintritt().getValue());
       m.setEmail((String) getEmail().getValue());
@@ -658,15 +668,12 @@ public class MitgliedControl extends AbstractControl
       {
         m.setEingabedatum();
       }
-      try
-      {
-        m.store();
-        GUI.getStatusBar().setSuccessText("Mitglied gespeichert");
-      }
-      catch (ApplicationException e)
-      {
-        GUI.getView().setErrorText(e.getMessage());
-      }
+      m.store();
+      GUI.getStatusBar().setSuccessText("Mitglied gespeichert");
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getView().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {
