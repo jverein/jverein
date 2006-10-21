@@ -7,6 +7,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/hbci4java"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/hibiscus"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/itext-1.3.3.jar"/>
-	<classpathentry kind="lib" path="../hibiscus/lib/obantoo-bin-0.9.jar"/>
+	<classpathentry kind="lib" path="/hibiscus/lib/obantoo-bin-0.9.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/datasource"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
