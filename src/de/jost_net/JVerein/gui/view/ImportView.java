@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:10  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -106,7 +109,7 @@ public class ImportView extends AbstractView
       {
         try
         {
-          new Import(file.getParent(), monitor);
+          new Import(file.getParent(), file.getName(), monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Daten importiert aus " + s);

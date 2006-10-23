@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:24  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -31,7 +34,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class Import
 {
-  public Import(String path, ProgressMonitor monitor)
+  public Import(String path, String file, ProgressMonitor monitor)
   {
     try
     {
@@ -40,7 +43,8 @@ public class Import
       Properties props = new java.util.Properties();
       props.put("separator", ";"); // separator is a bar
       props.put("suppressHeaders", "false"); // first line contains data
-      props.put("fileExtension", ".doc"); // file extension is .txt
+      int pos = file.lastIndexOf('.');
+      props.put("fileExtension", file.substring(pos));
 
       // load the driver into memory
       Class.forName("org.relique.jdbc.csv.CsvDriver");
@@ -53,8 +57,8 @@ public class Import
       // create a Statement object to execute the query with
       Statement stmt = conn.createStatement();
 
-      // Select the ID and NAME columns from sample.csv
-      ResultSet results = stmt.executeQuery("SELECT * FROM spg");
+      ResultSet results = stmt.executeQuery("SELECT * FROM "
+          + file.substring(0, pos));
 
       HashMap beitragsgruppen = new HashMap();
 
@@ -84,8 +88,8 @@ public class Import
       {
         anz++;
         monitor.setStatus(anz);
-        System.out.println("ID= " + results.getString("Mitglieds_Nr")
-            + "   NAME= " + results.getString("Nachname"));
+        monitor.log("ID= " + results.getString("Mitglieds_Nr") + "   NAME= "
+            + results.getString("Nachname"));
 
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, null);
