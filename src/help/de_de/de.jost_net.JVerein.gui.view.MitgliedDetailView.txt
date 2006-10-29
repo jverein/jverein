@@ -1,0 +1,19 @@
+<form>
+	<p>
+		<span color="header" font="header">Mitglied</span>
+	</p>
+	<li>Anrede: Herrn, Frau ...</li>
+    <li>Titel: Dr., Prof. Dr., ...</li>
+    <li>Kontoinhaber: Falls das Mitglied 
+        nicht Kontoinhaber ist, können die 
+        entsprechenden Daten eingegeben 
+        werden.</li>
+    <li>Austritt: Das laut Satzung gültige 
+        Austrittsdatum.</li>
+    <li>Kündigung: Eingangsdatum der Kündigung.</li>
+    <li>Zusatzabbuchung: Sind für das Mitglied 
+        zusätzlich zum Jahresbeitrag weitere 
+        Beträge abzubuchen, können die 
+        entsprechenden Eingaben gemacht werden.</li>    
+    
+</form>

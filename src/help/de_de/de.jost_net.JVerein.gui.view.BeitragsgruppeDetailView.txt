@@ -2,5 +2,8 @@
 	<p>
 		<span color="header" font="header">Beitragsgruppe</span>
 	</p>
+	<p>
+		Die Bezeichung und die Höhe des Beitrages sind zu erfassen.
+	</p>
 
 </form>

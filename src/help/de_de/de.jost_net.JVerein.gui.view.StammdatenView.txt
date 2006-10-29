@@ -1,0 +1,9 @@
+<form>
+	<p>
+		<span color="header" font="header">Stammdaten</span>
+	</p>
+	<li>Name: Name des Vereins</li>
+	<li>Bankverbindung des Vereins für Abbuchungen</li>
+	<li>Altersgruppen für die Statistik sind nach folgendem Muster 
+	    einzugeben: 0-6,7-10,11-14,15-18,19-26,27-40,41-60,61-100 </li> 
+</form>

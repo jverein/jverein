@@ -1,0 +1,14 @@
+<form>
+	<p>
+		<span color="header" font="header">Mitgliedersuche</span>
+	</p>
+    <p>
+       Durch einen Klick auf einen Karteireiter werden die Mitglieder
+       angezeigt, deren Familienname mit dem entsprechenden Buchstaben
+       beginnt. 
+    </p>
+    <p>
+       Anschließend kann das Mitglied durch einen 
+       Doppelklick ausgewählt werden.
+    </p>
+</form>
