@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
-<plugin name="vereinsverwaltung" version="0.1"
+<plugin name="jverein" version="0.1"
 	class="de.jost_net.JVerein.JVereinPlugin">
 
 	<description>Jameica-Vereinsverwaltung</description>
 	<url></url>
-	<homepage>http://www.jost-net.de/projects/jverein</homepage>
+	<homepage>http://jverein.berlios.de</homepage>
 	<license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
 
 	<!-- The content of the following tag is displayed in the menu bar. //-->
@@ -82,6 +82,11 @@
 	 			icon-close="page.gif" 	
 				icon-open="page.gif" 		
 				action="de.jost_net.JVerein.gui.action.AuswertungMitgliedAction">
+	    	</item>
+			<item name="Statistik"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.StatistikMitgliedAction">
 	    	</item>
 	    </item>
 

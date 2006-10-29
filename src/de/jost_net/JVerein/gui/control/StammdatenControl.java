@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:38:30  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -34,6 +37,8 @@ public class StammdatenControl extends AbstractControl
   private Input blz;
 
   private Input konto;
+
+  private Input altersgruppen;
 
   private Stammdaten stamm;
 
@@ -86,6 +91,16 @@ public class StammdatenControl extends AbstractControl
     return konto;
   }
 
+  public Input getAltersgruppen() throws RemoteException
+  {
+    if (altersgruppen != null)
+    {
+      return altersgruppen;
+    }
+    altersgruppen = new TextInput(getStammdaten().getAltersgruppen(), 50);
+    return altersgruppen;
+  }
+
   public void handleStore()
   {
     try
@@ -94,15 +109,13 @@ public class StammdatenControl extends AbstractControl
       s.setName((String) getName().getValue());
       s.setBlz((String) getBlz().getValue());
       s.setKonto((String) getKonto().getValue());
-      try
-      {
-        s.store();
-        GUI.getStatusBar().setSuccessText("Stammdaten gespeichert");
-      }
-      catch (ApplicationException e)
-      {
-        GUI.getView().setErrorText(e.getMessage());
-      }
+      s.setAltersgruppen((String) getAltersgruppen().getValue());
+      s.store();
+      GUI.getStatusBar().setSuccessText("Stammdaten gespeichert");
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getView().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

@@ -9,12 +9,16 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:48  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -66,6 +70,14 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
         throw new ApplicationException(
             "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
       }
+      try
+      {
+        new AltersgruppenParser(getAltersgruppen());
+      }
+      catch (RuntimeException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
     }
     catch (RemoteException e)
     {
@@ -113,6 +125,16 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
   public void setKonto(String konto) throws RemoteException
   {
     setAttribute("konto", konto);
+  }
+
+  public String getAltersgruppen() throws RemoteException
+  {
+    return (String) getAttribute("altersgruppen");
+  }
+
+  public void setAltersgruppen(String altersgruppen) throws RemoteException
+  {
+    setAttribute("altersgruppen", altersgruppen);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

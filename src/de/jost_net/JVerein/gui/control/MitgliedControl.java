@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/10/20 07:36:14  jost
+ * Fehlermeldung ausgeben, wenn keine Beitragsgruppe ausgewählt wurde.
+ *
  * Revision 1.1  2006/09/20 15:38:30  jost
  * *** empty log message ***
  *
@@ -30,6 +33,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
+import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
@@ -602,6 +606,18 @@ public class MitgliedControl extends AbstractControl
     return b;
   }
 
+  public Button getStartStatistikButton()
+  {
+    Button b = new Button("Start", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        starteStatistik();
+      }
+    }, null, true); // "true" defines this button as the default button
+    return b;
+  }
+
   public Button getZusatzabbuchungNeu()
   {
     return new Button("Neu", new ZusatzabbuchungAction(getMitglied()));
@@ -793,6 +809,42 @@ public class MitgliedControl extends AbstractControl
       }
     }
     catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  private void starteStatistik()
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+
+    Settings settings = new Settings(this.getClass());
+
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+      fd.setFilterPath(path);
+
+    final String s = fd.open();
+
+    if (s == null || s.length() == 0)
+    {
+      // close();
+      return;
+    }
+
+    final File file = new File(s);
+
+    try
+    {
+      new MitgliederStatistik(file);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+    catch (ApplicationException e)
     {
       e.printStackTrace();
     }

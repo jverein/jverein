@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:35  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -29,4 +32,8 @@ public interface Stammdaten extends DBObject
   public String getKonto() throws RemoteException;
 
   public void setKonto(String konto) throws RemoteException;
+
+  public String getAltersgruppen() throws RemoteException;
+
+  public void setAltersgruppen(String altersgruppen) throws RemoteException;
 }
