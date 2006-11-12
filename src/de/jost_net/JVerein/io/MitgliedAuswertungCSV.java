@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:24  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -72,7 +75,7 @@ public class MitgliedAuswertungCSV
         out.print(formatDate(m.getEintritt()) + ";");
         out.print(m.getBeitragsgruppe().getID() + ";");
         out.print(formatDate(m.getAustritt()) + ";");
-        out.println(formatDate(m.getKuendigung()) + ";");
+        out.println(formatDate(m.getKuendigung()));
       }
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
       out.close();
