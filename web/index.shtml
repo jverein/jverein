@@ -1,0 +1,28 @@
+<!--#include virtual="main.shtml"-->  
+    <h2>Home</h2>
+    <p>JVerein ist eine Open-Source-Vereinsverwaltung mit einer Anbindung 
+       an die ebenfalls unter Open-Source-Lizenz stehende Homebankingsoftware 
+       <a href="http://www.willuhn.de/projects/hibiscus" target=blank>Hibiscus</a>. </p>
+    <p>Die Implementierung erfolgt mit Java. Der Ablauf auf vielen Plattformen
+       ist damit gewährleistet. Als GUI-Framework kommt 
+       <a href="http://www.willuhn.de/projects/jameica" target=blank>Jameica</a>
+       zum Einsatz.</p>
+    <p>Die Mitglieder können mit ihren Namen und Adressen gespeichtert werden. Zusätzlich
+       werden die Bankverbindung, Kommunikationsdaten (Tel./eMail) und Mitgliedschaftsdaten
+       gespeichert. Jedem Mitglied wird eine Beitragsgruppe zugeordnet. Darüber wird der
+       jährliche Beitragseinzug realisiert. Zusätzlich können für jedes Mitglied zu 
+       beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...).</p>
+    <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
+       werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>
+    <p>Momentan ist auch eine Simpel-Buchungführung in JVerein integriert. Die Umsätze aus 
+       Hibiscus können übernommen werden. Eine Zuordnung von Buchungsarten ist möglich. Als Auswertung
+       stehen Umsatzlisten nach Buchungsarten und Summierungen nach Buchungsarten zur Verfügung.
+       Diese Buchführung wird wieder entfernt, sobald die Zuordnung von Umsatz-Kategorien in
+       <a href="http://www.willuhn.de/projects/hibiscus" target=blank>Hibiscus</a> mit den
+       entsprechenden Auswertungen funktioniert.  </p>
+    <p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden. Zusätzlich gibt es
+       eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird bitte ich um eine kurze Nachricht
+       an <a href="mailto:heiner@jost-net.de">heiner@jverein.de</a> mit dem Namen des Vereins und 
+       der Anzahl der Mitglieder. Diese Daten dienen der "Erfolgskontrolle". </p>
+<!--#include virtual="footer.shtml"-->  
+

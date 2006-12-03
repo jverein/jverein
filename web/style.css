@@ -1,0 +1,108 @@
+<style type="text/css">
+  body {
+    color: navy; background-color: #f7fcf7;
+    font-size: 100.01%;
+    font-family: Helvetica,Arial,sans-serif;
+    margin: 0; padding: 1em 0;
+    text-align: center;  /* Zentrierung im Internet Explorer */
+  }
+
+  div#Seite {
+    text-align: left;    /* Seiteninhalt wieder links ausrichten */
+    margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
+    width: 760px;
+    padding: 0;
+    background: #f7fcf7 ;
+    border: 2px ridge silver;
+    font-family: Helvetica,Arial,sans-serif;
+  }
+  html>body div#Seite {
+    border-color: gray;  /* Farbangleichung an den Internet Explorer  */
+  }
+
+  h1 {
+    font-size: 1.5em;
+    margin: 0; padding: 0.3em;
+    text-align: center;
+    background: #f7fcf7 url(../../../src/logo.gif) no-repeat 100% 45%;
+    border-bottom: 1px solid silver;
+  }
+
+  ul#Navigation {
+    background-color: #e7ece7;
+    font-size: 0.83em;
+    float: left; width: 150px;
+    margin: 0 0 1.2em; padding: 0;
+  }
+  ul#Navigation li {
+    list-style: none;
+    margin: 0; padding: 0.2em;
+  }
+  ul#Navigation a {
+    display: block;
+    padding: 0.0em;
+    font-weight: bold;
+  }
+  ul#Navigation a:link {
+    color: orange; background-color: #e7ece7;
+  }
+  ul#Navigation a:visited {
+    color: orange; background-color: #e7ece7;
+  }
+  ul#Navigation a:hover {
+    color: orange; background-color: white;
+  }
+  ul#Navigation a:active {
+    color: orange; background-color: #e7ece7;
+  }
+
+  div#Inhalt {
+    margin: 0 0 1em 220px;
+    padding: 0 1em;
+  }
+  * html div#Inhalt {
+    height: 1em;  /* Workaround gegen den 3-Pixel-Bug des Internet Explorers */
+    margin-bottom: 0;
+  }
+  div#Inhalt h2 {
+    font-size: 1.2em;
+    margin: 0.2em 0;
+    color: navy;
+  }
+  div#Inhalt h3 {
+    font-size: 1.01em;
+    margin: 0.2em 0;
+    color: navy;
+  }
+  div#Inhalt td {
+    border:thin solid navy;
+  }
+  
+  
+  div#Inhalt p {
+    font-size: 1em;
+    margin: 1em 0;
+  }
+  ul {
+    font-size: 1em;
+    color: navy;
+  }
+
+  p#Kopf {
+    clear: both;
+    font-size: 0.83em;
+    color: #ffffff;
+    margin: 0; padding: 0.1em;
+    text-align: right;
+    background-color: #17335f;
+  }
+
+  p#Fusszeile {
+    clear: both;
+    font-size: 0.83em;
+    color: #ffffff;
+    margin: 0; padding: 0.1em;
+    text-align: center;
+    background-color: #17335f;
+  }
+</style>
