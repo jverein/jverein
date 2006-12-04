@@ -2,14 +2,21 @@
        "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>JVerein</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta name="description" content="JVerein">
+    <meta name="keywords" content="Vereinsverwaltung, JVerein, Open Source, OpenSource, Jameica, Hibiscus">
+    <meta name="robots" content="index, follow">
+    <title>JVerein - Open Source Vereinsverwaltung</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 <div id="Seite">
-  <h1>JVerein</h1>
-  <p id="Kopf"><!--#config timefmt="%d.%m.%Y %H:%M" --><!--#echo var="DATE_LOCAL" --></p>
+           <div style="text-align: right;background-color: white;">
+              <span style="color: #FD6000; font-size: 27pt;">J&nbsp;</span><span style="color: #3660AA; font-size: 27pt;">V&nbsp;e&nbsp;r&nbsp;e&nbsp;i&nbsp;n</span><br />
+              <span style="color: #000000; font-size: 14pt;">Open Source Vereinsverwaltung</span>
+            </div>
+  <p id="Kopf">&nbsp;<!--#config timefmt="%d.%m.%Y %H:%M" --><!--#echo var="DATE_LOCAL" --></p>
 
   <ul id="Navigation">
     <li><a href="index.shtml">Home</a></li>
@@ -24,3 +31,4 @@
   </ul>
 
   <div id="Inhalt">
+ 

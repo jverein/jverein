@@ -12,24 +12,76 @@
     margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
     width: 760px;
     padding: 0;
-    background: #f7fcf7 ;
+    background: white ;
     border: 2px ridge silver;
     font-family: Helvetica,Arial,sans-serif;
   }
   html>body div#Seite {
     border-color: gray;  /* Farbangleichung an den Internet Explorer  */
   }
+  div#Inhalt {
+    background-color: white;
+    }
 
-  h1 {
-    font-size: 1.5em;
-    margin: 0; padding: 0.3em;
-    text-align: center;
-    background: #f7fcf7 url(../../../src/logo.gif) no-repeat 100% 45%;
-    border-bottom: 1px solid silver;
-  }
+h1 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 14pt;
+color: #3660AA;
+font-weight : bold;
+margin-top : 2pt;
+margin-bottom : 10pt;
+}
+h2 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 12pt;
+color: #3660AA;
+font-weight : bold;
+margin-top : 2pt;
+margin-bottom : 6pt;
+}
+
+IMG {
+      border: 0px 0solid ; 
+      float: left; 
+      margin: 0px 25px 10px 0px;
+    }
+IMG.screenshot {
+	float: none;
+    vertical-align:top;    
+    }
+.arrow {  
+  padding-left: 23px;
+  background-image: url(./lightarrow.jpg);
+  background-repeat: no-repeat;
+  background-position: 0 -0.35em;
+}
+
+ul.sub {
+list-style-type : disc;
+}
+    
+    
+  A {
+text-decoration : none;
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: #FD6000;
+}
+A:HOVER {
+text-decoration : underline;
+color: #FD6000;
+}
+
+a[href^="http:"], a[href^="https:"] { 
+  padding-left: 12px;
+  background-image: url('./ext_link.gif');
+  background-repeat: no-repeat;
+  background-position: 0 0.25em;
+}
+  
 
   ul#Navigation {
-    background-color: #e7ece7;
+    background-color: rgb(226, 226, 226);
     font-size: 0.83em;
     float: left; width: 150px;
     margin: 0 0 1.2em; padding: 0;
@@ -38,24 +90,7 @@
     list-style: none;
     margin: 0; padding: 0.2em;
   }
-  ul#Navigation a {
-    display: block;
-    padding: 0.0em;
-    font-weight: bold;
-  }
-  ul#Navigation a:link {
-    color: orange; background-color: #e7ece7;
-  }
-  ul#Navigation a:visited {
-    color: orange; background-color: #e7ece7;
-  }
-  ul#Navigation a:hover {
-    color: orange; background-color: white;
-  }
-  ul#Navigation a:active {
-    color: orange; background-color: #e7ece7;
-  }
-
+ 
   div#Inhalt {
     margin: 0 0 1em 220px;
     padding: 0 1em;
@@ -64,20 +99,9 @@
     height: 1em;  /* Workaround gegen den 3-Pixel-Bug des Internet Explorers */
     margin-bottom: 0;
   }
-  div#Inhalt h2 {
-    font-size: 1.2em;
-    margin: 0.2em 0;
-    color: navy;
-  }
-  div#Inhalt h3 {
-    font-size: 1.01em;
-    margin: 0.2em 0;
-    color: navy;
-  }
   div#Inhalt td {
     border:thin solid navy;
   }
-  
   
   div#Inhalt p {
     font-size: 1em;

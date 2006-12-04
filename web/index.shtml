@@ -1,6 +1,8 @@
 <!--#include virtual="main.shtml"-->  
     <h2>Home</h2>
-    <p>JVerein ist eine Open-Source-Vereinsverwaltung mit einer Anbindung 
+    <p>
+       <img src="JVerein_Box.jpg" >
+       JVerein ist eine Open-Source-Vereinsverwaltung mit einer Anbindung 
        an die ebenfalls unter Open-Source-Lizenz stehende Homebankingsoftware 
        <a href="http://www.willuhn.de/projects/hibiscus" target=blank>Hibiscus</a>. </p>
     <p>Die Implementierung erfolgt mit Java. Der Ablauf auf vielen Plattformen

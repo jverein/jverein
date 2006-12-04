@@ -1,44 +1,33 @@
 <!--#include virtual="main.shtml"-->  
     <h2>Screenshots</h2>
-    <p><a href='screenshots/mitgliedsuchen.jpg' target=blank>
-         <img src="screenshots/th-mitgliedsuchen.jpg">
-         <br>Mitglied suchen
-    </a></p>    
-    <p><a href='screenshots/mitglied.jpg' target=blank>
-         <img src="screenshots/th-mitglied.jpg">
-         <br>Mitglied 
-    </a></p>    
-    <p><a href='screenshots/mitgliedkommunikation.jpg' target=blank>
-         <img src="screenshots/th-mitgliedkommunikation.jpg">
-         <br>Mitglied Kommunikationsdaten
-    </a></p>    
-    <p><a href='screenshots/mitgliedmitgliedschaft.jpg' target=blank>
-         <img src="screenshots/th-mitgliedmitgliedschaft.jpg">
-         <br>Mitglied Mitgliedschaft
-    </a></p>    
-    <p><a href='screenshots/mitgliedzusatzabbuchung.jpg' target=blank>
-         <img src="screenshots/th-mitgliedzusatzabbuchung.jpg">
-         <br>Mitglied Zusatzabbuchung
-    </a></p>    
-    <p><a href='screenshots/abbuchung.jpg' target=blank>
-         <img src="screenshots/th-abbuchung.jpg">
-         <br>Abbuchung
-    </a></p>    
-    <p><a href='screenshots/listezusatzabbuchungen.jpg' target=blank>
-         <img src="screenshots/th-listezusatzabbuchungen.jpg">
-         <br>Liste Zusatzabbuchungen
-    </a></p>    
-    <p><a href='screenshots/mitgliedauswertung.jpg' target=blank>
-         <img src="screenshots/th-mitgliedauswertung.jpg">
-         <br>Mitglieder Auswertung
-    </a></p>    
-    <p><a href='screenshots/stammdaten.jpg' target=blank>
-         <img src="screenshots/th-stammdaten.jpg">
-         <br>Stammdaten
-    </a></p>    
-    <p><a href='screenshots/beitragsgruppen.jpg' target=blank>
-         <img src="screenshots/th-beitragsgruppen.jpg">
-         <br>Beitragsgruppen
-    </a></p>    
+    <p><img class="screenshot" src="screenshots/th-mitgliedsuchen.jpg">
+       <a href='screenshots/mitgliedsuchen.jpg' target=blank>Mitglied suchen</a></p>
+        
+    <p><img class="screenshot" src="screenshots/th-mitglied.jpg"> 
+       <a href='screenshots/mitglied.jpg' target=blank>Mitglied</a></p>
+       
+    <p><img class="screenshot" src="screenshots/th-mitgliedkommunikation.jpg">
+       <a href='screenshots/mitgliedkommunikation.jpg' target=blank>Mitglied Kommunikationsdaten</a></p>
+
+    <p><img class="screenshot" src="screenshots/th-mitgliedmitgliedschaft.jpg">
+       <a href='screenshots/mitgliedmitgliedschaft.jpg' target=blank>Mitglied Mitgliedschaft</a></p>
+
+    <p><img class="screenshot" src="screenshots/th-mitgliedzusatzabbuchung.jpg">
+       <a href='screenshots/mitgliedzusatzabbuchung.jpg' target=blank>Mitglied Zusatzabbuchung</a></p>
+
+    <p><img class="screenshot" src="screenshots/th-abbuchung.jpg">
+       <a href='screenshots/abbuchung.jpg' target=blank>Abbuchung</a></p>
+
+    <p><img class="screenshot" src="screenshots/th-listezusatzabbuchungen.jpg">
+       <a href='screenshots/listezusatzabbuchungen.jpg' target=blank>Liste Zusatzabbuchungen</a></p>
+ 
+    <p><img class="screenshot" src="screenshots/th-mitgliedauswertung.jpg">
+       <a href='screenshots/mitgliedauswertung.jpg' target=blank>Mitglieder Auswertung</a></p>
+
+    <p><img class="screenshot" src="screenshots/th-stammdaten.jpg">
+       <a href='screenshots/stammdaten.jpg' target=blank>Stammdaten</a></p>
+
+    <p><img class="screenshot" src="screenshots/th-beitragsgruppen.jpg">
+       <a href='screenshots/beitragsgruppen.jpg' target=blank>Beitragsgruppen</a></p>
 <!--#include virtual="footer.shtml"-->  
 

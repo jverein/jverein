@@ -1,25 +1,23 @@
 <!--#include virtual="main.shtml"-->  
     <h2>Features</h2>
-    <ul>
-	<li>Mitgliedertabelle</li>
-	<ul>
+	<b class="arrow">Mitgliedertabelle</b>
+	<ul class="sub">
 		<li>Anschrift und weitere persönliche Daten</li>
 		<li>Bankverbindung</li>
 		<li>Kommunikationsdaten (Tel./eMail ...)</li>
 		<li>Mitgliedschaft (Eintritt, Austritt, Beitragsgruppe ...)</li>
 	</ul>
-	<li>Abbuchung</li>
+	<b class="arrow">Abbuchung</b>
 	<ul>
 		<li>Erstellung einer DTAUS-Datei, die u. a. auch in Hibiscus importiert werden kann</li>
 		<li>Jahresabbuchung für alle Mitglieder</li>
 		<li>Abbuchung für neu eingetretene Mitglieder</li>
 		<li>Zusatzabbuchungen</li>
 	</ul>
-	<li>Auswertung der Mitglieder (PDF u. CSV)</li>
-	<li>Statistik</li>
-	<li>Beitragsgruppe</li>
-	<li>Import aus der Sparkassen-Software SPG-Verein</li>
-    </ul>
+	<p><b class="arrow">Auswertung der Mitglieder (PDF u. CSV)</b></p>
+	<p><b class="arrow">Statistik</b></p>
+	<p><b class="arrow">Beitragsgruppe</b></p>
+	<p><b class="arrow">Import aus der Sparkassen-Software SPG-Verein</b></p>
     
 <!--#include virtual="footer.shtml"-->  
 
