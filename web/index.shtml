@@ -16,7 +16,7 @@
        beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...).</p>
     <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
        werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>
-    <p>Momentan ist auch eine Simpel-Buchungführung in JVerein integriert. Die Umsätze aus 
+    <p>Momentan ist auch eine Simpel-Buchführung in JVerein integriert. Die Umsätze aus 
        Hibiscus können übernommen werden. Eine Zuordnung von Buchungsarten ist möglich. Als Auswertung
        stehen Umsatzlisten nach Buchungsarten und Summierungen nach Buchungsarten zur Verfügung.
        Diese Buchführung wird wieder entfernt, sobald die Zuordnung von Umsatz-Kategorien in
