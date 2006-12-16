@@ -109,8 +109,7 @@ a[href^="http:"], a[href^="https:"] {
   }
   ul {
     font-size: 1em;
-    color: navy;
-  }
+   }
 
   p#Kopf {
     clear: both;

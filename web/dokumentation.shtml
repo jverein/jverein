@@ -1,6 +1,95 @@
 <!--#include virtual="main.shtml"-->  
     <h2>Dokumentation</h2>
-    <p>Wird in Kürze ergänzt. ;-)</p>
+    <h3>Programmbeschreibung</h3>
+   <p>Mit einem Klick auf <i>Mitglied</i> öffnet sich das <i>Mitlgied suchen</i>
+    Fenster:</p>
+   <p>
+       <a href='screenshots/mitgliedsuchen.png' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedsuchen.png"></a></p>
+    <p>Die Mitglieder sind nach dem Anfangsbuchstaben des Namens in die einzelnen 
+    Karteireiter einsortiert. Durch einen Doppelklick auf ein Mitglied oder durch
+    Klick auf <i>Neu</i> öffnet sich das folgende Fenster:</p> 
+        
+    <p> 
+       <a href='screenshots/mitglied.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitglied.jpg"></a></p>
+       <p>Neben den persönlichen Daten (Name, Anschrift, Geburtsdatum) können weitere 
+       Informationen gespeichert werden. Die Bankleitzahl und die Kontonummer werden 
+       mit Hilfe von HBCI4JAVA auf Gültigkeit geprüft.</p>
+       
+    <p>
+       <a href='screenshots/mitgliedkommunikation.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedkommunikation.jpg"></a></p>
+ 
+    <p>
+       <a href='screenshots/mitgliedmitgliedschaft.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedmitgliedschaft.jpg"></a></p>
+     <p>Die Beitragsgruppen sind unter Extras | Beitragsgruppe zu erfassen. Unter <i>Austritt</i>
+       wird das satzungsgemäße Ende der Mitgliedschaft vermerkt. Unter <i>Kündigung</i> das 
+       Eingangsdatum der Kündigung.</p>
+     <p>
+       <a href='screenshots/mitgliedzusatzabbuchung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedzusatzabbuchung.jpg"></a></p>
+     <p>Zusätzliche Zahlungen (z. B. Eigenanteile für Fahrten, Strafgelder ...) können
+       über <i>Zusatzabbuchungen</i> verarbeitet werden. Ein Klick auf <i>Neu</i> öffnet
+       folgendes Fenster:</p>
+     <p>
+      <a href='screenshots/zusatzabbuchung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-zusatzabbuchung.jpg"></a></p>
+ 
+     <p>Abbuchungen werden mit dem folgenden Bildschirm initiiert. Es können
+        <ul>
+            <li>Jahresbeiträge</li>
+            <li>Jahresbeiträge für im laufenden Jahr eingetretene Mitglieder</li>
+            <li>Zusatzbeträge</li>
+        </ul>
+        verarbeitet werden.</p>
+        
+        <p>Wenn <i>Jahresabbuchung</i> angeklickt wurde, werden für alle Mitglieder, 
+        die nicht ausgetreten sind, die Beiträge gemäß eingetragener Beitragsgruppe 
+        eingezogen. Für Mitglieder, die im Laufe des Jahres eingetreten sind, können 
+        ebenfalls die Beiträge eingezogen werden. Dazu wird das Eingabedatum eingetragen, 
+        ab dem die Beiträge für nachträglich eingetretene Mitglieder abgebucht werden 
+        sollen.</p> 
+
+        <p>Durch einen Klick auf <i>Zusatzabbuchung</i> werden auch die zusätzlichen 
+        Beträge abgebucht.</p>
+        
+        <p>Die Daten werden in eine DTAUS-Datei geschrieben. Diese Datei kann
+        entweder direkt auf Diskette ausgegeben und bei der Bank eingereicht oder in Hibiscus
+        importiert werden.</p>
+     <p>
+       <a href='screenshots/abbuchung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-abbuchung.jpg"></a></p>
+       
+    <p>Die Zusatzabbuchungen können sowohl bei jedem Mitglied auf dem entsprechenden Reiter 
+       angesehen werden, als auch in einer Übersicht für alle Mitglieder. Dabei kann die 
+       Anzeige eingeschränkt werden auf <i>Noch nicht ausgeführte Abbuchungen</i> oder nach 
+       den verschiedenen Ausführungsterminen. Ist eine Zusatzabbuchung ausgeführt worden, 
+       wird intern ein entsprechendes Merkmal gesetzt. Durch einen Rechtsklick auf eine 
+       Zusatzabbuchung und die Auswahl <i>Erneut ausführen</i> wird das Merkmal zurückgesetzt.
+
+    <p>
+       <a href='screenshots/listezusatzabbuchungen.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-listezusatzabbuchungen.jpg"></a></p>
+       
+     <p>Der Mitgliederbestand kann nach den unten aufgeführten Merkmalen selektiert werden. 
+        Die Ausgabe erfolgt entweder im PDF oder im CSV-Format.Nach der Erzeugung der Datei 
+        wird ein entsprechendes Anzeigeprogramm aufgerufen.</p>
+    <p>
+       <a href='screenshots/mitgliedauswertung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedauswertung.jpg"></a></p>
+
+    <p>Stammdaten des Vereins</p>
+    <p>
+       <a href='screenshots/stammdaten.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-stammdaten.jpg"></a></p>
+
+	<p>Beitragsgruppen</p>
+    <p>
+       <a href='screenshots/beitragsgruppen.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-beitragsgruppen.jpg"></a></p>
+
     <h3>Import</h3>
     <p>Zur Zeit ist der Import von Daten über das durch das Programm SPG-Verein 
     (Sparkasse) vorgegebene CSV-Format realisiert. Der Dateiname muß eine Endung 
