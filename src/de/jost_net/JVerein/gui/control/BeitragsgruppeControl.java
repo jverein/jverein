@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:38:30  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -80,7 +83,7 @@ public class BeitragsgruppeControl extends AbstractControl
       Beitragsgruppe b = getBeitragsgruppe();
       b.setBezeichnung((String) getBezeichnung().getValue());
       Double d = (Double) getBetrag().getValue();
-      b.setBetrag(d);
+      b.setBetrag(d.doubleValue());
       try
       {
         b.store();

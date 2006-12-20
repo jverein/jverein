@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:38:12  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -48,7 +51,7 @@ public class ZusatzabbuchungAction implements Action
             Zusatzabbuchung.class, null);
         if (m != null)
         {
-          z.setMitglied(new Integer(m.getID()));
+          z.setMitglied(new Integer(m.getID()).intValue());
         }
       }
       catch (RemoteException e)

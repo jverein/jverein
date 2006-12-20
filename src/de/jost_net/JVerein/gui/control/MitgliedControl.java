@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.3  2006/10/29 07:48:29  jost
+ * Neu: Mitgliederstatistik
+ *
  * Revision 1.2  2006/10/20 07:36:14  jost
  * Fehlermeldung ausgeben, wenn keine Beitragsgruppe ausgewählt wurde.
  *
@@ -760,7 +763,7 @@ public class MitgliedControl extends AbstractControl
       {
         Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
         subtitle += "nur Beitragsgruppe " + bg.getBezeichnung();
-        list.addFilter("beitragsgruppe = ?", new Object[] { Integer.parseInt(bg
+        list.addFilter("beitragsgruppe = ?", new Object[] { new Integer(bg
             .getID()) });
       }
 

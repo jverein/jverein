@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/10/14 16:12:20  jost
+ * Bugfix bei der Übernahme der Buchungen aus Hibiscus
+ *
  * Revision 1.1  2006/09/20 15:39:24  jost
  * *** empty log message ***
  *
@@ -55,7 +58,7 @@ public class Buchungsuebernahme
       DBService hibservice = (DBService) Application.getServiceFactory()
           .lookup(HBCI.class, "database");
       DBIterator list = hibservice.createList(Umsatz.class);
-      if (maximum > 0)
+      if (maximum.intValue() > 0)
       {
         list.addFilter("id >" + maximum);
       }

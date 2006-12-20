@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/10/07 14:47:25  jost
+ * Alten Code entfernt
+ *
  * Revision 1.1  2006/09/20 15:39:10  jost
  * *** empty log message ***
  *
@@ -32,7 +35,7 @@ public class ZusatzabbuchunglisteView extends AbstractView
     final ZusatzabbuchungControl control = new ZusatzabbuchungControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Ausführungstag");
-    group.addLabelPair("Ausführungstag", control.getAusführungSuch());
+    group.addLabelPair("Ausführungstag", control.getAusfuehrungSuch());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());

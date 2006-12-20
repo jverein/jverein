@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/09/25 19:04:02  jost
+ * Vorbereitung Splitbuchungen
+ *
  * Revision 1.1  2006/09/20 15:38:30  jost
  * *** empty log message ***
  *
@@ -90,7 +93,7 @@ public class BuchungsartControl extends AbstractControl
     try
     {
       Buchungsart b = getBuchungsart();
-      b.setNummer((Integer) getNummer().getValue());
+      b.setNummer(((Integer) getNummer().getValue()).intValue());
       b.setBezeichnung((String) getBezeichnung().getValue());
       try
       {

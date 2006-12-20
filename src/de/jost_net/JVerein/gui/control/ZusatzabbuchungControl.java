@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:38:30  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -151,7 +154,7 @@ public class ZusatzabbuchungControl extends AbstractControl
     return ausfuehrung;
   }
 
-  public SelectInput getAusführungSuch() throws RemoteException
+  public SelectInput getAusfuehrungSuch() throws RemoteException
   {
     if (ausfuehrungSuch != null)
     {
@@ -206,7 +209,7 @@ public class ZusatzabbuchungControl extends AbstractControl
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
       Double d = (Double) getBetrag().getValue();
-      z.setBetrag(d);
+      z.setBetrag(d.doubleValue());
       try
       {
         z.store();

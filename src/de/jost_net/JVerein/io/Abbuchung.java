@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/09/21 18:49:00  jost
+ * überflüssiges Import-Statement entfernt.
+ *
  * Revision 1.1  2006/09/20 15:39:24  jost
  * *** empty log message ***
  *
@@ -18,8 +21,7 @@ package de.jost_net.JVerein.io;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+import java.util.Hashtable;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -93,7 +95,7 @@ public class Abbuchung
       while (list.hasNext())
       {
         Beitragsgruppe b = (Beitragsgruppe) list.next();
-        beitr.put(b.getID(), b.getBetrag());
+        beitr.put(b.getID(), new Double(b.getBetrag()));
       }
 
       // Hier beginnt die eigentliche Abbuchung
@@ -132,7 +134,7 @@ public class Abbuchung
       {
         Zusatzabbuchung z = (Zusatzabbuchung) list.next();
         Mitglied m = z.getMitglied();
-        writeCSatz(dtaus, m, z.getBuchungstext(), z.getBetrag());
+        writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
         z.setAusfuehrung(new Date());
         z.store();
       }
@@ -170,7 +172,7 @@ public class Abbuchung
       String verwendungszweck, Double betr) throws DtausException,
       NumberFormatException, IOException
   {
-    dtaus.setCBetragInEuro(betr);
+    dtaus.setCBetragInEuro(betr.doubleValue());
     dtaus.setCBLZEndbeguenstigt(Integer.parseInt(m.getBlz()));
     dtaus.setCInterneKundennummer(Integer.parseInt(m.getID()));
     dtaus.setCKonto(Long.parseLong(m.getKonto()));

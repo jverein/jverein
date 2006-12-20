@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:48  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -91,7 +94,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
 
   public void setMitglied(int mitglied) throws RemoteException
   {
-    setAttribute("mitglied", mitglied);
+    setAttribute("mitglied", new Integer(mitglied));
   }
 
   public Date getFaelligkeit() throws RemoteException
