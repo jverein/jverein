@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/10/29 07:49:56  jost
+ * Neu: Mitgliederstatistik
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -19,7 +22,7 @@ import org.eclipse.swt.graphics.Point;
 
 public class AltersgruppenParser
 {
-  private Vector elemente;
+  private Vector<String> elemente;
 
   private int ei = 0;
 
@@ -27,13 +30,13 @@ public class AltersgruppenParser
   {
     // Schritt 1: Zerlegen in die einzelnen Gruppen
     StringTokenizer stt = new StringTokenizer(altersgruppe, ",");
-    Vector gruppen = new Vector();
+    Vector<String> gruppen = new Vector<String>();
     while (stt.hasMoreElements())
     {
       gruppen.addElement(stt.nextToken());
     }
     // Schritt 2: Zerlegen der Gruppen in ihre einzelnen Elemente
-    elemente = new Vector();
+    elemente = new Vector<String>();
     for (int i = 0; i < gruppen.size(); i++)
     {
       stt = new StringTokenizer((String) gruppen.elementAt(i), "-");

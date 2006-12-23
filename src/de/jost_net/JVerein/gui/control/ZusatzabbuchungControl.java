@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/12/20 20:25:44  jost
+ * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
+ *
  * Revision 1.1  2006/09/20 15:38:30  jost
  * *** empty log message ***
  *
@@ -161,7 +164,7 @@ public class ZusatzabbuchungControl extends AbstractControl
       return ausfuehrungSuch;
     }
 
-    final Vector werte = new Vector();
+    final Vector<String> werte = new Vector<String>();
     werte.addElement("Alle");
     werte.addElement("Noch nicht ausgeführt");
 
