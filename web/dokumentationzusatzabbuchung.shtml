@@ -1,0 +1,18 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+
+    <h3>Übersicht Zusatzabbuchungen</h3>
+    <p>Die Zusatzabbuchungen können sowohl bei jedem <a href='dokumentationmitglied.shtml'>Mitglied</a>
+       auf dem entsprechenden Reiter 
+       angesehen werden, als auch in einer Übersicht für alle Mitglieder. Dabei kann die 
+       Anzeige eingeschränkt werden auf <i>Noch nicht ausgeführte Abbuchungen</i> oder nach 
+       den verschiedenen Ausführungsterminen. Ist eine Zusatzabbuchung ausgeführt worden, 
+       wird intern ein entsprechendes Merkmal gesetzt. Durch einen Rechtsklick auf eine 
+       Zusatzabbuchung und die Auswahl <i>Erneut ausführen</i> wird das Merkmal zurückgesetzt.</p>
+
+    <p>
+       <a href='screenshots/listezusatzabbuchungen.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-listezusatzabbuchungen.jpg"></a></p>
+       
+<!--#include virtual="footer.shtml"-->  
+

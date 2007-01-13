@@ -1,0 +1,16 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+   <h3>Stammdaten</h3>
+    <p>Stammdaten des Vereins</p>
+    <p>
+       <a href='screenshots/stammdaten.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-stammdaten.jpg"></a></p>
+
+	  <p>Beitragsgruppen</p>
+    <p>
+       <a href='screenshots/beitragsgruppen.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-beitragsgruppen.jpg"></a></p>
+       
+
+<!--#include virtual="footer.shtml"-->  
+

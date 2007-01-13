@@ -39,6 +39,20 @@ font-weight : bold;
 margin-top : 2pt;
 margin-bottom : 6pt;
 }
+h3 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 12pt;
+color: #3660AA;
+margin-top : 2pt;
+margin-bottom : 6pt;
+}
+h4 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 10pt;
+color: #3660AA;
+margin-top : 2pt;
+margin-bottom : 4pt;
+}
 
 IMG {
       border: 0px 0solid ; 
@@ -100,7 +114,10 @@ a[href^="http:"], a[href^="https:"] {
     margin-bottom: 0;
   }
   div#Inhalt td {
-    border:thin solid navy;
+    border-style : none;
+    border-width : 0px;
+    background-color: lightgray;
+    vertical-align: top;
   }
   
   div#Inhalt p {

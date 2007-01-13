@@ -1,0 +1,39 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+   <h3>Mitgliederdaten</h3>
+   <p>Mit einem Klick auf <i>Mitglied</i> öffnet sich das <i>Mitglied suchen</i> Fenster:</p>
+   <p>
+       <a href='screenshots/mitgliedsuchen.png' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedsuchen.png"></a></p>
+    <p>Die Mitglieder sind nach dem Anfangsbuchstaben des Namens in die einzelnen 
+    Karteireiter einsortiert. Durch einen Doppelklick auf ein Mitglied oder durch
+    Klick auf <i>Neu</i> öffnet sich das folgende Fenster:</p> 
+        
+    <p> 
+       <a href='screenshots/mitglied.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitglied.jpg"></a></p>
+       <p>Neben den persönlichen Daten (Name, Anschrift, Geburtsdatum) können weitere 
+       Informationen gespeichert werden. Die Bankleitzahl und die Kontonummer werden 
+       mit Hilfe von HBCI4JAVA auf Gültigkeit geprüft.</p>
+       
+    <p>
+       <a href='screenshots/mitgliedkommunikation.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedkommunikation.jpg"></a></p>
+ 
+    <p>
+       <a href='screenshots/mitgliedmitgliedschaft.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedmitgliedschaft.jpg"></a></p>
+     <p>Die Beitragsgruppen sind unter Extras | Beitragsgruppe zu erfassen. Unter <i>Austritt</i>
+       wird das satzungsgemäße Ende der Mitgliedschaft vermerkt. Unter <i>Kündigung</i> das 
+       Eingangsdatum der Kündigung.</p>
+     <p>
+       <a href='screenshots/mitgliedzusatzabbuchung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedzusatzabbuchung.jpg"></a></p>
+     <p>Zusätzliche Zahlungen (z. B. Eigenanteile für Fahrten, Strafgelder ...) können
+       über <i>Zusatzabbuchungen</i> verarbeitet werden. Ein Klick auf <i>Neu</i> öffnet
+       folgendes Fenster:</p>
+     <p>
+      <a href='screenshots/zusatzabbuchung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-zusatzabbuchung.jpg"></a></p>
+<!--#include virtual="footer.shtml"-->  
+       

@@ -22,6 +22,13 @@
     <li><a href="index.shtml">Home</a></li>
     <li><a href="features.shtml">Features</a></li>
     <li><a href="dokumentation.shtml">Dokumentation</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationmitglied.shtml">Mitglieder</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationabbuchung.shtml">Abbuchung</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationzusatzabbuchung.shtml">Zusatzabbuchung</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationauswertung.shtml">Auswertung</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationbuchfuehrung.shtml">Buchführung</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationstammdaten.shtml">Stammdaten</a></li>
+    <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationimport.shtml">Import</a></li>
     <li><a href="download.shtml">Download</a></li>
     <li><a href="installation.shtml">Installation</a></li>
     <li><a href="cvs.shtml">CVS</a></li>

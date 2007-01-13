@@ -1,0 +1,13 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+    <h3>Buchführung</h3>
+  	<p>Übernahme von Buchungen aus Hibiscus</p>
+	   <a href='screenshots/buchungsuebernahme.jpg' target=blank>
+	   <img class='screenshot' src='screenshots/th-buchungsuebernahme.jpg'></a></p>
+	   <p>Mit dieser Funktion werden die Buchungen seit der letzten Übernahme 
+	   von allen Konten zu JVerein übernommen.</p>
+
+    <h3>Wird in Kürze ergänzt</h3>
+  
+<!--#include virtual="footer.shtml"-->  
+

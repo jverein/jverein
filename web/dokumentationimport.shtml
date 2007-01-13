@@ -1,0 +1,36 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+    <h3>Import</h3>
+    <p>Zur Zeit ist der Import von Daten über das durch das Programm SPG-Verein 
+    (Sparkasse) vorgegebene CSV-Format realisiert. Der Dateiname muß eine Endung 
+    haben. Z. B. .csv oder .txt.  Es kann jede beliebige Endung verwendet werden.
+    Andere Programme können eine Datei mit folgenden Spalten erzeugen:</p>
+    
+    <table border=0>
+    <tr><td>Mitglieds_Nr</td>   <td>Mitgliedsnummer</td></tr>
+    <tr><td>Anrede</td>         <td>Herrn/Frau ....</td></tr>
+    <tr><td>Titel</td>          <td>Dr. ....</td></tr>
+    <tr><td>Nachname</td>       <td>&nbsp;</td></tr>
+    <tr><td>Vorname</td>        <td>&nbsp;</td></tr>
+    <tr><td>Straße</td>         <td>Straßenname inkl. Hausnummer</td></tr>
+    <tr><td>Plz</td>            <td>Postleitzahl</td></tr>
+    <tr><td>Ort</td>            <td>&nbsp;</td></tr>
+    <tr><td>Geburtsdatum</td>   <td>Format TT.MM.JJJJ</td></tr>
+    <tr><td>Geschlecht</td>     <td>M oder W</td></tr>
+    <tr><td>Bankleitzahl</td>   <td>&nbsp;</td></tr>
+    <tr><td>Kontonummer</td>    <td>&nbsp;</td></tr>
+    <tr><td>Zahler</td>         <td>Kontoinhaber, wenn nicht identisch mit dem Mitglied</td></tr>
+    <tr><td>Telefon_privat</td> <td>&nbsp;</td></tr>
+    <tr><td>Telefon_dienstlich</td><td>&nbsp;</td></tr>
+	<tr><td>Email</td>          <td>&nbsp;</td></tr>
+	<tr><td>Eintritt</td>       <td>Eintrittsdatum im Format TT.MM.JJJJ</td></tr>
+	<tr><td>Beitragsart_1</td>  <td>Bezeichnung der Beitragsart. Z. B. Jugendliche, Erwachsene, Familien ...</td></tr>
+	<tr><td>Beitrag_1</td>      <td>Höhe des Beitrages in Euro</td></tr>
+	<tr><td>Austritt</td>       <td>Datum des Austritts im Format TT.MM.JJJJ. Je nach Vereinssatzung ist die Kündigung erst zum Jahresende wirksam. Hier wird das Wirksamwerden der Kündigung vermerkt. Format TT.MM.JJJJ.</td></tr>
+	<tr><td>Kündigung</td>      <td>Datum der Kündigung im Format TT.MM.JJJJ</td></tr>
+</table>
+<p>Beim Import werden sowohl die Beitragsgruppen-Tabelle als auch die Mitgliedertabelle 
+   aufgebaut. Ein erneuter Import löscht die vorhandenen Daten nach einer 
+   entsprechenden Warnung.</p>
+<!--#include virtual="footer.shtml"-->  
+

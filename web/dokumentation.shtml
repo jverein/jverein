@@ -1,126 +1,13 @@
 <!--#include virtual="main.shtml"-->  
-    <h2>Dokumentation</h2>
-    <h3>Programmbeschreibung</h3>
-   <p>Mit einem Klick auf <i>Mitglied</i> öffnet sich das <i>Mitlgied suchen</i>
-    Fenster:</p>
-   <p>
-       <a href='screenshots/mitgliedsuchen.png' target=blank>
-       <img class="screenshot" src="screenshots/th-mitgliedsuchen.png"></a></p>
-    <p>Die Mitglieder sind nach dem Anfangsbuchstaben des Namens in die einzelnen 
-    Karteireiter einsortiert. Durch einen Doppelklick auf ein Mitglied oder durch
-    Klick auf <i>Neu</i> öffnet sich das folgende Fenster:</p> 
-        
-    <p> 
-       <a href='screenshots/mitglied.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-mitglied.jpg"></a></p>
-       <p>Neben den persönlichen Daten (Name, Anschrift, Geburtsdatum) können weitere 
-       Informationen gespeichert werden. Die Bankleitzahl und die Kontonummer werden 
-       mit Hilfe von HBCI4JAVA auf Gültigkeit geprüft.</p>
-       
-    <p>
-       <a href='screenshots/mitgliedkommunikation.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-mitgliedkommunikation.jpg"></a></p>
- 
-    <p>
-       <a href='screenshots/mitgliedmitgliedschaft.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-mitgliedmitgliedschaft.jpg"></a></p>
-     <p>Die Beitragsgruppen sind unter Extras | Beitragsgruppe zu erfassen. Unter <i>Austritt</i>
-       wird das satzungsgemäße Ende der Mitgliedschaft vermerkt. Unter <i>Kündigung</i> das 
-       Eingangsdatum der Kündigung.</p>
-     <p>
-       <a href='screenshots/mitgliedzusatzabbuchung.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-mitgliedzusatzabbuchung.jpg"></a></p>
-     <p>Zusätzliche Zahlungen (z. B. Eigenanteile für Fahrten, Strafgelder ...) können
-       über <i>Zusatzabbuchungen</i> verarbeitet werden. Ein Klick auf <i>Neu</i> öffnet
-       folgendes Fenster:</p>
-     <p>
-      <a href='screenshots/zusatzabbuchung.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-zusatzabbuchung.jpg"></a></p>
- 
-     <p>Abbuchungen werden mit dem folgenden Bildschirm initiiert. Es können
-        <ul>
-            <li>Jahresbeiträge</li>
-            <li>Jahresbeiträge für im laufenden Jahr eingetretene Mitglieder</li>
-            <li>Zusatzbeträge</li>
-        </ul>
-        verarbeitet werden.</p>
-        
-        <p>Wenn <i>Jahresabbuchung</i> angeklickt wurde, werden für alle Mitglieder, 
-        die nicht ausgetreten sind, die Beiträge gemäß eingetragener Beitragsgruppe 
-        eingezogen. Für Mitglieder, die im Laufe des Jahres eingetreten sind, können 
-        ebenfalls die Beiträge eingezogen werden. Dazu wird das Eingabedatum eingetragen, 
-        ab dem die Beiträge für nachträglich eingetretene Mitglieder abgebucht werden 
-        sollen.</p> 
-
-        <p>Durch einen Klick auf <i>Zusatzabbuchung</i> werden auch die zusätzlichen 
-        Beträge abgebucht.</p>
-        
-        <p>Die Daten werden in eine DTAUS-Datei geschrieben. Diese Datei kann
-        entweder direkt auf Diskette ausgegeben und bei der Bank eingereicht oder in Hibiscus
-        importiert werden.</p>
-     <p>
-       <a href='screenshots/abbuchung.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-abbuchung.jpg"></a></p>
-       
-    <p>Die Zusatzabbuchungen können sowohl bei jedem Mitglied auf dem entsprechenden Reiter 
-       angesehen werden, als auch in einer Übersicht für alle Mitglieder. Dabei kann die 
-       Anzeige eingeschränkt werden auf <i>Noch nicht ausgeführte Abbuchungen</i> oder nach 
-       den verschiedenen Ausführungsterminen. Ist eine Zusatzabbuchung ausgeführt worden, 
-       wird intern ein entsprechendes Merkmal gesetzt. Durch einen Rechtsklick auf eine 
-       Zusatzabbuchung und die Auswahl <i>Erneut ausführen</i> wird das Merkmal zurückgesetzt.
-
-    <p>
-       <a href='screenshots/listezusatzabbuchungen.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-listezusatzabbuchungen.jpg"></a></p>
-       
-     <p>Der Mitgliederbestand kann nach den unten aufgeführten Merkmalen selektiert werden. 
-        Die Ausgabe erfolgt entweder im PDF oder im CSV-Format.Nach der Erzeugung der Datei 
-        wird ein entsprechendes Anzeigeprogramm aufgerufen.</p>
-    <p>
-       <a href='screenshots/mitgliedauswertung.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-mitgliedauswertung.jpg"></a></p>
-
-    <p>Stammdaten des Vereins</p>
-    <p>
-       <a href='screenshots/stammdaten.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-stammdaten.jpg"></a></p>
-
-	<p>Beitragsgruppen</p>
-    <p>
-       <a href='screenshots/beitragsgruppen.jpg' target=blank>
-       <img class="screenshot" src="screenshots/th-beitragsgruppen.jpg"></a></p>
-
-    <h3>Import</h3>
-    <p>Zur Zeit ist der Import von Daten über das durch das Programm SPG-Verein 
-    (Sparkasse) vorgegebene CSV-Format realisiert. Der Dateiname muß eine Endung 
-    haben. Z. B. .csv oder .txt.  Es kann jede beliebige Endung verwendet werden.
-    Andere Programme können eine Datei mit folgenden Spalten erzeugen:</p>
-    
-    <table>
-    <tr><td>Mitglieds_Nr</td>   <td>Mitgliedsnummer</td></tr>
-    <tr><td>Anrede</td>         <td>Herrn/Frau ....</td></tr>
-    <tr><td>Titel</td>          <td>Dr. ....</td></tr>
-    <tr><td>Nachname</td>       <td>&nbsp;</td></tr>
-    <tr><td>Vorname</td>        <td>&nbsp;</td></tr>
-    <tr><td>Straße</td>         <td>Straßenname inkl. Hausnummer</td></tr>
-    <tr><td>Plz</td>            <td>Postleitzahl</td></tr>
-    <tr><td>Ort</td>            <td>&nbsp;</td></tr>
-    <tr><td>Geburtsdatum</td>   <td>Format TT.MM.JJJJ</td></tr>
-    <tr><td>Geschlecht</td>     <td>M oder W</td></tr>
-    <tr><td>Bankleitzahl</td>   <td>&nbsp;</td></tr>
-    <tr><td>Kontonummer</td>    <td>&nbsp;</td></tr>
-    <tr><td>Zahler</td>         <td>Kontoinhaber, wenn nicht identisch mit dem Mitglied</td></tr>
-    <tr><td>Telefon_privat</td> <td>&nbsp;</td></tr>
-    <tr><td>Telefon_dienstlich</td><td>&nbsp;</td></tr>
-	<tr><td>Email</td>          <td>&nbsp;</td></tr>
-	<tr><td>Eintritt</td>       <td>Eintrittsdatum im Format TT.MM.JJJJ</td></tr>
-	<tr><td>Beitragsart_1</td>  <td>Bezeichnung der Beitragsart. Z. B. Jugendliche, Erwachsene, Familien ...</td></tr>
-	<tr><td>Beitrag_1</td>      <td>Höhe des Beitrages in Euro</td></tr>
-	<tr><td>Austritt</td>       <td>Datum des Austritts im Format TT.MM.JJJJ. Je nach Vereinssatzung ist die Kündigung erst zum Jahresende wirksam. Hier wird das Wirksamwerden der Kündigung vermerkt. Format TT.MM.JJJJ.</td></tr>
-	<tr><td>Kündigung</td>      <td>Datum der Kündigung im Format TT.MM.JJJJ</td></tr>
-</table>
-<p>Beim Import werden sowohl die Beitragsgruppen-Tabelle als auch die Mitgliedertabelle 
-   aufgebaut. Ein erneuter Import löscht die vorhandenen Daten nach einer 
-   entsprechenden Warnung.</p>
+   <h2>Dokumentation</h2>
+   <ul>
+    <li><a href="dokumentationmitglied.shtml">Mitglieder</a></li>
+    <li><a href="dokumentationabbuchung.shtml">Abbuchung</a></li>
+    <li><a href="dokumentationzusatzabbuchung.shtml">Zusatzabbuchung</a></li>
+    <li><a href="dokumentationauswertung.shtml">Auswertung</a></li>
+    <li><a href="dokumentationbuchfuehrung.shtml">Buchführung</a></li>
+    <li><a href="dokumentationstammdaten.shtml">Stammdaten</a></li>
+    <li><a href="dokumentationimport.shtml">Import</a></li>
+   </ul>
 <!--#include virtual="footer.shtml"-->  
 
