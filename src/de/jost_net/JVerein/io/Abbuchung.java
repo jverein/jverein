@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.3  2006/12/20 20:25:44  jost
+ * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
+ *
  * Revision 1.2  2006/09/21 18:49:00  jost
  * überflüssiges Import-Statement entfernt.
  *
@@ -91,7 +94,7 @@ public class Abbuchung
       // Beitragsgruppen-Tabelle lesen und cachen
       list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
       list.addFilter("betrag > 0");
-      Hashtable beitr = new Hashtable();
+      Hashtable<String, Double> beitr = new Hashtable<String, Double>();
       while (list.hasNext())
       {
         Beitragsgruppe b = (Beitragsgruppe) list.next();
