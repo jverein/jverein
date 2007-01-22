@@ -32,7 +32,7 @@
 	<property name="lib.dir" 	value="lib"/>
 	<property name="sql.dir" 	value="sql"/>
 	<property name="web.dir"	value="web"/>
-	<property name="class.dir" 	value="${project.tmp}/bin"/>
+	<property name="class.dir" 	value="bin"/>
 	<property name="project.zipdir"	value="${project.release}/${define.pluginname}"/>
 	<property name="project.zipfilename"   value="${define.pluginname}.zip"/>
 	<path id="compilepath">
@@ -53,38 +53,18 @@
     </target>
 
 
-	<target depends="init" name="compile" description="compiles everything">
-        	<mkdir dir="${class.dir}"/>
-		<javac fork="true" debug="true" deprecation="true" destdir="${class.dir}" srcdir="${src.dir}">
-			<classpath refid="compilepath" />
-		</javac>
-
-		<rmic verify="true" base="${class.dir}">
-			<include name="**/*.class"/>
-			<classpath refid="compilepath" />
-		</rmic>
-
-		<copy todir="${class.dir}/lang">
-			<fileset dir="${lang.dir}" />
-		</copy>
-		<copy todir="${class.dir}/help">
-			<fileset dir="${help.dir}" />
-		</copy>
-		<copy file="plugin.xml" todir="${project.zipdir}" />
-	</target>
-
-
-	<target depends="compile" name="cvstag" description="tags the source in the CVS">
+	
+	<target name="cvstag"  description="tags the source in the CVS">
 		<exec executable="cvs" failonerror="true" dir="${basedir}">
 			<arg line="tag ${version}_BUILD_${build.number}"/>
 		</exec>
 	</target>
 
 
-	<target depends="compile" name="jar" description="generates the jar file">
+	<target name="jar" description="generates the jar file">
 		<mkdir dir="${project.release}"/>
 		<mkdir dir="${project.zipdir}"/>
-
+		
 		<jar destfile="${project.zipdir}/${define.jarfilename}">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
@@ -124,7 +104,7 @@
 		</javadoc>
 	</target>
 
-	<target depends="compile" name="src" description="build source package, depends compile target to make sure, the code has no errors">
+	<target name="src" description="build source package, depends compile target to make sure, the code has no errors">
 		<mkdir dir="${project.release}"/>
 		<mkdir dir="${project.tmp}/${define.pluginname}" />
 		<copy todir="${project.tmp}/${define.pluginname}">
@@ -149,8 +129,8 @@
 	</target>
 
 
-	<target depends="init,compile,cvstag,jar,javadoc,src,clean" description="build an official release" name="all" />
+	<target depends="init,cvstag,jar,javadoc,src,clean" description="build an official release" name="all" />
 
-	<target depends="init,compile,jar,src,clean" description="build inofficial release" name="fast" />
+	<target name="fast" depends="init,jar,src" description="build inofficial release"  />
 	
 </project>
