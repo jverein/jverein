@@ -1,4 +1,7 @@
 <!--#include virtual="main.shtml"-->  
+    <h2>News</h2>
+    <p>Am 27.01.2007 wurde die Version 0.4a released. Damit wurde ein Installationsproblem
+    beseitigt. Dank an Michael.</p> 
     <h2>Home</h2>
     <p>
        <img src="JVerein_Box.jpg" >
