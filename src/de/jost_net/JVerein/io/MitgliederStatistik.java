@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.1  2006/10/29 07:50:08  jost
+ * Neu: Mitgliederstatistik
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.io;
@@ -319,6 +322,7 @@ public class MitgliederStatistik
     list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
     list.addFilter("geburtsdatum <= ?", new Object[] { bd });
+    list.addFilter("austritt is null");
 
     if (geschlecht != null)
     {
@@ -332,6 +336,7 @@ public class MitgliederStatistik
       throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    list.addFilter("austritt is null");
     if (bg != null)
     {
       list.addFilter("beitragsgruppe = ?", new Object[] { new Integer(bg
