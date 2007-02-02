@@ -9,6 +9,9 @@
  * jost@berlios.de
  * jverein.berlios.de
  * $Log$
+ * Revision 1.2  2006/10/14 16:12:33  jost
+ * Pagesize und Ränder gesetzt.
+ *
  * Revision 1.1  2006/09/20 15:39:24  jost
  * *** empty log message ***
  *
@@ -62,11 +65,11 @@ public class MitgliedAuswertungPDF
     {
       // ////////////////////////////////////////////////////////////////////////
       // Header erzeugen
-      rpt = new Document(PageSize.A4, 80, 60, 60, 60);
+      rpt = new Document(PageSize.A4);
 
       FileOutputStream fos = new FileOutputStream(file);
       PdfWriter.getInstance(rpt, fos);
-      rpt.setMargins(50, 10, 50, 30); // links, rechts, oben, unten
+      rpt.setMargins(50, 10, 20, 15); // links, rechts, oben, unten
 
       AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
           JVereinPlugin.class);
@@ -103,7 +106,7 @@ public class MitgliedAuswertungPDF
       float[] widths = { 100, 130, 30, 30, 60 };
       table.setWidths(widths);
       table.setWidthPercentage(100);
-      table.setSpacingBefore(10);
+      table.setSpacingBefore(5);
       table.setSpacingAfter(0);
 
       table.addCell(getDetailCell("Name", Element.ALIGN_CENTER,
