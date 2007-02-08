@@ -30,6 +30,7 @@
     <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationstammdaten.shtml">Stammdaten</a></li>
     <li>&nbsp;&nbsp;&nbsp;<a href="dokumentationimport.shtml">Import</a></li>
     <li><a href="download.shtml">Download</a></li>
+    <li><a href="changelog.shtml">Changelog</a></li>
     <li><a href="installation.shtml">Installation</a></li>
     <li><a href="cvs.shtml">CVS</a></li>
     <li><a href="mailliste.shtml">Mailliste</a></li>
