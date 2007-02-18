@@ -30,19 +30,28 @@
 	
 		//-->
 
-		<item name="jverein">
-<!--
-
-		    <item name="Mitglieder" 
-                  shortcut="ALT+M" 
-                  action="de.jost_net.JVerein.gui.action.ProjectDetail" />
--->
-			<!-- use "-" as name to create a separator //-->
-	<!--	    <item name="-" /> -->
-
-		    <item name="About" 
-                  action="de.jost_net.JVerein.gui.action.AboutAction" />
-		</item>
+		<item name="JVerein">
+			<item name="Stammdaten"
+            shortcut="ALT+S" 
+        		action="de.jost_net.JVerein.gui.action.StammdatenAction">
+	  	</item>
+			<item name="Buchungsarten"
+            shortcut="ALT+A" 
+    				action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
+	   	</item>
+			<item name="Beitragsgruppe"
+            shortcut="ALT+G" 
+            action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
+	    </item>
+-	    <item name="-" /> 
+	   	<item name="Import"
+            shortcut="ALT+I" 
+    				action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
+    	</item>
+-	    <item name="-" /> 
+	    <item name="About" 
+            action="de.jost_net.JVerein.gui.action.AboutAction" />
+  		</item>
 	</menu>
   <classfinder>
     <include>jverein\.jar</include>
@@ -108,31 +117,6 @@
 	 			icon-close="page.gif" 	
 				icon-open="page.gif" 		
 				action="de.jost_net.JVerein.gui.action.AuswertungBuchungenAction">
-	    	</item>
-	    </item>
-	    <item name="Extras"		
-			icon-close="folder.gif" 
-			icon-open="folderopen.gif">
-	    
-			<item name="Stammdaten"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.StammdatenAction">
-	    	</item>
-			<item name="Buchungsarten"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
-	    	</item>
-			<item name="Beitragsgruppe"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
-	    	</item>
-	    	<item name="Import"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
 	    	</item>
 	    </item>
     </item>

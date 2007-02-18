@@ -5,6 +5,8 @@
          <ul>
             <li>Bugfix Mitgliederstatistik. Nur aktive Mitglieder werden berücksichtigt.</li>
 						<li>Randeinstellungen der Mitgliederliste geändert.</li>
+						<li>Konfiguration aus dem Extras-Menü zur Jameica-Konformität in das Plugins-Menü
+						    am oberen Rand verschoben</li>
          </ul>
      <li>Version 0.4a vom 27.01.2007</li>
          <ul>
