@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.4  2006/12/20 20:25:44  jost
+ * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
+ *
  * Revision 1.3  2006/10/29 07:48:29  jost
  * Neu: Mitgliederstatistik
  *

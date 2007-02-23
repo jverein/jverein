@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.2  2006/12/23 16:47:50  jost
+ * Java 1.5 Kompatibilität
+ *
  * Revision 1.1  2006/10/29 07:49:56  jost
  * Neu: Mitgliederstatistik
  *

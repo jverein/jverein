@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.1  2006/10/14 16:11:34  jost
+ * Buchungen löschen eingeführt
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

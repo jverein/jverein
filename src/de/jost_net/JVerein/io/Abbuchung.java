@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/01/14 12:42:29  jost
+ * Java 1.5-Kompatibilit√§t
+ *
  * Revision 1.3  2006/12/20 20:25:44  jost
  * Patch von Ullrich Sch‰fer, der die Primitive vs. Object Problematik adressiert.
  *

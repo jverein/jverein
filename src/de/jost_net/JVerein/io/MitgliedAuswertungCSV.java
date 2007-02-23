@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.2  2006/11/12 07:53:40  jost
+ * Bugfix Anzahl Spalten
+ *
  * Revision 1.1  2006/09/20 15:39:24  jost
  * *** empty log message ***
  *

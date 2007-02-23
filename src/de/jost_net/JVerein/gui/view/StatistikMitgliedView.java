@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.1  2006/10/29 07:49:43  jost
+ * Neu: Mitgliederstatistik
+ *
  * Revision 1.1  2006/09/20 15:39:10  jost
  * *** empty log message ***
  *
@@ -29,7 +32,7 @@ public class StatistikMitgliedView extends AbstractView
     GUI.getView().setTitle("Mitgliederstatistik");
 
     final MitgliedControl control = new MitgliedControl(this);
-    
+
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton("<< Zurück", new BackAction());

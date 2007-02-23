@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.1  2006/09/20 15:39:48  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

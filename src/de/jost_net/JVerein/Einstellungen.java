@@ -5,10 +5,13 @@
  * $Author$
  *
  * Copyright (c) by Heiner Jostkleigrewe
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.1  2006/09/20 15:36:55  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein;

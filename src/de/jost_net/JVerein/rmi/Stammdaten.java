@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.2  2006/10/29 07:50:22  jost
+ * Neu: Mitgliederstatistik
+ *
  * Revision 1.1  2006/09/20 15:39:35  jost
  * *** empty log message ***
  *

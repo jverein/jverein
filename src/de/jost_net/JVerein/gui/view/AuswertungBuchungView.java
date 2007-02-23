@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.1  2006/10/14 06:02:45  jost
+ * Erweiterung um Buchungsauswertung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

@@ -6,9 +6,12 @@
  *
  * Copyright (c) by Heiner Jostkleigrewe
  * All rights reserved
- * jost@berlios.de
- * jverein.berlios.de
+ * heiner@jverein.de
+ * www.jverein.de
  * $Log$
+ * Revision 1.3  2006/10/16 17:40:02  jost
+ * Korrekte Subtitle-Ausgabe
+ *
  * Revision 1.2  2006/10/14 16:11:56  jost
  * Pagesize und Ränder gesetzt.
  *
