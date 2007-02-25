@@ -9,15 +9,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.3  2007/02/23 20:27:28  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2006/10/21 09:18:54  jost
- * Zusätzliche Plausi.
- *
- * Revision 1.1  2006/09/20 15:39:10  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -27,20 +18,26 @@ import java.sql.SQLException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BackAction;
-import de.jost_net.JVerein.gui.control.AbbuchungControl;
+import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
+import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class AbbuchungView extends AbstractView
+public class KursteilnehmerSucheView extends AbstractView
 {
+
   public void bind() throws Exception
   {
-    String sql = "select count(*) from stammdaten";
+    GUI.getView().setTitle("Suche Kursteilnehmer");
+
+    KursteilnehmerControl control = new KursteilnehmerControl(this);
+
+    String sql = "select count(*) from kursteilnehmer";
     DBService service = Einstellungen.getDBService();
     ResultSetExtractor rs = new ResultSetExtractor()
     {
@@ -51,26 +48,15 @@ public class AbbuchungView extends AbstractView
       }
     };
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
-    if (anzahl.longValue() != 1)
+
+    if (anzahl.longValue() > 0)
     {
-      throw new ApplicationException("Stammdaten fehlen. Bitte erfassen.");
+      TablePart p1 = null;
+      control.getKursteilnehmerTable(p1).paint(getParent());
     }
-
-    GUI.getView().setTitle("Abbuchung");
-
-    final AbbuchungControl control = new AbbuchungControl(this);
-
-    LabelGroup group = new LabelGroup(getParent(), "Parameter");
-    group.addLabelPair("Jahresabbuchung", control.getJahresabbuchung());
-    group.addLabelPair("Von Eingabedatum", control.getVondatum());
-    group.addLabelPair("Zahlungsgrund", control.getZahlungsgrund());
-    group.addLabelPair("Zusatzabbuchung", control.getZusatzabbuchung());
-    group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
-
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton(control.getStartButton());
+    buttons.addButton("Neu", new KursteilnehmerDetailAction());
     buttons.addButton("<< Zurück", new BackAction());
-
   }
 
   public void unbind() throws ApplicationException

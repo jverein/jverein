@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:26:22  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:38:30  jost
  * *** empty log message ***
  *
@@ -52,6 +55,8 @@ public class AbbuchungControl extends AbstractControl
   private TextInput zahlungsgrund;
 
   private CheckboxInput zusatzabbuchung;
+
+  private CheckboxInput kursteilnehmer;
 
   private Settings settings = null;
 
@@ -133,6 +138,16 @@ public class AbbuchungControl extends AbstractControl
     }
     zusatzabbuchung = new CheckboxInput(false);
     return zusatzabbuchung;
+  }
+
+  public CheckboxInput getKursteilnehmer() throws RemoteException
+  {
+    if (kursteilnehmer != null)
+    {
+      return kursteilnehmer;
+    }
+    kursteilnehmer = new CheckboxInput(false);
+    return kursteilnehmer;
   }
 
   public Button getStartButton()

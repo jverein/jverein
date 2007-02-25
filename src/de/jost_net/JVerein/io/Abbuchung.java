@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/02/23 20:28:04  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.4  2007/01/14 12:42:29  jost
  * Java 1.5-Kompatibilit√§t
  *
@@ -31,6 +34,7 @@ import java.util.Hashtable;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
@@ -145,6 +149,24 @@ public class Abbuchung
         z.store();
       }
       // Ende von Schritt 2
+
+      // Schritt 3: Kursteilnehmer verarbeiten
+      list = Einstellungen.getDBService().createList(Kursteilnehmer.class);
+      list.addFilter("abbudatum is null");
+      while (list.hasNext())
+      {
+        Kursteilnehmer kt = (Kursteilnehmer) list.next();
+        dtaus.setCBetragInEuro(kt.getBetrag());
+        dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
+        dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
+        dtaus.setCKonto(Long.parseLong(kt.getKonto()));
+        dtaus.setCName(kt.getName());
+        dtaus
+            .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
+        dtaus.addCVerwendungszweck(kt.getVZweck1());
+        dtaus.addCVerwendungszweck(kt.getVZweck2());
+        dtaus.writeCSatz();
+      }
 
       // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
       // wurden beim Schreiben der C-S‰tze ermittelt.
