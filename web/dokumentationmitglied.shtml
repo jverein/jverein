@@ -32,8 +32,15 @@
      <p>Zusätzliche Zahlungen (z. B. Eigenanteile für Fahrten, Strafgelder ...) können
        über <i>Zusatzabbuchungen</i> verarbeitet werden. Ein Klick auf <i>Neu</i> öffnet
        folgendes Fenster:</p>
-     <p>
+     <p><a name='zusatzabbuchung'>
       <a href='screenshots/zusatzabbuchung.jpg' target=blank>
        <img class="screenshot" src="screenshots/th-zusatzabbuchung.jpg"></a></p>
+
+     <p>Vermerke über das Mitglied (z. B. Funktionen ...) können in zwei Datenfeldern
+        hinterlegt werden.</p>
+     <p>
+      <a href='screenshots/mitgliedvermerke.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedvermerke.jpg"></a></p>
+       
 <!--#include virtual="footer.shtml"-->  
        

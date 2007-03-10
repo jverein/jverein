@@ -35,10 +35,6 @@
             shortcut="ALT+S" 
         		action="de.jost_net.JVerein.gui.action.StammdatenAction">
 	  	</item>
-			<item name="Buchungsarten"
-            shortcut="ALT+A" 
-    				action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
-	   	</item>
 			<item name="Beitragsgruppe"
             shortcut="ALT+G" 
             action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
@@ -104,26 +100,6 @@
 	    	</item>
 	    </item>
 
-	    <item name="Buchführung"		
-			icon-close="folder.gif" 
-			icon-open="folderopen.gif">
-	    
-			<item name="Buchungsübernahme"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction">
-	    	</item>
-			<item name="Buchungen"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.BuchungsListeAction">
-	    	</item>
-			<item name="Auswertung"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.AuswertungBuchungenAction">
-	    	</item>
-	    </item>
     </item>
    </navigation>
 

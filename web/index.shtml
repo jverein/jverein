@@ -1,6 +1,6 @@
 <!--#include virtual="main.shtml"-->  
     <h2>News</h2>
-    <p>Am 03.02.2007 wurde ein <a href='changelog.shtml'>Changelog</a> eingeführt.</p> 
+    <p>Version 0.5 am 10.03.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>.</p> 
     <h2>Home</h2>
     <p>
        <img src="JVerein_Box.jpg" >
@@ -15,15 +15,12 @@
        werden die Bankverbindung, Kommunikationsdaten (Tel./eMail) und Mitgliedschaftsdaten
        gespeichert. Jedem Mitglied wird eine Beitragsgruppe zugeordnet. Darüber wird der
        jährliche Beitragseinzug realisiert. Zusätzlich können für jedes Mitglied zu 
-       beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...).</p>
+       beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...).
+       Für jedes Mitglied können auch Vermerke festgehalten werden.</p>
     <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
        werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>
-    <p>Momentan ist auch eine Simpel-Buchführung in JVerein integriert. Die Umsätze aus 
-       Hibiscus können übernommen werden. Eine Zuordnung von Buchungsarten ist möglich. Als Auswertung
-       stehen Umsatzlisten nach Buchungsarten und Summierungen nach Buchungsarten zur Verfügung.
-       Diese Buchführung wird wieder entfernt, sobald die Zuordnung von Umsatz-Kategorien in
-       <a href="http://www.willuhn.de/projects/hibiscus" target=blank>Hibiscus</a> mit den
-       entsprechenden Auswertungen funktioniert.  </p>
+    <p>Die Vereinsbuchführung (Einnamen/Ausgaben) wird über die Umsatzkategorisierung von
+       Hibiscus erledigt.</p>
     <p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p> <img src='lightarrow.jpg'>
     <p>Zusätzlich gibt es
        eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird bitte ich um eine kurze Nachricht

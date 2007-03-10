@@ -1,0 +1,17 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+   <h3>Stammdaten</h3>
+    <p>Kursteilnehmer</p>
+		Teilnehmer von Kursen können abgerechnet werden. Kursteilnehmer sind Personen, die nicht
+		Mitglied des Vereins sind. Sofern Mitglieder an Kursen teilnehmen, die zusätzlich abgerechnet
+		werden, bieten sich die <a href='dokumentationmitglied.shtml#zusatzabbuchung'>Zusatzabbuchungen</a>
+		an.
+    <p>
+       <a href='screenshots/kursteilnehmersuche.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-kursteilnehmersuche.jpg"></a></p>
+    <p>
+       <a href='screenshots/kursteilnehmer.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-kursteilnehmer.jpg"></a></p>
+
+<!--#include virtual="footer.shtml"-->  
+

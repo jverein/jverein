@@ -2,10 +2,10 @@
    <h2>Dokumentation</h2>
    <ul>
     <li><a href="dokumentationmitglied.shtml">Mitglieder</a></li>
+    <li><a href="dokumentationkursteilnehmer.shtml">Kursteilnehmer</a></li>
     <li><a href="dokumentationabbuchung.shtml">Abbuchung</a></li>
     <li><a href="dokumentationzusatzabbuchung.shtml">Zusatzabbuchung</a></li>
     <li><a href="dokumentationauswertung.shtml">Auswertung</a></li>
-    <li><a href="dokumentationbuchfuehrung.shtml">Buchführung</a></li>
     <li><a href="dokumentationstammdaten.shtml">Stammdaten</a></li>
     <li><a href="dokumentationimport.shtml">Import</a></li>
    </ul>
