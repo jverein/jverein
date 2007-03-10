@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/03/10 19:42:36  jost
+ * Bugfix: Abbuchungsdatum wird jetzt gesetzt.
+ *
  * Revision 1.6  2007/02/25 19:14:22  jost
  * Neu: Kursteilnehmer
  *
@@ -36,6 +39,7 @@ import java.util.Date;
 import java.util.Hashtable;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -119,6 +123,9 @@ public class Abbuchung
       list.addFilter("austritt is null");
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
       list.addFilter(beitragsfrei);
+      // Zahlungsweg Abbuchung
+      list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
+          ZahlungswegInput.ABBUCHUNG) });
       // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
       if (vondatum != null)
