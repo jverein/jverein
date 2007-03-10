@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/21 09:19:48  jost
  * Zusätzliche Plausis
  *
@@ -347,6 +350,26 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setKuendigung(String kuendigung) throws RemoteException
   {
     setAttribute("kuendigung", toDate(kuendigung));
+  }
+
+  public String getVermerk1() throws RemoteException
+  {
+    return (String) getAttribute("vermerk1");
+  }
+
+  public void setVermerk1(String vermerk1) throws RemoteException
+  {
+    setAttribute("vermerk1", vermerk1);
+  }
+
+  public String getVermerk2() throws RemoteException
+  {
+    return (String) getAttribute("vermerk2");
+  }
+
+  public void setVermerk2(String vermerk2) throws RemoteException
+  {
+    setAttribute("vermerk2", vermerk2);
   }
 
   public void setEingabedatum() throws RemoteException

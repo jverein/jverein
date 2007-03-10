@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:28:24  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:39:35  jost
  * *** empty log message ***
  *
@@ -111,6 +114,14 @@ public interface Mitglied extends DBObject
   public void setKuendigung(Date kuendigung) throws RemoteException;
 
   public void setKuendigung(String kuendigung) throws RemoteException;
+
+  public String getVermerk1() throws RemoteException;
+
+  public void setVermerk1(String vermerk1) throws RemoteException;
+
+  public String getVermerk2() throws RemoteException;
+
+  public void setVermerk2(String vermerk2) throws RemoteException;
 
   public void insert() throws RemoteException, ApplicationException;
 

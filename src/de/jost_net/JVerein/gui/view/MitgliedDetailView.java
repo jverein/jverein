@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/18 06:01:26  jost
  * Überflüssige Import-Statements entfernt.
  *
@@ -79,6 +82,10 @@ public class MitgliedDetailView extends AbstractView
     control.getZusatzabbuchungenTable().paint(tab4.getComposite());
     ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
     buttonszus.addButton(control.getZusatzabbuchungNeu());
+
+    TabGroup tab5 = new TabGroup(folder, "Vermerke");
+    tab5.addLabelPair("Vermerk 1", control.getVermerk1());
+    tab5.addLabelPair("Vermerk 2", control.getVermerk2());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 

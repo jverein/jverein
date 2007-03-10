@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/02/23 20:26:38  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.4  2006/12/20 20:25:44  jost
  * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
  *
@@ -56,6 +59,7 @@ import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -119,6 +123,10 @@ public class MitgliedControl extends AbstractControl
   private DateInput austrittvon;
 
   private DateInput austrittbis;
+
+  private TextAreaInput vermerk1;
+
+  private TextAreaInput vermerk2;
 
   private SelectInput ausgabe;
 
@@ -403,6 +411,26 @@ public class MitgliedControl extends AbstractControl
     return kuendigung;
   }
 
+  public TextAreaInput getVermerk1() throws RemoteException
+  {
+    if (vermerk1 != null)
+    {
+      return vermerk1;
+    }
+    vermerk1 = new TextAreaInput(getMitglied().getVermerk1(), 255);
+    return vermerk1;
+  }
+
+  public TextAreaInput getVermerk2() throws RemoteException
+  {
+    if (vermerk2 != null)
+    {
+      return vermerk2;
+    }
+    vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
+    return vermerk2;
+  }
+
   public Part getZusatzabbuchungenTable() throws RemoteException
   {
     if (zusatzabbuchungenList != null)
@@ -685,6 +713,8 @@ public class MitgliedControl extends AbstractControl
       m.setTelefondienstlich((String) getTelefondienstlich().getValue());
       m.setTelefonprivat((String) getTelefonprivat().getValue());
       m.setTitel((String) getTitel().getValue());
+      m.setVermerk1((String) getVermerk1().getValue());
+      m.setVermerk2((String) getVermerk2().getValue());
       m.setVorname((String) getVorname().getValue());
       if (m.getID() == null)
       {
