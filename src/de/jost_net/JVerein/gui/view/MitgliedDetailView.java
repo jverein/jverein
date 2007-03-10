@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/10 13:43:44  jost
+ * Vermerke eingeführt.
+ *
  * Revision 1.3  2007/02/23 20:27:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -63,6 +66,7 @@ public class MitgliedDetailView extends AbstractView
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
     TabGroup tab1 = new TabGroup(folder, "Bankverbindung");
+    tab1.addLabelPair("Zahlungsweg", control.getZahlungsweg());
     tab1.addLabelPair("BLZ", control.getBlz());
     tab1.addLabelPair("Konto", control.getKonto());
     tab1.addLabelPair("Kontoinhaber", control.getKontoinhaber());

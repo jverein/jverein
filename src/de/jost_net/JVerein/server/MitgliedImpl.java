@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/10 13:45:38  jost
+ * Vermerke eingeführt.
+ *
  * Revision 1.3  2007/02/23 20:28:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -204,6 +207,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setOrt(String ort) throws RemoteException
   {
     setAttribute("ort", ort);
+  }
+
+  public Integer getZahlungsweg() throws RemoteException
+  {
+    return (Integer) getAttribute("zahlungsweg");
+  }
+
+  public void setZahlungsweg(Integer zahlungsweg) throws RemoteException
+  {
+    setAttribute("zahlungsweg", zahlungsweg);
   }
 
   public String getBlz() throws RemoteException

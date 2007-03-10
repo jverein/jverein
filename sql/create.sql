@@ -8,6 +8,7 @@ CREATE TABLE mitglied
   strasse       VARCHAR(40) NOT NULL, 
   plz           VARCHAR(5)  NOT NULL, 
   ort           VARCHAR(40) NOT NULL, 
+  zahlungsweg   INTEGER,
   blz           VARCHAR(8),
   konto         VARCHAR(10),
   kontoinhaber  VARCHAR(27),
