@@ -20,6 +20,8 @@ CREATE TABLE mitglied
   beitragsgruppe INTEGER,
   austritt      DATE,
   kuendigung    DATE,
+  vermerk1      VARCHAR(255),
+  vermerk2      VARCHAR(255),
   eingabedatum  DATE,
   UNIQUE        (id), 
   PRIMARY KEY   (id)
@@ -60,36 +62,6 @@ CREATE TABLE stammdaten
   UNIQUE        (id),
   PRIMARY KEY   (id)
 );
-
-CREATE TABLE buchung
-(
-  id            INTEGER      default UNIQUEKEY('buchungen'),
-  umsatzid      STRING       NOT NULL,
-  konto         VARCHAR(10)  NOT NULL,
-  name          VARCHAR(100),
-  betrag        DOUBLE       NOT NULL,
-  zweck         VARCHAR(35),
-  zweck2        VARCHAR(35),
-  datum         DATE         NOT NULL,
-  saldo         DOUBLE       NOT NULL,
-  art           VARCHAR(100),
-  kommentar     LONGVARCHAR,
-  buchungsart   INTEGER,
-  UNIQUE        (id),
-  PRIMARY KEY   (id)
-);  
-
-CREATE TABLE buchungsart
-(
-  id            INTEGER       default UNIQUEKEY('buchungsart'),
-  nummer        INTEGER,
-  bezeichnung   VARCHAR(30),
-  UNIQUE        (id),
-  UNIQUE        (nummer),
-  PRIMARY KEY   (id)
-);
-
-ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id) DEFERRABLE;
 
 CREATE TABLE kursteilnehmer 
 (
