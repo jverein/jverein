@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/02/25 19:12:29  jost
+ * Neu: Kursteilnehmer
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -190,8 +193,8 @@ public class KursteilnehmerControl extends AbstractControl
       return part;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator einmalabbu = service.createList(Kursteilnehmer.class);
-    part = new TablePart(einmalabbu, new KursteilnehmerDetailAction());
+    DBIterator kursteilnehmer = service.createList(Kursteilnehmer.class);
+    part = new TablePart(kursteilnehmer, new KursteilnehmerDetailAction());
 
     part.addColumn("Name", "name");
     part.addColumn("VZweck 1", "vzweck1");
