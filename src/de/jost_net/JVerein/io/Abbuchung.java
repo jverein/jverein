@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/02/25 19:14:22  jost
+ * Neu: Kursteilnehmer
+ *
  * Revision 1.5  2007/02/23 20:28:04  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -156,6 +159,8 @@ public class Abbuchung
       while (list.hasNext())
       {
         Kursteilnehmer kt = (Kursteilnehmer) list.next();
+        kt.setAbbudatum();
+        kt.store();
         dtaus.setCBetragInEuro(kt.getBetrag());
         dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
         dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
