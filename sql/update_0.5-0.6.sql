@@ -30,3 +30,16 @@ ALTER CREATE TABLE mitglied
 
 UPDATE mitglied set zahlungsweg = 1;
 
+CREATE TABLE manuellerzahlungseingang 
+(
+  id            INTEGER     default UNIQUEKEY('manuellerzahlungseingang'), 
+  name          VARCHAR(27) NOT NULL, 
+  vzweck1       VARCHAR(27) NOT NULL,
+  vzweck2       VARCHAR(27),
+  betrag        DOUBLE       NOT NULL,
+  eingabedatum  DATE        NOT NULL,
+  eingangsdatum DATE,
+  UNIQUE        (id), 
+  PRIMARY KEY   (id)
+);
+
