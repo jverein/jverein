@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/03/10 20:37:06  jost
+ * Neu: Zahlungsweg
+ *
  * Revision 1.7  2007/03/10 19:42:36  jost
  * Bugfix: Abbuchungsdatum wird jetzt gesetzt.
  *
@@ -35,6 +38,7 @@ package de.jost_net.JVerein.io;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -42,6 +46,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
+import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
@@ -124,8 +129,8 @@ public class Abbuchung
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
       list.addFilter(beitragsfrei);
       // Zahlungsweg Abbuchung
-      list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
-          ZahlungswegInput.ABBUCHUNG) });
+      // list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
+      // ZahlungswegInput.ABBUCHUNG) });
       // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
       if (vondatum != null)
@@ -145,7 +150,14 @@ public class Abbuchung
         monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
         Mitglied m = (Mitglied) list.next();
         Double betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
-        writeCSatz(dtaus, m, verwendungszweck, betr);
+        if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
+        {
+          writeCSatz(dtaus, m, verwendungszweck, betr);
+        }
+        else
+        {
+          writeManuellerZahlungseingang(m, verwendungszweck, betr);
+        }
       }
       // Schritt 2: Zusatzabbuchungen verarbeiten
       list = Einstellungen.getDBService().createList(Zusatzabbuchung.class);
@@ -231,5 +243,28 @@ public class Abbuchung
     dtaus.addCVerwendungszweck(verwendungszweck);
     dtaus.addCVerwendungszweck(m.getName() + "," + m.getVorname());
     dtaus.writeCSatz();
+  }
+
+  private void writeManuellerZahlungseingang(Mitglied m,
+      String verwendungszweck, Double betr) throws RemoteException,
+      ApplicationException
+  {
+    ManuellerZahlungseingang mz = (ManuellerZahlungseingang) Einstellungen
+        .getDBService().createObject(ManuellerZahlungseingang.class, null);
+    mz.setBetrag(betr);
+    mz.setEingabedatum();
+    String name = m.getName() + ", " + m.getVorname();
+    if (m.getKontoinhaber().length() > 0)
+    {
+      name = m.getKontoinhaber();
+    }
+    if (name.length() > 27)
+    {
+      name = name.substring(0, 27);
+    }
+    mz.setName(name);
+    mz.setVZweck1(verwendungszweck);
+    mz.setVZweck2(m.getName() + "," + m.getVorname());
+    mz.store();
   }
 }
