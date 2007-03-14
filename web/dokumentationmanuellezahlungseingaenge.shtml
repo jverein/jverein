@@ -1,0 +1,18 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Dokumentation</h2>
+   <h3>Manuelle Zahlungseingänge</h3>
+      <p>Beim Abbuchungslauf werden die Daten der Mitglieder, die per Überweisung oder
+         bar zahlen in die Tabelle zur Überwachung der manuellen Zahlungseingänge 
+         eingetragen</p>
+      <p>Mit einem Rechtsklick in die entsprechende Zeile können folgende Aktionen
+         ausgelöst werden:
+        <ul>
+            <li>Zahlungseingangsdatum setzen</li>
+            <li>Zahlungseingangsdatum löschen</li>
+            <li>Fall löschen</li>
+        </ul>
+     <p>
+       <a href='screenshots/manuellerzahlungseingang.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-manuellerzahlungseingang.jpg"></a></p>
+
+<!--#include virtual="footer.shtml"-->  
