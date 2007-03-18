@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:26:22  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/12/20 20:25:44  jost
  * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
  *
@@ -65,6 +68,7 @@ public class BeitragsgruppeControl extends AbstractControl
     if (bezeichnung != null)
       return bezeichnung;
     bezeichnung = new TextInput(getBeitragsgruppe().getBezeichnung(), 30);
+    bezeichnung.setMandatory(true);
     return bezeichnung;
   }
 
@@ -76,6 +80,7 @@ public class BeitragsgruppeControl extends AbstractControl
     }
     betrag = new DecimalInput(getBeitragsgruppe().getBetrag(),
         Einstellungen.DECIMALFORMAT);
+    betrag.setMandatory(true);
     return betrag;
   }
 
