@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:26:38  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/29 07:48:48  jost
  * Neu: Mitgliederstatistik
  *
@@ -67,6 +70,7 @@ public class StammdatenControl extends AbstractControl
       return name;
     }
     name = new TextInput(getStammdaten().getName(), 30);
+    name.setMandatory(true);
     return name;
   }
 
@@ -77,6 +81,7 @@ public class StammdatenControl extends AbstractControl
       return blz;
     }
     blz = new TextInput(getStammdaten().getBlz(), 8);
+    blz.setMandatory(true);
     BLZListener l = new BLZListener();
     blz.addListener(l);
     l.handleEvent(null);
@@ -90,6 +95,7 @@ public class StammdatenControl extends AbstractControl
       return konto;
     }
     konto = new TextInput(getStammdaten().getKonto(), 10);
+    konto.setMandatory(true);
     konto.setComment("für die Abbuchung");
     return konto;
   }

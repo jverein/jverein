@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/02/23 20:26:38  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.3  2006/12/23 16:46:58  jost
  * Java 1.5 Kompatibilität
  *
@@ -119,6 +122,7 @@ public class ZusatzabbuchungControl extends AbstractControl
       return buchungstext;
     }
     buchungstext = new TextInput(getZusatzabbuchung().getBuchungstext(), 27);
+    buchungstext.setMandatory(true);
     return buchungstext;
   }
 
@@ -130,6 +134,7 @@ public class ZusatzabbuchungControl extends AbstractControl
     }
     betrag = new DecimalInput(getZusatzabbuchung().getBetrag(),
         Einstellungen.DECIMALFORMAT);
+    betrag.setMandatory(true);
     return betrag;
   }
 
