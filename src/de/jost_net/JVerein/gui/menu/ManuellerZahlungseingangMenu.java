@@ -9,10 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:57:01  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDatumLöschenAction;
+import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDatumLoeschenAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDatumSetzenAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -33,7 +36,7 @@ public class ManuellerZahlungseingangMenu extends ContextMenu
     addItem(new CheckedContextMenuItem("Zahlungseingangsdatum setzen ...",
         new ManuellerZahlungseingangDatumSetzenAction(table)));
     addItem(new CheckedContextMenuItem("Zahlungseingangsdatum löschen ...",
-        new ManuellerZahlungseingangDatumLöschenAction(table)));
+        new ManuellerZahlungseingangDatumLoeschenAction(table)));
     addItem(new CheckedContextMenuItem("Löschen...",
         new ManuellerZahlungseingangDeleteAction(table)));
   }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:55:39  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
@@ -25,11 +28,11 @@ import de.willuhn.util.ApplicationException;
 /**
  * Datum des Zahlungseingangs löschen.
  */
-public class ManuellerZahlungseingangDatumLöschenAction implements Action
+public class ManuellerZahlungseingangDatumLoeschenAction implements Action
 {
   private TablePart table;
 
-  public ManuellerZahlungseingangDatumLöschenAction(TablePart table)
+  public ManuellerZahlungseingangDatumLoeschenAction(TablePart table)
   {
     this.table = table;
   }
