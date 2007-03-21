@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/02/25 19:14:53  jost
+ * Neu: Kursteilnehmer
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -21,7 +24,8 @@ import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class KursteilnehmerImpl extends AbstractDBObject implements Kursteilnehmer
+public class KursteilnehmerImpl extends AbstractDBObject implements
+    Kursteilnehmer
 {
   private static final long serialVersionUID = 1L;
 
@@ -198,6 +202,11 @@ public class KursteilnehmerImpl extends AbstractDBObject implements Kursteilnehm
   public void setAbbudatum() throws RemoteException
   {
     setAttribute("abbudatum", new Date());
+  }
+
+  public void resetAbbudatum() throws RemoteException
+  {
+    setAttribute("abbudatum", null);
   }
 
   public Date getAbbudatum() throws RemoteException

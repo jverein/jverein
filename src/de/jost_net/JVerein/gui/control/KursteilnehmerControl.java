@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/03/10 13:41:08  jost
+ * Redaktionelle Änderung
+ *
  * Revision 1.1  2007/02/25 19:12:29  jost
  * Neu: Kursteilnehmer
  *
@@ -206,7 +209,7 @@ public class KursteilnehmerControl extends AbstractControl
         Einstellungen.DATEFORMAT));
     part.addColumn("Abbuchungsdatum", "abbudatum", new DateFormatter(
         Einstellungen.DATEFORMAT));
-    part.setContextMenu(new KursteilnehmerMenu());
+    part.setContextMenu(new KursteilnehmerMenu(part));
 
     return part;
   }
