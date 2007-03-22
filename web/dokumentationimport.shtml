@@ -1,10 +1,17 @@
 <!--#include virtual="main.shtml"-->  
    <h2>Dokumentation</h2>
+   Diese Funktion ist im Plugins-Menü unter JVerein am oberen Fensterrand zu finden.
     <h3>Import</h3>
     <p>Zur Zeit ist der Import von Daten über das durch das Programm SPG-Verein 
     (Sparkasse) vorgegebene CSV-Format realisiert. Der Dateiname muß eine Endung 
-    haben. Z. B. .csv oder .txt.  Es kann jede beliebige Endung verwendet werden.
-    Andere Programme können eine Datei mit folgenden Spalten erzeugen:</p>
+    haben. Z. B. .csv oder .txt.  Es kann jede beliebige Endung verwendet werden.</p>
+    
+    <p>Die Daten werden in SPG-Verein unter Extras | Daten exportieren mit folgenden
+    Parametern ausgegeben:</p>
+    <p><img src='screenshots/spgexport.jpg'></p>
+    
+    
+    <p>Andere Programme können eine Datei mit folgenden Spalten erzeugen:</p>
     
     <table border=0>
     <tr><td>Mitglieds_Nr</td>   <td>Mitgliedsnummer</td></tr>
@@ -32,5 +39,6 @@
 <p>Beim Import werden sowohl die Beitragsgruppen-Tabelle als auch die Mitgliedertabelle 
    aufgebaut. Ein erneuter Import löscht die vorhandenen Daten nach einer 
    entsprechenden Warnung.</p>
+
 <!--#include virtual="footer.shtml"-->  
 

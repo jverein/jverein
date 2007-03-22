@@ -7,6 +7,7 @@
     <li><a href="dokumentationzusatzabbuchung.shtml">Zusatzabbuchung</a></li>
     <li><a href="dokumentationauswertung.shtml">Auswertung</a></li>
     <li><a href="dokumentationstammdaten.shtml">Stammdaten</a></li>
+    <li><a href="dokumentationbeitragsgruppen.shtml">Beitragsgruppen</a></li>
     <li><a href="dokumentationimport.shtml">Import</a></li>
    </ul>
 <!--#include virtual="footer.shtml"-->  
