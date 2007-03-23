@@ -1,0 +1,20 @@
+<!--#include virtual="main.shtml"-->  
+   <h2>Nutzer</h2>
+   <p>JVerein wird von folgenden Vereinen genutzt:</p>
+    
+    <table border=0>
+    <tr><th>Verein</th>
+        <th>Mitglieder</th>
+    </tr>
+    <tr><td><a href='http://www.herzebrock-clarholz.dlrg.de/' target=blank>
+            DLRG Ortsgruppe Herzebrock-Clarholz</a></td>
+        <td>300-400</td>
+    </tr>
+    <tr><td><a href='http://www.aeg-reutlingen.de/schulgemeinde/foerderverein.html' target=blank>
+            Förderverein des Albert-Einstein-Gymnasiums Reutlingen</a></td>
+        <td>&lt;100</td>
+    </tr>
+    </table>
+    <p>Für einen Eintrag in diese Liste bitte eine Mail an <a href='mailto:heiner@jverein.de'>heiner@jverein.de</a></p>
+<!--#include virtual="footer.shtml"-->  
+
