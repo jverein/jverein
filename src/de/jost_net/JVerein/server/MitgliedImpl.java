@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/03/10 20:29:16  jost
+ * Neu: Zahlungsweg
+ *
  * Revision 1.4  2007/03/10 13:45:38  jost
  * Vermerke eingefÃ¼hrt.
  *
@@ -28,9 +31,11 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -81,18 +86,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Vornamen eingeben");
     }
-    if (getStrasse() == null || getStrasse().length() == 0)
-    {
-      throw new ApplicationException("Bitte Strasse eingeben");
-    }
-    if (getPlz() == null || getPlz().length() == 0)
-    {
-      throw new ApplicationException("Bitte PLZ eingeben");
-    }
-    if (getOrt() == null || getOrt().length() == 0)
-    {
-      throw new ApplicationException("Bitte Ort eingeben");
-    }
     if (getGeburtsdatum() == null)
     {
       throw new ApplicationException("Bitte Geburtsdatum eingeben");
@@ -105,15 +98,37 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Eintrittsdatum eingeben");
     }
-    if (getBeitragsgruppe().getBetrag() > 0
-        && (getBlz() == null || getBlz().length() == 0 || getKonto() == null || getKonto()
-            .length() == 0))
+    if (getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
     {
-      throw new ApplicationException("Bitte Bankverbindung eingeben");
+      if (getBeitragsgruppe().getBetrag() > 0
+          && (getBlz() == null || getBlz().length() == 0 || getKonto() == null || getKonto()
+              .length() == 0))
+      {
+        throw new ApplicationException("Bitte Bankverbindung eingeben");
+      }
+      if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
+      {
+        throw new ApplicationException(
+            "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
+      }
     }
-    if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
-      throw new ApplicationException(
-          "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
+    if (getAustritt() != null || getKuendigung() != null)
+    {
+      // Person ist ausgetreten
+      // Hat das Mitglied für andere gezahlt?
+      if (getBeitragsgruppe().getBeitragsArt() == 1)
+      {
+        // ja
+        DBIterator famang = Einstellungen.getDBService().createList(
+            Mitglied.class);
+        famang.addFilter("zahlerid = " + getID());
+        if (famang.hasNext())
+        {
+          throw new ApplicationException(
+              "Diese Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!");
+        }
+      }
+    }
   }
 
   protected void updateCheck() throws ApplicationException
@@ -335,6 +350,17 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     setAttribute("beitragsgruppe", beitragsgruppe);
   }
 
+  public Integer getZahlerID() throws RemoteException
+  {
+    Integer zahlerid = (Integer) getAttribute("zahlerid");
+    return zahlerid;
+  }
+
+  public void setZahlerID(Integer id) throws RemoteException
+  {
+    setAttribute("zahlerid", id);
+  }
+
   public Date getAustritt() throws RemoteException
   {
     return (Date) getAttribute("austritt");
@@ -419,6 +445,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("namevorname"))
+    {
+      return getNameVorname();
+    }
     return super.getAttribute(fieldName);
   }
 
