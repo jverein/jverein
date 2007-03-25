@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/18 08:38:24  jost
+ * Pflichtfelder gekennzeichnet
+ *
  * Revision 1.3  2007/02/23 20:26:22  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -25,6 +28,7 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
+import de.jost_net.JVerein.gui.input.BeitragsArtInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -47,6 +51,8 @@ public class BeitragsgruppeControl extends AbstractControl
   private Input bezeichnung;
 
   private DecimalInput betrag;
+
+  private BeitragsArtInput beitragsart;
 
   private Beitragsgruppe beitrag;
 
@@ -84,6 +90,16 @@ public class BeitragsgruppeControl extends AbstractControl
     return betrag;
   }
 
+  public BeitragsArtInput getBeitragsArt() throws RemoteException
+  {
+    if (beitragsart != null)
+    {
+      return beitragsart;
+    }
+    beitragsart = new BeitragsArtInput(getBeitragsgruppe().getBeitragsArt());
+    return beitragsart;
+  }
+
   public void handleStore()
   {
     try
@@ -92,15 +108,14 @@ public class BeitragsgruppeControl extends AbstractControl
       b.setBezeichnung((String) getBezeichnung().getValue());
       Double d = (Double) getBetrag().getValue();
       b.setBetrag(d.doubleValue());
-      try
-      {
-        b.store();
-        GUI.getStatusBar().setSuccessText("Beitragsgruppe gespeichert");
-      }
-      catch (ApplicationException e)
-      {
-        GUI.getView().setErrorText(e.getMessage());
-      }
+      Integer ba = (Integer)getBeitragsArt().getValue();
+      b.setBeitragsArt(ba.intValue());
+      b.store();
+      GUI.getStatusBar().setSuccessText("Beitragsgruppe gespeichert");
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getView().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

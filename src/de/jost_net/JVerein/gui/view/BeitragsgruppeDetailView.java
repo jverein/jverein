@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:27:28  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/29 07:49:11  jost
  * Redaktionelle Änderung
  *
@@ -39,6 +42,7 @@ public class BeitragsgruppeDetailView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), "Beitrag");
     group.addLabelPair("Bezeichnung", control.getBezeichnung());
     group.addLabelPair("Betrag", control.getBetrag());
+    group.addLabelPair("Beitragsart", control.getBeitragsArt());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());

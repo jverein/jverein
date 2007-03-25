@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:28:24  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:39:35  jost
  * *** empty log message ***
  *
@@ -28,4 +31,8 @@ public interface Beitragsgruppe extends DBObject
   public double getBetrag() throws RemoteException;
 
   public void setBetrag(double betrag) throws RemoteException;
+
+  public int getBeitragsArt() throws RemoteException;
+
+  public void setBeitragsArt(int art) throws RemoteException;
 }

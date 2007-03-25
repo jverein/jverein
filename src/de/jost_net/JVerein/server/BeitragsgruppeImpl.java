@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:28:41  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:39:48  jost
  * *** empty log message ***
  *
@@ -100,6 +103,21 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
   public void setBetrag(double d) throws RemoteException
   {
     setAttribute("betrag", new Double(d));
+  }
+
+  public int getBeitragsArt() throws RemoteException
+  {
+    Integer i = (Integer) getAttribute("beitragsart");
+    if (i == null)
+    {
+      return 0;
+    }
+    return i.intValue();
+  }
+
+  public void setBeitragsArt(int art) throws RemoteException
+  {
+    setAttribute("beitragsart", art);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException
