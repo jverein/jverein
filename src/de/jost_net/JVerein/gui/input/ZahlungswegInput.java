@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/10 20:28:15  jost
+ * Neu: Zahlungsweg
+ *
  *
  **********************************************************************/
 
@@ -21,11 +24,6 @@ import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.hbci.HBCI;
-import de.willuhn.jameica.hbci.HBCIProperties;
-import de.willuhn.jameica.system.Application;
-import de.willuhn.jameica.system.Settings;
-import de.willuhn.util.I18N;
 
 /**
  * Combo-Box, fuer die Auswahl des Zahlungsweges.
@@ -78,8 +76,6 @@ public class ZahlungswegInput extends SelectInput
 
   /**
    * Hilfs-Objekt zur Anzeige der Labels.
-   * 
-   * @author willuhn
    */
   private static class ZahlungswegObject implements GenericObject
   {
@@ -136,7 +132,3 @@ public class ZahlungswegInput extends SelectInput
 
   }
 }
-
-/*******************************************************************************
- * $Log$
- ******************************************************************************/
