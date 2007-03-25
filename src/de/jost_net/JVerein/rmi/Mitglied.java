@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/10 20:28:58  jost
+ * Neu: Zahlungsweg
+ *
  * Revision 1.3  2007/03/10 13:44:56  jost
  * Vermerke eingeführt.
  *
@@ -109,6 +112,10 @@ public interface Mitglied extends DBObject
   public int getBeitragsgruppeId() throws RemoteException;
 
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException;
+  
+  public Integer getZahlerID() throws RemoteException;
+  
+  public void setZahlerID(Integer id) throws RemoteException;
 
   public Date getAustritt() throws RemoteException;
 
