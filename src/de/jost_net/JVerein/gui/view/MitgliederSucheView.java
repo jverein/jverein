@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/21 09:19:30  jost
  * Korrekter Ablauf bei leerer Datenbank
  *
@@ -23,6 +26,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
@@ -45,9 +50,12 @@ public class MitgliederSucheView extends AbstractView
 
   public void bind() throws Exception
   {
+    final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+        "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U", "Ü", "V",
+        "W", "X", "Y", "Z" , "*"};
     GUI.getView().setTitle("Suche Mitglied");
 
-    MitgliedControl control = new MitgliedControl(this);
+    final MitgliedControl control = new MitgliedControl(this);
 
     String sql = "select count(*) from mitglied";
     DBService service = Einstellungen.getDBService();
@@ -63,30 +71,54 @@ public class MitgliederSucheView extends AbstractView
 
     if (anzahl.longValue() > 0)
     {
-      TabFolder folder = new TabFolder(getParent(), SWT.NONE);
+      final TabFolder folder = new TabFolder(getParent(), SWT.NONE);
       folder.setLayoutData(new GridData(GridData.FILL_BOTH));
       folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-      TabGroup[] tab = new TabGroup[26];
-      TablePart[] p = new TablePart[26];
-      for (int i = 'A'; i <= 'Z'; i++)
+      final TabGroup[] tab = new TabGroup[b.length];
+      final TablePart[] p = new TablePart[b.length];
+
+      for (int i = 0; i < b.length; i++)
       {
-        char[] zeichen = { (char) i };
-        tab[i - 'A'] = new TabGroup(folder, new String(zeichen));
-        control.getMitgliedTable(p[i - 'A'], new String(zeichen)).paint(
-            tab[i - 'A'].getComposite());
+        tab[i] = new TabGroup(folder, b[i]);
       }
-      TabGroup tab1 = new TabGroup(folder, "Ä");
-      TablePart p1 = null;
-      control.getMitgliedTable(p1, "Ä").paint(tab1.getComposite());
+      p[0] = control.getMitgliedTable(b[0]);
+      tab[0].addPart(p[0]);
+      folder.addSelectionListener(new SelectionListener()
+      {
+        public void widgetDefaultSelected(SelectionEvent e)
+        {
+          //
+        }
 
-      TabGroup tab2 = new TabGroup(folder, "Ö");
-      TablePart p2 = null;
-      control.getMitgliedTable(p2, "Ö").paint(tab2.getComposite());
+        public void widgetSelected(SelectionEvent e)
+        {
+          int si = folder.getSelectionIndex();
+          try
+          {
+            boolean gefuellt;
+            if (p[si] == null)
+            {
+              gefuellt = false;
+            }
+            else
+            {
+              gefuellt = true;
+            }
+            p[si] = control.getMitgliedTable(b[si]);
 
-      TabGroup tab3 = new TabGroup(folder, "Ü");
-      TablePart p3 = null;
-      control.getMitgliedTable(p3, "Ü").paint(tab3.getComposite());
+            if (!gefuellt)
+            {
+              p[si].paint(tab[si].getComposite());
+            }
+            folder.getParent().layout(true, true);
+          }
+          catch (RemoteException e1)
+          {
+            e1.printStackTrace();
+          }
+        }
+      });
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("Neu", new MitgliedDetailAction());
