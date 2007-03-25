@@ -19,6 +19,7 @@ CREATE TABLE mitglied
   email         VARCHAR(50),
   eintritt      DATE,
   beitragsgruppe INTEGER,
+  zahlerid      INTEGER,
   austritt      DATE,
   kuendigung    DATE,
   vermerk1      VARCHAR(255),
@@ -32,7 +33,8 @@ CREATE TABLE beitragsgruppe
 (
   id            INTEGER       default UNIQUEKEY('beitragsgruppe'),
   bezeichnung   VARCHAR(30) NOT NULL,
-  betrag		DOUBLE,
+  betrag		    DOUBLE,
+  beitragsart   INTEGER DEFAULT 0,
   UNIQUE        (id),
   PRIMARY KEY   (id)
 );

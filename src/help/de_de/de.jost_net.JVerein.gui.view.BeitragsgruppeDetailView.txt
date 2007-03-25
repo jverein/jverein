@@ -3,7 +3,9 @@
 		<span color="header" font="header">Beitragsgruppe</span>
 	</p>
 	<p>
-		Die Bezeichung und die Höhe des Beitrages sind zu erfassen.
+		Die Bezeichung und die Höhe des Beitrages sind zu erfassen. 
 	</p>
+	<p>Durch die Kennzeichnung als Familientarif können dem Mitglied die Mitglieder
+	zugeordnet, die zur Famlie gehören.</p>
 
 </form>

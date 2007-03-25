@@ -4,8 +4,15 @@
       <li>Version 0.7 vom ??.??.????</li>
          <ul>
             <li>Zeit-Optimierung bei der Anzeige der Mitglieder-Suche</li>
+            <li>Neu: Bei der Suche der Mitglieder gibt es jetzt einen Tab mit allen
+                Mitgliedern</li>
             <li>Kursteilnehmer: Abbuchungsdatum kann zurückgesetzt werden</li>
-            <li>Beitragsgruppe: Beitragsgruppe kann als Famlientarif gekennzeichnet werden</li>
+            <li>Beitragsgruppe: Beitragsart kann jetzt festgelegt werden</li>
+            <li>Bugfix Import. Jetzt können, wie dokumentiert, beliebige Dateinamen 
+                verwenden werden</li>
+            <li>Erweiterung Import um Zahlungsweg</li>
+            <li>Zusätzliche Plausibilitätsprüfung der Import-Datei</li>
+            <li>Herstellung von Familienverbänden für Familientarife</li>
          </ul>
       <li>Version 0.6 vom 18.03.2007</li>
          <ul>
