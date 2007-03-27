@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/03/25 16:57:40  jost
+ * 1. Famlienverband herstellen
+ * 2. Tab mit allen Mitgliedern
+ *
  * Revision 1.8  2007/03/18 08:38:49  jost
  * Pflichtfelder gekennzeichnet
  * Bugfix Zahlungsweg
@@ -51,6 +55,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
+import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
@@ -119,6 +124,8 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput beitragsgruppe;
 
+  private Familienverband famverb;
+
   private SelectInput zahler;
 
   private DateInput austritt = null;
@@ -151,6 +158,8 @@ public class MitgliedControl extends AbstractControl
 
   // Liste aller Zusatzabbuchungen
   private TablePart zusatzabbuchungenList;
+
+  private TablePart familienangehoerige;
 
   public MitgliedControl(AbstractView view)
   {
@@ -409,6 +418,7 @@ public class MitgliedControl extends AbstractControl
         try
         {
           Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
+          famverb.setBeitragsgruppe(bg);
           if (bg.getBeitragsArt() == 2)
           {
             zahler.setEnabled(true);
@@ -428,6 +438,16 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return beitragsgruppe;
+  }
+
+  public Familienverband getFamilienverband() throws RemoteException
+  {
+    if (famverb != null)
+    {
+      return famverb;
+    }
+    famverb = new Familienverband(this, getMitglied().getBeitragsgruppe());
+    return famverb;
   }
 
   public Input getZahler() throws RemoteException
@@ -454,6 +474,7 @@ public class MitgliedControl extends AbstractControl
     }
     DBIterator zhl = Einstellungen.getDBService().createList(Mitglied.class);
     zhl.addFilter(cond);
+    zhl.addFilter("austritt is null");
     zhl.setOrder("ORDER BY name, vorname");
 
     String suche = "";
@@ -574,6 +595,25 @@ public class MitgliedControl extends AbstractControl
     }
     vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
     return vermerk2;
+  }
+
+  public Part getFamilienangehoerigenTable() throws RemoteException
+  {
+    if (familienangehoerige != null)
+    {
+      return familienangehoerige;
+    }
+    DBService service = Einstellungen.getDBService();
+    DBIterator famiter = service.createList(Mitglied.class);
+    famiter.addFilter("zahlerid = " + getMitglied().getID());
+    familienangehoerige = new TablePart(famiter, null);
+    familienangehoerige.setRememberColWidths(true);
+    familienangehoerige.setRememberOrder(true);
+
+    familienangehoerige.addColumn("Name", "name");
+    familienangehoerige.addColumn("Vorname", "vorname");
+
+    return familienangehoerige;
   }
 
   public Part getZusatzabbuchungenTable() throws RemoteException

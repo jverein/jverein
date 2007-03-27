@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/03/25 17:01:14  jost
+ * Beitragsart aufgenommen.
+ *
  * Revision 1.5  2007/03/10 20:28:32  jost
  * Neu: Zahlungsweg
  *
@@ -46,6 +49,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedDetailView extends AbstractView
 {
+
   public void bind() throws Exception
   {
     GUI.getView().setTitle("Daten des Mitgliedes");
@@ -82,9 +86,9 @@ public class MitgliedDetailView extends AbstractView
     TabGroup tab3 = new TabGroup(folder, "Mitgliedschaft");
     tab3.addLabelPair("Eintritt", control.getEintritt());
     tab3.addLabelPair("Betragsgruppe", control.getBeitragsgruppe());
-    tab3.addLabelPair("Zahler",control.getZahler());
     tab3.addLabelPair("Austritt", control.getAustritt());
     tab3.addLabelPair("Kündigung", control.getKuendigung());
+    tab3.addPart(control.getFamilienverband());
 
     TabGroup tab4 = new TabGroup(folder, "Zusatzabbuchung");
     control.getZusatzabbuchungenTable().paint(tab4.getComposite());
