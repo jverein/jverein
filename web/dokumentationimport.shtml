@@ -37,6 +37,8 @@
 	  <tr><td>Austritt</td>       <td>Datum des Austritts im Format TT.MM.JJJJ. Je nach Vereinssatzung ist die Kündigung erst zum Jahresende wirksam. Hier wird das Wirksamwerden der Kündigung vermerkt. Format TT.MM.JJJJ.</td></tr>
 	  <tr><td>Kündigung</td>      <td>Datum der Kündigung im Format TT.MM.JJJJ</td></tr>
 </table>
+<p>Die Datei darf keine Anführungszeichen (") enthalten. Bei jedem Mitglied müssen die
+   Spalten Beitragsart_1 und Beitrag_1 gefüllt sein</p>
 <p>Beim Import werden sowohl die Beitragsgruppen-Tabelle als auch die Mitgliedertabelle 
    aufgebaut. Ein erneuter Import löscht die vorhandenen Daten nach einer 
    entsprechenden Warnung.</p>

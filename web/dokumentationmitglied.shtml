@@ -20,12 +20,19 @@
        <a href='screenshots/mitgliedkommunikation.jpg' target=blank>
        <img class="screenshot" src="screenshots/th-mitgliedkommunikation.jpg"></a></p>
  
-    <p> Sofern eine als "Familie: Angehöriger" gekennzeichnete Beitragsgruppe ausgewählt
-        wurde, kann aus einer Drop-Down-Liste ein Mitglied mit einer als "Famlie: Zahler" 
-        gekennzeichneten Beitragsgruppe ausgwählt werden.</p>
+ 		<a name='mitgliedmitgliedschaft'>
     <p>
        <a href='screenshots/mitgliedmitgliedschaft.jpg' target=blank>
        <img class="screenshot" src="screenshots/th-mitgliedmitgliedschaft.jpg"></a></p>
+    <p> Sofern eine als "Familie: Zahler" gekennzeichnete Beitragsgruppe ausgewählt
+        wurde, wird eine Tabelle mit den Famlienangehörigen angezeigt, für die gezahlt 
+        wird.</p>      
+        <a href='screenshots/mitgliedmitgliedschaftfamilienangehoerige.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedmitgliedschaftfamilienangehoerige.jpg"></a></p>
+    <p> Sofern eine als "Familie: Angehöriger" gekennzeichnete Beitragsgruppe ausgewählt
+        wurde, kann aus einer Drop-Down-Liste ein Mitglied mit einer als "Famlie: Zahler" 
+        gekennzeichneten Beitragsgruppe ausgwählt werden.</p>     <a href='screenshots/mitgliedmitgliedschaftzahler.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedmitgliedschaftzahler.jpg"></a></p>
      <p>Die Beitragsgruppen sind unter Extras | Beitragsgruppe zu erfassen. Unter <i>Austritt</i>
        wird das satzungsgemäße Ende der Mitgliedschaft vermerkt. Unter <i>Kündigung</i> das 
        Eingangsdatum der Kündigung.</p>
