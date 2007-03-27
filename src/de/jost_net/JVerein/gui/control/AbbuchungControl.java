@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/25 19:12:11  jost
+ * Neu: Kursteilnehmer
+ *
  * Revision 1.2  2007/02/23 20:26:22  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -166,6 +169,16 @@ public class AbbuchungControl extends AbstractControl
   {
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
 
+    boolean jahr = (Boolean) jahresabbuchung.getValue();
+
+    final Date vond = (Date) vondatum.getValue();
+
+    if (!jahr && vond == null)
+    {
+      GUI.getStatusBar().setErrorText(
+          "Jahresabbuchung oder Datum auswählen");
+      return;
+    }
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
 
@@ -188,8 +201,6 @@ public class AbbuchungControl extends AbstractControl
       final FileOutputStream fos = new FileOutputStream(file);
       // Wir merken uns noch das Verzeichnis vom letzten mal
       settings.setAttribute("lastdir", file.getParent());
-
-      final Date vond = (Date) vondatum.getValue();
       final Boolean zusatzab = (Boolean) zusatzabbuchung.getValue();
       BackgroundTask t = new BackgroundTask()
       {
