@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/25 16:58:14  jost
+ * Neu
+ *
  *
  **********************************************************************/
 
@@ -50,7 +53,7 @@ public class BeitragsArtInput extends SelectInput
   private static GenericIterator init() throws RemoteException
   {
 
-    ArrayList l = new ArrayList();
+    ArrayList<BeitragsArtObject> l = new ArrayList<BeitragsArtObject>();
     l.add(new BeitragsArtObject(NORMAL));
     l.add(new BeitragsArtObject(FAMILIE_ZAHLER));
     l.add(new BeitragsArtObject(FAMILIE_ANGEHOERIGER));

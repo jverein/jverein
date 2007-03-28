@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/03/25 16:59:37  jost
+ * Redaktionelle Änderung
+ *
  * Revision 1.1  2007/03/10 20:28:15  jost
  * Neu: Zahlungsweg
  *
@@ -53,7 +56,7 @@ public class ZahlungswegInput extends SelectInput
   private static GenericIterator init() throws RemoteException
   {
 
-    ArrayList l = new ArrayList();
+    ArrayList<ZahlungswegObject> l = new ArrayList<ZahlungswegObject>();
     l.add(new ZahlungswegObject(ABBUCHUNG));
     l.add(new ZahlungswegObject(ÜBERWEISUNG));
     l.add(new ZahlungswegObject(BARZAHLUNG));

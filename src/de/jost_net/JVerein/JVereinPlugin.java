@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/28 12:26:37  jost
+ * Überprüfung der Datenbankstruktur beim Startup
+ *
  * Revision 1.3  2007/02/23 20:25:16  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -44,7 +47,7 @@ public class JVereinPlugin extends AbstractPlugin
   private EmbeddedDatabase db = null;
 
   // Mapper von Datenbank-Hash zu Versionsnummer
-  private static HashMap DBMAPPING = new HashMap();
+  private static HashMap<String, Double> DBMAPPING = new HashMap<String, Double>();
 
   /**
    * constructor.
@@ -74,7 +77,6 @@ public class JVereinPlugin extends AbstractPlugin
       Application.getCallback().getStartupMonitor().setStatusText(
           "jverein: checking database integrity");
 
-      // //////////////////////////////////////////////////////////////////////////
       // Damit wir die Updates nicht immer haendisch nachziehen muessen, rufen
       // wir bei einem Fehler das letzte Update-Script nochmal auf.
       if (!Application.inClientMode())
@@ -83,7 +85,7 @@ public class JVereinPlugin extends AbstractPlugin
         {
           de.willuhn.jameica.system.Settings s = getResources().getSettings();
           double size = s.getDouble("sql-update-size", -1);
- 
+
           File f = new File(getResources().getPath()
               + "/sql/update_0.6-0.7.sql");
 
@@ -93,7 +95,7 @@ public class JVereinPlugin extends AbstractPlugin
             if (length != size)
             {
               s.setAttribute("sql-update-size", (double) f.length());
-              // getDatabase().executeSQLScript(f);
+              getDatabase().executeSQLScript(f);
             }
           }
         }
