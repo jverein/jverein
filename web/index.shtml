@@ -1,6 +1,6 @@
 <!--#include virtual="main.shtml"-->  
     <h2>News</h2>
-    <p>Version 0.6 am 18.03.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>.</p> 
+    <p>Version 0.7 am 28.03.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>.</p> 
     <h2>Home</h2>
     <p>
        <img src="JVerein_Box.jpg" >
@@ -19,6 +19,8 @@
        Für jedes Mitglied können auch Vermerke festgehalten werden.</p>
     <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
        werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>
+    <p>Der Zahlungseingang von Mitgliedern, die nicht am Abbuchungsverfahren teilnehmen kann
+       überwacht werden.</p>
     <p>Die Vereinsbuchführung (Einnamen/Ausgaben) wird über die Umsatzkategorisierung von
        Hibiscus erledigt.</p>
     <p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p> <img src='lightarrow.jpg'>

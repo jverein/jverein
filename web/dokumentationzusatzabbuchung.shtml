@@ -13,6 +13,8 @@
     <p>
        <a href='screenshots/listezusatzabbuchungen.jpg' target=blank>
        <img class="screenshot" src="screenshots/th-listezusatzabbuchungen.jpg"></a></p>
+    
+    <p><a href='dokumentationabbuchung.shtml'>&lt;&lt; [Abbuchung]</a> <a href='dokumentation.shtml'>[Übersicht]</a> <a href='dokumentationmanuellezahlungseingaenge.shtml'>[Manuelle Zahlungseingänge] &gt;&gt;</a></p>
        
 <!--#include virtual="footer.shtml"-->  
 

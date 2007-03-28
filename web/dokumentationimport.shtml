@@ -42,6 +42,8 @@
 <p>Beim Import werden sowohl die Beitragsgruppen-Tabelle als auch die Mitgliedertabelle 
    aufgebaut. Ein erneuter Import löscht die vorhandenen Daten nach einer 
    entsprechenden Warnung.</p>
+      
+   <p><a href='dokumentationbeitragsgruppen.shtml'>&lt;&lt; [Beitragsgruppen]</a> <a href='dokumentation.shtml'>[Übersicht]</a> </p>
 
 <!--#include virtual="footer.shtml"-->  
 

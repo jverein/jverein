@@ -16,6 +16,7 @@
      <a href='screenshots/beitragsgruppe.jpg' target=blank>
      <img class="screenshot" src="screenshots/th-beitragsgruppe.jpg"></a></p>
        
+   <p><a href='dokumentationstammdaten.shtml'>&lt;&lt; [Stammdaten]</a> <a href='dokumentation.shtml'>[Übersicht]</a> <a href='dokumentationimport.shtml'>[Import] &gt;&gt;</a></p>
 
 <!--#include virtual="footer.shtml"-->  
 
