@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2007/03/30 13:22:57  jost
+ * Wiederkehrende Zusatzabbuchungen.
+ *
  * Revision 1.10  2007/03/27 19:21:10  jost
  * Familienangehörige anzeigen
  *
@@ -239,6 +242,30 @@ public class MitgliedControl extends AbstractControl
       return plz;
     }
     plz = new TextInput(getMitglied().getPlz(), 5);
+    plz.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        if (event.type == SWT.FocusOut)
+        {
+          try
+          {
+            DBIterator it = Einstellungen.getDBService().createList(
+                Mitglied.class);
+            it.addFilter("plz='" + (String) plz.getValue() + "'");
+            if (it.hasNext())
+            {
+              Mitglied mplz = (Mitglied) it.next();
+              ort.setValue(mplz.getOrt());
+            }
+          }
+          catch (RemoteException e)
+          {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
     return plz;
   }
 
