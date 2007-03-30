@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/12/20 20:25:44  jost
  * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
  *
@@ -21,8 +24,10 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.gui.input.IntervallInput;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.util.Datum;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -55,13 +60,40 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
   {
     try
     {
+      if (getStartdatum() == null)
+      {
+        throw new ApplicationException("Bitte Startdatum eingeben");
+      }
       if (getFaelligkeit() == null)
       {
-        throw new ApplicationException("Bitte Fälligkeit eingeben");
+        throw new ApplicationException("Bitte nächste Fälligkeit eingeben");
+      }
+      if (getIntervall() == null)
+      {
+        throw new ApplicationException("Bitte Intervall eingeben");
       }
       if (getBuchungstext() == null || getBuchungstext().length() == 0)
       {
         throw new ApplicationException("Bitte Buchungstext eingeben");
+      }
+      if (getEndedatum() != null)
+      {
+        if (!Datum
+            .isImInterval(getStartdatum(), getEndedatum(), getIntervall()))
+        {
+          throw new ApplicationException("Endedatum liegt nicht im Intervall");
+        }
+      }
+      if (getFaelligkeit().getTime() < getStartdatum().getTime())
+      {
+        throw new ApplicationException(
+            "Das Fälligkeitsdatum darf nicht vor dem Startdatum liegen");
+      }
+      if (!Datum
+          .isImInterval(getStartdatum(), getFaelligkeit(), getIntervall()))
+      {
+        throw new ApplicationException(
+            "Nächste Fälligkeit liegt nicht im Intervall");
       }
       if (getBetrag() < 0)
       {
@@ -138,6 +170,41 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
     return (Date) getAttribute("ausfuehrung");
   }
 
+  public Date getStartdatum() throws RemoteException
+  {
+    return (Date) getAttribute("startdatum");
+  }
+
+  public void setStartdatum(Date value) throws RemoteException
+  {
+    setAttribute("startdatum", value);
+  }
+
+  public Integer getIntervall() throws RemoteException
+  {
+    return (Integer) getAttribute("intervall");
+  }
+
+  public String getIntervallText() throws RemoteException
+  {
+    return IntervallInput.getText(getIntervall());
+  }
+
+  public void setIntervall(Integer value) throws RemoteException
+  {
+    setAttribute("intervall", value);
+  }
+
+  public Date getEndedatum() throws RemoteException
+  {
+    return (Date) getAttribute("endedatum");
+  }
+
+  public void setEndedatum(Date value) throws RemoteException
+  {
+    setAttribute("endedatum", value);
+  }
+
   public void setAusfuehrung(Date ausfuehrung) throws RemoteException
   {
     setAttribute("ausfuehrung", ausfuehrung);
@@ -145,6 +212,52 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
 
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("intervalltext"))
+    {
+      return getIntervallText();
+    }
+    if (fieldName.equals("aktiv"))
+    {
+      return isAktiv();
+    }
     return super.getAttribute(fieldName);
+  }
+
+  public boolean isAktiv() throws RemoteException
+  {
+    // Wenn der Auftrag noch nie ausgeführt wurde, ist er auszuführen
+    if (getAusfuehrung() == null)
+    {
+      return true;
+    }
+    // Einmalige Ausführung
+    if (getIntervall().intValue() == IntervallInput.KEIN)
+    {
+      // Ist das Ausführungsdatum gesetzt?
+      if (getAusfuehrung() == null)
+      {
+        // nein: Dann ausführen
+        return true;
+      }
+      else
+      {
+        // ja: nicht mehr ausführen
+        return false;
+      }
+    }
+
+    // Wenn das Endedatum gesetzt ist und das Ausführungsdatum liegt hinter
+    // dem Endedatum: nicht mehr ausführen
+    if (getEndedatum() != null
+        && getAusfuehrung().getTime() >= getEndedatum().getTime())
+    {
+      return false;
+    }
+    if (getFaelligkeit().getTime() >= Datum.getHeute().getTime())
+    {
+      return true;
+    }
+
+    return false;
   }
 }

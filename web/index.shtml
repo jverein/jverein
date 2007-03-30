@@ -1,6 +1,11 @@
 <!--#include virtual="main.shtml"-->  
     <h2>News</h2>
-    <p>Version 0.7 am 28.03.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>.</p> 
+    <p>Version 0.7 am 28.03.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>.
+    Bislang habe ich immer in kurzen Abständen nach der Einarbeitung neuer Features oder
+    nach der Behebung von Fehlern eine neue Version freigegeben. Ab jetzt wird die Freigabe
+    an den Zyklus von Jameica/Hibiscus angepaßt. Im Download-Bereich wird es die jeweils zur
+    CVS-Version passende Entwicklerversion geben.
+    </p> 
     <h2>Home</h2>
     <p>
        <img src="JVerein_Box.jpg" >
@@ -15,7 +20,8 @@
        werden die Bankverbindung, Kommunikationsdaten (Tel./eMail) und Mitgliedschaftsdaten
        gespeichert. Jedem Mitglied wird eine Beitragsgruppe zugeordnet. Darüber wird der
        jährliche Beitragseinzug realisiert. Zusätzlich können für jedes Mitglied zu 
-       beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...).
+       beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...),
+       die ab der Version 0.8 auch wiederkehrend sein können.
        Für jedes Mitglied können auch Vermerke festgehalten werden.</p>
     <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
        werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>

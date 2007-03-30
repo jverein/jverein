@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/03/18 08:39:27  jost
+ * Pflichtfelder gekennzeichnet
+ * Bugfix Zahlungsweg
+ *
  * Revision 1.4  2007/02/23 20:26:38  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -36,9 +40,11 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
+import de.jost_net.JVerein.gui.input.IntervallInput;
 import de.jost_net.JVerein.gui.menu.ZusatzabbuchungMenu;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -67,6 +73,12 @@ public class ZusatzabbuchungControl extends AbstractControl
   private DecimalInput betrag;
 
   private Zusatzabbuchung zuab;
+
+  private DateInput startdatum;
+
+  private IntervallInput intervall;
+
+  private DateInput endedatum;
 
   private DateInput ausfuehrung = null;
 
@@ -138,6 +150,72 @@ public class ZusatzabbuchungControl extends AbstractControl
     return betrag;
   }
 
+  public DateInput getStartdatum() throws RemoteException
+  {
+    if (startdatum != null)
+    {
+      return startdatum;
+    }
+
+    Date d = getZusatzabbuchung().getStartdatum();
+    this.startdatum = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.startdatum.setTitle("Startdatum");
+    this.startdatum.setText("Bitte Startdatum wählen");
+    this.startdatum.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) startdatum.getValue();
+        if (date == null)
+        {
+          return;
+        }
+        faelligkeit.setValue(date);
+      }
+    });
+    return startdatum;
+  }
+
+  public IntervallInput getIntervall() throws RemoteException
+  {
+    if (intervall != null)
+    {
+      return intervall;
+    }
+    Integer i = getZusatzabbuchung().getIntervall();
+    if (i == null)
+    {
+      i = new Integer(0);
+    }
+    this.intervall = new IntervallInput(i);
+    return intervall;
+  }
+
+  public DateInput getEndedatum() throws RemoteException
+  {
+    if (endedatum != null)
+    {
+      return endedatum;
+    }
+
+    Date d = getZusatzabbuchung().getEndedatum();
+    this.endedatum = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.endedatum.setTitle("Startdatum");
+    this.endedatum.setText("Bitte Startdatum wählen");
+    this.endedatum.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) endedatum.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return endedatum;
+  }
+
   public DateInput getAusfuehrung() throws RemoteException
   {
     if (ausfuehrung != null)
@@ -174,6 +252,7 @@ public class ZusatzabbuchungControl extends AbstractControl
 
     final Vector<String> werte = new Vector<String>();
     werte.addElement("Alle");
+    werte.addElement("Aktive");
     werte.addElement("Noch nicht ausgeführt");
 
     String sql = "select ausfuehrung from zusatzabbuchung where ausfuehrung is not null "
@@ -193,7 +272,7 @@ public class ZusatzabbuchungControl extends AbstractControl
     };
     service.execute(sql, new Object[] {}, rs);
 
-    ausfuehrungSuch = new SelectInput(werte, (String) werte.elementAt(1));
+    ausfuehrungSuch = new SelectInput(werte, (String) werte.elementAt(0));
     ausfuehrungSuch.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -218,18 +297,18 @@ public class ZusatzabbuchungControl extends AbstractControl
     {
       Zusatzabbuchung z = getZusatzabbuchung();
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
+      z.setStartdatum((Date) getStartdatum().getValue());
+      z.setIntervall((Integer) getIntervall().getValue());
+      z.setEndedatum((Date) getEndedatum().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
       Double d = (Double) getBetrag().getValue();
       z.setBetrag(d.doubleValue());
-      try
-      {
-        z.store();
-        GUI.getStatusBar().setSuccessText("Zusatzabbuchung gespeichert");
-      }
-      catch (ApplicationException e)
-      {
-        GUI.getView().setErrorText(e.getMessage());
-      }
+      z.store();
+      GUI.getStatusBar().setSuccessText("Zusatzabbuchung gespeichert");
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getView().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {
@@ -246,6 +325,10 @@ public class ZusatzabbuchungControl extends AbstractControl
     if (this.ausfuehrungSuch.getText().equals("Alle"))
     {
       // nichts tun
+    }
+    else if (this.ausfuehrungSuch.getText().equals("Aktive"))
+    {
+      // zunächst nichts tun
     }
     else if (this.ausfuehrungSuch.getText().equals("Noch nicht ausgeführt"))
     {
@@ -270,8 +353,6 @@ public class ZusatzabbuchungControl extends AbstractControl
     {
       zusatzabbuchungsList = new TablePart(zusatzabbuchungen,
           new ZusatzabbuchungAction(null));
-      zusatzabbuchungsList.addColumn("Fälligkeit", "faelligkeit",
-          new DateFormatter(Einstellungen.DATEFORMAT));
       zusatzabbuchungsList.addColumn("Name", "mitglied", new Formatter()
       {
         public String format(Object o)
@@ -291,12 +372,22 @@ public class ZusatzabbuchungControl extends AbstractControl
           return name;
         }
       });
+      zusatzabbuchungsList.addColumn("Startdatum", "startdatum",
+          new DateFormatter(Einstellungen.DATEFORMAT));
+      zusatzabbuchungsList.addColumn("nächste Fälligkeit", "faelligkeit",
+          new DateFormatter(Einstellungen.DATEFORMAT));
+      zusatzabbuchungsList.addColumn("letzte Ausführung", "ausfuehrung",
+          new DateFormatter(Einstellungen.DATEFORMAT));
+      zusatzabbuchungsList.addColumn("Intervall", "intervalltext");
+      zusatzabbuchungsList.addColumn("Endedatum", "endedatum",
+          new DateFormatter(Einstellungen.DATEFORMAT));
       zusatzabbuchungsList.addColumn("Buchungstext", "buchungstext");
       zusatzabbuchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
-      zusatzabbuchungsList.addColumn("Ausführung", "ausfuehrung",
-          new DateFormatter(Einstellungen.DATEFORMAT));
-      zusatzabbuchungsList.setContextMenu(new ZusatzabbuchungMenu());
+      zusatzabbuchungsList.addColumn("aktiv", "aktiv");
+
+      zusatzabbuchungsList.setContextMenu(new ZusatzabbuchungMenu(
+          zusatzabbuchungsList));
       zusatzabbuchungsList.setRememberColWidths(true);
       zusatzabbuchungsList.setRememberOrder(true);
       zusatzabbuchungsList.setSummary(true);
@@ -310,6 +401,23 @@ public class ZusatzabbuchungControl extends AbstractControl
             .addItem((Zusatzabbuchung) zusatzabbuchungen.next());
       }
     }
+    if (this.ausfuehrungSuch.getText().equals("Aktive"))
+    {
+      nichtAktiveEliminieren(zusatzabbuchungsList);
+    }
     return zusatzabbuchungsList;
+  }
+
+  private void nichtAktiveEliminieren(TablePart table) throws RemoteException
+  {
+    GenericIterator it = table.getItems();
+    while (it.hasNext())
+    {
+      Zusatzabbuchung z = (Zusatzabbuchung) it.next();
+      if (!z.isAktiv())
+      {
+        table.removeItem(z);
+      }
+    }
   }
 }

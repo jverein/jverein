@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:39:10  jost
  * *** empty log message ***
  *
@@ -33,11 +36,13 @@ public class ZusatzabbuchungView extends AbstractView
     final ZusatzabbuchungControl control = new ZusatzabbuchungControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Zusatzabbuchung");
-    group.addLabelPair("Fälligkeit", control.getFaelligkeit());
+    group.addLabelPair("Startdatum", control.getStartdatum());
+    group.addLabelPair("nächste Fälligkeit",control.getFaelligkeit());
+    group.addLabelPair("Intervall", control.getIntervall());
+    group.addLabelPair("Endedatum", control.getEndedatum());
     group.addLabelPair("Buchungstext", control.getBuchungstext());
     group.addLabelPair("Betrag", control.getBetrag());
-    group.addLabelPair("Ausführung", control.getAusfuehrung());
-
+ 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Löschen", new ZusatzabbuchungDeleteAction(), control

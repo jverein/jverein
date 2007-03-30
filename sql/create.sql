@@ -48,12 +48,13 @@ CREATE TABLE zusatzabbuchung
   faelligkeit   DATE NOT NULL,
   buchungstext  VARCHAR(27) NOT NULL,
   betrag        DOUBLE NOT NULL,
+  startdatum    DATE,
+  intervall     INTEGER,
+  endedatum     DATE,
   ausfuehrung   DATE,
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);
-
-ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
+);ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
 
 CREATE TABLE stammdaten
 (

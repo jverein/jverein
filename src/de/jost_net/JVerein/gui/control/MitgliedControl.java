@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2007/03/27 19:21:10  jost
+ * Familienangehörige anzeigen
+ *
  * Revision 1.9  2007/03/25 16:57:40  jost
  * 1. Famlienverband herstellen
  * 2. Tab mit allen Mitgliedern
@@ -55,6 +58,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
+import de.jost_net.JVerein.gui.menu.ZusatzabbuchungMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
@@ -630,14 +634,21 @@ public class MitgliedControl extends AbstractControl
     zusatzabbuchungenList.setRememberColWidths(true);
     zusatzabbuchungenList.setRememberOrder(true);
 
-    zusatzabbuchungenList.addColumn("Fälligkeit", "faelligkeit",
+    zusatzabbuchungenList.addColumn("Startdatum", "startdatum",
+        new DateFormatter(Einstellungen.DATEFORMAT));
+    zusatzabbuchungenList.addColumn("nächste Fälligkeit", "faelligkeit",
+        new DateFormatter(Einstellungen.DATEFORMAT));
+    zusatzabbuchungenList.addColumn("letzte Ausführung", "ausfuehrung",
+        new DateFormatter(Einstellungen.DATEFORMAT));
+    zusatzabbuchungenList.addColumn("Intervall", "intervalltext");
+    zusatzabbuchungenList.addColumn("Endedatum", "endedatum",
         new DateFormatter(Einstellungen.DATEFORMAT));
     zusatzabbuchungenList.addColumn("Buchungstext", "buchungstext");
     zusatzabbuchungenList.addColumn("Betrag", "betrag", new CurrencyFormatter(
         "", Einstellungen.DECIMALFORMAT));
-    zusatzabbuchungenList.addColumn("Ausführung", "ausfuehrung",
-        new DateFormatter(Einstellungen.DATEFORMAT));
-
+    zusatzabbuchungenList.addColumn("aktiv", "aktiv");
+    zusatzabbuchungenList.setContextMenu(new ZusatzabbuchungMenu(
+        zusatzabbuchungenList));
     return zusatzabbuchungenList;
   }
 

@@ -2,17 +2,47 @@
    <h2>Dokumentation</h2>
 
     <h3>Übersicht Zusatzabbuchungen</h3>
+    <p>Für jedes Mitglied können Zusatzabbuchungen hinterlegt werden. Diese Beträge werden zusätzlich
+       zum Mitgliedsbeitrag eingezogen. Die Zusatzabbuchung können einmalig (z. B. Eigenanteil für
+       die Teilnahme an einer Veranstaltung) oder wiederkehrend (z. B. Instrumentenversicherung) angelegt
+       werden. Als Wiederholungs-Intervall stehen
+       <ul>
+         <li>monatlich</li>
+         <li>zweimonatlich</li>
+         <li>vierteljährlich</li>
+         <li>halbjährlich</li>
+         <li>jährlich</li>
+       </ul>
+       zur Auswahl.</li>
     <p>Die Zusatzabbuchungen können sowohl bei jedem <a href='dokumentationmitglied.shtml'>Mitglied</a>
-       auf dem entsprechenden Reiter 
-       angesehen werden, als auch in einer Übersicht für alle Mitglieder. Dabei kann die 
-       Anzeige eingeschränkt werden auf <i>Noch nicht ausgeführte Abbuchungen</i> oder nach 
-       den verschiedenen Ausführungsterminen. Ist eine Zusatzabbuchung ausgeführt worden, 
-       wird intern ein entsprechendes Merkmal gesetzt. Durch einen Rechtsklick auf eine 
-       Zusatzabbuchung und die Auswahl <i>Erneut ausführen</i> wird das Merkmal zurückgesetzt.</p>
+       auf dem entsprechenden Reiter angesehen werden, als auch in einer Übersicht für alle Mitglieder. 
+       Dabei kann die Anzeige eingeschränkt werden auf 
+       <ul>
+         <li>alle Mitglieder</li>
+         <li>aktive</li>
+         <li>noch nicht ausgeführte Abbuchungen</li>
+         <li>nach den verschieden Ausführungsterminen.</li>
+       </ul>
+    </p>
+    <p>Durch einen Doppelklick auf eine Zusatzabbuchung wird der Bildschirm für die Bearbeitung geöffnet.
+       Mit einem Rechtsklick öffent sich ein Menü. Damit kann 
+       <ul>
+          <li>der nächste Fälligkeitstermin gesetzt werden</li>
+          <li>der vorherige Fälligkeitstermin gesetzt werden</li>
+          <li>das Ausführungsdatum gelöscht werden</li>
+          <li>die Zusatzabbuchung gelöscht werden</li>
+       </ul>
+     </p>
+     <p>Hinweis: Die wiederkehrenden Zusatzabbuchung sind in Version 0.8 eingeführt worden. Vorher
+     gab es nur einmalige Buchungen</p>
 
     <p>
        <a href='screenshots/listezusatzabbuchungen.jpg' target=blank>
        <img class="screenshot" src="screenshots/th-listezusatzabbuchungen.jpg"></a></p>
+    
+    <p>
+       <a href='screenshots/zusatzabbuchung.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-zusatzabbuchung.jpg"></a></p>
     
     <p><a href='dokumentationabbuchung.shtml'>&lt;&lt; [Abbuchung]</a> <a href='dokumentation.shtml'>[Übersicht]</a> <a href='dokumentationmanuellezahlungseingaenge.shtml'>[Manuelle Zahlungseingänge] &gt;&gt;</a></p>
        

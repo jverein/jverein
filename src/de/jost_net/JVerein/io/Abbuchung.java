@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/03/13 19:58:26  jost
+ * Beiträge, die nicht abgebucht werden (Bar/Überweisung) werden in die Liste der manuellen Zahlungseingänge eingetragen.
+ *
  * Revision 1.8  2007/03/10 20:37:06  jost
  * Neu: Zahlungsweg
  *
@@ -43,6 +46,7 @@ import java.util.Date;
 import java.util.Hashtable;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.IntervallInput;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
@@ -50,6 +54,7 @@ import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
 import de.jost_net.OBanToo.Dtaus.DtausDateiWriter;
 import de.jost_net.OBanToo.Dtaus.DtausException;
@@ -161,14 +166,23 @@ public class Abbuchung
       }
       // Schritt 2: Zusatzabbuchungen verarbeiten
       list = Einstellungen.getDBService().createList(Zusatzabbuchung.class);
-      list.addFilter("ausfuehrung is null");
       while (list.hasNext())
       {
         Zusatzabbuchung z = (Zusatzabbuchung) list.next();
-        Mitglied m = z.getMitglied();
-        writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
-        z.setAusfuehrung(new Date());
-        z.store();
+        if (z.isAktiv())
+        {
+          Mitglied m = z.getMitglied();
+          writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
+          if (z.getIntervall().intValue() != IntervallInput.KEIN
+              && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
+                  .getEndedatum().getTime()))
+          {
+            z.setFaelligkeit(Datum.addInterval(z.getFaelligkeit(), z
+                .getIntervall(), z.getEndedatum()));
+          }
+          z.setAusfuehrung(Datum.getHeute());
+          z.store();
+        }
       }
       // Ende von Schritt 2
 
