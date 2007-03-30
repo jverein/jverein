@@ -5,6 +5,9 @@
          <ul>
             <li>Überprüfung der Datenbank-Struktur beim Startup.</li>
             <li>Wiederkehrende Zusatzabbuchungen</li>
+            <li>Bei der Neuerfassung von Mitgliedern wird nach der Eingabe der PLZ
+                der Ort automatisch ermittelt, sofern er bereits bei mindestens einem
+                Mitglied gespeichert ist.</li>
          </ul>
       <li>Version 0.7 vom 27.03.2007</li>
          <ul>
