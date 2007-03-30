@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:26:00  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:38:12  jost
  * *** empty log message ***
  *
@@ -21,6 +24,7 @@ import de.jost_net.JVerein.rmi.Zusatzabbuchung;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -29,6 +33,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class ZusatzabbuchungResetAction implements Action
 {
+  private TablePart table;
+
+  public ZusatzabbuchungResetAction(TablePart table)
+  {
+    this.table = table;
+  }
+
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Zusatzabbuchung))
@@ -57,9 +68,10 @@ public class ZusatzabbuchungResetAction implements Action
         Logger.error("Fehler beim Reset der Zusatzbuchung", e);
         return;
       }
-
+      int ind = table.removeItem(z);
       z.setAusfuehrung(null);
       z.store();
+      table.addItem(z, ind);
       GUI.getStatusBar().setSuccessText("Ausführungsdatum zurückgesetzt.");
     }
     catch (RemoteException e)
