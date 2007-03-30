@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/03/28 13:23:01  jost
+ * Java 1.5-Kompatibilität
+ *
  * Revision 1.4  2007/03/28 12:26:37  jost
  * Überprüfung der Datenbankstruktur beim Startup
  *
@@ -70,8 +73,8 @@ public class JVereinPlugin extends AbstractPlugin
   public void init() throws ApplicationException
   {
     Logger.info("starting init process for hibiscus");
-
     DBMAPPING.put("p9XzkIUJkzcvEgnLD+YeIA==", new Double(0.7));
+    DBMAPPING.put("Q9kAiUaKXmAwYWCFDjM15A==", new Double(0.8));
     try
     {
       Application.getCallback().getStartupMonitor().setStatusText(
@@ -249,5 +252,4 @@ public class JVereinPlugin extends AbstractPlugin
         "examplepassword");
     return db;
   }
-
 }
