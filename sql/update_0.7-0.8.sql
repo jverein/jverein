@@ -13,6 +13,6 @@ ALTER CREATE TABLE zusatzabbuchung
   PRIMARY KEY   (id)
 );
 
-UPDATE zusatzabbuchung SET erledigt = true where ausfuehrung is not null;
 UPDATE zusatzabbuchung SET startdatum = faelligkeit where startdatum is null;
+UPDATE zusatzabbuchung SET intervall = 0 where intervall is null;
 
