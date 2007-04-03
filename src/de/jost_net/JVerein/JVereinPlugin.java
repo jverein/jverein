@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/03/30 13:18:23  jost
+ * Erweiterung für die Version 0.8
+ *
  * Revision 1.5  2007/03/28 13:23:01  jost
  * Java 1.5-Kompatibilität
  *
@@ -74,7 +77,7 @@ public class JVereinPlugin extends AbstractPlugin
   {
     Logger.info("starting init process for hibiscus");
     DBMAPPING.put("p9XzkIUJkzcvEgnLD+YeIA==", new Double(0.7));
-    DBMAPPING.put("Q9kAiUaKXmAwYWCFDjM15A==", new Double(0.8));
+    DBMAPPING.put("/L+dtSgsG/njGQb4wM49lA==", new Double(0.8));
     try
     {
       Application.getCallback().getStartupMonitor().setStatusText(

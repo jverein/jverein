@@ -54,7 +54,9 @@ CREATE TABLE zusatzabbuchung
   ausfuehrung   DATE,
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
+);
+
+ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
 
 CREATE TABLE stammdaten
 (
