@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/25 17:02:43  jost
+ * 1. Zeitoptimierung bei der Suche
+ * 2. Tab mit allen Mitgliedern
+ *
  * Revision 1.3  2007/02/23 20:27:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -39,6 +43,7 @@ import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
@@ -52,14 +57,29 @@ public class MitgliederSucheView extends AbstractView
   {
     final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H", "I", "J",
         "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U", "Ü", "V",
-        "W", "X", "Y", "Z" , "*"};
+        "W", "X", "Y", "Z", "*" };
     GUI.getView().setTitle("Suche Mitglied");
 
     final MitgliedControl control = new MitgliedControl(this);
 
-    String sql = "select count(*) from mitglied";
+    String sql = "select count(*) from beitragsgruppe";
     DBService service = Einstellungen.getDBService();
     ResultSetExtractor rs = new ResultSetExtractor()
+    {
+      public Object extract(ResultSet rs) throws RemoteException, SQLException
+      {
+        rs.next();
+        return new Long(rs.getLong(1));
+      }
+    };
+    Long anzahlbeitragsgruppe = (Long) service
+        .execute(sql, new Object[] {}, rs);
+    if (anzahlbeitragsgruppe.longValue() == 0)
+    {
+      new LabelInput("Noch keine Beitragsgruppe erfaßt.").paint(getParent());
+    }
+
+    rs = new ResultSetExtractor()
     {
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
@@ -121,7 +141,10 @@ public class MitgliederSucheView extends AbstractView
       });
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton("Neu", new MitgliedDetailAction());
+    if (anzahlbeitragsgruppe > 0)
+    {
+      buttons.addButton("Neu", new MitgliedDetailAction());
+    }
     buttons.addButton("<< Zurück", new BackAction());
   }
 
