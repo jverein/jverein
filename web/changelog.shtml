@@ -9,6 +9,7 @@
                 der Ort automatisch ermittelt, sofern er bereits bei mindestens einem
                 Mitglied gespeichert ist</li>
             <li>Bugfix in der SQL-DDL-Update-Routine</li>
+            <li>Vermeidung ClassNotFoundException</li>
          </ul>
       <li>Version 0.7 vom 27.03.2007</li>
          <ul>
