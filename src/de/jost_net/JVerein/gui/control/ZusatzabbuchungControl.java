@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/03/30 13:23:35  jost
+ * Wiederkehrende Zusatzabbuchungen.
+ *
  * Revision 1.5  2007/03/18 08:39:27  jost
  * Pflichtfelder gekennzeichnet
  * Bugfix Zahlungsweg
@@ -33,6 +36,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.swt.widgets.Event;
@@ -44,7 +49,6 @@ import de.jost_net.JVerein.gui.input.IntervallInput;
 import de.jost_net.JVerein.gui.menu.ZusatzabbuchungMenu;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
-import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -410,7 +414,8 @@ public class ZusatzabbuchungControl extends AbstractControl
 
   private void nichtAktiveEliminieren(TablePart table) throws RemoteException
   {
-    GenericIterator it = table.getItems();
+    List li = table.getItems();
+    Iterator it = li.iterator();
     while (it.hasNext())
     {
       Zusatzabbuchung z = (Zusatzabbuchung) it.next();
