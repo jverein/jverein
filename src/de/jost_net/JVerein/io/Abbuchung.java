@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2007/03/30 13:25:40  jost
+ * Wiederkehrende Zusatzabbuchungen.
+ *
  * Revision 1.9  2007/03/13 19:58:26  jost
  * Beiträge, die nicht abgebucht werden (Bar/Überweisung) werden in die Liste der manuellen Zahlungseingänge eingetragen.
  *
@@ -112,7 +115,7 @@ public class Abbuchung
         {
           beitragsfrei += " AND ";
         }
-        beitragsfrei = " beitragsgruppe <> " + b.getID();
+        beitragsfrei += " beitragsgruppe <> " + b.getID();
       }
 
       // Beitragsgruppen-Tabelle lesen und cachen
