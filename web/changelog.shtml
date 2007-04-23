@@ -10,6 +10,7 @@
                 Mitglied gespeichert ist</li>
             <li>Bugfix in der SQL-DDL-Update-Routine</li>
             <li>Vermeidung ClassNotFoundException</li>
+            <li>Bugfix bei der Abbuchung mit mehr als einer beitragsfreien Beitragsgruppe</li>
          </ul>
       <li>Version 0.7 vom 27.03.2007</li>
          <ul>
