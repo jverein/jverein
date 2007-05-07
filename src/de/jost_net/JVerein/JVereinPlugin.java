@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/04/05 18:53:40  jost
+ * Vermeidung von ClassNotFoundException
+ *
  * Revision 1.7  2007/04/03 16:02:58  jost
  * *** empty log message ***
  *
@@ -84,7 +87,7 @@ public class JVereinPlugin extends AbstractPlugin
   {
     Logger.info("starting init process for hibiscus");
     DBMAPPING.put("p9XzkIUJkzcvEgnLD+YeIA==", new Double(0.7));
-    DBMAPPING.put("/L+dtSgsG/njGQb4wM49lA==", new Double(0.8));
+    DBMAPPING.put("OaONZJuDOABopEgRYGo3fA==", new Double(0.8));
     try
     {
       Application.getCallback().getStartupMonitor().setStatusText(

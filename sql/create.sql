@@ -99,6 +99,19 @@ CREATE TABLE manuellerzahlungseingang
   PRIMARY KEY   (id)
 );
 
+CREATE TABLE wiedervorlage
+(
+  id            INTEGER default UNIQUEKEY('wiedervorlage'),
+  mitglied      INTEGER NOT NULL,
+  datum         DATE NOT NULL,
+  vermerk       VARCHAR(50) NOT NULL,
+  erledigung    DATE,
+  UNIQUE        (id),
+  PRIMARY KEY   (id)
+);
+
+ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
+
 
 COMMIT; 
 

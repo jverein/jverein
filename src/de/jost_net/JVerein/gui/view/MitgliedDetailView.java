@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/03/27 19:23:24  jost
+ * Familienangehörige anzeigen
+ *
  * Revision 1.6  2007/03/25 17:01:14  jost
  * Beitragsart aufgenommen.
  *
@@ -98,6 +101,11 @@ public class MitgliedDetailView extends AbstractView
     TabGroup tab5 = new TabGroup(folder, "Vermerke");
     tab5.addLabelPair("Vermerk 1", control.getVermerk1());
     tab5.addLabelPair("Vermerk 2", control.getVermerk2());
+
+    TabGroup tab6 = new TabGroup(folder, "Wiedervorlage");
+    control.getWiedervorlageTable().paint(tab6.getComposite());
+    ButtonArea buttonswvl = new ButtonArea(tab6.getComposite(), 1);
+    buttonswvl.addButton(control.getWiedervorlageNeu());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 

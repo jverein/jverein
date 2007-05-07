@@ -89,6 +89,11 @@
 				icon-open="page.gif" 		
 				action="de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction">
 	    </item>
+	    <item name="Wiedervorlage"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.WiedervorlageListeAction">
+	    </item>
 	    <item name="Auswertung"		
 			icon-close="folder.gif" 
 			icon-open="folderopen.gif">

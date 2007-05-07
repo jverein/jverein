@@ -16,3 +16,16 @@ ALTER CREATE TABLE zusatzabbuchung
 UPDATE zusatzabbuchung SET startdatum = faelligkeit where startdatum is null;
 UPDATE zusatzabbuchung SET intervall = 0 where intervall is null;
 
+
+ALTER CREATE TABLE wiedervorlage
+(
+  id            INTEGER default UNIQUEKEY('wiedervorlage'),
+  mitglied      INTEGER NOT NULL,
+  datum         DATE NOT NULL,
+  vermerk       VARCHAR(50) NOT NULL,
+  erledigung    DATE,
+  UNIQUE        (id),
+  PRIMARY KEY   (id)
+);
+
+ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
