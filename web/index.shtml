@@ -22,7 +22,7 @@
        jährliche Beitragseinzug realisiert. Zusätzlich können für jedes Mitglied zu 
        beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...),
        die ab der Version 0.8 auch wiederkehrend sein können.
-       Für jedes Mitglied können auch Vermerke festgehalten werden.</p>
+       Für jedes Mitglied können auch Vermerke und Wiedervorlagen erfaßt werden.</p>
     <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
        werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>
     <p>Der Zahlungseingang von Mitgliedern, die nicht am Abbuchungsverfahren teilnehmen kann

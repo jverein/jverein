@@ -51,6 +51,10 @@
      <p>
       <a href='screenshots/mitgliedvermerke.jpg' target=blank>
        <img class="screenshot" src="screenshots/th-mitgliedvermerke.jpg"></a></p>
+    <p>Für jedes Mitglied können beliebig viele Wiedervorlagetermine hinterlegt werden.</p>
+     <p>
+      <a href='screenshots/mitgliedwiedervorlage.jpg' target=blank>
+       <img class="screenshot" src="screenshots/th-mitgliedwiedervorlage.jpg"></a></p>
      <p><a href='dokumentation.shtml'>[Übersicht]</a> <a href='dokumentationkursteilnehmer.shtml'>[Kursteilnehmer] &gt;&gt;</a></p>
        
 <!--#include virtual="footer.shtml"-->  
