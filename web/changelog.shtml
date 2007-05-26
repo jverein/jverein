@@ -12,6 +12,7 @@
             <li>Vermeidung ClassNotFoundException</li>
             <li>Bugfix bei der Abbuchung mit mehr als einer beitragsfreien Beitragsgruppe</li>
             <li>Neu: Wiedervorlagetermin bei jedem Mitglied und Übersicht über alle Termine</li>
+            <li>Neu: Auswertung Kursteilnehmer</li>
          </ul>
       <li>Version 0.7 vom 27.03.2007</li>
          <ul>
