@@ -103,6 +103,11 @@
 				icon-open="page.gif" 		
 				action="de.jost_net.JVerein.gui.action.AuswertungMitgliedAction">
 	    	</item>
+			<item name="Kursteilnehmer"
+	 			icon-close="page.gif" 	
+				icon-open="page.gif" 		
+				action="de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction">
+	    	</item>
 			<item name="Statistik"
 	 			icon-close="page.gif" 	
 				icon-open="page.gif" 		
