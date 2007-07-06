@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/02/25 19:13:05  jost
+ * Neu: Kursteilnehmer
+ *
  * Revision 1.3  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -51,7 +54,7 @@ public class AbbuchungView extends AbstractView
       }
     };
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
-    if (anzahl.longValue() != 1)
+    if (anzahl.longValue() == 0)
     {
       throw new ApplicationException("Stammdaten fehlen. Bitte erfassen.");
     }
