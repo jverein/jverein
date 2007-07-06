@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/05/07 19:23:14  jost
+ * Neu: Wiedervorlage
+ *
  * Revision 1.8  2007/04/05 18:53:40  jost
  * Vermeidung von ClassNotFoundException
  *
@@ -88,6 +91,7 @@ public class JVereinPlugin extends AbstractPlugin
     Logger.info("starting init process for hibiscus");
     DBMAPPING.put("p9XzkIUJkzcvEgnLD+YeIA==", new Double(0.7));
     DBMAPPING.put("OaONZJuDOABopEgRYGo3fA==", new Double(0.8));
+    
     try
     {
       Application.getCallback().getStartupMonitor().setStatusText(
@@ -101,7 +105,7 @@ public class JVereinPlugin extends AbstractPlugin
         {
           double size = settings.getDouble("sql-update-size", -1);
           File f = new File(getResources().getPath()
-              + "/sql/update_0.6-0.7.sql");
+              + "/sql/update_0.7-0.8.sql");
 
           if (f.exists())
           {
