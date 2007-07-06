@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/18 08:39:13  jost
+ * Pflichtfelder gekennzeichnet
+ * Bugfix Zahlungsweg
+ *
  * Revision 1.3  2007/02/23 20:26:38  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -27,7 +31,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.kapott.hbci.manager.HBCIUtils;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Stammdaten;
+import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -51,6 +57,15 @@ public class StammdatenControl extends AbstractControl
   public StammdatenControl(AbstractView view)
   {
     super(view);
+    try
+    {
+      stamm = (Stammdaten) Einstellungen.getDBService().createObject(
+          Stammdaten.class, "1");
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   private Stammdaten getStammdaten()
