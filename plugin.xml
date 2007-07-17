@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
-<plugin name="jverein" version="0.8"
+<plugin name="jverein" version="0.9"
 	class="de.jost_net.JVerein.JVereinPlugin">
 
 	<description>Jameica-Vereinsverwaltung</description>

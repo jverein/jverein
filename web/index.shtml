@@ -1,10 +1,7 @@
 <!--#include virtual="main.shtml"-->  
     <h2>News</h2>
-    <p>Version 0.7 am 28.03.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>.
-    Bislang habe ich immer in kurzen Abst‰nden nach der Einarbeitung neuer Features oder
-    nach der Behebung von Fehlern eine neue Version freigegeben. Ab jetzt wird die Freigabe
-    an den Zyklus von Jameica/Hibiscus angepaﬂt. Im Download-Bereich wird es die jeweils zur
-    CVS-Version passende Entwicklerversion geben.
+    <p>Version 0.9 am 17.07.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>
+    Diese Version ist kompatibel zur Jameica 1.5 und Hibiscus 1.7.
     </p> 
     <h2>Home</h2>
     <p>

@@ -10,10 +10,5 @@
        installiert.</p>
     <p>Für die Installation von JVerein wird das heruntergeladene ZIP-Archiv in das 
        plugins-Verzeichnis von Jameica entpackt. Fertig.</p>
-    <p>Hinweis! Zur Zeit ist es erforderlich ein aktuelles 
-       <a href='http://www.willuhn.de/projects/jameica/?page=download_ext'>Nightly-Build von Jameica</a>
-        und <a href='http://www.willuhn.de/projects/hibiscus/?page=download_ext'>Hibiscus</a>
-    einzusetzen. Künftig wird es zu jedem Jameica/Hibiscus-Release auch das passende JVerein-Release
-    geben.</p>
-<!--#include virtual="footer.shtml"-->  
+ <!--#include virtual="footer.shtml"-->  
 
