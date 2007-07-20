@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/07/06 11:37:18  jost
+ * Zur Kompatibilität: Änderung der Plausi.
+ *
  * Revision 1.4  2007/02/25 19:13:05  jost
  * Neu: Kursteilnehmer
  *
@@ -56,7 +59,8 @@ public class AbbuchungView extends AbstractView
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
     if (anzahl.longValue() == 0)
     {
-      throw new ApplicationException("Stammdaten fehlen. Bitte erfassen.");
+      throw new ApplicationException("Stammdaten fehlen. "
+          + " Bitte unter Plugins|JVerein|Stammdaten erfassen.");
     }
 
     GUI.getView().setTitle("Abbuchung");

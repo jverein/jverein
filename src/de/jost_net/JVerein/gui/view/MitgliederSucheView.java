@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/04/03 16:03:24  jost
+ * Meldung, wenn keine Beitragsgruppe erfaﬂt ist.
+ *
  * Revision 1.4  2007/03/25 17:02:43  jost
  * 1. Zeitoptimierung bei der Suche
  * 2. Tab mit allen Mitgliedern
@@ -76,7 +79,8 @@ public class MitgliederSucheView extends AbstractView
         .execute(sql, new Object[] {}, rs);
     if (anzahlbeitragsgruppe.longValue() == 0)
     {
-      new LabelInput("Noch keine Beitragsgruppe erfaﬂt.").paint(getParent());
+      new LabelInput("Noch keine Beitragsgruppe erfaﬂt. Bitte unter "
+          + "Plugins|JVerein|Beitragsgruppe erfassen.").paint(getParent());
     }
 
     rs = new ResultSetExtractor()
