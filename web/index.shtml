@@ -1,7 +1,7 @@
 <!--#include virtual="main.shtml"-->  
     <h2>News</h2>
-    <p>Version 0.9 am 17.07.2007 freigegeben. Siehe <a href='changelog.shtml'>Changelog</a>
-    Diese Version ist kompatibel zur Jameica 1.5 und Hibiscus 1.7.
+    <p><b>Version 0.9 am 20.07.2007 freigegeben.</b> Siehe <a href='changelog.shtml'>Changelog</a>.<br>
+    Diese Version ist kompatibel zu Jameica 1.5 und Hibiscus 1.7.
     </p> 
     <h2>Home</h2>
     <p>
