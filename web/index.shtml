@@ -1,7 +1,9 @@
 <!--#include virtual="main.shtml"-->  
     <h2>News</h2>
     <p><b>Version 0.9 am 20.07.2007 freigegeben.</b> Siehe <a href='changelog.shtml'>Changelog</a>.<br>
-    Diese Version ist kompatibel zu Jameica 1.5 und Hibiscus 1.7.
+    Diese Version ist kompatibel zu <a href="http://www.willuhn.de/projects/jameica" target=blank>Jameica</a>
+    1.5 und 
+    <a href="http://www.willuhn.de/projects/hibiscus" target=blank>Hibiscus</a> 1.7.
     </p> 
     <h2>Home</h2>
     <p>
@@ -20,7 +22,8 @@
        beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden (Strafgelder, Eigenanteile ...),
        die ab der Version 0.8 auch wiederkehrend sein können.
        Für jedes Mitglied können auch Vermerke und Wiedervorlagen erfaßt werden.</p>
-    <p>Die Abbuchungen werden im DTAUS-Format ausgegeben und können in Hibiscus importiert
+    <p>Die Abbuchungen werden im DTAUS-Format mit Hilfe meiner Bibliothek 
+       <a href="http://obantoo.berlios.de/" target=blank>OBanToo</a> ausgegeben und können in Hibiscus importiert
        werden. Für künftige Versionen ist eine direkte Übergabe der Buchungen vorgesehen.</p>
     <p>Der Zahlungseingang von Mitgliedern, die nicht am Abbuchungsverfahren teilnehmen kann
        überwacht werden.</p>
@@ -28,7 +31,7 @@
        Hibiscus erledigt.</p>
     <p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p> <img src='lightarrow.jpg'>
     <p>Zusätzlich gibt es
-       eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird bitte ich um eine kurze Nachricht
+       eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um eine kurze Nachricht
        an <a href="mailto:heiner@jverein.de">heiner@jverein.de</a> mit dem Namen des Vereins und 
        der Anzahl der Mitglieder. Diese Daten dienen der "Erfolgskontrolle". </p>
 <!--#include virtual="footer.shtml"-->  
