@@ -103,8 +103,22 @@ Kündigung&Datum der Kündigung im Format TT.MM.JJJJ\\
 \hline
 \end{longtable}
 
-Als Feldtrennzeichen wird das Semikolon vervendet.
+Als Feldtrennzeichen wird das Semikolon vervendet. Jede Zeile muß die gleiche Anzahl Semikola enthalten. 
 Die Datei darf keine Anführungszeichen enthalten. Bei jedem Mitglied müssen die Spalten Beitragsart\_1 und Beitrag\_1 gefüllt sein.
+
+Beispieldatei:\\
+\begin{verbatim*}
+Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;
+    Geschlecht;Bankleitzahl;Kontonummer;Zahlungsart;Zahler;Telefon_privat;
+    Telefon_dienstlich;Email;Eintritt;Beitragsart_1;Beitrag_1;Austritt;
+    Kündigung
+22;Herrn;Dr.;Meier;Hans;Ackerstr. 1;12345;Testenhausen;22.02.1970;M;12345678;
+    12345;l;;12345;;hans.meier@web.de;01.01.2000;Erwachsene;22,00;;;
+:
+:
+:
+\end{verbatim*} 
+Jede Datei enthält eine Kopfzeile und pro Mitglied eine Zeile. Die Zeilen wurden hier aus Platzgründen umgebrochen. In der Originaldatei werden die eingerückten Zeilen jeweils an die vorherige angehängt.
 
 Beim Import werden sowohl die Beitragsgruppen-Tabelle als auch die Mitgliedertabelle aufgebaut. Ein erneuter Import löscht die vorhandenen Daten nach einer entsprechenden Warnung.
 
