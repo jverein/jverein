@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/27 19:20:16  jost
+ * Zusätzliche Plausi
+ *
  * Revision 1.3  2007/02/25 19:12:11  jost
  * Neu: Kursteilnehmer
  *
@@ -159,13 +162,13 @@ public class AbbuchungControl extends AbstractControl
     {
       public void handleAction(Object context) throws ApplicationException
       {
-        doImport();
+        doAbbuchung();
       }
     }, null, true);
     return button;
   }
 
-  public void doImport() throws ApplicationException
+  private void doAbbuchung() throws ApplicationException
   {
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
 
