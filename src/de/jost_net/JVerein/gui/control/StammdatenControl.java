@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/07/06 11:36:40  jost
+ * Bugfix Speicherung Stammdaten
+ *
  * Revision 1.4  2007/03/18 08:39:13  jost
  * Pflichtfelder gekennzeichnet
  * Bugfix Zahlungsweg
@@ -84,7 +87,7 @@ public class StammdatenControl extends AbstractControl
     {
       return name;
     }
-    name = new TextInput(getStammdaten().getName(), 30);
+    name = new TextInput(getStammdaten().getName(), 27);
     name.setMandatory(true);
     return name;
   }
