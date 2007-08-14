@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2007/04/20 12:17:46  jost
+ * Bugfix: Mehr als eine Beitragsgruppe beitragsfrei
+ *
  * Revision 1.10  2007/03/30 13:25:40  jost
  * Wiederkehrende Zusatzabbuchungen.
  *
@@ -135,7 +138,10 @@ public class Abbuchung
       // Die bereits ausgetretenen werden ignoriert.
       list.addFilter("austritt is null");
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
-      list.addFilter(beitragsfrei);
+      if (beitragsfrei.length() > 0)
+      {
+        list.addFilter(beitragsfrei);
+      }
       // Zahlungsweg Abbuchung
       // list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
       // ZahlungswegInput.ABBUCHUNG) });
