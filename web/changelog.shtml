@@ -1,6 +1,17 @@
 <!--#include virtual="main.shtml"-->  
     <h2>Changelog</h2>
     <ul>
+      <li>Version ?.? vom ??.??.2007</li>
+         <ul>
+         		<li>Beschränkung der Länge des Vereinsnamens auf 27 Stellen wegen Problemen
+         		    mit der Abbuchung</li>
+         		<li>Bugfix bei der Abbuchung, wenn es keine beitragsfreie Beitragsgruppe gibt</li>
+         		<li>Neuer Konfigurationsbildschirm im Plugins-Menü: Es kann bestimmt werden,
+         		    ob das Geburtsdatum und das Eintrittsdatum ein Pflichtfeld ist und ob die 
+         		    Reiter Kommunikationsdaten, Zusatzabbuchungen, Vermerke und Wiedervorlage
+         		    sowie die Kursteilnehmer angezeigt werden.
+         		    </li> 
+         </ul>
       <li>Version 0.9 vom 20.07.2007</li>
          <ul>
             <li>Überprüfung der Datenbank-Struktur beim Startup.</li>

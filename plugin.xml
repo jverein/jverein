@@ -43,6 +43,10 @@
             shortcut="ALT+G" 
             action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
 	    </item>
+			<item name="Einstellungen"
+            shortcut="ALT+E" 
+            action="de.jost_net.JVerein.gui.action.EinstellungenAction">
+	    </item>
 -	    <item name="-" /> 
 	   	<item name="Import"
             shortcut="ALT+I" 
@@ -67,59 +71,9 @@
 	  <item name="JVerein"		
 			icon-close="folder.gif" 
 			icon-open="folderopen.gif" 	
-			action="de.jost_net.JVerein.gui.action.WelcomeAction">
-	    <item name="Mitglieder"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.MitgliedSucheAction">
-	    </item>
-	    <item name="Kursteilnehmer"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction">
-	    </item>
-	    <item name="Abbuchung"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.AbbuchungAction">
-	    </item>
-	    <item name="Zusatzabbuchung"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.ZusatzabbuchungListeAction">
-	    </item>
-	    <item name="Manueller Zahlungseingang"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction">
-	    </item>
-	    <item name="Wiedervorlage"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.WiedervorlageListeAction">
-	    </item>
-	    <item name="Auswertung"		
-			icon-close="folder.gif" 
-			icon-open="folderopen.gif">
-	    
-			<item name="Mitglieder"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.AuswertungMitgliedAction">
-	    	</item>
-			<item name="Kursteilnehmer"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction">
-	    	</item>
-			<item name="Statistik"
-	 			icon-close="page.gif" 	
-				icon-open="page.gif" 		
-				action="de.jost_net.JVerein.gui.action.StatistikMitgliedAction">
-	    	</item>
-	    </item>
-
-    </item>
+			action="de.jost_net.JVerein.gui.action.WelcomeAction"
+			id="jverein.main">
+      </item>
    </navigation>
    <requires>
      <import plugin="hibiscus"/>
