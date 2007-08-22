@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/05/07 19:26:01  jost
+ * Neu: Wiedervorlage
+ *
  * Revision 1.7  2007/03/27 19:23:24  jost
  * Familienangehörige anzeigen
  *
@@ -37,6 +40,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
@@ -81,11 +85,13 @@ public class MitgliedDetailView extends AbstractView
     tab1.addLabelPair("Konto", control.getKonto());
     tab1.addLabelPair("Kontoinhaber", control.getKontoinhaber());
 
-    TabGroup tab2 = new TabGroup(folder, "Kommunikation");
-    tab2.addLabelPair("Telefon priv.", control.getTelefonprivat());
-    tab2.addLabelPair("Telefon dienstl.", control.getTelefondienstlich());
-    tab2.addLabelPair("eMail", control.getEmail());
-
+    if (Einstellungen.isKommunikationsdaten())
+    {
+      TabGroup tab2 = new TabGroup(folder, "Kommunikation");
+      tab2.addLabelPair("Telefon priv.", control.getTelefonprivat());
+      tab2.addLabelPair("Telefon dienstl.", control.getTelefondienstlich());
+      tab2.addLabelPair("eMail", control.getEmail());
+    }
     TabGroup tab3 = new TabGroup(folder, "Mitgliedschaft");
     tab3.addLabelPair("Eintritt", control.getEintritt());
     tab3.addLabelPair("Betragsgruppe", control.getBeitragsgruppe());
@@ -93,20 +99,28 @@ public class MitgliedDetailView extends AbstractView
     tab3.addLabelPair("Kündigung", control.getKuendigung());
     tab3.addPart(control.getFamilienverband());
 
-    TabGroup tab4 = new TabGroup(folder, "Zusatzabbuchung");
-    control.getZusatzabbuchungenTable().paint(tab4.getComposite());
-    ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
-    buttonszus.addButton(control.getZusatzabbuchungNeu());
+    if (Einstellungen.isZusatzabbuchung())
+    {
+      TabGroup tab4 = new TabGroup(folder, "Zusatzabbuchung");
+      control.getZusatzabbuchungenTable().paint(tab4.getComposite());
+      ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
+      buttonszus.addButton(control.getZusatzabbuchungNeu());
+    }
 
-    TabGroup tab5 = new TabGroup(folder, "Vermerke");
-    tab5.addLabelPair("Vermerk 1", control.getVermerk1());
-    tab5.addLabelPair("Vermerk 2", control.getVermerk2());
+    if (Einstellungen.isVermerke())
+    {
+      TabGroup tab5 = new TabGroup(folder, "Vermerke");
+      tab5.addLabelPair("Vermerk 1", control.getVermerk1());
+      tab5.addLabelPair("Vermerk 2", control.getVermerk2());
+    }
 
-    TabGroup tab6 = new TabGroup(folder, "Wiedervorlage");
-    control.getWiedervorlageTable().paint(tab6.getComposite());
-    ButtonArea buttonswvl = new ButtonArea(tab6.getComposite(), 1);
-    buttonswvl.addButton(control.getWiedervorlageNeu());
-
+    if (Einstellungen.isWiedervorlage())
+    {
+      TabGroup tab6 = new TabGroup(folder, "Wiedervorlage");
+      control.getWiedervorlageTable().paint(tab6.getComposite());
+      ButtonArea buttonswvl = new ButtonArea(tab6.getComposite(), 1);
+      buttonswvl.addButton(control.getWiedervorlageNeu());
+    }
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton("<< Zurück", new BackAction());

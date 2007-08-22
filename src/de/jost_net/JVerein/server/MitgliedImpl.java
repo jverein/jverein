@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/03/25 17:06:02  jost
+ * Plausibilitätsprüfung der Bankverbindung bei Barzahlung abgeschaltet
+ * Herstellung des Famlienverbandes.
+ *
  * Revision 1.5  2007/03/10 20:29:16  jost
  * Neu: Zahlungsweg
  *
@@ -86,7 +90,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Vornamen eingeben");
     }
-    if (getGeburtsdatum() == null)
+    if (getGeburtsdatum() == null && Einstellungen.isGeburtsdatumPflicht())
     {
       throw new ApplicationException("Bitte Geburtsdatum eingeben");
     }
@@ -94,7 +98,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Geschlecht auswählen");
     }
-    if (getEintritt() == null)
+    if (getEintritt() == null && Einstellungen.isEintrittsdatumPflicht())
     {
       throw new ApplicationException("Bitte Eintrittsdatum eingeben");
     }

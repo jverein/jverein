@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2007/07/17 16:06:02  jost
+ * Release 0.9
+ *
  * Revision 1.10  2007/07/06 11:36:02  jost
  * Bugfix Versionsnummer
  *
@@ -47,7 +50,9 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Locale;
 
+import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.willuhn.datasource.db.EmbeddedDatabase;
+import de.willuhn.jameica.gui.extension.ExtensionRegistry;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.plugin.PluginResources;
 import de.willuhn.jameica.system.Application;
@@ -95,7 +100,7 @@ public class JVereinPlugin extends AbstractPlugin
     DBMAPPING.put("p9XzkIUJkzcvEgnLD+YeIA==", new Double(0.7));
     DBMAPPING.put("OaONZJuDOABopEgRYGo3fA==", new Double(0.8));
     DBMAPPING.put("OaONZJuDOABopEgRYGo3fA==", new Double(0.9));
-    
+
     try
     {
       Application.getCallback().getStartupMonitor().setStatusText(
@@ -134,8 +139,9 @@ public class JVereinPlugin extends AbstractPlugin
           "Fehler beim Prüfung der Datenbank-Integrität, "
               + "Plugin wird aus Sicherheitsgründen deaktiviert", e);
     }
-
     Application.getCallback().getStartupMonitor().addPercentComplete(5);
+    ExtensionRegistry.register(new MyExtension(), "jverein.main");
+
   }
 
   /**

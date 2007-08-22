@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2007/05/07 19:25:03  jost
+ * Neu: Wiedervorlage
+ *
  * Revision 1.12  2007/03/30 18:42:53  jost
  * Bei der Neuerfassung von Mitgliedern wird nach der Eingabe der PLZ automatisch der Ort eingetragen, sofern die PLZ bereits im Mitgliederbestand gespeichert ist.
  *
@@ -298,7 +301,7 @@ public class MitgliedControl extends AbstractControl
     this.geburtsdatum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.geburtsdatum.setTitle("Geburtsdatum");
     this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
-    this.geburtsdatum.setMandatory(true);
+    this.geburtsdatum.setMandatory(Einstellungen.isGeburtsdatumPflicht());
     this.geburtsdatum.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -419,7 +422,10 @@ public class MitgliedControl extends AbstractControl
     this.eintritt = new DateInput(d, Einstellungen.DATEFORMAT);
     this.eintritt.setTitle("Eintrittsdatum");
     this.eintritt.setText("Bitte Eintrittsdatum wählen");
-    this.eintritt.setMandatory(true);
+    if (Einstellungen.isGeburtsdatumPflicht())
+    {
+      this.eintritt.setMandatory(true);
+    }
     this.eintritt.addListener(new Listener()
     {
       public void handleEvent(Event event)

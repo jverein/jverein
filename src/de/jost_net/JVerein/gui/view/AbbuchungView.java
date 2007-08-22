@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/07/20 20:15:40  jost
+ * Bessere Fehlermeldung
+ *
  * Revision 1.5  2007/07/06 11:37:18  jost
  * Zur Kompatibilität: Änderung der Plausi.
  *
@@ -72,8 +75,15 @@ public class AbbuchungView extends AbstractView
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group.addLabelPair("Zahlungsgrund", control.getZahlungsgrund());
     group.addLabelPair("Zusatzabbuchung", control.getZusatzabbuchung());
+    if (!Einstellungen.isZusatzabbuchung())
+    {
+      control.getZusatzabbuchung().setEnabled(false);
+    }
     group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
-
+    if (!Einstellungen.isKursteilnehmer())
+    {
+      control.getKursteilnehmer().setEnabled(false);
+    }
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(control.getStartButton());
     buttons.addButton("<< Zurück", new BackAction());
