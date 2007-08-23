@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/07/20 20:15:52  jost
+ * Bessere Fehlermeldung
+ *
  * Revision 1.5  2007/04/03 16:03:24  jost
  * Meldung, wenn keine Beitragsgruppe erfaﬂt ist.
  *
@@ -55,6 +58,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractView
 {
+  private static String lasttab = "A";
 
   public void bind() throws Exception
   {
@@ -106,8 +110,24 @@ public class MitgliederSucheView extends AbstractView
       {
         tab[i] = new TabGroup(folder, b[i]);
       }
-      p[0] = control.getMitgliedTable(b[0]);
-      tab[0].addPart(p[0]);
+      int si = 0;
+      if (Einstellungen.getMitgliederStandardTab().equals("*"))
+      {
+        si = b.length - 1;
+      }
+      if (lasttab != null)
+      {
+        for (int i = 0; i < b.length; i++)
+        {
+          if (b[i].equals(lasttab))
+          {
+            si = i;
+          }
+        }
+      }
+      p[si] = control.getMitgliedTable(b[si]);
+      p[si].paint(tab[si].getComposite());
+      folder.setSelection(si);
       folder.addSelectionListener(new SelectionListener()
       {
         public void widgetDefaultSelected(SelectionEvent e)
@@ -118,6 +138,7 @@ public class MitgliederSucheView extends AbstractView
         public void widgetSelected(SelectionEvent e)
         {
           int si = folder.getSelectionIndex();
+          lasttab = b[si];
           try
           {
             boolean gefuellt;
