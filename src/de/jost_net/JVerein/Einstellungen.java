@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.3  2007/08/22 20:42:07  jost
+ * Bug #011762
+ *
  * Revision 1.2  2007/02/23 20:24:57  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -56,6 +59,8 @@ public class Einstellungen
   private static Boolean wiedervorlage;
 
   private static Boolean kursteilnehmer;
+
+  private static String mitgliederstandardtab;
 
   /**
    * Datums-Format dd.MM.yyyy.
@@ -294,6 +299,28 @@ public class Einstellungen
   {
     settings.setAttribute("kursteilnehmer.einblenden", value);
     kursteilnehmer = null;
+  }
+
+  /**
+   * Standardtab für die Mitgliedersuche
+   */
+  public static String getMitgliederStandardTab()
+  {
+    if (mitgliederstandardtab != null)
+    {
+      return mitgliederstandardtab;
+    }
+    mitgliederstandardtab = settings.getString("mitglieder.standardtab", "A");
+    return mitgliederstandardtab;
+  }
+
+  /**
+   * Speichert den Standardtab für die Mitgliedersuche.
+   */
+  public static void setMitgliederStandardTab(String value)
+  {
+    settings.setAttribute("mitglieder.standardtab", value);
+    mitgliederstandardtab = null;
   }
 
 }

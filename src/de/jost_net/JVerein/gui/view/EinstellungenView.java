@@ -34,6 +34,8 @@ public class EinstellungenView extends AbstractView
     group.addLabelPair("Wiedervorlage anzeigen *", control.getWiedervorlage());
     group
         .addLabelPair("Kursteilnehmer anzeigen *", control.getKursteilnehmer());
+    group.addLabelPair("Mitglieder-Suche Standardtab", control
+        .getMitgliederStanardTab());
     new Headline(getParent(), "* Änderung erfordert Neustart");
     ButtonArea buttons = new ButtonArea(getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());
