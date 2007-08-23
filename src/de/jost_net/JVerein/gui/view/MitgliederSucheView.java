@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/08/23 18:45:25  jost
+ * Standard-Tab für die Mitglieder-Suche
+ * und Bug #011764
+ *
  * Revision 1.6  2007/07/20 20:15:52  jost
  * Bessere Fehlermeldung
  *
@@ -58,7 +62,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractView
 {
-  private static String lasttab = "A";
+  private static String lasttab = null;
 
   public void bind() throws Exception
   {
