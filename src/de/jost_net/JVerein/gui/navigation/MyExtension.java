@@ -1,3 +1,15 @@
+/**********************************************************************
+ * $Source$
+ * $Revision$
+ * $Date$
+ * $Author$
+ *
+ * Copyright (c) by Heiner Jostkleigrewe
+ * All rights reserved
+ * heiner@jverein.de
+ * www.jverein.de
+ * $Log$
+ **********************************************************************/
 package de.jost_net.JVerein.gui.navigation;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -15,21 +27,6 @@ import de.willuhn.jameica.gui.extension.Extendable;
 import de.willuhn.jameica.gui.extension.Extension;
 import de.willuhn.logging.Logger;
 
-/**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- * $Locker$
- * $State$
- *
- * Copyright (c) by willuhn software & services
- * All rights reserved
- *
- **********************************************************************/
-
-/**
- */
 public class MyExtension implements Extension
 {
 
@@ -82,4 +79,7 @@ public class MyExtension implements Extension
 
 /*******************************************************************************
  * $Log$
+ * Revision 1.1  2007/08/22 20:43:40  jost
+ * Bug #011762
+ *
  ******************************************************************************/

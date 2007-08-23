@@ -1,8 +1,18 @@
-package de.jost_net.JVerein.gui.navigation;
-
 /**********************************************************************
  * $Source$
  * $Revision$
+ * $Date$
+ * $Author$
+ *
+ * Copyright (c) by Heiner Jostkleigrewe
+ * All rights reserved
+ * heiner@jverein.de
+ * www.jverein.de
+ * $Log$
+ **********************************************************************/package de.jost_net.JVerein.gui.navigation;
+
+/**********************************************************************
+  * $Revision$
  * $Date$
  * $Author$
  * $Locker$
@@ -246,4 +256,7 @@ public class MyItem implements NavigationItem
 
 /*******************************************************************************
  * $Log$
+ * Revision 1.1  2007/08/22 20:43:54  jost
+ * *** empty log message ***
+ *
  ******************************************************************************/
