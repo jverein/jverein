@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2007/08/22 20:43:17  jost
+ * Bug #011762
+ *
  * Revision 1.13  2007/05/07 19:25:03  jost
  * Neu: Wiedervorlage
  *
@@ -422,10 +425,7 @@ public class MitgliedControl extends AbstractControl
     this.eintritt = new DateInput(d, Einstellungen.DATEFORMAT);
     this.eintritt.setTitle("Eintrittsdatum");
     this.eintritt.setText("Bitte Eintrittsdatum wählen");
-    if (Einstellungen.isGeburtsdatumPflicht())
-    {
-      this.eintritt.setMandatory(true);
-    }
+    this.eintritt.setMandatory(Einstellungen.isEintrittsdatumPflicht());
     this.eintritt.addListener(new Listener()
     {
       public void handleEvent(Event event)
