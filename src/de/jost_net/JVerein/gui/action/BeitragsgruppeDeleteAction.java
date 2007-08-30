@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/08/23 19:24:05  jost
+ * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -18,6 +21,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -28,6 +32,12 @@ public class BeitragsgruppeDeleteAction implements Action
 {
   public void handleAction(Object context) throws ApplicationException
   {
+    if (context instanceof TablePart)
+    {
+      TablePart tp = (TablePart) context;
+      context = tp.getSelection();
+      System.out.println("##>" + context);
+    }
     if (context == null || !(context instanceof Beitragsgruppe))
     {
       throw new ApplicationException("Keine Beitragsgruppe ausgew�hlt");
