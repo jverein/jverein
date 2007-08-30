@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/08/23 19:24:23  jost
+ * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
+ *
  * Revision 1.5  2007/03/25 16:56:48  jost
  * Beitragsart aufgenommen.
  *
@@ -39,7 +42,6 @@ import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
@@ -129,7 +131,7 @@ public class BeitragsgruppeControl extends AbstractControl
     }
   }
 
-  public Part getBeitragsgruppeTable() throws RemoteException
+  public TablePart getBeitragsgruppeTable() throws RemoteException
   {
     if (beitragsgruppeList != null)
     {
