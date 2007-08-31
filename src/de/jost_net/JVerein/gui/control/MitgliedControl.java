@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2007/08/30 19:48:29  jost
+ * 1. Korrekte Darstellung von Pflichtfeldern
+ * 2. Neues Kontext-Menü
+ *
  * Revision 1.15  2007/08/24 13:33:53  jost
  * Bugfix
  *
@@ -1112,23 +1116,24 @@ public class MitgliedControl extends AbstractControl
           .getProperty("user.home"));
       if (path != null && path.length() > 0)
         fd.setFilterPath(path);
+      String ausgformat = (String) ausgabe.getValue();
+      fd.setFilterExtensions(new String[] { "*." + ausgformat });
 
-      final String s = fd.open();
-
+      String s = fd.open();
       if (s == null || s.length() == 0)
       {
-        // close();
         return;
       }
-
+      if (!s.endsWith(ausgformat))
+      {
+        s = s + "." + ausgformat;
+      }
       final File file = new File(s);
-
-      String ausg = (String) ausgabe.getValue();
-      if (ausg.equals("PDF"))
+      if (ausgformat.equals("PDF"))
       {
         auswertungMitgliedPDF(list, file, subtitle);
       }
-      if (ausg.equals("CSV"))
+      if (ausgformat.equals("CSV"))
       {
         auswertungMitgliedCSV(list, file);
       }
@@ -1151,12 +1156,15 @@ public class MitgliedControl extends AbstractControl
     if (path != null && path.length() > 0)
       fd.setFilterPath(path);
 
-    final String s = fd.open();
+    String s = fd.open();
 
     if (s == null || s.length() == 0)
     {
-      // close();
       return;
+    }
+    if (!s.toUpperCase().endsWith("PDF"))
+    {
+      s = s + ".PDF";
     }
 
     final File file = new File(s);
