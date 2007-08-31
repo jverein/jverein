@@ -9,10 +9,14 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/08/30 19:48:53  jost
+ * Neues Kontext-MenÃ¼
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
+import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 
@@ -27,6 +31,7 @@ public class MitgliedMenu extends ContextMenu
    */
   public MitgliedMenu()
   {
+    addItem(new CheckedContextMenuItem("Bearbeiten", new MitgliedDetailAction()));
     addItem(new CheckedContextMenuItem("Löschen...", new MitgliedDeleteAction()));
   }
 }
