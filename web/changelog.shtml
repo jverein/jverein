@@ -16,7 +16,10 @@
          		<li><a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=11763&group_id=7335'>Bug #11763 gefixed</a></li>
         		<li><a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=11764&group_id=7335'>Bug #11764 gefixed</a></li>
          		<li><a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=11819&group_id=7335'>Bug #11819 gefixed</a>
-         		 Beitragsgruppen können jetzt über das Context-Menü mit einem rechten Mausklick gelöscht werden.</li>
+         		<li>Korrekte Anzeige der Pflichtfelder beim Mitglied. Achtung! Wer Wert auf dieses Feature legt, muss ein Jameica-
+         		Nighly-Build >= 30.8.2007 einsetzen. Ansonsten werden BLZ und Kontonummer nicht als Pflichtfeld angezeigt.</li>
+         		<li>Mitglieder können jetzt über das Context-Menü bearbeitet und gelöscht werden</li>
+         		<li>Beitragsgruppen können jetzt über das Context-Menü mit einem rechten Mausklick oder einen Button gelöscht werden.</li>
          </ul>
       <li>Version 0.9 vom 20.07.2007</li>
          <ul>
