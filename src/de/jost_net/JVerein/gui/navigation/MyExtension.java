@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/08/23 19:25:05  jost
+ * Header korrigiert.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.navigation;
 
@@ -62,8 +65,11 @@ public class MyExtension implements Extension
       auswertung = new MyItem(auswertung, "Auswertungen", null);
       auswertung.addChild(new MyItem(auswertung, "Mitglieder",
           new AuswertungMitgliedAction()));
-      auswertung.addChild(new MyItem(auswertung, "Kursteilnehmer",
-          new AuswertungKursteilnehmerAction()));
+      if (Einstellungen.isKursteilnehmer())
+      {
+        auswertung.addChild(new MyItem(auswertung, "Kursteilnehmer",
+            new AuswertungKursteilnehmerAction()));
+      }
       auswertung.addChild(new MyItem(auswertung, "Statistik",
           new StatistikMitgliedAction()));
       jverein.addChild(auswertung);
@@ -78,8 +84,9 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$
- * Revision 1.1  2007/08/22 20:43:40  jost
- * Bug #011762
- *
+ * $Log$ Revision 1.2 2007/08/23 19:25:05 jost Header
+ * korrigiert.
+ * 
+ * Revision 1.1 2007/08/22 20:43:40 jost Bug #011762
+ * 
  ******************************************************************************/
