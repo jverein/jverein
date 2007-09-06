@@ -1,7 +1,7 @@
 <!--#include virtual="main.shtml"-->  
     <h2>Changelog</h2>
     <ul>
-      <li>Version ?.? vom ??.??.2007</li>
+      <li>Version 0.9.1 vom 04.09.2007</li>
          <ul>
          		<li>Beschränkung der Länge des Vereinsnamens auf 27 Stellen wegen Problemen
          		    mit der Abbuchung</li>
