@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2007/08/31 05:35:32  jost
+ * Automatische Ergänzung der Dateiendung.
+ *
  * Revision 1.16  2007/08/30 19:48:29  jost
  * 1. Korrekte Darstellung von Pflichtfeldern
  * 2. Neues Kontext-Menü
@@ -1148,6 +1151,7 @@ public class MitgliedControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei w�hlen.");
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     Settings settings = new Settings(this.getClass());
 
