@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2007/09/06 17:15:46  jost
+ * Mitgliederstatistik: *.PDF als Standardvorgabe im Datei-Speichern-Dialog
+ *
  * Revision 1.17  2007/08/31 05:35:32  jost
  * Automatische ErgÃ¤nzung der Dateiendung.
  *
@@ -184,6 +187,8 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput sortierung;
 
+  private SelectInput status;
+
   private Mitglied mitglied;
 
   // Liste aller Zusatzabbuchungen
@@ -194,9 +199,13 @@ public class MitgliedControl extends AbstractControl
 
   private TablePart familienangehoerige;
 
+  private Settings settings = null;
+
   public MitgliedControl(AbstractView view)
   {
     super(view);
+    settings = new Settings(this.getClass());
+    settings.setStoreWhenRead(true);
   }
 
   private Mitglied getMitglied()
@@ -915,6 +924,18 @@ public class MitgliedControl extends AbstractControl
     return sortierung;
   }
 
+  public Input getMitgliedStatus() throws RemoteException
+  {
+    if (status != null)
+    {
+      return status;
+    }
+    status = new SelectInput(new String[] { "Angemeldet", "Abgemeldet",
+        "An- und Abgemeldete" }, settings.getString("status.mitglied",
+        "Angemeldete"));
+    return status;
+  }
+
   public Button getStartAuswertungButton()
   {
     Button b = new Button("Start", new Action()
@@ -952,14 +973,27 @@ public class MitgliedControl extends AbstractControl
   public TablePart getMitgliedTable(String anfangsbuchstabe)
       throws RemoteException
   {
+    settings.setAttribute("status.mitglied", (String) getMitgliedStatus()
+        .getValue());
     TablePart part;
     DBService service = Einstellungen.getDBService();
     DBIterator mitglieder = service.createList(Mitglied.class);
     if (!anfangsbuchstabe.equals("*"))
     {
-      mitglieder.addFilter("name like '" + anfangsbuchstabe + "%' OR "
-          + "name like '" + anfangsbuchstabe.toLowerCase() + "%'");
+      mitglieder.addFilter("(name like '" + anfangsbuchstabe + "%' OR "
+          + "name like '" + anfangsbuchstabe.toLowerCase() + "%')");
     }
+    String status = (String) this.getMitgliedStatus().getValue();
+    if (status.equals("Angemeldet"))
+    {
+      mitglieder.addFilter("austritt is null");
+    }
+    else if (status.equals("Abgemeldet"))
+    {
+      mitglieder.addFilter("austritt is not null");
+    }
+    // Für den Status "An- und Abgemeldet ist nichts zu tun.
+
     part = new TablePart(mitglieder, new MitgliedDetailAction());
 
     part.addColumn("Name", "name");
@@ -1112,8 +1146,6 @@ public class MitgliedControl extends AbstractControl
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
-
-      Settings settings = new Settings(this.getClass());
 
       String path = settings.getString("lastdir", System
           .getProperty("user.home"));

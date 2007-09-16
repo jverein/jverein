@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/08/23 19:26:09  jost
+ * Bugfix
+ *
  * Revision 1.7  2007/08/23 18:45:25  jost
  * Standard-Tab fÃ¼r die Mitglieder-Suche
  * und Bug #011764
@@ -43,6 +46,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -53,22 +59,32 @@ import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.TabGroup;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractView
 {
-  private static String lasttab = null;
+  private TabFolder folder = null;
+
+  private TablePart[] p;
+
+  private TabGroup[] tab;
+
+  private Settings settings;
+
+  private final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H",
+      "I", "J", "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U",
+      "Ü", "V", "W", "X", "Y", "Z", "*" };
 
   public void bind() throws Exception
   {
-    final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-        "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U", "Ü", "V",
-        "W", "X", "Y", "Z", "*" };
     GUI.getView().setTitle("Suche Mitglied");
 
     final MitgliedControl control = new MitgliedControl(this);
@@ -99,16 +115,35 @@ public class MitgliederSucheView extends AbstractView
         return new Long(rs.getLong(1));
       }
     };
-    Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
 
+    LabelGroup group = new LabelGroup(getParent(), "Auswahl");
+    Input mitglstat = control.getMitgliedStatus();
+    mitglstat.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        if (event.type != SWT.Selection)
+        {
+          return;
+        }
+        int si = folder.getSelectionIndex();
+        TabRefresh(control, si);
+      }
+    });
+    group.addLabelPair("Mitgliedschaft", mitglstat);
+
+    settings = new Settings(this.getClass());
+    settings.setStoreWhenRead(true);
+  
+    Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
     if (anzahl.longValue() > 0)
     {
-      final TabFolder folder = new TabFolder(getParent(), SWT.NONE);
+      folder = new TabFolder(getParent(), SWT.NONE);
       folder.setLayoutData(new GridData(GridData.FILL_BOTH));
       folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-      final TabGroup[] tab = new TabGroup[b.length];
-      final TablePart[] p = new TablePart[b.length];
+      tab = new TabGroup[b.length];
+      p = new TablePart[b.length];
 
       for (int i = 0; i < b.length; i++)
       {
@@ -119,14 +154,11 @@ public class MitgliederSucheView extends AbstractView
       {
         si = b.length - 1;
       }
-      if (lasttab != null)
+      for (int i = 0; i < b.length; i++)
       {
-        for (int i = 0; i < b.length; i++)
+        if (b[i].equals(settings.getString("lasttab", "A")))
         {
-          if (b[i].equals(lasttab))
-          {
-            si = i;
-          }
+          si = i;
         }
       }
       p[si] = control.getMitgliedTable(b[si]);
@@ -142,30 +174,8 @@ public class MitgliederSucheView extends AbstractView
         public void widgetSelected(SelectionEvent e)
         {
           int si = folder.getSelectionIndex();
-          lasttab = b[si];
-          try
-          {
-            boolean gefuellt;
-            if (p[si] == null)
-            {
-              gefuellt = false;
-            }
-            else
-            {
-              gefuellt = true;
-            }
-            p[si] = control.getMitgliedTable(b[si]);
-
-            if (!gefuellt)
-            {
-              p[si].paint(tab[si].getComposite());
-            }
-            folder.getParent().layout(true, true);
-          }
-          catch (RemoteException e1)
-          {
-            e1.printStackTrace();
-          }
+          settings.setAttribute("lasttab", b[si]);
+          TabRefresh(control, si);
         }
       });
     }
@@ -179,5 +189,24 @@ public class MitgliederSucheView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  private void TabRefresh(MitgliedControl control, int index)
+  {
+    try
+    {
+      if (p[index] != null)
+      {
+        Control[] c = tab[index].getComposite().getChildren();
+        c[0].dispose();
+      }
+      p[index] = control.getMitgliedTable(b[index]);
+      p[index].paint(tab[index].getComposite());
+      folder.getParent().layout(true, true);
+    }
+    catch (RemoteException e1)
+    {
+      e1.printStackTrace();
+    }
   }
 }
