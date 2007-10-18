@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2007/08/22 20:42:23  jost
+ * Bug #011762
+ *
  * Revision 1.11  2007/07/17 16:06:02  jost
  * Release 0.9
  *
@@ -46,15 +49,13 @@
 package de.jost_net.JVerein;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Locale;
+import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
-import de.willuhn.datasource.db.EmbeddedDatabase;
+import de.jost_net.JVerein.rmi.JVereinDBService;
+import de.jost_net.JVerein.server.JVereinDBServiceImpl;
 import de.willuhn.jameica.gui.extension.ExtensionRegistry;
 import de.willuhn.jameica.plugin.AbstractPlugin;
-import de.willuhn.jameica.plugin.PluginResources;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
@@ -67,12 +68,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class JVereinPlugin extends AbstractPlugin
 {
-  private EmbeddedDatabase db = null;
-
   private Settings settings;
-
-  // Mapper von Datenbank-Hash zu Versionsnummer
-  private static HashMap<String, Double> DBMAPPING = new HashMap<String, Double>();
 
   /**
    * constructor.
@@ -96,49 +92,17 @@ public class JVereinPlugin extends AbstractPlugin
    */
   public void init() throws ApplicationException
   {
-    Logger.info("starting init process for hibiscus");
-    DBMAPPING.put("p9XzkIUJkzcvEgnLD+YeIA==", new Double(0.7));
-    DBMAPPING.put("OaONZJuDOABopEgRYGo3fA==", new Double(0.8));
-    DBMAPPING.put("OaONZJuDOABopEgRYGo3fA==", new Double(0.9));
+    Logger.info("starting init process for jverein");
 
-    try
+    call(new ServiceCall()
     {
-      Application.getCallback().getStartupMonitor().setStatusText(
-          "jverein: checking database integrity");
-
-      // Damit wir die Updates nicht immer haendisch nachziehen muessen, rufen
-      // wir bei einem Fehler das letzte Update-Script nochmal auf.
-      if (!Application.inClientMode())
+      public void call(JVereinDBService service) throws ApplicationException,
+          RemoteException
       {
-        try
-        {
-          double size = settings.getDouble("sql-update-size", -1);
-          File f = new File(getResources().getPath()
-              + "/sql/update_0.8-0.9.sql");
-
-          if (f.exists())
-          {
-            long length = f.length();
-            if (length != size)
-            {
-              settings.setAttribute("sql-update-size", (double) f.length());
-              getDatabase().executeSQLScript(f);
-            }
-          }
-        }
-        catch (Exception e2)
-        {
-          Logger.error("unable to execute sql update script", e2);
-        }
+        service.checkConsistency();
       }
-      checkConsistency();
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException(
-          "Fehler beim Prüfung der Datenbank-Integrität, "
-              + "Plugin wird aus Sicherheitsgründen deaktiviert", e);
-    }
+    });
+
     Application.getCallback().getStartupMonitor().addPercentComplete(5);
     ExtensionRegistry.register(new MyExtension(), "jverein.main");
 
@@ -148,134 +112,42 @@ public class JVereinPlugin extends AbstractPlugin
    * This method is called only the first time, the plugin is loaded (before
    * executing init()). if your installation procedure was not successfull,
    * throw an ApplicationException.
-   * 
-   * @see de.willuhn.jameica.plugin.AbstractPlugin#install()
    */
   public void install() throws ApplicationException
   {
-    // If we are running in client/server mode and this instance
-    // is the client, we do not need to create a database.
-    // Instead of this we will get our objects via RMI from
-    // the server
-    if (Application.inClientMode())
-      return;
-    try
+    call(new ServiceCall()
     {
 
-      // Let's create an embedded Database
-      PluginResources res = Application.getPluginLoader().getPlugin(
-          JVereinPlugin.class).getResources();
-      db = getDatabase();
-
-      // create the sql tables.
-      db.executeSQLScript(new File(res.getPath() + "/sql/create.sql"));
-
-      // That's all. Database installed and tables created ;)
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException("error while installing plugin", e);
-    }
-  }
-
-  /**
-   * Prueft, ob sich die Datenbank der Anwendung im erwarteten Zustand befindet
-   * (via MD5-Checksum). Entlarvt Manipulationen des DB-Schemas durch Dritte.
-   * 
-   * @throws Exception
-   */
-  private void checkConsistency() throws Exception
-  {
-    if (Application.inClientMode() || !getCheckDatabase())
-    {
-      // Wenn wir als Client laufen, muessen wir uns
-      // nicht um die Datenbank kuemmern. Das macht
-      // der Server schon
-      return;
-    }
-    String checkSum = getDatabase().getMD5Sum();
-    if (DBMAPPING.get(checkSum) == null)
-      throw new Exception(
-          "database checksum does not match any known version: " + checkSum);
+      public void call(JVereinDBService service) throws ApplicationException,
+          RemoteException
+      {
+        service.install();
+      }
+    });
   }
 
   /**
    * This method will be executed on every version change.
-   * 
-   * @see de.willuhn.jameica.plugin.AbstractPlugin#update(double)
    */
-  public void update(double oldVersion) throws ApplicationException
+  public void update(final double oldVersion) throws ApplicationException
   {
-    if (Application.inClientMode())
+    call(new ServiceCall()
     {
-      return;
-    }
-    Logger.info("starting update process for jverein");
 
-    DecimalFormat df = (DecimalFormat) DecimalFormat
-        .getInstance(Locale.ENGLISH);
-    df.setMaximumFractionDigits(1);
-    df.setMinimumFractionDigits(1);
-    df.setGroupingUsed(false);
-
-    double newVersion = oldVersion + 0.1d;
-
-    try
-    {
-      File f = new File(getResources().getPath() + "/sql/update_"
-          + df.format(oldVersion) + "-" + df.format(newVersion) + ".sql");
-
-      Logger.info("checking sql file " + f.getAbsolutePath());
-      while (f.exists())
+      public void call(JVereinDBService service) throws ApplicationException,
+          RemoteException
       {
-        Logger.info("  file exists, executing");
-        getDatabase().executeSQLScript(f);
-        oldVersion = newVersion;
-        newVersion = oldVersion + 0.1d;
-        f = new File(getResources().getPath() + "/sql/update_"
-            + df.format(oldVersion) + "-" + df.format(newVersion) + ".sql");
+        service.update(oldVersion, getManifest().getVersion());
       }
-      Logger.info("Update completed");
-    }
-    catch (ApplicationException ae)
-    {
-      throw ae;
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException(getResources().getI18N().tr(
-          "Fehler beim Update der Datenbank"), e);
-    }
+    });
   }
 
   /**
    * Here you can do some cleanup stuff. The method will be called on every
    * clean shutdown of jameica.
-   * 
-   * @see de.willuhn.jameica.plugin.AbstractPlugin#shutDown()
    */
   public void shutDown()
   {
-  }
-
-  /**
-   * Liefert die Datenbank des Plugins. Lauft die Anwendung im Client-Mode, wird
-   * immer <code>null</code> zurueckgegeben.
-   * 
-   * @return die Embedded Datenbank.
-   * @throws Exception
-   */
-  private EmbeddedDatabase getDatabase() throws Exception
-  {
-    if (Application.inClientMode())
-      return null;
-    if (db != null)
-      return db;
-    PluginResources res = Application.getPluginLoader().getPlugin(
-        JVereinPlugin.class).getResources();
-    db = new EmbeddedDatabase(res.getWorkPath() + "/db", "exampleuser",
-        "examplepassword");
-    return db;
   }
 
   /**
@@ -286,6 +158,66 @@ public class JVereinPlugin extends AbstractPlugin
   public boolean getCheckDatabase()
   {
     return settings.getBoolean("checkdatabase", true);
+  }
+
+  /**
+   * Hilfsmethode zum bequemen Ausfuehren von Aufrufen auf dem Service.
+   */
+  private interface ServiceCall
+  {
+    /**
+     * @param service
+     * @throws ApplicationException
+     * @throws RemoteException
+     */
+    public void call(JVereinDBService service) throws ApplicationException,
+        RemoteException;
+  }
+
+  /**
+   * Hilfsmethode zum bequemen Ausfuehren von Methoden auf dem Service.
+   * 
+   * @param call
+   *          der Call.
+   * @throws ApplicationException
+   */
+  private void call(ServiceCall call) throws ApplicationException
+  {
+    if (Application.inClientMode())
+      return; // als Client muessen wir die DB nicht installieren
+
+    JVereinDBService service = null;
+    try
+    {
+      // Da die Service-Factory zu diesem Zeitpunkt noch nicht da ist, erzeugen
+      // wir uns eine lokale Instanz des Services.
+      service = new JVereinDBServiceImpl();
+      service.start();
+      call.call(service);
+    }
+    catch (ApplicationException ae)
+    {
+      throw ae;
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(getResources().getI18N().tr(
+          "Fehler beim Initialisieren der Datenbank"), e);
+    }
+    finally
+    {
+      if (service != null)
+      {
+        try
+        {
+          service.stop(true);
+        }
+        catch (Exception e)
+        {
+          Logger.error("error while closing db service", e);
+        }
+      }
+    }
   }
 
 }

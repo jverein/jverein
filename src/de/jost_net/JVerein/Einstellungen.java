@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.4  2007/08/23 18:42:27  jost
+ * Standard-Tab für die Mitglieder-Suche
+ *
  * Revision 1.3  2007/08/22 20:42:07  jost
  * Bug #011762
  *
@@ -321,6 +324,16 @@ public class Einstellungen
   {
     settings.setAttribute("mitglieder.standardtab", value);
     mitgliederstandardtab = null;
+  }
+
+  /**
+   * Prueft, ob die MD5-Checksumme der Datenbank geprueft werden soll.
+   * 
+   * @return true, wenn die Checksumme geprueft werden soll.
+   */
+  public static boolean getCheckDatabase()
+  {
+    return settings.getBoolean("checkdatabase", true);
   }
 
 }
