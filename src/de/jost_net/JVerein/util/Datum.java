@@ -31,6 +31,10 @@ public class Datum
 
   public static boolean isImInterval(Date datum1, Date datum2, int intervall)
   {
+    if (intervall == 0)
+    {
+      return true;
+    }
     Calendar cal1 = Calendar.getInstance();
     cal1.setTime(datum1);
     Calendar cal2 = Calendar.getInstance();
@@ -39,7 +43,6 @@ public class Datum
     {
       return false;
     }
-
     return getDifferenzInMonaten(datum1, datum2) % intervall == 0;
   }
 
