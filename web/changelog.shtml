@@ -6,6 +6,8 @@
          		<li>Mitgliedersuche: Einschränkung auf angemeldete oder abgemeldete Mitgliedschaft</li>
          		<li>Vorbereitung der Umstellung auf die H2-Datenbank</li>
          		<li>Bugfix bei Zusatzabbuchungen ohne Interval</li>
+         		<li>Handbuch: SPG-Export-Hardcopy auf Forderung von SPG durch textuelle Beschreibung
+         		    ersetzt.</li>
          </ul>
       <li>Version 0.9.1 vom 04.09.2007</li>
          <ul>
