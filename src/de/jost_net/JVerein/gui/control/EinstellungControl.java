@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/08/23 18:42:51  jost
+ * Standard-Tab für die Mitglieder-Suche
+ *
  * Revision 1.1  2007/08/22 20:42:56  jost
  * Bug #011762
  *
@@ -22,7 +25,6 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
-import de.willuhn.jameica.gui.input.SelectInput;
 
 public class EinstellungControl extends AbstractControl
 {
@@ -40,8 +42,6 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput wiedervorlage;
 
   private CheckboxInput kursteilnehmer;
-
-  private SelectInput mitgliederstandardtab;
 
   public EinstellungControl(AbstractView view)
   {
@@ -121,17 +121,6 @@ public class EinstellungControl extends AbstractControl
     return kursteilnehmer;
   }
 
-  public SelectInput getMitgliederStanardTab() throws RemoteException
-  {
-    if (mitgliederstandardtab != null)
-    {
-      return mitgliederstandardtab;
-    }
-    mitgliederstandardtab = new SelectInput(new String[] { "A", "*" },
-        Einstellungen.getMitgliederStandardTab());
-    return mitgliederstandardtab;
-  }
-
   public void handleStore()
   {
     Boolean _geburtsdatumpflicht = (Boolean) geburtsdatumpflicht.getValue();
@@ -149,8 +138,6 @@ public class EinstellungControl extends AbstractControl
     Einstellungen.setVermerke(_vermerke.booleanValue());
     Einstellungen.setWiedervorlage(_wiedervorlage.booleanValue());
     Einstellungen.setKursteilnehmer(_kursteilnehmer.booleanValue());
-    Einstellungen.setMitgliederStandardTab((String) mitgliederstandardtab
-        .getValue());
     GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
   }
 }
