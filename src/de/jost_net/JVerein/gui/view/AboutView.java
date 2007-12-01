@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:27:28  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:39:10  jost
  * *** empty log message ***
  *
@@ -17,7 +20,9 @@ package de.jost_net.JVerein.gui.view;
 
 import org.eclipse.swt.widgets.Composite;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Version;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.FormTextPart;
@@ -40,8 +45,8 @@ public class AboutView extends AbstractDialog
     text.setText("<form>"
         + "<p><b>Plugin für die Vereinsverwaltung unter Jameica</b></p>"
         + "<br/>Licence: GPL (http://www.gnu.org/copyleft/gpl.html)"
-        + "<br/><p>Copyright by Heiner Jostkleigrewe [jverein@jost-net.de]</p>"
-        + "<p>http://jverein.berlios.de</p>" + "</form>");
+        + "<br/><p>Copyright by Heiner Jostkleigrewe [heiner@jverein.de]</p>"
+        + "<p>http://www.jverein.de</p>" + "</form>");
 
     text.paint(parent);
 
@@ -52,6 +57,11 @@ public class AboutView extends AbstractDialog
 
     group.addLabelPair("Version", new LabelInput(""
         + p.getManifest().getVersion()));
+
+    Version v = (Version) Einstellungen.getDBService().createObject(
+        Version.class, "1");
+    group
+        .addLabelPair("Datenbank-Version", new LabelInput("" + v.getVersion()));
     group.addLabelPair("Arbeitsverzeichnis", new LabelInput(""
         + p.getResources().getWorkPath()));
 
