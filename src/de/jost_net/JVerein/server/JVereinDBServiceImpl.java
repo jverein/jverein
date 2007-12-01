@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/10/18 18:20:23  jost
+ * Vorbereitung H2-DB
+ *
  * Revision 1.2  2007/02/23 20:28:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -48,7 +51,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    */
   public JVereinDBServiceImpl() throws RemoteException
   {
-    this(SETTINGS.getString("database.driver", DBSupportMcKoiImpl.class
+    this(SETTINGS.getString("database.driver", DBSupportH2Impl.class
         .getName()));
   }
 
