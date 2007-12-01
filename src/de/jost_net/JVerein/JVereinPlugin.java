@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2007/10/18 18:18:33  jost
+ * Vorbereitung H2-DB
+ *
  * Revision 1.12  2007/08/22 20:42:23  jost
  * Bug #011762
  *
@@ -117,7 +120,6 @@ public class JVereinPlugin extends AbstractPlugin
   {
     call(new ServiceCall()
     {
-
       public void call(JVereinDBService service) throws ApplicationException,
           RemoteException
       {
@@ -133,7 +135,6 @@ public class JVereinPlugin extends AbstractPlugin
   {
     call(new ServiceCall()
     {
-
       public void call(JVereinDBService service) throws ApplicationException,
           RemoteException
       {
