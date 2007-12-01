@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2007/12/01 10:05:49  jost
+ * Änderung wg. neuem Classloader in Jameica
+ *
  * Revision 1.19  2007/09/16 17:52:04  jost
  * Selektion nach Mitgliedsstatus
  *
@@ -921,7 +924,8 @@ public class MitgliedControl extends AbstractControl
     {
       return sortierung;
     }
-    String[] sort = { "Name, Vorname", "Eintrittsdatum", "Geburtsdatum" };
+    String[] sort = { "Name, Vorname", "Eintrittsdatum", "Geburtsdatum",
+        "Geburtstagsliste" };
     sortierung = new SelectInput(sort, "Name, Vorname");
     return sortierung;
   }
@@ -1144,6 +1148,10 @@ public class MitgliedControl extends AbstractControl
       else if (sort.equals("Geburtsdatum"))
       {
         list.setOrder("ORDER BY geburtsdatum");
+      }
+      else if (sort.equals("Geburtstagsliste"))
+      {
+        list.setOrder("ORDER BY month(geburtsdatum), day(geburtsdatum)");
       }
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
