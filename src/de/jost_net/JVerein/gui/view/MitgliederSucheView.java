@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/09/16 17:52:37  jost
+ * Selektion nach Mitgliedsstatus
+ *
  * Revision 1.8  2007/08/23 19:26:09  jost
  * Bugfix
  *
@@ -150,10 +153,6 @@ public class MitgliederSucheView extends AbstractView
         tab[i] = new TabGroup(folder, b[i]);
       }
       int si = 0;
-      if (Einstellungen.getMitgliederStandardTab().equals("*"))
-      {
-        si = b.length - 1;
-      }
       for (int i = 0; i < b.length; i++)
       {
         if (b[i].equals(settings.getString("lasttab", "A")))

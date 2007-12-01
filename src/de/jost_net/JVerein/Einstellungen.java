@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.6  2007/12/01 10:04:44  jost
+ * Ã„nderung wg. neuem Classloader in Jameica
+ *
  * Revision 1.5  2007/10/18 18:18:04  jost
  * Vorbereitung H2-DB
  *
@@ -318,19 +321,6 @@ public class Einstellungen
   {
     settings.setAttribute("kursteilnehmer.einblenden", value);
     kursteilnehmer = null;
-  }
-
-  /**
-   * Standardtab für die Mitgliedersuche
-   */
-  public static String getMitgliederStandardTab()
-  {
-    if (mitgliederstandardtab != null)
-    {
-      return mitgliederstandardtab;
-    }
-    mitgliederstandardtab = settings.getString("mitglieder.standardtab", "A");
-    return mitgliederstandardtab;
   }
 
   /**
