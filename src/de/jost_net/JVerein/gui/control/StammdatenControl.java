@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/08/14 19:20:16  jost
+ * Vereinsnamen maximal 27 Stellen
+ *
  * Revision 1.5  2007/07/06 11:36:40  jost
  * Bugfix Speicherung Stammdaten
  *
@@ -32,11 +35,9 @@ import java.rmi.RemoteException;
 
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.kapott.hbci.manager.HBCIUtils;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Stammdaten;
-import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -161,8 +162,8 @@ public class StammdatenControl extends AbstractControl
     {
       try
       {
-        String name = HBCIUtils.getNameForBLZ((String) getBlz().getValue());
-        getBlz().setComment(name);
+        String blz = (String) getBlz().getValue();
+        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
       }
       catch (RemoteException e)
       {

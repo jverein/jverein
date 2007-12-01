@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/05/26 16:26:09  jost
+ * Neu: Auswertung Kursteilnehmer
+ *
  * Revision 1.3  2007/03/21 12:11:22  jost
  * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurückgesetzt werden.
  *
@@ -31,7 +34,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
-import org.kapott.hbci.manager.HBCIUtils;
 
 import com.lowagie.text.Element;
 
@@ -340,8 +342,8 @@ public class KursteilnehmerControl extends AbstractControl
     {
       try
       {
-        String name = HBCIUtils.getNameForBLZ((String) getBlz().getValue());
-        getBlz().setComment(name);
+        String blz = (String) getBlz().getValue();
+        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
       }
       catch (RemoteException e)
       {

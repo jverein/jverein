@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2007/09/16 17:52:04  jost
+ * Selektion nach Mitgliedsstatus
+ *
  * Revision 1.18  2007/09/06 17:15:46  jost
  * Mitgliederstatistik: *.PDF als Standardvorgabe im Datei-Speichern-Dialog
  *
@@ -77,7 +80,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
-import org.kapott.hbci.manager.HBCIUtils;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
@@ -1314,8 +1316,8 @@ public class MitgliedControl extends AbstractControl
     {
       try
       {
-        String name = HBCIUtils.getNameForBLZ((String) getBlz().getValue());
-        getBlz().setComment(name);
+        String blz = (String) getBlz().getValue();
+        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
       }
       catch (RemoteException e)
       {
