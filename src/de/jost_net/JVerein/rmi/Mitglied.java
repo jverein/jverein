@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/03/25 17:04:34  jost
+ * Herstellung des Familienverbandes
+ *
  * Revision 1.4  2007/03/10 20:28:58  jost
  * Neu: Zahlungsweg
  *
@@ -66,6 +69,11 @@ public interface Mitglied extends DBObject
 
   public void setZahlungsweg(Integer zahlungsweg) throws RemoteException;
 
+  public Integer getZahlungsrhytmus() throws RemoteException;
+
+  public void setZahlungsrhytmus(Integer zahlungsrhytmus)
+      throws RemoteException;
+
   public String getBlz() throws RemoteException;
 
   public void setBlz(String blz) throws RemoteException;
@@ -112,9 +120,9 @@ public interface Mitglied extends DBObject
   public int getBeitragsgruppeId() throws RemoteException;
 
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException;
-  
+
   public Integer getZahlerID() throws RemoteException;
-  
+
   public void setZahlerID(Integer id) throws RemoteException;
 
   public Date getAustritt() throws RemoteException;

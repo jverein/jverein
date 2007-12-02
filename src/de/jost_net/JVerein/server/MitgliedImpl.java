@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/12/01 10:07:45  jost
+ * H2-Support
+ *
  * Revision 1.7  2007/08/22 20:44:55  jost
  * Bug #011762
  *
@@ -239,6 +242,17 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setZahlungsweg(Integer zahlungsweg) throws RemoteException
   {
     setAttribute("zahlungsweg", zahlungsweg);
+  }
+
+  public Integer getZahlungsrhytmus() throws RemoteException
+  {
+    return (Integer) getAttribute("zahlungsrhytmus");
+  }
+
+  public void setZahlungsrhytmus(Integer zahlungsrhytmus)
+      throws RemoteException
+  {
+    setAttribute("zahlungsrhytmus", zahlungsrhytmus);
   }
 
   public String getBlz() throws RemoteException

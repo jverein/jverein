@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/08/14 19:19:28  jost
+ * Refactoring
+ *
  * Revision 1.4  2007/03/27 19:20:16  jost
  * Zusätzliche Plausi
  *
@@ -36,6 +39,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.Abbuchung;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -54,7 +58,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class AbbuchungControl extends AbstractControl
 {
-  private CheckboxInput jahresabbuchung;
+  private AbbuchungsmodusInput modus;
 
   private DateInput vondatum = null;
 
@@ -73,20 +77,19 @@ public class AbbuchungControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public CheckboxInput getJahresabbuchung() throws RemoteException
+  public AbbuchungsmodusInput getAbbuchungsmodus() throws RemoteException
   {
-    if (jahresabbuchung != null)
+    if (modus != null)
     {
-      return jahresabbuchung;
+      return modus;
     }
-    jahresabbuchung = new CheckboxInput(false);
-
-    jahresabbuchung.addListener(new Listener()
+    modus = new AbbuchungsmodusInput(AbbuchungsmodusInput.KEINBEITRAG);
+    modus.addListener(new Listener()
     {
       public void handleEvent(Event event)
       {
-        boolean b = ((Boolean) jahresabbuchung.getValue()).booleanValue();
-        if (b)
+        Integer m = ((Integer) modus.getValue());
+        if (m.intValue() != AbbuchungsmodusInput.EINGETRETENEMITGLIEDER)
         {
           vondatum.setText("");
           vondatum.setEnabled(false);
@@ -97,7 +100,7 @@ public class AbbuchungControl extends AbstractControl
         }
       }
     });
-    return jahresabbuchung;
+    return modus;
   }
 
   public DateInput getVondatum() throws RemoteException
@@ -110,6 +113,7 @@ public class AbbuchungControl extends AbstractControl
     this.vondatum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.vondatum.setTitle("Anfangsdatum Abbuchung");
     this.vondatum.setText("Bitte Anfangsdatum der Verarbeitung wählen");
+    this.vondatum.setEnabled(false);
     this.vondatum.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -172,14 +176,13 @@ public class AbbuchungControl extends AbstractControl
   {
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
 
-    boolean jahr = (Boolean) jahresabbuchung.getValue();
-
     final Date vond = (Date) vondatum.getValue();
 
-    if (!jahr && vond == null)
+    Integer m = (Integer) modus.getValue();
+    if (m.intValue() == AbbuchungsmodusInput.EINGETRETENEMITGLIEDER
+        && vond == null)
     {
-      GUI.getStatusBar().setErrorText(
-          "Jahresabbuchung oder Datum auswählen");
+      GUI.getStatusBar().setErrorText("Jahresabbuchung oder Datum auswählen");
       return;
     }
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -205,14 +208,16 @@ public class AbbuchungControl extends AbstractControl
       // Wir merken uns noch das Verzeichnis vom letzten mal
       settings.setAttribute("lastdir", file.getParent());
       final Boolean zusatzab = (Boolean) zusatzabbuchung.getValue();
+      final Integer mo = (Integer) modus.getValue();
       BackgroundTask t = new BackgroundTask()
       {
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
           try
           {
-            new Abbuchung(fos, settings.getString("zahlungsgrund",
-                "kein Grund angegeben"), vond, zusatzab, monitor);
+            new Abbuchung(fos, mo.intValue(), settings.getString(
+                "zahlungsgrund", "kein Grund angegeben"), vond, zusatzab,
+                monitor);
             monitor.setPercentComplete(100);
             monitor.setStatus(ProgressMonitor.STATUS_DONE);
             GUI.getStatusBar().setSuccessText(

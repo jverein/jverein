@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/01 17:46:46  jost
+ * Wegfall Standardtab fÃ¼r die Suche
+ *
  * Revision 1.3  2007/08/23 19:25:50  jost
  * Header korrigiert.
  *
@@ -46,6 +49,10 @@ public class EinstellungenView extends AbstractView
     group.addLabelPair("Wiedervorlage anzeigen *", control.getWiedervorlage());
     group
         .addLabelPair("Kursteilnehmer anzeigen *", control.getKursteilnehmer());
+
+    LabelGroup groupAbu = new LabelGroup(getParent(), "Beiträge");
+    groupAbu.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
+
     new Headline(getParent(), "* Änderung erfordert Neustart");
     ButtonArea buttons = new ButtonArea(getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());

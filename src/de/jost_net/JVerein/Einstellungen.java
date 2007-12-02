@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.7  2007/12/01 19:05:25  jost
+ * Wegfall Standardtab für die Suche
+ *
  * Revision 1.6  2007/12/01 10:04:44  jost
  * Änderung wg. neuem Classloader in Jameica
  *
@@ -36,6 +39,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
+import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.messaging.QueryMessage;
 import de.willuhn.jameica.system.Application;
@@ -67,7 +71,7 @@ public class Einstellungen
 
   private static Boolean kursteilnehmer;
 
-  private static String mitgliederstandardtab;
+  private static int beitragsmodel;
 
   /**
    * Datums-Format dd.MM.yyyy.
@@ -136,27 +140,32 @@ public class Einstellungen
   public final static boolean checkAccountCRC(String blz, String kontonummer)
   {
     QueryMessage q = new QueryMessage(blz + ":" + kontonummer);
-    Application.getMessagingFactory().getMessagingQueue("hibiscus.query.accountcrc").sendSyncMessage(q);
+    Application.getMessagingFactory().getMessagingQueue(
+        "hibiscus.query.accountcrc").sendSyncMessage(q);
     Object data = q.getData();
-    
+
     // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
     // ist Hibiscus vermutlich nicht installiert. In dem Fall
     // lassen wir die Konto/BLZ-Kombination mangels besserer
     // Informationen zu
-    return (data == null || !(data instanceof Boolean)) ? true : ((Boolean)data).booleanValue();
+    return (data == null || !(data instanceof Boolean)) ? true
+        : ((Boolean) data).booleanValue();
   }
-  
+
   /**
    * Liefert den Namen der Bank zu einer BLZ.
-   * @param blz BLZ.
+   * 
+   * @param blz
+   *          BLZ.
    * @return Name der Bank oder Leerstring.
    */
   public final static String getNameForBLZ(String blz)
   {
     QueryMessage q = new QueryMessage(blz);
-    Application.getMessagingFactory().getMessagingQueue("hibiscus.query.bankname").sendSyncMessage(q);
+    Application.getMessagingFactory().getMessagingQueue(
+        "hibiscus.query.bankname").sendSyncMessage(q);
     Object data = q.getData();
-    
+
     // wenn wir nicht zurueckerhalten haben oder die Nachricht
     // noch unveraendert die BLZ enthaelt, liefern wir einen
     // Leerstring zurueck
@@ -324,12 +333,20 @@ public class Einstellungen
   }
 
   /**
-   * Speichert den Standardtab f�r die Mitgliedersuche.
+   * Beitragsmodel
    */
-  public static void setMitgliederStandardTab(String value)
+  public static int getBeitragsmodel()
   {
-    settings.setAttribute("mitglieder.standardtab", value);
-    mitgliederstandardtab = null;
+    beitragsmodel = settings.getInt("beitragsmodel", BeitragsmodelInput.JAEHRLICH);
+    return beitragsmodel;
+  }
+
+  /**
+   * Speichert das Beitragsmodel
+   */
+  public static void setBeitragsmodel(int value)
+  {
+    settings.setAttribute("beitragsmodel", value);
   }
 
   /**

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2007/12/01 19:05:58  jost
+ * Neu: Geburtstagsliste
+ *
  * Revision 1.20  2007/12/01 10:05:49  jost
  * Änderung wg. neuem Classloader in Jameica
  *
@@ -88,6 +91,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
+import de.jost_net.JVerein.gui.input.ZahlungsrhytmusInput;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
@@ -145,6 +149,8 @@ public class MitgliedControl extends AbstractControl
   private SelectInput geschlecht;
 
   private ZahlungswegInput zahlungsweg;
+
+  private ZahlungsrhytmusInput zahlungsrhytmus;
 
   private Input blz;
 
@@ -382,6 +388,24 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return zahlungsweg;
+  }
+
+  public ZahlungsrhytmusInput getZahlungsrhytmus() throws RemoteException
+  {
+    if (zahlungsrhytmus != null)
+    {
+      return zahlungsrhytmus;
+    }
+    if (getMitglied().getZahlungsrhytmus() != null)
+    {
+      zahlungsrhytmus = new ZahlungsrhytmusInput(getMitglied()
+          .getZahlungsrhytmus().intValue());
+    }
+    else
+    {
+      zahlungsrhytmus = new ZahlungsrhytmusInput();
+    }
+    return zahlungsrhytmus;
   }
 
   public Input getBlz() throws RemoteException
@@ -1034,6 +1058,7 @@ public class MitgliedControl extends AbstractControl
         throw new ApplicationException("Beitragsgruppe fehlt");
       }
       m.setZahlungsweg((Integer) getZahlungsweg().getValue());
+      m.setZahlungsrhytmus((Integer) getZahlungsrhytmus().getValue());
       m.setBlz((String) getBlz().getValue());
       m.setEintritt((Date) getEintritt().getValue());
       m.setEmail((String) getEmail().getValue());

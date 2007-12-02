@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/12/01 17:45:51  jost
+ * Wegfall Standardtab für die Suche
+ *
  * Revision 1.2  2007/08/23 18:42:51  jost
  * Standard-Tab für die Mitglieder-Suche
  *
@@ -21,10 +24,12 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
+import de.willuhn.jameica.gui.input.SelectInput;
 
 public class EinstellungControl extends AbstractControl
 {
@@ -42,6 +47,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput wiedervorlage;
 
   private CheckboxInput kursteilnehmer;
+
+  private SelectInput beitragsmodel;
 
   public EinstellungControl(AbstractView view)
   {
@@ -121,6 +128,16 @@ public class EinstellungControl extends AbstractControl
     return kursteilnehmer;
   }
 
+  public SelectInput getBeitragsmodel() throws RemoteException
+  {
+    if (beitragsmodel != null)
+    {
+      return beitragsmodel;
+    }
+    beitragsmodel = new BeitragsmodelInput(Einstellungen.getBeitragsmodel());
+    return beitragsmodel;
+  }
+
   public void handleStore()
   {
     Boolean _geburtsdatumpflicht = (Boolean) geburtsdatumpflicht.getValue();
@@ -130,6 +147,7 @@ public class EinstellungControl extends AbstractControl
     Boolean _vermerke = (Boolean) vermerke.getValue();
     Boolean _wiedervorlage = (Boolean) wiedervorlage.getValue();
     Boolean _kursteilnehmer = (Boolean) kursteilnehmer.getValue();
+    Integer _beitragsmodel = (Integer)beitragsmodel.getValue();
     Einstellungen.setGeburtsdatumPflicht(_geburtsdatumpflicht.booleanValue());
     Einstellungen.setEintrittsdatumPflicht(_eintrittsdatumpflicht
         .booleanValue());
@@ -138,6 +156,7 @@ public class EinstellungControl extends AbstractControl
     Einstellungen.setVermerke(_vermerke.booleanValue());
     Einstellungen.setWiedervorlage(_wiedervorlage.booleanValue());
     Einstellungen.setKursteilnehmer(_kursteilnehmer.booleanValue());
+    Einstellungen.setBeitragsmodel(_beitragsmodel.intValue());
     GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
   }
 }

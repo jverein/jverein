@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/08/22 20:44:35  jost
+ * Bug #011762
+ *
  * Revision 1.8  2007/05/07 19:26:01  jost
  * Neu: Wiedervorlage
  *
@@ -45,6 +48,7 @@ import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -81,6 +85,10 @@ public class MitgliedDetailView extends AbstractView
 
     TabGroup tab1 = new TabGroup(folder, "Bankverbindung");
     tab1.addLabelPair("Zahlungsweg", control.getZahlungsweg());
+    if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
+    {
+      tab1.addLabelPair("Zahlungsrhytmus", control.getZahlungsrhytmus());
+    }
     tab1.addLabelPair("BLZ", control.getBlz());
     tab1.addLabelPair("Konto", control.getKonto());
     tab1.addLabelPair("Kontoinhaber", control.getKontoinhaber());
