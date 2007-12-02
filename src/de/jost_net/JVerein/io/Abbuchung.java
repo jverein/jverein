@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2007/12/02 13:43:43  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.12  2007/08/14 19:20:57  jost
  * Bugfix wenn keine Beitragsgruppe mit 0 ? existiert.
  *
@@ -130,78 +133,82 @@ public class Abbuchung
 
       // Hier beginnt die eigentliche Abbuchung
 
-      // Alle Mitglieder lesen
-      list = Einstellungen.getDBService().createList(Mitglied.class);
-      // Die bereits ausgetretenen werden ignoriert.
-      list.addFilter("austritt is null");
-      // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
-      if (beitragsfrei.length() > 0)
+      if (modus != AbbuchungsmodusInput.KEINBEITRAG)
       {
-        list.addFilter(beitragsfrei);
-      }
-      // Zahlungsweg Abbuchung
-      // list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
-      // ZahlungswegInput.ABBUCHUNG) });
-      // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
-      // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
-      if (vondatum != null)
-      {
-        list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
-            vondatum.getTime()) });
-        // list.addFilter("tonumber(eingabedatum) >= " + vondatum.getTime());
-      }
-      if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
-      {
-        if (modus == AbbuchungsmodusInput.HAVIMO)
+        // Alle Mitglieder lesen
+        list = Einstellungen.getDBService().createList(Mitglied.class);
+        // Die bereits ausgetretenen werden ignoriert.
+        list.addFilter("austritt is null");
+        // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
+        if (beitragsfrei.length() > 0)
         {
-          list
-              .addFilter(
-                  "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-                  new Object[] {
-                      new Integer(ZahlungsrhytmusInput.HALBJAEHRLICH),
-                      new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                      new Integer(ZahlungsrhytmusInput.MONATLICH) });
+          list.addFilter(beitragsfrei);
         }
-        if (modus == AbbuchungsmodusInput.VIMO)
+        // Zahlungsweg Abbuchung
+        // list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
+        // ZahlungswegInput.ABBUCHUNG) });
+        // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
+        // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
+        if (vondatum != null)
         {
-          list.addFilter("zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-              new Object[] {
-                  new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                  new Integer(ZahlungsrhytmusInput.MONATLICH) });
+          list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
+              vondatum.getTime()) });
+          // list.addFilter("tonumber(eingabedatum) >= " + vondatum.getTime());
         }
-        if (modus == AbbuchungsmodusInput.MO)
+        if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
         {
-          list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
-              ZahlungsrhytmusInput.MONATLICH) });
+          if (modus == AbbuchungsmodusInput.HAVIMO)
+          {
+            list
+                .addFilter(
+                    "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+                    new Object[] {
+                        new Integer(ZahlungsrhytmusInput.HALBJAEHRLICH),
+                        new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
+                        new Integer(ZahlungsrhytmusInput.MONATLICH) });
+          }
+          if (modus == AbbuchungsmodusInput.VIMO)
+          {
+            list.addFilter("zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+                new Object[] {
+                    new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
+                    new Integer(ZahlungsrhytmusInput.MONATLICH) });
+          }
+          if (modus == AbbuchungsmodusInput.MO)
+          {
+            list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
+                ZahlungsrhytmusInput.MONATLICH) });
+          }
         }
-      }
-      // Sätze im Resultset
-      monitor.log("Anzahl Sätze: " + list.size());
+        // Sätze im Resultset
+        monitor.log("Anzahl Sätze: " + list.size());
 
-      // list.setOrder(" ORDER BY name, vorname ");
-      monitor.setPercentComplete(100);
-      int count = 0;
-      while (list.hasNext())
-      {
-        monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
-        Mitglied m = (Mitglied) list.next();
-        Double betr;
-        if (Einstellungen.getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
+        // list.setOrder(" ORDER BY name, vorname ");
+        monitor.setPercentComplete(100);
+        int count = 0;
+        while (list.hasNext())
         {
-          betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
-        }
-        else
-        {
-          betr = (Double) beitr.get(m.getBeitragsgruppeId() + "")
-              * m.getZahlungsrhytmus();
-        }
-        if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
-        {
-          writeCSatz(dtaus, m, verwendungszweck, betr);
-        }
-        else
-        {
-          writeManuellerZahlungseingang(m, verwendungszweck, betr);
+          monitor
+              .setStatus((int) ((double) count / (double) list.size() * 100d));
+          Mitglied m = (Mitglied) list.next();
+          Double betr;
+          if (Einstellungen.getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
+          {
+            betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
+          }
+          else
+          {
+            betr = (Double) beitr.get(m.getBeitragsgruppeId() + "")
+                * m.getZahlungsrhytmus();
+          }
+          if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
+          {
+            writeCSatz(dtaus, m, verwendungszweck, betr);
+          }
+          else
+          {
+            writeManuellerZahlungseingang(m, verwendungszweck, betr);
+          }
         }
       }
       // Schritt 2: Zusatzabbuchungen verarbeiten
