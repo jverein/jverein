@@ -52,14 +52,7 @@ public class Datum
     Calendar cal = Calendar.getInstance();
     cal.setTime(letztefaelligkeit);
     cal.add(Calendar.MONTH, intervall);
-    if (cal.getTime().getTime() > endedatum.getTime())
-    {
-      return null;
-    }
-    else
-    {
-      return cal.getTime();
-    }
+    return cal.getTime();
   }
 
   public static Date subtractInterval(Date letztefaelligkeit, int intervall,
