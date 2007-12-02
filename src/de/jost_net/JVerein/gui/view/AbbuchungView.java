@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/08/22 20:44:10  jost
+ * Bug #011762
+ *
  * Revision 1.6  2007/07/20 20:15:40  jost
  * Bessere Fehlermeldung
  *
@@ -71,7 +74,7 @@ public class AbbuchungView extends AbstractView
     final AbbuchungControl control = new AbbuchungControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
-    group.addLabelPair("Jahresabbuchung", control.getJahresabbuchung());
+    group.addLabelPair("Modus", control.getAbbuchungsmodus());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group.addLabelPair("Zahlungsgrund", control.getZahlungsgrund());
     group.addLabelPair("Zusatzabbuchung", control.getZusatzabbuchung());
