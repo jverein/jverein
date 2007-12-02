@@ -51,7 +51,10 @@ keinem Mitglied zugeordnet ist, gelöscht werden. Bei zugeordneten Beitragsgrupp
 \label{einstellungen}
 \includegraphics{./screenshots/einstellungen.jpg}\\
 Durch die Einstellungen kann das Verhalten von JVerein beeinflußt werden. Nach Änderungen der mit * gekennzeichneten Werte
-ist ein Neustart von Jameica erforderlich.\\
+ist ein Neustart von Jameica erforderlich.
+
+Siehe auch Beitragsmodelle Seite ~\pageref{beitragsmodelle}
+
 
 \begin{itemize}
  \item Geburtsdatum und Eintrittsdatum Pflichtfeld
@@ -61,8 +64,7 @@ ist ein Neustart von Jameica erforderlich.\\
  \item Tab Vermerke beim Mitglied anzeigen.
  \item Tab Wiedervorlage beim Mitglied anzeigen. Impliziert, dass die Übersicht der Wiedervorlagen (nicht) angezeigt wird. 
  \item Kursteilnehmer ein-/ausblenden. 
- \item Standard-Tab für die Mitglieder-Suche beim ersten Aufruf auswählen. Entweder kann der Buchstabe ``A'' oder der ``*'' für alle Mitglieder
-       ausgewählt werden.
+ \item Beitragsmodell. (siehe Beitragsmodelle Seite ~\pageref{beitragsmodelle})
 \end{itemize}
 
 
@@ -227,22 +229,21 @@ Eingabe eines neuen Kursteilnehmers:\\
 \chapter{Abbuchung}
 Abbuchungen werden mit dem untenstehenden Bildschirm initiiert. Es können
 \begin{itemize}
- \item Jahresbeiträge 
- \item Jahresbeiträge für im laufenden Jahr eingetretene Mitglieder
+ \item Mitgliedsbeiträge je nach Beitragsmodell (siehe Beitragsmodelle Seite ~\pageref{beitragsmodelle}) 
+ \item Beiträge für im laufenden Jahr eingetretene Mitglieder
  \item Zusatzbeträge
  \item Kursgebühren
 \end{itemize}
 verarbeitet werden.
 
-Wenn Jahresabbuchung angeklickt wurde, werden für alle Mitglieder, die nicht ausgetreten sind, die Beiträge gemäß eingetragener Beitragsgruppe eingezogen. Für Mitglieder, die im Laufe des Jahres eingetreten sind, können ebenfalls die Beiträge eingezogen werden. Dazu wird das Eingabedatum eingetragen, ab dem die Beiträge für nachträglich eingetretene Mitglieder abgebucht werden sollen.
+Sofern als Modus nicht ``keine Beitragsabbuchung'' ausgewählt wurde, werden für alle Mitglieder, die nicht ausgetreten sind, die Beiträge gemäß eingetragener Beitragsgruppe und Zahlungsrhytmus eingezogen. 
+
+Für Mitglieder, die im Laufe des Jahres eingetreten sind, können ebenfalls die Beiträge eingezogen werden. Dazu wird das Eingabedatum eingetragen, ab dem die Beiträge für nachträglich eingetretene Mitglieder abgebucht werden sollen.
 
 Mit der Option Zusatzabbuchung werden auch die zusätzlichen Beträge abgebucht.
 
 Die Daten werden in eine DTAUS-Datei geschrieben. Diese Datei kann entweder direkt auf Diskette ausgegeben und bei der Bank eingereicht oder zum Beispiel in Hibiscus importiert werden.\\
-\includegraphics{./screenshots/abbuchung.jpg}\\
-Tip! Mit der Funktion Jahresabbuchung können natürlich auch monatlich, vierteljährlich, halbjährlich oder in anderen
-Rhytmen Abbuchungen durchgeführt werden.
-
+\includegraphics{./screenshots/abbuchung.jpg}
 
 \chapter{Zusatzabbuchungen}
 Für jedes Mitglied können Zusatzabbuchungen hinterlegt werden. Diese Beträge werden zusätzlich zum Mitgliedsbeitrag eingezogen. Die Zusatzabbuchung können einmalig (z. B. Eigenanteil für die Teilnahme an einer Veranstaltung) oder wiederkehrend (z. B. Instrumentenversicherung) angelegt werden. Als Wiederholungs-Intervall stehen
@@ -307,6 +308,19 @@ Der Mitgliederbestand kann nach den unten aufgeführten Merkmalen selektiert wer
 \section{Kursteilnehmer}
 Die Kursteilnehmer können nach Abbuchungsdatum selektiert werden. Die Ausgabe erfolgt im PDF-Format.\\
 \includegraphics{./screenshots/kursteilnehmerauswertung.jpg}\\
+
+\chapter{Beitragsmodelle}
+\label{beitragsmodelle}
+\section{Beitragsgruppen}
+Zur Beitragsberechnung sind eine oder mehrere Beitragsgruppen einzurichten. Z. B. Jugendliche, Erwachsene, Beitragsfreie. Jeder dieser Beitragsgruppen wird ein Text und eine Beiträgshöhe zugeordnet. Dabei kann es sich um Monats-, Vierteljahres-, Halbjahres- oder Jahresbeträge handeln. Siehe unten.
+\section{Familientarif}
+Alle Mitglieder, für die der Familientarif gilt sind einzeln einzugeben. Zur Abbildung eines Familientarifes sind 2 Beitragsgruppen einzurichten. Einmal eine Gruppe für den Zahler und eine Gruppe für die beitragsfreien Familienmitglieder. Als Zahler wird immer eines der famlienangehörigen Mitglieder auszuwählen. Es wird nicht ein evtl. zahlendes Elternteil, dass nicht Mitglied ist eingetragen. Die Famlienmitglieder sind miteinander verknüpft. Tritt das zahlende Mitglied aus, erscheint ein entsprechender Hinweis. Dann muss entweder ein bislang beitragsfreies Mitglied zum Zahler erklärt werden oder der Familienverband wird aufgelöst und es werden Einzelbeiträge erhoben. 
+\section{Zahlungsrhytmen} 
+JVerein unterstützt verschiedene Zahlungsrhytmen: 
+\begin{itemize}
+ \item Feste Zahlungstermine. Alle Mitglieder zahlen zu festen Terminen ihren Beitrag. Dieser Termin kann jährlich, halbjährlich, vierteljährlich oder monatlich sein. Zu diesem Termin wird für jedes Mitglied der Beitrag gemäß Beitragsgruppe eingezogen.
+ \item Unterschiedliche Zahlungstermine. Die Mitglieder zahlen einen Monatsbeitrag gemäß Beitragsgruppe. Dieser Beitrag wird entweder jährlich (12 Monatsbeiträge), halbjährlich (6 Monatsbeiträge), vierteljährlich (3 Monatsbeiträge) oder monatlich erhoben.
+\end{itemize}
 
 \chapter{GNU GENERAL PUBLIC LICENSE - GPL}
 \begin{verbatim}
