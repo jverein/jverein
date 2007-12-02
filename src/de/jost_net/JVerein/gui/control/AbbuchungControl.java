@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/12/02 13:39:10  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.5  2007/08/14 19:19:28  jost
  * Refactoring
  *
@@ -177,14 +180,6 @@ public class AbbuchungControl extends AbstractControl
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
 
     final Date vond = (Date) vondatum.getValue();
-
-    Integer m = (Integer) modus.getValue();
-    if (m.intValue() == AbbuchungsmodusInput.EINGETRETENEMITGLIEDER
-        && vond == null)
-    {
-      GUI.getStatusBar().setErrorText("Jahresabbuchung oder Datum auswählen");
-      return;
-    }
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
 
