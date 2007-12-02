@@ -4,15 +4,16 @@
 	</p>
 
 	<p>
-		Klicken Sie entweder Jahresabbuchung an oder geben Sie das 
-		Datum ein, ab dem für die Neuzugänge abgebucht werden soll.
+		Zunächst ist der Modus auszuwählen. Die Auswahlmöglichkeiten
+		richten sich nach dem ausgewählten Beitragsmodell (siehe 
+		Einstellungen).
 	</p>
 	<p>
-		Der angegebene Verwendungszweck wird bei allen Buchungen
-		(Ausnahme: Zusatzabbuchungen) eingetragen.
+		Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen
+		eingetragen.
 	</p>
 	<p>
-	    Es kann angegeben werden, ob Zusatzabbuchungen berücksichtigt
+	    Es kann angegeben werden, ob Zusatzabbuchungen und Kursteilnehmer berücksichtigt
 	    werden sollen.
 	</p>
 </form>

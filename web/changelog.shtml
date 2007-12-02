@@ -12,7 +12,8 @@
          		    ausgewählte Tab angezeigt.</li>
          		<li>Neu: Geburtstagsliste bei der Auswertung der Mitglieder</li>
          		<li>Intern: Neue Mimik für das Update der Datenbankstruktur</li>
-
+         		<li>Neues Beitragsmodell</li>
+         		<li>Bugfix wiederkehrende Zusatzabbuchungen</li>
          </ul>
       <li>Version 0.9.1 vom 04.09.2007</li>
          <ul>

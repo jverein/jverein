@@ -1,0 +1,8 @@
+<form>
+	<p>
+		<span color="header" font="header">Auswertung Kursteilnehmer</span>
+	</p>
+    <p>
+        Die Kursteilnehmer eines vorgegebenen Zeitraums können im PDF-Format ausgegeben werden.
+    </p> 	
+</form>
