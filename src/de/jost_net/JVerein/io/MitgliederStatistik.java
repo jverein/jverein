@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:04  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2007/02/02 19:40:51  jost
  * Bugfix: Nur aktive Mitglieder
  *
@@ -26,26 +29,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.eclipse.swt.graphics.Point;
 
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
-import com.lowagie.text.HeaderFooter;
-import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
@@ -53,72 +45,35 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class MitgliederStatistik
 {
-  public MitgliederStatistik(final File file) throws ApplicationException,
-      RemoteException
+  public MitgliederStatistik(final File file, ProgressMonitor monitor)
+      throws ApplicationException, RemoteException
   {
-    Document rpt = null;
-
     try
     {
-      // ////////////////////////////////////////////////////////////////////////
-      // Header erzeugen
-      rpt = new Document(PageSize.A4, 80, 60, 60, 60);
-
       FileOutputStream fos = new FileOutputStream(file);
-      PdfWriter.getInstance(rpt, fos);
-      rpt.setMargins(50, 10, 50, 30); // links, rechts, oben, unten
-
-      AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
-          JVereinPlugin.class);
-      rpt.addAuthor("JVerein - Version " + plugin.getManifest().getVersion());
-
-      // ////////////////////////////////////////////////////////////////////////
-
-      // ////////////////////////////////////////////////////////////////////////
-      // Footer erzeugen
-      Chunk fuss = new Chunk("Ausgegeben am "
-          + Einstellungen.TIMESTAMPFORMAT.format(new Date())
-          + "              Seite:  ", FontFactory.getFont(
-          FontFactory.HELVETICA, 8, Font.BOLD));
-      HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
-      hf.setAlignment(Element.ALIGN_CENTER);
-      rpt.setFooter(hf);
-
-      rpt.open();
-
-      Paragraph pTitle = new Paragraph("Mitgliederstatistik", FontFactory
-          .getFont(FontFactory.HELVETICA_BOLD, 13));
-      pTitle.setAlignment(Element.ALIGN_CENTER);
-      rpt.add(pTitle);
+      Reporter reporter = new Reporter(fos, monitor, "Mitgliederstatistik", "",
+          3);
 
       Paragraph pAltersgruppen = new Paragraph("\nAltersgruppen", FontFactory
           .getFont(FontFactory.HELVETICA, 11));
-      rpt.add(pAltersgruppen);
+      reporter.add(pAltersgruppen);
 
-      PdfPTable table = new PdfPTable(4);
-      float[] widths = { 100, 30, 30, 30 };
-      table.setWidths(widths);
-      table.setHorizontalAlignment(Element.ALIGN_LEFT);
-      table.setWidthPercentage(50);
-      table.setSpacingBefore(10);
-      table.setSpacingAfter(0);
-
-      table.addCell(getDetailCell("Altersgruppe", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("Insgesamt", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("männlich", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("weiblich", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.setHeaderRows(1);
+      reporter.addHeaderColumn("Altersgruppe", Element.ALIGN_CENTER, 100,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("Insgesamt", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.createHeader();
 
       DBIterator stammd = Einstellungen.getDBService().createList(
           Stammdaten.class);
@@ -128,44 +83,35 @@ public class MitgliederStatistik
       while (ap.hasNext())
       {
         Point p = ap.getNext();
-        addAltersgruppe(table, p.x, p.y);
+        addAltersgruppe(reporter, p.x, p.y);
       }
-      addAltersgruppe(table, 0, 100);
-      rpt.add(table);
+      addAltersgruppe(reporter, 0, 100);
+      reporter.closeTable();
 
       Paragraph pBeitragsgruppen = new Paragraph("\nBeitragsgruppen",
           FontFactory.getFont(FontFactory.HELVETICA, 11));
-      rpt.add(pBeitragsgruppen);
+      reporter.add(pBeitragsgruppen);
 
-      table = new PdfPTable(4);
-      table.setWidths(widths);
-      table.setHorizontalAlignment(Element.ALIGN_LEFT);
-      table.setWidthPercentage(50);
-      table.setSpacingBefore(10);
-      table.setSpacingAfter(0);
-
-      table.addCell(getDetailCell("Beitragsgruppe", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("Insgesamt", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("männlich", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("weiblich", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.setHeaderRows(1);
+      reporter.addHeaderColumn("Beitragsgruppe", Element.ALIGN_CENTER, 100,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("Insgesamt", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.createHeader();
 
       DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
       while (beitragsgruppen.hasNext())
       {
         Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppen.next();
-        addBeitragsgruppe(table, bg);
+        addBeitragsgruppe(reporter, bg);
       }
-      addBeitragsgruppe(table, null);
-      rpt.add(table);
+      addBeitragsgruppe(reporter, null);
 
-      if (rpt != null)
-        rpt.close();
+      reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
@@ -204,89 +150,46 @@ public class MitgliederStatistik
 
   }
 
-  /**
-   * Erzeugt eine Zelle der Tabelle.
-   * 
-   * @param text
-   *          der anzuzeigende Text.
-   * @param align
-   *          die Ausrichtung.
-   * @param backgroundcolor
-   *          die Hintergundfarbe.
-   * @return die erzeugte Zelle.
-   */
-  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
-  {
-    PdfPCell cell = new PdfPCell(new Phrase(notNull(text), FontFactory.getFont(
-        FontFactory.HELVETICA, 8)));
-    cell.setHorizontalAlignment(align);
-    cell.setBackgroundColor(backgroundcolor);
-    return cell;
-  }
-
-  /**
-   * Erzeugt eine Zelle der Tabelle.
-   * 
-   * @param text
-   *          der anzuzeigende Text.
-   * @param align
-   *          die Ausrichtung.
-   * @return die erzeugte Zelle.
-   */
-  private PdfPCell getDetailCell(String text, int align)
-  {
-    return getDetailCell(text, align, Color.WHITE);
-  }
-
-  /**
-   * Gibt einen Leerstring aus, falls der Text null ist.
-   * 
-   * @param text
-   *          der Text.
-   * @return der Text oder Leerstring - niemals null.
-   */
-  private String notNull(String text)
-  {
-    return text == null ? "" : text;
-  }
-
-  private void addAltersgruppe(PdfPTable table, int von, int bis)
+  private void addAltersgruppe(Reporter reporter, int von, int bis)
       throws RemoteException
   {
     if (von == 0 && bis == 100)
     {
-      table.addCell(getDetailCell("Insgesamt", Element.ALIGN_LEFT));
+      reporter.addColumn(reporter
+          .getDetailCell("Insgesamt", Element.ALIGN_LEFT));
     }
     else
     {
-      table.addCell(getDetailCell("Altersgruppe " + von + "-" + bis,
-          Element.ALIGN_LEFT));
+      reporter.addColumn(reporter.getDetailCell("Altersgruppe " + von + "-"
+          + bis, Element.ALIGN_LEFT));
     }
-    table.addCell(getDetailCell(getAltersgruppe(von, bis, null) + "",
-        Element.ALIGN_RIGHT));
-    table.addCell(getDetailCell(getAltersgruppe(von, bis, "m") + "",
-        Element.ALIGN_RIGHT));
-    table.addCell(getDetailCell(getAltersgruppe(von, bis, "w") + "",
-        Element.ALIGN_RIGHT));
+    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, null)
+        + "", Element.ALIGN_RIGHT));
+    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "m")
+        + "", Element.ALIGN_RIGHT));
+    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "w")
+        + "", Element.ALIGN_RIGHT));
 
   }
 
-  private void addBeitragsgruppe(PdfPTable table, Beitragsgruppe bg)
+  private void addBeitragsgruppe(Reporter reporter, Beitragsgruppe bg)
       throws RemoteException
   {
     if (bg == null)
     {
-      table.addCell(getDetailCell("Insgesamt", Element.ALIGN_LEFT));
+      reporter.addColumn(reporter
+          .getDetailCell("Insgesamt", Element.ALIGN_LEFT));
     }
     else
     {
-      table.addCell(getDetailCell(bg.getBezeichnung(), Element.ALIGN_LEFT));
+      reporter.addColumn(reporter.getDetailCell(bg.getBezeichnung(),
+          Element.ALIGN_LEFT));
     }
-    table.addCell(getDetailCell(getBeitragsgruppe(bg, null) + "",
+    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, null) + "",
         Element.ALIGN_RIGHT));
-    table.addCell(getDetailCell(getBeitragsgruppe(bg, "m") + "",
+    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "m") + "",
         Element.ALIGN_RIGHT));
-    table.addCell(getDetailCell(getBeitragsgruppe(bg, "w") + "",
+    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "w") + "",
         Element.ALIGN_RIGHT));
 
   }
