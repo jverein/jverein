@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/01 10:06:38  jost
+ * Änderung wg. neuem Classloader in Jameica
+ *
  * Revision 1.1  2007/05/26 16:26:41  jost
  * Neu
  *
@@ -91,7 +94,8 @@ public class Reporter
       this.monitor.setStatusText(i18n.tr("Erzeuge Liste"));
       this.monitor.addPercentComplete(1);
     }
-    AbstractPlugin plugin = Application.getPluginLoader().getPlugin(JVereinPlugin.class);
+    AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
+        JVereinPlugin.class);
     rpt.addAuthor(i18n.tr("{0} - Version {1}",
         new String[] { plugin.getManifest().getName(),
             "" + plugin.getManifest().getVersion() }));
@@ -195,6 +199,14 @@ public class Reporter
     table.setHeaderRows(1);
   }
 
+  public void closeTable() throws DocumentException
+  {
+    rpt.add(table);
+    table = null;
+    headers = new ArrayList();
+    widths = new ArrayList();
+  }
+
   /**
    * Schliesst den Report.
    * 
@@ -210,7 +222,10 @@ public class Reporter
         monitor.setPercentComplete(100);
         monitor.setStatusText("PDF-Export beendet");
       }
-      rpt.add(table);
+      if (table != null)
+      {
+        rpt.add(table);
+      }
       rpt.close();
     }
     finally
@@ -281,8 +296,8 @@ public class Reporter
           Color.BLACK);
     else
       f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, Color.RED);
-    PdfPCell cell = new PdfPCell(
-        new Phrase(Einstellungen.DECIMALFORMAT.format(value), f));
+    PdfPCell cell = new PdfPCell(new Phrase(Einstellungen.DECIMALFORMAT
+        .format(value), f));
     cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
     return cell;
   }
