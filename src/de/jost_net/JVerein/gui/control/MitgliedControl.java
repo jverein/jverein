@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2007/12/02 13:39:47  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.21  2007/12/01 19:05:58  jost
  * Neu: Geburtstagsliste
  *
@@ -88,6 +91,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
@@ -1219,7 +1223,6 @@ public class MitgliedControl extends AbstractControl
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
     fd.setFilterExtensions(new String[] { "*.PDF" });
-
     Settings settings = new Settings(this.getClass());
 
     String path = settings
@@ -1240,18 +1243,35 @@ public class MitgliedControl extends AbstractControl
 
     final File file = new File(s);
 
-    try
+    BackgroundTask t = new BackgroundTask()
     {
-      new MitgliederStatistik(file);
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-    catch (ApplicationException e)
-    {
-      e.printStackTrace();
-    }
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          new MitgliederStatistik(file, monitor);
+        }
+        catch (RemoteException e)
+        {
+          e.printStackTrace();
+        }
+        catch (ApplicationException e)
+        {
+          e.printStackTrace();
+        }
+      }
+
+      public void interrupt()
+      {
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+
   }
 
   private void auswertungMitgliedPDF(final DBIterator list, final File file,
