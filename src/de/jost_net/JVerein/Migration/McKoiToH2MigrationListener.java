@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/01 10:07:07  jost
+ * H2-Support
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.Migration;
@@ -34,7 +37,7 @@ public class McKoiToH2MigrationListener implements MessageConsumer
   {
     Settings s = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
         .getResources().getSettings();
-    return s.getBoolean("migration.h2", false);
+    return s.getBoolean("migration.h2", true);
   }
 
   public Class[] getExpectedMessageTypes()
@@ -62,7 +65,7 @@ public class McKoiToH2MigrationListener implements MessageConsumer
 
     Settings s = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
         .getResources().getSettings();
-    if (!s.getBoolean("migration.h2", false))
+    if (!s.getBoolean("migration.h2", true))
       return;
 
     I18N i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
