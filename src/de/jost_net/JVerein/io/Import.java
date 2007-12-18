@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/03/25 17:03:44  jost
+ * 1. Zusätzliche Plausibilitäten
+ * 2. Import des Zahlungsweges
+ *
  * Revision 1.5  2007/03/24 20:22:19  jost
  * Bugfix. Jetzt kÃ¶nnen, wie dokumentiert, beliebige Dateinamen verwendet werden.
  *
@@ -185,6 +189,12 @@ public class Import
               + " ungültige Zahlungsart. Bar wird angenommen.");
           m.setZahlungsweg(ZahlungswegInput.BARZAHLUNG);
         }
+        String zahlungsrhytmus = results.getString("Zahlungsrhytmus");
+        if (zahlungsrhytmus == null)
+        {
+          zahlungsrhytmus = "12";
+        }
+        m.setZahlungsrhytmus(Integer.parseInt(zahlungsrhytmus));
         m.setKontoinhaber(results.getString("Zahler"));
         m.setTelefonprivat(results.getString("Telefon_privat"));
         m.setTelefondienstlich(results.getString("Telefon_dienstlich"));
@@ -207,7 +217,7 @@ public class Import
         }
         m.setAustritt(austritt);
         String kuendigung;
-
+        
         try
         {
           kuendigung = results.getString("Kündigung");

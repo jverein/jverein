@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/12/02 13:44:14  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.8  2007/12/01 10:07:45  jost
  * H2-Support
  *
@@ -122,6 +125,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
             + getKonto() + ") ungültig. Bitte prüfen Sie Ihre Eingaben.");
       }
     }
+    if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
+        && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
+    {
+      throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
+          + getZahlungsrhytmus());
+    }
+
     if (getAustritt() != null || getKuendigung() != null)
     {
       // Person ist ausgetreten
