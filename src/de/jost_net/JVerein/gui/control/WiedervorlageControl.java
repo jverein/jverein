@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/05/07 19:25:22  jost
+ * Neu: Wiedervorlage
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -19,22 +22,13 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.action.WiedervorlageAction;
-import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
-import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
-import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.Part;
-import de.willuhn.jameica.gui.formatter.DateFormatter;
-import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -45,8 +39,6 @@ public class WiedervorlageControl extends AbstractControl
   private Input vermerk = null;
 
   private DateInput erledigung = null;
-
-  private TablePart wiedervorlageList;
 
   private Wiedervorlage wvl = null;
 
@@ -151,54 +143,4 @@ public class WiedervorlageControl extends AbstractControl
     }
   }
 
-  public Part getWiedervorlageList() throws RemoteException
-  {
-    DBService service = Einstellungen.getDBService();
-    DBIterator wiedervorlagen = service.createList(Wiedervorlage.class);
-    wiedervorlagen.setOrder("ORDER BY datum DESC");
-
-    if (wiedervorlageList == null)
-    {
-      wiedervorlageList = new TablePart(wiedervorlagen,
-          new WiedervorlageAction(null));
-      wiedervorlageList.addColumn("Name", "mitglied", new Formatter()
-      {
-        public String format(Object o)
-        {
-          Mitglied m = (Mitglied) o;
-          if (m == null)
-            return null;
-          String name = null;
-          try
-          {
-            name = m.getNameVorname();
-          }
-          catch (RemoteException e)
-          {
-            e.printStackTrace();
-          }
-          return name;
-        }
-      });
-      wiedervorlageList.addColumn("Datum", "datum", new DateFormatter(
-          Einstellungen.DATEFORMAT));
-      wiedervorlageList.addColumn("Vermerk", "vermerk");
-      wiedervorlageList.addColumn("Erledigung", "erledigung",
-          new DateFormatter(Einstellungen.DATEFORMAT));
-      wiedervorlageList
-          .setContextMenu(new WiedervorlageMenu(wiedervorlageList));
-      wiedervorlageList.setRememberColWidths(true);
-      wiedervorlageList.setRememberOrder(true);
-      wiedervorlageList.setSummary(true);
-    }
-    else
-    {
-      wiedervorlageList.removeAll();
-      while (wiedervorlagen.hasNext())
-      {
-        wiedervorlageList.addItem((Wiedervorlage) wiedervorlagen.next());
-      }
-    }
-    return wiedervorlageList;
-  }
 }
