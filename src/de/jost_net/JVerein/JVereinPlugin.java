@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2007/12/01 17:45:32  jost
+ * Formatierung
+ *
  * Revision 1.13  2007/10/18 18:18:33  jost
  * Vorbereitung H2-DB
  *
@@ -51,7 +54,6 @@
  **********************************************************************/
 package de.jost_net.JVerein;
 
-import java.io.File;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
@@ -79,9 +81,9 @@ public class JVereinPlugin extends AbstractPlugin
    * @param file
    *          the plugin file (your jar or the plugin directory).
    */
-  public JVereinPlugin(File file)
+  public JVereinPlugin()
   {
-    super(file);
+    super();
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
   }
