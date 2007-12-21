@@ -1,6 +1,0 @@
-<!--#include virtual="main.shtml"-->  
-    <h2>Kontakt</h2>
-    <p>Anregungen, Erweiterungswünsche und (möglichst keine) Fehlermeldungen bitte an
-       <a href="mailto:heiner@jverein.de">heiner@jverein.de</a> senden.</p>
-<!--#include virtual="footer.shtml"-->  
-

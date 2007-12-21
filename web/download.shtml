@@ -1,8 +1,0 @@
-<!--#include virtual="main.shtml"-->  
-    <h2>Download</h2>
-    <p>JVerein kann von der 
-    <a href="http://developer.berlios.de/project/showfiles.php?group_id=7335"
-       target=blank>Projekt-Seite</a>
-    geladen werden.</p>
-<!--#include virtual="footer.shtml"-->  
-

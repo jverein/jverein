@@ -1,7 +1,0 @@
-<!--#include virtual="main.shtml"-->  
-    <h2>CVS</h2>
-    <p>Zugriff auf die aktuelle Entwicklerversion gibt auf der
-    <a href="http://developer.berlios.de/cvs/?group_id=7335"
-       target=blank>Projekt-Seite</a> über das CVS.</p>
-<!--#include virtual="footer.shtml"-->  
-
