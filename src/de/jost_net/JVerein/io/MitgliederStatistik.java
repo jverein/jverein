@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/16 20:25:53  jost
+ * Umstellung auf Reporter
+ *
  * Revision 1.3  2007/02/23 20:28:04  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -29,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.eclipse.swt.graphics.Point;
 
@@ -52,14 +56,19 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliederStatistik
 {
-  public MitgliederStatistik(final File file, ProgressMonitor monitor)
-      throws ApplicationException, RemoteException
+  public MitgliederStatistik(final File file, ProgressMonitor monitor,
+      Date stichtag) throws ApplicationException, RemoteException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      Reporter reporter = new Reporter(fos, monitor, "Mitgliederstatistik", "",
-          3);
+      String subtitle = "";
+      if (stichtag != null)
+      {
+        subtitle = "Stichtag: " + Einstellungen.DATEFORMAT.format(stichtag);
+      }
+      Reporter reporter = new Reporter(fos, monitor, "Mitgliederstatistik",
+          subtitle, 3);
 
       Paragraph pAltersgruppen = new Paragraph("\nAltersgruppen", FontFactory
           .getFont(FontFactory.HELVETICA, 11));
@@ -73,19 +82,18 @@ public class MitgliederStatistik
           Color.LIGHT_GRAY);
       reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
           Color.LIGHT_GRAY);
-      reporter.createHeader();
+      reporter.createHeader(60f, Element.ALIGN_LEFT);
 
-      DBIterator stammd = Einstellungen.getDBService().createList(
-          Stammdaten.class);
-      Stammdaten stamm = (Stammdaten) stammd.next();
+      Stammdaten stamm = (Stammdaten) Einstellungen.getDBService()
+          .createObject(Stammdaten.class, "0");
 
       AltersgruppenParser ap = new AltersgruppenParser(stamm.getAltersgruppen());
       while (ap.hasNext())
       {
         Point p = ap.getNext();
-        addAltersgruppe(reporter, p.x, p.y);
+        addAltersgruppe(reporter, p.x, p.y, stichtag);
       }
-      addAltersgruppe(reporter, 0, 100);
+      addAltersgruppe(reporter, 0, 100, stichtag);
       reporter.closeTable();
 
       Paragraph pBeitragsgruppen = new Paragraph("\nBeitragsgruppen",
@@ -100,16 +108,35 @@ public class MitgliederStatistik
           Color.LIGHT_GRAY);
       reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
           Color.LIGHT_GRAY);
-      reporter.createHeader();
+      reporter.createHeader(60f, Element.ALIGN_LEFT);
 
       DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
       while (beitragsgruppen.hasNext())
       {
         Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppen.next();
-        addBeitragsgruppe(reporter, bg);
+        addBeitragsgruppe(reporter, bg, stichtag);
       }
-      addBeitragsgruppe(reporter, null);
+      addBeitragsgruppe(reporter, null, stichtag);
+      reporter.closeTable();
+
+      Paragraph pGuV = new Paragraph("\nAnmeldungen/Abmeldungen", FontFactory.getFont(
+          FontFactory.HELVETICA, 11));
+      reporter.add(pGuV);
+      reporter.addHeaderColumn("Text", Element.ALIGN_CENTER, 100,
+          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn("Anzahl", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      reporter.createHeader(60f, Element.ALIGN_LEFT);
+      reporter.addColumn(reporter.getDetailCell("Anmeldungen",
+          Element.ALIGN_LEFT));
+      reporter.addColumn(reporter.getDetailCell(getAnmeldungen(stichtag) + "",
+          Element.ALIGN_RIGHT));
+      reporter.addColumn(reporter.getDetailCell("Abmeldungen",
+          Element.ALIGN_LEFT));
+      reporter.addColumn(reporter.getDetailCell(getAbmeldungen(stichtag) + "",
+          Element.ALIGN_RIGHT));
+      reporter.closeTable();
 
       reporter.close();
       fos.close();
@@ -150,8 +177,8 @@ public class MitgliederStatistik
 
   }
 
-  private void addAltersgruppe(Reporter reporter, int von, int bis)
-      throws RemoteException
+  private void addAltersgruppe(Reporter reporter, int von, int bis,
+      Date stichtag) throws RemoteException
   {
     if (von == 0 && bis == 100)
     {
@@ -163,17 +190,20 @@ public class MitgliederStatistik
       reporter.addColumn(reporter.getDetailCell("Altersgruppe " + von + "-"
           + bis, Element.ALIGN_LEFT));
     }
-    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, null)
+    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, null,
+        stichtag)
         + "", Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "m")
+    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "m",
+        stichtag)
         + "", Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "w")
+    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "w",
+        stichtag)
         + "", Element.ALIGN_RIGHT));
 
   }
 
-  private void addBeitragsgruppe(Reporter reporter, Beitragsgruppe bg)
-      throws RemoteException
+  private void addBeitragsgruppe(Reporter reporter, Beitragsgruppe bg,
+      Date stichtag) throws RemoteException
   {
     if (bg == null)
     {
@@ -185,12 +215,15 @@ public class MitgliederStatistik
       reporter.addColumn(reporter.getDetailCell(bg.getBezeichnung(),
           Element.ALIGN_LEFT));
     }
-    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, null) + "",
-        Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "m") + "",
-        Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "w") + "",
-        Element.ALIGN_RIGHT));
+    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, null,
+        stichtag)
+        + "", Element.ALIGN_RIGHT));
+    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "m",
+        stichtag)
+        + "", Element.ALIGN_RIGHT));
+    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "w",
+        stichtag)
+        + "", Element.ALIGN_RIGHT));
 
   }
 
@@ -205,7 +238,7 @@ public class MitgliederStatistik
    *          m, w oder null
    * @return Anzahl der Mitglieder
    */
-  private int getAltersgruppe(int von, int bis, String geschlecht)
+  private int getAltersgruppe(int von, int bis, String geschlecht, Date stichtag)
       throws RemoteException
   {
     Calendar calVon = Calendar.getInstance();
@@ -228,7 +261,8 @@ public class MitgliederStatistik
     list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
     list.addFilter("geburtsdatum <= ?", new Object[] { bd });
-    list.addFilter("austritt is null");
+    list.addFilter("(austritt is null or austritt > ?)",
+        new Object[] { stichtag });
 
     if (geschlecht != null)
     {
@@ -238,11 +272,12 @@ public class MitgliederStatistik
     return list.size();
   }
 
-  private int getBeitragsgruppe(Beitragsgruppe bg, String geschlecht)
-      throws RemoteException
+  private int getBeitragsgruppe(Beitragsgruppe bg, String geschlecht,
+      Date stichtag) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
-    list.addFilter("austritt is null");
+    list.addFilter("(austritt is null or austritt > ?)",
+        new Object[] { stichtag });
     if (bg != null)
     {
       list.addFilter("beitragsgruppe = ?", new Object[] { new Integer(bg
@@ -253,6 +288,32 @@ public class MitgliederStatistik
       list.addFilter("geschlecht = ?", new Object[] { geschlecht });
     }
 
+    return list.size();
+  }
+
+  private int getAnmeldungen(Date stichtag) throws RemoteException
+  {
+    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(stichtag);
+    cal.set(Calendar.DAY_OF_MONTH, 1);
+    cal.set(Calendar.MONTH, Calendar.JANUARY);
+    Date jahresanfang = new Date(cal.getTimeInMillis());
+    list.addFilter("eintritt >= ? ", new Object[] { jahresanfang });
+    list.addFilter("eintritt <= ? ", new Object[] { stichtag });
+    return list.size();
+  }
+
+  private int getAbmeldungen(Date stichtag) throws RemoteException
+  {
+    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(stichtag);
+    cal.set(Calendar.DAY_OF_MONTH, 1);
+    cal.set(Calendar.MONTH, Calendar.JANUARY);
+    Date jahresanfang = new Date(cal.getTimeInMillis());
+    list.addFilter("austritt >= ? ", new Object[] { jahresanfang });
+    list.addFilter("austritt <= ? ", new Object[] { stichtag });
     return list.size();
   }
 

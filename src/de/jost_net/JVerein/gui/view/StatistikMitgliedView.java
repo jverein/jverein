@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/10/29 07:49:43  jost
  * Neu: Mitgliederstatistik
  *
@@ -23,6 +26,7 @@ import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
 public class StatistikMitgliedView extends AbstractView
@@ -32,6 +36,9 @@ public class StatistikMitgliedView extends AbstractView
     GUI.getView().setTitle("Mitgliederstatistik");
 
     final MitgliedControl control = new MitgliedControl(this);
+
+    LabelGroup group = new LabelGroup(getParent(), "Parameter");
+    group.addLabelPair("Stichtag", control.getStichtag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 

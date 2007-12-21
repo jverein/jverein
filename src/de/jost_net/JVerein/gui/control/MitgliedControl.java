@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2007/12/16 20:25:21  jost
+ * Mitgliederstatistik läuft jetzt in einem eigenen Thread
+ *
  * Revision 1.22  2007/12/02 13:39:47  jost
  * Neu: Beitragsmodelle
  *
@@ -83,6 +86,7 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -91,7 +95,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
@@ -203,6 +206,8 @@ public class MitgliedControl extends AbstractControl
   private SelectInput sortierung;
 
   private SelectInput status;
+
+  private DateInput stichtag;
 
   private Mitglied mitglied;
 
@@ -935,6 +940,32 @@ public class MitgliedControl extends AbstractControl
     return austrittbis;
   }
 
+  public DateInput getStichtag() throws RemoteException
+  {
+    if (stichtag != null)
+    {
+      return stichtag;
+    }
+    Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.MONTH, Calendar.DECEMBER);
+    cal.set(Calendar.DAY_OF_MONTH, 31);
+    Date d = new Date(cal.getTimeInMillis());
+    this.stichtag = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.stichtag.setTitle("Stichtag");
+    this.stichtag.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) stichtag.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return stichtag;
+  }
+
   public Input getAusgabe() throws RemoteException
   {
     if (ausgabe != null)
@@ -1242,6 +1273,7 @@ public class MitgliedControl extends AbstractControl
     }
 
     final File file = new File(s);
+    final Date sticht = (Date) stichtag.getValue();
 
     BackgroundTask t = new BackgroundTask()
     {
@@ -1249,7 +1281,7 @@ public class MitgliedControl extends AbstractControl
       {
         try
         {
-          new MitgliederStatistik(file, monitor);
+          new MitgliederStatistik(file, monitor, sticht);
         }
         catch (RemoteException e)
         {
