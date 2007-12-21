@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/12/02 13:41:18  jost
+ * überflüssiges Import-Statement entfernt.
+ *
  * Revision 1.7  2007/08/22 20:44:10  jost
  * Bug #011762
  *
@@ -83,6 +86,7 @@ public class AbbuchungView extends AbstractView
       control.getZusatzabbuchung().setEnabled(false);
     }
     group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
+    group.addLabelPair("Dtaus-Datei drucken", control.getDtausPrint());
     if (!Einstellungen.isKursteilnehmer())
     {
       control.getKursteilnehmer().setEnabled(false);

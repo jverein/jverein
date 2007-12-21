@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2007/12/02 14:15:25  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.13  2007/12/02 13:43:43  jost
  * Neu: Beitragsmodelle
  *
@@ -180,6 +183,7 @@ public class Abbuchung
                 ZahlungsrhytmusInput.MONATLICH) });
           }
         }
+        list.setOrder("ORDER BY name, vorname");
         // Sätze im Resultset
         monitor.log("Anzahl Sätze: " + list.size());
 
