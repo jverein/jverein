@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:24  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/29 07:50:22  jost
  * Neu: Mitgliederstatistik
  *
@@ -39,4 +42,8 @@ public interface Stammdaten extends DBObject
   public String getAltersgruppen() throws RemoteException;
 
   public void setAltersgruppen(String altersgruppen) throws RemoteException;
+
+  public String getJubilaeen() throws RemoteException;
+
+  public void setJubilaeen(String jubilaeen) throws RemoteException;
 }

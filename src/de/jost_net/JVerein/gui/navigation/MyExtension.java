@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/09/06 17:16:36  jost
+ * Korrekte Behandlung des Menüpunktes Auswertung | Kursteilnehmer
+ *
  * Revision 1.2  2007/08/23 19:25:05  jost
  * Header korrigiert.
  *
@@ -19,6 +22,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
 import de.jost_net.JVerein.gui.action.AuswertungMitgliedAction;
+import de.jost_net.JVerein.gui.action.JubilaeenAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
@@ -65,6 +69,8 @@ public class MyExtension implements Extension
       auswertung = new MyItem(auswertung, "Auswertungen", null);
       auswertung.addChild(new MyItem(auswertung, "Mitglieder",
           new AuswertungMitgliedAction()));
+      auswertung.addChild(new MyItem(auswertung, "Jubil�en",
+          new JubilaeenAction()));
       if (Einstellungen.isKursteilnehmer())
       {
         auswertung.addChild(new MyItem(auswertung, "Kursteilnehmer",
@@ -84,8 +90,9 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.2 2007/08/23 19:25:05 jost Header
- * korrigiert.
+ * $Log$ Revision 1.3 2007/09/06 17:16:36 jost Korrekte
+ * Behandlung des Menüpunktes Auswertung | Kursteilnehmer Revision 1.2
+ * 2007/08/23 19:25:05 jost Header korrigiert.
  * 
  * Revision 1.1 2007/08/22 20:43:40 jost Bug #011762
  * 

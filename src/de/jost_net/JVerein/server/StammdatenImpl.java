@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:41  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/29 07:50:38  jost
  * Neu: Mitgliederstatistik
  *
@@ -22,6 +25,7 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.AltersgruppenParser;
+import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -76,6 +80,14 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
       try
       {
         new AltersgruppenParser(getAltersgruppen());
+      }
+      catch (RuntimeException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
+      try
+      {
+        new JubilaeenParser(getJubilaeen());
       }
       catch (RuntimeException e)
       {
@@ -138,6 +150,21 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
   public void setAltersgruppen(String altersgruppen) throws RemoteException
   {
     setAttribute("altersgruppen", altersgruppen);
+  }
+
+  public String getJubilaeen() throws RemoteException
+  {
+    String ag = (String) getAttribute("jubilaeen");
+    if (ag == null || ag.length() == 0)
+    {
+      ag = "10,25,40,50";
+    }
+    return ag;
+  }
+
+  public void setJubilaeen(String jubilaeen) throws RemoteException
+  {
+    setAttribute("jubilaeen", jubilaeen);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/12/01 10:06:12  jost
+ * Änderung wg. neuem Classloader in Jameica
+ *
  * Revision 1.6  2007/08/14 19:20:16  jost
  * Vereinsnamen maximal 27 Stellen
  *
@@ -56,6 +59,8 @@ public class StammdatenControl extends AbstractControl
 
   private Input altersgruppen;
 
+  private Input jubilaeen;
+
   private Stammdaten stamm;
 
   public StammdatenControl(AbstractView view)
@@ -64,7 +69,7 @@ public class StammdatenControl extends AbstractControl
     try
     {
       stamm = (Stammdaten) Einstellungen.getDBService().createObject(
-          Stammdaten.class, "1");
+          Stammdaten.class, "0");
     }
     catch (RemoteException e)
     {
@@ -129,6 +134,16 @@ public class StammdatenControl extends AbstractControl
     return altersgruppen;
   }
 
+  public Input getJubilaeen() throws RemoteException
+  {
+    if (jubilaeen != null)
+    {
+      return jubilaeen;
+    }
+    jubilaeen = new TextInput(getStammdaten().getJubilaeen(), 50);
+    return jubilaeen;
+  }
+
   public void handleStore()
   {
     try
@@ -138,6 +153,7 @@ public class StammdatenControl extends AbstractControl
       s.setBlz((String) getBlz().getValue());
       s.setKonto((String) getKonto().getValue());
       s.setAltersgruppen((String) getAltersgruppen().getValue());
+      s.setJubilaeen((String) getJubilaeen().getValue());
       s.store();
       GUI.getStatusBar().setSuccessText("Stammdaten gespeichert");
     }

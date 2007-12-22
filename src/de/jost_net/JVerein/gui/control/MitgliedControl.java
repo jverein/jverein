@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2007/12/21 11:27:46  jost
+ * Mitgliederstatistik jetzt Stichtagsbezogen
+ *
  * Revision 1.23  2007/12/16 20:25:21  jost
  * Mitgliederstatistik l√§uft jetzt in einem eigenen Thread
  *
@@ -104,6 +107,7 @@ import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzabbuchungMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
+import de.jost_net.JVerein.io.Jubilaeenliste;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
@@ -208,6 +212,8 @@ public class MitgliedControl extends AbstractControl
   private SelectInput status;
 
   private DateInput stichtag;
+
+  private SelectInput jubeljahr;
 
   private Mitglied mitglied;
 
@@ -966,6 +972,24 @@ public class MitgliedControl extends AbstractControl
     return stichtag;
   }
 
+  public SelectInput getJubeljahr() throws RemoteException
+  {
+    if (jubeljahr != null)
+    {
+      return jubeljahr;
+    }
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.YEAR, -1);
+    Integer[] jubeljahre = new Integer[4];
+    for (int i = 0; i < 4; i++)
+    {
+      jubeljahre[i] = cal.get(Calendar.YEAR);
+      cal.add(Calendar.YEAR, 1);
+    }
+    jubeljahr = new SelectInput(jubeljahre, jubeljahre[1]);
+    return jubeljahr;
+  }
+
   public Input getAusgabe() throws RemoteException
   {
     if (ausgabe != null)
@@ -1020,6 +1044,18 @@ public class MitgliedControl extends AbstractControl
       public void handleAction(Object context) throws ApplicationException
       {
         starteStatistik();
+      }
+    }, null, true); // "true" defines this button as the default button
+    return b;
+  }
+
+  public Button getStartJubilaeenButton()
+  {
+    Button b = new Button("Start", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        starteJubilaeenListe();
       }
     }, null, true); // "true" defines this button as the default button
     return b;
@@ -1282,6 +1318,63 @@ public class MitgliedControl extends AbstractControl
         try
         {
           new MitgliederStatistik(file, monitor, sticht);
+        }
+        catch (RemoteException e)
+        {
+          e.printStackTrace();
+        }
+        catch (ApplicationException e)
+        {
+          e.printStackTrace();
+        }
+      }
+
+      public void interrupt()
+      {
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+
+  }
+
+  private void starteJubilaeenListe()
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei w‰hlen.");
+    fd.setFilterExtensions(new String[] { "*.PDF" });
+    Settings settings = new Settings(this.getClass());
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    String s = fd.open();
+
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.toUpperCase().endsWith("PDF"))
+    {
+      s = s + ".PDF";
+    }
+
+    final File file = new File(s);
+    final Integer jahr = (Integer) jubeljahr.getValue();
+
+    BackgroundTask t = new BackgroundTask()
+    {
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          new Jubilaeenliste(file, monitor, jahr);
         }
         catch (RemoteException e)
         {

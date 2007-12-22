@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/29 07:49:29  jost
  * Neu: Mitgliederstatistik
  *
@@ -40,6 +43,7 @@ public class StammdatenView extends AbstractView
     group.addLabelPair("Bankleitzahl", control.getBlz());
     group.addLabelPair("Konto", control.getKonto());
     group.addLabelPair("Altersgruppen", control.getAltersgruppen());
+    group.addLabelPair("Jubiläen", control.getJubilaeen());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
