@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/20 20:33:09  jost
+ * Neu: Wiedervorlage-Übersicht in der Jameica-Startseite
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.parts;
 
@@ -43,7 +46,6 @@ public class WiedervorlageList extends TablePart implements Part
     DBService service = Einstellungen.getDBService();
     DBIterator wiedervorlagen = service.createList(Wiedervorlage.class);
     wiedervorlagen.setOrder("ORDER BY datum DESC");
-    System.out.println("bla");
 
     if (wiedervorlageList == null)
     {
