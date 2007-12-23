@@ -10,26 +10,6 @@
 
 	<!-- The content of the following tag is displayed in the menu bar. //-->
 	<menu>
-
-		<!-- 
-		
-		Every item must have a "name" and an "action" attribute.
-		the class defined in the attribute "action" has to be a java class name
-		which implements from de.willuhn.jameica.gui.Action.
-	
-		Additionally you can specify a shortcut using "CTRL" or "ALT"
-		as modifier key followed by "+" and a single key.
-	
-		Hint: You can create submenus by cascading "item" tags
-
-	    <item
-	    	name="entry name"
-	    	action="com.foo.bar.gui.actions.ExampleAction"
-	    	shortcut="CTRL+E"
-	    />
-	
-		//-->
-
 		<item name="JVerein">
 			<item name="Dokumentation"
             shortcut="ALT+D" 
@@ -94,5 +74,10 @@
 		<service name="database" depends="" autostart="true"
 				 class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
 	</services>
+	
+	<requires>
+    	<import plugin="hibiscus"/>
+  	</requires>
+	
 </plugin>
 
