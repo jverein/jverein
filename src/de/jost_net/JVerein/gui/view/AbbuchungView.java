@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/12/21 13:35:58  jost
+ * Ausgabe der DTAUS-Datei im PDF-Format
+ *
  * Revision 1.8  2007/12/02 13:41:18  jost
  * √ºberfl√ºssiges Import-Statement entfernt.
  *
@@ -91,10 +94,11 @@ public class AbbuchungView extends AbstractView
     {
       control.getKursteilnehmer().setEnabled(false);
     }
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton(control.getStartButton());
-    buttons.addButton("<< Zur¸ck", new BackAction());
+    group.addLabelPair("Ausgabe", control.getAbbuchungsausgabe());
 
+    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton(control.getStartButton());
   }
 
   public void unbind() throws ApplicationException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/12/21 13:35:44  jost
+ * Ausgabe der DTAUS-Datei im PDF-Format
+ *
  * Revision 1.7  2007/12/02 14:14:33  jost
  * ÃœberflÃ¼ssige Plausi entfernt.
  *
@@ -34,8 +37,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Date;
 
@@ -45,9 +47,10 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.Abbuchung;
-import de.jost_net.OBanToo.Dtaus.Dtaus2Pdf;
+import de.jost_net.JVerein.io.AbbuchungParam;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -55,9 +58,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -78,6 +79,8 @@ public class AbbuchungControl extends AbstractControl
   private CheckboxInput kursteilnehmer;
 
   private CheckboxInput dtausprint;
+
+  private AbbuchungsausgabeInput ausgabe;
 
   private Settings settings = null;
 
@@ -181,6 +184,16 @@ public class AbbuchungControl extends AbstractControl
     return dtausprint;
   }
 
+  public AbbuchungsausgabeInput getAbbuchungsausgabe() throws RemoteException
+  {
+    if (ausgabe != null)
+    {
+      return ausgabe;
+    }
+    ausgabe = new AbbuchungsausgabeInput(AbbuchungsausgabeInput.DTAUS);
+    return ausgabe;
+  }
+
   public Button getStartButton()
   {
     Button button = new Button("starten", new Action()
@@ -195,121 +208,120 @@ public class AbbuchungControl extends AbstractControl
 
   private void doAbbuchung() throws ApplicationException
   {
+    File dtausfile;
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
-    final Date vond = (Date) vondatum.getValue();
 
-    // Abbuchungsdatei
-    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("DTAUS-Ausgabedatei wählen.");
-
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
-    if (path != null && path.length() > 0)
-      fd.setFilterPath(path);
-
-    final String s = fd.open();
-
-    if (s == null || s.length() == 0)
+    Integer ausgabe;
+    try
     {
-      // close();
-      return;
+      ausgabe = (Integer) this.getAbbuchungsausgabe().getValue();
     }
-    final File file = new File(s);
+    catch (RemoteException e2)
+    {
+      throw new ApplicationException("Interner Fehler");
+    }
+
+    if (ausgabe == AbbuchungsausgabeInput.DTAUS)
+    {
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("DTAUS-Ausgabedatei wählen.");
+
+      String path = settings.getString("lastdir", System
+          .getProperty("user.home"));
+      if (path != null && path.length() > 0)
+        fd.setFilterPath(path);
+
+      String file = fd.open();
+
+      if (file == null || file.length() == 0)
+      {
+        throw new ApplicationException("keine Datei ausgewählt!");
+      }
+      dtausfile = new File(file);
+    }
+    else
+    {
+      try
+      {
+        dtausfile = File.createTempFile("dtaus", null);
+      }
+      catch (IOException e)
+      {
+        throw new ApplicationException(
+            "Temporäre Datei für die Abbuchung kann nicht erstellt werden.");
+      }
+    }
 
     // PDF-Datei für Dtaus2PDF
-    String _pdf = "";
+    String pdffile = null;
     final Boolean pdfprintb = (Boolean) dtausprint.getValue();
     if (pdfprintb)
     {
-      fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("PDF-Ausgabedatei wählen");
+
+      String path = settings.getString("lastdir", System
+          .getProperty("user.home"));
       if (path != null && path.length() > 0)
-      {
         fd.setFilterPath(path);
-      }
-      _pdf = fd.open();
+      pdffile = fd.open();
     }
 
+    // Wir merken uns noch das Verzeichnis fürs nächste mal
+    settings.setAttribute("lastdir", dtausfile.getParent());
+    final AbbuchungParam abupar;
     try
     {
-      final FileOutputStream fos = new FileOutputStream(file);
-      // Wir merken uns noch das Verzeichnis vom letzten mal
-      settings.setAttribute("lastdir", file.getParent());
-      final Boolean zusatzab = (Boolean) zusatzabbuchung.getValue();
-      final Integer mo = (Integer) modus.getValue();
-      final String spdf = _pdf;
-      BackgroundTask t = new BackgroundTask()
-      {
-        public void run(ProgressMonitor monitor) throws ApplicationException
-        {
-          try
-          {
-            new Abbuchung(fos, mo.intValue(), settings.getString(
-                "zahlungsgrund", "kein Grund angegeben"), vond, zusatzab,
-                monitor);
-            monitor.setPercentComplete(100);
-            monitor.setStatus(ProgressMonitor.STATUS_DONE);
-            GUI.getStatusBar().setSuccessText(
-                "Abbuchungsdatei geschrieben: " + s);
-            if (pdfprintb)
-            {
-              new Dtaus2Pdf(s, spdf);
-              GUI.getDisplay().asyncExec(new Runnable()
-              {
-                public void run()
-                {
-                  try
-                  {
-                    new Program().handleAction(new File(spdf));
-                  }
-                  catch (ApplicationException ae)
-                  {
-                    Application.getMessagingFactory().sendMessage(
-                        new StatusBarMessage(ae.getLocalizedMessage(),
-                            StatusBarMessage.TYPE_ERROR));
-                  }
-                }
-              });
-
-            }
-            GUI.getCurrentView().reload();
-          }
-          catch (ApplicationException ae)
-          {
-            monitor.setStatusText(ae.getMessage());
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            GUI.getStatusBar().setErrorText(ae.getMessage());
-            throw ae;
-          }
-          catch (Exception e)
-          {
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            Logger.error("error while reading objects from " + s, e);
-            ApplicationException ae = new ApplicationException(
-                "Fehler beim erstellen der Abbuchungsdatei: " + s, e);
-            monitor.setStatusText(ae.getMessage());
-            GUI.getStatusBar().setErrorText(ae.getMessage());
-            throw ae;
-          }
-        }
-
-        public void interrupt()
-        {
-        }
-
-        public boolean isInterrupted()
-        {
-          return false;
-        }
-      };
-
-      Application.getController().start(t);
+      abupar = new AbbuchungParam(this, dtausfile, pdffile);
     }
-    catch (FileNotFoundException e1)
+    catch (RemoteException e)
     {
-      throw new ApplicationException(
-          "Abbuchungsdatei kann nicht geschrieben werden");
+      throw new ApplicationException(e);
     }
+    BackgroundTask t = new BackgroundTask()
+    {
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          new Abbuchung(abupar, monitor);
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText(
+              "Abbuchungsdatei geschrieben: "
+                  + abupar.dtausfile.getAbsolutePath());
+          GUI.getCurrentView().reload();
+        }
+        catch (ApplicationException ae)
+        {
+          monitor.setStatusText(ae.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(ae.getMessage());
+          throw ae;
+        }
+        catch (Exception e)
+        {
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          Logger.error("error while reading objects from "
+              + abupar.dtausfile.getAbsolutePath(), e);
+          ApplicationException ae = new ApplicationException(
+              "Fehler beim erstellen der Abbuchungsdatei: "
+                  + abupar.dtausfile.getAbsolutePath(), e);
+          monitor.setStatusText(ae.getMessage());
+          GUI.getStatusBar().setErrorText(ae.getMessage());
+          throw ae;
+        }
+      }
 
+      public void interrupt()
+      {
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
   }
 }

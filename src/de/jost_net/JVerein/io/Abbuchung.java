@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2007/12/21 13:36:10  jost
+ * Ausgabe der DTAUS-Datei im PDF-Format
+ *
  * Revision 1.14  2007/12/02 14:15:25  jost
  * Neu: Beitragsmodelle
  *
@@ -54,13 +57,17 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Hashtable;
 
+import com.lowagie.text.DocumentException;
+
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
 import de.jost_net.JVerein.gui.input.IntervallInput;
@@ -70,201 +77,65 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Stammdaten;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
+import de.jost_net.OBanToo.Dtaus.Dtaus2Pdf;
+import de.jost_net.OBanToo.Dtaus.DtausDateiParser;
 import de.jost_net.OBanToo.Dtaus.DtausDateiWriter;
 import de.jost_net.OBanToo.Dtaus.DtausException;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.hbci.rmi.Lastschrift;
+import de.willuhn.jameica.hbci.rmi.SammelLastschrift;
+import de.willuhn.jameica.hbci.rmi.SammelTransferBuchung;
+import de.willuhn.jameica.messaging.StatusBarMessage;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
 public class Abbuchung
 {
-  public Abbuchung(FileOutputStream out, int modus, String verwendungszweck,
-      Date vondatum, Boolean zusatzabbuchung, ProgressMonitor monitor)
+  public Abbuchung(AbbuchungParam param, ProgressMonitor monitor)
       throws ApplicationException
   {
     try
     {
-      // Stammdatensatz ermitteln.
-      DBIterator list = Einstellungen.getDBService().createList(
-          Stammdaten.class);
-      if (list.size() == 0)
-      {
-        monitor.log("Keine Stammdaten gespeichert");
-        throw new ApplicationException(
-            "Keine Stammdaten gespeichert. Bitte erfassen.");
-      }
-      Stammdaten stamm = (Stammdaten) list.next();
+      FileOutputStream out = new FileOutputStream(param.dtausfile);
 
       // Vorbereitung: A-Satz bestücken und schreiben
       DtausDateiWriter dtaus = new DtausDateiWriter(out);
-      dtaus.setABLZBank(Long.parseLong(stamm.getBlz()));
+      dtaus.setABLZBank(Long.parseLong(param.stamm.getBlz()));
       dtaus.setADatum(new Date());
       dtaus.setAGutschriftLastschrift("LK");
-      dtaus.setAKonto(Long.parseLong(stamm.getKonto()));
-      dtaus.setAKundenname(stamm.getName());
+      dtaus.setAKonto(Long.parseLong(param.stamm.getKonto()));
+      dtaus.setAKundenname(param.stamm.getName());
       dtaus.writeASatz();
 
-      // Ermittlung der beitragsfreien Beitragsgruppen
-      String beitragsfrei = "";
-      list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
-      list.addFilter("betrag = 0");
-      int gr = 0; // Anzahl beitragsfreier Gruppen
-      while (list.hasNext())
-      {
-        gr++;
-        Beitragsgruppe b = (Beitragsgruppe) list.next();
-        if (gr > 1)
-        {
-          beitragsfrei += " AND ";
-        }
-        beitragsfrei += " beitragsgruppe <> " + b.getID();
-      }
-
-      // Beitragsgruppen-Tabelle lesen und cachen
-      list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
-      list.addFilter("betrag > 0");
-      Hashtable<String, Double> beitr = new Hashtable<String, Double>();
-      while (list.hasNext())
-      {
-        Beitragsgruppe b = (Beitragsgruppe) list.next();
-        beitr.put(b.getID(), new Double(b.getBetrag()));
-      }
-
-      // Hier beginnt die eigentliche Abbuchung
-
-      if (modus != AbbuchungsmodusInput.KEINBEITRAG)
-      {
-        // Alle Mitglieder lesen
-        list = Einstellungen.getDBService().createList(Mitglied.class);
-        // Die bereits ausgetretenen werden ignoriert.
-        list.addFilter("austritt is null");
-        // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
-        if (beitragsfrei.length() > 0)
-        {
-          list.addFilter(beitragsfrei);
-        }
-        // Zahlungsweg Abbuchung
-        // list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
-        // ZahlungswegInput.ABBUCHUNG) });
-        // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
-        // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
-        if (vondatum != null)
-        {
-          list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
-              vondatum.getTime()) });
-          // list.addFilter("tonumber(eingabedatum) >= " + vondatum.getTime());
-        }
-        if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
-        {
-          if (modus == AbbuchungsmodusInput.HAVIMO)
-          {
-            list
-                .addFilter(
-                    "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-                    new Object[] {
-                        new Integer(ZahlungsrhytmusInput.HALBJAEHRLICH),
-                        new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                        new Integer(ZahlungsrhytmusInput.MONATLICH) });
-          }
-          if (modus == AbbuchungsmodusInput.VIMO)
-          {
-            list.addFilter("zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-                new Object[] {
-                    new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                    new Integer(ZahlungsrhytmusInput.MONATLICH) });
-          }
-          if (modus == AbbuchungsmodusInput.MO)
-          {
-            list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
-                ZahlungsrhytmusInput.MONATLICH) });
-          }
-        }
-        list.setOrder("ORDER BY name, vorname");
-        // Sätze im Resultset
-        monitor.log("Anzahl Sätze: " + list.size());
-
-        // list.setOrder(" ORDER BY name, vorname ");
-        monitor.setPercentComplete(100);
-        int count = 0;
-        while (list.hasNext())
-        {
-          monitor
-              .setStatus((int) ((double) count / (double) list.size() * 100d));
-          Mitglied m = (Mitglied) list.next();
-          Double betr;
-          if (Einstellungen.getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
-          {
-            betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
-          }
-          else
-          {
-            betr = (Double) beitr.get(m.getBeitragsgruppeId() + "")
-                * m.getZahlungsrhytmus();
-          }
-          if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
-          {
-            writeCSatz(dtaus, m, verwendungszweck, betr);
-          }
-          else
-          {
-            writeManuellerZahlungseingang(m, verwendungszweck, betr);
-          }
-        }
-      }
-      // Schritt 2: Zusatzabbuchungen verarbeiten
-      list = Einstellungen.getDBService().createList(Zusatzabbuchung.class);
-      while (list.hasNext())
-      {
-        Zusatzabbuchung z = (Zusatzabbuchung) list.next();
-        if (z.isAktiv())
-        {
-          Mitglied m = z.getMitglied();
-          writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
-          if (z.getIntervall().intValue() != IntervallInput.KEIN
-              && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
-                  .getEndedatum().getTime()))
-          {
-            z.setFaelligkeit(Datum.addInterval(z.getFaelligkeit(), z
-                .getIntervall(), z.getEndedatum()));
-          }
-          z.setAusfuehrung(Datum.getHeute());
-          z.store();
-        }
-      }
-      // Ende von Schritt 2
-
-      // Schritt 3: Kursteilnehmer verarbeiten
-      list = Einstellungen.getDBService().createList(Kursteilnehmer.class);
-      list.addFilter("abbudatum is null");
-      while (list.hasNext())
-      {
-        Kursteilnehmer kt = (Kursteilnehmer) list.next();
-        kt.setAbbudatum();
-        kt.store();
-        dtaus.setCBetragInEuro(kt.getBetrag());
-        dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
-        dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
-        dtaus.setCKonto(Long.parseLong(kt.getKonto()));
-        dtaus.setCName(kt.getName());
-        dtaus
-            .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
-        dtaus.addCVerwendungszweck(kt.getVZweck1());
-        dtaus.addCVerwendungszweck(kt.getVZweck2());
-        dtaus.writeCSatz();
-      }
-
+      abbuchenMitglieder(dtaus, param.abbuchungsmodus, param.vondatum, monitor,
+          param.verwendungszweck);
+      abbuchenZusatzabbuchungen(dtaus);
+      abbuchenKursteilnehmer(dtaus);
       // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
       // wurden beim Schreiben der C-Sätze ermittelt.
       dtaus.writeESatz();
+      if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_EINZELBUCHUNGEN
+          || param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
+      {
+        buchenHibiscus(param);
+      }
+
       monitor.log("Anzahl Abbuchungen: " + dtaus.getAnzahlSaetze());
       monitor.log("Gesamtsumme: "
           + de.jost_net.JVerein.Einstellungen.DECIMALFORMAT.format(dtaus
               .getSummeBetraegeDecimal()) + " ¤");
       dtaus.close();
+      monitor.setPercentComplete(100);
+      if (param.dtausprint)
+      {
+        ausdruckenDTAUS(param.dtausfile.getAbsolutePath(), param.pdffile);
+      }
     }
     catch (DtausException e)
     {
@@ -282,7 +153,244 @@ public class Abbuchung
     {
       e.printStackTrace();
     }
+  }
 
+  private void abbuchenMitglieder(DtausDateiWriter dtaus, int modus,
+      Date vondatum, ProgressMonitor monitor, String verwendungszweck)
+      throws NumberFormatException, DtausException, IOException,
+      ApplicationException
+  {
+    // Ermittlung der beitragsfreien Beitragsgruppen
+    String beitragsfrei = "";
+    DBIterator list = Einstellungen.getDBService().createList(
+        Beitragsgruppe.class);
+    list.addFilter("betrag = 0");
+    int gr = 0; // Anzahl beitragsfreier Gruppen
+    while (list.hasNext())
+    {
+      gr++;
+      Beitragsgruppe b = (Beitragsgruppe) list.next();
+      if (gr > 1)
+      {
+        beitragsfrei += " AND ";
+      }
+      beitragsfrei += " beitragsgruppe <> " + b.getID();
+    }
+
+    // Beitragsgruppen-Tabelle lesen und cachen
+    list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
+    list.addFilter("betrag > 0");
+    Hashtable<String, Double> beitr = new Hashtable<String, Double>();
+    while (list.hasNext())
+    {
+      Beitragsgruppe b = (Beitragsgruppe) list.next();
+      beitr.put(b.getID(), new Double(b.getBetrag()));
+    }
+
+    if (modus != AbbuchungsmodusInput.KEINBEITRAG)
+    {
+      // Alle Mitglieder lesen
+      list = Einstellungen.getDBService().createList(Mitglied.class);
+      // Die bereits ausgetretenen werden ignoriert.
+      list.addFilter("austritt is null");
+      // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
+      if (beitragsfrei.length() > 0)
+      {
+        list.addFilter(beitragsfrei);
+      }
+      // Zahlungsweg Abbuchung
+      // list.addFilter("zahlungsweg = ?", new Object[] { new Integer(
+      // ZahlungswegInput.ABBUCHUNG) });
+      // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
+      // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
+      if (vondatum != null)
+      {
+        list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
+            vondatum.getTime()) });
+        // list.addFilter("tonumber(eingabedatum) >= " + vondatum.getTime());
+      }
+      if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
+      {
+        if (modus == AbbuchungsmodusInput.HAVIMO)
+        {
+          list
+              .addFilter(
+                  "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+                  new Object[] {
+                      new Integer(ZahlungsrhytmusInput.HALBJAEHRLICH),
+                      new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
+                      new Integer(ZahlungsrhytmusInput.MONATLICH) });
+        }
+        if (modus == AbbuchungsmodusInput.VIMO)
+        {
+          list.addFilter("zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+              new Object[] {
+                  new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
+                  new Integer(ZahlungsrhytmusInput.MONATLICH) });
+        }
+        if (modus == AbbuchungsmodusInput.MO)
+        {
+          list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
+              ZahlungsrhytmusInput.MONATLICH) });
+        }
+      }
+      list.setOrder("ORDER BY name, vorname");
+      // Sätze im Resultset
+      monitor.log("Anzahl Sätze: " + list.size());
+
+      int count = 0;
+      while (list.hasNext())
+      {
+        monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
+        Mitglied m = (Mitglied) list.next();
+        Double betr;
+        if (Einstellungen.getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
+        {
+          betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
+        }
+        else
+        {
+          betr = (Double) beitr.get(m.getBeitragsgruppeId() + "")
+              * m.getZahlungsrhytmus();
+        }
+        if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
+        {
+          writeCSatz(dtaus, m, verwendungszweck, betr);
+        }
+        else
+        {
+          writeManuellerZahlungseingang(m, verwendungszweck, betr);
+        }
+      }
+    }
+  }
+
+  private void abbuchenZusatzabbuchungen(DtausDateiWriter dtaus)
+      throws NumberFormatException, DtausException, IOException,
+      ApplicationException
+  {
+    DBIterator list = Einstellungen.getDBService().createList(
+        Zusatzabbuchung.class);
+    while (list.hasNext())
+    {
+      Zusatzabbuchung z = (Zusatzabbuchung) list.next();
+      if (z.isAktiv())
+      {
+        Mitglied m = z.getMitglied();
+        writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
+        if (z.getIntervall().intValue() != IntervallInput.KEIN
+            && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
+                .getEndedatum().getTime()))
+        {
+          z.setFaelligkeit(Datum.addInterval(z.getFaelligkeit(), z
+              .getIntervall(), z.getEndedatum()));
+        }
+        z.setAusfuehrung(Datum.getHeute());
+        z.store();
+      }
+    }
+  }
+
+  private void abbuchenKursteilnehmer(DtausDateiWriter dtaus)
+      throws ApplicationException, DtausException, IOException
+  {
+    DBIterator list = Einstellungen.getDBService().createList(
+        Kursteilnehmer.class);
+    list.addFilter("abbudatum is null");
+    while (list.hasNext())
+    {
+      Kursteilnehmer kt = (Kursteilnehmer) list.next();
+      kt.setAbbudatum();
+      kt.store();
+      dtaus.setCBetragInEuro(kt.getBetrag());
+      dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
+      dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
+      dtaus.setCKonto(Long.parseLong(kt.getKonto()));
+      dtaus.setCName(kt.getName());
+      dtaus
+          .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
+      dtaus.addCVerwendungszweck(kt.getVZweck1());
+      dtaus.addCVerwendungszweck(kt.getVZweck2());
+      dtaus.writeCSatz();
+    }
+  }
+
+  private void ausdruckenDTAUS(String dtaus, String dtauspdf)
+      throws IOException, DtausException, DocumentException
+  {
+    final String dtauspdffinal = dtauspdf;
+    new Dtaus2Pdf(dtaus, dtauspdf);
+    GUI.getDisplay().asyncExec(new Runnable()
+    {
+      public void run()
+      {
+        try
+        {
+          new Program().handleAction(new File(dtauspdffinal));
+        }
+        catch (ApplicationException ae)
+        {
+          Application.getMessagingFactory().sendMessage(
+              new StatusBarMessage(ae.getLocalizedMessage(),
+                  StatusBarMessage.TYPE_ERROR));
+        }
+      }
+    });
+  }
+
+  private void buchenHibiscus(AbbuchungParam param) throws ApplicationException
+  {
+    try
+    {
+      DtausDateiParser parser = new DtausDateiParser(param.dtausfile
+          .getAbsolutePath());
+      SammelLastschrift sl = null;
+      CSatz c = parser.next();
+      if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
+      {
+        sl = (SammelLastschrift) param.service.createObject(
+            SammelLastschrift.class, null);
+        sl.setKonto(param.konto);
+        sl.setBezeichnung(param.verwendungszweck);
+      }
+      while (c != null)
+      {
+        if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_EINZELBUCHUNGEN)
+        {
+          Lastschrift o = (Lastschrift) param.service.createObject(
+              Lastschrift.class, null);
+          o.setKonto(param.konto);
+          o.setBetrag(c.getBetragInEuro());
+          o.setZweck(c.getVerwendungszweck(1));
+          o.setZweck2(c.getVerwendungszweck(2));
+          o.setGegenkontoName(c.getNameEmpfaenger());
+          o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
+          o.setGegenkontoNummer(c.getKontonummer() + "");
+          o.store();
+        }
+        if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
+        {
+          SammelTransferBuchung o = sl.createBuchung();
+          o.setBetrag(c.getBetragInEuro());
+          o.setZweck(c.getVerwendungszweck(1));
+          o.setZweck2(c.getVerwendungszweck(2));
+          o.setGegenkontoName(c.getNameEmpfaenger());
+          o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
+          o.setGegenkontoNummer(c.getKontonummer() + "");
+          o.store();
+        }
+        c = parser.next();
+      }
+    }
+    catch (IOException e)
+    {
+      throw new ApplicationException("Fehler beim öffnen der DTAUS-Datei");
+    }
+    catch (DtausException e)
+    {
+      throw new ApplicationException("Fehler beim parsen der DTAUS-Datei: "
+          + e.getMessage());
+    }
   }
 
   private void writeCSatz(DtausDateiWriter dtaus, Mitglied m,
