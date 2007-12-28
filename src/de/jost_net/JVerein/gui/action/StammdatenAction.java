@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:26:00  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:38:12  jost
  * *** empty log message ***
  *
@@ -20,6 +23,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.view.StammdatenView;
 import de.jost_net.JVerein.rmi.Stammdaten;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.util.ApplicationException;
@@ -28,24 +32,25 @@ public class StammdatenAction implements Action
 {
   public void handleAction(Object context) throws ApplicationException
   {
-    Stammdaten s = null;
+    Stammdaten stamm = null;
 
     if (context != null && (context instanceof Stammdaten))
     {
-      s = (Stammdaten) context;
+      stamm = (Stammdaten) context;
     }
     else
     {
       try
       {
-        try
+        DBIterator list = Einstellungen.getDBService().createList(
+            Stammdaten.class);
+        if (list.size() > 0)
         {
-          s = (Stammdaten) Einstellungen.getDBService().createObject(
-              Stammdaten.class, "0");
+          stamm = (Stammdaten) list.next();
         }
-        catch (RemoteException e)
+        else
         {
-          s = (Stammdaten) Einstellungen.getDBService().createObject(
+          stamm = (Stammdaten) Einstellungen.getDBService().createObject(
               Stammdaten.class, null);
         }
       }
@@ -55,7 +60,7 @@ public class StammdatenAction implements Action
             "Fehler bei der Erzeugung eines Stammdatenobjektes aus der DB", e);
       }
     }
-    GUI.startView(StammdatenView.class.getName(), s);
+    GUI.startView(StammdatenView.class.getName(), stamm);
   }
 
 }

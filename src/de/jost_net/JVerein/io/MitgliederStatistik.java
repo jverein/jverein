@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/12/21 11:28:20  jost
+ * Mitgliederstatistik jetzt Stichtagsbezogen
+ *
  * Revision 1.4  2007/12/16 20:25:53  jost
  * Umstellung auf Reporter
  *
@@ -84,8 +87,26 @@ public class MitgliederStatistik
           Color.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
-      Stammdaten stamm = (Stammdaten) Einstellungen.getDBService()
-          .createObject(Stammdaten.class, "0");
+      Stammdaten stamm = null;
+      try
+      {
+        DBIterator list = Einstellungen.getDBService().createList(
+            Stammdaten.class);
+        if (list.size() > 0)
+        {
+          stamm = (Stammdaten) list.next();
+        }
+        else
+        {
+          stamm = (Stammdaten) Einstellungen.getDBService().createObject(
+              Stammdaten.class, null);
+        }
+      }
+      catch (RemoteException e)
+      {
+        throw new ApplicationException(
+            "Keine Stammdaten gespeichert. Bitte erfassen.");
+      }
 
       AltersgruppenParser ap = new AltersgruppenParser(stamm.getAltersgruppen());
       while (ap.hasNext())
@@ -120,8 +141,8 @@ public class MitgliederStatistik
       addBeitragsgruppe(reporter, null, stichtag);
       reporter.closeTable();
 
-      Paragraph pGuV = new Paragraph("\nAnmeldungen/Abmeldungen", FontFactory.getFont(
-          FontFactory.HELVETICA, 11));
+      Paragraph pGuV = new Paragraph("\nAnmeldungen/Abmeldungen", FontFactory
+          .getFont(FontFactory.HELVETICA, 11));
       reporter.add(pGuV);
       reporter.addHeaderColumn("Text", Element.ALIGN_CENTER, 100,
           Color.LIGHT_GRAY);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/26 18:13:47  jost
+ * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -22,7 +25,6 @@ import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
-import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.hbci.gui.dialogs.KontoAuswahlDialog;
 import de.willuhn.jameica.hbci.rmi.Konto;
@@ -62,16 +64,26 @@ public class AbbuchungParam
     dtausprint = (Boolean) ac.getDtausPrint().getValue();
     this.pdffile = pdffile;
     this.dtausfile = dtausfile;
+
     try
     {
-      stamm = (Stammdaten) Einstellungen.getDBService().createObject(
-          Stammdaten.class, "0");
+      DBIterator list = Einstellungen.getDBService().createList(
+          Stammdaten.class);
+      if (list.size() > 0)
+      {
+        stamm = (Stammdaten) list.next();
+      }
+      else
+      {
+        throw new RemoteException("Keine Stammdaten gespeichert");
+      }
     }
-    catch (ObjectNotFoundException e)
+    catch (RemoteException e)
     {
       throw new ApplicationException(
           "Keine Stammdaten gespeichert. Bitte erfassen.");
     }
+
     if (abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_EINZELBUCHUNGEN
         || abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
     {

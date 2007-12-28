@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2007/12/22 08:25:28  jost
+ * Neu: Jubiläenliste
+ *
  * Revision 1.7  2007/12/01 10:06:12  jost
  * Änderung wg. neuem Classloader in Jameica
  *
@@ -41,6 +44,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Stammdaten;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -68,8 +72,17 @@ public class StammdatenControl extends AbstractControl
     super(view);
     try
     {
-      stamm = (Stammdaten) Einstellungen.getDBService().createObject(
-          Stammdaten.class, "0");
+      DBIterator list = Einstellungen.getDBService().createList(
+          Stammdaten.class);
+      if (list.size() > 0)
+      {
+        stamm = (Stammdaten) list.next();
+      }
+      else
+      {
+        stamm = (Stammdaten) Einstellungen.getDBService().createObject(
+            Stammdaten.class, null);
+      }
     }
     catch (RemoteException e)
     {
