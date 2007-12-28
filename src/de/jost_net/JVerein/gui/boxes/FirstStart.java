@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/28 13:09:38  jost
+ * Neue FirstStart-Box
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.boxes;
 
@@ -17,7 +20,8 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
+import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
+import de.jost_net.JVerein.gui.action.EinstellungenAction;
 import de.jost_net.JVerein.gui.action.StammdatenAction;
 import de.willuhn.jameica.gui.boxes.AbstractBox;
 import de.willuhn.jameica.gui.parts.FormTextPart;
@@ -73,9 +77,9 @@ public class FirstStart extends AbstractBox
 
     text.paint(parent);
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea(parent, 3);
     buttons.addButton("Stammdaten", new StammdatenAction(), null, true);
-    buttons
-        .addButton("Beitragsgruppen", new BeitragsgruppeDetailAction(), null);
+    buttons.addButton("Beitragsgruppen", new BeitragsgruppeSucheAction(), null);
+    buttons.addButton("Einstellungen", new EinstellungenAction(), null);
   }
 }
