@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/08/30 19:49:18  jost
+ * LÃ¶schung Ã¼ber Knopf
+ *
  * Revision 1.2  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -38,10 +41,10 @@ public class BeitragsgruppeSucheView extends AbstractView
     control.getBeitragsgruppeTable().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
         .getBeitragsgruppeTable());
     buttons.addButton("Neu", new BeitragsgruppeDetailAction());
-    buttons.addButton("<< Zurück", new BackAction());
   }
 
   public void unbind() throws ApplicationException
