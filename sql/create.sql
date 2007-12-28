@@ -9,6 +9,7 @@ CREATE TABLE mitglied
   plz           VARCHAR(5)  NOT NULL, 
   ort           VARCHAR(40) NOT NULL, 
   zahlungsweg   INTEGER,
+  zahlungsrhytmus INTEGER,
   blz           VARCHAR(8),
   konto         VARCHAR(10),
   kontoinhaber  VARCHAR(27),
@@ -65,6 +66,7 @@ CREATE TABLE stammdaten
   blz			VARCHAR(8)  NOT NULL,
   konto         VARCHAR(10) NOT NULL,
   altersgruppen VARCHAR(50),
+  jubilaeen     VARCHAR(50),
   UNIQUE        (id),
   PRIMARY KEY   (id)
 );
@@ -109,6 +111,15 @@ CREATE TABLE wiedervorlage
   UNIQUE        (id),
   PRIMARY KEY   (id)
 );
+
+CREATE TABLE version
+(
+  id            INTEGER     default UNIQUEKEY('version'), 
+  version     INTEGER,
+  UNIQUE        (id), 
+  PRIMARY KEY   (id)
+);
+INSERT INTO version VALUES (1,3);
 
 ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
 

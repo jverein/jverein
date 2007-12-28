@@ -66,6 +66,7 @@ CREATE TABLE stammdaten
   blz			VARCHAR(8)  NOT NULL,
   konto         VARCHAR(10) NOT NULL,
   altersgruppen VARCHAR(50),
+  jubilaeen     VARCHAR(50),
   UNIQUE        (id),
   PRIMARY KEY   (id)
 );
@@ -120,7 +121,6 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 );
-
 
 COMMIT; 
 
