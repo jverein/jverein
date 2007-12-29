@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/28 13:10:22  jost
+ * Kommentare entfernt und hinzugefügt.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.boxes;
 
@@ -52,6 +55,11 @@ public class Wiedervorlage extends AbstractBox implements Box
   public boolean isActive()
   {
     return super.isActive();
+  }
+
+  public int getHeight()
+  {
+    return 130;
   }
 
 }

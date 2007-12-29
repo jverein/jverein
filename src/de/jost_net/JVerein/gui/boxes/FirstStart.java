@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/28 15:54:36  jost
+ * Button-Leiste vervollständigt.
+ *
  * Revision 1.1  2007/12/28 13:09:38  jost
  * Neue FirstStart-Box
  *
@@ -81,5 +84,10 @@ public class FirstStart extends AbstractBox
     buttons.addButton("Stammdaten", new StammdatenAction(), null, true);
     buttons.addButton("Beitragsgruppen", new BeitragsgruppeSucheAction(), null);
     buttons.addButton("Einstellungen", new EinstellungenAction(), null);
+  }
+
+  public int getHeight()
+  {
+    return 140;
   }
 }
