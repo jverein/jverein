@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2007/12/26 18:13:33  jost
+ * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
+ *
  * Revision 1.15  2007/12/21 13:36:10  jost
  * Ausgabe der DTAUS-Datei im PDF-Format
  *
@@ -218,6 +221,15 @@ public class Abbuchung
                   "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
                   new Object[] {
                       new Integer(ZahlungsrhytmusInput.HALBJAEHRLICH),
+                      new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
+                      new Integer(ZahlungsrhytmusInput.MONATLICH) });
+        }
+        if (modus == AbbuchungsmodusInput.JAVIMO)
+        {
+          list
+              .addFilter(
+                  "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+                  new Object[] { new Integer(ZahlungsrhytmusInput.JAEHRLICH),
                       new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
                       new Integer(ZahlungsrhytmusInput.MONATLICH) });
         }
