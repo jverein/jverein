@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/12/02 13:43:16  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.4  2007/12/01 17:46:46  jost
  * Wegfall Standardtab fÃ¼r die Suche
  *
@@ -52,6 +55,11 @@ public class EinstellungenView extends AbstractView
 
     LabelGroup groupAbu = new LabelGroup(getParent(), "Beiträge");
     groupAbu.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
+
+    LabelGroup groupDatei = new LabelGroup(getParent(), "Dateinamen");
+    groupDatei.addLabelPair("Muster", control.getDateinamenmuster());
+    groupDatei.addText("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit",
+        true);
 
     new Headline(getParent(), "* Änderung erfordert Neustart");
     ButtonArea buttons = new ButtonArea(getParent(), 2);

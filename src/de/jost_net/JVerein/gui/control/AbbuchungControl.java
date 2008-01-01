@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2007/12/26 18:12:32  jost
+ * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
+ *
  * Revision 1.8  2007/12/21 13:35:44  jost
  * Ausgabe der DTAUS-Datei im PDF-Format
  *
@@ -51,6 +54,7 @@ import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.Abbuchung;
 import de.jost_net.JVerein.io.AbbuchungParam;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -229,8 +233,11 @@ public class AbbuchungControl extends AbstractControl
       String path = settings.getString("lastdir", System
           .getProperty("user.home"));
       if (path != null && path.length() > 0)
+      {
         fd.setFilterPath(path);
-
+      }
+      fd.setFileName(new Dateiname("abbuchung", Einstellungen
+          .getDateinamenmuster(), "TXT").get());
       String file = fd.open();
 
       if (file == null || file.length() == 0)

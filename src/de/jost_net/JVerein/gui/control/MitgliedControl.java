@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2007/12/22 08:25:13  jost
+ * Neu: Jubiläenliste
+ *
  * Revision 1.24  2007/12/21 11:27:46  jost
  * Mitgliederstatistik jetzt Stichtagsbezogen
  *
@@ -115,6 +118,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -1233,21 +1237,26 @@ public class MitgliedControl extends AbstractControl
       }
 
       String sort = (String) sortierung.getValue();
+      String dateinamensort = "";
       if (sort.equals("Name, Vorname"))
       {
         list.setOrder("ORDER BY name, vorname");
+        dateinamensort = "name";
       }
       else if (sort.equals("Eintrittsdatum"))
       {
         list.setOrder("ORDER BY eintritt");
+        dateinamensort = "eintrittsdatum";
       }
       else if (sort.equals("Geburtsdatum"))
       {
         list.setOrder("ORDER BY geburtsdatum");
+        dateinamensort = "geburtsdatum";
       }
       else if (sort.equals("Geburtstagsliste"))
       {
         list.setOrder("ORDER BY month(geburtsdatum), day(geburtsdatum)");
+        dateinamensort = "geburtstagsliste";
       }
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -1256,8 +1265,12 @@ public class MitgliedControl extends AbstractControl
       String path = settings.getString("lastdir", System
           .getProperty("user.home"));
       if (path != null && path.length() > 0)
+      {
         fd.setFilterPath(path);
+      }
       String ausgformat = (String) ausgabe.getValue();
+      fd.setFileName(new Dateiname("auswertung", dateinamensort, Einstellungen
+          .getDateinamenmuster(), ausgformat).get());
       fd.setFilterExtensions(new String[] { "*." + ausgformat });
 
       String s = fd.open();
@@ -1295,7 +1308,11 @@ public class MitgliedControl extends AbstractControl
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
+    {
       fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("statistik", Einstellungen
+        .getDateinamenmuster(), "PDF").get());
 
     String s = fd.open();
 
@@ -1354,6 +1371,8 @@ public class MitgliedControl extends AbstractControl
     {
       fd.setFilterPath(path);
     }
+    fd.setFileName(new Dateiname("jubilaeen", Einstellungen
+        .getDateinamenmuster(), "PDF").get());
     String s = fd.open();
 
     if (s == null || s.length() == 0)

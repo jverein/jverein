@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.10  2008/01/01 12:35:25  jost
+ * Javadoc korrigiert
+ *
  * Revision 1.9  2007/12/28 13:08:44  jost
  * Neue FirstStart-Box
  *
@@ -80,6 +83,8 @@ public class Einstellungen
   private static Boolean kursteilnehmer;
 
   private static int beitragsmodel;
+
+  private static String dateinamenmuster;
 
   /**
    * Datums-Format dd.MM.yyyy.
@@ -355,6 +360,17 @@ public class Einstellungen
   public static void setBeitragsmodel(int value)
   {
     settings.setAttribute("beitragsmodel", value);
+  }
+
+  public static String getDateinamenmuster()
+  {
+    dateinamenmuster = settings.getString("dateinamenmuster", "a$s$-d$-z$");
+    return dateinamenmuster;
+  }
+
+  public static void setDateinamenmuster(String value)
+  {
+    settings.setAttribute("dateinamenmuster", value);
   }
 
   /**

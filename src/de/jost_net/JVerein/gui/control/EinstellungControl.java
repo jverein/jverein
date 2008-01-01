@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/02 13:39:31  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.3  2007/12/01 17:45:51  jost
  * Wegfall Standardtab für die Suche
  *
@@ -30,6 +33,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextInput;
 
 public class EinstellungControl extends AbstractControl
 {
@@ -49,6 +53,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput kursteilnehmer;
 
   private SelectInput beitragsmodel;
+
+  private TextInput dateinamenmuster;
 
   public EinstellungControl(AbstractView view)
   {
@@ -138,6 +144,16 @@ public class EinstellungControl extends AbstractControl
     return beitragsmodel;
   }
 
+  public TextInput getDateinamenmuster() throws RemoteException
+  {
+    if (dateinamenmuster != null)
+    {
+      return dateinamenmuster;
+    }
+    dateinamenmuster = new TextInput(Einstellungen.getDateinamenmuster(), 30);
+    return dateinamenmuster;
+  }
+
   public void handleStore()
   {
     Boolean _geburtsdatumpflicht = (Boolean) geburtsdatumpflicht.getValue();
@@ -147,7 +163,7 @@ public class EinstellungControl extends AbstractControl
     Boolean _vermerke = (Boolean) vermerke.getValue();
     Boolean _wiedervorlage = (Boolean) wiedervorlage.getValue();
     Boolean _kursteilnehmer = (Boolean) kursteilnehmer.getValue();
-    Integer _beitragsmodel = (Integer)beitragsmodel.getValue();
+    Integer _beitragsmodel = (Integer) beitragsmodel.getValue();
     Einstellungen.setGeburtsdatumPflicht(_geburtsdatumpflicht.booleanValue());
     Einstellungen.setEintrittsdatumPflicht(_eintrittsdatumpflicht
         .booleanValue());
@@ -157,6 +173,7 @@ public class EinstellungControl extends AbstractControl
     Einstellungen.setWiedervorlage(_wiedervorlage.booleanValue());
     Einstellungen.setKursteilnehmer(_kursteilnehmer.booleanValue());
     Einstellungen.setBeitragsmodel(_beitragsmodel.intValue());
+    Einstellungen.setDateinamenmuster((String) dateinamenmuster.getValue());
     GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
   }
 }
