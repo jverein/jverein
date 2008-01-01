@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2007/12/02 13:43:29  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.9  2007/08/22 20:44:35  jost
  * Bug #011762
  *
@@ -45,6 +48,7 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
@@ -129,9 +133,11 @@ public class MitgliedDetailView extends AbstractView
       ButtonArea buttonswvl = new ButtonArea(tab6.getComposite(), 1);
       buttonswvl.addButton(control.getWiedervorlageNeu());
     }
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 5);
 
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.mitglied);
     buttons.addButton("Neu", new MitgliedDetailAction());
     buttons.addButton("Löschen", new MitgliedDeleteAction(), control
         .getCurrentObject());

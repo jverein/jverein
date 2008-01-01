@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/02/23 20:27:28  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.1  2006/09/20 15:39:10  jost
  * *** empty log message ***
  *
@@ -16,6 +19,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -51,9 +55,11 @@ public class AuswertungMitgliedView extends AbstractView
     grAusgabe.addLabelPair("Ausgabe", control.getAusgabe());
     grAusgabe.addLabelPair("Sortierung", control.getSortierung());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
 
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.auswertungmitglieder);
     buttons.addButton(control.getStartAuswertungButton());
 
   }

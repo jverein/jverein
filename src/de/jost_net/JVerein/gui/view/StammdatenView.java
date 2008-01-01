@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/22 08:26:35  jost
+ * Neu: Jubil√§enliste
+ *
  * Revision 1.3  2007/02/23 20:27:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -22,6 +25,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.StammdatenControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -45,8 +49,10 @@ public class StammdatenView extends AbstractView
     group.addLabelPair("Altersgruppen", control.getAltersgruppen());
     group.addLabelPair("Jubil‰en", control.getJubilaeen());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.stammdaten);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

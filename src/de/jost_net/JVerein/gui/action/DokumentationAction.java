@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/21 14:48:48  jost
+ * PDF-Dokumentation -> Wiki
+ *
  * Revision 1.1  2007/07/20 20:15:19  jost
  * Neu
  *
@@ -28,14 +31,22 @@ public class DokumentationAction implements Action
 {
   public void handleAction(Object context) throws ApplicationException
   {
+    final Object cont = context;
     GUI.getDisplay().asyncExec(new Runnable()
     {
       public void run()
       {
         try
         {
-          new Program().handleAction(new File(
-              "http://www.jverein.de/index.php5?title=Dokumentation"));
+          if (cont instanceof String)
+          {
+            new Program().handleAction(new File((String) cont));
+          }
+          else
+          {
+            new Program().handleAction(new File(
+                "http://www.jverein.de/index.php5?title=Dokumentation"));
+          }
         }
         catch (ApplicationException ae)
         {

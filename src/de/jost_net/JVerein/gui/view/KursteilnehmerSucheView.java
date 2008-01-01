@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/02/25 19:13:46  jost
+ * Neu: Kursteilnehmer
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -18,6 +21,7 @@ import java.sql.SQLException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
 import de.willuhn.datasource.rmi.DBService;
@@ -54,9 +58,10 @@ public class KursteilnehmerSucheView extends AbstractView
       TablePart p1 = null;
       control.getKursteilnehmerTable(p1).paint(getParent());
     }
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton("Neu", new KursteilnehmerDetailAction());
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(), DokumentationUtil.kursteilnehmer);
+    buttons.addButton("Neu", new KursteilnehmerDetailAction());
   }
 
   public void unbind() throws ApplicationException

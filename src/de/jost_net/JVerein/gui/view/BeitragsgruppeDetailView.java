@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/25 17:00:12  jost
+ * Beitragsart aufgenommen.
+ *
  * Revision 1.3  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -23,6 +26,7 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BeitragsgruppeControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -46,6 +50,8 @@ public class BeitragsgruppeDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.beitragsgruppen);
     buttons.addButton("Suche", new BeitragsgruppeSucheAction());
     buttons.addButton("Speichern", new Action()
     {

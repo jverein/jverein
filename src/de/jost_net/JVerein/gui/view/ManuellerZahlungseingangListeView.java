@@ -9,10 +9,14 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:57:17  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.ManuellerZahlungseingangControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -32,6 +36,8 @@ public class ManuellerZahlungseingangListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.manuellezahlungseingaenge);
   }
 
   public void unbind() throws ApplicationException

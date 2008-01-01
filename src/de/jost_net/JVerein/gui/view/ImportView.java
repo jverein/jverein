@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/10/23 19:08:54  jost
  * Import optimiert
  *
@@ -24,6 +27,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.io.Import;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -44,9 +48,12 @@ public class ImportView extends AbstractView
   public void bind() throws Exception
   {
 
-    GUI.getView().setTitle("Import Sparkassen Vereins Daten");
+    GUI.getView().setTitle("Daten-Import");
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.importa);
     Button button = new Button("Import starten", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -55,7 +62,6 @@ public class ImportView extends AbstractView
       }
     }, null, true);
     buttons.addButton(button);
-    buttons.addButton("<< Zurück", new BackAction());
   }
 
   /**

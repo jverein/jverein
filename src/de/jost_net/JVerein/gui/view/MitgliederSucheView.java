@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2007/12/01 19:08:54  jost
+ * Wegfall Standardtab f√ºr die Suche
+ *
  * Revision 1.9  2007/09/16 17:52:37  jost
  * Selektion nach Mitgliedsstatus
  *
@@ -56,6 +59,7 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.datasource.rmi.DBService;
@@ -178,12 +182,13 @@ public class MitgliederSucheView extends AbstractView
         }
       });
     }
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe",new DokumentationAction(), DokumentationUtil.mitglied);
     if (anzahlbeitragsgruppe > 0)
     {
       buttons.addButton("Neu", new MitgliedDetailAction());
     }
-    buttons.addButton("<< Zur¸ck", new BackAction());
   }
 
   public void unbind() throws ApplicationException

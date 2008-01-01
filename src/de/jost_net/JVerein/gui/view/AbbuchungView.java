@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2007/12/26 18:13:19  jost
+ * Lastschriften k√∂nnen jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
+ *
  * Revision 1.9  2007/12/21 13:35:58  jost
  * Ausgabe der DTAUS-Datei im PDF-Format
  *
@@ -45,6 +48,7 @@ import java.sql.SQLException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -96,8 +100,10 @@ public class AbbuchungView extends AbstractView
     }
     group.addLabelPair("Ausgabe", control.getAbbuchungsausgabe());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.abbuchung);
     buttons.addButton(control.getStartButton());
   }
 

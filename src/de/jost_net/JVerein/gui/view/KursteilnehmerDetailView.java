@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/02/25 19:13:34  jost
+ * Neu: Kursteilnehmer
+ *
  * Revision 1.1  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -16,6 +19,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
@@ -42,15 +46,17 @@ public class KursteilnehmerDetailView extends AbstractView
     grGrund.addLabelPair("BLZ", control.getBlz());
     grGrund.addLabelPair("Konto", control.getKonto());
     grGrund.addLabelPair("Betrag", control.getBetrag());
- 
+
     LabelGroup grStatistik = new LabelGroup(getParent(), "Statistik");
     grStatistik.getComposite().setSize(290, 190);
     grStatistik.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
-    grStatistik.addLabelPair("Geschlecht",control.getGeschlecht());
-    
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    grStatistik.addLabelPair("Geschlecht", control.getGeschlecht());
+
+    ButtonArea buttons = new ButtonArea(getParent(), 5);
 
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.kursteilnehmer);
     buttons.addButton("Neu", new KursteilnehmerDetailAction());
     buttons.addButton("Löschen", new KursteilnehmerDeleteAction(), control
         .getCurrentObject());

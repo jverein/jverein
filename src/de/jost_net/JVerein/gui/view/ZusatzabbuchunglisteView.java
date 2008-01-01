@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/02/23 20:27:42  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.3  2006/12/20 20:25:44  jost
  * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
  *
@@ -22,6 +25,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.ZusatzabbuchungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -42,7 +46,8 @@ public class ZusatzabbuchunglisteView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());
-
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.zusatzabbuchungen);
     control.getZusatzabbuchungsList().paint(this.getParent());
   }
 

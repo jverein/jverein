@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/28 15:55:00  jost
+ * Button-Leiste Ã¼berarbeitet.
+ *
  * Revision 1.3  2007/08/30 19:49:18  jost
  * LÃ¶schung Ã¼ber Knopf
  *
@@ -24,6 +27,7 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDeleteAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BeitragsgruppeControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -40,8 +44,10 @@ public class BeitragsgruppeSucheView extends AbstractView
 
     control.getBeitragsgruppeTable().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.beitragsgruppen);
     buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
         .getBeitragsgruppeTable());
     buttons.addButton("Neu", new BeitragsgruppeDetailAction());

@@ -9,10 +9,14 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/05/26 16:26:30  jost
+ * Neu: Auswertung Kursteilnehmer
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -32,9 +36,11 @@ public class AuswertungKursteilnehmerView extends AbstractView
     grAbu.addLabelPair("von", control.getAbbuchungsdatumvon());
     grAbu.addLabelPair("bis", control.getAbbuchungsdatumbis());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
 
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.auswertungkursteilnehmer);
     buttons.addButton(control.getStartAuswertungButton());
 
   }

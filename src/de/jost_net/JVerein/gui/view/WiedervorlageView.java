@@ -9,10 +9,14 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/05/07 19:26:35  jost
+ * Neu: Wiedervorlage
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.WiedervorlageControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -33,10 +37,10 @@ public class WiedervorlageView extends AbstractView
     group.addLabelPair("Vermerk", control.getVermerk());
     group.addLabelPair("Erledigung", control.getErledigung());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
-    // buttons.addButton("Löschen", new WiedervorlageDeleteAction(), control
-    // .getWiedervorlage());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.wiedervorlage);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

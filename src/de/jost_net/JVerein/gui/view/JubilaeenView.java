@@ -9,10 +9,14 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/22 08:26:23  jost
+ * Neu: Jubil√§enliste
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -31,9 +35,11 @@ public class JubilaeenView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
     group.addLabelPair("Jahr", control.getJubeljahr());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
 
     buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.jubilaeen);
     buttons.addButton(control.getStartJubilaeenButton());
   }
 

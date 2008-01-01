@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/01/01 13:14:15  jost
+ * Neu: Dateinamenmuster
+ *
  * Revision 1.5  2007/12/02 13:43:16  jost
  * Neu: Beitragsmodelle
  *
@@ -22,6 +25,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EinstellungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -62,8 +66,10 @@ public class EinstellungenView extends AbstractView
         true);
 
     new Headline(getParent(), "* Änderung erfordert Neustart");
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.einstellungen);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
