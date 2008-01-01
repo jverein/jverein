@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/01 10:07:19  jost
+ * H2-Support
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.Migration;
@@ -32,9 +35,6 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class McKoiToH2MigrationTask extends DatabaseMigrationTask
 {
-  /**
-   * @see de.willuhn.jameica.hbci.migration.DatabaseMigrationTask#run(de.willuhn.util.ProgressMonitor)
-   */
   public void run(ProgressMonitor monitor) throws ApplicationException
   {
     // Checken, ob die Migration schon lief

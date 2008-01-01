@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:04  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/11/12 07:53:40  jost
  * Bugfix Anzahl Spalten
  *
@@ -115,9 +118,6 @@ public class MitgliedAuswertungCSV
 
   /**
    * Gibt einen Leerstring aus, falls der Text null ist.
-   * 
-   * @param text
-   *          der Text.
    * @return der Text oder Leerstring - niemals null.
    */
   private String formatDate(Date d)

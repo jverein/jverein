@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2007/12/20 20:31:58  jost
+ * Anpassung an Jameica-Standard
+ *
  * Revision 1.14  2007/12/01 17:45:32  jost
  * Formatierung
  *
@@ -78,8 +81,6 @@ public class JVereinPlugin extends AbstractPlugin
   /**
    * constructor.
    * 
-   * @param file
-   *          the plugin file (your jar or the plugin directory).
    */
   public JVereinPlugin()
   {

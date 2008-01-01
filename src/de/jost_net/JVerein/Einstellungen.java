@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.9  2007/12/28 13:08:44  jost
+ * Neue FirstStart-Box
+ *
  * Revision 1.8  2007/12/02 13:38:46  jost
  * Neu: Beitragsmodelle
  *
@@ -137,7 +140,6 @@ public class Einstellungen
   /**
    * Prueft die Gueltigkeit der BLZ/Kontonummer-Kombi anhand von Pruefziffern.
    * 
-   * @see HBCIUtils#checkAccountCRC(java.lang.String, java.lang.String)
    * @param blz
    * @param kontonummer
    * @return true, wenn die Kombi ok ist.

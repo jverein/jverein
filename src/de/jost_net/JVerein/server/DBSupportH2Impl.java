@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/12/01 17:47:22  jost
+ * Neue DB-Update-Mimik
+ *
  * Revision 1.2  2007/12/01 10:07:33  jost
  * H2-Support
  *
@@ -170,8 +173,6 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
    * Das soll der Admin sicherheitshalber manuell durchfuehren. Wir hinterlassen
    * stattdessen nur einen Hinweistext mit den auszufuehrenden SQL-Scripts.
    * 
-   * @see de.willuhn.jameica.hbci.server.AbstractDBSupportImpl#execute(java.sql.Connection,
-   *      java.io.File)
    */
   public void execute(Connection conn, File sqlScript) throws RemoteException
   {
