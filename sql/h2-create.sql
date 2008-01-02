@@ -121,6 +121,7 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 );
+INSERT INTO version VALUES (1,3);
 
 COMMIT; 
 
