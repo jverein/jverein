@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/12/16 20:27:48  jost
+ * Standardwert zurück auf McKoi
+ *
  * Revision 1.4  2007/12/01 19:09:16  jost
  * H2-Support
  *
@@ -54,8 +57,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    */
   public JVereinDBServiceImpl() throws RemoteException
   {
-    this(SETTINGS.getString("database.driver", DBSupportMcKoiImpl.class
-        .getName()));
+    this(SETTINGS.getString("database.driver", DBSupportH2Impl.class.getName()));
   }
 
   /**
