@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/16 20:26:56  jost
+ * Versions-Tabelle wird mitmigriert.
+ *
  * Revision 1.1  2007/12/01 10:06:56  jost
  * H2-Support
  *
@@ -19,6 +22,7 @@ package de.jost_net.JVerein.Migration;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Version;
 import de.jost_net.JVerein.server.BeitragsgruppeImpl;
 import de.jost_net.JVerein.server.KursteilnehmerImpl;
 import de.jost_net.JVerein.server.ManuellerZahlungseingangImpl;
@@ -94,7 +98,11 @@ public class DatabaseMigrationTask implements BackgroundTask
       copy(MitgliedImpl.class, monitor);
       copy(KursteilnehmerImpl.class, monitor);
       copy(ManuellerZahlungseingangImpl.class, monitor);
-      copy(VersionImpl.class, monitor);
+      DBIterator v = target.createList(Version.class);
+      if (v.size() == 0)
+      {
+        copy(VersionImpl.class, monitor);
+      }
       copy(WiedervorlageImpl.class, monitor);
       copy(ZusatzabbuchungImpl.class, monitor);
 
