@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2007/12/30 10:10:07  jost
+ * Neuer Rhytmus: Jahr, Vierteljahr und Monat
+ *
  * Revision 1.16  2007/12/26 18:13:33  jost
  * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
  *
@@ -63,6 +66,7 @@ package de.jost_net.JVerein.io;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Hashtable;
@@ -262,8 +266,16 @@ public class Abbuchung
         }
         else
         {
-          betr = (Double) beitr.get(m.getBeitragsgruppeId() + "")
-              * m.getZahlungsrhytmus();
+          // betr = (Double) beitr.get(m.getBeitragsgruppeId() + "")
+          // * m.getZahlungsrhytmus();
+          // Zur Vermeidung von Rundungsdifferenzen wird mit BigDecimal
+          // gerechnet.
+          BigDecimal bbetr = new BigDecimal(beitr.get(m.getBeitragsgruppeId()
+              + ""));
+          bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
+          BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
+          bbetr = bbetr.multiply(bmonate);
+          betr = bbetr.doubleValue();
         }
         if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
         {
