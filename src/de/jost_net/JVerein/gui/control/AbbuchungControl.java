@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/01/01 13:12:53  jost
+ * Neu: Dateinamenmuster
+ *
  * Revision 1.9  2007/12/26 18:12:32  jost
  * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
  *
@@ -270,7 +273,11 @@ public class AbbuchungControl extends AbstractControl
       String path = settings.getString("lastdir", System
           .getProperty("user.home"));
       if (path != null && path.length() > 0)
+      {
         fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname("abbuchung", Einstellungen
+          .getDateinamenmuster(), "PDF").get());
       pdffile = fd.open();
     }
 
