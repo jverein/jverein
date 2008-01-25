@@ -114,6 +114,17 @@ CREATE TABLE wiedervorlage
 
 ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;
 
+CREATE TABLE eigenschaften
+(
+  id            IDENTITY,
+  mitglied      INTEGER NOT NULL,
+  eigenschaft   VARCHAR(50) NOT NULL,
+  UNIQUE        (id),
+  PRIMARY KEY   (id)
+);
+
+CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);
+
 CREATE TABLE version
 (
   id            IDENTITY, 
@@ -121,7 +132,9 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 );
-INSERT INTO version VALUES (1,3);
+INSERT INTO version VALUES (1,5);
+
+
 
 COMMIT; 
 

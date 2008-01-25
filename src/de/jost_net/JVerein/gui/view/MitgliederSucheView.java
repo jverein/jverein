@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/01/01 19:52:45  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.10  2007/12/01 19:08:54  jost
  * Wegfall Standardtab fÃ¼r die Suche
  *
@@ -62,12 +65,19 @@ import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.rmi.JVereinDBService;
+import de.jost_net.JVerein.server.DBSupportH2Impl;
+import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.DateInput;
+import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.LabelInput;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
@@ -123,25 +133,43 @@ public class MitgliederSucheView extends AbstractView
       }
     };
 
-    LabelGroup group = new LabelGroup(getParent(), "Auswahl");
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
     Input mitglstat = control.getMitgliedStatus();
-    mitglstat.addListener(new Listener()
-    {
-      public void handleEvent(Event event)
-      {
-        if (event.type != SWT.Selection)
-        {
-          return;
-        }
-        int si = folder.getSelectionIndex();
-        TabRefresh(control, si);
-      }
-    });
+    mitglstat.addListener(new FilterListener(control));
     group.addLabelPair("Mitgliedschaft", mitglstat);
+    if (!JVereinDBService.SETTINGS.getString("database.driver",
+        DBSupportH2Impl.class.getName()).equals(
+        DBSupportMcKoiImpl.class.getName()))
+    {
+      DialogInput mitgleigenschaften = control.getEigenschaftenAuswahl();
+      mitgleigenschaften.addListener(new FilterListener(control));
+      group.addLabelPair("Eigenschaften", mitgleigenschaften);
+    }
+    DateInput mitglgebdatvon = control.getGeburtsdatumvon();
+    mitglgebdatvon.addListener(new FilterListener(control));
+    group.addLabelPair("Geburtsdatum von", mitglgebdatvon);
+    DateInput mitglgebdatbis = control.getGeburtsdatumbis();
+    mitglgebdatbis.addListener(new FilterListener(control));
+    group.addLabelPair("Geburtsdatum bis", mitglgebdatbis);
+    SelectInput mitglbeitragsgruppe = control.getBeitragsgruppeAusw();
+    mitglbeitragsgruppe.addListener(new FilterListener(control));
+    group.addLabelPair("Beitragsgruppe", mitglbeitragsgruppe);
+    ButtonArea barea = new ButtonArea(getParent(), 1);
+    final MitgliedControl c = control;
+    Action a = new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        int si = folder.getSelectionIndex();
+        settings.setAttribute("lasttab", b[si]);
+        TabRefresh(c, si);
+      }
+    };
+    barea.addButton("anwenden", a);
 
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
-  
+
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
     if (anzahl.longValue() > 0)
     {
@@ -154,7 +182,7 @@ public class MitgliederSucheView extends AbstractView
 
       for (int i = 0; i < b.length; i++)
       {
-        tab[i] = new TabGroup(folder, b[i]);
+        tab[i] = new TabGroup(folder, b[i], true, 1);
       }
       int si = 0;
       for (int i = 0; i < b.length; i++)
@@ -164,8 +192,7 @@ public class MitgliederSucheView extends AbstractView
           si = i;
         }
       }
-      p[si] = control.getMitgliedTable(b[si]);
-      p[si].paint(tab[si].getComposite());
+      paintTable(control, si);
       folder.setSelection(si);
       folder.addSelectionListener(new SelectionListener()
       {
@@ -184,7 +211,8 @@ public class MitgliederSucheView extends AbstractView
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
-    buttons.addButton("Hilfe",new DokumentationAction(), DokumentationUtil.mitglied);
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.mitglied);
     if (anzahlbeitragsgruppe > 0)
     {
       buttons.addButton("Neu", new MitgliedDetailAction());
@@ -202,15 +230,45 @@ public class MitgliederSucheView extends AbstractView
       if (p[index] != null)
       {
         Control[] c = tab[index].getComposite().getChildren();
-        c[0].dispose();
+        for (Control c1 : c)
+        {
+          c1.dispose();
+        }
       }
-      p[index] = control.getMitgliedTable(b[index]);
-      p[index].paint(tab[index].getComposite());
-      folder.getParent().layout(true, true);
+      paintTable(control, index);
     }
     catch (RemoteException e1)
     {
       e1.printStackTrace();
+    }
+  }
+
+  private void paintTable(MitgliedControl control, int index)
+      throws RemoteException
+  {
+    p[index] = control.getMitgliedTable(b[index]);
+    p[index].paint(tab[index].getComposite());
+
+    folder.getParent().layout(true, true);
+  }
+
+  private class FilterListener implements Listener
+  {
+    private MitgliedControl control;
+
+    FilterListener(MitgliedControl control)
+    {
+      this.control = control;
+    }
+
+    public void handleEvent(Event event)
+    {
+      if (event.type != SWT.Selection && event.type != SWT.FocusOut)
+      {
+        return;
+      }
+      int si = folder.getSelectionIndex();
+      TabRefresh(control, si);
     }
   }
 }

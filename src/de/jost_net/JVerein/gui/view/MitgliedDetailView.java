@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/01/01 19:52:33  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.10  2007/12/02 13:43:29  jost
  * Neu: Beitragsmodelle
  *
@@ -51,8 +54,13 @@ import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.control.EigenschaftenControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
+import de.jost_net.JVerein.rmi.JVereinDBService;
+import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.server.DBSupportH2Impl;
+import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -133,8 +141,18 @@ public class MitgliedDetailView extends AbstractView
       ButtonArea buttonswvl = new ButtonArea(tab6.getComposite(), 1);
       buttonswvl.addButton(control.getWiedervorlageNeu());
     }
-    ButtonArea buttons = new ButtonArea(getParent(), 5);
+    if (!JVereinDBService.SETTINGS.getString("database.driver",
+        DBSupportH2Impl.class.getName()).equals(
+        DBSupportMcKoiImpl.class.getName()))
+    {
+      TabGroup tab7 = new TabGroup(folder, "Eigenschaften");
+      EigenschaftenControl econtrol = new EigenschaftenControl(this,
+          (Mitglied) control.getCurrentObject());
+      econtrol.getEigenschaftenTable().paint(tab7.getComposite());
+      tab7.addText("Rechter Mausklick für Funktionen", false);
+    }
 
+    ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.mitglied);

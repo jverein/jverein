@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2008/01/01 13:13:56  jost
+ * Neu: Dateinamenmuster
+ *
  * Revision 1.25  2007/12/22 08:25:13  jost
  * Neu: JubilÃ¤enliste
  *
@@ -101,9 +104,11 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
+import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
 import de.jost_net.JVerein.gui.input.ZahlungsrhytmusInput;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
@@ -130,6 +135,7 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.input.DateInput;
+import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
@@ -219,6 +225,10 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput jubeljahr;
 
+  private SelectInput beitragsgruppeausw;
+
+  private DialogInput eigenschaftenabfrage;
+
   private Mitglied mitglied;
 
   // Liste aller Zusatzabbuchungen
@@ -234,6 +244,7 @@ public class MitgliedControl extends AbstractControl
   public MitgliedControl(AbstractView view)
   {
     super(view);
+    System.out.println("Konstruktor MitgliedControl" + view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
   }
@@ -569,6 +580,20 @@ public class MitgliedControl extends AbstractControl
     return beitragsgruppe;
   }
 
+  public SelectInput getBeitragsgruppeAusw() throws RemoteException
+  {
+    if (beitragsgruppeausw != null)
+    {
+      return beitragsgruppeausw;
+    }
+    beitragsgruppeausw = new SelectInput(Einstellungen.getDBService()
+        .createList(Beitragsgruppe.class), getMitglied().getBeitragsgruppe());
+    // beitragsgruppeausw.setValue(getMitglied().getBeitragsgruppe());
+    beitragsgruppeausw.setAttribute("bezeichnung");
+    beitragsgruppeausw.setPleaseChoose("Bitte auswählen");
+    return beitragsgruppeausw;
+  }
+
   public Familienverband getFamilienverband() throws RemoteException
   {
     if (famverb != null)
@@ -786,8 +811,8 @@ public class MitgliedControl extends AbstractControl
     DBService service = Einstellungen.getDBService();
     DBIterator wiedervorlagen = service.createList(Wiedervorlage.class);
     wiedervorlagen.addFilter("mitglied = " + getMitglied().getID());
-    wiedervorlageList = new TablePart(wiedervorlagen,
-        new ZusatzabbuchungAction(getMitglied()));
+    wiedervorlageList = new TablePart(wiedervorlagen, new WiedervorlageAction(
+        getMitglied()));
     wiedervorlageList.setRememberColWidths(true);
     wiedervorlageList.setRememberOrder(true);
 
@@ -807,7 +832,6 @@ public class MitgliedControl extends AbstractControl
       return geburtsdatumvon;
     }
     Date d = null;
-
     this.geburtsdatumvon = new DateInput(d, Einstellungen.DATEFORMAT);
     this.geburtsdatumvon.setTitle("Geburtsdatum");
     this.geburtsdatumvon.setText("Beginn des Geburtszeitraumes");
@@ -994,6 +1018,18 @@ public class MitgliedControl extends AbstractControl
     return jubeljahr;
   }
 
+  public DialogInput getEigenschaftenAuswahl() throws RemoteException
+  {
+    if (eigenschaftenabfrage != null)
+    {
+      return eigenschaftenabfrage;
+    }
+    EigenschaftenAuswahlDialog d = new EigenschaftenAuswahlDialog();
+    d.addCloseListener(new EigenschaftenListener());
+    eigenschaftenabfrage = new DialogInput("", d);
+    return eigenschaftenabfrage;
+  }
+
   public Input getAusgabe() throws RemoteException
   {
     if (ausgabe != null)
@@ -1080,26 +1116,10 @@ public class MitgliedControl extends AbstractControl
   {
     settings.setAttribute("status.mitglied", (String) getMitgliedStatus()
         .getValue());
-    TablePart part;
-    DBService service = Einstellungen.getDBService();
-    DBIterator mitglieder = service.createList(Mitglied.class);
-    if (!anfangsbuchstabe.equals("*"))
-    {
-      mitglieder.addFilter("(name like '" + anfangsbuchstabe + "%' OR "
-          + "name like '" + anfangsbuchstabe.toLowerCase() + "%')");
-    }
-    String status = (String) this.getMitgliedStatus().getValue();
-    if (status.equals("Angemeldet"))
-    {
-      mitglieder.addFilter("austritt is null");
-    }
-    else if (status.equals("Abgemeldet"))
-    {
-      mitglieder.addFilter("austritt is not null");
-    }
-    // Für den Status "An- und Abgemeldet ist nichts zu tun.
 
-    part = new TablePart(mitglieder, new MitgliedDetailAction());
+    TablePart part;
+    part = new TablePart(new MitgliedQuery(this).getQuery(anfangsbuchstabe),
+        new MitgliedDetailAction());
 
     part.addColumn("Name", "name");
     part.addColumn("Vorname", "vorname");
@@ -1113,6 +1133,8 @@ public class MitgliedControl extends AbstractControl
     part.addColumn("Austritt", "austritt", new DateFormatter(
         Einstellungen.DATEFORMAT));
     part.setContextMenu(new MitgliedMenu());
+    part.setRememberColWidths(true);
+    part.setRememberOrder(true);
     return part;
   }
 
@@ -1522,4 +1544,21 @@ public class MitgliedControl extends AbstractControl
       }
     }
   }
+
+  /**
+   * Listener, der die Auswahl der Eigenschaften ueberwacht.
+   */
+  private class EigenschaftenListener implements Listener
+  {
+    public void handleEvent(Event event)
+    {
+      if (event == null || event.data == null)
+      {
+        return;
+      }
+      String selection = (String) event.data;
+      eigenschaftenabfrage.setText(selection);
+    }
+  }
+
 }
