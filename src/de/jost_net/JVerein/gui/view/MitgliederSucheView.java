@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/01/25 16:04:24  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  * Revision 1.11  2008/01/01 19:52:45  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -71,7 +74,6 @@ import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
-import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DialogInput;
@@ -154,18 +156,6 @@ public class MitgliederSucheView extends AbstractView
     SelectInput mitglbeitragsgruppe = control.getBeitragsgruppeAusw();
     mitglbeitragsgruppe.addListener(new FilterListener(control));
     group.addLabelPair("Beitragsgruppe", mitglbeitragsgruppe);
-    ButtonArea barea = new ButtonArea(getParent(), 1);
-    final MitgliedControl c = control;
-    Action a = new Action()
-    {
-      public void handleAction(Object context) throws ApplicationException
-      {
-        int si = folder.getSelectionIndex();
-        settings.setAttribute("lasttab", b[si]);
-        TabRefresh(c, si);
-      }
-    };
-    barea.addButton("anwenden", a);
 
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
@@ -227,6 +217,7 @@ public class MitgliederSucheView extends AbstractView
   {
     try
     {
+      control.saveDefaults();
       if (p[index] != null)
       {
         Control[] c = tab[index].getComposite().getChildren();
