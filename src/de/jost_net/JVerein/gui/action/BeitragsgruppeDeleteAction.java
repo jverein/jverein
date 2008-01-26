@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/08/30 19:47:17  jost
+ * Jetzt auch über einen Button auslösbar.
+ *
  * Revision 1.1  2007/08/23 19:24:05  jost
  * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
  *
@@ -36,7 +39,6 @@ public class BeitragsgruppeDeleteAction implements Action
     {
       TablePart tp = (TablePart) context;
       context = tp.getSelection();
-      System.out.println("##>" + context);
     }
     if (context == null || !(context instanceof Beitragsgruppe))
     {
