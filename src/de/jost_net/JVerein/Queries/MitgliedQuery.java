@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/25 16:06:14  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  **********************************************************************/
 package de.jost_net.JVerein.Queries;
 
@@ -49,16 +52,19 @@ public class MitgliedQuery
     final DBService service = Einstellungen.getDBService();
 
     sql = "select distinct mitglied.* " + "from mitglied ";
-    String eigenschaften = (String) control.getEigenschaftenAuswahl().getText();
     sql += "where ";
-    if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
+    if (control.isMitgliedStatusAktiv())
     {
-      addCondition("austritt is null ");
+      if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
+      {
+        addCondition("austritt is null ");
+      }
+      else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
+      {
+        addCondition("austritt is not null ");
+      }
     }
-    else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
-    {
-      addCondition("austritt is not null ");
-    }
+    String eigenschaften = (String) control.getEigenschaftenAuswahl().getText();
     if (eigenschaften != null && eigenschaften.length() > 0)
     {
       String condEigenschaft = "(select count(*) from eigenschaften where ";
@@ -93,13 +99,54 @@ public class MitgliedQuery
     {
       addCondition("geburtsdatum <= ?");
     }
+    if (control.getEintrittvon().getValue() != null)
+    {
+      addCondition("eintritt >= ?");
+    }
+    if (control.getEintrittbis().getValue() != null)
+    {
+      addCondition("eintritt <= ?");
+    }
+    if (control.getAustrittvon().getValue() != null)
+    {
+      addCondition("austritt >= ?");
+    }
+    if (control.getAustrittbis().getValue() != null)
+    {
+      addCondition("austritt <= ?");
+    }
+    if (control.getAustrittvon() == null && control.getAustrittbis() == null)
+    {
+      addCondition("austritt is null");
+    }
     Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
         .getValue();
     if (bg != null)
     {
       addCondition("beitragsgruppe = ? ");
     }
-    sql += "ORDER by name, vorname";
+    String sort = (String) control.getSortierung().getValue();
+    if (sort.equals("Name, Vorname"))
+    {
+      sql += " ORDER BY name, vorname";
+    }
+    else if (sort.equals("Eintrittsdatum"))
+    {
+      sql += " ORDER BY eintritt";
+    }
+    else if (sort.equals("Geburtsdatum"))
+    {
+      sql += " ORDER BY geburtsdatum";
+    }
+    else if (sort.equals("Geburtstagsliste"))
+    {
+      sql += " ORDER BY month(geburtsdatum), day(geburtsdatum)";
+    }
+    else
+    {
+      sql += " ORDER BY name, vorname";
+    }
+
     ResultSetExtractor rs = new ResultSetExtractor()
     {
       public Object extract(ResultSet rs) throws RemoteException, SQLException
@@ -135,6 +182,26 @@ public class MitgliedQuery
       Date d = (Date) control.getGeburtsdatumbis().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
+    if (control.getEintrittvon().getValue() != null)
+    {
+      Date d = (Date) control.getEintrittvon().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
+    }
+    if (control.getEintrittbis().getValue() != null)
+    {
+      Date d = (Date) control.getEintrittbis().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
+    }
+    if (control.getAustrittvon().getValue() != null)
+    {
+      Date d = (Date) control.getAustrittvon().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
+    }
+    if (control.getAustrittbis().getValue() != null)
+    {
+      Date d = (Date) control.getAustrittbis().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
+    }
     if (bg != null)
     {
       bedingungen.add(new Integer(bg.getID()));
@@ -146,7 +213,7 @@ public class MitgliedQuery
   {
     if (and)
     {
-      sql += "AND ";
+      sql += " AND ";
     }
     and = true;
     sql += condition;

@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2008/01/26 16:21:58  jost
+ * Sortierung der Beitragsgruppen eingeführt
+ * Bugfix Filter.
+ *
  * Revision 1.27  2008/01/25 16:02:32  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -99,6 +103,7 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.rmi.RemoteException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -917,7 +922,18 @@ public class MitgliedControl extends AbstractControl
       return eintrittvon;
     }
     Date d = null;
-
+    String tmp = settings.getString("mitglied.eintrittvon", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = Einstellungen.DATEFORMAT.parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        d = null;
+      }
+    }
     this.eintrittvon = new DateInput(d, Einstellungen.DATEFORMAT);
     this.eintrittvon.setTitle("Eintrittsdatum");
     this.eintrittvon.setText("Beginn des Eintrittszeitraumes");
@@ -942,7 +958,18 @@ public class MitgliedControl extends AbstractControl
       return eintrittbis;
     }
     Date d = null;
-
+    String tmp = settings.getString("mitglied.eintrittbis", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = Einstellungen.DATEFORMAT.parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        d = null;
+      }
+    }
     this.eintrittbis = new DateInput(d, Einstellungen.DATEFORMAT);
     this.eintrittbis.setTitle("Eintrittsdatum");
     this.eintrittbis.setText("Ende des Eintrittszeitraumes");
@@ -967,7 +994,18 @@ public class MitgliedControl extends AbstractControl
       return austrittvon;
     }
     Date d = null;
-
+    String tmp = settings.getString("mitglied.austrittvon", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = Einstellungen.DATEFORMAT.parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        d = null;
+      }
+    }
     this.austrittvon = new DateInput(d, Einstellungen.DATEFORMAT);
     this.austrittvon.setTitle("Austrittsdatum");
     this.austrittvon.setText("Beginn des Austrittszeitraumes");
@@ -992,7 +1030,18 @@ public class MitgliedControl extends AbstractControl
       return austrittbis;
     }
     Date d = null;
-
+    String tmp = settings.getString("mitglied.austrittbis", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = Einstellungen.DATEFORMAT.parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        d = null;
+      }
+    }
     this.austrittbis = new DateInput(d, Einstellungen.DATEFORMAT);
     this.austrittbis.setTitle("Austrittsdatum");
     this.austrittbis.setText("Ende des Austrittszeitraumes");
@@ -1091,6 +1140,11 @@ public class MitgliedControl extends AbstractControl
     return sortierung;
   }
 
+  public boolean isMitgliedStatusAktiv()
+  {
+    return status != null;
+  }
+
   public Input getMitgliedStatus() throws RemoteException
   {
     if (status != null)
@@ -1109,7 +1163,16 @@ public class MitgliedControl extends AbstractControl
     {
       public void handleAction(Object context) throws ApplicationException
       {
-        starteAuswertung();
+        try
+        {
+          starteAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der Mitgliederauswertung");
+        }
       }
     }, null, true); // "true" defines this button as the default button
     return b;
@@ -1181,37 +1244,115 @@ public class MitgliedControl extends AbstractControl
    */
   public void saveDefaults() throws RemoteException
   {
-    settings.setAttribute("status.mitglied", (String) getMitgliedStatus()
-        .getValue());
-    Date tmp = (Date) getGeburtsdatumvon().getValue();
-    if (tmp != null)
+    if (status != null)
     {
-      settings.setAttribute("mitglied.geburtsdatumvon",
-          Einstellungen.DATEFORMAT.format(tmp));
-    }
-    else
-    {
-      settings.setAttribute("mitglied.geburtsdatumvon", "");
-    }
-    tmp = (Date) getGeburtsdatumbis().getValue();
-    if (tmp != null)
-    {
-      settings.setAttribute("mitglied.geburtsdatumbis",
-          Einstellungen.DATEFORMAT.format(tmp));
-    }
-    else
-    {
-      settings.setAttribute("mitglied.geburtsdatumbis", "");
-    }
-    settings.setAttribute("mitglied.eigenschaften", getEigenschaftenAuswahl()
-        .getText());
-
-    Beitragsgruppe tmpbg = (Beitragsgruppe) getBeitragsgruppeAusw().getValue();
-    if (tmpbg != null)
-    {
-      settings.setAttribute("mitglied.beitragsgruppe", tmpbg.getID());
+      settings.setAttribute("status.mitglied", (String) getMitgliedStatus()
+          .getValue());
     }
 
+    if (geburtsdatumvon != null)
+    {
+      Date tmp = (Date) getGeburtsdatumvon().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.geburtsdatumvon",
+            Einstellungen.DATEFORMAT.format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.geburtsdatumvon", "");
+      }
+    }
+
+    if (geburtsdatumbis != null)
+    {
+      Date tmp = (Date) getGeburtsdatumbis().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.geburtsdatumbis",
+            Einstellungen.DATEFORMAT.format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.geburtsdatumbis", "");
+      }
+    }
+
+    if (eintrittvon != null)
+    {
+      Date tmp = (Date) getEintrittvon().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.eintrittvon", Einstellungen.DATEFORMAT
+            .format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.eintrittvon", "");
+      }
+    }
+
+    if (eintrittbis != null)
+    {
+      Date tmp = (Date) getEintrittbis().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.eintrittbis", Einstellungen.DATEFORMAT
+            .format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.eintrittbis", "");
+      }
+    }
+
+    if (austrittvon != null)
+    {
+      Date tmp = (Date) getAustrittvon().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.austrittvon", Einstellungen.DATEFORMAT
+            .format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.austrittvon", "");
+      }
+    }
+
+    if (austrittbis != null)
+    {
+      Date tmp = (Date) getAustrittbis().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.austrittbis", Einstellungen.DATEFORMAT
+            .format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.austrittbis", "");
+      }
+    }
+
+    if (eigenschaftenabfrage != null)
+    {
+      settings.setAttribute("mitglied.eigenschaften", getEigenschaftenAuswahl()
+          .getText());
+    }
+
+    if (beitragsgruppeausw != null)
+    {
+      Beitragsgruppe tmpbg = (Beitragsgruppe) getBeitragsgruppeAusw()
+          .getValue();
+      if (tmpbg != null)
+      {
+        settings.setAttribute("mitglied.beitragsgruppe", tmpbg.getID());
+      }
+      else
+      {
+        settings.setAttribute("mitglied.beitragsgruppe", "");
+      }
+    }
   }
 
   public void handleStore()
@@ -1269,91 +1410,71 @@ public class MitgliedControl extends AbstractControl
     }
   }
 
-  private void starteAuswertung()
+  private void starteAuswertung() throws RemoteException
   {
-    // Alle Mitglieder lesen
-    DBIterator list;
+    saveDefaults();
+    ArrayList list = new MitgliedQuery(this).getQuery();
     try
     {
       String subtitle = "";
-      list = Einstellungen.getDBService().createList(Mitglied.class);
       if (geburtsdatumvon.getValue() != null)
       {
         Date d = (Date) geburtsdatumvon.getValue();
         subtitle += "Geburtsdatum von " + Einstellungen.DATEFORMAT.format(d)
             + "  ";
-        list.addFilter("geburtsdatum >= ?", new Object[] { new java.sql.Date(d
-            .getTime()) });
       }
       if (geburtsdatumbis.getValue() != null)
       {
         Date d = (Date) geburtsdatumbis.getValue();
         subtitle += "Geburtsdatum bis " + Einstellungen.DATEFORMAT.format(d)
             + "  ";
-        list.addFilter("geburtsdatum <= ?", new Object[] { new java.sql.Date(d
-            .getTime()) });
       }
       if (eintrittvon.getValue() != null)
       {
         Date d = (Date) eintrittvon.getValue();
         subtitle += "Eintritt von " + Einstellungen.DATEFORMAT.format(d) + "  ";
-        list.addFilter("eintritt >= ?", new Object[] { new java.sql.Date(d
-            .getTime()) });
       }
       if (eintrittbis.getValue() != null)
       {
         Date d = (Date) eintrittbis.getValue();
         subtitle += "Eintritt bis " + Einstellungen.DATEFORMAT.format(d) + "  ";
-        list.addFilter("eintritt <= ?", new Object[] { new java.sql.Date(d
-            .getTime()) });
       }
       if (austrittvon.getValue() != null)
       {
         Date d = (Date) austrittvon.getValue();
         subtitle += "Austritt von " + Einstellungen.DATEFORMAT.format(d) + "  ";
-        list.addFilter("austritt >= ?", new Object[] { new java.sql.Date(d
-            .getTime()) });
       }
       if (austrittbis.getValue() != null)
       {
         Date d = (Date) austrittbis.getValue();
         subtitle += "Austritt bis " + Einstellungen.DATEFORMAT.format(d) + "  ";
-        list.addFilter("austritt <= ?", new Object[] { new java.sql.Date(d
-            .getTime()) });
       }
       if (austrittvon.getValue() == null && austrittbis.getValue() == null)
       {
         subtitle += "ohne Ausgetretene  ";
-        list.addFilter("austritt is null");
       }
-      if (beitragsgruppe.getValue() != null)
+      if (beitragsgruppeausw.getValue() != null)
       {
-        Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
+        Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppeausw.getValue();
         subtitle += "nur Beitragsgruppe " + bg.getBezeichnung();
-        list.addFilter("beitragsgruppe = ?", new Object[] { new Integer(bg
-            .getID()) });
       }
 
       String sort = (String) sortierung.getValue();
       String dateinamensort = "";
       if (sort.equals("Name, Vorname"))
       {
-        list.setOrder("ORDER BY name, vorname");
         dateinamensort = "name";
       }
       else if (sort.equals("Eintrittsdatum"))
       {
-        list.setOrder("ORDER BY eintritt");
         dateinamensort = "eintrittsdatum";
       }
       else if (sort.equals("Geburtsdatum"))
       {
-        list.setOrder("ORDER BY geburtsdatum");
         dateinamensort = "geburtsdatum";
       }
       else if (sort.equals("Geburtstagsliste"))
       {
-        list.setOrder("ORDER BY month(geburtsdatum), day(geburtsdatum)");
         dateinamensort = "geburtstagsliste";
       }
 
@@ -1516,7 +1637,7 @@ public class MitgliedControl extends AbstractControl
 
   }
 
-  private void auswertungMitgliedPDF(final DBIterator list, final File file,
+  private void auswertungMitgliedPDF(final ArrayList list, final File file,
       final String subtitle)
   {
     BackgroundTask t = new BackgroundTask()
@@ -1559,7 +1680,7 @@ public class MitgliedControl extends AbstractControl
     Application.getController().start(t);
   }
 
-  private void auswertungMitgliedCSV(final DBIterator list, final File file)
+  private void auswertungMitgliedCSV(final ArrayList list, final File file)
   {
     BackgroundTask t = new BackgroundTask()
     {
