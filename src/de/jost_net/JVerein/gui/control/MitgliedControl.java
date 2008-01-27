@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2008/01/27 09:41:28  jost
+ * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
+ *
  * Revision 1.28  2008/01/26 16:21:58  jost
  * Sortierung der Beitragsgruppen eingeführt
  * Bugfix Filter.
@@ -915,6 +918,11 @@ public class MitgliedControl extends AbstractControl
     return geburtsdatumbis;
   }
 
+  public boolean isEintrittvonAktiv()
+  {
+    return eintrittvon != null;
+  }
+
   public DateInput getEintrittvon() throws RemoteException
   {
     if (eintrittvon != null)
@@ -949,6 +957,11 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return eintrittvon;
+  }
+
+  public boolean isEintrittbisAktiv()
+  {
+    return eintrittbis != null;
   }
 
   public DateInput getEintrittbis() throws RemoteException
@@ -987,6 +1000,11 @@ public class MitgliedControl extends AbstractControl
     return eintrittbis;
   }
 
+  public boolean isAustrittvonAktiv()
+  {
+    return austrittvon != null;
+  }
+
   public DateInput getAustrittvon() throws RemoteException
   {
     if (austrittvon != null)
@@ -1021,6 +1039,11 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return austrittvon;
+  }
+
+  public boolean isAustrittbisAktiv()
+  {
+    return austrittbis != null;
   }
 
   public DateInput getAustrittbis() throws RemoteException
