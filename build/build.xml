@@ -29,6 +29,7 @@
     <property name="sql.dir" 	value="sql"/>
     <property name="sql.mckoi.dir" 	value="sql.mckoi"/>
     <property name="sql.h2.dir" 	value="sql.h2"/>
+    <property name="sql.mysql.dir" 	value="sql.mysql"/>
     <property name="web.dir"	value="web"/>
     <property name="class.dir" 	value="bin"/>
     <property name="project.zipdir"	value="${project.release}/${define.pluginname}"/>
@@ -79,6 +80,10 @@
     <mkdir dir="${project.zipdir}/sql.h2"/>
     <copy todir="${project.zipdir}/sql.h2">
       <fileset dir="${sql.h2.dir}"/>
+    </copy>
+    <mkdir dir="${project.zipdir}/sql.mysql"/>
+    <copy todir="${project.zipdir}/sql.mysql">
+      <fileset dir="${sql.mysql.dir}"/>
     </copy>
     <mkdir dir="${project.zipdir}/lib" />
     <copy todir="${project.zipdir}/lib">
