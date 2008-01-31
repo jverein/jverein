@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/28 13:14:25  jost
+ * Bugfix beim erzeugen eines Stammdaten-Objektes
+ *
  * Revision 1.1  2007/12/26 18:13:47  jost
  * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
  *
@@ -36,6 +39,8 @@ public class AbbuchungParam
 {
   public final int abbuchungsmodus;
 
+  public final Date stichtag;
+
   public final int abbuchungsausgabe;
 
   public final Date vondatum;
@@ -58,6 +63,7 @@ public class AbbuchungParam
       throws ApplicationException, RemoteException
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
+    stichtag = (Date) ac.getStichtag().getValue();
     abbuchungsausgabe = (Integer) ac.getAbbuchungsausgabe().getValue();
     vondatum = (Date) ac.getVondatum().getValue();
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();

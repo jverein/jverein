@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/01/01 19:47:16  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.10  2007/12/26 18:13:19  jost
  * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
  *
@@ -85,6 +88,7 @@ public class AbbuchungView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
     group.addLabelPair("Modus", control.getAbbuchungsmodus());
+    group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group.addLabelPair("Zahlungsgrund", control.getZahlungsgrund());
     group.addLabelPair("Zusatzabbuchung", control.getZusatzabbuchung());
