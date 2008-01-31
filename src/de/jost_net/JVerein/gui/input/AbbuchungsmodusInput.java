@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/30 10:09:48  jost
+ * Neuer Rhytmus: Jahr, Vierteljahr und Monat
+ *
  * Revision 1.1  2007/12/02 13:40:04  jost
  * Neu: Beitragsmodelle
  *
@@ -40,15 +43,21 @@ public class AbbuchungsmodusInput extends SelectInput
 
   public static final int MONATLICH = 4;
 
-  public static final int JAHAVIMO = 5;
+  public static final int JA = 5;
 
-  public static final int JAVIMO = 6;
+  public static final int HA = 6;
 
-  public static final int HAVIMO = 7;
+  public static final int VI = 7;
 
-  public static final int VIMO = 8;
+  public static final int JAHAVIMO = 8;
 
-  public static final int MO = 9;
+  public static final int JAVIMO = 9;
+
+  public static final int HAVIMO = 10;
+
+  public static final int VIMO = 11;
+
+  public static final int MO = 12;
 
   public static final int EINGETRETENEMITGLIEDER = 99;
 
@@ -91,6 +100,9 @@ public class AbbuchungsmodusInput extends SelectInput
       l.add(new AbbuchungsmodusObject(JAVIMO));
       l.add(new AbbuchungsmodusObject(HAVIMO));
       l.add(new AbbuchungsmodusObject(VIMO));
+      l.add(new AbbuchungsmodusObject(JA));
+      l.add(new AbbuchungsmodusObject(HA));
+      l.add(new AbbuchungsmodusObject(VI));
       l.add(new AbbuchungsmodusObject(MO));
     }
     return PseudoIterator.fromArray((AbbuchungsmodusObject[]) l
@@ -140,6 +152,15 @@ public class AbbuchungsmodusInput extends SelectInput
         case AbbuchungsmodusInput.MONATLICH:
         case AbbuchungsmodusInput.MO:
           this.label = "Monatsbeiträge";
+          break;
+        case AbbuchungsmodusInput.VI:
+          this.label = "Vierteljährlich";
+          break;
+        case AbbuchungsmodusInput.HA:
+          this.label = "Halbjährlich";
+          break;
+        case AbbuchungsmodusInput.JA:
+          this.label = "Jährlich";
           break;
         case AbbuchungsmodusInput.JAHAVIMO:
           this.label = "Jahres-, Halbjahres-, Vierteljahres- und Monatsbeiträge";
