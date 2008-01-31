@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/16 20:27:15  jost
+ * Standardwert fÃ¼r die Migration geÃ¤ndert.
+ *
  * Revision 1.1  2007/12/01 10:07:07  jost
  * H2-Support
  *
@@ -72,7 +75,10 @@ public class McKoiToH2MigrationListener implements MessageConsumer
         .getResources().getI18N();
 
     String text = i18n
-        .tr("Das Datenbank-Format von JVerein wurde umgestellt.\nMöchten Sie jetzt die Übernahme der Daten in das neue Format durchführen?");
+        .tr("Das Datenbank-Format von JVerein wurde umgestellt.\n"
+            + "Weitere Informationen zu diesem Thema unter\n\n"
+            + "http://www.jverein.de/index.php5?title=Migration_der_Datenbank_ins_H2-Format\n\n"
+            + "Möchten Sie jetzt die Übernahme der Daten in das neue Format durchführen?");
     if (!Application.getCallback().askUser(text))
       return;
 
