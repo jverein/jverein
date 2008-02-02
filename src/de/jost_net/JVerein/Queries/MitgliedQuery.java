@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/27 10:17:41  jost
+ * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
+ *
  * Revision 1.2  2008/01/27 09:43:59  jost
  * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
  *
@@ -120,7 +123,8 @@ public class MitgliedQuery
       {
         addCondition("austritt <= ?");
       }
-      if (control.getAustrittvon() == null && control.getAustrittbis() == null)
+      if (control.getAustrittvon().getValue() == null
+          && control.getAustrittbis().getValue() == null)
       {
         addCondition("austritt is null");
       }
