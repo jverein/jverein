@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/31 19:41:18  jost
+ * Berücksichtigung eines Stichtages für die Abbuchung
+ *
  * Revision 1.2  2007/12/28 13:14:25  jost
  * Bugfix beim erzeugen eines Stammdaten-Objektes
  *
@@ -26,6 +29,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.rmi.Stammdaten;
+import de.jost_net.JVerein.rmi.Zusatzabbuchung;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.hbci.HBCI;
@@ -47,6 +51,10 @@ public class AbbuchungParam
 
   public final String verwendungszweck;
 
+  public final Boolean zusatzabbuchung;
+
+  public final Boolean kursteilnehmer;
+
   public final Boolean dtausprint;
 
   public final File dtausfile;
@@ -67,6 +75,8 @@ public class AbbuchungParam
     abbuchungsausgabe = (Integer) ac.getAbbuchungsausgabe().getValue();
     vondatum = (Date) ac.getVondatum().getValue();
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();
+    zusatzabbuchung = (Boolean) ac.getZusatzabbuchung().getValue();
+    kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
     dtausprint = (Boolean) ac.getDtausPrint().getValue();
     this.pdffile = pdffile;
     this.dtausfile = dtausfile;

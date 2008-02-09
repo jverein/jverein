@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2008/01/31 19:40:57  jost
+ * Jährliche, Halbjährliche und Vierteljährliche Abbuchungen können jetzt separat ausgeführt werden.
+ * Berücksichtigung eines Stichtages für die Abbuchung
+ *
  * Revision 1.18  2008/01/07 20:28:21  jost
  * Bugfix Rundungsproblem
  *
@@ -125,8 +129,14 @@ public class Abbuchung
 
       abbuchenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
           param.vondatum, monitor, param.verwendungszweck);
-      abbuchenZusatzabbuchungen(dtaus);
-      abbuchenKursteilnehmer(dtaus);
+      if (param.zusatzabbuchung)
+      {
+        abbuchenZusatzabbuchungen(dtaus);
+      }
+      if (param.kursteilnehmer)
+      {
+        abbuchenKursteilnehmer(dtaus);
+      }
       // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
       // wurden beim Schreiben der C-S�tze ermittelt.
       dtaus.writeESatz();
