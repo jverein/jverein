@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/01/31 19:36:05  jost
+ * Berücksichtigung eines Stichtages für die Abbuchung
+ *
  * Revision 1.11  2008/01/07 20:28:55  jost
  * Dateinamensvorgabe für die PDF-Datei
  *
@@ -255,11 +258,39 @@ public class AbbuchungControl extends AbstractControl
     File dtausfile;
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
 
-    if (stichtag.getValue() == null)
+    Integer modus = null;
+    try
     {
-      throw new ApplicationException("Stichtag fehlt");
+      modus = (Integer) getAbbuchungsmodus().getValue();
     }
+    catch (RemoteException e)
+    {
+      throw new ApplicationException(
+          "Interner Fehler - kann Abbuchungsmodus nicht auslesen");
+    }
+    Date vondatum = null;
+    if (modus != AbbuchungsmodusInput.KEINBEITRAG)
+    {
+      try
+      {
+        vondatum = (Date) getVondatum().getValue();
+      }
+      catch (RemoteException e)
+      {
+        // nichts tun
+      }
 
+      if (modus == AbbuchungsmodusInput.EINGETRETENEMITGLIEDER
+          && vondatum == null)
+      {
+        throw new ApplicationException("von-Datum fehlt");
+      }
+
+      if (stichtag.getValue() == null)
+      {
+        throw new ApplicationException("Stichtag fehlt");
+      }
+    }
     Integer ausgabe;
     try
     {
