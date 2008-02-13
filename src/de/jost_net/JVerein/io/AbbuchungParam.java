@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/02/09 14:35:51  jost
+ * Bugfix. Zusatzabbuchungen und Kursteilnehmer nur abbuchen, wenn das Häkchen gesetzt ist.
+ *
  * Revision 1.3  2008/01/31 19:41:18  jost
  * Berücksichtigung eines Stichtages für die Abbuchung
  *
@@ -29,7 +32,6 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.rmi.Stammdaten;
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.hbci.HBCI;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/19 10:05:14  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.Temporaer;
@@ -29,7 +32,6 @@ import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.messaging.SystemMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Bei der Migration von McKoi zu H2 gab es auf meinem Rechner Probleme mit der
