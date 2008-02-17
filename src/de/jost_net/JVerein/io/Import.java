@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/12/18 17:25:21  jost
+ * Neu: Zahlungsrhytmus importieren
+ *
  * Revision 1.6  2007/03/25 17:03:44  jost
  * 1. Zusätzliche Plausibilitäten
  * 2. Import des Zahlungsweges
@@ -38,6 +41,7 @@ import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -189,10 +193,14 @@ public class Import
               + " ungültige Zahlungsart. Bar wird angenommen.");
           m.setZahlungsweg(ZahlungswegInput.BARZAHLUNG);
         }
-        String zahlungsrhytmus = results.getString("Zahlungsrhytmus");
-        if (zahlungsrhytmus == null)
+        String zahlungsrhytmus = "12";
+        try
         {
-          zahlungsrhytmus = "12";
+        results.getString("Zahlungsrhytmus");
+        }
+        catch (SQLException e)
+        {
+          // Nichts tun
         }
         m.setZahlungsrhytmus(Integer.parseInt(zahlungsrhytmus));
         m.setKontoinhaber(results.getString("Zahler"));
@@ -235,7 +243,7 @@ public class Import
         {
           m.insert();
         }
-        catch (ApplicationException e)
+        catch (Exception e)
         {
           monitor.log(m.getNameVorname() + " nicht importiert: "
               + e.getMessage());
