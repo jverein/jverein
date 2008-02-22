@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/02/17 08:29:02  jost
+ * Bugfix beim Import des Zahlungsrhytmusses
+ *
  * Revision 1.7  2007/12/18 17:25:21  jost
  * Neu: Zahlungsrhytmus importieren
  *
@@ -196,7 +199,7 @@ public class Import
         String zahlungsrhytmus = "12";
         try
         {
-        results.getString("Zahlungsrhytmus");
+          results.getString("Zahlungsrhytmus");
         }
         catch (SQLException e)
         {
@@ -225,7 +228,7 @@ public class Import
         }
         m.setAustritt(austritt);
         String kuendigung;
-        
+
         try
         {
           kuendigung = results.getString("Kündigung");
@@ -239,15 +242,7 @@ public class Import
           kuendigung = null;
         }
         m.setKuendigung(kuendigung);
-        try
-        {
-          m.insert();
-        }
-        catch (Exception e)
-        {
-          monitor.log(m.getNameVorname() + " nicht importiert: "
-              + e.getMessage());
-        }
+        m.insert();
       }
 
       // clean up
@@ -257,7 +252,7 @@ public class Import
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+      monitor.log(" nicht importiert: " + e.getMessage());
     }
   }
 
