@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2008/01/27 10:17:22  jost
+ * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
+ *
  * Revision 1.29  2008/01/27 09:41:28  jost
  * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
  *
@@ -149,6 +152,7 @@ import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
+import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -163,6 +167,8 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedControl extends AbstractControl
 {
+  private IntegerInput externemitgliedsnummer;
+
   private Input anrede;
 
   private Input titel;
@@ -241,6 +247,8 @@ public class MitgliedControl extends AbstractControl
 
   private DialogInput eigenschaftenabfrage;
 
+  private IntegerInput suchexternemitgliedsnummer;
+
   private Mitglied mitglied;
 
   // Liste aller Zusatzabbuchungen
@@ -270,13 +278,28 @@ public class MitgliedControl extends AbstractControl
     return mitglied;
   }
 
+  public IntegerInput getExterneMitgliedsnummer() throws RemoteException
+  {
+    if (externemitgliedsnummer != null)
+    {
+      return externemitgliedsnummer;
+    }
+    Integer ex = getMitglied().getExterneMitgliedsnummer();
+    if (ex == null)
+    {
+      ex = -1;
+    }
+    externemitgliedsnummer = new IntegerInput(ex);
+    return externemitgliedsnummer;
+  }
+
   public Input getAnrede() throws RemoteException
   {
     if (anrede != null)
     {
       return anrede;
     }
-    anrede = new TextInput(getMitglied().getAnrede(), 10);
+    anrede = new TextInput(getMitglied().getAnrede());
     return anrede;
   }
 
@@ -1168,6 +1191,16 @@ public class MitgliedControl extends AbstractControl
     return status != null;
   }
 
+  public IntegerInput getSuchExterneMitgliedsnummer() throws RemoteException
+  {
+    if (suchexternemitgliedsnummer != null)
+    {
+      return suchexternemitgliedsnummer;
+    }
+    suchexternemitgliedsnummer = new IntegerInput(-1);
+    return suchexternemitgliedsnummer;
+  }
+
   public Input getMitgliedStatus() throws RemoteException
   {
     if (status != null)
@@ -1356,7 +1389,7 @@ public class MitgliedControl extends AbstractControl
         settings.setAttribute("mitglied.austrittbis", "");
       }
     }
-
+ 
     if (eigenschaftenabfrage != null)
     {
       settings.setAttribute("mitglied.eigenschaften", getEigenschaftenAuswahl()
@@ -1399,6 +1432,19 @@ public class MitgliedControl extends AbstractControl
       m.setBlz((String) getBlz().getValue());
       m.setEintritt((Date) getEintritt().getValue());
       m.setEmail((String) getEmail().getValue());
+      if (Einstellungen.isExterneMitgliedsnummer())
+      {
+        if (externemitgliedsnummer != null)
+        {
+          m.setExterneMitgliedsnummer((Integer) getExterneMitgliedsnummer()
+              .getValue());
+        }
+      }
+      else
+      {
+        m.setExterneMitgliedsnummer(null);
+      }
+
       m.setGeburtsdatum((Date) getGeburtsdatum().getValue());
       m.setGeschlecht((String) getGeschlecht().getValue());
       m.setKonto((String) getKonto().getValue());

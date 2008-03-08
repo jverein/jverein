@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2007/12/18 17:25:42  jost
+ * Neu: Zahlungsrhytmus importieren
+ *
  * Revision 1.9  2007/12/02 13:44:14  jost
  * Neu: Beitragsmodelle
  *
@@ -91,6 +94,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   private void plausi() throws RemoteException, ApplicationException
   {
+    if (Einstellungen.isExterneMitgliedsnummer())
+    {
+      if (getExterneMitgliedsnummer() == null)
+      {
+        throw new ApplicationException("Externe Mitgliedsnummer fehlt");
+      }
+    }
     if (getName() == null || getName().length() == 0)
     {
       throw new ApplicationException("Bitte Namen eingeben");
@@ -172,6 +182,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       return Beitragsgruppe.class;
     }
     return null;
+  }
+
+  public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException
+  {
+    setAttribute("externemitgliedsnummer", extnr);
+  }
+
+  public Integer getExterneMitgliedsnummer() throws RemoteException
+  {
+    return (Integer) getAttribute("externemitgliedsnummer");
   }
 
   public String getAnrede() throws RemoteException

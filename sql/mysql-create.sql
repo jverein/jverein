@@ -1,6 +1,7 @@
 CREATE TABLE mitglied 
 (
   id            int(10) AUTO_INCREMENT, 
+  externemitgliedsnummer int(10),
   anrede        VARCHAR(10),
   titel         VARCHAR(10),
   name          VARCHAR(40) NOT NULL, 
@@ -27,6 +28,7 @@ CREATE TABLE mitglied
   vermerk2      VARCHAR(255),
   eingabedatum  DATE,
   UNIQUE        (id), 
+  UNIQUE        (externemitgliedsnummer),
   PRIMARY KEY   (id)
 )TYPE=InnoDB;
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/01/01 19:50:58  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.6  2008/01/01 13:14:15  jost
  * Neu: Dateinamenmuster
  *
@@ -56,6 +59,8 @@ public class EinstellungenView extends AbstractView
     group.addLabelPair("Wiedervorlage anzeigen *", control.getWiedervorlage());
     group
         .addLabelPair("Kursteilnehmer anzeigen *", control.getKursteilnehmer());
+    group.addLabelPair("externe Mitgliedsnummer", control
+        .getExterneMitgliedsnummer());
 
     LabelGroup groupAbu = new LabelGroup(getParent(), "Beiträge");
     groupAbu.addLabelPair("Beitragsmodel", control.getBeitragsmodel());

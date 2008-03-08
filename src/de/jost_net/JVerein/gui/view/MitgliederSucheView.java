@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/01/26 16:22:34  jost
+ * Überflüssigen Knopf entfernt.
+ * Speicherung der Default-Werte
+ *
  * Revision 1.12  2008/01/25 16:04:24  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -78,6 +82,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
+import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -139,6 +144,14 @@ public class MitgliederSucheView extends AbstractView
     Input mitglstat = control.getMitgliedStatus();
     mitglstat.addListener(new FilterListener(control));
     group.addLabelPair("Mitgliedschaft", mitglstat);
+    IntegerInput suchexternemitgliedsnummer = control.getSuchExterneMitgliedsnummer();
+    suchexternemitgliedsnummer.addListener(new FilterListener(control));
+    if (Einstellungen.isExterneMitgliedsnummer())
+    {
+      group.addLabelPair("Externe Mitgliedsnummer", control
+          .getSuchExterneMitgliedsnummer());
+    }
+
     if (!JVereinDBService.SETTINGS.getString("database.driver",
         DBSupportH2Impl.class.getName()).equals(
         DBSupportMcKoiImpl.class.getName()))
@@ -215,6 +228,7 @@ public class MitgliederSucheView extends AbstractView
 
   private void TabRefresh(MitgliedControl control, int index)
   {
+    System.out.println("Tabrefresh");
     try
     {
       control.saveDefaults();

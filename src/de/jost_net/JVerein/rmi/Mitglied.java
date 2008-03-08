@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/12/02 13:44:00  jost
+ * Neu: Beitragsmodelle
+ *
  * Revision 1.5  2007/03/25 17:04:34  jost
  * Herstellung des Familienverbandes
  *
@@ -35,6 +38,10 @@ import de.willuhn.util.ApplicationException;
 
 public interface Mitglied extends DBObject
 {
+  public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException;
+
+  public Integer getExterneMitgliedsnummer() throws RemoteException;
+
   public void setID(String id) throws RemoteException;
 
   public String getAnrede() throws RemoteException;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/02/02 17:50:43  jost
+ * Bugfix Austrittsdatum
+ *
  * Revision 1.3  2008/01/27 10:17:41  jost
  * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
  *
@@ -129,6 +132,13 @@ public class MitgliedQuery
         addCondition("austritt is null");
       }
     }
+    if (Einstellungen.isExterneMitgliedsnummer())
+    {
+      if (control.getSuchExterneMitgliedsnummer().getValue() != null)
+      {
+        addCondition("externemitgliedsnummer = ?");
+      }
+    }
     Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
         .getValue();
     if (bg != null)
@@ -221,6 +231,12 @@ public class MitgliedQuery
         Date d = (Date) control.getAustrittbis().getValue();
         bedingungen.add(new java.sql.Date(d.getTime()));
       }
+    }
+    if (Einstellungen.isExterneMitgliedsnummer()
+        && control.getSuchExterneMitgliedsnummer().getValue() != null)
+    {
+      bedingungen.add((Integer) control.getSuchExterneMitgliedsnummer()
+          .getValue());
     }
     if (bg != null)
     {

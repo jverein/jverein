@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/01/25 16:04:08  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  * Revision 1.11  2008/01/01 19:52:33  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -113,6 +116,11 @@ public class MitgliedDetailView extends AbstractView
       tab2.addLabelPair("eMail", control.getEmail());
     }
     TabGroup tab3 = new TabGroup(folder, "Mitgliedschaft");
+    if (Einstellungen.isExterneMitgliedsnummer())
+    {
+      tab3.addLabelPair("Ext. Mitgliedsnummer", control
+          .getExterneMitgliedsnummer());
+    }
     tab3.addLabelPair("Eintritt", control.getEintritt());
     tab3.addLabelPair("Betragsgruppe", control.getBeitragsgruppe());
     tab3.addLabelPair("Austritt", control.getAustritt());

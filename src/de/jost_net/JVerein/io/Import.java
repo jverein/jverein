@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/02/22 17:31:29  jost
+ * Fehlermeldung sauber ausgeben.
+ *
  * Revision 1.8  2008/02/17 08:29:02  jost
  * Bugfix beim Import des Zahlungsrhytmusses
  *
@@ -63,6 +66,7 @@ public class Import
 {
   public Import(String path, String file, ProgressMonitor monitor)
   {
+    ResultSet results;
     try
     {
       BufferedReader rea = new BufferedReader(new InputStreamReader(
@@ -104,50 +108,14 @@ public class Import
       // create a Statement object to execute the query with
       Statement stmt = conn.createStatement();
 
-      ResultSet results = stmt.executeQuery("SELECT * FROM "
-          + file.substring(0, pos));
-      while (results.next())
-      {
-        String ba = results.getString("Beitragsart_1");
-        String btr = results.getString("Beitrag_1");
-        if (ba == null || ba.length() == 0 || btr == null || btr.length() == 0)
-        {
-          monitor
-              .log(results.getString("Nachname") + ", "
-                  + results.getString("Vorname")
-                  + " keine Angaben zur Beitragsart");
-          abbruch = true;
-        }
-      }
-      if (abbruch)
+      if (!checkeBeitragsgruppen(monitor, file.substring(0, pos), stmt))
       {
         monitor.log("Abbruch");
         return;
       }
 
-      results = stmt.executeQuery("SELECT * FROM " + file.substring(0, pos));
-
-      HashMap<String, Double> beitragsgruppen1 = new HashMap<String, Double>();
-
-      while (results.next())
-      {
-        beitragsgruppen1.put(results.getString("Beitragsart_1"), new Double(
-            results.getString("Beitrag_1").replace(',', '.')));
-      }
-      Set keys = beitragsgruppen1.keySet();
-      Iterator it = keys.iterator();
-      HashMap<String, String> beitragsgruppen2 = new HashMap<String, String>();
-      while (it.hasNext())
-      {
-        Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
-            .createObject(Beitragsgruppe.class, null);
-        String key = (String) it.next();
-        b.setBezeichnung(key);
-        Double betr = beitragsgruppen1.get(key);
-        b.setBetrag(betr.doubleValue());
-        b.store();
-        beitragsgruppen2.put(key, b.getID());
-      }
+      HashMap<String, String> beitragsgruppen2 = aufbauenBeitragsgruppenAusImport(
+          file.substring(0, pos), stmt);
 
       results = stmt.executeQuery("SELECT * FROM " + file.substring(0, pos));
 
@@ -162,6 +130,11 @@ public class Import
             Mitglied.class, null);
 
         m.setID(results.getString("Mitglieds_Nr"));
+        if (Einstellungen.isExterneMitgliedsnummer())
+        {
+          m.setExterneMitgliedsnummer(new Integer(results
+              .getString("Mitglieds_Nr")));
+        }
         m.setAnrede(results.getString("Anrede"));
         m.setTitel(results.getString("Titel"));
         m.setName(results.getString("Nachname"));
@@ -282,5 +255,61 @@ public class Import
     {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Beitragsgruppen in der Importdatei prüfen
+   * 
+   * @param monitor
+   * @param file
+   * @param stmt
+   * @return true, wenn alles in Ordnung ist.
+   * @throws SQLException
+   */
+  private boolean checkeBeitragsgruppen(ProgressMonitor monitor, String file,
+      Statement stmt) throws SQLException
+  {
+    ResultSet results = stmt.executeQuery("SELECT * FROM " + file);
+    while (results.next())
+    {
+      String ba = results.getString("Beitragsart_1");
+      String btr = results.getString("Beitrag_1");
+      if (ba == null || ba.length() == 0 || btr == null || btr.length() == 0)
+      {
+        monitor.log(results.getString("Nachname") + ", "
+            + results.getString("Vorname") + " keine Angaben zur Beitragsart");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private HashMap<String, String> aufbauenBeitragsgruppenAusImport(String file,
+      Statement stmt) throws SQLException, RemoteException,
+      ApplicationException
+  {
+    HashMap<String, Double> beitragsgruppen1 = new HashMap<String, Double>();
+    ResultSet results = stmt.executeQuery("SELECT * FROM " + file);
+
+    while (results.next())
+    {
+      beitragsgruppen1.put(results.getString("Beitragsart_1"), new Double(
+          results.getString("Beitrag_1").replace(',', '.')));
+    }
+    Set keys = beitragsgruppen1.keySet();
+    Iterator it = keys.iterator();
+    HashMap<String, String> beitragsgruppen2 = new HashMap<String, String>();
+    while (it.hasNext())
+    {
+      Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
+          .createObject(Beitragsgruppe.class, null);
+      String key = (String) it.next();
+      b.setBezeichnung(key);
+      Double betr = beitragsgruppen1.get(key);
+      b.setBetrag(betr.doubleValue());
+      b.store();
+      beitragsgruppen2.put(key, b.getID());
+    }
+    return beitragsgruppen2;
   }
 }

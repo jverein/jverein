@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.11  2008/01/01 13:12:26  jost
+ * Neu: Dateinamenmuster
+ *
  * Revision 1.10  2008/01/01 12:35:25  jost
  * Javadoc korrigiert
  *
@@ -81,6 +84,8 @@ public class Einstellungen
   private static Boolean wiedervorlage;
 
   private static Boolean kursteilnehmer;
+
+  private static Boolean externemitgliedsnummer;
 
   private static int beitragsmodel;
 
@@ -342,6 +347,29 @@ public class Einstellungen
   {
     settings.setAttribute("kursteilnehmer.einblenden", value);
     kursteilnehmer = null;
+  }
+
+  /**
+   * Externe Mitgliedsnummer verwenden?
+   */
+  public static boolean isExterneMitgliedsnummer()
+  {
+    if (externemitgliedsnummer != null)
+    {
+      return externemitgliedsnummer.booleanValue();
+    }
+    externemitgliedsnummer = new Boolean(settings.getBoolean(
+        "externemitgliedsnummer.verwenden", false));
+    return externemitgliedsnummer;
+  }
+
+  /**
+   * Speichert, ob externe Mitgliedsnummern verwendet werden sollen.
+   */
+  public static void setExterneMitgliedsnummern(boolean value)
+  {
+    settings.setAttribute("externemitgliedsnummer.verwenden", value);
+    externemitgliedsnummer = null;
   }
 
   /**
