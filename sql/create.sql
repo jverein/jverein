@@ -1,6 +1,7 @@
 CREATE TABLE mitglied 
 (
   id            INTEGER     default UNIQUEKEY('mitglied'), 
+  externemitgliedsnummer INTEGER,
   anrede        VARCHAR(10),
   titel         VARCHAR(10),
   name          VARCHAR(40) NOT NULL, 
@@ -27,6 +28,7 @@ CREATE TABLE mitglied
   vermerk2      VARCHAR(255),
   eingabedatum  DATE,
   UNIQUE        (id), 
+  UNIQUE        (externemitgliedsnummer),
   PRIMARY KEY   (id)
 );
 
@@ -131,7 +133,7 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 );
-INSERT INTO version VALUES (1,5);
+INSERT INTO version VALUES (1,6);
 
 
 COMMIT; 

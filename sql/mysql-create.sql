@@ -135,7 +135,7 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 )TYPE=InnoDB;
-INSERT INTO version VALUES (1,5);
+INSERT INTO version VALUES (1,6);
 
 
 
