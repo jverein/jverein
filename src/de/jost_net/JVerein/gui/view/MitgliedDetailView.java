@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/03/08 19:29:58  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.12  2008/01/25 16:04:08  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -60,16 +63,19 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.EigenschaftenControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
+import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.DBSupportH2Impl;
 import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
-import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.ColumnLayout;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
 import de.willuhn.util.ApplicationException;
 
@@ -82,39 +88,52 @@ public class MitgliedDetailView extends AbstractView
 
     final MitgliedControl control = new MitgliedControl(this);
 
-    LabelGroup grGrund = new LabelGroup(getParent(), "Grunddaten");
-    grGrund.getComposite().setSize(290, 190);
-    grGrund.addLabelPair("Anrede", control.getAnrede());
-    grGrund.addLabelPair("Titel", control.getTitel());
-    grGrund.addLabelPair("Name", control.getName());
-    grGrund.addLabelPair("Vorname", control.getVorname());
-    grGrund.addLabelPair("Strasse", control.getStrasse());
-    grGrund.addLabelPair("PLZ", control.getPlz());
-    grGrund.addLabelPair("Ort", control.getOrt());
-    grGrund.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
-    grGrund.addLabelPair("Geschlecht", control.getGeschlecht());
+    ColumnLayout cols1 = new ColumnLayout(getParent(), 2);
+    SimpleContainer left = new SimpleContainer(cols1.getComposite());
+    left.addHeadline("Grunddaten");
+    left.addLabelPair("Anrede", control.getAnrede());
+    left.addLabelPair("Titel", control.getTitel());
+    left.addLabelPair("Name", control.getName());
+    left.addLabelPair("Vorname", control.getVorname());
+
+    SimpleContainer right = new SimpleContainer(cols1.getComposite());
+    right.addHeadline("");
+    right.addLabelPair("Strasse", control.getStrasse());
+    right.addLabelPair("PLZ", control.getPlz());
+    right.addLabelPair("Ort", control.getOrt());
+    right.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
+    right.addLabelPair("Geschlecht", control.getGeschlecht());
+
+    if (Einstellungen.isKommunikationsdaten())
+    {
+      ColumnLayout cols2 = new ColumnLayout(getParent(), 2);
+      SimpleContainer left2 = new SimpleContainer(cols2.getComposite());
+      left2.addHeadline("Kommunikation");
+      left2.addLabelPair("Telefon priv.", control.getTelefonprivat());
+      SimpleContainer right2 = new SimpleContainer(cols2.getComposite());
+      right2.addHeadline("");
+      right2.addLabelPair("Telefon dienstl.", control.getTelefondienstlich());
+      right2.addLabelPair("eMail", control.getEmail());
+    }
+
+    ColumnLayout cols3 = new ColumnLayout(getParent(), 2);
+    SimpleContainer left3 = new SimpleContainer(cols3.getComposite());
+    left3.addHeadline("Bankverbindung");
+    left3.addLabelPair("Zahlungsweg", control.getZahlungsweg());
+    if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
+    {
+      left3.addLabelPair("Zahlungsrhytmus", control.getZahlungsrhytmus());
+    }
+    left3.addLabelPair("Kontoinhaber", control.getKontoinhaber());
+    SimpleContainer right3 = new SimpleContainer(cols3.getComposite());
+    right3.addHeadline("");
+    right3.addLabelPair("BLZ", control.getBlz());
+    right3.addLabelPair("Konto", control.getKonto());
 
     TabFolder folder = new TabFolder(getParent(), SWT.NONE);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-    TabGroup tab1 = new TabGroup(folder, "Bankverbindung");
-    tab1.addLabelPair("Zahlungsweg", control.getZahlungsweg());
-    if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
-    {
-      tab1.addLabelPair("Zahlungsrhytmus", control.getZahlungsrhytmus());
-    }
-    tab1.addLabelPair("BLZ", control.getBlz());
-    tab1.addLabelPair("Konto", control.getKonto());
-    tab1.addLabelPair("Kontoinhaber", control.getKontoinhaber());
-
-    if (Einstellungen.isKommunikationsdaten())
-    {
-      TabGroup tab2 = new TabGroup(folder, "Kommunikation");
-      tab2.addLabelPair("Telefon priv.", control.getTelefonprivat());
-      tab2.addLabelPair("Telefon dienstl.", control.getTelefondienstlich());
-      tab2.addLabelPair("eMail", control.getEmail());
-    }
     TabGroup tab3 = new TabGroup(folder, "Mitgliedschaft");
     if (Einstellungen.isExterneMitgliedsnummer())
     {
@@ -125,8 +144,13 @@ public class MitgliedDetailView extends AbstractView
     tab3.addLabelPair("Betragsgruppe", control.getBeitragsgruppe());
     tab3.addLabelPair("Austritt", control.getAustritt());
     tab3.addLabelPair("Kündigung", control.getKuendigung());
-    tab3.addPart(control.getFamilienverband());
-
+    DBIterator it = Einstellungen.getDBService().createList(
+        Beitragsgruppe.class);
+    it.addFilter("beitragsart = 1 or beitragsart = 2");
+    if (it.hasNext())
+    {
+      tab3.addPart(control.getFamilienverband());
+    }
     if (Einstellungen.isZusatzabbuchung())
     {
       TabGroup tab4 = new TabGroup(folder, "Zusatzabbuchung");
