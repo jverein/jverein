@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2008/03/08 19:29:07  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.30  2008/01/27 10:17:22  jost
  * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
  *
@@ -941,11 +944,6 @@ public class MitgliedControl extends AbstractControl
     return geburtsdatumbis;
   }
 
-  public boolean isEintrittvonAktiv()
-  {
-    return eintrittvon != null;
-  }
-
   public DateInput getEintrittvon() throws RemoteException
   {
     if (eintrittvon != null)
@@ -1021,11 +1019,6 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return eintrittbis;
-  }
-
-  public boolean isAustrittvonAktiv()
-  {
-    return austrittvon != null;
   }
 
   public DateInput getAustrittvon() throws RemoteException
@@ -1273,8 +1266,8 @@ public class MitgliedControl extends AbstractControl
   {
     TablePart part;
     saveDefaults();
-    part = new TablePart(new MitgliedQuery(this).getQuery(anfangsbuchstabe),
-        new MitgliedDetailAction());
+    part = new TablePart(new MitgliedQuery(this, true)
+        .getQuery(anfangsbuchstabe), new MitgliedDetailAction());
 
     part.addColumn("Name", "name");
     part.addColumn("Vorname", "vorname");
@@ -1389,7 +1382,7 @@ public class MitgliedControl extends AbstractControl
         settings.setAttribute("mitglied.austrittbis", "");
       }
     }
- 
+
     if (eigenschaftenabfrage != null)
     {
       settings.setAttribute("mitglied.eigenschaften", getEigenschaftenAuswahl()
@@ -1482,7 +1475,7 @@ public class MitgliedControl extends AbstractControl
   private void starteAuswertung() throws RemoteException
   {
     saveDefaults();
-    ArrayList list = new MitgliedQuery(this).getQuery();
+    ArrayList list = new MitgliedQuery(this, false).getQuery();
     try
     {
       String subtitle = "";
