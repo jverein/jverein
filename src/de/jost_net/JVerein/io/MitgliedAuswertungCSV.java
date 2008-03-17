@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/01/27 09:42:37  jost
+ * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
+ *
  * Revision 1.4  2008/01/01 12:36:01  jost
  * Javadoc korrigiert
  *
@@ -57,7 +60,7 @@ public class MitgliedAuswertungCSV
           .print("id;anrede;titel;name;vorname;strasse;plz;ort;blz;konto;kontoinhaber;");
       out
           .print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;email;");
-      out.println("eintritt;beitragsgruppe;austritt;kuendigung");
+      out.println("eintritt;beitragsgruppe;beitragsgruppetext;austritt;kuendigung");
       int faelle = 0;
 
       for (int i = 0; i < list.size(); i++)
@@ -83,6 +86,7 @@ public class MitgliedAuswertungCSV
         out.print(m.getEmail() + ";");
         out.print(formatDate(m.getEintritt()) + ";");
         out.print(m.getBeitragsgruppe().getID() + ";");
+        out.print(m.getBeitragsgruppe().getBezeichnung() + ";");
         out.print(formatDate(m.getAustritt()) + ";");
         out.println(formatDate(m.getKuendigung()));
       }
