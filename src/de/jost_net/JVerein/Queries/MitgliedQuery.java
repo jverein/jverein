@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/03/08 19:31:00  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.4  2008/02/02 17:50:43  jost
  * Bugfix Austrittsdatum
  *
@@ -47,9 +50,16 @@ public class MitgliedQuery
 
   private String sql = "";
 
-  public MitgliedQuery(MitgliedControl control)
+  /**
+   * Wird die Abfrage für den Dialog (true) oder für die Batch-Auswertung
+   * (false) instanziiert?
+   */
+  private boolean dialog;
+
+  public MitgliedQuery(MitgliedControl control, boolean dialog)
   {
     this.control = control;
+    this.dialog = dialog;
   }
 
   public ArrayList getQuery() throws RemoteException
@@ -108,35 +118,45 @@ public class MitgliedQuery
     {
       addCondition("geburtsdatum <= ?");
     }
-    if (control.getEintrittvon().getValue() != null)
+    if (!dialog)
     {
-      addCondition("eintritt >= ?");
-    }
-    if (control.getEintrittbis().getValue() != null)
-    {
-      addCondition("eintritt <= ?");
-    }
-    if (control.isAustrittbisAktiv())
-    {
-      if (control.getAustrittvon().getValue() != null)
+      if (control.getEintrittvon().getValue() != null)
       {
-        addCondition("austritt >= ?");
+        addCondition("eintritt >= ?");
       }
-      if (control.getAustrittbis().getValue() != null)
+      if (control.getEintrittbis().getValue() != null)
       {
-        addCondition("austritt <= ?");
+        addCondition("eintritt <= ?");
       }
-      if (control.getAustrittvon().getValue() == null
-          && control.getAustrittbis().getValue() == null)
+      if (control.isAustrittbisAktiv())
       {
-        addCondition("austritt is null");
+        if (control.getAustrittvon().getValue() != null)
+        {
+          addCondition("austritt >= ?");
+        }
+        if (control.getAustrittbis().getValue() != null)
+        {
+          addCondition("austritt <= ?");
+        }
+        if (control.getAustrittvon().getValue() == null
+            && control.getAustrittbis().getValue() == null)
+        {
+          addCondition("austritt is null");
+        }
       }
     }
     if (Einstellungen.isExterneMitgliedsnummer())
     {
-      if (control.getSuchExterneMitgliedsnummer().getValue() != null)
+      try
       {
-        addCondition("externemitgliedsnummer = ?");
+        if (control.getSuchExterneMitgliedsnummer().getValue() != null)
+        {
+          addCondition("externemitgliedsnummer = ?");
+        }
+      }
+      catch (NullPointerException e)
+      {
+        // Workaround für einen Bug in IntegerInput
       }
     }
     Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
@@ -203,24 +223,18 @@ public class MitgliedQuery
       Date d = (Date) control.getGeburtsdatumbis().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
-    if (control.isEintrittvonAktiv())
+    if (!dialog)
     {
       if (control.getEintrittvon().getValue() != null)
       {
         Date d = (Date) control.getEintrittvon().getValue();
         bedingungen.add(new java.sql.Date(d.getTime()));
       }
-    }
-    if (control.isEintrittbisAktiv())
-    {
       if (control.getEintrittbis().getValue() != null)
       {
         Date d = (Date) control.getEintrittbis().getValue();
         bedingungen.add(new java.sql.Date(d.getTime()));
       }
-    }
-    if (control.isAustrittbisAktiv())
-    {
       if (control.getAustrittvon().getValue() != null)
       {
         Date d = (Date) control.getAustrittvon().getValue();
@@ -232,11 +246,18 @@ public class MitgliedQuery
         bedingungen.add(new java.sql.Date(d.getTime()));
       }
     }
-    if (Einstellungen.isExterneMitgliedsnummer()
-        && control.getSuchExterneMitgliedsnummer().getValue() != null)
+    try
     {
-      bedingungen.add((Integer) control.getSuchExterneMitgliedsnummer()
-          .getValue());
+      if (Einstellungen.isExterneMitgliedsnummer()
+          && control.getSuchExterneMitgliedsnummer().getValue() != null)
+      {
+        bedingungen.add((Integer) control.getSuchExterneMitgliedsnummer()
+            .getValue());
+      }
+    }
+    catch (NullPointerException e)
+    {
+      // Workaround f. Bug in IntegerInput
     }
     if (bg != null)
     {
