@@ -3,11 +3,11 @@ CREATE TABLE mitglied
   id            int(10) AUTO_INCREMENT, 
   externemitgliedsnummer int(10),
   anrede        VARCHAR(10),
-  titel         VARCHAR(10),
+  titel         VARCHAR(20),
   name          VARCHAR(40) NOT NULL, 
   vorname       VARCHAR(40) NOT NULL, 
   strasse       VARCHAR(40) NOT NULL, 
-  plz           VARCHAR(5)  NOT NULL, 
+  plz           VARCHAR(10)  NOT NULL, 
   ort           VARCHAR(40) NOT NULL, 
   zahlungsweg   INTEGER,
   zahlungsrhytmus INTEGER,
@@ -135,7 +135,7 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 )TYPE=InnoDB;
-INSERT INTO version VALUES (1,6);
+INSERT INTO version VALUES (1,7);
 
 
 

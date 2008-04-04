@@ -3,11 +3,11 @@ CREATE TABLE mitglied
   id            INTEGER     default UNIQUEKEY('mitglied'), 
   externemitgliedsnummer INTEGER,
   anrede        VARCHAR(10),
-  titel         VARCHAR(10),
+  titel         VARCHAR(20),
   name          VARCHAR(40) NOT NULL, 
   vorname       VARCHAR(40) NOT NULL, 
   strasse       VARCHAR(40) NOT NULL, 
-  plz           VARCHAR(5)  NOT NULL, 
+  plz           VARCHAR(10)  NOT NULL, 
   ort           VARCHAR(40) NOT NULL, 
   zahlungsweg   INTEGER,
   zahlungsrhytmus INTEGER,
@@ -133,7 +133,7 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 );
-INSERT INTO version VALUES (1,6);
+INSERT INTO version VALUES (1,7);
 
 
 COMMIT; 

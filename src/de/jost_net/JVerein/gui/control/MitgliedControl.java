@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.32  2008/03/17 20:22:12  jost
+ * Bugfix Eintritts- und Austrittsdatum aus dem Bereich Auswertung wurden auch im Dialog berücksichtigt.
+ *
  * Revision 1.31  2008/03/08 19:29:07  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -302,7 +305,7 @@ public class MitgliedControl extends AbstractControl
     {
       return anrede;
     }
-    anrede = new TextInput(getMitglied().getAnrede());
+    anrede = new TextInput(getMitglied().getAnrede(),10);
     return anrede;
   }
 
@@ -312,7 +315,7 @@ public class MitgliedControl extends AbstractControl
     {
       return titel;
     }
-    titel = new TextInput(getMitglied().getTitel(), 15);
+    titel = new TextInput(getMitglied().getTitel(), 20);
     return titel;
   }
 
@@ -354,7 +357,7 @@ public class MitgliedControl extends AbstractControl
     {
       return plz;
     }
-    plz = new TextInput(getMitglied().getPlz(), 5);
+    plz = new TextInput(getMitglied().getPlz(), 10);
     plz.addListener(new Listener()
     {
       public void handleEvent(Event event)
