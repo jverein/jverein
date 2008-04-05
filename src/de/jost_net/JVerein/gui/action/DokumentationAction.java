@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 19:46:53  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.1  2007/12/21 14:48:48  jost
  * PDF-Dokumentation -> Wiki
  *
@@ -17,8 +20,6 @@
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
-
-import java.io.File;
 
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -40,12 +41,12 @@ public class DokumentationAction implements Action
         {
           if (cont instanceof String)
           {
-            new Program().handleAction(new File((String) cont));
+            new Program().handleAction((String) cont);
           }
           else
           {
-            new Program().handleAction(new File(
-                "http://www.jverein.de/index.php5?title=Dokumentation"));
+            new Program()
+                .handleAction("http://www.jverein.de/index.php5?title=Dokumentation");
           }
         }
         catch (ApplicationException ae)
