@@ -11,22 +11,26 @@
 	<!-- The content of the following tag is displayed in the menu bar. //-->
 	<menu>
 		<item name="JVerein">
-			<item name="Dokumentation"
+	      <item name="Dokumentation"
             shortcut="ALT+D" 
         		action="de.jost_net.JVerein.gui.action.DokumentationAction">
-	  	</item>
-			<item name="Stammdaten"
-            shortcut="ALT+S" 
+	      </item>
+		  <item name="Stammdaten"
+              shortcut="ALT+S" 
         		action="de.jost_net.JVerein.gui.action.StammdatenAction">
-	  	</item>
-			<item name="Beitragsgruppe"
+	  	  </item>
+		  <item name="Beitragsgruppe"
             shortcut="ALT+G" 
             action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
-	    </item>
-			<item name="Einstellungen"
+	      </item>
+		  <item name="Einstellungen"
             shortcut="ALT+E" 
             action="de.jost_net.JVerein.gui.action.EinstellungenAction">
-	    </item>
+	      </item>
+	      <item name="Felddefinitionen"
+	        shortcut="ALT+F"
+	        action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
+	      </item>
 -	    <item name="-" /> 
 	   	<item name="Import"
             shortcut="ALT+I" 
