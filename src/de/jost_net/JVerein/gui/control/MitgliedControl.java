@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2008/04/04 15:14:12  jost
+ * Felder Titel und PLZ verlÃ¤ngert.
+ *
  * Revision 1.32  2008/03/17 20:22:12  jost
  * Bugfix Eintritts- und Austrittsdatum aus dem Bereich Auswertung wurden auch im Dialog berÃ¼cksichtigt.
  *
@@ -141,9 +144,11 @@ import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -220,6 +225,8 @@ public class MitgliedControl extends AbstractControl
   private DateInput austritt = null;
 
   private DateInput kuendigung = null;
+
+  private TextInput[] zusatzfelder;
 
   // Elemente für die Auswertung
 
@@ -305,7 +312,7 @@ public class MitgliedControl extends AbstractControl
     {
       return anrede;
     }
-    anrede = new TextInput(getMitglied().getAnrede(),10);
+    anrede = new TextInput(getMitglied().getAnrede(), 10);
     return anrede;
   }
 
@@ -799,6 +806,41 @@ public class MitgliedControl extends AbstractControl
     }
     vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
     return vermerk2;
+  }
+
+  public TextInput[] getZusatzfelder() throws RemoteException
+  {
+    if (zusatzfelder != null)
+    {
+      return zusatzfelder;
+    }
+    DBIterator it = Einstellungen.getDBService().createList(
+        Felddefinition.class);
+    int anzahl = it.size();
+    if (anzahl == 0)
+    {
+      return null;
+    }
+    zusatzfelder = new TextInput[anzahl];
+    for (int i = 0; i < anzahl; i++)
+    {
+      Felddefinition fd = (Felddefinition) it.next();
+      zusatzfelder[i] = new TextInput("", fd.getLaenge());
+      zusatzfelder[i].setName(fd.getLabel());
+      if (getMitglied().getID() != null)
+      {
+        DBIterator it2 = Einstellungen.getDBService().createList(
+            Zusatzfelder.class);
+        it2.addFilter("mitglied=?", new Object[] { getMitglied().getID() });
+        it2.addFilter("felddefinition=?", new Object[] { fd.getID() });
+        if (it2.size() > 0)
+        {
+          Zusatzfelder zf = (Zusatzfelder) it2.next();
+          zusatzfelder[i].setValue(zf.getFeld());
+        }
+      }
+    }
+    return zusatzfelder;
   }
 
   public Part getFamilienangehoerigenTable() throws RemoteException
@@ -1461,6 +1503,34 @@ public class MitgliedControl extends AbstractControl
         m.setEingabedatum();
       }
       m.store();
+
+      for (TextInput ti : zusatzfelder)
+      {
+        // Felddefinition ermitteln
+        DBIterator it0 = Einstellungen.getDBService().createList(
+            Felddefinition.class);
+        it0.addFilter("label = ?", new Object[] { ti.getName() });
+        Felddefinition fd = (Felddefinition) it0.next();
+        // Ist bereits ein Datensatz für diese Definiton vorhanden ?
+        DBIterator it = Einstellungen.getDBService().createList(
+            Zusatzfelder.class);
+        it.addFilter("mitglied =?", new Object[] { m.getID() });
+        it.addFilter("felddefinition=?", new Object[] { fd.getID() });
+        Zusatzfelder zf = null;
+        if (it.size() > 0)
+        {
+          zf = (Zusatzfelder) it.next();
+        }
+        else
+        {
+          zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
+              Zusatzfelder.class, null);
+        }
+        zf.setMitglied(new Integer(m.getID()));
+        zf.setFelddefinition(new Integer(fd.getID()));
+        zf.setFeld((String) ti.getValue());
+        zf.store();
+      }
       GUI.getStatusBar().setSuccessText("Mitglied gespeichert");
     }
     catch (ApplicationException e)

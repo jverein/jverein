@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/03/08 19:30:32  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.9  2008/02/22 17:31:29  jost
  * Fehlermeldung sauber ausgeben.
  *
@@ -57,7 +60,9 @@ import java.util.Set;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
@@ -90,6 +95,17 @@ public class Import
       }
       loescheBestand();
       int anz = 0;
+
+      // 
+      // Zusatzfelder ermitteln
+      DBIterator it = Einstellungen.getDBService().createList(
+          Felddefinition.class);
+      Felddefinition[] zusfeld = new Felddefinition[it.size()];
+      for (int i = 0; i < it.size(); i++)
+      {
+        zusfeld[i] = (Felddefinition) it.next();
+      }
+
       Properties props = new java.util.Properties();
       props.put("separator", ";"); // separator is a bar
       props.put("suppressHeaders", "false"); // first line contains data
@@ -216,6 +232,15 @@ public class Import
         }
         m.setKuendigung(kuendigung);
         m.insert();
+        for (Felddefinition f : zusfeld)
+        {
+          Zusatzfelder zf = (Zusatzfelder) Einstellungen.getDBService()
+              .createObject(Zusatzfelder.class, null);
+          zf.setMitglied(new Integer(m.getID()));
+          zf.setFelddefinition(new Integer(f.getID()));
+          zf.setFeld(results.getString(f.getName()));
+          zf.store();
+        }
       }
 
       // clean up

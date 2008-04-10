@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/01 19:50:45  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -26,6 +29,8 @@ public class DokumentationUtil
   public static final String auswertungmitglieder = "http://www.jverein.de/index.php5?title=Auswertung#Auswertung_der_Mitglieder";
 
   public static final String beitragsgruppen = "http://www.jverein.de/index.php5?title=Administration#Beitragsgruppen";
+
+  public static final String felddefinitionen = "http://www.jverein.de/index.php5?title=Administration#Felddefinitionen";
 
   public static final String einstellungen = "http://www.jverein.de/index.php5?title=Administration#Einstellungen";
 

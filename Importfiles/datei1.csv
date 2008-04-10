@@ -1,0 +1,2 @@
+Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Strasse;Plz;Ort;Geburtsdatum;Geschlecht;Bankleitzahl;Kontonummer;Zahlungsart;Zahlungsrhymus;Zahler;Telefon_privat;Telefon_dienstlich;Email;Eintritt;Beitragsart_1;Beitrag_1;Austritt;Kuendigung;gpgkey;nickname
+22;Herrn;Dr.;Meier;Willi;Am Teich 1;12345;Testenhausen;03.03.70;M;47853520;1861889;l;;;12345;;;01.05.00;Standard;99;;;445454654654646;lui

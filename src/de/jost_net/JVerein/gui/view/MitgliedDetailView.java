@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/04/03 17:29:06  jost
+ * ScrolledPane von Olaf übernommen.
+ *
  * Revision 1.14  2008/03/16 07:37:18  jost
  * Layout verändert.
  * Ausgabe der Familiendaten nur, wenn auch entsprechende Beitragsgruppen existieren.
@@ -76,6 +79,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
@@ -94,7 +98,7 @@ public class MitgliedDetailView extends AbstractView
     final MitgliedControl control = new MitgliedControl(this);
 
     ScrolledContainer scrolled = new ScrolledContainer(getParent());
-    
+
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
     left.addHeadline("Grunddaten");
@@ -189,6 +193,16 @@ public class MitgliedDetailView extends AbstractView
           (Mitglied) control.getCurrentObject());
       econtrol.getEigenschaftenTable().paint(tab7.getComposite());
       tab7.addText("Rechter Mausklick f�r Funktionen", false);
+    }
+    TabGroup tab8 = new TabGroup(folder, "Zusatzfelder");
+    ScrolledContainer cont = new ScrolledContainer(tab8.getComposite());
+    TextInput[] zusatzfelder = control.getZusatzfelder();
+    if (zusatzfelder != null)
+    {
+      for (TextInput inp : zusatzfelder)
+      {
+        cont.addInput(inp);
+      }
     }
 
     ButtonArea buttons = new ButtonArea(getParent(), 5);

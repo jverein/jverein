@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/03/17 20:22:46  jost
+ * Bezeichnung der Beitragsart wird ausgegeben.
+ *
  * Revision 1.5  2008/01/27 09:42:37  jost
  * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
  *
@@ -35,9 +38,13 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Zusatzfelder;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
@@ -55,12 +62,21 @@ public class MitgliedAuswertungCSV
     try
     {
       PrintWriter out = new PrintWriter(new FileOutputStream(file));
-
+      List<String> zusatzfelder = new ArrayList<String>();
       out
           .print("id;anrede;titel;name;vorname;strasse;plz;ort;blz;konto;kontoinhaber;");
       out
           .print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;email;");
-      out.println("eintritt;beitragsgruppe;beitragsgruppetext;austritt;kuendigung");
+      out
+          .print("eintritt;beitragsgruppe;beitragsgruppetext;austritt;kuendigung");
+      DBIterator it = Einstellungen.getDBService().createList(
+          Felddefinition.class);
+      while (it.hasNext())
+      {
+        Felddefinition fd = (Felddefinition) it.next();
+        out.print(";" + fd.getName());
+      }
+      out.println("");
       int faelle = 0;
 
       for (int i = 0; i < list.size(); i++)
@@ -88,7 +104,19 @@ public class MitgliedAuswertungCSV
         out.print(m.getBeitragsgruppe().getID() + ";");
         out.print(m.getBeitragsgruppe().getBezeichnung() + ";");
         out.print(formatDate(m.getAustritt()) + ";");
-        out.println(formatDate(m.getKuendigung()));
+        out.print(formatDate(m.getKuendigung()));
+        it.begin();
+        while (it.hasNext())
+        {
+          Felddefinition fd = (Felddefinition) it.next();
+          DBIterator it2 = Einstellungen.getDBService().createList(
+              Zusatzfelder.class);
+          it2.addFilter("mitglied = ?", new Object[] { m.getID() });
+          it2.addFilter("felddefinition = ?", new Object[] { fd.getID() });
+          Zusatzfelder zf = (Zusatzfelder) it2.next();
+          out.print(";" + zf.getFeld());
+        }
+        out.println("");
       }
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
       out.close();

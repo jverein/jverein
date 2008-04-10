@@ -135,7 +135,31 @@ CREATE TABLE version
   UNIQUE        (id), 
   PRIMARY KEY   (id)
 )TYPE=InnoDB;
-INSERT INTO version VALUES (1,7);
+
+create table felddefinition
+(
+  id            int(10) AUTO_INCREMENT,
+  name          VARCHAR(50) NOT NULL,
+  label         VARCHAR(50) NOT NULL,
+  laenge        integer NOT NULL,
+  UNIQUE        (id),
+  PRIMARY KEY   (id)
+)TYPE=InnoDB;
+  
+create table zusatzfelder
+(
+  id             integer auto_increment,
+  mitglied       integer NOT NULL,
+  felddefinition integer NOT NULL,
+  feld           varchar(1000),
+  UNIQUE        (id),
+  PRIMARY KEY   (id)
+)TYPE=InnoDB;
+
+ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);
+ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE;
+
+INSERT INTO version VALUES (1,9);
 
 
 
