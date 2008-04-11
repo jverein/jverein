@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 19:03:24  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -54,7 +57,7 @@ public class FelddefinitionImpl extends AbstractDBObject implements
         throw new ApplicationException("Bitte Namen des Feldes eingeben");
       }
       setName(getName().toLowerCase());
-      String validChars = "abcdefghijklmnopqrstuvwxyz01234567890_";
+      String validChars = "abcdefghijklmnopqrstuvwxyz0123456789_";
       String testString = getName();
       for (int i = 0; i < testString.length(); i++)
       {
