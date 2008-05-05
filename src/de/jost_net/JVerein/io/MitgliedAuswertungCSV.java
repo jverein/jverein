@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/04/10 19:02:29  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  * Revision 1.6  2008/03/17 20:22:46  jost
  * Bezeichnung der Beitragsart wird ausgegeben.
  *
@@ -38,7 +41,6 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -62,7 +64,6 @@ public class MitgliedAuswertungCSV
     try
     {
       PrintWriter out = new PrintWriter(new FileOutputStream(file));
-      List<String> zusatzfelder = new ArrayList<String>();
       out
           .print("id;anrede;titel;name;vorname;strasse;plz;ort;blz;konto;kontoinhaber;");
       out
