@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2008/04/10 19:00:17  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  * Revision 1.15  2008/04/03 17:29:06  jost
  * ScrolledPane von Olaf Ã¼bernommen.
  *
@@ -194,11 +197,11 @@ public class MitgliedDetailView extends AbstractView
       econtrol.getEigenschaftenTable().paint(tab7.getComposite());
       tab7.addText("Rechter Mausklick für Funktionen", false);
     }
-    TabGroup tab8 = new TabGroup(folder, "Zusatzfelder");
-    ScrolledContainer cont = new ScrolledContainer(tab8.getComposite());
     TextInput[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
     {
+      TabGroup tab8 = new TabGroup(folder, "Zusatzfelder");
+      ScrolledContainer cont = new ScrolledContainer(tab8.getComposite());
       for (TextInput inp : zusatzfelder)
       {
         cont.addInput(inp);

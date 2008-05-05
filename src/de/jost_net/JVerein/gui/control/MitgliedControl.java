@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.34  2008/04/10 18:58:30  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  * Revision 1.33  2008/04/04 15:14:12  jost
  * Felder Titel und PLZ verlängert.
  *
@@ -607,12 +610,15 @@ public class MitgliedControl extends AbstractControl
         try
         {
           Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
-          famverb.setBeitragsgruppe(bg);
+          if (famverb != null)
+          {
+            famverb.setBeitragsgruppe(bg);
+          }
           if (bg.getBeitragsArt() == 2)
           {
             zahler.setEnabled(true);
           }
-          else
+          else if (bg.getBeitragsArt() == 1)
           {
             zahler.setValue((Mitglied) Einstellungen.getDBService()
                 .createObject(Mitglied.class, ""));
@@ -827,6 +833,11 @@ public class MitgliedControl extends AbstractControl
       Felddefinition fd = (Felddefinition) it.next();
       zusatzfelder[i] = new TextInput("", fd.getLaenge());
       zusatzfelder[i].setName(fd.getLabel());
+      if (fd.getLabel()== null)
+        
+      {
+        zusatzfelder[i].setName(fd.getName());
+      }
       if (getMitglied().getID() != null)
       {
         DBIterator it2 = Einstellungen.getDBService().createList(
@@ -838,7 +849,7 @@ public class MitgliedControl extends AbstractControl
           Zusatzfelder zf = (Zusatzfelder) it2.next();
           zusatzfelder[i].setValue(zf.getFeld());
         }
-      }
+       }
     }
     return zusatzfelder;
   }
