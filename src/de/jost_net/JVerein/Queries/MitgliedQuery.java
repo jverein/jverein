@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/03/17 20:25:21  jost
+ * Workaround f. Bug in Jameica
+ *
  * Revision 1.5  2008/03/08 19:31:00  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -71,7 +74,13 @@ public class MitgliedQuery
   {
     final DBService service = Einstellungen.getDBService();
 
-    sql = "select distinct mitglied.* " + "from mitglied ";
+    sql = "select distinct mitglied.* ";
+    String sort = (String) control.getSortierung().getValue();
+    if (sort.equals("Geburtstagsliste"))
+    {
+      sql += ", month(geburtsdatum), day(geburtsdatum) ";
+    }
+    sql += "from mitglied ";
     if (control.isMitgliedStatusAktiv())
     {
       if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
@@ -165,7 +174,6 @@ public class MitgliedQuery
     {
       addCondition("beitragsgruppe = ? ");
     }
-    String sort = (String) control.getSortierung().getValue();
     if (sort.equals("Name, Vorname"))
     {
       sql += " ORDER BY name, vorname";
@@ -201,14 +209,14 @@ public class MitgliedQuery
         return list;
       }
     };
-    ArrayList bedingungen = new ArrayList();
+    ArrayList<Object> bedingungen = new ArrayList<Object>();
     if (eigenschaften != null && eigenschaften.length() > 0)
     {
       StringTokenizer st = new StringTokenizer(eigenschaften, "[]");
       int tokcount = 0;
       while (st.hasMoreTokens())
       {
-        bedingungen.add(st.nextToken());
+        bedingungen.add((Object) st.nextToken());
         tokcount++;
       }
       bedingungen.add(new Integer(tokcount));
