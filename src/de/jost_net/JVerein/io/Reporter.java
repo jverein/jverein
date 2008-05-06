@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/21 11:28:46  jost
+ * Breite von Tabellen einstellbar gemacht.
+ *
  * Revision 1.3  2007/12/16 20:26:29  jost
  * neue Methode
  *
@@ -56,9 +59,9 @@ public class Reporter
 {
   private I18N i18n = null;
 
-  private ArrayList headers;
+  private ArrayList<PdfPCell> headers;
 
-  private ArrayList widths;
+  private ArrayList<Integer> widths;
 
   private OutputStream out;
 
@@ -124,8 +127,8 @@ public class Reporter
     psubTitle.setAlignment(Element.ALIGN_CENTER);
     rpt.add(psubTitle);
 
-    headers = new ArrayList();
-    widths = new ArrayList();
+    headers = new ArrayList<PdfPCell>();
+    widths = new ArrayList<Integer>();
 
     monitor.setPercentComplete(0);
     this.maxRecords = maxRecords;
@@ -222,8 +225,8 @@ public class Reporter
   {
     rpt.add(table);
     table = null;
-    headers = new ArrayList();
-    widths = new ArrayList();
+    headers = new ArrayList<PdfPCell>();
+    widths = new ArrayList<Integer>();
   }
 
   /**
