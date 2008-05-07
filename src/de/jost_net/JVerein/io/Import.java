@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/04/10 19:00:35  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  * Revision 1.10  2008/03/08 19:30:32  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -61,7 +64,10 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.ZahlungswegInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
+import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Wiedervorlage;
+import de.jost_net.JVerein.rmi.Zusatzabbuchung;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.util.ApplicationException;
@@ -258,12 +264,44 @@ public class Import
   {
     try
     {
-      DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+      // Zusatzabbuchungen
+      DBIterator list = Einstellungen.getDBService().createList(
+          Zusatzabbuchung.class);
+      while (list.hasNext())
+      {
+        Zusatzabbuchung z = (Zusatzabbuchung) list.next();
+        z.delete();
+      }
+      // Zusatzfelder
+      list = Einstellungen.getDBService().createList(Zusatzfelder.class);
+      while (list.hasNext())
+      {
+        Zusatzfelder z = (Zusatzfelder) list.next();
+        z.delete();
+      }
+      // Manueller Zahlungseingang
+      list = Einstellungen.getDBService().createList(
+          ManuellerZahlungseingang.class);
+      while (list.hasNext())
+      {
+        ManuellerZahlungseingang m = (ManuellerZahlungseingang) list.next();
+        m.delete();
+      }
+      // Wiedervorlage
+      list = Einstellungen.getDBService().createList(Wiedervorlage.class);
+      while (list.hasNext())
+      {
+        Wiedervorlage w = (Wiedervorlage) list.next();
+        w.delete();
+      }
+      // Mitglieder
+      list = Einstellungen.getDBService().createList(Mitglied.class);
       while (list.hasNext())
       {
         Mitglied m = (Mitglied) list.next();
         m.delete();
       }
+      // Beitragsgruppe
       list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
       while (list.hasNext())
       {
