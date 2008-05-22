@@ -159,7 +159,63 @@ create table zusatzfelder
 ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);
 ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE;
 
-INSERT INTO version VALUES (1,9);
+CREATE TABLE konto
+(
+  id            INTEGER AUTO_INCREMENT,
+  nummer        VARCHAR(10),
+  bezeichnung   VARCHAR(30),
+  aufloesung    DATE,
+  hibiscusid    INTEGER,
+  UNIQUE        (id),
+  UNIQUE        (nummer),
+  PRIMARY KEY   (id)
+);
+
+CREATE TABLE buchungsart
+(
+  id            INTEGER AUTO_INCREMENT,
+  nummer        INTEGER,
+  bezeichnung   VARCHAR(30),
+  buchungsart   INTEGER,
+  UNIQUE        (id),
+  UNIQUE        (nummer),
+  PRIMARY KEY   (id)
+);
+
+CREATE TABLE buchung
+(
+  id            INTEGER AUTO_INCREMENT,
+  umsatzid      INTEGER,
+  konto         INTEGER  NOT NULL,
+  name          VARCHAR(100),
+  betrag        DOUBLE       NOT NULL,
+  zweck         VARCHAR(35),
+  zweck2        VARCHAR(35),
+  datum         DATE         NOT NULL,
+  saldo         DOUBLE       NOT NULL,
+  art           VARCHAR(100),
+  kommentar     TEXT,
+  buchungsart   INTEGER,
+  PRIMARY KEY   (id)
+);  
+
+ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);
+ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);
+
+CREATE TABLE anfangsbestand
+(
+  id            INTEGER AUTO_INCREMENT,
+  konto         INTEGER,
+  datum         DATE,
+  UNIQUE        (id),
+  UNIQUE        (konto, datum),
+  PRIMARY KEY   (id)
+);
+
+ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer);
+
+
+INSERT INTO version VALUES (1,13);
 
 
 

@@ -9,34 +9,31 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.4  2008/03/16 07:37:55  jost
- * Reaktivierung Buchführung
- *
- * Revision 1.2  2007/02/23 20:28:24  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:35  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
-public interface Buchungsart extends DBObject
+public interface Konto extends DBObject
 {
-  public int getNummer() throws RemoteException;
+  public String getID() throws RemoteException;
 
-  public void setNummer(int nummer) throws RemoteException;
+  public String getNummer() throws RemoteException;
+
+  public void setNummer(String nummer) throws RemoteException;
 
   public String getBezeichnung() throws RemoteException;
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;
 
-  public int getArt() throws RemoteException;
+  public Date getAufloesung() throws RemoteException;
 
-  public void setArt(int art) throws RemoteException;
+  public void setAufloesung(Date aufloesungsdatum) throws RemoteException;
 
+  public Integer getHibiscusId() throws RemoteException;
+
+  public void setHibiscusId(Integer HibiscusId) throws RemoteException;
 }

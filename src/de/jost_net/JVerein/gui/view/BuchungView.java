@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/03/16 07:36:29  jost
+ * Reaktivierung Buchf√ºhrung
+ *
  * Revision 1.2  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -19,6 +22,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -35,8 +39,7 @@ public class BuchungView extends AbstractView
 
     final BuchungsControl control = new BuchungsControl(this);
 
-    LabelGroup grKontoauszug = new LabelGroup(getParent(),
-        "Kontoauszug-Buchung");
+    LabelGroup grKontoauszug = new LabelGroup(getParent(), "Buchung");
     grKontoauszug.addLabelPair("Buchungsnummer", control.getID());
     grKontoauszug.addLabelPair("Umsatz-ID", control.getUmsatzid());
     grKontoauszug.addLabelPair("Konto", control.getKonto());
@@ -52,9 +55,10 @@ public class BuchungView extends AbstractView
     LabelGroup grBuchungsart = new LabelGroup(getParent(), "Buchungsart");
     grBuchungsart.addLabelPair("Buchungsart", control.getBuchungsart());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
-
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.buchungen);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

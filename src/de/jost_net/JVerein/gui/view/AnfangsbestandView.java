@@ -9,20 +9,12 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.4  2008/03/16 07:36:29  jost
- * Reaktivierung Buchf√ºhrung
- *
- * Revision 1.2  2007/02/23 20:27:28  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:10  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
-import de.jost_net.JVerein.gui.control.BuchungsartControl;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.control.AnfangsbestandControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -30,22 +22,27 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class BuchungsartView extends AbstractView
+public class AnfangsbestandView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Buchungsart");
+    GUI.getView().setTitle("Anfangsbestand");
 
-    final BuchungsartControl control = new BuchungsartControl(this);
+    final AnfangsbestandControl control = new AnfangsbestandControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Buchungsart");
-    group.addLabelPair("Nummer", control.getNummer());
-    group.addLabelPair("Bezeichnung", control.getBezeichnung());
-    group.addLabelPair("Art", control.getArt());
+    LabelGroup group = new LabelGroup(getParent(), "Anfangsbestand");
+    group.addLabelPair("Konto", control.getKonto());
+    group.addLabelPair("Datum", control.getDatum());
+    if (control.getAnfangsbestand().getID() != null)
+    {
+      control.getDatum().setEnabled(false);
+    }
+    group.addLabelPair("Betrag", control.getBetrag());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
-
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.anfangsbestaende);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/03/16 07:36:29  jost
+ * Reaktivierung Buchf√ºhrung
+ *
  * Revision 1.2  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -19,10 +22,12 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsuebernahmeControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
 public class BuchungsUebernahmeView extends AbstractView
@@ -34,9 +39,18 @@ public class BuchungsUebernahmeView extends AbstractView
     final BuchungsuebernahmeControl control = new BuchungsuebernahmeControl(
         this);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton(control.getStartButton());
+    LabelGroup group = new LabelGroup(getParent(), "Auswahl");
+    group.addLabelPair("Konto", control.getKonto());
+    ButtonArea suchButton = new ButtonArea(group.getComposite(), 1);
+    suchButton.addButton(control.getSuchButton());
+
+    control.getBuchungsList().paint(this.getParent());
+
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.buchungenaushibiscus);
+    buttons.addButton(control.getUebernahmeButton());
   }
 
   public void unbind() throws ApplicationException

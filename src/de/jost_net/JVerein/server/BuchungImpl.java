@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/03/16 07:38:12  jost
+ * Reaktivierung Buchführung
+ *
  * Revision 1.2  2007/02/23 20:28:41  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -24,6 +27,7 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -67,7 +71,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   private void plausi() throws RemoteException, ApplicationException
   {
-    if (getKonto() == null || getKonto().length() == 0)
+    if (getKonto() == null)
     {
       throw new ApplicationException("Bitte Konto eingeben");
     }
@@ -97,25 +101,30 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     {
       return Buchungsart.class;
     }
+    else if ("konto".equals(field))
+    {
+      return Konto.class;
+    }
     return null;
   }
 
-  public String getUmsatzid() throws RemoteException
+  public Integer getUmsatzid() throws RemoteException
   {
-    return (String) getAttribute("umsatzid");
+
+    return (Integer) getAttribute("umsatzid");
   }
 
-  public void setUmsatzid(String umsatzid) throws RemoteException
+  public void setUmsatzid(Integer umsatzid) throws RemoteException
   {
     setAttribute("umsatzid", umsatzid);
   }
 
-  public String getKonto() throws RemoteException
+  public Konto getKonto() throws RemoteException
   {
-    return (String) getAttribute("konto");
+    return (Konto) getAttribute("konto");
   }
 
-  public void setKonto(String konto) throws RemoteException
+  public void setKonto(Konto konto) throws RemoteException
   {
     setAttribute("konto", konto);
   }

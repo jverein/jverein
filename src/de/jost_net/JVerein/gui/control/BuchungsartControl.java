@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/03/16 07:35:49  jost
+ * Reaktivierung BuchfÃ¼hrung
+ *
  * Revision 1.4  2007/02/23 20:26:22  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -28,6 +31,8 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
+import de.jost_net.JVerein.gui.input.BuchungsartArtInput;
+import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -35,8 +40,10 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
@@ -51,6 +58,8 @@ public class BuchungsartControl extends AbstractControl
   private IntegerInput nummer;
 
   private Input bezeichnung;
+
+  private BuchungsartArtInput art;
 
   private Buchungsart buchungsart;
 
@@ -91,6 +100,16 @@ public class BuchungsartControl extends AbstractControl
     return bezeichnung;
   }
 
+  public SelectInput getArt() throws RemoteException
+  {
+    if (art != null)
+    {
+      return art;
+    }
+    art = new BuchungsartArtInput(getBuchungsart().getArt());
+    return art;
+  }
+
   /**
    * This method stores the project using the current values.
    */
@@ -101,6 +120,7 @@ public class BuchungsartControl extends AbstractControl
       Buchungsart b = getBuchungsart();
       b.setNummer(((Integer) getNummer().getValue()).intValue());
       b.setBezeichnung((String) getBezeichnung().getValue());
+      b.setArt((Integer) getArt().getValue());
       try
       {
         b.store();
@@ -129,6 +149,31 @@ public class BuchungsartControl extends AbstractControl
     buchungsartList = new TablePart(buchungsarten, new BuchungsartAction());
     buchungsartList.addColumn("Nummer", "nummer");
     buchungsartList.addColumn("Bezeichnung", "bezeichnung");
+    buchungsartList.addColumn("Art", "art", new Formatter()
+    {
+      public String format(Object o)
+      {
+        if (o == null)
+        {
+          return "";
+        }
+        if (o instanceof Integer)
+        {
+          Integer art = (Integer)o;
+          switch (art.intValue())
+          {
+            case 0:
+              return "Einnahme";
+            case 1:
+              return "Ausgabe";
+            case 2:
+              return "Umbuchung";
+          }
+        }
+        return "ungültig";
+      }
+    });
+    buchungsartList.setContextMenu(new BuchungsartMenu());
     buchungsartList.setRememberColWidths(true);
     buchungsartList.setRememberOrder(true);
     buchungsartList.setSummary(true);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/22 08:25:43  jost
+ * Neu: Jubiläenliste
+ *
  * Revision 1.3  2007/09/06 17:16:36  jost
  * Korrekte Behandlung des Menüpunktes Auswertung | Kursteilnehmer
  *
@@ -20,9 +23,13 @@ package de.jost_net.JVerein.gui.navigation;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
+import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
 import de.jost_net.JVerein.gui.action.AuswertungMitgliedAction;
+import de.jost_net.JVerein.gui.action.BuchungsListeAction;
+import de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction;
 import de.jost_net.JVerein.gui.action.JubilaeenAction;
+import de.jost_net.JVerein.gui.action.KontoListAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
@@ -65,6 +72,7 @@ public class MyExtension implements Extension
         jverein.addChild(new MyItem(jverein, "Wiedervorlage",
             new WiedervorlageListeAction()));
       }
+
       NavigationItem auswertung = null;
       auswertung = new MyItem(auswertung, "Auswertungen", null);
       auswertung.addChild(new MyItem(auswertung, "Mitglieder",
@@ -79,6 +87,19 @@ public class MyExtension implements Extension
       auswertung.addChild(new MyItem(auswertung, "Statistik",
           new StatistikMitgliedAction()));
       jverein.addChild(auswertung);
+
+      NavigationItem buchfuehrung = null;
+      buchfuehrung = new MyItem(buchfuehrung, "Buchf�hrung", null);
+      buchfuehrung.addChild(new MyItem(buchfuehrung, "Konten",
+          new KontoListAction()));
+      buchfuehrung.addChild(new MyItem(buchfuehrung, "Anfangsbestand",
+          new AnfangsbestandListAction()));
+      buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungs�bernahme",
+          new BuchungsuebernahmeAction()));
+      buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungen",
+          new BuchungsListeAction()));
+      jverein.addChild(buchfuehrung);
+
     }
     catch (Exception e)
     {
@@ -90,9 +111,10 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.3 2007/09/06 17:16:36 jost Korrekte
- * Behandlung des Menüpunktes Auswertung | Kursteilnehmer Revision 1.2
- * 2007/08/23 19:25:05 jost Header korrigiert.
+ * $Log$ Revision 1.4 2007/12/22 08:25:43 jost Neu:
+ * Jubiläenliste Revision 1.3 2007/09/06 17:16:36 jost Korrekte Behandlung des
+ * Menüpunktes Auswertung | Kursteilnehmer Revision 1.2 2007/08/23 19:25:05
+ * jost Header korrigiert.
  * 
  * Revision 1.1 2007/08/22 20:43:40 jost Bug #011762
  * 

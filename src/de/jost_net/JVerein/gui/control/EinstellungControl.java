@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/03/08 19:28:49  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.5  2008/01/01 13:13:12  jost
  * Neu: Dateinamenmuster
  *
@@ -28,6 +31,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
+import java.text.ParseException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
@@ -37,6 +41,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.util.ApplicationException;
 
 public class EinstellungControl extends AbstractControl
 {
@@ -60,6 +65,8 @@ public class EinstellungControl extends AbstractControl
   private SelectInput beitragsmodel;
 
   private TextInput dateinamenmuster;
+
+  private TextInput beginngeschaeftsjahr;
 
   public EinstellungControl(AbstractView view)
   {
@@ -170,30 +177,61 @@ public class EinstellungControl extends AbstractControl
     return dateinamenmuster;
   }
 
+  public TextInput getBeginnGeschaeftsjahr() throws RemoteException
+  {
+    if (beginngeschaeftsjahr != null)
+    {
+      return beginngeschaeftsjahr;
+    }
+    beginngeschaeftsjahr = new TextInput(Einstellungen
+        .getBeginnGeschaeftsjahr(), 6);
+    return beginngeschaeftsjahr;
+  }
+
   public void handleStore()
   {
-    Boolean _geburtsdatumpflicht = (Boolean) geburtsdatumpflicht.getValue();
-    Boolean _eintrittsdatumpflicht = (Boolean) eintrittsdatumpflicht.getValue();
-    Boolean _kommunikationsdaten = (Boolean) kommunikationsdaten.getValue();
-    Boolean _zusatzabbuchung = (Boolean) zusatzabbuchung.getValue();
-    Boolean _vermerke = (Boolean) vermerke.getValue();
-    Boolean _wiedervorlage = (Boolean) wiedervorlage.getValue();
-    Boolean _kursteilnehmer = (Boolean) kursteilnehmer.getValue();
-    Boolean _externemitgliedsnummer = (Boolean) externemitgliedsnummer
-        .getValue();
-    Integer _beitragsmodel = (Integer) beitragsmodel.getValue();
-    Einstellungen.setGeburtsdatumPflicht(_geburtsdatumpflicht.booleanValue());
-    Einstellungen.setEintrittsdatumPflicht(_eintrittsdatumpflicht
-        .booleanValue());
-    Einstellungen.setKommunikationsdaten(_kommunikationsdaten.booleanValue());
-    Einstellungen.setZusatzabbuchungen(_zusatzabbuchung.booleanValue());
-    Einstellungen.setVermerke(_vermerke.booleanValue());
-    Einstellungen.setWiedervorlage(_wiedervorlage.booleanValue());
-    Einstellungen.setKursteilnehmer(_kursteilnehmer.booleanValue());
-    Einstellungen.setExterneMitgliedsnummern(_externemitgliedsnummer
-        .booleanValue());
-    Einstellungen.setBeitragsmodel(_beitragsmodel.intValue());
-    Einstellungen.setDateinamenmuster((String) dateinamenmuster.getValue());
-    GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    try
+    {
+      Boolean _geburtsdatumpflicht = (Boolean) geburtsdatumpflicht.getValue();
+      Boolean _eintrittsdatumpflicht = (Boolean) eintrittsdatumpflicht
+          .getValue();
+      Boolean _kommunikationsdaten = (Boolean) kommunikationsdaten.getValue();
+      Boolean _zusatzabbuchung = (Boolean) zusatzabbuchung.getValue();
+      Boolean _vermerke = (Boolean) vermerke.getValue();
+      Boolean _wiedervorlage = (Boolean) wiedervorlage.getValue();
+      Boolean _kursteilnehmer = (Boolean) kursteilnehmer.getValue();
+      Boolean _externemitgliedsnummer = (Boolean) externemitgliedsnummer
+          .getValue();
+      Integer _beitragsmodel = (Integer) beitragsmodel.getValue();
+      Einstellungen.setGeburtsdatumPflicht(_geburtsdatumpflicht.booleanValue());
+      Einstellungen.setEintrittsdatumPflicht(_eintrittsdatumpflicht
+          .booleanValue());
+      Einstellungen.setKommunikationsdaten(_kommunikationsdaten.booleanValue());
+      Einstellungen.setZusatzabbuchungen(_zusatzabbuchung.booleanValue());
+      Einstellungen.setVermerke(_vermerke.booleanValue());
+      Einstellungen.setWiedervorlage(_wiedervorlage.booleanValue());
+      Einstellungen.setKursteilnehmer(_kursteilnehmer.booleanValue());
+      Einstellungen.setExterneMitgliedsnummern(_externemitgliedsnummer
+          .booleanValue());
+      Einstellungen.setBeitragsmodel(_beitragsmodel.intValue());
+      Einstellungen.setDateinamenmuster((String) dateinamenmuster.getValue());
+      try
+      {
+        String bg = (String) beginngeschaeftsjahr.getValue();
+        bg += "2008";
+        Einstellungen.DATEFORMAT.parse(bg);
+      }
+      catch (ParseException e)
+      {
+        throw new ApplicationException("Beginn Geschäftsjahr ungültig");
+      }
+      Einstellungen.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr
+          .getValue());
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
   }
 }

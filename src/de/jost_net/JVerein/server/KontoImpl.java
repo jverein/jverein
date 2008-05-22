@@ -9,37 +9,29 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.4  2008/03/16 07:38:12  jost
- * Reaktivierung Buchf√ºhrung
- *
- * Revision 1.2  2007/02/23 20:28:41  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:48  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
-import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
+public class KontoImpl extends AbstractDBObject implements Konto
 {
-  private static final long serialVersionUID = 500102542884220658L;
+  private static final long serialVersionUID = 1L;
 
-  public BuchungsartImpl() throws RemoteException
+  public KontoImpl() throws RemoteException
   {
     super();
   }
 
   protected String getTableName()
   {
-    return "buchungsart";
+    return "konto";
   }
 
   public String getPrimaryAttribute() throws RemoteException
@@ -59,16 +51,16 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
       {
         throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
-      if (getNummer() < 0)
+      if (getNummer() == null || getNummer().length() == 0)
       {
-        throw new ApplicationException("Nummer nicht g¸ltig");
+        throw new ApplicationException("Bitte Nummer eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Buchungsart kann nicht gespeichert werden. Siehe system log";
-      Logger.error(fehler, e);
-      throw new ApplicationException(fehler);
+      Logger.error("insert check of konto failed", e);
+      throw new ApplicationException(
+          "Konto kann nicht gespeichert werden. Siehe system log");
     }
   }
 
@@ -82,6 +74,16 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     return null;
   }
 
+  public String getNummer() throws RemoteException
+  {
+    return (String) getAttribute("nummer");
+  }
+
+  public void setNummer(String nummer) throws RemoteException
+  {
+    setAttribute("nummer", nummer);
+  }
+
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
@@ -92,32 +94,24 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     setAttribute("bezeichnung", bezeichnung);
   }
 
-  public int getNummer() throws RemoteException
+  public Date getAufloesung() throws RemoteException
   {
-    Integer i = (Integer) getAttribute("nummer");
-    if (i == null)
-      return 0;
-    return i.intValue();
+    return (Date) getAttribute("aufloesung");
   }
 
-  public void setNummer(int i) throws RemoteException
+  public void setAufloesung(Date aufloesungsdatum) throws RemoteException
   {
-    setAttribute("nummer", new Integer(i));
+    setAttribute("aufloesung", aufloesungsdatum);
   }
 
-  public int getArt() throws RemoteException
+  public Integer getHibiscusId() throws RemoteException
   {
-    Integer i = (Integer) getAttribute("art");
-    if (i == null)
-    {
-      return 0;
-    }
-    return i.intValue();
+    return (Integer) getAttribute("hibiscusid");
   }
 
-  public void setArt(int art) throws RemoteException
+  public void setHibiscusId(Integer id) throws RemoteException
   {
-    setAttribute("art", art);
+    setAttribute("hibiscusid", id);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/03/16 07:37:55  jost
+ * Reaktivierung Buchführung
+ *
  * Revision 1.2  2007/02/23 20:28:24  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -25,13 +28,13 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Buchung extends DBObject
 {
-  public String getUmsatzid() throws RemoteException;
+  public Integer getUmsatzid() throws RemoteException;
 
-  public void setUmsatzid(String umsatzid) throws RemoteException;
+  public void setUmsatzid(Integer umsatzid) throws RemoteException;
 
-  public String getKonto() throws RemoteException;
+  public Konto getKonto() throws RemoteException;
 
-  public void setKonto(String konto) throws RemoteException;
+  public void setKonto(Konto konto) throws RemoteException;
 
   public String getName() throws RemoteException;
 

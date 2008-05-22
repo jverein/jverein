@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/03/16 07:36:29  jost
+ * Reaktivierung Buchf√ºhrung
+ *
  * Revision 1.3  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -24,6 +27,8 @@ package de.jost_net.JVerein.gui.view;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.gui.action.BackAction;
+import de.jost_net.JVerein.gui.action.BuchungNeuAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -45,8 +50,7 @@ public class BuchungslisteView extends AbstractView
     group.addLabelPair("von Datum", control.getVondatum());
     group.addLabelPair("bis Datum", control.getBisdatum());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton("<< Zur¸ck", new BackAction());
+    ButtonArea buttons = new ButtonArea(this.getParent(), 1);
     Button button = new Button("suchen", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -65,6 +69,13 @@ public class BuchungslisteView extends AbstractView
     buttons.addButton(button);
 
     control.getBuchungsList().paint(this.getParent());
+
+    ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
+    buttons2.addButton("<< Zur¸ck", new BackAction());
+    buttons2.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.buchungen);
+    buttons2.addButton("neu", new BuchungNeuAction());
+
   }
 
   public void unbind() throws ApplicationException

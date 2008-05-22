@@ -9,19 +9,19 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- **********************************************************************/package de.jost_net.JVerein.gui.navigation;
-
-/**********************************************************************
-  * $Revision$
- * $Date$
- * $Author$
- * $Locker$
- * $State$
- *
- * Copyright (c) by willuhn software & services
- * All rights reserved
+ * Revision 1.2  2007/08/23 19:25:23  jost
+ * Header korrigiert.
  *
  **********************************************************************/
+package de.jost_net.JVerein.gui.navigation;
+
+/*******************************************************************************
+ * $Revision$ $Date$ $Author$ $Locker$
+ * $State$
+ * 
+ * Copyright (c) by willuhn software & services All rights reserved
+ * 
+ ******************************************************************************/
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -255,8 +255,9 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$
- * Revision 1.1  2007/08/22 20:43:54  jost
- * *** empty log message ***
- *
+ * $Log$ Revision 1.2 2007/08/23 19:25:23 jost Header
+ * korrigiert.
+ * 
+ * Revision 1.1 2007/08/22 20:43:54 jost *** empty log message ***
+ * 
  ******************************************************************************/

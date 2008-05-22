@@ -21,24 +21,22 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
-import de.jost_net.JVerein.gui.action.BuchungNeuAction;
+import de.jost_net.JVerein.gui.action.BuchungsartDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
-import de.willuhn.jameica.gui.parts.ContextMenuItem;
 
 /**
  * Kontext-Menu zu den Zusatzabbuchungen.
  */
-public class BuchungMenu extends ContextMenu
+public class BuchungsartMenu extends ContextMenu
 {
 
   /**
    * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzabbuchungen.
    */
-  public BuchungMenu()
+  public BuchungsartMenu()
   {
-    addItem(new ContextMenuItem("Neu", new BuchungNeuAction()));
-    addItem(new CheckedContextMenuItem("Löschen...", new BuchungDeleteAction()));
+    addItem(new CheckedContextMenuItem("Löschen...",
+        new BuchungsartDeleteAction()));
   }
 }
