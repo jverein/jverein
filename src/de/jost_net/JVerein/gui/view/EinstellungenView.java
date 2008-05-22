@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/03/08 19:29:22  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.7  2008/01/01 19:50:58  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -69,6 +72,10 @@ public class EinstellungenView extends AbstractView
     groupDatei.addLabelPair("Muster", control.getDateinamenmuster());
     groupDatei.addText("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit",
         true);
+
+    LabelGroup groupBuchfuehrung = new LabelGroup(getParent(), "Buchführung");
+    groupBuchfuehrung.addLabelPair("Beginn Geschäftsjahr (TT.MM.)", control
+        .getBeginnGeschaeftsjahr());
 
     new Headline(getParent(), "* Änderung erfordert Neustart");
     ButtonArea buttons = new ButtonArea(getParent(), 3);
