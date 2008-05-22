@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2008/03/08 19:30:16  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.13  2008/01/26 16:22:34  jost
  * Überflüssigen Knopf entfernt.
  * Speicherung der Default-Werte
@@ -228,7 +231,6 @@ public class MitgliederSucheView extends AbstractView
 
   private void TabRefresh(MitgliedControl control, int index)
   {
-    System.out.println("Tabrefresh");
     try
     {
       control.saveDefaults();

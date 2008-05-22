@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/04/12 05:53:15  jost
+ * Anpassung an aktuelles Jameica-Nightly-Build
+ *
  * Revision 1.6  2007/03/30 13:23:35  jost
  * Wiederkehrende Zusatzabbuchungen.
  *
@@ -363,7 +366,9 @@ public class ZusatzabbuchungControl extends AbstractControl
         {
           Mitglied m = (Mitglied) o;
           if (m == null)
+          {
             return null;
+          }
           String name = null;
           try
           {
