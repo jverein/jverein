@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.12  2008/03/08 19:28:35  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.11  2008/01/01 13:12:26  jost
  * Neu: Dateinamenmuster
  *
@@ -90,6 +93,8 @@ public class Einstellungen
   private static int beitragsmodel;
 
   private static String dateinamenmuster;
+
+  private static String beginngeschaeftsjahr;
 
   /**
    * Datums-Format dd.MM.yyyy.
@@ -399,6 +404,17 @@ public class Einstellungen
   public static void setDateinamenmuster(String value)
   {
     settings.setAttribute("dateinamenmuster", value);
+  }
+
+  public static String getBeginnGeschaeftsjahr()
+  {
+    beginngeschaeftsjahr = settings.getString("beginngeschaeftsjahr", "01.01.");
+    return beginngeschaeftsjahr;
+  }
+
+  public static void setBeginnGeschaeftsjahr(String value)
+  {
+    settings.setAttribute("beginngeschaeftsjahr", value);
   }
 
   /**
