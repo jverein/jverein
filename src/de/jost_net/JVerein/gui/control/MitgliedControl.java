@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2008/05/05 18:21:49  jost
+ * Bugfix NPE bei Zusatzfeldern
+ *
  * Revision 1.34  2008/04/10 18:58:30  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -833,8 +836,8 @@ public class MitgliedControl extends AbstractControl
       Felddefinition fd = (Felddefinition) it.next();
       zusatzfelder[i] = new TextInput("", fd.getLaenge());
       zusatzfelder[i].setName(fd.getLabel());
-      if (fd.getLabel()== null)
-        
+      if (fd.getLabel() == null)
+
       {
         zusatzfelder[i].setName(fd.getName());
       }
@@ -849,7 +852,7 @@ public class MitgliedControl extends AbstractControl
           Zusatzfelder zf = (Zusatzfelder) it2.next();
           zusatzfelder[i].setValue(zf.getFeld());
         }
-       }
+      }
     }
     return zusatzfelder;
   }
@@ -1515,32 +1518,35 @@ public class MitgliedControl extends AbstractControl
       }
       m.store();
 
-      for (TextInput ti : zusatzfelder)
+      if (zusatzfelder != null)
       {
-        // Felddefinition ermitteln
-        DBIterator it0 = Einstellungen.getDBService().createList(
-            Felddefinition.class);
-        it0.addFilter("label = ?", new Object[] { ti.getName() });
-        Felddefinition fd = (Felddefinition) it0.next();
-        // Ist bereits ein Datensatz für diese Definiton vorhanden ?
-        DBIterator it = Einstellungen.getDBService().createList(
-            Zusatzfelder.class);
-        it.addFilter("mitglied =?", new Object[] { m.getID() });
-        it.addFilter("felddefinition=?", new Object[] { fd.getID() });
-        Zusatzfelder zf = null;
-        if (it.size() > 0)
+        for (TextInput ti : zusatzfelder)
         {
-          zf = (Zusatzfelder) it.next();
+          // Felddefinition ermitteln
+          DBIterator it0 = Einstellungen.getDBService().createList(
+              Felddefinition.class);
+          it0.addFilter("label = ?", new Object[] { ti.getName() });
+          Felddefinition fd = (Felddefinition) it0.next();
+          // Ist bereits ein Datensatz für diese Definiton vorhanden ?
+          DBIterator it = Einstellungen.getDBService().createList(
+              Zusatzfelder.class);
+          it.addFilter("mitglied =?", new Object[] { m.getID() });
+          it.addFilter("felddefinition=?", new Object[] { fd.getID() });
+          Zusatzfelder zf = null;
+          if (it.size() > 0)
+          {
+            zf = (Zusatzfelder) it.next();
+          }
+          else
+          {
+            zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
+                Zusatzfelder.class, null);
+          }
+          zf.setMitglied(new Integer(m.getID()));
+          zf.setFelddefinition(new Integer(fd.getID()));
+          zf.setFeld((String) ti.getValue());
+          zf.store();
         }
-        else
-        {
-          zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
-              Zusatzfelder.class, null);
-        }
-        zf.setMitglied(new Integer(m.getID()));
-        zf.setFelddefinition(new Integer(fd.getID()));
-        zf.setFeld((String) ti.getValue());
-        zf.store();
       }
       GUI.getStatusBar().setSuccessText("Mitglied gespeichert");
     }
