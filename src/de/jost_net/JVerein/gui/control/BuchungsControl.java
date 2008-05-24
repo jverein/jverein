@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/05/22 06:47:48  jost
+ * Buchführung
+ *
  * Revision 1.7  2008/03/16 07:35:49  jost
  * Reaktivierung Buchführung
  *
@@ -33,6 +36,7 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.rmi.RemoteException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -97,13 +101,15 @@ public class BuchungsControl extends AbstractControl
 
   private DateInput datum = null;
 
-  private DecimalInput saldo;
-
   private Input art;
 
   private Input kommentar;
 
   private SelectInput buchungsart;
+
+  private Input suchkonto;
+
+  private SelectInput suchbuchungsart;
 
   private DateInput vondatum = null;
 
@@ -230,17 +236,6 @@ public class BuchungsControl extends AbstractControl
     return datum;
   }
 
-  public DecimalInput getSaldo() throws RemoteException
-  {
-    if (saldo != null)
-    {
-      return saldo;
-    }
-    saldo = new DecimalInput(getBuchung().getSaldo(),
-        Einstellungen.DECIMALFORMAT);
-    return saldo;
-  }
-
   public Input getArt() throws RemoteException
   {
     if (art != null)
@@ -275,6 +270,48 @@ public class BuchungsControl extends AbstractControl
     buchungsart.setAttribute("bezeichnung");
     buchungsart.setPleaseChoose("Bitte ausw�hlen");
     return buchungsart;
+  }
+
+  public Input getSuchKonto() throws RemoteException
+  {
+    if (suchkonto != null)
+    {
+      return suchkonto;
+    }
+    suchkonto = new KontoauswahlInput().getKontoAuswahl();
+    return suchkonto;
+  }
+
+  public Input getSuchBuchungsart() throws RemoteException
+  {
+    if (suchbuchungsart != null)
+    {
+      return suchbuchungsart;
+    }
+    DBIterator list = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
+    list.setOrder("ORDER BY nummer");
+    ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
+    Buchungsart b = (Buchungsart) Einstellungen.getDBService().createObject(
+        Buchungsart.class, null);
+    b.setArt(-2);
+    b.setBezeichnung("---");
+    b.setNummer(-2);
+    liste.add(b);
+    b = (Buchungsart) Einstellungen.getDBService().createObject(
+        Buchungsart.class, null);
+    b.setArt(-1);
+    b.setBezeichnung("Ohne Buchungsart");
+    b.setNummer(-1);
+    liste.add(b);
+    while (list.hasNext())
+    {
+      liste.add((Buchungsart) list.next());
+    }
+    suchbuchungsart = new SelectInput(liste, null);
+    suchbuchungsart.setAttribute("bezeichnung");
+    // suchbuchungsart.setPleaseChoose("Ohne Buchungsart");
+    return suchbuchungsart;
   }
 
   public DateInput getVondatum() throws RemoteException
@@ -366,9 +403,17 @@ public class BuchungsControl extends AbstractControl
       Buchung b = getBuchung();
 
       GenericObject o = (GenericObject) getBuchungsart().getValue();
-      b.setBuchungsart(new Integer(o.getID()));
       try
       {
+        b.setBuchungsart(new Integer(o.getID()));
+        b.setKonto((Konto) getKonto().getValue());
+        b.setName((String) getName().getValue());
+        b.setBetrag((Double) getBetrag().getValue());
+        b.setZweck((String) getZweck().getValue());
+        b.setZweck2((String) getZweck2().getValue());
+        b.setDatum((Date) getDatum().getValue());
+        b.setArt((String) getArt().getValue());
+        b.setKommentar((String) getKommentar().getValue());
         b.store();
         GUI.getStatusBar().setSuccessText("Buchung gespeichert");
       }
@@ -393,8 +438,34 @@ public class BuchungsControl extends AbstractControl
     java.sql.Date vd = new java.sql.Date(d1.getTime());
     d1 = (Date) bisdatum.getValue();
     java.sql.Date bd = new java.sql.Date(d1.getTime());
+
+    Konto k = null;
+    if (suchkonto.getValue() != null)
+    {
+      k = (Konto) suchkonto.getValue();
+    }
+    Buchungsart b = null;
+    if (suchbuchungsart != null)
+    {
+      b = (Buchungsart) suchbuchungsart.getValue();
+    }
     buchungen.addFilter("datum >= ?", new Object[] { vd });
     buchungen.addFilter("datum <= ?", new Object[] { bd });
+    if (k != null)
+    {
+      buchungen.addFilter("konto = ?", new Object[] { k.getID() });
+    }
+    if (b != null)
+    {
+      if (b.getArt() == -1)
+      {
+        buchungen.addFilter("buchungsart is null");
+      }
+      else if (b.getArt() >= 0)
+      {
+        buchungen.addFilter("buchungsart = ?", new Object[] { b.getID() });
+      }
+    }
     buchungen.setOrder("ORDER BY umsatzid DESC");
 
     if (buchungsList == null)
@@ -470,6 +541,7 @@ public class BuchungsControl extends AbstractControl
     DBIterator list;
     Date dVon = null;
     Date dBis = null;
+    // Konto k = null;
     if (bisdatum.getValue() != null)
     {
       dVon = (Date) vondatum.getValue();
@@ -478,6 +550,10 @@ public class BuchungsControl extends AbstractControl
     {
       dBis = (Date) bisdatum.getValue();
     }
+    // if (suchkonto.getValue() != null)
+    // {
+    // k = (Konto) suchkonto.getValue();
+    // }
     try
     {
       list = Einstellungen.getDBService().createList(Buchungsart.class);
