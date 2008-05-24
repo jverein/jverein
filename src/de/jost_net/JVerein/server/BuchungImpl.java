@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:56:05  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:38:12  jost
  * Reaktivierung Buchführung
  *
@@ -185,21 +188,6 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   public void setDatum(String datum) throws RemoteException
   {
     setAttribute("datum", toDate(datum));
-  }
-
-  public double getSaldo() throws RemoteException
-  {
-    Double d = (Double) getAttribute("Saldo");
-    if (d == null)
-    {
-      return 0;
-    }
-    return d.doubleValue();
-  }
-
-  public void setSaldo(double d) throws RemoteException
-  {
-    setAttribute("saldo", new Double(d));
   }
 
   public String getArt() throws RemoteException

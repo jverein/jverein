@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:55:11  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:37:55  jost
  * Reaktivierung Buchführung
  *
@@ -55,10 +58,6 @@ public interface Buchung extends DBObject
   public Date getDatum() throws RemoteException;
 
   public void setDatum(Date datum) throws RemoteException;
-
-  public double getSaldo() throws RemoteException;
-
-  public void setSaldo(double saldo) throws RemoteException;
 
   public String getArt() throws RemoteException;
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:48:07  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:35:49  jost
  * Reaktivierung Buchführung
  *
@@ -117,7 +120,6 @@ public class BuchungsuebernahmeControl extends AbstractControl
             b.setZweck(u.getZweck());
             b.setZweck2(u.getZweck2());
             b.setDatum(u.getDatum());
-            b.setSaldo(u.getSaldo());
             b.setArt(u.getArt());
             b.setKommentar(u.getKommentar());
             b.store();
