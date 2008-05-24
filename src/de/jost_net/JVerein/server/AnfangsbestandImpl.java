@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:55:50  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -144,9 +147,6 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
 
   public Konto getKonto() throws RemoteException
   {
-    Object o = getAttribute("konto");
-    System.out.println(o == null ? "<NULL>" : o.getClass());
-
     return (Konto) getAttribute("konto");
   }
 

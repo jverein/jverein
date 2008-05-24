@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/01 13:14:28  jost
+ * Neu: Dateinamenmuster
+ *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -100,6 +103,5 @@ public class Dateiname
   public static final void main(String[] args)
   {
     Dateiname d = new Dateiname("auswertung", "name", "a$s$-d$-z$", "pdf");
-    System.out.println(d.get());
   }
 }
