@@ -8,7 +8,6 @@ CREATE TABLE buchung
   zweck         VARCHAR(35),
   zweck2        VARCHAR(35),
   datum         DATE         NOT NULL,
-  saldo         DOUBLE       NOT NULL,
   art           VARCHAR(100),
   kommentar     LONGVARCHAR,
   buchungsart   INTEGER,

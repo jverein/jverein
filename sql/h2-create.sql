@@ -215,7 +215,6 @@ CREATE TABLE buchung
   zweck         VARCHAR(35),
   zweck2        VARCHAR(35),
   datum         DATE         NOT NULL,
-  saldo         DOUBLE       NOT NULL,
   art           VARCHAR(100),
   kommentar     TEXT,
   buchungsart   INTEGER,
@@ -236,37 +235,6 @@ CREATE TABLE anfangsbestand
 );
 
 ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer) DEFERRABLE;
-
-,
-  umsatzid      INTEGER,
-  konto         INTEGER  NOT NULL,
-  name          VARCHAR(100),
-  betrag        DOUBLE       NOT NULL,
-  zweck         VARCHAR(35),
-  zweck2        VARCHAR(35),
-  datum         DATE         NOT NULL,
-  saldo         DOUBLE       NOT NULL,
-  art           VARCHAR(100),
-  kommentar     TEXT,
-  buchungsart   INTEGER,
-  PRIMARY KEY   (id)
-);  
-
-ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);
-ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);
-
-CREATE TABLE anfangsbestand
-(
-  id            IDENTITY,
-  konto         INTEGER,
-  datum         DATE,
-  UNIQUE        (id),
-  UNIQUE        (konto, datum),
-  PRIMARY KEY   (id)
-);
-
-ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer) DEFERRABLE;
-
 
 INSERT INTO version VALUES (1,13);
 
