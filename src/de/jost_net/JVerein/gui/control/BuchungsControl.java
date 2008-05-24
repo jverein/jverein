@@ -9,6 +9,11 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/05/24 16:38:58  jost
+ * Weitere Selektionskriterien
+ * Wegfall der Spalte Saldo
+ * Bugfix bei der Speicherung
+ *
  * Revision 1.8  2008/05/22 06:47:48  jost
  * Buchführung
  *
@@ -52,6 +57,7 @@ import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -386,7 +392,7 @@ public class BuchungsControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("Start", new Action()
+    Button b = new Button("PDF", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -541,7 +547,8 @@ public class BuchungsControl extends AbstractControl
     DBIterator list;
     Date dVon = null;
     Date dBis = null;
-    // Konto k = null;
+    Konto k = null;
+    Buchungsart ba = null;
     if (bisdatum.getValue() != null)
     {
       dVon = (Date) vondatum.getValue();
@@ -550,13 +557,22 @@ public class BuchungsControl extends AbstractControl
     {
       dBis = (Date) bisdatum.getValue();
     }
-    // if (suchkonto.getValue() != null)
-    // {
-    // k = (Konto) suchkonto.getValue();
-    // }
+    if (suchkonto.getValue() != null)
+    {
+      k = (Konto) suchkonto.getValue();
+    }
+    if (suchbuchungsart.getValue() != null)
+    {
+      ba = (Buchungsart) suchbuchungsart.getValue();
+    }
+
     try
     {
       list = Einstellungen.getDBService().createList(Buchungsart.class);
+      if (ba != null && ba.getArt() != -2)
+      {
+        list.addFilter("id = ?", new Object[] { ba.getID() });
+      }
       list.setOrder("ORDER BY nummer");
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -570,6 +586,9 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
+      fd.setFileName(new Dateiname("buchungen", Einstellungen
+          .getDateinamenmuster(), "PDF").get());
+
       final String s = fd.open();
 
       if (s == null || s.length() == 0)
@@ -579,7 +598,7 @@ public class BuchungsControl extends AbstractControl
 
       final File file = new File(s);
 
-      auswertungBuchungPDF(list, file, dVon, dBis);
+      auswertungBuchungPDF(list, file, k, ba, dVon, dBis);
     }
     catch (RemoteException e)
     {
@@ -588,7 +607,8 @@ public class BuchungsControl extends AbstractControl
   }
 
   private void auswertungBuchungPDF(final DBIterator list, final File file,
-      final Date dVon, final Date dBis)
+      final Konto konto, final Buchungsart buchungsart, final Date dVon,
+      final Date dBis)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -596,7 +616,8 @@ public class BuchungsControl extends AbstractControl
       {
         try
         {
-          new BuchungAuswertungPDF(list, file, monitor, dVon, dBis);
+          new BuchungAuswertungPDF(list, file, monitor, konto, buchungsart,
+              dVon, dBis);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
