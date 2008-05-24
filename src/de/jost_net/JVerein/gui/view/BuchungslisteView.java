@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/05/24 14:04:08  jost
+ * Redatkionelle Änderung
+ *
  * Revision 1.6  2008/05/22 06:52:50  jost
  * Buchführung
  *
@@ -50,6 +53,8 @@ public class BuchungslisteView extends AbstractView
     final BuchungsControl control = new BuchungsControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Suche Buchungen");
+    group.addLabelPair("Konto", control.getSuchKonto());
+    group.addLabelPair("Buchungsart", control.getSuchBuchungsart());
     group.addLabelPair("von Datum", control.getVondatum());
     group.addLabelPair("bis Datum", control.getBisdatum());
 
