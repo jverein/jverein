@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/05/22 06:54:31  jost
+ * Redaktionelle Ã„nderung
+ *
  * Revision 1.14  2008/03/08 19:30:16  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -218,7 +221,7 @@ public class MitgliederSucheView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.mitglied);
+        DokumentationUtil.MITGLIED);
     if (anzahlbeitragsgruppe > 0)
     {
       buttons.addButton("Neu", new MitgliedDetailAction());

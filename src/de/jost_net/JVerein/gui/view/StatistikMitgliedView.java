@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/01 19:53:10  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.3  2007/12/21 11:28:06  jost
  * Mitgliederstatistik jetzt Stichtagsbezogen
  *
@@ -48,7 +51,7 @@ public class StatistikMitgliedView extends AbstractView
 
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.statistikmitglieder);
+        DokumentationUtil.STATISTIKMITGLIEDER);
     buttons.addButton(control.getStartStatistikButton());
   }
 

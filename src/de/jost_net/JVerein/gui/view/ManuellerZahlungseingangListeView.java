@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 19:52:17  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.1  2007/03/13 19:57:17  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -37,7 +40,7 @@ public class ManuellerZahlungseingangListeView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.manuellezahlungseingaenge);
+        DokumentationUtil.MANUELLEZAHLUNGSEINGAENGE);
   }
 
   public void unbind() throws ApplicationException

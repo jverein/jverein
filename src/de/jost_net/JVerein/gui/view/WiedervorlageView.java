@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 19:53:33  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.1  2007/05/07 19:26:35  jost
  * Neu: Wiedervorlage
  *
@@ -40,7 +43,7 @@ public class WiedervorlageView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.wiedervorlage);
+        DokumentationUtil.WIEDERVORLAGE);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

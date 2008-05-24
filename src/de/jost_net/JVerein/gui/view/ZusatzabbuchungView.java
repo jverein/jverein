@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/01 19:53:57  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.3  2007/03/30 13:25:23  jost
  * Wiederkehrende Zusatzabbuchungen.
  *
@@ -50,7 +53,7 @@ public class ZusatzabbuchungView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.zusatzabbuchungen);
+        DokumentationUtil.ZUSATZABBUCHUNGEN);
     buttons.addButton("Löschen", new ZusatzabbuchungDeleteAction(), control
         .getZusatzabbuchung());
     buttons.addButton("Speichern", new Action()

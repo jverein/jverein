@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/01/31 19:39:37  jost
+ * Berücksichtigung eines Stichtages für die Abbuchung
+ *
  * Revision 1.11  2008/01/01 19:47:16  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -107,7 +110,7 @@ public class AbbuchungView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zur�ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.abbuchung);
+        DokumentationUtil.ABBUCHUNG);
     buttons.addButton(control.getStartButton());
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/05/22 06:53:43  jost
+ * Buchführung: Beginn des Geschäftsjahres
+ *
  * Revision 1.8  2008/03/08 19:29:22  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -81,7 +84,7 @@ public class EinstellungenView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zur�ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.einstellungen);
+        DokumentationUtil.EINSTELLUNGEN);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

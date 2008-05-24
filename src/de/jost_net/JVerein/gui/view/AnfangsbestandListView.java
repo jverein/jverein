@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:52:14  jost
+ * Buchf√ºhrung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -34,7 +37,7 @@ public class AnfangsbestandListView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.anfangsbestaende);
+        DokumentationUtil.ANFANGSBESTAENDE);
     buttons.addButton("neu", new AnfangsbestandNeuAction(), null);
   }
 

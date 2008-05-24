@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 19:00:05  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -34,7 +37,7 @@ public class FelddefinitionenUebersichtView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.felddefinitionen);
+        DokumentationUtil.FELDDEFINITIONEN);
     // buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
     // .getBeitragsgruppeTable());
     buttons.addButton("Neu", new FelddefinitionDetailAction());

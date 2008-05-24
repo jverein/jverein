@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:54:09  jost
+ * Buchführung: Beginn des Geschäftsjahres
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -40,7 +43,7 @@ public class KontoView extends AbstractView
 
     buttons.addButton("<< Zur�ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.konten);
+        DokumentationUtil.KONTEN);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

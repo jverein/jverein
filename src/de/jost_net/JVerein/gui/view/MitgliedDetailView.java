@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/05/05 18:22:28  jost
+ * Bugfix NPE bei Zusatzfeldern
+ *
  * Revision 1.16  2008/04/10 19:00:17  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -211,7 +214,7 @@ public class MitgliedDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.mitglied);
+        DokumentationUtil.MITGLIED);
     buttons.addButton("Neu", new MitgliedDetailAction());
     buttons.addButton("Löschen", new MitgliedDeleteAction(), control
         .getCurrentObject());

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/01 19:53:22  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.2  2007/12/20 20:33:30  jost
  * Neu: Wiedervorlage-Ãœbersicht in der Jameica-Startseite
  *
@@ -37,7 +40,7 @@ public class WiedervorlagelisteView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.wiedervorlage);
+        DokumentationUtil.WIEDERVORLAGE);
 
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:53:57  jost
+ * Buchführung: Beginn des Geschäftsjahres
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -35,7 +38,7 @@ public class KontoListView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton("<< Zur�ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.konten);
+        DokumentationUtil.KONTEN);
 
     buttons.addButton("Hibiscus-Import",
         new HibiscusKontenImportAction(control));

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:53:03  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:36:29  jost
  * Reaktivierung Buchführung
  *
@@ -49,7 +52,7 @@ public class BuchungsUebernahmeView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zur�ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.buchungenaushibiscus);
+        DokumentationUtil.BUCHUNGENAUSHIBISCUS);
     buttons.addButton(control.getUebernahmeButton());
   }
 

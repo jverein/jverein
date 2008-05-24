@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 19:51:59  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.1  2007/02/25 19:13:46  jost
  * Neu: Kursteilnehmer
  *
@@ -60,7 +63,7 @@ public class KursteilnehmerSucheView extends AbstractView
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
-    buttons.addButton("Hilfe", new DokumentationAction(), DokumentationUtil.kursteilnehmer);
+    buttons.addButton("Hilfe", new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER);
     buttons.addButton("Neu", new KursteilnehmerDetailAction());
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/01/01 19:49:05  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.4  2007/12/28 15:55:00  jost
  * Button-Leiste Ã¼berarbeitet.
  *
@@ -47,7 +50,7 @@ public class BeitragsgruppeSucheView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.beitragsgruppen);
+        DokumentationUtil.BEITRAGSGRUPPEN);
     buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
         .getBeitragsgruppeTable());
     buttons.addButton("Neu", new BeitragsgruppeDetailAction());

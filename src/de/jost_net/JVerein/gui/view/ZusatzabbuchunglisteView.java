@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/01/01 19:53:45  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.4  2007/02/23 20:27:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -47,7 +50,7 @@ public class ZusatzabbuchunglisteView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.zusatzabbuchungen);
+        DokumentationUtil.ZUSATZABBUCHUNGEN);
     control.getZusatzabbuchungsList().paint(this.getParent());
   }
 

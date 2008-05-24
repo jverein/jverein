@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/27 09:42:22  jost
+ * Erweiterung der Auswertung um Eigenschaften
+ *
  * Revision 1.3  2008/01/01 19:48:12  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -74,7 +77,7 @@ public class AuswertungMitgliedView extends AbstractView
 
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.auswertungmitglieder);
+        DokumentationUtil.AUSWERTUNGMITGLIEDER);
     buttons.addButton(control.getStartAuswertungButton());
 
   }

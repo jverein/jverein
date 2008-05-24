@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/01/01 19:48:33  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.4  2007/03/25 17:00:12  jost
  * Beitragsart aufgenommen.
  *
@@ -51,7 +54,7 @@ public class BeitragsgruppeDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.beitragsgruppen);
+        DokumentationUtil.BEITRAGSGRUPPEN);
     buttons.addButton("Suche", new BeitragsgruppeSucheAction());
     buttons.addButton("Speichern", new Action()
     {

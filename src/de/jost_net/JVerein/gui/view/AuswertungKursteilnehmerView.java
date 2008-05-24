@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 19:47:45  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.1  2007/05/26 16:26:30  jost
  * Neu: Auswertung Kursteilnehmer
  *
@@ -40,7 +43,7 @@ public class AuswertungKursteilnehmerView extends AbstractView
 
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.auswertungkursteilnehmer);
+        DokumentationUtil.AUSWERTUNGKURSTEILNEHMER);
     buttons.addButton(control.getStartAuswertungButton());
 
   }

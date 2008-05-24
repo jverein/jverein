@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 19:51:34  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.1  2007/12/22 08:26:23  jost
  * Neu: Jubil√§enliste
  *
@@ -39,7 +42,7 @@ public class JubilaeenView extends AbstractView
 
     buttons.addButton("<< Zur¸ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.jubilaeen);
+        DokumentationUtil.JUBILAEEN);
     buttons.addButton(control.getStartJubilaeenButton());
   }
 

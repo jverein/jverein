@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/05/22 06:52:50  jost
+ * Buchführung
+ *
  * Revision 1.5  2008/03/16 07:36:29  jost
  * Reaktivierung Buchführung
  *
@@ -73,7 +76,7 @@ public class BuchungslisteView extends AbstractView
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton("<< Zur�ck", new BackAction());
     buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.buchungen);
+        DokumentationUtil.BUCHUNGEN);
     buttons2.addButton("neu", new BuchungNeuAction());
 
   }

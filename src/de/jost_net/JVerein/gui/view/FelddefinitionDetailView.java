@@ -38,7 +38,7 @@ public class FelddefinitionDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.felddefinitionen);
+        DokumentationUtil.FELDDEFINITIONEN);
     buttons.addButton("Übersicht", new FelddefinitionenAction());
     buttons.addButton("Speichern", new Action()
     {

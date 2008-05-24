@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/01 19:51:20  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.3  2007/02/23 20:27:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -53,7 +56,7 @@ public class ImportView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.importa);
+        DokumentationUtil.IMPORT);
     Button button = new Button("Import starten", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

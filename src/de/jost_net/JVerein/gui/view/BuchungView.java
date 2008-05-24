@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:53:14  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:36:29  jost
  * Reaktivierung Buchführung
  *
@@ -58,7 +61,7 @@ public class BuchungView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zur�ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.buchungen);
+        DokumentationUtil.BUCHUNGEN);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/01/01 19:52:59  jost
+ * Erweiterung um Hilfe-Funktion
+ *
  * Revision 1.4  2007/12/22 08:26:35  jost
  * Neu: Jubil√§enliste
  *
@@ -52,7 +55,7 @@ public class StammdatenView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zur¸ck", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.stammdaten);
+        DokumentationUtil.STAMMDATEN);
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
