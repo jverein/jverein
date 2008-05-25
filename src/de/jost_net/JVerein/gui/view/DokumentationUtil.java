@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/05/24 14:04:08  jost
+ * Redatkionelle Änderung
+ *
  * Revision 1.3  2008/05/22 06:53:26  jost
  * Buchführung
  *
@@ -75,4 +78,6 @@ public class DokumentationUtil
       + "Buchungen_aus_Hibiscus_�bernehmen";
 
   public static final String BUCHUNGEN = PRE + "Buchungen";
+
+  public static final String JAHRESSALDO = PRE + "Jahressaldo";
 }
