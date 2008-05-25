@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/24 14:20:07  jost
+ * Debug-Infos entfernt.
+ *
  * Revision 1.1  2008/01/01 13:14:28  jost
  * Neu: Dateinamenmuster
  *
@@ -92,16 +95,5 @@ public class Dateiname
     ret = ret.replace("z$", new SimpleDateFormat("HHmmss").format(new Date()));
     ret = ret.replace("s$", sortierung);
     return ret + "." + extension;
-  }
-
-  /**
-   * Nur zu Testzwecken.
-   * 
-   * @param args
-   */
-  // todo Nach Abschluss des Tests entfernen
-  public static final void main(String[] args)
-  {
-    Dateiname d = new Dateiname("auswertung", "name", "a$s$-d$-z$", "pdf");
   }
 }
