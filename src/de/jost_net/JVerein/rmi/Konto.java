@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:55:38  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -28,6 +31,10 @@ public interface Konto extends DBObject
   public String getBezeichnung() throws RemoteException;
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;
+
+  public Date getEroeffnung() throws RemoteException;
+
+  public void setEroeffnung(Date eroeffnung) throws RemoteException;
 
   public Date getAufloesung() throws RemoteException;
 

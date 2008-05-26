@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:56:28  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -92,6 +95,16 @@ public class KontoImpl extends AbstractDBObject implements Konto
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
+  }
+
+  public Date getEroeffnung() throws RemoteException
+  {
+    return (Date) getAttribute("eroeffnung");
+  }
+
+  public void setEroeffnung(Date eroeffnungdatum) throws RemoteException
+  {
+    setAttribute("eroeffnung", eroeffnungdatum);
   }
 
   public Date getAufloesung() throws RemoteException

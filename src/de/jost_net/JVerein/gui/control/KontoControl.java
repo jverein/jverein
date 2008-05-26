@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:48:32  jost
+ * BuchfÃ¼hrung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -29,6 +32,7 @@ import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -42,6 +46,8 @@ public class KontoControl extends AbstractControl
   private TextInput nummer;
 
   private TextInput bezeichnung;
+
+  private DateInput eroeffnung;
 
   private DateInput aufloesung;
 
@@ -86,6 +92,17 @@ public class KontoControl extends AbstractControl
     return bezeichnung;
   }
 
+  public DateInput getEroeffnung() throws RemoteException
+  {
+    if (eroeffnung != null)
+    {
+      return eroeffnung;
+    }
+    eroeffnung = new DateInput(getKonto().getEroeffnung(),
+        Einstellungen.DATEFORMAT);
+    return eroeffnung;
+  }
+
   public DateInput getAufloesung() throws RemoteException
   {
     if (aufloesung != null)
@@ -127,6 +144,7 @@ public class KontoControl extends AbstractControl
       Konto k = getKonto();
       k.setNummer((String) getNummer().getValue());
       k.setBezeichnung((String) getBezeichnung().getValue());
+      k.setEroeffnung((Date) getEroeffnung().getValue());
       k.setAufloesung((Date) getAufloesung().getValue());
       k.setHibiscusId(new Integer((String) getHibiscusId().getValue()));
       k.store();
@@ -174,7 +192,9 @@ public class KontoControl extends AbstractControl
         }
         return "nein";
       }
-    });
+    }, false, Column.ALIGN_LEFT);
+    kontenList.addColumn("Konto-Eröffnung", "eroeffnung", new DateFormatter(
+        Einstellungen.DATEFORMAT));
     kontenList.addColumn("Konto-Auflösung", "aufloesung", new DateFormatter(
         Einstellungen.DATEFORMAT));
     kontenList.setRememberColWidths(true);
