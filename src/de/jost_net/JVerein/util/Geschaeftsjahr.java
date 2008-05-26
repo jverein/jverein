@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/25 19:37:40  jost
+ * Neu
+ *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -22,6 +25,8 @@ public class Geschaeftsjahr
 {
   private Date beginnGeschaeftsjahr;
 
+  private int beginnGeschaeftsjahrjahr;
+
   private Date endeGeschaeftsjahr;
 
   public Geschaeftsjahr(String tagmonat, int jahr) throws ParseException
@@ -30,6 +35,7 @@ public class Geschaeftsjahr
         + jahr);
     Calendar cal = Calendar.getInstance();
     cal.setTime(beginnGeschaeftsjahr);
+    beginnGeschaeftsjahrjahr = cal.get(Calendar.YEAR);
     cal.add(Calendar.YEAR, 1);
     cal.add(Calendar.DAY_OF_MONTH, -1);
     endeGeschaeftsjahr = cal.getTime();
@@ -38,6 +44,11 @@ public class Geschaeftsjahr
   public Date getBeginnGeschaeftsjahr()
   {
     return beginnGeschaeftsjahr;
+  }
+
+  public int getBeginnGeschaeftsjahrjahr()
+  {
+    return beginnGeschaeftsjahrjahr;
   }
 
   public Date getEndeGeschaeftsjahr()
