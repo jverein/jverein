@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/02/09 14:34:50  jost
+ * Plausibilitätsprüfung verbessert
+ *
  * Revision 1.12  2008/01/31 19:36:05  jost
  * Berücksichtigung eines Stichtages für die Abbuchung
  *
@@ -120,12 +123,13 @@ public class AbbuchungControl extends AbstractControl
         Integer m = ((Integer) modus.getValue());
         if (m.intValue() != AbbuchungsmodusInput.EINGETRETENEMITGLIEDER)
         {
-          vondatum.setText("");
+          vondatum.setValue(null);
           vondatum.setEnabled(false);
         }
         else
         {
           vondatum.setEnabled(true);
+          vondatum.setValue(new Date());
         }
       }
     });
