@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/05/24 19:31:47  jost
+ * PDF-Ausgabe
+ *
  * Revision 1.9  2008/05/24 16:38:58  jost
  * Weitere Selektionskriterien
  * Wegfall der Spalte Saldo
@@ -411,7 +414,14 @@ public class BuchungsControl extends AbstractControl
       GenericObject o = (GenericObject) getBuchungsart().getValue();
       try
       {
-        b.setBuchungsart(new Integer(o.getID()));
+        if (o != null)
+        {
+          b.setBuchungsart(new Integer(o.getID()));
+        }
+        else
+        {
+          b.setBuchungsart(null);
+        }
         b.setKonto((Konto) getKonto().getValue());
         b.setName((String) getName().getValue());
         b.setBetrag((Double) getBetrag().getValue());
