@@ -214,8 +214,18 @@ CREATE TABLE anfangsbestand
 
 ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer);
 
+CREATE TABLE jahresabschluss
+(
+  id            INTEGER AUTO_INCREMENT,
+  von           DATE,
+  bis           DATE,
+  datum         DATE,
+  name          VARCHAR(50),
+  UNIQUE        (id),
+  PRIMARY KEY   (id)
+);
 
-INSERT INTO version VALUES (1,13);
+INSERT INTO version VALUES (1,14);
 
 
 
