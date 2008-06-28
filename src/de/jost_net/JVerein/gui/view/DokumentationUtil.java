@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/25 19:36:42  jost
+ * Neu: Jahressaldo
+ *
  * Revision 1.4  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -80,4 +83,6 @@ public class DokumentationUtil
   public static final String BUCHUNGEN = PRE + "Buchungen";
 
   public static final String JAHRESSALDO = PRE + "Jahressaldo";
+
+  public static final String JAHRESABSCHLUSS = PRE + "Jahresabschluss";
 }
