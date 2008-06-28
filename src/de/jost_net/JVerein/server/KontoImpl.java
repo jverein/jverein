@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/26 18:59:17  jost
+ * Neu: Eröffnungsdatum
+ *
  * Revision 1.1  2008/05/22 06:56:28  jost
  * Buchführung
  *
@@ -18,8 +21,11 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -131,4 +137,18 @@ public class KontoImpl extends AbstractDBObject implements Konto
   {
     return super.getAttribute(fieldName);
   }
+
+  public DBIterator getKontenEinesJahres(Geschaeftsjahr gj)
+      throws RemoteException
+  {
+    DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
+    konten.addFilter("(eroeffnung is null or eroeffnung <= ?)",
+        new Object[] { gj.getEndeGeschaeftsjahr() });
+    konten.addFilter("(aufloesung is null or year(aufloesung) = ? or "
+        + "aufloesung >= ? )", new Object[] { gj.getBeginnGeschaeftsjahrjahr(),
+        gj.getEndeGeschaeftsjahr() });
+    konten.setOrder("order by bezeichnung");
+    return konten;
+  }
+
 }

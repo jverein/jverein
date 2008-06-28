@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/26 18:59:04  jost
+ * Neu: Eröffnungsdatum
+ *
  * Revision 1.1  2008/05/22 06:55:38  jost
  * Buchführung
  *
@@ -18,6 +21,8 @@ package de.jost_net.JVerein.rmi;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.util.Geschaeftsjahr;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBObject;
 
 public interface Konto extends DBObject
@@ -43,4 +48,8 @@ public interface Konto extends DBObject
   public Integer getHibiscusId() throws RemoteException;
 
   public void setHibiscusId(Integer HibiscusId) throws RemoteException;
+
+  public DBIterator getKontenEinesJahres(Geschaeftsjahr gj)
+      throws RemoteException;
+
 }
