@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/26 18:58:19  jost
+ * Spaltenausrichtung
+ * Berücksichtigung von Eröffnungs- und ggfls. Auflösungsdatum
+ *
  * Revision 1.1  2008/05/25 19:36:13  jost
  * Neu: Jahressaldo
  *
@@ -25,27 +29,21 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.parts.JahressaldoList;
 import de.jost_net.JVerein.io.JahressaldoPDF;
 import de.jost_net.JVerein.io.SaldoZeile;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
-import de.willuhn.datasource.GenericIterator;
-import de.willuhn.datasource.GenericObject;
-import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
-import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.parts.Column;
-import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -54,7 +52,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class JahressaldoControl extends AbstractControl
 {
-  private TablePart saldoList;
+  private JahressaldoList saldoList;
 
   private SelectInput suchjahr;
 
@@ -118,38 +116,18 @@ public class JahressaldoControl extends AbstractControl
 
   public Part getSaldoList() throws ApplicationException
   {
-    ArrayList<SaldoZeile> zeile = null;
     try
     {
-      zeile = getInfo();
-
       if (saldoList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray((GenericObject[]) zeile
-            .toArray(new GenericObject[zeile.size()]));
-
-        saldoList = new TablePart(gi, null);
-        saldoList.addColumn("Kontonummer", "kontonummer", null, false,
-            Column.ALIGN_RIGHT);
-        saldoList.addColumn("Bezeichnung", "kontobezeichnung");
-        saldoList.addColumn("Anfangsbestand", "anfangsbestand",
-            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
-            Column.ALIGN_RIGHT);
-        saldoList.addColumn("Einnahmen", "einnahmen", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Ausgaben", "ausgaben", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Umbuchungen", "umbuchungen",
-            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
-            Column.ALIGN_RIGHT);
-        saldoList.addColumn("Endbestand", "endbestand", new CurrencyFormatter(
-            "", Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Bemerkung", "bemerkung");
-        saldoList.setRememberColWidths(true);
-        saldoList.setSummary(false);
+        saldoList = new JahressaldoList(null, new Geschaeftsjahr(
+            (Integer) getSuchJahr().getValue()));
       }
       else
       {
+        saldoList.setGeschaeftsjahr(new Geschaeftsjahr((Integer) getSuchJahr()
+            .getValue()));
+        ArrayList<SaldoZeile> zeile = saldoList.getInfo();
         saldoList.removeAll();
         for (SaldoZeile sz : zeile)
         {
@@ -161,33 +139,21 @@ public class JahressaldoControl extends AbstractControl
     {
       throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
     }
-    return saldoList;
-  }
-
-  private ArrayList<SaldoZeile> getInfo() throws RemoteException
-  {
-    DBService service = Einstellungen.getDBService();
-    ArrayList<SaldoZeile> zeile = new ArrayList<SaldoZeile>();
-    DBIterator konten = service.createList(Konto.class);
-    Geschaeftsjahr gj = null;
-    try
-    {
-      gj = new Geschaeftsjahr(Einstellungen.getBeginnGeschaeftsjahr(),
-          (Integer) getSuchJahr().getValue());
-    }
     catch (ParseException e)
     {
-      throw new RemoteException(e.getMessage());
+      throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
     }
-    // (eroeffnung is null or eroeffnung <= '2007-12-31')
-    // and (aufloesung is null or year(aufloesung) = 2007 or aufloesung >=
-    // '2007-12-31')
-    konten.addFilter("(eroeffnung is null or eroeffnung <= ?)",
-        new Object[] { gj.getEndeGeschaeftsjahr() });
-    konten.addFilter("(aufloesung is null or year(aufloesung) = ? or "
-        + "aufloesung >= ? )", new Object[] { gj.getBeginnGeschaeftsjahrjahr(),
-        gj.getEndeGeschaeftsjahr() });
-    konten.setOrder("order by bezeichnung");
+    return saldoList.getSaldoList();
+  }
+
+  private ArrayList<SaldoZeile> getInfo() throws RemoteException,
+      ParseException
+  {
+    ArrayList<SaldoZeile> zeile = new ArrayList<SaldoZeile>();
+    Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
+        null);
+    DBIterator konten = k.getKontenEinesJahres(new Geschaeftsjahr(
+        (Integer) getSuchJahr().getValue()));
     double anfangsbestand = 0;
     double einnahmen = 0;
     double ausgaben = 0;
@@ -197,8 +163,8 @@ public class JahressaldoControl extends AbstractControl
     {
       while (konten.hasNext())
       {
-        SaldoZeile sz = new SaldoZeile((Integer) getSuchJahr().getValue(),
-            (Konto) konten.next());
+        SaldoZeile sz = new SaldoZeile(new Geschaeftsjahr(
+            (Integer) getSuchJahr().getValue()), (Konto) konten.next());
         anfangsbestand += (Double) sz.getAttribute("anfangsbestand");
         einnahmen += (Double) sz.getAttribute("einnahmen");
         ausgaben += (Double) sz.getAttribute("ausgaben");
@@ -207,8 +173,7 @@ public class JahressaldoControl extends AbstractControl
         zeile.add(sz);
       }
     }
-    Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
-        null);
+    k = (Konto) Einstellungen.getDBService().createObject(Konto.class, null);
     k.setNummer("");
     k.setBezeichnung("Summe");
     zeile.add(new SaldoZeile(k, anfangsbestand, einnahmen, ausgaben,
@@ -247,8 +212,7 @@ public class JahressaldoControl extends AbstractControl
       final File file = new File(s);
       Integer jahr = (Integer) suchjahr.getValue();
 
-      Geschaeftsjahr gj = new Geschaeftsjahr(Einstellungen
-          .getBeginnGeschaeftsjahr(), jahr.intValue());
+      Geschaeftsjahr gj = new Geschaeftsjahr(jahr.intValue());
 
       auswertungSaldoPDF(zeile, file, gj);
     }

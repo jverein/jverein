@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/25 19:36:55  jost
+ * Neu: Jahressaldo
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -44,7 +47,8 @@ public class JahressaldoView extends AbstractView
     }, null, true);
     buttons.addButton(button);
 
-    control.getSaldoList().paint(this.getParent());
+    LabelGroup group2 = new LabelGroup(getParent(), "Saldo");
+    group2.addPart(control.getSaldoList());
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton("<< Zurück", new BackAction());

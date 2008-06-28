@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/25 19:37:08  jost
+ * Neu: Jahressaldo
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.io;
@@ -57,61 +60,49 @@ public class SaldoZeile implements GenericObject
     this.endbestand = endbestand;
   }
 
-  public SaldoZeile(int jahr, Konto konto) throws RemoteException
+  public SaldoZeile(Geschaeftsjahr gj, Konto konto) throws RemoteException
   {
     this.konto = konto;
-    try
+    DBService service = Einstellungen.getDBService();
+    DBIterator anf = service.createList(Anfangsbestand.class);
+    anf.addFilter("konto = ? ", new Object[] { konto.getID() });
+    anf.addFilter("datum >= ? AND datum <= ?", new Object[] {
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr() });
+    if (anf.hasNext())
     {
-      Geschaeftsjahr gj = new Geschaeftsjahr(Einstellungen
-          .getBeginnGeschaeftsjahr(), jahr);
-      DBService service = Einstellungen.getDBService();
-      DBIterator anf = service.createList(Anfangsbestand.class);
-      anf.addFilter("konto = ? ", new Object[] { konto.getID() });
-      anf.addFilter("datum >= ? AND datum <= ?", new Object[] {
-          gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr() });
-      if (anf.hasNext())
-      {
-        Anfangsbestand a = (Anfangsbestand) anf.next();
-        anfangsbestand = a.getBetrag();
-      }
-      else
-      {
-        anfangsbestand = 0d;
-        bemerkung += "kein Anfangsbestand vorhanden  ";
-      }
-      String sql = "select sum(betrag) from buchung, buchungsart "
-          + "where datum >= ? and datum <= ? AND konto = ? "
-          + "and buchung.BUCHUNGSART = BUCHUNGSART.ID "
-          + "and BUCHUNGSART.ART=?";
+      Anfangsbestand a = (Anfangsbestand) anf.next();
+      anfangsbestand = a.getBetrag();
+    }
+    else
+    {
+      anfangsbestand = 0d;
+      bemerkung += "kein Anfangsbestand vorhanden  ";
+    }
+    String sql = "select sum(betrag) from buchung, buchungsart "
+        + "where datum >= ? and datum <= ? AND konto = ? "
+        + "and buchung.BUCHUNGSART = BUCHUNGSART.ID " + "and BUCHUNGSART.ART=?";
 
-      ResultSetExtractor rs = new ResultSetExtractor()
+    ResultSetExtractor rs = new ResultSetExtractor()
+    {
+      public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
-        public Object extract(ResultSet rs) throws RemoteException,
-            SQLException
+        if (!rs.next())
         {
-          if (!rs.next())
-          {
-            return new Double(0);
-          }
-          return new Double(rs.getDouble(1));
+          return new Double(0);
         }
-      };
-      einnahmen = (Double) service.execute(sql, new Object[] {
-          gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
-          konto.getID(), 0 }, rs);
-      ausgaben = (Double) service.execute(sql, new Object[] {
-          gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
-          konto.getID(), 1 }, rs);
-      umbuchungen = (Double) service.execute(sql, new Object[] {
-          gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
-          konto.getID(), 2 }, rs);
-      endbestand = anfangsbestand + einnahmen + ausgaben + umbuchungen;
-    }
-    catch (ParseException e)
-    {
-      e.printStackTrace();
-    }
-
+        return new Double(rs.getDouble(1));
+      }
+    };
+    einnahmen = (Double) service.execute(sql, new Object[] {
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
+        konto.getID(), 0 }, rs);
+    ausgaben = (Double) service.execute(sql, new Object[] {
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
+        konto.getID(), 1 }, rs);
+    umbuchungen = (Double) service.execute(sql, new Object[] {
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
+        konto.getID(), 2 }, rs);
+    endbestand = anfangsbestand + einnahmen + ausgaben + umbuchungen;
   }
 
   public Object getAttribute(String arg0) throws RemoteException
