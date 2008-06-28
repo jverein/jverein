@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/05/24 16:40:20  jost
+ * Wegfall der Spalte Saldo
+ *
  * Revision 1.5  2008/05/22 06:55:11  jost
  * Buchführung
  *
@@ -72,5 +75,7 @@ public interface Buchung extends DBObject
   public int getBuchungsartId() throws RemoteException;
 
   public void setBuchungsart(Integer buchungsart) throws RemoteException;
+
+  public Jahresabschluss getJahresabschluss() throws RemoteException;
 
 }

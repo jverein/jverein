@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:54:59  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -34,5 +37,7 @@ public interface Anfangsbestand extends DBObject
   public void setBetrag(double betrag) throws RemoteException;
 
   public double getBetrag() throws RemoteException;
+
+  public Jahresabschluss getJahresabschluss() throws RemoteException;
 
 }
