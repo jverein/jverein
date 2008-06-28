@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/03/16 07:34:30  jost
+ * Reaktivierung Buchführung
+ *
  * Revision 1.2  2007/02/23 20:25:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -19,10 +22,13 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.view.BuchungView;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Jahresabschluss;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.util.ApplicationException;
@@ -36,6 +42,20 @@ public class BuchungAction implements Action
     if (context != null && (context instanceof Buchung))
     {
       b = (Buchung) context;
+      try
+      {
+        Jahresabschluss ja = b.getJahresabschluss();
+        if (ja != null)
+        {
+          throw new ApplicationException("Buchung wurde bereits am "
+              + Einstellungen.DATEFORMAT.format(ja.getDatum()) + " von "
+              + ja.getName() + " abgeschlossen.");
+        }
+      }
+      catch (RemoteException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
     }
     else
     {
