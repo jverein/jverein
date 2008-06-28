@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/24 14:19:52  jost
+ * Debug-Infos entfernt.
+ *
  * Revision 1.1  2008/05/22 06:55:50  jost
  * Buchf√ºhrung
  *
@@ -22,6 +25,7 @@ import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
+import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -90,6 +94,11 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     if (getDatum().after(new Date()))
     {
       throw new ApplicationException("Keine Anfangsbest‰nde in der Zukunft");
+    }
+    Jahresabschluss ja = getJahresabschluss();
+    if (ja != null)
+    {
+      throw new ApplicationException("Der Zeitraum ist bereits abgeschlossen.");
     }
   }
 
@@ -196,4 +205,19 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
       return super.getAttribute(fieldName);
     }
   }
+
+  public Jahresabschluss getJahresabschluss() throws RemoteException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(
+        Jahresabschluss.class);
+    it.addFilter("von <= ?", new Object[] { (Date) getDatum() });
+    it.addFilter("bis >= ?", new Object[] { (Date) getDatum() });
+    if (it.hasNext())
+    {
+      Jahresabschluss ja = (Jahresabschluss) it.next();
+      return ja;
+    }
+    return null;
+  }
+
 }

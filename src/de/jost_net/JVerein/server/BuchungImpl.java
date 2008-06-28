@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/05/24 16:40:39  jost
+ * Wegfall der Spalte Saldo
+ *
  * Revision 1.5  2008/05/22 06:56:05  jost
  * Buchführung
  *
@@ -30,8 +33,10 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -56,6 +61,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   protected void deleteCheck() throws ApplicationException
   {
+    insertCheck();
   }
 
   protected void insertCheck() throws ApplicationException
@@ -82,20 +88,17 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     {
       throw new ApplicationException("Bitte Datum eingeben");
     }
+    Jahresabschluss ja = getJahresabschluss();
+    if (ja != null)
+    {
+      throw new ApplicationException(
+          "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!");
+    }
   }
 
   protected void updateCheck() throws ApplicationException
   {
-    try
-    {
-      plausi();
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("update check of buchung failed", e);
-      throw new ApplicationException(
-          "Buchung kann nicht gespeichert werden. Siehe system log");
-    }
+    insertCheck();
   }
 
   protected Class getForeignObject(String field) throws RemoteException
@@ -243,5 +246,19 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       //
     }
     return d;
+  }
+
+  public Jahresabschluss getJahresabschluss() throws RemoteException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(
+        Jahresabschluss.class);
+    it.addFilter("von <= ?", new Object[] { (Date) getDatum() });
+    it.addFilter("bis >= ?", new Object[] { (Date) getDatum() });
+    if (it.hasNext())
+    {
+      Jahresabschluss ja = (Jahresabschluss) it.next();
+      return ja;
+    }
+    return null;
   }
 }
