@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/03/08 19:31:17  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.10  2007/12/18 17:25:42  jost
  * Neu: Zahlungsrhytmus importieren
  *
@@ -359,6 +362,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throws RemoteException
   {
     setAttribute("telefondienstlich", telefondienstlich);
+  }
+
+  public String getHandy() throws RemoteException
+  {
+    return (String) getAttribute("handy");
+  }
+
+  public void setHandy(String handy) throws RemoteException
+  {
+    setAttribute("handy", handy);
   }
 
   public String getEmail() throws RemoteException

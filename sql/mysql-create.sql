@@ -18,6 +18,7 @@ CREATE TABLE mitglied
   geschlecht    CHAR(1),
   telefonprivat VARCHAR(15),
   telefondienstlich VARCHAR(15),
+  handy         VARCHAR(15),
   email         VARCHAR(50),
   eintritt      DATE,
   beitragsgruppe INTEGER,
@@ -225,7 +226,7 @@ CREATE TABLE jahresabschluss
   PRIMARY KEY   (id)
 );
 
-INSERT INTO version VALUES (1,14);
+INSERT INTO version VALUES (1,15);
 
 
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2008/05/22 06:49:00  jost
+ * Vermeiund NPE
+ *
  * Revision 1.35  2008/05/05 18:21:49  jost
  * Bugfix NPE bei Zusatzfeldern
  *
@@ -217,6 +220,8 @@ public class MitgliedControl extends AbstractControl
   private Input telefonprivat;
 
   private Input telefondienstlich;
+
+  private Input handy;
 
   private Input email;
 
@@ -548,6 +553,16 @@ public class MitgliedControl extends AbstractControl
     }
     telefondienstlich = new TextInput(getMitglied().getTelefondienstlich(), 15);
     return telefondienstlich;
+  }
+
+  public Input getHandy() throws RemoteException
+  {
+    if (handy != null)
+    {
+      return handy;
+    }
+    handy = new TextInput(getMitglied().getHandy(), 15);
+    return handy;
   }
 
   public Input getEmail() throws RemoteException
@@ -1508,6 +1523,7 @@ public class MitgliedControl extends AbstractControl
       m.setStrasse((String) getStrasse().getValue());
       m.setTelefondienstlich((String) getTelefondienstlich().getValue());
       m.setTelefonprivat((String) getTelefonprivat().getValue());
+      m.setHandy((String) getHandy().getValue());
       m.setTitel((String) getTitel().getValue());
       m.setVermerk1((String) getVermerk1().getValue());
       m.setVermerk2((String) getVermerk2().getValue());

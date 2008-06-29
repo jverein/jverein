@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/05/07 05:48:54  jost
+ * Löschung zusätzlicher Tabellen bei wiederholtem Import
+ *
  * Revision 1.11  2008/04/10 19:00:35  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -204,6 +207,14 @@ public class Import
         m.setKontoinhaber(results.getString("Zahler"));
         m.setTelefonprivat(results.getString("Telefon_privat"));
         m.setTelefondienstlich(results.getString("Telefon_dienstlich"));
+        try
+        {
+          m.setHandy(results.getString("Handy"));
+        }
+        catch (SQLException e)
+        {
+          // Nichts tun
+        }
         m.setEmail(results.getString("Email"));
         String eintritt = results.getString("Eintritt");
         if (eintritt == null || eintritt.length() == 0

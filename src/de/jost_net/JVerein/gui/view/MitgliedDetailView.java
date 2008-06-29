@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2008/05/24 14:04:08  jost
+ * Redatkionelle Änderung
+ *
  * Revision 1.17  2008/05/05 18:22:28  jost
  * Bugfix NPE bei Zusatzfeldern
  *
@@ -127,6 +130,7 @@ public class MitgliedDetailView extends AbstractView
       SimpleContainer left2 = new SimpleContainer(cols2.getComposite());
       left2.addHeadline("Kommunikation");
       left2.addLabelPair("Telefon priv.", control.getTelefonprivat());
+      left2.addLabelPair("Handy", control.getHandy());
       SimpleContainer right2 = new SimpleContainer(cols2.getComposite());
       right2.addHeadline("");
       right2.addLabelPair("Telefon dienstl.", control.getTelefondienstlich());

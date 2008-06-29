@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/03/08 19:30:47  jost
+ * Neu: Externe Mitgliedsnummer
+ *
  * Revision 1.6  2007/12/02 13:44:00  jost
  * Neu: Beitragsmodelle
  *
@@ -111,6 +114,10 @@ public interface Mitglied extends DBObject
 
   public void setTelefondienstlich(String telefondienstlich)
       throws RemoteException;
+
+  public String getHandy() throws RemoteException;
+
+  public void setHandy(String handy) throws RemoteException;
 
   public String getEmail() throws RemoteException;
 
