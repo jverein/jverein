@@ -184,31 +184,6 @@ CREATE TABLE buchungsart
 
 CREATE TABLE buchung
 (
-  id            CREATE TABLE konto
-(
-  id            IDENTITY,
-  nummer        VARCHAR(10),
-  bezeichnung   VARCHAR(30),
-  aufloesung    DATE,
-  hibiscusid    INTEGER,
-  UNIQUE        (id),
-  UNIQUE        (nummer),
-  PRIMARY KEY   (id)
-);
-
-CREATE TABLE buchungsart
-(
-  id            IDENTITY,
-  nummer        INTEGER,
-  bezeichnung   VARCHAR(30),
-  buchungsart   INTEGER,
-  UNIQUE        (id),
-  UNIQUE        (nummer),
-  PRIMARY KEY   (id)
-);
-
-CREATE TABLE buchung
-(
   id            IDENTITY,
   umsatzid      INTEGER,
   konto         INTEGER  NOT NULL,
