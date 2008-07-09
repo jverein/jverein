@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2008/02/09 14:35:32  jost
+ * Bugfix. Zusatzabbuchungen und Kursteilnehmer nur abbuchen, wenn das Häkchen gesetzt ist.
+ *
  * Revision 1.19  2008/01/31 19:40:57  jost
  * Jährliche, Halbjährliche und Vierteljährliche Abbuchungen können jetzt separat ausgeführt werden.
  * Berücksichtigung eines Stichtages für die Abbuchung
@@ -177,8 +180,8 @@ public class Abbuchung
 
   private void abbuchenMitglieder(DtausDateiWriter dtaus, int modus,
       Date stichtag, Date vondatum, ProgressMonitor monitor,
-      String verwendungszweck) throws NumberFormatException, DtausException,
-      IOException, ApplicationException
+      String verwendungszweck) throws NumberFormatException, IOException,
+      ApplicationException
   {
     // Ermittlung der beitragsfreien Beitragsgruppen
     String beitragsfrei = "";
@@ -309,7 +312,15 @@ public class Abbuchung
         }
         if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
         {
-          writeCSatz(dtaus, m, verwendungszweck, betr);
+          try
+          {
+            writeCSatz(dtaus, m, verwendungszweck, betr);
+          }
+          catch (DtausException e)
+          {
+            throw new ApplicationException(m.getNameVorname() + ": "
+                + e.getMessage());
+          }
         }
         else
         {
