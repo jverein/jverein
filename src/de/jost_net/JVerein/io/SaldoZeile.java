@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/06/28 17:00:17  jost
+ * Vereinheitlichung des Jahressaldos
+ *
  * Revision 1.1  2008/05/25 19:37:08  jost
  * Neu: Jahressaldo
  *
@@ -19,7 +22,6 @@ package de.jost_net.JVerein.io;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Anfangsbestand;

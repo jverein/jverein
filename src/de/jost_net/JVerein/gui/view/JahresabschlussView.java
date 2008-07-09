@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/06/28 16:59:41  jost
+ * Neu: Jahresabschluss
+ *
  * Revision 1.2  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -21,7 +24,6 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.JahresabschlussControl;
-import de.jost_net.JVerein.gui.parts.JahressaldoList;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
