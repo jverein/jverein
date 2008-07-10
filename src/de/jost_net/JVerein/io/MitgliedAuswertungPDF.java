@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/01/27 09:43:42  jost
+ * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
+ *
  * Revision 1.4  2007/02/23 20:28:04  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -31,29 +34,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
 
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
-import com.lowagie.text.HeaderFooter;
-import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -65,79 +56,51 @@ public class MitgliedAuswertungPDF
       ProgressMonitor monitor, String subtitle) throws ApplicationException,
       RemoteException
   {
-    Document rpt = null;
-
     try
     {
-      // ////////////////////////////////////////////////////////////////////////
-      // Header erzeugen
-      rpt = new Document(PageSize.A4);
-
       FileOutputStream fos = new FileOutputStream(file);
-      PdfWriter.getInstance(rpt, fos);
-      rpt.setMargins(50, 10, 20, 15); // links, rechts, oben, unten
+      Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle, list
+          .size(), 50, 10, 20, 15);
 
-      AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
-          JVereinPlugin.class);
-      rpt.addAuthor("JVerein - Version " + plugin.getManifest().getVersion());
-
-      rpt.addTitle(subtitle);
-      // ////////////////////////////////////////////////////////////////////////
-
-      // ////////////////////////////////////////////////////////////////////////
-      // Footer erzeugen
-      Chunk fuss = new Chunk("Ausgegeben am "
-          + Einstellungen.TIMESTAMPFORMAT.format(new Date())
-          + "              Seite:  ", FontFactory.getFont(
-          FontFactory.HELVETICA, 8, Font.BOLD));
-      HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
-      hf.setAlignment(Element.ALIGN_CENTER);
-      rpt.setFooter(hf);
-
-      rpt.open();
-
-      Paragraph pTitle = new Paragraph("Mitglieder", FontFactory.getFont(
-          FontFactory.HELVETICA_BOLD, 13));
-      pTitle.setAlignment(Element.ALIGN_CENTER);
-      rpt.add(pTitle);
-      Paragraph psubTitle = new Paragraph(subtitle, FontFactory.getFont(
-          FontFactory.HELVETICA_BOLD, 10));
-      psubTitle.setAlignment(Element.ALIGN_CENTER);
-      rpt.add(psubTitle);
-      // ////////////////////////////////////////////////////////////////////////
-
-      // ////////////////////////////////////////////////////////////////////////
-      // Iteration ueber Umsaetze
-      PdfPTable table = new PdfPTable(5);
-      float[] widths = { 100, 130, 30, 30, 60 };
-      table.setWidths(widths);
-      table.setWidthPercentage(100);
-      table.setSpacingBefore(5);
-      table.setSpacingAfter(0);
-
-      table.addCell(getDetailCell("Name", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("Anschrift", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("Geburts- datum", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("Eintritt / \nAustritt / \nKündigung",
-          Element.ALIGN_CENTER, Color.LIGHT_GRAY));
-      table.addCell(getDetailCell("Beitragsgruppe", Element.ALIGN_CENTER,
-          Color.LIGHT_GRAY));
-      table.setHeaderRows(1);
+      report.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
+          Color.LIGHT_GRAY);
+      report.addHeaderColumn("Anschrift\nKommunikation", Element.ALIGN_CENTER,
+          130, Color.LIGHT_GRAY);
+      report.addHeaderColumn("Geburts- datum", Element.ALIGN_CENTER, 30,
+          Color.LIGHT_GRAY);
+      report.addHeaderColumn("Eintritt / \nAustritt / \nKündigung",
+          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+      report.addHeaderColumn("Beitragsgruppe", Element.ALIGN_CENTER, 60,
+          Color.LIGHT_GRAY);
+      report.createHeader(100, Element.ALIGN_CENTER);
 
       int faelle = 0;
 
       for (int i = 0; i < list.size(); i++)
       {
         faelle++;
-        monitor.setStatus(faelle);
         Mitglied m = (Mitglied) list.get(i);
-        table.addCell(getDetailCell(m.getNameVorname(), Element.ALIGN_LEFT));
-        table.addCell(getDetailCell(m.getAnschrift(), Element.ALIGN_LEFT));
-        table.addCell(getDetailCell(notNull(Einstellungen.DATEFORMAT.format(m
-            .getGeburtsdatum())), Element.ALIGN_LEFT));
+        report.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
+        String anschriftkommunikation = m.getAnschrift();
+        if (m.getTelefonprivat().length() > 0)
+        {
+          anschriftkommunikation += "\nTel. priv: " + m.getTelefonprivat();
+        }
+        if (m.getTelefondienstlich().length() > 0)
+        {
+          anschriftkommunikation += "\nTel. dienstl: "
+              + m.getTelefondienstlich();
+        }
+        if (m.getHandy() != null && m.getHandy().length() > 0)
+        {
+          anschriftkommunikation += "\nHandy: " + m.getHandy();
+        }
+        if (m.getEmail().length() > 0)
+        {
+          anschriftkommunikation += "\nEMail: " + m.getEmail();
+        }
+        report.addColumn(anschriftkommunikation, Element.ALIGN_LEFT);
+        report.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
         String zelle = notNull(Einstellungen.DATEFORMAT.format(m.getEintritt()));
         if (m.getAustritt() != null)
         {
@@ -147,7 +110,7 @@ public class MitgliedAuswertungPDF
         {
           zelle += "\n" + Einstellungen.DATEFORMAT.format(m.getKuendigung());
         }
-        table.addCell(getDetailCell(zelle, Element.ALIGN_LEFT));
+        report.addColumn(zelle, Element.ALIGN_LEFT);
         String beitragsgruppebemerkung = m.getBeitragsgruppe().getBezeichnung();
         if (m.getVermerk1() != null)
         {
@@ -157,19 +120,16 @@ public class MitgliedAuswertungPDF
         {
           beitragsgruppebemerkung += "\n" + m.getVermerk2();
         }
-        table
-            .addCell(getDetailCell(beitragsgruppebemerkung, Element.ALIGN_LEFT));
+        report.addColumn(beitragsgruppebemerkung, Element.ALIGN_LEFT);
+        report.setNextRecord();
       }
+      report.closeTable();
+
+      report.add(new Paragraph("Anzahl Mitglieder: " + list.size(), FontFactory
+          .getFont(FontFactory.HELVETICA, 8)));
+
+      report.close();
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
-      rpt.add(table);
-
-      Paragraph summary = new Paragraph("Anzahl Mitglieder: " + list.size(),
-          FontFactory.getFont(FontFactory.HELVETICA, 8));
-      rpt.add(summary);
-
-      if (rpt != null)
-        rpt.close();
-      fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
         public void run()
@@ -205,40 +165,6 @@ public class MitgliedAuswertungPDF
       throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
     }
 
-  }
-
-  /**
-   * Erzeugt eine Zelle der Tabelle.
-   * 
-   * @param text
-   *          der anzuzeigende Text.
-   * @param align
-   *          die Ausrichtung.
-   * @param backgroundcolor
-   *          die Hintergundfarbe.
-   * @return die erzeugte Zelle.
-   */
-  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
-  {
-    PdfPCell cell = new PdfPCell(new Phrase(notNull(text), FontFactory.getFont(
-        FontFactory.HELVETICA, 8)));
-    cell.setHorizontalAlignment(align);
-    cell.setBackgroundColor(backgroundcolor);
-    return cell;
-  }
-
-  /**
-   * Erzeugt eine Zelle der Tabelle.
-   * 
-   * @param text
-   *          der anzuzeigende Text.
-   * @param align
-   *          die Ausrichtung.
-   * @return die erzeugte Zelle.
-   */
-  private PdfPCell getDetailCell(String text, int align)
-  {
-    return getDetailCell(text, align, Color.WHITE);
   }
 
   /**
