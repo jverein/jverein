@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/07/10 08:00:06  jost
+ * Optimierung der internen Reporter-Klasse
+ *
  * Revision 1.5  2008/05/06 19:40:45  jost
  * Warnings beseitigt
  *
@@ -78,18 +81,15 @@ public class Reporter
 
   private ProgressMonitor monitor;
 
-  /**
-   * ct.
-   * 
-   * @param out
-   * @param monitor
-   * @param title
-   * @param subtitle
-   * @param maxRecords
-   * @throws DocumentException
-   */
   public Reporter(OutputStream out, ProgressMonitor monitor, String title,
       String subtitle, int maxRecords) throws DocumentException
+  {
+    this(out, monitor, title, subtitle, maxRecords, 80, 30, 20, 20);
+  }
+
+  public Reporter(OutputStream out, ProgressMonitor monitor, String title,
+      String subtitle, int maxRecords, float linkerRand, float rechterRand,
+      float obererRand, float untererRand) throws DocumentException
   {
     this.i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
         .getResources().getI18N();
@@ -97,7 +97,7 @@ public class Reporter
     this.monitor = monitor;
     rpt = new Document();
     PdfWriter.getInstance(rpt, out);
-    rpt.setMargins(80, 30, 20, 20); // links, rechts, oben, unten
+    rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
     if (this.monitor != null)
     {
       this.monitor.setStatusText(i18n.tr("Erzeuge Liste"));
