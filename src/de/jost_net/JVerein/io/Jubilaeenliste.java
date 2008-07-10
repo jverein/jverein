@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/28 13:14:50  jost
+ * Bugfix beim erzeugen eines Stammdaten-Objektes
+ *
  * Revision 1.1  2007/12/22 08:26:51  jost
  * Neu: Jubiläenliste
  *
@@ -71,7 +74,7 @@ public class Jubilaeenliste
         throw new ApplicationException(
             "Keine Stammdaten gespeichert. Bitte erfassen.");
       }
-      
+
       JubilaeenParser jp = new JubilaeenParser(stamm.getJubilaeen());
       while (jp.hasNext())
       {
@@ -112,12 +115,9 @@ public class Jubilaeenliste
         while (mitgl.hasNext())
         {
           Mitglied m = (Mitglied) mitgl.next();
-          reporter.addColumn(reporter.getDetailCell(m.getEintritt(),
-              Element.ALIGN_LEFT));
-          reporter.addColumn(reporter.getDetailCell(m.getNameVorname(),
-              Element.ALIGN_LEFT));
-          reporter.addColumn(reporter.getDetailCell(m.getAnschrift(),
-              Element.ALIGN_LEFT));
+          reporter.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
+          reporter.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
+          reporter.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
           String kommunikation = m.getTelefonprivat();
           if (kommunikation.length() > 0
               && m.getTelefondienstlich().length() > 0)
@@ -130,15 +130,13 @@ public class Jubilaeenliste
             kommunikation += ", ";
           }
           kommunikation += m.getEmail();
-          reporter.addColumn(reporter.getDetailCell(kommunikation,
-              Element.ALIGN_LEFT));
+          reporter.addColumn(kommunikation, Element.ALIGN_LEFT);
         }
         if (mitgl.size() == 0)
         {
-          reporter.addColumn(reporter.getDetailCell("", Element.ALIGN_LEFT));
-          reporter.addColumn(reporter.getDetailCell("kein Mitglied",
-              Element.ALIGN_LEFT));
-          reporter.addColumn(reporter.getDetailCell("", Element.ALIGN_LEFT));
+          reporter.addColumn("", Element.ALIGN_LEFT);
+          reporter.addColumn("kein Mitglied", Element.ALIGN_LEFT);
+          reporter.addColumn("", Element.ALIGN_LEFT);
         }
         reporter.closeTable();
       }

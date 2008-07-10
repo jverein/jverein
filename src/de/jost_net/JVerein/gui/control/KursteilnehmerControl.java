@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/01/01 13:13:37  jost
+ * Neu: Dateinamenmuster
+ *
  * Revision 1.5  2007/12/01 10:05:34  jost
  * Änderung wg. neuem Classloader in Jameica
  *
@@ -430,14 +433,11 @@ public class KursteilnehmerControl extends AbstractControl
             while (list.hasNext())
             {
               Kursteilnehmer kt = (Kursteilnehmer) list.next();
-              rpt.addColumn(rpt.getDetailCell(kt.getAbbudatum(),
-                  Element.ALIGN_LEFT));
-              rpt
-                  .addColumn(rpt
-                      .getDetailCell(kt.getName(), Element.ALIGN_LEFT));
-              rpt.addColumn(rpt.getDetailCell(kt.getVZweck1() + "\n"
-                  + kt.getVZweck2(), Element.ALIGN_LEFT));
-              rpt.addColumn(rpt.getDetailCell(kt.getBetrag()));
+              rpt.addColumn(kt.getAbbudatum(), Element.ALIGN_LEFT);
+              rpt.addColumn(kt.getName(), Element.ALIGN_LEFT);
+              rpt.addColumn(kt.getVZweck1() + "\n" + kt.getVZweck2(),
+                  Element.ALIGN_LEFT);
+              rpt.addColumn(kt.getBetrag());
               rpt.setNextRecord();
             }
             rpt.close();

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2007/12/28 13:15:05  jost
+ * Bugfix beim erzeugen eines Stammdaten-Objektes
+ *
  * Revision 1.5  2007/12/21 11:28:20  jost
  * Mitgliederstatistik jetzt Stichtagsbezogen
  *
@@ -149,14 +152,10 @@ public class MitgliederStatistik
       reporter.addHeaderColumn("Anzahl", Element.ALIGN_CENTER, 30,
           Color.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
-      reporter.addColumn(reporter.getDetailCell("Anmeldungen",
-          Element.ALIGN_LEFT));
-      reporter.addColumn(reporter.getDetailCell(getAnmeldungen(stichtag) + "",
-          Element.ALIGN_RIGHT));
-      reporter.addColumn(reporter.getDetailCell("Abmeldungen",
-          Element.ALIGN_LEFT));
-      reporter.addColumn(reporter.getDetailCell(getAbmeldungen(stichtag) + "",
-          Element.ALIGN_RIGHT));
+      reporter.addColumn("Anmeldungen", Element.ALIGN_LEFT);
+      reporter.addColumn(getAnmeldungen(stichtag) + "", Element.ALIGN_RIGHT);
+      reporter.addColumn("Abmeldungen", Element.ALIGN_LEFT);
+      reporter.addColumn(getAbmeldungen(stichtag) + "", Element.ALIGN_RIGHT);
       reporter.closeTable();
 
       reporter.close();
@@ -203,24 +202,18 @@ public class MitgliederStatistik
   {
     if (von == 0 && bis == 100)
     {
-      reporter.addColumn(reporter
-          .getDetailCell("Insgesamt", Element.ALIGN_LEFT));
+      reporter.addColumn("Insgesamt", Element.ALIGN_LEFT);
     }
     else
     {
-      reporter.addColumn(reporter.getDetailCell("Altersgruppe " + von + "-"
-          + bis, Element.ALIGN_LEFT));
+      reporter.addColumn("Altersgruppe " + von + "-" + bis, Element.ALIGN_LEFT);
     }
-    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, null,
-        stichtag)
-        + "", Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "m",
-        stichtag)
-        + "", Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getAltersgruppe(von, bis, "w",
-        stichtag)
-        + "", Element.ALIGN_RIGHT));
-
+    reporter.addColumn(getAltersgruppe(von, bis, null, stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(getAltersgruppe(von, bis, "m", stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(getAltersgruppe(von, bis, "w", stichtag) + "",
+        Element.ALIGN_RIGHT);
   }
 
   private void addBeitragsgruppe(Reporter reporter, Beitragsgruppe bg,
@@ -228,23 +221,18 @@ public class MitgliederStatistik
   {
     if (bg == null)
     {
-      reporter.addColumn(reporter
-          .getDetailCell("Insgesamt", Element.ALIGN_LEFT));
+      reporter.addColumn("Insgesamt", Element.ALIGN_LEFT);
     }
     else
     {
-      reporter.addColumn(reporter.getDetailCell(bg.getBezeichnung(),
-          Element.ALIGN_LEFT));
+      reporter.addColumn(bg.getBezeichnung(), Element.ALIGN_LEFT);
     }
-    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, null,
-        stichtag)
-        + "", Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "m",
-        stichtag)
-        + "", Element.ALIGN_RIGHT));
-    reporter.addColumn(reporter.getDetailCell(getBeitragsgruppe(bg, "w",
-        stichtag)
-        + "", Element.ALIGN_RIGHT));
+    reporter.addColumn(getBeitragsgruppe(bg, null, stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(getBeitragsgruppe(bg, "m", stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(getBeitragsgruppe(bg, "w", stichtag) + "",
+        Element.ALIGN_RIGHT);
 
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/06 19:40:45  jost
+ * Warnings beseitigt
+ *
  * Revision 1.4  2007/12/21 11:28:46  jost
  * Breite von Tabellen einstellbar gemacht.
  *
@@ -160,13 +163,53 @@ public class Reporter
   }
 
   /**
-   * Fuegt eine neue Spalte hinzu.
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
    * 
    * @param cell
    */
   public void addColumn(PdfPCell cell)
   {
     table.addCell(cell);
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(String text, int align, Color backgroundcolor)
+  {
+    addColumn(getDetailCell(text, align, backgroundcolor));
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(String text, int align)
+  {
+    addColumn(getDetailCell(text, align, Color.WHITE));
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(Double value)
+  {
+    addColumn(getDetailCell(value.doubleValue()));
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(double value)
+  {
+    addColumn(getDetailCell(value));
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(Date value, int align)
+  {
+    addColumn(getDetailCell(value, align));
   }
 
   /**
@@ -269,7 +312,7 @@ public class Reporter
    *          die Hintergundfarbe.
    * @return die erzeugte Zelle.
    */
-  public PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
+  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
   {
     PdfPCell cell = new PdfPCell(new Phrase(notNull(text), FontFactory.getFont(
         FontFactory.HELVETICA, 8)));
@@ -287,20 +330,9 @@ public class Reporter
    *          die Ausrichtung.
    * @return die erzeugte Zelle.
    */
-  public PdfPCell getDetailCell(String text, int align)
+  private PdfPCell getDetailCell(String text, int align)
   {
     return getDetailCell(text, align, Color.WHITE);
-  }
-
-  /**
-   * Erzeugt eine Zelle der Tabelle.
-   * 
-   * @param value
-   * @return die erzeugte Zelle.
-   */
-  public PdfPCell getDetailCell(Double value)
-  {
-    return getDetailCell(value.doubleValue());
   }
 
   /**
@@ -310,7 +342,7 @@ public class Reporter
    *          die Zahl.
    * @return die erzeugte Zelle.
    */
-  public PdfPCell getDetailCell(double value)
+  private PdfPCell getDetailCell(double value)
   {
     Font f = null;
     if (value >= 0)
@@ -331,7 +363,7 @@ public class Reporter
    *          das Datum.
    * @return die erzeugte Zelle.
    */
-  public PdfPCell getDetailCell(Date value, int align)
+  private PdfPCell getDetailCell(Date value, int align)
   {
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     return getDetailCell(sdf.format(value), align);
