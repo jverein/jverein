@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/06/28 16:56:35  jost
+ * Bugfix: Buchungsart kann auch gelöscht werden.
+ *
  * Revision 1.10  2008/05/24 19:31:47  jost
  * PDF-Ausgabe
  *
@@ -56,7 +59,8 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
-import de.jost_net.JVerein.io.BuchungAuswertungPDF;
+import de.jost_net.JVerein.io.BuchungAuswertungPDFEinzelbuchungen;
+import de.jost_net.JVerein.io.BuchungAuswertungPDFSummen;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
@@ -393,13 +397,25 @@ public class BuchungsControl extends AbstractControl
     return bisdatum;
   }
 
-  public Button getStartAuswertungButton()
+  public Button getStartAuswertungEinzelbuchungenButton()
   {
-    Button b = new Button("PDF", new Action()
+    Button b = new Button("PDF Einzelbuchungen", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
-        starteAuswertung();
+        starteAuswertung(true);
+      }
+    }, null, true); // "true" defines this button as the default button
+    return b;
+  }
+
+  public Button getStartAuswertungSummenButton()
+  {
+    Button b = new Button("PDF Summen", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        starteAuswertung(false);
       }
     }, null, true); // "true" defines this button as the default button
     return b;
@@ -552,7 +568,8 @@ public class BuchungsControl extends AbstractControl
     return buchungsList;
   }
 
-  private void starteAuswertung()
+  private void starteAuswertung(boolean einzelbuchungen)
+      throws ApplicationException
   {
     DBIterator list;
     Date dVon = null;
@@ -608,7 +625,7 @@ public class BuchungsControl extends AbstractControl
 
       final File file = new File(s);
 
-      auswertungBuchungPDF(list, file, k, ba, dVon, dBis);
+      auswertungBuchungPDF(list, file, k, ba, dVon, dBis, einzelbuchungen);
     }
     catch (RemoteException e)
     {
@@ -618,7 +635,7 @@ public class BuchungsControl extends AbstractControl
 
   private void auswertungBuchungPDF(final DBIterator list, final File file,
       final Konto konto, final Buchungsart buchungsart, final Date dVon,
-      final Date dBis)
+      final Date dBis, final boolean einzelbuchungen)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -626,8 +643,16 @@ public class BuchungsControl extends AbstractControl
       {
         try
         {
-          new BuchungAuswertungPDF(list, file, monitor, konto, buchungsart,
-              dVon, dBis);
+          if (einzelbuchungen)
+          {
+            new BuchungAuswertungPDFEinzelbuchungen(list, file, monitor, konto,
+                buchungsart, dVon, dBis);
+          }
+          else
+          {
+            new BuchungAuswertungPDFSummen(list, file, monitor, konto,
+                buchungsart, dVon, dBis);
+          }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");

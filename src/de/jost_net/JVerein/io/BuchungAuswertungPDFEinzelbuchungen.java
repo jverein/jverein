@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/05/24 19:32:42  jost
+ * Auswertung überarbeitet.
+ *
  * Revision 1.6  2008/03/16 07:37:37  jost
  * Reaktivierung Buchführung
  *
@@ -56,11 +59,11 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class BuchungAuswertungPDF
+public class BuchungAuswertungPDFEinzelbuchungen
 {
   private double summe = 0;
 
-  public BuchungAuswertungPDF(DBIterator list, final File file,
+  public BuchungAuswertungPDFEinzelbuchungen(DBIterator list, final File file,
       ProgressMonitor monitor, Konto konto, Buchungsart buchungsart, Date dVon,
       Date dBis) throws ApplicationException, RemoteException
   {
@@ -184,34 +187,27 @@ public class BuchungAuswertungPDF
     while (listb.hasNext())
     {
       Buchung b = (Buchung) listb.next();
-      reporter.addColumn(reporter.getDetailCell(Einstellungen.DATEFORMAT
-          .format(b.getDatum()), Element.ALIGN_LEFT));
-      reporter.addColumn(reporter
-          .getDetailCell(b.getName(), Element.ALIGN_LEFT));
-      reporter.addColumn(reporter.getDetailCell(b.getZweck(),
-          Element.ALIGN_LEFT));
-      reporter.addColumn(reporter.getDetailCell(b.getZweck2(),
-          Element.ALIGN_LEFT));
-      reporter.addColumn(reporter.getDetailCell(Einstellungen.DECIMALFORMAT
-          .format(b.getBetrag()), Element.ALIGN_RIGHT));
+      reporter.addColumn(Einstellungen.DATEFORMAT.format(b.getDatum()),
+          Element.ALIGN_LEFT);
+      reporter.addColumn(b.getName(), Element.ALIGN_LEFT);
+      reporter.addColumn(b.getZweck(), Element.ALIGN_LEFT);
+      reporter.addColumn(b.getZweck2(), Element.ALIGN_LEFT);
+      reporter.addColumn(b.getBetrag());
       buchungsartSumme += b.getBetrag();
     }
-    reporter.addColumn(reporter.getDetailCell("", Element.ALIGN_LEFT));
+    reporter.addColumn("", Element.ALIGN_LEFT);
     if (list != null)
     {
-      reporter.addColumn(reporter.getDetailCell("Summe " + ba.getBezeichnung(),
-          Element.ALIGN_LEFT));
+      reporter.addColumn("Summe " + ba.getBezeichnung(), Element.ALIGN_LEFT);
     }
     else
     {
-      reporter.addColumn(reporter.getDetailCell("Summe ohne Zuordnung",
-          Element.ALIGN_LEFT));
+      reporter.addColumn("Summe ohne Zuordnung", Element.ALIGN_LEFT);
     }
     summe += buchungsartSumme;
-    reporter.addColumn(reporter.getDetailCell("", Element.ALIGN_LEFT));
-    reporter.addColumn(reporter.getDetailCell("", Element.ALIGN_LEFT));
-    reporter.addColumn(reporter.getDetailCell(Einstellungen.DECIMALFORMAT
-        .format(buchungsartSumme), Element.ALIGN_RIGHT));
+    reporter.addColumn("", Element.ALIGN_LEFT);
+    reporter.addColumn("", Element.ALIGN_LEFT);
+    reporter.addColumn(buchungsartSumme);
     reporter.closeTable();
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/05/24 19:32:21  jost
+ * PDF-Ausgabe verschoben
+ *
  * Revision 1.8  2008/05/24 16:39:48  jost
  * Zus√§tzliche Selektionskriterien
  *
@@ -81,11 +84,12 @@ public class BuchungslisteView extends AbstractView
 
     control.getBuchungsList().paint(this.getParent());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 4);
+    ButtonArea buttons2 = new ButtonArea(this.getParent(), 5);
     buttons2.addButton("<< Zur¸ck", new BackAction());
     buttons2.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.BUCHUNGEN);
-    buttons2.addButton(control.getStartAuswertungButton());
+    buttons2.addButton(control.getStartAuswertungEinzelbuchungenButton());
+    buttons2.addButton(control.getStartAuswertungSummenButton());
     buttons2.addButton("neu", new BuchungNeuAction());
 
   }
