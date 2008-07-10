@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2008/06/29 07:58:01  jost
+ * Neu: Handy
+ *
  * Revision 1.36  2008/05/22 06:49:00  jost
  * Vermeiund NPE
  *
@@ -1619,7 +1622,7 @@ public class MitgliedControl extends AbstractControl
       }
       if (austrittvon.getValue() == null && austrittbis.getValue() == null)
       {
-        subtitle += "ohne Ausgetretene  ";
+        subtitle += "nur Angemeldete, keine Ausgetretenen  ";
       }
       if (beitragsgruppeausw.getValue() != null)
       {
