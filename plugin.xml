@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
 <plugin name="jverein" version="1.1"
-	class="de.jost_net.JVerein.JVereinPlugin">
+	class="de.jost_net.JVerein.JVereinPlugin"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
 
 	<description>Jameica-Vereinsverwaltung</description>
 	<url></url>
@@ -35,6 +37,10 @@
 	        shortcut="ALT+F"
 	        action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
 	      </item>
+	<!--      <item name="Formulare"
+	        shortcut="ALT+F"
+	        action="de.jost_net.JVerein.gui.action.FormularListeAction">
+	      </item> -->
 -	    <item name="-" /> 
 	   	<item name="Import"
             shortcut="ALT+I" 
