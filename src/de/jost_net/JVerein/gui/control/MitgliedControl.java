@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.38  2008/07/10 09:20:24  jost
+ * redaktionelle Änderung
+ *
  * Revision 1.37  2008/06/29 07:58:01  jost
  * Neu: Handy
  *
@@ -1775,6 +1778,7 @@ public class MitgliedControl extends AbstractControl
     }
 
     final File file = new File(s);
+    settings.setAttribute("lastdir", file.getParent());
     final Integer jahr = (Integer) jubeljahr.getValue();
 
     BackgroundTask t = new BackgroundTask()

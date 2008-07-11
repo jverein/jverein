@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/06/28 16:57:29  jost
+ * Vereinheitlichung des Jahressaldos
+ *
  * Revision 1.2  2008/05/26 18:58:19  jost
  * Spaltenausrichtung
  * Berücksichtigung von Eröffnungs- und ggfls. Auflösungsdatum
@@ -210,6 +213,7 @@ public class JahressaldoControl extends AbstractControl
       }
 
       final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
       Integer jahr = (Integer) suchjahr.getValue();
 
       Geschaeftsjahr gj = new Geschaeftsjahr(jahr.intValue());

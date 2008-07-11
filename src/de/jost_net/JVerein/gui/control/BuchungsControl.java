@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/07/10 07:56:43  jost
+ * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
+ *
  * Revision 1.11  2008/06/28 16:56:35  jost
  * Bugfix: Buchungsart kann auch gelöscht werden.
  *
@@ -624,6 +627,7 @@ public class BuchungsControl extends AbstractControl
       }
 
       final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
 
       auswertungBuchungPDF(list, file, k, ba, dVon, dBis, einzelbuchungen);
     }
