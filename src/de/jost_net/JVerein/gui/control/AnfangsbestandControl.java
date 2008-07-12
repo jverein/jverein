@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:47:13  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -19,6 +22,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AnfangsbestandDetailAction;
 import de.jost_net.JVerein.gui.menu.AnfangsbestandMenu;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
+import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -106,6 +110,21 @@ public class AnfangsbestandControl extends AbstractControl
     try
     {
       Anfangsbestand a = getAnfangsbestand();
+      DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
+      konten.addFilter("nummer = ?", new Object[] { (String) getKonto()
+          .getValue() });
+      if (konten.size() == 0)
+      {
+        throw new RemoteException("Konto nicht gefunden");
+      }
+      if (konten.size() > 1)
+      {
+        throw new RemoteException(
+            "Mehrere Konten mit gleicher Nummer sind nicht zulässig!");
+      }
+      Konto k = (Konto) konten.next();
+      System.out.println(k.getNummer());
+      a.setKonto(k);
       a.setDatum((Date) getDatum().getValue());
       a.setBetrag((Double) getBetrag().getValue());
       a.store();
