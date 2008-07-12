@@ -37,10 +37,10 @@
 	        shortcut="ALT+F"
 	        action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
 	      </item>
-	<!--      <item name="Formulare"
+	      <item name="Formulare"
 	        shortcut="ALT+F"
 	        action="de.jost_net.JVerein.gui.action.FormularListeAction">
-	      </item> -->
+	      </item> 
 -	    <item name="-" /> 
 	   	<item name="Import"
             shortcut="ALT+I" 
