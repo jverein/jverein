@@ -207,12 +207,13 @@ CREATE TABLE anfangsbestand
   id            IDENTITY,
   konto         INTEGER,
   datum         DATE,
+  betrag        DOUBLE,
   UNIQUE        (id),
   UNIQUE        (konto, datum),
   PRIMARY KEY   (id)
 );
 
-ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer) DEFERRABLE;
+ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id) DEFERRABLE;
 
 CREATE TABLE jahresabschluss
 (
