@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/05/05 18:23:18  jost
+ * *** empty log message ***
+ *
  * Revision 1.7  2008/04/10 19:02:29  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -114,8 +117,15 @@ public class MitgliedAuswertungCSV
               Zusatzfelder.class);
           it2.addFilter("mitglied = ?", new Object[] { m.getID() });
           it2.addFilter("felddefinition = ?", new Object[] { fd.getID() });
-          Zusatzfelder zf = (Zusatzfelder) it2.next();
-          out.print(";" + zf.getFeld());
+          if (it2.size() > 0)
+          {
+            Zusatzfelder zf = (Zusatzfelder) it2.next();
+            out.print(";" + zf.getFeld());
+          }
+          else
+          {
+            out.print(";");
+          }
         }
         out.println("");
       }
