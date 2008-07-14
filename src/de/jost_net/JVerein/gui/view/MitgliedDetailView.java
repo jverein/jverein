@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2008/06/29 07:58:15  jost
+ * Neu: Handy
+ *
  * Revision 1.18  2008/05/24 14:04:08  jost
  * Redatkionelle Ã„nderung
  *
@@ -162,7 +165,7 @@ public class MitgliedDetailView extends AbstractView
           .getExterneMitgliedsnummer());
     }
     tab3.addLabelPair("Eintritt", control.getEintritt());
-    tab3.addLabelPair("Betragsgruppe", control.getBeitragsgruppe());
+    tab3.addLabelPair("Beitragsgruppe", control.getBeitragsgruppe());
     tab3.addLabelPair("Austritt", control.getAustritt());
     tab3.addLabelPair("Kündigung", control.getKuendigung());
     DBIterator it = Einstellungen.getDBService().createList(
