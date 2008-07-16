@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="/jameica"/>
 	<classpathentry kind="lib" path="lib/csvjdbc.jar"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/itext-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/nc.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/hibiscus"/>
 	<classpathentry kind="lib" path="../hibiscus/lib/obantoo-bin-1.4.11.jar"/>
 	<classpathentry kind="output" path="bin"/>

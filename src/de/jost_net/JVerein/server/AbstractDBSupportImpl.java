@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/10/18 18:20:23  jost
+ * Vorbereitung H2-DB
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.server;
@@ -29,6 +32,7 @@ import de.willuhn.util.ApplicationException;
  */
 public abstract class AbstractDBSupportImpl implements DBSupport
 {
+  private static final long serialVersionUID = 8344265686929785808L;
 
   public void checkConsistency(Connection conn) throws RemoteException,
       ApplicationException
