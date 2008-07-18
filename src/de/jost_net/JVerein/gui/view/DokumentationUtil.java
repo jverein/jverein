@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/06/28 16:59:18  jost
+ * Neu: Jahresabschluss
+ *
  * Revision 1.5  2008/05/25 19:36:42  jost
  * Neu: Jahressaldo
  *
@@ -50,6 +53,8 @@ public class DokumentationUtil
   public static final String FELDDEFINITIONEN = PRE
       + "Administration#Felddefinitionen";
 
+  public static final String FORMULARE = PRE + "Administration#Formulare";
+
   public static final String EINSTELLUNGEN = PRE
       + "Administration#Einstellungen";
 
@@ -85,4 +90,7 @@ public class DokumentationUtil
   public static final String JAHRESSALDO = PRE + "Jahressaldo";
 
   public static final String JAHRESABSCHLUSS = PRE + "Jahresabschluss";
+
+  public static final String SPENDENBESCHEINIGUNG = PRE
+      + "Spendenbescheinigung";
 }
