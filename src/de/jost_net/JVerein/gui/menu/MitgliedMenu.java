@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/08/31 05:36:00  jost
+ * Jetzt auch bearbeiten über das Context-Menü
+ *
  * Revision 1.1  2007/08/30 19:48:53  jost
  * Neues Kontext-Menü
  *
@@ -17,6 +20,7 @@ package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 
@@ -33,5 +37,7 @@ public class MitgliedMenu extends ContextMenu
   {
     addItem(new CheckedContextMenuItem("Bearbeiten", new MitgliedDetailAction()));
     addItem(new CheckedContextMenuItem("L�schen...", new MitgliedDeleteAction()));
+    addItem(new CheckedContextMenuItem("Spendenbescheinigung",
+        new SpendenbescheinigungAction()));
   }
 }
