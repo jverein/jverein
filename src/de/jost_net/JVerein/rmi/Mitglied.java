@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/06/29 07:58:45  jost
+ * Neu: Handy
+ *
  * Revision 1.7  2008/03/08 19:30:47  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -166,6 +169,8 @@ public interface Mitglied extends DBObject
   public Date getEingabedatum() throws RemoteException;
 
   public String getNameVorname() throws RemoteException;
+  
+  public String getVornameName() throws RemoteException;
 
   public String getAnschrift() throws RemoteException;
 

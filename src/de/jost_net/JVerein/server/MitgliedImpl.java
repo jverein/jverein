@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/06/29 07:58:58  jost
+ * Neu: Handy
+ *
  * Revision 1.11  2008/03/08 19:31:17  jost
  * Neu: Externe Mitgliedsnummer
  *
@@ -496,6 +499,20 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       ret += getTitel() + " ";
     }
     ret += getVorname();
+    return ret;
+  }
+
+  /**
+   * Gibt den Namen aufbereitet zurück: Dr. Willi Meier
+   */
+  public String getVornameName() throws RemoteException
+  {
+    String ret = getTitel();
+    if (ret.length() > 0)
+    {
+      ret += " ";
+    }
+    ret += getVorname() + " " + getName();
     return ret;
   }
 
