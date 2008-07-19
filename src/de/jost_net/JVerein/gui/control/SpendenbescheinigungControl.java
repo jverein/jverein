@@ -9,12 +9,14 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:09:46  jost
+ * Neu: Spendenbescheinigung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -27,7 +29,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.input.FormularArtInput;
 import de.jost_net.JVerein.gui.input.FormularInput;
-import de.jost_net.JVerein.gui.menu.FormularMenu;
+import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -355,7 +357,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     spbList.addColumn("Zeile 7", "zeile7");
 
     spbList.setRememberColWidths(true);
-    spbList.setContextMenu(new FormularMenu());
+    spbList.setContextMenu(new SpendenbescheinigungMenu());
     spbList.setRememberOrder(true);
     spbList.setSummary(false);
     return spbList;
