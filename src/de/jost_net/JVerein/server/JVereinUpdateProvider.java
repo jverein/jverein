@@ -77,6 +77,9 @@ public class JVereinUpdateProvider implements UpdateProvider
             .executeUpdate("INSERT INTO version VALUES (1, " + newVersion + ")");
       }
       stmt.close();
+      String msg = "JVerein-DB-Update: " + newVersion;
+      progressmonitor.setStatusText(msg);
+      Logger.info(msg);
     }
     catch (SQLException e)
     {
