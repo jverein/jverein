@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/05/24 14:04:08  jost
+ * Redatkionelle Ã„nderung
+ *
  * Revision 1.12  2008/01/31 19:39:37  jost
  * BerÃ¼cksichtigung eines Stichtages fÃ¼r die Abbuchung
  *
@@ -85,7 +88,7 @@ public class AbbuchungView extends AbstractView
           + " Bitte unter Plugins|JVerein|Stammdaten erfassen.");
     }
 
-    GUI.getView().setTitle("Abbuchung");
+    GUI.getView().setTitle("Abrechnung");
 
     final AbbuchungControl control = new AbbuchungControl(this);
 
@@ -93,7 +96,7 @@ public class AbbuchungView extends AbstractView
     group.addLabelPair("Modus", control.getAbbuchungsmodus());
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
-    group.addLabelPair("Zahlungsgrund", control.getZahlungsgrund());
+    group.addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
     group.addLabelPair("Zusatzabbuchung", control.getZusatzabbuchung());
     if (!Einstellungen.isZusatzabbuchung())
     {
@@ -101,16 +104,22 @@ public class AbbuchungView extends AbstractView
     }
     group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
     group.addLabelPair("Dtaus-Datei drucken", control.getDtausPrint());
+
     if (!Einstellungen.isKursteilnehmer())
     {
       control.getKursteilnehmer().setEnabled(false);
     }
-    group.addLabelPair("Ausgabe", control.getAbbuchungsausgabe());
+    group.addLabelPair("Abbuchungsausgabe", control.getAbbuchungsausgabe());
+    group.addSeparator();
+    group
+        .addText(
+            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
+                + "Üblicherweise 1.1. des Jahres.", true);
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABBUCHUNG);
+        DokumentationUtil.ABRECHNUNG);
     buttons.addButton(control.getStartButton());
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/05/24 14:04:08  jost
+ * Redatkionelle Ã„nderung
+ *
  * Revision 1.9  2008/05/22 06:53:43  jost
  * BuchfÃ¼hrung: Beginn des GeschÃ¤ftsjahres
  *
@@ -79,6 +82,14 @@ public class EinstellungenView extends AbstractView
     LabelGroup groupBuchfuehrung = new LabelGroup(getParent(), "Buchführung");
     groupBuchfuehrung.addLabelPair("Beginn Geschäftsjahr (TT.MM.)", control
         .getBeginnGeschaeftsjahr());
+
+    LabelGroup groupRechnungen = new LabelGroup(getParent(), "Rechnungen");
+    groupRechnungen.addLabelPair("für Zahlungsweg Abbuchung", control
+        .getRechnungFuerAbbuchung());
+    groupRechnungen.addLabelPair("für Zahlungsweg Überweisung", control
+        .getRechnungFuerUeberweisung());
+    groupRechnungen.addLabelPair("für Zahlungsweg Barzahlung", control
+        .getRechnungFuerBarzahlung());
 
     new Headline(getParent(), "* Änderung erfordert Neustart");
     ButtonArea buttons = new ButtonArea(getParent(), 3);

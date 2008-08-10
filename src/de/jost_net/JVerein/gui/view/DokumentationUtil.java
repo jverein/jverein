@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/07/18 20:12:14  jost
+ * Neu: Formulare und Spendenbescheinigung
+ *
  * Revision 1.6  2008/06/28 16:59:18  jost
  * Neu: Jahresabschluss
  *
@@ -40,6 +43,8 @@ public class DokumentationUtil
   private static final String PRE = "http://www.jverein.de/index.php5?title=";
 
   public static final String ABBUCHUNG = PRE + "Abbuchung";
+
+  public static final String ABRECHNUNG = PRE + "Abrechnung";
 
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
       + "Auswertung#Auswertung_der_Kursteilnehmer";

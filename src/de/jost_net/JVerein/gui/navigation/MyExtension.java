@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/07/18 20:11:53  jost
+ * Neu: Spendenbescheinigung
+ *
  * Revision 1.7  2008/06/28 16:58:42  jost
  * Neu: Jahresabschluss
  *
@@ -44,7 +47,6 @@ import de.jost_net.JVerein.gui.action.KontoListAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
-import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
@@ -72,7 +74,8 @@ public class MyExtension implements Extension
         jverein.addChild(new MyItem(jverein, "Kursteilnehmer",
             new KursteilnehmerSucheAction()));
       }
-      jverein.addChild(new MyItem(jverein, "Abbuchung", new AbbuchungAction()));
+      jverein
+          .addChild(new MyItem(jverein, "Abrechnung", new AbbuchungAction()));
       if (Einstellungen.isZusatzabbuchung())
       {
         jverein.addChild(new MyItem(jverein, "Zusatzabbuchung",
@@ -130,7 +133,8 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.7 2008/06/28 16:58:42 jost Neu:
+ * $Log$ Revision 1.8 2008/07/18 20:11:53 jost Neu:
+ * Spendenbescheinigung Revision 1.7 2008/06/28 16:58:42 jost Neu:
  * Jahresabschluss
  * 
  * Revision 1.6 2008/05/25 19:36:26 jost Neu: Jahressaldo Revision 1.5

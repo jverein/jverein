@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/31 19:36:46  jost
+ * Jährliche, Halbjährliche und Vierteljährliche Abbuchungen können jetzt separat ausgeführt werden.
+ *
  * Revision 1.2  2007/12/30 10:09:48  jost
  * Neuer Rhytmus: Jahr, Vierteljahr und Monat
  *
@@ -138,7 +141,7 @@ public class AbbuchungsmodusInput extends SelectInput
       switch (abbuchungsmodus)
       {
         case AbbuchungsmodusInput.KEINBEITRAG:
-          this.label = "keine Beitragsabbuchung";
+          this.label = "keine Beitragsabrechnung";
           break;
         case AbbuchungsmodusInput.JAEHRLICH:
           this.label = "Jahresbeitr�ge";
