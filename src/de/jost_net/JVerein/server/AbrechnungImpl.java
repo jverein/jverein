@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/08/10 12:37:57  jost
+ * Vorbereitung der Rechnungserstellung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -83,7 +86,7 @@ public class AbrechnungImpl extends AbstractDBObject implements Abrechnung
 
   public void setMitglied(Mitglied mitglied) throws RemoteException
   {
-    setAttribute("mitgliedsnummer", new Integer(mitglied.getID()));
+    setAttribute("mitglied", new Integer(mitglied.getID()));
   }
 
   public Date getDatum() throws RemoteException
