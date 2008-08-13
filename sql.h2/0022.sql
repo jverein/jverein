@@ -1,7 +1,7 @@
 CREATE TABLE abrechnung 
 (
   id            IDENTITY, 
-  mitgliedsnummer INTEGER,
+  mitglied      INTEGER,
   datum         DATE,
   zweck1        VARCHAR(27),
   zweck2        VARCHAR(27),

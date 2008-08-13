@@ -1,1 +1,1 @@
-CREATE INDEX ixAbrechnung1 ON abrechnung(mitgliedsnummer);
+CREATE INDEX ixAbrechnung1 ON abrechnung(mitglied);
