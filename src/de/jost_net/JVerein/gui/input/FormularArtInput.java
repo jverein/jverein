@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:10:05  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;
@@ -43,7 +46,7 @@ public class FormularArtInput extends SelectInput
   {
     ArrayList<FormularArtObject> l = new ArrayList<FormularArtObject>();
     l.add(new FormularArtObject(SPENDENBESCHEINIGUNG));
-    // l.add(new FormularArtObject(RECHNUNG));
+    l.add(new FormularArtObject(RECHNUNG));
     return PseudoIterator.fromArray((FormularArtObject[]) l
         .toArray(new FormularArtObject[l.size()]));
   }
@@ -80,7 +83,7 @@ public class FormularArtInput extends SelectInput
           this.label = "Spendenbescheinigung";
           break;
         case FormularArtInput.RECHNUNG:
-          this.label = "Rechnung (in Vorbereitung - kann noch nicht genutzt werden)";
+          this.label = "Rechnung";
           break;
       }
     }

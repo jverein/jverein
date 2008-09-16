@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/08/10 12:36:12  jost
+ * Abbuchung -> Abrechnung
+ * Vorbereitung der Rechnungserstellung
+ *
  * Revision 1.7  2008/07/18 20:12:14  jost
  * Neu: Formulare und Spendenbescheinigung
  *
@@ -45,6 +49,8 @@ public class DokumentationUtil
   public static final String ABBUCHUNG = PRE + "Abbuchung";
 
   public static final String ABRECHNUNG = PRE + "Abrechnung";
+
+  public static final String RECHNUNG = PRE + "Rechnung";
 
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
       + "Auswertung#Auswertung_der_Kursteilnehmer";
