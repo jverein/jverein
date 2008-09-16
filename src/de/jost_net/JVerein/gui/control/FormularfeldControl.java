@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:09:31  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -62,6 +65,20 @@ public class FormularfeldControl extends AbstractControl
 
   private Formularfeld formularfeld;
 
+  public static final String EMPFAENGER = "Empfänger";
+
+  public static final String TAGESDATUM = "Tagesdatum";
+
+  public static final String ZAHLUNGSGRUND1 = "Zahlungsgrund 1";
+
+  public static final String ZAHLUNGSGRUND2 = "Zahlungsgrund 2";
+
+  public static final String BUCHUNGSDATUM = "Buchungsdatum";
+
+  public static final String BETRAG = "Betrag";
+  
+  public static final String ZAHLUNGSWEG = "Zahlungsweg";
+
   public FormularfeldControl(AbstractView view, Formular formular)
   {
     super(view);
@@ -92,14 +109,22 @@ public class FormularfeldControl extends AbstractControl
       return name;
     }
     ArrayList<String> namen = new ArrayList<String>();
-    namen.add("Tagesdatum");
-    namen.add("Empfänger");
+    namen.add(TAGESDATUM);
+    namen.add(EMPFAENGER);
     if (formular.getArt() == FormularArtInput.SPENDENBESCHEINIGUNG)
     {
       namen.add("Bescheinigungsdatum");
       namen.add("Betrag");
       namen.add("Betrag in Worten");
       namen.add("Spendedatum");
+    }
+    if (formular.getArt() == FormularArtInput.RECHNUNG)
+    {
+      namen.add(ZAHLUNGSGRUND1);
+      namen.add(ZAHLUNGSGRUND2);
+      namen.add(BUCHUNGSDATUM);
+      namen.add(BETRAG);
+      namen.add(ZAHLUNGSWEG);
     }
     name = new SelectInput(namen, (String) getFormularfeld().getName());
     return name;
@@ -205,7 +230,7 @@ public class FormularfeldControl extends AbstractControl
     formularfelderList.addColumn("von unten", "y");
     formularfelderList.addColumn("Font", "font");
     formularfelderList.addColumn("Fonthöhe", "fontsize");
- 
+
     formularfelderList.setRememberColWidths(true);
     formularfelderList.setContextMenu(new FormularfeldMenu());
     formularfelderList.setRememberOrder(true);
