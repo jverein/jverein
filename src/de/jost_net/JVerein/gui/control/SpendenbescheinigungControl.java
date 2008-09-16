@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/07/23 19:40:30  jost
+ * Bugfix ..PDF
+ *
  * Revision 1.2  2008/07/19 19:24:44  jost
  * Korrektes Kontextmen√º
  *
@@ -19,6 +22,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
@@ -271,12 +275,18 @@ public class SpendenbescheinigungControl extends AbstractControl
           throw new ApplicationException(
               "Fehler bei der Aufbereitung der Spendenbescheinigung");
         }
+        catch (IOException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler bei der Aufbereitung der Spendenbescheinigung");
+        }
       }
     }, null, true); // "true" defines this button as the default button
     return b;
   }
 
-  private void generiereSpendenbescheinigung() throws RemoteException
+  private void generiereSpendenbescheinigung() throws IOException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei w‰hlen.");
@@ -332,7 +342,9 @@ public class SpendenbescheinigungControl extends AbstractControl
     tmp = (Date) getSpendedatum().getValue();
     String spendedatum = Einstellungen.DATEFORMAT.format(tmp);
     map.put("Spendedatum", spendedatum);
-    FormularAufbereitung fa = new FormularAufbereitung(fo, file, map);
+    FormularAufbereitung fa = new FormularAufbereitung(file);
+    fa.writeForm(fo, map);
+    fa.showFormular();
 
   }
 

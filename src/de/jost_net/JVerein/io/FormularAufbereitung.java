@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:15:55  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -38,16 +41,42 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularAufbereitung
 {
-  public FormularAufbereitung(Formular formular, final File f,
-      HashMap<String, Object> map) throws RemoteException
+  private Document doc;
+
+  private FileOutputStream fos;
+
+  private PdfWriter writer;
+
+  private File f;
+
+  public FormularAufbereitung(final File f) throws RemoteException
+  {
+    this.f = f;
+    try
+    {
+      doc = new Document();
+      fos = new FileOutputStream(f);
+
+      writer = PdfWriter.getInstance(doc, fos);
+      doc.open();
+
+    }
+    catch (IOException e)
+    {
+      throw new RemoteException("Fehler", e);
+    }
+    catch (DocumentException e)
+    {
+      throw new RemoteException("Fehler", e);
+    }
+  }
+
+  public void writeForm(Formular formular, HashMap<String, Object> map)
+      throws RemoteException
   {
     try
     {
-      Document doc = new Document();
-      FileOutputStream fos = new FileOutputStream(f);
-
-      PdfWriter writer = PdfWriter.getInstance(doc, fos);
-      doc.open();
+      doc.newPage();
       PdfReader reader = new PdfReader(formular.getInhalt());
       PdfImportedPage page = writer.getImportedPage(reader, 1);
       PdfContentByte contentByte = writer.getDirectContent();
@@ -60,26 +89,6 @@ public class FormularAufbereitung
       {
         goFormularfeld(contentByte, (Formularfeld) it.next(), map);
       }
-
-      doc.close();
-      writer.close();
-      fos.close();
-      GUI.getDisplay().asyncExec(new Runnable()
-      {
-        public void run()
-        {
-          try
-          {
-            new Program().handleAction(f);
-          }
-          catch (ApplicationException ae)
-          {
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(ae.getLocalizedMessage(),
-                    StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      });
     }
     catch (IOException e)
     {
@@ -91,6 +100,29 @@ public class FormularAufbereitung
     }
   }
 
+  public void showFormular() throws IOException
+  {
+    doc.close();
+    writer.close();
+    fos.close();
+    GUI.getDisplay().asyncExec(new Runnable()
+    {
+      public void run()
+      {
+        try
+        {
+          new Program().handleAction(f);
+        }
+        catch (ApplicationException ae)
+        {
+          Application.getMessagingFactory().sendMessage(
+              new StatusBarMessage(ae.getLocalizedMessage(),
+                  StatusBarMessage.TYPE_ERROR));
+        }
+      }
+    });
+  }
+
   private void goFormularfeld(PdfContentByte contentByte, Formularfeld feld,
       HashMap<String, Object> map) throws DocumentException, IOException
   {
@@ -99,13 +131,31 @@ public class FormularAufbereitung
 
     float x = mm2point(feld.getX().floatValue());
     float y = mm2point(feld.getY().floatValue());
-    String val = (String) map.get(feld.getName());
-    String[] ss = val.split("\n");
+    Object val = map.get(feld.getName());
+    int links = 1;
+    int rechts = 2;
+    int buendig = links;
+    String stringVal = null;
+    if (val instanceof String)
+    {
+      stringVal = (String) val;
+    }
+    if (val instanceof Double)
+    {
+      stringVal = Einstellungen.DECIMALFORMAT.format((Double) val);
+      buendig = rechts;
+    }
+    String[] ss = stringVal.split("\n");
     for (String s : ss)
     {
       contentByte.setFontAndSize(bf, feld.getFontsize().floatValue());
       contentByte.beginText();
-      contentByte.moveText(x, y);
+      float offset = 0;
+      if (buendig == rechts)
+      {
+        offset = contentByte.getEffectiveStringWidth(s, true);
+      }
+      contentByte.moveText(x - offset, y);
       contentByte.showText(s);
       contentByte.endText();
       y -= feld.getFontsize().floatValue();
