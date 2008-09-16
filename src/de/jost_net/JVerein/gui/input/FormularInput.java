@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:10:21  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;
@@ -30,6 +33,11 @@ public class FormularInput extends SelectInput
   public FormularInput(int art, String id) throws RemoteException
   {
     super(init(art), initdefault(id));
+  }
+
+  public FormularInput(int art) throws RemoteException
+  {
+    super(init(art), null);
   }
 
   /**
