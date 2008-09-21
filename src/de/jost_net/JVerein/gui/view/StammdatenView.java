@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/05/24 14:04:08  jost
+ * Redatkionelle Ã„nderung
+ *
  * Revision 1.5  2008/01/01 19:52:59  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -51,6 +54,7 @@ public class StammdatenView extends AbstractView
     group.addLabelPair("Konto", control.getKonto());
     group.addLabelPair("Altersgruppen", control.getAltersgruppen());
     group.addLabelPair("Jubiläen", control.getJubilaeen());
+    group.addLabelPair("Altersjubiläen", control.getAltersjubilaeen());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());

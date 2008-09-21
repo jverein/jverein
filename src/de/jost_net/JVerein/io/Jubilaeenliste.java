@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/07/10 07:59:38  jost
+ * Optimierung der internen Reporter-Klasse
+ *
  * Revision 1.2  2007/12/28 13:14:50  jost
  * Bugfix beim erzeugen eines Stammdaten-Objektes
  *
@@ -33,6 +36,7 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -46,14 +50,13 @@ import de.willuhn.util.ProgressMonitor;
 
 public class Jubilaeenliste
 {
-  public Jubilaeenliste(final File file, ProgressMonitor monitor, Integer jahr)
-      throws ApplicationException, RemoteException
+  public Jubilaeenliste(final File file, ProgressMonitor monitor, Integer jahr,
+      String art) throws ApplicationException, RemoteException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      Reporter reporter = new Reporter(fos, monitor, "Jubiläumsliste " + jahr,
-          "", 3);
+      Reporter reporter = new Reporter(fos, monitor, art + " " + jahr, "", 3);
 
       Stammdaten stamm = null;
       try
@@ -75,71 +78,15 @@ public class Jubilaeenliste
             "Keine Stammdaten gespeichert. Bitte erfassen.");
       }
 
-      JubilaeenParser jp = new JubilaeenParser(stamm.getJubilaeen());
-      while (jp.hasNext())
+      if (art.equals(MitgliedControl.JUBELART_MITGLIEDSCHAFT))
       {
-        int jubi = jp.getNext();
-        Paragraph pHeader = new Paragraph("\n" + jubi + "-jähriges Jubiläum",
-            FontFactory.getFont(FontFactory.HELVETICA, 11));
-        reporter.add(pHeader);
-
-        reporter.addHeaderColumn("Eintrittsdatum", Element.ALIGN_CENTER, 50,
-            Color.LIGHT_GRAY);
-        reporter.addHeaderColumn("Name, Vorname", Element.ALIGN_CENTER, 100,
-            Color.LIGHT_GRAY);
-        reporter.addHeaderColumn("Anschrift", Element.ALIGN_CENTER, 120,
-            Color.LIGHT_GRAY);
-        reporter.addHeaderColumn("Kommunikation", Element.ALIGN_CENTER, 80,
-            Color.LIGHT_GRAY);
-        reporter.createHeader();
-
-        DBIterator mitgl = Einstellungen.getDBService().createList(
-            Mitglied.class);
-        mitgl.addFilter("austritt is null");
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, jahr);
-        cal.add(Calendar.YEAR, jubi * -1);
-        cal.set(Calendar.MONTH, Calendar.JANUARY);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date von = cal.getTime();
-        mitgl.addFilter("eintritt >= ?", new Object[] { new java.sql.Date(von
-            .getTime()) });
-
-        cal.set(Calendar.MONTH, Calendar.DECEMBER);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date bis = cal.getTime();
-        mitgl.addFilter("eintritt <= ?", new Object[] { new java.sql.Date(bis
-            .getTime()) });
-        mitgl.setOrder("order by eintritt");
-
-        while (mitgl.hasNext())
-        {
-          Mitglied m = (Mitglied) mitgl.next();
-          reporter.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
-          reporter.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-          reporter.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
-          String kommunikation = m.getTelefonprivat();
-          if (kommunikation.length() > 0
-              && m.getTelefondienstlich().length() > 0)
-          {
-            kommunikation += ", ";
-          }
-          kommunikation += m.getTelefondienstlich();
-          if (kommunikation.length() > 0 && m.getEmail().length() > 0)
-          {
-            kommunikation += ", ";
-          }
-          kommunikation += m.getEmail();
-          reporter.addColumn(kommunikation, Element.ALIGN_LEFT);
-        }
-        if (mitgl.size() == 0)
-        {
-          reporter.addColumn("", Element.ALIGN_LEFT);
-          reporter.addColumn("kein Mitglied", Element.ALIGN_LEFT);
-          reporter.addColumn("", Element.ALIGN_LEFT);
-        }
-        reporter.closeTable();
+        mitgliedschaft(reporter, stamm, jahr);
       }
+      else if (art.equals(MitgliedControl.JUBELART_ALTER))
+      {
+        alter(reporter, stamm, jahr);
+      }
+
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
@@ -175,6 +122,139 @@ public class Jubilaeenliste
       Logger.error("error while creating report", e);
       throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
     }
+
+  }
+
+  private void mitgliedschaft(Reporter reporter, Stammdaten stamm, int jahr)
+      throws RemoteException, RuntimeException, DocumentException
+  {
+    JubilaeenParser jp = new JubilaeenParser(stamm.getJubilaeen());
+    while (jp.hasNext())
+    {
+      int jubi = jp.getNext();
+      Paragraph pHeader = new Paragraph("\n" + jubi + "-jähriges Jubiläum",
+          FontFactory.getFont(FontFactory.HELVETICA, 11));
+      reporter.add(pHeader);
+
+      addHeader(reporter);
+
+      DBIterator mitgl = Einstellungen.getDBService()
+          .createList(Mitglied.class);
+      mitgl.addFilter("austritt is null");
+      Calendar cal = Calendar.getInstance();
+      cal.set(Calendar.YEAR, jahr);
+      cal.add(Calendar.YEAR, jubi * -1);
+      cal.set(Calendar.MONTH, Calendar.JANUARY);
+      cal.set(Calendar.DAY_OF_MONTH, 1);
+      Date von = cal.getTime();
+      mitgl.addFilter("eintritt >= ?", new Object[] { new java.sql.Date(von
+          .getTime()) });
+
+      cal.set(Calendar.MONTH, Calendar.DECEMBER);
+      cal.set(Calendar.DAY_OF_MONTH, 31);
+      Date bis = cal.getTime();
+      mitgl.addFilter("eintritt <= ?", new Object[] { new java.sql.Date(bis
+          .getTime()) });
+      mitgl.setOrder("order by eintritt");
+
+      while (mitgl.hasNext())
+      {
+        Mitglied m = (Mitglied) mitgl.next();
+        addDetail(reporter, m);
+      }
+      if (mitgl.size() == 0)
+      {
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("kein Mitglied", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+      }
+      reporter.closeTable();
+    }
+
+  }
+
+  private void alter(Reporter reporter, Stammdaten stamm, int jahr)
+      throws RemoteException, RuntimeException, DocumentException
+  {
+    JubilaeenParser jp = new JubilaeenParser(stamm.getAltersjubilaeen());
+    while (jp.hasNext())
+    {
+      int jubi = jp.getNext();
+      Paragraph pHeader = new Paragraph("\n" + jubi + ". Geburtstag",
+          FontFactory.getFont(FontFactory.HELVETICA, 11));
+      reporter.add(pHeader);
+
+      addHeader(reporter);
+
+      DBIterator mitgl = Einstellungen.getDBService()
+          .createList(Mitglied.class);
+      mitgl.addFilter("austritt is null");
+      Calendar cal = Calendar.getInstance();
+      cal.set(Calendar.YEAR, jahr);
+      cal.add(Calendar.YEAR, jubi * -1);
+      cal.set(Calendar.MONTH, Calendar.JANUARY);
+      cal.set(Calendar.DAY_OF_MONTH, 1);
+      Date von = cal.getTime();
+      mitgl.addFilter("geburtsdatum >= ?", new Object[] { new java.sql.Date(von
+          .getTime()) });
+
+      cal.set(Calendar.MONTH, Calendar.DECEMBER);
+      cal.set(Calendar.DAY_OF_MONTH, 31);
+      Date bis = cal.getTime();
+      mitgl.addFilter("geburtsdatum <= ?", new Object[] { new java.sql.Date(bis
+          .getTime()) });
+      mitgl.setOrder("order by geburtsdatum");
+
+      while (mitgl.hasNext())
+      {
+        Mitglied m = (Mitglied) mitgl.next();
+        addDetail(reporter, m);
+      }
+      System.out.println(mitgl.size());
+      if (mitgl.size() == 0)
+      {
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("kein Mitglied", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+      }
+      reporter.closeTable();
+    }
+
+  }
+
+  private void addHeader(Reporter reporter) throws DocumentException
+  {
+    reporter.addHeaderColumn("Eintrittsdatum", Element.ALIGN_CENTER, 50,
+        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn("Name, Vorname", Element.ALIGN_CENTER, 100,
+        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn("Anschrift", Element.ALIGN_CENTER, 120,
+        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn("Kommunikation", Element.ALIGN_CENTER, 80,
+        Color.LIGHT_GRAY);
+    reporter.createHeader();
+
+  }
+
+  private void addDetail(Reporter reporter, Mitglied m) throws RemoteException
+  {
+    reporter.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
+    reporter.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
+    reporter.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
+    String kommunikation = m.getTelefonprivat();
+    if (kommunikation.length() > 0 && m.getTelefondienstlich().length() > 0)
+    {
+      kommunikation += ", ";
+    }
+    kommunikation += m.getTelefondienstlich();
+    if (kommunikation.length() > 0 && m.getEmail().length() > 0)
+    {
+      kommunikation += ", ";
+    }
+    kommunikation += m.getEmail();
+    reporter.addColumn(kommunikation, Element.ALIGN_LEFT);
 
   }
 }

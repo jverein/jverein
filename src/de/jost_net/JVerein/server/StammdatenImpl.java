@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/12/22 08:27:30  jost
+ * Neu: Jubiläenliste
+ *
  * Revision 1.3  2007/02/23 20:28:41  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -165,6 +168,21 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
   public void setJubilaeen(String jubilaeen) throws RemoteException
   {
     setAttribute("jubilaeen", jubilaeen);
+  }
+
+  public String getAltersjubilaeen() throws RemoteException
+  {
+    String aj = (String) getAttribute("altersjubilaeen");
+    if (aj == null || aj.length() == 0)
+    {
+      aj = "50,60,65,70,75,80,85,90,95,100";
+    }
+    return aj;
+  }
+
+  public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException
+  {
+    setAttribute("altersjubilaeen", altersjubilaeen);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

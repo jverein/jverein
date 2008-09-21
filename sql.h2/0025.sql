@@ -1,0 +1,1 @@
+ALTER TABLE stammdaten ADD altersjubilaeen varchar(50);

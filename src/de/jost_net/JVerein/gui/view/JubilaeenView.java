@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/05/24 14:04:08  jost
+ * Redatkionelle Änderung
+ *
  * Revision 1.2  2008/01/01 19:51:34  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -37,6 +40,7 @@ public class JubilaeenView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
     group.addLabelPair("Jahr", control.getJubeljahr());
+    group.addLabelPair("Art", control.getJubelArt());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 

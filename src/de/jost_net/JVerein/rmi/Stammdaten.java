@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2007/12/28 13:16:52  jost
+ * Bugfix beim erzeugen eines Stammdaten-Objektes
+ *
  * Revision 1.3  2007/02/23 20:28:24  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -46,4 +49,8 @@ public interface Stammdaten extends DBObject
   public String getJubilaeen() throws RemoteException;
 
   public void setJubilaeen(String jubilaeen) throws RemoteException;
+
+  public String getAltersjubilaeen() throws RemoteException;
+
+  public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException;
 }
