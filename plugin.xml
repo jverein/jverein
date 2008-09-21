@@ -1,97 +1,76 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
 <plugin name="jverein" version="1.1"
-	class="de.jost_net.JVerein.JVereinPlugin"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
+  class="de.jost_net.JVerein.JVereinPlugin"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
 
-	<description>Jameica-Vereinsverwaltung</description>
-	<url></url>
-	<homepage>http://www.jverein.de</homepage>
-	<license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
-
-	<!-- The content of the following tag is displayed in the menu bar. //-->
-	<menu>
-		<item name="JVerein">
-	      <item name="Dokumentation"
-            shortcut="ALT+D" 
-        		action="de.jost_net.JVerein.gui.action.DokumentationAction">
-	      </item>
-		  <item name="Stammdaten"
-              shortcut="ALT+S" 
-        		action="de.jost_net.JVerein.gui.action.StammdatenAction">
-	  	  </item>
-		  <item name="Beitragsgruppe"
-            shortcut="ALT+G" 
-            action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
-	      </item>
-		  <item name="Buchungsart"
-            shortcut="ALT+B" 
-            action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
-	      </item>
-		  <item name="Einstellungen"
-            shortcut="ALT+E" 
-            action="de.jost_net.JVerein.gui.action.EinstellungenAction">
-	      </item>
-	      <item name="Felddefinitionen"
-	        shortcut="ALT+F"
-	        action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
-	      </item>
-	      <item name="Formulare"
-	        shortcut="ALT+F"
-	        action="de.jost_net.JVerein.gui.action.FormularListeAction">
-	      </item> 
--	    <item name="-" /> 
-	   	<item name="Import"
-            shortcut="ALT+I" 
-    				action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
-    	</item>
--	    <item name="-" /> 
-	    <item name="About" 
-            action="de.jost_net.JVerein.gui.action.AboutAction" />
-  		</item>
-	</menu>
+  <description>Jameica-Vereinsverwaltung</description>
+  <homepage>http://www.jverein.de</homepage>
+  <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
+ 
+  <menu>
+    <item name="JVerein">
+    <item name="Dokumentation"
+      shortcut="ALT+D" 
+      action="de.jost_net.JVerein.gui.action.DokumentationAction">
+	</item>
+	<item name="Stammdaten"
+      shortcut="ALT+S" 
+      action="de.jost_net.JVerein.gui.action.StammdatenAction">
+	</item>
+	<item name="Beitragsgruppe"
+      shortcut="ALT+G" 
+      action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
+	</item>
+	<item name="Buchungsart"
+      shortcut="ALT+B" 
+      action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
+	</item>
+	<item name="Einstellungen"
+      shortcut="ALT+E" 
+      action="de.jost_net.JVerein.gui.action.EinstellungenAction">
+	</item>
+	<item name="Felddefinitionen"
+	  shortcut="ALT+F"
+	  action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
+	</item>
+	<item name="Formulare"
+	  shortcut="ALT+F"
+	  action="de.jost_net.JVerein.gui.action.FormularListeAction">
+	</item> 
+-	<item name="-" /> 
+	<item name="Import"
+      shortcut="ALT+I" 
+      action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
+    </item>
+-	<item name="-" /> 
+	<item name="About" 
+      action="de.jost_net.JVerein.gui.action.AboutAction" />
+  	</item>
+  </menu>
   <classfinder>
     <include>jverein\.jar</include>
     <include>.*\.class</include>
   </classfinder>
 
-	<!-- the content of this tag will appear within the navigation tree on the left hand //-->
-
-	<navigation>
-
-	  <!-- Same procedure as in the menu tag //-->
-  
-	  <item name="JVerein"		
-			icon-close="folder.gif" 
-			icon-open="folderopen.gif" 	
-			action="de.jost_net.JVerein.gui.action.WelcomeAction"
-			id="jverein.main">
-      </item>
-   </navigation>
+  <navigation>
+    <item name="JVerein"		
+	  icon-close="folder.gif" 
+	  icon-open="folderopen.gif" 	
+	  action="de.jost_net.JVerein.gui.action.WelcomeAction"
+      id="jverein.main">
+    </item>
+  </navigation>
    
-
-	<!--
-		Here you can define your service classes. This is typically a
-	    database connection. You can list more than one service in this
-	    section. By using the depends attribute you can define a startup order
-	    for your services. Example:
-
-		<services>
-			<service name="base-service" depends="" autostart="true" class="BaseService" />
-			<service name="extended-service" depends="base-service" autostart="true" class="ExtendedService" />
-		</services>
-	    
-	//-->
-	    
-	<services>
-		<service name="database" depends="" autostart="true"
-				 class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
-	</services>
+  <services>
+    <service name="database" depends="" autostart="true"
+	  class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
+  </services>
 	
-	<requires>
-    	<import plugin="hibiscus"/>
-  	</requires>
+  <requires jameica="1.7">
+    <import plugin="hibiscus" version="1.9"/>
+  </requires>
 	
 </plugin>
 
