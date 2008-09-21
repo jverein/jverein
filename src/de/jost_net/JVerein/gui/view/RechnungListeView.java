@@ -1,5 +1,5 @@
 /**********************************************************************
-* $Source$
+ * $Source$
  * $Revision$
  * $Date$
  * $Author$
@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/16 18:52:35  jost
+ * Neu: Rechnung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -25,7 +28,7 @@ public class RechnungListeView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Abrechnungen");
+    GUI.getView().setTitle("Rechnungen");
 
     final RechnungControl control = new RechnungControl(this);
 
