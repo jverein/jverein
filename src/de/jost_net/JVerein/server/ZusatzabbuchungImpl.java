@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2007/03/30 13:26:12  jost
+ * Wiederkehrende Zusatzabbuchungen.
+ *
  * Revision 1.3  2007/02/23 20:28:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -95,7 +98,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
         throw new ApplicationException(
             "Nächste Fälligkeit liegt nicht im Intervall");
       }
-      if (getBetrag() < 0)
+      if (getBetrag() <= 0)
       {
         throw new ApplicationException("Betrag nicht gültig");
       }
