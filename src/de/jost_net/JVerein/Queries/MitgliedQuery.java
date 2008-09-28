@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/05/05 18:23:46  jost
+ * Bugfix Geburtstagsliste
+ *
  * Revision 1.6  2008/03/17 20:25:21  jost
  * Workaround f. Bug in Jameica
  *
@@ -85,11 +88,11 @@ public class MitgliedQuery
     {
       if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
       {
-        addCondition("austritt is null ");
+        addCondition("(austritt is null or austritt > current_date())");
       }
       else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
       {
-        addCondition("austritt is not null ");
+        addCondition("austritt is not null and austritt <= current_date()");
       }
     }
     String eigenschaften = (String) control.getEigenschaftenAuswahl().getText();
