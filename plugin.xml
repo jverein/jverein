@@ -44,10 +44,16 @@
       shortcut="ALT+I" 
       action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
     </item>
--	<item name="-" /> 
+    <item name="Erweitert">
+  	  <item name="Diagnose-Backup erstellen" 
+  	      action="de.jost_net.JVerein.gui.action.BackupCreateAction" />
+  	  <item name="Diagnose-Backup importieren" 
+  	      action="de.jost_net.JVerein.gui.action.BackupRestoreAction" />
+  	</item>
 	<item name="About" 
       action="de.jost_net.JVerein.gui.action.AboutAction" />
   	</item>
+  	
   </menu>
   <classfinder>
     <include>jverein\.jar</include>
