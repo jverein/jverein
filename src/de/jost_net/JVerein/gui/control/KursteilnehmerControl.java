@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/09/30 10:20:37  jost
+ * Kursteilnehmer können nach Namen und Eingabedatum gefiltert werden.
+ *
  * Revision 1.7  2008/07/10 07:57:05  jost
  * Optimierung der internen Reporter-Klasse
  *
@@ -389,7 +392,6 @@ public class KursteilnehmerControl extends AbstractControl
         kursteilnehmer.addFilter("eingabedatum >= ?",
             new Object[] { (Date) getEingabedatumvon().getValue() });
       }
-      System.out.println(getEingabedatumbis().getValue());
       if (getEingabedatumbis().getValue() != null)
       {
         kursteilnehmer.addFilter("eingabedatum <= ?",
