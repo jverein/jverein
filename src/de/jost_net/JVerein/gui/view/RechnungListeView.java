@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/09/21 08:06:47  jost
+ * Redaktionelle Änderung
+ *
  * Revision 1.1  2008/09/16 18:52:35  jost
  * Neu: Rechnung
  *
@@ -22,6 +25,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
 public class RechnungListeView extends AbstractView
@@ -31,6 +35,10 @@ public class RechnungListeView extends AbstractView
     GUI.getView().setTitle("Rechnungen");
 
     final RechnungControl control = new RechnungControl(this);
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
+    group.addLabelPair("Verwendungszweck", control.getSuchverwendungszweck());
+    group.addLabelPair("Eingabedatum von", control.getVondatum());
+    group.addLabelPair("Eingabedatum bis", control.getBisdatum());
 
     control.getAbrechungList().paint(this.getParent());
 

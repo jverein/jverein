@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/09/16 18:50:27  jost
+ * Neu: Rechnung
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
@@ -73,6 +76,8 @@ public class RechnungControl extends AbstractControl
   private DateInput vondatum = null;
 
   private DateInput bisdatum = null;
+
+  private TextInput suchverwendungszweck = null;
 
   private FormularInput formular = null;
 
@@ -154,6 +159,17 @@ public class RechnungControl extends AbstractControl
     return betrag;
   }
 
+  public TextInput getSuchverwendungszweck() throws RemoteException
+  {
+    if (suchverwendungszweck != null)
+    {
+      return suchverwendungszweck;
+    }
+    this.suchverwendungszweck = new TextInput("", 30);
+    suchverwendungszweck.addListener(new FilterListener(this));
+    return suchverwendungszweck;
+  }
+
   public DateInput getVondatum() throws RemoteException
   {
     if (vondatum != null)
@@ -164,7 +180,6 @@ public class RechnungControl extends AbstractControl
     this.vondatum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.vondatum.setTitle("Anfangsdatum");
     this.vondatum.setText("Bitte Anfangsdatum wählen");
-    this.vondatum.setEnabled(false);
     this.vondatum.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -176,6 +191,7 @@ public class RechnungControl extends AbstractControl
         }
       }
     });
+    vondatum.addListener(new FilterListener(this));
     return vondatum;
   }
 
@@ -189,7 +205,6 @@ public class RechnungControl extends AbstractControl
     this.bisdatum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.bisdatum.setTitle("Endedatum");
     this.bisdatum.setText("Bitte Endedatum wählen");
-    this.bisdatum.setEnabled(false);
     this.bisdatum.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -201,6 +216,7 @@ public class RechnungControl extends AbstractControl
         }
       }
     });
+   bisdatum.addListener(new FilterListener(this));
     return bisdatum;
   }
 
@@ -246,8 +262,7 @@ public class RechnungControl extends AbstractControl
 
     if (abrechnungsList == null)
     {
-      abrechnungsList = new TablePart(abrechnungen,
-          new RechnungDetailAction());
+      abrechnungsList = new TablePart(abrechnungen, new RechnungDetailAction());
       abrechnungsList.addColumn("Name", "mitglied", new Formatter()
       {
         public String format(Object o)
@@ -290,6 +305,42 @@ public class RechnungControl extends AbstractControl
       }
     }
     return abrechnungsList;
+  }
+
+  private void refresh()
+  {
+
+    try
+    {
+      abrechnungsList.removeAll();
+      DBIterator abr = Einstellungen.getDBService()
+          .createList(Abrechnung.class);
+      String suchV = (String) getSuchverwendungszweck().getValue();
+      if (suchV != null && suchV.length() > 0)
+      {
+        abr.addFilter("(zweck1 like ? or zweck2 like ?)", new Object[] {
+            "%" + suchV + "%", "%" + suchV + "%" });
+      }
+      if (getVondatum().getValue() != null)
+      {
+        abr.addFilter("datum >= ?", new Object[] { (Date) getVondatum()
+            .getValue() });
+      }
+      if (getBisdatum().getValue() != null)
+      {
+        abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
+            .getValue() });
+      }
+      while (abr.hasNext())
+      {
+        Abrechnung ab = (Abrechnung) abr.next();
+        abrechnungsList.addItem(ab);
+      }
+    }
+    catch (RemoteException e1)
+    {
+      e1.printStackTrace();
+    }
   }
 
   public Button getStartButton(final Object currentObject)
@@ -409,4 +460,24 @@ public class RechnungControl extends AbstractControl
 
     fa.writeForm(fo, map);
   }
+
+  private class FilterListener implements Listener
+  {
+    private RechnungControl control;
+
+    FilterListener(RechnungControl control)
+    {
+      this.control = control;
+    }
+
+    public void handleEvent(Event event)
+    {
+      if (event.type != SWT.Selection && event.type != SWT.FocusOut)
+      {
+        return;
+      }
+      refresh();
+    }
+  }
+
 }
