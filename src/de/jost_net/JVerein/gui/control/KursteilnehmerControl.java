@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/07/10 07:57:05  jost
+ * Optimierung der internen Reporter-Klasse
+ *
  * Revision 1.6  2008/01/01 13:13:37  jost
  * Neu: Dateinamenmuster
  *
@@ -93,11 +96,19 @@ public class KursteilnehmerControl extends AbstractControl
 
   private Kursteilnehmer ktn;
 
+  private TablePart part;
+
   // Elemente für die Auswertung
+
+  private DateInput eingabedatumvon = null;
+
+  private DateInput eingabedatumbis = null;
 
   private DateInput abbuchungsdatumvon = null;
 
   private DateInput abbuchungsdatumbis = null;
+
+  private TextInput suchname = null;
 
   public KursteilnehmerControl(AbstractView view)
   {
@@ -221,6 +232,69 @@ public class KursteilnehmerControl extends AbstractControl
     return geschlecht;
   }
 
+  public TextInput getSuchname() throws RemoteException
+  {
+    if (suchname != null)
+    {
+      return suchname;
+    }
+    this.suchname = new TextInput("", 30);
+    suchname.addListener(new FilterListener(this));
+    return suchname;
+  }
+
+  public DateInput getEingabedatumvon() throws RemoteException
+  {
+    if (eingabedatumvon != null)
+    {
+      return eingabedatumvon;
+    }
+    Date d = null;
+
+    this.eingabedatumvon = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.eingabedatumvon.setTitle("Eingabedatum");
+    this.eingabedatumvon.setText("Beginn des Eingabe-Zeitraumes");
+    this.eingabedatumvon.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) eingabedatumvon.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    eingabedatumvon.addListener(new FilterListener(this));
+    return eingabedatumvon;
+  }
+
+  public DateInput getEingabedatumbis() throws RemoteException
+  {
+    if (eingabedatumbis != null)
+    {
+      return eingabedatumbis;
+    }
+    Date d = null;
+
+    this.eingabedatumbis = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.eingabedatumbis.setTitle("Eingabedatum");
+    this.eingabedatumbis.setText("Ende des Eingabe-Zeitraumes");
+    this.eingabedatumbis.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) eingabedatumbis.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    eingabedatumbis.addListener(new FilterListener(this));
+    return eingabedatumbis;
+  }
+
   public DateInput getAbbuchungsdatumvon() throws RemoteException
   {
     if (abbuchungsdatumvon != null)
@@ -271,12 +345,12 @@ public class KursteilnehmerControl extends AbstractControl
     return abbuchungsdatumbis;
   }
 
-  public Part getKursteilnehmerTable(TablePart part) throws RemoteException
+  public Part getKursteilnehmerTable() throws RemoteException
   {
-    if (part != null)
-    {
-      return part;
-    }
+    // if (part != null)
+    // {
+    // return part;
+    // }
     DBService service = Einstellungen.getDBService();
     DBIterator kursteilnehmer = service.createList(Kursteilnehmer.class);
     part = new TablePart(kursteilnehmer, new KursteilnehmerDetailAction());
@@ -294,6 +368,43 @@ public class KursteilnehmerControl extends AbstractControl
     part.setContextMenu(new KursteilnehmerMenu(part));
 
     return part;
+  }
+
+  private void refresh()
+  {
+
+    try
+    {
+      part.removeAll();
+      DBIterator kursteilnehmer = Einstellungen.getDBService().createList(
+          Kursteilnehmer.class);
+      String suchN = (String) getSuchname().getValue();
+      if (suchN != null && suchN.length() > 0)
+      {
+        kursteilnehmer.addFilter("name like ?", new Object[] { "%" + suchN
+            + "%" });
+      }
+      if (getEingabedatumvon().getValue() != null)
+      {
+        kursteilnehmer.addFilter("eingabedatum >= ?",
+            new Object[] { (Date) getEingabedatumvon().getValue() });
+      }
+      System.out.println(getEingabedatumbis().getValue());
+      if (getEingabedatumbis().getValue() != null)
+      {
+        kursteilnehmer.addFilter("eingabedatum <= ?",
+            new Object[] { (Date) getEingabedatumbis().getValue() });
+      }
+      while (kursteilnehmer.hasNext())
+      {
+        Kursteilnehmer kt = (Kursteilnehmer) kursteilnehmer.next();
+        part.addItem(kt);
+      }
+    }
+    catch (RemoteException e1)
+    {
+      e1.printStackTrace();
+    }
   }
 
   public Button getStartAuswertungButton()
@@ -476,4 +587,24 @@ public class KursteilnehmerControl extends AbstractControl
       e.printStackTrace();
     }
   }
+
+  private class FilterListener implements Listener
+  {
+    private KursteilnehmerControl control;
+
+    FilterListener(KursteilnehmerControl control)
+    {
+      this.control = control;
+    }
+
+    public void handleEvent(Event event)
+    {
+      if (event.type != SWT.Selection && event.type != SWT.FocusOut)
+      {
+        return;
+      }
+      refresh();
+    }
+  }
+
 }
