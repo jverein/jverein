@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/10/01 07:33:22  jost
+ * Überflüssigen Formatter entfernt.
+ *
  * Revision 1.3  2008/09/30 12:08:15  jost
  * Abrechnungsinformationen können nach Datum und Verwendungszweck gefiltert werden.
  *
@@ -39,7 +42,6 @@ import de.jost_net.JVerein.gui.menu.RechungMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Formular;
-import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -50,7 +52,6 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
-import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
@@ -169,7 +170,7 @@ public class RechnungControl extends AbstractControl
       return suchverwendungszweck;
     }
     this.suchverwendungszweck = new TextInput("", 30);
-    suchverwendungszweck.addListener(new FilterListener(this));
+    suchverwendungszweck.addListener(new FilterListener());
     return suchverwendungszweck;
   }
 
@@ -194,7 +195,7 @@ public class RechnungControl extends AbstractControl
         }
       }
     });
-    vondatum.addListener(new FilterListener(this));
+    vondatum.addListener(new FilterListener());
     return vondatum;
   }
 
@@ -219,7 +220,7 @@ public class RechnungControl extends AbstractControl
         }
       }
     });
-   bisdatum.addListener(new FilterListener(this));
+    bisdatum.addListener(new FilterListener());
     return bisdatum;
   }
 
@@ -446,13 +447,6 @@ public class RechnungControl extends AbstractControl
 
   private class FilterListener implements Listener
   {
-    private RechnungControl control;
-
-    FilterListener(RechnungControl control)
-    {
-      this.control = control;
-    }
-
     public void handleEvent(Event event)
     {
       if (event.type != SWT.Selection && event.type != SWT.FocusOut)
