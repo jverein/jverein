@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/07/18 20:18:29  jost
+ * Neue Methode
+ *
  * Revision 1.12  2008/06/29 07:58:58  jost
  * Neu: Handy
  *
@@ -77,7 +80,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public String getPrimaryAttribute() throws RemoteException
   {
-    return "id";
+    return "namevorname";
   }
 
   protected void deleteCheck() throws ApplicationException
