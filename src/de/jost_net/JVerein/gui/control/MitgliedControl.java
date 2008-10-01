@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2008/09/21 08:45:18  jost
+ * Neu: Mitgliedschaftsjubiläen
+ *
  * Revision 1.39  2008/07/11 07:34:00  jost
  * Ausgabeverzeichnis für den nächsten Aufruf merken.
  *
@@ -1841,7 +1844,7 @@ public class MitgliedControl extends AbstractControl
 
   }
 
-  private void auswertungMitgliedPDF(final ArrayList list, final File file,
+  private void auswertungMitgliedPDF(final ArrayList<Mitglied> list, final File file,
       final String subtitle)
   {
     BackgroundTask t = new BackgroundTask()
@@ -1884,7 +1887,7 @@ public class MitgliedControl extends AbstractControl
     Application.getController().start(t);
   }
 
-  private void auswertungMitgliedCSV(final ArrayList list, final File file)
+  private void auswertungMitgliedCSV(final ArrayList<Mitglied> list, final File file)
   {
     BackgroundTask t = new BackgroundTask()
     {

@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/07/10 09:21:38  jost
+ * Umstellung auf den Reporter
+ * Kommunikationsdaten aufgenommen
+ *
  * Revision 1.5  2008/01/27 09:43:42  jost
  * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
  *
@@ -52,7 +56,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedAuswertungPDF
 {
-  public MitgliedAuswertungPDF(ArrayList list, final File file,
+  public MitgliedAuswertungPDF(ArrayList<Mitglied> list, final File file,
       ProgressMonitor monitor, String subtitle) throws ApplicationException,
       RemoteException
   {
@@ -79,7 +83,7 @@ public class MitgliedAuswertungPDF
       for (int i = 0; i < list.size(); i++)
       {
         faelle++;
-        Mitglied m = (Mitglied) list.get(i);
+        Mitglied m = list.get(i);
         report.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
         String anschriftkommunikation = m.getAnschrift();
         if (m.getTelefonprivat().length() > 0)

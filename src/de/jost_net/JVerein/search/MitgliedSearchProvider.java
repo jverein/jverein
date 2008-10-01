@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/04 18:57:37  jost
+ * SearchProvider für die neue Jameica-Suchmaschine
+ *
  **********************************************************************/
 package de.jost_net.JVerein.search;
 
@@ -63,6 +66,8 @@ public class MitgliedSearchProvider implements SearchProvider
    */
   private class MyResult implements Result
   {
+    private static final long serialVersionUID = -1084818772620611937L;
+
     private Mitglied m = null;
 
     private MyResult(Mitglied m)

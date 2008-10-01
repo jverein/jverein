@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/04 18:57:37  jost
+ * SearchProvider für die neue Jameica-Suchmaschine
+ *
  **********************************************************************/
 package de.jost_net.JVerein.search;
 
@@ -35,11 +38,13 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     return "Kursteilnehmer";
   }
 
-  public List search(String search) throws RemoteException,
+  public List<MyResult> search(String search) throws RemoteException,
       ApplicationException
   {
     if (search == null || search.length() == 0)
+    {
       return null;
+    }
 
     String text = "%" + search.toLowerCase() + "%";
     DBIterator list = Einstellungen.getDBService().createList(
@@ -48,7 +53,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
         + "vzweck2 LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?",
         new String[] { text, text, text, text, text });
 
-    ArrayList results = new ArrayList();
+    ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
     {
       results.add(new MyResult((Kursteilnehmer) list.next()));
@@ -61,6 +66,8 @@ public class KursteilnehmerSearchProvider implements SearchProvider
    */
   private class MyResult implements Result
   {
+    private static final long serialVersionUID = -1685817053590491168L;
+
     private Kursteilnehmer k = null;
 
     private MyResult(Kursteilnehmer k)

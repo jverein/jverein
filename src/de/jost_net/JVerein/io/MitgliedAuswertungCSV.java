@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/07/12 19:09:06  jost
+ * Bugfix bei leeren Zusatzfeldern
+ *
  * Revision 1.8  2008/05/05 18:23:18  jost
  * *** empty log message ***
  *
@@ -60,7 +63,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedAuswertungCSV
 {
-  public MitgliedAuswertungCSV(ArrayList list, final File file,
+  public MitgliedAuswertungCSV(ArrayList<Mitglied> list, final File file,
       ProgressMonitor monitor) throws ApplicationException, RemoteException
   {
 
@@ -87,7 +90,7 @@ public class MitgliedAuswertungCSV
       {
         faelle++;
         monitor.setStatus(faelle);
-        Mitglied m = (Mitglied) list.get(i);
+        Mitglied m = list.get(i);
         out.print(m.getID() + ";");
         out.print(m.getAnrede() + ";");
         out.print(m.getTitel() + ";");

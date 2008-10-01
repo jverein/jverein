@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/09/16 18:26:13  jost
+ * Refactoring Formularaufbereitung
+ *
  * Revision 1.1  2008/07/18 20:06:19  jost
  * Neu: Formulare
  *
@@ -19,11 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
-
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.Action;
