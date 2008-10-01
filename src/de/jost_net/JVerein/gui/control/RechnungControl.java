@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/09/30 12:08:15  jost
+ * Abrechnungsinformationen können nach Datum und Verwendungszweck gefiltert werden.
+ *
  * Revision 1.2  2008/09/16 18:50:27  jost
  * Neu: Rechnung
  *
@@ -263,27 +266,7 @@ public class RechnungControl extends AbstractControl
     if (abrechnungsList == null)
     {
       abrechnungsList = new TablePart(abrechnungen, new RechnungDetailAction());
-      abrechnungsList.addColumn("Name", "mitglied", new Formatter()
-      {
-        public String format(Object o)
-        {
-          Mitglied m = (Mitglied) o;
-          if (m == null)
-          {
-            return null;
-          }
-          String name = null;
-          try
-          {
-            name = m.getNameVorname();
-          }
-          catch (RemoteException e)
-          {
-            e.printStackTrace();
-          }
-          return name;
-        }
-      });
+      abrechnungsList.addColumn("Name", "mitglied");
       abrechnungsList.addColumn("Datum", "datum", new DateFormatter(
           Einstellungen.DATEFORMAT));
       abrechnungsList.addColumn("Zweck1", "zweck1");
