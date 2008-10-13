@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/07/11 07:33:02  jost
+ * Ausgabeverzeichnis für den nächsten Aufruf merken.
+ *
  * Revision 1.3  2008/06/28 16:57:29  jost
  * Vereinheitlichung des Jahressaldos
  *
@@ -68,7 +71,7 @@ public class JahressaldoControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public SelectInput getSuchJahr() throws RemoteException
+  public SelectInput getSuchJahr() throws RemoteException, ApplicationException
   {
     if (suchjahr != null)
     {
@@ -85,7 +88,7 @@ public class JahressaldoControl extends AbstractControl
     }
     else
     {
-      throw new RemoteException("Abbruch! Es existiert noch keine Buchung");
+      throw new ApplicationException("Abbruch! Es existiert noch keine Buchung");
     }
     Calendar bis = Calendar.getInstance();
     ArrayList<Integer> jahre = new ArrayList<Integer>();
@@ -150,7 +153,7 @@ public class JahressaldoControl extends AbstractControl
   }
 
   private ArrayList<SaldoZeile> getInfo() throws RemoteException,
-      ParseException
+      ParseException, ApplicationException
   {
     ArrayList<SaldoZeile> zeile = new ArrayList<SaldoZeile>();
     Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
