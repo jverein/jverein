@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/24 14:04:08  jost
+ * Redatkionelle Änderung
+ *
  * Revision 1.4  2008/01/27 09:42:22  jost
  * Erweiterung der Auswertung um Eigenschaften
  *
@@ -32,8 +35,11 @@ import de.jost_net.JVerein.server.DBSupportH2Impl;
 import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.util.ApplicationException;
 
 public class AuswertungMitgliedView extends AbstractView
@@ -44,34 +50,36 @@ public class AuswertungMitgliedView extends AbstractView
 
     final MitgliedControl control = new MitgliedControl(this);
 
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
+
+    ColumnLayout cl = new ColumnLayout(group.getComposite(), 2);
+    SimpleContainer left = new SimpleContainer(cl.getComposite());
+
     if (!JVereinDBService.SETTINGS.getString("database.driver",
         DBSupportH2Impl.class.getName()).equals(
         DBSupportMcKoiImpl.class.getName()))
     {
-      LabelGroup grEigenschaften = new LabelGroup(getParent(), "Eigenschaften");
-      grEigenschaften.addLabelPair("Eigenschaften", control
-          .getEigenschaftenAuswahl());
+      left.addLabelPair("Eigenschaften", control.getEigenschaftenAuswahl());
     }
 
-    LabelGroup grGeburt = new LabelGroup(getParent(), "Geburtsdatum");
-    grGeburt.addLabelPair("von", control.getGeburtsdatumvon());
-    grGeburt.addLabelPair("bis", control.getGeburtsdatumbis());
+    left.addLabelPair("Geburtsdatum von", control.getGeburtsdatumvon());
+    left.addLabelPair("Geburtsdatum bis", control.getGeburtsdatumbis());
 
-    LabelGroup grEintritt = new LabelGroup(getParent(), "Eintrittsdatum");
-    grEintritt.addLabelPair("von", control.getEintrittvon());
-    grEintritt.addLabelPair("bis", control.getEintrittbis());
+    SelectInput inpGeschlecht = control.getGeschlecht();
+    inpGeschlecht.setMandatory(false);
+    left.addLabelPair("Geschlecht", inpGeschlecht);
 
-    LabelGroup grAustritt = new LabelGroup(getParent(), "Austrittsdatum");
-    grAustritt.addLabelPair("von", control.getAustrittvon());
-    grAustritt.addLabelPair("bis", control.getAustrittbis());
+    SimpleContainer right = new SimpleContainer(cl.getComposite());
+    right.addLabelPair("Eintritt von", control.getEintrittvon());
+    right.addLabelPair("Eintritt bis", control.getEintrittbis());
 
-    LabelGroup grBeitragsgruppe = new LabelGroup(getParent(), "Beitragsgruppe");
-    grBeitragsgruppe.addLabelPair("Beitragsgruppe", control
-        .getBeitragsgruppeAusw());
+    right.addLabelPair("Austritt von", control.getAustrittvon());
+    right.addLabelPair("Austritt bis", control.getAustrittbis());
 
-    LabelGroup grAusgabe = new LabelGroup(getParent(), "Ausgabe");
-    grAusgabe.addLabelPair("Ausgabe", control.getAusgabe());
-    grAusgabe.addLabelPair("Sortierung", control.getSortierung());
+    right.addLabelPair("Beitragsgruppe", control.getBeitragsgruppeAusw());
+
+    right.addLabelPair("Ausgabe", control.getAusgabe());
+    right.addLabelPair("Sortierung", control.getSortierung());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 
