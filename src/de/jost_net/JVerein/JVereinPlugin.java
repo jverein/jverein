@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2008/01/01 12:35:40  jost
+ * Javadoc korrigiert
+ *
  * Revision 1.15  2007/12/20 20:31:58  jost
  * Anpassung an Jameica-Standard
  *
@@ -79,6 +82,11 @@ public class JVereinPlugin extends AbstractPlugin
   private Settings settings;
 
   /**
+   * MessageConsumer, mit dem JVerein über neu eingetroffene Umsätze aus
+   * Hibiscus informiert wird.
+   */
+  // private UmsatzMessageConsumer umc = null;
+  /**
    * constructor.
    * 
    */
@@ -111,6 +119,8 @@ public class JVereinPlugin extends AbstractPlugin
 
     Application.getCallback().getStartupMonitor().addPercentComplete(5);
     ExtensionRegistry.register(new MyExtension(), "jverein.main");
+    // this.umc = new UmsatzMessageConsumer();
+    // Application.getMessagingFactory().registerMessageConsumer(this.umc);
 
   }
 
