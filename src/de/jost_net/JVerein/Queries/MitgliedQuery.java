@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/09/28 12:55:30  jost
+ * Bug https://developer.berlios.de/bugs/?func=detailbug&bug_id=14496&group_id=7335 gefixed
+ *
  * Revision 1.7  2008/05/05 18:23:46  jost
  * Bugfix Geburtstagsliste
  *
@@ -130,6 +133,10 @@ public class MitgliedQuery
     {
       addCondition("geburtsdatum <= ?");
     }
+    if (control.getGeschlecht().getValue() != null)
+    {
+      addCondition("geschlecht = ?");
+    }
     if (!dialog)
     {
       if (control.getEintrittvon().getValue() != null)
@@ -233,6 +240,11 @@ public class MitgliedQuery
     {
       Date d = (Date) control.getGeburtsdatumbis().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));
+    }
+    if (control.getGeschlecht().getValue() != null)
+    {
+      String g = (String)control.getGeschlecht().getValue();
+      bedingungen.add(g);
     }
     if (!dialog)
     {
