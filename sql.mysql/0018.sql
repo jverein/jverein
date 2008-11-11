@@ -1,2 +1,2 @@
-alter table buchung alter column  kommentar varchar(1000);
+alter table buchung modify column  kommentar varchar(1000);
   
