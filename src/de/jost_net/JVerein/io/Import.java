@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/06/29 07:58:31  jost
+ * Neu: Handy
+ *
  * Revision 1.12  2008/05/07 05:48:54  jost
  * L√∂schung zus√§tzlicher Tabellen bei wiederholtem Import
  *
@@ -166,14 +169,21 @@ public class Import
         m.setVorname(results.getString("Vorname"));
         try
         {
-          m.setStrasse(results.getString("Straﬂe"));
+          m.setAdressierungszusatz(results.getString("Adressierungszusatz"));
+        }
+        catch (Exception e)
+        {
+          // nichts zu tun
+        }
 
+        try
+        {
+          m.setStrasse(results.getString("Straﬂe"));
         }
         catch (Exception e)
         {
           m.setStrasse(results.getString("Strasse"));
         }
-
         m.setPlz(results.getString("Plz"));
         m.setOrt(results.getString("Ort"));
         m.setGeburtsdatum(results.getString("Geburtsdatum"));

@@ -4,6 +4,7 @@
 	</p>
 	<li>Anrede: Herrn, Frau ...</li>
     <li>Titel: Dr., Prof. Dr., ...</li>
+    <li>Adressierungszusatz: z. B. bei Lieschen Müller</li>
     <li>Kontoinhaber: Falls das Mitglied 
         nicht Kontoinhaber ist, können die 
         entsprechenden Daten eingegeben 

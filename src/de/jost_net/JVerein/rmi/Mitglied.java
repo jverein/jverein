@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/07/18 20:16:53  jost
+ * Neue Methode
+ *
  * Revision 1.8  2008/06/29 07:58:45  jost
  * Neu: Handy
  *
@@ -65,6 +68,10 @@ public interface Mitglied extends DBObject
   public String getVorname() throws RemoteException;
 
   public void setVorname(String vorname) throws RemoteException;
+
+  public String getAdressierungszusatz() throws RemoteException;
+
+  public void setAdressierungszusatz(String adressierungszusatz) throws RemoteException;
 
   public String getStrasse() throws RemoteException;
 

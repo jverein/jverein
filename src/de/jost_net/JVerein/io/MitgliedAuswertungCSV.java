@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/10/01 14:17:39  jost
+ * Warnungen entfernt
+ *
  * Revision 1.9  2008/07/12 19:09:06  jost
  * Bugfix bei leeren Zusatzfeldern
  *
@@ -71,7 +74,7 @@ public class MitgliedAuswertungCSV
     {
       PrintWriter out = new PrintWriter(new FileOutputStream(file));
       out
-          .print("id;anrede;titel;name;vorname;strasse;plz;ort;blz;konto;kontoinhaber;");
+          .print("id;anrede;titel;name;vorname;adressierungszusatz;strasse;plz;ort;blz;konto;kontoinhaber;");
       out
           .print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;email;");
       out
@@ -96,6 +99,7 @@ public class MitgliedAuswertungCSV
         out.print(m.getTitel() + ";");
         out.print(m.getName() + ";");
         out.print(m.getVorname() + ";");
+        out.print(m.getAdressierungszusatz() + ";");
         out.print(m.getStrasse() + ";");
         out.print(m.getPlz() + ";");
         out.print(m.getOrt() + ";");

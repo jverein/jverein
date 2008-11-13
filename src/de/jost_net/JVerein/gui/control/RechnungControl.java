@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/10/01 13:59:45  jost
+ * Codeoptimierung
+ *
  * Revision 1.4  2008/10/01 07:33:22  jost
  * Überflüssigen Formatter entfernt.
  *
@@ -404,10 +407,14 @@ public class RechnungControl extends AbstractControl
   {
     HashMap<String, Object> map = new HashMap<String, Object>();
 
-    String empfaenger = abr.getMitglied().getAnrede() + "\n"
-        + abr.getMitglied().getVornameName() + "\n"
-        + abr.getMitglied().getStrasse() + "\n" + abr.getMitglied().getPlz()
-        + " " + abr.getMitglied().getOrt();
+    String empfaenger = abr.getMitglied().getAnrede()
+        + "\n"
+        + abr.getMitglied().getVornameName()
+        + "\n"
+        + (abr.getMitglied().getAdressierungszusatz().length() > 0 ? abr
+            .getMitglied().getAdressierungszusatz()
+            + "\n" : "") + abr.getMitglied().getStrasse() + "\n"
+        + abr.getMitglied().getPlz() + " " + abr.getMitglied().getOrt();
     map.put(FormularfeldControl.EMPFAENGER, empfaenger);
     map.put(FormularfeldControl.ZAHLUNGSGRUND1, abr.getZweck1());
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, abr.getZweck2());

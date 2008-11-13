@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2008/07/14 07:58:57  jost
+ * Redakt. Änderung
+ *
  * Revision 1.19  2008/06/29 07:58:15  jost
  * Neu: Handy
  *
@@ -118,6 +121,7 @@ public class MitgliedDetailView extends AbstractView
     left.addLabelPair("Titel", control.getTitel());
     left.addLabelPair("Name", control.getName());
     left.addLabelPair("Vorname", control.getVorname());
+    left.addLabelPair("Adressierungszusatz", control.getAdressierungszusatz());
 
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
     right.addHeadline("");

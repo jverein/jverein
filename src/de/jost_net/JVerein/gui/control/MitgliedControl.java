@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.41  2008/10/01 14:17:29  jost
+ * Warnungen entfernt
+ *
  * Revision 1.40  2008/09/21 08:45:18  jost
  * Neu: Mitgliedschaftsjubiläen
  *
@@ -208,6 +211,8 @@ public class MitgliedControl extends AbstractControl
   private Input name;
 
   private Input vorname;
+  
+  private Input adressierungszusatz;
 
   private Input strasse;
 
@@ -375,6 +380,16 @@ public class MitgliedControl extends AbstractControl
     vorname = new TextInput(getMitglied().getVorname(), 40);
     vorname.setMandatory(true);
     return vorname;
+  }
+
+  public Input getAdressierungszusatz() throws RemoteException
+  {
+    if (adressierungszusatz != null)
+    {
+      return adressierungszusatz;
+    }
+    adressierungszusatz = new TextInput(getMitglied().getAdressierungszusatz(), 40);
+    return adressierungszusatz;
   }
 
   public Input getStrasse() throws RemoteException
@@ -1520,6 +1535,7 @@ public class MitgliedControl extends AbstractControl
     try
     {
       Mitglied m = getMitglied();
+      m.setAdressierungszusatz((String)getAdressierungszusatz().getValue());
       m.setAustritt((Date) getAustritt().getValue());
       m.setAnrede((String) getAnrede().getValue());
       GenericObject o = (GenericObject) getBeitragsgruppe().getValue();

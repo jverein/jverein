@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2008/10/01 06:58:10  jost
+ * Korrekte Sortierung
+ *
  * Revision 1.13  2008/07/18 20:18:29  jost
  * Neue Methode
  *
@@ -241,6 +244,17 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setVorname(String vorname) throws RemoteException
   {
     setAttribute("vorname", vorname);
+  }
+
+  public String getAdressierungszusatz() throws RemoteException
+  {
+    return (String) getAttribute("adressierungszusatz");
+  }
+
+  public void setAdressierungszusatz(String adressierungszusatz)
+      throws RemoteException
+  {
+    setAttribute("adressierungszusatz", adressierungszusatz);
   }
 
   public String getStrasse() throws RemoteException
@@ -524,7 +538,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
    */
   public String getAnschrift() throws RemoteException
   {
-    return getStrasse() + ", " + getPlz() + " " + getOrt();
+    return (getAdressierungszusatz().length() > 0 ? getAdressierungszusatz()
+        + ", " : "")
+        + getStrasse() + ", " + getPlz() + " " + getOrt();
   }
 
   public Object getAttribute(String fieldName) throws RemoteException
