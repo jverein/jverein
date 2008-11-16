@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/06/28 16:59:00  jost
+ * Neu: Jahresabschluss
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.parts;
 
@@ -39,7 +42,7 @@ public class JahressaldoList extends TablePart implements Part
 
   private Geschaeftsjahr gj = null;
 
-  public JahressaldoList(Action action, int jahr)
+  public JahressaldoList(Action action, int jahr) throws RemoteException
   {
     super(action);
     try

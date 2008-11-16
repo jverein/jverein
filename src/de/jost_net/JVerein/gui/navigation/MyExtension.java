@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/09/16 18:51:56  jost
+ * Neu: Rechnung
+ *
  * Revision 1.9  2008/08/10 12:35:50  jost
  * Abbuchung -> Abrechnung
  * Vorbereitung der Rechnungserstellung
@@ -74,28 +77,28 @@ public class MyExtension implements Extension
       NavigationItem jverein = (NavigationItem) extendable;
       jverein.addChild(new MyItem(jverein, "Mitglieder",
           new MitgliedSucheAction()));
-      if (Einstellungen.isKursteilnehmer())
+      if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         jverein.addChild(new MyItem(jverein, "Kursteilnehmer",
             new KursteilnehmerSucheAction()));
       }
       jverein
           .addChild(new MyItem(jverein, "Abrechnung", new AbbuchungAction()));
-      if (Einstellungen.isRechnungFuerAbbuchung()
-          || Einstellungen.isRechnungFuerBarzahlung()
-          || Einstellungen.isRechnungFuerUeberweisung())
+      if (Einstellungen.getEinstellung().getRechnungFuerAbbuchung()
+          || Einstellungen.getEinstellung().getRechnungFuerUeberweisung()
+          || Einstellungen.getEinstellung().getRechnungFuerBarzahlung())
       {
         jverein.addChild(new MyItem(jverein, "Rechnung",
             new RechnungListeAction()));
       }
-      if (Einstellungen.isZusatzabbuchung())
+      if (Einstellungen.getEinstellung().getZusatzabbuchung())
       {
         jverein.addChild(new MyItem(jverein, "Zusatzabbuchung",
             new ZusatzabbuchungListeAction()));
       }
       jverein.addChild(new MyItem(jverein, "Manueller Zahlungseingang",
           new ManuellerZahlungseingangListeAction()));
-      if (Einstellungen.isWiedervorlage())
+      if (Einstellungen.getEinstellung().getWiedervorlage())
       {
         jverein.addChild(new MyItem(jverein, "Wiedervorlage",
             new WiedervorlageListeAction()));
@@ -109,7 +112,7 @@ public class MyExtension implements Extension
           new AuswertungMitgliedAction()));
       auswertung.addChild(new MyItem(auswertung, "Jubil‰en",
           new JubilaeenAction()));
-      if (Einstellungen.isKursteilnehmer())
+      if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         auswertung.addChild(new MyItem(auswertung, "Kursteilnehmer",
             new AuswertungKursteilnehmerAction()));
@@ -145,10 +148,11 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.9 2008/08/10 12:35:50 jost Abbuchung ->
- * Abrechnung Vorbereitung der Rechnungserstellung Revision 1.8 2008/07/18
- * 20:11:53 jost Neu: Spendenbescheinigung Revision 1.7 2008/06/28 16:58:42 jost
- * Neu: Jahresabschluss
+ * $Log$ Revision 1.10 2008/09/16 18:51:56 jost Neu:
+ * Rechnung Revision 1.9 2008/08/10 12:35:50 jost Abbuchung -> Abrechnung
+ * Vorbereitung der Rechnungserstellung Revision 1.8 2008/07/18 20:11:53 jost
+ * Neu: Spendenbescheinigung Revision 1.7 2008/06/28 16:58:42 jost Neu:
+ * Jahresabschluss
  * 
  * Revision 1.6 2008/05/25 19:36:26 jost Neu: Jahressaldo Revision 1.5
  * 2008/05/22 06:51:20 jost Buchf√ºhrung Revision 1.4 2007/12/22 08:25:43 jost

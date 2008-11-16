@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/11/13 20:18:42  jost
+ * Adressierungszusatz aufgenommen.
+ *
  * Revision 1.14  2008/10/01 06:58:10  jost
  * Korrekte Sortierung
  *
@@ -106,7 +109,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   private void plausi() throws RemoteException, ApplicationException
   {
-    if (Einstellungen.isExterneMitgliedsnummer())
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
       if (getExterneMitgliedsnummer() == null)
       {
@@ -121,7 +124,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Vornamen eingeben");
     }
-    if (getGeburtsdatum() == null && Einstellungen.isGeburtsdatumPflicht())
+    if (getGeburtsdatum() == null
+        && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
       throw new ApplicationException("Bitte Geburtsdatum eingeben");
     }
@@ -129,7 +133,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Geschlecht auswählen");
     }
-    if (getEintritt() == null && Einstellungen.isEintrittsdatumPflicht())
+    if (getEintritt() == null
+        && Einstellungen.getEinstellung().getEintrittsdatumPflicht())
     {
       throw new ApplicationException("Bitte Eintrittsdatum eingeben");
     }

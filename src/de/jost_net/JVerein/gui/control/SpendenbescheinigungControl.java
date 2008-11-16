@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/09/16 18:50:54  jost
+ * Refactoring Formularaufbereitung
+ *
  * Revision 1.3  2008/07/23 19:40:30  jost
  * Bugfix ..PDF
  *
@@ -297,7 +300,7 @@ public class SpendenbescheinigungControl extends AbstractControl
       fd.setFilterPath(path);
     }
     fd.setFileName(new Dateiname("spendenbescheinigung", "", Einstellungen
-        .getDateinamenmuster(), "PDF").get());
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();

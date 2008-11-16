@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2008/08/10 12:37:25  jost
+ * Abbuchung -> Abrechnung
+ * Vorbereitung der Rechnungserstellung
+ *
  * Revision 1.21  2008/07/09 13:01:16  jost
  * OBanToo-Fehlermeldung an die OberflÃ¤che bringen
  *
@@ -234,7 +238,7 @@ public class Abbuchung
         list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
             vondatum.getTime()) });
       }
-      if (Einstellungen.getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
+      if (Einstellungen.getEinstellung().getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
       {
         if (modus == AbbuchungsmodusInput.HAVIMO)
         {
@@ -293,7 +297,7 @@ public class Abbuchung
         monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
         Mitglied m = (Mitglied) list.next();
         Double betr;
-        if (Einstellungen.getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
+        if (Einstellungen.getEinstellung().getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
         {
           betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
         }
@@ -509,11 +513,11 @@ public class Abbuchung
       double betrag) throws RemoteException, ApplicationException
   {
     if ((m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG && Einstellungen
-        .isRechnungFuerAbbuchung())
+        .getEinstellung().getRechnungFuerAbbuchung())
         || (m.getZahlungsweg() == ZahlungswegInput.ÜBERWEISUNG && Einstellungen
-            .isRechnungFuerUeberweisung())
+            .getEinstellung().getRechnungFuerUeberweisung())
         || (m.getZahlungsweg() == ZahlungswegInput.BARZAHLUNG && Einstellungen
-            .isRechnungFuerBarzahlung()))
+            .getEinstellung().getRechnungFuerBarzahlung()))
     {
       Abrechnung abr = (Abrechnung) Einstellungen.getDBService().createObject(
           Abrechnung.class, null);

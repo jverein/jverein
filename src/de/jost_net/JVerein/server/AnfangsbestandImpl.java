@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/06/28 17:06:45  jost
+ * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
+ *
  * Revision 1.2  2008/05/24 14:19:52  jost
  * Debug-Infos entfernt.
  *
@@ -107,7 +110,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     try
     {
       Date beginngeschaeftsjahr = Einstellungen.DATEFORMAT.parse(Einstellungen
-          .getBeginnGeschaeftsjahr()
+          .getEinstellung().getBeginnGeschaeftsjahr()
           + "2009");
       DBIterator it = Einstellungen.getDBService().createList(
           Anfangsbestand.class);

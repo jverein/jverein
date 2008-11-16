@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/11/11 20:48:06  jost
+ * 2spaltiges Layout und Selektion nach Geschlecht
+ *
  * Revision 1.16  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -161,7 +164,7 @@ public class MitgliederSucheView extends AbstractView
     IntegerInput suchexternemitgliedsnummer = control
         .getSuchExterneMitgliedsnummer();
     suchexternemitgliedsnummer.addListener(new FilterListener(control));
-    if (Einstellungen.isExterneMitgliedsnummer())
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
       left.addLabelPair("Externe Mitgliedsnummer", control
           .getSuchExterneMitgliedsnummer());

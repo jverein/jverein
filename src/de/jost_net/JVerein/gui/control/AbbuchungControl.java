@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/08/10 12:34:49  jost
+ * Abbuchung -> Abrechnung
+ * Vorbereitung der Rechnungserstellung
+ *
  * Revision 1.14  2008/06/21 08:45:51  jost
  * Bugfix "von-Datum"
  *
@@ -256,12 +260,16 @@ public class AbbuchungControl extends AbstractControl
         {
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
+        catch (RemoteException e)
+        {
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
       }
     }, null, true);
     return button;
   }
 
-  private void doAbrechnung() throws ApplicationException
+  private void doAbrechnung() throws ApplicationException, RemoteException
   {
     File dtausfile;
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
@@ -320,7 +328,7 @@ public class AbbuchungControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchung", Einstellungen
+      fd.setFileName(new Dateiname("abbuchung", Einstellungen.getEinstellung()
           .getDateinamenmuster(), "TXT").get());
       String file = fd.open();
 
@@ -357,7 +365,7 @@ public class AbbuchungControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchung", Einstellungen
+      fd.setFileName(new Dateiname("abbuchung", Einstellungen.getEinstellung()
           .getDateinamenmuster(), "PDF").get());
       pdffile = fd.open();
     }

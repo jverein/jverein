@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/11/13 20:17:33  jost
+ * Adressierungszusatz aufgenommen.
+ *
  * Revision 1.5  2008/10/01 13:59:45  jost
  * Codeoptimierung
  *
@@ -367,7 +370,7 @@ public class RechnungControl extends AbstractControl
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("rechnung", "", Einstellungen
+    fd.setFileName(new Dateiname("rechnung", "", Einstellungen.getEinstellung()
         .getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 

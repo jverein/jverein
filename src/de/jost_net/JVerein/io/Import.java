@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2008/11/13 20:18:00  jost
+ * Adressierungszusatz aufgenommen.
+ *
  * Revision 1.13  2008/06/29 07:58:31  jost
  * Neu: Handy
  *
@@ -158,7 +161,7 @@ public class Import
             Mitglied.class, null);
 
         m.setID(results.getString("Mitglieds_Nr"));
-        if (Einstellungen.isExterneMitgliedsnummer())
+        if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
           m.setExterneMitgliedsnummer(new Integer(results
               .getString("Mitglieds_Nr")));

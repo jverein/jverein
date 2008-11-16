@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/10/01 14:00:13  jost
+ * Codeoptimierung
+ *
  * Revision 1.9  2008/09/30 12:07:31  jost
  * Debug-Meldung entfernt.
  *
@@ -510,7 +513,7 @@ public class KursteilnehmerControl extends AbstractControl
         fd.setFilterPath(path);
       }
       fd.setFileName(new Dateiname("kursteilnehmer", Einstellungen
-          .getDateinamenmuster(), "PDF").get());
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 

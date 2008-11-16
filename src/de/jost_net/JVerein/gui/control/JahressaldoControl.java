@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/10/13 18:57:14  jost
+ * RemoteException ->ApplicationException
+ *
  * Revision 1.4  2008/07/11 07:33:02  jost
  * Ausgabeverzeichnis für den nächsten Aufruf merken.
  *
@@ -206,7 +209,7 @@ public class JahressaldoControl extends AbstractControl
         fd.setFilterPath(path);
       }
       fd.setFileName(new Dateiname("jahressaldo", Einstellungen
-          .getDateinamenmuster(), "PDF").get());
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 

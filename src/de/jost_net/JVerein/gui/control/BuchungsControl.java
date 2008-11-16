@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/07/11 07:34:22  jost
+ * Ausgabeverzeichnis für den nächsten Aufruf merken.
+ *
  * Revision 1.12  2008/07/10 07:56:43  jost
  * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
  *
@@ -616,7 +619,7 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungen", Einstellungen
+      fd.setFileName(new Dateiname("buchungen", Einstellungen.getEinstellung()
           .getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();

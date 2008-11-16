@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2008/11/13 20:17:13  jost
+ * Adressierungszusatz aufgenommen.
+ *
  * Revision 1.41  2008/10/01 14:17:29  jost
  * Warnungen entfernt
  *
@@ -211,7 +214,7 @@ public class MitgliedControl extends AbstractControl
   private Input name;
 
   private Input vorname;
-  
+
   private Input adressierungszusatz;
 
   private Input strasse;
@@ -388,7 +391,8 @@ public class MitgliedControl extends AbstractControl
     {
       return adressierungszusatz;
     }
-    adressierungszusatz = new TextInput(getMitglied().getAdressierungszusatz(), 40);
+    adressierungszusatz = new TextInput(getMitglied().getAdressierungszusatz(),
+        40);
     return adressierungszusatz;
   }
 
@@ -456,7 +460,8 @@ public class MitgliedControl extends AbstractControl
     this.geburtsdatum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.geburtsdatum.setTitle("Geburtsdatum");
     this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
-    this.geburtsdatum.setMandatory(Einstellungen.isGeburtsdatumPflicht());
+    this.geburtsdatum.setMandatory(Einstellungen.getEinstellung()
+        .getGeburtsdatumPflicht());
     this.geburtsdatum.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -620,7 +625,8 @@ public class MitgliedControl extends AbstractControl
     this.eintritt = new DateInput(d, Einstellungen.DATEFORMAT);
     this.eintritt.setTitle("Eintrittsdatum");
     this.eintritt.setText("Bitte Eintrittsdatum wählen");
-    this.eintritt.setMandatory(Einstellungen.isEintrittsdatumPflicht());
+    this.eintritt.setMandatory(Einstellungen.getEinstellung()
+        .getEintrittsdatumPflicht());
     this.eintritt.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -1351,7 +1357,14 @@ public class MitgliedControl extends AbstractControl
     {
       public void handleAction(Object context) throws ApplicationException
       {
-        starteStatistik();
+        try
+        {
+          starteStatistik();
+        }
+        catch (RemoteException e)
+        {
+          throw new ApplicationException(e);
+        }
       }
     }, null, true); // "true" defines this button as the default button
     return b;
@@ -1535,7 +1548,7 @@ public class MitgliedControl extends AbstractControl
     try
     {
       Mitglied m = getMitglied();
-      m.setAdressierungszusatz((String)getAdressierungszusatz().getValue());
+      m.setAdressierungszusatz((String) getAdressierungszusatz().getValue());
       m.setAustritt((Date) getAustritt().getValue());
       m.setAnrede((String) getAnrede().getValue());
       GenericObject o = (GenericObject) getBeitragsgruppe().getValue();
@@ -1552,7 +1565,7 @@ public class MitgliedControl extends AbstractControl
       m.setBlz((String) getBlz().getValue());
       m.setEintritt((Date) getEintritt().getValue());
       m.setEmail((String) getEmail().getValue());
-      if (Einstellungen.isExterneMitgliedsnummer())
+      if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
       {
         if (externemitgliedsnummer != null)
         {
@@ -1710,7 +1723,7 @@ public class MitgliedControl extends AbstractControl
       }
       String ausgformat = (String) ausgabe.getValue();
       fd.setFileName(new Dateiname("auswertung", dateinamensort, Einstellungen
-          .getDateinamenmuster(), ausgformat).get());
+          .getEinstellung().getDateinamenmuster(), ausgformat).get());
       fd.setFilterExtensions(new String[] { "*." + ausgformat });
 
       String s = fd.open();
@@ -1738,7 +1751,7 @@ public class MitgliedControl extends AbstractControl
     }
   }
 
-  private void starteStatistik()
+  private void starteStatistik() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
@@ -1751,7 +1764,7 @@ public class MitgliedControl extends AbstractControl
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("statistik", Einstellungen
+    fd.setFileName(new Dateiname("statistik", Einstellungen.getEinstellung()
         .getDateinamenmuster(), "PDF").get());
 
     String s = fd.open();
@@ -1812,7 +1825,7 @@ public class MitgliedControl extends AbstractControl
       fd.setFilterPath(path);
     }
     fd.setFileName(new Dateiname((String) getJubelArt().getValue(),
-        Einstellungen.getDateinamenmuster(), "PDF").get());
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     String s = fd.open();
 
     if (s == null || s.length() == 0)
@@ -1827,7 +1840,7 @@ public class MitgliedControl extends AbstractControl
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
     final Integer jahr = (Integer) jubeljahr.getValue();
-    final String art = (String)jubelart.getValue();
+    final String art = (String) jubelart.getValue();
 
     BackgroundTask t = new BackgroundTask()
     {
@@ -1860,8 +1873,8 @@ public class MitgliedControl extends AbstractControl
 
   }
 
-  private void auswertungMitgliedPDF(final ArrayList<Mitglied> list, final File file,
-      final String subtitle)
+  private void auswertungMitgliedPDF(final ArrayList<Mitglied> list,
+      final File file, final String subtitle)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -1903,7 +1916,8 @@ public class MitgliedControl extends AbstractControl
     Application.getController().start(t);
   }
 
-  private void auswertungMitgliedCSV(final ArrayList<Mitglied> list, final File file)
+  private void auswertungMitgliedCSV(final ArrayList<Mitglied> list,
+      final File file)
   {
     BackgroundTask t = new BackgroundTask()
     {

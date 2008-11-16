@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.14  2008/08/10 12:34:04  jost
+ * Vorbereitung der Rechnungserstellung
+ *
  * Revision 1.13  2008/05/22 06:44:28  jost
  * BuchfÃ¼hrung: Beginn des GeschÃ¤ftsjahres
  *
@@ -58,6 +61,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
+import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -75,35 +79,9 @@ public class Einstellungen
 
   private static DBService db;
 
+  private static Einstellung einstellung;
+
   private static Settings settings = new Settings(Einstellungen.class);
-
-  private static Boolean geburtsdatumPflicht;
-
-  private static Boolean eintrittsdatumPflicht;
-
-  private static Boolean kommunikationsdaten;
-
-  private static Boolean zusatzabbuchung;
-
-  private static Boolean vermerke;
-
-  private static Boolean wiedervorlage;
-
-  private static Boolean kursteilnehmer;
-
-  private static Boolean externemitgliedsnummer;
-
-  private static int beitragsmodel;
-
-  private static String dateinamenmuster;
-
-  private static String beginngeschaeftsjahr;
-
-  private static boolean rechnungfuerabbuchung;
-
-  private static boolean rechnungfuerueberweisung;
-
-  private static boolean rechnungfuerbarzahlung;
 
   /**
    * Datums-Format dd.MM.yyyy.
@@ -131,6 +109,60 @@ public class Einstellungen
   {
     DECIMALFORMAT.setMinimumFractionDigits(2);
     DECIMALFORMAT.setMaximumFractionDigits(2);
+    try
+    {
+      einstellung = (Einstellung) getDBService().createObject(
+          Einstellung.class, "1");
+      System.out.println("---> Objekt gefunden");
+    }
+    catch (RemoteException e)
+    {
+      // Einstellungssatz existiert noch nicht. Deshalb neuen Satz anlegen
+      try
+      {
+        System.out.println("---> Objekt wird initialisiert.");
+        einstellung = (Einstellung) getDBService().createObject(
+            Einstellung.class, null);
+        // Mit den folgenden Statements wird das Object initialisiert. Sofern
+        // noch alte Einstellungen in den Property-Datei vorhanden sind, werden
+        // diese verwendet. Ansonsten die Default-Werte.
+        einstellung.setGeburtsdatumPflicht(settings.getBoolean(
+            "geburtsdatum.pflicht", true));
+        einstellung.setEintrittsdatumPflicht(settings.getBoolean(
+            "eintrittsdatum.pflicht", true));
+        einstellung.setKommunikationsdaten(settings.getBoolean(
+            "kommunikationsdaten.einblenden", true));
+        einstellung.setZusatzabbuchung(settings.getBoolean(
+            "zusatzabbuchung.einblenden", true));
+        einstellung.setVermerke(settings
+            .getBoolean("vermerke.einblenden", true));
+        einstellung.setWiedervorlage(settings.getBoolean(
+            "wiedervorlage.einblenden", true));
+        einstellung.setKursteilnehmer(settings.getBoolean(
+            "kursteilnehmer.einblenden", true));
+        einstellung.setExterneMitgliedsnummer(settings.getBoolean(
+            "externemitgliedsnummer.verwenden", false));
+        einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
+            BeitragsmodelInput.JAEHRLICH));
+        einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",
+            "a$s$-d$-z$"));
+        einstellung.setBeginnGeschaeftsjahr(settings.getString(
+            "beginngeschaeftsjahr", "01.01."));
+        einstellung.setRechnungFuerAbbuchung(settings.getBoolean(
+            "rechnung.fuer.abbuchung", true));
+        einstellung.setRechnungFuerUeberweisung(settings.getBoolean(
+            "rechnung.fuer.ueberweisung", true));
+        einstellung.setRechnungFuerBarzahlung(settings.getBoolean(
+            "rechnung.fuer.barzahlung", true));
+      }
+      catch (RemoteException e1)
+      {
+        // Satz konnte nicht erzeugt werden.
+        // TODO Muss noch geloggt werden.
+        e1.printStackTrace();
+      }
+    }
+
   }
 
   /**
@@ -203,284 +235,9 @@ public class Einstellungen
     return (data == null || data.equals(blz)) ? "" : data.toString();
   }
 
-  /**
-   * Ist das Geburtsdatum ein Pflichtfeld?
-   */
-  public static boolean isGeburtsdatumPflicht()
+  public static Einstellung getEinstellung()
   {
-    if (geburtsdatumPflicht != null)
-    {
-      return geburtsdatumPflicht.booleanValue();
-    }
-    geburtsdatumPflicht = new Boolean(settings.getBoolean(
-        "geburtsdatum.pflicht", true));
-    return geburtsdatumPflicht;
-  }
-
-  /**
-   * Speichert, ob das Geburtsdatum ein Pflichtfeld ist.
-   */
-  public static void setGeburtsdatumPflicht(boolean value)
-  {
-    settings.setAttribute("geburtsdatum.pflicht", value);
-    geburtsdatumPflicht = null;
-  }
-
-  /**
-   * Ist das Eintrittsdatum ein Pflichtfeld?
-   */
-  public static boolean isEintrittsdatumPflicht()
-  {
-    if (eintrittsdatumPflicht != null)
-    {
-      return eintrittsdatumPflicht.booleanValue();
-    }
-    eintrittsdatumPflicht = new Boolean(settings.getBoolean(
-        "eintrittsdatum.pflicht", true));
-    return eintrittsdatumPflicht;
-  }
-
-  /**
-   * Speichert, ob das Eintrittsdatum ein Pflichtfeld ist.
-   */
-  public static void setEintrittsdatumPflicht(boolean value)
-  {
-    settings.setAttribute("eintrittsdatum.pflicht", value);
-    eintrittsdatumPflicht = null;
-  }
-
-  /**
-   * Kommunikationsdaten einblenden?
-   */
-  public static boolean isKommunikationsdaten()
-  {
-    if (kommunikationsdaten != null)
-    {
-      return kommunikationsdaten.booleanValue();
-    }
-    kommunikationsdaten = new Boolean(settings.getBoolean(
-        "kommunikationsdaten.einblenden", true));
-    return kommunikationsdaten;
-  }
-
-  /**
-   * Speichert, ob Kommunikationsdaten eingeblendet werden sollen.
-   */
-  public static void setKommunikationsdaten(boolean value)
-  {
-    settings.setAttribute("kommunikationsdaten.einblenden", value);
-    kommunikationsdaten = null;
-  }
-
-  /**
-   * Zusatzabbuchung einblenden?
-   */
-  public static boolean isZusatzabbuchung()
-  {
-    if (zusatzabbuchung != null)
-    {
-      return zusatzabbuchung.booleanValue();
-    }
-    zusatzabbuchung = new Boolean(settings.getBoolean(
-        "zusatzabbuchung.einblenden", true));
-    return zusatzabbuchung;
-  }
-
-  /**
-   * Speichert, ob Zusatzabbuchungen eingeblendet werden sollen.
-   */
-  public static void setZusatzabbuchungen(boolean value)
-  {
-    settings.setAttribute("zusatzabbuchung.einblenden", value);
-    zusatzabbuchung = null;
-  }
-
-  /**
-   * Vermerke einblenden?
-   */
-  public static boolean isVermerke()
-  {
-    if (vermerke != null)
-    {
-      return vermerke.booleanValue();
-    }
-    vermerke = new Boolean(settings.getBoolean("vermerke.einblenden", true));
-    return vermerke;
-  }
-
-  /**
-   * Speichert, ob Vermerke eingeblendet werden sollen.
-   */
-  public static void setVermerke(boolean value)
-  {
-    settings.setAttribute("vermerke.einblenden", value);
-    vermerke = null;
-  }
-
-  /**
-   * Wiedervorlage einblenden?
-   */
-  public static boolean isWiedervorlage()
-  {
-    if (wiedervorlage != null)
-    {
-      return wiedervorlage.booleanValue();
-    }
-    wiedervorlage = new Boolean(settings.getBoolean("wiedervorlage.einblenden",
-        true));
-    return wiedervorlage;
-  }
-
-  /**
-   * Speichert, ob die Wiedervorlage eingeblendet werden sollen.
-   */
-  public static void setWiedervorlage(boolean value)
-  {
-    settings.setAttribute("wiedervorlage.einblenden", value);
-    wiedervorlage = null;
-  }
-
-  /**
-   * Kursteilnehmer einblenden?
-   */
-  public static boolean isKursteilnehmer()
-  {
-    if (kursteilnehmer != null)
-    {
-      return kursteilnehmer.booleanValue();
-    }
-    kursteilnehmer = new Boolean(settings.getBoolean(
-        "kursteilnehmer.einblenden", true));
-    return kursteilnehmer;
-  }
-
-  /**
-   * Speichert, ob Kursteilnehmer eingeblendet werden sollen.
-   */
-  public static void setKursteilnehmer(boolean value)
-  {
-    settings.setAttribute("kursteilnehmer.einblenden", value);
-    kursteilnehmer = null;
-  }
-
-  /**
-   * Externe Mitgliedsnummer verwenden?
-   */
-  public static boolean isExterneMitgliedsnummer()
-  {
-    if (externemitgliedsnummer != null)
-    {
-      return externemitgliedsnummer.booleanValue();
-    }
-    externemitgliedsnummer = new Boolean(settings.getBoolean(
-        "externemitgliedsnummer.verwenden", false));
-    return externemitgliedsnummer;
-  }
-
-  /**
-   * Speichert, ob externe Mitgliedsnummern verwendet werden sollen.
-   */
-  public static void setExterneMitgliedsnummern(boolean value)
-  {
-    settings.setAttribute("externemitgliedsnummer.verwenden", value);
-    externemitgliedsnummer = null;
-  }
-
-  /**
-   * Beitragsmodel
-   */
-  public static int getBeitragsmodel()
-  {
-    beitragsmodel = settings.getInt("beitragsmodel",
-        BeitragsmodelInput.JAEHRLICH);
-    return beitragsmodel;
-  }
-
-  /**
-   * Speichert das Beitragsmodel
-   */
-  public static void setBeitragsmodel(int value)
-  {
-    settings.setAttribute("beitragsmodel", value);
-  }
-
-  public static String getDateinamenmuster()
-  {
-    dateinamenmuster = settings.getString("dateinamenmuster", "a$s$-d$-z$");
-    return dateinamenmuster;
-  }
-
-  public static void setDateinamenmuster(String value)
-  {
-    settings.setAttribute("dateinamenmuster", value);
-  }
-
-  public static String getBeginnGeschaeftsjahr()
-  {
-    beginngeschaeftsjahr = settings.getString("beginngeschaeftsjahr", "01.01.");
-    return beginngeschaeftsjahr;
-  }
-
-  public static void setBeginnGeschaeftsjahr(String value)
-  {
-    settings.setAttribute("beginngeschaeftsjahr", value);
-  }
-
-  /**
-   * Rechnung für Zahlungsweg Abbuchung?
-   */
-  public static boolean isRechnungFuerAbbuchung()
-  {
-    rechnungfuerabbuchung = new Boolean(settings.getBoolean(
-        "rechnung.fuer.abbuchung", false));
-    return rechnungfuerabbuchung;
-  }
-
-  /**
-   * Speichert, ob eine Rechnung für den Zahlungsweg Abbuchung erstellt werden
-   * soll.
-   */
-  public static void setRechungFuerAbbuchung(boolean value)
-  {
-    settings.setAttribute("rechnung.fuer.abbuchung", value);
-  }
-
-  /**
-   * Rechnung für Zahlungsweg Überweisung?
-   */
-  public static boolean isRechnungFuerUeberweisung()
-  {
-    rechnungfuerueberweisung = new Boolean(settings.getBoolean(
-        "rechnung.fuer.ueberweisung", true));
-    return rechnungfuerueberweisung;
-  }
-
-  /**
-   * Speichert, ob eine Rechnung für den Zahlungsweg Rechnung erstellt werden
-   * soll.
-   */
-  public static void setRechungFuerRechnung(boolean value)
-  {
-    settings.setAttribute("rechnung.fuer.rechnung", value);
-  }
-
-  /**
-   * Rechnung für Zahlungsweg Barzahlung?
-   */
-  public static boolean isRechnungFuerBarzahlung()
-  {
-    rechnungfuerbarzahlung = new Boolean(settings.getBoolean(
-        "rechnung.fuer.barzahlung", false));
-    return rechnungfuerbarzahlung;
-  }
-
-  /**
-   * Speichert, ob eine Rechnung für den Zahlungsweg Barzahlung erstellt werden
-   * soll.
-   */
-  public static void setRechungFuerBarzahlung(boolean value)
-  {
-    settings.setAttribute("rechnung.fuer.barzahlung", value);
+    return einstellung;
   }
 
   /**

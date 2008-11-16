@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/11/11 20:48:35  jost
+ * Selektion nach Geschlecht
+ *
  * Revision 1.8  2008/09/28 12:55:30  jost
  * Bug https://developer.berlios.de/bugs/?func=detailbug&bug_id=14496&group_id=7335 gefixed
  *
@@ -164,7 +167,7 @@ public class MitgliedQuery
         }
       }
     }
-    if (Einstellungen.isExterneMitgliedsnummer())
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
       try
       {
@@ -243,7 +246,7 @@ public class MitgliedQuery
     }
     if (control.getGeschlecht().getValue() != null)
     {
-      String g = (String)control.getGeschlecht().getValue();
+      String g = (String) control.getGeschlecht().getValue();
       bedingungen.add(g);
     }
     if (!dialog)
@@ -271,7 +274,7 @@ public class MitgliedQuery
     }
     try
     {
-      if (Einstellungen.isExterneMitgliedsnummer()
+      if (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
           && control.getSuchExterneMitgliedsnummer().getValue() != null)
       {
         bedingungen.add((Integer) control.getSuchExterneMitgliedsnummer()
