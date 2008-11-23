@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2008/11/16 16:59:20  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.15  2008/11/13 20:18:42  jost
  * Adressierungszusatz aufgenommen.
  *
@@ -145,6 +148,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
           || getKonto().length() == 0)
       {
         throw new ApplicationException("Bitte Bankverbindung eingeben");
+      }
+      if (getBlz() != null && getBlz().length() != 8)
+      {
+        throw new ApplicationException("Die Bankleitzahl muss 8stellig sein");
       }
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
