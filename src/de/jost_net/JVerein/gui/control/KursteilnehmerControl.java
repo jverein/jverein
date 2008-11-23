@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/11/16 16:56:45  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.10  2008/10/01 14:00:13  jost
  * Codeoptimierung
  *
@@ -366,7 +369,8 @@ public class KursteilnehmerControl extends AbstractControl
 
     part.addColumn("Name", "name");
     part.addColumn("VZweck 1", "vzweck1");
-    part.addColumn("BLZ", "blz");
+    part.addColumn("VZweck 2", "vzweck2");
+       part.addColumn("BLZ", "blz");
     part.addColumn("Konto", "konto");
     part.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
