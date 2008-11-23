@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.15  2008/11/16 16:55:52  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.14  2008/08/10 12:34:04  jost
  * Vorbereitung der Rechnungserstellung
  *
@@ -113,14 +116,12 @@ public class Einstellungen
     {
       einstellung = (Einstellung) getDBService().createObject(
           Einstellung.class, "1");
-      System.out.println("---> Objekt gefunden");
-    }
+     }
     catch (RemoteException e)
     {
       // Einstellungssatz existiert noch nicht. Deshalb neuen Satz anlegen
       try
       {
-        System.out.println("---> Objekt wird initialisiert.");
         einstellung = (Einstellung) getDBService().createObject(
             Einstellung.class, null);
         // Mit den folgenden Statements wird das Object initialisiert. Sofern
