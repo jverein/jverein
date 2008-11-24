@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/11/16 16:56:26  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.8  2008/08/10 12:35:01  jost
  * Vorbereitung der Rechnungserstellung
  *
@@ -245,6 +248,7 @@ public class EinstellungControl extends AbstractControl
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
+      e.setEintrittsdatumPflicht((Boolean)eintrittsdatumpflicht.getValue());
       e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
       e.setZusatzabbuchung((Boolean) zusatzabbuchung.getValue());
       e.setVermerke((Boolean) vermerke.getValue());
