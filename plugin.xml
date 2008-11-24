@@ -5,7 +5,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
 
-  <description>Jameica-Vereinsverwaltung</description>
+  <description>OpenSource-Vereinsverwaltung</description>
   <homepage>http://www.jverein.de</homepage>
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
  
