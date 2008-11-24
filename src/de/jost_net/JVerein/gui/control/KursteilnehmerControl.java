@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/11/24 19:21:07  jost
+ * Defaultwerte speichern.
+ *
  * Revision 1.12  2008/11/23 13:03:46  jost
  * Verwendungszweck 2 in die Trefferliste aufgenommen.
  *
@@ -592,7 +595,6 @@ public class KursteilnehmerControl extends AbstractControl
     try
     {
       saveDefaults();
-      System.out.println("saveDefaults gelaufen");
       String subtitle = "";
       list = Einstellungen.getDBService().createList(Kursteilnehmer.class);
       if (abbuchungsdatumvon.getValue() != null)
