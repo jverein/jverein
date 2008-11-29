@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:18:45  jost
+ * Neu: Spendenbescheinigung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -78,6 +81,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     if ("formular".equals(field))

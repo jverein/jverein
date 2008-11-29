@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/01/01 12:36:16  jost
+ * Javadoc korrigiert
+ *
  * Revision 1.1  2007/12/01 10:07:19  jost
  * H2-Support
  *
@@ -90,6 +93,7 @@ public class McKoiToH2MigrationTask extends DatabaseMigrationTask
     super.fixObject(object, monitor);
   }
 
+  @SuppressWarnings("unchecked")
   protected void copy(Class type, ProgressMonitor monitor) throws Exception
   {
     super.copy(type, monitor);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:17:55  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -67,6 +70,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     if ("formular".equals(field))

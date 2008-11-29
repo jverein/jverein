@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 19:03:24  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -63,6 +66,7 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     if ("mitglied".equals(arg0))

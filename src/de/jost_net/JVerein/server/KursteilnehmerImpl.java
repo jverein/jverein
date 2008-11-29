@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/03/21 12:10:43  jost
+ * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurückgesetzt werden.
+ *
  * Revision 1.1  2007/02/25 19:14:53  jost
  * Neu: Kursteilnehmer
  *
@@ -109,6 +112,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     return null;

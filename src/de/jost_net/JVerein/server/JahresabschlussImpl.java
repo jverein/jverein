@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/06/28 17:07:25  jost
+ * Neu: Jahresabschluss
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -126,6 +129,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     return it.hasNext();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     return null;

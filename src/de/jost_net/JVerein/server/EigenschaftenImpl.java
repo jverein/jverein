@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/25 16:07:06  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -65,6 +68,7 @@ public class EigenschaftenImpl extends AbstractDBObject implements Eigenschaften
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     if ("mitglied".equals(arg0))

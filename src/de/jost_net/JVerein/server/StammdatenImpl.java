@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/09/21 08:46:38  jost
+ * Neu: Altersjubliäen
+ *
  * Revision 1.4  2007/12/22 08:27:30  jost
  * Neu: Jubiläenliste
  *
@@ -110,6 +113,7 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/02 10:59:17  jost
+ * Bugfix Migration nach Neuinstallation
+ *
  * Revision 1.2  2007/12/16 20:26:56  jost
  * Versions-Tabelle wird mitmigriert.
  *
@@ -151,6 +154,7 @@ public class DatabaseMigrationTask implements BackgroundTask
    *          Monitor.
    * @throws Exception
    */
+  @SuppressWarnings("unchecked")
   protected void copy(Class type, ProgressMonitor monitor) throws Exception
   {
     monitor.setStatusText(i18n.tr("Kopiere " + type.getName()));

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:18:12  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -75,6 +78,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;

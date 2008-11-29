@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/05/07 19:27:06  jost
+ * Neu: Wiedervorlage
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -71,6 +74,7 @@ public class WiedervorlageImpl extends AbstractDBObject implements
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     if ("mitglied".equals(arg0))

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/03/25 17:04:58  jost
+ * Beitragsart aufgenommen.
+ *
  * Revision 1.2  2007/02/23 20:28:41  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -75,6 +78,7 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/11/16 16:58:59  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.3  2008/06/28 17:06:45  jost
  * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
  *
@@ -148,6 +151,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     if ("konto".equals(field))

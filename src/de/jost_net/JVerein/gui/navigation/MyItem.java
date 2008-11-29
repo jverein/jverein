@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/05/22 06:51:47  jost
+ * Buchführung
+ *
  * Revision 1.2  2007/08/23 19:25:23  jost
  * Header korrigiert.
  *
@@ -170,6 +173,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getPath()
    */
+  @SuppressWarnings("unchecked")
   public GenericIterator getPath() throws RemoteException
   {
     List list = PseudoIterator.asList(this.parent.getPath());
@@ -255,7 +259,10 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.2 2007/08/23 19:25:23 jost Header
+ * $Log$
+ * Revision 1.3  2008/05/22 06:51:47  jost
+ * Buchführung
+ * Revision 1.2 2007/08/23 19:25:23 jost Header
  * korrigiert.
  * 
  * Revision 1.1 2007/08/22 20:43:54 jost *** empty log message ***

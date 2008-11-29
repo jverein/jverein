@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/11/23 13:04:03  jost
+ * Weitere Plausi auf die BLZ
+ *
  * Revision 1.16  2008/11/16 16:59:20  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -65,7 +68,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.input.ZahlungswegInput;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -141,7 +144,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Eintrittsdatum eingeben");
     }
-    if (getZahlungsweg() == ZahlungswegInput.ABBUCHUNG
+    if (getZahlungsweg() == Zahlungsweg.ABBUCHUNG
         && getBeitragsgruppe().getBetrag() > 0)
     {
       if (getBlz() == null || getBlz().length() == 0 || getKonto() == null
@@ -199,6 +202,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     if ("beitragsgruppe".equals(field))

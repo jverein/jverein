@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/29 14:42:38  jost
+ * Neu: Backup und Restore im XML-Format
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.action;
@@ -90,6 +93,7 @@ public class BackupRestoreAction implements Action
           reader = new XmlReader(is, new ObjectFactory()
           {
 
+            @SuppressWarnings("unchecked")
             public GenericObject create(String type, String id, Map values)
                 throws Exception
             {

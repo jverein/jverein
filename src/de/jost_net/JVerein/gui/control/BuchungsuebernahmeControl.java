@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/05/24 16:39:17  jost
+ * Wegfall der Spalte Saldo
+ *
  * Revision 1.5  2008/05/22 06:48:07  jost
  * Buchf√ºhrung
  *
@@ -103,6 +106,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
   {
     Button button = new Button("‹bernahme", new Action()
     {
+      @SuppressWarnings("unchecked")
       public void handleAction(Object context) throws ApplicationException
       {
         try

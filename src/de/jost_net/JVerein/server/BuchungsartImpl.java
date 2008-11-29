@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:56:17  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:38:12  jost
  * Reaktivierung Buchführung
  *
@@ -77,6 +80,7 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;

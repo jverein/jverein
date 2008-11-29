@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:58:53  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -88,6 +91,7 @@ public class ManuellerZahlungseingangImpl extends AbstractDBObject implements
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     return null;

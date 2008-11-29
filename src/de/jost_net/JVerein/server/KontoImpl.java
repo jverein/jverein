@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/06/28 17:07:46  jost
+ * Neu: Jahresabschluss
+ *
  * Revision 1.2  2008/05/26 18:59:17  jost
  * Neu: Eröffnungsdatum
  *
@@ -78,6 +81,7 @@ public class KontoImpl extends AbstractDBObject implements Konto
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;

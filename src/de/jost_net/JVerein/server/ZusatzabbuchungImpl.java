@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/09/22 20:26:03  jost
+ * Plausi korrigiert
+ *
  * Revision 1.4  2007/03/30 13:26:12  jost
  * Wiederkehrende Zusatzabbuchungen.
  *
@@ -27,7 +30,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.gui.input.IntervallInput;
+import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzabbuchung;
 import de.jost_net.JVerein.util.Datum;
@@ -116,6 +119,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     if ("mitglied".equals(arg0))
@@ -190,7 +194,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
 
   public String getIntervallText() throws RemoteException
   {
-    return IntervallInput.getText(getIntervall());
+    return IntervallZusatzzahlung.get(getIntervall());
   }
 
   public void setIntervall(Integer value) throws RemoteException
@@ -234,7 +238,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
       return true;
     }
     // Einmalige Ausführung
-    if (getIntervall().intValue() == IntervallInput.KEIN)
+    if (getIntervall().intValue() == IntervallZusatzzahlung.KEIN)
     {
       // Ist das Ausführungsdatum gesetzt?
       if (getAusfuehrung() == null)

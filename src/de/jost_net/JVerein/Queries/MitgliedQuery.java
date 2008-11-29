@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/11/16 16:58:37  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.9  2008/11/11 20:48:35  jost
  * Selektion nach Geschlecht
  *
@@ -74,11 +77,13 @@ public class MitgliedQuery
     this.dialog = dialog;
   }
 
+  @SuppressWarnings("unchecked")
   public ArrayList getQuery() throws RemoteException
   {
     return getQuery("*");
   }
 
+  @SuppressWarnings("unchecked")
   public ArrayList getQuery(String anfangsbuchstabe) throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();

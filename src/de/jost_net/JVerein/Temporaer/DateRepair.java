@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/02/13 18:18:45  jost
+ * Überflüssigen Import entfernt.
+ *
  * Revision 1.1  2008/01/19 10:05:14  jost
  * *** empty log message ***
  *
@@ -45,6 +48,7 @@ public class DateRepair implements MessageConsumer
     return false;
   }
 
+  @SuppressWarnings("unchecked")
   public Class[] getExpectedMessageTypes()
   {
     return new Class[] { SystemMessage.class };

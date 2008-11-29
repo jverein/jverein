@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/06/28 17:07:15  jost
+ * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
+ *
  * Revision 1.6  2008/05/24 16:40:39  jost
  * Wegfall der Spalte Saldo
  *
@@ -101,6 +104,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String field) throws RemoteException
   {
     if ("buchungsart".equals(field))

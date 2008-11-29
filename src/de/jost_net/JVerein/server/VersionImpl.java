@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/01 17:47:50  jost
+ * Neue DB-Update-Mimik
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -50,6 +53,7 @@ public class VersionImpl extends AbstractDBObject implements Version
     insertCheck();
   }
 
+  @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;

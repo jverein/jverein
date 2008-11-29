@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/25 16:01:56  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -187,6 +190,7 @@ public class EigenschaftenControl extends AbstractControl
     }
   }
 
+  @SuppressWarnings("unchecked")
   private List<HilfsEigenschaft> getList(String text)
   {
     try

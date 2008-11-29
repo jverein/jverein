@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/01/02 10:59:37  jost
+ * Standardwert: H2
+ *
  * Revision 1.5  2007/12/16 20:27:48  jost
  * Standardwert zurück auf McKoi
  *
@@ -67,6 +70,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    *          der zu verwendende Treiber.
    * @throws RemoteException
    */
+  @SuppressWarnings("unchecked")
   protected JVereinDBServiceImpl(String driverClass) throws RemoteException
   {
     super();

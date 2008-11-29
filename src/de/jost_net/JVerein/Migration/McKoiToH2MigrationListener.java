@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/31 20:35:45  jost
+ * Hinweis auf Erläuterungen im Wiki
+ *
  * Revision 1.2  2007/12/16 20:27:15  jost
  * Standardwert für die Migration geändert.
  *
@@ -43,6 +46,7 @@ public class McKoiToH2MigrationListener implements MessageConsumer
     return s.getBoolean("migration.h2", true);
   }
 
+  @SuppressWarnings("unchecked")
   public Class[] getExpectedMessageTypes()
   {
     return new Class[] { SystemMessage.class };

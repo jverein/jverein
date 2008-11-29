@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/10/01 14:18:07  jost
+ * Warnungen entfernt
+ *
  * Revision 1.1  2008/09/04 18:57:37  jost
  * SearchProvider für die neue Jameica-Suchmaschine
  *
@@ -41,6 +44,7 @@ public class MitgliedSearchProvider implements SearchProvider
     return "Mitglieder";
   }
 
+  @SuppressWarnings("unchecked")
   public List search(String search) throws RemoteException,
       ApplicationException
   {

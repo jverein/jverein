@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/29 14:42:28  jost
+ * Neu: Backup und Restore im XML-Format
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.action;
@@ -257,6 +260,7 @@ public class BackupCreateAction implements Action
    * @param monitor
    * @throws Exception
    */
+  @SuppressWarnings("unchecked")
   private static void backup(Class type, Writer writer, ProgressMonitor monitor)
       throws Exception
   {
