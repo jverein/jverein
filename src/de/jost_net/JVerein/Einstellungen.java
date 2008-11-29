@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.16  2008/11/23 13:03:09  jost
+ * Debug-Meldungen entfernt.
+ *
  * Revision 1.15  2008/11/16 16:55:52  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -63,7 +66,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
+import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -116,7 +119,7 @@ public class Einstellungen
     {
       einstellung = (Einstellung) getDBService().createObject(
           Einstellung.class, "1");
-     }
+    }
     catch (RemoteException e)
     {
       // Einstellungssatz existiert noch nicht. Deshalb neuen Satz anlegen
@@ -144,7 +147,7 @@ public class Einstellungen
         einstellung.setExterneMitgliedsnummer(settings.getBoolean(
             "externemitgliedsnummer.verwenden", false));
         einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
-            BeitragsmodelInput.JAEHRLICH));
+            Beitragsmodel.JAEHRLICH));
         einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",
             "a$s$-d$-z$"));
         einstellung.setBeginnGeschaeftsjahr(settings.getString(

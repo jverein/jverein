@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/11/16 16:58:29  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.14  2008/11/13 20:18:00  jost
  * Adressierungszusatz aufgenommen.
  *
@@ -70,7 +73,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.input.ZahlungswegInput;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
@@ -193,19 +196,19 @@ public class Import
         m.setGeschlecht(results.getString("Geschlecht"));
         if (results.getString("Zahlungsart").equals("l"))
         {
-          m.setZahlungsweg(ZahlungswegInput.ABBUCHUNG);
+          m.setZahlungsweg(Zahlungsweg.ABBUCHUNG);
           m.setBlz(results.getString("Bankleitzahl"));
           m.setKonto(results.getString("Kontonummer"));
         }
         else if (results.getString("Zahlungsart").equals("b"))
         {
-          m.setZahlungsweg(ZahlungswegInput.BARZAHLUNG);
+          m.setZahlungsweg(Zahlungsweg.BARZAHLUNG);
         }
         else
         {
           monitor.log(m.getNameVorname()
               + " ungültige Zahlungsart. Bar wird angenommen.");
-          m.setZahlungsweg(ZahlungswegInput.BARZAHLUNG);
+          m.setZahlungsweg(Zahlungsweg.BARZAHLUNG);
         }
         String zahlungsrhytmus = "12";
         try
@@ -371,6 +374,7 @@ public class Import
     return true;
   }
 
+  @SuppressWarnings("unchecked")
   private HashMap<String, String> aufbauenBeitragsgruppenAusImport(String file,
       Statement stmt) throws SQLException, RemoteException,
       ApplicationException

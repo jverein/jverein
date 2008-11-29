@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2007/08/30 19:47:45  jost
+ * Part -> TablePart
+ *
  * Revision 1.6  2007/08/23 19:24:23  jost
  * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
  *
@@ -34,8 +37,8 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
-import de.jost_net.JVerein.gui.input.BeitragsArtInput;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
+import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -45,6 +48,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
@@ -58,7 +62,7 @@ public class BeitragsgruppeControl extends AbstractControl
 
   private DecimalInput betrag;
 
-  private BeitragsArtInput beitragsart;
+  private SelectInput beitragsart;
 
   private Beitragsgruppe beitrag;
 
@@ -96,13 +100,14 @@ public class BeitragsgruppeControl extends AbstractControl
     return betrag;
   }
 
-  public BeitragsArtInput getBeitragsArt() throws RemoteException
+  public SelectInput getBeitragsArt() throws RemoteException
   {
     if (beitragsart != null)
     {
       return beitragsart;
     }
-    beitragsart = new BeitragsArtInput(getBeitragsgruppe().getBeitragsArt());
+    beitragsart = new SelectInput(ArtBuchungsart.getArray(),
+        new ArtBuchungsart(ArtBuchungsart.EINNAHME));
     return beitragsart;
   }
 

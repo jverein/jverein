@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/10/01 14:17:12  jost
+ * Warnungen entfernt
+ *
  * Revision 1.2  2008/09/16 18:27:24  jost
  * Refactoring Formularaufbereitung
  *
@@ -25,8 +28,8 @@ import com.lowagie.text.pdf.BaseFont;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
-import de.jost_net.JVerein.gui.input.FormularArtInput;
 import de.jost_net.JVerein.gui.menu.FormularfeldMenu;
+import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -108,14 +111,14 @@ public class FormularfeldControl extends AbstractControl
     ArrayList<String> namen = new ArrayList<String>();
     namen.add(TAGESDATUM);
     namen.add(EMPFAENGER);
-    if (formular.getArt() == FormularArtInput.SPENDENBESCHEINIGUNG)
+    if (formular.getArt() == Formularart.SPENDENBESCHEINIGUNG)
     {
       namen.add("Bescheinigungsdatum");
       namen.add("Betrag");
       namen.add("Betrag in Worten");
       namen.add("Spendedatum");
     }
-    if (formular.getArt() == FormularArtInput.RECHNUNG)
+    if (formular.getArt() == Formularart.RECHNUNG)
     {
       namen.add(ZAHLUNGSGRUND1);
       namen.add(ZAHLUNGSGRUND2);

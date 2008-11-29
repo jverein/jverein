@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/11/16 16:57:20  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.4  2008/09/16 18:50:54  jost
  * Refactoring Formularaufbereitung
  *
@@ -37,10 +40,10 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
-import de.jost_net.JVerein.gui.input.FormularArtInput;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
+import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.Dateiname;
@@ -223,7 +226,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       def = getSpendenbescheinigung().getFormular().getID();
     }
-    formular = new FormularInput(FormularArtInput.SPENDENBESCHEINIGUNG, def);
+    formular = new FormularInput(Formularart.SPENDENBESCHEINIGUNG, def);
     return formular;
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2008/11/16 16:58:18  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.22  2008/08/10 12:37:25  jost
  * Abbuchung -> Abrechnung
  * Vorbereitung der Rechnungserstellung
@@ -91,12 +94,12 @@ import java.util.Hashtable;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
-import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
-import de.jost_net.JVerein.gui.input.IntervallInput;
-import de.jost_net.JVerein.gui.input.ZahlungsrhytmusInput;
-import de.jost_net.JVerein.gui.input.ZahlungswegInput;
+import de.jost_net.JVerein.keys.Abrechnungsausgabe;
+import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
@@ -151,8 +154,8 @@ public class Abbuchung
       // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
       // wurden beim Schreiben der C-Sätze ermittelt.
       dtaus.writeESatz();
-      if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_EINZELBUCHUNGEN
-          || param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
+      if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
+          || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
       {
         buchenHibiscus(param);
       }
@@ -238,53 +241,51 @@ public class Abbuchung
         list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
             vondatum.getTime()) });
       }
-      if (Einstellungen.getEinstellung().getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
+      if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
       {
         if (modus == AbbuchungsmodusInput.HAVIMO)
         {
           list
               .addFilter(
                   "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-                  new Object[] {
-                      new Integer(ZahlungsrhytmusInput.HALBJAEHRLICH),
-                      new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                      new Integer(ZahlungsrhytmusInput.MONATLICH) });
+                  new Object[] { new Integer(Zahlungsrhytmus.HALBJAEHRLICH),
+                      new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
+                      new Integer(Zahlungsrhytmus.MONATLICH) });
         }
         if (modus == AbbuchungsmodusInput.JAVIMO)
         {
           list
               .addFilter(
                   "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-                  new Object[] { new Integer(ZahlungsrhytmusInput.JAEHRLICH),
-                      new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                      new Integer(ZahlungsrhytmusInput.MONATLICH) });
+                  new Object[] { new Integer(Zahlungsrhytmus.JAEHRLICH),
+                      new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
+                      new Integer(Zahlungsrhytmus.MONATLICH) });
         }
         if (modus == AbbuchungsmodusInput.VIMO)
         {
           list.addFilter("zahlungsrhytmus = ? or zahlungsrhytmus = ?",
-              new Object[] {
-                  new Integer(ZahlungsrhytmusInput.VIERTELJAEHRLICH),
-                  new Integer(ZahlungsrhytmusInput.MONATLICH) });
+              new Object[] { new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
+                  new Integer(Zahlungsrhytmus.MONATLICH) });
         }
         if (modus == AbbuchungsmodusInput.MO)
         {
           list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
-              ZahlungsrhytmusInput.MONATLICH) });
+              Zahlungsrhytmus.MONATLICH) });
         }
         if (modus == AbbuchungsmodusInput.VI)
         {
           list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
-              ZahlungsrhytmusInput.VIERTELJAEHRLICH) });
+              Zahlungsrhytmus.VIERTELJAEHRLICH) });
         }
         if (modus == AbbuchungsmodusInput.HA)
         {
           list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
-              ZahlungsrhytmusInput.HALBJAEHRLICH) });
+              Zahlungsrhytmus.HALBJAEHRLICH) });
         }
         if (modus == AbbuchungsmodusInput.JA)
         {
           list.addFilter("zahlungsrhytmus = ?", new Object[] { new Integer(
-              ZahlungsrhytmusInput.JAEHRLICH) });
+              Zahlungsrhytmus.JAEHRLICH) });
         }
       }
       list.setOrder("ORDER BY name, vorname");
@@ -297,7 +298,7 @@ public class Abbuchung
         monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
         Mitglied m = (Mitglied) list.next();
         Double betr;
-        if (Einstellungen.getEinstellung().getBeitragsmodel() != BeitragsmodelInput.MONATLICH12631)
+        if (Einstellungen.getEinstellung().getBeitragsmodel() != Beitragsmodel.MONATLICH12631)
         {
           betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
         }
@@ -312,7 +313,7 @@ public class Abbuchung
           bbetr = bbetr.multiply(bmonate);
           betr = bbetr.doubleValue();
         }
-        if (m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG)
+        if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
         {
           try
           {
@@ -346,7 +347,7 @@ public class Abbuchung
       {
         Mitglied m = z.getMitglied();
         writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
-        if (z.getIntervall().intValue() != IntervallInput.KEIN
+        if (z.getIntervall().intValue() != IntervallZusatzzahlung.KEIN
             && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
                 .getEndedatum().getTime()))
         {
@@ -414,7 +415,7 @@ public class Abbuchung
           .getAbsolutePath());
       SammelLastschrift sl = null;
       CSatz c = parser.next();
-      if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
+      if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
       {
         sl = (SammelLastschrift) param.service.createObject(
             SammelLastschrift.class, null);
@@ -423,7 +424,7 @@ public class Abbuchung
       }
       while (c != null)
       {
-        if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_EINZELBUCHUNGEN)
+        if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN)
         {
           Lastschrift o = (Lastschrift) param.service.createObject(
               Lastschrift.class, null);
@@ -436,7 +437,7 @@ public class Abbuchung
           o.setGegenkontoNummer(c.getKontonummer() + "");
           o.store();
         }
-        if (param.abbuchungsausgabe == AbbuchungsausgabeInput.HIBISCUS_SAMMELBUCHUNG)
+        if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
         {
           SammelTransferBuchung o = sl.createBuchung();
           o.setBetrag(c.getBetragInEuro());
@@ -512,11 +513,11 @@ public class Abbuchung
   private void writeAbrechungsdaten(Mitglied m, String zweck1, String zweck2,
       double betrag) throws RemoteException, ApplicationException
   {
-    if ((m.getZahlungsweg() == ZahlungswegInput.ABBUCHUNG && Einstellungen
+    if ((m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG && Einstellungen
         .getEinstellung().getRechnungFuerAbbuchung())
-        || (m.getZahlungsweg() == ZahlungswegInput.ÜBERWEISUNG && Einstellungen
+        || (m.getZahlungsweg() == Zahlungsweg.ÜBERWEISUNG && Einstellungen
             .getEinstellung().getRechnungFuerUeberweisung())
-        || (m.getZahlungsweg() == ZahlungswegInput.BARZAHLUNG && Einstellungen
+        || (m.getZahlungsweg() == Zahlungsweg.BARZAHLUNG && Einstellungen
             .getEinstellung().getRechnungFuerBarzahlung()))
     {
       Abrechnung abr = (Abrechnung) Einstellungen.getDBService().createObject(

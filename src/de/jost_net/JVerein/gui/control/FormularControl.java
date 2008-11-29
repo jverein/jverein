@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:09:10  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -19,8 +22,9 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.FormularAction;
-import de.jost_net.JVerein.gui.input.FormularArtInput;
+import de.jost_net.JVerein.gui.formatter.FormularartFormatter;
 import de.jost_net.JVerein.gui.menu.FormularMenu;
+import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -28,8 +32,8 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
-import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.FileInput;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -44,7 +48,7 @@ public class FormularControl extends AbstractControl
 
   private TextInput bezeichnung;
 
-  private FormularArtInput art;
+  private SelectInput art;
 
   private FileInput datei;
 
@@ -77,13 +81,14 @@ public class FormularControl extends AbstractControl
     return bezeichnung;
   }
 
-  public FormularArtInput getArt() throws RemoteException
+  public SelectInput getArt() throws RemoteException
   {
     if (art != null)
     {
       return art;
     }
-    art = new FormularArtInput(getFormular().getArt());
+    art = new SelectInput(Formularart.getArray(), new Formularart(
+        (Integer) getFormular().getArt()));
     return art;
   }
 
@@ -93,7 +98,7 @@ public class FormularControl extends AbstractControl
     {
       return datei;
     }
-    datei = new FileInput("", false, new String[]{"*.pdf", "*.PDF"});
+    datei = new FileInput("", false, new String[] { "*.pdf", "*.PDF" });
     return datei;
   }
 
@@ -151,29 +156,8 @@ public class FormularControl extends AbstractControl
 
     formularList = new TablePart(formulare, new FormularAction());
     formularList.addColumn("Bezeichnung", "bezeichnung");
-    formularList.addColumn("Art", "art", new Formatter()
-    {
-      public String format(Object o)
-      {
-        if (o == null)
-        {
-          return "";
-        }
-        if (o instanceof Integer)
-        {
-          Integer art = (Integer) o;
-          switch (art.intValue())
-          {
-            case FormularArtInput.SPENDENBESCHEINIGUNG:
-              return "Spendenbescheinigung";
-            case FormularArtInput.RECHNUNG:
-              return "Rechnung";
-          }
-        }
-        return "ungültig";
-      }
-    }, false, Column.ALIGN_LEFT);
-
+    formularList.addColumn("Art", "art", new FormularartFormatter(), false,
+        Column.ALIGN_LEFT);
     formularList.setRememberColWidths(true);
     formularList.setContextMenu(new FormularMenu());
     formularList.setRememberOrder(true);

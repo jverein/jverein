@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2008/11/16 16:56:03  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.15  2008/08/10 12:34:49  jost
  * Abbuchung -> Abrechnung
  * Vorbereitung der Rechnungserstellung
@@ -69,10 +72,10 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.input.AbbuchungsausgabeInput;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.Abbuchung;
 import de.jost_net.JVerein.io.AbbuchungParam;
+import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -80,6 +83,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.system.Application;
@@ -105,7 +109,7 @@ public class AbbuchungControl extends AbstractControl
 
   private CheckboxInput dtausprint;
 
-  private AbbuchungsausgabeInput ausgabe;
+  private SelectInput ausgabe;
 
   private Settings settings = null;
 
@@ -235,13 +239,14 @@ public class AbbuchungControl extends AbstractControl
     return dtausprint;
   }
 
-  public AbbuchungsausgabeInput getAbbuchungsausgabe() throws RemoteException
+  public SelectInput getAbbuchungsausgabe() throws RemoteException
   {
     if (ausgabe != null)
     {
       return ausgabe;
     }
-    ausgabe = new AbbuchungsausgabeInput(AbbuchungsausgabeInput.DTAUS);
+    ausgabe = new SelectInput(Abrechnungsausgabe.getArray(),
+        new Abrechnungsausgabe(Abrechnungsausgabe.DTAUS));
     return ausgabe;
   }
 
@@ -317,7 +322,7 @@ public class AbbuchungControl extends AbstractControl
       throw new ApplicationException("Interner Fehler");
     }
 
-    if (ausgabe == AbbuchungsausgabeInput.DTAUS)
+    if (ausgabe == Abrechnungsausgabe.DTAUS)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("DTAUS-Ausgabedatei wählen.");

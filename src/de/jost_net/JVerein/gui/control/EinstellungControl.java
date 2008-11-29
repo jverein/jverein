@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/11/24 19:43:03  jost
+ * Bugfix
+ *
  * Revision 1.9  2008/11/16 16:56:26  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -41,15 +44,20 @@ package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
 
+import org.eclipse.swt.widgets.Composite;
+
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
+import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Einstellung;
+import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.util.ApplicationException;
 
 public class EinstellungControl extends AbstractControl
@@ -83,9 +91,15 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput rechnungfuerbarzahlung;
 
+  private Settings settings;
+
+  private MitgliedSpaltenauswahl spalten;
+
   public EinstellungControl(AbstractView view)
   {
     super(view);
+    settings = new Settings(this.getClass());
+    settings.setStoreWhenRead(true);
   }
 
   public CheckboxInput getGeburtsdatumPflicht() throws RemoteException
@@ -181,8 +195,8 @@ public class EinstellungControl extends AbstractControl
     {
       return beitragsmodel;
     }
-    beitragsmodel = new BeitragsmodelInput(Einstellungen.getEinstellung()
-        .getBeitragsmodel());
+    beitragsmodel = new SelectInput(Beitragsmodel.getArray(),
+        new Beitragsmodel(Beitragsmodel.JAEHRLICH));
     return beitragsmodel;
   }
 
@@ -241,6 +255,25 @@ public class EinstellungControl extends AbstractControl
     return rechnungfuerbarzahlung;
   }
 
+  public TablePart getSpaltendefinitionTable(Composite parent)
+      throws RemoteException
+  {
+    if (spalten == null)
+    {
+      spalten = new MitgliedSpaltenauswahl();
+    }
+    return spalten.paintSpaltenpaintSpaltendefinitionTable(parent);
+  }
+
+  // public void setCheckSpalten()
+  // {
+  // for (int i = 0; i < spalten.size(); ++i)
+  // {
+  // spaltendefinitionList.setChecked(spalten.get(i), spalten.get(i)
+  // .isChecked());
+  // }
+  // }
+
   public void handleStore()
   {
     try
@@ -248,7 +281,7 @@ public class EinstellungControl extends AbstractControl
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
-      e.setEintrittsdatumPflicht((Boolean)eintrittsdatumpflicht.getValue());
+      e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
       e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
       e.setZusatzabbuchung((Boolean) zusatzabbuchung.getValue());
       e.setVermerke((Boolean) vermerke.getValue());
@@ -263,6 +296,7 @@ public class EinstellungControl extends AbstractControl
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.store();
+      spalten.save();
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
     }
     catch (RemoteException e)
@@ -274,4 +308,5 @@ public class EinstellungControl extends AbstractControl
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
+
 }

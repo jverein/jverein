@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/05/26 18:57:34  jost
+ * Spaltenausrichtung
+ *
  * Revision 1.7  2008/05/22 06:47:31  jost
  * Buchführung
  *
@@ -34,8 +37,8 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
-import de.jost_net.JVerein.gui.input.BuchungsartArtInput;
 import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
+import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -63,7 +66,7 @@ public class BuchungsartControl extends AbstractControl
 
   private Input bezeichnung;
 
-  private BuchungsartArtInput art;
+  private SelectInput art;
 
   private Buchungsart buchungsart;
 
@@ -110,7 +113,8 @@ public class BuchungsartControl extends AbstractControl
     {
       return art;
     }
-    art = new BuchungsartArtInput(getBuchungsart().getArt());
+    art = new SelectInput(ArtBuchungsart.getArray(), new ArtBuchungsart(
+        ArtBuchungsart.EINNAHME));
     return art;
   }
 

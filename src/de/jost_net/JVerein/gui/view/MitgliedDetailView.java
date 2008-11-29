@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2008/11/16 16:57:58  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.21  2008/11/13 20:17:46  jost
  * Adressierungszusatz aufgenommen.
  *
@@ -87,7 +90,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.EigenschaftenControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
-import de.jost_net.JVerein.gui.input.BeitragsmodelInput;
+import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -151,7 +154,7 @@ public class MitgliedDetailView extends AbstractView
     SimpleContainer left3 = new SimpleContainer(cols3.getComposite());
     left3.addHeadline("Bankverbindung");
     left3.addLabelPair("Zahlungsweg", control.getZahlungsweg());
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == BeitragsmodelInput.MONATLICH12631)
+    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
     {
       left3.addLabelPair("Zahlungsrhytmus", control.getZahlungsrhytmus());
     }
