@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/11/29 13:05:48  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.7  2007/08/30 19:47:45  jost
  * Part -> TablePart
  *
@@ -119,8 +122,8 @@ public class BeitragsgruppeControl extends AbstractControl
       b.setBezeichnung((String) getBezeichnung().getValue());
       Double d = (Double) getBetrag().getValue();
       b.setBetrag(d.doubleValue());
-      Integer ba = (Integer) getBeitragsArt().getValue();
-      b.setBeitragsArt(ba.intValue());
+      ArtBuchungsart ba = (ArtBuchungsart) getBeitragsArt().getValue();
+      b.setBeitragsArt(ba.getKey());
       b.store();
       GUI.getStatusBar().setSuccessText("Beitragsgruppe gespeichert");
     }

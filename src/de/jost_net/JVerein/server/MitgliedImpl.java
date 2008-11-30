@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2008/11/29 13:16:53  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.17  2008/11/23 13:04:03  jost
  * Weitere Plausi auf die BLZ
  *
@@ -70,7 +73,9 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -564,6 +569,25 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     if (fieldName.equals("namevorname"))
     {
       return getNameVorname();
+    }
+    if (fieldName.startsWith("zusatzfelder."))
+    {
+      DBIterator it = Einstellungen.getDBService().createList(
+          Felddefinition.class);
+      it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
+      Felddefinition fd = (Felddefinition) it.next();
+      it = Einstellungen.getDBService().createList(Zusatzfelder.class);
+      it.addFilter("felddefinition = ? AND mitglied = ?", new Object[] {
+          fd.getID(), getID() });
+      if (it.hasNext())
+      {
+        Zusatzfelder zf = (Zusatzfelder) it.next();
+        return zf.getFeld();
+      }
+      else
+      {
+        return "";
+      }
     }
     return super.getAttribute(fieldName);
   }
