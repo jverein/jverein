@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.44  2008/11/29 13:07:54  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.43  2008/11/16 16:56:53  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -1564,7 +1567,8 @@ public class MitgliedControl extends AbstractControl
       {
         throw new ApplicationException("Beitragsgruppe fehlt");
       }
-      m.setZahlungsweg((Integer) getZahlungsweg().getValue());
+      Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
+      m.setZahlungsweg(zw.getKey());
       m.setZahlungsrhytmus((Integer) getZahlungsrhytmus().getValue());
       m.setBlz((String) getBlz().getValue());
       m.setEintritt((Date) getEintritt().getValue());

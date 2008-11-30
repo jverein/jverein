@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/11/29 13:12:13  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.5  2008/02/13 18:18:16  jost
  * Überflüssigen Import entfernt.
  *
@@ -77,7 +80,9 @@ public class AbbuchungParam
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
     stichtag = (Date) ac.getStichtag().getValue();
-    abbuchungsausgabe = (Integer) ac.getAbbuchungsausgabe().getValue();
+    Abrechnungsausgabe aa = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
+        .getValue();
+    abbuchungsausgabe = aa.getKey();
     vondatum = (Date) ac.getVondatum().getValue();
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();
     zusatzabbuchung = (Boolean) ac.getZusatzabbuchung().getValue();
