@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/11/29 13:05:31  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.16  2008/11/16 16:56:03  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -315,7 +318,9 @@ public class AbbuchungControl extends AbstractControl
     Integer ausgabe;
     try
     {
-      ausgabe = (Integer) this.getAbbuchungsausgabe().getValue();
+      Abrechnungsausgabe aa = (Abrechnungsausgabe) this.getAbbuchungsausgabe()
+          .getValue();
+      ausgabe = aa.getKey();
     }
     catch (RemoteException e2)
     {
