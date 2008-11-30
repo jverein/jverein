@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:07:24  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.1  2008/07/18 20:09:10  jost
  * Neu: Formulare
  *
@@ -111,7 +114,8 @@ public class FormularControl extends AbstractControl
     {
       Formular f = getFormular();
       f.setBezeichnung((String) getBezeichnung().getValue());
-      f.setArt((Integer) getArt().getValue());
+      Formularart fa = (Formularart) getArt().getValue();
+      f.setArt(fa.getKey());
       String dat = (String) getDatei().getValue();
 
       if (dat.length() > 0)

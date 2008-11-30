@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/11/29 13:07:10  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.10  2008/11/24 19:43:03  jost
  * Bugfix
  *
@@ -288,7 +291,8 @@ public class EinstellungControl extends AbstractControl
       e.setWiedervorlage((Boolean) wiedervorlage.getValue());
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
-      e.setBeitragsmodel((Integer) beitragsmodel.getValue());
+      Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
+      e.setBeitragsmodel(bm.getKey());
       e.setRechnungFuerAbbuchung((Boolean) rechnungfuerabbuchung.getValue());
       e.setRechnungFuerUeberweisung((Boolean) rechnungfuerueberweisung
           .getValue());

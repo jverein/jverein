@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/11/29 13:06:02  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.8  2008/05/26 18:57:34  jost
  * Spaltenausrichtung
  *
@@ -128,7 +131,8 @@ public class BuchungsartControl extends AbstractControl
       Buchungsart b = getBuchungsart();
       b.setNummer(((Integer) getNummer().getValue()).intValue());
       b.setBezeichnung((String) getBezeichnung().getValue());
-      b.setArt((Integer) getArt().getValue());
+      ArtBuchungsart ba = (ArtBuchungsart) getArt().getValue();
+      b.setArt(ba.getKey());
       try
       {
         b.store();

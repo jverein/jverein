@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/11/29 13:08:40  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.8  2008/05/22 06:49:33  jost
  * Redaktionelle Änderung
  *
@@ -309,7 +312,9 @@ public class ZusatzabbuchungControl extends AbstractControl
       Zusatzabbuchung z = getZusatzabbuchung();
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
       z.setStartdatum((Date) getStartdatum().getValue());
-      z.setIntervall((Integer) getIntervall().getValue());
+      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall()
+          .getValue();
+      z.setIntervall(iz.getKey());
       z.setEndedatum((Date) getEndedatum().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
       Double d = (Double) getBetrag().getValue();
