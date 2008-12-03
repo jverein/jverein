@@ -1,0 +1,1 @@
+ALTER TABLE buchung ADD auszugsnummer integer before name;
