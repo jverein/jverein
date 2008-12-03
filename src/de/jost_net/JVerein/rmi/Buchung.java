@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/06/28 17:01:03  jost
+ * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
+ *
  * Revision 1.6  2008/05/24 16:40:20  jost
  * Wegfall der Spalte Saldo
  *
@@ -41,6 +44,14 @@ public interface Buchung extends DBObject
   public Konto getKonto() throws RemoteException;
 
   public void setKonto(Konto konto) throws RemoteException;
+
+  public Integer getAuszugsnummer() throws RemoteException;
+
+  public void setAuszugsnummer(Integer auszugsnummer) throws RemoteException;
+
+  public Integer getBlattnummer() throws RemoteException;
+
+  public void setBlattnummer(Integer blattnummer) throws RemoteException;
 
   public String getName() throws RemoteException;
 

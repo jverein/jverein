@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/11/29 13:15:09  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.7  2008/06/28 17:07:15  jost
  * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
  *
@@ -137,6 +140,28 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   public void setKonto(Konto konto) throws RemoteException
   {
     setAttribute("konto", konto);
+  }
+
+  public Integer getAuszugsnummer() throws RemoteException
+  {
+
+    return (Integer) getAttribute("auszugsnummer");
+  }
+
+  public void setAuszugsnummer(Integer auszugsnummer) throws RemoteException
+  {
+    setAttribute("auszugsnummer", auszugsnummer);
+  }
+
+  public Integer getBlattnummer() throws RemoteException
+  {
+
+    return (Integer) getAttribute("blattnummer");
+  }
+
+  public void setBlattnummer(Integer blattnummer) throws RemoteException
+  {
+    setAttribute("blattnummer", blattnummer);
   }
 
   public String getName() throws RemoteException

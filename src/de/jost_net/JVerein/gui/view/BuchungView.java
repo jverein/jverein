@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/05/24 16:40:05  jost
+ * Wegfall der Spalte Saldo
+ *
  * Revision 1.6  2008/05/24 14:04:08  jost
  * Redatkionelle Ã„nderung
  *
@@ -57,8 +60,10 @@ public class BuchungView extends AbstractView
     grKontoauszug.addLabelPair("Art", control.getArt());
     grKontoauszug.addLabelPair("Kommentar", control.getKommentar());
 
-    LabelGroup grBuchungsart = new LabelGroup(getParent(), "Buchungsart");
-    grBuchungsart.addLabelPair("Buchungsart", control.getBuchungsart());
+    LabelGroup grBuchungsinfos = new LabelGroup(getParent(), "Buchungsinfos");
+    grBuchungsinfos.addLabelPair("Buchungsart", control.getBuchungsart());
+    grBuchungsinfos.addLabelPair("Auszugsnummer", control.getAuszugsnummer());
+    grBuchungsinfos.addLabelPair("Blattnummer", control.getBlattnummer());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton("<< Zurück", new BackAction());

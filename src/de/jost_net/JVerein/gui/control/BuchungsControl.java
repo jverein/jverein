@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/11/29 13:06:28  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.14  2008/11/16 16:56:15  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -114,6 +117,10 @@ public class BuchungsControl extends AbstractControl
 
   private DialogInput konto;
 
+  private Input auszugsnummer;
+
+  private Input blattnummer;
+
   private Input name;
 
   private DecimalInput betrag;
@@ -192,6 +199,36 @@ public class BuchungsControl extends AbstractControl
     }
     konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl();
     return konto;
+  }
+
+  public Input getAuszugsnummer() throws RemoteException
+  {
+    if (auszugsnummer != null)
+    {
+      return auszugsnummer;
+    }
+    Integer i = getBuchung().getAuszugsnummer();
+    if (i == null)
+    {
+      i = new Integer(0);
+    }
+    auszugsnummer = new IntegerInput(i);
+    return auszugsnummer;
+  }
+
+  public Input getBlattnummer() throws RemoteException
+  {
+    if (blattnummer != null)
+    {
+      return blattnummer;
+    }
+    Integer i = getBuchung().getBlattnummer();
+    if (i == null)
+    {
+      i = new Integer(0);
+    }
+    blattnummer = new IntegerInput(i);
+    return blattnummer;
   }
 
   public Input getName() throws RemoteException
@@ -449,6 +486,8 @@ public class BuchungsControl extends AbstractControl
           b.setBuchungsart(null);
         }
         b.setKonto((Konto) getKonto().getValue());
+        b.setAuszugsnummer((Integer) getAuszugsnummer().getValue());
+        b.setBlattnummer((Integer) getBlattnummer().getValue());
         b.setName((String) getName().getValue());
         b.setBetrag((Double) getBetrag().getValue());
         b.setZweck((String) getZweck().getValue());
@@ -536,6 +575,8 @@ public class BuchungsControl extends AbstractControl
       });
       buchungsList.addColumn("Datum", "datum", new DateFormatter(
           Einstellungen.DATEFORMAT));
+      buchungsList.addColumn("Auszug", "auszugsnummer");
+      buchungsList.addColumn("Blatt", "blattnummer");
       buchungsList.addColumn("Name", "name");
       buchungsList.addColumn("Verwendungszweck", "zweck");
       buchungsList.addColumn("Verwendungszweck 2", "zweck2");
