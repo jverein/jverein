@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/11/13 20:18:12  jost
+ * Adressierungszusatz aufgenommen.
+ *
  * Revision 1.10  2008/10/01 14:17:39  jost
  * Warnungen entfernt
  *
@@ -76,7 +79,7 @@ public class MitgliedAuswertungCSV
       out
           .print("id;anrede;titel;name;vorname;adressierungszusatz;strasse;plz;ort;blz;konto;kontoinhaber;");
       out
-          .print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;email;");
+          .print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;handy;email;");
       out
           .print("eintritt;beitragsgruppe;beitragsgruppetext;austritt;kuendigung");
       DBIterator it = Einstellungen.getDBService().createList(
@@ -110,6 +113,7 @@ public class MitgliedAuswertungCSV
         out.print(m.getGeschlecht() + ";");
         out.print(m.getTelefonprivat() + ";");
         out.print(m.getTelefondienstlich() + ";");
+        out.print(m.getHandy() + ";");
         out.print(m.getEmail() + ";");
         out.print(formatDate(m.getEintritt()) + ";");
         out.print(m.getBeitragsgruppe().getID() + ";");
