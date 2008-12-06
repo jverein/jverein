@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/22 06:50:44  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:36:10  jost
  * Reaktivierung Buchführung
  *
@@ -21,6 +24,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -39,6 +43,7 @@ public class BuchungMenu extends ContextMenu
   public BuchungMenu()
   {
     addItem(new ContextMenuItem("Neu", new BuchungNeuAction()));
+    addItem(new CheckedContextMenuItem("Bearbeiten", new BuchungAction()));
     addItem(new CheckedContextMenuItem("L�schen...", new BuchungDeleteAction()));
   }
 }
