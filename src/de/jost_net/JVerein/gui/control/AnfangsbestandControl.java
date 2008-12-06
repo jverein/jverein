@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/07/12 11:55:16  jost
+ * Bugfix beim Speichern des Anfangsbestandes.
+ *
  * Revision 1.1  2008/05/22 06:47:13  jost
  * *** empty log message ***
  *
@@ -123,7 +126,6 @@ public class AnfangsbestandControl extends AbstractControl
             "Mehrere Konten mit gleicher Nummer sind nicht zulässig!");
       }
       Konto k = (Konto) konten.next();
-      System.out.println(k.getNummer());
       a.setKonto(k);
       a.setDatum((Date) getDatum().getValue());
       a.setBetrag((Double) getBetrag().getValue());

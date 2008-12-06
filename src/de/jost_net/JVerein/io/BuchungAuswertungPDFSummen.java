@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/10 07:58:31  jost
+ * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -126,14 +129,11 @@ public class BuchungAuswertungPDFSummen
     if (list != null)
     {
       ba = (Buchungsart) list.next();
-      System.out.println(ba.getBezeichnung());
-      reporter.addColumn(ba.getBezeichnung(),
-          Element.ALIGN_LEFT);
+      reporter.addColumn(ba.getBezeichnung(), Element.ALIGN_LEFT);
     }
     else
     {
-      reporter.addColumn("ohne Zuordnung",
-          Element.ALIGN_LEFT);
+      reporter.addColumn("ohne Zuordnung", Element.ALIGN_LEFT);
     }
 
     DBIterator listb = Einstellungen.getDBService().createList(Buchung.class);

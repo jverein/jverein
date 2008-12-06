@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/11/29 13:08:06  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.7  2008/11/16 16:57:00  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -365,7 +368,6 @@ public class RechnungControl extends AbstractControl
   private void generiereRechnung(Object currentObject) throws IOException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    System.out.println(currentObject);
     fd.setText("Ausgabedatei wählen.");
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/09/21 08:46:10  jost
+ * Neu: Altersjubliäen
+ *
  * Revision 1.3  2008/07/10 07:59:38  jost
  * Optimierung der internen Reporter-Klasse
  *
@@ -211,7 +214,6 @@ public class Jubilaeenliste
         Mitglied m = (Mitglied) mitgl.next();
         addDetail(reporter, m);
       }
-      System.out.println(mitgl.size());
       if (mitgl.size() == 0)
       {
         reporter.addColumn("", Element.ALIGN_LEFT);
