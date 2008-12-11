@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/10 07:57:51  jost
+ * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
+ *
  * Revision 1.7  2008/05/24 19:32:42  jost
  * Auswertung überarbeitet.
  *
@@ -132,13 +135,15 @@ public class BuchungAuswertungPDFEinzelbuchungen
   {
     reporter.addHeaderColumn("Datum", Element.ALIGN_CENTER, 40,
         Color.LIGHT_GRAY);
+    reporter.addHeaderColumn("Auszug", Element.ALIGN_CENTER, 20,
+        Color.LIGHT_GRAY);
     reporter.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
         Color.LIGHT_GRAY);
     reporter.addHeaderColumn("Zahlungsgrund", Element.ALIGN_CENTER, 100,
         Color.LIGHT_GRAY);
     reporter.addHeaderColumn("Zahlungsgrund2", Element.ALIGN_CENTER, 100,
         Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 60,
+    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 50,
         Color.LIGHT_GRAY);
     reporter.createHeader();
 
@@ -184,16 +189,36 @@ public class BuchungAuswertungPDFEinzelbuchungen
     listb.setOrder("ORDER BY datum");
     double buchungsartSumme = 0;
     createTableHeader(reporter);
+    boolean gedruckt = false;
     while (listb.hasNext())
     {
+      gedruckt = true;
       Buchung b = (Buchung) listb.next();
       reporter.addColumn(Einstellungen.DATEFORMAT.format(b.getDatum()),
           Element.ALIGN_LEFT);
+      if (b.getAuszugsnummer() != null)
+      {
+        reporter.addColumn(b.getAuszugsnummer() + "/" + b.getBlattnummer(),
+            Element.ALIGN_LEFT);
+      }
+      else
+      {
+        reporter.addColumn("", Element.ALIGN_LEFT);
+      }
       reporter.addColumn(b.getName(), Element.ALIGN_LEFT);
       reporter.addColumn(b.getZweck(), Element.ALIGN_LEFT);
       reporter.addColumn(b.getZweck2(), Element.ALIGN_LEFT);
       reporter.addColumn(b.getBetrag());
       buchungsartSumme += b.getBetrag();
+    }
+    if (!gedruckt)
+    {
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("keine Buchung", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
     }
     reporter.addColumn("", Element.ALIGN_LEFT);
     if (list != null)
