@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/11/29 13:13:36  jost
+ * Refactoring: Code-Optimierung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
@@ -66,6 +69,18 @@ public class Zahlungsweg
     return ret;
   }
 
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (obj instanceof Zahlungsweg)
+    {
+      Zahlungsweg v = (Zahlungsweg) obj;
+      return (getKey() == v.getKey());
+    }
+    return false;
+  }
+
+  @Override
   public String toString()
   {
     return get(zahlungsweg);

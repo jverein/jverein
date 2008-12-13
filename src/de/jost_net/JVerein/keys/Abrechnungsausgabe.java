@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/11/29 13:12:38  jost
+ * Refactoring: Code-Optimierung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
@@ -66,6 +69,18 @@ public class Abrechnungsausgabe
     return ret;
   }
 
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (obj instanceof Abrechnungsausgabe)
+    {
+      Abrechnungsausgabe v = (Abrechnungsausgabe) obj;
+      return (getKey() == v.getKey());
+    }
+    return false;
+  }
+
+  @Override
   public String toString()
   {
     return get(ausgabe);

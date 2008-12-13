@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/11/29 13:12:56  jost
+ * Refactoring: Code-Optimierung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
@@ -76,6 +79,18 @@ public class Beitragsmodel
     return ret;
   }
 
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (obj instanceof Beitragsmodel)
+    {
+      Beitragsmodel v = (Beitragsmodel) obj;
+      return (getKey() == v.getKey());
+    }
+    return false;
+  }
+
+  @Override
   public String toString()
   {
     return get(model);
