@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/11/30 18:56:20  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.9  2008/11/29 13:06:02  jost
  * Refactoring: Code-Optimierung
  *
@@ -116,8 +119,7 @@ public class BuchungsartControl extends AbstractControl
     {
       return art;
     }
-    art = new SelectInput(ArtBuchungsart.getArray(), new ArtBuchungsart(
-        ArtBuchungsart.EINNAHME));
+    art = new SelectInput(ArtBuchungsart.getArray(), getBuchungsart().getArt());
     return art;
   }
 

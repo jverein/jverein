@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/11/30 18:56:38  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.11  2008/11/29 13:07:10  jost
  * Refactoring: Code-Optimierung
  *
@@ -199,7 +202,7 @@ public class EinstellungControl extends AbstractControl
       return beitragsmodel;
     }
     beitragsmodel = new SelectInput(Beitragsmodel.getArray(),
-        new Beitragsmodel(Beitragsmodel.JAEHRLICH));
+        new Beitragsmodel(Einstellungen.getEinstellung().getBeitragsmodel()));
     return beitragsmodel;
   }
 
