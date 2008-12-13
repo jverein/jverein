@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/11/29 13:08:17  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.5  2008/11/16 16:57:20  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -348,6 +351,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     tmp = (Date) getSpendedatum().getValue();
     String spendedatum = Einstellungen.DATEFORMAT.format(tmp);
     map.put("Spendedatum", spendedatum);
+    String tagesdatum = Einstellungen.DATEFORMAT.format(new Date());
+    map.put("Tagesdatum", tagesdatum);
     FormularAufbereitung fa = new FormularAufbereitung(file);
     fa.writeForm(fo, map);
     fa.showFormular();
