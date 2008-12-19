@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/12/13 16:21:17  jost
+ * Bugfix Beitragsart.
+ *
  * Revision 1.9  2008/11/30 18:56:00  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -40,7 +43,6 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
