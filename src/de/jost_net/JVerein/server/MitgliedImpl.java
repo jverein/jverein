@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2008/11/30 18:58:37  jost
+ * Neu: Konfiguration der Spalten einer Tabelle
+ *
  * Revision 1.18  2008/11/29 13:16:53  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -559,7 +562,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
    */
   public String getAnschrift() throws RemoteException
   {
-    return (getAdressierungszusatz().length() > 0 ? getAdressierungszusatz()
+    return (getAdressierungszusatz() != null
+        && getAdressierungszusatz().length() > 0 ? getAdressierungszusatz()
         + ", " : "")
         + getStrasse() + ", " + getPlz() + " " + getOrt();
   }
