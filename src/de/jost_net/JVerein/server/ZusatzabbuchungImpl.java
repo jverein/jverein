@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/11/29 13:17:37  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.5  2008/09/22 20:26:03  jost
  * Plausi korrigiert
  *
@@ -233,10 +236,10 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
   public boolean isAktiv() throws RemoteException
   {
     // Wenn der Auftrag noch nie ausgeführt wurde, ist er auszuführen
-    if (getAusfuehrung() == null)
-    {
-      return true;
-    }
+//    if (getAusfuehrung() == null)
+//    {
+//      return true;
+//    }
     // Einmalige Ausführung
     if (getIntervall().intValue() == IntervallZusatzzahlung.KEIN)
     {
@@ -260,7 +263,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
     {
       return false;
     }
-    if (getFaelligkeit().getTime() >= Datum.getHeute().getTime())
+    if (getFaelligkeit().getTime() <= Datum.getHeute().getTime())
     {
       return true;
     }
