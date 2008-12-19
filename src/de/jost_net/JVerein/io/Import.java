@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2008/11/29 13:12:24  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.15  2008/11/16 16:58:29  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -179,7 +182,7 @@ public class Import
         }
         catch (Exception e)
         {
-          // nichts zu tun
+          m.setAdressierungszusatz("");
         }
 
         try
