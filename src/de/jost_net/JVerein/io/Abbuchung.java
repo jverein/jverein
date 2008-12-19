@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2008/11/29 13:12:04  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.23  2008/11/16 16:58:18  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -225,10 +228,10 @@ public class Abbuchung
     {
       // Alle Mitglieder lesen
       list = Einstellungen.getDBService().createList(Mitglied.class);
-      // Das Mitglied ist entweder noch angemeldet oder das Abmeldedatum liegt
-      // nach dem Stichtag.
-      list.addFilter("(austritt is null or austritt > ?)",
-          new Object[] { new java.sql.Date(stichtag.getTime()) });
+
+      // Das Mitglied muss bereits eingetreten sein
+      list.addFilter("(eintritt <= ?) ", new Object[] { new java.sql.Date(stichtag
+          .getTime()) });
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
       if (beitragsfrei.length() > 0)
       {
