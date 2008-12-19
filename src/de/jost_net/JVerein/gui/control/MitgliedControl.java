@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.46  2008/12/13 16:22:22  jost
+ * Bugfix Standardwert
+ *
  * Revision 1.45  2008/11/30 10:45:05  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -520,9 +523,9 @@ public class MitgliedControl extends AbstractControl
     {
       public void handleEvent(Event event)
       {
-        Integer z = (Integer) zahlungsweg.getValue();
-        blz.setMandatory(z.intValue() == Zahlungsweg.ABBUCHUNG);
-        konto.setMandatory(z.intValue() == Zahlungsweg.ABBUCHUNG);
+        Zahlungsweg z = (Zahlungsweg) zahlungsweg.getValue();
+        blz.setMandatory(z.getKey() == Zahlungsweg.ABBUCHUNG);
+        konto.setMandatory(z.getKey() == Zahlungsweg.ABBUCHUNG);
       }
     });
     return zahlungsweg;
