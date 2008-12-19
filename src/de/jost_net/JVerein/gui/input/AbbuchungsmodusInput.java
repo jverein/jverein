@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/11/29 13:10:11  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.5  2008/11/16 16:57:13  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -115,6 +118,7 @@ public class AbbuchungsmodusInput extends SelectInput
       l.add(new AbbuchungsmodusObject(HA));
       l.add(new AbbuchungsmodusObject(VI));
       l.add(new AbbuchungsmodusObject(MO));
+      l.add(new AbbuchungsmodusObject(EINGETRETENEMITGLIEDER));
     }
     return PseudoIterator.fromArray((AbbuchungsmodusObject[]) l
         .toArray(new AbbuchungsmodusObject[l.size()]));
