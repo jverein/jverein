@@ -1,1 +1,1 @@
-ALTER TABLE buchung ADD blattnummer integer before name;
+ALTER TABLE buchung ADD blattnummer integer after auszugsnummer;
