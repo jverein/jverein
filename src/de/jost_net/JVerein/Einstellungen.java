@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.17  2008/11/29 13:04:15  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.16  2008/11/23 13:03:09  jost
  * Debug-Meldungen entfernt.
  *
@@ -136,7 +139,7 @@ public class Einstellungen
             "eintrittsdatum.pflicht", true));
         einstellung.setKommunikationsdaten(settings.getBoolean(
             "kommunikationsdaten.einblenden", true));
-        einstellung.setZusatzabbuchung(settings.getBoolean(
+        einstellung.setZusatzbetrag(settings.getBoolean(
             "zusatzabbuchung.einblenden", true));
         einstellung.setVermerke(settings
             .getBoolean("vermerke.einblenden", true));

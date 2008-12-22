@@ -20,43 +20,34 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
-import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Ausführungsdatum einer Zusatzabbuchung entfernen.
+ * Loeschen eines Zusatzbetrages.
  */
-public class ZusatzabbuchungResetAction implements Action
+public class ZusatzbetraegeDeleteAction implements Action
 {
-  private TablePart table;
-
-  public ZusatzabbuchungResetAction(TablePart table)
-  {
-    this.table = table;
-  }
-
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof Zusatzabbuchung))
+    if (context == null || !(context instanceof Zusatzbetrag))
     {
-      throw new ApplicationException("Keine Zusatzabbuchung ausgewählt");
+      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
     }
     try
     {
-      Zusatzabbuchung z = (Zusatzabbuchung) context;
+      Zusatzbetrag z = (Zusatzbetrag) context;
       if (z.isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Ausführungsdatum zurücksetzen");
-      d
-          .setText("Wollen Sie das Ausführungsdatum dieser Zusatzabbuchung wirklich zurücksetzen?");
+      d.setTitle("Zusatzbetrag löschen");
+      d.setText("Wollen Sie diesen Zusatzbetrag wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -65,18 +56,16 @@ public class ZusatzabbuchungResetAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Reset der Zusatzbuchung", e);
+        Logger.error("Fehler beim Löschen eines Zusatzbetrages", e);
         return;
       }
-      int ind = table.removeItem(z);
-      z.setAusfuehrung(null);
-      z.store();
-      table.addItem(z, ind);
-      GUI.getStatusBar().setSuccessText("Ausführungsdatum zurückgesetzt.");
+
+      z.delete();
+      GUI.getStatusBar().setSuccessText("Zusatzbetrag gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Zurücksetzen des Ausführungsdatums der Zusatzabbuchung.";
+      String fehler = "Fehler beim Löschen eines Zusatzbetrages.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

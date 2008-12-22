@@ -9,13 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/30 13:19:57  jost
+ * Neu
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Datum;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -25,33 +28,33 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Vorheriges Fälligkeitsdatum einer Zusatzabbuchung setzen.
+ * Nächstes Fälligkeitsdatum eines Zusatzbetrages setzen.
  */
-public class ZusatzabbuchungVorherigeFaelligkeitAction implements Action
+public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
 {
   private TablePart table;
 
-  public ZusatzabbuchungVorherigeFaelligkeitAction(TablePart table)
+  public ZusatzbetraegeNaechsteFaelligkeitAction(TablePart table)
   {
     this.table = table;
   }
 
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof Zusatzabbuchung))
+    if (context == null || !(context instanceof Zusatzbetrag))
     {
-      throw new ApplicationException("Keine Zusatzabbuchung ausgewählt");
+      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
     }
     try
     {
-      Zusatzabbuchung z = (Zusatzabbuchung) context;
+      Zusatzbetrag z = (Zusatzbetrag) context;
       if (z.isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Vorherige Fälligkeit setzen");
-      d.setText("Wollen Sie das vorherige Fälligkeitsdatum setzen?");
+      d.setTitle("Nächste Fälligkeit setzen");
+      d.setText("Wollen Sie das nächste Fälligkeitsdatum setzen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -62,17 +65,17 @@ public class ZusatzabbuchungVorherigeFaelligkeitAction implements Action
       {
         Logger
             .error(
-                "Fehler beim Setzen des vorherigen Fälligkeitsdatums der Zusatzbuchung",
+                "Fehler beim Setzen des nächsten Fälligkeitsdatums des Zusatzbetrages",
                 e);
         return;
       }
 
-      Date vorh = Datum.subtractInterval(z.getFaelligkeit(), z.getIntervall(),
-          z.getStartdatum());
+      Date vorh = Datum.addInterval(z.getFaelligkeit(), z.getIntervall(), z
+          .getEndedatum());
       if (vorh == null)
       {
         GUI.getStatusBar().setErrorText(
-            "Datum kann nicht weiter zurückgesetzt werden");
+            "Datum kann nicht weiter vorgesetzt werden");
       }
       else
       {
@@ -85,7 +88,7 @@ public class ZusatzabbuchungVorherigeFaelligkeitAction implements Action
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Zurücksetzen des Ausführungsdatums der Zusatzabbuchung.";
+      String fehler = "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

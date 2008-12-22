@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.47  2008/12/19 06:53:30  jost
+ * Bugfix Dropdown Zahlungsweg
+ *
  * Revision 1.46  2008/12/13 16:22:22  jost
  * Bugfix Standardwert
  *
@@ -170,11 +173,11 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
-import de.jost_net.JVerein.gui.menu.ZusatzabbuchungMenu;
+import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.io.Jubilaeenliste;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
@@ -187,7 +190,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
@@ -315,8 +318,8 @@ public class MitgliedControl extends AbstractControl
 
   private Mitglied mitglied;
 
-  // Liste aller Zusatzabbuchungen
-  private TablePart zusatzabbuchungenList;
+  // Liste aller Zusatzbeträge
+  private TablePart zusatzbetraegeList;
 
   // Liste der Wiedervorlagen
   private TablePart wiedervorlageList;
@@ -944,36 +947,36 @@ public class MitgliedControl extends AbstractControl
     return familienangehoerige;
   }
 
-  public Part getZusatzabbuchungenTable() throws RemoteException
+  public Part getZusatzbetraegeTable() throws RemoteException
   {
-    if (zusatzabbuchungenList != null)
+    if (zusatzbetraegeList != null)
     {
-      return zusatzabbuchungenList;
+      return zusatzbetraegeList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator zusatzabbuchungen = service.createList(Zusatzabbuchung.class);
-    zusatzabbuchungen.addFilter("mitglied = " + getMitglied().getID());
-    zusatzabbuchungenList = new TablePart(zusatzabbuchungen,
-        new ZusatzabbuchungAction(getMitglied()));
-    zusatzabbuchungenList.setRememberColWidths(true);
-    zusatzabbuchungenList.setRememberOrder(true);
+    DBIterator zusatzbetraege = service.createList(Zusatzbetrag.class);
+    zusatzbetraege.addFilter("mitglied = " + getMitglied().getID());
+    zusatzbetraegeList = new TablePart(zusatzbetraege,
+        new ZusatzbetraegeAction(getMitglied()));
+    zusatzbetraegeList.setRememberColWidths(true);
+    zusatzbetraegeList.setRememberOrder(true);
 
-    zusatzabbuchungenList.addColumn("Startdatum", "startdatum",
+    zusatzbetraegeList.addColumn("Startdatum", "startdatum",
         new DateFormatter(Einstellungen.DATEFORMAT));
-    zusatzabbuchungenList.addColumn("nächste Fälligkeit", "faelligkeit",
+    zusatzbetraegeList.addColumn("nächste Fälligkeit", "faelligkeit",
         new DateFormatter(Einstellungen.DATEFORMAT));
-    zusatzabbuchungenList.addColumn("letzte Ausführung", "ausfuehrung",
+    zusatzbetraegeList.addColumn("letzte Ausführung", "ausfuehrung",
         new DateFormatter(Einstellungen.DATEFORMAT));
-    zusatzabbuchungenList.addColumn("Intervall", "intervalltext");
-    zusatzabbuchungenList.addColumn("Endedatum", "endedatum",
+    zusatzbetraegeList.addColumn("Intervall", "intervalltext");
+    zusatzbetraegeList.addColumn("Endedatum", "endedatum",
         new DateFormatter(Einstellungen.DATEFORMAT));
-    zusatzabbuchungenList.addColumn("Buchungstext", "buchungstext");
-    zusatzabbuchungenList.addColumn("Betrag", "betrag", new CurrencyFormatter(
+    zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
+    zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
         "", Einstellungen.DECIMALFORMAT));
-    zusatzabbuchungenList.addColumn("aktiv", "aktiv");
-    zusatzabbuchungenList.setContextMenu(new ZusatzabbuchungMenu(
-        zusatzabbuchungenList));
-    return zusatzabbuchungenList;
+    zusatzbetraegeList.addColumn("aktiv", "aktiv");
+    zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
+        zusatzbetraegeList));
+    return zusatzbetraegeList;
   }
 
   public Part getWiedervorlageTable() throws RemoteException
@@ -1404,9 +1407,9 @@ public class MitgliedControl extends AbstractControl
     return b;
   }
 
-  public Button getZusatzabbuchungNeu()
+  public Button getZusatzbetragNeu()
   {
-    return new Button("Neu", new ZusatzabbuchungAction(getMitglied()));
+    return new Button("Neu", new ZusatzbetraegeAction(getMitglied()));
   }
 
   public Button getWiedervorlageNeu()

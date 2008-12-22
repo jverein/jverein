@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:04:57  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/09/29 14:42:28  jost
  * Neu: Backup und Restore im XML-Format
  *
@@ -44,7 +47,7 @@ import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
 import de.jost_net.JVerein.server.StammdatenImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
-import de.jost_net.JVerein.server.ZusatzabbuchungImpl;
+import de.jost_net.JVerein.server.ZusatzbetragImpl;
 import de.jost_net.JVerein.server.ZusatzfelderImpl;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
@@ -199,8 +202,8 @@ public class BackupCreateAction implements Action
           backup(WiedervorlageImpl.class, writer, monitor);
           monitor.addPercentComplete(5);
 
-          monitor.setStatusText("Speichere Zusatzabbuchungen");
-          backup(ZusatzabbuchungImpl.class, writer, monitor);
+          monitor.setStatusText("Speichere Zusatzbetraege");
+          backup(ZusatzbetragImpl.class, writer, monitor);
           monitor.addPercentComplete(5);
 
           monitor.setStatusText("Speichere Zusatzfelder");

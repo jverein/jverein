@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/12/13 16:21:56  jost
+ * Bugfix Standardwert
+ *
  * Revision 1.12  2008/11/30 18:56:38  jost
  * Refactoring: Code-Optimierung
  *
@@ -75,7 +78,7 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput kommunikationsdaten;
 
-  private CheckboxInput zusatzabbuchung;
+  private CheckboxInput zusatzbetrag;
 
   private CheckboxInput vermerke;
 
@@ -141,15 +144,15 @@ public class EinstellungControl extends AbstractControl
     return kommunikationsdaten;
   }
 
-  public CheckboxInput getZusatzabbuchung() throws RemoteException
+  public CheckboxInput getZusatzbetrag() throws RemoteException
   {
-    if (zusatzabbuchung != null)
+    if (zusatzbetrag != null)
     {
-      return zusatzabbuchung;
+      return zusatzbetrag;
     }
-    zusatzabbuchung = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZusatzabbuchung());
-    return zusatzabbuchung;
+    zusatzbetrag = new CheckboxInput(Einstellungen.getEinstellung()
+        .getZusatzbetrag());
+    return zusatzbetrag;
   }
 
   public CheckboxInput getVermerke() throws RemoteException
@@ -289,7 +292,7 @@ public class EinstellungControl extends AbstractControl
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
       e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
       e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
-      e.setZusatzabbuchung((Boolean) zusatzabbuchung.getValue());
+      e.setZusatzbetrag((Boolean) zusatzbetrag.getValue());
       e.setVermerke((Boolean) vermerke.getValue());
       e.setWiedervorlage((Boolean) wiedervorlage.getValue());
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());

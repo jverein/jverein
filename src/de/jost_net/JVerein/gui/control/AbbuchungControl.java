@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2008/11/30 10:44:45  jost
+ * Bugfix Abbuchungsmodus
+ *
  * Revision 1.17  2008/11/29 13:05:31  jost
  * Refactoring: Code-Optimierung
  *
@@ -106,7 +109,7 @@ public class AbbuchungControl extends AbstractControl
 
   private TextInput zahlungsgrund;
 
-  private CheckboxInput zusatzabbuchung;
+  private CheckboxInput zusatzbetrag;
 
   private CheckboxInput kursteilnehmer;
 
@@ -212,14 +215,14 @@ public class AbbuchungControl extends AbstractControl
     return zahlungsgrund;
   }
 
-  public CheckboxInput getZusatzabbuchung() throws RemoteException
+  public CheckboxInput getZusatzbetrag() throws RemoteException
   {
-    if (zusatzabbuchung != null)
+    if (zusatzbetrag != null)
     {
-      return zusatzabbuchung;
+      return zusatzbetrag;
     }
-    zusatzabbuchung = new CheckboxInput(false);
-    return zusatzabbuchung;
+    zusatzbetrag = new CheckboxInput(false);
+    return zusatzbetrag;
   }
 
   public CheckboxInput getKursteilnehmer() throws RemoteException

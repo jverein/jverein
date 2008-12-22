@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:26:00  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/12/20 20:25:44  jost
  * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
  *
@@ -21,18 +24,18 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.view.ZusatzabbuchungView;
+import de.jost_net.JVerein.gui.view.ZusatzbetragView;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.util.ApplicationException;
 
-public class ZusatzabbuchungAction implements Action
+public class ZusatzbetraegeAction implements Action
 {
   private Mitglied m;
 
-  public ZusatzabbuchungAction(Mitglied m)
+  public ZusatzbetraegeAction(Mitglied m)
   {
     super();
     this.m = m;
@@ -40,18 +43,18 @@ public class ZusatzabbuchungAction implements Action
 
   public void handleAction(Object context) throws ApplicationException
   {
-    Zusatzabbuchung z = null;
+    Zusatzbetrag z = null;
 
-    if (context != null && (context instanceof Zusatzabbuchung))
+    if (context != null && (context instanceof Zusatzbetrag))
     {
-      z = (Zusatzabbuchung) context;
+      z = (Zusatzbetrag) context;
     }
     else
     {
       try
       {
-        z = (Zusatzabbuchung) Einstellungen.getDBService().createObject(
-            Zusatzabbuchung.class, null);
+        z = (Zusatzbetrag) Einstellungen.getDBService().createObject(
+            Zusatzbetrag.class, null);
         if (m != null)
         {
           z.setMitglied(new Integer(m.getID()).intValue());
@@ -60,9 +63,9 @@ public class ZusatzabbuchungAction implements Action
       catch (RemoteException e)
       {
         throw new ApplicationException(
-            "Fehler bei der Erzeugung einer neuen Zusatzabbuchung", e);
+            "Fehler bei der Erzeugung eines neuen Zusatzbetrages", e);
       }
     }
-    GUI.startView(ZusatzabbuchungView.class.getName(), z);
+    GUI.startView(ZusatzbetragView.class.getName(), z);
   }
 }
