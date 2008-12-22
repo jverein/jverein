@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2008/12/19 06:54:27  jost
+ * Keine Abrechnung bei Eintrittsdatum in der Zukunft
+ *
  * Revision 1.24  2008/11/29 13:12:04  jost
  * Refactoring: Code-Optimierung
  *
@@ -108,7 +111,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
 import de.jost_net.OBanToo.Dtaus.Dtaus2Pdf;
@@ -146,9 +149,9 @@ public class Abbuchung
 
       abbuchenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
           param.vondatum, monitor, param.verwendungszweck);
-      if (param.zusatzabbuchung)
+      if (param.zusatzbetraege)
       {
-        abbuchenZusatzabbuchungen(dtaus);
+        abbuchenZusatzbetraege(dtaus);
       }
       if (param.kursteilnehmer)
       {
@@ -337,15 +340,15 @@ public class Abbuchung
     }
   }
 
-  private void abbuchenZusatzabbuchungen(DtausDateiWriter dtaus)
+  private void abbuchenZusatzbetraege(DtausDateiWriter dtaus)
       throws NumberFormatException, DtausException, IOException,
       ApplicationException
   {
     DBIterator list = Einstellungen.getDBService().createList(
-        Zusatzabbuchung.class);
+        Zusatzbetrag.class);
     while (list.hasNext())
     {
-      Zusatzabbuchung z = (Zusatzabbuchung) list.next();
+      Zusatzbetrag z = (Zusatzbetrag) list.next();
       if (z.isAktiv())
       {
         Mitglied m = z.getMitglied();

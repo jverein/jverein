@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2008/11/29 13:11:50  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.22  2008/11/16 16:57:58  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -185,12 +188,12 @@ public class MitgliedDetailView extends AbstractView
     {
       tab3.addPart(control.getFamilienverband());
     }
-    if (Einstellungen.getEinstellung().getZusatzabbuchung())
+    if (Einstellungen.getEinstellung().getZusatzbetrag())
     {
-      TabGroup tab4 = new TabGroup(folder, "Zusatzabbuchung");
-      control.getZusatzabbuchungenTable().paint(tab4.getComposite());
+      TabGroup tab4 = new TabGroup(folder, "Zusatzbeträge");
+      control.getZusatzbetraegeTable().paint(tab4.getComposite());
       ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
-      buttonszus.addButton(control.getZusatzabbuchungNeu());
+      buttonszus.addButton(control.getZusatzbetragNeu());
     }
 
     if (Einstellungen.getEinstellung().getVermerke())

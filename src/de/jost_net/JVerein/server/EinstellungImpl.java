@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/11/16 16:59:11  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.server;
@@ -124,7 +127,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("kommunikationsdaten", new Boolean(kommunikationsdaten));
   }
 
-  public boolean getZusatzabbuchung() throws RemoteException
+  public boolean getZusatzbetrag() throws RemoteException
   {
     Object o = getAttribute("zusatzabbuchung");
     if (o instanceof Boolean)
@@ -138,7 +141,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     throw new RemoteException("Weder String noch Boolean");
   }
 
-  public void setZusatzabbuchung(Boolean zusatzabbuchung)
+  public void setZusatzbetrag(Boolean zusatzabbuchung)
       throws RemoteException
   {
     setAttribute("zusatzabbuchung", new Boolean(zusatzabbuchung));

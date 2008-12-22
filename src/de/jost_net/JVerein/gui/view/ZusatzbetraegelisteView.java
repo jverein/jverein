@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/05/24 14:04:08  jost
+ * Redatkionelle Ã„nderung
+ *
  * Revision 1.5  2008/01/01 19:53:45  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -29,20 +32,20 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.control.ZusatzabbuchungControl;
+import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class ZusatzabbuchunglisteView extends AbstractView
+public class ZusatzbetraegelisteView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Liste der Zusatzabbuchungen");
+    GUI.getView().setTitle("Liste der Zusatzbeträge");
 
-    final ZusatzabbuchungControl control = new ZusatzabbuchungControl(this);
+    final ZusatzbetragControl control = new ZusatzbetragControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Ausführungstag");
     group.addLabelPair("Ausführungstag", control.getAusfuehrungSuch());
@@ -51,7 +54,7 @@ public class ZusatzabbuchunglisteView extends AbstractView
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZABBUCHUNGEN);
-    control.getZusatzabbuchungsList().paint(this.getParent());
+    control.getZusatzbetraegeList().paint(this.getParent());
   }
 
   public void unbind() throws ApplicationException

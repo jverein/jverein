@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/05/24 14:04:08  jost
+ * Redatkionelle Ã„nderung
+ *
  * Revision 1.4  2008/01/01 19:53:57  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -26,8 +29,8 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungDeleteAction;
-import de.jost_net.JVerein.gui.control.ZusatzabbuchungControl;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
+import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -35,14 +38,14 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class ZusatzabbuchungView extends AbstractView
+public class ZusatzbetragView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Zusatzabbuchung");
-    final ZusatzabbuchungControl control = new ZusatzabbuchungControl(this);
+    GUI.getView().setTitle("Zusatzbetrag");
+    final ZusatzbetragControl control = new ZusatzbetragControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Zusatzabbuchung");
+    LabelGroup group = new LabelGroup(getParent(), "Zusatzbetrag");
     group.addLabelPair("Startdatum", control.getStartdatum());
     group.addLabelPair("nächste Fälligkeit", control.getFaelligkeit());
     group.addLabelPair("Intervall", control.getIntervall());
@@ -54,8 +57,8 @@ public class ZusatzabbuchungView extends AbstractView
     buttons.addButton("<< Zurück", new BackAction());
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZABBUCHUNGEN);
-    buttons.addButton("Löschen", new ZusatzabbuchungDeleteAction(), control
-        .getZusatzabbuchung());
+    buttons.addButton("Löschen", new ZusatzbetraegeDeleteAction(), control
+        .getZusatzbetrag());
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

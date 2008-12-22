@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/12/19 12:25:52  jost
+ * Bugfix Fälligkeitsberechung
+ *
  * Revision 1.6  2008/11/29 13:17:37  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -35,18 +38,18 @@ import java.util.Date;
 
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Datum;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class ZusatzabbuchungImpl extends AbstractDBObject implements
-    Zusatzabbuchung
+public class ZusatzbetragImpl extends AbstractDBObject implements
+    Zusatzbetrag
 {
   private static final long serialVersionUID = 1L;
 
-  public ZusatzabbuchungImpl() throws RemoteException
+  public ZusatzbetragImpl() throws RemoteException
   {
     super();
   }
@@ -111,7 +114,7 @@ public class ZusatzabbuchungImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = "Zusatzabbuchung kann nicht gespeichert werden. Siehe system log";
+      String fehler = "Zusatzbetrag kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

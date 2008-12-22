@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/11/16 16:58:49  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -37,9 +40,9 @@ public interface Einstellung extends DBObject
   public void setKommunikationsdaten(Boolean kommunikationsdaten)
       throws RemoteException;
 
-  public boolean getZusatzabbuchung() throws RemoteException;
+  public boolean getZusatzbetrag() throws RemoteException;
 
-  public void setZusatzabbuchung(Boolean zusatzabbuchung)
+  public void setZusatzbetrag(Boolean zusatzbetrag)
       throws RemoteException;
 
   public boolean getVermerke() throws RemoteException;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/11/29 13:14:01  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.3  2008/01/02 10:59:17  jost
  * Bugfix Migration nach Neuinstallation
  *
@@ -33,7 +36,7 @@ import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.StammdatenImpl;
 import de.jost_net.JVerein.server.VersionImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
-import de.jost_net.JVerein.server.ZusatzabbuchungImpl;
+import de.jost_net.JVerein.server.ZusatzbetragImpl;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -107,7 +110,7 @@ public class DatabaseMigrationTask implements BackgroundTask
         copy(VersionImpl.class, monitor);
       }
       copy(WiedervorlageImpl.class, monitor);
-      copy(ZusatzabbuchungImpl.class, monitor);
+      copy(ZusatzbetragImpl.class, monitor);
 
       monitor.setStatus(ProgressMonitor.STATUS_DONE);
       monitor.setStatusText(i18n.tr("Fertig"));

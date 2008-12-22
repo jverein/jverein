@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/12/19 06:55:10  jost
+ * Wenn die Spalte adressierungszusatz in der Import-Datei fehlt, wird Leerstring in die DB eingetragen.
+ *
  * Revision 1.16  2008/11/29 13:12:24  jost
  * Refactoring: Code-Optimierung
  *
@@ -82,7 +85,7 @@ import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
-import de.jost_net.JVerein.rmi.Zusatzabbuchung;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.util.ApplicationException;
@@ -294,12 +297,12 @@ public class Import
   {
     try
     {
-      // Zusatzabbuchungen
+      // Zusatzbeträge
       DBIterator list = Einstellungen.getDBService().createList(
-          Zusatzabbuchung.class);
+          Zusatzbetrag.class);
       while (list.hasNext())
       {
-        Zusatzabbuchung z = (Zusatzabbuchung) list.next();
+        Zusatzbetrag z = (Zusatzbetrag) list.next();
         z.delete();
       }
       // Zusatzfelder

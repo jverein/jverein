@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/11/16 16:57:51  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.14  2008/08/10 12:36:02  jost
  * Abbuchung -> Abrechnung
  * Vorbereitung der Rechnungserstellung
@@ -102,10 +105,10 @@ public class AbbuchungView extends AbstractView
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group
         .addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
-    group.addLabelPair("Zusatzabbuchung", control.getZusatzabbuchung());
-    if (!Einstellungen.getEinstellung().getZusatzabbuchung())
+    group.addLabelPair("Zusatzbeträge", control.getZusatzbetrag());
+    if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
-      control.getZusatzabbuchung().setEnabled(false);
+      control.getZusatzbetrag().setEnabled(false);
     }
     group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
     group.addLabelPair("Dtaus-Datei drucken", control.getDtausPrint());

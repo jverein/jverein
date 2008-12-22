@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2008/11/29 13:11:38  jost
+ * Neu: Konfiguration der Spalten einer Tabelle
+ *
  * Revision 1.12  2008/11/11 20:05:09  jost
  * Anzeige neu gruppiert und mit Scrollbars versehen.
  *
@@ -81,8 +84,8 @@ public class EinstellungenView extends AbstractView
         .getEintrittsdatumPflicht());
     group.addLabelPair("Kommunikationsdaten anzeigen", control
         .getKommunikationsdaten());
-    group.addLabelPair("Zusatzabbuchungen anzeigen *", control
-        .getZusatzabbuchung());
+    group.addLabelPair("Zusatzbeträge anzeigen *", control
+        .getZusatzbetrag());
     group.addLabelPair("Vermerke anzeigen", control.getVermerke());
     group.addLabelPair("Wiedervorlage anzeigen *", control.getWiedervorlage());
     group

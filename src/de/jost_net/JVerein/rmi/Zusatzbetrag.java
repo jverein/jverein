@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/03/30 13:26:01  jost
+ * Wiederkehrende Zusatzabbuchungen.
+ *
  * Revision 1.2  2007/02/23 20:28:24  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -23,7 +26,7 @@ import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
-public interface Zusatzabbuchung extends DBObject
+public interface Zusatzbetrag extends DBObject
 {
   public Mitglied getMitglied() throws RemoteException;
 

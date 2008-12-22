@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/11/30 10:45:42  jost
+ * Neu: Konfiguration der Spalten einer Tabelle
+ *
  * Revision 1.6  2008/11/29 13:12:13  jost
  * Refactoring: Code-Optimierung
  *
@@ -59,7 +62,7 @@ public class AbbuchungParam
 
   public final String verwendungszweck;
 
-  public final Boolean zusatzabbuchung;
+  public final Boolean zusatzbetraege;
 
   public final Boolean kursteilnehmer;
 
@@ -85,7 +88,7 @@ public class AbbuchungParam
     abbuchungsausgabe = aa.getKey();
     vondatum = (Date) ac.getVondatum().getValue();
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();
-    zusatzabbuchung = (Boolean) ac.getZusatzabbuchung().getValue();
+    zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();
     kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
     dtausprint = (Boolean) ac.getDtausPrint().getValue();
     this.pdffile = pdffile;
