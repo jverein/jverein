@@ -128,12 +128,12 @@ CREATE TABLE eigenschaften
 
 CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);
 
-CREATE TABLE version
+CREATE TABLE `version`
 (
-  id            IDENTITY, 
-  version       INTEGER,
-  UNIQUE        (id), 
-  PRIMARY KEY   (id)
+  `id`          IDENTITY, 
+  `version`     INTEGER,
+  UNIQUE        (`id`), 
+  PRIMARY KEY   (`id`)
 );
 
 create table felddefinition

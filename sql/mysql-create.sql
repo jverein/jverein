@@ -128,14 +128,13 @@ CREATE TABLE eigenschaften
 
 CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);
 
-
-CREATE TABLE version
+CREATE TABLE `version` 
 (
-  id            int(10) AUTO_INCREMENT, 
-  version       INTEGER,
-  UNIQUE        (id), 
-  PRIMARY KEY   (id)
-)TYPE=InnoDB;
+  `id` INTEGER AUTO_INCREMENT,
+  `version`     INTEGER,
+  UNIQUE        (`id`),
+  PRIMARY KEY   (`id`)
+) TYPE=InnoDB;
 
 create table felddefinition
 (

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/29 18:32:23  jost
+ * MySQL-Support von Michael Trapp Ã¼bernommen
+ *
  * Revision 1.0  2008/01/14 12:00:00  trapp
  * @N Erster Code fuer Unterstuetzung von MySQL
  **********************************************************************/
@@ -24,8 +27,11 @@ import java.text.MessageFormat;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.JVereinDBService;
+import de.willuhn.jameica.plugin.PluginResources;
 import de.willuhn.jameica.system.Application;
-import de.willuhn.util.I18N;
+import de.willuhn.logging.Logger;
+import de.willuhn.sql.version.Updater;
+import de.willuhn.util.ApplicationException;
 
 /**
  * Implementierung des Datenbank-Supports fuer MySQL.
@@ -85,35 +91,51 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
         "database.driver.mysql.username", "jverein");
   }
 
+  public void checkConsistency(Connection conn) throws RemoteException,
+      ApplicationException
+  {
+    if (!Application.inClientMode())
+    {
+      try
+      {
+        PluginResources res = Application.getPluginLoader().getPlugin(
+            JVereinPlugin.class).getResources();
+        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, res
+            .getPath()
+            + File.separator + "sql.mysql", Application.getCallback()
+            .getStartupMonitor());
+        if (udp.getCurrentVersion() == 0)
+        {
+          File file = new File(res.getPath() + File.separator + "sql",
+              "mysql-create.sql");
+          execute(conn, file);
+        }
+        Updater updater = new Updater(udp);
+        updater.execute();
+      }
+      catch (Exception e2)
+      {
+        Logger.error("Datenbankupdate kann nicht ausgeführt werden.", e2);
+        throw new ApplicationException(e2);
+      }
+    }
+  }
+
   /**
-   * Ueberschrieben, weil SQL-Scripts bei MySQL nicht automatisch durchgefuehrt
-   * werden. Das soll der Admin sicherheitshalber manuell durchfuehren. Wir
-   * hinterlassen stattdessen nur einen Hinweistext mit den auszufuehrenden
-   * SQL-Scripts.
    * 
-   * @see de.willuhn.jameica.hbci.server.AbstractDBSupportImpl#execute(java.sql.Connection,
-   *      java.io.File)
    */
   public void execute(Connection conn, File sqlScript) throws RemoteException
   {
     if (sqlScript == null)
       return; // Ignore
 
-    String prefix = JVereinDBService.SETTINGS.getString(
-        "database.driver.mysql.scriptprefix", "mysql-");
-    File f = new File(sqlScript.getParent(), prefix + sqlScript.getName());
-    if (f.exists())
+    sqlScript = new File(sqlScript.getParent(),  sqlScript.getName());
+    if (!sqlScript.exists())
     {
-      I18N i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
-          .getResources().getI18N();
-
-      String text = i18n
-          .tr(
-              "Bei der Verwendung von MySQL werden Datenbank-Updates "
-                  + "nicht automatisch ausgeführt. Bitte führen Sie das folgende SQL-Script "
-                  + "manuell aus:\n{0}", f.getAbsolutePath());
-      Application.addWelcomeMessage(text);
+      Logger.debug("file " + sqlScript + " does not exist, skipping");
+      return;
     }
+    super.execute(conn, sqlScript);
   }
 
   /**

@@ -1,1 +1,1 @@
-ALTER TABLE buchung ADD auszugsnummer integer before name;
+ALTER TABLE buchung ADD auszugsnummer integer after konto;

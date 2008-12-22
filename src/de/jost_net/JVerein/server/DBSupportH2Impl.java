@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/01 12:36:30  jost
+ * Javadoc korrigiert
+ *
  * Revision 1.3  2007/12/01 17:47:22  jost
  * Neue DB-Update-Mimik
  *
@@ -156,6 +159,13 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
             .getPath()
             + File.separator + "sql.h2", Application.getCallback()
             .getStartupMonitor());
+        if (udp.getCurrentVersion() == 0)
+        {
+          File file = new File(res.getPath() + File.separator + "sql",
+              "h2-create.sql");
+          execute(conn, file);
+        }
+
         Updater updater = new Updater(udp);
         updater.execute();
 
@@ -180,9 +190,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
       return; // Ignore
 
     // Wir schreiben unseren Prefix davor.
-    String prefix = JVereinDBService.SETTINGS.getString(
-        "database.driver.h2.scriptprefix", "h2-");
-    sqlScript = new File(sqlScript.getParent(), prefix + sqlScript.getName());
+    sqlScript = new File(sqlScript.getParent(), sqlScript.getName());
     if (!sqlScript.exists())
     {
       Logger.debug("file " + sqlScript + " does not exist, skipping");
