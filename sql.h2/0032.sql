@@ -1,0 +1,1 @@
+ALTER TABLE mitglied ALTER COLUMN telefondienstlich varchar(20);

@@ -1,0 +1,1 @@
+ALTER TABLE mitglied ALTER COLUMN handy varchar(20);
