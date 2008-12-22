@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/19 19:24:58  jost
+ * Neu: Spendenbescheinigung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
@@ -28,6 +31,6 @@ public class SpendenbescheinigungMenu extends ContextMenu
   public SpendenbescheinigungMenu()
   {
     addItem(new CheckedContextMenuItem("Löschen...",
-        new SpendenbescheinigungDeleteAction()));
+        new SpendenbescheinigungDeleteAction(), "user-trash.png"));
   }
 }

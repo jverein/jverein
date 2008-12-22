@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/16 18:51:44  jost
+ * Neu: Rechnung
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.menu;
@@ -29,8 +32,8 @@ public class RechungMenu extends ContextMenu
    */
   public RechungMenu()
   {
-    addItem(new CheckedContextMenuItem("Rechnung...", new RechnungAction()));
+    addItem(new CheckedContextMenuItem("Rechnung...", new RechnungAction(),"rechnung.png"));
     addItem(new CheckedContextMenuItem("Löschen...",
-        new RechnungDeleteAction()));
+        new RechnungDeleteAction(), "user-trash.png"));
   }
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:51:08  jost
+ * BuchfÃ¼hrung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
@@ -18,7 +21,7 @@ import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 
 /**
- * Kontext-Menu zu den Zusatzabbuchungen.
+ * Kontext-Menu zu den Konten.
  */
 public class KontoMenu extends ContextMenu
 {
@@ -29,7 +32,8 @@ public class KontoMenu extends ContextMenu
   public KontoMenu()
   {
     addItem(new CheckedContextMenuItem("Anfangsbestand",
-        new AnfangsbestandNeuAction()));
-    addItem(new CheckedContextMenuItem("Löschen...", new KontoDeleteAction()));
+        new AnfangsbestandNeuAction(), "document-new.png"));
+    addItem(new CheckedContextMenuItem("Löschen...", new KontoDeleteAction(),
+        "user-trash.png"));
   }
 }

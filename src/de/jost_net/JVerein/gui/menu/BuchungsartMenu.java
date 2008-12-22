@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:50:55  jost
+ * Buchführung
+ *
  * Revision 1.4  2008/03/16 07:36:10  jost
  * Reaktivierung Buchführung
  *
@@ -26,17 +29,17 @@ import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 
 /**
- * Kontext-Menu zu den Zusatzabbuchungen.
+ * Kontext-Menu zu den Buchungsarten.
  */
 public class BuchungsartMenu extends ContextMenu
 {
 
   /**
-   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzabbuchungen.
+   * Erzeugt ein Kontext-Menu fuer die Liste der Buchungsarten.
    */
   public BuchungsartMenu()
   {
     addItem(new CheckedContextMenuItem("L�schen...",
-        new BuchungsartDeleteAction()));
+        new BuchungsartDeleteAction(), "user-trash.png"));
   }
 }

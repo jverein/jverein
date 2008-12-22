@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/03/21 12:10:00  jost
+ * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurÃ¼ckgesetzt werden.
+ *
  * Revision 1.1  2007/02/25 19:12:44  jost
  * Neu: Kursteilnehmer
  *
@@ -32,8 +35,8 @@ public class KursteilnehmerMenu extends ContextMenu
   public KursteilnehmerMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("Abbuchungsdatum löschen...",
-        new KursteilnehmerAbuResetAction(table)));
+        new KursteilnehmerAbuResetAction(table), "user-trash.png"));
     addItem(new CheckedContextMenuItem("Löschen...",
-        new KursteilnehmerDeleteAction()));
+        new KursteilnehmerDeleteAction(), "user-trash.png"));
   }
 }

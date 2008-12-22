@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/11/29 13:11:27  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.3  2008/05/22 06:51:47  jost
  * Buchführung
  *
@@ -54,16 +57,19 @@ public class MyItem implements NavigationItem
 
   private ArrayList<Item> children;
 
-  /**
-   * ct.
-   * 
-   * @param item
-   */
+  private String icon;
+
   public MyItem(NavigationItem item, String navitext, Action action)
+  {
+    this(item, navitext, action, null);
+  }
+
+  public MyItem(NavigationItem item, String navitext, Action action, String icon)
   {
     this.parent = item;
     this.action = action;
     this.navitext = navitext;
+    this.icon = icon;
     children = new ArrayList<Item>();
   }
 
@@ -74,11 +80,11 @@ public class MyItem implements NavigationItem
   {
     if (action == null)
     {
-      return SWTUtil.getImage("folder.gif");
+      return SWTUtil.getImage(icon != null ? icon : "folder.gif");
     }
     else
     {
-      return SWTUtil.getImage("page.gif");
+      return SWTUtil.getImage(icon != null ? icon : "page.gif");
     }
   }
 
@@ -89,11 +95,11 @@ public class MyItem implements NavigationItem
   {
     if (action == null)
     {
-      return SWTUtil.getImage("folderopen.gif");
+      return SWTUtil.getImage(icon != null ? icon : "folderopen.gif");
     }
     else
     {
-      return SWTUtil.getImage("page.gif");
+      return SWTUtil.getImage(icon != null ? icon : "page.gif");
     }
   }
 
@@ -259,11 +265,11 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$
- * Revision 1.3  2008/05/22 06:51:47  jost
- * Buchführung
- * Revision 1.2 2007/08/23 19:25:23 jost Header
- * korrigiert.
+ * $Log$ Revision 1.4 2008/11/29 13:11:27 jost Refactoring:
+ * Warnungen beseitigt.
+ * 
+ * Revision 1.3 2008/05/22 06:51:47 jost Buchführung Revision 1.2 2007/08/23
+ * 19:25:23 jost Header korrigiert.
  * 
  * Revision 1.1 2007/08/22 20:43:54 jost *** empty log message ***
  * 

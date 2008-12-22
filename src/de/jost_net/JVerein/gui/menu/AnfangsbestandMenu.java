@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:50:30  jost
+ * BuchfÃ¼hrung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
@@ -23,11 +26,11 @@ public class AnfangsbestandMenu extends ContextMenu
 {
 
   /**
-   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzabbuchungen.
+   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzbeträge.
    */
   public AnfangsbestandMenu()
   {
     addItem(new CheckedContextMenuItem("Löschen...",
-        new AnfangsbestandDeleteAction()));
+        new AnfangsbestandDeleteAction(),"user-trash.png"));
   }
 }

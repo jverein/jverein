@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/06/28 16:58:24  jost
+ * Neu: Jahresabschluss
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
@@ -28,6 +31,6 @@ public class JahresabschlussMenu extends ContextMenu
   public JahresabschlussMenu()
   {
     addItem(new CheckedContextMenuItem("Löschen...",
-        new JahresabschlussDeleteAction()));
+        new JahresabschlussDeleteAction(), "user-trash.png"));
   }
 }

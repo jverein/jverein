@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:11:01  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
@@ -28,6 +31,6 @@ public class FormularfeldMenu extends ContextMenu
   public FormularfeldMenu()
   {
     addItem(new CheckedContextMenuItem("Löschen...",
-        new FormularfeldDeleteAction()));
+        new FormularfeldDeleteAction(), "user-trash.png"));
   }
 }

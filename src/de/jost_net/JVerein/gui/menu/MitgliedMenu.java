@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/07/18 20:11:31  jost
+ * Neu: Spendenbescheinigung
+ *
  * Revision 1.2  2007/08/31 05:36:00  jost
  * Jetzt auch bearbeiten Ã¼ber das Context-MenÃ¼
  *
@@ -35,9 +38,11 @@ public class MitgliedMenu extends ContextMenu
    */
   public MitgliedMenu()
   {
-    addItem(new CheckedContextMenuItem("Bearbeiten", new MitgliedDetailAction()));
-    addItem(new CheckedContextMenuItem("Löschen...", new MitgliedDeleteAction()));
+    addItem(new CheckedContextMenuItem("Bearbeiten",
+        new MitgliedDetailAction(), "edit.png"));
+    addItem(new CheckedContextMenuItem("Löschen...",
+        new MitgliedDeleteAction(), "user-trash.png"));
     addItem(new CheckedContextMenuItem("Spendenbescheinigung",
-        new SpendenbescheinigungAction()));
+        new SpendenbescheinigungAction(), "rechnung.png"));
   }
 }

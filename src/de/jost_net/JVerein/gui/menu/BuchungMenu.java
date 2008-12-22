@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/12/06 10:50:07  jost
+ * Bearbeiten aufgenommen
+ *
  * Revision 1.5  2008/05/22 06:50:44  jost
  * BuchfÃ¼hrung
  *
@@ -32,18 +35,21 @@ import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 
 /**
- * Kontext-Menu zu den Zusatzabbuchungen.
+ * Kontext-Menu zu den Buchungen.
  */
 public class BuchungMenu extends ContextMenu
 {
 
   /**
-   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzabbuchungen.
+   * Erzeugt ein Kontext-Menu fuer die Liste der Buchungen.
    */
   public BuchungMenu()
   {
-    addItem(new ContextMenuItem("Neu", new BuchungNeuAction()));
-    addItem(new CheckedContextMenuItem("Bearbeiten", new BuchungAction()));
-    addItem(new CheckedContextMenuItem("Löschen...", new BuchungDeleteAction()));
+    addItem(new ContextMenuItem("Neu", new BuchungNeuAction(),
+        "document-new.png"));
+    addItem(new CheckedContextMenuItem("Bearbeiten", new BuchungAction(),
+        "edit.png"));
+    addItem(new CheckedContextMenuItem("Löschen...", new BuchungDeleteAction(),
+        "user-trash.png"));
   }
 }

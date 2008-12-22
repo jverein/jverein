@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/03/20 07:56:54  jost
+ * Probleme beim Encoding.
+ *
  * Revision 1.1  2007/03/13 19:57:01  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -36,8 +39,9 @@ public class ManuellerZahlungseingangMenu extends ContextMenu
     addItem(new CheckedContextMenuItem("Zahlungseingangsdatum setzen ...",
         new ManuellerZahlungseingangDatumSetzenAction(table)));
     addItem(new CheckedContextMenuItem("Zahlungseingangsdatum löschen ...",
-        new ManuellerZahlungseingangDatumLoeschenAction(table)));
+        new ManuellerZahlungseingangDatumLoeschenAction(table),
+        "user-trash.png"));
     addItem(new CheckedContextMenuItem("Löschen...",
-        new ManuellerZahlungseingangDeleteAction(table)));
+        new ManuellerZahlungseingangDeleteAction(table), "user-trash.png"));
   }
 }

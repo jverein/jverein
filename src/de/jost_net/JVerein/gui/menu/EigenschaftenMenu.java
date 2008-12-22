@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/25 16:03:45  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
@@ -27,13 +30,13 @@ public class EigenschaftenMenu extends ContextMenu
 {
 
   /**
-   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzabbuchungen.
+   * Erzeugt ein Kontext-Menu fuer die Liste der Eigenschaften.
    */
   public EigenschaftenMenu(EigenschaftenControl control, Mitglied m)
   {
     addItem(new ContextMenuItem("Neu ...", new EigenschaftenNewAction(control,
-        m)));
-    addItem(new CheckedContextMenuItem("Löschen", new EigenschaftenDeleteAction(
-        control)));
+        m), "document-new.png"));
+    addItem(new CheckedContextMenuItem("Löschen",
+        new EigenschaftenDeleteAction(control), "user-trash.png"));
   }
 }

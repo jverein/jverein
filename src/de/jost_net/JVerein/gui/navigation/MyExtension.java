@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/11/16 16:57:30  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.10  2008/09/16 18:51:56  jost
  * Neu: Rechnung
  *
@@ -58,7 +61,7 @@ import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungListeAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeListeAction;
 import de.willuhn.jameica.gui.NavigationItem;
 import de.willuhn.jameica.gui.extension.Extendable;
 import de.willuhn.jameica.gui.extension.Extension;
@@ -76,65 +79,67 @@ public class MyExtension implements Extension
     {
       NavigationItem jverein = (NavigationItem) extendable;
       jverein.addChild(new MyItem(jverein, "Mitglieder",
-          new MitgliedSucheAction()));
+          new MitgliedSucheAction(), "system-users.png"));
       if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         jverein.addChild(new MyItem(jverein, "Kursteilnehmer",
-            new KursteilnehmerSucheAction()));
+            new KursteilnehmerSucheAction(), "system-users.png"));
       }
-      jverein
-          .addChild(new MyItem(jverein, "Abrechnung", new AbbuchungAction()));
+      jverein.addChild(new MyItem(jverein, "Abrechnung", new AbbuchungAction(),
+          "accessories-calculator.png"));
       if (Einstellungen.getEinstellung().getRechnungFuerAbbuchung()
           || Einstellungen.getEinstellung().getRechnungFuerUeberweisung()
           || Einstellungen.getEinstellung().getRechnungFuerBarzahlung())
       {
         jverein.addChild(new MyItem(jverein, "Rechnung",
-            new RechnungListeAction()));
+            new RechnungListeAction(), "rechnung.png"));
       }
-      if (Einstellungen.getEinstellung().getZusatzabbuchung())
+      if (Einstellungen.getEinstellung().getZusatzbetrag())
       {
-        jverein.addChild(new MyItem(jverein, "Zusatzabbuchung",
-            new ZusatzabbuchungListeAction()));
+        jverein.addChild(new MyItem(jverein, "Zusatzbetr‰ge",
+            new ZusatzbetraegeListeAction(), "zusatzbetraege.png"));
       }
-      jverein.addChild(new MyItem(jverein, "Manueller Zahlungseingang",
-          new ManuellerZahlungseingangListeAction()));
+      jverein
+          .addChild(new MyItem(jverein, "Manueller Zahlungseingang",
+              new ManuellerZahlungseingangListeAction(),
+              "folder-saved-search.png"));
       if (Einstellungen.getEinstellung().getWiedervorlage())
       {
         jverein.addChild(new MyItem(jverein, "Wiedervorlage",
-            new WiedervorlageListeAction()));
+            new WiedervorlageListeAction(), "office-calendar.png"));
       }
       jverein.addChild(new MyItem(jverein, "Spendenbescheinigung",
-          new SpendenbescheinigungListeAction()));
+          new SpendenbescheinigungListeAction(), "rechnung.png"));
 
       NavigationItem auswertung = null;
       auswertung = new MyItem(auswertung, "Auswertungen", null);
       auswertung.addChild(new MyItem(auswertung, "Mitglieder",
-          new AuswertungMitgliedAction()));
+          new AuswertungMitgliedAction(), "document-open.png"));
       auswertung.addChild(new MyItem(auswertung, "Jubil‰en",
-          new JubilaeenAction()));
+          new JubilaeenAction(), "document-open.png"));
       if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         auswertung.addChild(new MyItem(auswertung, "Kursteilnehmer",
-            new AuswertungKursteilnehmerAction()));
+            new AuswertungKursteilnehmerAction(), "document-open.png"));
       }
       auswertung.addChild(new MyItem(auswertung, "Statistik",
-          new StatistikMitgliedAction()));
+          new StatistikMitgliedAction(), "document-open.png"));
       jverein.addChild(auswertung);
 
       NavigationItem buchfuehrung = null;
       buchfuehrung = new MyItem(buchfuehrung, "Buchf¸hrung", null);
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Konten",
-          new KontoListAction()));
+          new KontoListAction(), "system-file-manager.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Anfangsbestand",
-          new AnfangsbestandListAction()));
+          new AnfangsbestandListAction(), "tab-new.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungs¸bernahme",
-          new BuchungsuebernahmeAction()));
+          new BuchungsuebernahmeAction(), "view-refresh.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungen",
-          new BuchungsListeAction()));
+          new BuchungsListeAction(), "preferences-system-windows.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahressaldo",
-          new JahressaldoAction()));
+          new JahressaldoAction(), "summe.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahresabschluss",
-          new JahresabschlussListAction()));
+          new JahresabschlussListAction(), "summe.png"));
       jverein.addChild(buchfuehrung);
 
     }
@@ -148,11 +153,12 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.10 2008/09/16 18:51:56 jost Neu:
- * Rechnung Revision 1.9 2008/08/10 12:35:50 jost Abbuchung -> Abrechnung
- * Vorbereitung der Rechnungserstellung Revision 1.8 2008/07/18 20:11:53 jost
- * Neu: Spendenbescheinigung Revision 1.7 2008/06/28 16:58:42 jost Neu:
- * Jahresabschluss
+ * $Log$ Revision 1.11 2008/11/16 16:57:30 jost Speicherung
+ * der Einstellung von Property-Datei in die Datenbank verschoben. Revision 1.10
+ * 2008/09/16 18:51:56 jost Neu: Rechnung Revision 1.9 2008/08/10 12:35:50 jost
+ * Abbuchung -> Abrechnung Vorbereitung der Rechnungserstellung Revision 1.8
+ * 2008/07/18 20:11:53 jost Neu: Spendenbescheinigung Revision 1.7 2008/06/28
+ * 16:58:42 jost Neu: Jahresabschluss
  * 
  * Revision 1.6 2008/05/25 19:36:26 jost Neu: Jahressaldo Revision 1.5
  * 2008/05/22 06:51:20 jost Buchf√ºhrung Revision 1.4 2007/12/22 08:25:43 jost

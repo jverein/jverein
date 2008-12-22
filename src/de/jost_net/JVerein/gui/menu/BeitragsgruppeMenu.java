@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/02 13:41:04  jost
+ * überflüssiges Import-Statement entfernt.
+ *
  * Revision 1.1  2007/08/23 19:24:45  jost
  * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
  *
@@ -31,6 +34,6 @@ public class BeitragsgruppeMenu extends ContextMenu
   public BeitragsgruppeMenu()
   {
     addItem(new CheckedContextMenuItem("L�schen...",
-        new BeitragsgruppeDeleteAction()));
+        new BeitragsgruppeDeleteAction(), "user-trash.png"));
   }
 }

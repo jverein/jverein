@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/03/30 13:25:11  jost
+ * Wiederkehrende Zusatzabbuchungen.
+ *
  * Revision 1.2  2007/02/23 20:26:58  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -18,34 +21,34 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungDeleteAction;
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungNaechsteFaelligkeitAction;
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungResetAction;
-import de.jost_net.JVerein.gui.action.ZusatzabbuchungVorherigeFaelligkeitAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeNaechsteFaelligkeitAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeResetAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetraegeVorherigeFaelligkeitAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 import de.willuhn.jameica.gui.parts.TablePart;
 
 /**
- * Kontext-Menu zu den Zusatzabbuchungen.
+ * Kontext-Menu zu den Zusatzbeträgen.
  */
-public class ZusatzabbuchungMenu extends ContextMenu
+public class ZusatzbetraegeMenu extends ContextMenu
 {
 
   /**
-   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzabbuchungen.
+   * Erzeugt ein Kontext-Menu fuer die Liste der Zusatzbeträge.
    */
-  public ZusatzabbuchungMenu(TablePart table)
+  public ZusatzbetraegeMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("Vorheriges Fälligkeitsdatum",
-        new ZusatzabbuchungVorherigeFaelligkeitAction(table)));
+        new ZusatzbetraegeVorherigeFaelligkeitAction(table)));
     addItem(new CheckedContextMenuItem("Nächstes Fälligkeitsdatum",
-        new ZusatzabbuchungNaechsteFaelligkeitAction(table)));
+        new ZusatzbetraegeNaechsteFaelligkeitAction(table)));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem("Erneut ausführen",
-        new ZusatzabbuchungResetAction(table)));
+        new ZusatzbetraegeResetAction(table)));
     addItem(new CheckedContextMenuItem("Löschen...",
-        new ZusatzabbuchungDeleteAction()));
+        new ZusatzbetraegeDeleteAction(), "user-trash.png"));
   }
 }
