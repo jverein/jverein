@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2008/12/22 21:19:31  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.17  2008/12/19 06:55:10  jost
  * Wenn die Spalte adressierungszusatz in der Import-Datei fehlt, wird Leerstring in die DB eingetragen.
  *
@@ -237,7 +240,23 @@ public class Import
         {
           // Nichts tun
         }
+        if (m.getTelefondienstlich() == null)
+        {
+          m.setTelefondienstlich("");
+        }
+        if (m.getTelefonprivat() == null)
+        {
+          m.setTelefonprivat("");
+        }
+        if (m.getHandy() == null)
+        {
+          m.setHandy("");
+        }
         m.setEmail(results.getString("Email"));
+        if (m.getEmail() == null)
+        {
+          m.setEmail("");
+        }
         String eintritt = results.getString("Eintritt");
         if (eintritt == null || eintritt.length() == 0
             || eintritt.equals("00.00.0000"))
