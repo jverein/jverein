@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/12/06 16:46:57  jost
+ * Debug-Meldung entfernt.
+ *
  * Revision 1.4  2008/09/21 08:46:10  jost
  * Neu: Altersjubliäen
  *
@@ -139,7 +142,7 @@ public class Jubilaeenliste
           FontFactory.getFont(FontFactory.HELVETICA, 11));
       reporter.add(pHeader);
 
-      addHeader(reporter);
+      addHeader(MitgliedControl.JUBELART_MITGLIEDSCHAFT, reporter);
 
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
@@ -163,7 +166,7 @@ public class Jubilaeenliste
       while (mitgl.hasNext())
       {
         Mitglied m = (Mitglied) mitgl.next();
-        addDetail(reporter, m);
+        addDetail(MitgliedControl.JUBELART_MITGLIEDSCHAFT, reporter, m);
       }
       if (mitgl.size() == 0)
       {
@@ -188,7 +191,7 @@ public class Jubilaeenliste
           FontFactory.getFont(FontFactory.HELVETICA, 11));
       reporter.add(pHeader);
 
-      addHeader(reporter);
+      addHeader(MitgliedControl.JUBELART_ALTER, reporter);
 
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
@@ -212,7 +215,7 @@ public class Jubilaeenliste
       while (mitgl.hasNext())
       {
         Mitglied m = (Mitglied) mitgl.next();
-        addDetail(reporter, m);
+        addDetail(MitgliedControl.JUBELART_ALTER, reporter, m);
       }
       if (mitgl.size() == 0)
       {
@@ -226,10 +229,20 @@ public class Jubilaeenliste
 
   }
 
-  private void addHeader(Reporter reporter) throws DocumentException
+  private void addHeader(String art, Reporter reporter)
+      throws DocumentException
   {
-    reporter.addHeaderColumn("Eintrittsdatum", Element.ALIGN_CENTER, 50,
-        Color.LIGHT_GRAY);
+    if (art.equals(MitgliedControl.JUBELART_MITGLIEDSCHAFT))
+    {
+      reporter.addHeaderColumn("Eintrittsdatum", Element.ALIGN_CENTER, 50,
+          Color.LIGHT_GRAY);
+    }
+    if (art.equals(MitgliedControl.JUBELART_ALTER))
+    {
+      reporter.addHeaderColumn("Geburtsdatum", Element.ALIGN_CENTER, 50,
+          Color.LIGHT_GRAY);
+    }
+
     reporter.addHeaderColumn("Name, Vorname", Element.ALIGN_CENTER, 100,
         Color.LIGHT_GRAY);
     reporter.addHeaderColumn("Anschrift", Element.ALIGN_CENTER, 120,
@@ -240,9 +253,17 @@ public class Jubilaeenliste
 
   }
 
-  private void addDetail(Reporter reporter, Mitglied m) throws RemoteException
+  private void addDetail(String art, Reporter reporter, Mitglied m)
+      throws RemoteException
   {
-    reporter.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
+    if (art.equals(MitgliedControl.JUBELART_MITGLIEDSCHAFT))
+    {
+      reporter.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
+    }
+    if (art.equals(MitgliedControl.JUBELART_ALTER))
+    {
+      reporter.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
+    }
     reporter.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
     reporter.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
     String kommunikation = m.getTelefonprivat();
