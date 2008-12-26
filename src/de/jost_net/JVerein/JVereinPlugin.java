@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/11/11 18:26:21  jost
+ * Vorbereitung für künftige Erweiterung
+ *
  * Revision 1.16  2008/01/01 12:35:40  jost
  * Javadoc korrigiert
  *
@@ -61,12 +64,14 @@
 package de.jost_net.JVerein;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.server.JVereinDBServiceImpl;
 import de.willuhn.jameica.gui.extension.ExtensionRegistry;
 import de.willuhn.jameica.plugin.AbstractPlugin;
+import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
@@ -95,6 +100,13 @@ public class JVereinPlugin extends AbstractPlugin
     super();
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    if (!Application.getBuildDate().equals("")
+        && Application.getBuildDate().compareTo("20081222") <= 0)
+    {
+      String msg = "JVerein verlangt Jameica-Version mindestens vom 22.12.2008 sein. Bitte neuere Version installieren.";
+      Application.addWelcomeMessage(msg);
+      Logger.error(msg);
+    }
   }
 
   /**
