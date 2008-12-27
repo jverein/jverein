@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2008/12/26 17:19:10  jost
+ * Überprüfung der minimalen Jameica-Version.
+ *
  * Revision 1.18  2008/12/26 17:17:41  jost
  * Überprüfung der minimalen Jameica-Version.
  *
@@ -67,14 +70,12 @@
 package de.jost_net.JVerein;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.server.JVereinDBServiceImpl;
 import de.willuhn.jameica.gui.extension.ExtensionRegistry;
 import de.willuhn.jameica.plugin.AbstractPlugin;
-import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
