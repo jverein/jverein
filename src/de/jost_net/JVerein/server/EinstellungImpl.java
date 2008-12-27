@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/22 21:22:10  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.1  2008/11/16 16:59:11  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -68,17 +71,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getGeburtsdatumPflicht() throws RemoteException
   {
-    Object o = getAttribute("geburtsdatumpflicht");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
-
+    return Util.getBoolean(getAttribute("geburtsdatumpflicht"));
   }
 
   public void setGeburtsdatumPflicht(Boolean geburtsdatumpflicht)
@@ -89,16 +82,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getEintrittsdatumPflicht() throws RemoteException
   {
-    Object o = getAttribute("eintrittsdatumpflicht");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("eintrittsdatumpflicht"));
   }
 
   public void setEintrittsdatumPflicht(Boolean eintrittsdatumpflicht)
@@ -109,16 +93,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getKommunikationsdaten() throws RemoteException
   {
-    Object o = getAttribute("kommunikationsdaten");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("kommunikationsdaten"));
   }
 
   public void setKommunikationsdaten(Boolean kommunikationsdaten)
@@ -129,36 +104,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getZusatzbetrag() throws RemoteException
   {
-    Object o = getAttribute("zusatzabbuchung");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("zusatzabbuchung"));
   }
 
-  public void setZusatzbetrag(Boolean zusatzabbuchung)
-      throws RemoteException
+  public void setZusatzbetrag(Boolean zusatzabbuchung) throws RemoteException
   {
     setAttribute("zusatzabbuchung", new Boolean(zusatzabbuchung));
   }
 
   public boolean getVermerke() throws RemoteException
   {
-    Object o = getAttribute("vermerke");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("vermerke"));
   }
 
   public void setVermerke(Boolean vermerke) throws RemoteException
@@ -168,16 +124,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getWiedervorlage() throws RemoteException
   {
-    Object o = getAttribute("wiedervorlage");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("wiedervorlage"));
   }
 
   public void setWiedervorlage(Boolean wiedervorlage) throws RemoteException
@@ -187,16 +134,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getKursteilnehmer() throws RemoteException
   {
-    Object o = getAttribute("kursteilnehmer");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("kursteilnehmer"));
   }
 
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException
@@ -206,16 +144,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getExterneMitgliedsnummer() throws RemoteException
   {
-    Object o = getAttribute("externemitgliedsnummer");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("externemitgliedsnummer"));
   }
 
   public void setExterneMitgliedsnummer(Boolean externemitgliedsnummer)
@@ -258,16 +187,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getRechnungFuerAbbuchung() throws RemoteException
   {
-    Object o = getAttribute("rechnungfuerabbuchung");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("rechnungfuerabbuchung"));
   }
 
   public void setRechnungFuerAbbuchung(Boolean rechnungfuerabbuchung)
@@ -278,16 +198,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getRechnungFuerUeberweisung() throws RemoteException
   {
-    Object o = getAttribute("rechnungfuerueberweisung");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
+    return Util.getBoolean(getAttribute("rechnungfuerueberweisung"));
   }
 
   public void setRechnungFuerUeberweisung(Boolean rechnungfuerueberweisung)
@@ -299,17 +210,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public boolean getRechnungFuerBarzahlung() throws RemoteException
   {
-    Object o = getAttribute("rechnungfuerbarzahlung");
-    if (o instanceof Boolean)
-    {
-      return (Boolean) o;
-    }
-    if (o instanceof String)
-    {
-      return new Boolean((String) o);
-    }
-    throw new RemoteException("Weder String noch Boolean");
-   }
+    return Util.getBoolean(getAttribute("rechnungfuerbarzahlung"));
+  }
 
   public void setRechnungFuerBarzahlung(Boolean rechnungfuerbarzahlung)
       throws RemoteException
