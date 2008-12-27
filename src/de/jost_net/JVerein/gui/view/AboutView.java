@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/12/01 17:46:22  jost
+ * Redaktionelle Änderungen und Aufnahme der Datenbankversion
+ *
  * Revision 1.2  2007/02/23 20:27:28  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -57,6 +60,12 @@ public class AboutView extends AbstractDialog
 
     group.addLabelPair("Version", new LabelInput(""
         + p.getManifest().getVersion()));
+
+    group.addLabelPair("Build-Date", new LabelInput(""
+        + p.getManifest().getBuildDate()));
+
+    group.addLabelPair("Build-Nr", new LabelInput(""
+        + p.getManifest().getBuildnumber()));
 
     Version v = (Version) Einstellungen.getDBService().createObject(
         Version.class, "1");
