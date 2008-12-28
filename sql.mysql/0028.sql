@@ -17,4 +17,4 @@ CREATE TABLE einstellung
   rechnungfuerbarzahlung   CHAR(5),
   UNIQUE                   (id), 
   PRIMARY KEY              (id)
-);
+) TYPE=InnoDB;

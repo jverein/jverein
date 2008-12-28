@@ -8,4 +8,4 @@ CREATE TABLE konto
   UNIQUE        (id),
   UNIQUE        (nummer),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;

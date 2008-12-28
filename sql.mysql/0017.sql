@@ -9,6 +9,6 @@ CREATE TABLE formularfeld
   fontsize      integer,
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;
 
 ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;

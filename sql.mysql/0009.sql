@@ -6,6 +6,6 @@ create table zusatzfelder
   feld           varchar(1000),
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;;
 ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);
 ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE;

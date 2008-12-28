@@ -7,4 +7,4 @@ CREATE TABLE jahresabschluss
   name          VARCHAR(50),
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;

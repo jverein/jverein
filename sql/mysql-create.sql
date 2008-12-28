@@ -170,7 +170,7 @@ CREATE TABLE konto
   UNIQUE        (id),
   UNIQUE        (nummer),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;;
 
 CREATE TABLE buchungsart
 (
@@ -181,7 +181,7 @@ CREATE TABLE buchungsart
   UNIQUE        (id),
   UNIQUE        (nummer),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;;
 
 CREATE TABLE buchung
 (
@@ -197,7 +197,7 @@ CREATE TABLE buchung
   kommentar     TEXT,
   buchungsart   INTEGER,
   PRIMARY KEY   (id)
-);  
+) TYPE=InnoDB;  
 
 ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);
 ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);
@@ -210,7 +210,7 @@ CREATE TABLE anfangsbestand
   UNIQUE        (id),
   UNIQUE        (konto, datum),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;;
 
 ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer);
 
@@ -223,7 +223,7 @@ CREATE TABLE jahresabschluss
   name          VARCHAR(50),
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;;
 
 INSERT INTO version VALUES (1,15);
 

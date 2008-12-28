@@ -14,6 +14,6 @@ CREATE TABLE spendenbescheinigung
   formular      INTEGER,
   UNIQUE        (id),
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;
 
 ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;

@@ -8,4 +8,4 @@ CREATE TABLE abrechnung
   betrag        DOUBLE,
   UNIQUE        (id), 
   PRIMARY KEY   (id)
-);
+) TYPE=InnoDB;

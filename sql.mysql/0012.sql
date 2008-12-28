@@ -12,7 +12,7 @@ CREATE TABLE buchung
   kommentar     TEXT,
   buchungsart   INTEGER,
   PRIMARY KEY   (id)
-);  
+) TYPE=InnoDB;  
 
 ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);
 ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);
