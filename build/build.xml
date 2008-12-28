@@ -28,6 +28,9 @@
       <fileset dir="../hibiscus/lib/">
         <include name="*.jar"/>
       </fileset>
+      <fileset dir="../jverein/lib/">
+        <include name="*.jar"/>
+      </fileset>
     </path>
     
     <loadproperties srcFile="${build.dir}/build.properties"/>
@@ -85,9 +88,9 @@
     </zip>
   </target>
 
-  <target name="javadoc" depends="jar" description="creates the api doc">
+  <target name="javadoc" depends="init" description="creates the api doc">
     <mkdir dir="${project.javadoc}"/>
-    <javadoc destdir="${project.javadoc}" packagenames="${define.package}.*">
+    <javadoc destdir="${project.javadoc}" packagenames="${define.package}.*" encoding="ISO8859-1">
       <classpath refid="compilepath" />
       <sourcepath>
         <pathelement location="${src.dir}"/>
