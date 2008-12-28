@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/22 21:21:48  jost
+ * Bugfix MySQL-Support
+ *
  * Revision 1.1  2008/01/29 18:32:23  jost
  * MySQL-Support von Michael Trapp übernommen
  *
@@ -129,7 +132,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
     if (sqlScript == null)
       return; // Ignore
 
-    sqlScript = new File(sqlScript.getParent(),  sqlScript.getName());
+    sqlScript = new File(sqlScript.getParent(), sqlScript.getName());
     if (!sqlScript.exists())
     {
       Logger.debug("file " + sqlScript + " does not exist, skipping");
@@ -195,9 +198,6 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
     }
   }
 
-  /**
-   * @see de.willuhn.jameica.hbci.server.AbstractDBSupportImpl#getTransactionIsolationLevel()
-   */
   public int getTransactionIsolationLevel() throws RemoteException
   {
     // damit sehen wir Datenbank-Updates durch andere
