@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/12/22 21:16:52  jost
+ * Icons ins Menü aufgenommen.
+ *
  * Revision 1.4  2008/11/29 13:11:27  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -80,7 +83,7 @@ public class MyItem implements NavigationItem
   {
     if (action == null)
     {
-      return SWTUtil.getImage(icon != null ? icon : "folder.gif");
+      return SWTUtil.getImage(icon != null ? icon : "folder.png");
     }
     else
     {
@@ -95,7 +98,7 @@ public class MyItem implements NavigationItem
   {
     if (action == null)
     {
-      return SWTUtil.getImage(icon != null ? icon : "folderopen.gif");
+      return SWTUtil.getImage(icon != null ? icon : "folder-open.png");
     }
     else
     {
@@ -265,7 +268,10 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.4 2008/11/29 13:11:27 jost Refactoring:
+ * $Log$
+ * Revision 1.5  2008/12/22 21:16:52  jost
+ * Icons ins Menü aufgenommen.
+ * Revision 1.4 2008/11/29 13:11:27 jost Refactoring:
  * Warnungen beseitigt.
  * 
  * Revision 1.3 2008/05/22 06:51:47 jost Buchführung Revision 1.2 2007/08/23

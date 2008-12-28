@@ -12,7 +12,7 @@
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
  
   <menu>
-    <item name="JVerein">
+    <item name="JVerein" >
     <item name="Dokumentation"
       shortcut="ALT+D" 
       action="de.jost_net.JVerein.gui.action.DokumentationAction">
@@ -64,8 +64,8 @@
 
   <navigation>
     <item name="JVerein"		
-	  icon-close="folder.gif" 
-	  icon-open="folderopen.gif" 	
+	  icon-close="folder.png" 
+	  icon-open="folder-open.png" 	
 	  action="de.jost_net.JVerein.gui.action.WelcomeAction"
       id="jverein.main">
     </item>
