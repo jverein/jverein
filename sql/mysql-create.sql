@@ -212,7 +212,7 @@ CREATE TABLE anfangsbestand
   PRIMARY KEY   (id)
 ) TYPE=InnoDB;;
 
-ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (nummer);
+ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id);
 
 CREATE TABLE jahresabschluss
 (
