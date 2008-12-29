@@ -177,7 +177,7 @@ CREATE TABLE buchungsart
   id            INTEGER AUTO_INCREMENT,
   nummer        INTEGER,
   bezeichnung   VARCHAR(30),
-  buchungsart   INTEGER,
+  art           INTEGER,
   UNIQUE        (id),
   UNIQUE        (nummer),
   PRIMARY KEY   (id)
@@ -207,6 +207,7 @@ CREATE TABLE anfangsbestand
   id            INTEGER AUTO_INCREMENT,
   konto         INTEGER,
   datum         DATE,
+  BETRAG        DOUBLE,
   UNIQUE        (id),
   UNIQUE        (konto, datum),
   PRIMARY KEY   (id)
