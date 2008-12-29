@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2008/12/19 06:55:44  jost
+ * Workaround f. fehlerhaften Import (Adressierungszusatz)
+ *
  * Revision 1.19  2008/11/30 18:58:37  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -364,7 +367,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public Date getGeburtsdatum() throws RemoteException
   {
-    return (Date) getAttribute("geburtsdatum");
+    Date d = (Date) getAttribute("geburtsdatum");
+    if (d == null)
+    {
+      return Einstellungen.NODATE;
+    }
+    return d;
   }
 
   public void setGeburtsdatum(Date geburtsdatum) throws RemoteException
@@ -430,7 +438,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public Date getEintritt() throws RemoteException
   {
-    return (Date) getAttribute("eintritt");
+    Date d = (Date) getAttribute("eintritt");
+    if (d == null)
+    {
+      return Einstellungen.NODATE;
+    }
+    return d;
   }
 
   public void setEintritt(Date eintritt) throws RemoteException

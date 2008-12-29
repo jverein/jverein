@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/10/01 14:17:48  jost
+ * Warnungen entfernt
+ *
  * Revision 1.6  2008/07/10 09:21:38  jost
  * Umstellung auf den Reporter
  * Kommunikationsdaten aufgenommen
@@ -38,6 +41,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -105,7 +109,18 @@ public class MitgliedAuswertungPDF
         }
         report.addColumn(anschriftkommunikation, Element.ALIGN_LEFT);
         report.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
-        String zelle = notNull(Einstellungen.DATEFORMAT.format(m.getEintritt()));
+
+        Date d = m.getEintritt();
+        if (d.equals(Einstellungen.NODATE))
+        {
+          d = null;
+        }
+        String zelle = "";
+        if (d != null)
+        {
+          zelle = Einstellungen.DATEFORMAT.format(d);
+        }
+
         if (m.getAustritt() != null)
         {
           zelle += "\n" + Einstellungen.DATEFORMAT.format(m.getAustritt());

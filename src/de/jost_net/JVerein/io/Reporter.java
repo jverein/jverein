@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/07/10 09:22:18  jost
+ * Neuer Konstruktor mit Angabe von Rändern.
+ *
  * Revision 1.6  2008/07/10 08:00:06  jost
  * Optimierung der internen Reporter-Klasse
  *
@@ -365,6 +368,10 @@ public class Reporter
    */
   private PdfPCell getDetailCell(Date value, int align)
   {
+    if (value.equals(Einstellungen.NODATE))
+    {
+      return getDetailCell("", Element.ALIGN_LEFT);
+    }
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     return getDetailCell(sdf.format(value), align);
   }

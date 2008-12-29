@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.49  2008/12/22 21:43:46  jost
+ * Telefonnummern auf 20 Stellen erweitert.
+ *
  * Revision 1.48  2008/12/22 21:09:21  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -477,6 +480,10 @@ public class MitgliedControl extends AbstractControl
       return geburtsdatum;
     }
     Date d = getMitglied().getGeburtsdatum();
+    if (d.equals(Einstellungen.NODATE))
+    {
+      d = null;
+    }
     this.geburtsdatum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.geburtsdatum.setTitle("Geburtsdatum");
     this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
@@ -641,7 +648,10 @@ public class MitgliedControl extends AbstractControl
     }
 
     Date d = getMitglied().getEintritt();
-
+    if (d.equals(Einstellungen.NODATE))
+    {
+      d = null;
+    }
     this.eintritt = new DateInput(d, Einstellungen.DATEFORMAT);
     this.eintritt.setTitle("Eintrittsdatum");
     this.eintritt.setText("Bitte Eintrittsdatum wählen");
