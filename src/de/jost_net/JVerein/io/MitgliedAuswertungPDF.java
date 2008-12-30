@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/12/29 08:41:04  jost
+ * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
+ *
  * Revision 1.7  2008/10/01 14:17:48  jost
  * Warnungen entfernt
  *
@@ -193,9 +196,8 @@ public class MitgliedAuswertungPDF
    *          der Text.
    * @return der Text oder Leerstring - niemals null.
    */
-  private String notNull(String text)
-  {
-    return text == null ? "" : text;
-  }
-
+  // private String notNull(String text)
+  // {
+  // return text == null ? "" : text;
+  // }
 }
