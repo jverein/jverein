@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/12/22 21:22:36  jost
+ * Bugfix MySQL-Support
+ *
  * Revision 1.7  2008/11/29 13:16:14  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -33,7 +36,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
-import java.io.File;
 import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,7 +44,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.DBSupport;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.datasource.db.DBServiceImpl;
-import de.willuhn.jameica.plugin.PluginResources;
+import de.willuhn.jameica.plugin.Version;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -146,7 +148,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     // this.driver.execute(getConnection(), file);
   }
 
-  public void update(double oldVersion, double newVersion)
+  public void update(Version oldVersion, Version newVersion)
       throws RemoteException
   {
     //

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2008/12/27 15:17:56  jost
+ * Überflüssiges Import-Statement entfernt
+ *
  * Revision 1.19  2008/12/26 17:19:10  jost
  * Überprüfung der minimalen Jameica-Version.
  *
@@ -80,7 +83,7 @@ import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-
+import de.willuhn.jameica.plugin.Version;
 /**
  * You need to have at least one class wich inherits from
  * <code>AbstractPlugin</code>. If so, Jameica will detect your plugin
@@ -160,7 +163,7 @@ public class JVereinPlugin extends AbstractPlugin
   /**
    * This method will be executed on every version change.
    */
-  public void update(final double oldVersion) throws ApplicationException
+  public void update(final Version oldVersion) throws ApplicationException
   {
     call(new ServiceCall()
     {
