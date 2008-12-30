@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/11 19:19:00  jost
+ * *** empty log message ***
+ *
  * Revision 1.1  2008/07/10 07:57:51  jost
  * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
  *
@@ -86,6 +89,14 @@ public class BuchungAuswertungPDFEinzelbuchungen
       while (list.hasNext())
       {
         createTableContent(reporter, list, konto, dVon, dBis);
+        createTableHeader(reporter);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("", Element.ALIGN_LEFT);
+        reporter.addColumn("Gesamtsumme ", Element.ALIGN_LEFT);
+        reporter.addColumn(summe);
+        reporter.closeTable();
       }
       if (buchungsart.getArt() == -1)
       {
@@ -221,6 +232,9 @@ public class BuchungAuswertungPDFEinzelbuchungen
       reporter.addColumn("", Element.ALIGN_LEFT);
     }
     reporter.addColumn("", Element.ALIGN_LEFT);
+    reporter.addColumn("", Element.ALIGN_LEFT);
+    reporter.addColumn("", Element.ALIGN_LEFT);
+    reporter.addColumn("", Element.ALIGN_LEFT);
     if (list != null)
     {
       reporter.addColumn("Summe " + ba.getBezeichnung(), Element.ALIGN_LEFT);
@@ -230,8 +244,6 @@ public class BuchungAuswertungPDFEinzelbuchungen
       reporter.addColumn("Summe ohne Zuordnung", Element.ALIGN_LEFT);
     }
     summe += buchungsartSumme;
-    reporter.addColumn("", Element.ALIGN_LEFT);
-    reporter.addColumn("", Element.ALIGN_LEFT);
     reporter.addColumn(buchungsartSumme);
     reporter.closeTable();
   }
