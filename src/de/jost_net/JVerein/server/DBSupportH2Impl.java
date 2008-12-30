@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/12/22 21:21:21  jost
+ * Bugfix MySQL-Support
+ *
  * Revision 1.4  2008/01/01 12:36:30  jost
  * Javadoc korrigiert
  *
@@ -32,7 +35,6 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.jameica.plugin.PluginResources;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
