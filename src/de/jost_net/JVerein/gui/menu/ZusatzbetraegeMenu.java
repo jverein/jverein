@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/22 21:16:07  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.3  2007/03/30 13:25:11  jost
  * Wiederkehrende Zusatzabbuchungen.
  *
@@ -42,12 +45,14 @@ public class ZusatzbetraegeMenu extends ContextMenu
   public ZusatzbetraegeMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("Vorheriges Fälligkeitsdatum",
-        new ZusatzbetraegeVorherigeFaelligkeitAction(table)));
+        new ZusatzbetraegeVorherigeFaelligkeitAction(table),
+        "office-calendar.png"));
     addItem(new CheckedContextMenuItem("Nächstes Fälligkeitsdatum",
-        new ZusatzbetraegeNaechsteFaelligkeitAction(table)));
+        new ZusatzbetraegeNaechsteFaelligkeitAction(table),
+        "office-calendar.png"));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem("Erneut ausführen",
-        new ZusatzbetraegeResetAction(table)));
+        new ZusatzbetraegeResetAction(table), "view-refresh.png"));
     addItem(new CheckedContextMenuItem("Löschen...",
         new ZusatzbetraegeDeleteAction(), "user-trash.png"));
   }

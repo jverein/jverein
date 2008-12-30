@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/22 21:15:41  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.1  2007/05/07 19:25:43  jost
  * Neu: Wiedervorlage
  *
@@ -33,7 +36,7 @@ public class WiedervorlageMenu extends ContextMenu
   public WiedervorlageMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("Erledigung",
-        new WiedervorlageErledigungAction(table)));
+        new WiedervorlageErledigungAction(table), "emblem-default.png"));
     addItem(new CheckedContextMenuItem("Löschen...",
         new WiedervorlageDeleteAction(), "user-trash.png"));
   }

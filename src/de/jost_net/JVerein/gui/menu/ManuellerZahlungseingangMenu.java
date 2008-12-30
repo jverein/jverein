@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/22 21:14:45  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.2  2007/03/20 07:56:54  jost
  * Probleme beim Encoding.
  *
@@ -37,7 +40,8 @@ public class ManuellerZahlungseingangMenu extends ContextMenu
   public ManuellerZahlungseingangMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("Zahlungseingangsdatum setzen ...",
-        new ManuellerZahlungseingangDatumSetzenAction(table)));
+        new ManuellerZahlungseingangDatumSetzenAction(table),
+        "office-calendar.png"));
     addItem(new CheckedContextMenuItem("Zahlungseingangsdatum löschen ...",
         new ManuellerZahlungseingangDatumLoeschenAction(table),
         "user-trash.png"));
