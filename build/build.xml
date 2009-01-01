@@ -122,12 +122,10 @@
   	<delete dir="${project.tmp}"/>
   </target>
 
-  <target depends="init,cvstag,jar,javadoc,src,clean" description="build an official release" name="all" />
+  <target name="all" depends="init,cvstag,jar,javadoc,src,clean" description="build an official release" />
 
-  <target name="fast" depends="init,jar,src" description="Entwicklerversion bauen">
-    <echo message="Zeitstempel: ${build.timestamp}" /> 
-    <move file="${project.release}/${project.zipfilename}" tofile="${project.release}/${project.develzipfilename}"/>
-    
+  <target name="fast" depends="init,javadoc,jar,src" description="Entwicklerversion bauen">
+     <move file="${project.release}/${project.zipfilename}" tofile="${project.release}/${project.zipfilename}"/>
   </target>
 	
 </project>
