@@ -1,5 +1,5 @@
 /**********************************************************************
-* $Source$
+ * $Source$
  * $Revision$
  * $Date$
  * $Author$
@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/09/16 18:26:47  jost
+ * Neu: Rechnung
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.action;
@@ -51,11 +54,11 @@ public class RechnungDeleteAction implements Action
       {
         return;
       }
-      if (a2.length > 0 && a2[0].isNewObject())
+      if (a2 != null && a2.length > 0 && a2[0].isNewObject())
       {
         return;
       }
-      if (a2.length > 0)
+      if (a2 != null && a2.length > 0)
       {
         title = "Abrechnungssätze";
       }
