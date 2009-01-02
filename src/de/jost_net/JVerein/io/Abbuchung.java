@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2008/12/22 21:18:57  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.25  2008/12/19 06:54:27  jost
  * Keine Abrechnung bei Eintrittsdatum in der Zukunft
  *
@@ -233,8 +236,8 @@ public class Abbuchung
       list = Einstellungen.getDBService().createList(Mitglied.class);
 
       // Das Mitglied muss bereits eingetreten sein
-      list.addFilter("(eintritt <= ?) ", new Object[] { new java.sql.Date(stichtag
-          .getTime()) });
+      list.addFilter("(eintritt <= ?) ", new Object[] { new java.sql.Date(
+          stichtag.getTime()) });
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
       if (beitragsfrei.length() > 0)
       {
@@ -362,6 +365,7 @@ public class Abbuchung
         }
         z.setAusfuehrung(Datum.getHeute());
         z.store();
+        writeAbrechungsdaten(m, z.getBuchungstext(), "", z.getBetrag());
       }
     }
   }
