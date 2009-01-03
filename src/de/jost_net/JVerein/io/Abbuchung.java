@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2009/01/02 14:21:57  jost
+ * Rechnungen für Zusatzbeträge implementiert.
+ *
  * Revision 1.26  2008/12/22 21:18:57  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -238,12 +241,15 @@ public class Abbuchung
       // Das Mitglied muss bereits eingetreten sein
       list.addFilter("(eintritt <= ?) ", new Object[] { new java.sql.Date(
           stichtag.getTime()) });
+      // Das Mitglied darf noch nicht ausgetreten sein
+      list.addFilter("(austritt is null or austritt > ?)",
+          new Object[] { new java.sql.Date(stichtag.getTime()) });
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
       if (beitragsfrei.length() > 0)
       {
         list.addFilter(beitragsfrei);
       }
-      // Bei Abbuchungen im laufe des Jahres werden nur die Mitglieder
+      // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
       if (vondatum != null)
       {
