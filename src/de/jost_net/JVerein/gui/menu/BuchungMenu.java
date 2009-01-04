@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/12/22 21:12:25  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.6  2008/12/06 10:50:07  jost
  * Bearbeiten aufgenommen
  *
@@ -28,9 +31,12 @@
 package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.gui.action.BuchungAction;
+import de.jost_net.JVerein.gui.action.BuchungBuchungsartZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
+import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
+import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 
@@ -45,10 +51,17 @@ public class BuchungMenu extends ContextMenu
    */
   public BuchungMenu()
   {
+    this(null);
+  }
+
+  public BuchungMenu(BuchungsControl control)
+  {
     addItem(new ContextMenuItem("Neu", new BuchungNeuAction(),
         "document-new.png"));
-    addItem(new CheckedContextMenuItem("Bearbeiten", new BuchungAction(),
+    addItem(new CheckedSingleContextMenuItem("Bearbeiten", new BuchungAction(),
         "edit.png"));
+    addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
+        new BuchungBuchungsartZuordnungAction(control)));
     addItem(new CheckedContextMenuItem("Löschen...", new BuchungDeleteAction(),
         "user-trash.png"));
   }

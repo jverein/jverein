@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2008/12/06 16:46:08  jost
+ * Standardwert für die Buchungart
+ *
  * Revision 1.16  2008/12/03 22:00:17  jost
  * Erweiterung um Auszugs- und Blattnummer
  *
@@ -158,13 +161,18 @@ public class BuchungsControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  private Buchung getBuchung()
+  private Buchung getBuchung() throws RemoteException
   {
     if (buchung != null)
     {
       return buchung;
     }
     buchung = (Buchung) getCurrentObject();
+    if (buchung == null)
+    {
+      buchung = (Buchung) Einstellungen.getDBService().createObject(
+          Buchung.class, null);
+    }
     return buchung;
   }
 
@@ -612,7 +620,8 @@ public class BuchungsControl extends AbstractControl
           new BuchungsartFormatter());
       buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
           Einstellungen.DECIMALFORMAT));
-      buchungsList.setContextMenu(new BuchungMenu());
+      buchungsList.setMulti(true);
+      buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
       buchungsList.setRememberOrder(true);
       buchungsList.setSummary(true);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/11/29 13:06:41  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.6  2008/05/24 16:39:17  jost
  * Wegfall der Spalte Saldo
  *
@@ -160,7 +163,8 @@ public class BuchungsuebernahmeControl extends AbstractControl
       jvid = new Integer(k.getID());
     }
     DBService service = Einstellungen.getDBService();
-    String sql = "select max(umsatzid) from buchung where konto = " + jvid.toString();
+    String sql = "select max(umsatzid) from buchung where konto = "
+        + jvid.toString();
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
