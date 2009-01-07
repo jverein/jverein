@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 18:57:04  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -47,7 +50,7 @@ public class FelddefinitionDeleteAction implements Action
       DBIterator it = Einstellungen.getDBService().createList(Zusatzfelder.class);
       it.addFilter("felddefinition=?", new Object[] { fd.getID() });
       it.addFilter("feld is not null");
-      it.addFilter("feld not =''");
+      it.addFilter("feld <>''");
       if (it.size() > 0)
       {
         throw new ApplicationException(
