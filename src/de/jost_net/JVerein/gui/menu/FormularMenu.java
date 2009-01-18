@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/22 21:13:51  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.1  2008/07/18 20:11:17  jost
  * Neu: Formulare
  *
@@ -34,8 +37,9 @@ public class FormularMenu extends ContextMenu
   public FormularMenu()
   {
     addItem(new CheckedContextMenuItem("Formularfelder",
-        new FormularfelderListeAction()));
-    addItem(new CheckedContextMenuItem("Anzeigen", new FormularAnzeigeAction()));
+        new FormularfelderListeAction(), "rechnung.png"));
+    addItem(new CheckedContextMenuItem("Anzeigen", new FormularAnzeigeAction(),
+        "edit.png"));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem("Löschen...",
         new FormularDeleteAction(), "user-trash.png"));
