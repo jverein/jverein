@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2008/12/22 21:17:12  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.15  2008/11/16 16:57:51  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -70,6 +73,7 @@ import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -125,7 +129,7 @@ public class AbbuchungView extends AbstractView
                 + "Üblicherweise 1.1. des Jahres.", true);
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
-    buttons.addButton("<< Zurück", new BackAction());
+    buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ABRECHNUNG);
     buttons.addButton(control.getStartButton());

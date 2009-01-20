@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/09/30 12:08:29  jost
+ * Abrechnungsinformationen können nach Datum und Verwendungszweck gefiltert werden.
+ *
  * Revision 1.2  2008/09/21 08:06:47  jost
  * Redaktionelle Änderung
  *
@@ -18,12 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.RechnungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -43,7 +46,7 @@ public class RechnungListeView extends AbstractView
     control.getAbrechungList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
-    buttons.addButton("<< Zur�ck", new BackAction());
+    buttons.addButton(new Back(false));
     buttons.addButton("Drucken", new Action()
     {
       public void handleAction(Object context) throws ApplicationException

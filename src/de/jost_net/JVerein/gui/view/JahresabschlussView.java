@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/07/09 13:18:03  jost
+ * Überflüssige Imports entfernt.
+ *
  * Revision 1.1  2008/06/28 16:59:41  jost
  * Neu: Jahresabschluss
  *
@@ -21,12 +24,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.JahresabschlussControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -47,7 +50,7 @@ public class JahresabschlussView extends AbstractView
     group.addPart(control.getJahresabschlussSaldo());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
-    buttons.addButton("<< Zur�ck", new BackAction());
+    buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.JAHRESABSCHLUSS);
     buttons.addButton("Speichern", new Action()

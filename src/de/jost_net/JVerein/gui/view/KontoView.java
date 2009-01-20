@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/05/26 18:58:52  jost
+ * Neu: Eröffnungsdatum
+ *
  * Revision 1.2  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -18,12 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.KontoControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -45,7 +48,7 @@ public class KontoView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 
-    buttons.addButton("<< Zur�ck", new BackAction());
+    buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.KONTEN);
     buttons.addButton("Speichern", new Action()

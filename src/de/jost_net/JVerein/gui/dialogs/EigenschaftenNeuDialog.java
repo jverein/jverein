@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/25 16:03:19  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 
@@ -48,13 +51,13 @@ public class EigenschaftenNeuDialog extends AbstractDialog
     group.addLabelPair("Neue Eigenschaft", control.getNeu());
 
     ButtonArea buttons = new ButtonArea(parent, 3);
-    buttons.addButton(i18n.tr("<< Zurück"), new Action()
+    buttons.addButton("Zurück", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         close();
       }
-    });
+    }, "go-previous.png");
     buttons.addButton(i18n.tr("Speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException

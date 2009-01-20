@@ -9,18 +9,21 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/24 14:04:08  jost
+ * Redatkionelle Änderung
+ *
  * Revision 1.1  2008/05/22 06:52:26  jost
  * Buchführung
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AnfangsbestandControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -43,7 +46,7 @@ public class AnfangsbestandView extends AbstractView
     group.addLabelPair("Betrag", control.getBetrag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
-    buttons.addButton("<< Zur�ck", new BackAction());
+    buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ANFANGSBESTAENDE);
     buttons.addButton("Speichern", new Action()

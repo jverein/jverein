@@ -9,18 +9,21 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/06/28 16:59:57  jost
+ * Vereinheitlichung des Jahressaldos
+ *
  * Revision 1.1  2008/05/25 19:36:55  jost
  * Neu: Jahressaldo
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.gui.action.BackAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.JahressaldoControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
@@ -51,7 +54,7 @@ public class JahressaldoView extends AbstractView
     group2.addPart(control.getSaldoList());
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
-    buttons2.addButton("<< Zurück", new BackAction());
+    buttons2.addButton(new Back(false));
     buttons2.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.JAHRESSALDO);
     buttons2.addButton(control.getStartAuswertungButton());
