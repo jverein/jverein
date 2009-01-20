@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2009/01/20 19:13:51  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.16  2008/12/22 21:17:12  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -131,7 +134,7 @@ public class AbbuchungView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABRECHNUNG);
+        DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
     buttons.addButton(control.getStartButton());
   }
 

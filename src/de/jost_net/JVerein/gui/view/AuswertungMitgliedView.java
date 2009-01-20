@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/01/20 19:14:35  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.6  2008/11/11 20:47:48  jost
  * 2spaltiges Layout und Selektion nach Geschlecht
  *
@@ -88,7 +91,7 @@ public class AuswertungMitgliedView extends AbstractView
 
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.AUSWERTUNGMITGLIEDER);
+        DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
 
   }

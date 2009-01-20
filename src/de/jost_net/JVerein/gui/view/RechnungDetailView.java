@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.1  2008/09/16 18:52:18  jost
  * Neu: Rechnung
  *
@@ -43,7 +46,7 @@ public class RechnungDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.RECHNUNG);
+        DokumentationUtil.RECHNUNG, false, "help-browser.png");
     buttons.addButton("Suche", new RechnungListeAction());
     buttons.addButton("Speichern", new Action()
     {
@@ -51,7 +54,7 @@ public class RechnungDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

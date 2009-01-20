@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.3  2008/05/24 14:04:08  jost
  * Redatkionelle Ã„nderung
  *
@@ -62,17 +65,18 @@ public class KursteilnehmerDetailView extends AbstractView
 
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.KURSTEILNEHMER);
-    buttons.addButton("Neu", new KursteilnehmerDetailAction());
+        DokumentationUtil.KURSTEILNEHMER, false, "help-browser.png");
+    buttons.addButton("Neu", new KursteilnehmerDetailAction(), null, false,
+        "document-new.png");
     buttons.addButton("Löschen", new KursteilnehmerDeleteAction(), control
-        .getCurrentObject());
+        .getCurrentObject(), false, "user-trash.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

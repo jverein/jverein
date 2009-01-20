@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.2  2008/05/24 14:04:08  jost
  * Redatkionelle Ã„nderung
  *
@@ -40,10 +43,11 @@ public class FelddefinitionenUebersichtView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FELDDEFINITIONEN);
+        DokumentationUtil.FELDDEFINITIONEN, false, "help-browser.png");
     // buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
     // .getBeitragsgruppeTable());
-    buttons.addButton("Neu", new FelddefinitionDetailAction());
+    buttons.addButton("Neu", new FelddefinitionDetailAction(), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException

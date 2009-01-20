@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.2  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -41,11 +44,12 @@ public class KontoListView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.KONTEN);
+        DokumentationUtil.KONTEN, false, "help-browser.png");
 
     buttons.addButton("Hibiscus-Import",
         new HibiscusKontenImportAction(control));
-    buttons.addButton("neu", new KontoAction(), null);
+    buttons
+        .addButton("neu", new KontoAction(), null, false, "document-new.png");
   }
 
   public void unbind() throws ApplicationException

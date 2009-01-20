@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/01/20 19:14:45  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.6  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -57,7 +60,7 @@ public class BeitragsgruppeDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BEITRAGSGRUPPEN);
+        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
     buttons.addButton("Suche", new BeitragsgruppeSucheAction());
     buttons.addButton("Speichern", new Action()
     {
@@ -65,7 +68,7 @@ public class BeitragsgruppeDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

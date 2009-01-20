@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.18  2008/11/16 16:58:08  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -243,10 +246,11 @@ public class MitgliederSucheView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIED);
+        DokumentationUtil.MITGLIED, false, "help-browser.png");
     if (anzahlbeitragsgruppe > 0)
     {
-      buttons.addButton("Neu", new MitgliedDetailAction());
+      buttons.addButton("Neu", new MitgliedDetailAction(), null, false,
+          "document-new.png");
     }
   }
 

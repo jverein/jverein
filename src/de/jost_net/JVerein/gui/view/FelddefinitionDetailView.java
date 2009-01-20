@@ -38,7 +38,7 @@ public class FelddefinitionDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FELDDEFINITIONEN);
+        DokumentationUtil.FELDDEFINITIONEN, false, "help-browser.png");
     buttons.addButton("Übersicht", new FelddefinitionenAction());
     buttons.addButton("Speichern", new Action()
     {
@@ -46,7 +46,7 @@ public class FelddefinitionDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

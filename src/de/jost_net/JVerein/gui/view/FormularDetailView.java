@@ -37,14 +37,14 @@ public class FormularDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FORMULARE);
+        DokumentationUtil.FORMULARE, false, "help-browser.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

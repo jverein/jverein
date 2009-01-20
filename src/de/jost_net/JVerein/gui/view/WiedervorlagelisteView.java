@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.4  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -43,7 +46,7 @@ public class WiedervorlagelisteView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.WIEDERVORLAGE);
+        DokumentationUtil.WIEDERVORLAGE, false, "help-browser.png");
 
   }
 

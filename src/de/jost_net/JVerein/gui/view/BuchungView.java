@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.8  2008/12/03 22:00:37  jost
  * Erweiterung um Auszugs- und Blattnummer
  *
@@ -71,14 +74,14 @@ public class BuchungView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGEN);
+        DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

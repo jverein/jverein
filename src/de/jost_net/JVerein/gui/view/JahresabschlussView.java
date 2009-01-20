@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.2  2008/07/09 13:18:03  jost
  * Überflüssige Imports entfernt.
  *
@@ -52,14 +55,14 @@ public class JahresabschlussView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.JAHRESABSCHLUSS);
+        DokumentationUtil.JAHRESABSCHLUSS, false, "help-browser.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

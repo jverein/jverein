@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.4  2008/03/16 07:36:29  jost
  * Reaktivierung Buchführung
  *
@@ -41,7 +44,8 @@ public class BuchungsartListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(new Back(false));
-    buttons.addButton("neu", new BuchungsartAction(), null);
+    buttons.addButton("neu", new BuchungsartAction(), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException

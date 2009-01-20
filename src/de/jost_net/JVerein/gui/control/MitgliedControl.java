@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.50  2008/12/29 08:40:49  jost
+ * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
+ *
  * Revision 1.49  2008/12/22 21:43:46  jost
  * Telefonnummern auf 20 Stellen erweitert.
  *
@@ -1422,12 +1425,14 @@ public class MitgliedControl extends AbstractControl
 
   public Button getZusatzbetragNeu()
   {
-    return new Button("Neu", new ZusatzbetraegeAction(getMitglied()));
+    return new Button("Neu", new ZusatzbetraegeAction(getMitglied()), null,
+        false, "document-new.png");
   }
 
   public Button getWiedervorlageNeu()
   {
-    return new Button("Neu", new WiedervorlageAction(getMitglied()));
+    return new Button("Neu", new WiedervorlageAction(getMitglied()), null,
+        false, "document-new.png");
   }
 
   public TablePart getMitgliedTable(String anfangsbuchstabe)

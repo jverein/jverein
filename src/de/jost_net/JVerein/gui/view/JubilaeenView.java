@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.4  2008/09/21 08:45:49  jost
  * Neu: Altersjubliäen
  *
@@ -49,7 +52,7 @@ public class JubilaeenView extends AbstractView
 
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.JUBILAEEN);
+        DokumentationUtil.JUBILAEEN, false, "help-browser.png");
     buttons.addButton(control.getStartJubilaeenButton());
   }
 

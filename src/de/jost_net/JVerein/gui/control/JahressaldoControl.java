@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/11/16 16:56:35  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.5  2008/10/13 18:57:14  jost
  * RemoteException ->ApplicationException
  *
@@ -115,7 +118,8 @@ public class JahressaldoControl extends AbstractControl
       {
         starteAuswertung();
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true, "pdf.png"); // "true" defines this button as the default
+                               // button
     return b;
   }
 

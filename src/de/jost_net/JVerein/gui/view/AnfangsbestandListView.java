@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 19:14:06  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.2  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -40,8 +43,9 @@ public class AnfangsbestandListView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ANFANGSBESTAENDE);
-    buttons.addButton("neu", new AnfangsbestandNeuAction(), null);
+        DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
+    buttons.addButton("neu", new AnfangsbestandNeuAction(), null, true,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException

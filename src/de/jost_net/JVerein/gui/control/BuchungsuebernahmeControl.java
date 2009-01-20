@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/01/04 16:27:14  jost
+ * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
+ *
  * Revision 1.7  2008/11/29 13:06:41  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -101,7 +104,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
           throw new ApplicationException("Fehler beim Aufbau der Buchungsliste");
         }
       }
-    });
+    }, null, false, "system-search.png");
     return button;
   }
 

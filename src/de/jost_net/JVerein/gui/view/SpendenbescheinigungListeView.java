@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.1  2008/07/18 20:15:20  jost
  * Neu: Spendenbescheinigung
  *
@@ -37,8 +40,9 @@ public class SpendenbescheinigungListeView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.SPENDENBESCHEINIGUNG);
-    buttons.addButton("neu", new SpendenbescheinigungAction(), null);
+        DokumentationUtil.SPENDENBESCHEINIGUNG, false, "help-browser.png");
+    buttons.addButton("neu", new SpendenbescheinigungAction(), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException

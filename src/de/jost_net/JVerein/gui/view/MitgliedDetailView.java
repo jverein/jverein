@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.24  2008/12/22 21:17:44  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -237,17 +240,18 @@ public class MitgliedDetailView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIED);
-    buttons.addButton("Neu", new MitgliedDetailAction());
+        DokumentationUtil.MITGLIED, false, "help-browser.png");
+    buttons.addButton("Neu", new MitgliedDetailAction(), null, false,
+        "document-new.png");
     buttons.addButton("Löschen", new MitgliedDeleteAction(), control
-        .getCurrentObject());
+        .getCurrentObject(), false, "user-trash.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

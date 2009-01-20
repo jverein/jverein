@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/01/20 19:14:25  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.3  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -46,7 +49,7 @@ public class AuswertungKursteilnehmerView extends AbstractView
 
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.AUSWERTUNGKURSTEILNEHMER);
+        DokumentationUtil.AUSWERTUNGKURSTEILNEHMER, false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
 
   }

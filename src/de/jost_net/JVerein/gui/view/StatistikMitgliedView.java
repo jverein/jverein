@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.5  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -54,7 +57,7 @@ public class StatistikMitgliedView extends AbstractView
 
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.STATISTIKMITGLIEDER);
+        DokumentationUtil.STATISTIKMITGLIEDER, false, "help-browser.png");
     buttons.addButton(control.getStartStatistikButton());
   }
 

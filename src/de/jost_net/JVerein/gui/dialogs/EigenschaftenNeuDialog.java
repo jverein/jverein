@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/20 19:13:34  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.1  2008/01/25 16:03:19  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -58,7 +61,7 @@ public class EigenschaftenNeuDialog extends AbstractDialog
         close();
       }
     }, "go-previous.png");
-    buttons.addButton(i18n.tr("Speichern"), new Action()
+    buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -86,7 +89,7 @@ public class EigenschaftenNeuDialog extends AbstractDialog
           }
         }
       }
-    });
+    }, null, false, "document-save.png");
     LabelGroup status = new LabelGroup(parent, "");
     status.addLabelPair("", control.getStatusbar());
   }

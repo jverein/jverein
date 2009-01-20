@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/01/20 19:14:56  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.6  2008/05/24 14:04:08  jost
  * Redatkionelle Ã„nderung
  *
@@ -53,10 +56,11 @@ public class BeitragsgruppeSucheView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BEITRAGSGRUPPEN);
+        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
     buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
-        .getBeitragsgruppeTable());
-    buttons.addButton("Neu", new BeitragsgruppeDetailAction());
+        .getBeitragsgruppeTable(), false, "user-trash.png");
+    buttons.addButton("Neu", new BeitragsgruppeDetailAction(), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException

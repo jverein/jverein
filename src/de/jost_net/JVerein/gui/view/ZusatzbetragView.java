@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.1  2008/12/22 21:18:44  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -59,16 +62,16 @@ public class ZusatzbetragView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ZUSATZABBUCHUNGEN);
+        DokumentationUtil.ZUSATZABBUCHUNGEN, false, "help-browser.png");
     buttons.addButton("Löschen", new ZusatzbetraegeDeleteAction(), control
-        .getZusatzbetrag());
+        .getZusatzbetrag(), false, "user-trash.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

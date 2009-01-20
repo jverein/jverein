@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.2  2008/06/28 16:59:57  jost
  * Vereinheitlichung des Jahressaldos
  *
@@ -47,7 +50,7 @@ public class JahressaldoView extends AbstractView
       {
         control.getSaldoList();
       }
-    }, null, true);
+    }, null, true, "system-search.png");
     buttons.addButton(button);
 
     LabelGroup group2 = new LabelGroup(getParent(), "Saldo");
@@ -56,7 +59,7 @@ public class JahressaldoView extends AbstractView
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton(new Back(false));
     buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.JAHRESSALDO);
+        DokumentationUtil.JAHRESSALDO, false, "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());
   }
 

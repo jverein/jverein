@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 19:14:15  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.2  2008/05/24 14:04:08  jost
  * Redatkionelle Änderung
  *
@@ -48,14 +51,14 @@ public class AnfangsbestandView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ANFANGSBESTAENDE);
+        DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
     buttons.addButton("Speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         control.handleStore();
       }
-    }, null, true);
+    }, null, true, "document-save.png");
   }
 
   public void unbind() throws ApplicationException

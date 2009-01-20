@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.1  2008/07/18 20:14:19  jost
  * Neu: Formulare
  *
@@ -37,8 +40,9 @@ public class FormularListeView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FORMULARE);
-    buttons.addButton("neu", new FormularAction(), null);
+        DokumentationUtil.FORMULARE, false, "help-browser.png");
+    buttons.addButton("neu", new FormularAction(), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException

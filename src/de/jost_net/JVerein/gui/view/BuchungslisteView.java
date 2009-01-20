@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.10  2008/07/10 07:57:21  jost
  * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
  *
@@ -81,7 +84,7 @@ public class BuchungslisteView extends AbstractView
           e.printStackTrace();
         }
       }
-    }, null, true);
+    }, null, true, "system-search.png");
 
     buttons.addButton(button);
 
@@ -90,10 +93,11 @@ public class BuchungslisteView extends AbstractView
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 5);
     buttons2.addButton(new Back(false));
     buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGEN);
+        DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
     buttons2.addButton(control.getStartAuswertungEinzelbuchungenButton());
     buttons2.addButton(control.getStartAuswertungSummenButton());
-    buttons2.addButton("neu", new BuchungNeuAction());
+    buttons2.addButton("neu", new BuchungNeuAction(), null, false,
+        "document-new.png");
 
   }
 

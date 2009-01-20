@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.3  2008/09/30 12:08:29  jost
  * Abrechnungsinformationen können nach Datum und Verwendungszweck gefiltert werden.
  *
@@ -53,9 +56,9 @@ public class RechnungListeView extends AbstractView
       {
         GUI.startView(RechnungView.class.getName(), null);
       }
-    });
+    }, "printer.png");
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.RECHNUNG);
+        DokumentationUtil.RECHNUNG, false, "help-browser.png");
   }
 
   public void unbind() throws ApplicationException

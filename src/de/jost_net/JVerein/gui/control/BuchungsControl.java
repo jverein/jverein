@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2009/01/04 16:26:42  jost
+ * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
+ *
  * Revision 1.17  2008/12/06 16:46:08  jost
  * Standardwert fÃ¼r die Buchungart
  *
@@ -489,7 +492,8 @@ public class BuchungsControl extends AbstractControl
       {
         starteAuswertung(true);
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true, "pdf.png"); // "true" defines this button as the default
+                               // button
     return b;
   }
 
@@ -501,7 +505,8 @@ public class BuchungsControl extends AbstractControl
       {
         starteAuswertung(false);
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true, "pdf.png"); // "true" defines this button as the default
+                               // button
     return b;
   }
 

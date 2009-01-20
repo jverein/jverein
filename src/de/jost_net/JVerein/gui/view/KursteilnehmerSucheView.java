@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/20 19:15:19  jost
+ * neu: Back-Button mit Icon
+ *
  * Revision 1.4  2008/09/30 10:20:46  jost
  * Kursteilnehmer können nach Namen und Eingabedatum gefiltert werden.
  *
@@ -74,8 +77,9 @@ public class KursteilnehmerSucheView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.KURSTEILNEHMER);
-    buttons.addButton("Neu", new KursteilnehmerDetailAction());
+        DokumentationUtil.KURSTEILNEHMER, false, "help-browser.png");
+    buttons.addButton("Neu", new KursteilnehmerDetailAction(), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException
