@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.52  2009/01/22 18:24:01  jost
+ * neue Icons
+ *
  * Revision 1.51  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -1280,14 +1283,14 @@ public class MitgliedControl extends AbstractControl
       return jubeljahr;
     }
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.YEAR, -1);
-    Integer[] jubeljahre = new Integer[4];
-    for (int i = 0; i < 4; i++)
+    cal.add(Calendar.YEAR, -2);
+    Integer[] jubeljahre = new Integer[5];
+    for (int i = 0; i < 5; i++)
     {
       jubeljahre[i] = cal.get(Calendar.YEAR);
       cal.add(Calendar.YEAR, 1);
     }
-    jubeljahr = new SelectInput(jubeljahre, jubeljahre[1]);
+    jubeljahr = new SelectInput(jubeljahre, jubeljahre[2]);
     return jubeljahr;
   }
 
@@ -1424,7 +1427,8 @@ public class MitgliedControl extends AbstractControl
           throw new ApplicationException(e);
         }
       }
-    }, null, true, "go.png"); // "true" defines this button as the default button
+    }, null, true, "go.png"); // "true" defines this button as the default
+    // button
     return b;
   }
 
