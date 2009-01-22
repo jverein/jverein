@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.51  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.50  2008/12/29 08:40:49  jost
  * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
  *
@@ -1380,7 +1383,8 @@ public class MitgliedControl extends AbstractControl
               "Fehler beim Start der Mitgliederauswertung");
         }
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true, "go.png"); // "true" defines this button as the default
+    // button
     return b;
   }
 
@@ -1399,7 +1403,8 @@ public class MitgliedControl extends AbstractControl
           throw new ApplicationException(e);
         }
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true, "go.png"); // "true" defines this button as the default
+    // button
     return b;
   }
 
@@ -1419,7 +1424,7 @@ public class MitgliedControl extends AbstractControl
           throw new ApplicationException(e);
         }
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true, "go.png"); // "true" defines this button as the default button
     return b;
   }
 

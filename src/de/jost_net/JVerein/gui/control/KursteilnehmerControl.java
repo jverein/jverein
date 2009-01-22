@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2008/11/30 18:57:42  jost
+ * Bugfix: PDF-Dokument öffnen
+ *
  * Revision 1.14  2008/11/24 19:25:15  jost
  * Debug-Meldung entfernt.
  *
@@ -468,7 +471,7 @@ public class KursteilnehmerControl extends AbstractControl
       {
          starteAuswertung();
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, true,"go.png"); // "true" defines this button as the default button
     return b;
   }
 

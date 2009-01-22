@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.8  2009/01/04 16:27:14  jost
  * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
  *
@@ -151,7 +154,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
           throw ae;
         }
       }
-    }, null, true);
+    }, null, true, "go.png");
     return button;
   }
 
