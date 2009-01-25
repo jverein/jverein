@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/01/10 19:27:23  jost
+ * Jameica 1.8-Kompatibilität hergestellt.
+ *
  * Revision 1.8  2009/01/04 16:27:44  jost
  * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
  *
@@ -79,7 +82,7 @@ public class BuchungMenu extends ContextMenu
     addItem(mnBearbeiten);
 
     addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
-        new BuchungBuchungsartZuordnungAction(control)));
+        new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
     addItem(new CheckedContextMenuItem("Löschen...", new BuchungDeleteAction(),
         "user-trash.png"));
   }
