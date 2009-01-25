@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/12/29 08:41:16  jost
+ * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
+ *
  * Revision 1.7  2008/07/10 09:22:18  jost
  * Neuer Konstruktor mit Angabe von Rändern.
  *
@@ -50,6 +53,7 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.HyphenationAuto;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -58,7 +62,6 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
-import de.willuhn.util.I18N;
 import de.willuhn.util.ProgressMonitor;
 
 /**
@@ -66,7 +69,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class Reporter
 {
-  private I18N i18n = null;
+  // private I18N i18n = null;
 
   private ArrayList<PdfPCell> headers;
 
@@ -84,6 +87,8 @@ public class Reporter
 
   private ProgressMonitor monitor;
 
+  private HyphenationAuto hyph;
+
   public Reporter(OutputStream out, ProgressMonitor monitor, String title,
       String subtitle, int maxRecords) throws DocumentException
   {
@@ -94,36 +99,35 @@ public class Reporter
       String subtitle, int maxRecords, float linkerRand, float rechterRand,
       float obererRand, float untererRand) throws DocumentException
   {
-    this.i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
-        .getResources().getI18N();
+    // this.i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
+    // .getResources().getI18N();
     this.out = out;
     this.monitor = monitor;
     rpt = new Document();
+    hyph = new HyphenationAuto("de", "DE", 2, 2);
     PdfWriter.getInstance(rpt, out);
     rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
     if (this.monitor != null)
     {
-      this.monitor.setStatusText(i18n.tr("Erzeuge Liste"));
+      this.monitor.setStatusText("Erzeuge Liste");
       this.monitor.addPercentComplete(1);
     }
     AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
         JVereinPlugin.class);
-    rpt.addAuthor(i18n.tr("{0} - Version {1}",
-        new String[] { plugin.getManifest().getName(),
-            "" + plugin.getManifest().getVersion() }));
+    rpt.addAuthor(plugin.getManifest().getName() + " - Version "
+        + plugin.getManifest().getVersion());
     rpt.addTitle(subtitle);
 
-    Chunk fuss = new Chunk(i18n.tr(title + " | " + subtitle
-        + " | erstellt am {0}              Seite:  ", Einstellungen.DATEFORMAT
-        .format(new Date())), FontFactory.getFont(FontFactory.HELVETICA, 8,
-        Font.BOLD));
+    Chunk fuss = new Chunk(title + " | " + subtitle + " | erstellt am "
+        + Einstellungen.DATEFORMAT.format(new Date()), FontFactory.getFont(
+        FontFactory.HELVETICA, 8, Font.BOLD));
     HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
     hf.setAlignment(Element.ALIGN_CENTER);
     rpt.setFooter(hf);
 
     rpt.open();
 
-    Paragraph pTitle = new Paragraph(i18n.tr(title), FontFactory.getFont(
+    Paragraph pTitle = new Paragraph(title, FontFactory.getFont(
         FontFactory.HELVETICA_BOLD, 13));
 
     pTitle.setAlignment(Element.ALIGN_CENTER);
@@ -317,8 +321,8 @@ public class Reporter
    */
   private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
   {
-    PdfPCell cell = new PdfPCell(new Phrase(notNull(text), FontFactory.getFont(
-        FontFactory.HELVETICA, 8)));
+    PdfPCell cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
+        FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
     cell.setHorizontalAlignment(align);
     cell.setBackgroundColor(backgroundcolor);
     return cell;
