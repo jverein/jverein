@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/12/30 21:57:50  jost
+ * Überflüssige Methode auskommentiert.
+ *
  * Revision 1.8  2008/12/29 08:41:04  jost
  * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
  *
@@ -134,14 +137,14 @@ public class MitgliedAuswertungPDF
         }
         report.addColumn(zelle, Element.ALIGN_LEFT);
         String beitragsgruppebemerkung = m.getBeitragsgruppe().getBezeichnung();
-        if (m.getVermerk1() != null)
-        {
-          beitragsgruppebemerkung += "\n" + m.getVermerk1();
-        }
-        if (m.getVermerk2() != null)
-        {
-          beitragsgruppebemerkung += "\n" + m.getVermerk2();
-        }
+        // if (m.getVermerk1() != null)
+        // {
+        // beitragsgruppebemerkung += "\n" + m.getVermerk1();
+        // }
+        // if (m.getVermerk2() != null)
+        // {
+        // beitragsgruppebemerkung += "\n" + m.getVermerk2();
+        // }
         report.addColumn(beitragsgruppebemerkung, Element.ALIGN_LEFT);
         report.setNextRecord();
       }
