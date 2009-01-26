@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:17:09  jost
+ * Neu: Spendenbescheinigung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -63,4 +66,8 @@ public interface Spendenbescheinigung extends DBObject
 
   public void setFormular(Formular formular) throws RemoteException;
 
+  public boolean getErsatzAufwendungen() throws RemoteException;
+
+  public void setErsatzAufwendungen(Boolean ersatzaufwendungen)
+      throws RemoteException;
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.2  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -25,7 +28,10 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.ScrolledContainer;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.util.ApplicationException;
 
 public class SpendenbescheinigungView extends AbstractView
@@ -36,25 +42,35 @@ public class SpendenbescheinigungView extends AbstractView
 
     final SpendenbescheinigungControl control = new SpendenbescheinigungControl(
         this);
+    ScrolledContainer scrolled = new ScrolledContainer(getParent());
 
-    LabelGroup group1 = new LabelGroup(getParent(), "Empfänger");
-    group1.addLabelPair("Zeile 1", control.getZeile1());
-    group1.addLabelPair("Zeile 2", control.getZeile2());
-    group1.addLabelPair("Zeile 3", control.getZeile3());
-    group1.addLabelPair("Zeile 4", control.getZeile4());
-    group1.addLabelPair("Zeile 5", control.getZeile5());
-    group1.addLabelPair("Zeile 6", control.getZeile6());
-    group1.addLabelPair("Zeile 7", control.getZeile7());
+    ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
+    SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
-    LabelGroup group2 = new LabelGroup(getParent(), "Datum");
-    group2.addLabelPair("Spende", control.getSpendedatum());
-    group2.addLabelPair("Bescheinigung", control.getBescheinigungsdatum());
+    left.addHeadline( "Empfänger");
+    left.addLabelPair("Zeile 1", control.getZeile1());
+    left.addLabelPair("Zeile 2", control.getZeile2());
+    left.addLabelPair("Zeile 3", control.getZeile3());
+    left.addLabelPair("Zeile 4", control.getZeile4());
+    left.addLabelPair("Zeile 5", control.getZeile5());
+    left.addLabelPair("Zeile 6", control.getZeile6());
+    left.addLabelPair("Zeile 7", control.getZeile7());
 
-    LabelGroup group3 = new LabelGroup(getParent(), "Betrag");
-    group3.addLabelPair("Betrag", control.getBetrag());
+    SimpleContainer right = new SimpleContainer(cols1.getComposite());
 
-    LabelGroup group4 = new LabelGroup(getParent(), "Formular");
-    group4.addLabelPair("Formular", control.getFormular());
+   right.addHeadline( "Datum");
+    right.addLabelPair("Spende", control.getSpendedatum());
+    right.addLabelPair("Bescheinigung", control.getBescheinigungsdatum());
+
+  right.addHeadline( "Betrag");
+    right.addLabelPair("Betrag", control.getBetrag());
+
+    right.addHeadline(  "Ersatz für Aufwendungen");
+    right.addLabelPair("Ersatz für Aufwendungen", control
+        .getErsatzAufwendungen());
+
+    right.addHeadline("Formular");
+    right.addLabelPair("Formular", control.getFormular());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));

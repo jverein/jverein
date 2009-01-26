@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/11/29 13:07:42  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.3  2008/10/01 14:17:12  jost
  * Warnungen entfernt
  *
@@ -117,6 +120,7 @@ public class FormularfeldControl extends AbstractControl
       namen.add("Betrag");
       namen.add("Betrag in Worten");
       namen.add("Spendedatum");
+      namen.add("ErsatzAufwendungen");
     }
     if (formular.getArt() == Formularart.RECHNUNG)
     {

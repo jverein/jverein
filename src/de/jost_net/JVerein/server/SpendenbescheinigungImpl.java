@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:17:02  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/07/18 20:18:45  jost
  * Neu: Spendenbescheinigung
  *
@@ -204,6 +207,17 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   public void setFormular(Formular formular) throws RemoteException
   {
     setAttribute("formular", formular);
+  }
+
+  public boolean getErsatzAufwendungen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("ersatzaufwendungen"));
+  }
+
+  public void setErsatzAufwendungen(Boolean ersatzaufwendungen)
+      throws RemoteException
+  {
+    setAttribute("ersatzaufwendungen", new Boolean(ersatzaufwendungen));
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

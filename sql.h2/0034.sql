@@ -1,0 +1,1 @@
+ALTER TABLE spendenbescheinigung ADD ersatzaufwendungen char(5);

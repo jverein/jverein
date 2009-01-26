@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/12/13 16:22:41  jost
+ * Bugfix Tagesdatum
+ *
  * Revision 1.6  2008/11/29 13:08:17  jost
  * Refactoring: Code-Optimierung
  *
@@ -59,6 +62,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
+import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -95,6 +99,8 @@ public class SpendenbescheinigungControl extends AbstractControl
   private DecimalInput betrag;
 
   private FormularInput formular;
+
+  private CheckboxInput ersatzaufwendungen;
 
   private Spendenbescheinigung spendenbescheinigung;
 
@@ -233,6 +239,17 @@ public class SpendenbescheinigungControl extends AbstractControl
     return formular;
   }
 
+  public CheckboxInput getErsatzAufwendungen() throws RemoteException
+  {
+    if (ersatzaufwendungen != null)
+    {
+      return ersatzaufwendungen;
+    }
+    ersatzaufwendungen = new CheckboxInput(getSpendenbescheinigung()
+        .getErsatzAufwendungen());
+    return ersatzaufwendungen;
+  }
+
   /**
    * This method stores the project using the current values.
    */
@@ -251,6 +268,7 @@ public class SpendenbescheinigungControl extends AbstractControl
       spb.setSpendedatum((Date) getSpendedatum().getValue());
       spb.setBescheinigungsdatum((Date) getBescheinigungsdatum().getValue());
       spb.setBetrag((Double) getBetrag().getValue());
+      spb.setErsatzAufwendungen((Boolean) getErsatzAufwendungen().getValue());
       spb.setFormular((Formular) getFormular().getValue());
       spb.store();
 
@@ -353,6 +371,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     map.put("Spendedatum", spendedatum);
     String tagesdatum = Einstellungen.DATEFORMAT.format(new Date());
     map.put("Tagesdatum", tagesdatum);
+    map.put("ErsatzAufwendungen",
+        ((Boolean) ersatzaufwendungen.getValue() ? "X" : ""));
     FormularAufbereitung fa = new FormularAufbereitung(file);
     fa.writeForm(fo, map);
     fa.showFormular();
