@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/12/06 16:46:24  jost
+ * Debug-Meldung entfernt.
+ *
  * Revision 1.8  2008/11/29 13:08:06  jost
  * Refactoring: Code-Optimierung
  *
@@ -389,6 +392,7 @@ public class RechnungControl extends AbstractControl
       s = s + ".PDF";
     }
     final File file = new File(s);
+    settings.setAttribute("lastdir", file.getParent());
     Formular form = (Formular) getFormular().getValue();
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());

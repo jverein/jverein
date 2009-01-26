@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/01/26 18:47:54  jost
+ * Neu: Ersatz Aufwendungen
+ *
  * Revision 1.7  2008/12/13 16:22:41  jost
  * Bugfix Tagesdatum
  *
@@ -337,6 +340,7 @@ public class SpendenbescheinigungControl extends AbstractControl
       s = s + ".PDF";
     }
     final File file = new File(s);
+    settings.setAttribute("lastdir", file.getParent());
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, getSpendenbescheinigung().getFormular().getID());
     HashMap<String, Object> map = new HashMap<String, Object>();

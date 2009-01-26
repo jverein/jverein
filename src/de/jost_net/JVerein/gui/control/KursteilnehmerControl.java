@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2009/01/22 18:23:43  jost
+ * neue Icons
+ *
  * Revision 1.15  2008/11/30 18:57:42  jost
  * Bugfix: PDF-Dokument öffnen
  *
@@ -643,6 +646,7 @@ public class KursteilnehmerControl extends AbstractControl
       }
 
       final File file = new File(s);
+      settings.setAttribute("lastdir",file.getParent());
       final String subtitle2 = subtitle;
 
       BackgroundTask t = new BackgroundTask()
