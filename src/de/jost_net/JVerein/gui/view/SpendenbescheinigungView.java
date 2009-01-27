@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/01/26 18:48:09  jost
+ * Neu: Ersatz Aufwendungen
+ *
  * Revision 1.3  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -29,7 +32,6 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
-import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.util.ApplicationException;
@@ -47,7 +49,7 @@ public class SpendenbescheinigungView extends AbstractView
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
-    left.addHeadline( "Empfänger");
+    left.addHeadline("Empfänger");
     left.addLabelPair("Zeile 1", control.getZeile1());
     left.addLabelPair("Zeile 2", control.getZeile2());
     left.addLabelPair("Zeile 3", control.getZeile3());
@@ -58,14 +60,14 @@ public class SpendenbescheinigungView extends AbstractView
 
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
 
-   right.addHeadline( "Datum");
+    right.addHeadline("Datum");
     right.addLabelPair("Spende", control.getSpendedatum());
     right.addLabelPair("Bescheinigung", control.getBescheinigungsdatum());
 
-  right.addHeadline( "Betrag");
+    right.addHeadline("Betrag");
     right.addLabelPair("Betrag", control.getBetrag());
 
-    right.addHeadline(  "Ersatz für Aufwendungen");
+    right.addHeadline("Ersatz für Aufwendungen");
     right.addLabelPair("Ersatz für Aufwendungen", control
         .getErsatzAufwendungen());
 
