@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:16:04  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/06/28 17:07:25  jost
  * Neu: Jahresabschluss
  *
@@ -94,7 +97,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
         DBIterator anfangsbestaende = Einstellungen.getDBService().createList(
             Anfangsbestand.class);
         anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID() });
-        anfangsbestaende.addFilter("datum = ?", new Object[] { gj
+        anfangsbestaende.addFilter("datum >= ?", new Object[] { gj
             .getBeginnGeschaeftsjahr() });
         if (!anfangsbestaende.hasNext())
         {
