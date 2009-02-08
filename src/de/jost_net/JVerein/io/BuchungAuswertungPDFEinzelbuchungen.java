@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/30 11:28:23  jost
+ * Summenzeilen korrekt ausgeben. Bug #14978
+ *
  * Revision 1.2  2008/12/11 19:19:00  jost
  * *** empty log message ***
  *
@@ -89,19 +92,19 @@ public class BuchungAuswertungPDFEinzelbuchungen
       while (list.hasNext())
       {
         createTableContent(reporter, list, konto, dVon, dBis);
-        createTableHeader(reporter);
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("Gesamtsumme ", Element.ALIGN_LEFT);
-        reporter.addColumn(summe);
-        reporter.closeTable();
       }
       if (buchungsart.getArt() == -1)
       {
         createTableContent(reporter, null, konto, dVon, dBis);
       }
+      createTableHeader(reporter);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("Gesamtsumme ", Element.ALIGN_LEFT);
+      reporter.addColumn(summe);
+      reporter.closeTable();
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
 
       reporter.close();
