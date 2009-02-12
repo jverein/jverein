@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/22 21:23:10  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.7  2008/12/19 12:25:52  jost
  * Bugfix FÃ¤lligkeitsberechung
  *
@@ -44,8 +47,7 @@ import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class ZusatzbetragImpl extends AbstractDBObject implements
-    Zusatzbetrag
+public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 {
   private static final long serialVersionUID = 1L;
 
@@ -239,10 +241,10 @@ public class ZusatzbetragImpl extends AbstractDBObject implements
   public boolean isAktiv() throws RemoteException
   {
     // Wenn der Auftrag noch nie ausgeführt wurde, ist er auszuführen
-//    if (getAusfuehrung() == null)
-//    {
-//      return true;
-//    }
+    // if (getAusfuehrung() == null)
+    // {
+    // return true;
+    // }
     // Einmalige Ausführung
     if (getIntervall().intValue() == IntervallZusatzzahlung.KEIN)
     {
@@ -261,7 +263,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements
 
     // Wenn das Endedatum gesetzt ist und das Ausführungsdatum liegt hinter
     // dem Endedatum: nicht mehr ausführen
-    if (getEndedatum() != null
+    if (getEndedatum() != null && getAusfuehrung() != null
         && getAusfuehrung().getTime() >= getEndedatum().getTime())
     {
       return false;
