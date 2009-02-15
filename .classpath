@@ -4,8 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/jameica"/>
 	<classpathentry kind="lib" path="lib/csvjdbc.jar"/>
-	<classpathentry kind="lib" path="/hibiscus/lib/itext-2.0.1.jar"/>
+	<classpathentry kind="lib" path="../hibiscus/lib/itext-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/nc.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports-3.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.7.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/hibiscus"/>
 	<classpathentry kind="lib" path="../hibiscus/lib/obantoo-bin-1.4.11.jar"/>
 	<classpathentry kind="lib" path="lib/itext-hyph-xml.jar"/>
