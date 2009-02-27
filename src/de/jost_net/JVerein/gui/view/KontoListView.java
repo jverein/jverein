@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/22 18:24:24  jost
+ * neue Icons
+ *
  * Revision 1.4  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -48,9 +51,8 @@ public class KontoListView extends AbstractView
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.KONTEN, false, "help-browser.png");
-
     buttons.addButton("Hibiscus-Import",
-        new HibiscusKontenImportAction(control), "go.png");
+        new HibiscusKontenImportAction(control), null, false, "go.png");
     buttons
         .addButton("neu", new KontoAction(), null, false, "document-new.png");
   }
