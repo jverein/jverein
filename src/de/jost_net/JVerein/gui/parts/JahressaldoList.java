@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/16 16:57:37  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.1  2008/06/28 16:59:00  jost
  * Neu: Jahresabschluss
  *
@@ -124,6 +127,7 @@ public class JahressaldoList extends TablePart implements Part
     double ausgaben = 0;
     double umbuchungen = 0;
     double endbestand = 0;
+    double jahressaldo = 0;
     if (gj != null)
     {
       while (konten.hasNext())
@@ -134,6 +138,8 @@ public class JahressaldoList extends TablePart implements Part
         ausgaben += (Double) sz.getAttribute("ausgaben");
         umbuchungen += (Double) sz.getAttribute("umbuchungen");
         endbestand += (Double) sz.getAttribute("endbestand");
+        jahressaldo += (Double) sz.getAttribute("endbestand")
+            - (Double) sz.getAttribute("anfangsbestand");
         zeile.add(sz);
       }
     }
@@ -142,7 +148,11 @@ public class JahressaldoList extends TablePart implements Part
     k.setBezeichnung("Summe");
     zeile.add(new SaldoZeile(k, anfangsbestand, einnahmen, ausgaben,
         umbuchungen, endbestand));
-    // settings.setAttribute("jahr", (Integer) suchjahr.getValue());
+    k = (Konto) Einstellungen.getDBService().createObject(Konto.class, null);
+    k.setNummer("");
+    k.setBezeichnung("Überschuss/Verlust(-)");
+    zeile.add(new SaldoZeile(k, null, null, null, null, jahressaldo));
+
     return zeile;
   }
 

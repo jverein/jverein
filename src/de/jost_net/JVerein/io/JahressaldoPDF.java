@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/07/10 07:59:21  jost
+ * Optimierung der internen Reporter-Klasse
+ *
  * Revision 1.1  2008/05/25 19:37:08  jost
  * Neu: Jahressaldo
  *
@@ -50,17 +53,17 @@ public class JahressaldoPDF
 
       reporter.addHeaderColumn("Konto-\nnummer", Element.ALIGN_CENTER, 50,
           Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Kontobezeichnung", Element.ALIGN_CENTER, 80,
+      reporter.addHeaderColumn("Kontobezeichnung", Element.ALIGN_CENTER, 90,
           Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Anfangs-\nbestand", Element.ALIGN_CENTER, 50,
+      reporter.addHeaderColumn("Anfangs-\nbestand", Element.ALIGN_CENTER, 45,
           Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Einnahmen", Element.ALIGN_CENTER, 50,
+      reporter.addHeaderColumn("Einnahmen", Element.ALIGN_CENTER, 45,
           Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Ausgaben", Element.ALIGN_CENTER, 50,
+      reporter.addHeaderColumn("Ausgaben", Element.ALIGN_CENTER, 45,
           Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Um-\nbuchungen", Element.ALIGN_CENTER, 50,
+      reporter.addHeaderColumn("Um-\nbuchungen", Element.ALIGN_CENTER, 45,
           Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Endbestand", Element.ALIGN_CENTER, 50,
+      reporter.addHeaderColumn("Endbestand", Element.ALIGN_CENTER, 45,
           Color.LIGHT_GRAY);
       reporter.addHeaderColumn("Bemerkung", Element.ALIGN_CENTER, 100,
           Color.LIGHT_GRAY);
