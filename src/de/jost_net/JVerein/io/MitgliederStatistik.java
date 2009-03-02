@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/07/10 07:59:52  jost
+ * Optimierung der internen Reporter-Klasse
+ *
  * Revision 1.6  2007/12/28 13:15:05  jost
  * Bugfix beim erzeugen eines Stammdaten-Objektes
  *
@@ -251,6 +254,7 @@ public class MitgliederStatistik
       throws RemoteException
   {
     Calendar calVon = Calendar.getInstance();
+    calVon.setTime(stichtag);
     calVon.add(Calendar.YEAR, bis * -1);
     calVon.set(Calendar.MONTH, Calendar.JANUARY);
     calVon.set(Calendar.DAY_OF_MONTH, 1);
@@ -261,6 +265,7 @@ public class MitgliederStatistik
     java.sql.Date vd = new java.sql.Date(calVon.getTimeInMillis());
 
     Calendar calBis = Calendar.getInstance();
+    calBis.setTime(stichtag);
     calBis.add(Calendar.YEAR, von * -1);
     calBis.set(Calendar.MONTH, Calendar.DECEMBER);
     calBis.set(Calendar.DAY_OF_MONTH, 31);
@@ -271,6 +276,8 @@ public class MitgliederStatistik
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
     list.addFilter("geburtsdatum <= ?", new Object[] { bd });
     list.addFilter("(austritt is null or austritt > ?)",
+        new Object[] { stichtag });
+    list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
 
     if (geschlecht != null)
@@ -286,6 +293,8 @@ public class MitgliederStatistik
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("(austritt is null or austritt > ?)",
+        new Object[] { stichtag });
+    list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
     if (bg != null)
     {
