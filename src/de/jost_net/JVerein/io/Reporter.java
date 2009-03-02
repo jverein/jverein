@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/01/25 16:09:55  jost
+ * I18N entfernt.
+ * Silbentrennung aufgenommen.
+ *
  * Revision 1.8  2008/12/29 08:41:16  jost
  * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
  *
@@ -200,7 +204,14 @@ public class Reporter
    */
   public void addColumn(Double value)
   {
-    addColumn(getDetailCell(value.doubleValue()));
+    if (value != null)
+    {
+      addColumn(getDetailCell(value.doubleValue()));
+    }
+    else
+    {
+      addColumn(getDetailCell("", Element.ALIGN_LEFT));
+    }
   }
 
   /**
