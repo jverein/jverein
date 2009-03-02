@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/02/12 22:19:12  jost
+ * Anrede aufgenommen.
+ *
  * Revision 1.2  2008/11/30 18:58:59  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -57,6 +60,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Telefon privat", "telefonprivat", true);
     add("Telefon dienstlich", "telefondienstlich", false);
     add("Handy", "handy", false);
+    add("Email", "email", false);
     add("Eintritt", "eintritt", true, new DateFormatter(
         Einstellungen.DATEFORMAT), Column.ALIGN_AUTO);
     add("Beitragsgruppe", "beitragsgruppe", false,
