@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/03/02 20:06:36  jost
+ * Korrekte Anzeige von null-Werten
+ *
  * Revision 1.9  2009/01/25 16:09:55  jost
  * I18N entfernt.
  * Silbentrennung aufgenommen.
@@ -123,8 +126,8 @@ public class Reporter
     rpt.addTitle(subtitle);
 
     Chunk fuss = new Chunk(title + " | " + subtitle + " | erstellt am "
-        + Einstellungen.DATEFORMAT.format(new Date()), FontFactory.getFont(
-        FontFactory.HELVETICA, 8, Font.BOLD));
+        + Einstellungen.DATEFORMAT.format(new Date()) + "     Seite: ",
+        FontFactory.getFont(FontFactory.HELVETICA, 8, Font.BOLD));
     HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
     hf.setAlignment(Element.ALIGN_CENTER);
     rpt.setFooter(hf);
