@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.53  2009/01/22 21:05:57  jost
+ * Zusätzliches Jahr in die Vergangenheit.
+ *
  * Revision 1.52  2009/01/22 18:24:01  jost
  * neue Icons
  *
@@ -212,6 +215,7 @@ import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -741,8 +745,16 @@ public class MitgliedControl extends AbstractControl
     String beitragsgru = settings.getString("mitglied.beitragsgruppe", "");
     if (beitragsgru.length() > 0)
     {
-      bg = (Beitragsgruppe) Einstellungen.getDBService().createObject(
-          Beitragsgruppe.class, beitragsgru);
+      try
+      {
+        bg = (Beitragsgruppe) Einstellungen.getDBService().createObject(
+            Beitragsgruppe.class, beitragsgru);
+      }
+      catch (ObjectNotFoundException e)
+      {
+        bg = (Beitragsgruppe) Einstellungen.getDBService().createObject(
+            Beitragsgruppe.class, null);
+      }
     }
     DBIterator list = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
