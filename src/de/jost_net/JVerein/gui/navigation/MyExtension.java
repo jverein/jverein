@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/02/15 20:04:06  jost
+ * Testcode auskommentiert.
+ *
  * Revision 1.12  2008/12/22 21:16:25  jost
  * Icons ins Menü aufgenommen.
  *
@@ -48,6 +51,7 @@ package de.jost_net.JVerein.gui.navigation;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
+import de.jost_net.JVerein.gui.action.AdressbuchExportAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
 import de.jost_net.JVerein.gui.action.AuswertungMitgliedAction;
@@ -61,6 +65,7 @@ import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
+import de.jost_net.JVerein.gui.action.ReportListeAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
@@ -127,9 +132,11 @@ public class MyExtension implements Extension
       }
       auswertung.addChild(new MyItem(auswertung, "Statistik",
           new StatistikMitgliedAction(), "document-open.png"));
+      auswertung.addChild(new MyItem(auswertung, "Adressbuchexport",
+          new AdressbuchExportAction(), "document-open.png"));
       jverein.addChild(auswertung);
-      // auswertung.addChild(new MyItem(auswertung, "Report", new
-      // ReportAction()));
+//      auswertung.addChild(new MyItem(auswertung, "Reports",
+//          new ReportListeAction()));
 
       NavigationItem buchfuehrung = null;
       buchfuehrung = new MyItem(buchfuehrung, "Buchf�hrung", null);
@@ -157,8 +164,9 @@ public class MyExtension implements Extension
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.12 2008/12/22 21:16:25 jost Icons ins
- * Menü aufgenommen. Revision 1.11 2008/11/16 16:57:30 jost Speicherung der
+ * $Log$ Revision 1.13 2009/02/15 20:04:06 jost Testcode
+ * auskommentiert. Revision 1.12 2008/12/22 21:16:25 jost Icons ins Menü
+ * aufgenommen. Revision 1.11 2008/11/16 16:57:30 jost Speicherung der
  * Einstellung von Property-Datei in die Datenbank verschoben. Revision 1.10
  * 2008/09/16 18:51:56 jost Neu: Rechnung Revision 1.9 2008/08/10 12:35:50 jost
  * Abbuchung -> Abrechnung Vorbereitung der Rechnungserstellung Revision 1.8

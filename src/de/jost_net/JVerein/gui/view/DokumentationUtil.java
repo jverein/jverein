@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/09/16 18:52:08  jost
+ * Neu: Rechnung
+ *
  * Revision 1.8  2008/08/10 12:36:12  jost
  * Abbuchung -> Abrechnung
  * Vorbereitung der Rechnungserstellung
@@ -47,6 +50,8 @@ public class DokumentationUtil
   private static final String PRE = "http://www.jverein.de/index.php5?title=";
 
   public static final String ABBUCHUNG = PRE + "Abbuchung";
+
+  public static final String ADRESSBUCHEXPORT = PRE + "Adressbuchexport";
 
   public static final String ABRECHNUNG = PRE + "Abrechnung";
 
@@ -104,4 +109,6 @@ public class DokumentationUtil
 
   public static final String SPENDENBESCHEINIGUNG = PRE
       + "Spendenbescheinigung";
+
+  public static final String REPORTS = PRE + "Reports";
 }
