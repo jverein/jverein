@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2008/12/29 08:41:29  jost
+ * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
+ *
  * Revision 1.20  2008/12/19 06:55:44  jost
  * Workaround f. fehlerhaften Import (Adressierungszusatz)
  *
@@ -82,6 +85,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
+import de.jost_net.JVerein.util.Checker;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -150,6 +154,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Geschlecht auswählen");
     }
+    if (getEmail() != null && getEmail().length() > 0)
+    {
+      if (!Checker.isValidEmailAddress(getEmail()))
+      {
+        throw new ApplicationException("Ungültige Email-Adresse.");
+      }
+    }
+
     if (getEintritt() == null
         && Einstellungen.getEinstellung().getEintrittsdatumPflicht())
     {
