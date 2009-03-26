@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.7  2009/01/20 19:14:35  jost
  * neu: Back-Button mit Icon
  *
@@ -87,14 +90,13 @@ public class AuswertungMitgliedView extends AbstractView
     right.addLabelPair("Ausgabe", control.getAusgabe());
     right.addLabelPair("Sortierung", control.getSortierung());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 3);
+    ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton(new Back(false));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
-
-  }
+   }
 
   public void unbind() throws ApplicationException
   {
