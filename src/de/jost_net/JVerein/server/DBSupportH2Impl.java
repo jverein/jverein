@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/12/30 21:58:56  jost
+ * Überflüssiges Import-Statement entfernt.
+ *
  * Revision 1.5  2008/12/22 21:21:21  jost
  * Bugfix MySQL-Support
  *
@@ -35,7 +38,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.willuhn.jameica.plugin.PluginResources;
+import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.version.Updater;
@@ -155,15 +158,14 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
     {
       try
       {
-        PluginResources res = Application.getPluginLoader().getPlugin(
-            JVereinPlugin.class).getResources();
-        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, res
-            .getPath()
+        Manifest mani = Application.getManifest();
+        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
+            .getPluginDir()
             + File.separator + "sql.h2", Application.getCallback()
             .getStartupMonitor());
         if (udp.getCurrentVersion() == 0)
         {
-          File file = new File(res.getPath() + File.separator + "sql",
+          File file = new File(mani.getPluginDir() + File.separator + "sql",
               "h2-create.sql");
           execute(conn, file);
         }

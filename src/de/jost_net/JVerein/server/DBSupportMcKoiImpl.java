@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/01 17:47:37  jost
+ * Neue DB-Update-Mimik
+ *
  * Revision 1.1  2007/10/18 18:20:23  jost
  * Vorbereitung H2-DB
  *
@@ -24,7 +27,7 @@ import java.text.MessageFormat;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.db.EmbeddedDatabase;
-import de.willuhn.jameica.plugin.PluginResources;
+import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.version.Updater;
@@ -71,10 +74,9 @@ public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
     {
       try
       {
-        PluginResources res = Application.getPluginLoader().getPlugin(
-            JVereinPlugin.class).getResources();
-        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, res
-            .getPath()
+        Manifest mani = Application.getManifest();
+        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
+            .getPluginDir()
             + File.separator + "sql.mckoi", Application.getCallback()
             .getStartupMonitor());
         Updater updater = new Updater(udp);
