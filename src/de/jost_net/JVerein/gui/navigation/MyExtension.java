@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2009/03/26 21:01:19  jost
+ * Neu: Adressbuchexport
+ *
  * Revision 1.13  2009/02/15 20:04:06  jost
  * Testcode auskommentiert.
  *
@@ -65,7 +68,6 @@ import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
-import de.jost_net.JVerein.gui.action.ReportListeAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
@@ -135,8 +137,6 @@ public class MyExtension implements Extension
       auswertung.addChild(new MyItem(auswertung, "Adressbuchexport",
           new AdressbuchExportAction(), "document-open.png"));
       jverein.addChild(auswertung);
-//      auswertung.addChild(new MyItem(auswertung, "Reports",
-//          new ReportListeAction()));
 
       NavigationItem buchfuehrung = null;
       buchfuehrung = new MyItem(buchfuehrung, "Buchf�hrung", null);
@@ -162,23 +162,3 @@ public class MyExtension implements Extension
 
   }
 }
-
-/*******************************************************************************
- * $Log$ Revision 1.13 2009/02/15 20:04:06 jost Testcode
- * auskommentiert. Revision 1.12 2008/12/22 21:16:25 jost Icons ins Menü
- * aufgenommen. Revision 1.11 2008/11/16 16:57:30 jost Speicherung der
- * Einstellung von Property-Datei in die Datenbank verschoben. Revision 1.10
- * 2008/09/16 18:51:56 jost Neu: Rechnung Revision 1.9 2008/08/10 12:35:50 jost
- * Abbuchung -> Abrechnung Vorbereitung der Rechnungserstellung Revision 1.8
- * 2008/07/18 20:11:53 jost Neu: Spendenbescheinigung Revision 1.7 2008/06/28
- * 16:58:42 jost Neu: Jahresabschluss
- * 
- * Revision 1.6 2008/05/25 19:36:26 jost Neu: Jahressaldo Revision 1.5
- * 2008/05/22 06:51:20 jost Buchführung Revision 1.4 2007/12/22 08:25:43 jost
- * Neu: Jubiläenliste Revision 1.3 2007/09/06 17:16:36 jost Korrekte Behandlung
- * des Menüpunktes Auswertung | Kursteilnehmer Revision 1.2 2007/08/23 19:25:05
- * jost Header korrigiert.
- * 
- * Revision 1.1 2007/08/22 20:43:40 jost Bug #011762
- * 
- ******************************************************************************/

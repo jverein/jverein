@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/11/29 13:14:29  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.10  2008/11/16 16:58:37  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -78,13 +81,13 @@ public class MitgliedQuery
   }
 
   @SuppressWarnings("unchecked")
-  public ArrayList getQuery() throws RemoteException
+  public ArrayList get() throws RemoteException
   {
-    return getQuery("*");
+    return get("*");
   }
 
   @SuppressWarnings("unchecked")
-  public ArrayList getQuery(String anfangsbuchstabe) throws RemoteException
+  public ArrayList get(String anfangsbuchstabe) throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
 

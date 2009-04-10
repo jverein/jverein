@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.55  2009/03/26 20:59:06  jost
+ * Neu: Reports - Erste Version
+ *
  * Revision 1.54  2009/03/07 14:19:43  jost
  * Bugfix: Beitragsgruppe gelöscht aber noch in den Default-Werten referenziert.
  *
@@ -180,12 +183,10 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
-import java.sql.Connection;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
@@ -198,24 +199,20 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
-import de.jost_net.JVerein.gui.dialogs.ReportAuswahlDialog;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
-import de.jost_net.JVerein.io.JasperreportsInterface;
 import de.jost_net.JVerein.io.Jubilaeenliste;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
-import de.jost_net.JVerein.keys.Reportart;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Report;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -1346,7 +1343,7 @@ public class MitgliedControl extends AbstractControl
     {
       return ausgabe;
     }
-    String[] ausg = { "PDF", "CSV", "Report" };
+    String[] ausg = { "PDF", "CSV" };
     ausgabe = new SelectInput(ausg, "PDF");
     return ausgabe;
   }
@@ -1470,20 +1467,9 @@ public class MitgliedControl extends AbstractControl
   {
     TablePart part;
     saveDefaults();
-    part = new TablePart(new MitgliedQuery(this, true)
-        .getQuery(anfangsbuchstabe), new MitgliedDetailAction());
+    part = new TablePart(new MitgliedQuery(this, true).get(anfangsbuchstabe),
+        new MitgliedDetailAction());
     new MitgliedSpaltenauswahl().setColumns(part);
-    // part.addColumn("Name", "name");
-    // part.addColumn("Vorname", "vorname");
-    // part.addColumn("Strasse", "strasse");
-    // part.addColumn("Ort", "ort");
-    // part.addColumn("Telefon", "telefonprivat");
-    // part.addColumn("Geburtsdatum", "geburtsdatum", new DateFormatter(
-    // Einstellungen.DATEFORMAT));
-    // part.addColumn("Eintritt", "eintritt", new DateFormatter(
-    // Einstellungen.DATEFORMAT));
-    // part.addColumn("Austritt", "austritt", new DateFormatter(
-    // Einstellungen.DATEFORMAT));
     part.setContextMenu(new MitgliedMenu());
     part.setRememberColWidths(true);
     part.setRememberOrder(true);
@@ -1715,7 +1701,8 @@ public class MitgliedControl extends AbstractControl
   private void starteAuswertung() throws RemoteException
   {
     saveDefaults();
-    ArrayList list = new MitgliedQuery(this, false).getQuery();
+    ArrayList list = null;
+    list = new MitgliedQuery(this, false).get();
     try
     {
       String subtitle = "";
@@ -1790,10 +1777,6 @@ public class MitgliedControl extends AbstractControl
         fd.setFilterPath(path);
       }
       String ausgformat = (String) ausgabe.getValue();
-      if (ausgformat.equals("Report"))
-      {
-        ausgformat = "PDF";
-      }
       fd.setFileName(new Dateiname("auswertung", dateinamensort, Einstellungen
           .getEinstellung().getDateinamenmuster(), ausgformat).get());
       fd.setFilterExtensions(new String[] { "*." + ausgformat });
@@ -1955,54 +1938,6 @@ public class MitgliedControl extends AbstractControl
         try
         {
           new MitgliedAuswertungPDF(list, file, monitor, subtitle);
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
-          GUI.getCurrentView().reload();
-        }
-        catch (ApplicationException ae)
-        {
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
-        catch (Exception re)
-        {
-          monitor.setStatusText(re.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(re.getMessage());
-          throw new ApplicationException(re);
-        }
-      }
-
-      public void interrupt()
-      {
-      }
-
-      public boolean isInterrupted()
-      {
-        return false;
-      }
-    };
-    Application.getController().start(t);
-  }
-
-  private void auswertungMitgliedPDF(final Connection connection,
-      final File file, final String subtitle)
-  {
-    BackgroundTask t = new BackgroundTask()
-    {
-      public void run(ProgressMonitor monitor) throws ApplicationException
-      {
-        try
-        {
-          ReportAuswahlDialog rad = new ReportAuswahlDialog(
-              ReportAuswahlDialog.POSITION_CENTER, new Reportart(
-                  Reportart.MITGLIED_AUSWERTUNG));
-          Report r = (Report) rad.open();
-          JasperreportsInterface jri = new JasperreportsInterface(r);
-          jri.fill(new HashMap(), connection, file);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
