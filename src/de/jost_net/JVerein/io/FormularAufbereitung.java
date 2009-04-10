@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/09/16 18:52:54  jost
+ * Refactoring Formularaufbereitung
+ *
  * Revision 1.1  2008/07/18 20:15:55  jost
  * Neu: Formulare
  *
@@ -19,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.lowagie.text.Document;
@@ -144,6 +148,10 @@ public class FormularAufbereitung
     {
       stringVal = Einstellungen.DECIMALFORMAT.format((Double) val);
       buendig = rechts;
+    }
+    if (val instanceof Date)
+    {
+      stringVal = Einstellungen.DATEFORMAT.format((Date) val);
     }
     String[] ss = stringVal.split("\n");
     for (String s : ss)

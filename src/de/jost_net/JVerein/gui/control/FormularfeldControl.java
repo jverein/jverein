@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/26 18:47:34  jost
+ * Neu: Ersatz Aufwendungen
+ *
  * Revision 1.4  2008/11/29 13:07:42  jost
  * Refactoring: Code-Optimierung
  *
@@ -82,6 +85,54 @@ public class FormularfeldControl extends AbstractControl
 
   public static final String ZAHLUNGSWEG = "Zahlungsweg";
 
+  public static final String ID = "ID";
+
+  public static final String EXTERNEMITGLIEDSNUMMER = "externe Mitgliedsnummer";
+
+  public static final String ANREDE = "Anrede";
+
+  public static final String TITEL = "Titel";
+
+  public static final String NAME = "Name";
+
+  public static final String VORNAME = "Vorname";
+
+  public static final String ADRESSIERUNGSZUSATZ = "Adressierungszusatz";
+
+  public static final String STRASSE = "Strasse";
+
+  public static final String PLZ = "PLZ";
+
+  public static final String ORT = "Ort";
+
+  public static final String ZAHLUNGSRHYTMUS = "Zahlungsrhytmus";
+
+  public static final String BLZ = "Bankleitzahl";
+
+  public static final String KONTO = "Konto";
+
+  public static final String KONTOINHABER = "Kontoinhaber";
+
+  public static final String GEBURTSDATUM = "Geburtsdatum";
+
+  public static final String GESCHLECHT = "Geschlecht";
+
+  public static final String TELEFONPRIVAT = "Telefon privat";
+
+  public static final String TELEFONDIENSTLICH = "Telefon dienstlich";
+
+  public static final String HANDY = "Handy";
+
+  public static final String EMAIL = "Email";
+
+  public static final String EINTRITT = "Eintritt";
+
+  public static final String BEITRAGSGRUPPE = "Beitragsgruppe";
+
+  public static final String AUSTRITT = "Austritt";
+
+  public static final String KUENDIGUNG = "Kündigung";
+
   public FormularfeldControl(AbstractView view, Formular formular)
   {
     super(view);
@@ -129,6 +180,30 @@ public class FormularfeldControl extends AbstractControl
       namen.add(BUCHUNGSDATUM);
       namen.add(BETRAG);
       namen.add(ZAHLUNGSWEG);
+      namen.add(ID);
+      namen.add(EXTERNEMITGLIEDSNUMMER);
+      namen.add(ANREDE);
+      namen.add(TITEL);
+      namen.add(NAME);
+      namen.add(VORNAME);
+      namen.add(ADRESSIERUNGSZUSATZ);
+      namen.add(STRASSE);
+      namen.add(PLZ);
+      namen.add(ORT);
+      namen.add(ZAHLUNGSRHYTMUS);
+      namen.add(BLZ);
+      namen.add(KONTO);
+      namen.add(KONTOINHABER);
+      namen.add(GEBURTSDATUM);
+      namen.add(GESCHLECHT);
+      namen.add(TELEFONPRIVAT);
+      namen.add(TELEFONDIENSTLICH);
+      namen.add(HANDY);
+      namen.add(EMAIL);
+      namen.add(EINTRITT);
+      namen.add(BEITRAGSGRUPPE);
+      namen.add(AUSTRITT);
+      namen.add(KUENDIGUNG);
     }
     name = new SelectInput(namen, (String) getFormularfeld().getName());
     return name;

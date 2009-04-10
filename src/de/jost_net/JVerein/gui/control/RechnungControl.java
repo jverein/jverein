@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/01/26 19:27:21  jost
+ * Bugfix Pfad
+ *
  * Revision 1.9  2008/12/06 16:46:24  jost
  * Debug-Meldung entfernt.
  *
@@ -54,9 +57,11 @@ import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.RechungMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Formular;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -419,18 +424,48 @@ public class RechnungControl extends AbstractControl
   {
     HashMap<String, Object> map = new HashMap<String, Object>();
 
-    String empfaenger = abr.getMitglied().getAnrede()
+    Mitglied m = abr.getMitglied();
+
+    String empfaenger = m.getAnrede()
         + "\n"
-        + abr.getMitglied().getVornameName()
+        + m.getVornameName()
         + "\n"
-        + (abr.getMitglied().getAdressierungszusatz().length() > 0 ? abr
-            .getMitglied().getAdressierungszusatz()
-            + "\n" : "") + abr.getMitglied().getStrasse() + "\n"
-        + abr.getMitglied().getPlz() + " " + abr.getMitglied().getOrt();
+        + (m.getAdressierungszusatz().length() > 0 ? m.getAdressierungszusatz()
+            + "\n" : "") + m.getStrasse() + "\n" + m.getPlz() + " "
+        + m.getOrt();
     map.put(FormularfeldControl.EMPFAENGER, empfaenger);
     map.put(FormularfeldControl.ZAHLUNGSGRUND1, abr.getZweck1());
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, abr.getZweck2());
     map.put(FormularfeldControl.BETRAG, abr.getBetrag());
+    map.put(FormularfeldControl.ID, m.getID());
+    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
+        .getExterneMitgliedsnummer());
+    map.put(FormularfeldControl.ANREDE, m.getAnrede());
+    map.put(FormularfeldControl.TITEL, m.getTitel());
+    map.put(FormularfeldControl.NAME, m.getName());
+    map.put(FormularfeldControl.VORNAME, m.getVorname());
+    map
+        .put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m
+            .getAdressierungszusatz());
+    map.put(FormularfeldControl.STRASSE, m.getStrasse());
+    map.put(FormularfeldControl.PLZ, m.getPlz());
+    map.put(FormularfeldControl.ORT, m.getOrt());
+    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(m
+        .getZahlungsrhytmus()).getText());
+    map.put(FormularfeldControl.BLZ, m.getBlz());
+    map.put(FormularfeldControl.KONTO, m.getKonto());
+    map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
+    map.put(FormularfeldControl.GEBURTSDATUM, m.getGeburtsdatum());
+    map.put(FormularfeldControl.GESCHLECHT, m.getGeschlecht());
+    map.put(FormularfeldControl.TELEFONPRIVAT, m.getTelefonprivat());
+    map.put(FormularfeldControl.TELEFONDIENSTLICH, m.getTelefondienstlich());
+    map.put(FormularfeldControl.HANDY, m.getHandy());
+    map.put(FormularfeldControl.EMAIL, m.getEmail());
+    map.put(FormularfeldControl.EINTRITT, m.getEintritt());
+    map.put(FormularfeldControl.BEITRAGSGRUPPE, m.getBeitragsgruppe()
+        .getBezeichnung());
+    map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
+    map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
     String zahlungsweg = "";
     switch (abr.getMitglied().getZahlungsweg())
     {
