@@ -38,7 +38,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.willuhn.jameica.plugin.Manifest;
+import de.willuhn.jameica.plugin.PluginResources;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.version.Updater;
@@ -158,14 +158,22 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
     {
       try
       {
-        Manifest mani = Application.getManifest();
-        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
-            .getPluginDir()
+        PluginResources res = Application.getPluginLoader().getPlugin(
+            JVereinPlugin.class).getResources();
+        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, res
+            .getPath()
             + File.separator + "sql.h2", Application.getCallback()
             .getStartupMonitor());
+
+        // Manifest mani = Application.getManifest();
+        // JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
+        // .getPluginDir()
+        // + File.separator + "sql.h2", Application.getCallback()
+        // .getStartupMonitor());
+
         if (udp.getCurrentVersion() == 0)
         {
-          File file = new File(mani.getPluginDir() + File.separator + "sql",
+          File file = new File(res.getPath() + File.separator + "sql",
               "h2-create.sql");
           execute(conn, file);
         }
