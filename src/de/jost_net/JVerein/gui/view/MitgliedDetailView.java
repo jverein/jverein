@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.25  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -235,6 +238,14 @@ public class MitgliedDetailView extends AbstractView
       {
         cont.addInput(inp);
       }
+    }
+
+    if (Einstellungen.getEinstellung().getLehrgaenge())
+    {
+      TabGroup tab9 = new TabGroup(folder, "Lehrgänge");
+      control.getLehrgaengeTable().paint(tab9.getComposite());
+      ButtonArea buttonslehrg = new ButtonArea(tab9.getComposite(), 1);
+      buttonslehrg.addButton(control.getLehrgangNeu());
     }
 
     ButtonArea buttons = new ButtonArea(getParent(), 5);

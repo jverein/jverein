@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2009/04/10 09:43:04  jost
+ * Versuch "Reports" abgebrochen
+ *
  * Revision 1.14  2009/03/26 21:01:19  jost
  * Neu: Adressbuchexport
  *
@@ -65,6 +68,7 @@ import de.jost_net.JVerein.gui.action.JahressaldoAction;
 import de.jost_net.JVerein.gui.action.JubilaeenAction;
 import de.jost_net.JVerein.gui.action.KontoListAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
+import de.jost_net.JVerein.gui.action.LehrgaengeListeAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
@@ -117,6 +121,11 @@ public class MyExtension implements Extension
       {
         jverein.addChild(new MyItem(jverein, "Wiedervorlage",
             new WiedervorlageListeAction(), "office-calendar.png"));
+      }
+      if (Einstellungen.getEinstellung().getLehrgaenge())
+      {
+        jverein.addChild(new MyItem(jverein, "Lehrgänge",
+            new LehrgaengeListeAction(), "x-office-presentation.png"));
       }
       jverein.addChild(new MyItem(jverein, "Spendenbescheinigung",
           new SpendenbescheinigungListeAction(), "rechnung.png"));

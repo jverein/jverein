@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.56  2009/04/10 09:41:45  jost
+ * Versuch "Reports" abgebrochen
+ *
  * Revision 1.55  2009/03/26 20:59:06  jost
  * Neu: Reports - Erste Version
  *
@@ -195,10 +198,12 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
+import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.menu.LehrgangMenu;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
@@ -212,6 +217,7 @@ import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
+import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -348,6 +354,9 @@ public class MitgliedControl extends AbstractControl
 
   // Liste der Wiedervorlagen
   private TablePart wiedervorlageList;
+
+  // Liste der Lehrgänge
+  private TablePart lehrgaengeList;
 
   private TablePart familienangehoerige;
 
@@ -1042,6 +1051,31 @@ public class MitgliedControl extends AbstractControl
     return wiedervorlageList;
   }
 
+  public Part getLehrgaengeTable() throws RemoteException
+  {
+    if (lehrgaengeList != null)
+    {
+      return lehrgaengeList;
+    }
+    DBService service = Einstellungen.getDBService();
+    DBIterator lehrgaenge = service.createList(Lehrgang.class);
+    lehrgaenge.addFilter("mitglied = " + getMitglied().getID());
+    lehrgaengeList = new TablePart(lehrgaenge,
+        new LehrgangAction(getMitglied()));
+    lehrgaengeList.setRememberColWidths(true);
+    lehrgaengeList.setRememberOrder(true);
+
+    lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
+    lehrgaengeList.addColumn("von/am", "von", new DateFormatter(
+        Einstellungen.DATEFORMAT));
+    lehrgaengeList.addColumn("bis", "bis", new DateFormatter(
+        Einstellungen.DATEFORMAT));
+    lehrgaengeList.addColumn("Veranstalter", "veranstalter");
+    lehrgaengeList.addColumn("Ergebnis", "ergebnis");
+    lehrgaengeList.setContextMenu(new LehrgangMenu());
+    return lehrgaengeList;
+  }
+
   public DateInput getGeburtsdatumvon() throws RemoteException
   {
     if (geburtsdatumvon != null)
@@ -1460,6 +1494,12 @@ public class MitgliedControl extends AbstractControl
   {
     return new Button("Neu", new WiedervorlageAction(getMitglied()), null,
         false, "document-new.png");
+  }
+
+  public Button getLehrgangNeu()
+  {
+    return new Button("Neu", new LehrgangAction(getMitglied()), null, false,
+        "document-new.png");
   }
 
   public TablePart getMitgliedTable(String anfangsbuchstabe)

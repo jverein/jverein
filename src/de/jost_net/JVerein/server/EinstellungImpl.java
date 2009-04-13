@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/27 15:19:27  jost
+ * Bugfix Booleans aus MySQL-DB lesen.
+ *
  * Revision 1.2  2008/12/22 21:22:10  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -140,6 +143,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException
   {
     setAttribute("kursteilnehmer", new Boolean(kursteilnehmer));
+  }
+
+  public boolean getLehrgaenge() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("lehrgaenge"));
+  }
+
+  public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException
+  {
+    setAttribute("lehrgaenge", new Boolean(lehrgaenge));
   }
 
   public boolean getExterneMitgliedsnummer() throws RemoteException

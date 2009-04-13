@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/22 21:20:17  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.1  2008/11/16 16:58:49  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -56,6 +59,10 @@ public interface Einstellung extends DBObject
   public boolean getKursteilnehmer() throws RemoteException;
 
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException;
+  
+  public boolean getLehrgaenge() throws RemoteException;
+  
+  public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException;
 
   public boolean getExterneMitgliedsnummer() throws RemoteException;
 

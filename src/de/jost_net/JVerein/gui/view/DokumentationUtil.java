@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/03/26 21:02:24  jost
+ * Neu: Adressbuchexport
+ *
  * Revision 1.9  2008/09/16 18:52:08  jost
  * Neu: Rechnung
  *
@@ -77,6 +80,8 @@ public class DokumentationUtil
   public static final String IMPORT = PRE + "Administration#Import";
 
   public static final String JUBILAEEN = PRE + "Auswertung#Jubil.C3.A4en";
+
+  public static final String LEHRGANG= PRE + "Lehrgang";
 
   public static final String MITGLIED = PRE + "Mitglieder";
 

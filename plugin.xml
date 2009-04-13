@@ -38,8 +38,12 @@
 	  action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
 	</item>
 	<item name="Formulare"
-	  shortcut="ALT+F"
+	  shortcut="ALT+O"
 	  action="de.jost_net.JVerein.gui.action.FormularListeAction">
+	</item> 
+	<item name="Lehrgangsarten"
+	  shortcut="ALT+L"
+	  action="de.jost_net.JVerein.gui.action.LehrgangsartListeAction">
 	</item> 
 -	<item name="-" /> 
 	<item name="Import"

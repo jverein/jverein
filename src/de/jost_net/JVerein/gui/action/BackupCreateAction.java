@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/22 21:05:14  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.2  2008/11/29 13:04:57  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -42,6 +45,8 @@ import de.jost_net.JVerein.server.FormularfeldImpl;
 import de.jost_net.JVerein.server.JahresabschlussImpl;
 import de.jost_net.JVerein.server.KontoImpl;
 import de.jost_net.JVerein.server.KursteilnehmerImpl;
+import de.jost_net.JVerein.server.LehrgangImpl;
+import de.jost_net.JVerein.server.LehrgangsartImpl;
 import de.jost_net.JVerein.server.ManuellerZahlungseingangImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
@@ -208,6 +213,14 @@ public class BackupCreateAction implements Action
 
           monitor.setStatusText("Speichere Zusatzfelder");
           backup(ZusatzfelderImpl.class, writer, monitor);
+          monitor.addPercentComplete(5);
+
+          monitor.setStatusText("Speichere Lehrgangsarten");
+          backup(LehrgangsartImpl.class, writer, monitor);
+          monitor.addPercentComplete(5);
+
+          monitor.setStatusText("Speichere Lehrgänge");
+          backup(LehrgangImpl.class, writer, monitor);
           monitor.addPercentComplete(5);
 
           // Die Versionstabelle wird nicht mit kopiert

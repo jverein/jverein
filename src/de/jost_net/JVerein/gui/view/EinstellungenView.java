@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.15  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -95,6 +98,7 @@ public class EinstellungenView extends AbstractView
     group.addLabelPair("Wiedervorlage anzeigen *", control.getWiedervorlage());
     group
         .addLabelPair("Kursteilnehmer anzeigen *", control.getKursteilnehmer());
+    group.addLabelPair("Lehrgänge anzeigen*", control.getLehrgaenge());
     group.addLabelPair("externe Mitgliedsnummer", control
         .getExterneMitgliedsnummer());
     group.addHeadline("* Änderung erfordert Neustart");
