@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/04/13 11:40:44  jost
+ * Änderung zurückgenommen.
+ *
  * Revision 1.6  2008/12/30 21:58:56  jost
  * ÃœberflÃ¼ssiges Import-Statement entfernt.
  *
@@ -158,23 +161,22 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
     {
       try
       {
-        PluginResources res = Application.getPluginLoader().getPlugin(
-            JVereinPlugin.class).getResources();
-        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, res
-            .getPath()
-            + File.separator + "sql.h2", Application.getCallback()
-            .getStartupMonitor());
-
-        // Manifest mani = Application.getManifest();
-        // JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
-        // .getPluginDir()
+        // PluginResources res = Application.getPluginLoader().getPlugin(
+        // JVereinPlugin.class).getResources();
+        // JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, res
+        // .getPath()
         // + File.separator + "sql.h2", Application.getCallback()
         // .getStartupMonitor());
 
+        String p = Application.getPluginLoader().getManifest(
+            JVereinPlugin.class).getPluginDir();
+        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, p
+            + File.separator + "sql.h2", Application.getCallback()
+            .getStartupMonitor());
+
         if (udp.getCurrentVersion() == 0)
         {
-          File file = new File(res.getPath() + File.separator + "sql",
-              "h2-create.sql");
+          File file = new File(p + File.separator + "sql", "h2-create.sql");
           execute(conn, file);
         }
 
