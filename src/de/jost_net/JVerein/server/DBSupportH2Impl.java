@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/04/14 18:39:04  jost
+ * Deprecated Method ersetzt
+ *
  * Revision 1.8  2009/04/13 11:40:44  jost
  * Änderung zurückgenommen.
  *
@@ -41,7 +44,6 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.willuhn.jameica.plugin.PluginResources;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.version.Updater;
