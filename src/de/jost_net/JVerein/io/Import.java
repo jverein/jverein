@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2008/12/23 21:10:06  jost
+ * Vermeidung von NPE's
+ *
  * Revision 1.18  2008/12/22 21:19:31  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -269,7 +272,7 @@ public class Import
         m.setBeitragsgruppe(bg);
         // beitragsart.setValue(results.getString("Beitragsart_1"));
         String austritt = results.getString("Austritt");
-        if (austritt.equals("00.00.0000"))
+        if (austritt != null && austritt.equals("00.00.0000"))
         {
           austritt = null;
         }
@@ -284,7 +287,7 @@ public class Import
         {
           kuendigung = results.getString("Kuendigung");
         }
-        if (kuendigung.equals("00.00.0000"))
+        if (kuendigung != null && kuendigung.equals("00.00.0000"))
         {
           kuendigung = null;
         }
@@ -309,6 +312,7 @@ public class Import
     catch (Exception e)
     {
       monitor.log(" nicht importiert: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
