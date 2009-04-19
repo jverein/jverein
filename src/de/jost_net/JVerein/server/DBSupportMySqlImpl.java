@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/04/10 09:53:08  jost
+ * Umstellung auf aktuelle Methoden.
+ *
  * Revision 1.3  2008/12/28 21:26:26  jost
  * Javadoc entfernt.
  *
@@ -31,6 +34,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
@@ -103,15 +107,14 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
     {
       try
       {
-        Manifest mani = Application.getManifest();
-        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
-            .getPluginDir()
+        String p = Application.getPluginLoader().getManifest(
+            JVereinPlugin.class).getPluginDir();
+        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, p
             + File.separator + "sql.mysql", Application.getCallback()
             .getStartupMonitor());
         if (udp.getCurrentVersion() == 0)
         {
-          File file = new File(mani.getPluginDir() + File.separator + "sql",
-              "mysql-create.sql");
+          File file = new File(p + File.separator + "sql", "mysql-create.sql");
           execute(conn, file);
         }
         Updater updater = new Updater(udp);
