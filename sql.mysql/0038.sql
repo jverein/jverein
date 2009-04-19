@@ -1,1 +1,1 @@
-ALTER TABLE einstellung ADD lehrgaenge char(5) before externemitgliedsnummer;
+ALTER TABLE einstellung ADD lehrgaenge char(5) after kursteilnehmer;
