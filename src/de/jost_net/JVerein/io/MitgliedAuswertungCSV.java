@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2008/12/04 20:00:55  jost
+ * Handy aufgenommen
+ *
  * Revision 1.11  2008/11/13 20:18:12  jost
  * Adressierungszusatz aufgenommen.
  *
@@ -77,7 +80,7 @@ public class MitgliedAuswertungCSV
     {
       PrintWriter out = new PrintWriter(new FileOutputStream(file));
       out
-          .print("id;anrede;titel;name;vorname;adressierungszusatz;strasse;plz;ort;blz;konto;kontoinhaber;");
+          .print("id;personenart;anrede;titel;name;vorname;adressierungszusatz;strasse;plz;ort;blz;konto;kontoinhaber;");
       out
           .print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;handy;email;");
       out
@@ -98,6 +101,8 @@ public class MitgliedAuswertungCSV
         monitor.setStatus(faelle);
         Mitglied m = list.get(i);
         out.print(m.getID() + ";");
+        out.print(m.getPersonenart(
+            ) + ";");
         out.print(m.getAnrede() + ";");
         out.print(m.getTitel() + ";");
         out.print(m.getName() + ";");

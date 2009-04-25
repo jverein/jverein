@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2009/04/13 11:39:14  jost
+ * Neu: Lehrgänge
+ *
  * Revision 1.14  2008/12/22 21:08:50  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -90,6 +93,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput kursteilnehmer;
 
   private CheckboxInput lehrgaenge;
+
+  private CheckboxInput juristischepersonen;
 
   private CheckboxInput externemitgliedsnummer;
 
@@ -203,6 +208,17 @@ public class EinstellungControl extends AbstractControl
     return lehrgaenge;
   }
 
+  public CheckboxInput getJuristischePersonen() throws RemoteException
+  {
+    if (juristischepersonen != null)
+    {
+      return juristischepersonen;
+    }
+    juristischepersonen = new CheckboxInput(Einstellungen.getEinstellung()
+        .getJuristischePersonen());
+    return juristischepersonen;
+  }
+
   public CheckboxInput getExterneMitgliedsnummer() throws RemoteException
   {
     if (externemitgliedsnummer != null)
@@ -313,6 +329,7 @@ public class EinstellungControl extends AbstractControl
       e.setWiedervorlage((Boolean) wiedervorlage.getValue());
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
+      e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());

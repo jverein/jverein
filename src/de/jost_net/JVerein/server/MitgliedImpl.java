@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2009/03/26 21:05:16  jost
+ * Email-Adress-Checker
+ *
  * Revision 1.21  2008/12/29 08:41:29  jost
  * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
  *
@@ -137,20 +140,26 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         throw new ApplicationException("Externe Mitgliedsnummer fehlt");
       }
     }
+    if (getPersonenart() == null
+        || (!getPersonenart().equals("n") && !getPersonenart().equals("j")))
+    {
+      throw new ApplicationException("Personenstatus ist nicht 'n' oder 'j'");
+    }
     if (getName() == null || getName().length() == 0)
     {
       throw new ApplicationException("Bitte Namen eingeben");
     }
-    if (getVorname() == null || getVorname().length() == 0)
+    if (getPersonenart().equals("n")
+        && (getVorname() == null || getVorname().length() == 0))
     {
       throw new ApplicationException("Bitte Vornamen eingeben");
     }
-    if (getGeburtsdatum() == null
+    if (getPersonenart().equals("n") && getGeburtsdatum() == null
         && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
       throw new ApplicationException("Bitte Geburtsdatum eingeben");
     }
-    if (getGeschlecht() == null)
+    if (getPersonenart().equals("n") && getGeschlecht() == null)
     {
       throw new ApplicationException("Bitte Geschlecht auswählen");
     }
@@ -243,6 +252,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public Integer getExterneMitgliedsnummer() throws RemoteException
   {
     return (Integer) getAttribute("externemitgliedsnummer");
+  }
+
+  public String getPersonenart() throws RemoteException
+  {
+    return (String) getAttribute("personenart");
+  }
+
+  public void setPersonenart(String personenart) throws RemoteException
+  {
+    setAttribute("personenart", personenart);
   }
 
   public String getAnrede() throws RemoteException

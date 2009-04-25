@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/11/13 20:18:28  jost
+ * Adressierungszusatz aufgenommen.
+ *
  * Revision 1.9  2008/07/18 20:16:53  jost
  * Neue Methode
  *
@@ -53,6 +56,10 @@ public interface Mitglied extends DBObject
 
   public void setID(String id) throws RemoteException;
 
+  public String getPersonenart() throws RemoteException;
+
+  public void setPersonenart(String personenart) throws RemoteException;
+
   public String getAnrede() throws RemoteException;
 
   public void setAnrede(String anrede) throws RemoteException;
@@ -71,7 +78,8 @@ public interface Mitglied extends DBObject
 
   public String getAdressierungszusatz() throws RemoteException;
 
-  public void setAdressierungszusatz(String adressierungszusatz) throws RemoteException;
+  public void setAdressierungszusatz(String adressierungszusatz)
+      throws RemoteException;
 
   public String getStrasse() throws RemoteException;
 
@@ -176,7 +184,7 @@ public interface Mitglied extends DBObject
   public Date getEingabedatum() throws RemoteException;
 
   public String getNameVorname() throws RemoteException;
-  
+
   public String getVornameName() throws RemoteException;
 
   public String getAnschrift() throws RemoteException;

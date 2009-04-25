@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/04/13 11:40:26  jost
+ * Neu: Lehrgänge
+ *
  * Revision 1.2  2008/12/22 21:20:17  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -45,8 +48,7 @@ public interface Einstellung extends DBObject
 
   public boolean getZusatzbetrag() throws RemoteException;
 
-  public void setZusatzbetrag(Boolean zusatzbetrag)
-      throws RemoteException;
+  public void setZusatzbetrag(Boolean zusatzbetrag) throws RemoteException;
 
   public boolean getVermerke() throws RemoteException;
 
@@ -59,9 +61,14 @@ public interface Einstellung extends DBObject
   public boolean getKursteilnehmer() throws RemoteException;
 
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException;
-  
+
   public boolean getLehrgaenge() throws RemoteException;
-  
+
+  public void setJuristischePersonen(Boolean juristischePersonen)
+      throws RemoteException;
+
+  public boolean getJuristischePersonen() throws RemoteException;
+
   public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException;
 
   public boolean getExterneMitgliedsnummer() throws RemoteException;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/04/19 18:51:02  jost
+ * Bugfix
+ *
  * Revision 1.4  2009/04/10 09:53:08  jost
  * Umstellung auf aktuelle Methoden.
  *
@@ -36,7 +39,6 @@ import java.text.MessageFormat;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.JVereinDBService;
-import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.version.Updater;

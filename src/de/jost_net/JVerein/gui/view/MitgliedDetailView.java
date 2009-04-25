@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2009/04/13 11:40:14  jost
+ * Neu: Lehrgänge
+ *
  * Revision 1.26  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -135,46 +138,58 @@ public class MitgliedDetailView extends AbstractView
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
     left.addHeadline("Grunddaten");
-    left.addLabelPair("Anrede", control.getAnrede());
-    left.addLabelPair("Titel", control.getTitel());
-    left.addLabelPair("Name", control.getName());
-    left.addLabelPair("Vorname", control.getVorname());
-    left.addLabelPair("Adressierungszusatz", control.getAdressierungszusatz());
+    left.addInput(control.getAnrede());
+    if (control.getMitglied().getPersonenart().equals("n"))
+    {
+      left.addInput(control.getTitel());
+    }
+    if (control.getMitglied().getPersonenart().equals("j"))
+    {
+      control.getName().setName("Name Zeile 1");
+      control.getVorname().setName("Name Zeile 2");
+      control.getVorname().setMandatory(false);
+    }
+    left.addInput(control.getName());
+    left.addInput(control.getVorname());
+    left.addInput(control.getAdressierungszusatz());
 
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
     right.addHeadline("");
-    right.addLabelPair("Strasse", control.getStrasse());
-    right.addLabelPair("PLZ", control.getPlz());
-    right.addLabelPair("Ort", control.getOrt());
-    right.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
-    right.addLabelPair("Geschlecht", control.getGeschlecht());
+    right.addInput(control.getStrasse());
+    right.addInput(control.getPlz());
+    right.addInput(control.getOrt());
+    if (control.getMitglied().getPersonenart().equals("n"))
+    {
+      right.addInput(control.getGeburtsdatum());
+      right.addInput(control.getGeschlecht());
+    }
 
     if (Einstellungen.getEinstellung().getKommunikationsdaten())
     {
       ColumnLayout cols2 = new ColumnLayout(scrolled.getComposite(), 2);
       SimpleContainer left2 = new SimpleContainer(cols2.getComposite());
       left2.addHeadline("Kommunikation");
-      left2.addLabelPair("Telefon priv.", control.getTelefonprivat());
-      left2.addLabelPair("Handy", control.getHandy());
+      left2.addInput(control.getTelefonprivat());
+      left2.addInput(control.getHandy());
       SimpleContainer right2 = new SimpleContainer(cols2.getComposite());
       right2.addHeadline("");
-      right2.addLabelPair("Telefon dienstl.", control.getTelefondienstlich());
-      right2.addLabelPair("eMail", control.getEmail());
+      right2.addInput(control.getTelefondienstlich());
+      right2.addInput(control.getEmail());
     }
 
     ColumnLayout cols3 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left3 = new SimpleContainer(cols3.getComposite());
     left3.addHeadline("Bankverbindung");
-    left3.addLabelPair("Zahlungsweg", control.getZahlungsweg());
+    left3.addInput(control.getZahlungsweg());
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
     {
-      left3.addLabelPair("Zahlungsrhytmus", control.getZahlungsrhytmus());
+      left3.addInput(control.getZahlungsrhytmus());
     }
-    left3.addLabelPair("Kontoinhaber", control.getKontoinhaber());
+    left3.addInput(control.getKontoinhaber());
     SimpleContainer right3 = new SimpleContainer(cols3.getComposite());
     right3.addHeadline("");
-    right3.addLabelPair("BLZ", control.getBlz());
-    right3.addLabelPair("Konto", control.getKonto());
+    right3.addInput(control.getBlz());
+    right3.addInput(control.getKonto());
 
     TabFolder folder = new TabFolder(scrolled.getComposite(), SWT.NONE);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -183,13 +198,12 @@ public class MitgliedDetailView extends AbstractView
     TabGroup tab3 = new TabGroup(folder, "Mitgliedschaft");
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
-      tab3.addLabelPair("Ext. Mitgliedsnummer", control
-          .getExterneMitgliedsnummer());
+      tab3.addInput(control.getExterneMitgliedsnummer());
     }
-    tab3.addLabelPair("Eintritt", control.getEintritt());
-    tab3.addLabelPair("Beitragsgruppe", control.getBeitragsgruppe());
-    tab3.addLabelPair("Austritt", control.getAustritt());
-    tab3.addLabelPair("Kündigung", control.getKuendigung());
+    tab3.addInput(control.getEintritt());
+    tab3.addInput(control.getBeitragsgruppe());
+    tab3.addInput(control.getAustritt());
+    tab3.addInput(control.getKuendigung());
     DBIterator it = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
     it.addFilter("beitragsart = 1 or beitragsart = 2");

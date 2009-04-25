@@ -1,0 +1,1 @@
+update mitglied set personenart = 'n';

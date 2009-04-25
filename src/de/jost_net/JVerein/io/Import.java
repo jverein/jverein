@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/04/15 21:04:22  jost
+ * Vermeidung NPE
+ *
  * Revision 1.19  2008/12/23 21:10:06  jost
  * Vermeidung von NPE's
  *
@@ -181,6 +184,15 @@ public class Import
           m.setExterneMitgliedsnummer(new Integer(results
               .getString("Mitglieds_Nr")));
         }
+        try
+        {
+          m.setPersonenart(results.getString("Personenart"));
+        }
+        catch (Exception e)
+        {
+          m.setPersonenart("n");
+        }
+
         m.setAnrede(results.getString("Anrede"));
         m.setTitel(results.getString("Titel"));
         m.setName(results.getString("Nachname"));
