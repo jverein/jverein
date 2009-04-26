@@ -1,0 +1,8 @@
+<!--#include virtual="main.shtml"-->  
+    <h1>Wiedervorlage</h1>
+	<p>Die Wiedervorlagetermine aller Mitglieder können hier angezeigt und als erledigt gekennzeichnet werden. </p>
+	
+    <img src='images/Wiedervorlage.jpg' class='screenshot'>
+        
+    <!--#include virtual="footer.shtml"-->  
+

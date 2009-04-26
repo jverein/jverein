@@ -1,0 +1,14 @@
+<!--#include virtual="main.shtml"-->  
+    <h2>Installation</h2>
+    <p>Voraussetzung f¸r die Installation ist ein installiertes Java Runtime Environment (JRE)
+       der Version >= 1.5.</p>
+    <p>Jameica ist gem‰ﬂ 
+       <a href="http://www.willuhn.de/projects/jameica/?page=doc_install">Anleitung</a> 
+       zu installieren.</p>
+    <p>Anschlieﬂend wird Hibiscus gem‰ﬂ
+       <a href="http://www.willuhn.de/projects/hibiscus/?page=install">Anleitung</a> 
+       installiert.</p>
+    <p>F¸r die Installation von JVerein wird das heruntergeladene ZIP-Archiv in das 
+       plugins-Verzeichnis von Jameica entpackt. Fertig.</p>
+ <!--#include virtual="footer.shtml"-->  
+

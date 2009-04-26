@@ -1,0 +1,16 @@
+<!--#include virtual="main.shtml"-->  
+    <h1>Spendenbescheinigung</h1>
+    <p>Mit JVerein können Spendenbescheinigungen ausgestellt und gespeichert werden. Vorbereitend ist sind 
+    	ein oder mehrere <a href="administration_formulare.shtml">Formulare</a> einzurichten.</p>
+    <p>Übersicht über die Spendenbescheinigungen:</p>
+    <img src='images/Spendenbescheinigungen.jpg' class='screenshot'>
+	<p>Durch einen Klick auf neu öffnet sich das Spendenbescheinigungs-Bearbeitungsfenster (siehe unten).
+		Mit einem Doppelklick auf eine Spendenbescheinigung öffnet sich das Bearbeitungsfenster (siehe unten). 
+		Mit einem Rechtsklick öffnet sich ein Kontextmenü. Damit können Spendenbescheinigungen gelöscht 
+		werden. Durch einen Klick wird die Spendenbescheinigung im PDF-Format ausgegeben.</p>
+    <img src='images/Spendenbescheinigung.jpg' class='screenshot'>
+	<p>Beispiel für eine Spendenbescheinigung:</p>
+    <img src='images/Formularausgefuellt.jpg' class='screenshot'>
+
+    <!--#include virtual="footer.shtml"-->  
+

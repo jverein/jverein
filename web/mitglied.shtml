@@ -1,0 +1,98 @@
+<!--#include virtual="main.shtml"-->  
+    <h2>Mitglied</h2>
+    <p>
+    <a name="Suche"></a>
+    <h3>Suche</h3>
+    <img src='images/Mitgliedsuche.jpg' class='screenshot'>
+    <p>Die Mitglieder sind nach dem Anfangsbuchstaben des Namens in die einzelnen Karteireiter einsortiert. 
+    	In dem Karteireiter mit dem Stern sind alle Mitglieder eingetragen. Das System stellt immer den 
+    	zuletzt benutzten Karteireiter wieder her. Nach einem Doppelklick auf das Mitglied werden die 
+    	kompletten Daten angezeigt. Mit einem Rechtsklick auf ein Mitglied öffnet sich ein Kontextmenü. 
+    	Damit kann das Mitglied bearbeitet oder gelöscht werden. Außerdem ist die Ausstellung 
+    	einer <a href="spendenbescheinigung.shtml">Spendenbescheinigung</a> möglich.</p>
+    <p>Die Selektion nach den Mitgliedschafts-Stati "Angemeldet", "Abgemeldet" und "Beide" ist möglich. 
+    	Weiterhin kann nach den Eigenschaften, einem Geburtszeitraum und nach Beitragsgruppen selektiert 
+    	werden.</p>
+    	
+    <img src='images/Mitgliedsucheeigenschaften.jpg' class='screenshot'>
+    <p>Es können eine oder mehrere Eigenschaften ausgewählt werden (STRG-Taste beim Mausklick gedrückt 
+    	halten). Die Eigenschaften sind "und-verknüpft". D. h. es werden die Mitglied angezeigt, die 
+    	alle Eigenschaften haben.</p>
+    
+    <a name="Grunddaten_des_Mitgliedes"></a>
+    <h3>Grunddaten des Mitgliedes</h3>
+    <img src='images/Mitgliedgrunddaten.jpg' class='screenshot'>
+    <p>Im oberen Teil sind die allgemeinen Daten des Mitgliedes zu finden. Wird eine Postleitzahl
+		eingegeben, für die bereits ein Mitglied gespeichert ist, wird der entsprechende Ort
+		übernommen.</p>
+	<p>Als Zahlungswege stehen</p>
+	<ul>
+		<li>Abbuchung</li>
+		<li>Barzahlung</li>
+		<li>Überweisung</li>
+	</ul>
+	<p>zur Verfügung.</p>
+	<p>Beim Zahlungsweg Abbuchung werden Bankleitzahl und die Kontonummer auf Plausibilität
+		überprüft. Zusätzlich kann ein abweichender Kontoinhaber eingegeben werden.</p>
+		
+	<a name="Mitgliedschaft"></a>
+	<h3>Mitgliedschaft</h3>
+	<p>Eintrittsdatum und Beitragsgruppe sind Pflichtfelder. Die Beitragsgruppen können unter 
+		<a href="administration_beitragsgruppen.shtml">Beitragsgruppen</a> für jeden Verein individuell 
+		konfiguriert werden. Beim Austrittsdatum wird das Datum des satzungsgemäßen Austritts 
+		(z. B. der 31.12. des jeweiligen Jahres) eingetragen. Unter Kündigung wird das Datum des 
+		Eingangs der Kündigung vermerkt.</p>
+	<p>Sofern eine Beitragsgruppe ausgewählt wurde, die mit "Familie: Zahler" gekennzeichnet ist, 
+		verändert sich das Formular wie folgt:</p>
+	<img src='images/Mitgliedmitgliedschaftfamiliezahler.jpg' class='screenshot'>
+	<p>Die Person (selber Mitglied), die für das Mitglied zahlt, kann aus einer Liste ausgewählt werden.</p>
+	<p>Bei einer Beitragsgruppe, die mit "Familie: Angehöriger" gekennzeichnet ist, sieht das Formular so 
+		aus:</p>
+	<img src='images/Mitgliedmitgliedschaftfamiliemitglied.jpg' class='screenshot'>
+	<p>Hier werden die Personen angezeigt, für die das Mitglied die Beiträge zahlt.</p>
+	<p>Sinn und Zweck dieser Familienverknüpfung ist es, die Voraussetzungen für die Familienmitgliedschaft 
+		prüfen zu können. Tritt ein Mitglied, dass für andere Mitglieder als Zahler eingetrgen ist, aus, 
+		kommt eine entsprechende Fehlermeldung. Dann sind die Beitragsgruppen der beitragsfreien Mitglieder 
+		zu verändern oder es ist ein anderer Zahler einzutragen.</p>
+	<a name="Zusatzbetraege"></a>
+	<h3>Zusatzbeträge</h3>
+	<p>Zusätzliche Zahlungen (z. B. Eigenanteile für Fahrten, Strafgelder ...) können über Zusatzbeträge 
+		verarbeitet werden.</p>
+	<img src='images/Mitgliedzusatzabbuchung.jpg' class='screenshot'>
+	<p>Ein Klick auf Neu öffnet folgendes Fenster.</p>
+	<img src='images/Mitgliedzusatzabbuchungneu.jpg' class='screenshot'>
+	
+	<a name="Vermerke"></a>
+	<h3>Vermerke</h3>
+	<p>Vermerke über das Mitglied (z. B. Funktionen ...) können in zwei Datenfeldern hinterlegt werden.</p>
+	<img src='images/Mitgliedvermerke.jpg' class='screenshot'>
+	
+	<a name="Wiedervorlage"></a>
+	<h3>Wiedervorlage</h3>
+	<img src='images/Mitgliedwiedervorlage.jpg' class='screenshot'>
+	<p>Mit einem Rechtsklick auf einen Wiedervorlagetermin kann entweder ein Erledigungsdatum gesetzt oder 
+		zurückgesetzt werden. Mit einem Klick  auf Neu öffnet sich folgendes Fenster:</p>
+	<img src='images/Mitgliedwiedervorlageneu.jpg' class='screenshot'>
+	
+	<a name="Eigenschaften"></a>
+	<h3>Eigenschaften</h3>
+	<img src='images/Mitgliedeigenschaften.jpg' class='screenshot'>
+	<p>Die bereits gespeicherten Eigenschaften werden angezeigt. Durch einen rechten Mausklick öffnet sich 
+		ein Kontextmenü. Damit können existierende Eigenschaften entfernt oder neue Eigenschaften aufgenommen 
+		werden.</p>
+	<img src='images/Mitgliedeigenschaftenneu.jpg' class='screenshot'>
+	<p>In der Tabelle werden die Eigenschaften angezeigt, die dem Mitglied bislang noch nicht zugeordnet 
+		wurden. Durch einen Doppelklick wird eine existierende Eigenschaft eingetragen. Alternativ kann 
+		der Text auch über die Tastatur eingegeben werden. Neu hinzugefügte Eigenschaften stehen anschließend 
+		für alle anderen Mitglieder zur Auswahl zur Verfügung.</p>
+
+	<a name="Zusatzfelder"></a>
+	<h3>Zusatzfelder</h3>
+	<p>Ab Version 1.1</p>
+	<img src='images/MitgliedZusatzfelder.jpg' class='screenshot'>
+	<p>Durch <a href="administration_felddefinitionen.shtml">Definition von Zusatzfeldern</a> die können 
+		zusätzliche Datenfelder erfasst werden.</p>
+
+    
+    <!--#include virtual="footer.shtml"-->  
+

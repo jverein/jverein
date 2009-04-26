@@ -1,0 +1,31 @@
+<!--#include virtual="main.shtml"-->  
+    <br>
+    <br>
+    <h1>Administration: Formulare</h1>
+    <p>
+    <p>Ab Version 1.1</p>
+    <p>In JVerein werden u. a. für Spendenbescheinigungen Formulare hinterlegt. Bei den Formularen handelt 
+    es sich um PDF-Dokumente. Zu jedem der Dokumente werden Formularfelder mit ihren Positionen, Zeichensatz 
+    und Zeichengröße hinterlegt.</p>
+    <p>Zunächst erscheint eine Liste der bereits definierten Formulare:</p>
+    <img src='images/Formulare.jpg' class='screenshot'>
+	<p>Durch einen Klick auf neu öffnet sich das Formular-Bearbeitungsfenster (siehe unten). Mit einem 
+	Doppelklick auf ein Formular öffnet sich das Bearbeitungsfenster (siehe unten). Mit einem Rechtsklick 
+	öffnet sich ein Kontextmenü. Damit können die Formularfelder bearbeitet werden, das Formular kann 
+	angezeigt werden oder gelöscht werden.
+    <img src='images/Formular.jpg' class='screenshot'>
+	<p>Jedem Formular wird ein eindeutiger Name gegeben. Ein Formulartyp ist auszuwählen. Bei der 
+	Neuaufnahme oder beim Update eines Formulares ist eine PDF-Datei auszuwählen.</p>
+	<p>Liste der Formularfelder:</p>
+    <img src='images/Formularfelder.jpg' class='screenshot'>
+    <p>Mit einem Klick auf neu öffnet sich das Formularfelder-Bearbeitungsfenster (siehe unten). Mit einem 
+    Doppelklick auf ein Formularfeld öffnet sich das Bearbeitungsfenster (siehe unten). Durch einen 
+    Rechtsklick öffnet sich eine Kontextmenü. Damit kann ein Formularfeld gelöscht werden.</p>
+    <p>Beispiel für ein Formular (ohne Daten)</p>
+    <img src='images/Formularroh.jpg' class='screenshot'>
+    <p>Beispiel für ein ausgefülltes Formular</p>
+    <img src='images/Formularausgefuellt.jpg' class='screenshot'>
+    
+    
+    <!--#include virtual="footer.shtml"-->  
+

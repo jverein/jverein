@@ -1,0 +1,197 @@
+<style type="text/css">
+  body {
+    color: navy; background-color: #f7fcf7;
+    font-size: 100.01%;
+    font-family: Helvetica,Arial,sans-serif;
+    margin: 0; padding: 1em 0;
+    text-align: center;  /* Zentrierung im Internet Explorer */
+  }
+
+  div#Seite {
+    text-align: left;    /* Seiteninhalt wieder links ausrichten */
+    margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
+    width: 850px;
+    padding: 0;
+    background: white ;
+    border: 2px ridge silver;
+    font-family: Helvetica,Arial,sans-serif;
+  }
+  html>body div#Seite {
+    border-color: gray;  /* Farbangleichung an den Internet Explorer  */
+  }
+  div#Inhalt {
+    background-color: white;
+    }
+
+h1 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 16pt;
+color: #3660AA;
+font-weight : bold;
+margin-top : 15pt;
+margin-bottom : 5pt;
+}
+h2 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 14pt;
+color: #3660AA;
+font-weight : bold;
+margin-top : 6pt;
+margin-bottom : 3pt;
+}
+h3 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 12pt;
+color: #3660AA;
+margin-top : 6pt;
+margin-bottom : 3pt;
+}
+h4 {
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-size: 10pt;
+color: #3660AA;
+margin-top : 4pt;
+margin-bottom : 3pt;
+}
+ul {
+      padding-left: 20px;
+}
+
+IMG {
+      border: 0px 0solid ; 
+      float: right; 
+      margin: 0px 25px 10px 0px;
+    }
+IMG.screenshot {
+	float: none;
+    vertical-align:top;    
+    }
+.arrow {  
+  padding-left: 23px;
+  background-image: url(./lightarrow.jpg);
+  background-repeat: no-repeat;
+  background-position: 0 -0.35em;
+}
+
+    
+    
+  A {
+text-decoration : none;
+font-family : Tahoma, Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: #FD6000;
+}
+A:HOVER {
+text-decoration : underline;
+color: #FD6000;
+}
+
+a[href^="http:"], a[href^="https:"] { 
+  padding-left: 12px;
+  background-image: url('./ext_link.gif');
+  background-repeat: no-repeat;
+  background-position: 0 0.25em;
+}
+  
+
+  ul#Navigation {
+    background-color: rgb(226, 226, 226);
+    font-size: 0.83em;
+    float: left; width: 150px;
+    margin: 0 0 1.2em; padding: 0;
+  }
+  ul#Navigation li {
+    list-style: none;
+    margin: 0; padding: 0.2em;
+  }
+ 
+  div#Inhalt {
+    margin: 0 0 1em 10px;
+    padding: 0 1em;
+  }
+  * html div#Inhalt {
+    height: 1em;  /* Workaround gegen den 3-Pixel-Bug des Internet Explorers */
+    margin-bottom: 0;
+  }
+  div#Inhalt td {
+    border-style : none;
+    border-width : 0px;
+    background-color: lightgray;
+    vertical-align: top;
+  }
+  
+  div#Inhalt p {
+    font-size: 1em;
+    margin: 1em 0;
+  }
+  ul {
+    font-size: 1em;
+   }
+
+  p#Kopf {
+    clear: both;
+    font-size: 0.83em;
+    color: #ffffff;
+    margin: 0; padding: 0.1em;
+    text-align: right;
+    background-color: #17335f;
+  }
+
+  p#Fusszeile {
+    clear: both;
+    font-size: 0.83em;
+    color: #ffffff;
+    margin: 0; padding: 0.1em;
+    text-align: center;
+    background-color: #17335f;
+  }
+  /*- Menu Tabs I--------------------------- */
+
+    #tabsI {
+      float:left;
+      width:100%;
+      background:#EFF4FA;
+      font-size:93%;
+      line-height:normal;
+	  border-bottom:1px solid #DD740B;
+      }
+    #tabsI ul {
+	margin:0;
+	padding:10px 10px 0 50px;
+	list-style:none;
+      }
+    #tabsI li {
+      display:inline;
+      margin:0;
+      padding:0;
+      }
+    #tabsI a {
+      float:left;
+      background:url("tableftI.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+      font-size:10pt;
+      
+      }
+    #tabsI a span {
+      float:left;
+      display:block;
+      background:url("tabrightI.gif") no-repeat right top;
+      padding:5px 15px 4px 6px;
+      color:#FFF;
+      }
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+    #tabsI a span {float:none;}
+    /* End IE5-Mac hack */
+    #tabsI a:hover span {
+      color:#FFF;
+      }
+    #tabsI a:hover {
+      background-position:0% -42px;
+      }
+    #tabsI a:hover span {
+      background-position:100% -42px;
+      }
+  
+</style>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+       "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta name="description" content="JVerein">
+    <meta name="keywords" content="Vereinsverwaltung, JVerein, Open Source, OpenSource, Jameica, Hibiscus, Java, Linux, Windows">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
+    <title>JVerein - Open Source Vereinsverwaltung</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="Seite">
+           <div style="text-align: right;background-color: white;">
+              <span style="color: #FD6000; font-size: 27pt;">J&nbsp;</span><span style="color: #3660AA; font-size: 27pt;">V&nbsp;e&nbsp;r&nbsp;e&nbsp;i&nbsp;n</span><br />
+              <span style="color: #000000; font-size: 14pt;">Open Source Vereinsverwaltung</span>
+            </div>
+  <p id="Kopf">&nbsp;<!--#config timefmt="%d.%m.%Y %H:%M" --><!--#echo var="DATE_LOCAL" --></p>
+
+<div id="tabsI">
+  <ul>
+    <li><a href="index.shtml" title="Home"><span>Home</span></a></li>
+    <li><a href="dokumentation.shtml" title="Dokumentation"><span>Dokumentation</span></a></li>
+    <li><a href="download.shtml" title="Download"><span>Download</span></a></li>
+    <li><a href="changelog.shtml" title="Changelog"><span>Changelog</span></a></li>
+    <li><a href="installation.shtml" title="Installation"><span>Installation</span></a></li>
+    <li><a href="cvs.shtml" title="CVS"><span>CVS</span></a></li>
+	<li><a href="mailliste.shtml" title="Mailliste"><span>Mailliste</span></a></li>
+	<li><a href="kontakt.shtml" title="Kontakt"><span>Kontakt</span></a></li>
+	<li><a href="danksagung.shtml" title="Danksagung"><span>Danksagung</span></a></li>
+  </ul>
+</div>
+
+  <div id="Inhalt">
+ 

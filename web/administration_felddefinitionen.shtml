@@ -1,0 +1,18 @@
+<!--#include virtual="main.shtml"-->  
+    <br>
+    <br>
+    <h1>Administration: Felddefinitionen</h1>
+    <p>
+    <p>Ab Version 1.1</p>
+    <img src='images/Felddefinitionen.jpg' class='screenshot'>
+	<p>Der Benutzer kann zusätzliche Datenfelder definieren. Durch einen Klick auf neu öffnet sich folgenes 
+	Fenster:
+    <img src='images/Felddefinition.jpg' class='screenshot'>
+    <p>Der Names des Feldes kann auch den Zeichen a-z und 0-9 und _ (Unterstrich) bestehen. Er darf keine 
+    Leerzeichen enthalten und sich nicht mit existierenden Feldnamen überschneiden. Als Label kann ein 
+    beliebiger Begriff verwendet werden, der bei der Eingabe der Daten den Feld vorangestellt wird. Das Feld 
+    kann zwischen 1 und 1000 Zeichen lang sein.<p>
+    <p>Feldnamen und Label können jederzeit geändert werden. Daten gehen hierdurch nicht verloren. Ein 
+    Feld kann nur gelöscht werden, wenn bei keinem Mitglied Daten in diesem Feld gespeichert sind. 
+<!--#include virtual="footer.shtml"-->  
+
