@@ -1,0 +1,34 @@
+<!--#include virtual="main.shtml"-->  
+    <br>
+    <br>
+    <h1>Rechnung</h1>
+    <p>
+    <p>Ab Version 1.1</p>
+   
+   	<p>Vorbereitend ist sind ein oder mehrere <a href="administration_formulare.shtml">Formulare</a> einzurichten.</p>
+   	<p>Als Formularfelder stehen zur Verfügung:</p>
+   	<ul>
+   		<li> Empfänger</li>
+   		<li> Zahlungsgrund 1</li>
+   		<li> Zahlungsgrund 2</li>
+   		<li> Betrag</li>
+   		<li> Zahlungsweg</li>
+   		<li> Tagesdatum</li>
+   	</ul>
+   	<p>Sofern die Abrechnungsdaten von einem Mitglied stammen, stehen auch die Daten der Mitgliedertabelle 
+   		zur Verfügung</p>
+   	<p>Durch die <a href="abrechnung.shtml">Abrechnung</a> werden die Informationen in einer separaten Tabelle 
+   		festgehalten. Daraus können die Rechnungen erstellt werden.</p>
+   	<p>Übersicht über die Rechnungen:</p>
+    <img src='images/Rechnungen.jpg' class='screenshot'>
+   	<p>Mit einem Doppelklick auf eine Rechnungszeile öffnet sich das folgende Fenster mit den 
+   		Rechnungsinformationen. Diese können hier auch bearbeitet werden.</p>
+    <img src='images/Rechnung.jpg' class='screenshot'>
+	<p>In der Übersicht der Rechnungen können eine oder mehrere Rechnungen markiert werden. Durch einen 
+		Rechtsklick öffnet sich ein Kontextmenü. Damit können entweder die Rechnungen ausgestellt werden 
+		oder gelöscht werden.</p>
+	<p>Beispiel für eine Rechnung</p>
+	<img src='images/Rechnungausgefuellt.jpg' class='screenshot'>
+
+    <!--#include virtual="footer.shtml"-->  
+
