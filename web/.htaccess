@@ -1,1 +1,3 @@
 Options +Includes
+AddType application/x-httpd-php .php .php3 .php4 .php5
+
