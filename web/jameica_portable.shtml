@@ -8,30 +8,30 @@
 		Plugins wie Hibiscus (Onlinebanking), JVerein (Vereinsverwaltung), Syntax (Finanzbuchhaltung) 
 		oder Jollina (Lohnbuchhaltung) zwingend ein installiertes Java Runtime Environment (JRE) ab 
 		Version 1.4 (JVerein ab 1.5) auf dem jeweils genutzten PC voraus. Jameica und die Plugins 
-		selbst benÃ¶tigen ja keine Installation, sondern mÃ¼ssen nur (richtig) entpackt werden.</p>
+		selbst benötigen ja keine Installation, sondern müssen nur (richtig) entpackt werden.</p>
 	<p>Zu Hause hat man zumeist eine JRE installiert. Wie ist es aber, wenn man z. B. in einem 
-		Internetcafe o.Ã¤. sitzt und seine Onlinebanking-GeschÃ¤fte nicht per Browser abwickeln mÃ¶chte? 
+		Internetcafe o.ä. sitzt und seine Onlinebanking-Geschäfte nicht per Browser abwickeln möchte? 
 		Hier kann man nicht zwingend von einer installierten JRE ausgehen, somit kann man evtl. 
 		Jameica inkl. Plugins nicht nutzen.</p>
 	<p>Dieser Frage bin ich nachgegangen und habe durch Recherchen im Internet bzw. durch die 
-		gegebenen MÃ¶glichkeiten von Jameica auch eine LÃ¶sung fÃ¼r Windows (ab 2000) gefunden, die ich 
-		hiermit nÃ¤her vorstellen mÃ¶chte.</p>
-	<h2>Was wird benÃ¶tigt?</h2>
+		gegebenen Möglichkeiten von Jameica auch eine Lösung für Windows (ab 2000) gefunden, die ich 
+		hiermit näher vorstellen möchte.</p>
+	<h2>Was wird benötigt?</h2>
 	<ul>
 		<li> Jameica (<a href="http://www.willuhn.de/">http://www.willuhn.de</a>)</li>
 		<li> mindestens 1 Plugin (s.o.)</li>
 		<li> Java Portablizer (<a href="http://portableapps.com/support/openoffice_portable#java">
 			http://portableapps.com/support/openoffice_portable#java</a>)</li>
-		<li> USB-Stick oder anderer WechseldatentrÃ¤ger mit mindestens 128MB freiem Speicherplatz* 
+		<li> USB-Stick oder anderer Wechseldatenträger mit mindestens 128MB freiem Speicherplatz* 
 			(je nach Anzahl der installierten Plugins entsprechend mehr!)</li>
 		<li> Zur Einrichtung: PC mit installierter JRE ab Version 1.4 (bei JVerein ab 1.5)</li>
 	</ul>
-	<p>*Der Speicherplatz wird hauptsÃ¤chlich fÃ¼r die JRE (ca. 80MB) benÃ¶tigt!</p>
+	<p>*Der Speicherplatz wird hauptsächlich für die JRE (ca. 80MB) benötigt!</p>
 	<h2>Vorgehensweise:</h2>
-	<h3>1. ÃœberprÃ¼fung Java-Version auf dem PC</h3>
-	<p>Auf dem PC, auf welchem die portable Version erstellt werden soll, muss zunÃ¤chst Ã¼berprÃ¼ft werden, 
+	<h3>1. Überprüfung Java-Version auf dem PC</h3>
+	<p>Auf dem PC, auf welchem die portable Version erstellt werden soll, muss zunächst überprüft werden, 
 		ob und in welcher Version die JRE installiert ist.</p>
-	<p>Hierzu Ã¶ffnen wir eine Eingabeaufforderung (Start -&gt; Programme -&gt; ZubehÃ¶r -&gt; Eingabeaufforderung) 
+	<p>Hierzu öffnen wir eine Eingabeaufforderung (Start -&gt; Programme -&gt; Zubehör -&gt; Eingabeaufforderung) 
 		und geben den Befehl "java -version" ein:</p>
 	<img src='images/Jameica_portable-img1.png' class='screenshot'>
 	<p>Wir erhalten die aktuelle Version der JRE angezeigt, hier 1.6.0_02.</p>
@@ -39,102 +39,105 @@
 	<p>Sollte auf dem PC noch kein JRE installiert sein, so muss dies zunÃ¤chst nachgeholt werden.</p>
 	<p>Download JRE:<a href="http://java.sun.com/javase/downloads/ea.jsp">
 		http://java.sun.com/javase/downloads/ea.jsp</a></p>
-	<p>Nach der Installation kÃ¶nnen Sie gegebenenfalls nochmals die Java-Version Ã¼berprÃ¼fen, sollte 
+	<p>Nach der Installation können Sie gegebenenfalls nochmals die Java-Version überprüfen, sollte 
 		aber nicht mehr notwendig sein!</p>
-	<h3>2. Entpacken von Jameica + Plugin(s) auf einen WechseldatentrÃ¤ger</h3>
-	<p>Falls noch nicht geschehen, laden Sie sich bitte das Paket Jameica fÃ¼r Windows auf Ihren PC, 
-		ebenfalls das/die Plugins, die Sie auf dem WechseldatentrÃ¤ger nutzen wollen.</p>
+	<h3>2. Entpacken von Jameica + Plugin(s) auf einen Wechseldatenträger</h3>
+	<p>Falls noch nicht geschehen, laden Sie sich bitte das Paket Jameica für Windows auf Ihren PC, 
+		ebenfalls das/die Plugins, die Sie auf dem Wechseldatenträger nutzen wollen.</p>
 	<p>Downloadlinks:</p>
 	<p><a href="http://www.willuhn.de/">http://www.willuhn.de</a></p>
 	<p><a href="http://www.jverein.de/">http://www.jverein.de</a></p>
 	<p><a href="http://www.jollina.de/">http://www.jollina.de</a></p>
-	<p>Entpacken Sie nun zunÃ¤chst das Paket jameica-win32.zip auf Ihren WechseldatentrÃ¤ger. Sie kÃ¶nnen 
+	<p>Entpacken Sie nun zunächst das Paket jameica-win32.zip auf Ihren Wechseldatenträger. Sie können 
 		das Paket entweder direkt ins Root, also z.B. X:\ entpacken, oder aber in ein Unterverzeichnis 
-		des WechseldatentrÃ¤gers, z.B. X:/Portablesoftware.</p>
-	<p>AnschlieÃŸend entpacken Sie das/die Plugin(s) in das Pluginsverzeichnis von Jameica. In 
+		des Wechseldatenträgers, z.B. X:/Portablesoftware.</p>
+	<p>Anschließend entpacken Sie das/die Plugin(s) in das Pluginsverzeichnis von Jameica. In 
 		vorgenannten Beispielen:</p>
 	<p>X:\jameica\plugins</p>
 	<p>bzw.</p>
 	<p>X:\Portablesoftware\jameica\plugins</p>
-	<h3>3. Java vom lokalen PC auf den WechseldatentrÃ¤ger "kopieren"</h3>
+	<h3>3. Java vom lokalen PC auf den Wechseldatenträger "kopieren"</h3>
 	<p>Laden Sie sich, so noch nicht geschehen, den Java Portablizer von 
 		<a href="http://portableapps.com/support/openoffice_portable#java">
 		http://portableapps.com/support/openoffice_portable#java</a>
 		herunter.</p>
 	<p>Starten Sie den Java Portablizer.</p>
 	<img src='images/Jameica_portable-img2.png' class='screenshot'>
-	<p>Dieses Fenster einfach mit "Next" bestÃ¤tigen.</p>
+	<p>Dieses Fenster einfach mit "Next" bestätigen.</p>
 	<img src='images/Jameica_portable-img3.png' class='screenshot'>
-	<p>Geben Sie als Destination Folder den Installations-Pfad von Jameica auf dem WechseldatentrÃ¤ger 
-		an und am besten als Unterverzeichnis zusÃ¤tzlich "Java". Klicken Sie anschlieÃŸend auf "Install".</p>
+	<p>Geben Sie als Destination Folder den Installations-Pfad von Jameica auf dem Wechseldatenträger 
+		an und am besten als Unterverzeichnis zusätzlich "Java". Klicken Sie anschließend auf "Install".</p>
 	<p>Die notwendigen Java-Dateien werden nun ebenfalls auf den Stick kopiert.</p>
 	<h3>4. jameica.bat an Java anpassen</h3>
-	<p>Wechseln Sie in das Verzeichnis von Jameica auf dem WechseldatentrÃ¤ger:</p>
+	<p>Wechseln Sie in das Verzeichnis von Jameica auf dem Wechseldatenträger:</p>
 	<img src='images/Jameica_portable-img4.png' class='screenshot'>
-	<p>Mit der rechten Maustaste klicken Sie auf die Datei "jameica.bat" und wÃ¤hlen den Punkt 
+	<p>Mit der rechten Maustaste klicken Sie auf die Datei "jameica.bat" und wählen den Punkt 
 		Bearbeiten.</p>
 	<img src='images/Jameica_portable-img5.png' class='screenshot'>
-	<p>Hier mÃ¼ssen Sie nun der Datei "javaw.exe" den richtigen Pfad mitgeben, damit Jameica auf das auf 
-		dem WechseldatentrÃ¤ger befindliche Java zugreift. In unserem Beispiel haben wir als Pfad "Java" 
-		unterhalb des Installationspfades von Jameica gewÃ¤hlt. Die Datei "javaw.exe" befindet sich 
+	<p>Hier müssen Sie nun der Datei "javaw.exe" den richtigen Pfad mitgeben, damit Jameica auf das auf 
+		dem Wechseldatenträger befindliche Java zugreift. In unserem Beispiel haben wir als Pfad "Java" 
+		unterhalb des Installationspfades von Jameica gewählt. Die Datei "javaw.exe" befindet sich 
 		hierunter nochmals im Verzeichnis "/bin".</p>
-	<p>Statt "start javaw.exe ..." mÃ¼ssen Sie also "start Java/bin/javaw.exe ..." eingeben. Sollten Sie 
-		einen anderen Installationspfad fÃ¼r die JRE gewÃ¤hlt haben, so mÃ¼ssen Sie den Pfad natÃ¼rlich 
+	<p>Statt "start javaw.exe ..." müssen Sie also "start Java/bin/javaw.exe ..." eingeben. Sollten Sie 
+		einen anderen Installationspfad für die JRE gewählt haben, so müssen Sie den Pfad natürlich 
 		entsprechend anpassen.</p>
-	<p>Ãœber Datei -&gt; Speichern kÃ¶nnen Sie die angepasste "jameica.bat" speichern.</p>
-	<h3>5. Startdatei fÃ¼r Daten auf dem USB-Stick erstellen</h3>
-	<p>Da standardmÃ¤ÃŸig die Daten von Jameica bzw. deren Plugins nach</p>
+	<p>Über Datei -&gt; Speichern können Sie die angepasste "jameica.bat" speichern.</p>
+	<h3>5. Startdatei für Daten auf dem USB-Stick erstellen</h3>
+	<p>Da standardmäßig die Daten von Jameica bzw. deren Plugins nach</p>
 	<p>&quot;C:\Dokumente und Einstellungen\&lt;benutzername&gt;\.jameica&quot;</p>
-	<p>gespeichert werden, mÃ¼ssen wir noch eine Startdatei erstellen, damit die Daten auf dem 
-		WechseldatentrÃ¤ger gespeichert werden.</p>
+	<p>gespeichert werden, müssen wir noch eine Startdatei erstellen, damit die Daten auf dem 
+		Wechseldatenträger gespeichert werden.</p>
 	<p>Beachte:</p>
-	<p>Das Datenverzeichnis muss auÃŸerhalb des Programmverzeichnisses von Jameica liegen!!!</p>
-	<p>Wechseln Sie zunÃ¤chst in das Programmverzeichnis von Jameica auf dem WechseldatentrÃ¤ger:</p>
+	<p>Das Datenverzeichnis muss außerhalb des Programmverzeichnisses von Jameica liegen!!!</p>
+	<p>Wechseln Sie zunächst in das Programmverzeichnis von Jameica auf dem Wechseldatenträger:</p>
 	<img src='images/Jameica_portable-img6.png' class='screenshot'>
-	<p>Per rechter Maustaste erstellen Sie Ã¼ber "Neu -&gt; Textdokument" ein neues Dokument und geben diesem 
+	<p>Per rechter Maustaste erstellen Sie über "Neu -&gt; Textdokument" ein neues Dokument und geben diesem 
 		z. B. den Namen "jameica-portable.bat".</p>
 	<img src='images/Jameica_portable-img7.png' class='screenshot'>
-	<p>Diese Meldung mit "Ja" bestÃ¤tigen.</p>
+	<p>Diese Meldung mit "Ja" bestätigen.</p>
 	<img src='images/Jameica_portable-img8.png' class='screenshot'>
-	<p>Mit der rechten Maustaste klicken Sie auf die eben erstellte Datei und wÃ¤hlen den Punkt 
-		"Bearbeiten", es Ã¶ffnet sich ein leeres Editorfenster, in welches wir z. B. folgendes eingeben:</p>
+	<p>Mit der rechten Maustaste klicken Sie auf die eben erstellte Datei und wählen den Punkt 
+		"Bearbeiten", es öffnet sich ein leeres Editorfenster, in welches wir z. B. folgendes eingeben:</p>
 	<img src='images/Jameica_portable-img9.png' class='screenshot'>
 	<p>Beachte: Sollten Sie einen Pfad mit Unterordner(n) erstellen wollen z.B. "..\daten\jameica", 
-		dann mÃ¼ssen die Ã¼bergeordneten Ordner manuell angelegt werden. Im Beispiel muss also der 
+		dann müssen die übergeordneten Ordner manuell angelegt werden. Im Beispiel muss also der 
 		Ordner ..\daten bereits angelegt sein!</p>
-	<p>Sollte der von Ihnen gewÃ¤hlte Pfad ein Leerzeichen enthalten, so setzen Sie den Pfad bitte in 
-		AnfÃ¼hrungszeichen, also so:</p>
+	<p>Sollte der von Ihnen gewählte Pfad ein Leerzeichen enthalten, so setzen Sie den Pfad bitte in 
+		Anführungszeichen, also so:</p>
 	<img src='images/Jameica_portable-img10.png' class='screenshot'>
-	<p>AnschlieÃŸend speichern wir diese Datei Ã¼ber "Datei -&gt; Speichern" wieder ab.</p>
+	<p>Anschließend speichern wir diese Datei über "Datei -&gt; Speichern" wieder ab.</p>
 	<p><b>Fertig ist unsere portable Version von Jameica und dessen/deren Plugin(s)!!!</b></p>
-	<p>Die portable Version von Jameica starten Sie bitte Ã¼ber die Datei "jameica-portable.bat". 
+	<p>Die portable Version von Jameica starten Sie bitte über die Datei "jameica-portable.bat". 
 		Sollten Sie der Datei einen anderen Namen verpasst haben, dann entsprechend.</p>
-	<p><center>Viel SpaÃŸ!!!</center></p>
+	<p><center>Viel Spaß!!!</center></p>
 	<p><b>Weitere Hinweise:</b></p>
 	<ul>
-		<li> Es wÃ¤re mÃ¶glich, dass man die JRE fÃ¼r den Betrieb von Jameica und dessen Plugins noch 
+		<li> Es wäre möglich, dass man die JRE für den Betrieb von Jameica und dessen Plugins noch 
 			um diverse Dateien bereinigen kann, um den Umfang der Installation zu verringern. Leider 
 			fehlen mir dazu die Kenntnisse!</li>
-		<li> Wer bereits ein Java auf seinem WechseldatentrÃ¤ger "installiert" hat kann auch dieses 
+		<li> Wer bereits ein Java auf seinem Wechseldatenträger "installiert" hat kann auch dieses 
 			nutzen, muss aber entsprechend die Pfade in der Datei "jameica.bat" anpassen.</li>
-		<li> FÃ¼r die weitere Einrichtung/Nutzung von Jameica bzw. der Plugins beachten Sie bitte 
+		<li> Für die weitere Einrichtung/Nutzung von Jameica bzw. der Plugins beachten Sie bitte 
 			die Dokumentationen zum jeweiligen Produkt.</li>
 	</ul>
-	<p><b>Zusatzhinweis fÃ¼r Nutzer von komfortablen "Portable Apps Launcher"</b></p>
-	<p>Es gibt diverse Tools mit denen man sich ein komfortables StartmenÃ¼ fÃ¼r portable Programme 
-		auf einem WechseldatentrÃ¤ger erstellen kann.</p>
-	<p>Sollte man ein solches im Einsatz haben, so sollte natÃ¼rlich der Installationspfad entsprechend 
-		deren Vorgaben gewÃ¤hlt werden.</p>
-	<p>Durch den Einsatz eines solchen Programmes kann u. a. Punkt 5. (erstellen einer zusÃ¤tzlichen 
+	<p><b>Zusatzhinweis für Nutzer von komfortablen "Portable Apps Launcher"</b></p>
+	<p>Es gibt diverse Tools mit denen man sich ein komfortables Startmenü für portable Programme 
+		auf einem Wechseldatenträger erstellen kann.</p>
+	<p>Sollte man ein solches im Einsatz haben, so sollte natürlich der Installationspfad entsprechend 
+		deren Vorgaben gewählt werden.</p>
+	<p>Durch den Einsatz eines solchen Programmes kann u. a. Punkt 5. (erstellen einer zusätzlichen 
 		Startdatei) entfallen, so man der Startdatei Parameter mitgeben kann.</p>
 	<p>Hier am Beispiel von ASuite (<a href="http://www.salvadorsoftware.com/software/asuite">
-		http://www.salvadorsoftware.com/software/asuite</a>) erlÃ¤utert.</p>
+		http://www.salvadorsoftware.com/software/asuite</a>) erläutert.</p>
 	<img src='images/Jameica_portable-img11.png' class='screenshot'>
 	<p>In den Eigenschaften des Programmes:</p>
 	<img src='images/Jameica_portable-img12.png' class='screenshot'>
 	
 	<!-- 
     $Log$
+    Revision 1.1  2009/05/03 15:33:30  jost
+    Neue Homepage
+
     -->
 	
 <!--#include virtual="footer.shtml"-->  
