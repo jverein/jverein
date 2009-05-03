@@ -55,5 +55,11 @@
 	Alternativ kann mit einem rechten Mausklick auf eine Beitragsgruppe öffnet sich ein 
 	Kontext-Menü. Damit kann eine Beitragsgruppe, die keinem Mitglied zugeordnet ist, gelöscht 
 	werden. Bei zugeordneten Beitragsgruppen erscheint eine Fehlermeldung.</p> 
+	
+	<!-- 
+    $Log$
+    -->
+	
+	
  <!--#include virtual="footer.shtml"-->  
 

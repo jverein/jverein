@@ -10,5 +10,10 @@
     <h2><a name="backup_importieren"></a>Diagnosebackup importieren</h2>
     <p>Im Menü unter Plugins|JVerein|Erweitert kann das Backup importiert werden. Es erscheint ein 
     Datei-Auswahl-Dialog. Danach wird die Datenbank importiert.  </p>
+    
+    <!-- 
+    $Log$
+    -->
+    
 <!--#include virtual="footer.shtml"-->  
 

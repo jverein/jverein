@@ -26,6 +26,9 @@
     <p>Beispiel für ein ausgefülltes Formular</p>
     <img src='images/Formularausgefuellt.jpg' class='screenshot'>
     
+    <!-- 
+    $Log$
+    -->
     
     <!--#include virtual="footer.shtml"-->  
 

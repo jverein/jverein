@@ -6,5 +6,10 @@
     Klick darauf öffnet das Konfigurationsfenster. Mit einem Rechtsklick auf JVerein: Wiedervorlage kann 
     die Anzeige aktiviert oder deaktiviert werden. 
     </p>
+    
+    <!-- 
+    $Log$
+    -->
+    
  <!--#include virtual="footer.shtml"-->  
 

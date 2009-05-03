@@ -14,5 +14,10 @@
 	die Standardwerte 50,60,65,70,75,80,85,90,95 verwendet.</p>
 	<p>In die <a href='jameica_startseite.shtml'>Jameica-Startseite</a> kann eine Liste der 
 	Wiedervorlagetermine eingeblendet werden.</p>
+	
+	<!-- 
+    $Log$
+    -->
+	
  <!--#include virtual="footer.shtml"-->  
 

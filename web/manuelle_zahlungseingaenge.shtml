@@ -9,7 +9,11 @@
 		<li>Fall löschen</li>
 	</ul>
 	
-    <img src='images/Manuellezahlungseingänge.jpg' class='screenshot'>
+    <img src='images/Manuellezahlungseingaenge.jpg' class='screenshot'>
+        
+    <!-- 
+    $Log$
+    -->
         
     <!--#include virtual="footer.shtml"-->  
 

@@ -29,7 +29,7 @@
 		<li>das Ausführungsdatum gelöscht werden</li>
 		<li>der Zusatzbetrag werden</li>
 	</ul>
-    <img src='images/Zusatzabbuchungenübersicht.jpg' class='screenshot'>
+    <img src='images/Zusatzabbuchungenuebersicht.jpg' class='screenshot'>
   	<img src='images/Mitgliedzusatzabbuchungneu.jpg' class='screenshot'>
 	
 	<p>Bei der Abrechnung finden folgende Prüfungen statt:</p>
@@ -45,6 +45,10 @@
 		1.11.2008 - Berechnung. Anschließend wird das Fälligkeitsdatum auf den 1.12.2008 gesetzt. 
 		Am oder nach dem 1.12.2008 findet die nächste Berechnung statt. Danach wird das 
 		Fälligkeitsdatum auf den 1.1.2009 gesetzt.....</p>
+
+    <!-- 
+    $Log$
+    -->
         
     <!--#include virtual="footer.shtml"-->  
 

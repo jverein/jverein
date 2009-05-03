@@ -12,5 +12,9 @@
 	<p>Beispiel für eine Spendenbescheinigung:</p>
     <img src='images/Formularausgefuellt.jpg' class='screenshot'>
 
+    <!-- 
+    $Log$
+    -->
+
     <!--#include virtual="footer.shtml"-->  
 

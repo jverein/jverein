@@ -14,5 +14,11 @@
     kann zwischen 1 und 1000 Zeichen lang sein.<p>
     <p>Feldnamen und Label können jederzeit geändert werden. Daten gehen hierdurch nicht verloren. Ein 
     Feld kann nur gelöscht werden, wenn bei keinem Mitglied Daten in diesem Feld gespeichert sind. 
+
+    <!-- 
+    $Log$
+    -->
+
+
 <!--#include virtual="footer.shtml"-->  
 

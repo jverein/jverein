@@ -1,0 +1,17 @@
+<!--#include virtual="main.shtml"-->  
+    <br>
+    <br>
+    <h1>Dokumentation: Auswertung</h1>
+    <ul>
+		<li><a href="dokumentationauswertungmitglieder.shtml">Mitglieder</a></li>
+		<li><a href="dokumentationauswertungjubilaeen.shtml">Jubiläen</a></li>
+		<li><a href="dokumentationauswertungkursteilnehmer.shtml">Kursteilnehmer</a></li>
+		<li><a href="dokumentationauswertungstatistik.shtml">Statistik</a></li>
+		<li><a href="dokumentationauswertungadressbuchexport.shtml">Adressbuch-Export</a>(ab Version 1.2)</li>
+	</ul>
+	<!-- 
+    $Log$
+    -->
+	
+ <!--#include virtual="footer.shtml"-->  
+

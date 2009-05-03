@@ -16,5 +16,9 @@
     <h2>Lehrgang beim Mitglied anlegen</h2>
     <img src='images/Mitgliedlehrgang.jpg' class='screenshot'>
 
-    <!--#include virtual="footer.shtml"-->  
+    <!-- 
+    $Log$
+    -->
+
+<!--#include virtual="footer.shtml"-->  
 

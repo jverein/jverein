@@ -5,7 +5,7 @@
 	<p>ab Version 1.1 verfügbar</p>
 	<p>Die Abrechnung wird mit dem untenstehenden Bildschirm initiiert. Es können</p>
 	<ul>
-		<li>Mitgliedsbeiträge je nach <a href="beitragsmodelle.shtml">Beitragsmodell</a></li>
+		<li>Mitgliedsbeiträge je nach <a href="dokumentationbeitragsmodelle.shtml">Beitragsmodell</a></li>
 		<li>Beiträge für im laufenden Jahr eingetretene Mitglieder</li>
 		<li>Zusatzbeträge</li>
 		<li>Kursgebühren</li>
@@ -32,6 +32,9 @@
         
     <!-- 
     $Log$
+    Revision 1.2  2009/05/03 09:29:14  jost
+    Neue Homepage
+
     -->
     <!--#include virtual="footer.shtml"-->  
 

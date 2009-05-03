@@ -1,0 +1,25 @@
+<!--#include virtual="main.shtml"-->  
+    <br>
+    <br>
+    <h1>Dokumentation: Auswertung: Mitglieder</h1>
+    <p>Der Mitgliederbestand kann nach den unten aufgeführten Merkmalen selektiert werden.</p>
+    <p>Die Ausgabe erfolgt entweder im PDF oder im CSV-Format. Nach der Erzeugung der Datei wird ein 
+    	entsprechendes Anzeigeprogramm aufgerufen.</p>
+    <p>Die Sortierung erfolgt nach</p>
+	<ul>
+		<li> Name, Vorname</li>
+		<li> Eintrittsdatum</li>
+		<li> Geburtsdatum</li>
+		<li> Geburtsmonat und -jahr (Geburtstagliste). Hinweis: Runde Geburtstage können in der 
+			<a href="dokumentationauswertungjubilaeen.shtml">Jubiläumsliste</a> ausgegeben werden.</li>
+	</ul>
+	<p>Ab Version 1.1: Sofern <a href="administration_felddefinitionen.shtml">Zusatzfelder definiert</a> 
+	    wurden, werden die in die CSV-Datei exportiert.</p>
+    <img src='images/Auswertung.jpg' class='screenshot'>
+   
+    <!-- 
+    $Log$
+    -->
+        
+    <!--#include virtual="footer.shtml"-->  
+

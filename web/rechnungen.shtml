@@ -29,6 +29,10 @@
 		oder gelöscht werden.</p>
 	<p>Beispiel für eine Rechnung</p>
 	<img src='images/Rechnungausgefuellt.jpg' class='screenshot'>
+    
+    <!-- 
+    $Log$
+    -->
 
     <!--#include virtual="footer.shtml"-->  
 

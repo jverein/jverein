@@ -93,6 +93,9 @@
 	<p>Durch <a href="administration_felddefinitionen.shtml">Definition von Zusatzfeldern</a> die können 
 		zusätzliche Datenfelder erfasst werden.</p>
 
+    <!-- 
+    $Log$
+    -->
     
     <!--#include virtual="footer.shtml"-->  
 

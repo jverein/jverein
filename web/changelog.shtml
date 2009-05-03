@@ -100,7 +100,7 @@
 			<li>Icons ins Menü und in die Kontextmenüs aufgenommen.</li>
 			<li>Telefonnummern auf 20 Stellen verlängert.</li>
 			<li>Bugfix MySQL-Support. Siehe auch geänderte 
-				<a href="mysql_support.shtml">Installationsbeschreibung</a></li>
+				<a href="dokumentationmysql.shtml">Installationsbeschreibung</a></li>
 		</ul>
 	</li>
 	<li>19.12.2008
@@ -186,14 +186,14 @@
 	<li>21.09.2008
 		<ul>
 			<li>Beim Start wird geprüft, ob die korrekten Versionen von Jameica und Hibiscus installiert sind.</li>
-			<li>Bei den <a href="auswertung_jubilaeen.shtml">Jubiläen</a> können jetzt Altersjubilare 
+			<li>Bei den <a href="dokumentationauswertungjubilaeen.shtml">Jubiläen</a> können jetzt Altersjubilare 
 				ausgewertet werden. Unter <a href="administration_stammdaten.shtml"> Stammdaten</a> 
 				werden die Geburtstage konfiguriert.</li>
 		</ul>
 	</li>
 	<li>16.09.2008
 		<ul>
-			<li>Neu: <a href="rechnung.shtml">Rechnung</a></li>
+			<li>Neu: <a href="rechnungen.shtml">Rechnung</a></li>
 			<li>Abbuchung heißt jetzt Abrechnung.</li>
 		</ul>
 	</li>
@@ -204,7 +204,7 @@
 	</li>
 	<li>19.07.2008
 		<ul>
-			<li>Neu: <a href="formulare.shtml">Formulare</a></li>
+			<li>Neu: <a href="administration_formulare.shtml">Formulare</a></li>
 			<li>Neu: <a href="spendenbescheinigung.shtml">Spendenbescheinigung</a></li>
 		</ul>
 	</li>
@@ -257,8 +257,10 @@
 	<li>10.04.2008
 		<ul>
 			<li>Speicherung von Zusatzfeldern bei den Mitgliedern 
-				(<a href="administration_felddefinitionen.shtml">Definition</a>, <a href="zusatzfelder.shtml">Mitglied</a>, <a href="administration_import.shtml">Import</a>, 
-				 <a href="auswertung.shtml#auswertung_der_mitglieder">Export</a>).</li>
+				(<a href="administration_felddefinitionen.shtml">Definition</a>, 
+				<a href="mitglied.shtml#Zusatzfelder">Mitglied</a>, 
+				<a href="administration_import.shtml">Import</a>, 
+				 <a href="dokumentationauswertungmitglieder.shtml">Export</a>).</li>
 		</ul>
 	</li>
 	<li>04.04.2008
@@ -283,7 +285,7 @@
 		<li>PDF-Dokumentation durch Link zu diesem Wiki ersetzt.</li>
 		<li>Neu: Jubiläumsliste</li>
 		<li>Direkte Übernahme der Lastschriften als Einzel- oder Sammellastschriften in 
-			<a href="http://www.willuhn.de/projects/hibiscus/">Hibiscus</a>.</li>
+			<a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a>.</li>
 		<li>Bei den <a href="administration_einstellungen.shtml">Einstellungen</a> können jetzt 
 			Dateinamenmuster vorgegeben werden. Dieses Muster wird bei der Erzeugung von Dateinamen 
 			verwendet.</li>
@@ -296,7 +298,7 @@
 			Siehe <a href="https://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=12862&amp;group_id=7335">#12862</a></li>
 		<li>Erweiterung der Filterkriterien bei der Mitgliedersuche.</li>
 		<li>h2.jar entfernt. Wird durch Jameica mitgeliefert.</li>
-		<li><a href="mysql_support.shtml">MySQL-Support</a> von Michael Trapp übernommen.</li>
+		<li><a href="dokumentationmysql.shtml">MySQL-Support</a> von Michael Trapp übernommen.</li>
 		<li>Bei der Abbuchung wird jetzt ein Stichtag abgefragt. Dieser Stichtag wird zur Prüfung herangezogen, 
 			ob ein ausgetretenes Mitglied noch zahlen muss. 
 			Siehe <a href="https://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=12861&amp;group_id=7335">#12861</a></li>
@@ -412,6 +414,9 @@
 	</ul>
 </li>
 </ul>
+    <!-- 
+    $Log$
+    -->
 
  <!--#include virtual="footer.shtml"-->  
 

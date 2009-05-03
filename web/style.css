@@ -1,4 +1,3 @@
-<style type="text/css">
   body {
     color: navy; background-color: #f7fcf7;
     font-size: 100.01%;
@@ -23,87 +22,66 @@
     background-color: white;
     }
 
-h1 {
-font-family : Tahoma, Arial, Helvetica, sans-serif;
-font-size: 16pt;
-color: #3660AA;
-font-weight : bold;
-margin-top : 15pt;
-margin-bottom : 5pt;
-}
-h2 {
-font-family : Tahoma, Arial, Helvetica, sans-serif;
-font-size: 14pt;
-color: #3660AA;
-font-weight : bold;
-margin-top : 6pt;
-margin-bottom : 3pt;
-}
-h3 {
-font-family : Tahoma, Arial, Helvetica, sans-serif;
-font-size: 12pt;
-color: #3660AA;
-margin-top : 6pt;
-margin-bottom : 3pt;
-}
-h4 {
-font-family : Tahoma, Arial, Helvetica, sans-serif;
-font-size: 10pt;
-color: #3660AA;
-margin-top : 4pt;
-margin-bottom : 3pt;
-}
-ul {
-      padding-left: 20px;
-}
+  h1 {
+	font-family : Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 16pt;
+	color: #3660AA;
+	font-weight : bold;
+	margin-top : 15pt;
+	margin-bottom : 5pt;
+	}
+  h2 {
+	font-family : Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 14pt;
+	color: #3660AA;
+	font-weight : bold;
+	margin-top : 6pt;
+	margin-bottom : 3pt;
+	}
+  h3 {
+	font-family : Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	color: #3660AA;
+	margin-top : 6pt;
+	margin-bottom : 3pt;
+	}
+  h4 {
+	font-family : Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #3660AA;
+	margin-top : 4pt;
+	margin-bottom : 3pt;
+	}
+  ul {
+    padding-left: 20px;
+	}
 
-IMG {
-      border: 0px 0solid ; 
-      float: right; 
-      margin: 0px 25px 10px 0px;
-    }
-IMG.screenshot {
+  IMG {
+    border: none ; 
+    float: right; 
+    margin: 0px 25px 10px 0px;
+	}
+  IMG.screenshot {
 	float: none;
     vertical-align:top;    
     }
-.arrow {  
-  padding-left: 23px;
-  background-image: url(./lightarrow.jpg);
-  background-repeat: no-repeat;
-  background-position: 0 -0.35em;
-}
-
-    
     
   A {
-text-decoration : none;
-font-family : Tahoma, Arial, Helvetica, sans-serif;
-font-weight: bold;
-color: #FD6000;
-}
-A:HOVER {
-text-decoration : underline;
-color: #FD6000;
-}
-
-a[href^="http:"], a[href^="https:"] { 
-  padding-left: 12px;
-  background-image: url('./ext_link.gif');
-  background-repeat: no-repeat;
-  background-position: 0 0.25em;
-}
-  
-
-  ul#Navigation {
-    background-color: rgb(226, 226, 226);
-    font-size: 0.83em;
-    float: left; width: 150px;
-    margin: 0 0 1.2em; padding: 0;
-  }
-  ul#Navigation li {
-    list-style: none;
-    margin: 0; padding: 0.2em;
-  }
+	text-decoration : none;
+	font-family : Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #FD6000;
+	}
+  A:HOVER {
+	text-decoration : underline;
+	color: #FD6000;
+	}
+  a[href^="http:"], a[href^="https:"] { 
+  	padding-left: 12px;
+  	background-image: url('./ext_link.gif');
+  	background-repeat: no-repeat;
+  	background-position: 0 0.25em;
+	}
  
   div#Inhalt {
     margin: 0 0 1em 10px;
@@ -116,7 +94,7 @@ a[href^="http:"], a[href^="https:"] {
   div#Inhalt td {
     border-style : none;
     border-width : 0px;
-    background-color: lightgray;
+    background-color: #D3D3D3;
     vertical-align: top;
   }
   
@@ -172,7 +150,6 @@ a[href^="http:"], a[href^="https:"] {
       padding:0 0 0 5px;
       text-decoration:none;
       font-size:10pt;
-      
       }
     #tabsI a span {
       float:left;
@@ -193,5 +170,3 @@ a[href^="http:"], a[href^="https:"] {
     #tabsI a:hover span {
       background-position:100% -42px;
       }
-  
-</style>

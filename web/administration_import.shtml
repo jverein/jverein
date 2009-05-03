@@ -139,5 +139,10 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	wurden, können diese auch importiert werden. Die Datenfelder sind entsprechend der Bezeichnung in der 
 	Felddefinition in die Datei einzustellen.</p>
 	<p>Die Eingabedatei muss ISO-8859-1-codiert sein.</p>
+	
+	<!-- 
+    $Log$
+    -->
+	
 <!--#include virtual="footer.shtml"-->  
 

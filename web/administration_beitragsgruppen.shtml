@@ -1,7 +1,7 @@
 <!--#include virtual="main.shtml"-->  
     <h1>Administration: Beitragsgruppen</h1>
     <p>
-    <img src='images/Beitragsgruppenübersicht.jpg' class='screenshot'>
+    <img src='images/Beitragsgruppenuebersicht.jpg' class='screenshot'>
     <p>Mit <b>neu</b> kann eine neue Beitragsgruppe eingerichtet werden.</p>
 	<p>Durch einen Doppelklick wird die Bearbeitung einer Beitragsgruppe eingeleitet.</p>
 	<p>Durch die Markierung einer Beitragsgruppe und löschen wir die Löschung eingeleitet. 
@@ -16,5 +16,9 @@
     <li>Familie: Zahler</li>
     <li>Familie: Angehöriger</li> 
     </ul>
+    <!-- 
+    $Log$
+    -->
+    
  <!--#include virtual="footer.shtml"-->  
 

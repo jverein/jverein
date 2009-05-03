@@ -9,5 +9,9 @@
 	<p>Eingabe eines neuen Kursteilnehmers:</p>
     <img src='images/Kursteilnehmerneu.jpg' class='screenshot'>
         
+    <!-- 
+    $Log$
+    -->
+        
     <!--#include virtual="footer.shtml"-->  
 

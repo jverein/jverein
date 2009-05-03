@@ -9,13 +9,13 @@
     </ul>
     <h2>Home</h2>
     <p>
-       <img src="JVerein_Box.jpg" >
+       <img src="JVerein_Box.jpg" alt="JVerein-Software-Box" >
        <i>JVerein</i> ist eine Open-Source-Vereinsverwaltung mit einer Anbindung an die ebenfalls unter 
        Open-Source-Lizenz stehende Homebankingsoftware 
-       <a href="http://www.willuhn.de/projects/hibiscus/">Hibiscus</a>.
+       <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a>.
      </p>
      <p>Die Implementierung erfolgt mit Java. Der Ablauf auf vielen Plattformen ist damit gewährleistet. 
-        Als GUI-Framework kommt <a href="http://www.willuhn.de/projects/jameica/">Jameica</a>  zum Einsatz.
+        Als GUI-Framework kommt <a href="http://www.willuhn.de/products/jameica/">Jameica</a>  zum Einsatz.
      </p>
      <p>Für jedes Mitglied können folgende Daten gespeichert werden:</p>
      <ul>
@@ -42,8 +42,8 @@
 	</p>
 	<p>Der Beitragseinzug erfolgt in der Regel über das Abbuchungsverfahren. Die Abbuchungen werden im 
 	   DTAUS-Format mit Hilfe meiner Bibliothek <a href="http://obantoo.berlios.de">OBanToo</a> ausgegeben 
-	   und können in <a href="http://www.willuhn.de/projects/hibiscus/">Hibiscus</a> importiert werden 
-	   oder direkt an <a href="http://www.willuhn.de/projects/hibiscus/">Hibiscus</a> als Einzel- oder 
+	   und können in <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a> importiert werden 
+	   oder direkt an <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a> als Einzel- oder 
 	   Sammellastschrift übergeben werden. Alle Abrechnungsdaten werden festgehalten. Daraus können 
 	   anschließend Rechnungen erstellt werden.</p>
 	<p>Für Mitglieder, die nicht am Abbuchungsverfahren teilnehmen werden die Zahlungsdaten zur manuellen 
@@ -52,14 +52,19 @@
 	   (Strafgelder, Eigenanteile ...), die auch wiederkehrend sein können.</p>
 	<p>Die Vereinsbuchführung (Einnamen/Ausgaben) kann ab Version 1.1 über eine integrierte einfache 
 	   Buchführung erledigt werden.</p>
-	<p>Die Mitgliederdaten können nach vielen Kriterien <a href="auswertung_der_mitglieder.shtml">
+	<p>Die Mitgliederdaten können nach vielen Kriterien <a href="dokumentationauswertungmitglieder.shtml">
 	   ausgewertet</a> werden. Die Ausgabe erfolgt im PDF-Format oder im CSV-Format. Die Erstellung 
-	   einer Liste mit <a href="auswertung#jubilaen">Mitgliedschafts- oder Altersjubliäen</a> ist möglich.</p>
+	   einer Liste mit <a href="dokumentationauswertungjubilaeen.shtml">Mitgliedschafts- oder Altersjubliäen</a> ist möglich.</p>
 	<p>Ab Version 1.1 ist die Erstellung von Rechnungen und Spendenbescheinigungen möglich.</p>
 	<p>JVerein ist mit vielen Screenshots ausgiebig <a href='dokumentation.shtml'>dokumentiert</a>.</p>
 	<p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p>
 	<p>Zusätzlich gibt es eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um eine 
 	   kurze Nachricht an <a href="mailto:heiner@jverein.de">heiner@jverein.de</a> mit dem Namen des Vereins 
 	   und der Anzahl der Mitglieder. Diese Daten dienen der "Erfolgskontrolle".</p>
+	   
+	<!-- 
+    $Log$
+    -->
+	   
  <!--#include virtual="footer.shtml"-->  
 

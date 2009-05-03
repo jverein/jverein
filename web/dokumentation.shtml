@@ -1,55 +1,62 @@
-<!--#include virtual="main.shtml"-->  
-    <br>
-    <br>
-    <h1>Dokumentation</h1>
-    <ul>
-		<li><a href="jameica_startseite.shtml">Jameica-Startseite</a></li>
-		<li>Administration
-			<ul>
-				<li><a href="administration_stammdaten.shtml">Stammdaten</a></li>
-				<li><a href="administration_beitragsgruppen.shtml">Beitragsgruppen</a></li>
-				<li><a href="administration_einstellungen.shtml">Einstellungen</a></li>
-				<li><a href="administration_felddefinitionen.shtml">Felddefinitionen</a></li>
-				<li><a href="administration_formulare.shtml">Formulare</a></li>
-				<li>Erweitert
-					<ul>
-						<li><a href="administration_erweitert#backup_erstellen">Diagnoseback erstellen</a></li>
-						<li><a href="administration_erweitert#backup_importieren">Diagnoseback importieren</a></li>
-					</ul>
-				</li>
-				<li><a href="administration_import.shtml">Import</a></li>
-			</ul>
+<!--#include virtual="main.shtml"-->
+<br>
+<br>
+<h1>Dokumentation</h1>
+<ul>
+	<li><a href="jameica_startseite.shtml">Jameica-Startseite</a></li>
+	<li>Administration
+	<ul>
+		<li><a href="administration_stammdaten.shtml">Stammdaten</a></li>
+		<li><a href="administration_beitragsgruppen.shtml">Beitragsgruppen</a></li>
+		<li><a href="administration_einstellungen.shtml">Einstellungen</a></li>
+		<li><a href="administration_felddefinitionen.shtml">Felddefinitionen</a></li>
+		<li><a href="administration_formulare.shtml">Formulare</a></li>
+		<li><a href="administration_erweitert.shtml">Erweitert</a>
+		<ul>
+			<li><a href="administration_erweitert.shtml#backup_erstellen">Diagnoseback
+			erstellen</a></li>
+			<li><a href="administration_erweitert.shtml#backup_importieren">Diagnoseback
+			importieren</a></li>
+		</ul>
 		</li>
-		<li><a href="mitglied.shtml">Mitglieder</a></li>
-		<li><a href="kursteilnehmer.shtml">Kursteilnehmer</a></li>
-		<li><a href="abrechnung.shtml">Abrechnung</a></li>
-		<li><a href="zusatzbetraege.shtml">Zusatzbeiträge</a></li>
-		<li><a href="manuelle_zahlungseingaenge.shtml">Manuelle Zahlungseingänge</a></li>
-		<li><a href="wiedervorlage.shtml">Wiedervorlage</a></li>
-		<li><a href="lehrgaenge.shtml">Lehrgänge</a>(ab Version 1.2)</li>
-		<li><a href="spendenbescheinigung.shtml">Spendenbescheinigung</a></li>
-		<li><a href="rechnungen.shtml">Rechnung</a></li>
-		<li>Auswertung
-		<ul>
-			<li><a href="./">Mitglieder</a></li>
-			<li><a href="./">Jubiläen</a></li>
-			<li><a href="./">Kursteilnehmer</a></li>
-			<li><a href="./">Statistik</a></li>
-			<li><a href="./">Adressbuch-Export</a>(ab Version 1.2)</li>
-		</ul>
+		<li><a href="administration_import.shtml">Import</a></li>
+	</ul>
 	</li>
-	<li>Buchführung
-		<ul>
-			<li><a href="./">Konten</a></li>
-			<li><a href="./">Anfangsbestände</a></li>
-			<li><a href="./">Buchungen aus Hibiscus übernehmen</a></li>
-			<li><a href="./">Buchungen</a></li>
-			<li><a href="./">Jahressaldo</a></li>
-			<li><a href="./">Jahresabschluss</a></li>
-		</ul>
+	<li><a href="mitglied.shtml">Mitglieder</a></li>
+	<li><a href="kursteilnehmer.shtml">Kursteilnehmer</a></li>
+	<li><a href="abrechnung.shtml">Abrechnung</a></li>
+	<li><a href="zusatzbetraege.shtml">Zusatzbeiträge</a></li>
+	<li><a href="manuelle_zahlungseingaenge.shtml">Manuelle Zahlungseingänge</a></li>
+	<li><a href="wiedervorlage.shtml">Wiedervorlage</a></li>
+	<li><a href="lehrgaenge.shtml">Lehrgänge</a>(ab Version 1.2)</li>
+	<li><a href="spendenbescheinigung.shtml">Spendenbescheinigung</a></li>
+	<li><a href="rechnungen.shtml">Rechnung</a></li>
+	<li><a href="dokumentationauswertung.shtml">Auswertung</a>
+	<ul>
+		<li><a href="dokumentationauswertungmitglieder.shtml">Mitglieder</a></li>
+		<li><a href="dokumentationauswertungjubilaeen.shtml">Jubiläen</a></li>
+		<li><a href="dokumentationauswertungkursteilnehmer.shtml">Kursteilnehmer</a></li>
+		<li><a href="dokumentationauswertungstatistik.shtml">Statistik</a></li>
+		<li><a href="dokumentationauswertungadressbuchexport.shtml">Adressbuch-Export</a>(ab Version 1.2)</li>
+	</ul>
 	</li>
-	<li><a href="./">Beitragsmodelle</a></li>
-	<li><a href="./">Migration der Datenbank ins H2-Format</a></li>
+	<li><a href="dokumentationbuchfuehrung.shtml">Buchführung</a>	<ul>
+		<li><a href="dokumentationbuchfuehrungkonten.shtml">Konten</a></li>
+		<li><a href="dokumentationbuchfuehrunganfangsbestaende.shtml">Anfangsbestände</a></li>
+		<li><a href="dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.shtml">Buchungen aus Hibiscus übernehmen</a></li>
+		<li><a href="dokumentationbuchfuehrungbuchungen.shtml">Buchungen</a></li>
+		<li><a href="dokumentationbuchfuehrungjahressaldo.shtml">Jahressaldo</a></li>
+		<li><a href="dokumentationbuchfuehrungjahresabschluss.shtml">Jahresabschluss</a></li>
+	</ul>
+	</li>
+	<li><a href="dokumentationbeitragsmodelle.shtml">Beitragsmodelle</a></li>
+	<li><a href="dokumentationmigrationinsh2format.shtml">Migration der Datenbank ins H2-Format</a></li>
+	<li><a href="jameica_portable.shtml">Jameica + Plugins portable</a></li>
 </ul>
- <!--#include virtual="footer.shtml"-->  
+
+    <!-- 
+    $Log$
+    -->
+
+<!--#include virtual="footer.shtml"-->
 
