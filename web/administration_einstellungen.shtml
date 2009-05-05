@@ -4,7 +4,7 @@
     <h1>Administration: Einstellungen</h1>
     <p>Durch die Einstellungen kann das Verhalten von JVerein beeinflußt werden.</p>
     <h3>Ansicht</h3>
-    <img src='images/Einstellungenansicht.jpg' class='screenshot'>
+    <img src='images/Einstellungenansicht.png' class='screenshot'>
     <p class='hervorgehoben'>Nach Änderungen der mit Stern gekennzeichneten Werte ist ein Neustart 
     von Jameica erforderlich.</p>
 	<p>Folgende Einstellungen können vorgenommen werden:</p>
@@ -17,6 +17,9 @@
 	<li>Tab Wiedervorlage beim Mitglied anzeigen. Impliziert, dass die Übersicht der Wiedervorlagen 
 	(nicht) angezeigt wird.</li>
 	<li>Kursteilnehmer ein-/ausblenden. Auswirkung auf die Abbuchung.</li>
+	<li>Juristische Personen erlaubt. Die Eingabe von Firmen, Organisationen und Behörden als Mitglieder
+		wird erlaubt. Anstatt Name und Vorname werden Name-Zeile1 und Name-Zeile2 erfasst. Geburtsdatum
+		und Geschlecht werden nicht erfasst.</li>
 	<li>Externe Mitgliedsnummern verwenden. Vereine, die auf Bundes- oder Landesebene organisiert 
 	sind und eine durchgängige Mitgliedsnummer verwalten möchten, können in JVerein eine externe 
 	Mitgliedsnummer speichern.</li>
@@ -58,6 +61,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.2  2009/05/03 15:33:30  jost
+    Neue Homepage
+
     -->
 	
 	

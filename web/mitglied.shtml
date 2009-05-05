@@ -35,6 +35,19 @@
 	<p>Beim Zahlungsweg Abbuchung werden Bankleitzahl und die Kontonummer auf Plausibilität
 		überprüft. Zusätzlich kann ein abweichender Kontoinhaber eingegeben werden.</p>
 		
+	<p>Sofern in den <a href="administration_einstellungen.shtml">Einstellungen</a> der Parameter
+		"Juristische Personen erlaubt" gesetzt ist, wird bei der Neuaufnahme von Mitgliedern folgender
+		Dialog eingeblendet:</p>
+	<img src='images/MitgliedPersonenart.png' class='screenshot'>
+	<p>Hier kann ausgewählt werden ob es sich um eine </p>
+	<ul>
+		<li>natürliche Person</li>
+		<li>juristische Person</li>
+	</ul>
+	<p>handelt. Sofern "juristische Person" ausgewählt wird, sieht der Bildschirm so aus:</p>
+	<img src='images/MitgliedJuristischePerson.png' class='screenshot'>
+		
+		
 	<a name="Mitgliedschaft"></a>
 	<h3>Mitgliedschaft</h3>
 	<p>Eintrittsdatum und Beitragsgruppe sind Pflichtfelder. Die Beitragsgruppen können unter 
@@ -95,6 +108,9 @@
 
     <!-- 
     $Log$
+    Revision 1.2  2009/05/03 15:33:30  jost
+    Neue Homepage
+
     -->
     
     <!--#include virtual="footer.shtml"-->  
