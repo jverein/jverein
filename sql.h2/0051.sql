@@ -1,0 +1,1 @@
+ALTER TABLE zusatzfelder DROP CONSTRAINT fkzusatzfelder1;
