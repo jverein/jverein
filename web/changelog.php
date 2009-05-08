@@ -3,6 +3,7 @@
     <ul>
     	<li>Version 1.1.2 vom&nbsp;? (noch nicht freigegeben)
     		<ul>
+    			<li>Bugfix: Löschen von Mitgliedern mit Zusatzfeldern.</li>
     			<li>Neu: Juristische Personen (Firmen, Organisationen, Behörden) können als Mitglied gespeichert werden.</li>
     			<li>Neu: <a href="lehrgaenge.php">Lehrgänge</a> </li>
     			<li>Zusätzliche Felder zur Rechnungserstelltung. 
@@ -416,6 +417,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.34  2009/05/03 15:33:30  jost
     Neue Homepage
 
