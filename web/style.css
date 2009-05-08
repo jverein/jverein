@@ -27,30 +27,30 @@
 	font-size: 16pt;
 	color: #3660AA;
 	font-weight : bold;
-	margin-top : 15pt;
-	margin-bottom : 5pt;
+	margin-top :15px;
+	margin-bottom : 5px;
 	}
   h2 {
 	font-family : Tahoma, Arial, Helvetica, sans-serif;
 	font-size: 14pt;
 	color: #3660AA;
 	font-weight : bold;
-	margin-top : 6pt;
-	margin-bottom : 3pt;
+	margin-top : 6px;
+	margin-bottom : 3px;
 	}
   h3 {
 	font-family : Tahoma, Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 	color: #3660AA;
-	margin-top : 6pt;
-	margin-bottom : 3pt;
+	margin-top : 6px;
+	margin-bottom : 3px;
 	}
   h4 {
 	font-family : Tahoma, Arial, Helvetica, sans-serif;
 	font-size: 10pt;
 	color: #3660AA;
-	margin-top : 4pt;
-	margin-bottom : 3pt;
+	margin-top : 4px;
+	margin-bottom : 3px;
 	}
   ul {
     padding-left: 20px;
@@ -78,7 +78,7 @@
 	}
   a[href^="http:"], a[href^="https:"] { 
   	padding-left: 12px;
-  	background-image: url('./ext_link.gif');
+  	background-image: url('./images/ext_link.gif');
   	background-repeat: no-repeat;
   	background-position: 0 0.25em;
 	}
@@ -145,7 +145,7 @@
       }
     #tabsI a {
       float:left;
-      background:url("tableftI.gif") no-repeat left top;
+      background:url("images/tableftI.gif") no-repeat left top;
       margin:0;
       padding:0 0 0 5px;
       text-decoration:none;
@@ -154,7 +154,7 @@
     #tabsI a span {
       float:left;
       display:block;
-      background:url("tabrightI.gif") no-repeat right top;
+      background:url("images/tabrightI.gif") no-repeat right top;
       padding:5px 15px 4px 6px;
       color:#FFF;
       }
