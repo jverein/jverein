@@ -12,7 +12,7 @@
 	<li>Zeichensatz: ISO-8859-1</li>
 	<li>Feldnamen: Ankreuzen</li>
 	</ul>
-	<p>Andere Programme können eine Datei mit folgenden Spalten erzeugen:</p>
+	<p>Andere Programme müssen eine Datei mit folgenden Spalten erzeugen:</p>
 	<table border="1">
 	<tr>
 		<td>Mitglieds_Nr</td>
@@ -142,6 +142,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.2  2009/05/03 15:33:30  jost
     Neue Homepage
 
