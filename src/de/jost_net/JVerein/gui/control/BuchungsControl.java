@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.18  2009/01/04 16:26:42  jost
  * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
  *
@@ -629,6 +632,7 @@ public class BuchungsControl extends AbstractControl
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
       buchungsList.setRememberOrder(true);
+      buchungsList.setRememberState(true);
       buchungsList.setSummary(true);
     }
     else
