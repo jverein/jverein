@@ -3,6 +3,7 @@
     <ul>
     	<li>Version 1.1.2 vom&nbsp;? (noch nicht freigegeben)
     		<ul>
+    			<li>Mitglied: Straße als Suchfeld</li>
     			<li>Bugfix: Löschen von Mitgliedern mit Zusatzfeldern.</li>
     			<li>Neu: Juristische Personen (Firmen, Organisationen, Behörden) können als Mitglied gespeichert werden.</li>
     			<li>Neu: <a href="lehrgaenge.php">Lehrgänge</a> </li>
@@ -417,6 +418,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.2  2009/05/08 15:39:55  jost
+    *** empty log message ***
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 
