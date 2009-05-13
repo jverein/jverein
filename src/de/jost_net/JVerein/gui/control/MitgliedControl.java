@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.58  2009/04/25 05:28:26  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.57  2009/04/13 11:39:33  jost
  * Neu: Lehrgänge
  *
@@ -189,10 +192,13 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
@@ -231,6 +237,7 @@ import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ObjectNotFoundException;
+import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -242,6 +249,7 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
+import de.willuhn.jameica.gui.input.SearchInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -268,7 +276,7 @@ public class MitgliedControl extends AbstractControl
 
   private Input adressierungszusatz;
 
-  private Input strasse;
+  private SearchInput strasse;
 
   private Input plz;
 
@@ -456,14 +464,62 @@ public class MitgliedControl extends AbstractControl
     return adressierungszusatz;
   }
 
-  public Input getStrasse() throws RemoteException
+  public SearchInput getStrasse() throws RemoteException
   {
     if (strasse != null)
     {
       return strasse;
     }
-    strasse = new TextInput(getMitglied().getStrasse(), 40);
+    // strasse = new TextInput(getMitglied().getStrasse(), 40);
+
+    strasse = new SearchInput()
+    {
+      public List startSearch(String text)
+      {
+        try
+        {
+          if (text != null)
+          {
+            text = "%" + text + "%";
+          }
+          ResultSetExtractor rs = new ResultSetExtractor()
+          {
+            public Object extract(ResultSet rs) throws RemoteException,
+                SQLException
+            {
+              List<String> strassen = new ArrayList<String>();
+              while (rs.next())
+              {
+                strassen.add(rs.getString(1));
+              }
+              return strassen;
+            }
+          };
+          String sql = "select strasse from mitglied where strasse like ? "
+              + "group by strasse order by strasse";
+          if (text != null)
+          {
+            text = text + "%";
+          }
+          else
+          {
+            text = "%";
+          }
+          return (List) Einstellungen.getDBService().execute(sql,
+              new Object[] { text }, rs);
+        }
+        catch (Exception e)
+        {
+          Logger.error("kann Straßenliste nicht aufbauen", e);
+          return null;
+        }
+      }
+    };
+    strasse.setValue(getMitglied().getStrasse());
     strasse.setName("Straße");
+    strasse.setMaxLength(40);
+    strasse.setDelay(1000);
+
     return strasse;
   }
 
@@ -1543,6 +1599,7 @@ public class MitgliedControl extends AbstractControl
     part.setContextMenu(new MitgliedMenu());
     part.setRememberColWidths(true);
     part.setRememberOrder(true);
+    part.setRememberState(true);
     return part;
   }
 
