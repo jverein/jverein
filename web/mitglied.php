@@ -105,9 +105,19 @@
 	<img src='images/MitgliedZusatzfelder.jpg' class='screenshot'>
 	<p>Durch <a href="administration_felddefinitionen.php">Definition von Zusatzfeldern</a> die können 
 		zusätzliche Datenfelder erfasst werden.</p>
+	<h2>Lehrgangsübersicht</h2>
+	<p>Zur Nutzung ist in den <a href='administration_einstellungen.php'>Einstellungen</a> das entsprechende
+	Häkchen zu setzen und die Lehrgänge sind in der <a href='lehrgaenge.php'>Plugins&gt;JVerein&gt;Lehrgangsarten</a>
+	einzurichten.</p>
+    <img src='images/Mitgliedlehrgaenge.jpg' class='screenshot'>
+    <h2>Lehrgang beim Mitglied anlegen</h2>
+    <img src='images/Mitgliedlehrgang.jpg' class='screenshot'>
 
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.3  2009/05/05 17:28:50  jost
     Neu: Juristische Personen als Mitglieder
 
