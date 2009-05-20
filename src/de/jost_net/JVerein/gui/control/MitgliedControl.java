@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.59  2009/05/13 20:46:55  jost
+ * Straße als Suchfeld
+ *
  * Revision 1.58  2009/04/25 05:28:26  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -270,9 +273,9 @@ public class MitgliedControl extends AbstractControl
 
   private Input titel;
 
-  private Input name;
+  private SearchInput name;
 
-  private Input vorname;
+  private SearchInput vorname;
 
   private Input adressierungszusatz;
 
@@ -428,27 +431,103 @@ public class MitgliedControl extends AbstractControl
     return titel;
   }
 
-  public Input getName() throws RemoteException
+  public SearchInput getName() throws RemoteException
   {
     if (name != null)
     {
       return name;
     }
-    name = new TextInput(getMitglied().getName(), 40);
+
+    name = new SearchInput()
+    {
+      public List startSearch(String text)
+      {
+        try
+        {
+          if (text != null)
+          {
+            text = text + "%";
+          }
+          ResultSetExtractor rs = new ResultSetExtractor()
+          {
+            public Object extract(ResultSet rs) throws RemoteException,
+                SQLException
+            {
+              List<String> namen = new ArrayList<String>();
+              while (rs.next())
+              {
+                namen.add(rs.getString(1));
+              }
+              return namen;
+            }
+          };
+          String sql = "select name from mitglied where name like ? "
+              + "group by name order by name";
+          return (List) Einstellungen.getDBService().execute(sql,
+              new Object[] { text }, rs);
+        }
+        catch (Exception e)
+        {
+          Logger.error("kann Namenliste nicht aufbauen", e);
+          return null;
+        }
+      }
+    };
+    name.setValue(getMitglied().getName());
     name.setName("Name");
-    name.setMandatory(true);
+    name.setMaxLength(40);
+    name.setDelay(1000);
+    name.setSearchString("");
     return name;
   }
 
-  public Input getVorname() throws RemoteException
+  public SearchInput getVorname() throws RemoteException
   {
     if (vorname != null)
     {
       return vorname;
     }
-    vorname = new TextInput(getMitglied().getVorname(), 40);
-    vorname.setMandatory(true);
+
+    vorname = new SearchInput()
+    {
+      public List startSearch(String text)
+      {
+        try
+        {
+          if (text != null)
+          {
+            text = text + "%";
+          }
+          ResultSetExtractor rs = new ResultSetExtractor()
+          {
+            public Object extract(ResultSet rs) throws RemoteException,
+                SQLException
+            {
+              List<String> vornamen = new ArrayList<String>();
+              while (rs.next())
+              {
+                vornamen.add(rs.getString(1));
+              }
+              return vornamen;
+            }
+          };
+          String sql = "select vorname from mitglied where vorname like ? "
+              + "group by vorname order by vorname";
+          return (List) Einstellungen.getDBService().execute(sql,
+              new Object[] { text }, rs);
+        }
+        catch (Exception e)
+        {
+          Logger.error("kann Vornamenliste nicht aufbauen", e);
+          return null;
+        }
+      }
+    };
+    vorname.setValue(getMitglied().getVorname());
     vorname.setName("Vorname");
+    vorname.setMaxLength(40);
+    vorname.setDelay(1000);
+    vorname.setSearchString("");
     return vorname;
   }
 
@@ -480,7 +559,7 @@ public class MitgliedControl extends AbstractControl
         {
           if (text != null)
           {
-            text = "%" + text + "%";
+            text = text + "%";
           }
           ResultSetExtractor rs = new ResultSetExtractor()
           {
@@ -497,14 +576,6 @@ public class MitgliedControl extends AbstractControl
           };
           String sql = "select strasse from mitglied where strasse like ? "
               + "group by strasse order by strasse";
-          if (text != null)
-          {
-            text = text + "%";
-          }
-          else
-          {
-            text = "%";
-          }
           return (List) Einstellungen.getDBService().execute(sql,
               new Object[] { text }, rs);
         }
@@ -516,9 +587,11 @@ public class MitgliedControl extends AbstractControl
       }
     };
     strasse.setValue(getMitglied().getStrasse());
+    strasse.setText("bla");
     strasse.setName("Straße");
     strasse.setMaxLength(40);
     strasse.setDelay(1000);
+    strasse.setSearchString("");
 
     return strasse;
   }
