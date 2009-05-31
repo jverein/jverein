@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/12/29 19:09:22  jost
+ * Explizite Höhe der Box vorgegeben.
+ *
  * Revision 1.2  2007/12/28 15:54:36  jost
  * Button-Leiste vervollständigt.
  *
@@ -74,6 +77,7 @@ public class FirstStart extends AbstractBox
     text.setText("<form><p><span color=\"header\" font=\"header\">"
         + "Herzlich willkommen" + "</span></p>" + "<p>"
         + "JVerein wird zum ersten Mal gestartet. Die Stammdaten des Vereins "
+        + "(Name, eigene Bankverbindung) "
         + "und die Beitragsgruppe(n) sind zu erfassen. Au�erdem kann das "
         + "Verhalten von JVerein durch die Einstellungen beeinflusst werden."
         + "</p></form>");
@@ -88,6 +92,6 @@ public class FirstStart extends AbstractBox
 
   public int getHeight()
   {
-    return 140;
+    return 160;
   }
 }
