@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.19  2008/12/29 08:40:36  jost
+ * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
+ *
  * Revision 1.18  2008/12/22 21:04:52  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -75,6 +78,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -284,7 +288,7 @@ public class Einstellungen
       {
         bstamm = true;
       }
-      DBIterator bg = getDBService().createList(Stammdaten.class);
+      DBIterator bg = getDBService().createList(Beitragsgruppe.class);
       if (bg.size() > 0)
       {
         bbeitragsgruppe = true;
