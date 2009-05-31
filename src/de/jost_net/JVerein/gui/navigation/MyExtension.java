@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2009/04/13 11:39:54  jost
+ * Neu: Lehrgänge
+ *
  * Revision 1.15  2009/04/10 09:43:04  jost
  * Versuch "Reports" abgebrochen
  *
@@ -57,22 +60,34 @@ package de.jost_net.JVerein.gui.navigation;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
+import de.jost_net.JVerein.gui.action.AboutAction;
 import de.jost_net.JVerein.gui.action.AdressbuchExportAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
 import de.jost_net.JVerein.gui.action.AuswertungMitgliedAction;
+import de.jost_net.JVerein.gui.action.BackupCreateAction;
+import de.jost_net.JVerein.gui.action.BackupRestoreAction;
+import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.BuchungsListeAction;
+import de.jost_net.JVerein.gui.action.BuchungsartListAction;
 import de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.EinstellungenAction;
+import de.jost_net.JVerein.gui.action.FelddefinitionenAction;
+import de.jost_net.JVerein.gui.action.FormularListeAction;
 import de.jost_net.JVerein.gui.action.JahresabschlussListAction;
 import de.jost_net.JVerein.gui.action.JahressaldoAction;
 import de.jost_net.JVerein.gui.action.JubilaeenAction;
 import de.jost_net.JVerein.gui.action.KontoListAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.LehrgaengeListeAction;
+import de.jost_net.JVerein.gui.action.LehrgangsartListeAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
+import de.jost_net.JVerein.gui.action.MitgliedImportAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
+import de.jost_net.JVerein.gui.action.StammdatenAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeListeAction;
@@ -162,6 +177,38 @@ public class MyExtension implements Extension
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahresabschluss",
           new JahresabschlussListAction(), "summe.png"));
       jverein.addChild(buchfuehrung);
+
+      NavigationItem einstellungen = null;
+      einstellungen = new MyItem(einstellungen, "Einstellungen", null);
+      einstellungen.addChild(new MyItem(einstellungen, "Stammdaten",
+          new StammdatenAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Beitragsgruppe",
+          new BeitragsgruppeSucheAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Buchungsart",
+          new BuchungsartListAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Einstellungen",
+          new EinstellungenAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Felddefinitionen",
+          new FelddefinitionenAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Formulare",
+          new FormularListeAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Lehrgangsarten",
+          new LehrgangsartListeAction()));
+      einstellungen.addChild(new MyItem(einstellungen, "Import",
+          new MitgliedImportAction()));
+
+      NavigationItem einstellungenerweitert = null;
+      einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
+          null);
+      einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
+          "Diagnose-Backup erstellen", new BackupCreateAction()));
+      einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
+          "Diagnose-Backup importieren", new BackupRestoreAction()));
+      einstellungen.addChild(einstellungenerweitert);
+      jverein.addChild(einstellungen);
+      jverein.addChild(new MyItem(jverein, "Dokumentation",
+          new DokumentationAction()));
+      jverein.addChild(new MyItem(jverein, "Über", new AboutAction()));
 
     }
     catch (Exception e)
