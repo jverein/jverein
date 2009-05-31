@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/12/27 15:18:30  jost
+ * Zusätzliche Infos werden ausgegeben.
+ *
  * Revision 1.3  2007/12/01 17:46:22  jost
  * Redaktionelle Änderungen und Aufnahme der Datenbankversion
  *
@@ -47,8 +50,8 @@ public class AboutView extends AbstractDialog
     FormTextPart text = new FormTextPart();
     text.setText("<form>"
         + "<p><b>Plugin f�r die Vereinsverwaltung unter Jameica</b></p>"
-        + "<br/>Licence: GPL (http://www.gnu.org/copyleft/gpl.html)"
-        + "<br/><p>Copyright by Heiner Jostkleigrewe [heiner@jverein.de]</p>"
+        + "<br/>Licence: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
+        + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
         + "<p>http://www.jverein.de</p>" + "</form>");
 
     text.paint(parent);
