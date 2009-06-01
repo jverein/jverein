@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.6  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -69,7 +72,7 @@ public class ImportView extends AbstractView
       {
         doImport();
       }
-    }, null, true);
+    }, null, true, "go.png");
     buttons.addButton(button);
   }
 
