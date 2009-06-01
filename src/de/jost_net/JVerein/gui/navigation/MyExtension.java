@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2009/05/31 12:27:08  jost
+ * Menüpunkte aus Plugins>JVerein ins Hauptmenü übernommen.
+ *
  * Revision 1.16  2009/04/13 11:39:54  jost
  * Neu: Lehrgänge
  *
@@ -179,36 +182,39 @@ public class MyExtension implements Extension
       jverein.addChild(buchfuehrung);
 
       NavigationItem einstellungen = null;
-      einstellungen = new MyItem(einstellungen, "Einstellungen", null);
+      einstellungen = new MyItem(einstellungen, "Administration", null);
       einstellungen.addChild(new MyItem(einstellungen, "Stammdaten",
-          new StammdatenAction()));
+          new StammdatenAction(), "home_nav.gif"));
       einstellungen.addChild(new MyItem(einstellungen, "Beitragsgruppe",
-          new BeitragsgruppeSucheAction()));
+          new BeitragsgruppeSucheAction(), "breakpoint_view.gif"));
       einstellungen.addChild(new MyItem(einstellungen, "Buchungsart",
-          new BuchungsartListAction()));
+          new BuchungsartListAction(), "activity_category.gif"));
       einstellungen.addChild(new MyItem(einstellungen, "Einstellungen",
-          new EinstellungenAction()));
+          new EinstellungenAction(), "settings.gif"));
       einstellungen.addChild(new MyItem(einstellungen, "Felddefinitionen",
-          new FelddefinitionenAction()));
+          new FelddefinitionenAction(), "category_obj.gif"));
       einstellungen.addChild(new MyItem(einstellungen, "Formulare",
-          new FormularListeAction()));
+          new FormularListeAction(), "layout_co.gif"));
       einstellungen.addChild(new MyItem(einstellungen, "Lehrgangsarten",
-          new LehrgangsartListeAction()));
+          new LehrgangsartListeAction(), "x-office-presentation.png"));
       einstellungen.addChild(new MyItem(einstellungen, "Import",
-          new MitgliedImportAction()));
+          new MitgliedImportAction(), "import_obj.gif"));
 
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
           null);
       einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
-          "Diagnose-Backup erstellen", new BackupCreateAction()));
+          "Diagnose-Backup erstellen", new BackupCreateAction(),
+          "thread_obj.gif"));
       einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
-          "Diagnose-Backup importieren", new BackupRestoreAction()));
+          "Diagnose-Backup importieren", new BackupRestoreAction(),
+          "thread2_obj.gif"));
       einstellungen.addChild(einstellungenerweitert);
       jverein.addChild(einstellungen);
       jverein.addChild(new MyItem(jverein, "Dokumentation",
-          new DokumentationAction()));
-      jverein.addChild(new MyItem(jverein, "Über", new AboutAction()));
+          new DokumentationAction(), "help_view.gif"));
+      jverein.addChild(new MyItem(jverein, "Über", new AboutAction(),
+          "info_tsk.gif"));
 
     }
     catch (Exception e)
