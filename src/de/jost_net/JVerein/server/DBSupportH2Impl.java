@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/04/15 21:04:43  jost
+ * Überflüssiges Import-Statement entfernt.
+ *
  * Revision 1.9  2009/04/14 18:39:04  jost
  * Deprecated Method ersetzt
  *
@@ -39,6 +42,7 @@
 package de.jost_net.JVerein.server;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.util.HashMap;
@@ -74,6 +78,18 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
     Logger.info("switching dbservice to uppercase");
     System.setProperty(JVereinDBServiceImpl.class.getName() + ".uppercase",
         "true");
+
+    try
+    {
+      Method m = Application.getClassLoader().load("org.h2.engine.Constants")
+          .getMethod("getVersion", (Class[]) null);
+      Logger.info("h2 version: " + m.invoke(null, (Object[]) null));
+    }
+    catch (Throwable t)
+    {
+      Logger.warn("unable to determine h2 version");
+    }
+
   }
 
   public String getJdbcDriver()
