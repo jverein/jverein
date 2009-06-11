@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/13 11:38:01  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.LehrgangView;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -53,8 +57,8 @@ public class LehrgangAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung eines neuen Lehrgangs", e);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung eines neuen Lehrgangs"), e);
       }
     }
     GUI.startView(LehrgangView.class.getName(), l);

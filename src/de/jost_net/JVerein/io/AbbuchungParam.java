@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/12/22 21:19:17  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.7  2008/11/30 10:45:42  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -38,6 +41,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.rmi.Stammdaten;
@@ -104,13 +108,14 @@ public class AbbuchungParam
       }
       else
       {
-        throw new RemoteException("Keine Stammdaten gespeichert");
+        throw new RemoteException(JVereinPlugin.getI18n().tr(
+            "Keine Stammdaten gespeichert"));
       }
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(
-          "Keine Stammdaten gespeichert. Bitte erfassen.");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keine Stammdaten gespeichert. Bitte erfassen."));
     }
 
     if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
@@ -144,19 +149,21 @@ public class AbbuchungParam
           konto = (Konto) d.open();
           if (konto == null)
           {
-            throw new ApplicationException("Bitte wählen Sie ein Konto aus");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "Bitte wählen Sie ein Konto aus"));
           }
         }
       }
       catch (OperationCanceledException e)
       {
-        throw new ApplicationException("Bitte Konto auswählen");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte wählen Sie ein Konto aus"));
       }
       catch (Exception e)
       {
         e.printStackTrace();
-        throw new ApplicationException(
-            "Hibiscus-Datenbank kann nicht geöffnet werden.");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Hibiscus-Datenbank kann nicht geöffnet werden."));
       }
     }
     else

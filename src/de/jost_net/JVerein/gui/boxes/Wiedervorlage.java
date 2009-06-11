@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/12/29 19:09:41  jost
+ * Explizite Höhe der Box vorgegeben.
+ *
  * Revision 1.2  2007/12/28 13:10:22  jost
  * Kommentare entfernt und hinzugefügt.
  *
@@ -19,6 +22,7 @@ import java.rmi.RemoteException;
 
 import org.eclipse.swt.widgets.Composite;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.parts.WiedervorlageList;
 import de.willuhn.jameica.gui.boxes.AbstractBox;
@@ -33,7 +37,7 @@ public class Wiedervorlage extends AbstractBox implements Box
 
   public String getName()
   {
-    return "JVerein: Wiedervorlage";
+    return JVereinPlugin.getI18n().tr("JVerein: Wiedervorlage");
   }
 
   public int getDefaultIndex()

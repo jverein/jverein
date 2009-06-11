@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/25 05:29:03  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
@@ -17,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -31,9 +35,11 @@ import de.willuhn.util.ApplicationException;
  */
 public class PersonenartDialog extends AbstractDialog
 {
-  private final static String NATUERLICHE_PERSON = "natürliche Person";
+  private final static String NATUERLICHE_PERSON = JVereinPlugin.getI18n().tr(
+      "natürliche Person");
 
-  private final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
+  private final static String JURISTISCHE_PERSON = JVereinPlugin.getI18n().tr(
+      "juristische Person (Firma, Organisation, Behörde)");
 
   private String selected = null;
 
@@ -43,23 +49,24 @@ public class PersonenartDialog extends AbstractDialog
   {
     super(position);
 
-    setTitle("Personenart");
+    setTitle(JVereinPlugin.getI18n().tr("Personenart"));
     setSize(450, 150);
   }
 
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup options = new LabelGroup(parent, "Personenart");
+    LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
+        "Personenart"));
     options.addInput(this.getPersonenart());
     ButtonArea b = new ButtonArea(parent, 2);
-    b.addButton("Weiter", new Action()
+    b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         close();
       }
     });
-    b.addButton("Abbrechen", new Action()
+    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -81,7 +88,7 @@ public class PersonenartDialog extends AbstractDialog
     }
     this.personenart = new SelectInput(new Object[] { NATUERLICHE_PERSON,
         JURISTISCHE_PERSON }, NATUERLICHE_PERSON);
-    this.personenart.setName("Personenart");
+    this.personenart.setName(JVereinPlugin.getI18n().tr("Personenart"));
     this.personenart.addListener(new Listener()
     {
       public void handleEvent(Event event)

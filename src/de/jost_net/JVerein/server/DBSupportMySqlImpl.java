@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/04/25 05:31:41  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.5  2009/04/19 18:51:02  jost
  * Bugfix
  *
@@ -124,7 +127,8 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
       }
       catch (Exception e2)
       {
-        Logger.error("Datenbankupdate kann nicht ausgeführt werden.", e2);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Datenbankupdate kann nicht ausgeführt werden."), e2);
         throw new ApplicationException(e2);
       }
     }

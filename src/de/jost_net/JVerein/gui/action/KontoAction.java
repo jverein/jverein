@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:46:25  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.KontoView;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
@@ -40,8 +44,8 @@ public class KontoAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Speicherung eines neuen Kontos", e);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Speicherung eines neuen Kontos"), e);
       }
     }
     GUI.startView(KontoView.class.getName(), k);

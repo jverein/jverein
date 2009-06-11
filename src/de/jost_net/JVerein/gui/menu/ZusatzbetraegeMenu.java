@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/30 10:53:42  jost
+ * Fehlende Icons ergÃ¤nzt.
+ *
  * Revision 1.1  2008/12/22 21:16:07  jost
  * Icons ins MenÃ¼ aufgenommen.
  *
@@ -24,6 +27,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeNaechsteFaelligkeitAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeResetAction;
@@ -44,16 +48,20 @@ public class ZusatzbetraegeMenu extends ContextMenu
    */
   public ZusatzbetraegeMenu(TablePart table)
   {
-    addItem(new CheckedContextMenuItem("Vorheriges Fälligkeitsdatum",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Vorheriges Fälligkeitsdatum"),
         new ZusatzbetraegeVorherigeFaelligkeitAction(table),
         "office-calendar.png"));
-    addItem(new CheckedContextMenuItem("Nächstes Fälligkeitsdatum",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Nächstes Fälligkeitsdatum"),
         new ZusatzbetraegeNaechsteFaelligkeitAction(table),
         "office-calendar.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem("Erneut ausführen",
-        new ZusatzbetraegeResetAction(table), "view-refresh.png"));
-    addItem(new CheckedContextMenuItem("Löschen...",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "erneut ausführen"), new ZusatzbetraegeResetAction(table),
+        "view-refresh.png"));
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."),
         new ZusatzbetraegeDeleteAction(), "user-trash.png"));
   }
 }

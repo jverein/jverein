@@ -9,9 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/13 11:39:46  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.LehrgangDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -27,7 +31,8 @@ public class LehrgangMenu extends ContextMenu
    */
   public LehrgangMenu()
   {
-    addItem(new CheckedContextMenuItem("Löschen...",
-        new LehrgangDeleteAction(), "user-trash.png"));
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."), new LehrgangDeleteAction(),
+        "user-trash.png"));
   }
 }

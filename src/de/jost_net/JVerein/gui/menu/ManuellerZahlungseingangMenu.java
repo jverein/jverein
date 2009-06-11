@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/12/30 10:53:15  jost
+ * Fehlende Icons ergÃ¤nzt.
+ *
  * Revision 1.3  2008/12/22 21:14:45  jost
  * Icons ins MenÃ¼ aufgenommen.
  *
@@ -21,6 +24,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDatumLoeschenAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDatumSetzenAction;
 import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangDeleteAction;
@@ -39,13 +43,16 @@ public class ManuellerZahlungseingangMenu extends ContextMenu
    */
   public ManuellerZahlungseingangMenu(TablePart table)
   {
-    addItem(new CheckedContextMenuItem("Zahlungseingangsdatum setzen ...",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Zahlungseingangsdatum setzen ..."),
         new ManuellerZahlungseingangDatumSetzenAction(table),
         "office-calendar.png"));
-    addItem(new CheckedContextMenuItem("Zahlungseingangsdatum löschen ...",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Zahlungseingangsdatum löschen ..."),
         new ManuellerZahlungseingangDatumLoeschenAction(table),
         "user-trash.png"));
-    addItem(new CheckedContextMenuItem("Löschen...",
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."),
         new ManuellerZahlungseingangDeleteAction(table), "user-trash.png"));
   }
 }

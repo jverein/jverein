@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/11/29 13:16:26  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.3  2008/06/28 17:07:46  jost
  * Neu: Jahresabschluss
  *
@@ -25,6 +28,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -61,18 +65,20 @@ public class KontoImpl extends AbstractDBObject implements Konto
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException("Bitte Bezeichnung eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Bezeichnung eingeben"));
       }
       if (getNummer() == null || getNummer().length() == 0)
       {
-        throw new ApplicationException("Bitte Nummer eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Nummer eingeben"));
       }
     }
     catch (RemoteException e)
     {
       Logger.error("insert check of konto failed", e);
-      throw new ApplicationException(
-          "Konto kann nicht gespeichert werden. Siehe system log");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Konto kann nicht gespeichert werden. Siehe system log"));
     }
   }
 

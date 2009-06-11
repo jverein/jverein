@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/18 15:54:56  jost
+ * Icons aufgenommen.
+ *
  * Revision 1.2  2008/12/22 21:13:51  jost
  * Icons ins MenÃ¼ aufgenommen.
  *
@@ -18,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FormularAnzeigeAction;
 import de.jost_net.JVerein.gui.action.FormularDeleteAction;
 import de.jost_net.JVerein.gui.action.FormularfelderListeAction;
@@ -36,12 +40,13 @@ public class FormularMenu extends ContextMenu
    */
   public FormularMenu()
   {
-    addItem(new CheckedContextMenuItem("Formularfelder",
-        new FormularfelderListeAction(), "rechnung.png"));
-    addItem(new CheckedContextMenuItem("Anzeigen", new FormularAnzeigeAction(),
-        "edit.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Formularfelder"), new FormularfelderListeAction(), "rechnung.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("anzeigen"),
+        new FormularAnzeigeAction(), "edit.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem("Löschen...",
-        new FormularDeleteAction(), "user-trash.png"));
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."), new FormularDeleteAction(),
+        "user-trash.png"));
   }
 }

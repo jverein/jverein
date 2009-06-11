@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2008/12/30 21:59:48  jost
+ * Anpassung an neue Versionsmimik.
+ *
  * Revision 1.8  2008/12/22 21:22:36  jost
  * Bugfix MySQL-Support
  *
@@ -96,9 +99,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
 
   public String getName() throws RemoteException
   {
-    I18N i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
-        .getResources().getI18N();
-    return i18n.tr("Datenbank-Service für JVerein");
+    return JVereinPlugin.getI18n().tr("Datenbank-Service für JVerein");
   }
 
   protected boolean getAutoCommit() throws RemoteException
@@ -134,7 +135,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
   public void install() throws RemoteException
   {
     ProgressMonitor monitor = Application.getCallback().getStartupMonitor();
-    monitor.setStatusText("Installiere JVerein");
+    monitor.setStatusText(JVereinPlugin.getI18n().tr("Installiere JVerein"));
     // this.driver.install();
 
     // PluginResources res = Application.getPluginLoader().getPlugin(

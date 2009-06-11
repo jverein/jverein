@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 18:57:24  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.FelddefinitionDetailView;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.jameica.gui.Action;
@@ -40,8 +44,8 @@ public class FelddefinitionDetailAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung der neuen Felddefinition", e);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung der neuen Felddefinition"), e);
       }
     }
     GUI.startView(FelddefinitionDetailView.class.getName(), f);

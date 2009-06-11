@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:51:59  jost
+ * Buchführung
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.parts;
@@ -19,6 +22,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -40,32 +44,10 @@ public class KontoList extends TablePart implements Part
   {
     super(konten, action);
 
-    addColumn("Kontonummer", "nummer");
-    // addColumn(i18n.tr("Bankleitzahl"), "blz", new Formatter()
-    // {
-    // public String format(Object o)
-    // {
-    // if (o == null)
-    // return null;
-    // try
-    // {
-    // String blz = o.toString();
-    // String name = HBCIUtils.getNameForBLZ(blz);
-    // if (name == null || name.length() == 0)
-    // return blz;
-    // return blz + " [" + name + "]";
-    // }
-    // catch (Exception e)
-    // {
-    // Logger.error("error while formatting blz", e);
-    // return o.toString();
-    // }
-    // }
-    // });
-    addColumn("Bezeichnung", "bezeichnung");
+    addColumn(JVereinPlugin.getI18n().tr("Kontonummer"), "nummer");
+    addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"), "bezeichnung");
     setRememberOrder(true);
     setRememberColWidths(true);
-    
 
   }
 

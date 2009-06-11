@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/13 16:23:06  jost
+ * equals()-Methode implementiert.
+ *
  * Revision 1.1  2008/11/29 13:12:38  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Abrechnungsausgabe
@@ -52,9 +57,9 @@ public class Abrechnungsausgabe
       case DTAUS:
         return "DTAUS-Datei";
       case HIBISCUS_EINZELBUCHUNGEN:
-        return "Hibiscus (Einzelbuchungen)";
+        return JVereinPlugin.getI18n().tr("Hibiscus (Einzelbuchungen)");
       case HIBISCUS_SAMMELBUCHUNG:
-        return "Hibiscus (Sammelbuchungen)";
+        return JVereinPlugin.getI18n().tr("Hibiscus (Sammelbuchungen)");
       default:
         return null;
     }

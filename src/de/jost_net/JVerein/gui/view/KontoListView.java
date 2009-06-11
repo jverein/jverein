@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/02/27 14:21:58  jost
+ * Bug #15324
+ *
  * Revision 1.5  2009/01/22 18:24:24  jost
  * neue Icons
  *
@@ -27,6 +30,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.HibiscusKontenImportAction;
 import de.jost_net.JVerein.gui.action.KontoAction;
@@ -41,7 +45,7 @@ public class KontoListView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Konten");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Konten"));
 
     KontoControl control = new KontoControl(this);
 
@@ -49,12 +53,12 @@ public class KontoListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"), new DokumentationAction(),
         DokumentationUtil.KONTEN, false, "help-browser.png");
-    buttons.addButton("Hibiscus-Import",
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hibiscus-Import"),
         new HibiscusKontenImportAction(control), null, false, "go.png");
     buttons
-        .addButton("neu", new KontoAction(), null, false, "document-new.png");
+        .addButton(JVereinPlugin.getI18n().tr("neu"), new KontoAction(), null, false, "document-new.png");
   }
 
   public void unbind() throws ApplicationException

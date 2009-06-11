@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/22 21:07:04  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.2  2007/02/23 20:26:00  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -20,6 +23,7 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,7 +40,8 @@ public class ZusatzbetraegeDeleteAction implements Action
   {
     if (context == null || !(context instanceof Zusatzbetrag))
     {
-      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Kein Zusatzbetrag ausgewählt"));
     }
     try
     {
@@ -46,8 +51,9 @@ public class ZusatzbetraegeDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Zusatzbetrag löschen");
-      d.setText("Wollen Sie diesen Zusatzbetrag wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Zusatzbetrag löschen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diesen Zusatzbetrag wirklich löschen?"));
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -56,16 +62,19 @@ public class ZusatzbetraegeDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen eines Zusatzbetrages", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen eines Zusatzbetrages"), e);
         return;
       }
 
       z.delete();
-      GUI.getStatusBar().setSuccessText("Zusatzbetrag gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Zusatzbetrag gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen eines Zusatzbetrages.";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen eines Zusatzbetrages.");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

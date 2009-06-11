@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/08/13 19:16:23  jost
+ * Bugfix Spalte Mitglied
+ *
  * Revision 1.1  2008/08/10 12:37:57  jost
  * Vorbereitung der Rechnungserstellung
  *
@@ -18,6 +21,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -53,12 +57,14 @@ public class AbrechnungImpl extends AbstractDBObject implements Abrechnung
     {
       if (getBetrag() < 0)
       {
-        throw new ApplicationException("Betrag nicht gültig");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Betrag nicht gültig"));
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Abrechung kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Abrechung kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

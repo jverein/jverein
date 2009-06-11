@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008/03/16 07:34:42  jost
+ * Reaktivierung BuchfÃ¼hrung
+ *
  * Revision 1.3  2007/02/23 20:25:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -23,6 +26,7 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -39,7 +43,8 @@ public class BuchungDeleteAction implements Action
   {
     if (context == null || !(context instanceof Buchung))
     {
-      throw new ApplicationException("Keine Buchung ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keine Buchung ausgewählt"));
     }
     try
     {
@@ -49,8 +54,9 @@ public class BuchungDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Buchung löschen");
-      d.setText("Wollen Sie diese Buchung wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Buchung löschen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diese Buchung wirklich löschen?"));
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -59,16 +65,19 @@ public class BuchungDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen der Buchung", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen der Buchung"), e);
         return;
       }
 
       b.delete();
-      GUI.getStatusBar().setSuccessText("Buchung gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Buchung gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen der Buchung.";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen der Buchung.");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

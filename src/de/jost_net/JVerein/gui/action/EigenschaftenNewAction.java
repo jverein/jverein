@@ -9,9 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/01/25 15:59:47  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.EigenschaftenControl;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenNeuDialog;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -41,8 +45,11 @@ public class EigenschaftenNewAction implements Action
     catch (Exception e)
     {
       throw new ApplicationException(
-          "Diaglog zur Eingabe neuer Eigenschaften kann nicht geöffnet werden ("
-              + e.getMessage() + ")");
+          JVereinPlugin
+              .getI18n()
+              .tr(
+                  "Diaglog zur Eingabe neuer Eigenschaften kann nicht geöffnet werden."),
+          e);
     }
   }
 }

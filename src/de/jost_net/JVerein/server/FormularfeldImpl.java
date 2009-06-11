@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:15:45  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/07/18 20:17:55  jost
  * Neu: Formulare
  *
@@ -19,6 +22,7 @@ import java.rmi.RemoteException;
 
 import org.eclipse.swt.SWT;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -54,12 +58,14 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     {
       if (getName() == null || getName().length() == 0)
       {
-        throw new ApplicationException("Bitte Namen eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Namen eingeben"));
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Formular kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Formularfeld kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

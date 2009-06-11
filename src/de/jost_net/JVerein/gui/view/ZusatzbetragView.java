@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.2  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -33,6 +36,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
 import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
@@ -48,24 +52,33 @@ public class ZusatzbetragView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Zusatzbetrag");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Zusatzbetrag"));
     final ZusatzbetragControl control = new ZusatzbetragControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Zusatzbetrag");
-    group.addLabelPair("Startdatum", control.getStartdatum());
-    group.addLabelPair("nächste Fälligkeit", control.getFaelligkeit());
-    group.addLabelPair("Intervall", control.getIntervall());
-    group.addLabelPair("Endedatum", control.getEndedatum());
-    group.addLabelPair("Buchungstext", control.getBuchungstext());
-    group.addLabelPair("Betrag", control.getBetrag());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Zusatzbetrag"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Startdatum"), control
+        .getStartdatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("nächste Fälligkeit"),
+        control.getFaelligkeit());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Intervall"), control
+        .getIntervall());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Endedatum"), control
+        .getEndedatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungstext"), control
+        .getBuchungstext());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
+        .getBetrag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ZUSATZABBUCHUNGEN, false, "help-browser.png");
-    buttons.addButton("Löschen", new ZusatzbetraegeDeleteAction(), control
-        .getZusatzbetrag(), false, "user-trash.png");
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.ZUSATZABBUCHUNGEN, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
+        new ZusatzbetraegeDeleteAction(), control.getZusatzbetrag(), false,
+        "user-trash.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

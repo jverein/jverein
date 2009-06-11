@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/26 18:48:36  jost
+ * Neu: Ersatz Aufwendungen
+ *
  * Revision 1.2  2008/11/29 13:17:02  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -21,6 +24,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -57,19 +61,23 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     {
       if (getBetrag().doubleValue() <= 0)
       {
-        throw new ApplicationException("Betrag größer als 0 eingeben.");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Betrag größer als 0 eingeben."));
       }
       if (getSpendedatum() == null)
       {
-        throw new ApplicationException("Spendedatum fehlt.");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Spendedatum fehlt."));
       }
       if (getBescheinigungsdatum() == null)
       {
-        throw new ApplicationException("Datum der Bescheinigung fehlt.");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Datum der Bescheinigung fehlt."));
       }
       if (getZeile1() == null && getZeile2() == null && getZeile3() == null)
       {
-        throw new ApplicationException("Spenderadresse fehlt");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Spenderadresse fehlt"));
       }
     }
     catch (RemoteException e)

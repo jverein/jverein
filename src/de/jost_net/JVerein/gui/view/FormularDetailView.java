@@ -9,9 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/03/26 21:03:06  jost
+ * Javadoc angepasst.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.FormularControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -26,20 +30,23 @@ public class FormularDetailView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Formular");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Formular"));
 
     final FormularControl control = new FormularControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Formular");
-    group.addLabelPair("Bezeichnung", control.getBezeichnung());
-    group.addLabelPair("Art", control.getArt());
-    group.addLabelPair("Datei", control.getDatei());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Formular"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
+        .getBezeichnung());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getArt());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datei"), control.getDatei());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FORMULARE, false, "help-browser.png");
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.FORMULARE, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

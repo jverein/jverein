@@ -9,11 +9,15 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/05/07 19:24:08  jost
+ * Neu: Wiedervorlage
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -30,18 +34,20 @@ public class WiedervorlageDeleteAction implements Action
   {
     if (context == null || !(context instanceof Wiedervorlage))
     {
-      throw new ApplicationException("Keine Wiedervorlage ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keine Wiedervorlage ausgewählt"));
     }
     try
     {
-      Wiedervorlage w= (Wiedervorlage) context;
+      Wiedervorlage w = (Wiedervorlage) context;
       if (w.isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Wiedervorlage löschen");
-      d.setText("Wollen Sie diese Wiedervorlage wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Wiedervorlage löschen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diese Wiedervorlage wirklich löschen?"));
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -50,16 +56,19 @@ public class WiedervorlageDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen der Wiedervorlage", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen der Wiedervorlage"), e);
         return;
       }
 
       w.delete();
-      GUI.getStatusBar().setSuccessText("Wiedervorlage gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Wiedervorlage gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen der Wiedervorlage.";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen der Wiedervorlage.");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

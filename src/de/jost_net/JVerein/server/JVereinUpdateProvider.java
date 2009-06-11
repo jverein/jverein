@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.version.UpdateProvider;
 import de.willuhn.util.ApplicationException;
@@ -83,9 +84,10 @@ public class JVereinUpdateProvider implements UpdateProvider
     }
     catch (SQLException e)
     {
-      Logger.error("Versionsnummer kann nicht eingefügt werden.", e);
-      throw new ApplicationException(
-          "Versionsnummer kann nicht gespeichert werden.");
+      Logger.error(JVereinPlugin.getI18n().tr(
+          "Versionsnummer kann nicht eingefügt werden."), e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Versionsnummer kann nicht gespeichert werden."));
     }
   }
 }

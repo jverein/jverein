@@ -9,11 +9,15 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/13 11:38:48  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lehrgangsart;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,7 +40,8 @@ public class LehrgangsartDeleteAction implements Action
     }
     if (context == null || !(context instanceof Lehrgangsart))
     {
-      throw new ApplicationException("Keine Lehrgangsart ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keine Lehrgangsart ausgewählt"));
     }
     try
     {
@@ -47,8 +52,9 @@ public class LehrgangsartDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Lehrgangsart löschen");
-      d.setText("Wollen Sie diese Lehrgangsart wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Lehrgangsart löschen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diese Lehrgangsart wirklich löschen?"));
 
       try
       {
@@ -60,15 +66,18 @@ public class LehrgangsartDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen einer Lehrgangsart", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen einer Lehrgangsart"), e);
         return;
       }
       l.delete();
-      GUI.getStatusBar().setSuccessText("Lehrgangsart gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Lehrgangsart gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen einer Lehrgangsart";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen einer Lehrgangsart");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

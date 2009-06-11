@@ -9,11 +9,15 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/06/28 16:55:43  jost
+ * Neu: Jahresabschluss
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,7 +40,8 @@ public class JahresabschlussDeleteAction implements Action
     }
     if (context == null || !(context instanceof Jahresabschluss))
     {
-      throw new ApplicationException("Keinen Jahresabschluss ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keinen Jahresabschluss ausgewählt"));
     }
     try
     {
@@ -46,8 +51,9 @@ public class JahresabschlussDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Jahresabschluss löschen");
-      d.setText("Wollen Sie diesen Jahresabschluss wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Jahresabschluss löschen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diesen Jahresabschluss wirklich löschen?"));
 
       try
       {
@@ -59,15 +65,18 @@ public class JahresabschlussDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen des Jahresabschlusses", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen des Jahresabschlusses"), e);
         return;
       }
       a.delete();
-      GUI.getStatusBar().setSuccessText("Jahresabschluss gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Jahresabschluss gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen des Jahresabschlusses";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen des Jahresabschlusses");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

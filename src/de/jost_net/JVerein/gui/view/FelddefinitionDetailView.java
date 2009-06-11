@@ -11,6 +11,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.FelddefinitionenAction;
 import de.jost_net.JVerein.gui.control.FelddefinitionControl;
@@ -26,21 +27,25 @@ public class FelddefinitionDetailView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Felddefinition");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Felddefinition"));
 
     final FelddefinitionControl control = new FelddefinitionControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Felddefinition");
-    group.addLabelPair("Name", control.getName());
-    group.addLabelPair("Label", control.getLabel());
-    group.addLabelPair("Länge", control.getLaenge());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Felddefinition"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Label"), control.getLabel());
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FELDDEFINITIONEN, false, "help-browser.png");
-    buttons.addButton("Übersicht", new FelddefinitionenAction());
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.FELDDEFINITIONEN, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Übersicht"),
+        new FelddefinitionenAction());
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

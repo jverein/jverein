@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2009/04/25 05:32:29  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.22  2009/03/26 21:05:16  jost
  * Email-Adress-Checker
  *
@@ -83,6 +86,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -125,7 +129,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     catch (RemoteException e)
     {
-      String fehler = "Mitglied kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Mitglied kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -137,44 +142,52 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       if (getExterneMitgliedsnummer() == null)
       {
-        throw new ApplicationException("Externe Mitgliedsnummer fehlt");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Externe Mitgliedsnummer fehlt"));
       }
     }
     if (getPersonenart() == null
         || (!getPersonenart().equals("n") && !getPersonenart().equals("j")))
     {
-      throw new ApplicationException("Personenstatus ist nicht 'n' oder 'j'");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Personenstatus ist nicht 'n' oder 'j'"));
     }
     if (getName() == null || getName().length() == 0)
     {
-      throw new ApplicationException("Bitte Namen eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Namen eingeben"));
     }
     if (getPersonenart().equals("n")
         && (getVorname() == null || getVorname().length() == 0))
     {
-      throw new ApplicationException("Bitte Vornamen eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Vornamen eingeben"));
     }
     if (getPersonenart().equals("n") && getGeburtsdatum() == null
         && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
-      throw new ApplicationException("Bitte Geburtsdatum eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Geburtsdatum eingeben"));
     }
     if (getPersonenart().equals("n") && getGeschlecht() == null)
     {
-      throw new ApplicationException("Bitte Geschlecht auswählen");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Geschlecht auswählen"));
     }
     if (getEmail() != null && getEmail().length() > 0)
     {
       if (!Checker.isValidEmailAddress(getEmail()))
       {
-        throw new ApplicationException("Ungültige Email-Adresse.");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Ungültige Email-Adresse."));
       }
     }
 
     if (getEintritt() == null
         && Einstellungen.getEinstellung().getEintrittsdatumPflicht())
     {
-      throw new ApplicationException("Bitte Eintrittsdatum eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Eintrittsdatum eingeben"));
     }
     if (getZahlungsweg() == Zahlungsweg.ABBUCHUNG
         && getBeitragsgruppe().getBetrag() > 0)
@@ -182,23 +195,29 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       if (getBlz() == null || getBlz().length() == 0 || getKonto() == null
           || getKonto().length() == 0)
       {
-        throw new ApplicationException("Bitte Bankverbindung eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Bankverbindung eingeben"));
       }
       if (getBlz() != null && getBlz().length() != 8)
       {
-        throw new ApplicationException("Die Bankleitzahl muss 8stellig sein");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Die Bankleitzahl muss 8stellig sein"));
       }
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
-        throw new ApplicationException("BLZ/Kontonummer (" + getBlz() + "/"
-            + getKonto() + ") ungültig. Bitte prüfen Sie Ihre Eingaben.");
+        throw new ApplicationException(
+            JVereinPlugin
+                .getI18n()
+                .tr(
+                    "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                    new String[] { getBlz(), getKonto() }));
       }
     }
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
         && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
     {
-      throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
-          + getZahlungsrhytmus());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Ungültiger Zahlungsrhytmus:{0} ", getZahlungsrhytmus() + ""));
     }
 
     if (getAustritt() != null || getKuendigung() != null)
@@ -214,7 +233,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         if (famang.hasNext())
         {
           throw new ApplicationException(
-              "Diese Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!");
+              JVereinPlugin
+                  .getI18n()
+                  .tr(
+                      "Diese Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
         }
       }
     }
@@ -228,7 +250,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     catch (RemoteException e)
     {
-      String fehler = "Mitglied kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Mitglied kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/03/01 18:00:20  jost
+ * Zusätzliche Zeile "Überschuss/Verlust"
+ *
  * Revision 1.2  2008/11/16 16:57:37  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.SaldoZeile;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
@@ -77,22 +81,29 @@ public class JahressaldoList extends TablePart implements Part
             .toArray(new GenericObject[zeile.size()]));
 
         saldoList = new TablePart(gi, null);
-        saldoList.addColumn("Kontonummer", "kontonummer", null, false,
-            Column.ALIGN_RIGHT);
-        saldoList.addColumn("Bezeichnung", "kontobezeichnung");
-        saldoList.addColumn("Anfangsbestand", "anfangsbestand",
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Kontonummer"),
+            "kontonummer", null, false, Column.ALIGN_RIGHT);
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+            "kontobezeichnung");
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Anfangsbestand"),
+            "anfangsbestand", new CurrencyFormatter("",
+                Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Einnahmen"),
+            "einnahmen",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        saldoList.addColumn("Einnahmen", "einnahmen", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Ausgaben", "ausgaben", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Umbuchungen", "umbuchungen",
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Ausgaben"), "ausgaben",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        saldoList.addColumn("Endbestand", "endbestand", new CurrencyFormatter(
-            "", Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Bemerkung", "bemerkung");
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Umbuchungen"),
+            "umbuchungen", new CurrencyFormatter("",
+                Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Endbestand"),
+            "endbestand",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Bemerkung"),
+            "bemerkung");
         saldoList.setRememberColWidths(true);
         saldoList.setSummary(false);
       }
@@ -107,11 +118,15 @@ public class JahressaldoList extends TablePart implements Part
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler aufgetreten")
+          + e.getMessage());
     }
     catch (ParseException e)
     {
-      throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler aufgetreten")
+          + e.getMessage());
     }
     return saldoList;
   }
@@ -145,12 +160,12 @@ public class JahressaldoList extends TablePart implements Part
     }
     k = (Konto) Einstellungen.getDBService().createObject(Konto.class, null);
     k.setNummer("");
-    k.setBezeichnung("Summe");
+    k.setBezeichnung(JVereinPlugin.getI18n().tr("Summe"));
     zeile.add(new SaldoZeile(k, anfangsbestand, einnahmen, ausgaben,
         umbuchungen, endbestand));
     k = (Konto) Einstellungen.getDBService().createObject(Konto.class, null);
     k.setNummer("");
-    k.setBezeichnung("Überschuss/Verlust(-)");
+    k.setBezeichnung(JVereinPlugin.getI18n().tr("Überschuss/Verlust(-)"));
     zeile.add(new SaldoZeile(k, null, null, null, null, jahressaldo));
 
     return zeile;

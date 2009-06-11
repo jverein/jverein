@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.6  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -33,6 +36,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -46,18 +50,21 @@ public class StatistikMitgliedView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Mitgliederstatistik");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Mitgliederstatistik"));
 
     final MitgliedControl control = new MitgliedControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Parameter");
-    group.addLabelPair("Stichtag", control.getStichtag());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Parameter"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"), control
+        .getStichtag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.STATISTIKMITGLIEDER, false, "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.STATISTIKMITGLIEDER,
+        false, "help-browser.png");
     buttons.addButton(control.getStartStatistikButton());
   }
 

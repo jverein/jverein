@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/12/29 09:19:15  jost
+ * Vermeidung NPE: Tagesdatum besetzen
+ *
  * Revision 1.3  2008/10/01 14:16:51  jost
  * Warnungen entfernt
  *
@@ -29,6 +32,7 @@ import java.util.HashMap;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.Action;
@@ -46,7 +50,8 @@ public class FormularAnzeigeAction implements Action
     }
     else
     {
-      throw new ApplicationException("Kein Formular zur Anzeige ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Kein Formular zur Anzeige ausgewählt"));
     }
     try
     {

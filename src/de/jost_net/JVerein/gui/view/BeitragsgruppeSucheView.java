@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.7  2009/01/20 19:14:56  jost
  * neu: Back-Button mit Icon
  *
@@ -33,6 +36,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDeleteAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
@@ -47,7 +51,7 @@ public class BeitragsgruppeSucheView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Beitragsgruppen");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppen"));
 
     BeitragsgruppeControl control = new BeitragsgruppeControl(this);
 
@@ -55,12 +59,14 @@ public class BeitragsgruppeSucheView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
-    buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
-        .getBeitragsgruppeTable(), false, "user-trash.png");
-    buttons.addButton("Neu", new BeitragsgruppeDetailAction(), null, false,
-        "document-new.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
+        new BeitragsgruppeDeleteAction(), control.getBeitragsgruppeTable(),
+        false, "user-trash.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+        new BeitragsgruppeDetailAction(), null, false, "document-new.png");
   }
 
   public void unbind() throws ApplicationException

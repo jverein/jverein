@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.2  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -18,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
 import de.jost_net.JVerein.gui.control.RechnungControl;
@@ -37,18 +41,24 @@ public class RechnungDetailView extends AbstractView
 
     final RechnungControl control = new RechnungControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Beitrag");
-    group.addLabelPair("Zweck1", control.getZweck1());
-    group.addLabelPair("Zweck2", control.getZweck2());
-    group.addLabelPair("Datum", control.getDatum());
-    group.addLabelPair("Betrag", control.getBetrag());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Beitrag"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zweck1"), control
+        .getZweck1());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zweck2"), control
+        .getZweck2());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
+        .getBetrag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.RECHNUNG, false, "help-browser.png");
-    buttons.addButton("Suche", new RechnungListeAction());
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
+        new RechnungListeAction());
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

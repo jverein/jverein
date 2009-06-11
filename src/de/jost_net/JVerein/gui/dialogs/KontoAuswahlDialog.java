@@ -10,12 +10,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:49:47  jost
+ * BuchfÃ¼hrung
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
 
 import org.eclipse.swt.widgets.Composite;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.parts.KontoList;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
@@ -37,16 +41,18 @@ public class KontoAuswahlDialog extends AbstractDialog
   public KontoAuswahlDialog(int position)
   {
     super(position);
-    this.setTitle("Konto-Auswahl");
+    this.setTitle(JVereinPlugin.getI18n().tr("Konto-Auswahl"));
   }
 
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup group = new LabelGroup(parent, "Verfügbare Konten");
+    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
+        "Verfügbare Konten"));
 
     if (text == null || text.length() == 0)
     {
-      text = "Bitte wählen Sie das gewünschte Konto aus.";
+      text = JVereinPlugin.getI18n().tr(
+          "Bitte wählen Sie das gewünschte Konto aus.");
     }
     group.addText(text, true);
 
@@ -69,7 +75,7 @@ public class KontoAuswahlDialog extends AbstractDialog
     konten.paint(parent);
 
     ButtonArea b = new ButtonArea(parent, 2);
-    b.addButton(i18n.tr("Übernehmen"), new Action()
+    b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

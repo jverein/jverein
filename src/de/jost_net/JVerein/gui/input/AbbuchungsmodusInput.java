@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2008/12/19 06:54:02  jost
+ * Eingetretene Mitglieder auch bei monatlicher, .... Abrechnung
+ *
  * Revision 1.6  2008/11/29 13:10:11  jost
  * Refactoring: Code-Optimierung
  *
@@ -36,6 +39,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -153,44 +157,48 @@ public class AbbuchungsmodusInput extends SelectInput
       switch (abbuchungsmodus)
       {
         case AbbuchungsmodusInput.KEINBEITRAG:
-          this.label = "keine Beitragsabrechnung";
+          this.label = JVereinPlugin.getI18n().tr("keine Beitragsabrechnung");
           break;
         case AbbuchungsmodusInput.JAEHRLICH:
-          this.label = "Jahresbeiträge";
+          this.label = JVereinPlugin.getI18n().tr("Jahresbeiträge");
           break;
         case AbbuchungsmodusInput.HALBJAEHRLICH:
-          this.label = "Halbjahresbeiträge";
+          this.label = JVereinPlugin.getI18n().tr("Halbjahresbeiträge");
           break;
         case AbbuchungsmodusInput.VIERTELJAEHRLICH:
-          this.label = "Vierteljahresbeiträge";
+          this.label = JVereinPlugin.getI18n().tr("Vierteljahresbeiträge");
           break;
         case AbbuchungsmodusInput.MONATLICH:
         case AbbuchungsmodusInput.MO:
-          this.label = "Monatsbeiträge";
+          this.label = JVereinPlugin.getI18n().tr("Monatsbeiträge");
           break;
         case AbbuchungsmodusInput.VI:
-          this.label = "Vierteljährlich";
+          this.label = JVereinPlugin.getI18n().tr("Vierteljährlich");
           break;
         case AbbuchungsmodusInput.HA:
-          this.label = "Halbjährlich";
+          this.label = JVereinPlugin.getI18n().tr("Halbjährlich");
           break;
         case AbbuchungsmodusInput.JA:
-          this.label = "Jährlich";
+          this.label = JVereinPlugin.getI18n().tr("Jährlich");
           break;
         case AbbuchungsmodusInput.JAHAVIMO:
-          this.label = "Jahres-, Halbjahres-, Vierteljahres- und Monatsbeiträge";
+          this.label = JVereinPlugin.getI18n().tr(
+              "Jahres-, Halbjahres-, Vierteljahres- und Monatsbeiträge");
           break;
         case AbbuchungsmodusInput.JAVIMO:
-          this.label = "Jahres-, Vierteljahres- und Monatsbeiträge";
+          this.label = JVereinPlugin.getI18n().tr(
+              "Jahres-, Vierteljahres- und Monatsbeiträge");
           break;
         case AbbuchungsmodusInput.HAVIMO:
-          this.label = "Halbjahres-, Vierteljahres- und Monatsbeiträge";
+          this.label = JVereinPlugin.getI18n().tr(
+              "Halbjahres-, Vierteljahres- und Monatsbeiträge");
           break;
         case AbbuchungsmodusInput.VIMO:
-          this.label = "Vierteljahres- und Monatsbeiträge";
+          this.label = JVereinPlugin.getI18n().tr(
+              "Vierteljahres- und Monatsbeiträge");
           break;
         case AbbuchungsmodusInput.EINGETRETENEMITGLIEDER:
-          this.label = "eingetretene Mitglieder";
+          this.label = JVereinPlugin.getI18n().tr("eingetretene Mitglieder");
           break;
       }
     }

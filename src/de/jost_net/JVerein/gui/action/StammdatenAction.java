@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/12/28 13:09:23  jost
+ * Bugfix beim erzeugen eines Stammdaten-Objektes
+ *
  * Revision 1.2  2007/02/23 20:26:00  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -21,6 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.StammdatenView;
 import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -56,8 +60,8 @@ public class StammdatenAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung eines Stammdatenobjektes aus der DB", e);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung eines Stammdatenobjektes aus der DB"), e);
       }
     }
     GUI.startView(StammdatenView.class.getName(), stamm);

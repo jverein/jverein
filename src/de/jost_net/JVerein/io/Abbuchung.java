@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2009/01/27 18:51:37  jost
+ * Abbuchung auch für Mitglieder ohne Eintrittsdatum
+ *
  * Revision 1.28  2009/01/03 07:45:58  jost
  * Keine Abbuchungen für ausgetretene Mitglieder
  *
@@ -109,6 +112,7 @@ import java.util.Hashtable;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Beitragsmodel;
@@ -175,10 +179,10 @@ public class Abbuchung
         buchenHibiscus(param);
       }
 
-      monitor.log("Anzahl Abrechnungen: " + dtaus.getAnzahlSaetze());
-      monitor.log("Gesamtsumme: "
-          + de.jost_net.JVerein.Einstellungen.DECIMALFORMAT.format(dtaus
-              .getSummeBetraegeDecimal()) + " ¤");
+      monitor.log(JVereinPlugin.getI18n().tr("Anzahl Abrechnungen: {0}",
+          new String[] { dtaus.getAnzahlSaetze() + "" }));
+      monitor.log(JVereinPlugin.getI18n().tr("Gesamtsumme: {0} EUR",
+          Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
       dtaus.close();
       monitor.setPercentComplete(100);
       if (param.dtausprint)

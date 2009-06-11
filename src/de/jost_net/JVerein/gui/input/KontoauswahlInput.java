@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.KontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.GUI;
@@ -78,9 +79,10 @@ public class KontoauswahlInput
       }
       catch (RemoteException er)
       {
-        Logger.error("Fehler bei der Ermittlung der Kontobezeichnung", er);
-        GUI.getStatusBar().setErrorText(
+        String error = JVereinPlugin.getI18n().tr(
             "Fehler bei der Ermittlung der Kontobezeichnung");
+        Logger.error(error, er);
+        GUI.getStatusBar().setErrorText(error);
       }
     }
   }

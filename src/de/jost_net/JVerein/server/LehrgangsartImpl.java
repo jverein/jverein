@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/13 11:41:02  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lehrgangsart;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -54,12 +58,14 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException("Bitte Bezeichnung eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Bezeichnung eingeben"));
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Lehrgangsart kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Lehrgangsart kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

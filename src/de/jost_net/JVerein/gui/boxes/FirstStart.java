@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/05/31 12:26:26  jost
+ * Erläuternder Text wurde eingefügt.
+ *
  * Revision 1.3  2007/12/29 19:09:22  jost
  * Explizite HÃ¶he der Box vorgegeben.
  *
@@ -26,6 +29,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.EinstellungenAction;
 import de.jost_net.JVerein.gui.action.StammdatenAction;
@@ -60,7 +64,7 @@ public class FirstStart extends AbstractBox
 
   public String getName()
   {
-    return "JVerein: Erste Schritte";
+    return JVereinPlugin.getI18n().tr("JVerein: Erste Schritte");
   }
 
   public boolean isEnabled()
@@ -74,20 +78,29 @@ public class FirstStart extends AbstractBox
   public void paint(Composite parent) throws RemoteException
   {
     FormTextPart text = new FormTextPart();
-    text.setText("<form><p><span color=\"header\" font=\"header\">"
-        + "Herzlich willkommen" + "</span></p>" + "<p>"
-        + "JVerein wird zum ersten Mal gestartet. Die Stammdaten des Vereins "
-        + "(Name, eigene Bankverbindung) "
-        + "und die Beitragsgruppe(n) sind zu erfassen. Außerdem kann das "
-        + "Verhalten von JVerein durch die Einstellungen beeinflusst werden."
-        + "</p></form>");
+    text
+        .setText("<form><p><span color=\"header\" font=\"header\">"
+            + JVereinPlugin.getI18n().tr("Herzlich willkommen")
+            + "</span></p>"
+            + "<p>"
+            + JVereinPlugin
+                .getI18n()
+                .tr(
+                    "JVerein wird zum ersten Mal gestartet. Die Stammdaten des Vereins "
+                        + "(Name, eigene Bankverbindung) "
+                        + "und die Beitragsgruppe(n) sind zu erfassen. Außerdem kann das "
+                        + "Verhalten von JVerein durch die Einstellungen beeinflusst werden.")
+            + "</p></form>");
 
     text.paint(parent);
 
     ButtonArea buttons = new ButtonArea(parent, 3);
-    buttons.addButton("Stammdaten", new StammdatenAction(), null, true);
-    buttons.addButton("Beitragsgruppen", new BeitragsgruppeSucheAction(), null);
-    buttons.addButton("Einstellungen", new EinstellungenAction(), null);
+    buttons.addButton(JVereinPlugin.getI18n().tr("Stammdaten"),
+        new StammdatenAction(), null, true);
+    buttons.addButton(JVereinPlugin.getI18n().tr("Beitragsgruppen"),
+        new BeitragsgruppeSucheAction(), null);
+    buttons.addButton(JVereinPlugin.getI18n().tr("Einstellungen"),
+        new EinstellungenAction(), null);
   }
 
   public int getHeight()

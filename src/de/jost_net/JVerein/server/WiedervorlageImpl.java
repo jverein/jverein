@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:17:28  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2007/05/07 19:27:06  jost
  * Neu: Wiedervorlage
  *
@@ -18,6 +21,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -54,16 +58,19 @@ public class WiedervorlageImpl extends AbstractDBObject implements
     {
       if (getDatum() == null)
       {
-        throw new ApplicationException("Bitte Datum eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Datum eingeben"));
       }
       if (getVermerk() == null)
       {
-        throw new ApplicationException("Bitte Vermerk eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Vermerk eingeben"));
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Wiedervorlage kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Wiedervorlage kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

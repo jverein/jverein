@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/13 16:23:33  jost
+ * Bugfix Beitragsart.
+ *
  * Revision 1.1  2008/11/29 13:12:47  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Art der Beitragsart
@@ -50,11 +55,11 @@ public class ArtBeitragsart
     switch (key)
     {
       case NORMAL:
-        return "Normal";
+        return JVereinPlugin.getI18n().tr("Normal");
       case FAMILIE_ZAHLER:
-        return "Familie: Zahler";
+        return JVereinPlugin.getI18n().tr("Familie: Zahler");
       case FAMILIE_ANGEHOERIGER:
-        return "Familie: Angehöriger";
+        return JVereinPlugin.getI18n().tr("Familie: Angehöriger");
       default:
         return null;
     }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/05/31 12:27:27  jost
+ * Typografische Änderung.
+ *
  * Revision 1.4  2008/12/27 15:18:30  jost
  * ZusÃ¤tzliche Infos werden ausgegeben.
  *
@@ -42,40 +45,42 @@ public class AboutView extends AbstractDialog
   public AboutView(int position)
   {
     super(position);
-    this.setTitle("Über...");
+    this.setTitle(JVereinPlugin.getI18n().tr("Über..."));
   }
 
   protected void paint(Composite parent) throws Exception
   {
     FormTextPart text = new FormTextPart();
-    text.setText("<form>"
-        + "<p><b>Plugin für die Vereinsverwaltung unter Jameica</b></p>"
+    text.setText("<form><p><b>"
+        + JVereinPlugin.getI18n().tr(
+            "Plugin für die Vereinsverwaltung unter Jameica") + "</b></p>"
         + "<br/>Licence: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
         + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
-        + "<p>http://www.jverein.de</p>" + "</form>");
+        + "<p>http://www.jverein.de</p></form>");
 
     text.paint(parent);
 
-    LabelGroup group = new LabelGroup(parent, " Information ");
+    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
+        "Information"));
 
     AbstractPlugin p = Application.getPluginLoader().getPlugin(
         JVereinPlugin.class);
 
-    group.addLabelPair("Version", new LabelInput(""
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Version"), new LabelInput(""
         + p.getManifest().getVersion()));
 
-    group.addLabelPair("Build-Date", new LabelInput(""
-        + p.getManifest().getBuildDate()));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Build-Date"),
+        new LabelInput("" + p.getManifest().getBuildDate()));
 
-    group.addLabelPair("Build-Nr", new LabelInput(""
-        + p.getManifest().getBuildnumber()));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Build-Nr"), new LabelInput(
+        "" + p.getManifest().getBuildnumber()));
 
     Version v = (Version) Einstellungen.getDBService().createObject(
         Version.class, "1");
-    group
-        .addLabelPair("Datenbank-Version", new LabelInput("" + v.getVersion()));
-    group.addLabelPair("Arbeitsverzeichnis", new LabelInput(""
-        + p.getResources().getWorkPath()));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datenbank-Version"),
+        new LabelInput("" + v.getVersion()));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Arbeitsverzeichnis"),
+        new LabelInput("" + p.getResources().getWorkPath()));
 
   }
 

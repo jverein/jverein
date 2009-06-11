@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:16:44  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2007/03/13 19:58:53  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -18,6 +21,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -55,7 +59,7 @@ public class ManuellerZahlungseingangImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = "ManuellerZahlungseingang kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr("ManuellerZahlungseingang kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -65,15 +69,15 @@ public class ManuellerZahlungseingangImpl extends AbstractDBObject implements
   {
     if (getName() == null || getName().length() == 0)
     {
-      throw new ApplicationException("Bitte Namen eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Bitte Namen eingeben"));
     }
     if (getVZweck1() == null || getVZweck1().length() == 0)
     {
-      throw new ApplicationException("Bitte Verwendungszweck 1 eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Bitte Verwendungszweck 1 eingeben"));
     }
     if (getBetrag() <= 0)
     {
-      throw new ApplicationException("Bitte Betrag > 0 eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Bitte Betrag > 0 eingeben"));
     }
   }
 
@@ -85,7 +89,7 @@ public class ManuellerZahlungseingangImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = "ManuellerZahlungseingang kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr("ManuellerZahlungseingang kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

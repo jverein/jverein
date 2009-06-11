@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.5  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -24,6 +27,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.control.BuchungsartControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,7 +40,7 @@ public class BuchungsartListView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Buchungsarten");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsarten"));
 
     BuchungsartControl control = new BuchungsartControl(this);
 
@@ -44,8 +48,8 @@ public class BuchungsartListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(new Back(false));
-    buttons.addButton("neu", new BuchungsartAction(), null, false,
-        "document-new.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+        new BuchungsartAction(), null, false, "document-new.png");
   }
 
   public void unbind() throws ApplicationException

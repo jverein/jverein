@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/12/22 21:14:57  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.3  2008/07/18 20:11:31  jost
  * Neu: Spendenbescheinigung
  *
@@ -21,6 +24,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -38,11 +42,14 @@ public class MitgliedMenu extends ContextMenu
    */
   public MitgliedMenu()
   {
-    addItem(new CheckedContextMenuItem("Bearbeiten",
-        new MitgliedDetailAction(), "edit.png"));
-    addItem(new CheckedContextMenuItem("Löschen...",
-        new MitgliedDeleteAction(), "user-trash.png"));
-    addItem(new CheckedContextMenuItem("Spendenbescheinigung",
-        new SpendenbescheinigungAction(), "rechnung.png"));
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("bearbeiten"), new MitgliedDetailAction(),
+        "edit.png"));
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."), new MitgliedDeleteAction(),
+        "user-trash.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Spendenbescheinigung"), new SpendenbescheinigungAction(),
+        "rechnung.png"));
   }
 }

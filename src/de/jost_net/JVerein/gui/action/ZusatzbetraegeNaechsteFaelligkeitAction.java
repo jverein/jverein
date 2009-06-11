@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/22 21:07:33  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.1  2007/03/30 13:19:57  jost
  * Neu
  *
@@ -18,6 +21,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Datum;
 import de.willuhn.jameica.gui.Action;
@@ -43,7 +47,8 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
   {
     if (context == null || !(context instanceof Zusatzbetrag))
     {
-      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Kein Zusatzbetrag ausgewählt"));
     }
     try
     {
@@ -53,8 +58,9 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Nächste Fälligkeit setzen");
-      d.setText("Wollen Sie das nächste Fälligkeitsdatum setzen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Nächste Fälligkeit setzen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie das nächste Fälligkeitsdatum setzen?"));
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -65,7 +71,10 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
       {
         Logger
             .error(
-                "Fehler beim Setzen des nächsten Fälligkeitsdatums des Zusatzbetrages",
+                JVereinPlugin
+                    .getI18n()
+                    .tr(
+                        "Fehler beim Setzen des nächsten Fälligkeitsdatums des Zusatzbetrages"),
                 e);
         return;
       }
@@ -75,7 +84,8 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
       if (vorh == null)
       {
         GUI.getStatusBar().setErrorText(
-            "Datum kann nicht weiter vorgesetzt werden");
+            JVereinPlugin.getI18n().tr(
+                "Datum kann nicht weiter vorgesetzt werden"));
       }
       else
       {
@@ -83,12 +93,14 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
         z.setFaelligkeit(vorh);
         z.store();
         table.addItem(z, ind);
-        GUI.getStatusBar().setSuccessText("Fälligkeitsdatum gesetzt.");
+        GUI.getStatusBar().setSuccessText(
+            JVereinPlugin.getI18n().tr("Fälligkeitsdatum gesetzt."));
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/22 21:12:08  jost
+ * Icons ins MenÃ¼ aufgenommen.
+ *
  * Revision 1.2  2007/12/02 13:41:04  jost
  * Ã¼berflÃ¼ssiges Import-Statement entfernt.
  *
@@ -18,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -33,7 +37,8 @@ public class BeitragsgruppeMenu extends ContextMenu
    */
   public BeitragsgruppeMenu()
   {
-    addItem(new CheckedContextMenuItem("Löschen...",
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."),
         new BeitragsgruppeDeleteAction(), "user-trash.png"));
   }
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2007/02/23 20:28:04  jost
+ * Mail- und Webadresse im Header korrigiert.
+ *
  * Revision 1.2  2006/12/23 16:47:50  jost
  * Java 1.5 Kompatibilität
  *
@@ -22,6 +25,8 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.eclipse.swt.graphics.Point;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 public class AltersgruppenParser
 {
@@ -45,8 +50,9 @@ public class AltersgruppenParser
       stt = new StringTokenizer((String) gruppen.elementAt(i), "-");
       if (stt.countTokens() != 2)
       {
-        throw new RuntimeException("Ungültige Altersgruppe: "
-            + (String) gruppen.elementAt(i));
+        throw new RuntimeException(JVereinPlugin.getI18n().tr(
+            "Ungültige Altersgruppe: {0}}",
+            new String[] { (String) gruppen.elementAt(i) }));
       }
       elemente.addElement(stt.nextToken());
       elemente.addElement(stt.nextToken());

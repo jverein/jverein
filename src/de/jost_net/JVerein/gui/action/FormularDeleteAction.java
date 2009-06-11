@@ -9,11 +9,15 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:06:34  jost
+ * Neu: Formulare
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,7 +40,8 @@ public class FormularDeleteAction implements Action
     }
     if (context == null || !(context instanceof Formular))
     {
-      throw new ApplicationException("Kein Formular ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Kein Formular ausgewählt"));
     }
     try
     {
@@ -47,8 +52,8 @@ public class FormularDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Formular löschen");
-      d.setText("Wollen Sie dieses Formular wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Formular löschen"));
+      d.setText(("Wollen Sie dieses Formular wirklich löschen?"));
 
       try
       {
@@ -60,15 +65,18 @@ public class FormularDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen des Formulares", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen des Formulares"), e);
         return;
       }
       f.delete();
-      GUI.getStatusBar().setSuccessText("Formular gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Formular gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen des Formulares";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen des Formulares");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

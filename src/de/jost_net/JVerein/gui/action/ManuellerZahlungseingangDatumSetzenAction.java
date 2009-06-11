@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:56:02  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
@@ -19,6 +22,7 @@ import java.util.Date;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -46,8 +50,8 @@ public class ManuellerZahlungseingangDatumSetzenAction implements Action
   {
     if (context == null || !(context instanceof ManuellerZahlungseingang))
     {
-      throw new ApplicationException(
-          "Keinen ManuellenZahlungseingang ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keinen ManuellenZahlungseingang ausgewählt"));
     }
     try
     {
@@ -57,7 +61,7 @@ public class ManuellerZahlungseingangDatumSetzenAction implements Action
         return;
       }
       CalendarDialog cd = new CalendarDialog(CalendarDialog.POSITION_MOUSE);
-      cd.setTitle("Datum des Zahlungseinganges");
+      cd.setTitle(JVereinPlugin.getI18n().tr("Datum des Zahlungseinganges"));
       cd.addCloseListener(new Listener()
       {
         public void handleEvent(Event event)
@@ -82,11 +86,13 @@ public class ManuellerZahlungseingangDatumSetzenAction implements Action
         e.printStackTrace();
       }
 
-      GUI.getStatusBar().setSuccessText("Datum eingetragen.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Datum eingetragen."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim setzen des Zahlungseingangsdatums";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim setzen des Zahlungseingangsdatums");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

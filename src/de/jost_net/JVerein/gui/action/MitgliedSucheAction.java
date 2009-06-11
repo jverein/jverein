@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/25 16:01:23  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  * Revision 1.2  2007/02/23 20:26:00  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -21,6 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -45,8 +49,8 @@ public class MitgliedSucheAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "kann kein Objekt vom Typ Mitglied erzeugen");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "kann kein Objekt vom Typ Mitglied erzeugen"));
       }
     }
     GUI.startView(de.jost_net.JVerein.gui.view.MitgliederSucheView.class

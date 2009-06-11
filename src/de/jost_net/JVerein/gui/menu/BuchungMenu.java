@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/01/25 10:58:39  jost
+ * Icons aufgenommen.
+ *
  * Revision 1.9  2009/01/10 19:27:23  jost
  * Jameica 1.8-Kompatibilität hergestellt.
  *
@@ -36,6 +39,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.BuchungBuchungsartZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
@@ -64,12 +68,12 @@ public class BuchungMenu extends ContextMenu
 
   public BuchungMenu(BuchungsControl control)
   {
-    addItem(new ContextMenuItem("Neu", new BuchungNeuAction(),
-        "document-new.png"));
+    addItem(new ContextMenuItem(JVereinPlugin.getI18n().tr("neu"),
+        new BuchungNeuAction(), "document-new.png"));
     // Work-Around: Jameica unterstütze in Version 1.7 den Konstruktor mit Icon
     // nicht.
     CheckedSingleContextMenuItem mnBearbeiten = new CheckedSingleContextMenuItem(
-        "Bearbeiten", new BuchungAction());
+        JVereinPlugin.getI18n().tr("bearbeiten"), new BuchungAction());
     String icon = "edit.png";
     try
     {
@@ -81,9 +85,11 @@ public class BuchungMenu extends ContextMenu
     }
     addItem(mnBearbeiten);
 
-    addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Buchungsart zuordnen"),
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
-    addItem(new CheckedContextMenuItem("Löschen...", new BuchungDeleteAction(),
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."), new BuchungDeleteAction(),
         "user-trash.png"));
   }
 }

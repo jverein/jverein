@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/30 10:53:26  jost
+ * Fehlende Icons ergÃ¤nzt.
+ *
  * Revision 1.2  2008/12/22 21:15:41  jost
  * Icons ins MenÃ¼ aufgenommen.
  *
@@ -18,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.WiedervorlageDeleteAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageErledigungAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -35,9 +39,10 @@ public class WiedervorlageMenu extends ContextMenu
    */
   public WiedervorlageMenu(TablePart table)
   {
-    addItem(new CheckedContextMenuItem("Erledigung",
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("erledigt"),
         new WiedervorlageErledigungAction(table), "emblem-default.png"));
-    addItem(new CheckedContextMenuItem("Löschen...",
+    addItem(new CheckedContextMenuItem(
+        JVereinPlugin.getI18n().tr("löschen..."),
         new WiedervorlageDeleteAction(), "user-trash.png"));
   }
 }

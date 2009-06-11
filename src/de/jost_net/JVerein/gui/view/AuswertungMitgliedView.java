@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/03/26 21:02:08  jost
+ * Neu: Reports - Erste Version
+ *
  * Revision 1.8  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -36,6 +39,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.JVereinDBService;
@@ -55,11 +59,13 @@ public class AuswertungMitgliedView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Auswertung Mitgliedsdaten");
+    GUI.getView().setTitle(
+        JVereinPlugin.getI18n().tr("Auswertung Mitgliedsdaten"));
 
     final MitgliedControl control = new MitgliedControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Filter");
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Filter"));
 
     ColumnLayout cl = new ColumnLayout(group.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cl.getComposite());
@@ -68,35 +74,46 @@ public class AuswertungMitgliedView extends AbstractView
         DBSupportH2Impl.class.getName()).equals(
         DBSupportMcKoiImpl.class.getName()))
     {
-      left.addLabelPair("Eigenschaften", control.getEigenschaftenAuswahl());
+      left.addLabelPair(JVereinPlugin.getI18n().tr("Eigenschaften"), control
+          .getEigenschaftenAuswahl());
     }
 
-    left.addLabelPair("Geburtsdatum von", control.getGeburtsdatumvon());
-    left.addLabelPair("Geburtsdatum bis", control.getGeburtsdatumbis());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"), control
+        .getGeburtsdatumvon());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum bis"), control
+        .getGeburtsdatumbis());
 
     SelectInput inpGeschlecht = control.getGeschlecht();
     inpGeschlecht.setMandatory(false);
-    left.addLabelPair("Geschlecht", inpGeschlecht);
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Geschlecht"), inpGeschlecht);
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
-    right.addLabelPair("Eintritt von", control.getEintrittvon());
-    right.addLabelPair("Eintritt bis", control.getEintrittbis());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintritt von"), control
+        .getEintrittvon());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintritt bis"), control
+        .getEintrittbis());
 
-    right.addLabelPair("Austritt von", control.getAustrittvon());
-    right.addLabelPair("Austritt bis", control.getAustrittbis());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Austritt von"), control
+        .getAustrittvon());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Austritt bis"), control
+        .getAustrittbis());
 
-    right.addLabelPair("Beitragsgruppe", control.getBeitragsgruppeAusw());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsgruppe"), control
+        .getBeitragsgruppeAusw());
 
-    right.addLabelPair("Ausgabe", control.getAusgabe());
-    right.addLabelPair("Sortierung", control.getSortierung());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Ausgabe"), control
+        .getAusgabe());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Sortierung"), control
+        .getSortierung());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.AUSWERTUNGMITGLIEDER,
+        false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
-   }
+  }
 
   public void unbind() throws ApplicationException
   {

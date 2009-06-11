@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/10/01 14:17:57  jost
+ * Warnungen entfernt
+ *
  * Revision 1.1  2008/09/04 18:57:37  jost
  * SearchProvider für die neue Jameica-Suchmaschine
  *
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -35,7 +39,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
 {
   public String getName()
   {
-    return "Kursteilnehmer";
+    return JVereinPlugin.getI18n().tr("Kursteilnehmer");
   }
 
   public List<MyResult> search(String search) throws RemoteException,
@@ -85,7 +89,8 @@ public class KursteilnehmerSearchProvider implements SearchProvider
       try
       {
         return k.getName() + ", " + k.getVZweck1() + ", " + k.getVZweck2()
-            + ", Konto: " + k.getKonto() + ", BLZ: " + k.getBlz();
+            + ", " + JVereinPlugin.getI18n().tr("Konto") + ": " + k.getKonto()
+            + ", " + JVereinPlugin.getI18n().tr("BLZ") + ": " + k.getBlz();
       }
       catch (RemoteException re)
       {

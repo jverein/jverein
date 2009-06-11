@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/07/18 20:08:27  jost
+ * Neu: Spendenbescheinigung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.SpendenbescheinigungView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -54,8 +58,8 @@ public class SpendenbescheinigungAction implements Action
     catch (RemoteException e)
     {
       Logger.error("Fehler", e);
-      throw new ApplicationException(
-          "Fehler bei der Erstellung der Spendenbescheinigung");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler bei der Erstellung der Spendenbescheinigung"));
     }
   }
 }

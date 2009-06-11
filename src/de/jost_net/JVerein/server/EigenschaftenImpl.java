@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:15:27  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/01/25 16:07:06  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -17,13 +20,15 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class EigenschaftenImpl extends AbstractDBObject implements Eigenschaften
+public class EigenschaftenImpl extends AbstractDBObject implements
+    Eigenschaften
 {
   private static final long serialVersionUID = -5906609226109964967L;
 
@@ -52,12 +57,14 @@ public class EigenschaftenImpl extends AbstractDBObject implements Eigenschaften
     {
       if (getEigenschaft() == null)
       {
-        throw new ApplicationException("Bitte Eigenschaft eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Eigenschaft eingeben"));
       }
     }
     catch (RemoteException e)
     {
-      String fehler = "Eigenschaft kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Eigenschaft kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

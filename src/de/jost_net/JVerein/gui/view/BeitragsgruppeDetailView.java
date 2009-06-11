@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.7  2009/01/20 19:14:45  jost
  * neu: Back-Button mit Icon
  *
@@ -33,6 +36,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BeitragsgruppeControl;
@@ -48,21 +52,27 @@ public class BeitragsgruppeDetailView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Beitragsgruppe");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppe"));
 
     final BeitragsgruppeControl control = new BeitragsgruppeControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Beitrag");
-    group.addLabelPair("Bezeichnung", control.getBezeichnung());
-    group.addLabelPair("Betrag", control.getBetrag());
-    group.addLabelPair("Beitragsart", control.getBeitragsArt());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Beitrag"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
+        .getBezeichnung());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
+        .getBetrag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"), control
+        .getBeitragsArt());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
-    buttons.addButton("Suche", new BeitragsgruppeSucheAction());
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
+        new BeitragsgruppeSucheAction());
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/13 16:25:14  jost
+ * equals()-Methode implementiert.
+ *
  * Revision 1.1  2008/11/29 13:13:36  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Schlüssel Zahlungsweg
@@ -50,11 +55,11 @@ public class Zahlungsweg
     switch (key)
     {
       case ABBUCHUNG:
-        return "Abbuchung";
+        return JVereinPlugin.getI18n().tr("Abbuchung");
       case ÜBERWEISUNG:
-        return "Überweisung";
+        return JVereinPlugin.getI18n().tr("Überweisung");
       case BARZAHLUNG:
-        return "Barzahlung";
+        return JVereinPlugin.getI18n().tr("Barzahlung");
       default:
         return null;
     }

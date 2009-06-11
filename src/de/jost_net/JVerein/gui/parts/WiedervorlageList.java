@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/22 08:26:07  jost
+ * Debug-Meldung entfernt.
+ *
  * Revision 1.1  2007/12/20 20:33:09  jost
  * Neu: Wiedervorlage-Übersicht in der Jameica-Startseite
  *
@@ -20,6 +23,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -51,30 +55,32 @@ public class WiedervorlageList extends TablePart implements Part
     {
       wiedervorlageList = new TablePart(wiedervorlagen,
           new WiedervorlageAction(null));
-      wiedervorlageList.addColumn("Name", "mitglied", new Formatter()
-      {
-        public String format(Object o)
-        {
-          Mitglied m = (Mitglied) o;
-          if (m == null)
-            return null;
-          String name = null;
-          try
+      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Name"),
+          "mitglied", new Formatter()
           {
-            name = m.getNameVorname();
-          }
-          catch (RemoteException e)
-          {
-            e.printStackTrace();
-          }
-          return name;
-        }
-      });
-      wiedervorlageList.addColumn("Datum", "datum", new DateFormatter(
-          Einstellungen.DATEFORMAT));
-      wiedervorlageList.addColumn("Vermerk", "vermerk");
-      wiedervorlageList.addColumn("Erledigung", "erledigung",
+            public String format(Object o)
+            {
+              Mitglied m = (Mitglied) o;
+              if (m == null)
+                return null;
+              String name = null;
+              try
+              {
+                name = m.getNameVorname();
+              }
+              catch (RemoteException e)
+              {
+                e.printStackTrace();
+              }
+              return name;
+            }
+          });
+      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
           new DateFormatter(Einstellungen.DATEFORMAT));
+      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Vermerk"),
+          "vermerk");
+      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Erledigung"),
+          "erledigung", new DateFormatter(Einstellungen.DATEFORMAT));
       wiedervorlageList
           .setContextMenu(new WiedervorlageMenu(wiedervorlageList));
       wiedervorlageList.setRememberColWidths(true);

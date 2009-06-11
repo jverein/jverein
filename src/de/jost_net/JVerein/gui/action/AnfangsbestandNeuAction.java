@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/05/22 06:45:35  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.KontoAuswahlDialog;
 import de.jost_net.JVerein.gui.view.AnfangsbestandView;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
@@ -52,20 +56,23 @@ public class AnfangsbestandNeuAction implements Action
         }
         catch (OperationCanceledException oce)
         {
-          GUI.getStatusBar().setErrorText("Vorgang abgebrochen");
+          GUI.getStatusBar().setErrorText(
+              JVereinPlugin.getI18n().tr("Vorgang abgebrochen"));
           return;
         }
         catch (Exception e)
         {
           Logger.error("error while choosing konto", e);
-          GUI.getStatusBar().setErrorText("Fehler bei der Auswahl des Kontos.");
+          GUI.getStatusBar().setErrorText(
+              JVereinPlugin.getI18n().tr("Fehler bei der Auswahl des Kontos."));
         }
       }
       GUI.startView(AnfangsbestandView.class, anf);
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Kann kein Anfangsbestand-Objekt erzeugen");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Kann kein Anfangsbestand-Objekt erzeugen"));
     }
   }
 }

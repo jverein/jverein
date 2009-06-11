@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2009/04/25 05:29:21  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.17  2009/04/13 11:40:14  jost
  * Neu: Lehrgänge
  *
@@ -62,6 +65,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EinstellungControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -79,7 +83,7 @@ public class EinstellungenView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Einstellungen");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Einstellungen"));
 
     final EinstellungControl control = new EinstellungControl(this);
 
@@ -88,68 +92,86 @@ public class EinstellungenView extends AbstractView
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-    TabGroup tabAnzeige = new TabGroup(folder, "Anzeige");
-    LabelGroup group = new LabelGroup(tabAnzeige.getComposite(), "Anzeige");
-    group.addLabelPair("Geburtsdatum Pflichtfeld", control
-        .getGeburtsdatumPflicht());
-    group.addLabelPair("Eintrittsdatum Pflichtfeld", control
-        .getEintrittsdatumPflicht());
-    group.addLabelPair("Kommunikationsdaten anzeigen", control
-        .getKommunikationsdaten());
-    group.addLabelPair("Zusatzbeträge anzeigen *", control.getZusatzbetrag());
-    group.addLabelPair("Vermerke anzeigen", control.getVermerke());
-    group.addLabelPair("Wiedervorlage anzeigen *", control.getWiedervorlage());
-    group
-        .addLabelPair("Kursteilnehmer anzeigen *", control.getKursteilnehmer());
-    group.addLabelPair("Lehrgänge anzeigen*", control.getLehrgaenge());
-    group.addLabelPair("Juristische Personen erlaubt", control.getJuristischePersonen());
-    group.addLabelPair("externe Mitgliedsnummer", control
-        .getExterneMitgliedsnummer());
-    group.addHeadline("* Änderung erfordert Neustart");
+    TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Anzeige"));
+    LabelGroup group = new LabelGroup(tabAnzeige.getComposite(), JVereinPlugin
+        .getI18n().tr("Anzeige"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum Pflichtfeld"),
+        control.getGeburtsdatumPflicht());
+    group.addLabelPair(
+        JVereinPlugin.getI18n().tr("Eintrittsdatum Pflichtfeld"), control
+            .getEintrittsdatumPflicht());
+    group.addLabelPair(JVereinPlugin.getI18n().tr(
+        "Kommunikationsdaten anzeigen"), control.getKommunikationsdaten());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge anzeigen")
+        + "*", control.getZusatzbetrag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Vermerke anzeigen"), control
+        .getVermerke());
+    group.addLabelPair(JVereinPlugin.getI18n().tr(
+        "Wiedervorlage anzeigen" + "*"), control.getWiedervorlage());
+    group.addLabelPair(JVereinPlugin.getI18n().tr(
+        "Kursteilnehmer anzeigen" + "*"), control.getKursteilnehmer());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Lehrgänge anzeigen" + "*"),
+        control.getLehrgaenge());
+    group.addLabelPair(JVereinPlugin.getI18n().tr(
+        "Juristische Personen erlaubt"), control.getJuristischePersonen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
+        control.getExterneMitgliedsnummer());
+    group.addHeadline("* "
+        + JVereinPlugin.getI18n().tr("Änderung erfordert Neustart"));
 
-    TabGroup tabBeitraege = new TabGroup(folder, "Beiträge");
+    TabGroup tabBeitraege = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Beiträge"));
     LabelGroup groupAbu = new LabelGroup(tabBeitraege.getComposite(),
-        "Beiträge");
-    groupAbu.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
+        JVereinPlugin.getI18n().tr("Beiträge"));
+    groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"), control
+        .getBeitragsmodel());
 
-    TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen");
+    TabGroup tabDateinamen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Dateinamen"));
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
-        "Dateinamen");
-    groupDatei.addLabelPair("Muster", control.getDateinamenmuster());
+        JVereinPlugin.getI18n().tr("Dateinamen"));
+    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Muster"), control
+        .getDateinamenmuster());
     groupDatei.addText("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit",
         true);
 
-    TabGroup tabBuchfuehrung = new TabGroup(folder, "Buchführung");
+    TabGroup tabBuchfuehrung = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Buchführung"));
     LabelGroup groupBuchfuehrung = new LabelGroup(tabBuchfuehrung
-        .getComposite(), "Buchführung");
-    groupBuchfuehrung.addLabelPair("Beginn Geschäftsjahr (TT.MM.)", control
-        .getBeginnGeschaeftsjahr());
+        .getComposite(), JVereinPlugin.getI18n().tr("Buchführung"));
+    groupBuchfuehrung.addLabelPair(JVereinPlugin.getI18n().tr(
+        "Beginn Geschäftsjahr (TT.MM.)"), control.getBeginnGeschaeftsjahr());
 
-    TabGroup tabRechnungen = new TabGroup(folder, "Rechnungen");
+    TabGroup tabRechnungen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Rechnungen"));
     LabelGroup groupRechnungen = new LabelGroup(tabRechnungen.getComposite(),
-        "Rechnungen");
-    groupRechnungen.addLabelPair("für Zahlungsweg Abbuchung", control
-        .getRechnungFuerAbbuchung());
-    groupRechnungen.addLabelPair("für Zahlungsweg Überweisung", control
-        .getRechnungFuerUeberweisung());
-    groupRechnungen.addLabelPair("für Zahlungsweg Barzahlung", control
-        .getRechnungFuerBarzahlung());
+        JVereinPlugin.getI18n().tr("Rechnungen"));
+    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
+        "für Zahlungsweg Abbuchung"), control.getRechnungFuerAbbuchung());
+    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
+        "für Zahlungsweg Überweisung"), control.getRechnungFuerUeberweisung());
+    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
+        "für Zahlungsweg Barzahlung"), control.getRechnungFuerBarzahlung());
 
-    TabGroup tabTabellen = new TabGroup(folder, "Tabellen");
+    TabGroup tabTabellen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Tabellen"));
 
     TabFolder folderTabellen = new TabFolder(tabTabellen.getComposite(),
         SWT.NONE);
 
-    TabGroup tabMitglieder = new TabGroup(folderTabellen, "Mitglieder");
+    TabGroup tabMitglieder = new TabGroup(folderTabellen, JVereinPlugin
+        .getI18n().tr("Mitglieder"));
     LabelGroup groupMitglieder = new LabelGroup(tabMitglieder.getComposite(),
-        "Trefferliste Mitglieder");
+        JVereinPlugin.getI18n().tr("Trefferliste Mitglieder"));
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.EINSTELLUNGEN, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

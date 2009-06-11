@@ -9,9 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/13 11:40:14  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.LehrgangsartAction;
 import de.jost_net.JVerein.gui.control.LehrgangsartControl;
@@ -25,7 +29,7 @@ public class LehrgangsartListeView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Lehrgangsarten");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Lehrgangsarten"));
 
     LehrgangsartControl control = new LehrgangsartControl(this);
 
@@ -33,10 +37,11 @@ public class LehrgangsartListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.LEHRGANG, false, "help-browser.png");
-    buttons.addButton("neu", new LehrgangsartAction(), null, false,
-        "document-new.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.LEHRGANG, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+        new LehrgangsartAction(), null, false, "document-new.png");
   }
 
   public void unbind() throws ApplicationException

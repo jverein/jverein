@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/11/29 13:14:38  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.2  2008/10/01 14:18:07  jost
  * Warnungen entfernt
  *
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -41,7 +45,7 @@ public class MitgliedSearchProvider implements SearchProvider
    */
   public String getName()
   {
-    return "Mitglieder";
+    return JVereinPlugin.getI18n().tr("Mitglieder");
   }
 
   @SuppressWarnings("unchecked")
@@ -93,8 +97,10 @@ public class MitgliedSearchProvider implements SearchProvider
             + m.getAnschrift()
             + (m.getGeburtsdatum() != null ? ", "
                 + Einstellungen.DATEFORMAT.format(m.getGeburtsdatum()) : "")
-            + (m.getKonto() != null ? ", Konto: " + m.getKonto() + ", BLZ: "
-                + m.getBlz() : "");
+            + (m.getKonto() != null ? ", "
+                + JVereinPlugin.getI18n().tr("Konto") + ": " + m.getKonto()
+                + ", " + JVereinPlugin.getI18n().tr("BLZ") + ": " + m.getBlz()
+                : "");
       }
       catch (RemoteException re)
       {

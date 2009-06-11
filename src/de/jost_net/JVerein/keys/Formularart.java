@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/13 16:24:04  jost
+ * equals()-Methode implementiert.
+ *
  * Revision 1.1  2008/11/29 13:13:06  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Formularart
@@ -48,9 +53,9 @@ public class Formularart
     switch (key)
     {
       case SPENDENBESCHEINIGUNG:
-        return "Spendenbescheinigung";
+        return JVereinPlugin.getI18n().tr("Spendenbescheinigung");
       case RECHNUNG:
-        return "Rechnung";
+        return JVereinPlugin.getI18n().tr("Rechnung");
       default:
         return null;
     }

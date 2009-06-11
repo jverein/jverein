@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.4  2009/01/20 19:14:25  jost
  * neu: Back-Button mit Icon
  *
@@ -24,6 +27,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -37,18 +41,18 @@ public class AuswertungKursteilnehmerView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Auswertung Kursteilnehmer");
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Auswertung Kursteilnehmer"));
 
     final KursteilnehmerControl control = new KursteilnehmerControl(this);
 
-    LabelGroup grAbu = new LabelGroup(getParent(), "Abbuchungsdatum");
-    grAbu.addLabelPair("von", control.getAbbuchungsdatumvon());
-    grAbu.addLabelPair("bis", control.getAbbuchungsdatumbis());
+    LabelGroup grAbu = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr("Abbuchungsdatum"));
+    grAbu.addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getAbbuchungsdatumvon());
+    grAbu.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getAbbuchungsdatumbis());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"), new DokumentationAction(),
         DokumentationUtil.AUSWERTUNGKURSTEILNEHMER, false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
 

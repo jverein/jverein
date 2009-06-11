@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/06/28 16:55:00  jost
+ * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
+ *
  * Revision 1.1  2008/05/22 06:45:04  jost
  * Buchführung
  *
@@ -24,6 +27,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.AnfangsbestandView;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
@@ -45,8 +49,8 @@ public class AnfangsbestandDetailAction implements Action
         Jahresabschluss ja = a.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(
-              "Anfangsbestand ist bereits abgeschlossen.");
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Anfangsbestand ist bereits abgeschlossen."));
         }
       }
       catch (RemoteException e)
@@ -63,8 +67,9 @@ public class AnfangsbestandDetailAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung eines neuen Anfangsbestandes", e);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung eines neuen Anfangsbestandes: {0}",
+            new String[] { e.getMessage() }));
       }
     }
     GUI.startView(AnfangsbestandView.class.getName(), a);

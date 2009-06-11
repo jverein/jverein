@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/11/29 13:15:36  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.2  2008/04/11 12:36:32  jost
  * Mini-Bugfix
  *
@@ -21,6 +24,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -57,7 +61,8 @@ public class FelddefinitionImpl extends AbstractDBObject implements
     {
       if (getName() == null || getName().length() == 0)
       {
-        throw new ApplicationException("Bitte Namen des Feldes eingeben");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Namen des Feldes eingeben"));
       }
       setName(getName().toLowerCase());
       String validChars = "abcdefghijklmnopqrstuvwxyz0123456789_";
@@ -66,8 +71,9 @@ public class FelddefinitionImpl extends AbstractDBObject implements
       {
         char c = testString.charAt(i);
         if (validChars.indexOf(c) == -1)
-          throw new ApplicationException("Ungültiges Zeichen (" + c
-              + ") im Feldnamen an Position " + i);
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Ungültiges Zeichen ({0}) im Feldnamen an Position {1}",
+              new String[] { c + "", i + "" }));
       }
       Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, null);
@@ -76,20 +82,22 @@ public class FelddefinitionImpl extends AbstractDBObject implements
       {
         if (getName().equals(s))
         {
-          throw new ApplicationException(getName()
-              + " ist ein reservierter Name und darf nicht verwendet werden.");
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "{0} ist ein reservierter Name und darf nicht verwendet werden.",
+              getName()));
         }
       }
       if (getLaenge() < 1 || getLaenge() > 1000)
       {
-        throw new ApplicationException("Ungültige Feldlänge");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Ungültige Feldlänge"));
       }
     }
     catch (RemoteException e)
     {
       Logger.error("insert check of felddefinition failed", e);
-      throw new ApplicationException(
-          "Felddefinition kann nicht gespeichert werden. Siehe system log");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Felddefinition kann nicht gespeichert werden. Siehe system log"));
     }
   }
 

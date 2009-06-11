@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/11/29 13:18:27  jost
+ * Neu: Konfiguration der Spalten einer Tabelle
+ *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -18,6 +21,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Settings;
@@ -74,7 +78,8 @@ public abstract class Spaltenauswahl
       return spaltendefinitionList;
     }
     spaltendefinitionList = new TablePart(spalten, null);
-    spaltendefinitionList.addColumn("Spalte", "spaltenbezeichnung");
+    spaltendefinitionList.addColumn(JVereinPlugin.getI18n().tr("Spalte"),
+        "spaltenbezeichnung");
     spaltendefinitionList.setCheckable(true);
     spaltendefinitionList.setMulti(true);
     spaltendefinitionList.setSummary(false);

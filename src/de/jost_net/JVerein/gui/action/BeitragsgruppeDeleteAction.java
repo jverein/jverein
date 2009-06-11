@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/01/26 16:21:03  jost
+ * Debug-Message entfernt.
+ *
  * Revision 1.2  2007/08/30 19:47:17  jost
  * Jetzt auch Ã¼ber einen Button auslÃ¶sbar.
  *
@@ -20,6 +23,7 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -42,7 +46,8 @@ public class BeitragsgruppeDeleteAction implements Action
     }
     if (context == null || !(context instanceof Beitragsgruppe))
     {
-      throw new ApplicationException("Keine Beitragsgruppe ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keine Beitragsgruppe ausgewählt"));
     }
     try
     {
@@ -52,26 +57,33 @@ public class BeitragsgruppeDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Beitragsgruppe löschen");
-      d.setText("Wollen Sie diese Beitragsgruppe wirklich löschen?");
+      d.setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppe löschen"));
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diese Beitragsgruppe wirklich löschen?"));
 
       try
       {
         Boolean choice = (Boolean) d.open();
         if (!choice.booleanValue())
+        {
           return;
+        }
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen der Beitragsgruppe", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen der Beitragsgruppe: [0}",
+            new String[] { e.getMessage() }));
         return;
       }
       bg.delete();
-      GUI.getStatusBar().setSuccessText("Beitragsgruppe gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Beitragsgruppe gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen der Beitragsgruppe";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen der Beitragsgruppe");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

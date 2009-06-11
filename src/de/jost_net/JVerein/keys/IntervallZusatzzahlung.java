@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/13 16:24:55  jost
+ * equals()-Methode implementiert.
+ *
  * Revision 1.1  2008/11/29 13:13:15  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Intervall Zusatzzahlungen
@@ -56,17 +61,17 @@ public class IntervallZusatzzahlung
     switch (key)
     {
       case KEIN:
-        return "kein";
+        return JVereinPlugin.getI18n().tr("kein");
       case MONATLICH:
-        return "monatlich";
+        return JVereinPlugin.getI18n().tr("monatlich");
       case ZWEIMONATLICH:
-        return "zweimonatlich";
+        return JVereinPlugin.getI18n().tr("zweimonatlich");
       case VIERTELJAEHRLICH:
-        return "vierteljährlich";
+        return JVereinPlugin.getI18n().tr("vierteljährlich");
       case HALBJAEHRLICH:
-        return "halbjährlich";
+        return JVereinPlugin.getI18n().tr("halbjährlich");
       case JAEHRLICH:
-        return "jährlich";
+        return JVereinPlugin.getI18n().tr("jährlich");
       default:
         return null;
     }

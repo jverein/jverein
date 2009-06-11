@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/07 19:38:23  jost
+ * MySQL-Kompatibilität hergestellt.
+ *
  * Revision 1.1  2008/04/10 18:57:04  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -18,6 +21,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -42,26 +46,28 @@ public class FelddefinitionDeleteAction implements Action
     }
     if (context == null || !(context instanceof Felddefinition))
     {
-      throw new ApplicationException("Keine Felddefinition ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Keine Felddefinition ausgewählt"));
     }
     try
     {
       Felddefinition fd = (Felddefinition) context;
-      DBIterator it = Einstellungen.getDBService().createList(Zusatzfelder.class);
+      DBIterator it = Einstellungen.getDBService().createList(
+          Zusatzfelder.class);
       it.addFilter("felddefinition=?", new Object[] { fd.getID() });
       it.addFilter("feld is not null");
       it.addFilter("feld <>''");
       if (it.size() > 0)
       {
-        throw new ApplicationException(
-            "Dieses Feld ist noch bei einem Mitglied gespeichert");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Dieses Feld ist noch bei einem Mitglied gespeichert"));
       }
       if (fd.isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Felddefinition löschen");
+      d.setTitle(JVereinPlugin.getI18n().tr("Felddefinition löschen"));
       d.setText("Wollen Sie diese Felddefinition wirklich löschen?");
 
       try
@@ -74,16 +80,19 @@ public class FelddefinitionDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler beim Löschen der Felddefinition", e);
+        Logger.error(JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen der Felddefinition"), e);
         return;
       }
-      
+
       fd.delete();
-      GUI.getStatusBar().setSuccessText("Felddefinition gelöscht.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Felddefinition gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen der Felddefinition";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen der Felddefinition");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

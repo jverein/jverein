@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/13 16:23:45  jost
+ * equals()-Methode implementiert.
+ *
  * Revision 1.1  2008/11/29 13:12:47  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Art der Buchungsart
@@ -50,11 +55,11 @@ public class ArtBuchungsart
     switch (key)
     {
       case EINNAHME:
-        return "Einnahme";
+        return JVereinPlugin.getI18n().tr("Einnahme");
       case AUSGABE:
-        return "Ausgabe";
+        return JVereinPlugin.getI18n().tr("Ausgabe");
       case UMBUCHUNG:
-        return "Umbuchung";
+        return JVereinPlugin.getI18n().tr("Umbuchung");
       default:
         return null;
     }

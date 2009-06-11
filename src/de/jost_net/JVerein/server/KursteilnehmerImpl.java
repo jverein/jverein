@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/11/29 13:16:35  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.2  2007/03/21 12:10:43  jost
  * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurÃ¼ckgesetzt werden.
  *
@@ -22,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -59,7 +63,8 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = "Kursteilnehmer kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Kursteilnehmer kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -69,32 +74,38 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   {
     if (getName() == null || getName().length() == 0)
     {
-      throw new ApplicationException("Bitte Namen eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Namen eingeben"));
     }
     if (getVZweck1() == null || getVZweck1().length() == 0)
     {
-      throw new ApplicationException("Bitte Verwendungszweck 1 eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Verwendungszweck 1 eingeben"));
     }
     if (getGeburtsdatum() == null)
     {
-      throw new ApplicationException("Bitte Geburtsdatum eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Geburtsdatum eingeben"));
     }
     if (getBlz() == null || getBlz().length() != 8)
     {
-      throw new ApplicationException("Bitte BLZ eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte BLZ eingeben"));
     }
     if (getKonto() == null || getKonto().length() == 0)
     {
-      throw new ApplicationException("Bitte Konto eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Konto eingeben"));
     }
     if (getBetrag() <= 0)
     {
-      throw new ApplicationException("Bitte Betrag > 0 eingeben");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bitte Betrag > 0 eingeben"));
     }
     if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
     {
-      throw new ApplicationException(
-          "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben."));
     }
   }
 
@@ -106,7 +117,8 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = "Kursteilnehmer kann nicht gespeichert werden. Siehe system log";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Kursteilnehmer kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2009/01/27 18:50:31  jost
+ * Import-Statement korrigiert
+ *
  * Revision 1.18  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -72,6 +75,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.willuhn.datasource.rmi.DBService;
@@ -100,43 +104,59 @@ public class AbbuchungView extends AbstractView
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
     if (anzahl.longValue() == 0)
     {
-      throw new ApplicationException("Stammdaten fehlen. "
-          + " Bitte unter Plugins|JVerein|Stammdaten erfassen.");
+      throw new ApplicationException(
+          JVereinPlugin
+              .getI18n()
+              .tr(
+                  "Stammdaten fehlen. Bitte unter Plugins|JVerein|Stammdaten erfassen."));
     }
 
     GUI.getView().setTitle("Abrechnung");
 
     final AbbuchungControl control = new AbbuchungControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Parameter");
-    group.addLabelPair("Modus", control.getAbbuchungsmodus());
-    group.addLabelPair("Stichtag", control.getStichtag());
-    group.addLabelPair("Von Eingabedatum", control.getVondatum());
-    group
-        .addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
-    group.addLabelPair("Zusatzbeträge", control.getZusatzbetrag());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Parameter"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Modus"), control
+        .getAbbuchungsmodus());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"), control
+        .getStichtag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Von Eingabedatum"), control
+        .getVondatum());
+    group.addLabelPair(
+        JVereinPlugin.getI18n().tr("Zahlungsgrund für Beiträge"), control
+            .getZahlungsgrund());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge"), control
+        .getZusatzbetrag());
     if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
       control.getZusatzbetrag().setEnabled(false);
     }
-    group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
-    group.addLabelPair("Dtaus-Datei drucken", control.getDtausPrint());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Kursteilnehmer"), control
+        .getKursteilnehmer());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Dtaus-Datei drucken"),
+        control.getDtausPrint());
 
     if (!Einstellungen.getEinstellung().getKursteilnehmer())
     {
       control.getKursteilnehmer().setEnabled(false);
     }
-    group.addLabelPair("Abbuchungsausgabe", control.getAbbuchungsausgabe());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Abbuchungsausgabe"), control
+        .getAbbuchungsausgabe());
     group.addSeparator();
     group
         .addText(
-            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
-                + "Üblicherweise 1.1. des Jahres.", true);
+            JVereinPlugin
+                .getI18n()
+                .tr(
+                    "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
+                        + "Üblicherweise 1.1. des Jahres."), true);
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
+        "help-browser.png");
     buttons.addButton(control.getStartButton());
   }
 

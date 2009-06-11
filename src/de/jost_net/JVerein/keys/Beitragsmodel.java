@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/13 16:23:55  jost
+ * equals()-Methode implementiert.
+ *
  * Revision 1.1  2008/11/29 13:12:56  jost
  * Refactoring: Code-Optimierung
  *
@@ -16,6 +19,8 @@
 package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
+
+import de.jost_net.JVerein.JVereinPlugin;
 
 /**
  * Abrechnungsausgabe
@@ -54,15 +59,18 @@ public class Beitragsmodel
     switch (key)
     {
       case JAEHRLICH:
-        return "jährlich";
+        return JVereinPlugin.getI18n().tr("jährlich");
       case HALBJAEHRLICH:
-        return "halbjährlich";
+        return JVereinPlugin.getI18n().tr("halbjährlich");
       case VIERTELJAEHRLICH:
-        return "vierteljährlich";
+        return JVereinPlugin.getI18n().tr("vierteljährlich");
       case MONATLICH:
-        return "monatlich";
+        return JVereinPlugin.getI18n().tr("monatlich");
       case MONATLICH12631:
-        return "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise";
+        return JVereinPlugin
+            .getI18n()
+            .tr(
+                "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise");
       default:
         return null;
     }

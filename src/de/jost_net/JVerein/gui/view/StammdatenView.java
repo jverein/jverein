@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/01/20 20:09:24  jost
+ * neue Icons
+ *
  * Revision 1.8  2009/01/20 19:15:19  jost
  * neu: Back-Button mit Icon
  *
@@ -36,6 +39,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.StammdatenControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -54,19 +58,25 @@ public class StammdatenView extends AbstractView
 
     final StammdatenControl control = new StammdatenControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Stammdaten");
-    group.addLabelPair("Name", control.getName());
-    group.addLabelPair("Bankleitzahl", control.getBlz());
-    group.addLabelPair("Konto", control.getKonto());
-    group.addLabelPair("Altersgruppen", control.getAltersgruppen());
-    group.addLabelPair("Jubiläen", control.getJubilaeen());
-    group.addLabelPair("Altersjubiläen", control.getAltersjubilaeen());
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Stammdaten"));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"), control
+        .getBlz());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Altersgruppen"), control
+        .getAltersgruppen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Jubiläen"), control
+        .getJubilaeen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"), control
+        .getAltersjubilaeen());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.STAMMDATEN, false, "help-browser.png");
-    buttons.addButton("Speichern", new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.STAMMDATEN, false,
+        "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
