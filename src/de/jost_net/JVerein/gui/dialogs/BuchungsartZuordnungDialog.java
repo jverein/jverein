@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:41  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2009/01/04 16:27:27  jost
  * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
  *
@@ -96,7 +99,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
         close();
       }
     }, null, true);
-    buttons.addButton(JVereinPlugin.getI18n().tr("Abbrechen"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

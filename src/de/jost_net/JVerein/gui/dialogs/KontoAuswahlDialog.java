@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:41  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/05/22 06:49:47  jost
  * Buchführung
  *
@@ -87,7 +90,7 @@ public class KontoAuswahlDialog extends AbstractDialog
         close();
       }
     });
-    b.addButton(i18n.tr("Abbrechen"), new Action()
+    b.addButton(i18n.tr("abbrechen"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

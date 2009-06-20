@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/06/11 21:02:41  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -60,7 +63,7 @@ public class EigenschaftenNeuDialog extends AbstractDialog
         .getNeu());
 
     ButtonArea buttons = new ButtonArea(parent, 3);
-    buttons.addButton(JVereinPlugin.getI18n().tr("Zurück"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("zurück"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
