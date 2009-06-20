@@ -1,6 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>Jameica + Plugins "portable"</h1>
-	<p>Autor: Marco HÃ¼gel</p>
+	<p>Autor: Marco Hügel</p>
 	<p></p>
 	<p>Wie allgemein bekannt ist setzt das GUI-Framework Jameica sowie dadurch die verschiedenen 
 		Plugins wie Hibiscus (Onlinebanking), JVerein (Vereinsverwaltung), Syntax (Finanzbuchhaltung) 
@@ -34,7 +34,7 @@
 	<img src='images/Jameica_portable-img1.png' class='screenshot'>
 	<p>Wir erhalten die aktuelle Version der JRE angezeigt, hier 1.6.0_02.</p>
 	<p>Hinweis:</p>
-	<p>Sollte auf dem PC noch kein JRE installiert sein, so muss dies zunÃ¤chst nachgeholt werden.</p>
+	<p>Sollte auf dem PC noch kein JRE installiert sein, so muss dies zunächst nachgeholt werden.</p>
 	<p>Download JRE:<a href="http://java.sun.com/javase/downloads/ea.jsp">
 		http://java.sun.com/javase/downloads/ea.jsp</a></p>
 	<p>Nach der Installation können Sie gegebenenfalls nochmals die Java-Version überprüfen, sollte 
@@ -133,6 +133,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.2  2009/05/03 15:45:50  jost
     Encoding korrigiert.
 
