@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.62  2009/06/21 08:53:00  jost
+ * Ausgabe von Langtexten beim Geschlecht.
+ *
  * Revision 1.61  2009/06/11 21:02:30  jost
  * Vorbereitung I18N
  *
@@ -484,6 +487,7 @@ public class MitgliedControl extends AbstractControl
     name.setName("Name");
     name.setMaxLength(40);
     name.setDelay(1000);
+    name.setMandatory(true);
     name.setSearchString("");
     return name;
   }
@@ -535,6 +539,7 @@ public class MitgliedControl extends AbstractControl
     vorname.setMaxLength(40);
     vorname.setDelay(1000);
     vorname.setSearchString("");
+    vorname.setMandatory(true);
     return vorname;
   }
 
