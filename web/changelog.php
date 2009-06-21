@@ -3,6 +3,8 @@
     <ul>
     	<li>Version 1.1.2 vom ? (noch nicht freigegeben)
     		<ul>
+    		    <li>Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=15892&group_id=7335'>#15892</a></li>
+    		    <li>Bei der Auswahl des Geschlechts werden jetzt die Langtexte männlich und weiblich angezeigt.</li>
     		    <li>Bugfix FirstStart: Jetzt wird auch die Existenz von Beitragsgruppen abgefragt</li>
     			<li>Die Menüpunkte von Plugins>JVerein ins Hauptmenü kopiert</li>
     			<li>Mitglied: Name, Vorname und Straße als Suchfelder</li>
@@ -420,6 +422,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.5  2009/05/31 12:28:15  jost
+    *** empty log message ***
+
     Revision 1.4  2009/05/15 19:10:18  jost
     *** empty log message ***
 
