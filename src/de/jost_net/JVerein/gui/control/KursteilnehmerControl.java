@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2009/01/26 19:27:13  jost
+ * Bugfix Pfad
+ *
  * Revision 1.16  2009/01/22 18:23:43  jost
  * neue Icons
  *
@@ -76,6 +79,7 @@ import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.menu.KursteilnehmerMenu;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
@@ -121,7 +125,7 @@ public class KursteilnehmerControl extends AbstractControl
 
   private DateInput geburtsdatum = null;
 
-  private SelectInput geschlecht;
+  private GeschlechtInput geschlecht;
 
   private Kursteilnehmer ktn;
 
@@ -252,14 +256,13 @@ public class KursteilnehmerControl extends AbstractControl
     return geburtsdatum;
   }
 
-  public SelectInput getGeschlecht() throws RemoteException
+  public GeschlechtInput getGeschlecht() throws RemoteException
   {
     if (geschlecht != null)
     {
       return geschlecht;
     }
-    geschlecht = new SelectInput(new String[] { "m", "w" }, getKursteilnehmer()
-        .getGeschlecht());
+    geschlecht = new GeschlechtInput(getKursteilnehmer().getGeschlecht());
     geschlecht.setPleaseChoose("Bitte auswählen");
     geschlecht.setMandatory(true);
     return geschlecht;
@@ -472,9 +475,10 @@ public class KursteilnehmerControl extends AbstractControl
     {
       public void handleAction(Object context) throws ApplicationException
       {
-         starteAuswertung();
+        starteAuswertung();
       }
-    }, null, true,"go.png"); // "true" defines this button as the default button
+    }, null, true, "go.png"); // "true" defines this button as the default
+    // button
     return b;
   }
 
@@ -646,7 +650,7 @@ public class KursteilnehmerControl extends AbstractControl
       }
 
       final File file = new File(s);
-      settings.setAttribute("lastdir",file.getParent());
+      settings.setAttribute("lastdir", file.getParent());
       final String subtitle2 = subtitle;
 
       BackgroundTask t = new BackgroundTask()

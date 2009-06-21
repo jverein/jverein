@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.61  2009/06/11 21:02:30  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.60  2009/05/20 05:55:14  jost
  * SearchInput für Name, Vorname und Straßennamen
  *
@@ -218,6 +221,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
@@ -290,7 +294,7 @@ public class MitgliedControl extends AbstractControl
 
   private DateInput geburtsdatum = null;
 
-  private SelectInput geschlecht;
+  private GeschlechtInput geschlecht;
 
   private SelectInput zahlungsweg;
 
@@ -676,14 +680,13 @@ public class MitgliedControl extends AbstractControl
     return geburtsdatum;
   }
 
-  public SelectInput getGeschlecht() throws RemoteException
+  public GeschlechtInput getGeschlecht() throws RemoteException
   {
     if (geschlecht != null)
     {
       return geschlecht;
     }
-    geschlecht = new SelectInput(new String[] { "m", "w" }, getMitglied()
-        .getGeschlecht());
+    geschlecht = new GeschlechtInput(getMitglied().getGeschlecht());
     geschlecht.setName("Geschlecht");
     geschlecht.setPleaseChoose("Bitte auswählen");
     geschlecht.setMandatory(true);
