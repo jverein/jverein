@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2008/12/13 16:21:39  jost
+ * Bugfix Standardwert
+ *
  * Revision 1.10  2008/11/30 18:56:20  jost
  * Refactoring: Code-Optimierung
  *
@@ -142,7 +145,7 @@ public class BuchungsartControl extends AbstractControl
       }
       catch (ApplicationException e)
       {
-        GUI.getView().setErrorText(e.getMessage());
+        GUI.getStatusBar().setErrorText(e.getMessage());
       }
     }
     catch (RemoteException e)
