@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/06/21 08:52:21  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.11  2008/12/19 06:52:57  jost
  * Überflüssiges Import-Statement entfernt
  *
@@ -142,7 +145,7 @@ public class BeitragsgruppeControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {
@@ -150,7 +153,6 @@ public class BeitragsgruppeControl extends AbstractControl
           "Fehler bei speichern der Beitragsgruppe");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
-      GUI.getView().setErrorText(fehler);
     }
   }
 

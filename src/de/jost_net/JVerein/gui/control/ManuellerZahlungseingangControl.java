@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:56:48  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -124,7 +127,7 @@ public class ManuellerZahlungseingangControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

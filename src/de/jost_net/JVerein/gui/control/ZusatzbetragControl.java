@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/22 21:09:42  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.10  2008/11/30 18:58:00  jost
  * Refactoring: Code-Optimierung
  *
@@ -327,7 +330,7 @@ public class ZusatzbetragControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

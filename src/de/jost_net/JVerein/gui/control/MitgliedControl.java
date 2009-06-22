@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.63  2009/06/21 11:45:46  jost
+ * Pflichtfelder als Pflichtfelder markiert.
+ *
  * Revision 1.62  2009/06/21 08:53:00  jost
  * Ausgabe von Langtexten beim Geschlecht.
  *
@@ -1901,7 +1904,7 @@ public class MitgliedControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

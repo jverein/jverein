@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2009/06/21 08:52:45  jost
+ * Ausgabe von Langtexten beim Geschlecht.
+ *
  * Revision 1.17  2009/01/26 19:27:13  jost
  * Bugfix Pfad
  *
@@ -573,7 +576,7 @@ public class KursteilnehmerControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

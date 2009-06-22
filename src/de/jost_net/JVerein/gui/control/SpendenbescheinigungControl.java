@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/01/26 19:27:30  jost
+ * Bugfix Pfad
+ *
  * Revision 1.8  2009/01/26 18:47:54  jost
  * Neu: Ersatz Aufwendungen
  *
@@ -279,7 +282,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

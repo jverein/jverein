@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2008/09/21 08:45:37  jost
+ * Neu: Altersjubliäen
+ *
  * Revision 1.9  2007/12/28 13:14:03  jost
  * Bugfix beim erzeugen eines Stammdaten-Objektes
  *
@@ -188,7 +191,7 @@ public class StammdatenControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

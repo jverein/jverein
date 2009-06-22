@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/21 08:51:42  jost
+ * Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Siehe #15892
+ *
  * Revision 1.4  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -103,7 +106,6 @@ public class BeitragsgruppeDeleteAction implements Action
       String fehler = JVereinPlugin.getI18n().tr(
           "Fehler beim Löschen der Beitragsgruppe");
       GUI.getStatusBar().setErrorText(fehler);
-      GUI.getView().setErrorText(fehler);
       Logger.error(fehler, e);
     }
   }

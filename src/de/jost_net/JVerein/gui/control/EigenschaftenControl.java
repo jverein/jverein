@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:06:56  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/01/25 16:01:56  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -186,7 +189,7 @@ public class EigenschaftenControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2007/12/20 20:32:53  jost
+ * Neu: Wiedervorlage-Übersicht in der Jameica-Startseite
+ *
  * Revision 1.1  2007/05/07 19:25:22  jost
  * Neu: Wiedervorlage
  *
@@ -133,7 +136,7 @@ public class WiedervorlageControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

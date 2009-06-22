@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/05/11 16:19:27  jost
+ * Aktivierung der neuen TablePart-Methode setRememberState();
+ *
  * Revision 1.19  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -545,7 +548,7 @@ public class BuchungsControl extends AbstractControl
       }
       catch (ApplicationException e)
       {
-        GUI.getView().setErrorText(e.getMessage());
+        GUI.getStatusBar().setErrorText(e.getMessage());
       }
     }
     catch (RemoteException e)

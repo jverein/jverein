@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 18:58:13  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -104,7 +107,7 @@ public class FelddefinitionControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {

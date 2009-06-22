@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/04/10 17:46:03  jost
+ * Zusätzliche Datenfelder für die Rechnungserstellung
+ *
  * Revision 1.10  2009/01/26 19:27:21  jost
  * Bugfix Pfad
  *
@@ -268,7 +271,7 @@ public class RechnungControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      GUI.getView().setErrorText(e.getMessage());
+      GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (RemoteException e)
     {
