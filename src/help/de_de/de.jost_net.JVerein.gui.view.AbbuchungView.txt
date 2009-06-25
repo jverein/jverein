@@ -9,9 +9,9 @@
 		Einstellungen).
 	</p>
 	<p>
-	    Der Stichtag wird  zur Prüfung herangezogen, ob für das Mitglied eine 
-	    Abbuchung erzeugt werden muss. Liegt das Austrittsdatum nach dem Stichtag,
-	    wird eine Abbuchung erzeugt.
+	    Der Stichtag wird  zur Prüfung herangezogen, ob die Mitgliedschaft schon/noch besteht
+	    und damit eine Abrechnung generiert muss. Liegt das Eintrittsdatum vor dem Stichtag und
+	    das Austrittsdatum nach dem Stichtag, wird das Mitglied berücksichtigt.
 	</p>
 	<p>
 		Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen
