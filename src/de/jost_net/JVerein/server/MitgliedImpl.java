@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2009/06/11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.23  2009/04/25 05:32:29  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -163,7 +166,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Bitte Vornamen eingeben"));
     }
-    if (getPersonenart().equals("n") && getGeburtsdatum() == null
+    if (getPersonenart().equals("n")
+        && getGeburtsdatum().getTime() == Einstellungen.NODATE.getTime()
         && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
@@ -183,7 +187,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
     }
 
-    if (getEintritt() == null
+    if (getEintritt().getTime() == Einstellungen.NODATE.getTime()
         && Einstellungen.getEinstellung().getEintrittsdatumPflicht())
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
