@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/06/21 08:53:12  jost
+ * Ausgabe von Langtexten beim Geschlecht.
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;
@@ -34,7 +37,6 @@ public class GeschlechtInput extends SelectInput
   public GeschlechtInput(String geschlecht) throws RemoteException
   {
     super(init(), new GeschlechtObject(geschlecht));
-    System.out.println("GeschlechtInput wurde initialisiert");
   }
 
   /**
