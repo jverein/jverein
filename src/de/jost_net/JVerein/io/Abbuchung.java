@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2009/06/11 21:03:52  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.29  2009/01/27 18:51:37  jost
  * Abbuchung auch für Mitglieder ohne Eintrittsdatum
  *
@@ -368,7 +371,18 @@ public class Abbuchung
       if (z.isAktiv())
       {
         Mitglied m = z.getMitglied();
-        writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
+        if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
+        {
+          try
+          {
+            writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
+          }
+          catch (DtausException e)
+          {
+            throw new ApplicationException(m.getNameVorname() + ": "
+                + e.getMessage());
+          }
+        }
         if (z.getIntervall().intValue() != IntervallZusatzzahlung.KEIN
             && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
                 .getEndedatum().getTime()))
@@ -394,6 +408,7 @@ public class Abbuchung
       Kursteilnehmer kt = (Kursteilnehmer) list.next();
       kt.setAbbudatum();
       kt.store();
+
       dtaus.setCBetragInEuro(kt.getBetrag());
       dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
       dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
