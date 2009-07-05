@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/06/11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.12  2009/04/10 09:43:58  jost
  * Versuch "Reports" abgebrochen
  *
@@ -150,7 +153,8 @@ public class MitgliedQuery
     {
       addCondition("geburtsdatum <= ?");
     }
-    if (control.getGeschlecht().getValue() != null)
+    if (control.getGeschlecht().getText() != null
+        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
     {
       addCondition("geschlecht = ?");
     }
@@ -258,7 +262,8 @@ public class MitgliedQuery
       Date d = (Date) control.getGeburtsdatumbis().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
-    if (control.getGeschlecht().getValue() != null)
+    if (control.getGeschlecht().getText() != null
+        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
     {
       String g = (String) control.getGeschlecht().getValue();
       bedingungen.add(g);
