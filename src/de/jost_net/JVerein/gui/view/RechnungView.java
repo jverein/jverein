@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -89,7 +92,7 @@ public class RechnungView extends AbstractView
       group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"), control
           .getVondatum());
       group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"), control
-          .getVondatum());
+          .getBisdatum());
     }
     group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"), control
         .getFormular());
