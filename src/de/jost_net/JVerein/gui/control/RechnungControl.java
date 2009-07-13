@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/06/22 18:14:09  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.11  2009/04/10 17:46:03  jost
  * Zusätzliche Datenfelder für die Rechnungserstellung
  *
@@ -316,7 +319,10 @@ public class RechnungControl extends AbstractControl
 
   private void refresh()
   {
-
+    if (abrechnungsList == null)
+    {
+      return;
+    }
     try
     {
       abrechnungsList.removeAll();
@@ -416,6 +422,26 @@ public class RechnungControl extends AbstractControl
       for (Abrechnung abr : abrechnung)
       {
         aufbereitenFormular(abr, fo, file);
+      }
+    }
+    if (currentObject == null)
+    {
+      DBIterator abr = Einstellungen.getDBService()
+          .createList(Abrechnung.class);
+      if (getVondatum().getValue() != null)
+      {
+        abr.addFilter("datum >= ?", new Object[] { (Date) getVondatum()
+            .getValue() });
+      }
+      if (getBisdatum().getValue() != null)
+      {
+        abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
+            .getValue() });
+      }
+      while (abr.hasNext())
+      {
+        Abrechnung ab = (Abrechnung) abr.next();
+        aufbereitenFormular(ab, fo, file);
       }
     }
     fa.showFormular();
