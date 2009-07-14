@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -58,7 +61,7 @@ public class RechnungListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("drucken"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("drucken von/bis"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

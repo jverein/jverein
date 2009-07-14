@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/04/25 05:32:03  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.4  2009/04/13 11:41:02  jost
  * Neu: Lehrgänge
  *
@@ -178,6 +181,28 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute("externemitgliedsnummer", new Boolean(externemitgliedsnummer));
+  }
+
+  public Integer getAktuelleGeburtstageVorher() throws RemoteException
+  {
+    return (Integer) getAttribute("aktuellegeburtstagevorher");
+  }
+
+  public void setAktuelleGeburtstageVorher(Integer vorher)
+      throws RemoteException
+  {
+    setAttribute("aktuellegeburtstagevorher", vorher);
+  }
+
+  public Integer getAktuelleGeburtstageNachher() throws RemoteException
+  {
+    return (Integer) getAttribute("aktuellegeburtstagenachher");
+  }
+
+  public void setAktuelleGeburtstageNachher(Integer nachher)
+      throws RemoteException
+  {
+    setAttribute("aktuellegeburtstagenachher", nachher);
   }
 
   public int getBeitragsmodel() throws RemoteException

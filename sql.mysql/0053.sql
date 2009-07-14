@@ -1,0 +1,1 @@
+ALTER TABLE einstellung ADD aktuellegeburtstagevorher integer default 3 after juristischepersonen;
