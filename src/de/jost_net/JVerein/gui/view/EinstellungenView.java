@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.18  2009/04/25 05:29:21  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -117,6 +120,12 @@ public class EinstellungenView extends AbstractView
         "Juristische Personen erlaubt"), control.getJuristischePersonen());
     group.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
+    group.addLabelPair(JVereinPlugin.getI18n().tr(
+        "aktuelle Geburtstage - Tage vorher"), control
+        .getAktuelleGeburtstageVorher());
+    group.addLabelPair(JVereinPlugin.getI18n().tr(
+        "aktuelle Geburtstage - Tage nachher"), control
+        .getAktuelleGeburtstageNachher());
     group.addHeadline("* "
         + JVereinPlugin.getI18n().tr("Änderung erfordert Neustart"));
 

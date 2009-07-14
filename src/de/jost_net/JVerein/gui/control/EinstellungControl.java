@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2009/04/25 05:27:52  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.15  2009/04/13 11:39:14  jost
  * Neu: Lehrgänge
  *
@@ -109,6 +112,10 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput rechnungfuerueberweisung;
 
   private CheckboxInput rechnungfuerbarzahlung;
+
+  private SelectInput aktuellegeburtstagevorher;
+
+  private SelectInput aktuellegeburtstagenachher;
 
   private Settings settings;
 
@@ -230,6 +237,38 @@ public class EinstellungControl extends AbstractControl
     return externemitgliedsnummer;
   }
 
+  public SelectInput getAktuelleGeburtstageVorher() throws RemoteException
+  {
+    if (aktuellegeburtstagevorher != null)
+    {
+      return aktuellegeburtstagevorher;
+    }
+    Integer[] v = new Integer[30];
+    for (int i = 0; i < 30; i++)
+    {
+      v[i] = i;
+    }
+    aktuellegeburtstagevorher = new SelectInput(v, Einstellungen
+        .getEinstellung().getAktuelleGeburtstageVorher());
+    return aktuellegeburtstagevorher;
+  }
+
+  public SelectInput getAktuelleGeburtstageNachher() throws RemoteException
+  {
+    if (aktuellegeburtstagenachher != null)
+    {
+      return aktuellegeburtstagenachher;
+    }
+    Integer[] v = new Integer[30];
+    for (int i = 0; i < 30; i++)
+    {
+      v[i] = i;
+    }
+    aktuellegeburtstagenachher = new SelectInput(v, Einstellungen
+        .getEinstellung().getAktuelleGeburtstageNachher());
+    return aktuellegeburtstagenachher;
+  }
+
   public SelectInput getBeitragsmodel() throws RemoteException
   {
     if (beitragsmodel != null)
@@ -330,6 +369,10 @@ public class EinstellungControl extends AbstractControl
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
+      e.setAktuelleGeburtstageVorher((Integer) aktuellegeburtstagevorher
+          .getValue());
+      e.setAktuelleGeburtstageNachher((Integer) aktuellegeburtstagenachher
+          .getValue());
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
