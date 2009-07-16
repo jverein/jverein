@@ -25,15 +25,7 @@
     <p>Im oberen Teil sind die allgemeinen Daten des Mitgliedes zu finden. Wird eine Postleitzahl
 		eingegeben, für die bereits ein Mitglied gespeichert ist, wird der entsprechende Ort
 		übernommen.</p>
-	<p>Als Zahlungswege stehen</p>
-	<ul>
-		<li>Abbuchung</li>
-		<li>Barzahlung</li>
-		<li>Überweisung</li>
-	</ul>
-	<p>zur Verfügung.</p>
-	<p>Beim Zahlungsweg Abbuchung werden Bankleitzahl und die Kontonummer auf Plausibilität
-		überprüft. Zusätzlich kann ein abweichender Kontoinhaber eingegeben werden.</p>
+		
 		
 	<p>Sofern in den <a href="administration_einstellungen.php">Einstellungen</a> der Parameter
 		"Juristische Personen erlaubt" gesetzt ist, wird bei der Neuaufnahme von Mitgliedern folgender
@@ -55,10 +47,14 @@
 		konfiguriert werden. Beim Austrittsdatum wird das Datum des satzungsgemäßen Austritts 
 		(z. B. der 31.12. des jeweiligen Jahres) eingetragen. Unter Kündigung wird das Datum des 
 		Eingangs der Kündigung vermerkt.</p>
+	<p>Standardaussehen des Formulars:</p>
+	<img src='images/Mitgliedmitgliedschaft.jpg' class='screenshot'>
+	
 	<p>Sofern eine Beitragsgruppe ausgewählt wurde, die mit "Familie: Zahler" gekennzeichnet ist, 
 		verändert sich das Formular wie folgt:</p>
 	<img src='images/Mitgliedmitgliedschaftfamiliezahler.jpg' class='screenshot'>
 	<p>Die Person (selber Mitglied), die für das Mitglied zahlt, kann aus einer Liste ausgewählt werden.</p>
+	
 	<p>Bei einer Beitragsgruppe, die mit "Familie: Angehöriger" gekennzeichnet ist, sieht das Formular so 
 		aus:</p>
 	<img src='images/Mitgliedmitgliedschaftfamiliemitglied.jpg' class='screenshot'>
@@ -67,6 +63,20 @@
 		prüfen zu können. Tritt ein Mitglied, dass für andere Mitglieder als Zahler eingetrgen ist, aus, 
 		kommt eine entsprechende Fehlermeldung. Dann sind die Beitragsgruppen der beitragsfreien Mitglieder 
 		zu verändern oder es ist ein anderer Zahler einzutragen.</p>
+
+		
+	<a name="Zahlung"></a>
+	<img src='images/Mitgliedzahlung.jpg' class='screenshot'>
+	<p>Als Zahlungswege stehen</p>
+	<ul>
+		<li>Abbuchung</li>
+		<li>Barzahlung</li>
+		<li>Überweisung</li>
+	</ul>
+	<p>zur Verfügung.</p>
+	<p>Beim Zahlungsweg Abbuchung werden Bankleitzahl und die Kontonummer auf Plausibilität
+		überprüft. Zusätzlich kann ein abweichender Kontoinhaber eingegeben werden.</p>
+		
 	<a name="Zusatzbetraege"></a>
 	<h2>Zusatzbeträge</h2>
 	<p>Zusätzliche Zahlungen (z. B. Eigenanteile für Fahrten, Strafgelder ...) können über Zusatzbeträge 
@@ -115,6 +125,9 @@
 
     <!-- 
     $Log$
+    Revision 1.2  2009/05/15 19:10:33  jost
+    Lehrgänge aufgenommen.
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 
