@@ -1,8 +1,11 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-    	<li>Version 1.1.2 vom ? (noch nicht freigegeben)
+    	<li>Version 1.2 vom ? (noch nicht freigegeben)
     		<ul>
+    		    <li>Neue Box "aktuelle Geburtstage". Wird unter dem Menüpunkt Jameica mit dem Button "Startseite anpassen" aktiviert.</li>
+    		    <li>Bugfix bei der Erstellung von Rechnungen</li>
+    		    <li>Mitglied: Zahlungsdaten in eignen Tab verschoben. Platzoptimierung</li>
     		    <li>Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=15892&group_id=7335'>#15892</a></li>
     		    <li>Bei der Auswahl des Geschlechts werden jetzt die Langtexte männlich und weiblich angezeigt.</li>
     		    <li>Bugfix FirstStart: Jetzt wird auch die Existenz von Beitragsgruppen abgefragt</li>
@@ -422,6 +425,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.6  2009/06/21 08:53:22  jost
+    *** empty log message ***
+
     Revision 1.5  2009/05/31 12:28:15  jost
     *** empty log message ***
 
