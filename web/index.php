@@ -2,9 +2,9 @@
 
     <h1>Neu</h1>
     <ul>
+        <li>16.07.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-183.zip">Entwickler-Version 1.2.0 Rev. 183</a>. Siehe <a href="changelog.php">Changelog</a></li>
     	<li>14.03.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-173.zip">Entwickler-Version 1.2.0 Rev. 173</a>. Siehe <a href="changelog.php">Changelog</a></li> 
         <li>15.02.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-171.zip">Entwickler-Version 1.2.0 Rev. 171</a>. Siehe <a href="changelog.php">Changelog</a></li>
-        <li>30.01.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-169.zip">Entwickler-Version 1.2.0 Rev. 169</a>. Siehe <a href="changelog.php">Changelog</a></li>
     </ul>
     <h1>Home</h1>
     <p>
@@ -63,6 +63,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.22  2009/05/03 15:33:30  jost
     Neue Homepage
 
