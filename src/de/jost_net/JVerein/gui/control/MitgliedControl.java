@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.64  2009/06/22 18:13:57  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.63  2009/06/21 11:45:46  jost
  * Pflichtfelder als Pflichtfelder markiert.
  *
@@ -2162,6 +2165,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (ApplicationException ae)
         {
+          Logger.error("",ae);
           monitor.setStatusText(ae.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
@@ -2169,6 +2173,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (Exception re)
         {
+          Logger.error("",re);
           monitor.setStatusText(re.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(re.getMessage());
