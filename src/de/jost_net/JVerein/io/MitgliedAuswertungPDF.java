@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/01/25 16:08:41  jost
+ * Vermerke entfernt.
+ *
  * Revision 1.9  2008/12/30 21:57:50  jost
  * Überflüssige Methode auskommentiert.
  *
@@ -96,11 +99,12 @@ public class MitgliedAuswertungPDF
         Mitglied m = list.get(i);
         report.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
         String anschriftkommunikation = m.getAnschrift();
-        if (m.getTelefonprivat().length() > 0)
+        if (m.getTelefonprivat() != null && m.getTelefonprivat().length() > 0)
         {
           anschriftkommunikation += "\nTel. priv: " + m.getTelefonprivat();
         }
-        if (m.getTelefondienstlich().length() > 0)
+        if (m.getTelefondienstlich() != null
+            && m.getTelefondienstlich().length() > 0)
         {
           anschriftkommunikation += "\nTel. dienstl: "
               + m.getTelefondienstlich();
@@ -109,7 +113,7 @@ public class MitgliedAuswertungPDF
         {
           anschriftkommunikation += "\nHandy: " + m.getHandy();
         }
-        if (m.getEmail().length() > 0)
+        if (m.getEmail() != null && m.getEmail().length() > 0)
         {
           anschriftkommunikation += "\nEMail: " + m.getEmail();
         }
