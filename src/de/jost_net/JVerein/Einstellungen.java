@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.20  2009/05/31 12:26:02  jost
+ * Bugfix FirstStart / Existenz von Beitragsgruppen wird jetzt auch abgeprüft.
+ *
  * Revision 1.19  2008/12/29 08:40:36  jost
  * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
  *
@@ -115,8 +118,8 @@ public class Einstellungen
   /**
    * Our decimal formatter.
    */
-  public final static DecimalFormat DECIMALFORMAT = (DecimalFormat) DecimalFormat
-      .getInstance(Application.getConfig().getLocale());
+  public final static DecimalFormat DECIMALFORMAT = new DecimalFormat(
+      "###,###.##");
 
   /**
    * Our currency name.

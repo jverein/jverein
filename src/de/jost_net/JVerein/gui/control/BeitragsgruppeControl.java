@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/06/22 18:12:10  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.12  2009/06/21 08:52:21  jost
  * Vorbereitung I18N
  *
@@ -49,6 +52,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -113,7 +117,8 @@ public class BeitragsgruppeControl extends AbstractControl
       return betrag;
     }
     betrag = new DecimalInput(getBeitragsgruppe().getBetrag(),
-        Einstellungen.DECIMALFORMAT);
+        new DecimalFormat("###,###.##"));
+    // Einstellungen.DECIMALFORMAT);
     betrag.setMandatory(true);
     return betrag;
   }
