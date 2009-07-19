@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2009/06/29 19:44:03  jost
+ * Bugfix Zusatzbeträge jetzt auch ohne Bankverbindung.
+ *
  * Revision 1.30  2009/06/11 21:03:52  jost
  * Vorbereitung I18N
  *
@@ -142,6 +145,7 @@ import de.willuhn.jameica.hbci.rmi.SammelLastschrift;
 import de.willuhn.jameica.hbci.rmi.SammelTransferBuchung;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -232,7 +236,7 @@ public class Abbuchung
       }
       beitragsfrei += " beitragsgruppe <> " + b.getID();
     }
-
+ 
     // Beitragsgruppen-Tabelle lesen und cachen
     list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
     list.addFilter("betrag > 0");
@@ -272,7 +276,7 @@ public class Abbuchung
         {
           list
               .addFilter(
-                  "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+                  "(zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
                   new Object[] { new Integer(Zahlungsrhytmus.HALBJAEHRLICH),
                       new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
                       new Integer(Zahlungsrhytmus.MONATLICH) });
@@ -281,14 +285,14 @@ public class Abbuchung
         {
           list
               .addFilter(
-                  "zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+                  "(zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
                   new Object[] { new Integer(Zahlungsrhytmus.JAEHRLICH),
                       new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
                       new Integer(Zahlungsrhytmus.MONATLICH) });
         }
         if (modus == AbbuchungsmodusInput.VIMO)
         {
-          list.addFilter("zahlungsrhytmus = ? or zahlungsrhytmus = ?",
+          list.addFilter("(zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
               new Object[] { new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
                   new Integer(Zahlungsrhytmus.MONATLICH) });
         }
@@ -322,7 +326,7 @@ public class Abbuchung
       {
         monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
         Mitglied m = (Mitglied) list.next();
-        Double betr;
+        Double betr = new Double(0d);
         if (Einstellungen.getEinstellung().getBeitragsmodel() != Beitragsmodel.MONATLICH12631)
         {
           betr = (Double) beitr.get(m.getBeitragsgruppeId() + "");
@@ -331,12 +335,29 @@ public class Abbuchung
         {
           // Zur Vermeidung von Rundungsdifferenzen wird mit BigDecimal
           // gerechnet.
-          BigDecimal bbetr = new BigDecimal(beitr.get(m.getBeitragsgruppeId()
-              + ""));
-          bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
-          BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
-          bbetr = bbetr.multiply(bmonate);
-          betr = bbetr.doubleValue();
+          try
+          {
+            BigDecimal bbetr = new BigDecimal(beitr.get(m.getBeitragsgruppeId()
+                + ""));
+            bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
+            bbetr = bbetr.multiply(bmonate);
+            betr = bbetr.doubleValue();
+          }
+          catch (NullPointerException e)
+          {
+            Logger.error(m.getVornameName() + ": " + m.getBeitragsgruppeId());
+            DBIterator li = Einstellungen.getDBService().createList(
+                Beitragsgruppe.class);
+            while (li.hasNext())
+            {
+              Beitragsgruppe bg = (Beitragsgruppe) li.next();
+              Logger.error("Beitragsgruppe: " + bg.getID() + ", "
+                  + bg.getBezeichnung() + ", " + bg.getBetrag() + ", "
+                  + bg.getBeitragsArt());
+            }
+            throw e;
+          }
         }
         if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
         {
