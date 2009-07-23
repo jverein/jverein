@@ -3,6 +3,7 @@
     <ul>
     	<li>Version 1.2 vom ? (noch nicht freigegeben)
     		<ul>
+    			<li>Bugfix bei den Abrechungen. Spezialfall mehrere Fälligkeiten im Jahr und gleichzeitig beitragsfreie Beitragsgruppe.</li>
     		    <li>Neue Box "aktuelle Geburtstage". Wird unter dem Menüpunkt Jameica mit dem Button "Startseite anpassen" aktiviert.</li>
     		    <li>Bugfix bei der Erstellung von Rechnungen</li>
     		    <li>Mitglied: Zahlungsdaten in eignen Tab verschoben. Platzoptimierung</li>
@@ -425,6 +426,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.7  2009/07/16 16:44:35  jost
+    *** empty log message ***
+
     Revision 1.6  2009/06/21 08:53:22  jost
     *** empty log message ***
 
