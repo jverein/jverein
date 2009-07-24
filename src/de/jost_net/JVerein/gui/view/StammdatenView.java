@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.9  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -60,7 +63,7 @@ public class StammdatenView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Stammdaten"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"), control
         .getBlz());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/06/22 18:14:33  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.10  2008/09/21 08:45:37  jost
  * Neu: Altersjubliäen
  *
@@ -108,7 +111,7 @@ public class StammdatenControl extends AbstractControl
     return stamm;
   }
 
-  public Input getName() throws RemoteException
+  public Input getName(boolean withFocus) throws RemoteException
   {
     if (name != null)
     {
@@ -116,6 +119,10 @@ public class StammdatenControl extends AbstractControl
     }
     name = new TextInput(getStammdaten().getName(), 27);
     name.setMandatory(true);
+    if (withFocus)
+    {
+      name.focus();
+    }
     return name;
   }
 
@@ -180,7 +187,7 @@ public class StammdatenControl extends AbstractControl
     try
     {
       Stammdaten s = getStammdaten();
-      s.setName((String) getName().getValue());
+      s.setName((String) getName(false).getValue());
       s.setBlz((String) getBlz().getValue());
       s.setKonto((String) getKonto().getValue());
       s.setAltersgruppen((String) getAltersgruppen().getValue());

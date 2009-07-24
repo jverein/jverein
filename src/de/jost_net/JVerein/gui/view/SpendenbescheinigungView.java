@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2009/01/27 18:51:03  jost
  * *** empty log message ***
  *
@@ -55,7 +58,7 @@ public class SpendenbescheinigungView extends AbstractView
 
     left.addHeadline(JVereinPlugin.getI18n().tr("Empfänger"));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 1"), control
-        .getZeile1());
+        .getZeile1(true));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 2"), control
         .getZeile2());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 3"), control

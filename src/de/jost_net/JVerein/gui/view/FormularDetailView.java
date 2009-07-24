@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2009/03/26 21:03:06  jost
  * Javadoc angepasst.
  *
@@ -37,7 +40,7 @@ public class FormularDetailView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Formular"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
-        .getBezeichnung());
+        .getBezeichnung(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getArt());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Datei"), control.getDatei());
 

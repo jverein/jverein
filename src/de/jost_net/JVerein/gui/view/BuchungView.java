@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.11  2009/02/07 20:32:01  jost
  * Neu: Button neue Buchung
  *
@@ -69,7 +72,7 @@ public class BuchungView extends AbstractView
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"), control
         .getUmsatzid());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control
-        .getKonto());
+        .getKonto(true));
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
         .getName());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2009/07/18 13:42:50  jost
+ * Bugfix DecimalFormat
+ *
  * Revision 1.13  2009/06/22 18:12:10  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -101,12 +104,16 @@ public class BeitragsgruppeControl extends AbstractControl
     return beitrag;
   }
 
-  public Input getBezeichnung() throws RemoteException
+  public Input getBezeichnung(boolean withFocus) throws RemoteException
   {
     if (bezeichnung != null)
       return bezeichnung;
     bezeichnung = new TextInput(getBeitragsgruppe().getBezeichnung(), 30);
     bezeichnung.setMandatory(true);
+    if (withFocus)
+    {
+      bezeichnung.focus();
+    }
     return bezeichnung;
   }
 
@@ -139,7 +146,7 @@ public class BeitragsgruppeControl extends AbstractControl
     try
     {
       Beitragsgruppe b = getBeitragsgruppe();
-      b.setBezeichnung((String) getBezeichnung().getValue());
+      b.setBezeichnung((String) getBezeichnung(false).getValue());
       Double d = (Double) getBetrag().getValue();
       b.setBetrag(d.doubleValue());
       ArtBeitragsart ba = (ArtBeitragsart) getBeitragsArt().getValue();

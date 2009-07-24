@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -54,7 +57,7 @@ public class KursteilnehmerDetailView extends AbstractView
     LabelGroup grGrund = new LabelGroup(getParent(), JVereinPlugin.getI18n()
         .tr("Daten für die Abbuchung"));
     grGrund.getComposite().setSize(290, 190);
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName(true));
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 1"),
         control.getVZweck1());
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 2"),

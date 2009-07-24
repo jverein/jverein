@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/06/22 18:14:21  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.9  2009/01/26 19:27:30  jost
  * Bugfix Pfad
  *
@@ -127,13 +130,17 @@ public class SpendenbescheinigungControl extends AbstractControl
     return spendenbescheinigung;
   }
 
-  public TextInput getZeile1() throws RemoteException
+  public TextInput getZeile1(boolean withFocus) throws RemoteException
   {
     if (zeile1 != null)
     {
       return zeile1;
     }
     zeile1 = new TextInput((String) getSpendenbescheinigung().getZeile1(), 40);
+    if (withFocus)
+    {
+      zeile1.focus();
+    }
     return zeile1;
   }
 
@@ -264,7 +271,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     try
     {
       Spendenbescheinigung spb = getSpendenbescheinigung();
-      spb.setZeile1((String) getZeile1().getValue());
+      spb.setZeile1((String) getZeile1(false).getValue());
       spb.setZeile2((String) getZeile2().getValue());
       spb.setZeile3((String) getZeile3().getValue());
       spb.setZeile4((String) getZeile4().getValue());
@@ -347,7 +354,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, getSpendenbescheinigung().getFormular().getID());
     HashMap<String, Object> map = new HashMap<String, Object>();
-    String empfaenger = (String) getZeile1().getValue() + "\n"
+    String empfaenger = (String) getZeile1(false).getValue() + "\n"
         + (String) getZeile2().getValue() + "\n"
         + (String) getZeile3().getValue() + "\n"
         + (String) getZeile4().getValue() + "\n"

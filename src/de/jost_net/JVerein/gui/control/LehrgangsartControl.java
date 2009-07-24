@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/04/13 11:39:27  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -68,13 +71,17 @@ public class LehrgangsartControl extends AbstractControl
     return lehrgangsart;
   }
 
-  public TextInput getBezeichnung() throws RemoteException
+  public TextInput getBezeichnung(boolean withFocus) throws RemoteException
   {
     if (bezeichnung != null)
     {
       return bezeichnung;
     }
     bezeichnung = new TextInput((String) getLehrgangsart().getBezeichnung(), 50);
+    if (withFocus)
+    {
+      bezeichnung.focus();
+    }
     return bezeichnung;
   }
 
@@ -153,7 +160,7 @@ public class LehrgangsartControl extends AbstractControl
     try
     {
       Lehrgangsart l = getLehrgangsart();
-      l.setBezeichnung((String) getBezeichnung().getValue());
+      l.setBezeichnung((String) getBezeichnung(false).getValue());
       l.setVon((Date) getVon().getValue());
       l.setBis((Date) getBis().getValue());
       l.setVeranstalter((String) getVeranstalter().getValue());

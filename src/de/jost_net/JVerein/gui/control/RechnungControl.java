@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/07/13 20:52:07  jost
+ * Vermeidung NPE
+ *
  * Revision 1.12  2009/06/22 18:14:09  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -156,7 +159,7 @@ public class RechnungControl extends AbstractControl
     return datum;
   }
 
-  public Input getZweck1() throws RemoteException
+  public Input getZweck1(boolean withFocus) throws RemoteException
   {
     if (zweck1 != null)
     {
@@ -164,6 +167,10 @@ public class RechnungControl extends AbstractControl
     }
     zweck1 = new TextInput(getAbrechnung().getZweck1(), 27);
     zweck1.setMandatory(true);
+    if (withFocus)
+    {
+      zweck1.focus();
+    }
     return zweck1;
   }
 
@@ -267,7 +274,7 @@ public class RechnungControl extends AbstractControl
       Abrechnung a = getAbrechnung();
       a.setBetrag((Double) getBetrag().getValue());
       a.setDatum((Date) getDatum().getValue());
-      a.setZweck1((String) getZweck1().getValue());
+      a.setZweck1((String) getZweck1(false).getValue());
       a.setZweck2((String) getZweck2().getValue());
       a.store();
       GUI.getStatusBar().setSuccessText("Satz gespeichert");

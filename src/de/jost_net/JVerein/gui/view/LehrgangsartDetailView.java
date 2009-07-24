@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2009/04/13 11:40:14  jost
  * Neu: Lehrgänge
  *
@@ -38,7 +41,7 @@ public class LehrgangsartDetailView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Lehrgangsart"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
-        .getBezeichnung());
+        .getBezeichnung(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("von/am"), control.getVon());
     group.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getBis());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Veranstalter"), control

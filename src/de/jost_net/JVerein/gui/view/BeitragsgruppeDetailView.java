@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.8  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -59,7 +62,7 @@ public class BeitragsgruppeDetailView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Beitrag"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
-        .getBezeichnung());
+        .getBezeichnung(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
         .getBetrag());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"), control

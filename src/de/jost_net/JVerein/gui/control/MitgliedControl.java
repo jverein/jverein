@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.65  2009/07/18 13:43:08  jost
+ * Logging erweitert.
+ *
  * Revision 1.64  2009/06/22 18:13:57  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -447,7 +450,7 @@ public class MitgliedControl extends AbstractControl
     return titel;
   }
 
-  public SearchInput getName() throws RemoteException
+  public SearchInput getName(boolean withFocus) throws RemoteException
   {
     if (name != null)
     {
@@ -495,6 +498,10 @@ public class MitgliedControl extends AbstractControl
     name.setDelay(1000);
     name.setMandatory(true);
     name.setSearchString("");
+    if (withFocus)
+    {
+      name.focus();
+    }
     return name;
   }
 
@@ -1856,7 +1863,7 @@ public class MitgliedControl extends AbstractControl
       m.setKonto((String) getKonto().getValue());
       m.setKontoinhaber((String) getKontoinhaber().getValue());
       m.setKuendigung((Date) getKuendigung().getValue());
-      m.setName((String) getName().getText());
+      m.setName((String) getName(false).getText());
       m.setOrt((String) getOrt().getValue());
       m.setPlz((String) getPlz().getValue());
       m.setStrasse((String) getStrasse().getText());
@@ -2165,7 +2172,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (ApplicationException ae)
         {
-          Logger.error("",ae);
+          Logger.error("", ae);
           monitor.setStatusText(ae.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
@@ -2173,7 +2180,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (Exception re)
         {
-          Logger.error("",re);
+          Logger.error("", re);
           monitor.setStatusText(re.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(re.getMessage());

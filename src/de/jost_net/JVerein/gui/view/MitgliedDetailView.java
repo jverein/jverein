@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2009/07/14 20:27:05  jost
+ * Zahlungsdaten in eigenen Tab verschoben.
+ * Platzoptimierung.
+ *
  * Revision 1.29  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -152,11 +156,11 @@ public class MitgliedDetailView extends AbstractView
     }
     if (control.getMitglied().getPersonenart().equals("j"))
     {
-      control.getName().setName(JVereinPlugin.getI18n().tr("Name Zeile 1"));
+      control.getName(true).setName(JVereinPlugin.getI18n().tr("Name Zeile 1"));
       control.getVorname().setName(JVereinPlugin.getI18n().tr("Name Zeile 2"));
       control.getVorname().setMandatory(false);
     }
-    left.addInput(control.getName());
+    left.addInput(control.getName(true));
     left.addInput(control.getVorname());
     left.addInput(control.getAdressierungszusatz());
 

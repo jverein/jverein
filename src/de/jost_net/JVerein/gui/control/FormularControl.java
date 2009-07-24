@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/11/30 18:56:54  jost
+ * Refactoring: Code-Optimierung
+ *
  * Revision 1.2  2008/11/29 13:07:24  jost
  * Refactoring: Code-Optimierung
  *
@@ -74,13 +77,17 @@ public class FormularControl extends AbstractControl
     return formular;
   }
 
-  public TextInput getBezeichnung() throws RemoteException
+  public TextInput getBezeichnung(boolean withFocus) throws RemoteException
   {
     if (bezeichnung != null)
     {
       return bezeichnung;
     }
     bezeichnung = new TextInput((String) getFormular().getBezeichnung(), 50);
+    if (withFocus)
+    {
+      bezeichnung.focus();
+    }
     return bezeichnung;
   }
 
@@ -113,7 +120,7 @@ public class FormularControl extends AbstractControl
     try
     {
       Formular f = getFormular();
-      f.setBezeichnung((String) getBezeichnung().getValue());
+      f.setBezeichnung((String) getBezeichnung(true).getValue());
       Formularart fa = (Formularart) getArt().getValue();
       f.setArt(fa.getKey());
       String dat = (String) getDatei().getValue();

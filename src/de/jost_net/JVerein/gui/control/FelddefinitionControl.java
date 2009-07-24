@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/22 18:12:59  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.1  2008/04/10 18:58:13  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -60,7 +63,7 @@ public class FelddefinitionControl extends AbstractControl
     return felddefinition;
   }
 
-  public Input getName() throws RemoteException
+  public Input getName(boolean withFocus) throws RemoteException
   {
     if (name != null)
     {
@@ -68,6 +71,10 @@ public class FelddefinitionControl extends AbstractControl
     }
     name = new TextInput(getFelddefinition().getName(), 50);
     name.setMandatory(true);
+    if (withFocus)
+    {
+      name.focus();
+    }
     return name;
   }
 
@@ -98,7 +105,7 @@ public class FelddefinitionControl extends AbstractControl
     try
     {
       Felddefinition f = getFelddefinition();
-      f.setName((String) getName().getValue());
+      f.setName((String) getName(true).getValue());
       f.setLabel((String) getLabel().getValue());
       Integer i = (Integer) getLaenge().getValue();
       f.setLaenge(i.intValue());

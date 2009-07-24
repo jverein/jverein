@@ -33,7 +33,8 @@ public class FelddefinitionDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Felddefinition"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
+        .getName(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Label"), control.getLabel());
     group
         .addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());

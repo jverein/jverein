@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.7  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -49,7 +52,7 @@ public class BuchungsartView extends AbstractView
     final BuchungsartControl control = new BuchungsartControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr("Buchungsart"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Nummer"), control.getNummer());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Nummer"), control.getNummer(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control.getBezeichnung());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getArt());
 
