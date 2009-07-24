@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/06/11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.9  2008/12/30 21:59:48  jost
  * Anpassung an neue Versionsmimik.
  *
@@ -51,7 +54,6 @@ import de.willuhn.jameica.plugin.Version;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.I18N;
 import de.willuhn.util.ProgressMonitor;
 
 public class JVereinDBServiceImpl extends DBServiceImpl implements
