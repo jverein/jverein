@@ -10,5 +10,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/hibiscus"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/obantoo-bin-1.4.11.jar"/>
 	<classpathentry kind="lib" path="lib/itext-hyph-xml.jar"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
