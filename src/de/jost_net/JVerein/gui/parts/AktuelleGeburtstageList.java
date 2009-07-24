@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/07/14 07:29:12  jost
+ * Neu: Box aktuelle Geburtstage
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.parts;
 
@@ -41,9 +44,18 @@ public class AktuelleGeburtstageList extends TablePart implements Part
     DBIterator geburtstage = service.createList(Mitglied.class);
     String filter = "";
     Calendar cal = Calendar.getInstance();
-    int vorher = Einstellungen.getEinstellung().getAktuelleGeburtstageVorher();
-    int nachher = Einstellungen.getEinstellung()
-        .getAktuelleGeburtstageNachher();
+    int vorher = 0;
+    int nachher = 0;
+
+    try
+    {
+      vorher = Einstellungen.getEinstellung().getAktuelleGeburtstageVorher();
+      nachher = Einstellungen.getEinstellung().getAktuelleGeburtstageNachher();
+    }
+    catch (NullPointerException e)
+    {
+      //
+    }
     cal.add(Calendar.DAY_OF_YEAR, vorher * -1);
     for (int i = vorher; i > 0; i--)
     {
