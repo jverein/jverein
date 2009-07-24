@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:01:06  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/06/28 16:54:26  jost
  * LÃ¶schung nur, wenn kein Jahresabschluss vorliegt.
  *
@@ -20,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
@@ -88,11 +90,13 @@ public class AnfangsbestandDeleteAction implements Action
         return;
       }
       a.delete();
-      GUI.getStatusBar().setSuccessText(JVereinPlugin.getI18n().tr("Anfangsbestand gelöscht."));
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Anfangsbestand gelöscht."));
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr("Fehler beim Löschen des Anfangsbestandes");
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Löschen des Anfangsbestandes");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }
