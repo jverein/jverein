@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.66  2009/07/24 20:19:00  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.65  2009/07/18 13:43:08  jost
  * Logging erweitert.
  *
@@ -228,6 +231,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
+import de.jost_net.JVerein.gui.action.EigenschaftenNewAction;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
@@ -1677,6 +1681,12 @@ public class MitgliedControl extends AbstractControl
   {
     return new Button("Neu", new WiedervorlageAction(getMitglied()), null,
         false, "document-new.png");
+  }
+
+  public Button getEigenschaftenNeu(EigenschaftenControl contr)
+  {
+    return new Button("Neu", new EigenschaftenNewAction(contr, getMitglied()),
+        null, false, "document-new.png");
   }
 
   public Button getLehrgangNeu()
