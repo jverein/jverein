@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -47,7 +50,7 @@ public class WiedervorlageView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Wiedervorlage"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk"), control
         .getVermerk());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Erledigung"), control

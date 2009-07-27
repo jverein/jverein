@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -46,10 +49,10 @@ public class AnfangsbestandView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Anfangsbestand"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum(true));
     if (control.getAnfangsbestand().getID() != null)
     {
-      control.getDatum().setEnabled(false);
+      control.getDatum(false).setEnabled(false);
     }
     group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
         .getBetrag());

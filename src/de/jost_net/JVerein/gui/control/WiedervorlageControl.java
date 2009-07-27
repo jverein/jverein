@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/22 18:14:45  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.2  2007/12/20 20:32:53  jost
  * Neu: Wiedervorlage-Übersicht in der Jameica-Startseite
  *
@@ -60,7 +63,7 @@ public class WiedervorlageControl extends AbstractControl
     return wvl;
   }
 
-  public DateInput getDatum() throws RemoteException
+  public DateInput getDatum(boolean withFocus) throws RemoteException
   {
     if (datum != null)
     {
@@ -83,6 +86,10 @@ public class WiedervorlageControl extends AbstractControl
         }
       }
     });
+    if (withFocus)
+    {
+      datum.focus();
+    }
     return datum;
   }
 
@@ -128,7 +135,7 @@ public class WiedervorlageControl extends AbstractControl
     try
     {
       Wiedervorlage w = getWiedervorlage();
-      w.setDatum((Date) getDatum().getValue());
+      w.setDatum((Date) getDatum(false).getValue());
       w.setVermerk((String) getVermerk().getValue());
       w.setErledigung((Date) getErledigung().getValue());
       w.store();

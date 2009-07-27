@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/12/06 16:45:40  jost
+ * Debug-Meldung entfernt.
+ *
  * Revision 1.2  2008/07/12 11:55:16  jost
  * Bugfix beim Speichern des Anfangsbestandes.
  *
@@ -84,13 +87,17 @@ public class AnfangsbestandControl extends AbstractControl
     return konto;
   }
 
-  public DateInput getDatum() throws RemoteException
+  public DateInput getDatum(boolean withFocus) throws RemoteException
   {
     if (datum != null)
     {
       return datum;
     }
     datum = new DateInput(getAnfangsbestand().getDatum());
+    if (withFocus)
+    {
+      datum.focus();
+    }
     return datum;
   }
 
@@ -127,7 +134,7 @@ public class AnfangsbestandControl extends AbstractControl
       }
       Konto k = (Konto) konten.next();
       a.setKonto(k);
-      a.setDatum((Date) getDatum().getValue());
+      a.setDatum((Date) getDatum(false).getValue());
       a.setBetrag((Double) getBetrag().getValue());
       a.store();
       GUI.getStatusBar().setSuccessText("Anfangsbestand gespeichert");

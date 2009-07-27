@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/22 18:15:00  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.1  2008/12/22 21:09:42  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -169,7 +172,7 @@ public class ZusatzbetragControl extends AbstractControl
     return betrag;
   }
 
-  public DateInput getStartdatum() throws RemoteException
+  public DateInput getStartdatum(boolean withFocus) throws RemoteException
   {
     if (startdatum != null)
     {
@@ -192,6 +195,10 @@ public class ZusatzbetragControl extends AbstractControl
         faelligkeit.setValue(date);
       }
     });
+    if (withFocus)
+    {
+      startdatum.focus();
+    }
     return startdatum;
   }
 
@@ -317,7 +324,7 @@ public class ZusatzbetragControl extends AbstractControl
     {
       Zusatzbetrag z = getZusatzbetrag();
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
-      z.setStartdatum((Date) getStartdatum().getValue());
+      z.setStartdatum((Date) getStartdatum(false).getValue());
       IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall()
           .getValue();
       z.setIntervall(iz.getKey());
