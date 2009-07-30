@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.32  2009/07/19 13:49:03  jost
+ * Bugfix Abrechnung
+ *
  * Revision 1.31  2009/06/29 19:44:03  jost
  * Bugfix Zusatzbeträge jetzt auch ohne Bankverbindung.
  *
@@ -236,7 +239,7 @@ public class Abbuchung
       }
       beitragsfrei += " beitragsgruppe <> " + b.getID();
     }
- 
+
     // Beitragsgruppen-Tabelle lesen und cachen
     list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
     list.addFilter("betrag > 0");
@@ -533,7 +536,12 @@ public class Abbuchung
     dtaus.setCBLZEndbeguenstigt(Integer.parseInt(m.getBlz()));
     dtaus.setCInterneKundennummer(Integer.parseInt(m.getID()));
     dtaus.setCKonto(Long.parseLong(m.getKonto()));
-    String name = m.getName() + ", " + m.getVorname();
+    String name = m.getNameVorname();
+    String mitgliedname = name;
+    if (mitgliedname.length() > 27)
+    {
+      mitgliedname = mitgliedname.substring(0, 27);
+    }
     if (m.getKontoinhaber().length() > 0)
     {
       name = m.getKontoinhaber();
@@ -546,7 +554,7 @@ public class Abbuchung
     dtaus
         .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
     dtaus.addCVerwendungszweck(verwendungszweck);
-    dtaus.addCVerwendungszweck(m.getName() + "," + m.getVorname());
+    dtaus.addCVerwendungszweck(mitgliedname);
     dtaus.writeCSatz();
   }
 
