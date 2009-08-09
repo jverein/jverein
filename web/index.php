@@ -2,7 +2,7 @@
 
     <h1>Neu</h1>
     <ul>
-        <li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-191.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
+        <li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
         <li>16.07.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-183.zip">Entwickler-Version 1.2.0 Rev. 183</a>. Siehe <a href="changelog.php">Changelog</a></li>
     	<li>14.03.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-173.zip">Entwickler-Version 1.2.0 Rev. 173</a>. Siehe <a href="changelog.php">Changelog</a></li> 
     </ul>
@@ -63,6 +63,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.3  2009/08/09 15:34:41  jost
+    *** empty log message ***
+
     Revision 1.2  2009/07/17 11:42:16  jost
     *** empty log message ***
 
