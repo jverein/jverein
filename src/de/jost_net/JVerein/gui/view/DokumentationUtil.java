@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/08/09 15:28:14  jost
+ * Umstellung auf neue Web-Site
+ *
  * Revision 1.11  2009/04/13 11:40:14  jost
  * Neu: Lehrgänge
  *
@@ -53,7 +56,7 @@ public class DokumentationUtil
 
   }
 
-  private static final String PRE = "http://www.jverein.de/neu/";
+  private static final String PRE = "http://www.jverein.de/";
 
   public static final String ADRESSBUCHEXPORT = PRE
       + "dokumentationauswertungadressbuchexport.php";
