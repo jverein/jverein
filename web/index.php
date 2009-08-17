@@ -1,14 +1,9 @@
 <? include ("frame.inc"); ?>
-
-    <h1>Neu</h1>
-    <ul>
-        <li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
-        <li>16.07.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-183.zip">Entwickler-Version 1.2.0 Rev. 183</a>. Siehe <a href="changelog.php">Changelog</a></li>
-    	<li>14.03.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-173.zip">Entwickler-Version 1.2.0 Rev. 173</a>. Siehe <a href="changelog.php">Changelog</a></li> 
-    </ul>
+	   
+	<div style="float:left; width: 600px;border:0px">
     <h1>Home</h1>
     <p>
-       <img src="images/JVerein_Box.jpg" alt="JVerein-Software-Box" >
+ <!--      <img src="images/JVerein_Box.jpg" alt="JVerein-Software-Box" >  -->
        <i>JVerein</i> ist eine Open-Source-Vereinsverwaltung mit einer Anbindung an die ebenfalls unter 
        Open-Source-Lizenz stehende Homebankingsoftware 
        <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a>.
@@ -61,8 +56,21 @@
 	   kurze Nachricht an <a href="mailto:heiner@jverein.de">heiner@jverein.de</a> mit dem Namen des Vereins 
 	   und der Anzahl der Mitglieder. Diese Daten dienen der "Erfolgskontrolle".</p>
 	   
+	</div>   
+	<div style="float:left; width:200px;  left: 850px; border:1px solid black">    
+	   	<h1>News</h1>
+    	<ul>
+        	<li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
+       	 	<li>16.07.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-183.zip">Entwickler-Version 1.2.0 Rev. 183</a>. Siehe <a href="changelog.php">Changelog</a></li>
+    		<li>14.03.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-173.zip">Entwickler-Version 1.2.0 Rev. 173</a>. Siehe <a href="changelog.php">Changelog</a></li> 
+    	</ul>
+	</div>
+	   
 	<!-- 
     $Log$
+    Revision 1.4  2009/08/09 15:36:17  jost
+    *** empty log message ***
+
     Revision 1.3  2009/08/09 15:34:41  jost
     *** empty log message ***
 

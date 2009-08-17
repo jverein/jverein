@@ -9,6 +9,7 @@
     <meta name="keywords" content="Vereinsverwaltung, JVerein, Open Source, OpenSource, Jameica, Hibiscus, Java, Linux, Windows">
     <meta name="robots" content="index, follow">
     <meta http-equiv="expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
+    <link rel="SHORTCUT ICON" href="images/favicon.ico" type="image/x-icon">
     <title>JVerein - Open Source Vereinsverwaltung</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -16,7 +17,7 @@
 
 <div id="Seite">
            <div style="text-align: right;background-color: white;">
-              <span style="color: #FD6000; font-size: 27pt;">J&nbsp;</span><span style="color: #3660AA; font-size: 27pt;">V&nbsp;e&nbsp;r&nbsp;e&nbsp;i&nbsp;n</span><br>
+              <span><img src='images/JVerein.png'></span><br><br><br><br><br><br>
               <span style="color: #000000; font-size: 14pt;">Open Source Vereinsverwaltung</span>
             </div>
   <p id="Kopf">&nbsp;
@@ -44,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.17  2009/05/03 15:33:30  jost
     Neue Homepage
 
