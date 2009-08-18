@@ -3,6 +3,7 @@
     <ul>
     	<li>Version 1.2 vom ? (noch nicht freigegeben)
     		<ul>
+    			<li>Bugfix beim Import von Mitgliedern mit dem Zahlungsweg "Barzahlung".</li>
     			<li>Bugfix bei den Abrechungen. Überlange Namen.</li>
     			<li>Bugfix bei den Abrechungen. Spezialfall mehrere Fälligkeiten im Jahr und gleichzeitig beitragsfreie Beitragsgruppe.</li>
     		    <li>Neue Box "aktuelle Geburtstage". Wird unter dem Menüpunkt Jameica mit dem Button "Startseite anpassen" aktiviert.</li>
@@ -427,6 +428,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.9  2009/07/30 18:24:31  jost
+    *** empty log message ***
+
     Revision 1.8  2009/07/23 15:25:41  jost
     *** empty log message ***
 
