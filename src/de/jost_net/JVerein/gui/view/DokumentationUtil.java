@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/08/17 18:52:12  jost
+ * Neuer Pfad
+ *
  * Revision 1.12  2009/08/09 15:28:14  jost
  * Umstellung auf neue Web-Site
  *
@@ -73,6 +76,9 @@ public class DokumentationUtil
 
   public static final String BEITRAGSGRUPPEN = PRE
       + "administration_beitragsgruppen.php";
+
+  public static final String BUCHUNGSARTEN = PRE
+      + "administration_buchungsarten.php";
 
   public static final String FELDDEFINITIONEN = PRE
       + "administration_felddefinitionen.php";
