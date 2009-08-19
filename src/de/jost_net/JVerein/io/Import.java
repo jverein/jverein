@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2009/08/18 17:31:03  jost
+ * - Abrechnungsdaten löschen
+ * - Bugfix Barzahlung
+ *
  * Revision 1.21  2009/04/25 05:30:20  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -232,7 +236,11 @@ public class Import
         else if (results.getString("Zahlungsart").equals("b"))
         {
           m.setZahlungsweg(Zahlungsweg.BARZAHLUNG);
-         }
+        }
+        else if (results.getString("Zahlungsart").equals("u"))
+        {
+          m.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
+        }
         else
         {
           monitor.log(m.getNameVorname()
