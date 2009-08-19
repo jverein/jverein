@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2009/07/30 18:23:18  jost
+ * Bugfix DTAUS-Datei mit überlangen Namen
+ *
  * Revision 1.32  2009/07/19 13:49:03  jost
  * Bugfix Abrechnung
  *
@@ -406,6 +409,11 @@ public class Abbuchung
             throw new ApplicationException(m.getNameVorname() + ": "
                 + e.getMessage());
           }
+        }
+        else
+        {
+          writeManuellerZahlungseingang(m, z.getBuchungstext(), new Double(z
+              .getBetrag()));
         }
         if (z.getIntervall().intValue() != IntervallZusatzzahlung.KEIN
             && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
