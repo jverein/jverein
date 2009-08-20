@@ -1,11 +1,13 @@
 <? include ("frame.inc"); ?>
 <h1>Dokumentation</h1>
 <ul>
+	<li><a href="dokumentationallinone.php">All-in-One</a></li>
 	<li><a href="jameica_startseite.php">Jameica-Startseite</a></li>
 	<li>Administration
 	<ul>
 		<li><a href="administration_stammdaten.php">Stammdaten</a></li>
 		<li><a href="administration_beitragsgruppen.php">Beitragsgruppen</a></li>
+		<li><a href="administration_buchungsarten.php">Buchungsart</a></li>
 		<li><a href="administration_einstellungen.php">Einstellungen</a></li>
 		<li><a href="administration_felddefinitionen.php">Felddefinitionen</a></li>
 		<li><a href="administration_formulare.php">Formulare</a></li>
@@ -54,6 +56,9 @@
 
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.11  2009/05/03 15:33:30  jost
     Neue Homepage
 

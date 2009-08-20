@@ -23,7 +23,7 @@
   <p id="Kopf">&nbsp;
   <?
   $datum = getdate();
-  echo "$datum[mday].$datum[mon].$datum[year] $datum[hours]:$datum[minutes]"; 
+  echo date("d.m.Y H:i");
   ?>
   </p>
 
@@ -31,8 +31,8 @@
   <ul>
     <li><a href="index.php" title="Home"><span>Home</span></a></li>
     <li><a href="dokumentation.php" title="Dokumentation"><span>Dokumentation</span></a></li>
-    <li><a href="download.php" title="Download"><span>Download</span></a></li>
     <li><a href="changelog.php" title="Changelog"><span>Changelog</span></a></li>
+    <li><a href="download.php" title="Download"><span>Download</span></a></li>
     <li><a href="installation.php" title="Installation"><span>Installation</span></a></li>
     <li><a href="cvs.php" title="CVS"><span>CVS</span></a></li>
 	<li><a href="mailliste.php" title="Mailliste"><span>Mailliste</span></a></li>
@@ -45,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.2  2009/08/17 18:52:44  jost
+    neues Layout
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 

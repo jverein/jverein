@@ -2,6 +2,7 @@
 	<h2>Administration</h2>
 	<? include ("administration_stammdaten.php"); ?>
 	<? include ("administration_beitragsgruppen.php"); ?>
+	<? include ("administration_buchungsarten.php"); ?>
 	<? include ("administration_einstellungen.php"); ?>
 	<? include ("administration_felddefinitionen.php"); ?>
 	<? include ("administration_formulare.php"); ?>
@@ -35,4 +36,7 @@
 
     <!-- 
     $Log$
+    Revision 1.1  2009/06/02 17:13:13  jost
+    *** empty log message ***
+
     -->

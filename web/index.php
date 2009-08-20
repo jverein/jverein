@@ -57,7 +57,7 @@
 	   und der Anzahl der Mitglieder. Diese Daten dienen der "Erfolgskontrolle".</p>
 	   
 	</div>   
-	<div style="float:left; width:200px;  left: 850px; border:1px solid black">    
+	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
         	<li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
@@ -68,6 +68,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.5  2009/08/17 18:52:58  jost
+    neues Layout
+
     Revision 1.4  2009/08/09 15:36:17  jost
     *** empty log message ***
 
