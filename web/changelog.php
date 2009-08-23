@@ -1,7 +1,7 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-    	<li>Version 1.2 vom ? (noch nicht freigegeben)
+    	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
     			<li>Bugfix beim Import von Mitgliedern mit dem Zahlungsweg "Barzahlung".</li>
     			<li>Bugfix bei den Abrechungen. Überlange Namen.</li>
@@ -428,6 +428,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.10  2009/08/18 18:08:13  jost
+    *** empty log message ***
+
     Revision 1.9  2009/07/30 18:24:31  jost
     *** empty log message ***
 
