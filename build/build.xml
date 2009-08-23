@@ -38,8 +38,23 @@
   </target>
 
   <target name="cvstag"  description="tags the source in the CVS">
+	<copy file="${build.dir}/RELEASE" tofile="${build.dir}/TAG" />
+    <replaceregexp flags="g" file="${build.dir}/TAG" match="\." replace="_" />
+    <loadfile property="mytag" srcFile="${build.dir}/TAG">
+       <filterchain>
+         <striplinebreaks />
+       </filterchain>
+    </loadfile>
+    <delete file="${build.dir}/TAG" />
+    <property name="tag" value="V_${mytag}_BUILD_${build.number}" />
+
+    <echo message="VERSION: ${appversion}" />
+    <echo message="CVS-Tag: ${tag}" />
+    <echo message="BUILD  : ${build.number}" />
+    <echo message="JAVA   : ${java.version}" />
+	
     <exec executable="cvs" failonerror="true" dir="${basedir}">
-      <arg line="tag ${version}_BUILD_${build.number}"/>
+      <arg line="tag ${tag}"/>
     </exec>
   </target>
 
