@@ -13,7 +13,7 @@
     		    <li>Bei der Auswahl des Geschlechts werden jetzt die Langtexte männlich und weiblich angezeigt.</li>
     		    <li>Bugfix FirstStart: Jetzt wird auch die Existenz von Beitragsgruppen abgefragt</li>
     			<li>Die Menüpunkte von Plugins>JVerein ins Hauptmenü kopiert</li>
-    			<li>Mitglied: Name, Vorname und Straße als Suchfelder</li>
+    			<li>Mitglied: Name, Vorname und Straße als Suchfelder (Auto-Vervollständigung)</li>
     			<li>Bugfix: Löschen von Mitgliedern mit Zusatzfeldern.</li>
     			<li>Neu: Juristische Personen (Firmen, Organisationen, Behörden) können als Mitglied gespeichert werden.</li>
     			<li>Neu: <a href="lehrgaenge.php">Lehrgänge</a> </li>
@@ -428,6 +428,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.11  2009/08/23 18:59:09  jost
+    Version 1.2
+
     Revision 1.10  2009/08/18 18:08:13  jost
     *** empty log message ***
 
