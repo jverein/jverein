@@ -2,7 +2,7 @@
 <h1>Kurzfassung der Changelog-Datei der Version 1.2</h1> 
 <a href='changelog.php'>Komplette Changelog</a>
 <ul>
-	<li>Überarbeitung der Mitgliedermaske, Die Felder Name, Vorname und Straße sind jetzt Suchfelder, die den Inhalt bereits gespeicherter Mitglieder anzeigen.</li>
+	<li>Überarbeitung der Mitgliedermaske, Die Felder Name, Vorname und Straße sind jetzt Suchfelder (Auto-Vervollständigung), die den Inhalt bereits gespeicherter Mitglieder anzeigen.</li>
 	<li>Neue Box "aktuelle Geburtstage". Wird unter dem Menüpunkt Jameica mit dem Button "Startseite anpassen" aktiviert.</li>
 	<li>Die Menüpunkte von Plugins>JVerein ins Hauptmenü kopiert</li>
 	<li>Juristische Personen (Firmen, Organisationen, Behörden) können als Mitglied gespeichert werden.</li>
@@ -15,6 +15,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.2  2009/08/24 17:38:08  jost
+    Typo
+
     Revision 1.1  2009/08/23 18:59:30  jost
     Version 1.2
 
