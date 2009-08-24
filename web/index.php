@@ -60,7 +60,8 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
-    		<li>23.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-173.zip">Version 1.2.0</a>. Siehe <a href="version1.2.php">Kurzfassung der Changelog.</a></li> 
+    		<li>24.08.2009: Neues Homepage-Design veröffentlicht.</a></li> 
+    		<li>24.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-173.zip">Version 1.2.0</a>. Siehe <a href="version1.2.php">Kurzfassung der Changelog.</a></li> 
         	<li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
        	 	<li>16.07.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-183.zip">Entwickler-Version 1.2.0 Rev. 183</a>. Siehe <a href="changelog.php">Changelog</a></li>
     	</ul>
@@ -68,6 +69,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.7  2009/08/23 18:59:21  jost
+    Version 1.2
+
     Revision 1.6  2009/08/20 20:15:32  jost
     *** empty log message ***
 
