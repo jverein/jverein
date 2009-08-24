@@ -7,7 +7,7 @@
 	<li>Die Menüpunkte von Plugins>JVerein ins Hauptmenü kopiert</li>
 	<li>Juristische Personen (Firmen, Organisationen, Behörden) können als Mitglied gespeichert werden.</li>
 	<li>Lehrgänge</li>
-	<li>Zusätzliche Felder zur Rechnungserstelltung.</li>
+	<li>Zusätzliche Felder zur Rechnungserstellung.</li>
 	<li>Silbentrennung in Reports aufgenommen</li>
 	<li>Icons auf Buttons</li>
 	<li>Export der Mitgliederdaten als Adressbuch für div. Mail-Programmme</li>
@@ -15,6 +15,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.1  2009/08/23 18:59:30  jost
+    Version 1.2
+
     Revision 1.10  2009/08/18 18:08:13  jost
     *** empty log message ***
 
