@@ -60,6 +60,7 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
+    		<li>30.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.3.0-devel-200.zip">Entwickler-Version 1.3.0 Rev. 190</a>. Ablauffähigkeit mit den aktuellen Nightly-Builds von Jameica und Hibiscus hergestellt.</li> 
     		<li>24.08.2009: Neues Homepage-Design veröffentlicht.</a></li> 
     		<li>24.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0.zip">Version 1.2.0</a>. Siehe <a href="version1.2.php">Kurzfassung der Changelog.</a></li> 
         	<li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
@@ -69,6 +70,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.9  2009/08/24 20:08:17  jost
+    *** empty log message ***
+
     Revision 1.8  2009/08/24 17:19:33  jost
     *** empty log message ***
 

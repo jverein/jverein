@@ -1,6 +1,10 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
+	   	<li>Version 1.3 noch nicht freigegeben</li>
+    		<ul>
+    			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
+    		</ul>
     	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
     			<li>Bugfix beim Import von Mitgliedern mit dem Zahlungsweg "Barzahlung".</li>
@@ -428,6 +432,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.12  2009/08/24 17:46:07  jost
+    *** empty log message ***
+
     Revision 1.11  2009/08/23 18:59:09  jost
     Version 1.2
 
