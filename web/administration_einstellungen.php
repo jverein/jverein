@@ -49,16 +49,14 @@
 	<p>Festlegung, für welche Zahlungswege Rechnungsinformationen gespeichert werden sollen. (Ab Version 1.1)</p>
 	
 	<h2>Tabellen</h2>
-	<p>Festlegung der Spalten, die in Tabellen angezeigt werden sollen. (Ab Version 1.1) 
-	<p>Mit <b>neu</b> kann eine neue Beitragsgruppe eingerichtet werden.</p>
-	<p>Durch einen Doppelklick wird die Bearbeitung einer Beitragsgruppe eingeleitet.</p>
-	<p>Durch die Markierung einer Beitragsgruppe und löschen wir die Löschung eingeleitet. 
-	Alternativ kann mit einem rechten Mausklick auf eine Beitragsgruppe öffnet sich ein 
-	Kontext-Menü. Damit kann eine Beitragsgruppe, die keinem Mitglied zugeordnet ist, gelöscht 
-	werden. Bei zugeordneten Beitragsgruppen erscheint eine Fehlermeldung.</p> 
+	<p>Festlegung der Spalten, die in Tabellen angezeigt werden sollen. 
+	<img src='images/Einstellungentabellen.jpg' class='screenshot'>
 	
 	<!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.3  2009/05/05 17:28:50  jost
     Neu: Juristische Personen als Mitglieder
 
