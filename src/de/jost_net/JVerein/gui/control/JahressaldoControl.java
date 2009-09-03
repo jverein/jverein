@@ -9,6 +9,11 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/03/01 17:39:49  jost
+ * - Ausgewähltes Jahr wird jetzt korrekt gespeichert und wiederhergestellt
+ * - Zusätzliche Zeile "Überschuss/Verlust"
+ * - Code bereinigt
+ *
  * Revision 1.7  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -107,7 +112,7 @@ public class JahressaldoControl extends AbstractControl
     }
 
     suchjahr = new SelectInput(jahre, settings.getInt("jahr", jahre.get(0)));
-    suchjahr.setPleaseChoose("Bitte auswählen");
+   // suchjahr.setPleaseChoose("Bitte auswählen");
     suchjahr.setPreselected(settings.getInt("jahr", bis.get(Calendar.YEAR)));
     return suchjahr;
   }
