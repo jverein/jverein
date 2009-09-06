@@ -64,9 +64,9 @@ ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitgl
 
 CREATE TABLE stammdaten
 (
-  id			int(10) AUTO_INCREMENT,
-  name			VARCHAR(30) NOT NULL,
-  blz			VARCHAR(8)  NOT NULL,
+  id            int(10) AUTO_INCREMENT,
+  name          VARCHAR(30) NOT NULL,
+  blz           VARCHAR(8)  NOT NULL,
   konto         VARCHAR(10) NOT NULL,
   altersgruppen VARCHAR(50),
   jubilaeen     VARCHAR(50),
@@ -170,7 +170,7 @@ CREATE TABLE konto
   UNIQUE        (id),
   UNIQUE        (nummer),
   PRIMARY KEY   (id)
-) TYPE=InnoDB;;
+) TYPE=InnoDB;
 
 CREATE TABLE buchungsart
 (
@@ -181,7 +181,7 @@ CREATE TABLE buchungsart
   UNIQUE        (id),
   UNIQUE        (nummer),
   PRIMARY KEY   (id)
-) TYPE=InnoDB;;
+) TYPE=InnoDB;
 
 CREATE TABLE buchung
 (
@@ -211,7 +211,7 @@ CREATE TABLE anfangsbestand
   UNIQUE        (id),
   UNIQUE        (konto, datum),
   PRIMARY KEY   (id)
-) TYPE=InnoDB;;
+) TYPE=InnoDB;
 
 ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id);
 
@@ -224,7 +224,7 @@ CREATE TABLE jahresabschluss
   name          VARCHAR(50),
   UNIQUE        (id),
   PRIMARY KEY   (id)
-) TYPE=InnoDB;;
+) TYPE=InnoDB;
 
 INSERT INTO version VALUES (1,15);
 
