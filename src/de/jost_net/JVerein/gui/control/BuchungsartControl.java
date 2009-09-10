@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/07/24 20:17:10  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.12  2009/06/22 18:12:19  jost
  * *** empty log message ***
  *
@@ -52,6 +55,8 @@ import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Buchungsklasse;
+import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -79,6 +84,8 @@ public class BuchungsartControl extends AbstractControl
   private Input bezeichnung;
 
   private SelectInput art;
+
+  private SelectInput buchungsklasse;
 
   private Buchungsart buchungsart;
 
@@ -133,6 +140,22 @@ public class BuchungsartControl extends AbstractControl
     return art;
   }
 
+  public Input getBuchungsklasse() throws RemoteException
+  {
+    if (buchungsklasse != null)
+    {
+      return buchungsklasse;
+    }
+    DBIterator list = Einstellungen.getDBService().createList(
+        Buchungsklasse.class);
+    list.setOrder("ORDER BY nummer");
+    buchungsklasse = new SelectInput(list, getBuchungsart().getBuchungsklasse());
+    buchungsklasse.setValue(getBuchungsart().getBuchungsklasse());
+    buchungsklasse.setAttribute("bezeichnung");
+    buchungsklasse.setPleaseChoose("Bitte auswählen");
+    return buchungsklasse;
+  }
+
   /**
    * This method stores the project using the current values.
    */
@@ -145,6 +168,15 @@ public class BuchungsartControl extends AbstractControl
       b.setBezeichnung((String) getBezeichnung().getValue());
       ArtBuchungsart ba = (ArtBuchungsart) getArt().getValue();
       b.setArt(ba.getKey());
+      GenericObject o = (GenericObject) getBuchungsklasse().getValue();
+      if (o != null)
+      {
+        b.setBuchungsklasse(new Integer(o.getID()));
+      }
+      else
+      {
+        b.setBuchungsklasse(null);
+      }
       try
       {
         b.store();

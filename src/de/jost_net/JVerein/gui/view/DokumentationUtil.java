@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2009/08/19 20:59:46  jost
+ * Link Buchungsarten aufgenommen.
+ *
  * Revision 1.13  2009/08/17 18:52:12  jost
  * Neuer Pfad
  *
@@ -79,6 +82,9 @@ public class DokumentationUtil
 
   public static final String BUCHUNGSARTEN = PRE
       + "administration_buchungsarten.php";
+
+  public static final String BUCHUNGSKLASSEN= PRE
+      + "administration_buchungsklassen.php";
 
   public static final String FELDDEFINITIONEN = PRE
       + "administration_felddefinitionen.php";

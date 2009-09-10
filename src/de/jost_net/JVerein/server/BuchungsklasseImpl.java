@@ -9,51 +9,30 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.8  2009/06/11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.7  2009/01/04 16:28:02  jost
- * Neu: F�r mehrere Buchungen gleichzeitig die Buchungsart festlegen.
- *
- * Revision 1.6  2008/11/29 13:15:19  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.5  2008/05/22 06:56:17  jost
- * Buchführung
- *
- * Revision 1.4  2008/03/16 07:38:12  jost
- * Reaktivierung Buchführung
- *
- * Revision 1.2  2007/02/23 20:28:41  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:48  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
+public class BuchungsklasseImpl extends AbstractDBObject implements
+    Buchungsklasse
 {
   private static final long serialVersionUID = 500102542884220658L;
 
-  public BuchungsartImpl() throws RemoteException
+  public BuchungsklasseImpl() throws RemoteException
   {
     super();
   }
 
   protected String getTableName()
   {
-    return "buchungsart";
+    return "buchungsklasse";
   }
 
   public String getPrimaryAttribute() throws RemoteException
@@ -83,7 +62,7 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     catch (RemoteException e)
     {
       String fehler = JVereinPlugin.getI18n().tr(
-          "Buchungsart kann nicht gespeichert werden. Siehe system log");
+          "Buchungsklasse kann nicht gespeichert werden. Siehe system log");
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -97,10 +76,6 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
   @SuppressWarnings("unchecked")
   protected Class getForeignObject(String arg0) throws RemoteException
   {
-    if ("buchungsklasse".equals(arg0))
-    {
-      return Buchungsklasse.class;
-    }
     return null;
   }
 
@@ -125,36 +100,6 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
   public void setNummer(int i) throws RemoteException
   {
     setAttribute("nummer", new Integer(i));
-  }
-
-  public int getArt() throws RemoteException
-  {
-    Integer i = (Integer) getAttribute("art");
-    if (i == null)
-    {
-      return 0;
-    }
-    return i.intValue();
-  }
-
-  public void setArt(int art) throws RemoteException
-  {
-    setAttribute("art", art);
-  }
-
-  public Buchungsklasse getBuchungsklasse() throws RemoteException
-  {
-    return (Buchungsklasse) getAttribute("buchungsklasse");
-  }
-
-  public int getBuchungsklasseId() throws RemoteException
-  {
-    return Integer.parseInt(getBuchungsklasse().getID());
-  }
-
-  public void setBuchungsklasse(Integer buchungsklasse) throws RemoteException
-  {
-    setAttribute("buchungsklasse", buchungsklasse);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

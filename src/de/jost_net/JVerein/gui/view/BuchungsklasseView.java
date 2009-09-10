@@ -9,35 +9,11 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.9  2009/07/24 20:20:48  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.8  2009/06/11 21:03:39  jost
- * Vorbereitung I18N
- *
- * Revision 1.7  2009/01/20 20:09:24  jost
- * neue Icons
- *
- * Revision 1.6  2009/01/20 19:15:19  jost
- * neu: Back-Button mit Icon
- *
- * Revision 1.5  2008/05/22 06:52:37  jost
- * Buchführung
- *
- * Revision 1.4  2008/03/16 07:36:29  jost
- * Reaktivierung Buchführung
- *
- * Revision 1.2  2007/02/23 20:27:28  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:10  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.gui.control.BuchungsartControl;
+import de.jost_net.JVerein.gui.control.BuchungsklasseControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -46,23 +22,20 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class BuchungsartView extends AbstractView
+public class BuchungsklasseView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsart"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsklasse"));
 
-    final BuchungsartControl control = new BuchungsartControl(this);
+    final BuchungsklasseControl control = new BuchungsklasseControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Buchungsart"));
+        "Buchungsklasse"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Nummer"), control
         .getNummer(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
         .getBezeichnung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getArt());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsklasse"), control
-        .getBuchungsklasse());
 
     ButtonArea buttons = new ButtonArea(getParent(), 2);
 
