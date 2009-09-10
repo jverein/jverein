@@ -4,6 +4,7 @@
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
     			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
+    			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
     		</ul>
     	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
@@ -432,6 +433,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.13  2009/08/30 06:35:26  jost
+    *** empty log message ***
+
     Revision 1.12  2009/08/24 17:46:07  jost
     *** empty log message ***
 

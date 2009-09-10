@@ -2,7 +2,8 @@
     <h1>Dokumentation: Auswertung: Mitglieder</h1>
     <p>Der Mitgliederbestand kann nach den unten aufgeführten Merkmalen selektiert werden.</p>
     <p>Die Ausgabe erfolgt entweder im PDF oder im CSV-Format. Nach der Erzeugung der Datei wird ein 
-    	entsprechendes Anzeigeprogramm aufgerufen.</p>
+    	entsprechendes Anzeigeprogramm aufgerufen. Die CSV-Datei kann in OpenOffice oder WinWord als
+    	Serienbriefdatenquelle zugewiesen werden.</p>
     <p>Die Sortierung erfolgt nach</p>
 	<ul>
 		<li> Name, Vorname</li>
@@ -17,6 +18,9 @@
    
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.1  2009/05/03 15:33:30  jost
     Neue Homepage
 
