@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/09/10 18:18:09  jost
+ * neu: Buchungsklassen
+ *
  * Revision 1.9  2009/07/24 20:20:48  jost
  * Focus auf erstes Feld setzen.
  *
@@ -37,6 +40,7 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsartControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -64,9 +68,13 @@ public class BuchungsartView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsklasse"), control
         .getBuchungsklasse());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
 
     buttons.addButton(new Back(false));
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), DokumentationUtil.BUCHUNGSARTEN, false,
+        "help-browser.png");
+
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
