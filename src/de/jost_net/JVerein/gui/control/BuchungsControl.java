@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2009/07/24 20:17:31  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.21  2009/06/22 18:12:35  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -92,6 +95,7 @@ import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFEinzelbuchungen;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFSummen;
+import de.jost_net.JVerein.io.BuchungsjournalPDF;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
@@ -523,6 +527,19 @@ public class BuchungsControl extends AbstractControl
     return b;
   }
 
+  public Button getStartAuswertungBuchungsjournalButton()
+  {
+    Button b = new Button("PDF Buchungsjournal", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        starteAuswertungBuchungsjournal();
+      }
+    }, null, true, "pdf.png"); // "true" defines this button as the default
+    // button
+    return b;
+  }
+
   public void handleStore()
   {
     try
@@ -720,6 +737,72 @@ public class BuchungsControl extends AbstractControl
     }
   }
 
+  private void starteAuswertungBuchungsjournal() throws ApplicationException
+  {
+    DBIterator list;
+    Date dVon = null;
+    Date dBis = null;
+    Konto k = null;
+    if (bisdatum.getValue() != null)
+    {
+      dVon = (Date) vondatum.getValue();
+    }
+    if (bisdatum.getValue() != null)
+    {
+      dBis = (Date) bisdatum.getValue();
+    }
+    if (suchkonto.getValue() != null)
+    {
+      k = (Konto) suchkonto.getValue();
+    }
+
+    try
+    {
+      list = Einstellungen.getDBService().createList(Buchung.class);
+      if (dVon != null)
+      {
+        list.addFilter("datum >= ?", new Object[] { dVon });
+      }
+      if (dBis != null)
+      {
+        list.addFilter("datum <= ?", new Object[] { dBis });
+      }
+      if (k != null)
+      {
+        list.addFilter("konto = ?", new Object[] { k.getID() });
+      }
+      list.setOrder("ORDER BY datum, auszugsnummer, blattnummer, id");
+
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("Ausgabedatei wählen.");
+
+      String path = settings.getString("lastdir", System
+          .getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname("buchungsjournal", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
+
+      final String s = fd.open();
+
+      if (s == null || s.length() == 0)
+      {
+        return;
+      }
+
+      final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
+
+      auswertungBuchungsjournalPDF(list, file, k, dVon, dBis);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
   private void auswertungBuchungPDF(final DBIterator list, final File file,
       final Konto konto, final Buchungsart buchungsart, final Date dVon,
       final Date dBis, final boolean einzelbuchungen)
@@ -740,6 +823,49 @@ public class BuchungsControl extends AbstractControl
             new BuchungAuswertungPDFSummen(list, file, monitor, konto,
                 buchungsart, dVon, dBis);
           }
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getCurrentView().reload();
+        }
+        catch (ApplicationException ae)
+        {
+          monitor.setStatusText(ae.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(ae.getMessage());
+          throw ae;
+        }
+        catch (RemoteException re)
+        {
+          monitor.setStatusText(re.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(re.getMessage());
+          throw new ApplicationException(re);
+        }
+      }
+
+      public void interrupt()
+      {
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+  }
+
+  private void auswertungBuchungsjournalPDF(final DBIterator list,
+      final File file, final Konto konto, final Date dVon, final Date dBis)
+  {
+    BackgroundTask t = new BackgroundTask()
+    {
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          new BuchungsjournalPDF(list, file, monitor, konto, dVon, dBis);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");

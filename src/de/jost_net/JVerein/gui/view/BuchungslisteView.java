@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.12  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -99,11 +102,12 @@ public class BuchungslisteView extends AbstractView
 
     control.getBuchungsList().paint(this.getParent());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 5);
+    ButtonArea buttons2 = new ButtonArea(this.getParent(), 6);
     buttons2.addButton(new Back(false));
     buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
+    buttons2.addButton(control.getStartAuswertungBuchungsjournalButton());
     buttons2.addButton(control.getStartAuswertungEinzelbuchungenButton());
     buttons2.addButton(control.getStartAuswertungSummenButton());
     buttons2.addButton(JVereinPlugin.getI18n().tr("neu"),

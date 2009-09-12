@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/09/10 18:17:23  jost
+ * neu: Buchungsklassen
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
@@ -25,8 +28,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.parts.BuchungsklasseSaldoList;
 import de.jost_net.JVerein.io.BuchungsklasseSaldoZeile;
-import de.jost_net.JVerein.io.JahressaldoPDF;
-import de.jost_net.JVerein.io.SaldoZeile;
+import de.jost_net.JVerein.io.BuchungsklassesaldoPDF;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
@@ -160,7 +162,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("jahressaldo", Einstellungen
+      fd.setFileName(new Dateiname("buchungsklassensaldo", Einstellungen
           .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
@@ -200,8 +202,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         try
         {
-          //TODO ################## Anpassen 
-          // new JahressaldoPDF(zeile, file, monitor, gj);
+          // TODO ################## Anpassen
+          new BuchungsklassesaldoPDF(zeile, file, monitor, gj);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
@@ -214,13 +216,13 @@ public class BuchungsklasseSaldoControl extends AbstractControl
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }
-        // catch (RemoteException re)
-        // {
-        // monitor.setStatusText(re.getMessage());
-        // monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-        // GUI.getStatusBar().setErrorText(re.getMessage());
-        // throw new ApplicationException(re);
-        // }
+        catch (RemoteException re)
+        {
+          monitor.setStatusText(re.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(re.getMessage());
+          throw new ApplicationException(re);
+        }
       }
 
       public void interrupt()
