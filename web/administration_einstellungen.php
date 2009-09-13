@@ -52,8 +52,17 @@
 	<p>Festlegung der Spalten, die in Tabellen angezeigt werden sollen. 
 	<img src='images/Einstellungentabellen.jpg' class='screenshot'>
 	
+	<h2>Updates</h2>
+	<p>Festlegung zur Prüfung auf Updates. Das Interval kann entweder manuell, täglich oder monatlich sein.
+	Sofern Diagnoseunterlagen mitgesendet werden dürfen, wird der Name des Vereins übermittelt. Dies dient
+	der 'Erfolgskontrolle' für den Programmautor. Weitere Daten werden nicht übermittelt.</p> 
+	<img src='images/Einstellungenupdates.jpg' class='screenshot'>
+	
 	<!-- 
     $Log$
+    Revision 1.2  2009/09/01 19:53:56  jost
+    Einstellungen Tabellen korrekt beschrieben
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 
