@@ -6,6 +6,7 @@
     			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
     			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
     			<li>Neu: Buchungsjournal, Feature Request <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16103&group_id=7335'>#16103</a></li>
+    			<li>Neu: Überprüfung auf Updates.</li>
     		</ul>
     	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
@@ -434,6 +435,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.15  2009/09/12 19:09:09  jost
+    *** empty log message ***
+
     Revision 1.14  2009/09/10 15:51:36  jost
     *** empty log message ***
 

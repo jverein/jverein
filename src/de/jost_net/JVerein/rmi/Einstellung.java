@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/07/14 07:30:18  jost
+ * Bugfix Rechnungen.
+ *
  * Revision 1.4  2009/04/25 05:31:07  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -25,6 +28,7 @@
 package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
@@ -117,5 +121,17 @@ public interface Einstellung extends DBObject
 
   public void setRechnungFuerBarzahlung(Boolean rechnungfuerbarzahlung)
       throws RemoteException;
+
+  public Integer getUpdateInterval() throws RemoteException;
+
+  public void setUpdateInterval(Integer updateinterval) throws RemoteException;
+
+  public boolean getUpdateDiagInfos() throws RemoteException;
+
+  public void setUpdateDiagInfos(Boolean updateinterval) throws RemoteException;
+
+  public Date getUpdateLastCheck() throws RemoteException;
+
+  public void setUpdateLastCheck(Date updatelastcheck) throws RemoteException;
 
 }

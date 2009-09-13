@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/07/14 07:29:27  jost
+ * Neu: Box aktuelle Geburtstage
+ *
  * Revision 1.19  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -174,6 +177,15 @@ public class EinstellungenView extends AbstractView
     LabelGroup groupMitglieder = new LabelGroup(tabMitglieder.getComposite(),
         JVereinPlugin.getI18n().tr("Trefferliste Mitglieder"));
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
+
+    TabGroup tabUpdates = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Updates"));
+    LabelGroup groupUpdate = new LabelGroup(tabUpdates.getComposite(),
+        JVereinPlugin.getI18n().tr("Updates"));
+    groupUpdate.addLabelPair("Interval", control.getUpdateInterval());
+    groupUpdate.addLabelPair("Diagnoseunterlagen mitsenden", control
+        .getUpdateDiagInfos());
+    groupUpdate.addLabelPair("letzter Check", control.getUpdateLastCheck());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));

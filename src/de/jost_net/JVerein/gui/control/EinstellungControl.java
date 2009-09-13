@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2009/07/14 07:28:53  jost
+ * Neu: Box aktuelle Geburtstage
+ *
  * Revision 1.16  2009/04/25 05:27:52  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -61,10 +64,12 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.UpdateIntervalInput;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
@@ -72,6 +77,7 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
+import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -116,6 +122,12 @@ public class EinstellungControl extends AbstractControl
   private SelectInput aktuellegeburtstagevorher;
 
   private SelectInput aktuellegeburtstagenachher;
+
+  private SelectInput updateinterval;
+
+  private CheckboxInput updatediaginfos;
+  
+  private DateInput updatelastcheck;
 
   private Settings settings;
 
@@ -335,6 +347,39 @@ public class EinstellungControl extends AbstractControl
     return rechnungfuerbarzahlung;
   }
 
+  public SelectInput getUpdateInterval() throws RemoteException
+  {
+    if (updateinterval != null)
+    {
+      return updateinterval;
+    }
+    updateinterval = new UpdateIntervalInput(Einstellungen.getEinstellung()
+        .getUpdateInterval());
+    return updateinterval;
+  }
+
+  public CheckboxInput getUpdateDiagInfos() throws RemoteException
+  {
+    if (updatediaginfos != null)
+    {
+      return updatediaginfos;
+    }
+    updatediaginfos = new CheckboxInput(Einstellungen.getEinstellung()
+        .getUpdateDiagInfos());
+    return updatediaginfos;
+  }
+  
+  public DateInput getUpdateLastCheck() throws RemoteException
+  {
+    if (updatelastcheck !=null)
+    {
+      return updatelastcheck;
+    }
+    updatelastcheck= new DateInput(Einstellungen.getEinstellung().getUpdateLastCheck());
+    updatelastcheck.setEnabled(false);
+    return updatelastcheck;
+  }
+
   public TablePart getSpaltendefinitionTable(Composite parent)
       throws RemoteException
   {
@@ -382,6 +427,9 @@ public class EinstellungControl extends AbstractControl
       e.setRechnungFuerBarzahlung((Boolean) rechnungfuerbarzahlung.getValue());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
+      e.setUpdateInterval((Integer) updateinterval.getValue());
+      e.setUpdateDiagInfos((Boolean) updatediaginfos.getValue());
+      e.setUpdateLastCheck((Date)updatelastcheck.getValue());
       e.store();
       spalten.save();
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
