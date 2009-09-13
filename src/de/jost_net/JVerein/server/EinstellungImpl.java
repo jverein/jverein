@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/09/13 19:20:40  jost
+ * Neu: Prüfung auf Updates
+ *
  * Revision 1.6  2009/07/14 07:30:30  jost
  * Bugfix Rechnungen.
  *
@@ -277,7 +280,12 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public Integer getUpdateInterval() throws RemoteException
   {
-    return (Integer) getAttribute("updateinterval");
+    Integer ret = (Integer) getAttribute("updateinterval");
+    if (ret == null)
+    {
+      return new Integer(30);
+    }
+    return ret;
   }
 
   public void setUpdateInterval(Integer updateinterval) throws RemoteException
