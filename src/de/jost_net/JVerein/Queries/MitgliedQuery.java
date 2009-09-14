@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2009/07/05 10:26:26  jost
+ * Bugfix Geschlechtsauswahl
+ *
  * Revision 1.13  2009/06/11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -181,7 +184,7 @@ public class MitgliedQuery
         if (control.getAustrittvon().getValue() == null
             && control.getAustrittbis().getValue() == null)
         {
-          addCondition("austritt is null");
+          addCondition("(austritt is null or austritt > current_date())");
         }
       }
     }
