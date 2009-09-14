@@ -9,13 +9,15 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/09/10 18:18:32  jost
+ * neu: Buchungsklassen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseSaldoControl;
-import de.jost_net.JVerein.gui.control.JahressaldoControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;

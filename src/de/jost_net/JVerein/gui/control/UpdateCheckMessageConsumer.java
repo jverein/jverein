@@ -8,8 +8,6 @@ import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.UpdateIntervalInput;
