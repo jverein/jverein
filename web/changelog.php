@@ -7,7 +7,7 @@
     			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
     			<li>Neu: Buchungsjournal, Feature Request <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16103&group_id=7335'>#16103</a></li>
     			<li>Neu: Überprüfung auf Updates.</li>
-    			<li>Auswertung Mitglieder: Mitglieder mit Austrittsdatum in der Zukunft werden mit ausgewertet.</li>
+    			<li>Auswertung Mitglieder: Mitglieder mit Austrittsdatum in der Zukunft werden mit ausgewertet. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16103&group_id=7335'>#16103</a></li>
     		</ul>
     	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
@@ -17,7 +17,7 @@
     		    <li>Neue Box "aktuelle Geburtstage". Wird unter dem Menüpunkt Jameica mit dem Button "Startseite anpassen" aktiviert.</li>
     		    <li>Bugfix bei der Erstellung von Rechnungen</li>
     		    <li>Mitglied: Zahlungsdaten in eignen Tab verschoben. Platzoptimierung</li>
-    		    <li>Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=15892&group_id=7335'>#15892</a></li>
+    		    <li>Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16223&group_id=7335'>#16223</a></li>
     		    <li>Bei der Auswahl des Geschlechts werden jetzt die Langtexte männlich und weiblich angezeigt.</li>
     		    <li>Bugfix FirstStart: Jetzt wird auch die Existenz von Beitragsgruppen abgefragt</li>
     			<li>Die Menüpunkte von Plugins>JVerein ins Hauptmenü kopiert</li>
@@ -436,6 +436,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.17  2009/09/14 19:16:16  jost
+    *** empty log message ***
+
     Revision 1.16  2009/09/13 19:21:07  jost
     Neu: Prüfung auf Updates
 
