@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/09/12 19:03:00  jost
+ * neu: Buchungsjournal
+ *
  * Revision 1.1  2009/09/10 18:17:58  jost
  * neu: Buchungsklassen
  *
@@ -157,7 +160,9 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       DBIterator buchungsartenIt = service.createList(Buchungsart.class);
       buchungsartenIt.addFilter("buchungsklasse = ?",
           new Object[] { buchungsklasse.getID() });
-
+      suBukEinnahmen = new Double(0);
+      suBukAusgaben = new Double(0);
+      suBukUmbuchungen = new Double(0);
       while (buchungsartenIt.hasNext())
       {
         buchungsart = (Buchungsart) buchungsartenIt.next();
@@ -183,6 +188,9 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       zeile.add(new BuchungsklasseSaldoZeile("Saldo "
           + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
           suBukUmbuchungen));
+      zeile.add(new BuchungsklasseSaldoZeile("Gewinn/Verlust "
+          + buchungsklasse.getBezeichnung(), suBukEinnahmen - suBukAusgaben
+          - suBukUmbuchungen));
     }
     String sql = "select sum(betrag) from buchung, buchungsart "
         + "where datum >= ? and datum <= ?  "
