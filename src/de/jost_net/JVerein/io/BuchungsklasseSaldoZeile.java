@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/09/12 19:05:14  jost
+ * neu: Buchungsklassen
+ *
  * Revision 1.1  2009/09/10 18:19:09  jost
  * neu: Buchungsklassen
  *
@@ -45,6 +48,8 @@ public class BuchungsklasseSaldoZeile implements GenericObject
   public static final int DETAIL = 2;
 
   public static final int FOOTER = 3;
+  
+  public static final int FOOTER2 = 4;
 
   private int status = UNDEFINED;
 
@@ -81,6 +86,17 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     this.umbuchungen = new Double(umbuchungen);
     this.einnahmen = new Double(einnahmen);
     this.ausgaben = new Double(ausgaben);
+  }
+
+  public BuchungsklasseSaldoZeile(String text, Double gewinnverlust)
+  {
+    this.status = FOOTER2;
+    this.buchungsklasse = null;
+    this.buchungsart = null;
+    this.text = text;
+    this.umbuchungen = null;
+    this.einnahmen = new Double(gewinnverlust);
+    this.ausgaben = null;
   }
 
   public int getStatus()

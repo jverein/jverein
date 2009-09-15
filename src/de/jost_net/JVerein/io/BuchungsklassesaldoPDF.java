@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/09/12 19:05:02  jost
+ * neu: Buchungsklassen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -68,16 +71,26 @@ public class BuchungsklassesaldoPDF
           }
           case BuchungsklasseSaldoZeile.FOOTER:
           {
-            reporter
-                .addColumn((String) bkz
-                    .getAttribute("buchungsklassenbezeichnung"),
-                    Element.ALIGN_LEFT);
+            reporter.addColumn((String) bkz
+                .getAttribute("buchungsklassenbezeichnung"),
+                Element.ALIGN_RIGHT);
             reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
             reporter.addColumn((Double) bkz.getAttribute("ausgaben"));
             reporter.addColumn((Double) bkz.getAttribute("umbuchungen"));
+            break;
+          }
+          case BuchungsklasseSaldoZeile.FOOTER2:
+          {
+            reporter.addColumn((String) bkz
+                .getAttribute("buchungsklassenbezeichnung"),
+                Element.ALIGN_RIGHT);
+            reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
+            reporter.addColumn("", Element.ALIGN_LEFT);
+            reporter.addColumn("", Element.ALIGN_LEFT);
             reporter.closeTable();
             break;
           }
+
         }
       }
       monitor.setStatusText("Auswertung fertig.");
