@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/09/12 19:02:46  jost
+ * neu: Buchungsjournal
+ *
  * Revision 1.1  2009/09/10 18:17:23  jost
  * neu: Buchungsklassen
  *
@@ -202,7 +205,6 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         try
         {
-          // TODO ################## Anpassen
           new BuchungsklassesaldoPDF(zeile, file, monitor, gj);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
