@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2009/08/19 21:01:13  jost
+ * Zahlungsweg "überweisung" kann jetzt auch importiert werden.
+ *
  * Revision 1.22  2009/08/18 17:31:03  jost
  * - Abrechnungsdaten löschen
  * - Bugfix Barzahlung
@@ -250,7 +253,7 @@ public class Import
         String zahlungsrhytmus = "12";
         try
         {
-          results.getString("Zahlungsrhytmus");
+          zahlungsrhytmus = results.getString("Zahlungsrhytmus");
         }
         catch (SQLException e)
         {
