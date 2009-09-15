@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2009/09/10 18:16:58  jost
+ * neu: Buchungsklassen
+ *
  * Revision 1.13  2009/07/24 20:17:10  jost
  * Focus auf erstes Feld setzen.
  *
@@ -229,6 +232,7 @@ public class BuchungsartControl extends AbstractControl
         return "ungültig";
       }
     }, false, Column.ALIGN_LEFT);
+    buchungsartList.addColumn("Buchungsklasse", "buchungsklasse");
     buchungsartList.setContextMenu(new BuchungsartMenu());
     buchungsartList.setRememberColWidths(true);
     buchungsartList.setRememberOrder(true);
