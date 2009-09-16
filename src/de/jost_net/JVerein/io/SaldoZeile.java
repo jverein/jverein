@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008/07/09 13:18:18  jost
+ * Überflüssige Imports entfernt.
+ *
  * Revision 1.2  2008/06/28 17:00:17  jost
  * Vereinheitlichung des Jahressaldos
  *
@@ -82,7 +85,7 @@ public class SaldoZeile implements GenericObject
     }
     String sql = "select sum(betrag) from buchung, buchungsart "
         + "where datum >= ? and datum <= ? AND konto = ? "
-        + "and buchung.BUCHUNGSART = BUCHUNGSART.ID " + "and BUCHUNGSART.ART=?";
+        + "and buchung.buchungsart = buchungsart.id " + "and buchungsart.art=?";
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
