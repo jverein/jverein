@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/09/14 19:13:58  jost
+ * Überflüssiges Import-Statement entfernt.
+ *
  * Revision 1.1  2009/09/10 18:18:32  jost
  * neu: Buchungsklassen
  *
@@ -53,7 +56,7 @@ public class BuchungsklasseSaldoView extends AbstractView
     buttons.addButton(button);
 
     LabelGroup group2 = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Saldo"));
+        "Saldo"), true);
     group2.addPart(control.getSaldoList());
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
