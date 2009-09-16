@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/09/15 19:22:10  jost
+ * Korrekte Bildung der Summen.
+ *
  * Revision 1.2  2009/09/12 19:03:00  jost
  * neu: Buchungsjournal
  *
@@ -189,8 +192,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
           + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
           suBukUmbuchungen));
       zeile.add(new BuchungsklasseSaldoZeile("Gewinn/Verlust "
-          + buchungsklasse.getBezeichnung(), suBukEinnahmen - suBukAusgaben
-          - suBukUmbuchungen));
+          + buchungsklasse.getBezeichnung(), suBukEinnahmen + suBukAusgaben
+          + suBukUmbuchungen));
     }
     String sql = "select sum(betrag) from buchung, buchungsart "
         + "where datum >= ? and datum <= ?  "
