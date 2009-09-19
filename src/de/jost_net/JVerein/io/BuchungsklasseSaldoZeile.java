@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/09/15 19:24:25  jost
+ * Saldo-Bildung
+ *
  * Revision 1.2  2009/09/12 19:05:14  jost
  * neu: Buchungsklassen
  *
@@ -41,22 +44,30 @@ public class BuchungsklasseSaldoZeile implements GenericObject
 
   private Double ausgaben;
 
+  private Integer anzahlbuchungen;
+
   public static final int UNDEFINED = 0;
 
   public static final int HEADER = 1;
 
   public static final int DETAIL = 2;
 
-  public static final int FOOTER = 3;
-  
-  public static final int FOOTER2 = 4;
+  public static final int SALDOFOOTER = 3;
+
+  public static final int SALDOGEWINNVERLUST = 4;
+
+  public static final int GESAMTSALDOFOOTER = 5;
+
+  public static final int GESAMTGEWINNVERLUST = 6;
+
+  public static final int NICHTZUGEORDNETEBUCHUNGEN = 7;
 
   private int status = UNDEFINED;
 
-  public BuchungsklasseSaldoZeile(Buchungsklasse buchungsklasse)
+  public BuchungsklasseSaldoZeile(int status, Buchungsklasse buchungsklasse)
   {
     this.buchungsklasse = buchungsklasse;
-    this.status = HEADER;
+    this.status = status;
     this.buchungsart = null;
     this.text = null;
     this.umbuchungen = null;
@@ -64,10 +75,10 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     this.ausgaben = null;
   }
 
-  public BuchungsklasseSaldoZeile(Buchungsart buchungsart, Double einnahmen,
-      Double ausgaben, Double umbuchungen)
+  public BuchungsklasseSaldoZeile(int status, Buchungsart buchungsart,
+      Double einnahmen, Double ausgaben, Double umbuchungen)
   {
-    this.status = DETAIL;
+    this.status = status;
     this.buchungsklasse = null;
     this.buchungsart = buchungsart;
     this.text = null;
@@ -76,10 +87,10 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     this.ausgaben = new Double(ausgaben);
   }
 
-  public BuchungsklasseSaldoZeile(String text, Double einnahmen,
+  public BuchungsklasseSaldoZeile(int status, String text, Double einnahmen,
       Double ausgaben, Double umbuchungen)
   {
-    this.status = FOOTER;
+    this.status = status;
     this.buchungsklasse = null;
     this.buchungsart = null;
     this.text = text;
@@ -88,15 +99,28 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     this.ausgaben = new Double(ausgaben);
   }
 
-  public BuchungsklasseSaldoZeile(String text, Double gewinnverlust)
+  public BuchungsklasseSaldoZeile(int status, String text, Double gewinnverlust)
   {
-    this.status = FOOTER2;
+    this.status = status;
     this.buchungsklasse = null;
     this.buchungsart = null;
     this.text = text;
     this.umbuchungen = null;
     this.einnahmen = new Double(gewinnverlust);
     this.ausgaben = null;
+  }
+
+  public BuchungsklasseSaldoZeile(int status, String text,
+      Integer anzahlbuchungen)
+  {
+    this.status = status;
+    this.buchungsklasse = null;
+    this.buchungsart = null;
+    this.text = text;
+    this.umbuchungen = null;
+    this.einnahmen = null;
+    this.ausgaben = null;
+    this.anzahlbuchungen = anzahlbuchungen;
   }
 
   public int getStatus()
@@ -130,6 +154,10 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     {
       return umbuchungen;
     }
+    else if (arg0.equals("anzahlbuchungen"))
+    {
+      return anzahlbuchungen;
+    }
     throw new RemoteException("Ungültige Spaltenbezeichung: " + arg0);
   }
 
@@ -137,7 +165,7 @@ public class BuchungsklasseSaldoZeile implements GenericObject
   {
     return new String[] { "buchungsklassenbezeichnung",
         "buchungsartbezeichnung", "anfangsbestand", "einnahmen", "ausgaben",
-        "umbuchungen" };
+        "umbuchungen", "anzahlbuchungen" };
   }
 
   public String getID() throws RemoteException

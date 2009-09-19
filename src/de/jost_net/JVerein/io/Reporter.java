@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/03/04 20:52:18  jost
+ * Footer korrigiert.
+ *
  * Revision 1.10  2009/03/02 20:06:36  jost
  * Korrekte Anzeige von null-Werten
  *
@@ -202,6 +205,17 @@ public class Reporter
     addColumn(getDetailCell(text, align, Color.WHITE));
   }
 
+  public void addColumn(String text, int align, int colspan)
+  {
+    addColumn(getDetailCell(text, align, Color.WHITE, colspan));
+  }
+
+  public void addColumn(String text, int align, Color backgroundcolor,
+      int colspan)
+  {
+    addColumn(getDetailCell(text, align, backgroundcolor, colspan));
+  }
+
   /**
    * Fuegt eine neue Zelle zur Tabelle hinzu.
    */
@@ -287,6 +301,10 @@ public class Reporter
 
   public void closeTable() throws DocumentException
   {
+    if (table == null)
+    {
+      return;
+    }
     rpt.add(table);
     table = null;
     headers = new ArrayList<PdfPCell>();
@@ -342,6 +360,18 @@ public class Reporter
     return cell;
   }
 
+  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor,
+      int colspan)
+  {
+    PdfPCell cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
+        FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
+    cell.setHorizontalAlignment(align);
+    cell.setBackgroundColor(backgroundcolor);
+    cell.setColspan(colspan);
+    return cell;
+
+  }
+
   /**
    * Erzeugt eine Zelle der Tabelle.
    * 
@@ -367,10 +397,14 @@ public class Reporter
   {
     Font f = null;
     if (value >= 0)
+    {
       f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL,
           Color.BLACK);
+    }
     else
+    {
       f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, Color.RED);
+    }
     PdfPCell cell = new PdfPCell(new Phrase(Einstellungen.DECIMALFORMAT
         .format(value), f));
     cell.setHorizontalAlignment(Element.ALIGN_RIGHT);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/09/15 19:24:12  jost
+ * Saldo-Bildung
+ *
  * Revision 1.1  2009/09/12 19:05:02  jost
  * neu: Buchungsklassen
  *
@@ -25,7 +28,6 @@ import java.util.ArrayList;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.willuhn.jameica.gui.GUI;
@@ -48,6 +50,7 @@ public class BuchungsklassesaldoPDF
       String subtitle = gj.toString();
       Reporter reporter = new Reporter(fos, monitor, "Buchungsklassesaldo",
           subtitle, zeile.size());
+      makeHeader(reporter);
 
       for (BuchungsklasseSaldoZeile bkz : zeile)
       {
@@ -55,9 +58,9 @@ public class BuchungsklassesaldoPDF
         {
           case BuchungsklasseSaldoZeile.HEADER:
           {
-            reporter.add(new Paragraph((String) bkz
-                .getAttribute("buchungsklassenbezeichnung")));
-            makeHeader(reporter);
+            reporter.addColumn((String) bkz
+                .getAttribute("buchungsklassenbezeichnung"),
+                Element.ALIGN_LEFT, new Color(220, 220, 220), 4);
             break;
           }
           case BuchungsklasseSaldoZeile.DETAIL:
@@ -69,7 +72,7 @@ public class BuchungsklassesaldoPDF
             reporter.addColumn((Double) bkz.getAttribute("umbuchungen"));
             break;
           }
-          case BuchungsklasseSaldoZeile.FOOTER:
+          case BuchungsklasseSaldoZeile.SALDOFOOTER:
           {
             reporter.addColumn((String) bkz
                 .getAttribute("buchungsklassenbezeichnung"),
@@ -79,22 +82,41 @@ public class BuchungsklassesaldoPDF
             reporter.addColumn((Double) bkz.getAttribute("umbuchungen"));
             break;
           }
-          case BuchungsklasseSaldoZeile.FOOTER2:
+          case BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER:
+          {
+            reporter.addColumn("Gesamt", Element.ALIGN_LEFT, 4);
+            reporter.addColumn((String) bkz
+                .getAttribute("buchungsklassenbezeichnung"),
+                Element.ALIGN_RIGHT);
+            reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
+            reporter.addColumn((Double) bkz.getAttribute("ausgaben"));
+            reporter.addColumn((Double) bkz.getAttribute("umbuchungen"));
+            break;
+          }
+          case BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST:
+          case BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST:
           {
             reporter.addColumn((String) bkz
                 .getAttribute("buchungsklassenbezeichnung"),
                 Element.ALIGN_RIGHT);
             reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
-            reporter.addColumn("", Element.ALIGN_LEFT);
-            reporter.addColumn("", Element.ALIGN_LEFT);
-            reporter.closeTable();
+            reporter.addColumn("", Element.ALIGN_LEFT, 2);
             break;
           }
-
+          case BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN:
+          {
+            reporter
+                .addColumn((String) bkz
+                    .getAttribute("buchungsklassenbezeichnung"),
+                    Element.ALIGN_LEFT);
+            reporter.addColumn((Integer) bkz.getAttribute("anzahlbuchungen"));
+            reporter.addColumn("", Element.ALIGN_LEFT, 2);
+            break;
+          }
         }
       }
       monitor.setStatusText("Auswertung fertig.");
-
+      reporter.closeTable();
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()

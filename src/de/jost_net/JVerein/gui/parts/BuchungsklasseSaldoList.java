@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/09/16 21:36:05  jost
+ * Bugfix Saldobildung
+ *
  * Revision 1.3  2009/09/15 19:22:10  jost
  * Korrekte Bildung der Summen.
  *
@@ -140,8 +143,11 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     Double suBukEinnahmen = new Double(0);
     Double suBukAusgaben = new Double(0);
     Double suBukUmbuchungen = new Double(0);
+    Double suEinnahmen = new Double(0);
+    Double suAusgaben = new Double(0);
+    Double suUmbuchungen = new Double(0);
 
-    ResultSetExtractor rs = new ResultSetExtractor()
+    ResultSetExtractor rsd = new ResultSetExtractor()
     {
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
@@ -152,6 +158,17 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
         return new Double(rs.getDouble(1));
       }
     };
+    ResultSetExtractor rsi = new ResultSetExtractor()
+    {
+      public Object extract(ResultSet rs) throws RemoteException, SQLException
+      {
+        if (!rs.next())
+        {
+          return new Integer(0);
+        }
+        return new Integer(rs.getInt(1));
+      }
+    };
 
     DBService service = Einstellungen.getDBService();
     DBIterator buchungsklassenIt = service.createList(Buchungsklasse.class);
@@ -159,7 +176,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     while (buchungsklassenIt.hasNext())
     {
       buchungsklasse = (Buchungsklasse) buchungsklassenIt.next();
-      zeile.add(new BuchungsklasseSaldoZeile(buchungsklasse));
+      zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER,
+          buchungsklasse));
       DBIterator buchungsartenIt = service.createList(Buchungsart.class);
       buchungsartenIt.addFilter("buchungsklasse = ?",
           new Object[] { buchungsklasse.getID() });
@@ -171,51 +189,77 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
         buchungsart = (Buchungsart) buchungsartenIt.next();
         String sql = "select sum(betrag) from buchung, buchungsart "
             + "where datum >= ? and datum <= ?  "
-            + "and buchung.BUCHUNGSART = BUCHUNGSART.ID "
-            + "and buchungsart.id = ? " + "and BUCHUNGSART.ART=?";
+            + "and buchung.buchungsart = buchungsart.id "
+            + "and buchungsart.id = ? " + "and buchungsart.art = ?";
         einnahmen = (Double) service.execute(sql, new Object[] {
             gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
-            buchungsart.getID(), 0 }, rs);
+            buchungsart.getID(), 0 }, rsd);
         suBukEinnahmen += einnahmen;
         ausgaben = (Double) service.execute(sql, new Object[] {
             gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
-            buchungsart.getID(), 1 }, rs);
+            buchungsart.getID(), 1 }, rsd);
         suBukAusgaben += ausgaben;
         umbuchungen = (Double) service.execute(sql, new Object[] {
             gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
-            buchungsart.getID(), 2 }, rs);
+            buchungsart.getID(), 2 }, rsd);
         suBukUmbuchungen += umbuchungen;
-        zeile.add(new BuchungsklasseSaldoZeile(buchungsart, einnahmen,
-            ausgaben, umbuchungen));
+        zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
+            buchungsart, einnahmen, ausgaben, umbuchungen));
       }
-      zeile.add(new BuchungsklasseSaldoZeile("Saldo "
-          + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
+      suEinnahmen += suBukEinnahmen;
+      suAusgaben += suBukAusgaben;
+      suUmbuchungen += suBukUmbuchungen;
+      zeile.add(new BuchungsklasseSaldoZeile(
+          BuchungsklasseSaldoZeile.SALDOFOOTER, "Saldo "
+              + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
           suBukUmbuchungen));
-      zeile.add(new BuchungsklasseSaldoZeile("Gewinn/Verlust "
-          + buchungsklasse.getBezeichnung(), suBukEinnahmen + suBukAusgaben
-          + suBukUmbuchungen));
+      zeile.add(new BuchungsklasseSaldoZeile(
+          BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST, "Gewinn/Verlust "
+              + buchungsklasse.getBezeichnung(), suBukEinnahmen + suBukAusgaben
+              + suBukUmbuchungen));
     }
     String sql = "select sum(betrag) from buchung, buchungsart "
         + "where datum >= ? and datum <= ?  "
-        + "and buchung.BUCHUNGSART = BUCHUNGSART.ID "
-        + "and buchungsart.buchungsklasse is null and BUCHUNGSART.ART=?";
+        + "and buchung.buchungsart = buchungsart.id "
+        + "and buchungsart.buchungsklasse is null and buchungsart.art = ?";
     einnahmen = (Double) service.execute(sql, new Object[] {
-        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(), 0 }, rs);
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(), 0 }, rsd);
     suBukEinnahmen += einnahmen;
+    suEinnahmen += einnahmen;
     ausgaben = (Double) service.execute(sql, new Object[] {
-        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(), 1 }, rs);
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(), 1 }, rsd);
     suBukAusgaben += ausgaben;
+    suAusgaben += ausgaben;
     umbuchungen = (Double) service.execute(sql, new Object[] {
-        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(), 2 }, rs);
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(), 2 }, rsd);
     suBukUmbuchungen += umbuchungen;
+    suUmbuchungen += umbuchungen;
     if (einnahmen != 0 || ausgaben != 0 || umbuchungen != 0)
     {
       Buchungsklasse b = (Buchungsklasse) service.createObject(
           Buchungsklasse.class, null);
       b.setBezeichnung("Nicht zugeordnet");
-      zeile.add(new BuchungsklasseSaldoZeile(b));
-      zeile.add(new BuchungsklasseSaldoZeile("Nicht zugeordnet", einnahmen,
-          ausgaben, umbuchungen));
+      zeile
+          .add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
+      zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
+          "Nicht zugeordnet", einnahmen, ausgaben, umbuchungen));
+    }
+    zeile.add(new BuchungsklasseSaldoZeile(
+        BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER, "Gesamtsaldo ",
+        suEinnahmen, suAusgaben, suUmbuchungen));
+    zeile.add(new BuchungsklasseSaldoZeile(
+        BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST, "Gesamt Gewinn/Verlust ",
+        suEinnahmen + suAusgaben + suUmbuchungen));
+
+    sql = "select count(*) from buchung " + "where datum >= ? and datum <= ?  "
+        + "and buchung.buchungsart is null";
+    Integer anzahl = (Integer) service.execute(sql, new Object[] {
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr() }, rsi);
+    if (anzahl > 0)
+    {
+      zeile.add(new BuchungsklasseSaldoZeile(
+          BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN,
+          "Anzahl Buchungen ohne Buchungsart ", anzahl));
     }
     return zeile;
   }
