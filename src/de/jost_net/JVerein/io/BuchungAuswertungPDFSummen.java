@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/12/06 16:46:41  jost
+ * Debug-Meldung entfernt.
+ *
  * Revision 1.1  2008/07/10 07:58:31  jost
  * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
  *
@@ -27,6 +30,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
@@ -42,6 +46,12 @@ import de.willuhn.util.ProgressMonitor;
 public class BuchungAuswertungPDFSummen
 {
   private double summe = 0;
+
+  private double summeeinnahmen = 0;
+
+  private double summeausgaben = 0;
+
+  private double summeumbuchungen = 0;
 
   public BuchungAuswertungPDFSummen(DBIterator list, final File file,
       ProgressMonitor monitor, Konto konto, Buchungsart buchungsart, Date dVon,
@@ -70,6 +80,12 @@ public class BuchungAuswertungPDFSummen
         createTableContent(reporter, null, konto, dVon, dBis);
       }
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
+      reporter.addColumn("Summe Einnahmen", Element.ALIGN_LEFT);
+      reporter.addColumn(summeeinnahmen);
+      reporter.addColumn("Summe Ausgaben", Element.ALIGN_LEFT);
+      reporter.addColumn(summeausgaben);
+      reporter.addColumn("Summe Umbuchungen", Element.ALIGN_LEFT);
+      reporter.addColumn(summeumbuchungen);
       reporter.addColumn("Saldo", Element.ALIGN_LEFT);
       reporter.addColumn(summe);
 
@@ -159,6 +175,18 @@ public class BuchungAuswertungPDFSummen
     {
       Buchung b = (Buchung) listb.next();
       buchungsartSumme += b.getBetrag();
+      if (ba.getArt() == ArtBuchungsart.EINNAHME)
+      {
+        summeeinnahmen += b.getBetrag();
+      }
+      if (ba.getArt() == ArtBuchungsart.AUSGABE)
+      {
+        summeausgaben += b.getBetrag();
+      }
+      if (ba.getArt() == ArtBuchungsart.UMBUCHUNG)
+      {
+        summeumbuchungen += b.getBetrag();
+      }
     }
     summe += buchungsartSumme;
     reporter.addColumn(buchungsartSumme);
