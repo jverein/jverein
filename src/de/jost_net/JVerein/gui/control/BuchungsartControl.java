@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2009/09/15 19:21:15  jost
+ * Buchungsklasse in die Übersicht aufgenommen.
+ *
  * Revision 1.14  2009/09/10 18:16:58  jost
  * neu: Buchungsklassen
  *
@@ -139,7 +142,8 @@ public class BuchungsartControl extends AbstractControl
     {
       return art;
     }
-    art = new SelectInput(ArtBuchungsart.getArray(), getBuchungsart().getArt());
+    art = new SelectInput(ArtBuchungsart.getArray(), new ArtBuchungsart(
+        getBuchungsart().getArt()));
     return art;
   }
 
