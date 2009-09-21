@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/04/10 17:46:17  jost
+ * Zusätzliche Datenfelder für die Rechnungserstellung
+ *
  * Revision 1.2  2008/09/16 18:52:54  jost
  * Refactoring Formularaufbereitung
  *
@@ -136,6 +139,10 @@ public class FormularAufbereitung
     float x = mm2point(feld.getX().floatValue());
     float y = mm2point(feld.getY().floatValue());
     Object val = map.get(feld.getName());
+    if (val == null)
+    {
+      return;
+    }
     int links = 1;
     int rechts = 2;
     int buendig = links;
