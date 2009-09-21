@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2008/12/29 09:19:15  jost
  * Vermeidung NPE: Tagesdatum besetzen
  *
@@ -33,8 +36,12 @@ import java.util.HashMap;
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
+import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
+import de.jost_net.JVerein.rmi.Formularfeld;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.util.ApplicationException;
 
@@ -57,13 +64,47 @@ public class FormularAnzeigeAction implements Action
     {
       final File file = File.createTempFile("formular", ".pdf");
       HashMap<String, Object> map = new HashMap<String, Object>();
-      map.put("Empfänger",
-          "Herr\nWilli Wichtig\nTestgasse 1\n12345Testenhausen");
-      map.put("Betrag", "*1.234,00*");
+      map.put(FormularfeldControl.EMPFAENGER,
+          "Herr\nDr. Willi Wichtig\nTestgasse 1\n12345Testenhausen");
+      map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
+      map.put(FormularfeldControl.ZAHLUNGSGRUND2, "Zahlungsgrund 2");
+      map.put(FormularfeldControl.BETRAG, "*1.234,00*");
       map.put("Betrag in Worten", GermanNumber.toString(1234));
+      map.put(FormularfeldControl.ID, "444");
+      map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, "9999");
+      map.put(FormularfeldControl.ANREDE, "Herrn");
+      map.put(FormularfeldControl.TITEL, "Dr.");
+      map.put(FormularfeldControl.NAME, "Wichtig");
+      map.put(FormularfeldControl.VORNAME, "Willi");
+      map.put(FormularfeldControl.ADRESSIERUNGSZUSATZ, "Hinterhaus");
+      map.put(FormularfeldControl.STRASSE, "Testgasse 1");
+      map.put(FormularfeldControl.PLZ, "12345");
+      map.put(FormularfeldControl.ORT, "Testenhausen");
+      map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, "jährlich");
+      map.put(FormularfeldControl.BLZ, "10020030");
+      map.put(FormularfeldControl.KONTO, "1234567");
+      map.put(FormularfeldControl.KONTOINHABER, "Wichtig");
+      map.put(FormularfeldControl.GEBURTSDATUM, new Date());
+      map.put(FormularfeldControl.GESCHLECHT, "M");
+      map.put(FormularfeldControl.TELEFONPRIVAT, "01234/56789");
+      map.put(FormularfeldControl.TELEFONDIENSTLICH, "01234/55555");
+      map.put(FormularfeldControl.HANDY, "0160/1234567");
+      map.put(FormularfeldControl.EMAIL, "willi.wichtig@jverein.de");
+      map.put(FormularfeldControl.EINTRITT, new Date());
+      map.put(FormularfeldControl.BEITRAGSGRUPPE, "Erwachsene");
+      map.put(FormularfeldControl.AUSTRITT, new Date());
+      map.put(FormularfeldControl.KUENDIGUNG, new Date());
+      map.put(FormularfeldControl.ZAHLUNGSWEG,
+          "Abbuchung von Konto 1234567, BLZ: 10020030");
+      map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
+          .format(new Date()));
+
       map.put("Spendedatum", "15.12.2008");
+      map.put("Buchungsdatum", new Date());
       map.put("Bescheinigungsdatum", "17.12.2008");
       map.put("Tagesdatum", Einstellungen.DATEFORMAT.format(new Date()));
+      map.put("Buchungsdatum", new Date());
+
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);
       fab.showFormular();
