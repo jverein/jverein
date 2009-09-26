@@ -15,7 +15,7 @@
   }
   if ($devel = "yes" and isset($build))
   {
-    if ($build < "201")
+    if ($build < "210")
     {
       echo "neue Entwicklerversion unter www.jverein.de verfügbar";
       return;

@@ -6,6 +6,7 @@
     			<li>Die Art der Buchungsart (Einnahme, Ausgabe, Umbuchung) wurde bei der Bearbeitung generell auf Einnahme gesetzt.</li>
     			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
     			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
+    			<li>Neu: Buchungsklassen zur Zusammenfassung von Buchungsarten. Dokumentation folgt noch.</li>
     			<li>Neu: Buchungsjournal, Feature Request <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16103&group_id=7335'>#16103</a></li>
     			<li>Neu: Überprüfung auf Updates.</li>
     			<li>Auswertung Mitglieder: Mitglieder mit Austrittsdatum in der Zukunft werden mit ausgewertet. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16223&group_id=7335'>#16223</a></li>
@@ -439,6 +440,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.22  2009/09/26 08:57:40  jost
+    *** empty log message ***
+
     Revision 1.21  2009/09/21 05:47:01  jost
     *** empty log message ***
 
