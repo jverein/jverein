@@ -10,6 +10,7 @@
     			<li>Neu: Überprüfung auf Updates.</li>
     			<li>Auswertung Mitglieder: Mitglieder mit Austrittsdatum in der Zukunft werden mit ausgewertet. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16223&group_id=7335'>#16223</a></li>
     			<li>Bugfix beim Import des Feldes Zahlungsrhytmus.</li>
+    			<li>Neu: Online-Versionscheck. Unter Administration>Einstellungen können entsprechende Parameter gesetzt werden.</li> 
     		</ul>
     	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
@@ -438,6 +439,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.21  2009/09/21 05:47:01  jost
+    *** empty log message ***
+
     Revision 1.20  2009/09/15 19:25:19  jost
     *** empty log message ***
 
