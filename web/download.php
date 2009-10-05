@@ -1,9 +1,9 @@
 <? include ("frame.inc"); ?>
     <h1>Download</h1>
-    <p>JVerein kann von der 
-    <a href="http://developer.berlios.de/project/showfiles.php?group_id=7335"
-       target=blank>Projekt-Seite</a>
-    geladen werden.</p>
+    <h2>Aktuelle Version</h2>
+    <p><a href='download/index.php?jverein.1.2.0.zip'>JVerein 1.2.0 vom 23.8.2009</a></p>
+    <h2>Entwicklerversion</h2>
+    <p><a href='download/index.php?jverein.1.3.0-devel-210.zip>JVerein 1.3.0-Devel vom 27.9.2009</a></p>
     <h2>Jameica-Suite für Windows-Benutzer</h2>
 	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat die Jameica Suite zusammengestellt. 
 		Windows-Benutzer können Jameica, Hibiscus, Syntax und JVerein per Setup-Datei installieren. 
@@ -12,6 +12,9 @@
     
     <!-- 
     $Log$
+    Revision 1.3  2009/09/11 13:41:38  jost
+    Neue Download-Adresse der Jamaica-Suite
+
     Revision 1.2  2009/08/23 19:03:04  jost
     Version 1.2
 
