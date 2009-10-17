@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/09/13 19:20:29  jost
+ * Neu: Prüfung auf Updates
+ *
  * Revision 1.5  2009/07/14 07:30:18  jost
  * Bugfix Rechnungen.
  *
@@ -134,4 +137,28 @@ public interface Einstellung extends DBObject
 
   public void setUpdateLastCheck(Date updatelastcheck) throws RemoteException;
 
+  public String getSmtpServer() throws RemoteException;
+
+  public void setSmtpServer(String smtp_server) throws RemoteException;
+
+  public String getSmtpPort() throws RemoteException;
+
+  public void setSmtpPort(String smtp_port) throws RemoteException;
+
+  public String getSmtpAuthUser() throws RemoteException;
+
+  public void setSmtpAuthUser(String smtp_auth_user) throws RemoteException;
+
+  public String getSmtpAuthPwd() throws RemoteException;
+
+  public void setSmtpAuthPwd(String smtp_auth_pwd) throws RemoteException;
+
+  public String getSmtpFromAddress() throws RemoteException;
+
+  public void setSmtpFromAddress(String smtp_from_address)
+      throws RemoteException;
+
+  public Boolean getSmtpSsl() throws RemoteException;
+
+  public void setSmtpSsl(Boolean smtp_ssl) throws RemoteException;
 }

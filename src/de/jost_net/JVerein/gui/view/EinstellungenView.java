@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2009/09/13 19:20:17  jost
+ * Neu: Prüfung auf Updates
+ *
  * Revision 1.20  2009/07/14 07:29:27  jost
  * Neu: Box aktuelle Geburtstage
  *
@@ -186,6 +189,18 @@ public class EinstellungenView extends AbstractView
     groupUpdate.addLabelPair("Diagnoseunterlagen mitsenden", control
         .getUpdateDiagInfos());
     groupUpdate.addLabelPair("letzter Check", control.getUpdateLastCheck());
+
+    // TabGroup tabMail = new TabGroup(folder,
+    // JVereinPlugin.getI18n().tr("Mail"));
+    // LabelGroup groupMail = new LabelGroup(tabMail.getComposite(),
+    // JVereinPlugin
+    // .getI18n().tr("Mail"));
+    // groupMail.addLabelPair("Server", control.getSmtpServer());
+    // groupMail.addLabelPair("Port", control.getSmtpPort());
+    // groupMail.addLabelPair("Benutzer", control.getSmtpAuthUser());
+    // groupMail.addLabelPair("Passwort", control.getSmtpAuthPwd());
+    // groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
+    // groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));

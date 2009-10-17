@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/09/13 19:26:44  jost
+ * Vermeidung NPE
+ *
  * Revision 1.7  2009/09/13 19:20:40  jost
  * Neu: Prüfung auf Updates
  *
@@ -319,4 +322,69 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("updatelastcheck", updatelastcheck);
   }
 
+  public String getSmtpServer() throws RemoteException
+  {
+    return (String) getAttribute("smtp_server");
+  }
+
+  public void setSmtpServer(String smtp_server) throws RemoteException
+  {
+    setAttribute("smtp_server", smtp_server);
+  }
+
+  public String getSmtpPort() throws RemoteException
+  {
+    String ret = (String) getAttribute("smtp_port");
+    if (ret == null)
+    {
+      ret = "25";
+    }
+    return ret;
+  }
+
+  public void setSmtpPort(String smtp_port) throws RemoteException
+  {
+    setAttribute("smtp_port", smtp_port);
+  }
+
+  public String getSmtpAuthUser() throws RemoteException
+  {
+    return (String) getAttribute("smtp_auth_user");
+  }
+
+  public void setSmtpAuthUser(String smtp_auth_user) throws RemoteException
+  {
+    setAttribute("smtp_auth_user", smtp_auth_user);
+  }
+
+  public String getSmtpAuthPwd() throws RemoteException
+  {
+    return (String) getAttribute("smtp_auth_pwd");
+  }
+
+  public void setSmtpAuthPwd(String smtp_auth_pwd) throws RemoteException
+  {
+    setAttribute("smtp_auth_pwd", smtp_auth_pwd);
+  }
+
+  public String getSmtpFromAddress() throws RemoteException
+  {
+    return (String) getAttribute("smtp_from_address");
+  }
+
+  public void setSmtpFromAddress(String smtp_from_address)
+      throws RemoteException
+  {
+    setAttribute("smtp_from_address", smtp_from_address);
+  }
+
+  public Boolean getSmtpSsl() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("smtp_ssl"));
+  }
+
+  public void setSmtpSsl(Boolean smtp_ssl) throws RemoteException
+  {
+    setAttribute("smtp_ssl", smtp_ssl);
+  }
 }

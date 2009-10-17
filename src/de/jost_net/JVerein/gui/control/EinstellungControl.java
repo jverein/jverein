@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2009/09/13 19:19:39  jost
+ * Neu: Prüfung auf Updates
+ *
  * Revision 1.17  2009/07/14 07:28:53  jost
  * Neu: Box aktuelle Geburtstage
  *
@@ -78,6 +81,8 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
+import de.willuhn.jameica.gui.input.IntegerInput;
+import de.willuhn.jameica.gui.input.PasswordInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -126,8 +131,20 @@ public class EinstellungControl extends AbstractControl
   private SelectInput updateinterval;
 
   private CheckboxInput updatediaginfos;
-  
+
   private DateInput updatelastcheck;
+
+  private TextInput smtp_server;
+
+  private IntegerInput smtp_port;
+
+  private TextInput smtp_auth_user;
+
+  private PasswordInput smtp_auth_pwd;
+
+  private TextInput smtp_from_address;
+
+  private CheckboxInput smtp_ssl;
 
   private Settings settings;
 
@@ -368,16 +385,82 @@ public class EinstellungControl extends AbstractControl
         .getUpdateDiagInfos());
     return updatediaginfos;
   }
-  
+
   public DateInput getUpdateLastCheck() throws RemoteException
   {
-    if (updatelastcheck !=null)
+    if (updatelastcheck != null)
     {
       return updatelastcheck;
     }
-    updatelastcheck= new DateInput(Einstellungen.getEinstellung().getUpdateLastCheck());
+    updatelastcheck = new DateInput(Einstellungen.getEinstellung()
+        .getUpdateLastCheck());
     updatelastcheck.setEnabled(false);
     return updatelastcheck;
+  }
+
+  public TextInput getSmtpServer() throws RemoteException
+  {
+    if (smtp_server != null)
+    {
+      return smtp_server;
+    }
+    smtp_server = new TextInput(Einstellungen.getEinstellung().getSmtpServer(),
+        50);
+    return smtp_server;
+  }
+
+  public IntegerInput getSmtpPort() throws RemoteException
+  {
+    if (smtp_port != null)
+    {
+      return smtp_port;
+    }
+    smtp_port = new IntegerInput(new Integer(Einstellungen.getEinstellung()
+        .getSmtpPort()));
+    return smtp_port;
+  }
+
+  public TextInput getSmtpAuthUser() throws RemoteException
+  {
+    if (smtp_auth_user != null)
+    {
+      return smtp_auth_user;
+    }
+    smtp_auth_user = new TextInput(Einstellungen.getEinstellung()
+        .getSmtpAuthUser(), 50);
+    return smtp_auth_user;
+  }
+
+  public PasswordInput getSmtpAuthPwd() throws RemoteException
+  {
+    if (smtp_auth_pwd != null)
+    {
+      return smtp_auth_pwd;
+    }
+    smtp_auth_pwd = new PasswordInput(Einstellungen.getEinstellung()
+        .getSmtpAuthPwd());
+    return smtp_auth_pwd;
+  }
+
+  public TextInput getSmtpFromAddress() throws RemoteException
+  {
+    if (smtp_from_address != null)
+    {
+      return smtp_from_address;
+    }
+    smtp_from_address = new TextInput(Einstellungen.getEinstellung()
+        .getSmtpFromAddress(), 50);
+    return smtp_from_address;
+  }
+
+  public CheckboxInput getSmtpSsl() throws RemoteException
+  {
+    if (smtp_ssl != null)
+    {
+      return smtp_ssl;
+    }
+    smtp_ssl = new CheckboxInput(Einstellungen.getEinstellung().getSmtpSsl());
+    return smtp_ssl;
   }
 
   public TablePart getSpaltendefinitionTable(Composite parent)
@@ -429,7 +512,14 @@ public class EinstellungControl extends AbstractControl
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setUpdateInterval((Integer) updateinterval.getValue());
       e.setUpdateDiagInfos((Boolean) updatediaginfos.getValue());
-      e.setUpdateLastCheck((Date)updatelastcheck.getValue());
+      e.setUpdateLastCheck((Date) updatelastcheck.getValue());
+      // e.setSmtpServer((String) smtp_server.getValue());
+      // Integer port = (Integer) smtp_port.getValue();
+      // e.setSmtpPort(port.toString());
+      // e.setSmtpAuthUser((String) smtp_auth_user.getValue());
+      // e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
+      // e.setSmtpFromAddress((String) smtp_from_address.getValue());
+      // e.setSmtpSsl((Boolean) smtp_ssl.getValue());
       e.store();
       spalten.save();
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
