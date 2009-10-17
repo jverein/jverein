@@ -1,0 +1,1 @@
+ALTER TABLE einstellung ADD smtp_auth_user varchar(50);

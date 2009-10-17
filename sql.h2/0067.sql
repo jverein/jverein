@@ -1,0 +1,1 @@
+ALTER TABLE einstellung ADD smtp_ssl char(5);

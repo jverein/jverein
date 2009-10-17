@@ -1,0 +1,1 @@
+ALTER TABLE einstellung ADD smtp_from_address varchar(50);

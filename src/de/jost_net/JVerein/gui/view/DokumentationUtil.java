@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2009/09/10 18:18:57  jost
+ * neu: Buchungsklassen
+ *
  * Revision 1.14  2009/08/19 20:59:46  jost
  * Link Buchungsarten aufgenommen.
  *
@@ -83,7 +86,7 @@ public class DokumentationUtil
   public static final String BUCHUNGSARTEN = PRE
       + "administration_buchungsarten.php";
 
-  public static final String BUCHUNGSKLASSEN= PRE
+  public static final String BUCHUNGSKLASSEN = PRE
       + "administration_buchungsklassen.php";
 
   public static final String FELDDEFINITIONEN = PRE
@@ -115,7 +118,10 @@ public class DokumentationUtil
 
   public static final String WIEDERVORLAGE = PRE + "wiedervorlage.php";
 
-  public static final String ZUSATZABBUCHUNGEN = PRE + "zusatzbetraege.php";
+  public static final String ZUSATZBETRAEGE = PRE + "zusatzbetraege.php";
+
+  public static final String ZUSATZBETRAEGEIMPORT = PRE
+      + "zusatzbetraegeimport.php";
 
   public static final String KONTEN = PRE
       + "dokumentationbuchfuehrungkonten.php";

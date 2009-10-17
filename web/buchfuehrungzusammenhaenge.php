@@ -1,5 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>Unterstützung von JVerein bei den Aufgaben eines Kassenwarts und den Kassenprüfern</h1>
+    <p>Beitrag von Siegfried Kübel</p>
     
     <h2> Zweck</h2>
 	<p>Da die Aufgaben des Kassenwarts und der Kassenprüfer in einer Vereinssatzung oft nur sehr 
@@ -195,6 +196,9 @@
 	
    <!-- 
     $Log$
+    Revision 1.1  2009/10/10 16:03:39  jost
+    *** empty log message ***
+
     -->
 
 <? include ("footer.inc"); ?>

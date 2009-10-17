@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/09/21 18:18:04  jost
+ * Weitere Testdaten aufgenommen.
+ *
  * Revision 1.5  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -38,10 +41,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
-import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
-import de.jost_net.JVerein.rmi.Formularfeld;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.util.ApplicationException;
 
