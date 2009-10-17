@@ -23,7 +23,8 @@
 	<? include ("dokumentationauswertungkursteilnehmer.php"); ?>
 	<? include ("dokumentationauswertungstatistik.php"); ?>
 	<? include ("dokumentationauswertungadressbuchexport.php"); ?>
-	<? include ("dokumentationbuchfuehrung.php"); ?>
+	<? include ("buchfuehrungzusammenhaenge.php"); ?>
+ 	<? include ("dokumentationbuchfuehrung.php"); ?>
 	<? include ("dokumentationbuchfuehrungkonten.php"); ?>
 	<? include ("dokumentationbuchfuehrunganfangsbestaende.php"); ?>
 	<? include ("dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.php"); ?>
@@ -36,6 +37,9 @@
 
     <!-- 
     $Log$
+    Revision 1.2  2009/08/20 20:15:32  jost
+    *** empty log message ***
+
     Revision 1.1  2009/06/02 17:13:13  jost
     *** empty log message ***
 

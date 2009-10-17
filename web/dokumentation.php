@@ -41,6 +41,7 @@
 	</ul>
 	</li>
 	<li><a href="dokumentationbuchfuehrung.php">Buchführung</a>	<ul>
+		<li><a href="buchfuehrungzusammenhaenge.php">Zusammenhänge</a></li>
 		<li><a href="dokumentationbuchfuehrungkonten.php">Konten</a></li>
 		<li><a href="dokumentationbuchfuehrunganfangsbestaende.php">Anfangsbestände</a></li>
 		<li><a href="dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.php">Buchungen aus Hibiscus übernehmen</a></li>
@@ -56,6 +57,9 @@
 
     <!-- 
     $Log$
+    Revision 1.2  2009/08/20 20:15:32  jost
+    *** empty log message ***
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 
