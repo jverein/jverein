@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.32  2009/07/27 15:05:50  jost
+ * Vereinheitlichung Eigenschaften
+ *
  * Revision 1.31  2009/07/24 20:22:28  jost
  * Focus auf erstes Feld setzen.
  *
@@ -222,6 +225,7 @@ public class MitgliedDetailView extends AbstractView
     tab1.addInput(control.getKontoinhaber());
     tab1.addInput(control.getBlz());
     tab1.addInput(control.getKonto());
+    tab1.addInput(control.getIban());
 
     if (Einstellungen.getEinstellung().getZusatzbetrag())
     {

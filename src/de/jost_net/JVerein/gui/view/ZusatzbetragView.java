@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/07/27 15:26:32  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.4  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -76,7 +79,7 @@ public class ZusatzbetragView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ZUSATZABBUCHUNGEN, false,
+        new DokumentationAction(), DokumentationUtil.ZUSATZBETRAEGE, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
         new ZusatzbetraegeDeleteAction(), control.getZusatzbetrag(), false,
