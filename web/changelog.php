@@ -3,6 +3,8 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>Mitglied: Anzeige IBAN</li>
+    			<li>Neu: Import von Zusatzbeträgen. Sowohl Default-Format als auch individuelle Formate.</li>
     			<li>Die Art der Buchungsart (Einnahme, Ausgabe, Umbuchung) wurde bei der Bearbeitung generell auf Einnahme gesetzt.</li>
     			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
     			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
@@ -440,6 +442,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.23  2009/09/26 09:22:58  jost
+    *** empty log message ***
+
     Revision 1.22  2009/09/26 08:57:40  jost
     *** empty log message ***
 
