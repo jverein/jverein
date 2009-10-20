@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.67  2009/07/27 15:05:21  jost
+ * Vereinheitlichung Eigenschaften
+ *
  * Revision 1.66  2009/07/24 20:19:00  jost
  * Focus auf erstes Feld setzen.
  *
@@ -319,6 +322,8 @@ public class MitgliedControl extends AbstractControl
   private Input blz;
 
   private Input konto;
+
+  private Input iban;
 
   private Input kontoinhaber;
 
@@ -791,6 +796,20 @@ public class MitgliedControl extends AbstractControl
     konto.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.ABBUCHUNG);
     return konto;
+  }
+
+  public Input getIban() throws RemoteException
+  {
+    if (iban != null)
+    {
+      return iban;
+    }
+    iban = new TextInput(getMitglied().getIban(), 30);
+    iban.setName("IBAN");
+    iban.setMandatory(getMitglied().getZahlungsweg() == null
+        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.ABBUCHUNG);
+    iban.setEnabled(false);
+    return iban;
   }
 
   public Input getKontoinhaber() throws RemoteException

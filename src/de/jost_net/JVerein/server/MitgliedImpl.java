@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2009/06/29 19:44:25  jost
+ * Bugfix BLZ-Prüfung.
+ *
  * Revision 1.25  2009/06/27 09:46:31  jost
  * Bugfix Plausi Geburtsdatum und Eintrittsdatum
  *
@@ -99,6 +102,7 @@ import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
+import de.jost_net.JVerein.util.IbanBicCalc;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -416,6 +420,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setKonto(String konto) throws RemoteException
   {
     setAttribute("konto", konto);
+  }
+
+  public String getIban() throws RemoteException
+  {
+    return IbanBicCalc.createIban(getKonto(), getBlz(), "DE");
   }
 
   public String getKontoinhaber() throws RemoteException

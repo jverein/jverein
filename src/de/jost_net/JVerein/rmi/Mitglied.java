@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/04/25 05:31:24  jost
+ * Neu: Juristische Personen  können als Mitglied gespeichert werden.
+ *
  * Revision 1.10  2008/11/13 20:18:28  jost
  * Adressierungszusatz aufgenommen.
  *
@@ -109,6 +112,8 @@ public interface Mitglied extends DBObject
   public String getKonto() throws RemoteException;
 
   public void setKonto(String konto) throws RemoteException;
+
+  public String getIban() throws RemoteException;
 
   public String getKontoinhaber() throws RemoteException;
 
