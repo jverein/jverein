@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/07/24 20:22:41  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.4  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -60,7 +63,7 @@ public class RechnungDetailView extends AbstractView
         new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
-        new RechnungListeAction());
+        new RechnungListeAction(), null, false, "system-search.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
