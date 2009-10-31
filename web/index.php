@@ -60,6 +60,7 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
+    		<li>30.10.2009: <a href="forum" target="new">Forum</a> ist online gegangen.</li> 
     		<li>17.10.2009: Neues <a href="buchfuehrungzusammenhaenge.php">Dokument</a> über die Zusammenhänge der Buchführung von Siegfried Kübel.</li> 
     		<li>26.09.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.3.0-devel-210.zip">Entwickler-Version 1.3.0 Rev. 210</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>30.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.3.0-devel-200.zip">Entwickler-Version 1.3.0 Rev. 200</a>. Ablauffähigkeit mit den aktuellen Nightly-Builds von Jameica und Hibiscus hergestellt.</li> 
@@ -72,6 +73,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.12  2009/10/17 19:57:40  jost
+    *** empty log message ***
+
     Revision 1.11  2009/09/27 21:31:48  jost
     *** empty log message ***
 

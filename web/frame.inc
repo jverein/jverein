@@ -35,7 +35,7 @@
     <li><a href="download.php" title="Download"><span>Download</span></a></li>
     <li><a href="installation.php" title="Installation"><span>Installation</span></a></li>
     <li><a href="cvs.php" title="CVS"><span>CVS</span></a></li>
-	<li><a href="mailliste.php" title="Mailliste"><span>Mailliste</span></a></li>
+	<li><a href="forum" title="Forum" target="new"><span>Forum</span></a></li>
 	<li><a href="kontakt.php" title="Kontakt"><span>Kontakt</span></a></li>
 	<li><a href="danksagung.php" title="Danksagung"><span>Danksagung</span></a></li>
   </ul>
@@ -45,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.5  2009/09/13 19:21:31  jost
+    Zusätzliche Keywords
+
     Revision 1.4  2009/08/31 07:10:16  jost
     *** empty log message ***
 
