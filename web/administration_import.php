@@ -15,113 +15,198 @@
 	<p>Andere Programme müssen eine Datei mit folgenden Spalten erzeugen:</p>
 	<table border="1">
 	<tr>
+		<th>Spalte</th>
+		<th>Inhalt</th>
+		<th>Max. Länge</th>
+		<th>Spalte muss existieren</th>
+		<th>Leere Spalte erlaubt</th>
+	</tr>
+	<tr>
 		<td>Mitglieds_Nr</td>
 		<td>Mitgliedsnummer. Wird bei der Verwendung von externen Mitgliedsnummern auch in die 
 		    entsprechende Spalte eingetragen.</td>
+		<td>&nbsp;</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Personenart</td>
 		<td>n = natürliche Person, j = juristische Person (Firma, Organisation, Behörde). 
 		Wenn die Spalte Personenart nicht in der Importdatei existiert, wird defaultmäßig 'n' 
 		übernommen.</td>
+		<td>1</td>
+		<td>nein</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Anrede</td>
-		<td>Herrn/Frau, max. 10 Stellen</td>
+		<td>Herrn/Frau</td>
+		<td>10, ab V1.3: 40</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Titel</td>
-		<td>Dr. ...., max. 10 Stellen</td>
+		<td>Dr. ....</td>
+		<td>20, ab V1.3: 40</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Nachname</td>
-		<td>Nachname, max. 40 Stellen</td>
+		<td>Nachname</td>
+		<td>40</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Vorname</td>
-		<td>Vorname, max. 40 Stellen</td>
+		<td>Vorname</td>
+		<td>40</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Adressierungszusatz</td>
-		<td>Adressierungszusatz, z. B. bei Lieschen MÃ¼ller (ab. V 1.1), max. 40 Stellen</td>
+		<td>Adressierungszusatz, z. B. bei Lieschen Müller (ab. V 1.1), max. 40 Stellen</td>
+		<td>40</td>
+		<td>nein</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Strasse</td>
-		<td>Straßenname inkl. Hausnummer, max. 40 Stellen</td>
+		<td>Straßenname inkl. Hausnummer</td>
+		<td>40</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Plz</td>
-		<td>Postleitzahl, max. 10 Stellen</td>
+		<td>Postleitzahl</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Ort</td>
-		<td>Ort, max. 40 Stellen</td>
+		<td>Ort</td>
+		<td>40</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Geburtsdatum</td>
 		<td>Format TT.MM.JJJJ</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>in Abhängigkeit von den Einstellungen</td>
 	</tr>
 	<tr>
 		<td>Geschlecht</td>
 		<td>m oder w</td>
+		<td>1</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Bankleitzahl</td>
-		<td></td>
+		<td>Bankleitzahl</td>
+		<td>8</td>
+		<td>ja</td>
+		<td>Wenn Zahlungsart Lastschrift: nein, sonst ja</td>
 	</tr>
 	<tr>
 		<td>Kontonummer</td>
-		<td></td>
+		<td>Kontonummer</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>Wenn Zahlungsart Lastschrift: nein, sonst ja</td>
 	</tr>
 	<tr>
 		<td>Zahlungsart</td>
 		<td>l (Kleinbuchstabe L)] für Lastschrift, b für Barzahlung oder u für Überweisung</td>
+		<td>1</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Zahlungsrhytmus</td>
-		<td>1 monatlich, 3 vierteljährlich, 6 halbjährlich, 12 jährlich</td>
+		<td>1 monatlich, 3 vierteljährlich, 6 halbjährlich, 12 jährlich, wenn keine Angabe erfolgt, wird jährlich angenommen.</td>
+		<td>1</td>
+		<td>nein</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Zahler</td>
-		<td>Kontoinhaber, wenn nicht identisch mit dem Mitglied, max. 27 Stellen</td>
+		<td>Kontoinhaber, wenn nicht identisch mit dem Mitglied</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Telefon_privat</td>
-		<td>max. 20 Stellen</td>
+		<td>private Telefonnummer</td>
+		<td>20</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Telefon_dienstlich</td>
-		<td>max. 20 Stellen</td>
+		<td>dienstliche/geschäftliche Telefonnummer</td>
+		<td>20</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Handy</td>
-		<td>max. 20 Stellen</td>
+		<td>Mobile Telefonnummer</td>
+		<td>20</td>
+		<td>nein</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Email</td>
-		<td>max. 50 Stellen</td>
+		<td>EMail-Adresse</td>
+		<td>50</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Eintritt</td>
 		<td>Eintrittsdatum im Format TT.MM.JJJJ</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Beitragsart_1</td>
 		<td>Bezeichnung der Beitragsart. Z. B. Jugendliche, Erwachsene, Familien ...</td>
+		<td>30</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Beitrag_1</td>
-		<td>Höhe des Beitrages in Euro</td>
+		<td>Höhe des Beitrages in Euro (Format xxx,xx)</td>
+		<td>&nbsp;</td>
+		<td>ja</td>
+		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Austritt</td>
 		<td>Datum des Austritts im Format TT.MM.JJJJ. Je nach Vereinssatzung ist die Kündigung erst 
 		    zum Jahresende wirksam. Hier wird das Wirksamwerden der Kündigung vermerkt. 
 		    Format TT.MM.JJJJ.</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	<tr>
 		<td>Kuendigung</td>
 		<td>Datum der Kündigung im Format TT.MM.JJJJ</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>ja</td>
 	</tr>
 	</table>
 	<p>Als Feldtrennzeichen wird das Semikolon verwendet. Jede Zeile muss die gleiche Anzahl Semikola 
@@ -142,6 +227,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.4  2009/10/24 14:52:25  jost
+    Max. Länge angegeben
+
     Revision 1.3  2009/08/19 21:01:28  jost
     *** empty log message ***
 
