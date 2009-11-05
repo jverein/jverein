@@ -1,6 +1,8 @@
 <? include ("frame.inc"); ?>
     <h1>Zusatzbeträge Import</h1>
-	<p>Zusatzbeträge können auch importiert werden. Der Import erfolgt über eine CSV-Datei, die nachfolgend beschrieben wird.
+    <h2>Default-Format</h2>
+	<p>Zusatzbeträge können auch importiert werden. Der Import kann über eine CSV-Datei (Default-Format), 
+	die nachfolgend beschrieben wird, erfolgen.
 	Der Dateiname muss eine Endung haben. Z. B. .csv oder .txt. Es kann jede beliebige Endung verwendet werden. 
 	Die Datenfelder werden durch Semikolon getrennt. Das Encoding muss ISO-8859-1 sein.</p>
 	<p>Zur Zuordnung des Zusazbetrages zum Mitglied muss entweder die Mitglieds_Nr oder Nachname und Vorname angegeben
@@ -39,8 +41,15 @@
 	Administration>Einstellungen>Tabellen ein Häkchen vor ID gesetzt werden.</p>
 	<p>Jede Datei enthält eine Kopfzeile und pro Zusatzbuchung eine Zeile.</p>
 	
+	<h2>Spezialformate</h2>
+	<p>In JVerein wird momentan ein Plugin-Mechanismus für Im- und Exportformate entwickelt. Damit wird es möglich sein, 
+	spezielle Formate eingelesen werden. Möglich sind spezielle CSV-Formate, Datenbanken, XML ..... Ich Bedarfsfalle bitte
+	ich um eine Mail.</p> 
 	<!-- 
     $Log$
+    Revision 1.1  2009/10/17 19:57:40  jost
+    *** empty log message ***
+
     -->
 	
 <? include ("footer.inc"); ?>
