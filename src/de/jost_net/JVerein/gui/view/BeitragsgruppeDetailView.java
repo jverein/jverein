@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/07/24 20:20:30  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.9  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -74,7 +77,7 @@ public class BeitragsgruppeDetailView extends AbstractView
         new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
-        new BeitragsgruppeSucheAction());
+        new BeitragsgruppeSucheAction(), null, false, "system-search.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
