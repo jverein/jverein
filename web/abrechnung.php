@@ -16,12 +16,14 @@
 		eingezogen werden. Dazu wird das Eingabedatum eingetragen, ab dem die Beiträge für 
 		nachträglich eingetretene Mitglieder abgebucht werden sollen.</p>
 	<p>Mit der Option Zusatzbeträge werden auch die zusätzlichen Beträge abgebucht.</p>
-	<p>Die Daten werden in eine DTAUS-Datei geschrieben. Diese Datei kann entweder direkt auf 
+	<p>Für die Abbuchung werden die Daten werden in eine DTAUS-Datei geschrieben. Diese Datei kann entweder direkt auf 
 		Diskette ausgegeben und bei der Bank eingereicht oder zum Beispiel in Hibiscus importiert 
 		werden. Buchungen können als Einzel- oder Sammellastschriften direkt in Hibiscus verbucht 
 		werden. Die Kontonummer in den <a href="administration_stammdaten.php">Stammdaten</a> 
 		wird mit den Kontonummern in Hibiscus abgeglichen. Gibt es eine übereinstimmende Bankverbindung, 
 		wird diese verwendet. Ansonsten erscheint der Hibiscus-Konto-Auswahldialog. </p>
+	<p>Für Mitglieder ohne den Zahlungsweg 'Abbuchung' werden die Daten für die Überwachung des Zahlungseinganges
+		in die Tabelle 'manuelle Zahlungseingänge' geschrieben.</p>
 	<p>Optional kann die ausgegebene DTAUS-Datei in ein PDF-Dokument zum Ausdruck ausgegeben werden.</p>
     <p>Teilnehmer von Kursen können abgerechnet werden. Kursteilnehmer sind Personen, die
 		nicht Mitglied des Vereins sind. Sofern Mitglieder an Kursen teilnehmen, die zusätzlich
@@ -30,6 +32,9 @@
         
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.3  2009/05/03 15:31:53  jost
     Neue Homepage
 
