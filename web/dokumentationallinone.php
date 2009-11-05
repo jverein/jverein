@@ -12,6 +12,7 @@
 	<? include ("kursteilnehmer.php"); ?>
 	<? include ("abrechnung.php"); ?>
 	<? include ("zusatzbetraege.php"); ?>
+	<? include ("zusatzbetraegeimport.php"); ?>
 	<? include ("manuelle_zahlungseingaenge.php"); ?>
 	<? include ("wiedervorlage.php"); ?>
 	<? include ("lehrgaenge.php"); ?>
@@ -37,6 +38,9 @@
 
     <!-- 
     $Log$
+    Revision 1.3  2009/10/17 19:57:40  jost
+    *** empty log message ***
+
     Revision 1.2  2009/08/20 20:15:32  jost
     *** empty log message ***
 

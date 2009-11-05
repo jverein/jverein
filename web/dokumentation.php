@@ -26,6 +26,7 @@
 	<li><a href="kursteilnehmer.php">Kursteilnehmer</a></li>
 	<li><a href="abrechnung.php">Abrechnung</a></li>
 	<li><a href="zusatzbetraege.php">Zusatzbeiträge</a></li>
+	<li><a href="zusatzbetraegeimport.php">Zusatzbeiträge importieren </a></li>
 	<li><a href="manuelle_zahlungseingaenge.php">Manuelle Zahlungseingänge</a></li>
 	<li><a href="wiedervorlage.php">Wiedervorlage</a></li>
 	<li><a href="lehrgaenge.php">Lehrgänge</a>(ab Version 1.2)</li>
@@ -57,6 +58,9 @@
 
     <!-- 
     $Log$
+    Revision 1.3  2009/10/17 19:57:40  jost
+    *** empty log message ***
+
     Revision 1.2  2009/08/20 20:15:32  jost
     *** empty log message ***
 
