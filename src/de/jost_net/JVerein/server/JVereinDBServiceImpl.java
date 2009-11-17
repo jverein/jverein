@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/07/24 20:23:25  jost
+ * Überflüssige Imports entfernt.
+ *
  * Revision 1.10  2009/06/11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -138,6 +141,14 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
   {
     ProgressMonitor monitor = Application.getCallback().getStartupMonitor();
     monitor.setStatusText(JVereinPlugin.getI18n().tr("Installiere JVerein"));
+    try
+    {
+      new JVereinUpdateProvider(getConnection(), monitor);
+    }
+    catch (ApplicationException e)
+    {
+      throw new RemoteException(e.getMessage());
+    }
     // this.driver.install();
 
     // PluginResources res = Application.getPluginLoader().getPlugin(

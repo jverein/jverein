@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/04/10 09:53:08  jost
+ * Umstellung auf aktuelle Methoden.
+ *
  * Revision 1.2  2007/12/01 17:47:37  jost
  * Neue DB-Update-Mimik
  *
@@ -20,17 +23,14 @@
 
 package de.jost_net.JVerein.server;
 
-import java.io.File;
 import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.text.MessageFormat;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.db.EmbeddedDatabase;
-import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
-import de.willuhn.sql.version.Updater;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.I18N;
 import de.willuhn.util.ProgressMonitor;
@@ -74,14 +74,8 @@ public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
     {
       try
       {
-        Manifest mani = Application.getManifest();
-        JVereinUpdateProvider udp = new JVereinUpdateProvider(conn, mani
-            .getPluginDir()
-            + File.separator + "sql.mckoi", Application.getCallback()
+        new JVereinUpdateProvider(conn, Application.getCallback()
             .getStartupMonitor());
-        Updater updater = new Updater(udp);
-        updater.execute();
-
       }
       catch (Exception e2)
       {

@@ -73,22 +73,6 @@
       </manifest>
       <fileset dir="${class.dir}"/>
 		</jar>
-    <mkdir dir="${project.zipdir}/sql"/>
-    <copy todir="${project.zipdir}/sql">
-      <fileset dir="${sql.dir}"/>
-    </copy>
-    <mkdir dir="${project.zipdir}/sql.mckoi"/>
-    <copy todir="${project.zipdir}/sql.mckoi">
-      <fileset dir="${sql.mckoi.dir}"/>
-    </copy>
-    <mkdir dir="${project.zipdir}/sql.h2"/>
-    <copy todir="${project.zipdir}/sql.h2">
-      <fileset dir="${sql.h2.dir}"/>
-    </copy>
-    <mkdir dir="${project.zipdir}/sql.mysql"/>
-    <copy todir="${project.zipdir}/sql.mysql">
-      <fileset dir="${sql.mysql.dir}"/>
-    </copy>
     <mkdir dir="${project.zipdir}/lib" />
     <copy todir="${project.zipdir}/lib">
       <fileset dir="${lib.dir}" />
@@ -121,7 +105,6 @@
         <include name=".project" />
         <include name=".classpath" />
         <include name="${src.dir}/**" />
-        <include name="${sql.dir}/**" />
         <include name="${build.dir}/**" />
         <exclude name="${build.dir}/BUILD" />
       </fileset>
