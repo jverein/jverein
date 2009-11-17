@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.20  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -182,15 +185,6 @@ public class MitgliederSucheView extends AbstractView
           control.getSuchExterneMitgliedsnummer());
     }
 
-    if (!JVereinDBService.SETTINGS.getString("database.driver",
-        DBSupportH2Impl.class.getName()).equals(
-        DBSupportMcKoiImpl.class.getName()))
-    {
-      DialogInput mitgleigenschaften = control.getEigenschaftenAuswahl();
-      mitgleigenschaften.addListener(new FilterListener(control));
-      left.addLabelPair(JVereinPlugin.getI18n().tr("Eigenschaften"),
-          mitgleigenschaften);
-    }
     SelectInput mitglbeitragsgruppe = control.getBeitragsgruppeAusw();
     mitglbeitragsgruppe.addListener(new FilterListener(control));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsgruppe"),

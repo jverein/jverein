@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2009/10/17 19:46:30  jost
+ * *** empty log message ***
+ *
  * Revision 1.15  2009/09/10 18:18:57  jost
  * neu: Buchungsklassen
  *
@@ -88,6 +91,12 @@ public class DokumentationUtil
 
   public static final String BUCHUNGSKLASSEN = PRE
       + "administration_buchungsklassen.php";
+
+  public static final String EIGENSCHAFT = PRE
+      + "administration_eigenschaft.php";
+
+  public static final String EIGENSCHAFTGRUPPE = PRE
+      + "administration_eigenschaftgruppe.php";
 
   public static final String FELDDEFINITIONEN = PRE
       + "administration_felddefinitionen.php";

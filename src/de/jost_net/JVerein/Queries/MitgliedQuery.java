@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2009/09/14 19:14:51  jost
+ * Mitglieder mit Austrittsdatum in der Zukunft werden mit ausgewertet.
+ *
  * Revision 1.14  2009/07/05 10:26:26  jost
  * Bugfix Geschlechtsauswahl
  *
@@ -121,25 +124,29 @@ public class MitgliedQuery
         addCondition("austritt is not null and austritt <= current_date()");
       }
     }
-    String eigenschaften = (String) control.getEigenschaftenAuswahl().getText();
-    if (eigenschaften != null && eigenschaften.length() > 0)
+    String eigenschaften = "";
+    if (!dialog)
     {
-      String condEigenschaft = "(select count(*) from eigenschaften where ";
-      StringTokenizer st = new StringTokenizer(eigenschaften, "[]");
-      condEigenschaft += "eigenschaften.mitglied = mitglied.id AND (";
-      boolean first = true;
-      while (st.hasMoreTokens())
+      eigenschaften = control.getEigenschaftenString();
+      if (eigenschaften != null && eigenschaften.length() > 0)
       {
-        if (!first)
+        String condEigenschaft = "(select count(*) from eigenschaften where ";
+        StringTokenizer st = new StringTokenizer(eigenschaften, ",");
+        condEigenschaft += "eigenschaften.mitglied = mitglied.id AND (";
+        boolean first = true;
+        while (st.hasMoreTokens())
         {
-          condEigenschaft += "OR ";
+          if (!first)
+          {
+            condEigenschaft += "OR ";
+          }
+          st.nextToken();
+          first = false;
+          condEigenschaft += "eigenschaft = ? ";
         }
-        st.nextToken();
-        first = false;
-        condEigenschaft += "eigenschaft = ? ";
+        condEigenschaft += ")) = ? ";
+        addCondition(condEigenschaft);
       }
-      condEigenschaft += ")) = ? ";
-      addCondition(condEigenschaft);
     }
 
     if (!anfangsbuchstabe.equals("*"))
@@ -244,16 +251,20 @@ public class MitgliedQuery
       }
     };
     ArrayList<Object> bedingungen = new ArrayList<Object>();
-    if (eigenschaften != null && eigenschaften.length() > 0)
+
+    if (!dialog)
     {
-      StringTokenizer st = new StringTokenizer(eigenschaften, "[]");
-      int tokcount = 0;
-      while (st.hasMoreTokens())
+      if (eigenschaften != null && eigenschaften.length() > 0)
       {
-        bedingungen.add((Object) st.nextToken());
-        tokcount++;
+        StringTokenizer st = new StringTokenizer(eigenschaften, ",");
+        int tokcount = 0;
+        while (st.hasMoreTokens())
+        {
+          bedingungen.add((Object) st.nextToken());
+          tokcount++;
+        }
+        bedingungen.add(new Integer(tokcount));
       }
-      bedingungen.add(new Integer(tokcount));
     }
     if (control.getGeburtsdatumvon().getValue() != null)
     {

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2009/10/20 17:58:45  jost
+ * Neu: Import von Zusatzbeträgen
+ *
  * Revision 1.32  2009/07/27 15:05:50  jost
  * Vereinheitlichung Eigenschaften
  *
@@ -112,6 +115,7 @@ package de.jost_net.JVerein.gui.view;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -119,12 +123,10 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
-import de.jost_net.JVerein.gui.control.EigenschaftenControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.JVereinDBService;
-import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.DBSupportH2Impl;
 import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -260,13 +262,10 @@ public class MitgliedDetailView extends AbstractView
     {
       TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Eigenschaften"));
-      EigenschaftenControl econtrol = new EigenschaftenControl(this,
-          (Mitglied) control.getCurrentObject());
-      econtrol.getEigenschaftenTable().paint(tab7.getComposite());
-      ButtonArea buttonswvl = new ButtonArea(tab7.getComposite(), 1);
-      buttonswvl.addButton(control.getEigenschaftenNeu(econtrol));
-      // tab7.addText(JVereinPlugin.getI18n().tr(
-      // "Rechter Mausklick für Funktionen"), false);
+      GridLayout layout = (GridLayout) tab7.getComposite().getLayout();
+      layout.numColumns = 3;
+      tab7.getComposite().setLayout(layout);
+      control.getEigenschaftenTree().paint(tab7.getComposite());
     }
     TextInput[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
