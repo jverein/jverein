@@ -1,1 +1,0 @@
-alter table mitglied alter column vorname varchar(40) null;

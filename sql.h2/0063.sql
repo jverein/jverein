@@ -1,1 +1,0 @@
-ALTER TABLE einstellung ADD smtp_port char(5);

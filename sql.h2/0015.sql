@@ -1,1 +1,0 @@
-ALTER TABLE mitglied ADD handy varchar(15) before email;

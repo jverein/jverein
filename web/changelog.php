@@ -3,6 +3,7 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>DB-Update restore: Meldung bei nicht leerer Datenbank</li>
     			<li>Mitglied: Anzeige IBAN</li>
     			<li>Neu: Import von Zusatzbeträgen. Sowohl Default-Format als auch individuelle Formate.</li>
     			<li>Die Art der Buchungsart (Einnahme, Ausgabe, Umbuchung) wurde bei der Bearbeitung generell auf Einnahme gesetzt.</li>
@@ -442,6 +443,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.24  2009/10/20 18:04:31  jost
+    *** empty log message ***
+
     Revision 1.23  2009/09/26 09:22:58  jost
     *** empty log message ***
 

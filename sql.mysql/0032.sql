@@ -1,1 +1,0 @@
-ALTER TABLE mitglied MODIFY COLUMN telefondienstlich varchar(20);

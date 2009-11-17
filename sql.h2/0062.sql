@@ -1,1 +1,0 @@
-ALTER TABLE einstellung ADD smtp_server varchar(50);

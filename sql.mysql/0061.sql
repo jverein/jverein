@@ -1,1 +1,0 @@
-alter table `anfangsbestand` change BETRAG `betrag` double default NULL;

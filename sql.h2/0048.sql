@@ -1,1 +1,0 @@
-ALTER TABLE mitglied ADD personenart char(1) before anrede;

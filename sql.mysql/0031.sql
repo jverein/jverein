@@ -1,1 +1,0 @@
-ALTER TABLE mitglied MODIFY COLUMN telefonprivat varchar(20);

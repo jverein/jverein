@@ -1,1 +1,0 @@
-CREATE UNIQUE INDEX ixFormular1 ON formular(bezeichnung);

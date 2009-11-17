@@ -1,1 +1,0 @@
-alter table mitglied modify column vorname varchar(40) null;

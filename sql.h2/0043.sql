@@ -1,1 +1,0 @@
-ALTER TABLE lehrgang DROP CONSTRAINT fkLehrgang2;

@@ -1,1 +1,0 @@
-ALTER TABLE buchung ADD blattnummer integer before name;

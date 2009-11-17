@@ -1,1 +1,0 @@
-UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;

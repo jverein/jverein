@@ -1,1 +1,0 @@
-ALTER TABLE formular MODIFY COLUMN inhalt LONGBLOB;

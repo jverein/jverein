@@ -98,7 +98,7 @@
 	<img src='images/Mitgliedwiedervorlageneu.jpg' class='screenshot'>
 	
 	<a name="Eigenschaften"></a>
-	<h2>Eigenschaften</h2>
+	<h2>Eigenschaften bis Version 1.2</h2>
 	<img src='images/Mitgliedeigenschaften.jpg' class='screenshot'>
 	<p>Die bereits gespeicherten Eigenschaften werden angezeigt. Durch einen rechten Mausklick öffnet sich 
 		ein Kontextmenü. Damit können existierende Eigenschaften entfernt oder neue Eigenschaften aufgenommen 
@@ -108,7 +108,11 @@
 		wurden. Durch einen Doppelklick wird eine existierende Eigenschaft eingetragen. Alternativ kann 
 		der Text auch über die Tastatur eingegeben werden. Neu hinzugefügte Eigenschaften stehen anschließend 
 		für alle anderen Mitglieder zur Auswahl zur Verfügung.</p>
-
+		
+	<h2>Eigenschaften ab Version 1.3</h2>
+	<img src='images/Mitgliedeigenschaften13.png' class='screenshot'>
+	<p>Die Eigenschaften des Mitgliedes können angehakt werden, bzw. das Häkchen kann entfernt werden. 
+	   Die Änderungen werden bei Druck auf den Speichern-Knopf in die Datenbank geschrieben.</p>
 	<a name="Zusatzfelder"></a>
 	<h2>Zusatzfelder</h2>
 	<p>Ab Version 1.1</p>
@@ -125,6 +129,10 @@
 
     <!-- 
     $Log$
+    Revision 1.3  2009/07/16 16:46:02  jost
+    -Überarbeitung
+    -Zahlungwege
+
     Revision 1.2  2009/05/15 19:10:33  jost
     Lehrgänge aufgenommen.
 

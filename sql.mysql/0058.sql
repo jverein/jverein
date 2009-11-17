@@ -1,1 +1,0 @@
-ALTER TABLE einstellung ADD updateinterval integer default 30;

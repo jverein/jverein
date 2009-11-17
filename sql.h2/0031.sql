@@ -1,1 +1,0 @@
-ALTER TABLE mitglied ALTER COLUMN telefonprivat varchar(20);

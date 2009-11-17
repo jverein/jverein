@@ -1,1 +1,0 @@
-alter table formularfeld add fontstyle integer;

@@ -1,1 +1,0 @@
-ALTER TABLE mitglied ADD adressierungszusatz varchar(40) after vorname;
