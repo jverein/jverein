@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2009/01/27 18:50:15  jost
  * Import-Statement korrigiert
  *
@@ -35,15 +38,17 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.serialize.ObjectFactory;
 import de.willuhn.datasource.serialize.Reader;
 import de.willuhn.datasource.serialize.XmlReader;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.jost_net.JVerein.gui.action.BackupCreateAction;
+import de.willuhn.jameica.gui.dialogs.SimpleDialog;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
@@ -61,6 +66,23 @@ public class BackupRestoreAction implements Action
    */
   public void handleAction(Object context) throws ApplicationException
   {
+    try
+    {
+      DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+      if (it.size() > 0)
+      {
+        SimpleDialog dialog = new SimpleDialog(SimpleDialog.POSITION_CENTER);
+        dialog.setTitle("Fehler");
+        dialog.setText("Datenbank ist nicht leer!");
+        dialog.open();
+        return;
+      }
+    }
+    catch (Exception e1)
+    {
+      Logger.error("Fehler: ", e1);
+    }
+
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
     fd.setFileName("jverein-"
         + BackupCreateAction.DATEFORMAT.format(new Date()) + ".xml");
