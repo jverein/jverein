@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2009/04/13 11:37:36  jost
  * Neu: Lehrgänge
  *
@@ -42,7 +45,9 @@ import de.jost_net.JVerein.server.AnfangsbestandImpl;
 import de.jost_net.JVerein.server.BeitragsgruppeImpl;
 import de.jost_net.JVerein.server.BuchungImpl;
 import de.jost_net.JVerein.server.BuchungsartImpl;
+import de.jost_net.JVerein.server.EigenschaftGruppeImpl;
 import de.jost_net.JVerein.server.EigenschaftenImpl;
+import de.jost_net.JVerein.server.EinstellungImpl;
 import de.jost_net.JVerein.server.FelddefinitionImpl;
 import de.jost_net.JVerein.server.FormularImpl;
 import de.jost_net.JVerein.server.FormularfeldImpl;
@@ -60,6 +65,7 @@ import de.jost_net.JVerein.server.ZusatzbetragImpl;
 import de.jost_net.JVerein.server.ZusatzfelderImpl;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
+import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.serialize.Writer;
 import de.willuhn.datasource.serialize.XmlWriter;
@@ -77,6 +83,19 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class BackupCreateAction implements Action
 {
+  // Die Versionstabelle wird nicht mit kopiert
+  Class[] tab = { StammdatenImpl.class, EinstellungImpl.class,
+      BeitragsgruppeImpl.class, BeitragsgruppeImpl.class,
+      BuchungsartImpl.class, KontoImpl.class, BuchungImpl.class,
+      FelddefinitionImpl.class, SpendenbescheinigungImpl.class,
+      FormularImpl.class, FormularfeldImpl.class, FelddefinitionImpl.class,
+      MitgliedImpl.class, AbrechnungImpl.class, EigenschaftGruppeImpl.class,
+      EigenschaftenImpl.class, AnfangsbestandImpl.class,
+      JahresabschlussImpl.class, ManuellerZahlungseingangImpl.class,
+      KursteilnehmerImpl.class, WiedervorlageImpl.class,
+      ZusatzbetragImpl.class, ZusatzfelderImpl.class, LehrgangsartImpl.class,
+      LehrgangImpl.class };
+
   /**
    * Dateformat, welches fuer den Dateinamen genutzt wird.
    */
@@ -137,116 +156,11 @@ public class BackupCreateAction implements Action
           writer = new XmlWriter(new BufferedOutputStream(new FileOutputStream(
               file)));
 
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Stammdaten"));
-          backup(StammdatenImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Beitragsgruppe"));
-          backup(BeitragsgruppeImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Buchungsart"));
-          backup(BuchungsartImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr("Speichere Konten"));
-          backup(KontoImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Buchungen"));
-          backup(BuchungImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Felddefinitionen"));
-          backup(FelddefinitionImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Spendenbescheinigungen"));
-          backup(SpendenbescheinigungImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Formulare"));
-          backup(FormularImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Formularfelder"));
-          backup(FormularfeldImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Felddefinitionen"));
-          backup(FelddefinitionImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Mitgliedsdaten"));
-          backup(MitgliedImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Abrechnungsdaten"));
-          backup(AbrechnungImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Eigenschaften"));
-          backup(EigenschaftenImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Anfangsbestände"));
-          backup(AnfangsbestandImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Jahresabschlüsse"));
-          backup(JahresabschlussImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere manuelle Zahlungseingänge"));
-          backup(ManuellerZahlungseingangImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Kursteilnehmer"));
-          backup(KursteilnehmerImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Wiedervorlagen"));
-          backup(WiedervorlageImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Zusatzbeträge"));
-          backup(ZusatzbetragImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Zusatzfelder"));
-          backup(ZusatzfelderImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Lehrgangsarten"));
-          backup(LehrgangsartImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Speichere Lehrgänge"));
-          backup(LehrgangImpl.class, writer, monitor);
-          monitor.addPercentComplete(5);
-
-          // Die Versionstabelle wird nicht mit kopiert
+          for (Class<AbstractDBObject> clazz : tab)
+          {
+            backup(clazz, writer, monitor);
+            monitor.addPercentComplete(100 / tab.length);
+          }
 
           monitor.setStatusText(JVereinPlugin.getI18n().tr("Backup erstellt"));
           monitor.setPercentComplete(100);
