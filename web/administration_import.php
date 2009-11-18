@@ -220,13 +220,16 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	<p>Jede Datei enthält eine Kopfzeile und pro Mitglied eine Zeile. Beim Import werden sowohl die 
 	Beitragsgruppen-Tabelle als auch die Mitgliedertabelle aufgebaut. Ein erneuter Import löscht die 
 	vorhandenen Daten nach einer entsprechenden Warnung.</p>
-	<p>Ab Version 1.1: Sofern vor dem Import <a href="administration_felddefinitionen">Zusatzfelder definiert</a> 
+	<p>Ab Version 1.1: Sofern vor dem Import <a href="administration_felddefinitionen.php">Zusatzfelder definiert</a> 
 	wurden, können diese auch importiert werden. Die Datenfelder sind entsprechend der Bezeichnung in der 
 	Felddefinition in die Datei einzustellen.</p>
 	<p>Die Eingabedatei muss ISO-8859-1-codiert sein.</p>
 	
 	<!-- 
     $Log$
+    Revision 1.5  2009/11/05 20:07:27  jost
+    Zusätzliche Informationen über die Importfelder aufgenommen.
+
     Revision 1.4  2009/10/24 14:52:25  jost
     Max. Länge angegeben
 
