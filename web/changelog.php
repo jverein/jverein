@@ -3,6 +3,7 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>Neu: Eigenschaften können jetzt in Eigenschaftengruppen zusammengefasst werden.</li>
     			<li>DB-Update restore: Meldung bei nicht leerer Datenbank</li>
     			<li>Mitglied: Anzeige IBAN</li>
     			<li>Neu: Import von Zusatzbeträgen. Sowohl Default-Format als auch individuelle Formate.</li>
@@ -443,6 +444,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.25  2009/11/17 21:05:36  jost
+    *** empty log message ***
+
     Revision 1.24  2009/10/20 18:04:31  jost
     *** empty log message ***
 
