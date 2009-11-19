@@ -282,6 +282,18 @@ public class JVereinUpdateProvider
     {
       cv = update0076(conn, progressmonitor);
     }
+    if (cv < 77)
+    {
+      cv = update0077(conn, progressmonitor);
+    }
+    if (cv < 78)
+    {
+      cv = update0078(conn, progressmonitor);
+    }
+    if (cv < 79)
+    {
+      cv = update0079(conn, progressmonitor);
+    }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -2147,6 +2159,59 @@ public class JVereinUpdateProvider
     execute(conn, statements,
         "Default-Wert in die Tabelle eigenschaft eingetragen");
     return 76;
+  }
+
+  private int update0077(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung);\n");
+
+    execute(conn, statements, "Index für Tabelle eigenschaft erstellt");
+    return 77;
+  }
+
+  private int update0078(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
+
+    execute(conn, statements, "Index für Tabelle eigenschaft erstellt");
+    return 78;
+  }
+
+  private int update0079(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN updateinterval;\n"
+            + "ALTER TABLE einstellung DROP COLUMN updatediaginfos;\n"
+            + "ALTER TABLE einstellung DROP COLUMN updatelastcheck;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN updateinterval, "
+            + "DROP COLUMN updatediaginfos, DROP COLUMN updatelastcheck;\n");
+
+    execute(conn, statements, "Spalten aus Tabelle einstellung entfernt");
+    return 79;
   }
 
 }

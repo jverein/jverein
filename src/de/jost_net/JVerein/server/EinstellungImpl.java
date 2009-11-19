@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/10/17 19:48:01  jost
+ * Vorbereitung Mailversand.
+ *
  * Revision 1.8  2009/09/13 19:26:44  jost
  * Vermeidung NPE
  *
@@ -279,26 +282,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute("rechnungfuerbarzahlung", new Boolean(rechnungfuerbarzahlung));
-  }
-
-  public Integer getUpdateInterval() throws RemoteException
-  {
-    Integer ret = (Integer) getAttribute("updateinterval");
-    if (ret == null)
-    {
-      return new Integer(30);
-    }
-    return ret;
-  }
-
-  public void setUpdateInterval(Integer updateinterval) throws RemoteException
-  {
-    setAttribute("updateinterval", updateinterval);
-  }
-
-  public boolean getUpdateDiagInfos() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("updatediaginfos"));
   }
 
   public void setUpdateDiagInfos(Boolean updatediaginfos)

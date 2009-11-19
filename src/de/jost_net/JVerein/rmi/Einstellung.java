@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/10/17 19:47:29  jost
+ * Vorbereitung Mailversand.
+ *
  * Revision 1.6  2009/09/13 19:20:29  jost
  * Neu: Prüfung auf Updates
  *
@@ -124,18 +127,6 @@ public interface Einstellung extends DBObject
 
   public void setRechnungFuerBarzahlung(Boolean rechnungfuerbarzahlung)
       throws RemoteException;
-
-  public Integer getUpdateInterval() throws RemoteException;
-
-  public void setUpdateInterval(Integer updateinterval) throws RemoteException;
-
-  public boolean getUpdateDiagInfos() throws RemoteException;
-
-  public void setUpdateDiagInfos(Boolean updateinterval) throws RemoteException;
-
-  public Date getUpdateLastCheck() throws RemoteException;
-
-  public void setUpdateLastCheck(Date updatelastcheck) throws RemoteException;
 
   public String getSmtpServer() throws RemoteException;
 

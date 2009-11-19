@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2009/10/17 19:45:24  jost
+ * Vorbereitung Mailversand.
+ *
  * Revision 1.18  2009/09/13 19:19:39  jost
  * Neu: Prüfung auf Updates
  *
@@ -127,12 +130,6 @@ public class EinstellungControl extends AbstractControl
   private SelectInput aktuellegeburtstagevorher;
 
   private SelectInput aktuellegeburtstagenachher;
-
-  private SelectInput updateinterval;
-
-  private CheckboxInput updatediaginfos;
-
-  private DateInput updatelastcheck;
 
   private TextInput smtp_server;
 
@@ -364,40 +361,6 @@ public class EinstellungControl extends AbstractControl
     return rechnungfuerbarzahlung;
   }
 
-  public SelectInput getUpdateInterval() throws RemoteException
-  {
-    if (updateinterval != null)
-    {
-      return updateinterval;
-    }
-    updateinterval = new UpdateIntervalInput(Einstellungen.getEinstellung()
-        .getUpdateInterval());
-    return updateinterval;
-  }
-
-  public CheckboxInput getUpdateDiagInfos() throws RemoteException
-  {
-    if (updatediaginfos != null)
-    {
-      return updatediaginfos;
-    }
-    updatediaginfos = new CheckboxInput(Einstellungen.getEinstellung()
-        .getUpdateDiagInfos());
-    return updatediaginfos;
-  }
-
-  public DateInput getUpdateLastCheck() throws RemoteException
-  {
-    if (updatelastcheck != null)
-    {
-      return updatelastcheck;
-    }
-    updatelastcheck = new DateInput(Einstellungen.getEinstellung()
-        .getUpdateLastCheck());
-    updatelastcheck.setEnabled(false);
-    return updatelastcheck;
-  }
-
   public TextInput getSmtpServer() throws RemoteException
   {
     if (smtp_server != null)
@@ -510,9 +473,6 @@ public class EinstellungControl extends AbstractControl
       e.setRechnungFuerBarzahlung((Boolean) rechnungfuerbarzahlung.getValue());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
-      e.setUpdateInterval((Integer) updateinterval.getValue());
-      e.setUpdateDiagInfos((Boolean) updatediaginfos.getValue());
-      e.setUpdateLastCheck((Date) updatelastcheck.getValue());
       // e.setSmtpServer((String) smtp_server.getValue());
       // Integer port = (Integer) smtp_port.getValue();
       // e.setSmtpPort(port.toString());

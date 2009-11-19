@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2009/10/17 19:46:44  jost
+ * Vorbereitung Mailversand.
+ *
  * Revision 1.21  2009/09/13 19:20:17  jost
  * Neu: Prüfung auf Updates
  *
@@ -180,15 +183,6 @@ public class EinstellungenView extends AbstractView
     LabelGroup groupMitglieder = new LabelGroup(tabMitglieder.getComposite(),
         JVereinPlugin.getI18n().tr("Trefferliste Mitglieder"));
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
-
-    TabGroup tabUpdates = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Updates"));
-    LabelGroup groupUpdate = new LabelGroup(tabUpdates.getComposite(),
-        JVereinPlugin.getI18n().tr("Updates"));
-    groupUpdate.addLabelPair("Interval", control.getUpdateInterval());
-    groupUpdate.addLabelPair("Diagnoseunterlagen mitsenden", control
-        .getUpdateDiagInfos());
-    groupUpdate.addLabelPair("letzter Check", control.getUpdateLastCheck());
 
     // TabGroup tabMail = new TabGroup(folder,
     // JVereinPlugin.getI18n().tr("Mail"));
