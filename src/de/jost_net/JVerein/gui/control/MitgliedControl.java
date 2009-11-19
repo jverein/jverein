@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.69  2009/11/17 20:56:55  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  * Revision 1.68  2009/10/20 17:57:36  jost
  * Neu: Anzeige IBAN
  *
@@ -1576,6 +1579,33 @@ public class MitgliedControl extends AbstractControl
     return jubelart;
   }
 
+  public DialogInput getEigenschaftenAuswahl() throws RemoteException
+  {
+    if (eigenschaftenabfrage != null)
+    {
+      return eigenschaftenabfrage;
+    }
+    EigenschaftenAuswahlDialog d = new EigenschaftenAuswahlDialog(settings);
+    d.addCloseListener(new EigenschaftenListener());
+    String tmp = settings.getString("mitglied.eigenschaften", "");
+
+    StringTokenizer stt = new StringTokenizer(tmp, ",");
+    String text = "";
+    while (stt.hasMoreElements())
+    {
+      if (text.length() > 0)
+      {
+        text += ", ";
+      }
+      Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService().createObject(
+          Eigenschaft.class, stt.nextToken());
+      text += ei.getBezeichnung();
+    }
+    eigenschaftenabfrage = new DialogInput(text, d);
+
+    return eigenschaftenabfrage;
+  }
+
   public Input getAusgabe() throws RemoteException
   {
     if (ausgabe != null)
@@ -2400,6 +2430,22 @@ public class MitgliedControl extends AbstractControl
       {
         Logger.error("error while updating blz comment", e);
       }
+    }
+  }
+
+  /**
+   * Listener, der die Auswahl der Eigenschaften ueberwacht.
+   */
+  private class EigenschaftenListener implements Listener
+  {
+    public void handleEvent(Event event)
+    {
+      if (event == null || event.data == null)
+      {
+        return;
+      }
+      String selection = (String) event.data;
+      eigenschaftenabfrage.setText(selection);
     }
   }
 
