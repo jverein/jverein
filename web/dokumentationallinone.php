@@ -2,7 +2,10 @@
 	<h2>Administration</h2>
 	<? include ("administration_stammdaten.php"); ?>
 	<? include ("administration_beitragsgruppen.php"); ?>
+	<? include ("administration_buchungsklasse.php"); ?>
 	<? include ("administration_buchungsarten.php"); ?>
+	<? include ("administration_eigenschaftgruppe.php"); ?>
+	<? include ("administration_eigenschaft.php"); ?>
 	<? include ("administration_einstellungen.php"); ?>
 	<? include ("administration_felddefinitionen.php"); ?>
 	<? include ("administration_formulare.php"); ?>
@@ -38,6 +41,9 @@
 
     <!-- 
     $Log$
+    Revision 1.4  2009/11/05 20:08:07  jost
+    Zusatzbeträge-Import aufgenommen.
+
     Revision 1.3  2009/10/17 19:57:40  jost
     *** empty log message ***
 

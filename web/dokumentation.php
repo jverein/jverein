@@ -7,7 +7,10 @@
 	<ul>
 		<li><a href="administration_stammdaten.php">Stammdaten</a></li>
 		<li><a href="administration_beitragsgruppen.php">Beitragsgruppen</a></li>
+		<li><a href="administration_buchungsklasse.php">Buchungsklasse</a></li>
 		<li><a href="administration_buchungsarten.php">Buchungsart</a></li>
+		<li><a href="administration_eigenschaftgruppe.php">Eigenschaften-Gruppe</a></li>
+		<li><a href="administration_eigenschaft.php">Eigenschaften</a></li>
 		<li><a href="administration_einstellungen.php">Einstellungen</a></li>
 		<li><a href="administration_felddefinitionen.php">Felddefinitionen</a></li>
 		<li><a href="administration_formulare.php">Formulare</a></li>
@@ -58,6 +61,9 @@
 
     <!-- 
     $Log$
+    Revision 1.4  2009/11/05 20:07:55  jost
+    Zusatzbeträge-Import aufgenommen.
+
     Revision 1.3  2009/10/17 19:57:40  jost
     *** empty log message ***
 

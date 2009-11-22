@@ -13,8 +13,11 @@
     <p>Die Selektion nach den Mitgliedschafts-Stati "Angemeldet", "Abgemeldet" und "Beide" ist möglich. 
     	Weiterhin kann nach den Eigenschaften, einem Geburtszeitraum und nach Beitragsgruppen selektiert 
     	werden.</p>
-    	
+    
+    <p>Bis Version 1.2</p>	
     <img src='images/Mitgliedsucheeigenschaften.jpg' class='screenshot'>
+    <p>Ab Version 1.3</p>	
+    <img src='images/Mitgliedsucheeigenschaften13.jpg' class='screenshot'>
     <p>Es können eine oder mehrere Eigenschaften ausgewählt werden (STRG-Taste beim Mausklick gedrückt 
     	halten). Die Eigenschaften sind "und-verknüpft". D. h. es werden die Mitglied angezeigt, die 
     	alle Eigenschaften haben.</p>
@@ -113,6 +116,8 @@
 	<img src='images/Mitgliedeigenschaften13.png' class='screenshot'>
 	<p>Die Eigenschaften des Mitgliedes können angehakt werden, bzw. das Häkchen kann entfernt werden. 
 	   Die Änderungen werden bei Druck auf den Speichern-Knopf in die Datenbank geschrieben.</p>
+	<p><a href='administration_eigenschaft.php'>Eigenschaften</a> und <a href='administration_eigenschaftgruppe.php'>Eigenschaften-Gruppen</a>
+	sind in der Administration einzurichten.</p>
 	<a name="Zusatzfelder"></a>
 	<h2>Zusatzfelder</h2>
 	<p>Ab Version 1.1</p>
@@ -129,6 +134,9 @@
 
     <!-- 
     $Log$
+    Revision 1.4  2009/11/17 21:07:53  jost
+    *** empty log message ***
+
     Revision 1.3  2009/07/16 16:46:02  jost
     -Überarbeitung
     -Zahlungwege
