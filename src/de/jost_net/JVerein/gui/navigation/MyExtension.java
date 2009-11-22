@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2009/11/17 20:59:01  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  * Revision 1.21  2009/10/20 17:58:27  jost
  * Neu: Import von Zusatzbeträgen
  *
@@ -231,13 +234,13 @@ public class MyExtension implements Extension
           .tr("Buchungsklasse"), new BuchungsklasseListAction(),
           "activity_category.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
+          .tr("Buchungsart"), new BuchungsartListAction(),
+          "activity_category.gif"));
+      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Eigenschaften-Gruppen"), new EigenschaftGruppeListeAction(),
           "activity_category.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Eigenschaften"), new EigenschaftListeAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Buchungsart"), new BuchungsartListAction(),
           "activity_category.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Einstellungen"), new EinstellungenAction(), "settings.gif"));
