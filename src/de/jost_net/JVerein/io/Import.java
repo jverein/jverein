@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2009/11/22 12:22:54  jost
+ * Eigenschaften importieren.
+ *
  * Revision 1.24  2009/09/15 19:24:49  jost
  * Bugfix Zahlungsrhytmus
  *
@@ -352,6 +355,10 @@ public class Import
         for (String feld : eigenschaftenspalten)
         {
           String eig = results.getString(feld);
+          if (eig.length() == 0)
+          {
+            continue;
+          }
           Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
               .getDBService().createObject(Eigenschaften.class, null);
           eigenschaften.setMitglied(m.getID());
