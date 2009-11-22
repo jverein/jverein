@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 21:03:28  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -78,6 +81,7 @@ public class EigenschaftenNode implements GenericObjectNode
     nodetype = ROOT;
     DBIterator it = Einstellungen.getDBService().createList(
         EigenschaftGruppe.class);
+    it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
       EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
@@ -97,6 +101,7 @@ public class EigenschaftenNode implements GenericObjectNode
     DBIterator it = Einstellungen.getDBService().createList(Eigenschaft.class);
     it.addFilter("eigenschaftgruppe = ?", new Object[] { eigenschaftgruppe
         .getID() });
+    it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
       Eigenschaft eigenschaft = (Eigenschaft) it.next();
