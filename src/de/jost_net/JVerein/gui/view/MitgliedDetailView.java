@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.34  2009/11/17 21:01:00  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  * Revision 1.33  2009/10/20 17:58:45  jost
  * Neu: Import von Zusatzbeträgen
  *
@@ -262,10 +265,10 @@ public class MitgliedDetailView extends AbstractView
     {
       TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Eigenschaften"));
-      GridLayout layout = (GridLayout) tab7.getComposite().getLayout();
-      layout.numColumns = 3;
-      tab7.getComposite().setLayout(layout);
-      control.getEigenschaftenTree().paint(tab7.getComposite());
+      ScrolledContainer scrolledEigenschaften = new ScrolledContainer(tab7
+          .getComposite());
+      control.getEigenschaftenTree()
+          .paint(scrolledEigenschaften.getComposite());
     }
     TextInput[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
