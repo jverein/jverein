@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 20:59:50  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -35,7 +38,7 @@ public class EigenschaftDetailView extends AbstractView
         .getI18n().tr("Eigenschaft"));
     grEigenschaft.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
         control.getBezeichnung());
-    grEigenschaft.addLabelPair(JVereinPlugin.getI18n().tr("Gruppet"), control
+    grEigenschaft.addLabelPair(JVereinPlugin.getI18n().tr("Gruppe"), control
         .getEigenschaftGruppe());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
