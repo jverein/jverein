@@ -4,9 +4,10 @@
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
     			<li>Neu: Eigenschaften können jetzt in Eigenschaftengruppen zusammengefasst werden.</li>
+    			<li>Eigenschaften können importiert werden. <a href='https://developer.berlios.de/bugs/?func=detailbug&group_id=7335&bug_id=16162'>#16162</a></li>
     			<li>DB-Update restore: Meldung bei nicht leerer Datenbank</li>
     			<li>Mitglied: Anzeige IBAN</li>
-    			<li>Neu: Import von Zusatzbeträgen. Sowohl Default-Format als auch individuelle Formate.</li>
+    			<li>Neu: Import von Zusatzbeträgen. Sowohl Default-Format als auch individuelle Formate.<a href='https://developer.berlios.de/bugs/?func=detailbug&group_id=7335&bug_id=16336'>#16336</a></li>
     			<li>Die Art der Buchungsart (Einnahme, Ausgabe, Umbuchung) wurde bei der Bearbeitung generell auf Einnahme gesetzt.</li>
     			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
     			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
@@ -444,6 +445,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.26  2009/11/19 21:11:43  jost
+    *** empty log message ***
+
     Revision 1.25  2009/11/17 21:05:36  jost
     *** empty log message ***
 

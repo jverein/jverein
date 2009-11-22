@@ -208,6 +208,14 @@
 		<td>ja</td>
 		<td>ja</td>
 	</tr>
+	<tr>
+		<td>Eigenschaft_xx</td>
+		<td>Eigenschaft eines Mitglieds. Diese Spalte kann mehrfach vorkommen. Anstatt von xx werden 01-99 oder andere Werte eingetragen.
+		    Die importieren Eigenschaften werden der Gruppe 'Noch nicht zugeordnet' zugeordnet.</td>
+		<td>30</td>
+		<td>ja</td>
+		<td>ja</td>
+	</tr>
 	</table>
 	<p>Als Feldtrennzeichen wird das Semikolon verwendet. Jede Zeile muss die gleiche Anzahl Semikola 
 	enthalten. Die Datei darf keine Anführungszeichen enthalten. Bei jedem Mitglied müssen die Spalten 
@@ -227,6 +235,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.6  2009/11/18 16:16:24  jost
+    Bugfix Link
+
     Revision 1.5  2009/11/05 20:07:27  jost
     Zusätzliche Informationen über die Importfelder aufgenommen.
 
