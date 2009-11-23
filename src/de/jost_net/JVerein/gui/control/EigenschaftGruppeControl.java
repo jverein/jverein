@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 20:56:33  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -96,12 +99,17 @@ public class EigenschaftGruppeControl extends AbstractControl
 
   public Part getEigenschaftGruppeList() throws RemoteException
   {
+    if (eigenschaftgruppeList != null)
+    {
+      return eigenschaftgruppeList;
+    }
+
     DBService service = Einstellungen.getDBService();
     DBIterator eigenschaftgruppe = service.createList(EigenschaftGruppe.class);
     eigenschaftgruppe.setOrder("ORDER BY bezeichnung");
 
     eigenschaftgruppeList = new TablePart(eigenschaftgruppe,
-        new EigenschaftGruppeDetailAction());
+        new EigenschaftGruppeDetailAction(false));
     eigenschaftgruppeList.addColumn("Bezeichnung", "bezeichnung");
     eigenschaftgruppeList.setContextMenu(new EigenschaftGruppeMenu());
     eigenschaftgruppeList.setRememberColWidths(true);

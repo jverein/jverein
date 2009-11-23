@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 20:55:11  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -19,6 +22,7 @@ import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -29,6 +33,11 @@ public class EigenschaftGruppeDeleteAction implements Action
 {
   public void handleAction(Object context) throws ApplicationException
   {
+    if (context instanceof TablePart)
+    {
+      TablePart tp = (TablePart) context;
+      context = tp.getSelection();
+    }
     if (context == null || !(context instanceof EigenschaftGruppe))
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(

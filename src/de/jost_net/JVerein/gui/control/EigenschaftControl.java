@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 20:56:06  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -138,7 +141,7 @@ public class EigenschaftControl extends AbstractControl
     if (eigenschaftList == null)
     {
       eigenschaftList = new TablePart(eigenschaften,
-          new EigenschaftDetailAction());
+          new EigenschaftDetailAction(false));
       eigenschaftList.addColumn("Bezeichnung", "bezeichnung");
       eigenschaftList.addColumn("Gruppe", "eigenschaftgruppe",
           new EigenschaftGruppeFormatter());

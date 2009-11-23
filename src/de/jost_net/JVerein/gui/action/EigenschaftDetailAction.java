@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 20:54:28  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
@@ -25,9 +28,20 @@ import de.willuhn.util.ApplicationException;
 
 public class EigenschaftDetailAction implements Action
 {
+  private boolean neu;
+
+  public EigenschaftDetailAction(boolean neu)
+  {
+    this.neu = neu;
+  }
+
   public void handleAction(Object context) throws ApplicationException
   {
     Eigenschaft ei = null;
+    if (neu)
+    {
+      context = null;
+    }
 
     if (context != null && (context instanceof Eigenschaft))
     {

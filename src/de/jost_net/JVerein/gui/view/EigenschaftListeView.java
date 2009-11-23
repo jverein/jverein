@@ -9,13 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 21:00:42  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.EigenschaftDeleteAction;
 import de.jost_net.JVerein.gui.action.EigenschaftDetailAction;
-import de.jost_net.JVerein.gui.action.EigenschaftGruppeDeleteAction;
 import de.jost_net.JVerein.gui.control.EigenschaftControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -39,10 +42,10 @@ public class EigenschaftListeView extends AbstractView
         new DokumentationAction(), DokumentationUtil.EIGENSCHAFT, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
-        new EigenschaftGruppeDeleteAction(), control.getEigenschaftList(),
-        false, "user-trash.png");
+        new EigenschaftDeleteAction(), control.getEigenschaftList(), false,
+        "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new EigenschaftDetailAction(), null, false, "document-new.png");
+        new EigenschaftDetailAction(true), null, false, "document-new.png");
   }
 
   public void unbind() throws ApplicationException
