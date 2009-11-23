@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2009/11/22 16:19:48  jost
+ * Scrollpane f. Eigenschaften
+ *
  * Revision 1.34  2009/11/17 21:01:00  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -267,6 +270,7 @@ public class MitgliedDetailView extends AbstractView
           "Eigenschaften"));
       ScrolledContainer scrolledEigenschaften = new ScrolledContainer(tab7
           .getComposite());
+      scrolledEigenschaften.getComposite().setBounds(0, 0, 300, 200);
       control.getEigenschaftenTree()
           .paint(scrolledEigenschaften.getComposite());
     }
