@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 21:00:18  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -42,7 +45,8 @@ public class EigenschaftGruppeListeView extends AbstractView
         new EigenschaftGruppeDeleteAction(),
         control.getEigenschaftGruppeList(), false, "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new EigenschaftGruppeDetailAction(), null, false, "document-new.png");
+        new EigenschaftGruppeDetailAction(true), null, false,
+        "document-new.png");
   }
 
   public void unbind() throws ApplicationException
