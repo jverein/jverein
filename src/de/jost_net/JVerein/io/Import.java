@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2009/11/22 16:20:09  jost
+ * Bugfix Eigenschaften-Import
+ *
  * Revision 1.25  2009/11/22 12:22:54  jost
  * Eigenschaften importieren.
  *
@@ -562,9 +565,10 @@ public class Import
     ArrayList<String> ret = new ArrayList<String>();
     ResultSetMetaData rsm = results.getMetaData();
     int anzspalten = rsm.getColumnCount();
-    for (int i = 1; i < anzspalten; i++)
+    for (int i = 1; i <= anzspalten; i++)
     {
       String colname = rsm.getColumnName(i);
+      System.out.println(colname);
       if (colname.startsWith(EIGENSCHAFT))
       {
         ret.add(colname);
