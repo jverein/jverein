@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2007/03/13 19:56:20  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -41,14 +44,26 @@ public class ManuellerZahlungseingangDeleteAction implements Action
 
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof ManuellerZahlungseingang))
+    if (context == null)
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen manuellen Zahlungseingang ausgewählt"));
+          "Keinen ManuellenZahlungseingang ausgewählt"));
     }
+
+    Object[] objects = null;
+
+    if (context instanceof Object[])
+    {
+      objects = (Object[]) context;
+    }
+    else
+    {
+      objects = new Object[] { context };
+    }
+
     try
     {
-      ManuellerZahlungseingang mz = (ManuellerZahlungseingang) context;
+      ManuellerZahlungseingang mz = (ManuellerZahlungseingang) objects[0];
       if (mz.isNewObject())
       {
         return;
@@ -56,7 +71,7 @@ public class ManuellerZahlungseingangDeleteAction implements Action
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(JVereinPlugin.getI18n().tr("Posten löschen"));
       d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Posten wirklich löschen?"));
+          "Wollen Sie diese(n) Posten wirklich löschen?"));
 
       try
       {
@@ -70,8 +85,12 @@ public class ManuellerZahlungseingangDeleteAction implements Action
             "Fehler beim Löschen des ManuellenZahlungseingangs"), e);
         return;
       }
-      table.removeItem(mz);
-      mz.delete();
+      for (Object cont : objects)
+      {
+        mz = (ManuellerZahlungseingang) cont;
+        table.removeItem(mz);
+        mz.delete();
+      }
       GUI.getStatusBar().setSuccessText(
           JVereinPlugin.getI18n().tr("Posten gelöscht."));
     }
