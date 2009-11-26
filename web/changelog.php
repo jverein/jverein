@@ -3,6 +3,8 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    		
+    			<li>Bei Manuellen Zahlungseingängen gibt es jetzt Mehrfachselektion.<a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=16431&group_id=7335'>#16431</a></li>
     			<li>Neu: Eigenschaften können jetzt in Eigenschaftengruppen zusammengefasst werden.</li>
     			<li>Eigenschaften können importiert werden. <a href='https://developer.berlios.de/bugs/?func=detailbug&group_id=7335&bug_id=16162'>#16162</a></li>
     			<li>DB-Update restore: Meldung bei nicht leerer Datenbank</li>
@@ -445,6 +447,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.27  2009/11/22 19:50:03  jost
+    *** empty log message ***
+
     Revision 1.26  2009/11/19 21:11:43  jost
     *** empty log message ***
 
