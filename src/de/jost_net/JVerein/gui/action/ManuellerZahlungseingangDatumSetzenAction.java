@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2007/03/13 19:56:02  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -48,14 +51,26 @@ public class ManuellerZahlungseingangDatumSetzenAction implements Action
 
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof ManuellerZahlungseingang))
+    if (context == null)
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Keinen ManuellenZahlungseingang ausgewählt"));
     }
+
+    Object[] objects = null;
+
+    if (context instanceof Object[])
+    {
+      objects = (Object[]) context;
+    }
+    else
+    {
+      objects = new Object[] { context };
+    }
+
     try
     {
-      ManuellerZahlungseingang mz = (ManuellerZahlungseingang) context;
+      ManuellerZahlungseingang mz = (ManuellerZahlungseingang) objects[0];
       if (mz.isNewObject())
       {
         return;
@@ -76,10 +91,14 @@ public class ManuellerZahlungseingangDatumSetzenAction implements Action
       try
       {
         cd.open();
-        int ind = table.removeItem(mz);
-        mz.setEingangsdatum(date);
-        mz.store();
-        table.addItem(mz, ind);
+        for (Object cont : objects)
+        {
+          mz = (ManuellerZahlungseingang) cont;
+          int ind = table.removeItem(mz);
+          mz.setEingangsdatum(date);
+          mz.store();
+          table.addItem(mz, ind);
+        }
       }
       catch (Exception e)
       {

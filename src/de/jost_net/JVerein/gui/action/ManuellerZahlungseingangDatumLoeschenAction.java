@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2007/03/20 07:56:25  jost
  * Probleme beim Encoding.
  *
@@ -43,23 +46,37 @@ public class ManuellerZahlungseingangDatumLoeschenAction implements Action
 
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof ManuellerZahlungseingang))
+    if (context == null)
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen manuellen Zahlungseingang ausgewählt"));
+          "Keinen ManuellenZahlungseingang ausgewählt"));
     }
+
+    Object[] objects = null;
+
+    if (context instanceof Object[])
+    {
+      objects = (Object[]) context;
+    }
+    else
+    {
+      objects = new Object[] { context };
+    }
+
     try
     {
-      ManuellerZahlungseingang mz = (ManuellerZahlungseingang) context;
-      if (mz.isNewObject())
+      for (Object cont : objects)
       {
-        return;
+        ManuellerZahlungseingang mz = (ManuellerZahlungseingang) cont;
+        if (mz.isNewObject())
+        {
+          return;
+        }
+        int ind = table.removeItem(mz);
+        mz.setEingangsdatum(null);
+        mz.store();
+        table.addItem(mz, ind);
       }
-      int ind = table.removeItem(mz);
-      mz.setEingangsdatum(null);
-      mz.store();
-      table.addItem(mz, ind);
-
       GUI.getStatusBar().setSuccessText(
           JVereinPlugin.getI18n().tr("Datum entfernt."));
     }

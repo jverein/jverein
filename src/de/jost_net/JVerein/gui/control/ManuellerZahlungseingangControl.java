@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/22 18:13:43  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.1  2007/03/13 19:56:48  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -158,6 +161,7 @@ public class ManuellerZahlungseingangControl extends AbstractControl
         new DateFormatter(Einstellungen.DATEFORMAT));
     manuellerZahlungseingangList
         .setContextMenu(new ManuellerZahlungseingangMenu(manuellerZahlungseingangList));
+    manuellerZahlungseingangList.setMulti(true);
 
     return manuellerZahlungseingangList;
   }
