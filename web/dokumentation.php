@@ -57,10 +57,14 @@
 	<li><a href="dokumentationbeitragsmodelle.php">Beitragsmodelle</a></li>
 	<li><a href="dokumentationmigrationinsh2format.php">Migration der Datenbank ins H2-Format</a></li>
 	<li><a href="jameica_portable.php">Jameica + Plugins portable</a></li>
+	<li><a href="openofficeh2.php">Mit OpenOffice-Base auf die H2-Datenbank zugreifen</a></li>
 </ul>
 
     <!-- 
     $Log$
+    Revision 1.6  2009/11/27 14:47:55  jost
+    *** empty log message ***
+
     Revision 1.5  2009/11/22 16:20:47  jost
     *** empty log message ***
 

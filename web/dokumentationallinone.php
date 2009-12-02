@@ -38,9 +38,13 @@
 	<? include ("dokumentationbeitragsmodelle.php"); ?>
 	<? include ("dokumentationmigrationinsh2format.php"); ?>
 	<? include ("jameica_portable.php"); ?>
+	<? include ("openofficeh2.php"); ?>
 
     <!-- 
     $Log$
+    Revision 1.5  2009/11/22 16:20:47  jost
+    *** empty log message ***
+
     Revision 1.4  2009/11/05 20:08:07  jost
     Zusatzbeträge-Import aufgenommen.
 
