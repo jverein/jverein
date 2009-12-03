@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.70  2009/11/19 19:43:49  jost
+ * Bugfix Eigenschaften
+ *
  * Revision 1.69  2009/11/17 20:56:55  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -1597,9 +1600,16 @@ public class MitgliedControl extends AbstractControl
       {
         text += ", ";
       }
-      Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService().createObject(
-          Eigenschaft.class, stt.nextToken());
-      text += ei.getBezeichnung();
+      try
+      {
+        Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService()
+            .createObject(Eigenschaft.class, stt.nextToken());
+        text += ei.getBezeichnung();
+      }
+      catch (ObjectNotFoundException e)
+      {
+        //
+      }
     }
     eigenschaftenabfrage = new DialogInput(text, d);
 
