@@ -1,5 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>H2 Datenbank mit OpenOffice-Base öffnen</h1>
+    <p>Wichtig! Beim Zugriff mit OpenOffice-Base auf die JVerein-Datenbank muss JVerein geschlossen sein.</p>
     <h2>H2.jar in den Classpath aufnehmen</h2>
 	<p>Die Bibliothek h2.jar mit dem Datenbank-Treiber ist in den OpenOffice-Classpath aufzunehmen. 
 	   Dazu irgendein OpenOffice-Modul (z. B. Writer) öffnen. Unter Extras>Optionen>OpenOffice.org>Java>Class Path
@@ -22,6 +23,9 @@
 			
     <!-- 
     $Log$
+    Revision 1.1  2009/12/02 22:32:06  jost
+    Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
+
     -->
     
 <? include ("footer.inc"); ?>
