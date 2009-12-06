@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/11/19 21:11:03  jost
+ * Update-Option entfernt.
+ *
  * Revision 1.7  2009/10/17 19:47:29  jost
  * Vorbereitung Mailversand.
  *
@@ -34,7 +37,6 @@
 package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 

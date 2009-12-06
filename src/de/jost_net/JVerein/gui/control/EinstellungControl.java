@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/11/19 21:10:37  jost
+ * Update-Option entfernt.
+ *
  * Revision 1.19  2009/10/17 19:45:24  jost
  * Vorbereitung Mailversand.
  *
@@ -70,12 +73,10 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.input.UpdateIntervalInput;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
@@ -83,7 +84,6 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
-import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
 import de.willuhn.jameica.gui.input.SelectInput;

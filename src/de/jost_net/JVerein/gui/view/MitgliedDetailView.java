@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2009/11/23 20:42:18  jost
+ * Bugfix f. Windows. Größe der Eigenschaftauswahl verändert.
+ *
  * Revision 1.35  2009/11/22 16:19:48  jost
  * Scrollpane f. Eigenschaften
  *
@@ -121,7 +124,6 @@ package de.jost_net.JVerein.gui.view;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;

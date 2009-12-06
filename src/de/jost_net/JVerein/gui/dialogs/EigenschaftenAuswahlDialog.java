@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/11/19 19:44:02  jost
+ * Bugfix Eigenschaften
+ *
  * Revision 1.3  2009/11/17 20:57:34  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -31,7 +34,6 @@ import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
-import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.parts.TreePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
