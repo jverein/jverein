@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.34  2009/08/19 21:00:30  jost
+ * Manuelle Buchungen auch für Zusatzbeträge.
+ *
  * Revision 1.33  2009/07/30 18:23:18  jost
  * Bugfix DTAUS-Datei mit überlangen Namen
  *
@@ -118,6 +121,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -158,73 +162,53 @@ import de.willuhn.util.ProgressMonitor;
 public class Abbuchung
 {
   public Abbuchung(AbbuchungParam param, ProgressMonitor monitor)
-      throws ApplicationException
+      throws Exception
   {
-    try
-    {
-      FileOutputStream out = new FileOutputStream(param.dtausfile);
+    FileOutputStream out = new FileOutputStream(param.dtausfile);
 
-      // Vorbereitung: A-Satz bestücken und schreiben
-      DtausDateiWriter dtaus = new DtausDateiWriter(out);
-      dtaus.setABLZBank(Long.parseLong(param.stamm.getBlz()));
-      dtaus.setADatum(new Date());
-      dtaus.setAGutschriftLastschrift("LK");
-      dtaus.setAKonto(Long.parseLong(param.stamm.getKonto()));
-      dtaus.setAKundenname(param.stamm.getName());
-      dtaus.writeASatz();
+    // Vorbereitung: A-Satz bestücken und schreiben
+    DtausDateiWriter dtaus = new DtausDateiWriter(out);
+    dtaus.setABLZBank(Long.parseLong(param.stamm.getBlz()));
+    dtaus.setADatum(new Date());
+    dtaus.setAGutschriftLastschrift("LK");
+    dtaus.setAKonto(Long.parseLong(param.stamm.getKonto()));
+    dtaus.setAKundenname(param.stamm.getName());
+    dtaus.writeASatz();
 
-      abbuchenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
-          param.vondatum, monitor, param.verwendungszweck);
-      if (param.zusatzbetraege)
-      {
-        abbuchenZusatzbetraege(dtaus);
-      }
-      if (param.kursteilnehmer)
-      {
-        abbuchenKursteilnehmer(dtaus);
-      }
-      // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
-      // wurden beim Schreiben der C-Sätze ermittelt.
-      dtaus.writeESatz();
-      if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
-          || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
-      {
-        buchenHibiscus(param);
-      }
+    abbuchenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
+        param.vondatum, monitor, param.verwendungszweck);
+    if (param.zusatzbetraege)
+    {
+      abbuchenZusatzbetraege(dtaus);
+    }
+    if (param.kursteilnehmer)
+    {
+      abbuchenKursteilnehmer(dtaus);
+    }
+    // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
+    // wurden beim Schreiben der C-Sätze ermittelt.
+    dtaus.writeESatz();
+    if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
+        || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
+    {
+      buchenHibiscus(param);
+    }
 
-      monitor.log(JVereinPlugin.getI18n().tr("Anzahl Abrechnungen: {0}",
-          new String[] { dtaus.getAnzahlSaetze() + "" }));
-      monitor.log(JVereinPlugin.getI18n().tr("Gesamtsumme: {0} EUR",
-          Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
-      dtaus.close();
-      monitor.setPercentComplete(100);
-      if (param.dtausprint)
-      {
-        ausdruckenDTAUS(param.dtausfile.getAbsolutePath(), param.pdffile);
-      }
-    }
-    catch (DtausException e)
+    monitor.log(JVereinPlugin.getI18n().tr("Anzahl Abrechnungen: {0}",
+        new String[] { dtaus.getAnzahlSaetze() + "" }));
+    monitor.log(JVereinPlugin.getI18n().tr("Gesamtsumme: {0} EUR",
+        Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
+    dtaus.close();
+    monitor.setPercentComplete(100);
+    if (param.dtausprint)
     {
-      e.printStackTrace();
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-    catch (ApplicationException e)
-    {
-      throw e;
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
+      ausdruckenDTAUS(param.dtausfile.getAbsolutePath(), param.pdffile);
     }
   }
 
   private void abbuchenMitglieder(DtausDateiWriter dtaus, int modus,
       Date stichtag, Date vondatum, ProgressMonitor monitor,
-      String verwendungszweck) throws NumberFormatException, IOException,
-      ApplicationException
+      String verwendungszweck) throws Exception
   {
     // Ermittlung der beitragsfreien Beitragsgruppen
     String beitragsfrei = "";
@@ -257,6 +241,9 @@ public class Abbuchung
     {
       // Alle Mitglieder lesen
       list = Einstellungen.getDBService().createList(Mitglied.class);
+
+      // TODO TEST enfernen
+      list.addFilter("name='Amlow'");
 
       // Das Mitglied muss bereits eingetreten sein
       list.addFilter("(eintritt <= ? or eintritt is null) ",
@@ -371,7 +358,7 @@ public class Abbuchung
           {
             writeCSatz(dtaus, m, verwendungszweck, betr);
           }
-          catch (DtausException e)
+          catch (Exception e)
           {
             throw new ApplicationException(m.getNameVorname() + ": "
                 + e.getMessage());
@@ -442,9 +429,23 @@ public class Abbuchung
       kt.store();
 
       dtaus.setCBetragInEuro(kt.getBetrag());
-      dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
+      try
+      {
+        dtaus.setCBLZEndbeguenstigt(Integer.parseInt(kt.getBlz()));
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException("Ungültige Bankleitzahl " + kt.getBlz());
+      }
       dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
-      dtaus.setCKonto(Long.parseLong(kt.getKonto()));
+      try
+      {
+        dtaus.setCKonto(Long.parseLong(kt.getKonto()));
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException("Ungültige Kontonummer " + kt.getKonto());
+      }
       dtaus.setCName(kt.getName());
       dtaus
           .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
@@ -541,9 +542,23 @@ public class Abbuchung
       NumberFormatException, IOException
   {
     dtaus.setCBetragInEuro(betr.doubleValue());
-    dtaus.setCBLZEndbeguenstigt(Integer.parseInt(m.getBlz()));
+    try
+    {
+      dtaus.setCBLZEndbeguenstigt(Integer.parseInt(m.getBlz()));
+    }
+    catch (NumberFormatException e)
+    {
+      throw new DtausException("Ungültige Bankleitzahl " + m.getBlz());
+    }
     dtaus.setCInterneKundennummer(Integer.parseInt(m.getID()));
-    dtaus.setCKonto(Long.parseLong(m.getKonto()));
+    try
+    {
+      dtaus.setCKonto(Long.parseLong(m.getKonto()));
+    }
+    catch (NumberFormatException e)
+    {
+      throw new DtausException("Ungültige Kontonummer " + m.getKonto());
+    }
     String name = m.getNameVorname();
     String mitgliedname = name;
     if (mitgliedname.length() > 27)

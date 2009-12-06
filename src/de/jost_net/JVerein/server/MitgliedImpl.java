@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2009/10/20 18:01:33  jost
+ * Neu: Anzeige IBAN
+ *
  * Revision 1.26  2009/06/29 19:44:25  jost
  * Bugfix BLZ-Prüfung.
  *
@@ -216,6 +219,15 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
           "Die Bankleitzahl muss 8stellig sein"));
     }
     if (getBlz().length() != 0 || getKonto().length() != 0l)
+    {
+      try
+      {
+        Integer.parseInt(getKonto());
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException("Kontonummer ist nicht numerisch");
+      }
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
         throw new ApplicationException(
@@ -225,7 +237,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
                     "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
                     new String[] { getBlz(), getKonto() }));
       }
-
+    }
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
         && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
     {
