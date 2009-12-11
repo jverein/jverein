@@ -11,7 +11,7 @@
 	<h2>Datenbankassistent</h2>
 	<p>OpenOffice-Base aufrufen</p>
 	<img src='images/oobaseh2datenbankassistent0.png' class='screenshot'>
-	<p>Als Datenquellen-URL ist h2:/pfad zur Datenbank   einzutragen. 
+	<p>Als Datenquellen-URL ist h2:/pfad zur Datenbank   einzutragen. Beispiel: <code>h2:/home/heiner/jameica.buch/jverein/h2db/jverein</code>
 	   Der Datenbanktreiber heiﬂt org.h2.Driver</p>
 	<img src='images/oobaseh2datenbankassistent1.png' class='screenshot'>
 	<p>Benutzername: jverein, Kennwort erforderlich</p>
@@ -23,6 +23,9 @@
 			
     <!-- 
     $Log$
+    Revision 1.2  2009/12/03 07:02:05  jost
+    Zus‰tzlicher Hinweis.
+
     Revision 1.1  2009/12/02 22:32:06  jost
     Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
 
