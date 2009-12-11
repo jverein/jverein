@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2009/11/17 20:59:38  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  * Revision 1.16  2009/10/17 19:46:30  jost
  * *** empty log message ***
  *
@@ -139,7 +142,7 @@ public class DokumentationUtil
       + "dokumentationbuchfuehrunganfangsbestaende.php";
 
   public static final String BUCHUNGENAUSHIBISCUS = PRE
-      + "Buchungen_aus_Hibiscus_übernehmen";
+      + "dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.php";
 
   public static final String BUCHUNGEN = PRE
       + "dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.php";
