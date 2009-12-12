@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/11/22 16:20:36  jost
+ * Sortierung der Nodes
+ *
  * Revision 1.1  2009/11/17 21:03:28  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -159,13 +162,11 @@ public class EigenschaftenNode implements GenericObjectNode
 
   public GenericIterator getPath() throws RemoteException
   {
-    // TODO Auto-generated method stub
     return null;
   }
 
   public GenericIterator getPossibleParents() throws RemoteException
   {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -176,7 +177,6 @@ public class EigenschaftenNode implements GenericObjectNode
 
   public boolean equals(GenericObject other) throws RemoteException
   {
-    // TODO Auto-generated method stub
     return false;
   }
 
@@ -202,19 +202,16 @@ public class EigenschaftenNode implements GenericObjectNode
 
   public String[] getAttributeNames() throws RemoteException
   {
-    // TODO Auto-generated method stub
     return null;
   }
 
   public String getID() throws RemoteException
   {
-    // TODO Auto-generated method stub
     return null;
   }
 
   public String getPrimaryAttribute() throws RemoteException
   {
-    // TODO Auto-generated method stub
     return null;
   }
 
