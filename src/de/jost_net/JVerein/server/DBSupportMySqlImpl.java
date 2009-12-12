@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/11/17 21:03:03  jost
+ * DB-Aktualisierung optimiert.
+ *
  * Revision 1.7  2009/06/11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -72,19 +75,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   {
     String key = "database.driver.mysql.password";
 
-    // TODO: Erst moeglich, wenn eine GUI zum Eingeben des Passwortes existiert
-    // try
-    // {
-    // // Das Passwort verschluesseln wir nach Moeglichkeit
-    // Wallet wallet = Settings.getWallet();
-    // return (String) wallet.get(key);
-    // }
-    // catch (Exception e)
-    // {
-    // Logger.error("unable to read jdbc password from wallet, using plaintext
-    // fallback",e);
     return JVereinDBService.SETTINGS.getString(key, null);
-    // }
   }
 
   /**
