@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2009/12/06 21:41:23  jost
+ * Bugfix ungültige Kontonummer
+ *
  * Revision 1.34  2009/08/19 21:00:30  jost
  * Manuelle Buchungen auch für Zusatzbeträge.
  *
@@ -241,9 +244,6 @@ public class Abbuchung
     {
       // Alle Mitglieder lesen
       list = Einstellungen.getDBService().createList(Mitglied.class);
-
-      // TODO TEST enfernen
-      list.addFilter("name='Amlow'");
 
       // Das Mitglied muss bereits eingetreten sein
       list.addFilter("(eintritt <= ? or eintritt is null) ",
