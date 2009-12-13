@@ -3,6 +3,7 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>Bugfix beim Austritt aller Mitglieder einer Familie (Familienbeitrag)</li>
     			<li>Bugfix fehlerhafte Kontonummer bei der Eingabe und bei der Abrechnung</li>
     			<li>Bei Manuellen Zahlungseingängen gibt es jetzt Mehrfachselektion.<a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=16431&group_id=7335'>#16431</a></li>
     			<li>Neu: Eigenschaften können jetzt in Eigenschaftengruppen zusammengefasst werden.</li>
@@ -447,6 +448,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.29  2009/12/11 16:17:10  jost
+    *** empty log message ***
+
     Revision 1.28  2009/11/26 21:57:48  jost
     *** empty log message ***
 
