@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2009/12/13 17:43:35  jost
+ * Debugging-Infos entfernt.
+ *
  * Revision 1.35  2009/12/06 21:41:23  jost
  * Bugfix ungültige Kontonummer
  *
@@ -124,7 +127,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Hashtable;
 
