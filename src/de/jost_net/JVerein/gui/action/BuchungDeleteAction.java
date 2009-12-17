@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2008/03/16 07:34:42  jost
  * Reaktivierung BuchfÃ¼hrung
  *
@@ -41,27 +44,41 @@ public class BuchungDeleteAction implements Action
 {
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof Buchung))
+    if (context == null
+        || (!(context instanceof Buchung) && !(context instanceof Buchung[])))
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Keine Buchung ausgewählt"));
     }
     try
     {
-      Buchung b = (Buchung) context;
-      if (b.isNewObject())
+      Buchung[] b = null;
+      if (context instanceof Buchung)
+      {
+        b = new Buchung[1];
+        b[0] = (Buchung) context;
+      }
+      if (context instanceof Buchung[])
+      {
+        b = (Buchung[]) context;
+      }
+      if (b != null && b.length > 0 && b[0].isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Buchung löschen"));
+      d.setTitle(JVereinPlugin.getI18n().tr(
+          "Buchung" + (b.length > 1 ? "en" : "") + " löschen"));
       d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Buchung wirklich löschen?"));
+          "Wollen Sie diese Buchung" + (b.length > 1 ? "en" : "")
+              + " wirklich löschen?"));
       try
       {
         Boolean choice = (Boolean) d.open();
         if (!choice.booleanValue())
+        {
           return;
+        }
       }
       catch (Exception e)
       {
@@ -69,10 +86,13 @@ public class BuchungDeleteAction implements Action
             "Fehler beim Löschen der Buchung"), e);
         return;
       }
-
-      b.delete();
+      for (Buchung bu : b)
+      {
+        bu.delete();
+      }
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Buchung gelöscht."));
+          JVereinPlugin.getI18n().tr(
+              "Buchung" + (b.length > 1 ? "en" : "") + " gelöscht."));
     }
     catch (RemoteException e)
     {
