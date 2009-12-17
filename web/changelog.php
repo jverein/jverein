@@ -3,6 +3,8 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>Buchführung: Mehrere Buchungen können gleichzeitig gelöscht werden.</li>
+    			<li>Buchführung: Mehrfache Buchungsübernahme verhindert.</li>
     			<li>Bugfix beim Austritt aller Mitglieder einer Familie (Familienbeitrag)</li>
     			<li>Bugfix fehlerhafte Kontonummer bei der Eingabe und bei der Abrechnung</li>
     			<li>Bei Manuellen Zahlungseingängen gibt es jetzt Mehrfachselektion.<a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=16431&group_id=7335'>#16431</a></li>
@@ -448,6 +450,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.30  2009/12/13 17:44:02  jost
+    *** empty log message ***
+
     Revision 1.29  2009/12/11 16:17:10  jost
     *** empty log message ***
 

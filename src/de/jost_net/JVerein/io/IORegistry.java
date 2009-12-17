@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/10/20 18:00:48  jost
+ * Neu: Import von Zusatzbeträgen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -41,7 +44,7 @@ public class IORegistry
    *          zu ladender Typ.
    * @return Liste der gefundenen Importer/Exporter.
    */
-  private static synchronized ArrayList load(Class type)
+  private static synchronized ArrayList load(Class<?> type)
   {
     ArrayList l = new ArrayList();
     try
