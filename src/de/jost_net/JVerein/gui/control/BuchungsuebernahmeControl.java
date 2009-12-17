@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/01/22 18:23:35  jost
+ * neue Icons
+ *
  * Revision 1.9  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -136,6 +139,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
             b.setArt(u.getArt());
             b.setKommentar(u.getKommentar());
             b.store();
+            buchungsList.removeItem(u);
           }
           GUI.getStatusBar().setSuccessText("Daten übernommen");
           GUI.getCurrentView().reload();
