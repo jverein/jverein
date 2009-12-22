@@ -1,5 +1,4 @@
 	<? include ("jameica_startseite.php"); ?>
-	<h2>Administration</h2>
 	<? include ("administration_stammdaten.php"); ?>
 	<? include ("administration_beitragsgruppen.php"); ?>
 	<? include ("administration_buchungsklasse.php"); ?>
@@ -42,6 +41,9 @@
 
     <!-- 
     $Log$
+    Revision 1.6  2009/12/02 22:32:06  jost
+    Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
+
     Revision 1.5  2009/11/22 16:20:47  jost
     *** empty log message ***
 

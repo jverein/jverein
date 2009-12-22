@@ -29,7 +29,7 @@
 	<li><a href="kursteilnehmer.php">Kursteilnehmer</a></li>
 	<li><a href="abrechnung.php">Abrechnung</a></li>
 	<li><a href="zusatzbetraege.php">Zusatzbeiträge</a></li>
-	<li><a href="zusatzbetraegeimport.php">Zusatzbeiträge importieren </a></li>
+	<li><a href="zusatzbetraege_import.php">Zusatzbeiträge importieren </a></li>
 	<li><a href="manuelle_zahlungseingaenge.php">Manuelle Zahlungseingänge</a></li>
 	<li><a href="wiedervorlage.php">Wiedervorlage</a></li>
 	<li><a href="lehrgaenge.php">Lehrgänge</a>(ab Version 1.2)</li>
@@ -63,6 +63,9 @@
 
     <!-- 
     $Log$
+    Revision 1.9  2009/12/11 16:18:06  jost
+    *** empty log message ***
+
     Revision 1.8  2009/12/11 14:04:31  jost
     MySQL aufgenommen
 

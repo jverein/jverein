@@ -52,10 +52,9 @@
 	<p>Die Erstellung von Rechnungen und Spendenbescheinigungen möglich.</p>
 	<p>JVerein ist mit vielen Screenshots ausgiebig <a href='dokumentation.php'>dokumentiert</a>.</p>
 	<p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p>
-	<p>Zusätzlich gibt es eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um eine 
-	   kurze Nachricht an <a href="mailto:heiner@jverein.de">heiner@jverein.de</a> mit dem Namen des Vereins 
-	   und der Anzahl der Mitglieder. Diese Daten dienen der "Erfolgskontrolle".</p>
-	   
+	<p>Zusätzlich gibt es eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um einen 
+	   Eintrag im <a href="http://www.jverein.de/forum/viewforum.php?f=3">Forum unter Vorstellung der Verein, 
+	   die JVerein nutzen</a>. Diese Daten dienen der "Erfolgskontrolle".</p>
 	</div>   
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
@@ -75,6 +74,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.15  2009/12/02 22:32:06  jost
+    Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
+
     Revision 1.14  2009/12/01 20:20:45  jost
     *** empty log message ***
 
