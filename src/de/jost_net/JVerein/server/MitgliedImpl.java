@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2009/12/06 21:42:15  jost
+ * Bugfix ungültige Kontonummer
+ *
  * Revision 1.27  2009/10/20 18:01:33  jost
  * Neu: Anzeige IBAN
  *
@@ -99,6 +102,7 @@ import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -222,7 +226,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       try
       {
-        Integer.parseInt(getKonto());
+        Long.parseLong(getKonto());
       }
       catch (NumberFormatException e)
       {
@@ -255,13 +259,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         DBIterator famang = Einstellungen.getDBService().createList(
             Mitglied.class);
         famang.addFilter("zahlerid = " + getID());
+        famang.addFilter("austritt is null");
         if (famang.hasNext())
         {
           throw new ApplicationException(
               JVereinPlugin
                   .getI18n()
                   .tr(
-                      "Diese Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
+                      "Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
         }
       }
     }
@@ -683,7 +688,19 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       if (it.hasNext())
       {
         Zusatzfelder zf = (Zusatzfelder) it.next();
-        return zf.getFeld();
+        switch (fd.getDatentyp())
+        {
+          case Datentyp.ZEICHENFOLGE:
+            return zf.getFeld();
+          case Datentyp.DATUM:
+            return zf.getFeldDatum();
+          case Datentyp.GANZZAHL:
+            return zf.getFeldGanzzahl();
+          case Datentyp.JANEIN:
+            return zf.getFeldJaNein();
+          case Datentyp.WAEHRUNG:
+            return zf.getFeldWaehrung();
+        }
       }
       else
       {

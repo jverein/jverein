@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/04/10 19:02:50  jost
+ * Neu: Benutzerdefinierte Datenfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -28,7 +31,11 @@ public interface Felddefinition extends DBObject
 
   public void setLabel(String label) throws RemoteException;
 
+  public int getDatentyp() throws RemoteException;
+  
+  public void setDatentyp(int datentyp) throws RemoteException;
+  
   public int getLaenge() throws RemoteException;
-
+  
   public void setLaenge(int laenge) throws RemoteException;
 }

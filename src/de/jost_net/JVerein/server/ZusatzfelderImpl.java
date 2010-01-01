@@ -9,13 +9,18 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/11/29 13:17:46  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.1  2008/04/10 19:03:24  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -108,6 +113,57 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
   public void setFeld(String feld) throws RemoteException
   {
     setAttribute("feld", feld);
+  }
+
+  public Date getFeldDatum() throws RemoteException
+  {
+    return (Date) getAttribute("felddatum");
+  }
+
+  public void setFeldDatum(Date datum) throws RemoteException
+  {
+    setAttribute("felddatum", datum);
+  }
+
+  public Integer getFeldGanzzahl() throws RemoteException
+  {
+    return (Integer) getAttribute("feldganzzahl");
+  }
+
+  public void setFeldGanzzahl(Integer ganzzahl) throws RemoteException
+  {
+    setAttribute("feldganzzahl", ganzzahl);
+  }
+
+  public double getFeldGleitkommazahl() throws RemoteException
+  {
+    return (Double) getAttribute("feldgleitkommazahl");
+  }
+
+  public void setFeldGleitkommazahl(double gleitkommazahl)
+      throws RemoteException
+  {
+    setAttribute("feldgleitkommazahl", gleitkommazahl);
+  }
+
+  public BigDecimal getFeldWaehrung() throws RemoteException
+  {
+    return (BigDecimal) getAttribute("feldwaehrung");
+  }
+
+  public void setFeldWaehrung(BigDecimal waehrung) throws RemoteException
+  {
+    setAttribute("feldwaehrung", waehrung);
+  }
+
+  public Boolean getFeldJaNein() throws RemoteException
+  {
+    return new Boolean(Util.getBoolean(getAttribute("feldjanein")));
+  }
+
+  public void setFeldJaNein(Boolean janein) throws RemoteException
+  {
+    setAttribute("feldjanein", janein);
   }
 
   public Object getAttribute(String fieldName) throws RemoteException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2009/03/02 19:22:41  jost
  * Bug #15335
  *
@@ -29,10 +32,13 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.formatter.BeitragsgruppeFormatter;
+import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.formatter.ZahlungsrhytmusFormatter;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
+import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.parts.Column;
 
@@ -85,7 +91,25 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
       while (it.hasNext())
       {
         Felddefinition fd = (Felddefinition) it.next();
-        add(fd.getLabel(), "zusatzfelder." + fd.getName(), false);
+        switch (fd.getDatentyp())
+        {
+          case Datentyp.DATUM:
+            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
+                new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO);
+            break;
+          case Datentyp.WAEHRUNG:
+            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
+                new CurrencyFormatter("", Einstellungen.DECIMALFORMAT),
+                Column.ALIGN_AUTO);
+            break;
+          case Datentyp.JANEIN:
+            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
+                new JaNeinFormatter(), Column.ALIGN_AUTO);
+            break;
+          default:
+            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false);
+            break;
+        }
       }
     }
     catch (RemoteException e)

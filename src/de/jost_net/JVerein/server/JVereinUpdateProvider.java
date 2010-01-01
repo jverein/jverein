@@ -294,6 +294,30 @@ public class JVereinUpdateProvider
     {
       cv = update0079(conn, progressmonitor);
     }
+    if (cv < 80)
+    {
+      cv = update0080(conn, progressmonitor);
+    }
+    if (cv < 81)
+    {
+      cv = update0081(conn, progressmonitor);
+    }
+    if (cv < 82)
+    {
+      cv = update0082(conn, progressmonitor);
+    }
+    if (cv < 83)
+    {
+      cv = update0083(conn, progressmonitor);
+    }
+    if (cv < 84)
+    {
+      cv = update0084(conn, progressmonitor);
+    }
+    if (cv < 85)
+    {
+      cv = update0085(conn, progressmonitor);
+    }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -2214,4 +2238,114 @@ public class JVereinUpdateProvider
     return 79;
   }
 
+  private int update0080(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE felddefinition ADD datentyp integer default 1 before laenge;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE felddefinition ADD datentyp integer default 1 after label;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte datentyp in die Tabelle felddefinition aufgenommen");
+    return 80;
+  }
+
+  private int update0081(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD felddatum DATE NULL;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD felddatum DATE NULL;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
+    return 81;
+  }
+
+  private int update0082(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldganzzahl integer NULL;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldganzzahl integer NULL;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
+    return 82;
+  }
+
+  private int update0083(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldgleitkommazahl DOUBLE null;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldgleitkommazahl DOUBLE null;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
+    return 83;
+  }
+
+  private int update0084(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldwaehrung DECIMAL(15,2);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldwaehrung DECIMAL(15,2);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
+    return 84;
+  }
+
+  private int update0085(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldjanein CHAR(5) NULL;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzfelder ADD feldjanein CHAR(5) NULL;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
+    return 85;
+  }
 }
