@@ -23,9 +23,11 @@
 	Mitgliedsnummer speichern.</li>
 	</ul>
 	
-	<h2>Beitragsmodell</h2>
+	<h2>Beiträge</h2>
     <img src='images/Einstellungenbeitraege.jpg' class='screenshot'>
 	<p>Beitragsmodell, siehe auch Beitragsmodelle</</p>
+	<p>Ab Version 1.3 können die Standardwerte für den Zahlungsweg und den Zahlungsrhytmus für die Neueingabe von Mitgliedern eingestellt werden.</p>
+	
 	<h2>Dateinamenmuster</h2>
 	<img src='images/Einstellungendateinamen.jpg' class='screenshot'>
 	<p>Bei der Ausgabe von Dateien (Abbuchung, Auswertungen...) werden die Dateinamen nach dem 
@@ -49,12 +51,15 @@
 	<p>Festlegung, für welche Zahlungswege Rechnungsinformationen gespeichert werden sollen. (Ab Version 1.1)</p>
 	
 	
-	<h2><a name='tabellen'>Tabellen</a></h2>
+	<h2><a name='tabellen'></a>Tabellen</h2>
 	<p>Festlegung der Spalten, die in Tabellen angezeigt werden sollen. 
 	<img src='images/Einstellungentabellen.jpg' class='screenshot'>
 	
 	<!-- 
     $Log$
+    Revision 1.5  2009/11/19 21:11:43  jost
+    *** empty log message ***
+
     Revision 1.4  2009/11/17 21:05:16  jost
     *** empty log message ***
 

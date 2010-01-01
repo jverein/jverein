@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2009/11/19 21:10:51  jost
+ * Update-Option entfernt.
+ *
  * Revision 1.22  2009/10/17 19:46:44  jost
  * Vorbereitung Mailversand.
  *
@@ -144,6 +147,8 @@ public class EinstellungenView extends AbstractView
         JVereinPlugin.getI18n().tr("Beiträge"));
     groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"), control
         .getBeitragsmodel());
+    groupAbu.addInput(control.getZahlungsrhytmus());
+    groupAbu.addInput(control.getZahlungsweg());
 
     TabGroup tabDateinamen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Dateinamen"));

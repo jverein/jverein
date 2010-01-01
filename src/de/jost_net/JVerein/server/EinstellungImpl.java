@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2009/11/19 21:11:16  jost
+ * Update-Option entfernt.
+ *
  * Revision 1.9  2009/10/17 19:48:01  jost
  * Vorbereitung Mailversand.
  *
@@ -370,4 +373,25 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute("smtp_ssl", smtp_ssl);
   }
+
+  public int getZahlungsrhytmus() throws RemoteException
+  {
+    return (Integer) getAttribute("zahlungsrhytmus");
+  }
+
+  public void setZahlungsrhytmus(int zahlungsrhytmus) throws RemoteException
+  {
+    setAttribute("zahlungsrhytmus", zahlungsrhytmus);
+  }
+
+  public int getZahlungsweg() throws RemoteException
+  {
+    return (Integer) getAttribute("zahlungsweg");
+  }
+
+  public void setZahlungsweg(int zahlungsweg) throws RemoteException
+  {
+    setAttribute("zahlungsweg", zahlungsweg);
+  }
+
 }

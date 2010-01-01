@@ -318,6 +318,14 @@ public class JVereinUpdateProvider
     {
       cv = update0085(conn, progressmonitor);
     }
+    if (cv < 86)
+    {
+      cv = update0086(conn, progressmonitor);
+    }
+    if (cv < 87)
+    {
+      cv = update0087(conn, progressmonitor);
+    }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -2347,5 +2355,43 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
     return 85;
+  }
+
+  private int update0086(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zahlungsweg INT DEFAULT 1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zahlungsweg INT DEFAULT 1;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Default-Zahlungsweg in die Tabelle einstellung aufgenommen");
+    return 86;
+  }
+
+  private int update0087(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zahlungsrhytmus INT DEFAULT 12;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zahlungsrhytmus INT DEFAULT 12;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Default-Zahlungsrhytmus in die Tabelle einstellung aufgenommen");
+    return 87;
   }
 }

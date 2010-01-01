@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/12/06 21:41:48  jost
+ * Überflüssigen Code entfernt.
+ *
  * Revision 1.8  2009/11/19 21:11:03  jost
  * Update-Option entfernt.
  *
@@ -154,4 +157,12 @@ public interface Einstellung extends DBObject
   public Boolean getSmtpSsl() throws RemoteException;
 
   public void setSmtpSsl(Boolean smtp_ssl) throws RemoteException;
+
+  public int getZahlungsrhytmus() throws RemoteException;
+
+  public void setZahlungsrhytmus(int zahlungsrhytmus) throws RemoteException;
+
+  public int getZahlungsweg() throws RemoteException;
+
+  public void setZahlungsweg(int zahlungsweg) throws RemoteException;
 }

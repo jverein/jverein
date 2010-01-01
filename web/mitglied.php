@@ -76,7 +76,7 @@
 		<li>Barzahlung</li>
 		<li>Überweisung</li>
 	</ul>
-	<p>zur Verfügung.</p>
+	<p>zur Verfügung. Die Standardwerte können unter Administration|Einstellungen|Beiträge festgelegt werden.</p>
 	<p>Beim Zahlungsweg Abbuchung werden Bankleitzahl und die Kontonummer auf Plausibilität
 		überprüft. Zusätzlich kann ein abweichender Kontoinhaber eingegeben werden.</p>
 		
@@ -134,6 +134,9 @@
 
     <!-- 
     $Log$
+    Revision 1.5  2009/11/22 16:20:47  jost
+    *** empty log message ***
+
     Revision 1.4  2009/11/17 21:07:53  jost
     *** empty log message ***
 
