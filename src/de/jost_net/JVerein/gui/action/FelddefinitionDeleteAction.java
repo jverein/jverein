@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2009/01/07 19:38:23  jost
  * MySQL-Kompatibilität hergestellt.
  *
@@ -55,20 +58,16 @@ public class FelddefinitionDeleteAction implements Action
       DBIterator it = Einstellungen.getDBService().createList(
           Zusatzfelder.class);
       it.addFilter("felddefinition=?", new Object[] { fd.getID() });
-      it.addFilter("feld is not null");
-      it.addFilter("feld <>''");
-      if (it.size() > 0)
-      {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Dieses Feld ist noch bei einem Mitglied gespeichert"));
-      }
       if (fd.isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(JVereinPlugin.getI18n().tr("Felddefinition löschen"));
-      d.setText("Wollen Sie diese Felddefinition wirklich löschen?");
+      d
+          .setText("Das Feld ist bei "
+              + it.size()
+              + " Mitgliedern gespeichert. Wollen Sie diese Felddefinition wirklich löschen?");
 
       try
       {
@@ -84,7 +83,13 @@ public class FelddefinitionDeleteAction implements Action
             "Fehler beim Löschen der Felddefinition"), e);
         return;
       }
-
+      while (it.hasNext())
+      {
+        Zusatzfelder zf1 = (Zusatzfelder) it.next();
+        Zusatzfelder zf2 = (Zusatzfelder) Einstellungen.getDBService()
+            .createObject(Zusatzfelder.class, zf1.getID());
+        zf2.delete();
+      }
       fd.delete();
       GUI.getStatusBar().setSuccessText(
           JVereinPlugin.getI18n().tr("Felddefinition gelöscht."));
