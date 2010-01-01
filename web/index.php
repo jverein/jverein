@@ -60,7 +60,7 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
-    		<li>01.01.2010: Veröffentlichung der <a href='download/index.php?jverein.1.3.0-devel-219.zip'>Entwickler-Version 1.3.0 Rev. 219</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
+    		<li>01.01.2010: Veröffentlichung der <a href='download/index.php?jverein.1.3.0-devel-220.zip'>Entwickler-Version 1.3.0 Rev. 220</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>02.12.2009: Neues Dokument: <a href='openofficeh2.php'>Zugriff mit OpenOffice auf die H2-Datenbank</a></li>
     		<li>01.12.2009: Veröffentlichung der <a href='download/index.php?jverein.1.3.0-devel-217.zip'>Entwickler-Version 1.3.0 Rev. 217</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>30.10.2009: <a href="forum" target="new">Forum</a> ist online gegangen.</li> 
@@ -76,6 +76,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.18  2010/01/01 21:40:37  jost
+    *** empty log message ***
+
     Revision 1.17  2010/01/01 20:13:21  jost
     *** empty log message ***
 
