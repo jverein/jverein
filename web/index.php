@@ -1,6 +1,7 @@
 <? include ("frame.inc"); ?>
 	   
 	<div style="float:left; width: 600px;border:0px">
+    <h1><img src="images/weihnacht.gif" alt="Weihnachten">Allen JVerein-Nutzern und -Interessenten ein Frohes Weihnachtsfest und alles Gute für 2010.</h1>
     <h1>Home</h1>
     <p>
  <!--      <img src="images/JVerein_Box.jpg" alt="JVerein-Software-Box" >  -->
@@ -74,6 +75,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.16  2009/12/22 18:51:56  jost
+    *** empty log message ***
+
     Revision 1.15  2009/12/02 22:32:06  jost
     Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
 

@@ -3,6 +3,8 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>Zusatzfeldern können jetzt Datentypen zugeordnet werden</li>
+    			<li>Zusatzfelder: Bei der Löschung einer Felddefinition wird nach Rückfrage auch der Inhalt der Datenfelder beim Mitglied gelöscht.</li>
     			<li>Buchführung: Mehrere Buchungen können gleichzeitig gelöscht werden.</li>
     			<li>Buchführung: Mehrfache Buchungsübernahme verhindert.</li>
     			<li>Bugfix beim Austritt aller Mitglieder einer Familie (Familienbeitrag)</li>
@@ -450,6 +452,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.31  2009/12/17 19:26:21  jost
+    *** empty log message ***
+
     Revision 1.30  2009/12/13 17:44:02  jost
     *** empty log message ***
 
