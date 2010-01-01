@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:03:02  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/12/22 21:15:24  jost
  * Icons ins MenÃ¼ aufgenommen.
  *
@@ -20,6 +23,7 @@ package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungDeleteAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungDuplizierenAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 
@@ -34,6 +38,9 @@ public class SpendenbescheinigungMenu extends ContextMenu
    */
   public SpendenbescheinigungMenu()
   {
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "als Vorlage für neue Spende"),
+        new SpendenbescheinigungDuplizierenAction(), "edit-copy.png"));
     addItem(new CheckedContextMenuItem(
         JVereinPlugin.getI18n().tr("löschen..."),
         new SpendenbescheinigungDeleteAction(), "user-trash.png"));
