@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008/12/24 09:17:09  jost
+ * Bei Altersjubil√§en wird jetzt das Geburtsdatum anstatt des Eintrittsdatums ausgegeben.
+ *
  * Revision 1.5  2008/12/06 16:46:57  jost
  * Debug-Meldung entfernt.
  *
@@ -77,24 +80,29 @@ public class Jubilaeenliste
         {
           throw new RemoteException("keine Stammdaten gespeichert");
         }
+
+        if (art.equals(MitgliedControl.JUBELART_MITGLIEDSCHAFT))
+        {
+          mitgliedschaft(reporter, stamm, jahr);
+        }
+        else if (art.equals(MitgliedControl.JUBELART_ALTER))
+        {
+          alter(reporter, stamm, jahr);
+        }
+
+        reporter.close();
+        fos.close();
       }
       catch (RemoteException e)
       {
         throw new ApplicationException(
             "Keine Stammdaten gespeichert. Bitte erfassen.");
       }
-
-      if (art.equals(MitgliedControl.JUBELART_MITGLIEDSCHAFT))
+      catch (RuntimeException e)
       {
-        mitgliedschaft(reporter, stamm, jahr);
+        throw new ApplicationException(
+            "Keine Angaben zu Altersjubil‰en in den Stammdaten");
       }
-      else if (art.equals(MitgliedControl.JUBELART_ALTER))
-      {
-        alter(reporter, stamm, jahr);
-      }
-
-      reporter.close();
-      fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
         public void run()

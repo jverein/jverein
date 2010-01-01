@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.72  2010/01/01 18:38:04  jost
+ * Typisierung der Zusatzfelder
+ *
  * Revision 1.71  2009/12/03 16:32:26  jost
  * Bugfix Anzeige Eigenschaften
  *
@@ -2388,10 +2391,6 @@ public class MitgliedControl extends AbstractControl
           new Jubilaeenliste(file, monitor, jahr, art);
         }
         catch (RemoteException e)
-        {
-          e.printStackTrace();
-        }
-        catch (ApplicationException e)
         {
           e.printStackTrace();
         }
