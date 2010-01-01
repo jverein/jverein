@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/12/22 08:27:02  jost
+ * Neu: JubilÃ¤enliste
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -36,7 +39,7 @@ public class JubilaeenParser
       }
       catch (NumberFormatException e)
       {
-        throw new RuntimeException("Ungültiger Eintag: " + element);
+        throw new RuntimeException("Ungültiger Eintrag: " + element);
       }
     }
   }
