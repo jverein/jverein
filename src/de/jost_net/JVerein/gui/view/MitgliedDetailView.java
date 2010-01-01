@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2009/12/06 21:40:59  jost
+ * Überflüssigen Code entfernt.
+ *
  * Revision 1.36  2009/11/23 20:42:18  jost
  * Bugfix f. Windows. Größe der Eigenschaftauswahl verändert.
  *
@@ -141,6 +144,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
@@ -276,13 +280,13 @@ public class MitgliedDetailView extends AbstractView
       control.getEigenschaftenTree()
           .paint(scrolledEigenschaften.getComposite());
     }
-    TextInput[] zusatzfelder = control.getZusatzfelder();
+    Input[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
     {
       TabGroup tab8 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Zusatzfelder"));
       ScrolledContainer cont = new ScrolledContainer(tab8.getComposite());
-      for (TextInput inp : zusatzfelder)
+      for (Input inp : zusatzfelder)
       {
         cont.addInput(inp);
       }

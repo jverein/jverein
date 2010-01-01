@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.71  2009/12/03 16:32:26  jost
+ * Bugfix Anzeige Eigenschaften
+ *
  * Revision 1.70  2009/11/19 19:43:49  jost
  * Bugfix Eigenschaften
  *
@@ -227,6 +230,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -261,6 +265,7 @@ import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
+import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -288,7 +293,9 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.TreeFormatter;
+import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
+import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
@@ -362,7 +369,7 @@ public class MitgliedControl extends AbstractControl
 
   private DateInput kuendigung = null;
 
-  private TextInput[] zusatzfelder;
+  private Input[] zusatzfelder;
 
   private TreePart eigenschaftenTree;
 
@@ -1076,14 +1083,17 @@ public class MitgliedControl extends AbstractControl
       }
     });
 
-    if (getMitglied().getBeitragsgruppe() != null
-        && getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+    if (getBeitragsgruppe() != null && getBeitragsgruppe().getValue() != null)
     {
-      zahler.setEnabled(true);
-    }
-    else
-    {
-      zahler.setEnabled(false);
+      Beitragsgruppe bg2 = (Beitragsgruppe) getBeitragsgruppe().getValue();
+      if (bg2.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+      {
+        zahler.setEnabled(true);
+      }
+      else
+      {
+        zahler.setEnabled(false);
+      }
     }
     return zahler;
   }
@@ -1162,7 +1172,7 @@ public class MitgliedControl extends AbstractControl
     return vermerk2;
   }
 
-  public TextInput[] getZusatzfelder() throws RemoteException
+  public Input[] getZusatzfelder() throws RemoteException
   {
     if (zusatzfelder != null)
     {
@@ -1175,17 +1185,12 @@ public class MitgliedControl extends AbstractControl
     {
       return null;
     }
-    zusatzfelder = new TextInput[anzahl];
-    for (int i = 0; i < anzahl; i++)
+    zusatzfelder = new Input[anzahl];
+    Zusatzfelder zf = null;
+    int i = 0;
+    while (it.hasNext())
     {
       Felddefinition fd = (Felddefinition) it.next();
-      zusatzfelder[i] = new TextInput("", fd.getLaenge());
-      zusatzfelder[i].setName(fd.getLabel());
-      if (fd.getLabel() == null)
-
-      {
-        zusatzfelder[i].setName(fd.getName());
-      }
       if (getMitglied().getID() != null)
       {
         DBIterator it2 = Einstellungen.getDBService().createList(
@@ -1194,10 +1199,53 @@ public class MitgliedControl extends AbstractControl
         it2.addFilter("felddefinition=?", new Object[] { fd.getID() });
         if (it2.size() > 0)
         {
-          Zusatzfelder zf = (Zusatzfelder) it2.next();
-          zusatzfelder[i].setValue(zf.getFeld());
+          zf = (Zusatzfelder) it2.next();
+        }
+        else
+        {
+          zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
+              Zusatzfelder.class, null);
+          zf.setMitglied(Integer.parseInt(getMitglied().getID()));
+          zf.setFelddefinition(Integer.parseInt(fd.getID()));
         }
       }
+      switch (fd.getDatentyp())
+      {
+        case Datentyp.ZEICHENFOLGE:
+          zusatzfelder[i] = new TextInput(zf.getFeld(), fd.getLaenge());
+          break;
+        case Datentyp.DATUM:
+          Date d = zf.getFeldDatum();
+          DateInput di = new DateInput(d, Einstellungen.DATEFORMAT);
+          di.setName(fd.getLabel());
+          di.setTitle(fd.getLabel());
+          di.setText("Bitte " + fd.getLabel() + " wählen");
+          zusatzfelder[i] = di;
+          break;
+        case Datentyp.GANZZAHL:
+          if (zf.getFeldGanzzahl() == null)
+          {
+            zf.setFeldGanzzahl(0);
+          }
+          zusatzfelder[i] = new IntegerInput(zf.getFeldGanzzahl());
+          break;
+        case Datentyp.WAEHRUNG:
+          zusatzfelder[i] = new DecimalInput(zf.getFeldWaehrung(),
+              Einstellungen.DECIMALFORMAT);
+          break;
+        case Datentyp.JANEIN:
+          zusatzfelder[i] = new CheckboxInput(zf.getFeldJaNein());
+          break;
+        default:
+          zusatzfelder[i] = new TextInput("", fd.getLaenge());
+          break;
+      }
+      zusatzfelder[i].setName(fd.getLabel());
+      if (fd.getLabel() == null)
+      {
+        zusatzfelder[i].setName(fd.getName());
+      }
+      i++;
     }
     return zusatzfelder;
   }
@@ -2048,7 +2096,7 @@ public class MitgliedControl extends AbstractControl
 
       if (zusatzfelder != null)
       {
-        for (TextInput ti : zusatzfelder)
+        for (Input ti : zusatzfelder)
         {
           // Felddefinition ermitteln
           DBIterator it0 = Einstellungen.getDBService().createList(
@@ -2072,7 +2120,34 @@ public class MitgliedControl extends AbstractControl
           }
           zf.setMitglied(new Integer(m.getID()));
           zf.setFelddefinition(new Integer(fd.getID()));
-          zf.setFeld((String) ti.getValue());
+          switch (fd.getDatentyp())
+          {
+            case Datentyp.ZEICHENFOLGE:
+              zf.setFeld((String) ti.getValue());
+              break;
+            case Datentyp.DATUM:
+              zf.setFeldDatum((Date) ti.getValue());
+              break;
+            case Datentyp.GANZZAHL:
+              zf.setFeldGanzzahl((Integer) ti.getValue());
+              break;
+            case Datentyp.WAEHRUNG:
+              if (ti.getValue() != null)
+              {
+                zf.setFeldWaehrung(new BigDecimal((Double) ti.getValue()));
+              }
+              else
+              {
+                zf.setFeldWaehrung(null);
+              }
+              break;
+            case Datentyp.JANEIN:
+              zf.setFeldJaNein((Boolean) ti.getValue());
+              break;
+            default:
+              zf.setFeld((String) ti.getValue());
+              break;
+          }
           zf.store();
         }
       }
@@ -2147,7 +2222,7 @@ public class MitgliedControl extends AbstractControl
       }
       if (austrittvon.getValue() == null && austrittbis.getValue() == null)
       {
-        subtitle += "nur Angemeldete, keine Ausgetretenen  ";
+        subtitle += "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)  ";
       }
       if (beitragsgruppeausw.getValue() != null)
       {
