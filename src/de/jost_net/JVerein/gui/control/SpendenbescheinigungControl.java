@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/07/24 20:19:31  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.10  2009/06/22 18:14:21  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -322,7 +325,7 @@ public class SpendenbescheinigungControl extends AbstractControl
               "Fehler bei der Aufbereitung der Spendenbescheinigung");
         }
       }
-    }, null, true); // "true" defines this button as the default button
+    }, null, false, "acroread.png");
     return b;
   }
 
