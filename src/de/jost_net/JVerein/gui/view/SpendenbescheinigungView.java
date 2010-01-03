@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/07/24 20:22:53  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.6  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -32,6 +35,7 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.control.SpendenbescheinigungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -92,12 +96,14 @@ public class SpendenbescheinigungView extends AbstractView
     right.addLabelPair(JVereinPlugin.getI18n().tr("Formular"), control
         .getFormular());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
         false, "help-browser.png");
     buttons.addButton(control.getPDFButton());
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+        new SpendenbescheinigungAction(), null, false, "document-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
