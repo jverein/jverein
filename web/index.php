@@ -1,7 +1,6 @@
 <? include ("frame.inc"); ?>
 	   
 	<div style="float:left; width: 600px;border:0px">
-    <h1><img src="images/weihnacht.gif" alt="Weihnachten">Allen JVerein-Nutzern und -Interessenten ein Frohes Weihnachtsfest und alles Gute für 2010.</h1>
     <h1>Home</h1>
     <p>
  <!--      <img src="images/JVerein_Box.jpg" alt="JVerein-Software-Box" >  -->
@@ -76,6 +75,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.19  2010/01/01 22:40:33  jost
+    *** empty log message ***
+
     Revision 1.18  2010/01/01 21:40:37  jost
     *** empty log message ***
 
