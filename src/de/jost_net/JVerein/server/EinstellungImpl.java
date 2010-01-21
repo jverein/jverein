@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010/01/01 22:36:19  jost
+ * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
+ *
  * Revision 1.10  2009/11/19 21:11:16  jost
  * Update-Option entfernt.
  *
@@ -376,7 +379,14 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public int getZahlungsrhytmus() throws RemoteException
   {
-    return (Integer) getAttribute("zahlungsrhytmus");
+    try
+    {
+      return (Integer) getAttribute("zahlungsrhytmus");
+    }
+    catch (NullPointerException e)
+    {
+      return 12;
+    }
   }
 
   public void setZahlungsrhytmus(int zahlungsrhytmus) throws RemoteException
@@ -386,7 +396,14 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public int getZahlungsweg() throws RemoteException
   {
-    return (Integer) getAttribute("zahlungsweg");
+    try
+    {
+      return (Integer) getAttribute("zahlungsweg");
+    }
+    catch (NullPointerException e)
+    {
+      return 1;
+    }
   }
 
   public void setZahlungsweg(int zahlungsweg) throws RemoteException
