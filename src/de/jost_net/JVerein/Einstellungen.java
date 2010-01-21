@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.21  2009/07/18 13:42:30  jost
+ * Bugfix DecimalFormat
+ *
  * Revision 1.20  2009/05/31 12:26:02  jost
  * Bugfix FirstStart / Existenz von Beitragsgruppen wird jetzt auch abgeprüft.
  *
@@ -108,6 +111,9 @@ public class Einstellungen
    * Datums-Format dd.MM.yyyy.
    */
   public static DateFormat DATEFORMAT = new SimpleDateFormat("dd.MM.yyyy");
+
+  public static DateFormat DATETIMEFORMAT = new SimpleDateFormat(
+      "dd.MM.yyyy HH:mm:ss");
 
   /**
    * Timestamp-Format dd.MM.yyyy HH:mm.
