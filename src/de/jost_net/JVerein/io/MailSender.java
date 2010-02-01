@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/10/17 19:46:59  jost
+ * Vorbereitung Mailversand.
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.io;
@@ -22,6 +25,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import de.willuhn.jameica.system.Application;
+import de.willuhn.logging.Level;
 
 public class MailSender
 {
@@ -50,7 +56,6 @@ public class MailSender
   }
 
   // Send to a single recipient
-
   public void sendMail(String email, String subject, String text)
       throws Exception
   {
@@ -61,11 +66,9 @@ public class MailSender
 
   // //Send to multiple recipients
 
-  public void sendMail(String[] emailList, String subject, String text)
+  public void sendMail(String[] emailadresses, String subject, String text)
       throws Exception
   {
-    boolean debug = true;
-
     Properties props = new Properties();
 
     props.put("mail.smtp.host", smtp_host_name);
@@ -95,19 +98,24 @@ public class MailSender
     {
       session = Session.getDefaultInstance(props);
     }
-
-    session.setDebug(debug);
-
+    if (Application.getConfig().getLogLevel().equals(Level.DEBUG.getName()))
+    {
+      session.setDebug(true);
+    }
+    else
+    {
+      session.setDebug(false);
+    }
     Message msg = new MimeMessage(session);
 
     InternetAddress addressFrom = new InternetAddress(smtp_from_address);
     msg.setFrom(addressFrom);
 
-    InternetAddress[] addressTo = new InternetAddress[emailList.length];
+    InternetAddress[] addressTo = new InternetAddress[emailadresses.length];
 
-    for (int i = 0; i < emailList.length; i++)
+    for (int i = 0; i < emailadresses.length; i++)
     {
-      addressTo[i] = new InternetAddress(emailList[i]);
+      addressTo[i] = new InternetAddress(emailadresses[i]);
     }
 
     msg.setRecipients(Message.RecipientType.TO, addressTo);
