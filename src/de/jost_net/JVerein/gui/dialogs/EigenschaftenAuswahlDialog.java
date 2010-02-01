@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/12/06 21:40:39  jost
+ * Überflüssigen Code entfernt.
+ *
  * Revision 1.4  2009/11/19 19:44:02  jost
  * Bugfix Eigenschaften
  *
@@ -78,7 +81,7 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
         String tmp1 = "";
         try
         {
-          ArrayList checkednodes = (ArrayList) tree.getItems();
+          ArrayList<?> checkednodes = (ArrayList<?>) tree.getItems();
           for (Object o : checkednodes)
           {
             EigenschaftenNode checkedNode = (EigenschaftenNode) o;

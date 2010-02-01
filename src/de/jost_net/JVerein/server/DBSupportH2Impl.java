@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/11/17 21:02:38  jost
+ * DB-Aktualisierung optimiert.
+ *
  * Revision 1.11  2009/06/02 17:12:55  jost
  * Ausgabe der Datenbankversion.
  *
@@ -80,8 +83,8 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
 
     try
     {
-      Method m = Application.getClassLoader().load("org.h2.engine.Constants")
-          .getMethod("getVersion", (Class[]) null);
+      Method m = (Method) Application.getClassLoader().load(
+          "org.h2.engine.Constants").getMethod("getVersion", (Class<?>[]) null);
       Logger.info("h2 version: " + m.invoke(null, (Object[]) null));
     }
     catch (Throwable t)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/12/17 19:25:44  jost
+ * *** empty log message ***
+ *
  * Revision 1.1  2009/10/20 18:00:48  jost
  * Neu: Import von Zusatzbeträgen
  *
@@ -29,7 +32,7 @@ public class IORegistry
 {
 
   // Liste der Zusatzbeträge-Import-Filter
-  private static ArrayList zusatzbetraege = null;
+  private static ArrayList<?> zusatzbetraege = null;
 
   static
   {
@@ -44,13 +47,13 @@ public class IORegistry
    *          zu ladender Typ.
    * @return Liste der gefundenen Importer/Exporter.
    */
-  private static synchronized ArrayList load(Class<?> type)
+  private static synchronized ArrayList<?> load(Class<?> type)
   {
-    ArrayList l = new ArrayList();
+    ArrayList<IO> l = new ArrayList<IO>();
     try
     {
       ClassFinder finder = Application.getClassLoader().getClassFinder();
-      Class[] list = finder.findImplementors(type);
+      Class<?>[] list = finder.findImplementors(type);
       if (list == null || list.length == 0)
       {
         throw new ClassNotFoundException();
@@ -83,7 +86,7 @@ public class IORegistry
   /**
    * Liefert eine Liste aller verfuegbaren Import-Formate für Zusatzbeträge
    */
-  public static Importer[] getImporter(Class<Object> type)
+  public static Importer[] getImporter(Class<?> type)
       throws ClassNotFoundException
   {
     if (type.getName().equals(IZusatzbetraegeImport.class.getName()))

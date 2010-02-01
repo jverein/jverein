@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/10/20 17:58:08  jost
+ * Neu: Import von Zusatzbeträgen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 
@@ -51,9 +54,9 @@ public class ImportDialog extends AbstractDialog
 
   private GenericObject context = null;
 
-  private Class<Object> type = null;
+  private Class<?> type = null;
 
-  public ImportDialog(GenericObject context, Class type)
+  public ImportDialog(GenericObject context, Class<?> type)
   {
     super(POSITION_CENTER);
     i18n = JVereinPlugin.getI18n();
