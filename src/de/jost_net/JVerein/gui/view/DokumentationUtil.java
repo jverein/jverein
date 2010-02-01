@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2009/12/11 22:34:18  jost
+ * Link korrigiert.
+ *
  * Revision 1.17  2009/11/17 20:59:38  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -115,6 +118,8 @@ public class DokumentationUtil
       + "dokumentationauswertungjubilaeen.php";
 
   public static final String LEHRGANG = PRE + "lehrgaenge.php";
+
+  public static final String MAIL = PRE + "mail.php";
 
   public static final String MITGLIED = PRE + "mitglied.php";
 

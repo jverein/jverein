@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010/01/01 22:35:57  jost
+ * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
+ *
  * Revision 1.23  2009/11/19 21:10:51  jost
  * Update-Option entfernt.
  *
@@ -189,17 +192,15 @@ public class EinstellungenView extends AbstractView
         JVereinPlugin.getI18n().tr("Trefferliste Mitglieder"));
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
 
-    // TabGroup tabMail = new TabGroup(folder,
-    // JVereinPlugin.getI18n().tr("Mail"));
-    // LabelGroup groupMail = new LabelGroup(tabMail.getComposite(),
-    // JVereinPlugin
-    // .getI18n().tr("Mail"));
-    // groupMail.addLabelPair("Server", control.getSmtpServer());
-    // groupMail.addLabelPair("Port", control.getSmtpPort());
-    // groupMail.addLabelPair("Benutzer", control.getSmtpAuthUser());
-    // groupMail.addLabelPair("Passwort", control.getSmtpAuthPwd());
-    // groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
-    // groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
+    TabGroup tabMail = new TabGroup(folder, JVereinPlugin.getI18n().tr("Mail"));
+    LabelGroup groupMail = new LabelGroup(tabMail.getComposite(), JVereinPlugin
+        .getI18n().tr("Mail"));
+    groupMail.addLabelPair("Server", control.getSmtpServer());
+    groupMail.addLabelPair("Port", control.getSmtpPort());
+    groupMail.addLabelPair("Benutzer", control.getSmtpAuthUser());
+    groupMail.addLabelPair("Passwort", control.getSmtpAuthPwd());
+    groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
+    groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));

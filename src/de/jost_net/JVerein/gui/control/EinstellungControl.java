@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2010/01/01 22:35:31  jost
+ * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
+ *
  * Revision 1.21  2009/12/06 21:40:23  jost
  * Überflüssigen Code entfernt.
  *
@@ -507,13 +510,13 @@ public class EinstellungControl extends AbstractControl
       e.setRechnungFuerBarzahlung((Boolean) rechnungfuerbarzahlung.getValue());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
-      // e.setSmtpServer((String) smtp_server.getValue());
-      // Integer port = (Integer) smtp_port.getValue();
-      // e.setSmtpPort(port.toString());
-      // e.setSmtpAuthUser((String) smtp_auth_user.getValue());
-      // e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
-      // e.setSmtpFromAddress((String) smtp_from_address.getValue());
-      // e.setSmtpSsl((Boolean) smtp_ssl.getValue());
+      e.setSmtpServer((String) smtp_server.getValue());
+      Integer port = (Integer) smtp_port.getValue();
+      e.setSmtpPort(port.toString());
+      e.setSmtpAuthUser((String) smtp_auth_user.getValue());
+      e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
+      e.setSmtpFromAddress((String) smtp_from_address.getValue());
+      e.setSmtpSsl((Boolean) smtp_ssl.getValue());
       Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();

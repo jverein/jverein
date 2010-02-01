@@ -326,6 +326,26 @@ public class JVereinUpdateProvider
     {
       cv = update0087(conn, progressmonitor);
     }
+    if (cv < 88)
+    {
+      cv = update0088(conn, progressmonitor);
+    }
+    if (cv < 89)
+    {
+      cv = update0089(conn, progressmonitor);
+    }
+    if (cv < 90)
+    {
+      cv = update0090(conn, progressmonitor);
+    }
+    if (cv < 91)
+    {
+      cv = update0091(conn, progressmonitor);
+    }
+    if (cv < 92)
+    {
+      cv = update0092(conn, progressmonitor);
+    }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -2394,4 +2414,140 @@ public class JVereinUpdateProvider
         "Default-Zahlungsrhytmus in die Tabelle einstellung aufgenommen");
     return 87;
   }
+
+  private int update0088(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mailvorlage (");
+    sb.append(" id IDENTITY, ");
+    sb.append(" betreff VARCHAR(100) NOT NULL,");
+    sb.append(" txt VARCHAR(1000) NOT NULL,");
+    sb.append(" UNIQUE (id), ");
+    sb.append("UNIQUE (betreff),");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mailvorlage (");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" betreff VARCHAR(100) NOT NULL,");
+    sb.append(" txt VARCHAR(1000),");
+    sb.append(" UNIQUE (id), ");
+    sb.append("UNIQUE (betreff),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(" ) TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle mailvorlage erstellt");
+    return 88;
+  }
+
+  private int update0089(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mail (");
+    sb.append(" id IDENTITY, ");
+    sb.append(" betreff VARCHAR(100) NOT NULL,");
+    sb.append(" txt VARCHAR(1000) NOT NULL,");
+    sb.append(" bearbeitung TIMESTAMP NOT NULL, ");
+    sb.append(" versand TIMESTAMP, ");
+    sb.append(" UNIQUE (id), ");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mail (");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" betreff VARCHAR(100) NOT NULL,");
+    sb.append(" txt VARCHAR(1000),");
+    sb.append(" bearbeitung TIMESTAMP NOT NULL, ");
+    sb.append(" versand TIMESTAMP, ");
+    sb.append(" UNIQUE (id), ");
+    sb.append("UNIQUE (betreff),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle mail erstellt");
+    return 89;
+  }
+
+  private int update0090(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mailempfaenger (");
+    sb.append(" id IDENTITY, ");
+    sb.append(" mail INTEGER NOT NULL, ");
+    sb.append(" mitglied INTEGER,");
+    sb.append(" adresse VARCHAR(50),");
+    sb.append(" UNIQUE (id), ");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mailempfaenger (");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" mail INTEGER NOT NULL, ");
+    sb.append(" mitglied INTEGER, ");
+    sb.append(" adresse VARCHAR(50),");
+    sb.append(" UNIQUE (id), ");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, "Tabelle mailempfaenger erstellt");
+    return 90;
+  }
+
+  private int update0091(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id)  ON DELETE CASCADE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt");
+    return 91;
+  }
+
+  private int update0092(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 2 für mailempfaenger erstellt");
+    return 92;
+  }
+
 }
