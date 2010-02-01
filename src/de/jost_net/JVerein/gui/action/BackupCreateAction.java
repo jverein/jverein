@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/11/17 20:50:09  jost
+ * Codeoptimierung
+ *
  * Revision 1.5  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -40,6 +43,9 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Mail;
+import de.jost_net.JVerein.rmi.MailEmpfaenger;
+import de.jost_net.JVerein.rmi.MailVorlage;
 import de.jost_net.JVerein.server.AbrechnungImpl;
 import de.jost_net.JVerein.server.AnfangsbestandImpl;
 import de.jost_net.JVerein.server.BeitragsgruppeImpl;
@@ -65,7 +71,6 @@ import de.jost_net.JVerein.server.ZusatzbetragImpl;
 import de.jost_net.JVerein.server.ZusatzfelderImpl;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
-import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.serialize.Writer;
 import de.willuhn.datasource.serialize.XmlWriter;
@@ -84,7 +89,7 @@ import de.willuhn.util.ProgressMonitor;
 public class BackupCreateAction implements Action
 {
   // Die Versionstabelle wird nicht mit kopiert
-  Class[] tab = { StammdatenImpl.class, EinstellungImpl.class,
+  Class<?>[] tab = { StammdatenImpl.class, EinstellungImpl.class,
       BeitragsgruppeImpl.class, BeitragsgruppeImpl.class,
       BuchungsartImpl.class, KontoImpl.class, BuchungImpl.class,
       FelddefinitionImpl.class, SpendenbescheinigungImpl.class,
@@ -94,7 +99,7 @@ public class BackupCreateAction implements Action
       JahresabschlussImpl.class, ManuellerZahlungseingangImpl.class,
       KursteilnehmerImpl.class, WiedervorlageImpl.class,
       ZusatzbetragImpl.class, ZusatzfelderImpl.class, LehrgangsartImpl.class,
-      LehrgangImpl.class };
+      LehrgangImpl.class, MailVorlage.class, MailEmpfaenger.class, Mail.class };
 
   /**
    * Dateformat, welches fuer den Dateinamen genutzt wird.
@@ -156,7 +161,7 @@ public class BackupCreateAction implements Action
           writer = new XmlWriter(new BufferedOutputStream(new FileOutputStream(
               file)));
 
-          for (Class<AbstractDBObject> clazz : tab)
+          for (Class<?> clazz : tab)
           {
             backup(clazz, writer, monitor);
             monitor.addPercentComplete(100 / tab.length);
