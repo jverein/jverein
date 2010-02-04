@@ -36,6 +36,9 @@
    <tr><th>Name</th><th>Inhalt</th></tr>
    <tr><td>$email</td><td>Emailadresse des Empfängers</td></tr>
    <tr><td>$tagesdatum</td><td>Aktuelles Datum in der Form tt.mm.jjjj</td></tr>
+   <tr><td>$vormonat</td><td>Vormonat im Format mm.jjjj</td></tr>
+   <tr><td>$aktuellermonat</td><td>Aktueller Monat im Format mm.jjjj</td></tr>
+   <tr><td>$folgemonat</td><td>Folgemonat im Format mm.jjjj</td></tr>
    <tr><td>$empf.anrede</td><td>Anrede</td></tr>
    <tr><td>$empf.titel</td><td>Titel</td></tr>
    <tr><td>$empf.name</td><td>Name</td></tr>
@@ -55,6 +58,9 @@
    </table>
     <!-- 
     $Log$
+    Revision 1.1  2010/02/01 21:03:42  jost
+    Neu: Einfache Mailfunktion
+
     -->
         
 <? include ("footer.inc"); ?>
