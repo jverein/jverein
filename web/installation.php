@@ -1,5 +1,24 @@
 <? include ("frame.inc"); ?>
     <h1>Installation</h1>
+    <h2>Abh‰ngigkeiten</h2>
+    <table border="1">
+    	<tr>
+    		<th rowspan=2>JVerein</td><th colspan=2> ist abh‰ngig von</th>
+    	</tr>
+    	<tr>
+    		<th>Jameica</th><th>Hibiscus</td>
+    	</tr>
+    	<tr> 
+    		<td align=center>1.1</td><td align=center>1.7</td><td align=center>1.9</td>
+       	</tr>
+    	<tr> 
+    		<td align=center>1.2</td><td align=center>1.8</td><td align=center>1.10</td>
+       	</tr>
+    	<tr> 
+    		<td align=center>Entwicklerversion 1.3</td><td align=center>Nighly-Build 1.9</td><td align=center>Nighly-Build 1.11</td>
+       	</tr>
+    </table>
+    <p></p>
     <h2>Standardinstallation</h2>
 	<p><a href="http://www.willuhn.de/products/jameica/">Jameica</a>  ist gem‰ﬂ 
 		<a href="http://jameica.berlios.de/doku.php?id=support:install">Anleitung</a> zu installieren.</p>
@@ -32,6 +51,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.3  2009/09/11 13:41:38  jost
+    Neue Download-Adresse der Jamaica-Suite
+
     Revision 1.2  2009/08/19 21:01:34  jost
     *** empty log message ***
 
