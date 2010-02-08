@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.75  2010/02/01 20:58:33  jost
+ * Vermeidung Warnings.
+ *
  * Revision 1.74  2010/01/01 22:35:44  jost
  * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
  *
@@ -263,6 +266,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
@@ -1303,7 +1307,7 @@ public class MitgliedControl extends AbstractControl
     zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
     zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
-    zusatzbetraegeList.addColumn("aktiv", "aktiv");
+    zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
     zusatzbetraegeList
         .setContextMenu(new ZusatzbetraegeMenu(zusatzbetraegeList));
     return zusatzbetraegeList;

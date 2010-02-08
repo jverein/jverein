@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/07/27 15:25:49  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.2  2009/06/22 18:15:00  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -63,6 +66,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
+import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -415,7 +419,7 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
       zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
-      zusatzbetraegeList.addColumn("aktiv", "aktiv");
+      zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
 
       zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
           zusatzbetraegeList));
