@@ -3,6 +3,8 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    		    <li>Liste der Zusatzbeträge: true/false wird als X bzw. _ dargestellt</li>
+    		    <li>Mitgliedsdaten: Der zuletzt ausgewählte Tab wird bei Betätigung von "zurück" aktiviert.</li>
     		    <li>Erste Version eines einfachen Programms zum Versand von Mails.</li>
     		    <li>Standardwerte für Zahlungsweg und Zahlungsrhytmus bei der Neueingabe von Mitgliedern können unter Administration|Einstellungen|Beiträge eingestellt werden. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16605&group_id=7335'>#16605</a></li>
     			<li>Spendenbescheinigung: Existierende Spendenbescheinigung kann als Vorlage für eine neue Spendenbescheinigung verwendet werden.</li>
@@ -456,6 +458,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.36  2010/02/01 21:03:42  jost
+    Neu: Einfache Mailfunktion
+
     Revision 1.35  2010/01/01 22:37:15  jost
     Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
 
