@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.76  2010/02/08 18:14:17  jost
+ * JaNeinFormatter f. Zusatzzahlungen
+ *
  * Revision 1.75  2010/02/01 20:58:33  jost
  * Vermeidung Warnings.
  *
@@ -292,6 +295,7 @@ import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -822,6 +826,23 @@ public class MitgliedControl extends AbstractControl
     BLZListener l = new BLZListener();
     blz.addListener(l);
     l.handleEvent(null); // Einmal initial ausfuehren
+    blz.addListener(new Listener()
+    {
+      public void handleEvent(Event arg0)
+      {
+        try
+        {
+          getIban().setValue(
+              IbanBicCalc.createIban((String) getKonto().getValue(),
+                  (String) getBlz().getValue(), "DE"));
+        }
+        catch (RemoteException e)
+        {
+          // 
+        }
+      }
+
+    });
     return blz;
   }
 
@@ -835,6 +856,22 @@ public class MitgliedControl extends AbstractControl
     konto.setName("Konto");
     konto.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.ABBUCHUNG);
+    konto.addListener(new Listener()
+    {
+      public void handleEvent(Event arg0)
+      {
+        try
+        {
+          getIban().setValue(
+              IbanBicCalc.createIban((String) getKonto().getValue(),
+                  (String) getBlz().getValue(), "DE"));
+        }
+        catch (RemoteException e)
+        {
+          // 
+        }
+      }
+    });
     return konto;
   }
 
