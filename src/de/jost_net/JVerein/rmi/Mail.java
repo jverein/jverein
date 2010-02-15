@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/02/01 21:02:25  jost
+ * Neu: Einfache Mailfunktion
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -24,6 +27,10 @@ public interface Mail extends DBObject
 
   public void setEmpfaenger(TreeSet<MailEmpfaenger> empfaenger)
       throws RemoteException;
+
+  public TreeSet<MailAnhang> getAnhang() throws RemoteException;
+
+  public void setAnhang(TreeSet<MailAnhang> anhang) throws RemoteException;
 
   public String getBetreff() throws RemoteException;
 

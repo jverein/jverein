@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/02/01 21:03:15  jost
+ * Neu: Einfache Mailfunktion
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.server;
@@ -19,6 +22,7 @@ import java.util.TreeSet;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mail;
+import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -29,6 +33,8 @@ public class MailImpl extends AbstractDBObject implements Mail
   private static final long serialVersionUID = 1L;
 
   private TreeSet<MailEmpfaenger> empfaenger = null;
+
+  private TreeSet<MailAnhang> anhang = null;
 
   public MailImpl() throws RemoteException
   {
@@ -93,6 +99,16 @@ public class MailImpl extends AbstractDBObject implements Mail
       throws RemoteException
   {
     this.empfaenger = empfaenger;
+  }
+
+  public TreeSet<MailAnhang> getAnhang() throws RemoteException
+  {
+    return anhang;
+  }
+
+  public void setAnhang(TreeSet<MailAnhang> anhang) throws RemoteException
+  {
+    this.anhang = anhang;
   }
 
   public String getBetreff() throws RemoteException

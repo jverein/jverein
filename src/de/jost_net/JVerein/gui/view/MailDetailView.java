@@ -9,19 +9,28 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/02/01 21:00:49  jost
+ * Neu: Einfache Mailfunktion
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
+
+import java.io.File;
+import java.io.FileInputStream;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Text;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.gui.dialogs.MailEmpfaengerAuswahlDialog;
+import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -29,6 +38,7 @@ import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class MailDetailView extends AbstractView
@@ -84,6 +94,56 @@ public class MailDetailView extends AbstractView
     control.getBetreff().paint(comp);
     addLabel("Text", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     control.getTxt().paint(comp);
+
+    addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
+    Composite comp4 = new Composite(comp, SWT.NONE);
+    GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
+    gd4.heightHint = 100;
+    comp4.setLayoutData(gd4);
+    GridLayout gl4 = new GridLayout();
+    gl4.marginWidth = 0;
+    comp4.setLayout(gl4);
+    control.getAnhang().paint(comp4);
+
+    Composite comp5 = new Composite(comp, SWT.NONE);
+    GridData gd5 = new GridData(GridData.HORIZONTAL_ALIGN_END);
+    gd5.horizontalSpan = 2;
+    comp5.setLayoutData(gd3);
+    GridLayout gl5 = new GridLayout();
+    gl5.marginWidth = 0;
+    comp5.setLayout(gl5);
+    Button addAttachment = new Button("Anlage", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
+        fd.setFilterPath(System.getProperty("user.home"));
+        fd.setText("Bitte wählen Sie einen Anhang aus.");
+        String f = fd.open();
+        if (f != null)
+        {
+          try
+          {
+            MailAnhang anh = (MailAnhang) Einstellungen.getDBService()
+                .createObject(MailAnhang.class, null);
+            anh.setDateiname(f.substring(f.lastIndexOf(System
+                .getProperty("file.separator")) + 1));
+            File file = new File(f);
+            FileInputStream fis = new FileInputStream(file);
+            byte[] buffer = new byte[(int) file.length()];
+            fis.read(buffer);
+            anh.setAnhang(buffer);
+            control.addAnhang(anh);
+          }
+          catch (Exception e)
+          {
+            Logger.error("", e);
+            throw new ApplicationException(e);
+          }
+        }
+      }
+    });
+    addAttachment.paint(comp5);
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));

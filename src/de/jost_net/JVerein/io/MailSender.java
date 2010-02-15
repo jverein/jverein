@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/02/01 21:02:02  jost
+ * Logging entsprechend des eingestellten Levels.
+ *
  * Revision 1.1  2009/10/17 19:46:59  jost
  * Vorbereitung Mailversand.
  *
@@ -16,18 +19,34 @@
 
 package de.jost_net.JVerein.io;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.rmi.RemoteException;
 import java.util.Properties;
+import java.util.TreeSet;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.MimetypesFileTypeMap;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
+import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Level;
+import de.willuhn.logging.Logger;
 
 public class MailSender
 {
@@ -56,18 +75,18 @@ public class MailSender
   }
 
   // Send to a single recipient
-  public void sendMail(String email, String subject, String text)
-      throws Exception
+  public void sendMail(String email, String subject, String text,
+      TreeSet<MailAnhang> anhang) throws Exception
   {
     String[] emailList = new String[1];
     emailList[0] = email;
-    sendMail(emailList, subject, text);
+    sendMail(emailList, subject, text, anhang);
   }
 
   // //Send to multiple recipients
 
-  public void sendMail(String[] emailadresses, String subject, String text)
-      throws Exception
+  public void sendMail(String[] emailadresses, String subject, String text,
+      TreeSet<MailAnhang> anhang) throws Exception
   {
     Properties props = new Properties();
 
@@ -119,10 +138,34 @@ public class MailSender
     }
 
     msg.setRecipients(Message.RecipientType.TO, addressTo);
-
     msg.setSubject(subject);
-    msg.setContent(text, "text/plain");
 
+    if (anhang.size() == 0)
+    {
+      msg.setContent(text, "text/plain");
+    }
+    else
+    {
+      BodyPart messageBodyPart = new MimeBodyPart();
+      // Fill the message
+      messageBodyPart.setText(text);
+
+      Multipart multipart = new MimeMultipart();
+      multipart.addBodyPart(messageBodyPart);
+
+      for (MailAnhang ma : anhang)
+      {
+        messageBodyPart = new MimeBodyPart();
+
+        messageBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(
+            ma)));
+        messageBodyPart.setFileName(ma.getDateiname());
+        multipart.addBodyPart(messageBodyPart);
+      }
+      // Put parts in message
+      msg.setContent(multipart);
+
+    }
     Transport.send(msg);
 
   }
@@ -135,5 +178,54 @@ public class MailSender
       String password = smtp_auth_pwd;
       return new PasswordAuthentication(username, password);
     }
+  }
+
+  private class ByteArrayDataSource implements DataSource
+  {
+    private MailAnhang ma;
+
+    public ByteArrayDataSource(MailAnhang ma)
+    {
+      this.ma = ma;
+    }
+
+    public String getContentType()
+    {
+      try
+      {
+        return MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(
+            ma.getDateiname());
+      }
+      catch (RemoteException e)
+      {
+        Logger.error("", e);
+      }
+      return null;
+    }
+
+    public InputStream getInputStream() throws IOException
+    {
+      return new ByteArrayInputStream(ma.getAnhang());
+    }
+
+    public String getName()
+    {
+      String name = null;
+      try
+      {
+        name = ma.getDateiname();
+      }
+      catch (RemoteException e)
+      {
+        Logger.error("", e);
+      }
+      return name;
+    }
+
+    public OutputStream getOutputStream() throws IOException
+    {
+      return new ByteArrayOutputStream();
+    }
+
   }
 }

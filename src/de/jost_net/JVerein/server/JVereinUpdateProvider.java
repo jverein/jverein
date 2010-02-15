@@ -346,6 +346,14 @@ public class JVereinUpdateProvider
     {
       cv = update0092(conn, progressmonitor);
     }
+    if (cv < 93)
+    {
+      cv = update0093(conn, progressmonitor);
+    }
+    if (cv < 94)
+    {
+      cv = update0094(conn, progressmonitor);
+    }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -834,7 +842,7 @@ public class JVereinUpdateProvider
     sb.append("INSERT INTO version VALUES (1,15);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle formular erstellt");
+    execute(conn, statements, "Tabelle jahresabschluss erstellt");
     return 16;
   }
 
@@ -2548,6 +2556,57 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key 2 für mailempfaenger erstellt");
     return 92;
+  }
+
+  private int update0093(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mailanhang (");
+    sb.append("  id IDENTITY,");
+    sb.append(" mail INTEGER NOT NULL, ");
+    sb.append(" anhang BLOB,");
+    sb.append(" dateiname VARCHAR(50),");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mailanhang (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" mail INTEGER NOT NULL, ");
+    sb.append(" anhang BLOB,");
+    sb.append(" dateiname VARCHAR(50),");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(" ) TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle mailanhang erstellt");
+    return 93;
+  }
+
+  private int update0094(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id)  ON DELETE CASCADE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt");
+    return 94;
   }
 
 }
