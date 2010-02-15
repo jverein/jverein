@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2009/12/17 19:25:25  jost
+ * Überflüssigen Code entfernt.
+ *
  * Revision 1.36  2009/12/13 17:43:35  jost
  * Debugging-Infos entfernt.
  *
@@ -563,9 +566,9 @@ public class Abbuchung
     }
     String name = m.getNameVorname();
     String mitgliedname = name;
-    if (mitgliedname.length() > 27)
+    if (mitgliedname.length() > 25)
     {
-      mitgliedname = mitgliedname.substring(0, 27);
+      mitgliedname = mitgliedname.substring(0, 25);
     }
     if (m.getKontoinhaber().length() > 0)
     {
