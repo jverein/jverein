@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/02/15 17:22:49  jost
+ * Mail-Anhang implementiert
+ *
  * Revision 1.1  2010/02/01 21:00:49  jost
  * Neu: Einfache Mailfunktion
  *
@@ -98,7 +101,7 @@ public class MailDetailView extends AbstractView
     addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     Composite comp4 = new Composite(comp, SWT.NONE);
     GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
-    gd4.heightHint = 100;
+    gd4.heightHint = 90;
     comp4.setLayoutData(gd4);
     GridLayout gl4 = new GridLayout();
     gl4.marginWidth = 0;
@@ -112,7 +115,7 @@ public class MailDetailView extends AbstractView
     GridLayout gl5 = new GridLayout();
     gl5.marginWidth = 0;
     comp5.setLayout(gl5);
-    Button addAttachment = new Button("Anlage", new Action()
+    Button addAttachment = new Button("    Anlage    ", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
