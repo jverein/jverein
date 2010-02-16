@@ -2,7 +2,7 @@
     <h1>Dokumentation: Mail</h1>
     <p>Ab Version 1.3</p>
     <p>In JVerein ist ein einfaches Mail-Programm integriert. Hiermit ist es möglich,
-       einfache Textmails an einzelne Mitglieder, Gruppen von Mitglieder oder alle 
+       einfache Textmails mit Dateianhängen an einzelne Mitglieder, Gruppen von Mitglieder oder alle 
        Mitglieder zu verschicken. Der Empfang von Mails ist nicht vorgesehen.</p>
        
     <p><b>Konfiguration</b></p>
@@ -58,6 +58,9 @@
    </table>
     <!-- 
     $Log$
+    Revision 1.2  2010/02/04 18:38:56  jost
+    Zusätzliche Datenfelder
+
     Revision 1.1  2010/02/01 21:03:42  jost
     Neu: Einfache Mailfunktion
 
