@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/02/17 16:30:34  jost
+ * Statusanzeige
+ *
  * Revision 1.3  2010/02/15 17:22:14  jost
  * Mail-Anhang implementiert
  *
@@ -317,15 +320,16 @@ public class MailControl extends AbstractControl
             sender.sendMail(empf.getMailAdresse(),
                 wbetr.getBuffer().toString(), wtext.getBuffer().toString(),
                 getMail().getAnhang());
+            monitor.log(empf.getMailAdresse());
             zae++;
             double proz = (double) zae
                 / (double) getMail().getEmpfaenger().size() * 100d;
             monitor.setPercentComplete((int) proz);
           }
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          monitor.setStatusText("Anzahl verschickter Mails: "
+              + getMail().getEmpfaenger().size());
           GUI.getStatusBar().setSuccessText(
               "Mail" + (getMail().getEmpfaenger().size() > 1 ? "s" : "")
                   + " verschickt");
