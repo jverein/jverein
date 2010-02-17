@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010/02/15 17:22:14  jost
+ * Mail-Anhang implementiert
+ *
  * Revision 1.2  2010/02/04 18:38:38  jost
  * Zusätzliche Datenfelder
  *
@@ -290,6 +293,9 @@ public class MailControl extends AbstractControl
 
           Velocity.init();
           Logger.debug("preparing velocity context");
+          monitor.setStatus(ProgressMonitor.STATUS_RUNNING);
+          monitor.setPercentComplete(0);
+          int zae = 0;
           for (MailEmpfaenger empf : getMail().getEmpfaenger())
           {
             VelocityContext context = new VelocityContext();
@@ -311,7 +317,12 @@ public class MailControl extends AbstractControl
             sender.sendMail(empf.getMailAdresse(),
                 wbetr.getBuffer().toString(), wtext.getBuffer().toString(),
                 getMail().getAnhang());
+            zae++;
+            double proz = (double) zae
+                / (double) getMail().getEmpfaenger().size() * 100d;
+            monitor.setPercentComplete((int) proz);
           }
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
 
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
