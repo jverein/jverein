@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010/02/01 21:00:07  jost
+ * Neu: Einfache Mailfunktion
+ *
  * Revision 1.23  2009/11/22 16:19:01  jost
  * Reihenfolge korrigiert.
  *
@@ -198,9 +201,6 @@ public class MyExtension implements Extension
       }
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Statistik"), new StatistikMitgliedAction(), "document-open.png"));
-      auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Adressbuchexport"), new AdressbuchExportAction(),
-          "document-open.png"));
       jverein.addChild(auswertung);
 
       NavigationItem mail = null;
@@ -209,6 +209,9 @@ public class MyExtension implements Extension
           new MailListeAction()));
       mail.addChild(new MyItem(mail, JVereinPlugin.getI18n()
           .tr("Mail-Vorlagen"), new MailVorlagenAction()));
+      mail.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
+          "Adressbuchexport"), new AdressbuchExportAction(),
+          "document-open.png"));
       jverein.addChild(mail);
 
       NavigationItem buchfuehrung = null;

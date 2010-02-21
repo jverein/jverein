@@ -3,6 +3,7 @@
     <ul>
 	   	<li>Version 1.3 noch nicht freigegeben</li>
     		<ul>
+    			<li>Adressbuchexport ins Mail-Menü verschoben.</li>
     		    <li>Mailfunktion um Dateianhänge erweitert.</li>
     			<li>IBAN direkt bei der Eingabe von Kontonummer und BLZ berechnen</li>
     		    <li>Liste der Zusatzbeträge: true/false wird als X bzw. _ dargestellt</li>
@@ -460,6 +461,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.39  2010/02/15 20:00:26  jost
+    *** empty log message ***
+
     Revision 1.38  2010/02/15 19:55:39  jost
     *** empty log message ***
 
