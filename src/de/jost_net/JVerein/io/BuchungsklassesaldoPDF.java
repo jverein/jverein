@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/09/19 16:28:38  jost
+ * Weiterentwicklung
+ *
  * Revision 1.2  2009/09/15 19:24:12  jost
  * Saldo-Bildung
  *
@@ -25,11 +28,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
-import de.jost_net.JVerein.util.Geschaeftsjahr;
+import de.jost_net.JVerein.Einstellungen;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
@@ -41,13 +45,14 @@ import de.willuhn.util.ProgressMonitor;
 public class BuchungsklassesaldoPDF
 {
   public BuchungsklassesaldoPDF(ArrayList<BuchungsklasseSaldoZeile> zeile,
-      final File file, ProgressMonitor monitor, Geschaeftsjahr gj)
+      final File file, ProgressMonitor monitor, Date datumvon, Date datumbis)
       throws ApplicationException, RemoteException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      String subtitle = gj.toString();
+      String subtitle = Einstellungen.DATEFORMAT.format(datumvon) + " - "
+          + Einstellungen.DATEFORMAT.format(datumbis);
       Reporter reporter = new Reporter(fos, monitor, "Buchungsklassesaldo",
           subtitle, zeile.size());
       makeHeader(reporter);

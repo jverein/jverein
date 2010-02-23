@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/09/15 19:21:35  jost
+ * TODO-Tag entfernt.
+ *
  * Revision 1.2  2009/09/12 19:02:46  jost
  * neu: Buchungsjournal
  *
@@ -24,6 +27,7 @@ import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -32,16 +36,13 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.parts.BuchungsklasseSaldoList;
 import de.jost_net.JVerein.io.BuchungsklasseSaldoZeile;
 import de.jost_net.JVerein.io.BuchungsklassesaldoPDF;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.util.Dateiname;
-import de.jost_net.JVerein.util.Geschaeftsjahr;
-import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
-import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
@@ -53,7 +54,9 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 {
   private BuchungsklasseSaldoList saldoList;
 
-  private SelectInput suchjahr;
+  private DateInput datumvon;
+
+  private DateInput datumbis;
 
   private Settings settings = null;
 
@@ -64,37 +67,46 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public SelectInput getSuchJahr() throws RemoteException, ApplicationException
+  public DateInput getDatumvon()
   {
-    if (suchjahr != null)
+    if (datumvon != null)
     {
-      return suchjahr;
+      return datumvon;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchung.class);
-    list.setOrder("ORDER BY datum");
-    Buchung b = null;
-    Calendar von = Calendar.getInstance();
-    if (list.hasNext())
+    Calendar cal = Calendar.getInstance();
+    Date d = new Date();
+    try
     {
-      b = (Buchung) list.next();
-      von.setTime(b.getDatum());
+      d = Einstellungen.DATEFORMAT.parse(settings.getString("von", "01.01"
+          + cal.get(Calendar.YEAR)));
     }
-    else
+    catch (ParseException e)
     {
-      throw new ApplicationException("Abbruch! Es existiert noch keine Buchung");
+      //
     }
-    Calendar bis = Calendar.getInstance();
-    ArrayList<Integer> jahre = new ArrayList<Integer>();
+    datumvon = new DateInput(d, Einstellungen.DATEFORMAT);
+    return datumvon;
+  }
 
-    for (int i = von.get(Calendar.YEAR); i <= bis.get(Calendar.YEAR); i++)
+  public DateInput getDatumbis()
+  {
+    if (datumbis != null)
     {
-      jahre.add(i);
+      return datumbis;
     }
-
-    suchjahr = new SelectInput(jahre, settings.getInt("jahr", jahre.get(0)));
-    // suchjahr.setPleaseChoose("Bitte auswählen");
-    suchjahr.setPreselected(settings.getInt("jahr", bis.get(Calendar.YEAR)));
-    return suchjahr;
+    Calendar cal = Calendar.getInstance();
+    Date d = new Date();
+    try
+    {
+      d = Einstellungen.DATEFORMAT.parse(settings.getString("bis", "31.12."
+          + cal.get(Calendar.YEAR)));
+    }
+    catch (ParseException e)
+    {
+      //
+    }
+    datumbis = new DateInput(d, Einstellungen.DATEFORMAT);
+    return datumbis;
   }
 
   public Button getStartAuswertungButton()
@@ -118,17 +130,29 @@ public class BuchungsklasseSaldoControl extends AbstractControl
   {
     try
     {
-      settings.setAttribute("jahr", (Integer) getSuchJahr().getValue());
+      if (getDatumvon().getValue() != null)
+      {
+        settings.setAttribute("von", Einstellungen.DATEFORMAT
+            .format((Date) getDatumvon().getValue()));
+      }
+      if (getDatumvon().getValue() != null)
+      {
+        settings.setAttribute("bis", Einstellungen.DATEFORMAT
+            .format((Date) getDatumbis().getValue()));
+      }
 
       if (saldoList == null)
       {
-        saldoList = new BuchungsklasseSaldoList(null, new Geschaeftsjahr(
-            (Integer) getSuchJahr().getValue()));
+        saldoList = new BuchungsklasseSaldoList(null, (Date) datumvon
+            .getValue(), (Date) datumbis.getValue());
       }
       else
       {
-        saldoList.setGeschaeftsjahr(new Geschaeftsjahr((Integer) getSuchJahr()
-            .getValue()));
+        settings.setAttribute("von", Einstellungen.DATEFORMAT
+            .format((Date) getDatumvon().getValue()));
+
+        saldoList.setDatumvon((Date) datumvon.getValue());
+        saldoList.setDatumbis((Date) datumbis.getValue());
         ArrayList<BuchungsklasseSaldoZeile> zeile = saldoList.getInfo();
         saldoList.removeAll();
         for (BuchungsklasseSaldoZeile sz : zeile)
@@ -177,11 +201,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 
       final File file = new File(s);
       settings.setAttribute("lastdir", file.getParent());
-      Integer jahr = (Integer) suchjahr.getValue();
-
-      Geschaeftsjahr gj = new Geschaeftsjahr(jahr.intValue());
-
-      auswertungSaldoPDF(zeile, file, gj);
+      auswertungSaldoPDF(zeile, file, (Date) getDatumvon().getValue(),
+          (Date) getDatumbis().getValue());
     }
     catch (RemoteException e)
     {
@@ -197,7 +218,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 
   private void auswertungSaldoPDF(
       final ArrayList<BuchungsklasseSaldoZeile> zeile, final File file,
-      final Geschaeftsjahr gj)
+      final Date datumvon, final Date datumbis)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -205,7 +226,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         try
         {
-          new BuchungsklassesaldoPDF(zeile, file, monitor, gj);
+          new BuchungsklassesaldoPDF(zeile, file, monitor, datumvon, datumbis);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");

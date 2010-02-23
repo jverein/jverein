@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/09/16 21:36:35  jost
+ * Tabelle nur so groß wie nötig
+ *
  * Revision 1.2  2009/09/14 19:13:58  jost
  * Überflüssiges Import-Statement entfernt.
  *
@@ -40,9 +43,11 @@ public class BuchungsklasseSaldoView extends AbstractView
         this);
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Jahr"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"), control
-        .getSuchJahr());
+        "Zeitraum"));
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getDatumvon());
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 1);
     Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
