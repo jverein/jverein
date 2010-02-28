@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2009/11/25 22:14:33  jost
+ * Bugfix letzte Spalte
+ *
  * Revision 1.26  2009/11/22 16:20:09  jost
  * Bugfix Eigenschaften-Import
  *
@@ -317,7 +320,15 @@ public class Import
         if (eintritt == null || eintritt.length() == 0
             || eintritt.equals("00.00.0000"))
         {
-          eintritt = "01.01.1900";
+          if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
+          {
+            throw new ApplicationException(m.getNameVorname()
+                + ": Eintrittsdatum fehlt!");
+          }
+          else
+          {
+            eintritt = null;
+          }
         }
         m.setEintritt(eintritt);
         Integer bg = new Integer(beitragsgruppen2.get(results
