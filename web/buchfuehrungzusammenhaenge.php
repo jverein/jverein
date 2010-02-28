@@ -115,7 +115,7 @@
 		die entsprechend in der Überschrift der Liste erscheinen:
 	<ul>
 		<li>Zeitraum: Für die Kassenprüfung sollte natürlich dann das komplette Geschäftsjahr (meist 
-			das Kalenderjahr) selektiert werden.</li>>
+			das Kalenderjahr) selektiert werden.</li>
 		<li>Einzelnes Konto oder alle Konten: Diese Selektion hängt von der Arbeitsweise ab, entweder 
 			man hat nur ein Ordner mit Belegen (dann sollte entsprechend auch alle Konten selektiert 
 			werden) oder man hat einen Belegordner pro Konto, dann sollten entsprechend für jedes Konto 
@@ -196,6 +196,9 @@
 	
    <!-- 
     $Log$
+    Revision 1.2  2009/10/17 19:48:22  jost
+    *** empty log message ***
+
     Revision 1.1  2009/10/10 16:03:39  jost
     *** empty log message ***
 
