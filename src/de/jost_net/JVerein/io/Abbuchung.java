@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.39  2010/02/28 15:17:28  jost
+ * Mitgliedsnummer in den Verwendungszweck übernommen.
+ *
  * Revision 1.38  2010/02/15 17:23:18  jost
  * Bugfix zu lange Namen mit Umlauten.
  *
@@ -568,7 +571,10 @@ public class Abbuchung
       throw new DtausException("Ungültige Kontonummer " + m.getKonto());
     }
     String name = m.getNameVorname();
-    String mitgliedname = m.getID() + "/" + name;
+    String mitgliedname = (Einstellungen.getEinstellung()
+        .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
+        .getID())
+        + "/" + name;
     if (mitgliedname.length() > 25)
     {
       mitgliedname = mitgliedname.substring(0, 25);
