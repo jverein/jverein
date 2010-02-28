@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.38  2010/02/15 17:23:18  jost
+ * Bugfix zu lange Namen mit Umlauten.
+ *
  * Revision 1.37  2009/12/17 19:25:25  jost
  * Überflüssigen Code entfernt.
  *
@@ -565,7 +568,7 @@ public class Abbuchung
       throw new DtausException("Ungültige Kontonummer " + m.getKonto());
     }
     String name = m.getNameVorname();
-    String mitgliedname = name;
+    String mitgliedname = m.getID() + "/" + name;
     if (mitgliedname.length() > 25)
     {
       mitgliedname = mitgliedname.substring(0, 25);
