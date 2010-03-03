@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/11/17 20:51:06  jost
+ * Meldung bei gefüllter Datenbank
+ *
  * Revision 1.4  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -161,11 +164,10 @@ public class BackupRestoreAction implements Action
               monitor.addPercentComplete(1);
             }
           }
-
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           monitor
               .setStatusText(JVereinPlugin.getI18n().tr("Backup importiert"));
           monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
         }
         catch (Exception e)
         {
