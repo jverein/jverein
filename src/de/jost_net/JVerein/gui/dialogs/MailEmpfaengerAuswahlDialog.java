@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/02/01 20:59:26  jost
+ * Neu: Einfache Mailfunktion
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
@@ -57,12 +60,12 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     TabGroup tab1 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Mitglieder"));
     control.getMitgliedMitMail().paint(tab1.getComposite());
-    TabGroup tab2 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Eigenschaften"));
-    tab2
-        .addText(
-            "hier können demnächst die Mitglieder nach Eigenschaften ausgewählt werden. Wird noch implementiert.",
-            true);
+    // TabGroup tab2 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+    // "Eigenschaften"));
+    // tab2
+    // .addText(
+    // "hier können demnächst die Mitglieder nach Eigenschaften ausgewählt werden. Wird noch implementiert.",
+    // true);
 
     ButtonArea b = new ButtonArea(parent, 2);
     b.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
