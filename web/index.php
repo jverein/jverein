@@ -49,6 +49,9 @@
 	<p>Die Mitgliederdaten können nach vielen Kriterien <a href="dokumentationauswertungmitglieder.php">
 	   ausgewertet</a> werden. Die Ausgabe erfolgt im PDF-Format oder im CSV-Format. Die Erstellung 
 	   einer Liste mit <a href="dokumentationauswertungjubilaeen.php">Mitgliedschafts- oder Altersjubliäen</a> ist möglich.</p>
+	<p>In Version 1.3 ist der Versand von Mails an Mitglieder realisiert worden. Der Versand ist an einzelne Mitglieder, 
+	   Gruppen von Mitgliedern oder alle Mitglieder möglich. Für regelmäßig zu versendende Mails können Vorlagen erstellt 
+	   werden. Durch Variable ist die Personalisierung der Mails möglich.</p>
 	<p>Die Erstellung von Rechnungen und Spendenbescheinigungen möglich.</p>
 	<p>JVerein ist mit vielen Screenshots ausgiebig <a href='dokumentation.php'>dokumentiert</a>.</p>
 	<p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p>
@@ -67,17 +70,14 @@
     		<li>01.12.2009: Veröffentlichung der <a href='download/index.php?jverein.1.3.0-devel-217.zip'>Entwickler-Version 1.3.0 Rev. 217</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>30.10.2009: <a href="forum" target="new">Forum</a> ist online gegangen.</li> 
     		<li>17.10.2009: Neues <a href="buchfuehrungzusammenhaenge.php">Dokument</a> über die Zusammenhänge der Buchführung von Siegfried Kübel.</li> 
-    		<li>26.09.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.3.0-devel-210.zip">Entwickler-Version 1.3.0 Rev. 210</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
-    		<li>30.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.3.0-devel-200.zip">Entwickler-Version 1.3.0 Rev. 200</a>. Ablauffähigkeit mit den aktuellen Nightly-Builds von Jameica und Hibiscus hergestellt.</li> 
-    		<li>24.08.2009: Neues Homepage-Design veröffentlicht.</a></li> 
-    		<li>24.08.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0.zip">Version 1.2.0</a>. Siehe <a href="version1.2.php">Kurzfassung der Changelog.</a></li> 
-        	<li>09.08.2009: Veröffentlichung des <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-190.zip">Release-Kandidaten 1 der Version 1.2.0</a>. Siehe <a href="changelog.php">Changelog</a></li>
-       	 	<li>16.07.2009: Veröffentlichung der <a href="http://prdownload.berlios.de/jverein/jverein.1.2.0-devel-183.zip">Entwickler-Version 1.2.0 Rev. 183</a>. Siehe <a href="changelog.php">Changelog</a></li>
     	</ul>
 	</div>
 	   
 	<!-- 
     $Log$
+    Revision 1.23  2010/03/01 17:14:02  jost
+    *** empty log message ***
+
     Revision 1.22  2010/02/15 20:07:25  jost
     *** empty log message ***
 
