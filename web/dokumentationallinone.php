@@ -26,6 +26,7 @@
 	<? include ("dokumentationauswertungkursteilnehmer.php"); ?>
 	<? include ("dokumentationauswertungstatistik.php"); ?>
 	<? include ("dokumentationauswertungadressbuchexport.php"); ?>
+	<? include ("mail.php");?>
 	<? include ("buchfuehrungzusammenhaenge.php"); ?>
  	<? include ("dokumentationbuchfuehrung.php"); ?>
 	<? include ("dokumentationbuchfuehrungkonten.php"); ?>
@@ -41,6 +42,9 @@
 
     <!-- 
     $Log$
+    Revision 1.7  2009/12/22 18:51:56  jost
+    *** empty log message ***
+
     Revision 1.6  2009/12/02 22:32:06  jost
     Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
 
