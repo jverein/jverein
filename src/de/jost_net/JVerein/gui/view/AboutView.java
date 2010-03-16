@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2009/05/31 12:27:27  jost
  * Typografische Änderung.
  *
@@ -56,7 +59,7 @@ public class AboutView extends AbstractDialog
             "Plugin für die Vereinsverwaltung unter Jameica") + "</b></p>"
         + "<br/>Licence: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
         + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
-        + "<p>http://www.jverein.de</p></form>");
+        + "<p>http://www.jverein.de   Forum: http://www.jverein.de/forum</p></form>");
 
     text.paint(parent);
 
