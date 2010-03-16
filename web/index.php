@@ -1,6 +1,7 @@
 <? include ("frame.inc"); ?>
 	   
 	<div style="float:left; width: 600px;border:0px">
+	<p><a href="forum">Verbesserungsvorschläge und Fehlermeldungen bitte ins Forum posten</a>
     <h1>Home</h1>
     <p>
  <!--      <img src="images/JVerein_Box.jpg" alt="JVerein-Software-Box" >  -->
@@ -75,6 +76,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.24  2010/03/05 21:56:02  jost
+    Hinweis auf Mails
+
     Revision 1.23  2010/03/01 17:14:02  jost
     *** empty log message ***
 
