@@ -63,6 +63,7 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
+    		<li>27.03.2010: Veröffentlichung des <a href='download/index.php?jverein.1.3.0-rc2-232.zip'>Release Candidat 2 der Version 1.3.0 Rev. 232</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>01.03.2010: Veröffentlichung des <a href='download/index.php?jverein.1.3.0-rc1-231.zip'>Release Candidat 1 der Version 1.3.0 Rev. 231</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>15.02.2010: Veröffentlichung der <a href='download/index.php?jverein.1.3.0-devel-227.zip'>Entwickler-Version 1.3.0 Rev. 227</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
     		<li>01.02.2010: Veröffentlichung der <a href='download/index.php?jverein.1.3.0-devel-226.zip'>Entwickler-Version 1.3.0 Rev. 226</a>. Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
@@ -76,6 +77,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.25  2010/03/16 19:22:14  jost
+    Hinweis auf das Forum
+
     Revision 1.24  2010/03/05 21:56:02  jost
     Hinweis auf Mails
 

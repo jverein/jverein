@@ -4,6 +4,7 @@
     <p><a href='download/index.php?jverein.1.2.0.zip'>JVerein 1.2.0 vom 23.8.2009</a></p>
     <h2>Entwicklerversion</h2>
     <p>Achtung! Immer aktuelle Nightly-Builds von Jameica und Hibiscus einsetzen</p>
+    <p><a href='download/index.php?jverein.1.3.0-rc2-232.zip'>JVerein 1.3.0-rc2 Rev. 232 vom 27.03.2010</a></p>
     <p><a href='download/index.php?jverein.1.3.0-rc1-231.zip'>JVerein 1.3.0-rc1 Rev. 231 vom 01.03.2010</a></p>
     <p><a href='download/index.php?jverein.1.3.0-devel-227.zip'>JVerein 1.3.0-Devel Rev. 227 vom 15.2.2010</a></p>
     <p><a href='download/index.php?jverein.1.3.0-devel-226.zip'>JVerein 1.3.0-Devel Rev. 226 vom 1.2.2010</a></p>
@@ -15,6 +16,9 @@
     
     <!-- 
     $Log$
+    Revision 1.10  2010/03/01 17:14:02  jost
+    *** empty log message ***
+
     Revision 1.9  2010/02/15 20:07:25  jost
     *** empty log message ***
 
