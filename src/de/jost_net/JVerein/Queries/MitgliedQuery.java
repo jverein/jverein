@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2009/11/19 19:44:54  jost
+ * Bugfix Eigenschaften
+ *
  * Revision 1.16  2009/11/17 21:01:25  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -145,7 +148,7 @@ public class MitgliedQuery
         first = false;
         condEigenschaft += "eigenschaft = ? ";
       }
-      condEigenschaft += ")) = ? ";
+      condEigenschaft += ")) > 0 ";
       addCondition(condEigenschaft);
     }
 
@@ -261,7 +264,6 @@ public class MitgliedQuery
         bedingungen.add((Object) st.nextToken());
         tokcount++;
       }
-      bedingungen.add(new Integer(tokcount));
     }
     if (control.getGeburtsdatumvon().getValue() != null)
     {
