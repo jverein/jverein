@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010/02/17 21:26:09  jost
+ * Statusanzeige
+ *
  * Revision 1.4  2010/02/17 16:30:34  jost
  * Statusanzeige
  *
@@ -169,7 +172,7 @@ public class MailControl extends AbstractControl
 
   public TablePart getMitgliedMitMail() throws RemoteException
   {
-    if (mitgliedmitmail != null)
+    if (mitgliedmitmail != null && mitgliedmitmail.size() > 0)
     {
       return mitgliedmitmail;
     }
