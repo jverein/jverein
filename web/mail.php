@@ -27,6 +27,9 @@
    <img src='images/Mail.jpg' class='screenshot'>
    <p>Durch einen Klick auf hinzufügen öffnet sich folgendes Auswahlfenster:</p>
    <img src='images/Mailempfaengerauswahl.jpg' class='screenshot'>
+   <p>Durch einen Klick auf Eigenschaften öffnet sich ein Eigenschaftenauswahldialog. Alle Mitglieder
+   mit den ausgewählten Eigenschaften werden hinzugefügt. Mit "alle" werden alle Mitglieder ausgewählt. Mit
+   "keinen" wird die komplette Auswahl rückgängig gemacht.</p>
    <p>Der Mailversand kann auch über einen Rechtsklick auf ein Mitglied ausgelöst werden:</p>
    <img src='images/MitgliedMailversand.jpg' class='screenshot'>
    <p><b>Variable</b></p>
@@ -58,6 +61,9 @@
    </table>
     <!-- 
     $Log$
+    Revision 1.3  2010/02/16 18:07:29  jost
+    *** empty log message ***
+
     Revision 1.2  2010/02/04 18:38:56  jost
     Zusätzliche Datenfelder
 

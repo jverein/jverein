@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010/02/01 20:58:46  jost
+ * Vermeidung Warnings.
+ *
  * Revision 1.5  2009/12/06 21:40:39  jost
  * Überflüssigen Code entfernt.
  *
@@ -40,7 +43,6 @@ import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.parts.TreePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -53,24 +55,34 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
 
   private TreePart tree;
 
-  private Settings settings;
+  private ArrayList<Object> retval = new ArrayList<Object>();
 
-  private String tmp2 = "";
-
-  public EigenschaftenAuswahlDialog(Settings settings) throws RemoteException
+  /**
+   * Eigenschaften oder Eigenschaftengruppen auswählen
+   * 
+   * @param modus
+   *          MODUS_EIGENSCHAFTEN oder MODUS_EIGENSCHAFTEN_UND_GRUPPEN
+   * @param defaults
+   *          Liste der Eigenschaften-IDs durch Komma separiert.
+   */
+  public EigenschaftenAuswahlDialog(String defaults) throws RemoteException
   {
     super(EigenschaftenAuswahlDialog.POSITION_CENTER);
     this.setSize(400, 400);
     setTitle(JVereinPlugin.getI18n().tr("Eigenschaften auswählen "));
     control = new MitgliedControl(null);
-    this.settings = settings;
+    if (defaults == null)
+    {
+      defaults = "";
+    }
+    tree = control.getEigenschaftenAuswahlTree(defaults);
   }
 
-  protected void paint(Composite parent) throws Exception
+  protected void paint(Composite parent) throws RemoteException
   {
     LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
         "Eigenschaften"), true);
-    tree = control.getEigenschaftenAuswahlTree();
+
     group.addPart(tree);
 
     ButtonArea buttons = new ButtonArea(parent, 2);
@@ -78,7 +90,6 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
     {
       public void handleAction(Object context) throws ApplicationException
       {
-        String tmp1 = "";
         try
         {
           ArrayList<?> checkednodes = (ArrayList<?>) tree.getItems();
@@ -87,13 +98,7 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
             EigenschaftenNode checkedNode = (EigenschaftenNode) o;
             if (checkedNode.getNodeType() == EigenschaftenNode.EIGENSCHAFTEN)
             {
-              if (tmp1.length() > 0)
-              {
-                tmp1 += ",";
-                tmp2 += ", ";
-              }
-              tmp1 += checkedNode.getEigenschaft().getID();
-              tmp2 += checkedNode.getEigenschaft().getBezeichnung();
+              retval.add(o);
             }
           }
         }
@@ -101,14 +106,13 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
         {
           Logger.error("Fehler", e);
         }
-        settings.setAttribute("mitglied.eigenschaften", tmp1);
         close();
       }
     });
   }
 
-  protected Object getData() throws Exception
+  protected Object getData()
   {
-    return tmp2;
+    return retval;
   }
 }
