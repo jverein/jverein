@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/03/05 21:55:33  jost
+ * Künftiges Feature auskommentiert.
+ *
  * Revision 1.1  2010/02/01 20:59:26  jost
  * Neu: Einfache Mailfunktion
  *
@@ -17,23 +20,23 @@
 package de.jost_net.JVerein.gui.dialogs;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MailControl;
+import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.server.EigenschaftenNode;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.jameica.gui.util.Color;
-import de.willuhn.jameica.gui.util.TabGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
@@ -53,21 +56,76 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
 
   protected void paint(Composite parent) throws Exception
   {
-    TabFolder folder = new TabFolder(parent, SWT.NONE);
-    folder.setLayoutData(new GridData(GridData.FILL_BOTH));
-    folder.setBackground(Color.BACKGROUND.getSWTColor());
+    control.getMitgliedMitMail().paint(parent);
+    for (Object o : control.getMitgliedMitMail().getItems(true))
+    {
+      control.getMitgliedMitMail().setChecked(o, false);
+    }
 
-    TabGroup tab1 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Mitglieder"));
-    control.getMitgliedMitMail().paint(tab1.getComposite());
-    // TabGroup tab2 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-    // "Eigenschaften"));
-    // tab2
-    // .addText(
-    // "hier können demnächst die Mitglieder nach Eigenschaften ausgewählt werden. Wird noch implementiert.",
-    // true);
-
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea(parent, 5);
+    b.addButton(JVereinPlugin.getI18n().tr("Eigenschaften"), new Action()
+    {
+      @SuppressWarnings("unchecked")
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog(null);
+          ArrayList<Object> auswahl = (ArrayList<Object>) ead.open();
+          for (Object o : auswahl)
+          {
+            EigenschaftenNode node = (EigenschaftenNode) o;
+            DBIterator it = Einstellungen.getDBService().createList(
+                Eigenschaften.class);
+            it.addFilter("eigenschaft = ?", new Object[] { node
+                .getEigenschaft().getID() });
+            while (it.hasNext())
+            {
+              Eigenschaften ei = (Eigenschaften) it.next();
+              control.getMitgliedMitMail().setChecked(ei.getMitglied(), true);
+            }
+          }
+        }
+        catch (Exception e)
+        {
+          throw new ApplicationException("Fehler" + e);
+        }
+      }
+    });
+    b.addButton(JVereinPlugin.getI18n().tr("alle"), new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          for (Object o : control.getMitgliedMitMail().getItems(false))
+          {
+            control.getMitgliedMitMail().setChecked(o, true);
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler:", e);
+        }
+      }
+    });
+    b.addButton(JVereinPlugin.getI18n().tr("keinen"), new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          for (Object o : control.getMitgliedMitMail().getItems(false))
+          {
+            control.getMitgliedMitMail().setChecked(o, false);
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
     b.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -85,11 +143,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
         }
         catch (RemoteException e)
         {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-        {
-
+          Logger.error("Fehler", e);
         }
         close();
       }
