@@ -1,0 +1,109 @@
+/***************************************************************************
+ *                               styles.css
+ *                            -------------------
+ *   begin                : Tuesday', Aug 15', 2002
+ *   copyright            : ('C) 2008 phpATM Dev Team
+ *   email                : http://flavaclown.de/contact.php
+ *
+ *   $Id$
+ *
+ *
+ ***************************************************************************/
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+ ***************************************************************************/
+
+a:link {
+	color: #0582c0;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #0582c0;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0582c0;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+body {
+	background-color: #E5E5E5;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+input {
+	text-indent: 2px;
+}
+
+.gensmall {
+	font-size: 10px;
+	font-style: normal;
+	color: #000000;
+	background-color: #F5F5F5;
+}
+
+.main {
+	background-color: #FFFFFF;
+	border: 1px #ABABA9 solid;
+	text-align: center;
+	vertical-align: middle;
+	width: 100%;
+}
+
+#phpatm, #phpatm a {
+	color: #888888 !important;
+	font-size: 9px !important;
+	text-align: center;
+}
+
+.row1 {
+	font-size: 12px;
+	font-style: normal;
+	color: #000000;
+	background-color: #F5F5F5;
+}
+
+.row2 {
+	font-size: 12px;
+	font-style: normal;
+	color: #000000;
+	background-color: #F5F5F5;
+}
+
+.thHead {
+	font-size: 12px;
+	font-style: normal;
+	color: #FFFFFF;
+	background-color: #4682B4;
+	font-weight: bold;
+}
+
+.vform {
+	background-color: #FFFFFF;
+	border: 1px solid #E5E5E5;
+	color: #000000;
+	font-size: 12px;
+	font-style: normal;
+}
+
+.vform2 {
+	background-color: #FFFFFF;
+	border: 1px solid #E5E5E5;
+	color: #000000;
+	font-size: 12px;
+	font-style: normal;
+}
+
+.vform2:hover {
+	border: 1px solid #0582c0;
+}
