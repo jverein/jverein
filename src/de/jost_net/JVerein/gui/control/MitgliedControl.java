@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.79  2010/03/27 20:18:24  jost
+ * Überflüssigen Code entfernt.
+ *
  * Revision 1.78  2010/03/27 20:08:48  jost
  * EigenschaftenAuswahl überarbeitet.
  *
@@ -304,6 +307,8 @@ import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.datasource.GenericObject;
+import de.willuhn.datasource.GenericObjectNode;
+import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ObjectNotFoundException;
@@ -2231,6 +2236,43 @@ public class MitgliedControl extends AbstractControl
     eigenschaftenAuswahlTree = new TreePart(new EigenschaftenNode(vorbelegung),
         null);
     eigenschaftenAuswahlTree.setCheckable(true);
+    eigenschaftenAuswahlTree.addSelectionListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        // "o" ist das Objekt, welches gerade markiert
+        // wurde oder die Checkbox geaendert wurde.
+        GenericObjectNode o = (GenericObjectNode) event.data;
+
+        // Da der Listener sowohl dann aufgerufen wird,
+        // nur nur eine Zeile selektiert wurde als auch,
+        // wenn die Checkbox geaendert wurde, musst du jetzt
+        // noch ersteres ausfiltern - die Checkboxen sollen
+        // ja nicht geaendert werden, wenn nur eine Zeile
+        // selektiert aber die Checkbox nicht geaendert wurde.
+        // Hierzu schreibe ich in event.detail einen Int-Wert.
+        // event.detail = -1 // Nur selektiert
+        // event.detail = 1 // Checkbox aktiviert
+        // event.detail = 0 // Checkbox deaktiviert
+
+        if (event.detail == -1)
+        {
+          return;
+        }
+        try
+        {
+          List children = PseudoIterator.asList(o.getChildren());
+          boolean b = event.detail > 0;
+          eigenschaftenAuswahlTree.setChecked(children
+              .toArray(new Object[children.size()]), b);
+        }
+        catch (RemoteException e)
+        {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    });
 
     eigenschaftenAuswahlTree.setFormatter(new EigenschaftTreeFormatter());
     return eigenschaftenAuswahlTree;
