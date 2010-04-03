@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2010/02/01 21:00:24  jost
+ * Neu: Einfache Mailfunktion
+ *
  * Revision 1.18  2009/12/11 22:34:18  jost
  * Link korrigiert.
  *
@@ -96,7 +99,7 @@ public class DokumentationUtil
       + "administration_buchungsarten.php";
 
   public static final String BUCHUNGSKLASSEN = PRE
-      + "administration_buchungsklassen.php";
+      + "administration_buchungsklasse.php";
 
   public static final String EIGENSCHAFT = PRE
       + "administration_eigenschaft.php";
