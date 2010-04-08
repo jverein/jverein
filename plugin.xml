@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
-<plugin name="jverein" version="1.3.0-devel"
+<plugin name="jverein" version="1.3.0"
   class="de.jost_net.JVerein.JVereinPlugin"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
 
   <description>OpenSource-Vereinsverwaltung</description>
-  <url>http://download2.berlios.de/jverein/jverein.1.2.0.zip</url>
+  <url>http://download2.berlios.de/jverein/jverein.1.3.0.zip</url>
   
   <homepage>http://www.jverein.de</homepage>
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
@@ -17,45 +17,6 @@
       shortcut="ALT+D" 
       action="de.jost_net.JVerein.gui.action.DokumentationAction">
 	</item>
-	<item name="Stammdaten"
-      shortcut="ALT+S" 
-      action="de.jost_net.JVerein.gui.action.StammdatenAction">
-	</item>
-	<item name="Beitragsgruppe"
-      shortcut="ALT+G" 
-      action="de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction">
-	</item>
-	<item name="Buchungsart"
-      shortcut="ALT+B" 
-      action="de.jost_net.JVerein.gui.action.BuchungsartListAction">
-	</item>
-	<item name="Einstellungen"
-      shortcut="ALT+E" 
-      action="de.jost_net.JVerein.gui.action.EinstellungenAction">
-	</item>
-	<item name="Felddefinitionen"
-	  shortcut="ALT+F"
-	  action="de.jost_net.JVerein.gui.action.FelddefinitionenAction">
-	</item>
-	<item name="Formulare"
-	  shortcut="ALT+O"
-	  action="de.jost_net.JVerein.gui.action.FormularListeAction">
-	</item> 
-	<item name="Lehrgangsarten"
-	  shortcut="ALT+L"
-	  action="de.jost_net.JVerein.gui.action.LehrgangsartListeAction">
-	</item> 
--	<item name="-" /> 
-	<item name="Import"
-      shortcut="ALT+I" 
-      action="de.jost_net.JVerein.gui.action.MitgliedImportAction">
-    </item>
-    <item name="Erweitert">
-  	  <item name="Diagnose-Backup erstellen" 
-  	      action="de.jost_net.JVerein.gui.action.BackupCreateAction" />
-  	  <item name="Diagnose-Backup importieren" 
-  	      action="de.jost_net.JVerein.gui.action.BackupRestoreAction" />
-  	</item>
 	<item name="About" 
       action="de.jost_net.JVerein.gui.action.AboutAction" />
   	</item>
@@ -80,8 +41,8 @@
 	  class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
   </services>
 	
-  <requires jameica="1.8+">
-    <import plugin="hibiscus" version="1.10+"/>
+  <requires jameica="1.9+">
+    <import plugin="hibiscus" version="1.11+"/>
   </requires>
 	
 </plugin>

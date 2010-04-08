@@ -1,7 +1,7 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-	   	<li>Version 1.3 noch nicht freigegeben</li>
+	   	<li>Version 1.3 vom 09.04.2010</li>
     		<ul>
     		    <li>Abrechnung: Mitgliedsnummer in den Verwendungszweck aufgenommen.</li>
     		    <li>Bugfix beim Import des Eintrittsdatums.</li>
@@ -29,12 +29,10 @@
     			<li>Die Art der Buchungsart (Einnahme, Ausgabe, Umbuchung) wurde bei der Bearbeitung generell auf Einnahme gesetzt.</li>
     			<li>Lauffähigkeit mit den aktuellen Nightly-Builds von Jameica 1.9 und Hibiscus 1.11 hergestellt.</li>
     			<li>Vermeidung NullPointerException beim Jahressaldo.</li>
-    			<li>Neu: Buchungsklassen zur Zusammenfassung von Buchungsarten. Dokumentation folgt noch.</li>
+    			<li>Neu: Buchungsklassen zur Zusammenfassung von Buchungsarten. siehe auch <a href='buchfuehrungzusammenhaenge.php'>Zusammenhänge der Buchführung</a>.</li>
     			<li>Neu: Buchungsjournal, Feature Request <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16103&group_id=7335'>#16103</a></li>
-    			<li>Neu: Überprüfung auf Updates.</li>
     			<li>Auswertung Mitglieder: Mitglieder mit Austrittsdatum in der Zukunft werden mit ausgewertet. Bug <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16223&group_id=7335'>#16223</a></li>
     			<li>Bugfix beim Import des Feldes Zahlungsrhytmus.</li>
-    			<li>Neu: Online-Versionscheck. Unter Administration>Einstellungen können entsprechende Parameter gesetzt werden.</li> 
     		</ul>
     	<li>Version 1.2 vom 23.8.2009</li>
     		<ul>
@@ -463,6 +461,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.42  2010/02/28 15:18:19  jost
+    *** empty log message ***
+
     Revision 1.41  2010/02/28 15:06:24  jost
     *** empty log message ***
 
