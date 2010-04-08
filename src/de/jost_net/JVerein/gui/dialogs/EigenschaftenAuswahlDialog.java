@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010/03/27 20:10:05  jost
+ * EigenschaftenAuswahl überarbeitet.
+ *
  * Revision 1.6  2010/02/01 20:58:46  jost
  * Vermeidung Warnings.
  *
@@ -53,7 +56,7 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
 {
   private MitgliedControl control;
 
-  private TreePart tree;
+  private String defaults = null;
 
   private ArrayList<Object> retval = new ArrayList<Object>();
 
@@ -71,15 +74,22 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
     this.setSize(400, 400);
     setTitle(JVereinPlugin.getI18n().tr("Eigenschaften auswählen "));
     control = new MitgliedControl(null);
-    if (defaults == null)
-    {
-      defaults = "";
-    }
-    tree = control.getEigenschaftenAuswahlTree(defaults);
+    this.setDefaults(defaults);
+  }
+  
+  /**
+   * Speichert die Default-Werte.
+   * @param defaults
+   */
+  public void setDefaults(String defaults)
+  {
+    this.defaults = defaults != null ? defaults : "";
   }
 
   protected void paint(Composite parent) throws RemoteException
   {
+    final TreePart tree = control.getEigenschaftenAuswahlTree(this.defaults);
+
     LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
         "Eigenschaften"), true);
 
@@ -92,6 +102,7 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
       {
         try
         {
+          retval = new ArrayList<Object>();
           ArrayList<?> checkednodes = (ArrayList<?>) tree.getItems();
           for (Object o : checkednodes)
           {
