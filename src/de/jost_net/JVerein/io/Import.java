@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2010/02/28 15:05:11  jost
+ * Bugfix Eintrittsdatum
+ *
  * Revision 1.27  2009/11/25 22:14:33  jost
  * Bugfix letzte Spalte
  *
@@ -579,7 +582,7 @@ public class Import
     for (int i = 1; i <= anzspalten; i++)
     {
       String colname = rsm.getColumnName(i);
-      System.out.println(colname);
+      Logger.info(colname);
       if (colname.startsWith(EIGENSCHAFT))
       {
         ret.add(colname);
