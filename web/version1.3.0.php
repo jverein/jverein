@@ -7,7 +7,7 @@
     	<li>eMail-Versand an die Mitglieder. Die Mails können an einzelne Mitglieder,
     	    alle Mitglieder oder an Gruppen von Mitgliedern (Eigenschaften) gesandt werden.
     	    Den Mail können Anlagen beigefügt werden.</li>
-    	<li>Gruppierung von Eigenschaften. Eigenschaften können jetzt zu Gruppen zusammengefaßt
+    	<li>Gruppierung von Eigenschaften. Eigenschaften können jetzt zu Gruppen zusammengefasst
     	    werden.</li>
     	<li>Im Bereich der Buchführung wurden Buchungsklassen zur Zusammenfassung von 
     	    Buchungsarten und ein Buchungsjournal eingeführt. Siehe auch 
@@ -19,9 +19,12 @@
     	<li>Weitere Bugfixes und kleinere Veränderungen siehe <a href='changelog.php'>Changelog</a>.</li>
     </ul>
     </p>
-    <p><a href='http://www.jverein.de/phpATM/index.php?action=view&filename=jverein.1.3.0.zip&directory=Freigegebene%20Versionen'>Download </a></p>
+    <p><a href='download.php'>Download </a></p>
     <!-- 
     $Log$
+    Revision 1.1  2010/04/09 08:57:46  jost
+    Version 1.3.0
+
     -->
 
 <? include ("footer.inc"); ?>

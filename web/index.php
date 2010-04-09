@@ -63,13 +63,16 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
-    		<li>09.04.2010: <a href='version1.3.0.php'>Version 1.3.0</a> freigegeben.</li> 
+    		<li>09.04.2010: <a href='version1.3.0.php'>Version 1.3.0 freigegeben</a>.</li> 
     		<li>28.03.2010: Neuer  <a href='download.php'>Downloadbereich</a></li> 
     	</ul>
 	</div>
 	   
 	<!-- 
     $Log$
+    Revision 1.29  2010/04/09 08:56:56  jost
+    Version 1.3.0
+
     Revision 1.28  2010/04/08 17:57:56  jost
     *** empty log message ***
 
