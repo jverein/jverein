@@ -63,13 +63,16 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
-    		<li>09.04.2010: <a href='http://www.jverein.de/phpATM/index.php?action=view&filename=jverein.1.3.0.zip&directory=Freigegebene%20Versionen'>Version 1.3.0</a> steht im . Änderungen siehe <a href='changelog.php'>Changelog</a></li> 
+    		<li>09.04.2010: <a href='version1.3.0.php'>Version 1.3.0</a> freigegeben.</li> 
     		<li>28.03.2010: Neuer  <a href='download.php'>Downloadbereich</a></li> 
     	</ul>
 	</div>
 	   
 	<!-- 
     $Log$
+    Revision 1.28  2010/04/08 17:57:56  jost
+    *** empty log message ***
+
     Revision 1.27  2010/03/28 18:37:06  jost
     *** empty log message ***
 
