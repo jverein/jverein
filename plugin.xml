@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
-<plugin name="jverein" version="1.3.0"
+<plugin name="jverein" version="1.4.0-devel"
   class="de.jost_net.JVerein.JVereinPlugin"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
 
   <description>OpenSource-Vereinsverwaltung</description>
-  <url>http://download2.berlios.de/jverein/jverein.1.3.0.zip</url>
+  <url>http://download2.berlios.de/jverein/jverein.1.4.0.zip</url>
   
   <homepage>http://www.jverein.de</homepage>
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
