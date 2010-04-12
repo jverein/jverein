@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.81  2010/04/08 17:56:20  jost
+ * Bugfix
+ *
  * Revision 1.80  2010/03/30 17:43:04  jost
  * Eigenschaftenauswahl: Klick auf Gruppe ändert alle Kind-Einträge
  *
@@ -2272,7 +2275,6 @@ public class MitgliedControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
