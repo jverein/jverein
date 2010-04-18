@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2010/02/28 20:03:47  jost
+ * Mitgliedsnummer mit ausgeben.
+ *
  * Revision 1.39  2010/02/28 15:17:28  jost
  * Mitgliedsnummer in den Verwendungszweck übernommen.
  *
@@ -150,6 +153,7 @@ import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnung;
+import de.jost_net.JVerein.rmi.Abrechnungslaeufe;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
@@ -207,7 +211,18 @@ public class Abbuchung
     {
       buchenHibiscus(param);
     }
-
+    Abrechnungslaeufe abrl = (Abrechnungslaeufe) Einstellungen.getDBService()
+        .createObject(Abrechnungslaeufe.class, null);
+    abrl.setDatum(new Date());
+    abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
+    abrl.setDtausdruck(param.dtausprint);
+    abrl.setEingabedatum(param.vondatum);
+    abrl.setKursteilnehmer(param.kursteilnehmer);
+    abrl.setModus(param.abbuchungsmodus);
+    abrl.setStichtag(param.stichtag);
+    abrl.setZahlungsgrund(param.verwendungszweck);
+    abrl.setZusatzbetraege(param.zusatzbetraege);
+    abrl.store();
     monitor.log(JVereinPlugin.getI18n().tr("Anzahl Abrechnungen: {0}",
         new String[] { dtaus.getAnzahlSaetze() + "" }));
     monitor.log(JVereinPlugin.getI18n().tr("Gesamtsumme: {0} EUR",
@@ -402,7 +417,7 @@ public class Abbuchung
           {
             writeCSatz(dtaus, m, z.getBuchungstext(), new Double(z.getBetrag()));
           }
-          catch (DtausException e)
+          catch (Exception e)
           {
             throw new ApplicationException(m.getNameVorname() + ": "
                 + e.getMessage());
@@ -446,7 +461,8 @@ public class Abbuchung
       }
       catch (NumberFormatException e)
       {
-        throw new ApplicationException("Ungültige Bankleitzahl " + kt.getBlz());
+        throw new ApplicationException(kt.getName()
+            + ": Ungültige Bankleitzahl " + kt.getBlz());
       }
       dtaus.setCInterneKundennummer(Integer.parseInt(kt.getID() + 100000));
       try
@@ -455,14 +471,23 @@ public class Abbuchung
       }
       catch (NumberFormatException e)
       {
-        throw new ApplicationException("Ungültige Kontonummer " + kt.getKonto());
+        throw new ApplicationException(kt.getName()
+            + ": Ungültige Kontonummer " + kt.getKonto());
       }
       dtaus.setCName(kt.getName());
       dtaus
           .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
       dtaus.addCVerwendungszweck(kt.getVZweck1());
       dtaus.addCVerwendungszweck(kt.getVZweck2());
-      dtaus.writeCSatz();
+      try
+      {
+        dtaus.writeCSatz();
+      }
+      catch (Exception e)
+      {
+        throw new ApplicationException(kt.getName() + ": " + e.getMessage());
+      }
+
     }
   }
 
@@ -553,6 +578,16 @@ public class Abbuchung
       NumberFormatException, IOException
   {
     dtaus.setCBetragInEuro(betr.doubleValue());
+    if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
+    {
+      throw new DtausException(
+          JVereinPlugin
+              .getI18n()
+              .tr(
+                  "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                  new String[] { m.getBlz(), m.getKonto() }));
+    }
+
     try
     {
       dtaus.setCBLZEndbeguenstigt(Integer.parseInt(m.getBlz()));
