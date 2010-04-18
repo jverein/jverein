@@ -1,7 +1,12 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-	   	<li>Version 1.3 vom 09.04.2010</li>
+	   	<li>Version 1.3.1 (noch nicht freigegeben)</li>
+    		<ul>
+    			<li>Zusätzliche Prüfung der Bankverbindung bei der Abrechnung</li>
+    		</ul>
+
+	   	<li>Version 1.3.0 vom 09.04.2010</li>
     		<ul>
     		    <li>Abrechnung: Mitgliedsnummer in den Verwendungszweck aufgenommen.</li>
     		    <li>Bugfix beim Import des Eintrittsdatums.</li>
@@ -461,6 +466,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.43  2010/04/08 17:57:46  jost
+    *** empty log message ***
+
     Revision 1.42  2010/02/28 15:18:19  jost
     *** empty log message ***
 
