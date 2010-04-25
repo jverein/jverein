@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/02/15 20:01:48  jost
+ * Formularwerte speichern und wiederherstellen
+ *
  * Revision 1.19  2008/12/22 21:08:19  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -85,6 +88,7 @@ import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.Abbuchung;
 import de.jost_net.JVerein.io.AbbuchungParam;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
+import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -135,13 +139,13 @@ public class AbbuchungControl extends AbstractControl
     {
       return modus;
     }
-    modus = new AbbuchungsmodusInput(AbbuchungsmodusInput.KEINBEITRAG);
+    modus = new AbbuchungsmodusInput(Abrechnungsmodi.KEINBEITRAG);
     modus.addListener(new Listener()
     {
       public void handleEvent(Event event)
       {
         Integer m = ((Integer) modus.getValue());
-        if (m.intValue() != AbbuchungsmodusInput.EINGETRETENEMITGLIEDER)
+        if (m.intValue() != Abrechnungsmodi.EINGETRETENEMITGLIEDER)
         {
           vondatum.setValue(null);
           vondatum.setEnabled(false);
@@ -308,7 +312,7 @@ public class AbbuchungControl extends AbstractControl
           "Interner Fehler - kann Abrechnungsmodus nicht auslesen");
     }
     Date vondatum = null;
-    if (modus != AbbuchungsmodusInput.KEINBEITRAG)
+    if (modus != Abrechnungsmodi.KEINBEITRAG)
     {
       try
       {
@@ -319,8 +323,7 @@ public class AbbuchungControl extends AbstractControl
         // nichts tun
       }
 
-      if (modus == AbbuchungsmodusInput.EINGETRETENEMITGLIEDER
-          && vondatum == null)
+      if (modus == Abrechnungsmodi.EINGETRETENEMITGLIEDER && vondatum == null)
       {
         throw new ApplicationException("von-Datum fehlt");
       }

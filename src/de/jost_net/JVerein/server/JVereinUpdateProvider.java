@@ -354,6 +354,15 @@ public class JVereinUpdateProvider
     {
       cv = update0094(conn, progressmonitor);
     }
+    if (cv < 95)
+    {
+      cv = update0095(conn, progressmonitor);
+    }
+    // TODO für 1.3.1 deaktivieren
+     if (cv < 96)
+     {
+     cv = update0096(conn, progressmonitor);
+     }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -2607,6 +2616,70 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt");
     return 94;
+  }
+
+  private int update0095(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 1 für eigenschaften erstellt");
+    return 95;
+  }
+
+  private int update0096(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE abrechnungslaeufe (");
+    sb.append(" id IDENTITY, ");
+    sb.append(" datum DATE NOT NULL,");
+    sb.append(" modus INTEGER NOT NULL,");
+    sb.append(" stichtag DATE, ");
+    sb.append(" eingabedatum DATE, ");
+    sb.append(" zahlungsgrund VARCHAR(27),");
+    sb.append(" zusatzbetraege CHAR(5), ");
+    sb.append(" kursteilnehmer CHAR(5), ");
+    sb.append(" dtausdruck CHAR(5), ");
+    sb.append(" abbuchungsausgabe INTEGER, ");
+    sb.append(" UNIQUE (id), ");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE abrechnungslaeufe (");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" datum DATE NOT NULL,");
+    sb.append(" modus INTEGER NOT NULL,");
+    sb.append(" stichtag DATE, ");
+    sb.append(" eingabedatum DATE, ");
+    sb.append(" zahlungsgrund VARCHAR(27),");
+    sb.append(" zusatzbetraege CHAR(5), ");
+    sb.append(" kursteilnehmer CHAR(5), ");
+    sb.append(" dtausdruck CHAR(5), ");
+    sb.append(" abbuchungsausgabe INTEGER, ");
+    sb.append(" UNIQUE (id), ");
+    sb.append("UNIQUE (betreff),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle abrechnungslaeufe erstellt");
+    return 96;
   }
 
 }

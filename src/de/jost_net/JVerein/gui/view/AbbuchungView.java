@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.19  2009/01/27 18:50:31  jost
  * Import-Statement korrigiert
  *
@@ -76,6 +79,7 @@ import java.sql.SQLException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.AbrechnunslaeufeListAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.willuhn.datasource.rmi.DBService;
@@ -152,8 +156,10 @@ public class AbbuchungView extends AbstractView
                     "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
                         + "Üblicherweise 1.1. des Jahres."), true);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
+    buttons.addButton("Rückgängig", new AbrechnunslaeufeListAction(), null,
+        false, "edit-undo.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
         "help-browser.png");

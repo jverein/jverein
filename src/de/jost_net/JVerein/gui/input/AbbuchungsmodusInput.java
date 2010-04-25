@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/06/11 21:02:51  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.7  2008/12/19 06:54:02  jost
  * Eingetretene Mitglieder auch bei monatlicher, .... Abrechnung
  *
@@ -39,7 +42,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -51,33 +54,6 @@ import de.willuhn.jameica.gui.input.SelectInput;
  */
 public class AbbuchungsmodusInput extends SelectInput
 {
-  public static final int KEINBEITRAG = 0;
-
-  public static final int JAEHRLICH = 1;
-
-  public static final int HALBJAEHRLICH = 2;
-
-  public static final int VIERTELJAEHRLICH = 3;
-
-  public static final int MONATLICH = 4;
-
-  public static final int JA = 5;
-
-  public static final int HA = 6;
-
-  public static final int VI = 7;
-
-  public static final int JAHAVIMO = 8;
-
-  public static final int JAVIMO = 9;
-
-  public static final int HAVIMO = 10;
-
-  public static final int VIMO = 11;
-
-  public static final int MO = 12;
-
-  public static final int EINGETRETENEMITGLIEDER = 99;
 
   public AbbuchungsmodusInput(int abbuchungsmodus) throws RemoteException
   {
@@ -91,38 +67,38 @@ public class AbbuchungsmodusInput extends SelectInput
   private static GenericIterator init() throws RemoteException
   {
     ArrayList<AbbuchungsmodusObject> l = new ArrayList<AbbuchungsmodusObject>();
-    l.add(new AbbuchungsmodusObject(KEINBEITRAG));
+    l.add(new AbbuchungsmodusObject(Abrechnungsmodi.KEINBEITRAG));
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.JAEHRLICH)
     {
-      l.add(new AbbuchungsmodusObject(JAEHRLICH));
-      l.add(new AbbuchungsmodusObject(EINGETRETENEMITGLIEDER));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAEHRLICH));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.HALBJAEHRLICH)
     {
-      l.add(new AbbuchungsmodusObject(HALBJAEHRLICH));
-      l.add(new AbbuchungsmodusObject(EINGETRETENEMITGLIEDER));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HALBJAEHRLICH));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.VIERTELJAEHRLICH)
     {
-      l.add(new AbbuchungsmodusObject(VIERTELJAEHRLICH));
-      l.add(new AbbuchungsmodusObject(EINGETRETENEMITGLIEDER));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VIERTELJAEHRLICH));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH)
     {
-      l.add(new AbbuchungsmodusObject(MONATLICH));
-      l.add(new AbbuchungsmodusObject(EINGETRETENEMITGLIEDER));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MONATLICH));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
     {
-      l.add(new AbbuchungsmodusObject(JAHAVIMO));
-      l.add(new AbbuchungsmodusObject(JAVIMO));
-      l.add(new AbbuchungsmodusObject(HAVIMO));
-      l.add(new AbbuchungsmodusObject(VIMO));
-      l.add(new AbbuchungsmodusObject(JA));
-      l.add(new AbbuchungsmodusObject(HA));
-      l.add(new AbbuchungsmodusObject(VI));
-      l.add(new AbbuchungsmodusObject(MO));
-      l.add(new AbbuchungsmodusObject(EINGETRETENEMITGLIEDER));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAHAVIMO));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAVIMO));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HAVIMO));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VIMO));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JA));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HA));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VI));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MO));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
     return PseudoIterator.fromArray((AbbuchungsmodusObject[]) l
         .toArray(new AbbuchungsmodusObject[l.size()]));
@@ -136,7 +112,7 @@ public class AbbuchungsmodusInput extends SelectInput
     AbbuchungsmodusObject o = (AbbuchungsmodusObject) super.getValue();
     if (o == null)
     {
-      return new Integer(JAEHRLICH);
+      return new Integer(Abrechnungsmodi.JAEHRLICH);
     }
     return new Integer(o.abbuchungsmodus);
   }
@@ -153,54 +129,7 @@ public class AbbuchungsmodusInput extends SelectInput
     private AbbuchungsmodusObject(int abbuchungsmodus)
     {
       this.abbuchungsmodus = abbuchungsmodus;
-
-      switch (abbuchungsmodus)
-      {
-        case AbbuchungsmodusInput.KEINBEITRAG:
-          this.label = JVereinPlugin.getI18n().tr("keine Beitragsabrechnung");
-          break;
-        case AbbuchungsmodusInput.JAEHRLICH:
-          this.label = JVereinPlugin.getI18n().tr("Jahresbeiträge");
-          break;
-        case AbbuchungsmodusInput.HALBJAEHRLICH:
-          this.label = JVereinPlugin.getI18n().tr("Halbjahresbeiträge");
-          break;
-        case AbbuchungsmodusInput.VIERTELJAEHRLICH:
-          this.label = JVereinPlugin.getI18n().tr("Vierteljahresbeiträge");
-          break;
-        case AbbuchungsmodusInput.MONATLICH:
-        case AbbuchungsmodusInput.MO:
-          this.label = JVereinPlugin.getI18n().tr("Monatsbeiträge");
-          break;
-        case AbbuchungsmodusInput.VI:
-          this.label = JVereinPlugin.getI18n().tr("Vierteljährlich");
-          break;
-        case AbbuchungsmodusInput.HA:
-          this.label = JVereinPlugin.getI18n().tr("Halbjährlich");
-          break;
-        case AbbuchungsmodusInput.JA:
-          this.label = JVereinPlugin.getI18n().tr("Jährlich");
-          break;
-        case AbbuchungsmodusInput.JAHAVIMO:
-          this.label = JVereinPlugin.getI18n().tr(
-              "Jahres-, Halbjahres-, Vierteljahres- und Monatsbeiträge");
-          break;
-        case AbbuchungsmodusInput.JAVIMO:
-          this.label = JVereinPlugin.getI18n().tr(
-              "Jahres-, Vierteljahres- und Monatsbeiträge");
-          break;
-        case AbbuchungsmodusInput.HAVIMO:
-          this.label = JVereinPlugin.getI18n().tr(
-              "Halbjahres-, Vierteljahres- und Monatsbeiträge");
-          break;
-        case AbbuchungsmodusInput.VIMO:
-          this.label = JVereinPlugin.getI18n().tr(
-              "Vierteljahres- und Monatsbeiträge");
-          break;
-        case AbbuchungsmodusInput.EINGETRETENEMITGLIEDER:
-          this.label = JVereinPlugin.getI18n().tr("eingetretene Mitglieder");
-          break;
-      }
+      this.label = Abrechnungsmodi.get(abbuchungsmodus);
     }
 
     public Object getAttribute(String arg0) throws RemoteException
