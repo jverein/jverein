@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/07/24 18:42:26  jost
+ * Vermeidung NullpointerException
+ *
  * Revision 1.1  2009/07/14 07:29:12  jost
  * Neu: Box aktuelle Geburtstage
  *
@@ -17,6 +20,7 @@ package de.jost_net.JVerein.gui.parts;
 
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -79,7 +83,8 @@ public class AktuelleGeburtstageList extends TablePart implements Part
       cal.add(Calendar.DAY_OF_MONTH, 1);
     }
     geburtstage.addFilter(filter);
-    geburtstage.addFilter("kuendigung is null");
+    geburtstage.addFilter("austritt is null or austritt > ?",
+        new Object[] { new Date() });
     geburtstage.setOrder("ORDER BY month(geburtsdatum), day(geburtsdatum)");
 
     if (aktuelleGeburtstageList == null)
