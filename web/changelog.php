@@ -5,6 +5,7 @@
     		<ul>
     			<li>Zusätzliche Prüfung der Bankverbindung bei der Abrechnung</li>
     			<li>Fehlendes Foreign-Key-Constraint Eigenschaften/Mitglied eingefügt.</li>
+				<li>Aktuelle Geburtstage: Korrekte Behandlung ausgetretener Mitglieder</li>
     		</ul>
 
 	   	<li>Version 1.3.0 vom 09.04.2010</li>
@@ -467,6 +468,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.45  2010/04/25 14:21:27  jost
+    *** empty log message ***
+
     Revision 1.44  2010/04/18 06:57:40  jost
     *** empty log message ***
 
