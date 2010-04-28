@@ -358,11 +358,14 @@ public class JVereinUpdateProvider
     {
       cv = update0095(conn, progressmonitor);
     }
-    // TODO für 1.3.1 deaktivieren
-     if (cv < 96)
-     {
-     cv = update0096(conn, progressmonitor);
-     }
+    if (cv < 96)
+    {
+      cv = update0096(conn, progressmonitor);
+    }
+    if (cv < 97)
+    {
+      cv = update0097(conn, progressmonitor);
+    }
     if (cv != cvv)
     {
       setNewVersion(cv);
@@ -2680,6 +2683,45 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Tabelle abrechnungslaeufe erstellt");
     return 96;
+  }
+
+  private int update0097(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mitgliedskonto (");
+    sb.append(" id IDENTITY, ");
+    sb.append(" mitglied INTEGER,");
+    sb.append(" buchungstyp CHAR(1), ");
+    sb.append(" datum DATE,");
+    sb.append(" zweck1 VARCHAR(27),");
+    sb.append(" zweck2 VARCHAR(27),");
+    sb.append(" betrag DOUBLE,");
+    sb.append(" referenz VARCHAR(10), ");
+    sb.append(" UNIQUE (id), ");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE mitgliedskonto (");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" mitglied INTEGER,");
+    sb.append(" buchungstyp CHAR(1), ");
+    sb.append(" datum DATE,");
+    sb.append(" zweck1 VARCHAR(27),");
+    sb.append(" zweck2 VARCHAR(27),");
+    sb.append(" betrag DOUBLE,");
+    sb.append(" referenz VARCHAR(10), ");
+    sb.append(" UNIQUE (id), ");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(" ) TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle mitgliedskonto erstellt");
+    return 97;
   }
 
 }
