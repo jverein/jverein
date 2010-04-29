@@ -5,11 +5,14 @@
     <h2>Jameica-Suite für Windows-Benutzer</h2>
 	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat die Jameica Suite zusammengestellt. 
 		Windows-Benutzer können Jameica, Hibiscus, Syntax und JVerein per Setup-Datei installieren. 
-		<a href="http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html">Download der Jameica-Suite</a></p>
+		Das Setup steht auch im <a href='phpATM'>Downloadbereich</a> zur Verfügung.</a></p>
     
     
     <!-- 
     $Log$
+    Revision 1.12  2010/03/28 18:21:01  jost
+    Neuer Downloadbereich
+
     Revision 1.11  2010/03/27 20:18:36  jost
     *** empty log message ***
 
