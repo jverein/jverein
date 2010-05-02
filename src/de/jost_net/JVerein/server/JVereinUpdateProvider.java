@@ -2628,6 +2628,20 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb
+        .append("DELETE FROM eigenschaften WHERE eigenschaften.id IN (select e.id from eigenschaften as e left join mitglied as m on e.mitglied = m.id where m.id is null  );\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("DELETE FROM eigenschaften WHERE eigenschaften.id IN (select e.id from eigenschaften as e left join mitglied as m on e.mitglied = m.id where m.id is null  );\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, "Fehlerhafte Eigenschaften entfernt");
+
+    statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
         .append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
