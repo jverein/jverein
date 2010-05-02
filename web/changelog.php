@@ -6,6 +6,7 @@
     			<li>Zusätzliche Prüfung der Bankverbindung bei der Abrechnung</li>
     			<li>Fehlendes Foreign-Key-Constraint Eigenschaften/Mitglied eingefügt.</li>
 				<li>Aktuelle Geburtstage: Korrekte Behandlung ausgetretener Mitglieder</li>
+				<li>Buchungsklassen-Saldo: Überschrift korrigiert.</li>
     		</ul>
 
 	   	<li>Version 1.3.0 vom 09.04.2010</li>
@@ -468,6 +469,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.46  2010/04/26 19:24:43  jost
+    *** empty log message ***
+
     Revision 1.45  2010/04/25 14:21:27  jost
     *** empty log message ***
 
