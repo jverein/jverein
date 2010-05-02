@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/02/23 21:16:13  jost
+ * Individueller Zeitraum
+ *
  * Revision 1.3  2009/09/19 16:28:38  jost
  * Weiterentwicklung
  *
@@ -53,7 +56,7 @@ public class BuchungsklassesaldoPDF
       FileOutputStream fos = new FileOutputStream(file);
       String subtitle = Einstellungen.DATEFORMAT.format(datumvon) + " - "
           + Einstellungen.DATEFORMAT.format(datumbis);
-      Reporter reporter = new Reporter(fos, monitor, "Buchungsklassesaldo",
+      Reporter reporter = new Reporter(fos, monitor, "Buchungsklassen-Saldo",
           subtitle, zeile.size());
       makeHeader(reporter);
 
