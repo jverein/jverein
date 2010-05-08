@@ -2634,7 +2634,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     sb = new StringBuilder();
     sb
-        .append("DELETE FROM eigenschaften WHERE eigenschaften.id IN (select e.id from eigenschaften as e left join mitglied as m on e.mitglied = m.id where m.id is null  );\n");
+        .append("DELETE eigenschaften from eigenschaften left join mitglied on mitglied.id = eigenschaften.mitglied;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
     execute(conn, statements, "Fehlerhafte Eigenschaften entfernt");
 
@@ -2690,7 +2690,6 @@ public class JVereinUpdateProvider
     sb.append(" dtausdruck CHAR(5), ");
     sb.append(" abbuchungsausgabe INTEGER, ");
     sb.append(" UNIQUE (id), ");
-    sb.append("UNIQUE (betreff),");
     sb.append(" PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
