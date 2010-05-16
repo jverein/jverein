@@ -1397,7 +1397,7 @@ public class JVereinUpdateProvider
     sb.append(" veranstalter VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(");\n");
+     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle lehrgangsart erstellt");
@@ -1456,8 +1456,8 @@ public class JVereinUpdateProvider
     sb.append(" ergebnis VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(");\n");
-    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    sb.append(") TYPE=InnoDB;\n");
+   statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle lehrgang aufgenommen");
     return 39;
@@ -1514,7 +1514,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("-- nothing to do\n");
+    sb.append("ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang1;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang entfernt");
@@ -1532,7 +1532,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("-- nothing to do\n");
+   sb.append("ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang2;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang entfernt");
@@ -1551,7 +1551,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("-- nothing to do\n");
+sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet");
