@@ -1,13 +1,15 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-	   	<li>Version 1.3.1 (noch nicht freigegeben)</li>
+	   	<li>Version 1.3.1 vom 16.05.2010</li>
     		<ul>
     			<li>Zusätzliche Prüfung der Bankverbindung bei der Abrechnung</li>
     			<li>Fehlendes Foreign-Key-Constraint Eigenschaften/Mitglied eingefügt.</li>
 				<li>Bugfix Eigenschaften</li>
 				<li>Aktuelle Geburtstage: Korrekte Behandlung ausgetretener Mitglieder</li>
 				<li>Buchungsklassen-Saldo: Überschrift korrigiert.</li>
+				<li>Programminterner einheitlicher Umgang mit ausgetretenen Mitgliedern</li>
+				<li>Bugfix Einrichtung MySQL-Datenbank</li>
     		</ul>
 
 	   	<li>Version 1.3.0 vom 09.04.2010</li>
@@ -470,6 +472,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.48  2010/05/02 08:19:19  jost
+    *** empty log message ***
+
     Revision 1.47  2010/05/02 06:11:14  jost
     *** empty log message ***
 
