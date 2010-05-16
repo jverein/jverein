@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/05/16 10:43:58  jost
+ * Einheitlicher Umgang mit ausgetretenen Mitgliedern
+ *
  * Revision 1.3  2010/04/26 19:22:42  jost
  * Korrekte Behandlung von ausgetretenen Mitgliedern
  *
@@ -23,12 +26,12 @@ package de.jost_net.JVerein.gui.parts;
 
 import java.rmi.RemoteException;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -92,7 +95,8 @@ public class AktuelleGeburtstageList extends TablePart implements Part
 
     if (aktuelleGeburtstageList == null)
     {
-      aktuelleGeburtstageList = new TablePart(geburtstage, null);
+      aktuelleGeburtstageList = new TablePart(geburtstage,
+          new MitgliedDetailAction());
       aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr("Name"),
           "name");
       aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr("Vorname"),
@@ -100,6 +104,14 @@ public class AktuelleGeburtstageList extends TablePart implements Part
       aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr(
           "Geburtsdatum"), "geburtsdatum", new DateFormatter(
           Einstellungen.DATEFORMAT));
+      aktuelleGeburtstageList.addColumn(
+          JVereinPlugin.getI18n().tr("Tel. priv"), "telefonprivat");
+      aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr(
+          "Tel. dienstlich"), "telefondienstlich");
+      aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr("Handy"),
+          "handy");
+      aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr("Email"),
+          "email");
       aktuelleGeburtstageList.setRememberColWidths(true);
       aktuelleGeburtstageList.setRememberOrder(true);
       aktuelleGeburtstageList.setSummary(true);
