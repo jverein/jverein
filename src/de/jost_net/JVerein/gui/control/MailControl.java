@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010/03/27 20:08:11  jost
+ * Bugfix 2. Aufruf
+ *
  * Revision 1.5  2010/02/17 21:26:09  jost
  * Statusanzeige
  *
@@ -49,6 +52,7 @@ import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -177,6 +181,7 @@ public class MailControl extends AbstractControl
       return mitgliedmitmail;
     }
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    MitgliedUtils.setNurAktive(it);
     it.addFilter("email is not null and length(email)  > 0");
     mitgliedmitmail = new TablePart(it, null);
     mitgliedmitmail.addColumn("EMail", "email");

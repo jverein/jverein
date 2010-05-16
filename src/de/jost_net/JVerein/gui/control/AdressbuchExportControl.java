@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/03/26 20:58:32  jost
+ * Neu: Adressbuchexport
+ *
  **********************************************************************/
  
 package de.jost_net.JVerein.gui.control;
@@ -22,6 +25,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Txt;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -150,7 +154,7 @@ public class AdressbuchExportControl extends AbstractControl
         {
           DBIterator it = Einstellungen.getDBService().createList(
               Mitglied.class);
-          it.addFilter("austritt is null");
+          MitgliedUtils.setNurAktive(it);
           if (isNurEmail)
           {
             it.addFilter("email is not null and length(email)>0");

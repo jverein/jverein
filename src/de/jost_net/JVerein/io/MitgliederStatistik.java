@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/03/02 21:09:39  jost
+ * Bugfix Altersgruppen und Berücksichtigung des Eintrittsdatums
+ *
  * Revision 1.7  2008/07/10 07:59:52  jost
  * Optimierung der internen Reporter-Klasse
  *
@@ -54,6 +57,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -275,8 +279,7 @@ public class MitgliederStatistik
     list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
     list.addFilter("geburtsdatum <= ?", new Object[] { bd });
-    list.addFilter("(austritt is null or austritt > ?)",
-        new Object[] { stichtag });
+    MitgliedUtils.setNurAktive(list, stichtag);
     list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
 
@@ -292,8 +295,7 @@ public class MitgliederStatistik
       Date stichtag) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
-    list.addFilter("(austritt is null or austritt > ?)",
-        new Object[] { stichtag });
+    MitgliedUtils.setNurAktive(list, stichtag);
     list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
     if (bg != null)

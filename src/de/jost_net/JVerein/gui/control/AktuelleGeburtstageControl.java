@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/07/14 07:28:43  jost
+ * Neu: Box aktuelle Geburtstage
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.control;
@@ -19,6 +22,7 @@ import java.util.Calendar;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -107,7 +111,7 @@ public class AktuelleGeburtstageControl extends AbstractControl
       cal.add(Calendar.DAY_OF_MONTH, 1);
     }
     geburtstage.addFilter(filter);
-    geburtstage.addFilter("kuendigung is null");
+    MitgliedUtils.setNurAktive(geburtstage);
     geburtstage.setOrder("ORDER BY month(geburtsdatum), day(geburtsdatum)");
 
     if (aktuelleGeburtstageList == null)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010/01/01 20:28:09  jost
+ * Konkrete Fehlermeldung, wenn bei der Erstellung einer Altersjubil‰umsliste der Eintag in den Stammdaten fehlt.
+ *
  * Revision 1.6  2008/12/24 09:17:09  jost
  * Bei Altersjubil√§en wird jetzt das Geburtsdatum anstatt des Eintrittsdatums ausgegeben.
  *
@@ -48,6 +51,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Stammdaten;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -154,7 +158,7 @@ public class Jubilaeenliste
 
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
-      mitgl.addFilter("austritt is null");
+      MitgliedUtils.setNurAktive(mitgl);
       Calendar cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, jahr);
       cal.add(Calendar.YEAR, jubi * -1);
@@ -203,7 +207,7 @@ public class Jubilaeenliste
 
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
-      mitgl.addFilter("austritt is null");
+     MitgliedUtils.setNurAktive(mitgl);
       Calendar cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, jahr);
       cal.add(Calendar.YEAR, jubi * -1);
