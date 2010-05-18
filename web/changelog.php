@@ -1,6 +1,15 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
+	   	<li>Version 1.4.0 (noch nicht freigegeben)</li>
+    		<ul>
+    			<li>Box der aktuellen Geburtstage: Durch Doppelklick kann das Mitglied direkt bearbeitet werden. Zusätzlich Telefonnummern und Email-Adresse aufgenommen.</li>
+    		</ul>
+
+	   	<li>Version 1.3.2 vom 18.05.2010</li>
+    		<ul>
+    			<li>Bugfix bei der Behandlung ausgetretener Mitglieder</li>
+    		</ul>
 	   	<li>Version 1.3.1 vom 16.05.2010</li>
     		<ul>
     			<li>Zusätzliche Prüfung der Bankverbindung bei der Abrechnung</li>
@@ -472,6 +481,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.49  2010/05/16 10:45:38  jost
+    *** empty log message ***
+
     Revision 1.48  2010/05/02 08:19:19  jost
     *** empty log message ***
 
