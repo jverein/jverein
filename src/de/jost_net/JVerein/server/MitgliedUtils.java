@@ -10,7 +10,7 @@ public class MitgliedUtils
   public static void setNurAktive(DBIterator it, Date datum)
       throws RemoteException
   {
-    it.addFilter("austritt is null or austritt < ?", new Object[] { datum });
+    it.addFilter("(austritt is null or austritt < ?)", new Object[] { datum });
   }
 
   public static void setNurAktive(DBIterator it) throws RemoteException
