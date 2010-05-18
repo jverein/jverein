@@ -33,342 +33,349 @@ public class JVereinUpdateProvider
     this.conn = conn;
     this.progressmonitor = progressmonitor;
     int cv = getCurrentVersion();
-    int cvv = cv;
     if (cv == 0)
     {
       install(conn, progressmonitor);
     }
     if (cv < 16)
     {
-      cv = update0016(conn, progressmonitor);
+      update0016(conn, progressmonitor);
     }
     if (cv < 17)
     {
-      cv = update0017(conn, progressmonitor);
+      update0017(conn, progressmonitor);
     }
     if (cv < 18)
     {
-      cv = update0018(conn, progressmonitor);
+      update0018(conn, progressmonitor);
     }
     if (cv < 19)
     {
-      cv = update0019(conn, progressmonitor);
+      update0019(conn, progressmonitor);
     }
     if (cv < 20)
     {
-      cv = update0020(conn, progressmonitor);
+      update0020(conn, progressmonitor);
     }
     if (cv < 21)
     {
-      cv = update0021(conn, progressmonitor);
+      update0021(conn, progressmonitor);
     }
     if (cv < 22)
     {
-      cv = update0022(conn, progressmonitor);
+      update0022(conn, progressmonitor);
     }
     if (cv < 23)
     {
-      cv = update0023(conn, progressmonitor);
+      update0023(conn, progressmonitor);
     }
     if (cv < 24)
     {
-      cv = update0024(conn, progressmonitor);
+      update0024(conn, progressmonitor);
     }
     if (cv < 25)
     {
-      cv = update0025(conn, progressmonitor);
+      update0025(conn, progressmonitor);
     }
     if (cv < 26)
     {
-      cv = update0026(conn, progressmonitor);
+      update0026(conn, progressmonitor);
     }
     if (cv < 27)
     {
-      cv = update0027(conn, progressmonitor);
+      update0027(conn, progressmonitor);
     }
     if (cv < 28)
     {
-      cv = update0028(conn, progressmonitor);
+      update0028(conn, progressmonitor);
     }
     if (cv < 29)
     {
-      cv = update0029(conn, progressmonitor);
+      update0029(conn, progressmonitor);
     }
     if (cv < 30)
     {
-      cv = update0030(conn, progressmonitor);
+      update0030(conn, progressmonitor);
     }
     if (cv < 31)
     {
-      cv = update0031(conn, progressmonitor);
+      update0031(conn, progressmonitor);
     }
     if (cv < 32)
     {
-      cv = update0032(conn, progressmonitor);
+      update0032(conn, progressmonitor);
     }
     if (cv < 33)
     {
-      cv = update0033(conn, progressmonitor);
+      update0033(conn, progressmonitor);
     }
     if (cv < 34)
     {
-      cv = update0034(conn, progressmonitor);
+      update0034(conn, progressmonitor);
     }
     if (cv < 35)
     {
-      cv = update0035(conn, progressmonitor);
+      update0035(conn, progressmonitor);
     }
     if (cv < 36)
     {
-      cv = update0036(conn, progressmonitor);
+      update0036(conn, progressmonitor);
     }
     if (cv < 37)
     {
-      cv = update0037(conn, progressmonitor);
+      update0037(conn, progressmonitor);
     }
     if (cv < 38)
     {
-      cv = update0038(conn, progressmonitor);
+      update0038(conn, progressmonitor);
     }
     if (cv < 39)
     {
-      cv = update0039(conn, progressmonitor);
+      update0039(conn, progressmonitor);
     }
     if (cv < 40)
     {
-      cv = update0040(conn, progressmonitor);
+      update0040(conn, progressmonitor);
     }
     if (cv < 41)
     {
-      cv = update0041(conn, progressmonitor);
+      update0041(conn, progressmonitor);
     }
     if (cv < 42)
     {
-      cv = update0042(conn, progressmonitor);
+      update0042(conn, progressmonitor);
     }
     if (cv < 43)
     {
-      cv = update0043(conn, progressmonitor);
+      update0043(conn, progressmonitor);
     }
     if (cv < 44)
     {
-      cv = update0044(conn, progressmonitor);
+      update0044(conn, progressmonitor);
     }
     if (cv < 45)
     {
-      cv = update0045(conn, progressmonitor);
+      update0045(conn, progressmonitor);
     }
     if (cv < 46)
     {
-      cv = update0046(conn, progressmonitor);
+      update0046(conn, progressmonitor);
     }
     if (cv < 47)
     {
-      cv = update0047(conn, progressmonitor);
+      update0047(conn, progressmonitor);
     }
     if (cv < 48)
     {
-      cv = update0048(conn, progressmonitor);
+      update0048(conn, progressmonitor);
     }
     if (cv < 49)
     {
-      cv = update0049(conn, progressmonitor);
+      update0049(conn, progressmonitor);
     }
     if (cv < 50)
     {
-      cv = update0050(conn, progressmonitor);
+      update0050(conn, progressmonitor);
     }
     if (cv < 51)
     {
-      cv = update0051(conn, progressmonitor);
+      update0051(conn, progressmonitor);
     }
     if (cv < 52)
     {
-      cv = update0052(conn, progressmonitor);
+      update0052(conn, progressmonitor);
     }
     if (cv < 53)
     {
-      cv = update0053(conn, progressmonitor);
+      update0053(conn, progressmonitor);
     }
     if (cv < 54)
     {
-      cv = update0054(conn, progressmonitor);
+      update0054(conn, progressmonitor);
     }
     if (cv < 55)
     {
-      cv = update0055(conn, progressmonitor);
+      update0055(conn, progressmonitor);
     }
     if (cv < 56)
     {
-      cv = update0056(conn, progressmonitor);
+      update0056(conn, progressmonitor);
     }
     if (cv < 57)
     {
-      cv = update0057(conn, progressmonitor);
+      update0057(conn, progressmonitor);
     }
     if (cv < 58)
     {
-      cv = update0058(conn, progressmonitor);
+      update0058(conn, progressmonitor);
     }
     if (cv < 59)
     {
-      cv = update0059(conn, progressmonitor);
+      update0059(conn, progressmonitor);
     }
     if (cv < 60)
     {
-      cv = update0060(conn, progressmonitor);
+      update0060(conn, progressmonitor);
     }
     if (cv < 61)
     {
-      cv = update0061(conn, progressmonitor);
+      update0061(conn, progressmonitor);
     }
     if (cv < 62)
     {
-      cv = update0062(conn, progressmonitor);
+      update0062(conn, progressmonitor);
     }
     if (cv < 63)
     {
-      cv = update0063(conn, progressmonitor);
+      update0063(conn, progressmonitor);
     }
     if (cv < 64)
     {
-      cv = update0064(conn, progressmonitor);
+      update0064(conn, progressmonitor);
     }
     if (cv < 65)
     {
-      cv = update0065(conn, progressmonitor);
+      update0065(conn, progressmonitor);
     }
     if (cv < 66)
     {
-      cv = update0066(conn, progressmonitor);
+      update0066(conn, progressmonitor);
     }
     if (cv < 67)
     {
-      cv = update0067(conn, progressmonitor);
+      update0067(conn, progressmonitor);
     }
     if (cv < 68)
     {
-      cv = update0068(conn, progressmonitor);
+      update0068(conn, progressmonitor);
     }
     if (cv < 69)
     {
-      cv = update0069(conn, progressmonitor);
+      update0069(conn, progressmonitor);
     }
     if (cv < 70)
     {
-      cv = update0070(conn, progressmonitor);
+      update0070(conn, progressmonitor);
     }
     if (cv < 71)
     {
-      cv = update0071(conn, progressmonitor);
+      update0071(conn, progressmonitor);
     }
     if (cv < 72)
     {
-      cv = update0072(conn, progressmonitor);
+      update0072(conn, progressmonitor);
     }
     if (cv < 73)
     {
-      cv = update0073(conn, progressmonitor);
+      update0073(conn, progressmonitor);
     }
     if (cv < 74)
     {
-      cv = update0074(conn, progressmonitor);
+      update0074(conn, progressmonitor);
     }
     if (cv < 75)
     {
-      cv = update0075(conn, progressmonitor);
+      update0075(conn, progressmonitor);
     }
     if (cv < 76)
     {
-      cv = update0076(conn, progressmonitor);
+      update0076(conn, progressmonitor);
     }
     if (cv < 77)
     {
-      cv = update0077(conn, progressmonitor);
+      update0077(conn, progressmonitor);
     }
     if (cv < 78)
     {
-      cv = update0078(conn, progressmonitor);
+      update0078(conn, progressmonitor);
     }
     if (cv < 79)
     {
-      cv = update0079(conn, progressmonitor);
+      update0079(conn, progressmonitor);
     }
     if (cv < 80)
     {
-      cv = update0080(conn, progressmonitor);
+      update0080(conn, progressmonitor);
     }
     if (cv < 81)
     {
-      cv = update0081(conn, progressmonitor);
+      update0081(conn, progressmonitor);
     }
     if (cv < 82)
     {
-      cv = update0082(conn, progressmonitor);
+      update0082(conn, progressmonitor);
     }
     if (cv < 83)
     {
-      cv = update0083(conn, progressmonitor);
+      update0083(conn, progressmonitor);
     }
     if (cv < 84)
     {
-      cv = update0084(conn, progressmonitor);
+      update0084(conn, progressmonitor);
     }
     if (cv < 85)
     {
-      cv = update0085(conn, progressmonitor);
+      update0085(conn, progressmonitor);
     }
     if (cv < 86)
     {
-      cv = update0086(conn, progressmonitor);
+      update0086(conn, progressmonitor);
     }
     if (cv < 87)
     {
-      cv = update0087(conn, progressmonitor);
+      update0087(conn, progressmonitor);
     }
     if (cv < 88)
     {
-      cv = update0088(conn, progressmonitor);
+      update0088(conn, progressmonitor);
     }
     if (cv < 89)
     {
-      cv = update0089(conn, progressmonitor);
+      update0089(conn, progressmonitor);
     }
     if (cv < 90)
     {
-      cv = update0090(conn, progressmonitor);
+      update0090(conn, progressmonitor);
     }
     if (cv < 91)
     {
-      cv = update0091(conn, progressmonitor);
+      update0091(conn, progressmonitor);
     }
     if (cv < 92)
     {
-      cv = update0092(conn, progressmonitor);
+      update0092(conn, progressmonitor);
     }
     if (cv < 93)
     {
-      cv = update0093(conn, progressmonitor);
+      update0093(conn, progressmonitor);
     }
     if (cv < 94)
     {
-      cv = update0094(conn, progressmonitor);
+      update0094(conn, progressmonitor);
     }
     if (cv < 95)
     {
-      cv = update0095(conn, progressmonitor);
+      update0095(conn, progressmonitor);
     }
     if (cv < 96)
     {
-      cv = update0096(conn, progressmonitor);
+      update0096(conn, progressmonitor);
     }
     if (cv < 97)
     {
-      cv = update0097(conn, progressmonitor);
+      update0097(conn, progressmonitor);
     }
-    if (cv != cvv)
+    if (cv < 98)
     {
-      setNewVersion(cv);
+      update0098(conn, progressmonitor);
+    }
+    if (cv < 99)
+    {
+      update0099(conn, progressmonitor);
+    }
+    if (cv < 100)
+    {
+      update0100(conn, progressmonitor);
     }
   }
 
@@ -434,7 +441,7 @@ public class JVereinUpdateProvider
    * @see de.willuhn.sql.version.Update#execute(de.willuhn.sql.version.UpdateProvider)
    */
   public void execute(Connection conn, Map<String, String> statements,
-      String logstring) throws ApplicationException
+      String logstring, int version) throws ApplicationException
   {
     Logger.info("TODO: " + logstring);
     String driver = JVereinDBService.SETTINGS
@@ -450,6 +457,7 @@ public class JVereinUpdateProvider
     {
       ScriptExecutor.execute(new StringReader(sql), conn, progressmonitor);
       progressmonitor.log(logstring);
+      setNewVersion(version);
     }
     catch (Exception e)
     {
@@ -459,7 +467,7 @@ public class JVereinUpdateProvider
     }
   }
 
-  private int install(Connection conn, ProgressMonitor progressmonitor)
+  private void install(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -854,11 +862,10 @@ public class JVereinUpdateProvider
     sb.append("INSERT INTO version VALUES (1,15);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle jahresabschluss erstellt");
-    return 16;
+    execute(conn, statements, "Tabelle jahresabschluss erstellt", 15);
   }
 
-  private int update0016(Connection conn, ProgressMonitor progressmonitor)
+  private void update0016(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -885,11 +892,10 @@ public class JVereinUpdateProvider
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle formular erstellt");
-    return 16;
+    execute(conn, statements, "Tabelle formular erstellt", 16);
   }
 
-  private int update0017(Connection conn, ProgressMonitor progressmonitor)
+  private void update0017(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Logger.info("");
@@ -927,11 +933,10 @@ public class JVereinUpdateProvider
         .append("ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle formularfeld erstellt");
-    return 17;
+    execute(conn, statements, "Tabelle formularfeld erstellt", 17);
   }
 
-  private int update0018(Connection conn, ProgressMonitor progressmonitor)
+  private void update0018(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -943,11 +948,11 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "alter table buchung modify column  kommentar varchar(1000);\n");
 
-    execute(conn, statements, "Spalte kommentar der Tabelle buchung verlängert");
-    return 18;
+    execute(conn, statements,
+        "Spalte kommentar der Tabelle buchung verlängert", 18);
   }
 
-  private int update0019(Connection conn, ProgressMonitor progressmonitor)
+  private void update0019(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -960,11 +965,10 @@ public class JVereinUpdateProvider
         "alter table formularfeld add fontstyle integer;\n");
 
     execute(conn, statements,
-        "Spalte fontstyle zur Tabelle formularfeld hinzugefügt");
-    return 19;
+        "Spalte fontstyle zur Tabelle formularfeld hinzugefügt", 19);
   }
 
-  private int update0020(Connection conn, ProgressMonitor progressmonitor)
+  private void update0020(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1011,11 +1015,10 @@ public class JVereinUpdateProvider
         .append("ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle spendenbescheinigung erstellt");
-    return 20;
+    execute(conn, statements, "Tabelle spendenbescheinigung erstellt", 20);
   }
 
-  private int update0021(Connection conn, ProgressMonitor progressmonitor)
+  private void update0021(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1027,11 +1030,10 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "CREATE UNIQUE INDEX ixFormular1 ON formular(bezeichnung);\n");
 
-    execute(conn, statements, "Index für Tabelle formular erstellt");
-    return 21;
+    execute(conn, statements, "Index für Tabelle formular erstellt", 21);
   }
 
-  private int update0022(Connection conn, ProgressMonitor progressmonitor)
+  private void update0022(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1062,11 +1064,10 @@ public class JVereinUpdateProvider
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle abrechnung erstellt");
-    return 22;
+    execute(conn, statements, "Tabelle abrechnung erstellt", 22);
   }
 
-  private int update0023(Connection conn, ProgressMonitor progressmonitor)
+  private void update0023(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1078,11 +1079,10 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "CREATE INDEX ixAbrechnung1 ON abrechnung(mitglied);\n");
 
-    execute(conn, statements, "Index für Tabelle abrechnung erstellt");
-    return 23;
+    execute(conn, statements, "Index für Tabelle abrechnung erstellt", 23);
   }
 
-  private int update0024(Connection conn, ProgressMonitor progressmonitor)
+  private void update0024(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1098,11 +1098,10 @@ public class JVereinUpdateProvider
             DBSupportMySqlImpl.class.getName(),
             "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
 
-    execute(conn, statements, "Foreign Key für Tabelle abrechnung erstellt");
-    return 24;
+    execute(conn, statements, "Foreign Key für Tabelle abrechnung erstellt", 24);
   }
 
-  private int update0025(Connection conn, ProgressMonitor progressmonitor)
+  private void update0025(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1115,11 +1114,10 @@ public class JVereinUpdateProvider
         "ALTER TABLE stammdaten ADD altersjubilaeen varchar(50);\n");
 
     execute(conn, statements,
-        "Spalte altersjubilaeen in die Tabelle stammdaten eingefügt");
-    return 25;
+        "Spalte altersjubilaeen in die Tabelle stammdaten eingefügt", 25);
   }
 
-  private int update0026(Connection conn, ProgressMonitor progressmonitor)
+  private void update0026(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1134,11 +1132,10 @@ public class JVereinUpdateProvider
             "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) after vorname;\n");
 
     execute(conn, statements,
-        "Spalte adressierungszusatz in die Tabelle mitglied eingefügt");
-    return 26;
+        "Spalte adressierungszusatz in die Tabelle mitglied eingefügt", 26);
   }
 
-  private int update0027(Connection conn, ProgressMonitor progressmonitor)
+  private void update0027(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1154,12 +1151,14 @@ public class JVereinUpdateProvider
             DBSupportMySqlImpl.class.getName(),
             "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
 
-    execute(conn, statements,
-        "Spalte adressierungszusatz in der Tabelle auf '' (Leerstring) gesetzt");
-    return 27;
+    execute(
+        conn,
+        statements,
+        "Spalte adressierungszusatz in der Tabelle auf '' (Leerstring) gesetzt",
+        27);
   }
 
-  private int update0028(Connection conn, ProgressMonitor progressmonitor)
+  private void update0028(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1208,11 +1207,10 @@ public class JVereinUpdateProvider
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle einstellung erstellt");
-    return 28;
+    execute(conn, statements, "Tabelle einstellung erstellt", 28);
   }
 
-  private int update0029(Connection conn, ProgressMonitor progressmonitor)
+  private void update0029(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1225,11 +1223,10 @@ public class JVereinUpdateProvider
         "ALTER TABLE buchung ADD auszugsnummer integer after konto;\n");
 
     execute(conn, statements,
-        "Spalte auszugsnummer in die Tabelle buchung eingefügt");
-    return 29;
+        "Spalte auszugsnummer in die Tabelle buchung eingefügt", 29);
   }
 
-  private int update0030(Connection conn, ProgressMonitor progressmonitor)
+  private void update0030(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1242,11 +1239,10 @@ public class JVereinUpdateProvider
         "ALTER TABLE buchung ADD blattnummer integer after auszugsnummer;\n");
 
     execute(conn, statements,
-        "Spalte blattnummer in die Tabelle buchung eingefügt");
-    return 30;
+        "Spalte blattnummer in die Tabelle buchung eingefügt", 30);
   }
 
-  private int update0031(Connection conn, ProgressMonitor progressmonitor)
+  private void update0031(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1259,11 +1255,10 @@ public class JVereinUpdateProvider
         "ALTER TABLE mitglied MODIFY COLUMN telefonprivat varchar(20);\n");
 
     execute(conn, statements,
-        "Spalte telefonprivat in der Tabelle mitglied verlängert");
-    return 31;
+        "Spalte telefonprivat in der Tabelle mitglied verlängert", 31);
   }
 
-  private int update0032(Connection conn, ProgressMonitor progressmonitor)
+  private void update0032(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1276,11 +1271,10 @@ public class JVereinUpdateProvider
         "ALTER TABLE mitglied MODIFY COLUMN telefondienstlich varchar(20);\n");
 
     execute(conn, statements,
-        "Spalte telefondienstlich in der Tabelle mitglied verlängert");
-    return 32;
+        "Spalte telefondienstlich in der Tabelle mitglied verlängert", 32);
   }
 
-  private int update0033(Connection conn, ProgressMonitor progressmonitor)
+  private void update0033(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1292,11 +1286,11 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "ALTER TABLE mitglied MODIFY COLUMN handy varchar(20);\n");
 
-    execute(conn, statements, "Spalte handy in der Tabelle mitglied verlängert");
-    return 33;
+    execute(conn, statements,
+        "Spalte handy in der Tabelle mitglied verlängert", 33);
   }
 
-  private int update0034(Connection conn, ProgressMonitor progressmonitor)
+  private void update0034(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1308,12 +1302,14 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "ALTER TABLE spendenbescheinigung ADD ersatzaufwendungen char(5);\n");
 
-    execute(conn, statements,
-        "Spalte ersatzaufwendungen in die Tabelle spendenbescheinigung aufgenommen");
-    return 34;
+    execute(
+        conn,
+        statements,
+        "Spalte ersatzaufwendungen in die Tabelle spendenbescheinigung aufgenommen",
+        34);
   }
 
-  private int update0035(Connection conn, ProgressMonitor progressmonitor)
+  private void update0035(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1348,11 +1344,10 @@ public class JVereinUpdateProvider
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle report aufgenommen");
-    return 35;
+    execute(conn, statements, "Tabelle report aufgenommen", 35);
   }
 
-  private int update0036(Connection conn, ProgressMonitor progressmonitor)
+  private void update0036(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1366,11 +1361,10 @@ public class JVereinUpdateProvider
     sb.append("drop table report;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle report gelöscht");
-    return 36;
+    execute(conn, statements, "Tabelle report gelöscht", 36);
   }
 
-  private int update0037(Connection conn, ProgressMonitor progressmonitor)
+  private void update0037(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1397,14 +1391,13 @@ public class JVereinUpdateProvider
     sb.append(" veranstalter VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-     sb.append(") TYPE=InnoDB;\n");
+    sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle lehrgangsart erstellt");
-    return 37;
+    execute(conn, statements, "Tabelle lehrgangsart erstellt", 37);
   }
 
-  private int update0038(Connection conn, ProgressMonitor progressmonitor)
+  private void update0038(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1421,11 +1414,10 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte lehrgaenge in die Tabelle lehrgangsart aufgenommen");
-    return 38;
+        "Spalte lehrgaenge in die Tabelle lehrgangsart aufgenommen", 38);
   }
 
-  private int update0039(Connection conn, ProgressMonitor progressmonitor)
+  private void update0039(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1457,13 +1449,12 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
-   statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle lehrgang aufgenommen");
-    return 39;
+    execute(conn, statements, "Tabelle lehrgang aufgenommen", 39);
   }
 
-  private int update0040(Connection conn, ProgressMonitor progressmonitor)
+  private void update0040(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1479,11 +1470,11 @@ public class JVereinUpdateProvider
         .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key für Tabelle lehrgang aufgenommen");
-    return 40;
+    execute(conn, statements, "Foreign Key für Tabelle lehrgang aufgenommen",
+        40);
   }
 
-  private int update0041(Connection conn, ProgressMonitor progressmonitor)
+  private void update0041(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1499,11 +1490,11 @@ public class JVereinUpdateProvider
         .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key für Tabelle lehrgang aufgenommen");
-    return 41;
+    execute(conn, statements, "Foreign Key für Tabelle lehrgang aufgenommen",
+        41);
   }
 
-  private int update0042(Connection conn, ProgressMonitor progressmonitor)
+  private void update0042(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1517,11 +1508,10 @@ public class JVereinUpdateProvider
     sb.append("ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang1;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key für Tabelle lehrgang entfernt");
-    return 42;
+    execute(conn, statements, "Foreign Key für Tabelle lehrgang entfernt", 42);
   }
 
-  private int update0043(Connection conn, ProgressMonitor progressmonitor)
+  private void update0043(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1532,14 +1522,13 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-   sb.append("ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang2;\n");
+    sb.append("ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang2;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key für Tabelle lehrgang entfernt");
-    return 43;
+    execute(conn, statements, "Foreign Key für Tabelle lehrgang entfernt", 43);
   }
 
-  private int update0044(Connection conn, ProgressMonitor progressmonitor)
+  private void update0044(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1551,14 +1540,15 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet");
-    return 44;
+    execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet",
+        44);
   }
 
-  private int update0045(Connection conn, ProgressMonitor progressmonitor)
+  private void update0045(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1574,11 +1564,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet");
-    return 45;
+    execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet",
+        45);
   }
 
-  private int update0046(Connection conn, ProgressMonitor progressmonitor)
+  private void update0046(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1592,11 +1582,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE formular MODIFY COLUMN inhalt LONGBLOB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Spalte inhalt der Tabelle formular verlängert");
-    return 46;
+    execute(conn, statements, "Spalte inhalt der Tabelle formular verlängert",
+        46);
   }
 
-  private int update0047(Connection conn, ProgressMonitor progressmonitor)
+  private void update0047(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1613,11 +1603,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte juristischepersonen in die Tabelle einstellung aufgenommen");
-    return 47;
+        "Spalte juristischepersonen in die Tabelle einstellung aufgenommen", 47);
   }
 
-  private int update0048(Connection conn, ProgressMonitor progressmonitor)
+  private void update0048(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1633,11 +1622,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte personenart in die Tabelle mitglied aufgenommen");
-    return 48;
+        "Spalte personenart in die Tabelle mitglied aufgenommen", 48);
   }
 
-  private int update0049(Connection conn, ProgressMonitor progressmonitor)
+  private void update0049(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1651,11 +1639,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("update mitglied set personenart = 'n';\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Alle Mitglieder auf personenart 'n' gesetzt");
-    return 49;
+    execute(conn, statements, "Alle Mitglieder auf personenart 'n' gesetzt", 49);
   }
 
-  private int update0050(Connection conn, ProgressMonitor progressmonitor)
+  private void update0050(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1670,11 +1657,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte vorname in der Tabelle mitglied verlängert.");
-    return 50;
+        "Spalte vorname in der Tabelle mitglied verlängert.", 50);
   }
 
-  private int update0051(Connection conn, ProgressMonitor progressmonitor)
+  private void update0051(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1688,11 +1674,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE zusatzfelder DROP FOREIGN KEY fkZusatzfelder1;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key der Tabelle zusatzfelder entfernt");
-    return 51;
+    execute(conn, statements, "Foreign Key der Tabelle zusatzfelder entfernt",
+        51);
   }
 
-  private int update0052(Connection conn, ProgressMonitor progressmonitor)
+  private void update0052(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1709,11 +1695,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Foreign Key der Tabelle zusatzfelder eingerichtet");
-    return 52;
+        "Foreign Key der Tabelle zusatzfelder eingerichtet", 52);
   }
 
-  private int update0053(Connection conn, ProgressMonitor progressmonitor)
+  private void update0053(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1729,12 +1714,14 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE einstellung ADD aktuellegeburtstagevorher integer default 3 after juristischepersonen;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements,
-        "Spalte aktuellegeburtstagevorher in die Tabelle einstellung aufgenommen");
-    return 53;
+    execute(
+        conn,
+        statements,
+        "Spalte aktuellegeburtstagevorher in die Tabelle einstellung aufgenommen",
+        53);
   }
 
-  private int update0054(Connection conn, ProgressMonitor progressmonitor)
+  private void update0054(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1750,12 +1737,14 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE einstellung ADD aktuellegeburtstagenachher integer default 7 after aktuellegeburtstagevorher;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements,
-        "Spalte aktuellegeburtstagenachher in die Tabelle einstellung aufgenommen");
-    return 54;
+    execute(
+        conn,
+        statements,
+        "Spalte aktuellegeburtstagenachher in die Tabelle einstellung aufgenommen",
+        54);
   }
 
-  private int update0055(Connection conn, ProgressMonitor progressmonitor)
+  private void update0055(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1782,11 +1771,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle buchungsklasse aufgenommen");
-    return 55;
+    execute(conn, statements, "Tabelle buchungsklasse aufgenommen", 55);
   }
 
-  private int update0056(Connection conn, ProgressMonitor progressmonitor)
+  private void update0056(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1805,11 +1793,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     execute(
         conn,
         statements,
-        "Spalte buchungsklasse in die Tabelle buchungsart aufgenommen, Index zur Tabelle buchungsart aufgenommen");
-    return 56;
+        "Spalte buchungsklasse in die Tabelle buchungsart aufgenommen, Index zur Tabelle buchungsart aufgenommen",
+        56);
   }
 
-  private int update0057(Connection conn, ProgressMonitor progressmonitor)
+  private void update0057(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1825,11 +1813,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key zur Tabelle buchungsart hinzugefügt");
-    return 57;
+    execute(conn, statements,
+        "Foreign Key zur Tabelle buchungsart hinzugefügt", 57);
   }
 
-  private int update0058(Connection conn, ProgressMonitor progressmonitor)
+  private void update0058(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1846,11 +1834,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte updateinterval zur Tabelle einstellung hinzugefügt");
-    return 58;
+        "Spalte updateinterval zur Tabelle einstellung hinzugefügt", 58);
   }
 
-  private int update0059(Connection conn, ProgressMonitor progressmonitor)
+  private void update0059(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1867,11 +1854,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte updatediaginfos zur Tabelle einstellung hinzugefügt");
-    return 59;
+        "Spalte updatediaginfos zur Tabelle einstellung hinzugefügt", 59);
   }
 
-  private int update0060(Connection conn, ProgressMonitor progressmonitor)
+  private void update0060(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1886,11 +1872,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte updatelastcheck zur Tabelle einstellung hinzugefügt");
-    return 60;
+        "Spalte updatelastcheck zur Tabelle einstellung hinzugefügt", 60);
   }
 
-  private int update0061(Connection conn, ProgressMonitor progressmonitor)
+  private void update0061(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1906,11 +1891,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte betrag der Tabelle anfangsbestand geändert");
-    return 61;
+        "Spalte betrag der Tabelle anfangsbestand geändert", 61);
   }
 
-  private int update0062(Connection conn, ProgressMonitor progressmonitor)
+  private void update0062(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1925,11 +1909,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte smtp_server in die Tabelle einstellung aufgenommen");
-    return 62;
+        "Spalte smtp_server in die Tabelle einstellung aufgenommen", 62);
   }
 
-  private int update0063(Connection conn, ProgressMonitor progressmonitor)
+  private void update0063(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1944,11 +1927,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte smtp_port in die Tabelle einstellung aufgenommen");
-    return 63;
+        "Spalte smtp_port in die Tabelle einstellung aufgenommen", 63);
   }
 
-  private int update0064(Connection conn, ProgressMonitor progressmonitor)
+  private void update0064(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1963,11 +1945,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte smtp_auth_user in die Tabelle einstellung aufgenommen");
-    return 64;
+        "Spalte smtp_auth_user in die Tabelle einstellung aufgenommen", 64);
   }
 
-  private int update0065(Connection conn, ProgressMonitor progressmonitor)
+  private void update0065(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -1982,11 +1963,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte smtp_auth_pwd in die Tabelle einstellung aufgenommen");
-    return 65;
+        "Spalte smtp_auth_pwd in die Tabelle einstellung aufgenommen", 65);
   }
 
-  private int update0066(Connection conn, ProgressMonitor progressmonitor)
+  private void update0066(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2001,11 +1981,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte smtp_from_address in die Tabelle einstellung aufgenommen");
-    return 66;
+        "Spalte smtp_from_address in die Tabelle einstellung aufgenommen", 66);
   }
 
-  private int update0067(Connection conn, ProgressMonitor progressmonitor)
+  private void update0067(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2020,11 +1999,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte smtp_ssl in die Tabelle einstellung aufgenommen");
-    return 67;
+        "Spalte smtp_ssl in die Tabelle einstellung aufgenommen", 67);
   }
 
-  private int update0068(Connection conn, ProgressMonitor progressmonitor)
+  private void update0068(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2046,11 +2024,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle eigenschaftgruppe aufgenommen");
-    return 68;
+    execute(conn, statements, "Tabelle eigenschaftgruppe aufgenommen", 68);
   }
 
-  private int update0069(Connection conn, ProgressMonitor progressmonitor)
+  private void update0069(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2079,11 +2056,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle eigenschaftgruppe aufgenommen");
-    return 69;
+    execute(conn, statements, "Tabelle eigenschaftgruppe aufgenommen", 69);
   }
 
-  private int update0070(Connection conn, ProgressMonitor progressmonitor)
+  private void update0070(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2096,11 +2072,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         "ALTER TABLE mitglied MODIFY COLUMN anrede varchar(40);\n");
 
     execute(conn, statements,
-        "Spalte anrede in der Tabelle mitglied verlängert");
-    return 70;
+        "Spalte anrede in der Tabelle mitglied verlängert", 70);
   }
 
-  private int update0071(Connection conn, ProgressMonitor progressmonitor)
+  private void update0071(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2113,11 +2088,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         "ALTER TABLE mitglied MODIFY COLUMN titel varchar(40);\n");
 
     execute(conn, statements,
-        "Spalte anrede in der Tabelle mitglied verlängert");
-    return 71;
+        "Spalte anrede in der Tabelle mitglied verlängert", 71);
   }
 
-  private int update0072(Connection conn, ProgressMonitor progressmonitor)
+  private void update0072(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     try
@@ -2145,11 +2119,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     {
       Logger.error("kann Liste der Eigenschaften nicht aufbauen", e);
     }
-
-    return 72;
+    setNewVersion(72);
   }
 
-  private int update0073(Connection conn, ProgressMonitor progressmonitor)
+  private void update0073(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     try
@@ -2178,11 +2151,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     {
       Logger.error("kann Liste der Eigenschaften nicht aufbauen", e);
     }
-
-    return 73;
+    setNewVersion(73);
   }
 
-  private int update0074(Connection conn, ProgressMonitor progressmonitor)
+  private void update0074(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2197,11 +2169,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
             "alter table eigenschaften modify column  eigenschaft integer not null;\n");
 
     execute(conn, statements,
-        "Typ der Spalte eigenschaft der Tabelle eigenschaften verändert");
-    return 74;
+        "Typ der Spalte eigenschaft der Tabelle eigenschaften verändert", 74);
   }
 
-  private int update0075(Connection conn, ProgressMonitor progressmonitor)
+  private void update0075(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2213,11 +2184,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
     execute(conn, statements,
-        "Default-Wert in die Tabelle eigenschaftgruppe eingetragen");
-    return 75;
+        "Default-Wert in die Tabelle eigenschaftgruppe eingetragen", 75);
   }
 
-  private int update0076(Connection conn, ProgressMonitor progressmonitor)
+  private void update0076(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2229,11 +2199,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
     execute(conn, statements,
-        "Default-Wert in die Tabelle eigenschaft eingetragen");
-    return 76;
+        "Default-Wert in die Tabelle eigenschaft eingetragen", 76);
   }
 
-  private int update0077(Connection conn, ProgressMonitor progressmonitor)
+  private void update0077(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2245,11 +2214,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(),
         "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung);\n");
 
-    execute(conn, statements, "Index für Tabelle eigenschaft erstellt");
-    return 77;
+    execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 77);
   }
 
-  private int update0078(Connection conn, ProgressMonitor progressmonitor)
+  private void update0078(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2263,11 +2231,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .put(DBSupportMySqlImpl.class.getName(),
             "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
 
-    execute(conn, statements, "Index für Tabelle eigenschaft erstellt");
-    return 78;
+    execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 78);
   }
 
-  private int update0079(Connection conn, ProgressMonitor progressmonitor)
+  private void update0079(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2282,11 +2249,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         "ALTER TABLE einstellung DROP COLUMN updateinterval, "
             + "DROP COLUMN updatediaginfos, DROP COLUMN updatelastcheck;\n");
 
-    execute(conn, statements, "Spalten aus Tabelle einstellung entfernt");
-    return 79;
+    execute(conn, statements, "Spalten aus Tabelle einstellung entfernt", 79);
   }
 
-  private int update0080(Connection conn, ProgressMonitor progressmonitor)
+  private void update0080(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2303,11 +2269,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte datentyp in die Tabelle felddefinition aufgenommen");
-    return 80;
+        "Spalte datentyp in die Tabelle felddefinition aufgenommen", 80);
   }
 
-  private int update0081(Connection conn, ProgressMonitor progressmonitor)
+  private void update0081(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2321,11 +2286,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE zusatzfelder ADD felddatum DATE NULL;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
-    return 81;
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen",
+        81);
   }
 
-  private int update0082(Connection conn, ProgressMonitor progressmonitor)
+  private void update0082(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2339,11 +2304,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE zusatzfelder ADD feldganzzahl integer NULL;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
-    return 82;
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen",
+        82);
   }
 
-  private int update0083(Connection conn, ProgressMonitor progressmonitor)
+  private void update0083(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2357,11 +2322,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE zusatzfelder ADD feldgleitkommazahl DOUBLE null;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
-    return 83;
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen",
+        83);
   }
 
-  private int update0084(Connection conn, ProgressMonitor progressmonitor)
+  private void update0084(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2375,11 +2340,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE zusatzfelder ADD feldwaehrung DECIMAL(15,2);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
-    return 84;
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen",
+        84);
   }
 
-  private int update0085(Connection conn, ProgressMonitor progressmonitor)
+  private void update0085(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2393,11 +2358,11 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append("ALTER TABLE zusatzfelder ADD feldjanein CHAR(5) NULL;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen");
-    return 85;
+    execute(conn, statements, "Div. Datentypen f. d. Zusatzfelder aufgenommen",
+        85);
   }
 
-  private int update0086(Connection conn, ProgressMonitor progressmonitor)
+  private void update0086(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2412,11 +2377,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Default-Zahlungsweg in die Tabelle einstellung aufgenommen");
-    return 86;
+        "Default-Zahlungsweg in die Tabelle einstellung aufgenommen", 86);
   }
 
-  private int update0087(Connection conn, ProgressMonitor progressmonitor)
+  private void update0087(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2431,11 +2395,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Default-Zahlungsrhytmus in die Tabelle einstellung aufgenommen");
-    return 87;
+        "Default-Zahlungsrhytmus in die Tabelle einstellung aufgenommen", 87);
   }
 
-  private int update0088(Connection conn, ProgressMonitor progressmonitor)
+  private void update0088(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2462,11 +2425,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle mailvorlage erstellt");
-    return 88;
+    execute(conn, statements, "Tabelle mailvorlage erstellt", 88);
   }
 
-  private int update0089(Connection conn, ProgressMonitor progressmonitor)
+  private void update0089(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2496,11 +2458,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle mail erstellt");
-    return 89;
+    execute(conn, statements, "Tabelle mail erstellt", 89);
   }
 
-  private int update0090(Connection conn, ProgressMonitor progressmonitor)
+  private void update0090(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2526,11 +2487,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(" PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-    execute(conn, statements, "Tabelle mailempfaenger erstellt");
-    return 90;
+    execute(conn, statements, "Tabelle mailempfaenger erstellt", 90);
   }
 
-  private int update0091(Connection conn, ProgressMonitor progressmonitor)
+  private void update0091(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2546,11 +2506,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt");
-    return 91;
+    execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt", 91);
   }
 
-  private int update0092(Connection conn, ProgressMonitor progressmonitor)
+  private void update0092(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2566,11 +2525,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key 2 für mailempfaenger erstellt");
-    return 92;
+    execute(conn, statements, "Foreign Key 2 für mailempfaenger erstellt", 92);
   }
 
-  private int update0093(Connection conn, ProgressMonitor progressmonitor)
+  private void update0093(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2597,11 +2555,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle mailanhang erstellt");
-    return 93;
+    execute(conn, statements, "Tabelle mailanhang erstellt", 93);
   }
 
-  private int update0094(Connection conn, ProgressMonitor progressmonitor)
+  private void update0094(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2617,11 +2574,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt");
-    return 94;
+    execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt", 94);
   }
 
-  private int update0095(Connection conn, ProgressMonitor progressmonitor)
+  private void update0095(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2636,7 +2592,7 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb
         .append("DELETE eigenschaften from eigenschaften left join mitglied on mitglied.id = eigenschaften.mitglied;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-    execute(conn, statements, "Fehlerhafte Eigenschaften entfernt");
+    execute(conn, statements, "Fehlerhafte Eigenschaften entfernt", 95);
 
     statements = new HashMap<String, String>();
     // Update fuer H2
@@ -2651,17 +2607,16 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
         .append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key 1 für eigenschaften erstellt");
-    return 95;
+    execute(conn, statements, "Foreign Key 1 für eigenschaften erstellt", 95);
   }
 
-  private int update0096(Connection conn, ProgressMonitor progressmonitor)
+  private void update0096(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("CREATE TABLE abrechnungslaeufe (");
+    sb.append("CREATE TABLE abrechnungslauf (");
     sb.append(" id IDENTITY, ");
     sb.append(" datum DATE NOT NULL,");
     sb.append(" modus INTEGER NOT NULL,");
@@ -2678,7 +2633,7 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("CREATE TABLE abrechnungslaeufe (");
+    sb.append("CREATE TABLE abrechnungslauf (");
     sb.append(" id INTEGER AUTO_INCREMENT, ");
     sb.append(" datum DATE NOT NULL,");
     sb.append(" modus INTEGER NOT NULL,");
@@ -2694,11 +2649,10 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb.append(") TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle abrechnungslaeufe erstellt");
-    return 96;
+    execute(conn, statements, "Tabelle abrechnungslauf erstellt", 96);
   }
 
-  private int update0097(Connection conn, ProgressMonitor progressmonitor)
+  private void update0097(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -2706,13 +2660,14 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitgliedskonto (");
     sb.append(" id IDENTITY, ");
+    sb.append(" abrechnungslauf INTEGER,");
     sb.append(" mitglied INTEGER,");
     sb.append(" buchungstyp CHAR(1), ");
     sb.append(" datum DATE,");
     sb.append(" zweck1 VARCHAR(27),");
     sb.append(" zweck2 VARCHAR(27),");
     sb.append(" betrag DOUBLE,");
-    sb.append(" referenz VARCHAR(10), ");
+    sb.append(" referenz INTEGER, ");
     sb.append(" UNIQUE (id), ");
     sb.append(" PRIMARY KEY (id));\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
@@ -2721,20 +2676,80 @@ sb    .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitg
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitgliedskonto (");
     sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" abrechnungslauf INTEGER,");
     sb.append(" mitglied INTEGER,");
     sb.append(" buchungstyp CHAR(1), ");
     sb.append(" datum DATE,");
     sb.append(" zweck1 VARCHAR(27),");
     sb.append(" zweck2 VARCHAR(27),");
     sb.append(" betrag DOUBLE,");
-    sb.append(" referenz VARCHAR(10), ");
+    sb.append(" referenz INTEGER, ");
     sb.append(" UNIQUE (id), ");
+    sb.append(" INDEX(abrechnungslauf), ");
+    sb.append(" INDEX(referenz), ");
+    sb.append(" INDEX(mitglied), ");
     sb.append(" PRIMARY KEY (id)");
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Tabelle mitgliedskonto erstellt");
-    return 97;
+    execute(conn, statements, "Tabelle mitgliedskonto erstellt", 97);
+  }
+
+  private void update0098(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) on delete cascade;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 1 für mitgliedskonto erstellt", 98);
+  }
+
+  private void update0099(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (referenz) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (referenz) REFERENCES abrechnungslauf (id) on delete cascade;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 2 für mitgliedskonto erstellt", 99);
+  }
+
+  private void update0100(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto3 FOREIGN KEY (mitglied) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto3 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 3 für mitgliedskonto erstellt", 100);
   }
 
 }
