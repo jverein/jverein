@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/04/25 13:56:26  jost
+ * Vorarbeiten Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -17,7 +20,7 @@ import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
-public interface Abrechnungslaeufe extends DBObject
+public interface Abrechnungslauf extends DBObject
 {
   public Date getDatum() throws RemoteException;
 

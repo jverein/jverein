@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/04/28 06:18:30  jost
+ * Neu: Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -16,6 +19,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -77,7 +81,26 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     {
       return Mitglied.class;
     }
+    if ("referenz".equals(arg0))
+    {
+      return Mitgliedskonto.class;
+    }
+    if ("abrechnungslauf".equals(arg0))
+    {
+      return Abrechnungslauf.class;
+    }
     return null;
+  }
+
+  public Abrechnungslauf getAbrechnungslauf() throws RemoteException
+  {
+    return (Abrechnungslauf) getAttribute("abrechnungslauf");
+  }
+
+  public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
+      throws RemoteException
+  {
+    setAttribute("abrechnungslauf", abrechnungslauf);
   }
 
   public Mitglied getMitglied() throws RemoteException
@@ -151,12 +174,12 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     setAttribute("betrag", new Double(d));
   }
 
-  public String getReferenz() throws RemoteException
+  public Mitgliedskonto getReferenz() throws RemoteException
   {
-    return (String) getAttribute("referenz");
+    return (Mitgliedskonto) getAttribute("referenz");
   }
 
-  public void setReferenz(String referenz) throws RemoteException
+  public void setReferenz(Mitgliedskonto referenz) throws RemoteException
   {
     setAttribute("referenz", referenz);
   }

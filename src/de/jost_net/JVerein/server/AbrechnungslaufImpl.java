@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/04/25 13:56:52  jost
+ * Vorarbeiten Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -16,23 +19,23 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.rmi.Abrechnungslaeufe;
+import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.util.ApplicationException;
 
-public class AbrechnungslaeufeImpl extends AbstractDBObject implements
-    Abrechnungslaeufe
+public class AbrechnungslaufImpl extends AbstractDBObject implements
+    Abrechnungslauf
 {
   private static final long serialVersionUID = 1L;
 
-  public AbrechnungslaeufeImpl() throws RemoteException
+  public AbrechnungslaufImpl() throws RemoteException
   {
     super();
   }
 
   protected String getTableName()
   {
-    return "abrechnungslaeufe";
+    return "abrechnungslauf";
   }
 
   public String getPrimaryAttribute() throws RemoteException

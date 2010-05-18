@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/04/28 06:17:50  jost
+ * Neu: Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -20,6 +23,11 @@ import de.willuhn.datasource.rmi.DBObject;
 public interface Mitgliedskonto extends DBObject
 {
   public String getID() throws RemoteException;
+
+  public Abrechnungslauf getAbrechnungslauf() throws RemoteException;
+
+  public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
+      throws RemoteException;
 
   public Mitglied getMitglied() throws RemoteException;
 
@@ -45,8 +53,8 @@ public interface Mitgliedskonto extends DBObject
 
   public double getBetrag() throws RemoteException;
 
-  public void setReferenz(String referenz) throws RemoteException;
+  public void setReferenz(Mitgliedskonto referenz) throws RemoteException;
 
-  public String getReferenz() throws RemoteException;
+  public Mitgliedskonto getReferenz() throws RemoteException;
 
 }

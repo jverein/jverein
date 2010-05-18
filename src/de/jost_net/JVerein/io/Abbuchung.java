@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2010/04/25 13:55:54  jost
+ * Vorarbeiten Mitgliedskonto
+ *
  * Revision 1.41  2010/04/18 06:54:23  jost
  * Zusätzliche Prüfung der Bankverbindung.
  *
@@ -156,7 +159,7 @@ import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnung;
-import de.jost_net.JVerein.rmi.Abrechnungslaeufe;
+import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
@@ -214,8 +217,8 @@ public class Abbuchung
     {
       buchenHibiscus(param);
     }
-    Abrechnungslaeufe abrl = (Abrechnungslaeufe) Einstellungen.getDBService()
-        .createObject(Abrechnungslaeufe.class, null);
+    Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
+        .createObject(Abrechnungslauf.class, null);
     abrl.setDatum(new Date());
     abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
     abrl.setDtausdruck(param.dtausprint);
