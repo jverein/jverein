@@ -9,13 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/04/25 13:56:11  jost
+ * Vorarbeiten Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
-import java.util.ArrayList;
-
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 
 /**
  * Abrechnungsmodi
