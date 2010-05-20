@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.43  2010/05/18 20:21:08  jost
+ * Anpassung Klassenname
+ *
  * Revision 1.42  2010/04/25 13:55:54  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -212,6 +215,7 @@ public class Abbuchung
     // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
     // wurden beim Schreiben der C-Sätze ermittelt.
     dtaus.writeESatz();
+    dtaus.close();
     if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
         || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
     {
