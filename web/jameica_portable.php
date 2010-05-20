@@ -1,6 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>Jameica + Plugins "portable"</h1>
-	<p>Autor: Marco Hügel</p>
+	<p>Autor: Marco Hügel, Links aktualisiert von Guido (mfc)</p>
 	<p></p>
 	<p>Wie allgemein bekannt ist setzt das GUI-Framework Jameica sowie dadurch die verschiedenen 
 		Plugins wie Hibiscus (Onlinebanking), JVerein (Vereinsverwaltung), Syntax (Finanzbuchhaltung) 
@@ -18,8 +18,8 @@
 	<ul>
 		<li> Jameica (<a href="http://www.willuhn.de/">http://www.willuhn.de</a>)</li>
 		<li> mindestens 1 Plugin (s.o.)</li>
-		<li> Java Portablizer (<a href="http://portableapps.com/support/openoffice_portable#java">
-			http://portableapps.com/support/openoffice_portable#java</a>)</li>
+		<li> Java Portablizer (<a href="http://portableapps.com/apps/utilities/java_portable">
+			http://portableapps.com/apps/utilities/java_portable</a>)</li>
 		<li> USB-Stick oder anderer Wechseldatenträger mit mindestens 128MB freiem Speicherplatz* 
 			(je nach Anzahl der installierten Plugins entsprechend mehr!)</li>
 		<li> Zur Einrichtung: PC mit installierter JRE ab Version 1.4 (bei JVerein ab 1.5)</li>
@@ -35,8 +35,10 @@
 	<p>Wir erhalten die aktuelle Version der JRE angezeigt, hier 1.6.0_02.</p>
 	<p>Hinweis:</p>
 	<p>Sollte auf dem PC noch kein JRE installiert sein, so muss dies zunächst nachgeholt werden.</p>
-	<p>Download JRE:<a href="http://java.sun.com/javase/downloads/ea.jsp">
-		http://java.sun.com/javase/downloads/ea.jsp</a></p>
+	<p>Download JRE:<a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jre-6u20-oth-JPR@CDS-CDS_Developer">
+		https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jre-6u20-oth-JPR@CDS-CDS_Developer</a>
+		(gefunden über die Seite: http://java.sun.com/javase/downloads/index.jsp  dort JRE unter dem linken Icon JAVA anklicken)
+		</p>
 	<p>Nach der Installation können Sie gegebenenfalls nochmals die Java-Version überprüfen, sollte 
 		aber nicht mehr notwendig sein!</p>
 	<h3>2. Entpacken von Jameica + Plugin(s) auf einen Wechseldatenträger</h3>
@@ -56,8 +58,8 @@
 	<p>X:\Portablesoftware\jameica\plugins</p>
 	<h3>3. Java vom lokalen PC auf den Wechseldatenträger "kopieren"</h3>
 	<p>Laden Sie sich, so noch nicht geschehen, den Java Portablizer von 
-		<a href="http://portableapps.com/support/openoffice_portable#java">
-		http://portableapps.com/support/openoffice_portable#java</a>
+		<a href="http://portableapps.com/apps/utilities/java_portable">
+		http://portableapps.com/apps/utilities/java_portable</a>
 		herunter.</p>
 	<p>Starten Sie den Java Portablizer.</p>
 	<img src='images/Jameica_portable-img2.png' class='screenshot'>
@@ -133,6 +135,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.2  2009/06/20 18:38:05  jost
+    Umlaute korrekt darstellen.
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 

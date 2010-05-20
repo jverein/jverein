@@ -25,9 +25,9 @@
 	kann die Anzeige auf der Startseite eingeschaltet werden.</li> 
 	</ul>
 	
-	<h2>Beiträge</h2>
+	<h2><a name='beitraege'></a>Beiträge</h2>
     <img src='images/Einstellungenbeitraege.jpg' class='screenshot'>
-	<p>Beitragsmodell, siehe auch Beitragsmodelle</</p>
+	<p>Beitragsmodell, siehe auch <a href='dokumentationbeitragsmodelle.php'>Beitragsmodelle</a></</p>
 	<p>Ab Version 1.3 können die Standardwerte für den Zahlungsweg und den Zahlungsrhytmus für die Neueingabe von Mitgliedern eingestellt werden.</p>
 	
 	<h2>Dateinamenmuster</h2>
@@ -63,6 +63,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.8  2010/02/01 21:03:42  jost
+    Neu: Einfache Mailfunktion
+
     Revision 1.7  2010/01/10 20:59:50  jost
     *** empty log message ***
 
