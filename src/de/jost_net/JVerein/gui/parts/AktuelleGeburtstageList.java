@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010/05/16 12:32:31  jost
+ * Direkter Link zum Mitglied. Kommunikationsdaten aufgenommen.
+ *
  * Revision 1.4  2010/05/16 10:43:58  jost
  * Einheitlicher Umgang mit ausgetretenen Mitgliedern
  *
@@ -32,6 +35,7 @@ import org.eclipse.swt.widgets.Composite;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -112,6 +116,7 @@ public class AktuelleGeburtstageList extends TablePart implements Part
           "handy");
       aktuelleGeburtstageList.addColumn(JVereinPlugin.getI18n().tr("Email"),
           "email");
+      aktuelleGeburtstageList.setContextMenu(new MitgliedMenu());
       aktuelleGeburtstageList.setRememberColWidths(true);
       aktuelleGeburtstageList.setRememberOrder(true);
       aktuelleGeburtstageList.setSummary(true);
