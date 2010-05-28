@@ -6,6 +6,7 @@
     			<li>Box der aktuellen Geburtstage: Durch Doppelklick kann das Mitglied direkt bearbeitet werden. 
     				Das Kontextmenü steht ebenfalls zur Verfügung.Zusätzlich Telefonnummern und 
     				Email-Adresse aufgenommen.</li>
+    			<li>Scrollbar f. Buchung aufgenommen.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -483,6 +484,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.51  2010/05/23 07:13:03  jost
+    *** empty log message ***
+
     Revision 1.50  2010/05/18 20:29:17  jost
     *** empty log message ***
 
