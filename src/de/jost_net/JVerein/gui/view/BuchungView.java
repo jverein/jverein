@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2009/07/24 20:21:02  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.12  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -55,6 +58,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.util.ApplicationException;
 
 public class BuchungView extends AbstractView
@@ -65,8 +69,10 @@ public class BuchungView extends AbstractView
 
     final BuchungsControl control = new BuchungsControl(this);
 
-    LabelGroup grKontoauszug = new LabelGroup(getParent(), JVereinPlugin
-        .getI18n().tr("Buchung"));
+    ScrolledContainer scrolled = new ScrolledContainer(getParent());
+
+    LabelGroup grKontoauszug = new LabelGroup(scrolled.getComposite(),
+        JVereinPlugin.getI18n().tr("Buchung"));
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsnummer"),
         control.getID());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"), control
@@ -88,8 +94,8 @@ public class BuchungView extends AbstractView
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"), control
         .getKommentar());
 
-    LabelGroup grBuchungsinfos = new LabelGroup(getParent(), JVereinPlugin
-        .getI18n().tr("Buchungsinfos"));
+    LabelGroup grBuchungsinfos = new LabelGroup(scrolled.getComposite(),
+        JVereinPlugin.getI18n().tr("Buchungsinfos"));
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
         control.getBuchungsart());
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Auszugsnummer"),
@@ -97,7 +103,7 @@ public class BuchungView extends AbstractView
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Blattnummer"),
         control.getBlattnummer());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea(scrolled.getComposite(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
