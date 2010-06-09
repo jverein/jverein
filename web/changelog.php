@@ -7,6 +7,7 @@
     				Das Kontextmenü steht ebenfalls zur Verfügung.Zusätzlich Telefonnummern und 
     				Email-Adresse aufgenommen.</li>
     			<li>Scrollbar f. Buchung aufgenommen.</li>
+    			<li>Größe der Kontoauswahlbox der Buchführung verändert.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -484,6 +485,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.52  2010/05/28 19:55:09  jost
+    *** empty log message ***
+
     Revision 1.51  2010/05/23 07:13:03  jost
     *** empty log message ***
 
