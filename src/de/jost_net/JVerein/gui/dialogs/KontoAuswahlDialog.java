@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/20 12:33:40  jost
+ * Vereinheitlichung der Bezeichner
+ *
  * Revision 1.2  2009/06/11 21:02:41  jost
  * Vorbereitung I18N
  *
@@ -44,6 +47,7 @@ public class KontoAuswahlDialog extends AbstractDialog
   public KontoAuswahlDialog(int position)
   {
     super(position);
+    super.setSize(400, 300);
     this.setTitle(JVereinPlugin.getI18n().tr("Konto-Auswahl"));
   }
 
