@@ -64,7 +64,7 @@
 	   	<h1>News</h1>
     	<ul>
     		<li>05.07.2010: Neues Windows-Setup der Jameica-Suite (32 und 64 bit) im Downloadbereich.</li>
-    	    <li>31.05.2010: Version 1.3.3 freigegeben</a>.<li>
+    	    <li>31.05.2010: Version 1.3.3 freigegeben</a>.</li>
     		<li>18.05.2010: Version 1.3.2 freigegeben</a>.</li> 
 	   		<li>16.05.2010: Version 1.3.1 freigegeben</a>.</li> 
     		<li>29.04.2010: Das Windows-Setup für die Jameica-Suite steht jetzt im Downloadbereich zur Verfügung.</li> 
@@ -75,6 +75,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.34  2010-07-05 18:45:21  jost
+    *** empty log message ***
+
     Revision 1.33  2010/05/18 20:51:27  jost
     *** empty log message ***
 
