@@ -47,7 +47,9 @@
 	<h2>Mitgliedschaft</h2>
 	<p>Eintrittsdatum und Beitragsgruppe sind Pflichtfelder. Die Beitragsgruppen können unter 
 		<a href="administration_beitragsgruppen.php">Beitragsgruppen</a> für jeden Verein individuell 
-		konfiguriert werden. Beim Austrittsdatum wird das Datum des satzungsgemäßen Austritts 
+		konfiguriert werden. Siehe auch <a href='dokumentationbeitragsmodelle.php'>Beitragsmodelle</a> und
+		 <a href='administration_einstellungen.php#beitraege'>Einstellungen</a>. Beim Austrittsdatum wird das 
+		 Datum des satzungsgemäßen Austritts 
 		(z. B. der 31.12. des jeweiligen Jahres) eingetragen. Unter Kündigung wird das Datum des 
 		Eingangs der Kündigung vermerkt.</p>
 	<p>Standardaussehen des Formulars:</p>
@@ -134,6 +136,9 @@
 
     <!-- 
     $Log$
+    Revision 1.6  2010/01/01 22:37:25  jost
+    Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
+
     Revision 1.5  2009/11/22 16:20:47  jost
     *** empty log message ***
 
