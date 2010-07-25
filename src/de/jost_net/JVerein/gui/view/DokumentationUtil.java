@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2010/04/03 11:31:51  jost
+ * Bugfix
+ *
  * Revision 1.19  2010/02/01 21:00:24  jost
  * Neu: Einfache Mailfunktion
  *
@@ -126,6 +129,12 @@ public class DokumentationUtil
 
   public static final String MITGLIED = PRE + "mitglied.php";
 
+  public static final String MITGLIEDSKONTO_AUSWAHL = PRE
+      + "mitgliedskonto.php#auswahl";
+
+  public static final String MITGLIEDSKONTO_UEBERSICHT = PRE
+      + "mitgliedskonto.php#uebersicht";
+
   public static final String KURSTEILNEHMER = PRE + "kursteilnehmer.php";
 
   public static final String MANUELLEZAHLUNGSEINGAENGE = PRE
@@ -153,7 +162,7 @@ public class DokumentationUtil
       + "dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.php";
 
   public static final String BUCHUNGEN = PRE
-      + "dokumentationbuchfuehrungbuchungenaushibiscusuebernehmen.php";
+      + "dokumentationbuchfuehrungbuchungen.php";
 
   public static final String JAHRESSALDO = PRE
       + "dokumentationbuchfuehrungjahressaldo.php";
