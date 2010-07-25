@@ -8,6 +8,8 @@
     				Email-Adresse aufgenommen.</li>
     			<li>Scrollbar f. Buchung aufgenommen.</li>
     			<li>Größe der Kontoauswahlbox der Buchführung verändert.</li>
+    			<li>Bugfix beim Import des Zahlungsrhytmusses</li>
+    			<li>Erste Version des Mitgliedskontos</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -485,6 +487,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.53  2010/06/09 18:51:13  jost
+    *** empty log message ***
+
     Revision 1.52  2010/05/28 19:55:09  jost
     *** empty log message ***
 
