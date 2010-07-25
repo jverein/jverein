@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/05/18 20:19:04  jost
+ * Anpassung Klassenname
+ *
  * Revision 1.1  2010/04/25 13:54:14  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -21,6 +24,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.formatter.AbrechnungsmodusFormatter;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
+import de.jost_net.JVerein.gui.menu.AbrechnungslaufMenu;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -70,6 +74,7 @@ public class AbrechnungslaufControl extends AbstractControl
     if (abrechnungslaufList == null)
     {
       abrechnungslaufList = new TablePart(abrechnungslaeufe, null);
+      abrechnungslaufList.addColumn("Nr", "nr");
       abrechnungslaufList.addColumn("Datum", "datum", new DateFormatter(
           Einstellungen.DATEFORMAT));
       abrechnungslaufList.addColumn("Modus", "modus",
@@ -83,7 +88,7 @@ public class AbrechnungslaufControl extends AbstractControl
           new JaNeinFormatter());
       abrechnungslaufList.addColumn("Kursteilnehmer", "kursteilnehmer",
           new JaNeinFormatter());
-      // abrechnungsList.setContextMenu(new RechungMenu());
+      abrechnungslaufList.setContextMenu(new AbrechnungslaufMenu());
       abrechnungslaufList.setRememberColWidths(true);
       abrechnungslaufList.setRememberOrder(true);
       abrechnungslaufList.setSummary(true);
