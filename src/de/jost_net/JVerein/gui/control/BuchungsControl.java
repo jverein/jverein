@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2009/09/12 19:02:31  jost
+ * neu: Buchungsjournal
+ *
  * Revision 1.22  2009/07/24 20:17:31  jost
  * Focus auf erstes Feld setzen.
  *
@@ -91,7 +94,9 @@ import org.eclipse.swt.widgets.Listener;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
+import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
+import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFEinzelbuchungen;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFSummen;
@@ -99,6 +104,7 @@ import de.jost_net.JVerein.io.BuchungsjournalPDF;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -153,6 +159,8 @@ public class BuchungsControl extends AbstractControl
   private DateInput datum = null;
 
   private Input art;
+
+  private DialogInput mitgliedskonto;
 
   private Input kommentar;
 
@@ -326,6 +334,17 @@ public class BuchungsControl extends AbstractControl
       }
     });
     return datum;
+  }
+
+  public DialogInput getMitgliedskonto() throws RemoteException
+  {
+    if (mitgliedskonto != null)
+    {
+      return mitgliedskonto;
+    }
+    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
+        .getMitgliedskontoAuswahl();
+    return mitgliedskonto;
   }
 
   public Input getArt() throws RemoteException
@@ -566,6 +585,17 @@ public class BuchungsControl extends AbstractControl
         b.setZweck2((String) getZweck2().getValue());
         b.setDatum((Date) getDatum().getValue());
         b.setArt((String) getArt().getValue());
+        if (Einstellungen.getEinstellung().getMitgliedskonto())
+        {
+          if (mitgliedskonto.getValue() != null)
+          {
+            b.setMitgliedskonto((Mitgliedskonto) mitgliedskonto.getValue());
+          }
+          else
+          {
+            b.setMitgliedskonto(null);
+          }
+        }
         b.setKommentar((String) getKommentar().getValue());
         b.store();
         GUI.getStatusBar().setSuccessText("Buchung gespeichert");
@@ -655,6 +685,11 @@ public class BuchungsControl extends AbstractControl
           new BuchungsartFormatter());
       buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
           Einstellungen.DECIMALFORMAT));
+      if (Einstellungen.getEinstellung().getMitgliedskonto())
+      {
+        buchungsList.addColumn("Mitglied", "mitgliedskonto",
+            new MitgliedskontoFormatter());
+      }
       buchungsList.setMulti(true);
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
