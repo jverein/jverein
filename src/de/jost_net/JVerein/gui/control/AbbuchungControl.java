@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2010/04/25 13:53:59  jost
+ * Vorarbeiten Mitgliedskonto
+ *
  * Revision 1.20  2009/02/15 20:01:48  jost
  * Formularwerte speichern und wiederherstellen
  *
@@ -286,7 +289,7 @@ public class AbbuchungControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true);
+    }, null, true, "go.png");
     return button;
   }
 
