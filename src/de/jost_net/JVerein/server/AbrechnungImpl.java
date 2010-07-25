@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:04:23  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/08/13 19:16:23  jost
  * Bugfix Spalte Mitglied
  *

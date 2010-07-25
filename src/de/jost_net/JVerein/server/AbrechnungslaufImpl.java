@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/05/18 20:25:09  jost
+ * Anpassung Klassenname
+ *
  * Revision 1.1  2010/04/25 13:56:52  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -40,7 +43,7 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
 
   public String getPrimaryAttribute() throws RemoteException
   {
-    return "id";
+    return "idtext";
   }
 
   protected void deleteCheck() throws ApplicationException
@@ -60,6 +63,11 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
   protected Class getForeignObject(String arg0) throws RemoteException
   {
     return null;
+  }
+
+  public Integer getNr() throws RemoteException
+  {
+    return new Integer(getID());
   }
 
   public Date getDatum() throws RemoteException
@@ -170,8 +178,24 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     setAttribute("abbuchungsausgabe", abbuchungsausgabe);
   }
 
+  /**
+   * Gibt den Text zur ID aus
+   */
+  public String getIDText() throws RemoteException
+  {
+    return getID() + " vom " + Einstellungen.DATEFORMAT.format(getDatum());
+  }
+
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("idtext"))
+    {
+      return getIDText();
+    }
+    if (fieldName.equals("nr"))
+    {
+      return getNr();
+    }
     return super.getAttribute(fieldName);
   }
 }

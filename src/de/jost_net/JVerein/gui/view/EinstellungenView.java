@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2010/02/01 21:00:35  jost
+ * Neu: Einfache Mailfunktion
+ *
  * Revision 1.24  2010/01/01 22:35:57  jost
  * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
  *
@@ -133,6 +136,8 @@ public class EinstellungenView extends AbstractView
         control.getLehrgaenge());
     group.addLabelPair(JVereinPlugin.getI18n().tr(
         "Juristische Personen erlaubt"), control.getJuristischePersonen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"), control
+        .getMitgliedskonto());
     group.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
     group.addLabelPair(JVereinPlugin.getI18n().tr(

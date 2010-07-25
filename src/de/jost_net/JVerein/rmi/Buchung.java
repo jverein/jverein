@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2008/12/03 22:00:50  jost
+ * Erweiterung um Auszugs- und Blattnummer
+ *
  * Revision 1.7  2008/06/28 17:01:03  jost
  * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
  *
@@ -86,6 +89,25 @@ public interface Buchung extends DBObject
   public int getBuchungsartId() throws RemoteException;
 
   public void setBuchungsart(Integer buchungsart) throws RemoteException;
+
+  public Abrechnungslauf getAbrechnungslauf() throws RemoteException;
+
+  public int getAbrechnungslaufID() throws RemoteException;
+
+  public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
+      throws RemoteException;
+
+  public void setAbrechnungslauf(Integer abrechnungslauf)
+      throws RemoteException;
+
+  public Mitgliedskonto getMitgliedskonto() throws RemoteException;
+
+  public int getMitgliedskontoID() throws RemoteException;
+
+  public void setMitgliedskonto(Mitgliedskonto mitgliedskonto)
+      throws RemoteException;
+
+  public void setMitgliedskontoID(Integer mitgliedskonto) throws RemoteException;
 
   public Jahresabschluss getJahresabschluss() throws RemoteException;
 

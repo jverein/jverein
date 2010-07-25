@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010/01/01 22:36:09  jost
+ * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
+ *
  * Revision 1.9  2009/12/06 21:41:48  jost
  * Überflüssigen Code entfernt.
  *
@@ -86,6 +89,11 @@ public interface Einstellung extends DBObject
       throws RemoteException;
 
   public boolean getJuristischePersonen() throws RemoteException;
+
+  public void setMitgliedskonto(Boolean mitgliedskonto)
+      throws RemoteException;
+
+  public boolean getMitgliedskonto() throws RemoteException;
 
   public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException;
 

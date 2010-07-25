@@ -377,6 +377,22 @@ public class JVereinUpdateProvider
     {
       update0100(conn, progressmonitor);
     }
+    if (cv < 101)
+    {
+      update0101(conn, progressmonitor);
+    }
+    if (cv < 102)
+    {
+      update0102(conn, progressmonitor);
+    }
+    if (cv < 103)
+    {
+      update0103(conn, progressmonitor);
+    }
+    if (cv < 104)
+    {
+      update0104(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -2661,13 +2677,12 @@ public class JVereinUpdateProvider
     sb.append("CREATE TABLE mitgliedskonto (");
     sb.append(" id IDENTITY, ");
     sb.append(" abrechnungslauf INTEGER,");
-    sb.append(" mitglied INTEGER,");
-    sb.append(" buchungstyp CHAR(1), ");
-    sb.append(" datum DATE,");
+    sb.append(" mitglied INTEGER NOT NULL,");
+    sb.append(" datum DATE NOT NULL,");
     sb.append(" zweck1 VARCHAR(27),");
     sb.append(" zweck2 VARCHAR(27),");
+    sb.append(" zahlungsweg INTEGER, ");
     sb.append(" betrag DOUBLE,");
-    sb.append(" referenz INTEGER, ");
     sb.append(" UNIQUE (id), ");
     sb.append(" PRIMARY KEY (id));\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
@@ -2677,16 +2692,14 @@ public class JVereinUpdateProvider
     sb.append("CREATE TABLE mitgliedskonto (");
     sb.append(" id INTEGER AUTO_INCREMENT, ");
     sb.append(" abrechnungslauf INTEGER,");
-    sb.append(" mitglied INTEGER,");
-    sb.append(" buchungstyp CHAR(1), ");
-    sb.append(" datum DATE,");
+    sb.append(" mitglied INTEGER NOT NULL,");
+    sb.append(" datum DATE NOT NULL,");
     sb.append(" zweck1 VARCHAR(27),");
     sb.append(" zweck2 VARCHAR(27),");
+    sb.append(" zahlungsweg INTEGER, ");
     sb.append(" betrag DOUBLE,");
-    sb.append(" referenz INTEGER, ");
     sb.append(" UNIQUE (id), ");
     sb.append(" INDEX(abrechnungslauf), ");
-    sb.append(" INDEX(referenz), ");
     sb.append(" INDEX(mitglied), ");
     sb.append(" PRIMARY KEY (id)");
     sb.append(" ) TYPE=InnoDB;\n");
@@ -2721,13 +2734,13 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (referenz) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (referenz) REFERENCES abrechnungslauf (id) on delete cascade;\n");
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 2 für mitgliedskonto erstellt", 99);
@@ -2740,16 +2753,90 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto3 FOREIGN KEY (mitglied) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+        .append("ALTER TABLE einstellung ADD mitgliedskonto char(5) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto3 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
+        .append("ALTER TABLE einstellung ADD mitgliedskonto char(5) after juristischepersonen;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Foreign Key 3 für mitgliedskonto erstellt", 100);
+    execute(
+        conn,
+        statements,
+        "Spalte mitgliedskontistzahlung in die Tabelle einstellung aufgenommen",
+        100);
+  }
+
+  private void update0101(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table buchung add mitgliedskonto integer;\n");
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table buchung add mitgliedskonto integer;\n");
+
+    execute(conn, statements,
+        "Spalte mitgliedskonto zur Tabelle buchung hinzugefügt", 101);
+  }
+
+  private void update0102(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id)  ON DELETE CASCADE  DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id)  ON DELETE CASCADE  ;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
+        102);
+  }
+
+  private void update0103(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table buchung add abrechnungslauf integer;\n");
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table buchung add abrechnungslauf integer;\n");
+
+    execute(conn, statements,
+        "Spalte abrechnungslauf zur Tabelle buchung hinzugefügt", 103);
+  }
+
+  private void update0104(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
+        104);
   }
 
 }

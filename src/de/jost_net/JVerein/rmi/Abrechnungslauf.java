@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/05/18 20:24:00  jost
+ * Anpassung Klassenname
+ *
  * Revision 1.1  2010/04/25 13:56:26  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -22,6 +25,8 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Abrechnungslauf extends DBObject
 {
+  public Integer getNr() throws RemoteException;
+
   public Date getDatum() throws RemoteException;
 
   public void setDatum(Date datum) throws RemoteException;

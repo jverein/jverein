@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.44  2010/05/20 18:07:26  jost
+ * Close eingefügt.
+ *
  * Revision 1.43  2010/05/18 20:21:08  jost
  * Anpassung Klassenname
  *
@@ -164,9 +167,12 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
@@ -202,8 +208,10 @@ public class Abbuchung
     dtaus.setAKundenname(param.stamm.getName());
     dtaus.writeASatz();
 
-    abbuchenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
-        param.vondatum, monitor, param.verwendungszweck);
+    Abrechnungslauf abrl = getAbrechnungslauf(param);
+
+    abrechnenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
+        param.vondatum, monitor, param.verwendungszweck, abrl, getKonto(param));
     if (param.zusatzbetraege)
     {
       abbuchenZusatzbetraege(dtaus);
@@ -221,18 +229,6 @@ public class Abbuchung
     {
       buchenHibiscus(param);
     }
-    Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
-        .createObject(Abrechnungslauf.class, null);
-    abrl.setDatum(new Date());
-    abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
-    abrl.setDtausdruck(param.dtausprint);
-    abrl.setEingabedatum(param.vondatum);
-    abrl.setKursteilnehmer(param.kursteilnehmer);
-    abrl.setModus(param.abbuchungsmodus);
-    abrl.setStichtag(param.stichtag);
-    abrl.setZahlungsgrund(param.verwendungszweck);
-    abrl.setZusatzbetraege(param.zusatzbetraege);
-    abrl.store();
     monitor.log(JVereinPlugin.getI18n().tr("Anzahl Abrechnungen: {0}",
         new String[] { dtaus.getAnzahlSaetze() + "" }));
     monitor.log(JVereinPlugin.getI18n().tr("Gesamtsumme: {0} EUR",
@@ -245,9 +241,10 @@ public class Abbuchung
     }
   }
 
-  private void abbuchenMitglieder(DtausDateiWriter dtaus, int modus,
+  private void abrechnenMitglieder(DtausDateiWriter dtaus, int modus,
       Date stichtag, Date vondatum, ProgressMonitor monitor,
-      String verwendungszweck) throws Exception
+      String verwendungszweck, Abrechnungslauf abrl, Konto konto)
+      throws Exception
   {
     // Ermittlung der beitragsfreien Beitragsgruppen
     String beitragsfrei = "";
@@ -387,6 +384,11 @@ public class Abbuchung
             }
             throw e;
           }
+        }
+        if (Einstellungen.getEinstellung().getMitgliedskonto())
+        {
+          writeMitgliedskonto(m, new Date(), verwendungszweck, "", betr, abrl,
+              m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG, konto);
         }
         if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
         {
@@ -683,4 +685,74 @@ public class Abbuchung
       abr.store();
     }
   }
+
+  private Abrechnungslauf getAbrechnungslauf(AbbuchungParam param)
+      throws RemoteException, ApplicationException
+  {
+    Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
+        .createObject(Abrechnungslauf.class, null);
+    abrl.setDatum(new Date());
+    abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
+    abrl.setDtausdruck(param.dtausprint);
+    abrl.setEingabedatum(param.vondatum);
+    abrl.setKursteilnehmer(param.kursteilnehmer);
+    abrl.setModus(param.abbuchungsmodus);
+    abrl.setStichtag(param.stichtag);
+    abrl.setZahlungsgrund(param.verwendungszweck);
+    abrl.setZusatzbetraege(param.zusatzbetraege);
+    abrl.store();
+    return abrl;
+  }
+
+  private void writeMitgliedskonto(Mitglied mitglied, Date datum,
+      String zweck1, String zweck2, double betrag, Abrechnungslauf abrl,
+      boolean haben, Konto konto) throws ApplicationException, RemoteException
+  {
+    Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
+        .createObject(Mitgliedskonto.class, null);
+    mk.setAbrechnungslauf(abrl);
+    mk.setZahlungsweg(mitglied.getZahlungsweg());
+    mk.setBetrag(betrag);
+    mk.setDatum(datum);
+    mk.setMitglied(mitglied);
+    mk.setZweck1(zweck1);
+    mk.setZweck2(zweck2);
+    mk.store();
+    if (haben)
+    {
+      Buchung buchung = (Buchung) Einstellungen.getDBService().createObject(
+          Buchung.class, null);
+      buchung.setAbrechnungslauf(abrl);
+      buchung.setBetrag(betrag);
+      buchung.setDatum(datum);
+      buchung.setKonto(konto);
+      buchung.setName(mitglied.getNameVorname());
+      buchung.setZweck(zweck1);
+      buchung.setZweck2(zweck2);
+      buchung.setMitgliedskonto(mk);
+      buchung.store();
+    }
+  }
+
+  /**
+   * Ist das Abbuchungskonto in der Buchführung eingerichtet?
+   */
+  private Konto getKonto(AbbuchungParam param) throws ApplicationException,
+      RemoteException
+  {
+    if (!Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      return null;
+    }
+    DBIterator it = Einstellungen.getDBService().createList(Konto.class);
+    it.addFilter("nummer = ?", new String[] { param.stamm.getKonto() });
+    if (it.size() != 1)
+    {
+      throw new ApplicationException("Konto " + param.stamm.getKonto()
+          + " ist in der Buchführung nicht eingerichtet.");
+    }
+    Konto k = (Konto) it.next();
+    return k;
+  }
+
 }

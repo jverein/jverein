@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/05/18 20:24:32  jost
+ * Anpassung Klassenname
+ *
  * Revision 1.1  2010/04/28 06:17:50  jost
  * Neu: Mitgliedskonto
  *
@@ -22,6 +25,7 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Mitgliedskonto extends DBObject
 {
+
   public String getID() throws RemoteException;
 
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException;
@@ -32,10 +36,6 @@ public interface Mitgliedskonto extends DBObject
   public Mitglied getMitglied() throws RemoteException;
 
   public void setMitglied(Mitglied mitglied) throws RemoteException;
-
-  public String getBuchungstyp() throws RemoteException;
-
-  public void setBuchungstyp(String buchungstyp) throws RemoteException;
 
   public Date getDatum() throws RemoteException;
 
@@ -49,12 +49,16 @@ public interface Mitgliedskonto extends DBObject
 
   public void setZweck2(String zweck2) throws RemoteException;
 
-  public void setBetrag(double betrag) throws RemoteException;
+  public Integer getZahlungsweg() throws RemoteException;
 
-  public double getBetrag() throws RemoteException;
+  public void setZahlungsweg(Integer zahlungsweg) throws RemoteException;
 
-  public void setReferenz(Mitgliedskonto referenz) throws RemoteException;
+  public void setBetrag(Double betrag) throws RemoteException;
 
-  public Mitgliedskonto getReferenz() throws RemoteException;
+  public Double getBetrag() throws RemoteException;
+
+  public void setIstBetrag(Double betrag) throws RemoteException;
+
+  public Double getIstBetrag() throws RemoteException;
 
 }

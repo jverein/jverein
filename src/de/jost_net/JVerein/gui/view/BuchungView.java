@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010/05/28 19:55:32  jost
+ * Scrollbar aufgenommen.
+ *
  * Revision 1.13  2009/07/24 20:21:02  jost
  * Focus auf erstes Feld setzen.
  *
@@ -48,6 +51,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
@@ -91,6 +95,11 @@ public class BuchungView extends AbstractView
         .getDatum());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control
         .getArt());
+    if (Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
+          control.getMitgliedskonto());
+    }
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"), control
         .getKommentar());
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2010/05/18 20:20:06  jost
+ * Anpassung Klassenname
+ *
  * Revision 1.21  2010/04/25 13:55:04  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -161,8 +164,11 @@ public class AbbuchungView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
-        false, "edit-undo.png");
+    if (Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
+          false, "edit-undo.png");
+    }
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
         "help-browser.png");

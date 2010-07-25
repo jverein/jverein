@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010/01/21 21:37:47  jost
+ * Vermeidung NPE
+ *
  * Revision 1.11  2010/01/01 22:36:19  jost
  * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
  *
@@ -191,6 +194,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("juristischepersonen", new Boolean(juristischepersonen));
   }
 
+  public boolean getMitgliedskonto() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("mitgliedskonto"));
+  }
+
+  public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException
+  {
+    setAttribute("mitgliedskonto", new Boolean(mitgliedskonto));
+  }
+
   public boolean getExterneMitgliedsnummer() throws RemoteException
   {
     return Util.getBoolean(getAttribute("externemitgliedsnummer"));
@@ -254,6 +267,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute("beginngeschaeftsjahr", beginngeschaeftsjahr);
+  }
+
+  public String getMitgliedskontoIstzahlung() throws RemoteException
+  {
+    return (String) getAttribute("mitgliedskontoistzahlung");
+  }
+
+  public void setMitgliedskontoIstzahlung(String mitgliedskontoistzahlung)
+      throws RemoteException
+  {
+    setAttribute("mitgliedskontoistzahlung", mitgliedskontoistzahlung);
   }
 
   public boolean getRechnungFuerAbbuchung() throws RemoteException

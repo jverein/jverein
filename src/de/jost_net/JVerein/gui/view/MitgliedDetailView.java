@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2010/02/08 18:15:22  jost
+ * Ausgewähltes Tab wieder aktivieren
+ *
  * Revision 1.39  2010/02/01 21:01:17  jost
  * *** empty log message ***
  *
@@ -143,6 +146,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.JVereinDBService;
@@ -171,6 +175,7 @@ public class MitgliedDetailView extends AbstractView
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Daten des Mitgliedes"));
 
     final MitgliedControl control = new MitgliedControl(this);
+    final MitgliedskontoControl controlMk = new MitgliedskontoControl(this);
 
     ScrolledContainer scrolled = new ScrolledContainer(getParent());
 
@@ -257,6 +262,10 @@ public class MitgliedDetailView extends AbstractView
       ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
       buttonszus.addButton(control.getZusatzbetragNeu());
     }
+    TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
+        .tr("Mitgliedskonto"));
+    controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
+        tabMitgliedskonto.getComposite());
 
     if (Einstellungen.getEinstellung().getVermerke())
     {
