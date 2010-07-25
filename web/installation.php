@@ -15,7 +15,10 @@
     		<td align=center>1.2</td><td align=center>1.8</td><td align=center>1.10</td>
        	</tr>
     	<tr> 
-    		<td align=center>Entwicklerversion 1.3</td><td align=center>Nighly-Build 1.9</td><td align=center>Nighly-Build 1.11</td>
+    		<td align=center>1.3</td><td align=center>1.9</td><td align=center>1.11</td>
+       	</tr>
+    	<tr> 
+    		<td align=center>1.3 (von der Version 1.4 gibt es noch keine Entwicklerversion)</td><td align=center>Nightly-Build 1.10</td><td align=center>Nightly-Build 1.12</td>
        	</tr>
     </table>
     <p></p>
@@ -51,6 +54,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.4  2010/02/06 21:09:35  jost
+    *** empty log message ***
+
     Revision 1.3  2009/09/11 13:41:38  jost
     Neue Download-Adresse der Jamaica-Suite
 

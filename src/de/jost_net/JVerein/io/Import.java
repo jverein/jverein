@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2010/04/08 17:57:21  jost
+ * Umstellung auf Logger
+ *
  * Revision 1.28  2010/02/28 15:05:11  jost
  * Bugfix Eintrittsdatum
  *
@@ -285,6 +288,10 @@ public class Import
         try
         {
           zahlungsrhytmus = results.getString("Zahlungsrhytmus");
+          if (zahlungsrhytmus.length()== 0)
+          {
+            zahlungsrhytmus="12";
+          }
         }
         catch (SQLException e)
         {
