@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.45  2010-07-25 18:44:04  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.44  2010/05/20 18:07:26  jost
  * Close eingefügt.
  *
@@ -164,13 +167,11 @@ import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
-import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
-import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -209,12 +210,12 @@ public class Abbuchung
     dtaus.writeASatz();
 
     Abrechnungslauf abrl = getAbrechnungslauf(param);
-
+    Konto konto = getKonto(param);
     abrechnenMitglieder(dtaus, param.abbuchungsmodus, param.stichtag,
-        param.vondatum, monitor, param.verwendungszweck, abrl, getKonto(param));
+        param.vondatum, monitor, param.verwendungszweck, abrl, konto);
     if (param.zusatzbetraege)
     {
-      abbuchenZusatzbetraege(dtaus);
+      abbuchenZusatzbetraege(dtaus, abrl, konto);
     }
     if (param.kursteilnehmer)
     {
@@ -224,6 +225,15 @@ public class Abbuchung
     // wurden beim Schreiben der C-Sätze ermittelt.
     dtaus.writeESatz();
     dtaus.close();
+
+    // Gegenbuchung für das Mitgliedskonto schreiben
+    if (Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", dtaus
+          .getSummeBetraegeDecimal().doubleValue()
+          * -1, abrl, true, getKonto(param));
+    }
+
     if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
         || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
     {
@@ -402,18 +412,18 @@ public class Abbuchung
                 + e.getMessage());
           }
         }
-        else
-        {
-          writeManuellerZahlungseingang(m, verwendungszweck, betr);
-        }
-        writeAbrechungsdaten(m, verwendungszweck, m.getNameVorname(), betr);
+        // else
+        // {
+        // writeManuellerZahlungseingang(m, verwendungszweck, betr);
+        // }
+        // writeAbrechungsdaten(m, verwendungszweck, m.getNameVorname(), betr);
       }
     }
   }
 
-  private void abbuchenZusatzbetraege(DtausDateiWriter dtaus)
-      throws NumberFormatException, DtausException, IOException,
-      ApplicationException
+  private void abbuchenZusatzbetraege(DtausDateiWriter dtaus,
+      Abrechnungslauf abrl, Konto konto) throws NumberFormatException,
+      DtausException, IOException, ApplicationException
   {
     DBIterator list = Einstellungen.getDBService().createList(
         Zusatzbetrag.class);
@@ -435,11 +445,11 @@ public class Abbuchung
                 + e.getMessage());
           }
         }
-        else
-        {
-          writeManuellerZahlungseingang(m, z.getBuchungstext(), new Double(z
-              .getBetrag()));
-        }
+        // else
+        // {
+        // writeManuellerZahlungseingang(m, z.getBuchungstext(), new Double(z
+        // .getBetrag()));
+        // }
         if (z.getIntervall().intValue() != IntervallZusatzzahlung.KEIN
             && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
                 .getEndedatum().getTime()))
@@ -449,7 +459,14 @@ public class Abbuchung
         }
         z.setAusfuehrung(Datum.getHeute());
         z.store();
-        writeAbrechungsdaten(m, z.getBuchungstext(), "", z.getBetrag());
+        // writeAbrechungsdaten(m, z.getBuchungstext(), "", z.getBetrag());
+        if (Einstellungen.getEinstellung().getMitgliedskonto())
+        {
+          writeMitgliedskonto(m, new Date(), z.getBuchungstext(), "", z
+              .getBetrag(), abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG,
+              konto);
+        }
+
       }
     }
   }
@@ -642,53 +659,57 @@ public class Abbuchung
     dtaus.writeCSatz();
   }
 
-  private void writeManuellerZahlungseingang(Mitglied m,
-      String verwendungszweck, Double betr) throws RemoteException,
-      ApplicationException
-  {
-    ManuellerZahlungseingang mz = (ManuellerZahlungseingang) Einstellungen
-        .getDBService().createObject(ManuellerZahlungseingang.class, null);
-    mz.setBetrag(betr);
-    mz.setEingabedatum();
-    String name = m.getName() + ", " + m.getVorname();
-    if (m.getKontoinhaber().length() > 0)
-    {
-      name = m.getKontoinhaber();
-    }
-    if (name.length() > 27)
-    {
-      name = name.substring(0, 27);
-    }
-    mz.setName(name);
-    mz.setVZweck1(verwendungszweck);
-    mz.setVZweck2(m.getName() + "," + m.getVorname());
-    mz.store();
-  }
+  // private void writeManuellerZahlungseingang(Mitglied m,
+  // String verwendungszweck, Double betr) throws RemoteException,
+  // ApplicationException
+  // {
+  // ManuellerZahlungseingang mz = (ManuellerZahlungseingang) Einstellungen
+  // .getDBService().createObject(ManuellerZahlungseingang.class, null);
+  // mz.setBetrag(betr);
+  // mz.setEingabedatum();
+  // String name = m.getName() + ", " + m.getVorname();
+  // if (m.getKontoinhaber().length() > 0)
+  // {
+  // name = m.getKontoinhaber();
+  // }
+  // if (name.length() > 27)
+  // {
+  // name = name.substring(0, 27);
+  // }
+  // mz.setName(name);
+  // mz.setVZweck1(verwendungszweck);
+  // mz.setVZweck2(m.getName() + "," + m.getVorname());
+  // mz.store();
+  // }
 
-  private void writeAbrechungsdaten(Mitglied m, String zweck1, String zweck2,
-      double betrag) throws RemoteException, ApplicationException
-  {
-    if ((m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG && Einstellungen
-        .getEinstellung().getRechnungFuerAbbuchung())
-        || (m.getZahlungsweg() == Zahlungsweg.ÜBERWEISUNG && Einstellungen
-            .getEinstellung().getRechnungFuerUeberweisung())
-        || (m.getZahlungsweg() == Zahlungsweg.BARZAHLUNG && Einstellungen
-            .getEinstellung().getRechnungFuerBarzahlung()))
-    {
-      Abrechnung abr = (Abrechnung) Einstellungen.getDBService().createObject(
-          Abrechnung.class, null);
-      abr.setMitglied(m);
-      abr.setZweck1(zweck1);
-      abr.setZweck2(zweck2);
-      abr.setDatum(new Date());
-      abr.setBetrag(betrag);
-      abr.store();
-    }
-  }
+  // private void writeAbrechungsdaten(Mitglied m, String zweck1, String zweck2,
+  // double betrag) throws RemoteException, ApplicationException
+  // {
+  // if ((m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG && Einstellungen
+  // .getEinstellung().getRechnungFuerAbbuchung())
+  // || (m.getZahlungsweg() == Zahlungsweg.ÜBERWEISUNG && Einstellungen
+  // .getEinstellung().getRechnungFuerUeberweisung())
+  // || (m.getZahlungsweg() == Zahlungsweg.BARZAHLUNG && Einstellungen
+  // .getEinstellung().getRechnungFuerBarzahlung()))
+  // {
+  // Abrechnung abr = (Abrechnung) Einstellungen.getDBService().createObject(
+  // Abrechnung.class, null);
+  // abr.setMitglied(m);
+  // abr.setZweck1(zweck1);
+  // abr.setZweck2(zweck2);
+  // abr.setDatum(new Date());
+  // abr.setBetrag(betrag);
+  // abr.store();
+  // }
+  // }
 
   private Abrechnungslauf getAbrechnungslauf(AbbuchungParam param)
       throws RemoteException, ApplicationException
   {
+    if (!Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      return null;
+    }
     Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
         .createObject(Abrechnungslauf.class, null);
     abrl.setDatum(new Date());
@@ -708,16 +729,23 @@ public class Abbuchung
       String zweck1, String zweck2, double betrag, Abrechnungslauf abrl,
       boolean haben, Konto konto) throws ApplicationException, RemoteException
   {
-    Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
-        .createObject(Mitgliedskonto.class, null);
-    mk.setAbrechnungslauf(abrl);
-    mk.setZahlungsweg(mitglied.getZahlungsweg());
-    mk.setBetrag(betrag);
-    mk.setDatum(datum);
-    mk.setMitglied(mitglied);
-    mk.setZweck1(zweck1);
-    mk.setZweck2(zweck2);
-    mk.store();
+    Mitgliedskonto mk = null;
+    if (mitglied != null) /*
+                           * Mitglied darf dann null sein, wenn die Gegenbuchung
+                           * geschrieben wird
+                           */
+    {
+      mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
+          Mitgliedskonto.class, null);
+      mk.setAbrechnungslauf(abrl);
+      mk.setZahlungsweg(mitglied.getZahlungsweg());
+      mk.setBetrag(betrag);
+      mk.setDatum(datum);
+      mk.setMitglied(mitglied);
+      mk.setZweck1(zweck1);
+      mk.setZweck2(zweck2);
+      mk.store();
+    }
     if (haben)
     {
       Buchung buchung = (Buchung) Einstellungen.getDBService().createObject(
@@ -726,10 +754,13 @@ public class Abbuchung
       buchung.setBetrag(betrag);
       buchung.setDatum(datum);
       buchung.setKonto(konto);
-      buchung.setName(mitglied.getNameVorname());
+      buchung.setName(mitglied != null ? mitglied.getNameVorname() : "JVerein");
       buchung.setZweck(zweck1);
       buchung.setZweck2(zweck2);
-      buchung.setMitgliedskonto(mk);
+      if (mk != null)
+      {
+        buchung.setMitgliedskonto(mk);
+      }
       buchung.store();
     }
   }
