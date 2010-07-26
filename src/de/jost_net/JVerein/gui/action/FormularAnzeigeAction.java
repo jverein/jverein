@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/10/17 19:44:19  jost
+ * *** empty log message ***
+ *
  * Revision 1.6  2009/09/21 18:18:04  jost
  * Weitere Testdaten aufgenommen.
  *
@@ -65,7 +68,7 @@ public class FormularAnzeigeAction implements Action
       final File file = File.createTempFile("formular", ".pdf");
       HashMap<String, Object> map = new HashMap<String, Object>();
       map.put(FormularfeldControl.EMPFAENGER,
-          "Herr\nDr. Willi Wichtig\nTestgasse 1\n12345Testenhausen");
+          "Herr\nDr. Willi Wichtig\nTestgasse 1\n12345 Testenhausen");
       map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
       map.put(FormularfeldControl.ZAHLUNGSGRUND2, "Zahlungsgrund 2");
       map.put(FormularfeldControl.BETRAG, "*1.234,00*");
