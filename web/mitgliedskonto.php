@@ -51,19 +51,30 @@
     in den Spalten Name, Vorname und Verwendungszweck 1 gesucht. Standardmäßig ist offene Posten angehakt.
     Dadurch werden nur Mitgliedskonto-Soll-Buchungen angezeigt, die noch nicht ausgeglichen sind.</p>
     
-    
+ 	<h2>sonstiges</h2>
+ 	<p>Die Einführung des Mitgliedskontos hat Auswirkung auf die Rechnungserstellung und die "Manuelle Überwachung 
+ 	des Zahlungseinganges".</p>
+ 	<p>Für die Erstellung der Rechnungen wurden bislang Daten in eine spezielle 
+ 	Rechnungstabelle geschrieben. Das ist jetzt nicht mehr erforderlich. Die Rechnungen
+ 	können aus den Informationen des Mitgliedskontos erstellt werden. Für eine Übergangszeit 
+ 	werden Rechnungen aus beiden Quellen erstellt werden können.</p>
+ 	<p>Die "Manuelle Überwachung des Zahlungseinganges" wurde bislang auch über eine eigene
+ 	Tabelle gelöst. Die ist jetzt durch das Mitgliedskonto nicht mehr erforderlich. Der Menüpunkt wird
+ 	defaultmäßig deaktviert. Unter Einstellungen kann der Menüpunkt reaktiviert werden.</p>
+ 	<p>In der Version 1.5 wird es die alte Rechnungsmimik und die manuelle Überwachung des Zahlungseinganges
+ 	nicht mehr geben.</p>   
     
     
     
     <h2>TODO</h2>
     <ul>
-    	<li>Informationen über Zusatzabrechnungen schreiben</li>
-    	<li>Gegenbuchung in der Buchführung erzeugen</li>
     	<li>Rechnungen auf neue Mimik umstellen</li>
-    	<li>Manuellen Zahlungseingang ausmustern</li>
     </ul>   
     <!-- 
     $Log$
+    Revision 1.1  2010-07-25 18:49:30  jost
+    Neu: Mitgliedskonto
+
     -->
     
 <? include ("footer.inc"); ?>
