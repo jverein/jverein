@@ -393,6 +393,10 @@ public class JVereinUpdateProvider
     {
       update0104(conn, progressmonitor);
     }
+    if (cv < 105)
+    {
+      update0105(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -2837,6 +2841,26 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
         104);
+  }
+
+  private void update0105(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD manuellezahlungen char(5) before aktuellegeburtstagevorher;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD manuellezahlungen char(5) after mitgliedskonto;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte manuellezahlungen in die Tabelle einstellung aufgenommen", 105);
   }
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2010-07-25 18:36:26  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.25  2010/02/21 20:15:53  jost
  * Adressbuchexport ins Mail-Menü verschoben.
  *
@@ -176,11 +179,13 @@ public class MyExtension implements Extension
             "Zusatzbeträge importieren"), new ZusatzbetraegeImportAction(),
             "zusatzbetraege.png"));
       }
-      jverein
-          .addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-              "Manueller Zahlungseingang"),
-              new ManuellerZahlungseingangListeAction(),
-              "folder-saved-search.png"));
+      if (Einstellungen.getEinstellung().getManuelleZahlungen())
+      {
+        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+            "Manueller Zahlungseingang"),
+            new ManuellerZahlungseingangListeAction(),
+            "folder-saved-search.png"));
+      }
       if (Einstellungen.getEinstellung().getWiedervorlage())
       {
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(

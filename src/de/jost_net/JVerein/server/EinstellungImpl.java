@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-07-25 18:47:09  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.12  2010/01/21 21:37:47  jost
  * Vermeidung NPE
  *
@@ -202,6 +205,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException
   {
     setAttribute("mitgliedskonto", new Boolean(mitgliedskonto));
+  }
+
+  public boolean getManuelleZahlungen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("manuellezahlungen"));
+  }
+
+  public void setManuelleZahlungen(Boolean manuellezahlungen)
+      throws RemoteException
+  {
+    setAttribute("manuellezahlungen", new Boolean(manuellezahlungen));
   }
 
   public boolean getExterneMitgliedsnummer() throws RemoteException

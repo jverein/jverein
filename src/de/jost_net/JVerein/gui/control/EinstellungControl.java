@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010-07-25 18:31:40  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.23  2010/02/01 20:57:47  jost
  * Neu: Einfache Mailfunktion
  *
@@ -125,6 +128,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput juristischepersonen;
 
   private CheckboxInput mitgliedskonto;
+
+  private CheckboxInput manuellezahlungen;
 
   private CheckboxInput externemitgliedsnummer;
 
@@ -278,6 +283,17 @@ public class EinstellungControl extends AbstractControl
     mitgliedskonto = new CheckboxInput(Einstellungen.getEinstellung()
         .getMitgliedskonto());
     return mitgliedskonto;
+  }
+
+  public CheckboxInput getManuelleZahlungen() throws RemoteException
+  {
+    if (manuellezahlungen != null)
+    {
+      return manuellezahlungen;
+    }
+    manuellezahlungen = new CheckboxInput(Einstellungen.getEinstellung()
+        .getManuelleZahlungen());
+    return manuellezahlungen;
   }
 
   public CheckboxInput getExterneMitgliedsnummer() throws RemoteException
@@ -514,6 +530,7 @@ public class EinstellungControl extends AbstractControl
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
+      e.setManuelleZahlungen((Boolean) manuellezahlungen.getValue());
       e.setAktuelleGeburtstageVorher((Integer) aktuellegeburtstagevorher
           .getValue());
       e.setAktuelleGeburtstageNachher((Integer) aktuellegeburtstagenachher
