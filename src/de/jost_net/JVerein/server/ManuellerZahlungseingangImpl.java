@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/06/20 12:34:06  jost
+ * Vereinheitlichung der Bezeichner
+ *
  * Revision 1.3  2009/06/11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -29,7 +32,9 @@ import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public class ManuellerZahlungseingangImpl extends AbstractDBObject implements
     ManuellerZahlungseingang
 {

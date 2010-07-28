@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:03:02  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/12/22 21:15:08  jost
  * Icons ins Menü aufgenommen.
  *
@@ -27,6 +30,7 @@ import de.willuhn.jameica.gui.parts.ContextMenu;
 
 /**
  * Kontext-Menu zu den Rechnungen.
+ * @deprecated In Version 1.5 ausmustern
  */
 public class RechungMenu extends ContextMenu
 {

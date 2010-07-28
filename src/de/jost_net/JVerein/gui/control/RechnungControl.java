@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2009/07/24 20:19:16  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.13  2009/07/13 20:52:07  jost
  * Vermeidung NPE
  *
@@ -90,6 +93,9 @@ import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public class RechnungControl extends AbstractControl
 {
   private de.willuhn.jameica.system.Settings settings;

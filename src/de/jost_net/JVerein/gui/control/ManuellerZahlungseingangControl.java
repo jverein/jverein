@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/11/26 19:50:43  jost
+ * Mehrfachauswahl ermöglicht.
+ *
  * Revision 1.2  2009/06/22 18:13:43  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -38,6 +41,9 @@ import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public class ManuellerZahlungseingangControl extends AbstractControl
 {
 

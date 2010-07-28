@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -35,7 +38,9 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.util.ApplicationException;
-
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public class ManuellerZahlungseingangListeView extends AbstractView
 {
   public void bind() throws Exception

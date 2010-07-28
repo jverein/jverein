@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:03:02  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2008/12/30 10:53:15  jost
  * Fehlende Icons erg√§nzt.
  *
@@ -34,6 +37,7 @@ import de.willuhn.jameica.gui.parts.TablePart;
 
 /**
  * Kontext-Menu zu den ManuellenZahlungseing‰ngen.
+ * @deprecated In Version 1.5 entfernen
  */
 public class ManuellerZahlungseingangMenu extends ContextMenu
 {

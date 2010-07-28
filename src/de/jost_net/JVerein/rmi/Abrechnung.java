@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/08/10 12:37:39  jost
+ * Abbuchung -> Abrechnung
+ * Vorbereitung der Rechnungserstellung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -17,6 +21,9 @@ import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public interface Abrechnung extends DBObject
 {
   public String getID() throws RemoteException;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007/03/13 19:58:40  jost
+ * Neu: Manueller Zahlungseingang.
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -18,6 +21,9 @@ import java.util.Date;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public interface ManuellerZahlungseingang extends DBObject
 {
   public void setID(String id) throws RemoteException;

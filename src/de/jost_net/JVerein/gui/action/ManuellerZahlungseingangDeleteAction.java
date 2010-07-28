@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/11/26 19:50:32  jost
+ * *** empty log message ***
+ *
  * Revision 1.2  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -32,6 +35,7 @@ import de.willuhn.util.ApplicationException;
 
 /**
  * Loeschen eines ManuellenZahlungseingangs.
+ * @deprecated In Version 1.5 ausmustern
  */
 public class ManuellerZahlungseingangDeleteAction implements Action
 {

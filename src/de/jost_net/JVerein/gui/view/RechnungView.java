@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/07/13 20:52:32  jost
+ * Bugfix Datenfeld
+ *
  * Revision 1.4  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -76,7 +79,9 @@ import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
-
+/**
+ * @deprecated In Version 1.5 ausmustern
+ */
 public class RechnungView extends AbstractView
 {
   public void bind() throws Exception
