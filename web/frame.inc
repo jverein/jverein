@@ -33,10 +33,10 @@
     <li><a href="dokumentation.php" title="Dokumentation"><span>Dokumentation</span></a></li>
     <li><a href="changelog.php" title="Changelog"><span>Changelog</span></a></li>
     <li><a href="download.php" title="Download"><span>Download</span></a></li>
+    <li><a href="faq.php" title="FAQ"><span>FAQ</span></a></li>
     <li><a href="installation.php" title="Installation"><span>Installation</span></a></li>
     <li><a href="cvs.php" title="CVS"><span>CVS</span></a></li>
 	<li><a href="forum" title="Forum" target="new"><span>Forum</span></a></li>
-	<li><a href="kontakt.php" title="Kontakt"><span>Kontakt</span></a></li>
 	<li><a href="danksagung.php" title="Danksagung"><span>Danksagung</span></a></li>
   </ul>
 </div>
@@ -45,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.7  2010/03/06 13:04:06  jost
+    *** empty log message ***
+
     Revision 1.6  2009/10/31 14:22:20  jost
     *** empty log message ***
 
