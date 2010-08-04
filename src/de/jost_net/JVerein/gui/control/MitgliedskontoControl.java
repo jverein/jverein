@@ -9,36 +9,50 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-07-25 18:31:55  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.1  2010/05/18 20:19:24  jost
  * Vorabversion Mitgliedskonto
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
+import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.MitgliedskontoMenu;
+import de.jost_net.JVerein.io.FormularAufbereitung;
+import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
+import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -55,6 +69,7 @@ import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.parts.TreePart;
@@ -79,6 +94,10 @@ public class MitgliedskontoControl extends AbstractControl
 
   private DecimalInput betrag;
 
+  private FormularInput formular = null;
+
+  private FormularAufbereitung fa;
+
   private Mitgliedskonto mkto;
 
   private TablePart mitgliedskontoList;
@@ -98,7 +117,7 @@ public class MitgliedskontoControl extends AbstractControl
   private MitgliedskontoMessageConsumer mc = null;
 
   private Action action;
-  
+
   private ContextMenu menu;
 
   public MitgliedskontoControl(AbstractView view)
@@ -187,6 +206,16 @@ public class MitgliedskontoControl extends AbstractControl
     betrag = new DecimalInput(getMitgliedskonto().getBetrag(),
         Einstellungen.DECIMALFORMAT);
     return betrag;
+  }
+
+  public FormularInput getFormular() throws RemoteException
+  {
+    if (formular != null)
+    {
+      return formular;
+    }
+    formular = new FormularInput(Formularart.RECHNUNG);
+    return formular;
   }
 
   public DateInput getVondatum() throws RemoteException
@@ -321,7 +350,8 @@ public class MitgliedskontoControl extends AbstractControl
     return mitgliedskontoTree;
   }
 
-  public TablePart getMitgliedskontoList(Action action, ContextMenu menu) throws RemoteException
+  public TablePart getMitgliedskontoList(Action action, ContextMenu menu)
+      throws RemoteException
   {
     this.action = action;
     DBService service = Einstellungen.getDBService();
@@ -394,7 +424,7 @@ public class MitgliedskontoControl extends AbstractControl
         where += ") ";
       }
     }
-     if (where.length() > 0)
+    if (where.length() > 0)
     {
       sql += "WHERE " + where;
     }
@@ -439,8 +469,8 @@ public class MitgliedskontoControl extends AbstractControl
       mitgliedskontoList.addColumn("Zweck2", "zweck2");
       mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
-      mitgliedskontoList.addColumn("Zahlungseingang", "istbetrag", new CurrencyFormatter(
-          "", Einstellungen.DECIMALFORMAT));
+      mitgliedskontoList.addColumn("Zahlungseingang", "istbetrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       mitgliedskontoList.setContextMenu(menu);
       mitgliedskontoList.setRememberColWidths(true);
       mitgliedskontoList.setRememberOrder(true);
@@ -456,6 +486,178 @@ public class MitgliedskontoControl extends AbstractControl
       }
     }
     return mitgliedskontoList;
+  }
+
+  public Button getStartButton(final Object currentObject)
+  {
+    Button button = new Button("starten", new Action()
+    {
+      public void handleAction(Object context)
+      {
+
+        try
+        {
+          generiereRechnung(currentObject);
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+        catch (IOException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true);
+    return button;
+  }
+
+  private void generiereRechnung(Object currentObject) throws IOException
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("rechnung", "", Einstellungen.getEinstellung()
+        .getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
+
+    String s = fd.open();
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.endsWith(".PDF"))
+    {
+      s = s + ".PDF";
+    }
+    final File file = new File(s);
+    settings.setAttribute("lastdir", file.getParent());
+    Formular form = (Formular) getFormular().getValue();
+    Formular fo = (Formular) Einstellungen.getDBService().createObject(
+        Formular.class, form.getID());
+    fa = new FormularAufbereitung(file);
+    if (currentObject instanceof Mitgliedskonto)
+    {
+      Mitgliedskonto mk = (Mitgliedskonto) currentObject;
+      aufbereitenFormular(mk, fo, file);
+    }
+    if (currentObject instanceof Mitgliedskonto[])
+    {
+      Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
+      for (Mitgliedskonto mk : mkn)
+      {
+        aufbereitenFormular(mk, fo, file);
+      }
+    }
+    if (currentObject == null)
+    {
+      DBIterator abr = Einstellungen.getDBService().createList(
+          Mitgliedskonto.class);
+      if (getVondatum().getValue() != null)
+      {
+        abr.addFilter("datum >= ?", new Object[] { (Date) getVondatum()
+            .getValue() });
+      }
+      if (getBisdatum().getValue() != null)
+      {
+        abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
+            .getValue() });
+      }
+      while (abr.hasNext())
+      {
+        Mitgliedskonto mk = (Mitgliedskonto) abr.next();
+        aufbereitenFormular(mk, fo, file);
+      }
+    }
+    fa.showFormular();
+
+  }
+
+  private void aufbereitenFormular(Mitgliedskonto mk, Formular fo, File file)
+      throws RemoteException
+  {
+    HashMap<String, Object> map = new HashMap<String, Object>();
+
+    Mitglied m = mk.getMitglied();
+
+    String empfaenger = m.getAnrede()
+        + "\n"
+        + m.getVornameName()
+        + "\n"
+        + (m.getAdressierungszusatz().length() > 0 ? m.getAdressierungszusatz()
+            + "\n" : "") + m.getStrasse() + "\n" + m.getPlz() + " "
+        + m.getOrt();
+    map.put(FormularfeldControl.EMPFAENGER, empfaenger);
+    map.put(FormularfeldControl.ZAHLUNGSGRUND1, mk.getZweck1());
+    map.put(FormularfeldControl.ZAHLUNGSGRUND2, mk.getZweck2());
+    map.put(FormularfeldControl.BETRAG, mk.getBetrag());
+    map.put(FormularfeldControl.ID, m.getID());
+    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
+        .getExterneMitgliedsnummer());
+    map.put(FormularfeldControl.ANREDE, m.getAnrede());
+    map.put(FormularfeldControl.TITEL, m.getTitel());
+    map.put(FormularfeldControl.NAME, m.getName());
+    map.put(FormularfeldControl.VORNAME, m.getVorname());
+    map
+        .put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m
+            .getAdressierungszusatz());
+    map.put(FormularfeldControl.STRASSE, m.getStrasse());
+    map.put(FormularfeldControl.PLZ, m.getPlz());
+    map.put(FormularfeldControl.ORT, m.getOrt());
+    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(m
+        .getZahlungsrhytmus()).getText());
+    map.put(FormularfeldControl.BLZ, m.getBlz());
+    map.put(FormularfeldControl.KONTO, m.getKonto());
+    map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
+    map.put(FormularfeldControl.GEBURTSDATUM, m.getGeburtsdatum());
+    map.put(FormularfeldControl.GESCHLECHT, m.getGeschlecht());
+    map.put(FormularfeldControl.TELEFONPRIVAT, m.getTelefonprivat());
+    map.put(FormularfeldControl.TELEFONDIENSTLICH, m.getTelefondienstlich());
+    map.put(FormularfeldControl.HANDY, m.getHandy());
+    map.put(FormularfeldControl.EMAIL, m.getEmail());
+    map.put(FormularfeldControl.EINTRITT, m.getEintritt());
+    map.put(FormularfeldControl.BEITRAGSGRUPPE, m.getBeitragsgruppe()
+        .getBezeichnung());
+    map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
+    map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
+    String zahlungsweg = "";
+    switch (mk.getMitglied().getZahlungsweg())
+    {
+      case Zahlungsweg.ABBUCHUNG:
+      {
+        zahlungsweg = "Abbuchung von Konto " + mk.getMitglied().getKonto()
+            + ", BLZ: " + mk.getMitglied().getBlz();
+        break;
+      }
+      case Zahlungsweg.BARZAHLUNG:
+      {
+        zahlungsweg = "Bar";
+        break;
+      }
+      case Zahlungsweg.ÜBERWEISUNG:
+      {
+        zahlungsweg = "Überweisung";
+        break;
+      }
+    }
+    map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
+    map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
+        .format(new Date()));
+    // Date tmp = (Date) getBescheinigungsdatum().getValue();
+    // String bescheinigungsdatum = Einstellungen.DATEFORMAT.format(tmp);
+    // map.put("Bescheinigungsdatum", bescheinigungsdatum);
+    // tmp = (Date) getSpendedatum().getValue();
+    // String spendedatum = Einstellungen.DATEFORMAT.format(tmp);
+    // map.put("Spendedatum", spendedatum);
+
+    fa.writeForm(fo, map);
   }
 
   private class FilterListener implements Listener

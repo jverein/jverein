@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-07-25 18:43:30  jost
+ * Neu: Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -16,6 +19,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
+import de.jost_net.JVerein.gui.menu.Mitgliedskonto2Menu;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.buttons.Back;
@@ -37,8 +41,8 @@ public class MitgliedskontoListeView extends AbstractView
     group.addLabelPair("bis", control.getBisdatum());
     group.addLabelPair("Differenz", control.getDifferenz());
 
-    control.getMitgliedskontoList(new MitgliedDetailAction(), null).paint(
-        this.getParent());
+    control.getMitgliedskontoList(new MitgliedDetailAction(),
+        new Mitgliedskonto2Menu()).paint(this.getParent());
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton(new Back(false));
