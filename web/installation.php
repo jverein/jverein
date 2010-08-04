@@ -38,6 +38,7 @@
 	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat eine <a href="jameica_portable.php">
 		Anleitung</a> zur Installation von JRE, Jameica und Plugins auf einem USB-Stick oder anderen 
 		Wechseldatenträger zum portablen Einsatz erstellt.</p>
+	<a name="entwicklerversion"></a>
 	<h2>Entwicklerversionen</h2>
 	<p>Entwicklerversionen sind analog zu der oben beschriebenen Art und Weise zu installieren. 
 		Allerdings ist das <a href="http://www.willuhn.de/products/jameica/download_ext.php">
@@ -54,6 +55,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.5  2010-07-25 18:49:20  jost
+    Bugfix Zahlungsrhytmus
+
     Revision 1.4  2010/02/06 21:09:35  jost
     *** empty log message ***
 
