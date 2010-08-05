@@ -9,6 +9,13 @@
     <h2>Programminstallation</h2>
     <p>Die Installation von Entwicklerversionen ist <a href='installation.php#entwicklerversion'>hier</a>
     beschrieben. Wichtig ist die Installation in ein "frisches" Verzeichnis. Z. B. jvereintest.</p>
+    <h2>Datenordner</h2>
+    <p>Der <a href="faq.php#datenordner">produktive Datenordner</a> wird zum Test-Datenordner kopiert. 
+    Dazu wird mit Mitteln des Betriebssystems (z. B. Nautilus oder Explorer) der Ordner unter einem neuen
+    Namen (z. B. jvereintest) kopiert. Nutzer der Datenbank MySQL kopieren sich die Datenbank. Dazu 
+    wird mit mysqldump ein Dump erzeugt, mit einem Editor der Datenbankname geändert und die Daten wieder
+    in die neue Datenbank geladen. In der Testumgebung wird der Datenbankname angepasst. Siehe auch 
+    <a href="dokumentationmysql.php">MySQL-Support</a>.
     <h2>Programmstart</h2>
     <p>Der Programmstart kann je nach Vorliebe entweder über ein einzurichtendes 
     <a href="http://de.wikipedia.org/wiki/Icon_%28Computer%29">Icon</a> oder über die
@@ -25,6 +32,9 @@
     </p>
     <!-- 
     $Log$
+    Revision 1.1  2010-08-04 11:36:59  jost
+    Neu
+
     -->
        
 <? include ("footer.inc"); ?>
