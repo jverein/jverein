@@ -9,6 +9,7 @@
        A: Es gibt keinen fest definierten Platz für den Programmordner. Sofern die Jameica-Suite
           installiert wurde, ist der Ordner unter c:\Programme\Jameica zu finden. Unter Linux 
           wird oft unter /opt/jameica oder ~/jameica installiert.</p>
+    <a name="datenordner"></a>
     <p>Q: Wo finde ich den Datenordner?<br>
        A:
           <table>
@@ -30,6 +31,9 @@
           </table>    
     <!-- 
     $Log$
+    Revision 1.2  2010-08-04 11:36:38  jost
+    redakt
+
     Revision 1.1  2010-08-04 10:41:39  jost
     neu: FAQ
 
