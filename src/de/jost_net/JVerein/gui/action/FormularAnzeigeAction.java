@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-07-26 14:47:18  jost
+ * Bugfix
+ *
  * Revision 1.7  2009/10/17 19:44:19  jost
  * *** empty log message ***
  *
@@ -69,9 +72,10 @@ public class FormularAnzeigeAction implements Action
       HashMap<String, Object> map = new HashMap<String, Object>();
       map.put(FormularfeldControl.EMPFAENGER,
           "Herr\nDr. Willi Wichtig\nTestgasse 1\n12345 Testenhausen");
+      map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
       map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
       map.put(FormularfeldControl.ZAHLUNGSGRUND2, "Zahlungsgrund 2");
-      map.put(FormularfeldControl.BETRAG, "*1.234,00*");
+      map.put(FormularfeldControl.BETRAG, new Double(1234));
       map.put("Betrag in Worten", GermanNumber.toString(1234));
       map.put(FormularfeldControl.ID, "444");
       map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, "9999");
@@ -106,7 +110,7 @@ public class FormularAnzeigeAction implements Action
       map.put("Buchungsdatum", new Date());
       map.put("Bescheinigungsdatum", "17.12.2008");
       map.put("Tagesdatum", Einstellungen.DATEFORMAT.format(new Date()));
-      map.put("Buchungsdatum", new Date());
+      map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
 
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);
