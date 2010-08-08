@@ -9,12 +9,13 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-08-04 10:39:50  jost
+ * Prerelease Rechnung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.gui.view.MitgliedskontoRechnungView;
-import de.jost_net.JVerein.gui.view.RechnungView;
-import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
