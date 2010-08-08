@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/04/10 17:45:50  jost
+ * Zusätzliche Datenfelder für die Rechnungserstellung
+ *
  * Revision 1.5  2009/01/26 18:47:34  jost
  * Neu: Ersatz Aufwendungen
  *
@@ -82,6 +85,8 @@ public class FormularfeldControl extends AbstractControl
   public static final String BUCHUNGSDATUM = "Buchungsdatum";
 
   public static final String BETRAG = "Betrag";
+  
+  public static final String SUMME = "Summe";
 
   public static final String ZAHLUNGSWEG = "Zahlungsweg";
 
@@ -179,6 +184,7 @@ public class FormularfeldControl extends AbstractControl
       namen.add(ZAHLUNGSGRUND2);
       namen.add(BUCHUNGSDATUM);
       namen.add(BETRAG);
+      namen.add(SUMME);
       namen.add(ZAHLUNGSWEG);
       namen.add(ID);
       namen.add(EXTERNEMITGLIEDSNUMMER);
