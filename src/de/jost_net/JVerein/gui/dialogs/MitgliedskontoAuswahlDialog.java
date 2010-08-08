@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-07-25 18:32:23  jost
+ * Neu: Mitgliedskonto
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
@@ -90,15 +93,8 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
         close();
       }
     };
-    // final MitgliedskontoList konten = new
-    // de.jost_net.JVerein.gui.parts.MitgliedskontoList(
-    // a);
     mitgliedskontolist = control.getMitgliedskontoList(action, null);
     mitgliedskontolist.paint(parent);
-    // konten.setContextMenu(null);
-    // konten.setMulti(false);
-    // konten.setSummary(false);
-    // konten.paint(parent);
 
     ButtonArea b = new ButtonArea(parent, 3);
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
