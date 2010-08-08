@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/09/21 18:19:29  jost
+ * NullPointerException abgefangen.
+ *
  * Revision 1.3  2009/04/10 17:46:17  jost
  * Zusätzliche Datenfelder für die Rechnungserstellung
  *
@@ -55,6 +58,12 @@ public class FormularAufbereitung
   private PdfWriter writer;
 
   private File f;
+
+  private static final int links = 1;
+
+  private static final int rechts = 2;
+
+  private int buendig = links;
 
   public FormularAufbereitung(final File f) throws RemoteException
   {
@@ -143,23 +152,8 @@ public class FormularAufbereitung
     {
       return;
     }
-    int links = 1;
-    int rechts = 2;
-    int buendig = links;
-    String stringVal = null;
-    if (val instanceof String)
-    {
-      stringVal = (String) val;
-    }
-    if (val instanceof Double)
-    {
-      stringVal = Einstellungen.DECIMALFORMAT.format((Double) val);
-      buendig = rechts;
-    }
-    if (val instanceof Date)
-    {
-      stringVal = Einstellungen.DATEFORMAT.format((Date) val);
-    }
+    buendig = links;
+    String stringVal = getString(val);
     String[] ss = stringVal.split("\n");
     for (String s : ss)
     {
@@ -173,12 +167,62 @@ public class FormularAufbereitung
       contentByte.moveText(x - offset, y);
       contentByte.showText(s);
       contentByte.endText();
-      y -= feld.getFontsize().floatValue();
+      y -= feld.getFontsize().floatValue() + 3;
     }
   }
 
   private float mm2point(float mm)
   {
     return (float) mm / 0.3514598f;
+  }
+
+  private String getString(Object val)
+  {
+    String stringVal = "";
+    if (val instanceof Object[])
+    {
+      Object[] o = (Object[]) val;
+      if (o.length == 0)
+      {
+        return "";
+      }
+      if (o[0] instanceof String)
+      {
+        for (Object ostr : (Object[]) o)
+        {
+          stringVal += (String) ostr + "\n";
+        }
+      }
+      if (o[0] instanceof Date)
+      {
+        for (Object od : (Object[]) o)
+        {
+          stringVal += Einstellungen.DATEFORMAT.format((Date) od) + "\n";
+        }
+      }
+      if (o[0] instanceof Double)
+      {
+        for (Object od : (Object[]) o)
+        {
+          stringVal += Einstellungen.DECIMALFORMAT.format((Double) od) + "\n";
+        }
+        buendig = rechts;
+      }
+
+    }
+    if (val instanceof String)
+    {
+      stringVal = (String) val;
+    }
+    if (val instanceof Double)
+    {
+      stringVal = Einstellungen.DECIMALFORMAT.format((Double) val);
+      buendig = rechts;
+    }
+    if (val instanceof Date)
+    {
+      stringVal = Einstellungen.DATEFORMAT.format((Date) val);
+    }
+    return stringVal;
   }
 }

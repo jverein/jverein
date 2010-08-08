@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-04 10:40:09  jost
+ * Prerelease Rechnung
+ *
  * Revision 1.2  2010-07-25 18:31:55  jost
  * Neu: Mitgliedskonto
  *
@@ -24,6 +27,8 @@ import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -413,7 +418,7 @@ public class MitgliedskontoControl extends AbstractControl
           where += "OR ";
         }
         count++;
-        where += "mitglied.name like ? or mitglied.vorname like ? or zweck1 like ? ";
+        where += "upper(mitglied.name) like upper(?) or upper(mitglied.vorname) like upper(?) or upper(zweck1) like upper(?) ";
         String token = "%" + tok.nextToken() + "%";
         param.add(token);
         param.add(token);
@@ -510,7 +515,7 @@ public class MitgliedskontoControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true);
+    }, null, true,"go.png");
     return button;
   }
 
@@ -543,18 +548,10 @@ public class MitgliedskontoControl extends AbstractControl
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
     fa = new FormularAufbereitung(file);
-    if (currentObject instanceof Mitgliedskonto)
+    ArrayList<ArrayList<Mitgliedskonto>> mks = getRechnungsempfaenger(currentObject);
+    for (ArrayList<Mitgliedskonto> mk : mks)
     {
-      Mitgliedskonto mk = (Mitgliedskonto) currentObject;
       aufbereitenFormular(mk, fo, file);
-    }
-    if (currentObject instanceof Mitgliedskonto[])
-    {
-      Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
-      for (Mitgliedskonto mk : mkn)
-      {
-        aufbereitenFormular(mk, fo, file);
-      }
     }
     if (currentObject == null)
     {
@@ -570,9 +567,15 @@ public class MitgliedskontoControl extends AbstractControl
         abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
             .getValue() });
       }
+      ArrayList<Object> mktos = new ArrayList<Object>();
       while (abr.hasNext())
       {
-        Mitgliedskonto mk = (Mitgliedskonto) abr.next();
+        mktos.add(abr.next());
+      }
+      ArrayList<ArrayList<Mitgliedskonto>> mkt = getRechnungsempfaenger(mktos
+          .toArray());
+      for (ArrayList<Mitgliedskonto> mk : mkt)
+      {
         aufbereitenFormular(mk, fo, file);
       }
     }
@@ -580,12 +583,12 @@ public class MitgliedskontoControl extends AbstractControl
 
   }
 
-  private void aufbereitenFormular(Mitgliedskonto mk, Formular fo, File file)
-      throws RemoteException
+  private void aufbereitenFormular(ArrayList<Mitgliedskonto> mk, Formular fo,
+      File file) throws RemoteException
   {
     HashMap<String, Object> map = new HashMap<String, Object>();
 
-    Mitglied m = mk.getMitglied();
+    Mitglied m = mk.get(0).getMitglied();
 
     String empfaenger = m.getAnrede()
         + "\n"
@@ -595,9 +598,24 @@ public class MitgliedskontoControl extends AbstractControl
             + "\n" : "") + m.getStrasse() + "\n" + m.getPlz() + " "
         + m.getOrt();
     map.put(FormularfeldControl.EMPFAENGER, empfaenger);
-    map.put(FormularfeldControl.ZAHLUNGSGRUND1, mk.getZweck1());
-    map.put(FormularfeldControl.ZAHLUNGSGRUND2, mk.getZweck2());
-    map.put(FormularfeldControl.BETRAG, mk.getBetrag());
+    ArrayList<Date> buda = new ArrayList<Date>();
+    ArrayList<String> zg1 = new ArrayList<String>();
+    ArrayList<String> zg2 = new ArrayList<String>();
+    ArrayList<Double> betrag = new ArrayList<Double>();
+    double summe = 0;
+    for (Mitgliedskonto mkto : mk)
+    {
+      buda.add(mkto.getDatum());
+      zg1.add(mkto.getZweck1());
+      zg2.add(mkto.getZweck2());
+      betrag.add(new Double(mkto.getBetrag()));
+      summe += mkto.getBetrag();
+    }
+    map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
+    map.put(FormularfeldControl.ZAHLUNGSGRUND1, zg1.toArray());
+    map.put(FormularfeldControl.ZAHLUNGSGRUND2, zg2.toArray());
+    map.put(FormularfeldControl.BETRAG, betrag.toArray());
+    map.put(FormularfeldControl.SUMME, summe);
     map.put(FormularfeldControl.ID, m.getID());
     map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
         .getExterneMitgliedsnummer());
@@ -628,12 +646,13 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
     map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
     String zahlungsweg = "";
-    switch (mk.getMitglied().getZahlungsweg())
+    switch (mk.get(0).getMitglied().getZahlungsweg())
     {
       case Zahlungsweg.ABBUCHUNG:
       {
-        zahlungsweg = "Abbuchung von Konto " + mk.getMitglied().getKonto()
-            + ", BLZ: " + mk.getMitglied().getBlz();
+        zahlungsweg = "Abbuchung von Konto "
+            + mk.get(0).getMitglied().getKonto() + ", BLZ: "
+            + mk.get(0).getMitglied().getBlz();
         break;
       }
       case Zahlungsweg.BARZAHLUNG:
@@ -650,14 +669,88 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
     map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
         .format(new Date()));
-    // Date tmp = (Date) getBescheinigungsdatum().getValue();
-    // String bescheinigungsdatum = Einstellungen.DATEFORMAT.format(tmp);
-    // map.put("Bescheinigungsdatum", bescheinigungsdatum);
-    // tmp = (Date) getSpendedatum().getValue();
-    // String spendedatum = Einstellungen.DATEFORMAT.format(tmp);
-    // map.put("Spendedatum", spendedatum);
 
     fa.writeForm(fo, map);
+  }
+
+  /**
+   * Liefert ein Array pro Mitglied mit Arrays der einzelnen Rechnungspositionen
+   * 
+   * @param currentObject
+   * @return
+   */
+  private ArrayList<ArrayList<Mitgliedskonto>> getRechnungsempfaenger(
+      Object currentObject)
+  {
+    ArrayList<ArrayList<Mitgliedskonto>> ret = new ArrayList<ArrayList<Mitgliedskonto>>();
+    if (currentObject instanceof Mitgliedskonto)
+    {
+      Mitgliedskonto mk = (Mitgliedskonto) currentObject;
+      ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();
+      r.add(mk);
+      ret.add(r);
+      return ret;
+    }
+    if (currentObject instanceof Mitgliedskonto[])
+    {
+      Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
+      Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
+      {
+        public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
+        {
+          try
+          {
+            int c = mk1.getMitglied().getName().compareTo(
+                mk2.getMitglied().getName());
+            if (c != 0)
+            {
+              return c;
+            }
+            c = mk1.getMitglied().getVorname().compareTo(
+                mk2.getMitglied().getVorname());
+            if (c != 0)
+            {
+              return c;
+            }
+            return mk1.getMitglied().getID().compareTo(
+                mk2.getMitglied().getID());
+          }
+          catch (RemoteException e)
+          {
+            throw new RuntimeException(e);
+          }
+        }
+      });
+      try
+      {
+        ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();
+        r = new ArrayList<Mitgliedskonto>();
+        for (Mitgliedskonto mk : mkn)
+        {
+          if (r.size() == 0
+              || r.get(0).getMitglied().getID()
+                  .equals(mk.getMitglied().getID()))
+          {
+            r.add(mk);
+          }
+          else
+          {
+            ret.add(r);
+            r = new ArrayList<Mitgliedskonto>();
+            r.add(mk);
+          }
+        }
+        if (r.size() > 0)
+        {
+          ret.add(r);
+        }
+      }
+      catch (RemoteException e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
+    return ret;
   }
 
   private class FilterListener implements Listener
