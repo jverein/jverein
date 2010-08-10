@@ -10,6 +10,7 @@
     			<li>Größe der Kontoauswahlbox der Buchführung verändert.</li>
     			<li>Bugfix beim Import des Zahlungsrhytmusses</li>
     			<li>Erste Version des Mitgliedskontos</li>
+    			<li>Im Formularfeldeditor kann jetzt auch direkt das Formular angezeigt werden.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -487,6 +488,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.54  2010-07-25 18:48:45  jost
+    *** empty log message ***
+
     Revision 1.53  2010/06/09 18:51:13  jost
     *** empty log message ***
 
