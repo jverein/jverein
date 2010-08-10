@@ -397,6 +397,10 @@ public class JVereinUpdateProvider
     {
       update0105(conn, progressmonitor);
     }
+    if (cv < 106)
+    {
+      update0106(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -2861,6 +2865,26 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte manuellezahlungen in die Tabelle einstellung aufgenommen", 105);
+  }
+
+  private void update0106(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungen13 char(5) before aktuellegeburtstagevorher;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungen13 char(5) after manuellezahlungen;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungen13 in die Tabelle einstellung aufgenommen", 106);
   }
 
 }

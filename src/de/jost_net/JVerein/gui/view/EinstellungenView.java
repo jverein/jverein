@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2010-07-26 08:23:13  jost
+ * Manuelle Zahlungen defaultm‰ﬂig deaktviert. Reaktvierbar durch Einstellungen.
+ *
  * Revision 1.27  2010-07-26 08:04:59  jost
  * 2spaltiges Layout
  *
@@ -152,6 +155,8 @@ public class EinstellungenView extends AbstractView
         .getMitgliedskonto());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
         "manuelle Zahlungen reaktivieren*"), control.getManuelleZahlungen());
+    right.addLabelPair(JVereinPlugin.getI18n().tr(
+        "Rechnungen vor V 1.4 reaktivieren*"), control.getRechnungen13());
     right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
     right.addLabelPair(JVereinPlugin.getI18n().tr(

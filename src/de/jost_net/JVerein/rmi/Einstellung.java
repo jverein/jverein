@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-07-26 08:23:24  jost
+ * Manuelle Zahlungen defaultm‰ﬂig deaktviert. Reaktvierbar durch Einstellungen.
+ *
  * Revision 1.11  2010-07-25 18:46:05  jost
  * Neu: Mitgliedskonto
  *
@@ -101,6 +104,10 @@ public interface Einstellung extends DBObject
       throws RemoteException;
 
   public boolean getManuelleZahlungen() throws RemoteException;
+
+  public void setRechnungen13(Boolean rechnungen13) throws RemoteException;
+
+  public boolean getRechnungen13() throws RemoteException;
 
   public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException;
 

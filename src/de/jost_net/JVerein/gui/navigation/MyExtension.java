@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2010-07-26 08:23:01  jost
+ * Manuelle Zahlungen defaultm‰ﬂig deaktviert. Reaktvierbar durch Einstellungen.
+ *
  * Revision 1.26  2010-07-25 18:36:26  jost
  * Neu: Mitgliedskonto
  *
@@ -156,12 +159,15 @@ public class MyExtension implements Extension
       }
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
           "Abrechnung"), new AbbuchungAction(), "accessories-calculator.png"));
-      if (Einstellungen.getEinstellung().getRechnungFuerAbbuchung()
-          || Einstellungen.getEinstellung().getRechnungFuerUeberweisung()
-          || Einstellungen.getEinstellung().getRechnungFuerBarzahlung())
+      if (Einstellungen.getEinstellung().getRechnungen13())
       {
-        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Rechnung"), new RechnungListeAction(), "rechnung.png"));
+        if (Einstellungen.getEinstellung().getRechnungFuerAbbuchung()
+            || Einstellungen.getEinstellung().getRechnungFuerUeberweisung()
+            || Einstellungen.getEinstellung().getRechnungFuerBarzahlung())
+        {
+          jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+              "Rechnung"), new RechnungListeAction(), "rechnung.png"));
+        }
       }
       if (Einstellungen.getEinstellung().getMitgliedskonto())
       {
