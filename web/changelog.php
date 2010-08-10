@@ -10,6 +10,9 @@
     			<li>Größe der Kontoauswahlbox der Buchführung verändert.</li>
     			<li>Bugfix beim Import des Zahlungsrhytmusses</li>
     			<li>Erste Version des Mitgliedskontos</li>
+    			<li>Rechnungen: Für ein Mitglied werden ggfls. mehrere Positionen auf eine Rechnung
+    			    zusammengefasst. Achtung! Die Formularfelder "Zahlungsgrund1" und "Zahlungsgrund2"
+    			    sind durch das Formularfeld "Zahlungsgrund" zu ersetzen.
     			<li>Im Formularfeldeditor kann jetzt auch direkt das Formular angezeigt werden.</li>
     		</ul>
 
@@ -488,6 +491,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.55  2010-08-10 05:35:41  jost
+    *** empty log message ***
+
     Revision 1.54  2010-07-25 18:48:45  jost
     *** empty log message ***
 
