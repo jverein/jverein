@@ -5,7 +5,7 @@
     handelt es sich um PDF-Dokumente. Diese PDF-Dokumente können mit einem beliebigen Programm 
     (z. B. OOWriter oder in Verbindung mit einem PDF-Drucker wie FreePDF) erstellt werden. In 
     JVerein können zu jedem Formular Formularfelder definiert werden. Diese Formularfelder werden 
-    auf dem PDF-Dokument an feste Stellen positioniert. JVerein schreibt dann an dieser Position 
+    auf dem PDF-Dokument an festen Stellen positioniert. JVerein schreibt dann an diesen Positionen 
     mit dem für das jeweilige Formularfeld definierten Zeichensatz und in der gewünschten 
     Zeichengröße Inhalte aus der Datenbank oder die auf der jeweiligen Maske eingetragenen Werte.</p>
     
@@ -65,16 +65,21 @@
     		<td>Empfänger</td><td>Empfänger der Rechnung. Formatiert für ein Adressfeld.</td>
     	</tr>
     	<tr>
-    		<td>Zahlungsgrund1</td><td>&nbsp;</td>
+    		<td>Zahlungsgrund</td><td>Multipel. Ab Version 1.4 können mehrere Positionen für ein Mitglied 
+    		    in Rechnung gestellt werden. Zur korrekten Darstellung ist "Zahlungsgrund" zu 
+    		    verwenden.</td>
     	</tr>
     	<tr>
-    		<td>Zahlungsgrund2</td><td>&nbsp;</td>
+    		<td>Zahlungsgrund1</td><td>Sollte ab Version 1.4 nicht mehr verwendet werden.</td>
     	</tr>
     	<tr>
-    		<td>Buchungsdatum</td><td>&nbsp;</td>
+    		<td>Zahlungsgrund2</td><td>Sollte ab Version 1.4 nicht mehr verwendet werden.</td>
     	</tr>
     	<tr>
-    		<td>Betrag</td><td>&nbsp;</td>
+    		<td>Buchungsdatum</td><td>Multipel</td>
+    	</tr>
+    	<tr>
+    		<td>Betrag</td><td>Multipel</td>
     	</tr>
     	<tr>
     		<td>sowie alle Felder des Mitgliedsdatensatzes</td><td>&nbsp;</td>
@@ -106,6 +111,9 @@
     
     <!-- 
     $Log$
+    Revision 1.2  2010/01/03 08:59:09  jost
+    *** empty log message ***
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 

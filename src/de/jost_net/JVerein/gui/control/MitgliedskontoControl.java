@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-08-10 05:39:04  jost
+ * *** empty log message ***
+ *
  * Revision 1.4  2010-08-08 19:32:56  jost
  * Zusammenfassung der Rechnungen
  *
@@ -602,6 +605,7 @@ public class MitgliedskontoControl extends AbstractControl
         + m.getOrt();
     map.put(FormularfeldControl.EMPFAENGER, empfaenger);
     ArrayList<Date> buda = new ArrayList<Date>();
+    ArrayList<String> zg = new ArrayList<String>();
     ArrayList<String> zg1 = new ArrayList<String>();
     ArrayList<String> zg2 = new ArrayList<String>();
     ArrayList<Double> betrag = new ArrayList<Double>();
@@ -609,6 +613,7 @@ public class MitgliedskontoControl extends AbstractControl
     for (Mitgliedskonto mkto : mk)
     {
       buda.add(mkto.getDatum());
+      zg.add(mkto.getZweck1() + " " + mkto.getZweck2());
       zg1.add(mkto.getZweck1());
       zg2.add(mkto.getZweck2());
       betrag.add(new Double(mkto.getBetrag()));
@@ -620,6 +625,7 @@ public class MitgliedskontoControl extends AbstractControl
       betrag.add(summe);
     }
     map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
+    map.put(FormularfeldControl.ZAHLUNGSGRUND, zg.toArray());
     map.put(FormularfeldControl.ZAHLUNGSGRUND1, zg1.toArray());
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, zg2.toArray());
     map.put(FormularfeldControl.BETRAG, betrag.toArray());

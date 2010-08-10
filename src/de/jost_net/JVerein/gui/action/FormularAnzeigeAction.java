@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-08-08 19:31:44  jost
+ * Bugfix
+ *
  * Revision 1.8  2010-07-26 14:47:18  jost
  * Bugfix
  *
@@ -73,6 +76,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.EMPFAENGER,
           "Herr\nDr. Willi Wichtig\nTestgasse 1\n12345 Testenhausen");
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
+      map.put(FormularfeldControl.ZAHLUNGSGRUND,
+          "Zahlungsgrund1 Zahlungsgrund2");
       map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
       map.put(FormularfeldControl.ZAHLUNGSGRUND2, "Zahlungsgrund 2");
       map.put(FormularfeldControl.BETRAG, new Double(1234));
