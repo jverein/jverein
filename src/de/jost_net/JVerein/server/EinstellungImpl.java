@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-08-10 05:41:15  jost
+ * Reaktivierung alter Rechnungen
+ *
  * Revision 1.14  2010-07-26 08:23:36  jost
  * Manuelle Zahlungen defaultmäßig deaktviert. Reaktvierbar durch Einstellungen.
  *
@@ -229,6 +232,53 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setRechnungen13(Boolean rechnungen13) throws RemoteException
   {
     setAttribute("rechnungen13", new Boolean(rechnungen13));
+  }
+
+  public String getRechnungTextAbbuchung() throws RemoteException
+  {
+    String text = (String) getAttribute("rechnungtextabbuchung");
+    if (text == null)
+    {
+      text = "Der Betrag wird vom Konto ${Konto} (BLZ ${BLZ}) abgebucht.";
+    }
+    return text;
+  }
+
+  public void setRechnungTextAbbuchung(String rechnungtextabbuchung)
+      throws RemoteException
+  {
+    setAttribute("rechnungtextabbuchung", rechnungtextabbuchung);
+  }
+
+  public String getRechnungTextUeberweisung() throws RemoteException
+  {
+    String text = (String) getAttribute("rechnungtextueberweisung");
+    if (text == null)
+    {
+      text = "Bitte überweisen Sie den Betrag auf das angegebene Konto.";
+    }
+    return text;
+  }
+
+  public void setRechnungTextUeberweisung(String rechnungtextueberweisung)
+      throws RemoteException
+  {
+    setAttribute("rechnungtextueberweisung", rechnungtextueberweisung);
+  }
+
+  public String getRechnungTextBar() throws RemoteException
+  {
+    String text = (String) getAttribute("rechnungtextbar");
+    if (text == null)
+    {
+      text = "Bitte zahlen Sie den Betrag auf das angegebene Konto ein.";
+    }
+    return text;
+  }
+
+  public void setRechnungTextBar(String rechnungtextbar) throws RemoteException
+  {
+    setAttribute("rechnungtextbar", rechnungtextbar);
   }
 
   public boolean getExterneMitgliedsnummer() throws RemoteException

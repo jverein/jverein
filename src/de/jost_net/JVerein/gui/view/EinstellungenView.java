@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2010-08-10 05:40:02  jost
+ * Reaktivierung alter Rechnungen
+ *
  * Revision 1.28  2010-07-26 08:23:13  jost
  * Manuelle Zahlungen defaultmäßig deaktviert. Reaktvierbar durch Einstellungen.
  *
@@ -95,6 +98,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EinstellungControl;
@@ -197,12 +201,24 @@ public class EinstellungenView extends AbstractView
         "Rechnungen"));
     LabelGroup groupRechnungen = new LabelGroup(tabRechnungen.getComposite(),
         JVereinPlugin.getI18n().tr("Rechnungen"));
-    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
-        "für Zahlungsweg Abbuchung"), control.getRechnungFuerAbbuchung());
-    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
-        "für Zahlungsweg Überweisung"), control.getRechnungFuerUeberweisung());
-    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
-        "für Zahlungsweg Barzahlung"), control.getRechnungFuerBarzahlung());
+    if (Einstellungen.getEinstellung().getRechnungen13())
+    {
+      groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
+          "für Zahlungsweg Abbuchung"), control.getRechnungFuerAbbuchung());
+      groupRechnungen
+          .addLabelPair(JVereinPlugin.getI18n().tr(
+              "für Zahlungsweg Überweisung"), control
+              .getRechnungFuerUeberweisung());
+      groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
+          "für Zahlungsweg Barzahlung"), control.getRechnungFuerBarzahlung());
+    }
+    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Abbuchung"),
+        control.getRechnungTextAbbuchung());
+    groupRechnungen.addLabelPair(
+        JVereinPlugin.getI18n().tr("Text Überweisung"), control
+            .getRechnungTextUeberweisung());
+    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Bar"),
+        control.getRechnungTextBar());
 
     TabGroup tabTabellen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Tabellen"));

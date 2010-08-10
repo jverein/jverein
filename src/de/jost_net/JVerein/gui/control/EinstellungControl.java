@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2010-08-10 05:37:49  jost
+ * Reaktivierung alter Rechnungen
+ *
  * Revision 1.25  2010-07-26 08:22:48  jost
  * Manuelle Zahlungen defaultm‰ﬂig deaktviert. Reaktvierbar durch Einstellungen.
  *
@@ -135,6 +138,12 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput manuellezahlungen;
 
   private CheckboxInput rechnungen13;
+
+  private TextInput rechnungtextabbuchung;
+
+  private TextInput rechnungtextueberweisung;
+
+  private TextInput rechnungtextbar;
 
   private CheckboxInput externemitgliedsnummer;
 
@@ -310,6 +319,39 @@ public class EinstellungControl extends AbstractControl
     rechnungen13 = new CheckboxInput(Einstellungen.getEinstellung()
         .getRechnungen13());
     return rechnungen13;
+  }
+
+  public TextInput getRechnungTextAbbuchung() throws RemoteException
+  {
+    if (rechnungtextabbuchung != null)
+    {
+      return rechnungtextabbuchung;
+    }
+    rechnungtextabbuchung = new TextInput(Einstellungen.getEinstellung()
+        .getRechnungTextAbbuchung(), 100);
+    return rechnungtextabbuchung;
+  }
+
+  public TextInput getRechnungTextUeberweisung() throws RemoteException
+  {
+    if (rechnungtextueberweisung != null)
+    {
+      return rechnungtextueberweisung;
+    }
+    rechnungtextueberweisung = new TextInput(Einstellungen.getEinstellung()
+        .getRechnungTextUeberweisung(), 100);
+    return rechnungtextueberweisung;
+  }
+
+  public TextInput getRechnungTextBar() throws RemoteException
+  {
+    if (rechnungtextbar != null)
+    {
+      return rechnungtextbar;
+    }
+    rechnungtextbar = new TextInput(Einstellungen.getEinstellung()
+        .getRechnungTextBar(), 100);
+    return rechnungtextbar;
   }
 
   public CheckboxInput getExterneMitgliedsnummer() throws RemoteException
@@ -548,6 +590,11 @@ public class EinstellungControl extends AbstractControl
       e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
       e.setManuelleZahlungen((Boolean) manuellezahlungen.getValue());
       e.setRechnungen13((Boolean) rechnungen13.getValue());
+      e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
+      e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
+      e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
+          .getValue());
+      e.setRechnungTextBar((String) rechnungtextbar.getValue());
       e.setAktuelleGeburtstageVorher((Integer) aktuellegeburtstagevorher
           .getValue());
       e.setAktuelleGeburtstageNachher((Integer) aktuellegeburtstagenachher

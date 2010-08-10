@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-08-10 15:58:58  jost
+ * neues Feld Zahlungsgrund
+ *
  * Revision 1.5  2010-08-10 05:39:04  jost
  * *** empty log message ***
  *
@@ -663,19 +666,20 @@ public class MitgliedskontoControl extends AbstractControl
     {
       case Zahlungsweg.ABBUCHUNG:
       {
-        zahlungsweg = "Abbuchung von Konto "
-            + mk.get(0).getMitglied().getKonto() + ", BLZ: "
-            + mk.get(0).getMitglied().getBlz();
+        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
+        zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", m.getKonto());
+        zahlungsweg = zahlungsweg.replaceAll("\\$\\{BLZ\\}", m.getBlz());
         break;
       }
       case Zahlungsweg.BARZAHLUNG:
       {
-        zahlungsweg = "Bar";
+        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextBar();
         break;
       }
       case Zahlungsweg.ÜBERWEISUNG:
       {
-        zahlungsweg = "Überweisung";
+        zahlungsweg = Einstellungen.getEinstellung()
+            .getRechnungTextUeberweisung();
         break;
       }
     }

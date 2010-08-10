@@ -50,8 +50,9 @@
 
 	<h2>Rechnungen</h2>
 	<img src='images/Einstellungenrechnungen.jpg' class='screenshot'>
-	<p>Festlegung, für welche Zahlungswege Rechnungsinformationen gespeichert werden sollen. (Ab Version 1.1)</p>
-	
+	<p>Bis Version 1.3: Festlegung, für welche Zahlungswege Rechnungsinformationen gespeichert werden sollen. (Ab Version 1.1)</p>
+	<p>Ab Version 1.4: Texte für die einzelnen Zahlungswege für den Rechnungsdruck. In den Text zur Abbuchung 
+	können die Variablen ${Konto} und ${BLZ} eingemischt werden.</p>
 	<h2><a name='tabellen'></a>Tabellen</h2>
 	<p>Festlegung der Spalten, die in Tabellen angezeigt werden sollen. 
 	<img src='images/Einstellungentabellen.jpg' class='screenshot'>
@@ -63,6 +64,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.9  2010/05/20 18:37:17  jost
+    *** empty log message ***
+
     Revision 1.8  2010/02/01 21:03:42  jost
     Neu: Einfache Mailfunktion
 

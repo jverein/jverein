@@ -401,6 +401,18 @@ public class JVereinUpdateProvider
     {
       update0106(conn, progressmonitor);
     }
+    if (cv < 107)
+    {
+      update0107(conn, progressmonitor);
+    }
+    if (cv < 108)
+    {
+      update0108(conn, progressmonitor);
+    }
+    if (cv < 109)
+    {
+      update0109(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -2885,6 +2897,70 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte rechnungen13 in die Tabelle einstellung aufgenommen", 106);
+  }
+
+  private void update0107(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) before aktuellegeburtstagevorher;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) after rechnung13;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungtextabbuchung in die Tabelle einstellung aufgenommen",
+        107);
+  }
+
+  private void update0108(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextueberweisung varchar(100) before aktuellegeburtstagevorher;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungueberweisung varchar(100) after rechnungtextabbuchung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte rechnungtextueberweisung in die Tabelle einstellung aufgenommen",
+        108);
+  }
+
+  private void update0109(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextbar varchar(100) before aktuellegeburtstagevorher;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextbar varchar(100) after rechnungtextueberweisung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungtextbar in die Tabelle einstellung aufgenommen", 109);
   }
 
 }

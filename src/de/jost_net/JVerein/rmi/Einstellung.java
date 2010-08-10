@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-08-10 05:40:58  jost
+ * Reaktivierung alter Rechnungen
+ *
  * Revision 1.12  2010-07-26 08:23:24  jost
  * Manuelle Zahlungen defaultm‰ﬂig deaktviert. Reaktvierbar durch Einstellungen.
  *
@@ -108,6 +111,20 @@ public interface Einstellung extends DBObject
   public void setRechnungen13(Boolean rechnungen13) throws RemoteException;
 
   public boolean getRechnungen13() throws RemoteException;
+
+  public void setRechnungTextAbbuchung(String rechnungtextabbuchung)
+      throws RemoteException;
+
+  public String getRechnungTextAbbuchung() throws RemoteException;
+
+  public void setRechnungTextUeberweisung(String rechnungtextueberweisung)
+      throws RemoteException;
+
+  public String getRechnungTextUeberweisung() throws RemoteException;
+
+  public void setRechnungTextBar(String rechnungtextbar) throws RemoteException;
+
+  public String getRechnungTextBar() throws RemoteException;
 
   public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException;
 
