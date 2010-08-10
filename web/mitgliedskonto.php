@@ -6,6 +6,10 @@
 	<p>Zunächst ist das Mitgliedskonto zu aktivieren. Das geschieht unter Administration&gt;Einstellungen&gt;Anzeige
     <img src='images/MitgliedskontoEinstellungen.png' class='screenshot'>
     <p>Anschließend ist JVerein neu zu starten.</p> 
+    <p>Die manuelle Überwachnung des Zahlungseingangs und die alte Version der Rechnungen sind mit der Version
+    1.4 obsolet. Wer alte Daten noch nutzen will, kann dies über die Einstellungen reaktivieren. Ab Version 1.5 
+    werden diese Daten nicht mehr zur Verfügung stehen.</p> 
+    
     
     <h2>Abrechnung</h2>
     <p>Die Abrechnung schreibt Informationen zu Mitgliedsbeiträgen und Zusatzabrechnungen in die Tabelle
@@ -72,6 +76,9 @@
     </ul>   
     <!-- 
     $Log$
+    Revision 1.2  2010-07-26 14:47:27  jost
+    *** empty log message ***
+
     Revision 1.1  2010-07-25 18:49:30  jost
     Neu: Mitgliedskonto
 
