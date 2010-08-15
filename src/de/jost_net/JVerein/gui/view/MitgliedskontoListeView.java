@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-04 10:41:16  jost
+ * Prerelease Rechnung
+ *
  * Revision 1.1  2010-07-25 18:43:30  jost
  * Neu: Mitgliedskonto
  *
@@ -37,8 +40,8 @@ public class MitgliedskontoListeView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Filter"));
     group.addInput(control.getSuchName());
-    group.addLabelPair("von", control.getVondatum());
-    group.addLabelPair("bis", control.getBisdatum());
+    group.addLabelPair("von", control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
+    group.addLabelPair("bis", control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
     group.addLabelPair("Differenz", control.getDifferenz());
 
     control.getMitgliedskontoList(new MitgliedDetailAction(),

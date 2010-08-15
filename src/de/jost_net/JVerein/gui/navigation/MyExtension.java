@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2010-08-10 05:39:41  jost
+ * Reaktivierung alter Rechnungen
+ *
  * Revision 1.27  2010-07-26 08:23:01  jost
  * Manuelle Zahlungen defaultm‰ﬂig deaktviert. Reaktvierbar durch Einstellungen.
  *
@@ -126,6 +129,7 @@ import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedImportAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoListeAction;
+import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StammdatenAction;
@@ -166,7 +170,7 @@ public class MyExtension implements Extension
             || Einstellungen.getEinstellung().getRechnungFuerBarzahlung())
         {
           jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-              "Rechnung"), new RechnungListeAction(), "rechnung.png"));
+              "Rechnung /alt)"), new RechnungListeAction(), "rechnung.png"));
         }
       }
       if (Einstellungen.getEinstellung().getMitgliedskonto())
@@ -175,6 +179,8 @@ public class MyExtension implements Extension
             .addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
                 "Mitgliedskonten"), new MitgliedskontoListeAction(),
                 "rechnung.png"));
+        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+            "Rechnungen"), new MitgliedskontoRechnungAction(), "rechnung.png"));
       }
       if (Einstellungen.getEinstellung().getZusatzbetrag())
       {

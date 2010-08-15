@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-08 19:32:03  jost
+ * Code bereinigt.
+ *
  * Revision 1.1  2010-08-04 10:39:50  jost
  * Prerelease Rechnung
  *
@@ -34,6 +37,10 @@ public class MitgliedskontoRechnungAction implements Action
     {
       Mitgliedskonto[] mk = (Mitgliedskonto[]) context;
       GUI.startView(MitgliedskontoRechnungView.class.getName(), mk);
+    }
+    else 
+    {
+      GUI.startView(MitgliedskontoRechnungView.class, null);
     }
   }
 }

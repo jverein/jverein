@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-08-04 10:41:27  jost
+ * Prerelease Rechnung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -32,6 +35,14 @@ public class MitgliedskontoRechnungView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Parameter"));
+    if (this.getCurrentObject() == null)
+    {
+      group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"), control
+          .getVondatum(MitgliedskontoControl.DATUM_RECHNUNG));
+      group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"), control
+          .getBisdatum(MitgliedskontoControl.DATUM_RECHNUNG));
+    }
+
     group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"), control
         .getFormular());
 
