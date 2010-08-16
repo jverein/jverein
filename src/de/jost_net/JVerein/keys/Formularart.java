@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:04:03  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/12/13 16:24:04  jost
  * equals()-Methode implementiert.
  *
@@ -30,6 +33,8 @@ public class Formularart
   public static final int SPENDENBESCHEINIGUNG = 1;
 
   public static final int RECHNUNG = 2;
+
+  public static final int MAHNUNG = 3;
 
   private int formularart;
 
@@ -56,6 +61,8 @@ public class Formularart
         return JVereinPlugin.getI18n().tr("Spendenbescheinigung");
       case RECHNUNG:
         return JVereinPlugin.getI18n().tr("Rechnung");
+      case MAHNUNG:
+        return JVereinPlugin.getI18n().tr("Mahnung");
       default:
         return null;
     }
@@ -66,6 +73,7 @@ public class Formularart
     ArrayList<Formularart> ret = new ArrayList<Formularart>();
     ret.add(new Formularart(SPENDENBESCHEINIGUNG));
     ret.add(new Formularart(RECHNUNG));
+    ret.add(new Formularart(MAHNUNG));
     return ret;
   }
 

@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-08 11:32:29  jost
+ * Nicht-Case-Sensitive-Suche
+ *
  * Revision 1.1  2010-07-25 18:32:23  jost
  * Neu: Mitgliedskonto
  *
@@ -79,7 +82,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
     group.addText(text, true);
     control.getSuchName().setValue(buchung.getName());
     group.addInput(control.getSuchName());
-    group.addInput(control.getOffenePosten());
+    group.addInput(control.getDifferenz("Fehlbetrag"));
 
     Action action = new Action()
     {

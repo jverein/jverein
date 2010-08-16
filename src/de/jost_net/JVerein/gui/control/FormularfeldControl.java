@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-08-10 15:58:34  jost
+ * neues Feld Zahlungsgrund
+ *
  * Revision 1.8  2010-08-10 05:38:18  jost
  * Undo
  *
@@ -184,7 +187,8 @@ public class FormularfeldControl extends AbstractControl
       namen.add("Spendedatum");
       namen.add("ErsatzAufwendungen");
     }
-    if (formular.getArt() == Formularart.RECHNUNG)
+    if (formular.getArt() == Formularart.RECHNUNG
+        || formular.getArt() == Formularart.MAHNUNG)
     {
       namen.add(ZAHLUNGSGRUND);
       namen.add(ZAHLUNGSGRUND1);

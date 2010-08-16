@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-15 19:00:50  jost
+ * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
+ *
  * Revision 1.7  2010-08-10 18:06:30  jost
  * Zahlungswegtexte für den Rechnungsdruck
  *
@@ -81,7 +84,6 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.TreeFormatter;
-import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
@@ -126,6 +128,8 @@ public class MitgliedskontoControl extends AbstractControl
 
   public static final String DATUM_RECHNUNG = "datum.rechnung.";
 
+  public static final String DATUM_MAHNUNG = "datum.mahnung.";
+
   private String datumverwendung = null;
 
   private DateInput vondatum = null;
@@ -134,9 +138,9 @@ public class MitgliedskontoControl extends AbstractControl
 
   private TextInput suchname = null;
 
-  private CheckboxInput differenz = null;
+  private SelectInput differenz = null;
 
-  private CheckboxInput offenePosten = null;
+  // private CheckboxInput offenePosten = null;
 
   private MitgliedskontoMessageConsumer mc = null;
 
@@ -232,13 +236,13 @@ public class MitgliedskontoControl extends AbstractControl
     return betrag;
   }
 
-  public FormularInput getFormular() throws RemoteException
+  public FormularInput getFormular(int formulartyp) throws RemoteException
   {
     if (formular != null)
     {
       return formular;
     }
-    formular = new FormularInput(Formularart.RECHNUNG);
+    formular = new FormularInput(formulartyp);
     return formular;
   }
 
@@ -298,28 +302,17 @@ public class MitgliedskontoControl extends AbstractControl
     return bisdatum;
   }
 
-  public CheckboxInput getDifferenz() throws RemoteException
+  public SelectInput getDifferenz(String defaultval) throws RemoteException
   {
     if (differenz != null)
     {
       return differenz;
     }
-    differenz = new CheckboxInput(true);
+    differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
+        "Überzahlung" }, defaultval);
     differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
-  }
-
-  public CheckboxInput getOffenePosten() throws RemoteException
-  {
-    if (offenePosten != null)
-    {
-      return offenePosten;
-    }
-    offenePosten = new CheckboxInput(true);
-    offenePosten.setName("offene Posten");
-    offenePosten.addListener(new FilterListener());
-    return offenePosten;
   }
 
   public TextInput getSuchName() throws RemoteException
@@ -406,6 +399,39 @@ public class MitgliedskontoControl extends AbstractControl
       throws RemoteException
   {
     this.action = action;
+    GenericIterator mitgliedskonten = getMitgliedskontoIterator();
+    if (mitgliedskontoList == null)
+    {
+      mitgliedskontoList = new TablePart(mitgliedskonten, action);
+      mitgliedskontoList.addColumn("Datum", "datum", new DateFormatter(
+          Einstellungen.DATEFORMAT));
+      mitgliedskontoList.addColumn("Abrechnungslauf", "abrechnungslauf");
+      mitgliedskontoList.addColumn("Name", "mitglied");
+      mitgliedskontoList.addColumn("Zweck1", "zweck1");
+      mitgliedskontoList.addColumn("Zweck2", "zweck2");
+      mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
+          "", Einstellungen.DECIMALFORMAT));
+      mitgliedskontoList.addColumn("Zahlungseingang", "istbetrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+      mitgliedskontoList.setContextMenu(menu);
+      mitgliedskontoList.setRememberColWidths(true);
+      mitgliedskontoList.setRememberOrder(true);
+      mitgliedskontoList.setMulti(true);
+      mitgliedskontoList.setSummary(true);
+    }
+    else
+    {
+      mitgliedskontoList.removeAll();
+      while (mitgliedskonten.hasNext())
+      {
+        mitgliedskontoList.addItem((Mitgliedskonto) mitgliedskonten.next());
+      }
+    }
+    return mitgliedskontoList;
+  }
+
+  private GenericIterator getMitgliedskontoIterator() throws RemoteException
+  {
     DBService service = Einstellungen.getDBService();
     Date d1 = null;
     java.sql.Date vd = null;
@@ -493,14 +519,23 @@ public class MitgliedskontoControl extends AbstractControl
       sql += "WHERE " + where;
     }
     sql += "group by mitgliedskonto.id ";
-    if (differenz != null && (Boolean) differenz.getValue())
+    String diff = "";
+    if (differenz != null)
     {
-      sql += "having sollsumme <> istsumme or istsumme is null ";
+      diff = (String) differenz.getValue();
     }
-    if (offenePosten != null && (Boolean) offenePosten.getValue())
+    if (diff.equals("Fehlbetrag"))
     {
       sql += "having sollsumme > istsumme or istsumme is null ";
     }
+    if (diff.equals("Überzahlung"))
+    {
+      sql += "having sollsumme < istsumme ";
+    }
+    // if (offenePosten != null && (Boolean) offenePosten.getValue())
+    // {
+    // sql += "having sollsumme > istsumme or istsumme is null ";
+    // }
     sql += "order by mitglied.name, mitglied.vorname, mitgliedskonto.datum desc";
     PseudoIterator mitgliedskonten = (PseudoIterator) service.execute(sql,
         param.toArray(), new ResultSetExtractor()
@@ -522,37 +557,10 @@ public class MitgliedskontoControl extends AbstractControl
           }
         });
 
-    if (mitgliedskontoList == null)
-    {
-      mitgliedskontoList = new TablePart(mitgliedskonten, action);
-      mitgliedskontoList.addColumn("Datum", "datum", new DateFormatter(
-          Einstellungen.DATEFORMAT));
-      mitgliedskontoList.addColumn("Abrechnungslauf", "abrechnungslauf");
-      mitgliedskontoList.addColumn("Name", "mitglied");
-      mitgliedskontoList.addColumn("Zweck1", "zweck1");
-      mitgliedskontoList.addColumn("Zweck2", "zweck2");
-      mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
-          "", Einstellungen.DECIMALFORMAT));
-      mitgliedskontoList.addColumn("Zahlungseingang", "istbetrag",
-          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      mitgliedskontoList.setContextMenu(menu);
-      mitgliedskontoList.setRememberColWidths(true);
-      mitgliedskontoList.setRememberOrder(true);
-      mitgliedskontoList.setMulti(true);
-      mitgliedskontoList.setSummary(true);
-    }
-    else
-    {
-      mitgliedskontoList.removeAll();
-      while (mitgliedskonten.hasNext())
-      {
-        mitgliedskontoList.addItem((Mitgliedskonto) mitgliedskonten.next());
-      }
-    }
-    return mitgliedskontoList;
+    return mitgliedskonten;
   }
 
-  public Button getStartButton(final Object currentObject)
+  public Button getStartRechnungButton(final Object currentObject)
   {
     Button button = new Button("starten", new Action()
     {
@@ -603,7 +611,7 @@ public class MitgliedskontoControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular().getValue();
+    Formular form = (Formular) getFormular(Formularart.RECHNUNG).getValue();
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
     fa = new FormularAufbereitung(file);
@@ -653,8 +661,6 @@ public class MitgliedskontoControl extends AbstractControl
       {
         mk[i] = (Mitgliedskonto) it.next();
         i++;
-        // mk.add((Mitgliedskonto) Einstellungen.getDBService().createObject(
-        // Mitgliedskonto.class, mkto.getID()));
       }
       mks = getRechnungsempfaenger(mk);
     }
@@ -662,32 +668,121 @@ public class MitgliedskontoControl extends AbstractControl
     {
       aufbereitenFormular(mk, fo, file);
     }
-    // if (currentObject == null)
-    // {
-    // DBIterator abr = Einstellungen.getDBService().createList(
-    // Mitgliedskonto.class);
-    // if (getVondatum().getValue() != null)
-    // {
-    // abr.addFilter("datum >= ?", new Object[] { (Date) getVondatum()
-    // .getValue() });
-    // }
-    // if (getBisdatum().getValue() != null)
-    // {
-    // abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
-    // .getValue() });
-    // }
-    // ArrayList<Object> mktos = new ArrayList<Object>();
-    // while (abr.hasNext())
-    // {
-    // mktos.add(abr.next());
-    // }
-    // ArrayList<ArrayList<Mitgliedskonto>> mkt = getRechnungsempfaenger(mktos
-    // .toArray());
-    // for (ArrayList<Mitgliedskonto> mk : mkt)
-    // {
-    // aufbereitenFormular(mk, fo, file);
-    // }
-    // }
+    fa.showFormular();
+
+  }
+
+  public Button getStartMahnungButton(final Object currentObject)
+  {
+    Button button = new Button("starten", new Action()
+    {
+      public void handleAction(Object context)
+      {
+
+        try
+        {
+          generiereMahnung(currentObject);
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+        catch (IOException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true, "go.png");
+    return button;
+  }
+
+  private void generiereMahnung(Object currentObject) throws IOException
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("mahnung", "", Einstellungen.getEinstellung()
+        .getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
+
+    String s = fd.open();
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.endsWith(".PDF"))
+    {
+      s = s + ".PDF";
+    }
+    final File file = new File(s);
+    settings.setAttribute("lastdir", file.getParent());
+    Formular form = (Formular) getFormular(Formularart.MAHNUNG).getValue();
+    Formular fo = (Formular) Einstellungen.getDBService().createObject(
+        Formular.class, form.getID());
+    fa = new FormularAufbereitung(file);
+    ArrayList<ArrayList<Mitgliedskonto>> mks = null;
+    if (currentObject != null)
+    {
+      mks = getRechnungsempfaenger(currentObject);
+    }
+    else
+    {
+      GenericIterator it = getMitgliedskontoIterator();
+      //        
+      //        
+      // Einstellungen.getDBService().createList(
+      // Mitgliedskonto.class);
+      // Date d = null;
+      // if (getVondatum(datumverwendung).getValue() != null)
+      // {
+      // d = (Date) getVondatum(datumverwendung).getValue();
+      // if (d != null)
+      // {
+      // settings.setAttribute(datumverwendung + "datumvon",
+      // Einstellungen.DATEFORMAT.format(d));
+      // }
+      //
+      // it.addFilter("datum >= ?", new Object[] { d });
+      // }
+      // else
+      // {
+      // settings.setAttribute(datumverwendung + "datumvon", "");
+      // }
+      // if (getBisdatum(datumverwendung).getValue() != null)
+      // {
+      // d = (Date) getBisdatum(datumverwendung).getValue();
+      // if (d != null)
+      // {
+      // settings.setAttribute(datumverwendung + "datumbis",
+      // Einstellungen.DATEFORMAT.format(d));
+      // }
+      // it.addFilter("datum <= ?", new Object[] { d });
+      // }
+      // else
+      // {
+      // settings.setAttribute(datumverwendung + "datumbis", "");
+      // }
+
+      Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
+      int i = 0;
+      while (it.hasNext())
+      {
+        mk[i] = (Mitgliedskonto) it.next();
+        i++;
+      }
+      mks = getRechnungsempfaenger(mk);
+    }
+    for (ArrayList<Mitgliedskonto> mk : mks)
+    {
+      aufbereitenFormular(mk, fo, file);
+    }
     fa.showFormular();
 
   }

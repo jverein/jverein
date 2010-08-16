@@ -9,12 +9,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.2  2010-08-15 19:01:42  jost
- * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
- *
- * Revision 1.1  2010-08-04 10:41:27  jost
- * Prerelease Rechnung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -29,11 +23,11 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class MitgliedskontoRechnungView extends AbstractView
+public class MitgliedskontoMahnungView extends AbstractView
 {
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Rechnung"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Mahnung"));
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
 
@@ -42,20 +36,20 @@ public class MitgliedskontoRechnungView extends AbstractView
     if (this.getCurrentObject() == null)
     {
       group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"), control
-          .getVondatum(MitgliedskontoControl.DATUM_RECHNUNG));
+          .getVondatum(MitgliedskontoControl.DATUM_MAHNUNG));
       group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"), control
-          .getBisdatum(MitgliedskontoControl.DATUM_RECHNUNG));
+          .getBisdatum(MitgliedskontoControl.DATUM_MAHNUNG));
     }
-
     group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"), control
-        .getFormular(Formularart.RECHNUNG));
+        .getFormular(Formularart.MAHNUNG));
+    control.getDifferenz("Fehlbetrag");
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
         "help-browser.png");
-    buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
+    buttons.addButton(control.getStartMahnungButton(this.getCurrentObject()));
   }
 
   public void unbind() throws ApplicationException

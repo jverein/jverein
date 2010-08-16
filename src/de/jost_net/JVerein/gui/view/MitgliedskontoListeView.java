@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-15 19:01:29  jost
+ * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
+ *
  * Revision 1.2  2010-08-04 10:41:16  jost
  * Prerelease Rechnung
  *
@@ -40,9 +43,11 @@ public class MitgliedskontoListeView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Filter"));
     group.addInput(control.getSuchName());
-    group.addLabelPair("von", control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair("bis", control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair("Differenz", control.getDifferenz());
+    group.addLabelPair("von", control
+        .getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
+    group.addLabelPair("bis", control
+        .getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
+    group.addLabelPair("Differenz", control.getDifferenz("egal"));
 
     control.getMitgliedskontoList(new MitgliedDetailAction(),
         new Mitgliedskonto2Menu()).paint(this.getParent());
