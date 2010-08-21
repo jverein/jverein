@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/12/17 19:21:53  jost
+ * Mehrere Buchungen können gleichzeitig gelöscht werden.
+ *
  * Revision 1.6  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -29,8 +32,10 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
@@ -88,6 +93,14 @@ public class BuchungDeleteAction implements Action
       }
       for (Buchung bu : b)
       {
+        Jahresabschluss ja = bu.getJahresabschluss();
+        if (ja != null)
+        {
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Buchung wurde bereits am {0} von {1} abgeschlossen.",
+              new String[] { Einstellungen.DATEFORMAT.format(ja.getDatum()),
+                  ja.getName() }));
+        }
         bu.delete();
       }
       GUI.getStatusBar().setSuccessText(
