@@ -16,8 +16,8 @@
     			<li>Im Formularfeldeditor kann jetzt auch direkt das Formular angezeigt werden.</li>
  				<li>Featurerequest <a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=17284&group_id=7335'>#17284</a>
  					Unter Einstellungen&gt;Rechnungen können die Texte eingegeben werden. Beim Text für die Abbuchung
- 					können die Variablen ${Konto} und ${BLZ} in den Text eingemischt werden.
- 				</li>
+ 					können die Variablen ${Konto} und ${BLZ} in den Text eingemischt werden.</li>
+ 				<li>Bugfix: Abgeschlossene Buchungen können nicht mehr gelöscht werden.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -495,6 +495,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.57  2010-08-10 18:07:53  jost
+    Zahlungswegtexte für den Rechnungsdruck
+
     Revision 1.56  2010-08-10 16:01:11  jost
     Hinweis auf neue Rechnungsmimik
 
