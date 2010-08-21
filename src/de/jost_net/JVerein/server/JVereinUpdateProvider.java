@@ -413,6 +413,10 @@ public class JVereinUpdateProvider
     {
       update0109(conn, progressmonitor);
     }
+    if (cv < 110)
+    {
+      update0110(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -2963,4 +2967,29 @@ public class JVereinUpdateProvider
         "Spalte rechnungtextbar in die Tabelle einstellung aufgenommen", 109);
   }
 
+  private void update0110(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE buchung DROP CONSTRAINT fkBuchung3;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE buchung DROP FOREIGN KEY fkBuchung3;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key für Tabelle buchung erneuert ", 110);
+  }
 }
