@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010/01/03 08:58:53  jost
+ * Neu-Button aufgenommen.
+ *
  * Revision 1.7  2009/07/24 20:22:53  jost
  * Focus auf erstes Feld setzen.
  *
@@ -37,10 +40,10 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.control.SpendenbescheinigungControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
@@ -98,13 +101,13 @@ public class SpendenbescheinigungView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
         false, "help-browser.png");
     buttons.addButton(control.getPDFButton());
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
         new SpendenbescheinigungAction(), null, false, "document-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

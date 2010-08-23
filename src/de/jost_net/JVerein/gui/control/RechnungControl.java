@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-07-28 07:26:33  jost
+ * deprecated
+ *
  * Revision 1.14  2009/07/24 20:19:16  jost
  * Focus auf erstes Feld setzen.
  *
@@ -371,7 +374,7 @@ public class RechnungControl extends AbstractControl
 
   public Button getStartButton(final Object currentObject)
   {
-    Button button = new Button("starten", new Action()
+    Button button = new Button("&starten", new Action()
     {
       public void handleAction(Object context)
       {
@@ -391,7 +394,7 @@ public class RechnungControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true);
+    }, null, true, "go.png");
     return button;
   }
 

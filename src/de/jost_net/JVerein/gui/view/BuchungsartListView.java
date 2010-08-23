@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2009/08/19 20:59:22  jost
+ * Hilfebutton aufgenommen.
+ *
  * Revision 1.7  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -34,9 +37,9 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsartControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.util.ApplicationException;
 
@@ -52,11 +55,11 @@ public class BuchungsartListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGSARTEN, false,
         "help-browser.png");
 
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
         new BuchungsartAction(), null, false, "document-new.png");
   }
 

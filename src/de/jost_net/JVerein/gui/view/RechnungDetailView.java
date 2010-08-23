@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/10/25 07:35:18  jost
+ * Icon auf Button
+ *
  * Revision 1.5  2009/07/24 20:22:41  jost
  * Focus auf erstes Feld setzen.
  *
@@ -31,10 +34,10 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.RechnungListeAction;
 import de.jost_net.JVerein.gui.control.RechnungControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -59,12 +62,12 @@ public class RechnungDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("s&uche"),
         new RechnungListeAction(), null, false, "system-search.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

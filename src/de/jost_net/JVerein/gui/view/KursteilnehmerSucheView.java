@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2009/06/11 21:03:39  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.6  2009/01/20 20:09:24  jost
  * neue Icons
  *
@@ -39,11 +42,11 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -84,10 +87,10 @@ public class KursteilnehmerSucheView extends AbstractView
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
         new KursteilnehmerDetailAction(), null, false, "document-new.png");
   }
 

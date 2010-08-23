@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2009/07/24 20:18:31  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.19  2009/06/22 18:13:14  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -480,7 +483,7 @@ public class KursteilnehmerControl extends AbstractControl
 
   public Button getStartAuswertungButton() throws RemoteException
   {
-    Button b = new Button("Start", new Action()
+    Button b = new Button("&starten", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

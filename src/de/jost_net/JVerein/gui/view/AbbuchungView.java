@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2010-07-25 18:41:49  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.22  2010/05/18 20:20:06  jost
  * Anpassung Klassenname
  *
@@ -88,11 +91,11 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbrechnunslaufListAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -166,10 +169,10 @@ public class AbbuchungView extends AbstractView
     buttons.addButton(new Back(false));
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
-      buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
+      buttons.addButton("&Rückgängig", new AbrechnunslaufListAction(), null,
           false, "edit-undo.png");
     }
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartButton());

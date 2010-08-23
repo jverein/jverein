@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.41  2010-07-25 18:43:18  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.40  2010/02/08 18:15:22  jost
  * Ausgewähltes Tab wieder aktivieren
  *
@@ -147,6 +150,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.JVereinDBService;
@@ -157,7 +161,6 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
@@ -340,12 +343,12 @@ public class MitgliedDetailView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIED, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
         new MitgliedDetailAction(), null, false, "document-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&löschen"),
         new MitgliedDeleteAction(), control.getCurrentObject(), false,
         "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

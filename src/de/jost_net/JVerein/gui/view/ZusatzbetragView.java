@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/10/20 17:59:27  jost
+ * Neu: Import von Zusatzbeträgen
+ *
  * Revision 1.5  2009/07/27 15:26:32  jost
  * Focus auf erstes Feld setzen.
  *
@@ -46,10 +49,10 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
 import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -78,13 +81,13 @@ public class ZusatzbetragView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.ZUSATZBETRAEGE, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&löschen"),
         new ZusatzbetraegeDeleteAction(), control.getZusatzbetrag(), false,
         "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

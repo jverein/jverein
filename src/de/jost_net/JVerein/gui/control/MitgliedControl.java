@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.83  2010/05/16 10:43:42  jost
+ * Einheitlicher Umgang mit ausgetretenen Mitgliedern
+ *
  * Revision 1.82  2010/04/12 17:21:08  jost
  * Überflüssigen Code entfernt.
  *
@@ -1788,7 +1791,7 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("Start", new Action()
+    Button b = new Button("&starten", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -1810,7 +1813,7 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartStatistikButton()
   {
-    Button b = new Button("Start", new Action()
+    Button b = new Button("&starten", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -1830,7 +1833,7 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartJubilaeenButton()
   {
-    Button b = new Button("Start", new Action()
+    Button b = new Button("&Start", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/12/17 19:23:50  jost
+ * Mehrfache Buchungsübernahme verhindert.
+ *
  * Revision 1.10  2009/01/22 18:23:35  jost
  * neue Icons
  *
@@ -116,7 +119,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
   public Button getUebernahmeButton()
   {
-    Button button = new Button("Übernahme", new Action()
+    Button button = new Button("&Übernahme", new Action()
     {
       @SuppressWarnings("unchecked")
       public void handleAction(Object context) throws ApplicationException

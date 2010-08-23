@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/07/24 20:23:07  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.10  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -45,10 +48,10 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.StammdatenControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
@@ -63,7 +66,8 @@ public class StammdatenView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Stammdaten"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
+        .getName(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"), control
         .getBlz());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
@@ -76,10 +80,10 @@ public class StammdatenView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.STAMMDATEN, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

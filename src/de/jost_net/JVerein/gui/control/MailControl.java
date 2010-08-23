@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010/05/16 10:43:19  jost
+ * Einheitlicher Umgang mit ausgetretenen Mitgliedern
+ *
  * Revision 1.6  2010/03/27 20:08:11  jost
  * Bugfix 2. Aufruf
  *
@@ -253,7 +256,7 @@ public class MailControl extends AbstractControl
 
   public Button getMailSendButton()
   {
-    Button b = new Button("speichern + senden", new Action()
+    Button b = new Button("s&peichern + senden", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -274,7 +277,7 @@ public class MailControl extends AbstractControl
 
   public Button getMailSpeichernButton()
   {
-    Button b = new Button("speichern", new Action()
+    Button b = new Button("&speichern", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

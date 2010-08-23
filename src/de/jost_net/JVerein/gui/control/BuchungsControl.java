@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010-07-25 18:31:18  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.23  2009/09/12 19:02:31  jost
  * neu: Buchungsjournal
  *
@@ -548,7 +551,7 @@ public class BuchungsControl extends AbstractControl
 
   public Button getStartAuswertungBuchungsjournalButton()
   {
-    Button b = new Button("PDF Buchungsjournal", new Action()
+    Button b = new Button("&PDF Buchungsjournal", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

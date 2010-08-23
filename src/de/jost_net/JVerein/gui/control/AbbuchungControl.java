@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2010-07-25 18:30:07  jost
+ * Icon eingefügt
+ *
  * Revision 1.21  2010/04/25 13:53:59  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -271,7 +274,7 @@ public class AbbuchungControl extends AbstractControl
 
   public Button getStartButton()
   {
-    Button button = new Button("starten", new Action()
+    Button button = new Button("&starten", new Action()
     {
       public void handleAction(Object context)
       {

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/02/23 21:15:37  jost
+ * Individueller Zeitraum
+ *
  * Revision 1.3  2009/09/15 19:21:35  jost
  * TODO-Tag entfernt.
  *
@@ -111,7 +114,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("PDF", new Action()
+    Button b = new Button("&PDF", new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/02/23 21:16:02  jost
+ * Individueller Zeitraum
+ *
  * Revision 1.3  2009/09/16 21:36:35  jost
  * Tabelle nur so groß wie nötig
  *
@@ -24,10 +27,10 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseSaldoControl;
+import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
@@ -66,7 +69,7 @@ public class BuchungsklasseSaldoView extends AbstractView
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton(new Back(false));
-    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    buttons2.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.JAHRESSALDO, false,
         "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());

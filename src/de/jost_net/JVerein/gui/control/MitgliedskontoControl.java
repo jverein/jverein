@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-08-16 20:16:45  jost
+ * Neu: Mahnung
+ *
  * Revision 1.8  2010-08-15 19:00:50  jost
  * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
  *
@@ -562,7 +565,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Button getStartRechnungButton(final Object currentObject)
   {
-    Button button = new Button("starten", new Action()
+    Button button = new Button("&starten", new Action()
     {
       public void handleAction(Object context)
       {
@@ -674,7 +677,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Button getStartMahnungButton(final Object currentObject)
   {
-    Button button = new Button("starten", new Action()
+    Button button = new Button("&starten", new Action()
     {
       public void handleAction(Object context)
       {
