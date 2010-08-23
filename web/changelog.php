@@ -18,6 +18,8 @@
  					Unter Einstellungen&gt;Rechnungen können die Texte eingegeben werden. Beim Text für die Abbuchung
  					können die Variablen ${Konto} und ${BLZ} in den Text eingemischt werden.</li>
  				<li>Bugfix: Abgeschlossene Buchungen können nicht mehr gelöscht werden.</li>
+ 				<li>Optimierung der Bedienung per Tastatur. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17221&group_id=7335'#17221> 
+ 				    und <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=143'>Tastaturbedienung</a></li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -495,6 +497,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.58  2010-08-21 08:44:42  jost
+    *** empty log message ***
+
     Revision 1.57  2010-08-10 18:07:53  jost
     Zahlungswegtexte für den Rechnungsdruck
 
