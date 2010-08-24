@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2009/09/20 19:02:45  jost
+ * Buchungsart Art war immer Einnahme.
+ *
  * Revision 1.15  2009/09/15 19:21:15  jost
  * Buchungsklasse in die Übersicht aufgenommen.
  *
@@ -132,7 +135,7 @@ public class BuchungsartControl extends AbstractControl
     {
       return bezeichnung;
     }
-    bezeichnung = new TextInput(getBuchungsart().getBezeichnung(), 30);
+    bezeichnung = new TextInput(getBuchungsart().getBezeichnung(), 50);
     return bezeichnung;
   }
 

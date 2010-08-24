@@ -417,6 +417,10 @@ public class JVereinUpdateProvider
     {
       update0110(conn, progressmonitor);
     }
+    if (cv < 111)
+    {
+      update0111(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -988,8 +992,7 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "alter table buchung modify column  kommentar varchar(1000);\n");
 
-    execute(conn, statements,
-        "Spalte kommentar der Tabelle buchung verlängert", 18);
+    execute(conn, statements, "Spalte kommentar der Tabelle buchung ängert", 18);
   }
 
   private void update0019(Connection conn, ProgressMonitor progressmonitor)
@@ -1295,7 +1298,7 @@ public class JVereinUpdateProvider
         "ALTER TABLE mitglied MODIFY COLUMN telefonprivat varchar(20);\n");
 
     execute(conn, statements,
-        "Spalte telefonprivat in der Tabelle mitglied verlängert", 31);
+        "Spalte telefonprivat in der Tabelle mitglied ängert", 31);
   }
 
   private void update0032(Connection conn, ProgressMonitor progressmonitor)
@@ -1311,7 +1314,7 @@ public class JVereinUpdateProvider
         "ALTER TABLE mitglied MODIFY COLUMN telefondienstlich varchar(20);\n");
 
     execute(conn, statements,
-        "Spalte telefondienstlich in der Tabelle mitglied verlängert", 32);
+        "Spalte telefondienstlich in der Tabelle mitglied ängert", 32);
   }
 
   private void update0033(Connection conn, ProgressMonitor progressmonitor)
@@ -1326,8 +1329,7 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "ALTER TABLE mitglied MODIFY COLUMN handy varchar(20);\n");
 
-    execute(conn, statements,
-        "Spalte handy in der Tabelle mitglied verlängert", 33);
+    execute(conn, statements, "Spalte handy in der Tabelle mitglied ängert", 33);
   }
 
   private void update0034(Connection conn, ProgressMonitor progressmonitor)
@@ -1622,8 +1624,7 @@ public class JVereinUpdateProvider
     sb.append("ALTER TABLE formular MODIFY COLUMN inhalt LONGBLOB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements, "Spalte inhalt der Tabelle formular verlängert",
-        46);
+    execute(conn, statements, "Spalte inhalt der Tabelle formular ängert", 46);
   }
 
   private void update0047(Connection conn, ProgressMonitor progressmonitor)
@@ -1696,8 +1697,8 @@ public class JVereinUpdateProvider
     sb.append("alter table mitglied modify column vorname varchar(40) null;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
-    execute(conn, statements,
-        "Spalte vorname in der Tabelle mitglied verlängert.", 50);
+    execute(conn, statements, "Spalte vorname in der Tabelle mitglied ängert.",
+        50);
   }
 
   private void update0051(Connection conn, ProgressMonitor progressmonitor)
@@ -2111,8 +2112,8 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "ALTER TABLE mitglied MODIFY COLUMN anrede varchar(40);\n");
 
-    execute(conn, statements,
-        "Spalte anrede in der Tabelle mitglied verlängert", 70);
+    execute(conn, statements, "Spalte anrede in der Tabelle mitglied ängert",
+        70);
   }
 
   private void update0071(Connection conn, ProgressMonitor progressmonitor)
@@ -2127,8 +2128,8 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(),
         "ALTER TABLE mitglied MODIFY COLUMN titel varchar(40);\n");
 
-    execute(conn, statements,
-        "Spalte anrede in der Tabelle mitglied verlängert", 71);
+    execute(conn, statements, "Spalte anrede in der Tabelle mitglied ängert",
+        71);
   }
 
   private void update0072(Connection conn, ProgressMonitor progressmonitor)
@@ -2992,4 +2993,21 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key für Tabelle buchung erneuert ", 110);
   }
+
+  private void update0111(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table buchungsart alter column  bezeichnung varchar(50);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table buchungsart modify column  bezeichnung varchar(50);\n");
+
+    execute(conn, statements,
+        "Spalte bezeichnung der Tabelle buchungsart verlängert", 111);
+  }
+
 }
