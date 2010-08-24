@@ -2917,7 +2917,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) after rechnung13;\n");
+        .append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) after rechnungen13;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2938,7 +2938,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE einstellung ADD rechnungueberweisung varchar(100) after rechnungtextabbuchung;\n");
+        .append("ALTER TABLE einstellung ADD rechnungtextueberweisung varchar(100) after rechnungtextabbuchung;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(
@@ -2986,7 +2986,6 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     // Update fuer MySQL
-    sb = new StringBuilder();
     sb
         .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
