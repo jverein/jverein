@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2010-08-10 18:06:09  jost
+ * Zahlungswegtexte für den Rechnungsdruck
+ *
  * Revision 1.26  2010-08-10 05:37:49  jost
  * Reaktivierung alter Rechnungen
  *
@@ -602,10 +605,10 @@ public class EinstellungControl extends AbstractControl
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
-      e.setRechnungFuerAbbuchung((Boolean) rechnungfuerabbuchung.getValue());
-      e.setRechnungFuerUeberweisung((Boolean) rechnungfuerueberweisung
-          .getValue());
-      e.setRechnungFuerBarzahlung((Boolean) rechnungfuerbarzahlung.getValue());
+//      e.setRechnungFuerAbbuchung((Boolean) rechnungfuerabbuchung.getValue());
+//      e.setRechnungFuerUeberweisung((Boolean) rechnungfuerueberweisung
+//          .getValue());
+//      e.setRechnungFuerBarzahlung((Boolean) rechnungfuerbarzahlung.getValue());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setSmtpServer((String) smtp_server.getValue());
