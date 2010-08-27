@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/10/20 18:01:17  jost
+ * Neu: Anzeige IBAN
+ *
  * Revision 1.11  2009/04/25 05:31:24  jost
  * Neu: Juristische Personen  können als Mitglied gespeichert werden.
  *
@@ -193,5 +196,9 @@ public interface Mitglied extends DBObject
   public String getVornameName() throws RemoteException;
 
   public String getAnschrift() throws RemoteException;
+
+  public Mitgliedfoto getFoto() throws RemoteException;
+
+  public void setFoto(Mitgliedfoto foto) throws RemoteException;
 
 }

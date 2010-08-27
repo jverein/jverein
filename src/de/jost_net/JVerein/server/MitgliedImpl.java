@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2010/01/01 20:12:03  jost
+ * Typisierung der Zusatzfelder
+ *
  * Revision 1.28  2009/12/06 21:42:15  jost
  * Bugfix ungültige Kontonummer
  *
@@ -107,6 +110,7 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.IbanBicCalc;
@@ -293,6 +297,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     if ("beitragsgruppe".equals(field))
     {
       return Beitragsgruppe.class;
+    }
+    if ("foto".equals(field))
+    {
+      return Mitgliedfoto.class;
     }
     return null;
   }
@@ -558,6 +566,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException
   {
     setAttribute("beitragsgruppe", beitragsgruppe);
+  }
+
+  public Mitgliedfoto getFoto() throws RemoteException
+  {
+    return (Mitgliedfoto) getAttribute("foto");
+  }
+
+  public void setFoto(Mitgliedfoto foto) throws RemoteException
+  {
+    setAttribute("foto", foto);
   }
 
   public Integer getZahlerID() throws RemoteException

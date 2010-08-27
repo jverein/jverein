@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010-08-10 18:07:02  jost
+ * Zahlungswegtexte für den Rechnungsdruck
+ *
  * Revision 1.13  2010-08-10 05:40:58  jost
  * Reaktivierung alter Rechnungen
  *
@@ -102,6 +105,10 @@ public interface Einstellung extends DBObject
   public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException;
 
   public boolean getMitgliedskonto() throws RemoteException;
+
+  public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException;
+
+  public boolean getMitgliedfoto() throws RemoteException;
 
   public void setManuelleZahlungen(Boolean manuellezahlungen)
       throws RemoteException;

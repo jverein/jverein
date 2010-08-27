@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.84  2010-08-23 13:36:02  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.83  2010/05/16 10:43:42  jost
  * Einheitlicher Umgang mit ausgetretenen Mitgliedern
  *
@@ -311,6 +314,7 @@ import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -338,6 +342,7 @@ import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.DialogInput;
+import de.willuhn.jameica.gui.input.ImageInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SearchInput;
@@ -468,6 +473,8 @@ public class MitgliedControl extends AbstractControl
   private TablePart lehrgaengeList;
 
   private TablePart familienangehoerige;
+
+  private ImageInput foto;
 
   private Settings settings = null;
 
@@ -1245,6 +1252,29 @@ public class MitgliedControl extends AbstractControl
     vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
     vermerk2.setName("Vermerk 2");
     return vermerk2;
+  }
+
+  public ImageInput getFoto() throws RemoteException
+  {
+    if (foto != null)
+    {
+      return foto;
+    }
+    DBIterator it = Einstellungen.getDBService().createList(Mitgliedfoto.class);
+    it.addFilter("mitglied = ?", new Object[] { mitglied.getID() });
+    Mitgliedfoto fo = null;
+    if (it.size() > 0)
+    {
+      fo = (Mitgliedfoto) it.next();
+    }
+    byte[] f = null;
+    if (fo != null)
+    {
+      f = fo.getFoto();
+    }
+    foto = new ImageInput(f, 140, 200);
+    foto.setScale(false);
+    return foto;
   }
 
   public Input[] getZusatzfelder() throws RemoteException
@@ -2140,12 +2170,37 @@ public class MitgliedControl extends AbstractControl
       }
       m.store();
 
+      Mitgliedfoto f = null;
+      DBIterator it = Einstellungen.getDBService().createList(
+          Mitgliedfoto.class);
+      it.addFilter("mitglied = ?", new Object[] { m.getID() });
+      if (it.size() > 0)
+      {
+        f = (Mitgliedfoto) it.next();
+        if (foto.getValue() == null)
+        {
+          f.delete();
+        }
+        else
+        {
+          f.setFoto((byte[]) foto.getValue());
+          f.store();
+        }
+      }
+      else
+      {
+        f = (Mitgliedfoto) Einstellungen.getDBService().createObject(
+            Mitgliedfoto.class, null);
+        f.setMitglied(m);
+        f.setFoto((byte[]) foto.getValue());
+        f.store();
+      }
+
       if (eigenschaftenTree != null)
       {
         if (!getMitglied().isNewObject())
         {
-          DBIterator it = Einstellungen.getDBService().createList(
-              Eigenschaften.class);
+          it = Einstellungen.getDBService().createList(Eigenschaften.class);
           it.addFilter("mitglied = ?", new Object[] { getMitglied().getID() });
           while (it.hasNext())
           {
@@ -2180,8 +2235,7 @@ public class MitgliedControl extends AbstractControl
           it0.addFilter("label = ?", new Object[] { ti.getName() });
           Felddefinition fd = (Felddefinition) it0.next();
           // Ist bereits ein Datensatz für diese Definiton vorhanden ?
-          DBIterator it = Einstellungen.getDBService().createList(
-              Zusatzfelder.class);
+          it = Einstellungen.getDBService().createList(Zusatzfelder.class);
           it.addFilter("mitglied =?", new Object[] { m.getID() });
           it.addFilter("felddefinition=?", new Object[] { fd.getID() });
           Zusatzfelder zf = null;

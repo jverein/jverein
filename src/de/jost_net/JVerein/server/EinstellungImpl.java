@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2010-08-10 18:07:15  jost
+ * Zahlungswegtexte für den Rechnungsdruck
+ *
  * Revision 1.15  2010-08-10 05:41:15  jost
  * Reaktivierung alter Rechnungen
  *
@@ -211,6 +214,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException
   {
     setAttribute("mitgliedskonto", new Boolean(mitgliedskonto));
+  }
+
+  public boolean getMitgliedfoto() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("mitgliedfoto"));
+  }
+
+  public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException
+  {
+    setAttribute("mitgliedfoto", new Boolean(mitgliedfoto));
   }
 
   public boolean getManuelleZahlungen() throws RemoteException

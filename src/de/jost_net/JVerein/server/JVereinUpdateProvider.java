@@ -430,6 +430,10 @@ public class JVereinUpdateProvider
     {
       update0113(conn, progressmonitor);
     }
+    if (cv < 114)
+    {
+      update0114(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -443,7 +447,8 @@ public class JVereinUpdateProvider
     try
     {
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT version FROM version WHERE id = 1");
+      ResultSet rs = stmt
+          .executeQuery("SELECT version FROM version WHERE id = 1");
       if (rs.next())
       {
         ret = rs.getInt(1);
@@ -472,7 +477,8 @@ public class JVereinUpdateProvider
           + newVersion + " WHERE id = 1");
       if (anzahl == 0)
       {
-        stmt.executeUpdate("INSERT INTO version VALUES (1, " + newVersion + ")");
+        stmt
+            .executeUpdate("INSERT INTO version VALUES (1, " + newVersion + ")");
       }
       stmt.close();
       String msg = "JVerein-DB-Update: " + newVersion;
@@ -495,7 +501,8 @@ public class JVereinUpdateProvider
       String logstring, int version) throws ApplicationException
   {
     Logger.info("TODO: " + logstring);
-    String driver = JVereinDBService.SETTINGS.getString("database.driver", null);
+    String driver = JVereinDBService.SETTINGS
+        .getString("database.driver", null);
     I18N i18n = JVereinPlugin.getI18n();
     String sql = (String) statements.get(driver);
     if (sql == null)
@@ -512,8 +519,8 @@ public class JVereinUpdateProvider
     catch (Exception e)
     {
       Logger.error("unable to execute update", e);
-      throw new ApplicationException(
-          i18n.tr("Fehler beim Ausführen des Updates"), e);
+      throw new ApplicationException(i18n
+          .tr("Fehler beim Ausführen des Updates"), e);
     }
   }
 
@@ -562,7 +569,8 @@ public class JVereinUpdateProvider
     sb.append("beitragsart INTEGER DEFAULT 0,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE zusatzabbuchung(");
     sb.append("id IDENTITY,");
     sb.append("mitglied INTEGER NOT NULL,");
@@ -575,7 +583,8 @@ public class JVereinUpdateProvider
     sb.append("ausfuehrung DATE,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE stammdaten(");
     sb.append("id IDENTITY,");
     sb.append("name VARCHAR(30) NOT NULL,");
@@ -617,14 +626,16 @@ public class JVereinUpdateProvider
     sb.append("erledigung DATE,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE eigenschaften(");
     sb.append("id IDENTITY,");
     sb.append("mitglied INTEGER NOT NULL,");
     sb.append("eigenschaft VARCHAR(50) NOT NULL,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);\n");
+    sb
+        .append("CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);\n");
     sb.append("CREATE TABLE `version` (");
     sb.append("`id` IDENTITY, ");
     sb.append("`version` INTEGER,");
@@ -644,8 +655,10 @@ public class JVereinUpdateProvider
     sb.append("feld varchar(1000),");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
-    sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE DEFERRABLE;\n");
     sb.append("CREATE TABLE konto (");
     sb.append("id IDENTITY,");
     sb.append("nummer VARCHAR(10),");
@@ -677,8 +690,10 @@ public class JVereinUpdateProvider
     sb.append("kommentar TEXT,");
     sb.append("buchungsart INTEGER,");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id) DEFERRABLE;\n");
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE anfangsbestand (");
     sb.append("id IDENTITY,");
     sb.append("konto INTEGER,");
@@ -687,7 +702,8 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("UNIQUE (konto, datum),");
     sb.append("PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE jahresabschluss (");
     sb.append("id IDENTITY,");
     sb.append("von DATE,");
@@ -743,7 +759,8 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
     sb.append(")TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id) ;\n");
+    sb
+        .append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id) ;\n");
     sb.append("CREATE TABLE zusatzabbuchung (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append("mitglied INTEGER NOT NULL,");
@@ -757,7 +774,8 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
     sb.append(")TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ;\n");
+    sb
+        .append("ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ;\n");
     sb.append("CREATE TABLE stammdaten (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append("name VARCHAR(30) NOT NULL,");
@@ -803,7 +821,8 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
     sb.append(")TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ;\n");
+    sb
+        .append("ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ;\n");
     sb.append("CREATE TABLE eigenschaften (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append("mitglied INTEGER NOT NULL,");
@@ -811,7 +830,8 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
     sb.append(")TYPE=InnoDB;\n");
-    sb.append("CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);\n");
+    sb
+        .append("CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);\n");
     sb.append("CREATE TABLE `version` (");
     sb.append("`id` INTEGER AUTO_INCREMENT,");
     sb.append("`version` INTEGER,");
@@ -834,8 +854,10 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
     sb.append(")TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
-    sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
+    sb
+        .append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE;\n");
     sb.append("CREATE TABLE konto (");
     sb.append("id INTEGER AUTO_INCREMENT,");
     sb.append("nummer VARCHAR(10),");
@@ -870,8 +892,10 @@ public class JVereinUpdateProvider
     sb.append("buchungsart   INTEGER,");
     sb.append("PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);\n");
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);\n");
     sb.append("CREATE TABLE anfangsbestand (");
     sb.append("id INTEGER AUTO_INCREMENT,");
     sb.append("konto INTEGER,");
@@ -881,7 +905,8 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (konto, datum),");
     sb.append("PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id);\n");
+    sb
+        .append("ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id);\n");
     sb.append("CREATE TABLE jahresabschluss (");
     sb.append("id INTEGER AUTO_INCREMENT,");
     sb.append("von DATE,");
@@ -944,7 +969,8 @@ public class JVereinUpdateProvider
     sb.append(" fontsize integer,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
+    sb
+        .append("ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
@@ -960,7 +986,8 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
+    sb
+        .append("ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle formularfeld erstellt", 17);
@@ -1018,7 +1045,8 @@ public class JVereinUpdateProvider
     sb.append(" formular INTEGER,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id));\n");
-    sb.append("ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;\n");
+    sb
+        .append("ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
@@ -1039,7 +1067,8 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;\n");
+    sb
+        .append("ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle spendenbescheinigung erstellt", 20);
@@ -1114,14 +1143,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
 
     execute(conn, statements, "Foreign Key für Tabelle abrechnung erstellt", 24);
   }
@@ -1147,12 +1178,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) before strasse;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) before strasse;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) after vorname;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) after vorname;\n");
 
     execute(conn, statements,
         "Spalte adressierungszusatz in die Tabelle mitglied eingefügt", 26);
@@ -1163,14 +1196,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
 
     execute(
         conn,
@@ -1423,12 +1458,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD lehrgaenge char(5) before externemitgliedsnummer;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD lehrgaenge char(5) before externemitgliedsnummer;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD lehrgaenge char(5) after kursteilnehmer;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD lehrgaenge char(5) after kursteilnehmer;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1478,12 +1515,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang aufgenommen",
@@ -1496,12 +1535,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang aufgenommen",
@@ -1548,12 +1589,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet",
@@ -1566,12 +1609,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle lehrgang eingerichtet",
@@ -1601,12 +1646,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD juristischepersonen char(5) before externemitgliedsnummer;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD juristischepersonen char(5) before externemitgliedsnummer;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD juristischepersonen char(5) after lehrgaenge;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD juristischepersonen char(5) after lehrgaenge;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1624,7 +1671,8 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitglied ADD personenart char(1) after externemitgliedsnummer;\n");
+    sb
+        .append("ALTER TABLE mitglied ADD personenart char(1) after externemitgliedsnummer;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1690,12 +1738,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkzusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkzusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkzusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkzusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1708,12 +1758,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD aktuellegeburtstagevorher integer default 3 before externemitgliedsnummer;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD aktuellegeburtstagevorher integer default 3 before externemitgliedsnummer;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD aktuellegeburtstagevorher integer default 3 after juristischepersonen;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD aktuellegeburtstagevorher integer default 3 after juristischepersonen;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(
@@ -1729,12 +1781,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD aktuellegeburtstagenachher integer default 7 before externemitgliedsnummer;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD aktuellegeburtstagenachher integer default 7 before externemitgliedsnummer;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD aktuellegeburtstagenachher integer default 7 after aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD aktuellegeburtstagenachher integer default 7 after aktuellegeburtstagevorher;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(
@@ -1803,12 +1857,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id) DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id);\n");
+    sb
+        .append("ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1821,12 +1877,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD updateinterval integer default 30;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD updateinterval integer default 30;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD updateinterval integer default 30;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD updateinterval integer default 30;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1839,12 +1897,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD updatediaginfos char(5)default 'true';\n");
+    sb
+        .append("ALTER TABLE einstellung ADD updatediaginfos char(5)default 'true';\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD updatediaginfos char(5)default 'true';\n");
+    sb
+        .append("ALTER TABLE einstellung ADD updatediaginfos char(5)default 'true';\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -1880,7 +1940,8 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("alter table `anfangsbestand` change BETRAG `betrag` double default NULL;\n");
+    sb
+        .append("alter table `anfangsbestand` change BETRAG `betrag` double default NULL;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2032,7 +2093,8 @@ public class JVereinUpdateProvider
     sb.append("bezeichnung     VARCHAR(30) NOT NULL,");
     sb.append("UNIQUE        (id),");
     sb.append("PRIMARY KEY   (id));\n");
-    sb.append("ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id) DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
@@ -2044,7 +2106,8 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
     sb.append(") TYPE=InnoDB;\n");
-    sb.append("ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id);\n");
+    sb
+        .append("ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle eigenschaftgruppe aufgenommen", 69);
@@ -2089,14 +2152,16 @@ public class JVereinUpdateProvider
     {
       List<String> eigenschaften = new ArrayList<String>();
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("select eigenschaft from eigenschaften group by eigenschaft order by eigenschaft");
+      ResultSet rs = stmt
+          .executeQuery("select eigenschaft from eigenschaften group by eigenschaft order by eigenschaft");
       while (rs.next())
       {
         eigenschaften.add(rs.getString(1));
       }
       rs.close();
       stmt.close();
-      PreparedStatement pstmt = conn.prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
+      PreparedStatement pstmt = conn
+          .prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
       for (String eig : eigenschaften)
       {
         pstmt.setString(1, eig);
@@ -2118,14 +2183,16 @@ public class JVereinUpdateProvider
     {
       Map<String, String> eigenschaften = new HashMap<String, String>();
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("select id, bezeichnung from eigenschaft");
+      ResultSet rs = stmt
+          .executeQuery("select id, bezeichnung from eigenschaft");
       while (rs.next())
       {
         eigenschaften.put(rs.getString(1), rs.getString(2));
       }
       rs.close();
       stmt.close();
-      PreparedStatement pstmt = conn.prepareStatement("UPDATE eigenschaften SET eigenschaft = ? WHERE eigenschaft = ?");
+      PreparedStatement pstmt = conn
+          .prepareStatement("UPDATE eigenschaften SET eigenschaft = ? WHERE eigenschaft = ?");
       for (String eig : eigenschaften.keySet())
       {
         pstmt.setString(1, eig);
@@ -2146,12 +2213,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table eigenschaften alter column  eigenschaft integer not null;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table eigenschaften alter column  eigenschaft integer not null;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table eigenschaften modify column  eigenschaft integer not null;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table eigenschaften modify column  eigenschaft integer not null;\n");
 
     execute(conn, statements,
         "Typ der Spalte eigenschaft der Tabelle eigenschaften verändert", 74);
@@ -2207,12 +2276,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
 
     execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 78);
   }
@@ -2241,12 +2312,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE felddefinition ADD datentyp integer default 1 before laenge;\n");
+    sb
+        .append("ALTER TABLE felddefinition ADD datentyp integer default 1 before laenge;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE felddefinition ADD datentyp integer default 1 after label;\n");
+    sb
+        .append("ALTER TABLE felddefinition ADD datentyp integer default 1 after label;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2477,12 +2550,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id)  ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id)  ON DELETE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt", 91);
@@ -2494,12 +2569,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
+    sb
+        .append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 2 für mailempfaenger erstellt", 92);
@@ -2541,12 +2618,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id)  ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id)  ON DELETE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 1 für mailempfaenger erstellt", 94);
@@ -2558,24 +2637,28 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("DELETE FROM eigenschaften WHERE eigenschaften.id IN (select e.id from eigenschaften as e left join mitglied as m on e.mitglied = m.id where m.id is null  );\n");
+    sb
+        .append("DELETE FROM eigenschaften WHERE eigenschaften.id IN (select e.id from eigenschaften as e left join mitglied as m on e.mitglied = m.id where m.id is null  );\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("DELETE eigenschaften from eigenschaften left join mitglied on mitglied.id = eigenschaften.mitglied;\n");
+    sb
+        .append("DELETE eigenschaften from eigenschaften left join mitglied on mitglied.id = eigenschaften.mitglied;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
     execute(conn, statements, "Fehlerhafte Eigenschaften entfernt", 95);
 
     statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
+    sb
+        .append("ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 1 für eigenschaften erstellt", 95);
@@ -2669,12 +2752,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) on delete cascade;\n");
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) on delete cascade;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 1 für mitgliedskonto erstellt", 98);
@@ -2686,12 +2771,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
+    sb
+        .append("ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) on delete cascade;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key 2 für mitgliedskonto erstellt", 99);
@@ -2703,12 +2790,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD mitgliedskonto char(5) before aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD mitgliedskonto char(5) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD mitgliedskonto char(5) after juristischepersonen;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD mitgliedskonto char(5) after juristischepersonen;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(
@@ -2739,12 +2828,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id)  ON DELETE CASCADE  DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id)  ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id)  ON DELETE CASCADE  ;\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id)  ON DELETE CASCADE  ;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
@@ -2772,12 +2863,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE  DEFERRABLE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
@@ -2790,12 +2883,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD manuellezahlungen char(5) before aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD manuellezahlungen char(5) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD manuellezahlungen char(5) after mitgliedskonto;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD manuellezahlungen char(5) after mitgliedskonto;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2808,12 +2903,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungen13 char(5) before aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungen13 char(5) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungen13 char(5) after manuellezahlungen;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungen13 char(5) after manuellezahlungen;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2826,12 +2923,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) before aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) after rechnungen13;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextabbuchung varchar(100) after rechnungen13;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2845,12 +2944,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungtextueberweisung varchar(100) before aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextueberweisung varchar(100) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungtextueberweisung varchar(100) after rechnungtextabbuchung;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextueberweisung varchar(100) after rechnungtextabbuchung;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(
@@ -2866,12 +2967,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungtextbar varchar(100) before aktuellegeburtstagevorher;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextbar varchar(100) before aktuellegeburtstagevorher;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD rechnungtextbar varchar(100) after rechnungtextueberweisung;\n");
+    sb
+        .append("ALTER TABLE einstellung ADD rechnungtextbar varchar(100) after rechnungtextueberweisung;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
@@ -2886,7 +2989,8 @@ public class JVereinUpdateProvider
     sb = new StringBuilder();
     sb.append("ALTER TABLE buchung DROP CONSTRAINT fkBuchung3;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
@@ -2895,7 +2999,8 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     // Update fuer MySQL
-    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
+    sb
+        .append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle buchung erneuert ", 110);
@@ -2925,21 +3030,21 @@ public class JVereinUpdateProvider
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitgliedfoto (");
     sb.append(" id IDENTITY,");
-    sb.append(" mitglied INTEGER NOT NULL,");
+    sb.append(" mitglied INTEGER NOT NULL, ");
     sb.append(" foto BLOB,");
     sb.append(" UNIQUE (id),");
-    sb.append(" UNIQUE (mitglied),");
+    sb.append(" UNIQUE (mitglied), ");
     sb.append(" PRIMARY KEY (id));\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitgliedfoto (");
-    sb.append(" id INTEGER AUTO_INCREMENT,");
-    sb.append(" mitglied INTEGER NOT NULL,");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" mitglied INTEGER NOT NULL, ");
     sb.append(" foto BLOB,");
     sb.append(" UNIQUE (id),");
-    sb.append(" UNIQUE (mitglied),");
+    sb.append(" UNIQUE (mitglied), ");
     sb.append(" PRIMARY KEY (id)");
     sb.append(" ) TYPE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
@@ -2953,16 +3058,38 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitgliedfoto ADD CONSTRAINT fkMitgliedfoto1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE mitgliedfoto ADD CONSTRAINT fkMitgliedfoto1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE mitgliedfoto ADD CONSTRAINT fkMitgliedfoto1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    sb
+        .append("ALTER TABLE mitgliedfoto ADD CONSTRAINT fkMitgliedfoto1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Foreign Key für Tabelle mitgliedfoto angelegt ",
         113);
+  }
+
+  private void update0114(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD mitgliedfoto char(5) before manuellezahlungen;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD mitgliedfoto char(5) after mitgliedskonto;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte mitgliedfoto in die Tabelle einstellung aufgenommen", 114);
   }
 
 }

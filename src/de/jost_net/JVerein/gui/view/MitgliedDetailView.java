@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.41  2010-07-25 18:43:18  jost
  * Neu: Mitgliedskonto
  *
@@ -321,6 +324,12 @@ public class MitgliedDetailView extends AbstractView
       ButtonArea buttonslehrg = new ButtonArea(tab9.getComposite(), 1);
       buttonslehrg.addButton(control.getLehrgangNeu());
     }
+    if (Einstellungen.getEinstellung().getMitgliedfoto())
+    {
+      TabGroup tab10 = new TabGroup(folder, JVereinPlugin.getI18n().tr("Foto"));
+      tab10.addLabelPair("Foto", control.getFoto());
+    }
+
     if (tabindex != -1)
     {
       folder.setSelection(tabindex);

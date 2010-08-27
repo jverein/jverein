@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.30  2010-08-10 18:06:49  jost
  * Zahlungswegtexte für den Rechnungsdruck
  *
@@ -160,6 +163,8 @@ public class EinstellungenView extends AbstractView
         "Juristische Personen erlaubt"), control.getJuristischePersonen());
     right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"), control
         .getMitgliedskonto());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"), control
+        .getMitgliedfoto());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
         "manuelle Zahlungen reaktivieren*"), control.getManuelleZahlungen());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
