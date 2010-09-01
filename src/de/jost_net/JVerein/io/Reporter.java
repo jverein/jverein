@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-09-01 05:58:01  jost
+ * neu: Personalbogen
+ *
  * Revision 1.12  2009/09/19 16:29:09  jost
  * Weiterentwicklung
  *
@@ -85,6 +88,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class Reporter
 {
+
   // private I18N i18n = null;
 
   private ArrayList<PdfPCell> headers;
@@ -143,16 +147,18 @@ public class Reporter
 
     rpt.open();
 
-    Paragraph pTitle = new Paragraph(title, FontFactory.getFont(
-        FontFactory.HELVETICA_BOLD, 13));
+    if (title.length() > 0)
+    {
+      Paragraph pTitle = new Paragraph(title, FontFactory.getFont(
+          FontFactory.HELVETICA_BOLD, 13));
+      pTitle.setAlignment(Element.ALIGN_CENTER);
+      rpt.add(pTitle);
 
-    pTitle.setAlignment(Element.ALIGN_CENTER);
-    rpt.add(pTitle);
-    Paragraph psubTitle = new Paragraph(subtitle, FontFactory.getFont(
-        FontFactory.HELVETICA_BOLD, 10));
-    psubTitle.setAlignment(Element.ALIGN_CENTER);
-    rpt.add(psubTitle);
-
+      Paragraph psubTitle = new Paragraph(subtitle, FontFactory.getFont(
+          FontFactory.HELVETICA_BOLD, 10));
+      psubTitle.setAlignment(Element.ALIGN_CENTER);
+      rpt.add(psubTitle);
+    }
     headers = new ArrayList<PdfPCell>();
     widths = new ArrayList<Integer>();
 
@@ -169,6 +175,15 @@ public class Reporter
   public void add(Paragraph p) throws DocumentException
   {
     rpt.add(p);
+  }
+
+  public void add(String text, int size) throws DocumentException
+  {
+    Paragraph p = new Paragraph(text, FontFactory.getFont(
+        FontFactory.HELVETICA_BOLD, size));
+    p.setAlignment(Element.ALIGN_LEFT);
+    rpt.add(p);
+
   }
 
   /**
@@ -292,9 +307,9 @@ public class Reporter
    * Erzeugt den Tabellen-Header.
    * 
    * @param tabellenbreiteinprozent
-   *          Breite der Tabelle in Prozent
+   *        Breite der Tabelle in Prozent
    * @param alignment
-   *          Horizontale Ausrichtung der Tabelle (siehe com.lowagie.Element.)
+   *        Horizontale Ausrichtung der Tabelle (siehe com.lowagie.Element.)
    * @throws DocumentException
    */
   public void createHeader(float tabellenbreiteinprozent, int alignment)
@@ -370,11 +385,11 @@ public class Reporter
    * Erzeugt eine Zelle der Tabelle.
    * 
    * @param text
-   *          der anzuzeigende Text.
+   *        der anzuzeigende Text.
    * @param align
-   *          die Ausrichtung.
+   *        die Ausrichtung.
    * @param backgroundcolor
-   *          die Hintergundfarbe.
+   *        die Hintergundfarbe.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
@@ -402,9 +417,9 @@ public class Reporter
    * Erzeugt eine Zelle der Tabelle.
    * 
    * @param text
-   *          der anzuzeigende Text.
+   *        der anzuzeigende Text.
    * @param align
-   *          die Ausrichtung.
+   *        die Ausrichtung.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(String text, int align)
@@ -416,7 +431,7 @@ public class Reporter
    * Erzeugt eine Zelle fuer die uebergebene Zahl.
    * 
    * @param value
-   *          die Zahl.
+   *        die Zahl.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(double value)
@@ -431,8 +446,8 @@ public class Reporter
     {
       f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, Color.RED);
     }
-    PdfPCell cell = new PdfPCell(new Phrase(Einstellungen.DECIMALFORMAT
-        .format(value), f));
+    PdfPCell cell = new PdfPCell(new Phrase(
+        Einstellungen.DECIMALFORMAT.format(value), f));
     cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
     return cell;
   }
@@ -441,7 +456,7 @@ public class Reporter
    * Erzeugt eine Zelle fuer das uebergebene Datum.
    * 
    * @param value
-   *          das Datum.
+   *        das Datum.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(Date value, int align)
@@ -458,7 +473,7 @@ public class Reporter
    * Gibt einen Leerstring aus, falls der Text null ist.
    * 
    * @param text
-   *          der Text.
+   *        der Text.
    * @return der Text oder Leerstring - niemals null.
    */
   public String notNull(String text)
