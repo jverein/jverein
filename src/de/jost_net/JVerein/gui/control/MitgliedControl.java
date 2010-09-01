@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.85  2010-08-27 19:07:25  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.84  2010-08-23 13:36:02  jost
  * Optimierung Tastatursteuerung
  *
@@ -2177,7 +2180,7 @@ public class MitgliedControl extends AbstractControl
       if (it.size() > 0)
       {
         f = (Mitgliedfoto) it.next();
-        if (foto.getValue() == null)
+        if (foto == null)
         {
           f.delete();
         }
