@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2010-08-23 13:31:50  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.24  2010-07-25 18:31:18  jost
  * Neu: Mitgliedskonto
  *
@@ -657,7 +660,7 @@ public class BuchungsControl extends AbstractControl
     if (buchungsList == null)
     {
       buchungsList = new TablePart(buchungen, new BuchungAction());
-      buchungsList.addColumn("Nr", "id");
+      buchungsList.addColumn("Nr", "id-int");
       buchungsList.addColumn("Konto", "konto", new Formatter()
       {
         public String format(Object o)

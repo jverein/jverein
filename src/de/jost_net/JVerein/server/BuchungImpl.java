@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-08-27 17:59:23  jost
+ * Vermeidung NPE
+ *
  * Revision 1.11  2010-07-25 18:46:52  jost
  * Neu: Mitgliedskonto
  *
@@ -333,6 +336,19 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if ("id-int".equals(fieldName))
+    {
+      try
+      {
+        return new Integer(getID());
+      }
+      catch (Exception e)
+      {
+        Logger.error("unable to parse id: " + getID());
+        return getID();
+      }
+    }
+
     return super.getAttribute(fieldName);
   }
 
