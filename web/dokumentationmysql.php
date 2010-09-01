@@ -73,9 +73,6 @@
 			<li> Erstellen Sie auf der MySQL-Datenbank auf dem Server einen neuen 
 				Benutzer sowie eine Datenbank mit einem beliebigen Namen. Der angelegte 
 				Benutzer muss Lese- und Schreibrechte in dieser Datenbank besitzen.</li>
-			<li> Erstellen Sie nun die von JVerein benötigten SQL-Tabellen manuell. 
-				Das zugehörige SQL-Script befindet sich im JVerein-Programmverzeichnis 
-				im Unterverzeichnis "sql". Dateiname "mysql-create.sql".</li>
 		</ul>
 		<h2>Test und Verteilung auf die Arbeitsplätze</h2>
 		<p><b>Wichtig:</b> Die gerade manuell erstellte Konfigurations-Datei wird nur 
@@ -116,6 +113,9 @@
 			
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.1  2009/05/03 15:33:30  jost
     Neue Homepage
 

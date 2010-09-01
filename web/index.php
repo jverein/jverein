@@ -22,11 +22,12 @@
         <li>Kommunikationsdaten (Tel./eMail)</li>
         <li>Daten zur Mitgliedschaft (Eintritt, Beitragsgruppe, Austritt)</li>
         <li>Eigenschaften des Mitglieds</li>
+        <li>Foto (ab Version 1.4)</li>
         <li>Wiedervorlagetermine</li>
         <li>Vermerke</li>
         <li>Zusatzzahlungen (einmalig und wiederkehrend)</li>
-        <li>Individuelle Zusatzfelder (ab Version 1.1)</li>
-        <li>Lehrgänge (ab Version 1.2)</li>
+        <li>Individuelle Zusatzfelder</li>
+        <li>Lehrgänge</li>
      </ul>
      <p>Ab Version 1.2 können auch juristische Personen (Firmen, Organisationen, Behörden) als Mitglieder
      	gespeichert werden.</p>
@@ -75,6 +76,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.35  2010-07-05 18:49:22  jost
+    *** empty log message ***
+
     Revision 1.34  2010-07-05 18:45:21  jost
     *** empty log message ***
 
