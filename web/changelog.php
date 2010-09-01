@@ -21,6 +21,7 @@
  				<li>Optimierung der Bedienung per Tastatur. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17221&group_id=7335'#17221> 
  				    und <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=143'>Tastaturbedienung</a></li>
  				<li>Foto des Mitglieds kann gespeichert werden.</li>
+ 				<li>Ausdruck von Personalbögen mit allen Daten eines Mitgliedes.</li>
  				<li>Buchungen werden bei der Sortierung nach ID jetzt numerisch sortiert. Siehe auch <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=182&p=731#p731'>Forum</a>
     		</ul>
 
@@ -499,6 +500,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.60  2010-09-01 05:58:58  jost
+    *** empty log message ***
+
     Revision 1.59  2010-08-23 13:59:02  jost
     *** empty log message ***
 
