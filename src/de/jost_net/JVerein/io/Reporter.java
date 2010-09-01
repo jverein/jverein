@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009/09/19 16:29:09  jost
+ * Weiterentwicklung
+ *
  * Revision 1.11  2009/03/04 20:52:18  jost
  * Footer korrigiert.
  *
@@ -50,10 +53,12 @@ package de.jost_net.JVerein.io;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -61,6 +66,7 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.HyphenationAuto;
@@ -189,6 +195,14 @@ public class Reporter
     table.addCell(cell);
   }
 
+  public void addColumn(byte[] image) throws BadElementException,
+      MalformedURLException, IOException
+  {
+    Image i = Image.getInstance(image);
+    i.scaleAbsolute(100, 200);
+    table.addCell(i);
+  }
+
   /**
    * Fuegt eine neue Zelle zur Tabelle hinzu.
    */
@@ -244,7 +258,14 @@ public class Reporter
    */
   public void addColumn(Date value, int align)
   {
-    addColumn(getDetailCell(value, align));
+    if (value != null)
+    {
+      addColumn(getDetailCell(value, align));
+    }
+    else
+    {
+      addColumn("", Element.ALIGN_LEFT);
+    }
   }
 
   /**
@@ -297,6 +318,11 @@ public class Reporter
       table.addCell(cell);
     }
     table.setHeaderRows(1);
+  }
+
+  public void newPage() throws DocumentException
+  {
+    rpt.newPage();
   }
 
   public void closeTable() throws DocumentException

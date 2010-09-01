@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.43  2010-08-27 19:08:08  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.42  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -151,6 +154,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.internal.buttons.Back;
@@ -164,6 +168,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
@@ -347,8 +352,10 @@ public class MitgliedDetailView extends AbstractView
       }
     });
 
-    ButtonArea buttons = new ButtonArea(getParent(), 5);
+    ButtonArea buttons = new ButtonArea(getParent(), 6);
     buttons.addButton(new Back(false));
+    buttons.addButton(new Button("Personalbogen", new PersonalbogenAction(),
+        control.getCurrentObject(), false, "rechnung.png"));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIED, false,
         "help-browser.png");

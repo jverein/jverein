@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010/02/01 20:59:57  jost
+ * Neu: Einfache Mailfunktion
+ *
  * Revision 1.5  2009/06/11 21:03:02  jost
  * Vorbereitung I18N
  *
@@ -28,9 +31,10 @@
 package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
+import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
@@ -49,12 +53,15 @@ public class MitgliedMenu extends ContextMenu
   {
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "bearbeiten"), new MitgliedDetailAction(), "edit.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Mail senden ..."), new MitgliedMailSendenAction(), "mail-message-new.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Mail senden ..."), new MitgliedMailSendenAction(),
+        "mail-message-new.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "Spendenbescheinigung"), new SpendenbescheinigungAction(),
         "rechnung.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Personalbogen"), new PersonalbogenAction(), "rechnung.png"));
   }
 }
