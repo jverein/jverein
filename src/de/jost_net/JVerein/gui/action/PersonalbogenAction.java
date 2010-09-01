@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-09-01 05:56:15  jost
+ * neu: Personalbogen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -48,6 +51,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class PersonalbogenAction implements Action
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   public void handleAction(Object context) throws ApplicationException
@@ -58,7 +62,7 @@ public class PersonalbogenAction implements Action
     {
       if (context instanceof Mitglied)
       {
-        m = new Mitglied[] { (Mitglied) context };
+        m = new Mitglied[] { (Mitglied) context};
       }
       else if (context instanceof Mitglied[])
       {
@@ -87,15 +91,14 @@ public class PersonalbogenAction implements Action
     fd.setText("Ausgabedatei wählen.");
 
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("", "", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("personalbogen", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -110,12 +113,13 @@ public class PersonalbogenAction implements Action
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
-          Reporter rpt = new Reporter(new FileOutputStream(file), monitor,
-              "Personalbogen", "", mitglied.length);
+          Reporter rpt = new Reporter(new FileOutputStream(file), monitor, "",
+              "", mitglied.length);
 
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
@@ -131,6 +135,8 @@ public class PersonalbogenAction implements Action
               rpt.newPage();
             }
             first = false;
+            rpt.add("Personalbogen " + m.getVornameName(), 14);
+
             rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50,
                 Color.LIGHT_GRAY);
             rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 140,
@@ -139,9 +145,8 @@ public class PersonalbogenAction implements Action
             if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
             {
               rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
-              rpt.addColumn(m.getExterneMitgliedsnummer() != null ? m
-                  .getExterneMitgliedsnummer()
-                  + "" : "", Element.ALIGN_LEFT);
+              rpt.addColumn(m.getExterneMitgliedsnummer() != null
+                  ? m.getExterneMitgliedsnummer() + "" : "", Element.ALIGN_LEFT);
             }
             rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
             rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
@@ -173,10 +178,11 @@ public class PersonalbogenAction implements Action
             rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
             rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
             rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getBeitragsgruppe().getBezeichnung()
-                + " - "
-                + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe()
-                    .getBetrag()) + " EUR", Element.ALIGN_LEFT);
+            rpt.addColumn(
+                m.getBeitragsgruppe().getBezeichnung()
+                    + " - "
+                    + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe().getBetrag())
+                    + " EUR", Element.ALIGN_LEFT);
             rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
             String akdatum = "";
             if (m.getAustritt() != null)
@@ -204,7 +210,7 @@ public class PersonalbogenAction implements Action
             }
             DBIterator it = Einstellungen.getDBService().createList(
                 Mitgliedfoto.class);
-            it.addFilter("mitglied = ?", new Object[] { m.getID() });
+            it.addFilter("mitglied = ?", new Object[] { m.getID()});
             if (it.size() > 0)
             {
               Mitgliedfoto foto = (Mitgliedfoto) it.next();
@@ -215,7 +221,7 @@ public class PersonalbogenAction implements Action
             if (Einstellungen.getEinstellung().getZusatzbetrag())
             {
               it = Einstellungen.getDBService().createList(Zusatzbetrag.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
+              it.addFilter("mitglied = ?", new Object[] { m.getID()});
               if (it.size() > 0)
               {
                 rpt.add(new Paragraph("Zusatzbetrag"));
@@ -250,9 +256,8 @@ public class PersonalbogenAction implements Action
             }
             if (Einstellungen.getEinstellung().getMitgliedskonto())
             {
-              it = Einstellungen.getDBService()
-                  .createList(Mitgliedskonto.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
+              it = Einstellungen.getDBService().createList(Mitgliedskonto.class);
+              it.addFilter("mitglied = ?", new Object[] { m.getID()});
               it.setOrder("order by datum desc");
               if (it.size() > 0)
               {
@@ -283,7 +288,7 @@ public class PersonalbogenAction implements Action
                   DBIterator it2 = Einstellungen.getDBService().createList(
                       Buchung.class);
                   it2.addFilter("mitgliedskonto = ?",
-                      new Object[] { mk.getID() });
+                      new Object[] { mk.getID()});
                   it2.setOrder("order by datum desc");
                   while (it2.hasNext())
                   {
@@ -300,17 +305,17 @@ public class PersonalbogenAction implements Action
               rpt.closeTable();
             }
             if (Einstellungen.getEinstellung().getVermerke()
-                && (m.getVermerk1().length() > 0 || m.getVermerk2().length() > 0))
+                && ((m.getVermerk1() != null && m.getVermerk1().length() > 0) || (m.getVermerk2() != null && m.getVermerk2().length() > 0)))
             {
               rpt.add(new Paragraph("Vermerke"));
               rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 100,
                   Color.LIGHT_GRAY);
               rpt.createHeader();
-              if (m.getVermerk1().length() > 0)
+              if (m.getVermerk1() != null && m.getVermerk1().length() > 0)
               {
                 rpt.addColumn(m.getVermerk1(), Element.ALIGN_LEFT);
               }
-              if (m.getVermerk2().length() > 0)
+              if (m.getVermerk2() != null && m.getVermerk2().length() > 0)
               {
                 rpt.addColumn(m.getVermerk2(), Element.ALIGN_LEFT);
               }
@@ -319,7 +324,7 @@ public class PersonalbogenAction implements Action
             if (Einstellungen.getEinstellung().getWiedervorlage())
             {
               it = Einstellungen.getDBService().createList(Wiedervorlage.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
+              it.addFilter("mitglied = ?", new Object[] { m.getID()});
               it.setOrder("order by datum desc");
               if (it.size() > 0)
               {
@@ -344,7 +349,7 @@ public class PersonalbogenAction implements Action
             if (Einstellungen.getEinstellung().getLehrgaenge())
             {
               it = Einstellungen.getDBService().createList(Lehrgang.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
+              it.addFilter("mitglied = ?", new Object[] { m.getID()});
               it.setOrder("order by von");
               if (it.size() > 0)
               {
@@ -375,7 +380,7 @@ public class PersonalbogenAction implements Action
             }
             rpt.setNextRecord();
             it = Einstellungen.getDBService().createList(Eigenschaften.class);
-            it.addFilter("mitglied = ?", new Object[] { m.getID() });
+            it.addFilter("mitglied = ?", new Object[] { m.getID()});
             if (it.size() > 0)
             {
               rpt.addHeaderColumn("Eigenschaftengruppe", Element.ALIGN_LEFT,
@@ -386,8 +391,9 @@ public class PersonalbogenAction implements Action
               while (it.hasNext())
               {
                 Eigenschaften ei = (Eigenschaften) it.next();
-                rpt.addColumn(ei.getEigenschaft().getEigenschaftGruppe()
-                    .getBezeichnung(), Element.ALIGN_LEFT);
+                rpt.addColumn(
+                    ei.getEigenschaft().getEigenschaftGruppe().getBezeichnung(),
+                    Element.ALIGN_LEFT);
                 rpt.addColumn(ei.getEigenschaft().getBezeichnung(),
                     Element.ALIGN_LEFT);
               }
@@ -396,6 +402,7 @@ public class PersonalbogenAction implements Action
           rpt.close();
           GUI.getDisplay().asyncExec(new Runnable()
           {
+
             public void run()
             {
               try
