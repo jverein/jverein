@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.86  2010-09-01 05:56:57  jost
+ * Vermeidung NPE
+ *
  * Revision 1.85  2010-08-27 19:07:25  jost
  * neu: Mitgliedsfoto
  *
@@ -1275,8 +1278,8 @@ public class MitgliedControl extends AbstractControl
     {
       f = fo.getFoto();
     }
-    foto = new ImageInput(f, 140, 200);
-    foto.setScale(false);
+    foto = new ImageInput(f, 200, 200);
+    foto.setScale(true);
     return foto;
   }
 
