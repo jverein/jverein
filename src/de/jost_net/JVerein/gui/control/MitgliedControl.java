@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.87  2010-09-03 16:52:42  jost
+ * Mitgliedsfoto wird jetzt korrekt skaliert.
+ *
  * Revision 1.86  2010-09-01 05:56:57  jost
  * Vermeidung NPE
  *
@@ -2176,37 +2179,40 @@ public class MitgliedControl extends AbstractControl
       }
       m.store();
 
-      Mitgliedfoto f = null;
-      DBIterator it = Einstellungen.getDBService().createList(
-          Mitgliedfoto.class);
-      it.addFilter("mitglied = ?", new Object[] { m.getID() });
-      if (it.size() > 0)
+      if (Einstellungen.getEinstellung().getMitgliedfoto())
       {
-        f = (Mitgliedfoto) it.next();
-        if (foto == null)
+        Mitgliedfoto f = null;
+        DBIterator it = Einstellungen.getDBService().createList(
+            Mitgliedfoto.class);
+        it.addFilter("mitglied = ?", new Object[] { m.getID() });
+        if (it.size() > 0)
         {
-          f.delete();
+          f = (Mitgliedfoto) it.next();
+          if (foto == null)
+          {
+            f.delete();
+          }
+          else
+          {
+            f.setFoto((byte[]) foto.getValue());
+            f.store();
+          }
         }
         else
         {
+          f = (Mitgliedfoto) Einstellungen.getDBService().createObject(
+              Mitgliedfoto.class, null);
+          f.setMitglied(m);
           f.setFoto((byte[]) foto.getValue());
           f.store();
         }
       }
-      else
-      {
-        f = (Mitgliedfoto) Einstellungen.getDBService().createObject(
-            Mitgliedfoto.class, null);
-        f.setMitglied(m);
-        f.setFoto((byte[]) foto.getValue());
-        f.store();
-      }
-
       if (eigenschaftenTree != null)
       {
         if (!getMitglied().isNewObject())
         {
-          it = Einstellungen.getDBService().createList(Eigenschaften.class);
+          DBIterator it = Einstellungen.getDBService().createList(
+              Eigenschaften.class);
           it.addFilter("mitglied = ?", new Object[] { getMitglied().getID() });
           while (it.hasNext())
           {
@@ -2241,7 +2247,8 @@ public class MitgliedControl extends AbstractControl
           it0.addFilter("label = ?", new Object[] { ti.getName() });
           Felddefinition fd = (Felddefinition) it0.next();
           // Ist bereits ein Datensatz für diese Definiton vorhanden ?
-          it = Einstellungen.getDBService().createList(Zusatzfelder.class);
+          DBIterator it = Einstellungen.getDBService().createList(
+              Zusatzfelder.class);
           it.addFilter("mitglied =?", new Object[] { m.getID() });
           it.addFilter("felddefinition=?", new Object[] { fd.getID() });
           Zusatzfelder zf = null;
