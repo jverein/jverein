@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/01/01 20:11:00  jost
+ * Typisierung der Zusatzfelder
+ *
  * Revision 1.1  2008/04/10 19:03:06  jost
  * Neu: Benutzerdefinierte Datenfelder
  *
@@ -57,4 +60,6 @@ public interface Zusatzfelder extends DBObject
   public Boolean getFeldJaNein() throws RemoteException;
 
   public void setFeldJaNein(Boolean janein) throws RemoteException;
+
+  public String getString() throws RemoteException;
 }
