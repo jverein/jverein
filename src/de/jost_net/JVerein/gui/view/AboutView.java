@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-03-16 19:26:05  jost
+ * Hinweis auf das Forum aufgenommen.
+ *
  * Revision 1.6  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -57,7 +60,7 @@ public class AboutView extends AbstractDialog
     text.setText("<form><p><b>"
         + JVereinPlugin.getI18n().tr(
             "Plugin für die Vereinsverwaltung unter Jameica") + "</b></p>"
-        + "<br/>Licence: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
+        + "<br/>Lizenz: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
         + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
         + "<p>http://www.jverein.de   Forum: http://www.jverein.de/forum</p></form>");
 
