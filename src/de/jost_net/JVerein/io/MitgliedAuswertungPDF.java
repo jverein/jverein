@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/07/18 13:43:25  jost
+ * NPE verhindert.
+ *
  * Revision 1.10  2009/01/25 16:08:41  jost
  * Vermerke entfernt.
  *
@@ -58,7 +61,10 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.rmi.Eigenschaft;
+import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
@@ -87,8 +93,8 @@ public class MitgliedAuswertungPDF
           Color.LIGHT_GRAY);
       report.addHeaderColumn("Eintritt / \nAustritt / \nKündigung",
           Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
-      report.addHeaderColumn("Beitragsgruppe", Element.ALIGN_CENTER, 60,
-          Color.LIGHT_GRAY);
+      report.addHeaderColumn("Beitragsgruppe /\nEigenschaften",
+          Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
       int faelle = 0;
@@ -149,6 +155,19 @@ public class MitgliedAuswertungPDF
         // {
         // beitragsgruppebemerkung += "\n" + m.getVermerk2();
         // }
+        DBIterator it = Einstellungen.getDBService().createList(
+            Eigenschaften.class);
+        it.addFilter("mitglied = ?", new Object[] { m.getID() });
+        if (it.size() > 0)
+        {
+          beitragsgruppebemerkung += "\n";
+        }
+        while (it.hasNext())
+        {
+          Eigenschaften ei = (Eigenschaften) it.next();
+          beitragsgruppebemerkung += "\n"
+              + ei.getEigenschaft().getBezeichnung();
+        }
         report.addColumn(beitragsgruppebemerkung, Element.ALIGN_LEFT);
         report.setNextRecord();
       }
