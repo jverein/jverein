@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.1  2009/11/17 21:00:04  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -39,6 +42,8 @@ public class EigenschaftGruppeDetailView extends AbstractView
         "Eigenschaften-Gruppe"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
         .getBezeichnung());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Pflicht"), control
+        .getPflicht());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));

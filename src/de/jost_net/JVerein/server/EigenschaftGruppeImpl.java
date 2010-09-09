@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/11/17 21:03:38  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -82,6 +85,16 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
+  }
+
+  public boolean getPflicht() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("pflicht"));
+  }
+
+  public void setPflicht(Boolean pflicht) throws RemoteException
+  {
+    setAttribute("pflicht", pflicht);
   }
 
 }

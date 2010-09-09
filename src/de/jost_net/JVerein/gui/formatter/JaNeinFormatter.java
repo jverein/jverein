@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/01/01 18:38:41  jost
+ * Typisierung der Zusatzfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.formatter;
 
@@ -26,6 +29,14 @@ public class JaNeinFormatter implements Formatter
     {
       Boolean b = (Boolean) o;
       if (b)
+      {
+        return "X";
+      }
+    }
+    if (o instanceof String)
+    {
+      String s = (String) o;
+      if (s.equalsIgnoreCase("TRUE"))
       {
         return "X";
       }

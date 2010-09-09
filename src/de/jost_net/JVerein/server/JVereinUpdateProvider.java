@@ -434,6 +434,10 @@ public class JVereinUpdateProvider
     {
       update0114(conn, progressmonitor);
     }
+    if (cv < 115)
+    {
+      update0115(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -3090,6 +3094,24 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte mitgliedfoto in die Tabelle einstellung aufgenommen", 114);
+  }
+
+  private void update0115(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE eigenschaftgruppe ADD pflicht char(5);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE eigenschaftgruppe ADD pflicht char(5);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte pflicht in die Tabelle eigenschaftgruppe aufgenommen", 115);
   }
 
 }
