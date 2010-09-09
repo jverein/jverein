@@ -23,6 +23,7 @@
  				<li>Foto des Mitglieds kann gespeichert werden.</li>
  				<li>Ausdruck von Personalbögen mit allen Daten eines Mitgliedes.</li>
  				<li>Buchungen werden bei der Sortierung nach ID jetzt numerisch sortiert. Siehe auch <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=182&p=731#p731'>Forum</a>
+    			<li>Eigenschaftengruppen können jetzt das Merkmal 'Pflicht' haben. Dann muss mindestens eine Eigenschaft ausgewählt werden. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17217&group_id=7335'>#17217</a> und <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=142'>Forum</a></li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -500,6 +501,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.61  2010-09-01 15:10:16  jost
+    *** empty log message ***
+
     Revision 1.60  2010-09-01 05:58:58  jost
     *** empty log message ***
 
