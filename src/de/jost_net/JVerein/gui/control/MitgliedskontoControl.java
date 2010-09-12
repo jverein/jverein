@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-08-23 13:36:42  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.9  2010-08-16 20:16:45  jost
  * Neu: Mahnung
  *
@@ -467,7 +470,7 @@ public class MitgliedskontoControl extends AbstractControl
         settings.setAttribute(datumverwendung + "datumbis", "");
       }
     }
-    String sql = "select mitgliedskonto.*, sum(mitgliedskonto.betrag) sollsumme, "
+    String sql = "select  mitgliedskonto.*, sum(distinct(mitgliedskonto.betrag)) sollsumme, "
         + "sum(buchung.betrag)  istsumme,mitglied.name, mitglied.vorname from mitgliedskonto "
         + "join mitglied on (mitgliedskonto.mitglied = mitglied.id) "
         + "left join buchung  on (buchung.mitgliedskonto = mitgliedskonto.id ) ";
