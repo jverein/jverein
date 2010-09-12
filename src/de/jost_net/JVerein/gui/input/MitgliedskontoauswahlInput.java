@@ -9,7 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
-**********************************************************************/
+ * Revision 1.1  2010-07-25 18:35:17  jost
+ * Neu: Mitgliedskonto
+ *
+ **********************************************************************/
 package de.jost_net.JVerein.gui.input;
 
 import java.rmi.RemoteException;
@@ -85,9 +88,25 @@ public class MitgliedskontoauswahlInput
     public void handleEvent(Event event)
     {
 
-      if (event == null || event.data == null)
+      if (event == null)
       {
         return;
+      }
+
+      if (event.data == null)
+      {
+        try
+        {
+          getMitgliedskontoAuswahl().setText("");
+          return;
+        }
+        catch (RemoteException er)
+        {
+          String error = JVereinPlugin.getI18n().tr(
+              "Fehler bei des Mitgliedskontos");
+          Logger.error(error, er);
+          GUI.getStatusBar().setErrorText(error);
+        }
       }
       konto = (Mitgliedskonto) event.data;
 
