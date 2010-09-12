@@ -26,6 +26,7 @@
     			<li>Eigenschaftengruppen können jetzt das Merkmal 'Pflicht' haben. Dann muss mindestens eine Eigenschaft ausgewählt werden. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17217&group_id=7335'>#17217</a> und <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=142'>Forum</a></li>
     			<li>Mitgliederliste im PDF-Format: Ausgabe der Eigenschaften.</li>
                 <li>Buchführung: Überall, wo ein Bankkonto auszuwählen ist, wird das zuletzt genutzte vorgegeben.</li>   	
+    			<li>Bugfixes bei der Erstellung des Diagnose-Backups.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -503,6 +504,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.64  2010-09-12 08:07:14  jost
+    *** empty log message ***
+
     Revision 1.63  2010-09-09 19:55:32  jost
     *** empty log message ***
 
