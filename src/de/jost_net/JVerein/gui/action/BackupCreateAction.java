@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010/05/24 14:57:58  jost
+ * Weitere Tabellen aufgenommen.
+ *
  * Revision 1.7  2010/02/01 20:56:43  jost
  * Mail-Tabellen aufgenommen
  *
@@ -98,17 +101,18 @@ public class BackupCreateAction implements Action
 {
   // Die Versionstabelle wird nicht mit kopiert
   Class<?>[] tab = { StammdatenImpl.class, EinstellungImpl.class,
-      BeitragsgruppeImpl.class, BuchungsartImpl.class,
-      BuchungsklasseImpl.class, KontoImpl.class, BuchungImpl.class,
+      AbrechnungslaufImpl.class, BeitragsgruppeImpl.class,
+      BuchungsklasseImpl.class, BuchungsartImpl.class, KontoImpl.class,
+      MitgliedImpl.class, MitgliedskontoImpl.class, BuchungImpl.class,
       FelddefinitionImpl.class, SpendenbescheinigungImpl.class,
-      FormularImpl.class, FormularfeldImpl.class, FelddefinitionImpl.class,
-      MitgliedImpl.class, AbrechnungImpl.class, EigenschaftGruppeImpl.class,
-      EigenschaftImpl.class, EigenschaftenImpl.class, AnfangsbestandImpl.class,
+      FormularImpl.class, FormularfeldImpl.class, AbrechnungImpl.class,
+      EigenschaftGruppeImpl.class, EigenschaftImpl.class,
+      EigenschaftenImpl.class, AnfangsbestandImpl.class,
       JahresabschlussImpl.class, ManuellerZahlungseingangImpl.class,
       KursteilnehmerImpl.class, WiedervorlageImpl.class,
       ZusatzbetragImpl.class, ZusatzfelderImpl.class, LehrgangsartImpl.class,
       LehrgangImpl.class, MailVorlage.class, MailEmpfaenger.class, Mail.class,
-      MailAnhangImpl.class, AbrechnungslaufImpl.class, MitgliedskontoImpl.class };
+      MailAnhangImpl.class };
 
   /**
    * Dateformat, welches fuer den Dateinamen genutzt wird.
@@ -172,6 +176,7 @@ public class BackupCreateAction implements Action
 
           for (Class<?> clazz : tab)
           {
+            System.out.println(clazz.getCanonicalName());
             backup(clazz, writer, monitor);
             monitor.addPercentComplete(100 / tab.length);
           }
