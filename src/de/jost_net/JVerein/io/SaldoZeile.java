@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/09/16 20:57:24  jost
+ * Bugfix: Casesensitives SQL-Statement.
+ *
  * Revision 1.3  2008/07/09 13:18:18  jost
  * Überflüssige Imports entfernt.
  *
@@ -112,7 +115,11 @@ public class SaldoZeile implements GenericObject
 
   public Object getAttribute(String arg0) throws RemoteException
   {
-    if (arg0.equals("kontonummer"))
+    if (arg0.equals("konto"))
+    {
+      return konto;
+    }
+    else if (arg0.equals("kontonummer"))
     {
       return konto.getNummer();
     }

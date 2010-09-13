@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.5  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -58,6 +61,8 @@ public class JahresabschlussView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getBis());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Anfangsbestände Folgejahr"),
+        control.getAnfangsbestaende());
     group.addPart(control.getJahresabschlussSaldo());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
