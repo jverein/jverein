@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/01 12:36:50  jost
+ * Javadoc korrigiert
+ *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -81,6 +84,14 @@ public class Datum
     {
       return cal.getTime();
     }
+  }
+
+  public static Date addTage(Date datum, int tage)
+  {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(datum);
+    cal.add(Calendar.DAY_OF_MONTH, tage);
+    return cal.getTime();
   }
 
   public static Date toDate(String value) throws ParseException
