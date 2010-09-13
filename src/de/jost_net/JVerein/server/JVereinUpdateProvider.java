@@ -438,6 +438,14 @@ public class JVereinUpdateProvider
     {
       update0115(conn, progressmonitor);
     }
+    if (cv < 116)
+    {
+      update0116(conn, progressmonitor);
+    }
+    if (cv < 117)
+    {
+      update0117(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -3112,6 +3120,37 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte pflicht in die Tabelle eigenschaftgruppe aufgenommen", 115);
+  }
+
+  private void update0116(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table mail alter column  txt varchar(10000);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mail modify column  txt varchar(10000);\n");
+
+    execute(conn, statements, "Spalte txt der Tabelle mail geändert", 116);
+  }
+
+  private void update0117(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table mailvorlage alter column  txt varchar(10000);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mailvorlage modify column  txt varchar(10000);\n");
+
+    execute(conn, statements, "Spalte txt der Tabelle mailvorlage geändert",
+        117);
   }
 
 }

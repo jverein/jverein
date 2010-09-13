@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/02/15 17:24:43  jost
+ * Mail-Anhang implementiert
+ *
  * Revision 1.1  2010/02/01 21:03:15  jost
  * Neu: Einfache Mailfunktion
  *
@@ -68,6 +71,11 @@ public class MailImpl extends AbstractDBObject implements Mail
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Bitte Text eingeben"));
+      }
+      if ( getTxt().length()>10000)
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Maximale Länge des Textes 10.000 Zeichen"));
       }
     }
     catch (RemoteException e)

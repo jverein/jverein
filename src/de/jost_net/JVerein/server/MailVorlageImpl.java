@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/02/01 21:03:15  jost
+ * Neu: Einfache Mailfunktion
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.server;
@@ -58,6 +61,12 @@ public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Bitte Text eingeben"));
       }
+      if (getTxt().length() > 10000)
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Maximale Länge des Textes 10.000 Zeichen"));
+      }
+
     }
     catch (RemoteException e)
     {
