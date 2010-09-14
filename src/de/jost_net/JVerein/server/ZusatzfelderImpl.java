@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-09-07 17:00:29  jost
+ * neue Methode
+ *
  * Revision 1.3  2010/01/01 20:12:19  jost
  * Typisierung der Zusatzfelder
  *
@@ -186,13 +189,27 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
       switch (typ)
       {
         case Datentyp.DATUM:
-          return Einstellungen.DATEFORMAT.format(getFeldDatum());
+          if (getFeldDatum() != null)
+          {
+            return Einstellungen.DATEFORMAT.format(getFeldDatum());
+          }
+          else
+          {
+            return "";
+          }
         case Datentyp.GANZZAHL:
           return getFeldGanzzahl() + "";
         case Datentyp.JANEIN:
           return getFeldJaNein() ? "ja" : "nein";
         case Datentyp.WAEHRUNG:
-          return Einstellungen.DECIMALFORMAT.format(getFeldWaehrung());
+          if (getFeldWaehrung() != null)
+          {
+            return Einstellungen.DECIMALFORMAT.format(getFeldWaehrung());
+          }
+          else
+          {
+            return "";
+          }
         case Datentyp.ZEICHENFOLGE:
           return getFeld();
         default:
