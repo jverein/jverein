@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-07 16:58:55  jost
+ * Div. Änderungen
+ *
  * Revision 1.2  2010-09-01 13:49:12  jost
  * Header und NPE-Vermeidung
  *
@@ -86,6 +89,7 @@ public class PersonalbogenAction implements Action
       }
       catch (IOException e)
       {
+        Logger.error("Fehler", e);
         throw new ApplicationException("Fehler bei der Aufbereitung", e);
       }
     }
@@ -510,6 +514,7 @@ public class PersonalbogenAction implements Action
         }
         catch (ApplicationException ae)
         {
+          Logger.error("Fehler", ae);
           monitor.setStatusText(ae.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
@@ -517,6 +522,7 @@ public class PersonalbogenAction implements Action
         }
         catch (Exception re)
         {
+          Logger.error("Fehler", re);
           monitor.setStatusText(re.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(re.getMessage());
