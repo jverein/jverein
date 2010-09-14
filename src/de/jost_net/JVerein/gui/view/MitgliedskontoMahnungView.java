@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.1  2010-08-16 20:17:37  jost
  * Neu: Mahnung
  *
@@ -50,7 +53,7 @@ public class MitgliedskontoMahnungView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
-        new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
+        new DokumentationAction(), DokumentationUtil.MAHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartMahnungButton(this.getCurrentObject()));
   }

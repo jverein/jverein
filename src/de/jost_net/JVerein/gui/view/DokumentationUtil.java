@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2010-07-25 18:42:36  jost
+ * Neu: Mitgliedskonto + Bugfix
+ *
  * Revision 1.20  2010/04/03 11:31:51  jost
  * Bugfix
  *
@@ -87,7 +90,9 @@ public class DokumentationUtil
 
   public static final String ABRECHNUNG = PRE + "abrechnung.php";
 
-  public static final String RECHNUNG = PRE + "rechnungen.php";
+  public static final String RECHNUNG = PRE + "mitgliedskonto.php#rechnung";
+
+  public static final String MAHNUNG= PRE + "mitgliedskonto.php#mahnung";
 
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
       + "dokumentationauswertungkursteilnehmer.php";

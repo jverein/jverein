@@ -28,13 +28,14 @@
 	<li><a href="mitglied.php">Mitglieder</a></li>
 	<li><a href="kursteilnehmer.php">Kursteilnehmer</a></li>
 	<li><a href="abrechnung.php">Abrechnung</a></li>
+	<li><a href="mitgliedskonto.php>Mitgliedskonto (inkl. Rechnung und Mahnung) ab Version 1.4</a></li>
 	<li><a href="zusatzbetraege.php">Zusatzbeiträge</a></li>
 	<li><a href="zusatzbetraege_import.php">Zusatzbeiträge importieren </a></li>
-	<li><a href="manuelle_zahlungseingaenge.php">Manuelle Zahlungseingänge</a></li>
+	<li><a href="manuelle_zahlungseingaenge.php">Manuelle Zahlungseingänge (bis Version 1.3)</a></li>
 	<li><a href="wiedervorlage.php">Wiedervorlage</a></li>
-	<li><a href="lehrgaenge.php">Lehrgänge</a>(ab Version 1.2)</li>
+	<li><a href="lehrgaenge.php">Lehrgänge</a></li>
 	<li><a href="spendenbescheinigung.php">Spendenbescheinigung</a></li>
-	<li><a href="rechnungen.php">Rechnung</a></li>
+	<li><a href="rechnungen.php">Rechnung (bis Version 1.3)</a></li>
 	<li><a href="dokumentationauswertung.php">Auswertung</a>
 	<ul>
 		<li><a href="dokumentationauswertungmitglieder.php">Mitglieder</a></li>
@@ -64,6 +65,9 @@
 
     <!-- 
     $Log$
+    Revision 1.11  2010/02/01 21:03:42  jost
+    Neu: Einfache Mailfunktion
+
     Revision 1.10  2009/12/22 18:51:56  jost
     *** empty log message ***
 

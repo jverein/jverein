@@ -52,8 +52,16 @@
     <p>Durch einen Klick auf ... neben Mitgliedskonto erscheint folgender Dialog:</p>
     <img src='images/MitgliedskontoAuswahl.png' class='screenshot'>
     <p>Der Name aus der Buchung wird in das Namensfeld übernommen. Der Inhalt wird in Wörter zerlegt und
-    in den Spalten Name, Vorname und Verwendungszweck 1 gesucht. Standardmäßig ist offene Posten angehakt.
-    Dadurch werden nur Mitgliedskonto-Soll-Buchungen angezeigt, die noch nicht ausgeglichen sind.</p>
+    in den Spalten Name, Vorname und Verwendungszweck 1 gesucht. Zur Filterung des Buchungen steht weiterhin
+    Differenz = egal, Fehlbetrag oder Überzahlung zur Verfügung. Durch einen Klick auf entfernen wird die 
+    Mitgliedskontoinformation aus der Buchung entfernt. Damit können Fehleingaben korrigiert werden.
+    </p>
+
+    <h2><a name="rechnung">Rechnungen</h2>
+    <p>wird noch ergänzt</p>
+    
+    <h2><a name="mahnung">Mahnungen</h2>
+    <p>wird noch ergänzt</p>
     
  	<h2>sonstiges</h2>
  	<p>Die Einführung des Mitgliedskontos hat Auswirkung auf die Rechnungserstellung und die "Manuelle Überwachung 
@@ -68,14 +76,11 @@
  	<p>In der Version 1.5 wird es die alte Rechnungsmimik und die manuelle Überwachung des Zahlungseinganges
  	nicht mehr geben.</p>   
     
-    
-    
-    <h2>TODO</h2>
-    <ul>
-    	<li>Rechnungen auf neue Mimik umstellen</li>
-    </ul>   
     <!-- 
     $Log$
+    Revision 1.3  2010-08-10 05:35:24  jost
+    Hinweis auf die Reaktivierung alter Features
+
     Revision 1.2  2010-07-26 14:47:27  jost
     *** empty log message ***
 
