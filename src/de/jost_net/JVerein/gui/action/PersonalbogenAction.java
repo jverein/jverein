@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-09-14 15:40:44  jost
+ * Fehler loggen
+ *
  * Revision 1.3  2010-09-07 16:58:55  jost
  * Div. Änderungen
  *
@@ -166,10 +169,12 @@ public class PersonalbogenAction implements Action
             if (it.size() > 0)
             {
               Mitgliedfoto foto = (Mitgliedfoto) it.next();
-              rpt.addColumn("Foto", Element.ALIGN_LEFT);
-              rpt.addColumn(foto.getFoto(), 100, 100, Element.ALIGN_RIGHT);
-            }
-            if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+              if (foto.getFoto() != null)
+              {
+                rpt.addColumn("Foto", Element.ALIGN_LEFT);
+                rpt.addColumn(foto.getFoto(), 100, 100, Element.ALIGN_RIGHT);
+              }
+            }            if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
             {
               rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
               rpt.addColumn(m.getExterneMitgliedsnummer() != null ? m
@@ -178,7 +183,7 @@ public class PersonalbogenAction implements Action
             }
             rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
             rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-            rpt.addColumn("Anschrift", Element.ALIGN_LEFT);
+            rpt.addColumn("Anszchrift", Element.ALIGN_LEFT);
             rpt.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
             rpt.addColumn("Geburtsdatum", Element.ALIGN_LEFT);
             rpt.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
@@ -188,19 +193,19 @@ public class PersonalbogenAction implements Action
             String kommunikation = "";
             if (m.getTelefonprivat().length() != 0)
             {
-              kommunikation += " privat: " + m.getTelefonprivat();
+              kommunikation += "privat: " + m.getTelefonprivat() +" ";
             }
             if (m.getTelefondienstlich().length() != 0)
             {
-              kommunikation += " dienstlich: " + m.getTelefondienstlich();
+              kommunikation += "dienstlich: " + m.getTelefondienstlich() + " ";
             }
             if (m.getHandy().length() != 0)
             {
-              kommunikation += " Handy: " + m.getHandy();
+              kommunikation += "Handy: " + m.getHandy() +" ";
             }
             if (m.getEmail().length() != 0)
             {
-              kommunikation += " Email: " + m.getEmail();
+              kommunikation += "Email: " + m.getEmail() + " ";
             }
             rpt.addColumn(kommunikation, Element.ALIGN_LEFT);
             rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
