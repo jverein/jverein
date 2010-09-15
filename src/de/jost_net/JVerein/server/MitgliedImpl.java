@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2010-08-27 19:10:03  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.29  2010/01/01 20:12:03  jost
  * Typisierung der Zusatzfelder
  *
@@ -655,7 +658,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public String getNameVorname() throws RemoteException
   {
     String ret = getName() + ", ";
-    if (getTitel() != null)
+    if (getTitel() != null && getTitel().length() > 0)
     {
       ret += getTitel() + " ";
     }
