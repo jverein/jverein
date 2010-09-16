@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-09-12 08:02:49  jost
+ * Letztes Konto wird wieder vorgegeben.
+ * Siehe auch http://www.jverein.de/forum/viewtopic.php?f=1&t=198
+ *
  * Revision 1.3  2010-07-25 18:34:58  jost
  * Doc
  *
@@ -24,6 +28,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.KontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Konto;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.logging.Logger;
@@ -67,8 +72,15 @@ public class KontoauswahlInput
 
     if (konto == null && settings.getString("kontoid", null) != null)
     {
-      konto = (Konto) Einstellungen.getDBService().createObject(Konto.class,
-          settings.getString("kontoid", null));
+      try
+      {
+        konto = (Konto) Einstellungen.getDBService().createObject(Konto.class,
+            settings.getString("kontoid", null));
+      }
+      catch (ObjectNotFoundException e)
+      {
+        settings.setAttribute("kontoid", "");
+      }
     }
 
     kontoAuswahl = new DialogInput(konto == null ? "" : konto.getNummer(), d);
