@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-09-15 20:44:10  jost
+ * Vermeidung NPE
+ * Kommunikationsdaten "aufgehübscht"
+ *
  * Revision 1.4  2010-09-14 15:40:44  jost
  * Fehler loggen
  *
@@ -174,7 +178,8 @@ public class PersonalbogenAction implements Action
                 rpt.addColumn("Foto", Element.ALIGN_LEFT);
                 rpt.addColumn(foto.getFoto(), 100, 100, Element.ALIGN_RIGHT);
               }
-            }            if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+            }
+            if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
             {
               rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
               rpt.addColumn(m.getExterneMitgliedsnummer() != null ? m
@@ -183,7 +188,7 @@ public class PersonalbogenAction implements Action
             }
             rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
             rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-            rpt.addColumn("Anszchrift", Element.ALIGN_LEFT);
+            rpt.addColumn("Anschrift", Element.ALIGN_LEFT);
             rpt.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
             rpt.addColumn("Geburtsdatum", Element.ALIGN_LEFT);
             rpt.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
@@ -193,19 +198,31 @@ public class PersonalbogenAction implements Action
             String kommunikation = "";
             if (m.getTelefonprivat().length() != 0)
             {
-              kommunikation += "privat: " + m.getTelefonprivat() +" ";
+              kommunikation += "privat: " + m.getTelefonprivat();
             }
             if (m.getTelefondienstlich().length() != 0)
             {
-              kommunikation += "dienstlich: " + m.getTelefondienstlich() + " ";
+              if (kommunikation.length() > 0)
+              {
+                kommunikation += "\n";
+              }
+              kommunikation += "dienstlich: " + m.getTelefondienstlich();
             }
             if (m.getHandy().length() != 0)
             {
-              kommunikation += "Handy: " + m.getHandy() +" ";
+              if (kommunikation.length() > 0)
+              {
+                kommunikation += "\n";
+              }
+              kommunikation += "Handy: " + m.getHandy();
             }
             if (m.getEmail().length() != 0)
             {
-              kommunikation += "Email: " + m.getEmail() + " ";
+              if (kommunikation.length() > 0)
+              {
+                kommunikation += "\n";
+              }
+              kommunikation += "Email: " + m.getEmail();
             }
             rpt.addColumn(kommunikation, Element.ALIGN_LEFT);
             rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
