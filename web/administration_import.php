@@ -54,14 +54,14 @@
 	</tr>
 	<tr>
 		<td>Nachname</td>
-		<td>Nachname</td>
+		<td>Nachname, wenn Personenart = j, dann Firmenname Zeile 1</td>
 		<td>40</td>
 		<td>ja</td>
 		<td>nein</td>
 	</tr>
 	<tr>
 		<td>Vorname</td>
-		<td>Vorname</td>
+		<td>Vorname, wenn Personenart = j, dann Firmenname Zeile 2</td>
 		<td>40</td>
 		<td>ja</td>
 		<td>nein</td>
@@ -228,13 +228,16 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	<p>Jede Datei enthält eine Kopfzeile und pro Mitglied eine Zeile. Beim Import werden sowohl die 
 	Beitragsgruppen-Tabelle als auch die Mitgliedertabelle aufgebaut. Ein erneuter Import löscht die 
 	vorhandenen Daten nach einer entsprechenden Warnung.</p>
-	<p>Ab Version 1.1: Sofern vor dem Import <a href="administration_felddefinitionen.php">Zusatzfelder definiert</a> 
+	<p>Sofern vor dem Import <a href="administration_felddefinitionen.php">Zusatzfelder definiert</a> 
 	wurden, können diese auch importiert werden. Die Datenfelder sind entsprechend der Bezeichnung in der 
 	Felddefinition in die Datei einzustellen.</p>
 	<p>Die Eingabedatei muss ISO-8859-1-codiert sein.</p>
 	
 	<!-- 
     $Log$
+    Revision 1.8  2010/01/22 15:54:27  jost
+    *** empty log message ***
+
     Revision 1.7  2009/11/22 19:49:57  jost
     *** empty log message ***
 
