@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009/06/11 21:04:23  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2008/11/29 13:16:26  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -67,6 +70,11 @@ public class KontoImpl extends AbstractDBObject implements Konto
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Bitte Bezeichnung eingeben"));
+      }
+      if (getBezeichnung().length() > 255)
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Maximale Länge der Bezeichnung: 255 Zeichen"));
       }
       if (getNummer() == null || getNummer().length() == 0)
       {

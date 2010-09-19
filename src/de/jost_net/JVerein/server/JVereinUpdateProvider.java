@@ -446,6 +446,10 @@ public class JVereinUpdateProvider
     {
       update0117(conn, progressmonitor);
     }
+    if (cv < 118)
+    {
+      update0118(conn, progressmonitor);
+    }
   }
 
   public Connection getConnection() throws ApplicationException
@@ -3151,6 +3155,22 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Spalte txt der Tabelle mailvorlage geändert",
         117);
+  }
+
+  private void update0118(Connection conn, ProgressMonitor progressmonitor)
+      throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table konto alter column  bezeichnung varchar(255);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table konto modify column  bezeichnung varchar(255);\n");
+
+    execute(conn, statements, "Spalte bezeichnung der Tabelle konto geängert",
+        118);
   }
 
 }

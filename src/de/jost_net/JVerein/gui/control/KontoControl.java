@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008/05/26 18:58:39  jost
+ * Neu: Eröffnungsdatum
+ *
  * Revision 1.1  2008/05/22 06:48:32  jost
  * Buchführung
  *
@@ -88,7 +91,7 @@ public class KontoControl extends AbstractControl
     {
       return bezeichnung;
     }
-    bezeichnung = new TextInput(getKonto().getBezeichnung(), 30);
+    bezeichnung = new TextInput(getKonto().getBezeichnung(), 255);
     return bezeichnung;
   }
 
