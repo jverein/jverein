@@ -30,6 +30,7 @@
     			<li>Maximale Länge des Textes für Mails und Mailvorlagen auf 10.000 Zeichen verlängert.</li>
     			<li>Bei der Erstellung eines Jahresabschlusses werden jetzt die Anfangsbestände des Folgejahres eingetragen. Bei der Löschung von Jahresabschlüssen werden die Anfangsbestände des Folgejahres gelöscht. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16845&group_id=7335'><#16845></li>
     		    <li>Länge der Kontobezeichnung auf 255 Zeichen verlängert.</li>
+    			<li>Hibiscus-Import der Konten checkt jetzt auf doppelte Konten.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -507,6 +508,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.68  2010-09-19 16:16:39  jost
+    Länge der Kontobezeichnung auf 255  Zeichen verlängert.
+
     Revision 1.67  2010-09-13 18:49:29  jost
     *** empty log message ***
 
