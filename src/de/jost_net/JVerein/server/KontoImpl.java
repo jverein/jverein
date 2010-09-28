@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-09-19 16:15:16  jost
+ * Länge der Kontobezeichnung auf 255  Zeichen verlängert.
+ *
  * Revision 1.5  2009/06/11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -66,6 +69,31 @@ public class KontoImpl extends AbstractDBObject implements Konto
   {
     try
     {
+      plausi();
+      DBIterator it = Einstellungen.getDBService().createList(Konto.class);
+      it.addFilter("nummer = ?", new Object[] { getNummer() });
+      if (it.size() > 0)
+      {
+        throw new ApplicationException("Konto existiert bereits");
+      }
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("insert check of konto failed", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Konto kann nicht gespeichert werden. Siehe system log"));
+    }
+  }
+
+  protected void updateCheck() throws ApplicationException
+  {
+    plausi();
+  }
+
+  private void plausi() throws ApplicationException
+  {
+    try
+    {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
@@ -88,11 +116,7 @@ public class KontoImpl extends AbstractDBObject implements Konto
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Konto kann nicht gespeichert werden. Siehe system log"));
     }
-  }
 
-  protected void updateCheck() throws ApplicationException
-  {
-    insertCheck();
   }
 
   @SuppressWarnings("unchecked")
