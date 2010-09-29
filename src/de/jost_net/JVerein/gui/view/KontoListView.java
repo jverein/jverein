@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -59,7 +62,7 @@ public class KontoListView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.KONTEN, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hibiscus-&Import"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hibiscus-Konten-&Import"),
         new HibiscusKontenImportAction(control), null, false, "go.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&neu"), new KontoAction(),
         null, false, "document-new.png");
