@@ -3,7 +3,8 @@
     <h2>Inhaltsverzeichnis</h2>
     <a href='#neuerlaptop'>Wie kann ich JVerein auf einen neuen Rechner bringen?</a><br>
     <a href='#programmordner'>Wo liegt der JVerein-Programmordner?</a><br>
-    <a href='#datenordner'>Wo liegt der JVerein-Datenordner?</a><br>
+    <a href='#datenordner'>Wo liegt der JVerein-Datenordner standardmäßig?</a><br>
+    <a href='#datenordnerverschieben'>Wie kann ich den Datenordner an einem Nichtstandardplatz legen?</a><br>
     <a href='#internet'>Kann JVerein über ein Netzwerk betrieben werden?</a><br>
     <br>
     <a name="neuerlaptop"></a>
@@ -16,7 +17,7 @@
           installiert wurde, ist der Ordner unter c:\Programme\Jameica zu finden. Unter Linux 
           wird oft unter /opt/jameica oder ~/jameica installiert.</p>
     <a name="datenordner"></a>
-    <p>Q: Wo finde ich den Datenordner?<br>
+    <p>Q: Wo finde ich den Datenordner standardmäßig?<br>
        A:
           <table>
           <tr>
@@ -36,7 +37,13 @@
           </tr>
           </table>    
           </p>
-     <a name='internet'></a>
+    <a name="datenordner"></a>
+    <p>Q: Wie kann ich den Datenordner an einem Nichtstandardplatz legen?<br>
+       A:
+          <p>
+          Beim Aufruf von Jameica wird der Schalter <code>-f pfad</code> angegeben.</p>
+          <p>Beispiel: jameica.bat -f c:/meinejameicadaten</p>
+    <a name='internet'></a>
     <p>Q: Kann JVerein übers Netzwerk betrieben werden?<br>
        A: JVerein kann seine Daten in einer MySQL-Datenbank speichern. Siehe auch 
           <a href='http://www.jverein.de/dokumentationmysql.php'>MySQL-Support</a>.
@@ -53,6 +60,9 @@
           gestellt werden. Darin kann auch ohne Probleme gesucht werden.</p> 
     <!-- 
     $Log$
+    Revision 1.4  2010-08-08 14:46:12  jost
+    Neuer Beitrag und Inhaltsverzeichnis
+
     Revision 1.3  2010-08-05 07:52:52  jost
     neuer Anker
 
