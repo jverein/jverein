@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/02/08 18:14:42  jost
+ * JaNeinFormatter f. Zusatzzahlungen
+ *
  * Revision 1.3  2009/07/27 15:25:49  jost
  * Focus auf erstes Feld setzen.
  *
@@ -52,6 +55,9 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,21 +67,28 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
+
+import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
+import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
@@ -86,12 +99,20 @@ import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.messaging.StatusBarMessage;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class ZusatzbetragControl extends AbstractControl
 {
+  private de.willuhn.jameica.system.Settings settings;
+
   private DateInput faelligkeit = null;
 
   private Input buchungstext;
@@ -115,6 +136,8 @@ public class ZusatzbetragControl extends AbstractControl
   public ZusatzbetragControl(AbstractView view)
   {
     super(view);
+    settings = new de.willuhn.jameica.system.Settings(this.getClass());
+    settings.setStoreWhenRead(true);
   }
 
   public Zusatzbetrag getZusatzbetrag()
@@ -353,34 +376,7 @@ public class ZusatzbetragControl extends AbstractControl
 
   public Part getZusatzbetraegeList() throws RemoteException
   {
-    DBService service = Einstellungen.getDBService();
-    DBIterator zusatzbetraege = service.createList(Zusatzbetrag.class);
-    if (this.ausfuehrungSuch.getText().equals("Alle"))
-    {
-      // nichts tun
-    }
-    else if (this.ausfuehrungSuch.getText().equals("Aktive"))
-    {
-      // zunächst nichts tun
-    }
-    else if (this.ausfuehrungSuch.getText().equals("Noch nicht ausgeführt"))
-    {
-      zusatzbetraege.addFilter("ausfuehrung is null");
-    }
-    else
-    {
-      try
-      {
-        Date d = Einstellungen.DATEFORMAT.parse(this.ausfuehrungSuch.getText());
-        java.sql.Date sqd = new java.sql.Date(d.getTime());
-        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd });
-      }
-      catch (ParseException e)
-      {
-        e.printStackTrace();
-      }
-    }
-    zusatzbetraege.setOrder("ORDER BY ausfuehrung DESC, faelligkeit DESC");
+    DBIterator zusatzbetraege = getIterator();
 
     if (zusatzbetraegeList == null)
     {
@@ -442,6 +438,39 @@ public class ZusatzbetragControl extends AbstractControl
     return zusatzbetraegeList;
   }
 
+  private DBIterator getIterator() throws RemoteException
+  {
+    DBIterator zusatzbetraege = Einstellungen.getDBService().createList(
+        Zusatzbetrag.class);
+    if (this.ausfuehrungSuch.getText().equals("Alle"))
+    {
+      // nichts tun
+    }
+    else if (this.ausfuehrungSuch.getText().equals("Aktive"))
+    {
+      // zunächst nichts tun
+    }
+    else if (this.ausfuehrungSuch.getText().equals("Noch nicht ausgeführt"))
+    {
+      zusatzbetraege.addFilter("ausfuehrung is null");
+    }
+    else
+    {
+      try
+      {
+        Date d = Einstellungen.DATEFORMAT.parse(this.ausfuehrungSuch.getText());
+        java.sql.Date sqd = new java.sql.Date(d.getTime());
+        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd });
+      }
+      catch (ParseException e)
+      {
+        e.printStackTrace();
+      }
+    }
+    zusatzbetraege.setOrder("ORDER BY ausfuehrung DESC, faelligkeit DESC");
+    return zusatzbetraege;
+  }
+
   @SuppressWarnings("unchecked")
   private void nichtAktiveEliminieren(TablePart table) throws RemoteException
   {
@@ -455,5 +484,140 @@ public class ZusatzbetragControl extends AbstractControl
         table.removeItem(z);
       }
     }
+  }
+
+  public Button getPDFAusgabeButton()
+  {
+    Button b = new Button("&PDF-Ausgabe", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          starteAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der Mitgliederauswertung");
+        }
+      }
+    }, null, true, "acroread.png");
+    return b;
+  }
+
+  private void starteAuswertung() throws RemoteException
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("zusatzbetraege", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
+
+    String s = fd.open();
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.endsWith(".PDF"))
+    {
+      s = s + ".PDF";
+    }
+    final File file = new File(s);
+    final DBIterator it = getIterator();
+    settings.setAttribute("lastdir", file.getParent());
+    BackgroundTask t = new BackgroundTask()
+    {
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          FileOutputStream fos = new FileOutputStream(file);
+          Reporter reporter = new Reporter(fos, monitor, "Zusatzbeträge", "",
+              it.size());
+          reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Startdatum", Element.ALIGN_LEFT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("nächste Fälligkeit", Element.ALIGN_LEFT,
+              30, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("letzte Ausführung", Element.ALIGN_LEFT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Endedatum", Element.ALIGN_LEFT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Buchungstext", Element.ALIGN_LEFT, 50,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Betrag", Element.ALIGN_RIGHT, 30,
+              Color.LIGHT_GRAY);
+          reporter.createHeader();
+          while (it.hasNext())
+          {
+            Zusatzbetrag z = (Zusatzbetrag) it.next();
+            reporter.addColumn(z.getMitglied().getNameVorname(),
+                Element.ALIGN_LEFT);
+            reporter.addColumn(z.getStartdatum(), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getFaelligkeit(), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getAusfuehrung(), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getIntervallText(), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getEndedatum(), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getBuchungstext(), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getBetrag());
+            reporter.setNextRecord();
+          }
+          reporter.closeTable();
+          reporter.close();
+          fos.close();
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getCurrentView().reload();
+        }
+        catch (Exception e)
+        {
+          Logger.error("Fehler", e);
+          monitor.setStatusText(e.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+          throw new ApplicationException(e);
+        }
+        GUI.getDisplay().asyncExec(new Runnable()
+        {
+          public void run()
+          {
+            try
+            {
+              new Program().handleAction(file);
+            }
+            catch (ApplicationException ae)
+            {
+              Application.getMessagingFactory().sendMessage(
+                  new StatusBarMessage(ae.getLocalizedMessage(),
+                      StatusBarMessage.TYPE_ERROR));
+            }
+          }
+        });
+
+      }
+
+      public void interrupt()
+      {
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+
   }
 }
