@@ -1,0 +1,6 @@
+<form>
+	<p>
+		<span color="header" font="header">Lehrgang</span>
+	</p>
+
+</form>

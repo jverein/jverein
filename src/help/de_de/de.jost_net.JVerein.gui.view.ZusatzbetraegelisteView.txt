@@ -1,6 +1,6 @@
 <form>
 	<p>
-		<span color="header" font="header">Mahnungen ausgeben</span>
+		<span color="header" font="header">Liste der Zusatzbeträge</span>
 	</p>
 	<p>
 		Anzeige der Zusatzbeträge. Filterung auf alle, aktive, noch nicht ausgeführte und zu einem bestimmten Datum ausgeführte Zusatzbeträge. Die angezeigte Liste kann als PDF-Dokument ausgegeben werden.
