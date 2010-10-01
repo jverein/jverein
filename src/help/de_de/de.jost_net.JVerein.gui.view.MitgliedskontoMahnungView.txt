@@ -1,0 +1,9 @@
+<form>
+	<p>
+		<span color="header" font="header">Mahnungen ausgeben</span>
+	</p>
+	<p>
+		Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.
+	</p>
+
+</form>
