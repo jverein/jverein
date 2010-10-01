@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2010-09-14 06:19:10  jost
+ * Hilfe f. Mitgliedskonto
+ *
  * Revision 1.21  2010-07-25 18:42:36  jost
  * Neu: Mitgliedskonto + Bugfix
  *
@@ -155,7 +158,7 @@ public class DokumentationUtil
   public static final String ZUSATZBETRAEGE = PRE + "zusatzbetraege.php";
 
   public static final String ZUSATZBETRAEGEIMPORT = PRE
-      + "zusatzbetraegeimport.php";
+      + "zusatzbetraege_import.php";
 
   public static final String KONTEN = PRE
       + "dokumentationbuchfuehrungkonten.php";
