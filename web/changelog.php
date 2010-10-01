@@ -31,6 +31,7 @@
     			<li>Bei der Erstellung eines Jahresabschlusses werden jetzt die Anfangsbestände des Folgejahres eingetragen. Bei der Löschung von Jahresabschlüssen werden die Anfangsbestände des Folgejahres gelöscht. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16845&group_id=7335'><#16845></li>
     		    <li>Länge der Kontobezeichnung auf 255 Zeichen verlängert.</li>
     			<li>Hibiscus-Import der Konten checkt jetzt auf doppelte Konten.</li>
+    			<li>Ausgabe der Zusatzbuchungen im PDF-Format. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17513&group_id=7335'>#17513</a>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -508,6 +509,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.69  2010-09-28 18:32:29  jost
+    *** empty log message ***
+
     Revision 1.68  2010-09-19 16:16:39  jost
     Länge der Kontobezeichnung auf 255  Zeichen verlängert.
 
