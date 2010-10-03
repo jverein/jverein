@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-09-09 19:55:07  jost
+ * Ausgabe der Eigenschaften
+ *
  * Revision 1.11  2009/07/18 13:43:25  jost
  * NPE verhindert.
  *
@@ -61,7 +64,6 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
