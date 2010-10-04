@@ -43,6 +43,7 @@
           <p>
           Beim Aufruf von Jameica wird der Schalter <code>-f pfad</code> angegeben.</p>
           <p>Beispiel: jameica.bat -f c:/meinejameicadaten</p>
+          <p>siehe auch <a href='http://jameica.berlios.de/doku.php?id=support:install#optionale_startparameter'>Jameica-Doku</a>.
     <a name='internet'></a>
     <p>Q: Kann JVerein übers Netzwerk betrieben werden?<br>
        A: JVerein kann seine Daten in einer MySQL-Datenbank speichern. Siehe auch 
@@ -60,6 +61,9 @@
           gestellt werden. Darin kann auch ohne Probleme gesucht werden.</p> 
     <!-- 
     $Log$
+    Revision 1.6  2010-10-01 09:06:16  jost
+    *** empty log message ***
+
     Revision 1.5  2010-10-01 08:37:54  jost
     Datenverzeichnis verschieben.
 
