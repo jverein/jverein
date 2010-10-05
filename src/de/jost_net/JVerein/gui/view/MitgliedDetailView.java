@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.44  2010-09-01 05:57:49  jost
+ * neu: Personalbogen
+ *
  * Revision 1.43  2010-08-27 19:08:08  jost
  * neu: Mitgliedsfoto
  *
@@ -273,11 +276,13 @@ public class MitgliedDetailView extends AbstractView
       ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
       buttonszus.addButton(control.getZusatzbetragNeu());
     }
-    TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
-        .tr("Mitgliedskonto"));
-    controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
-        tabMitgliedskonto.getComposite());
-
+    if (!control.getMitglied().isNewObject())
+    {
+      TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
+          .tr("Mitgliedskonto"));
+      controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
+          tabMitgliedskonto.getComposite());
+    }
     if (Einstellungen.getEinstellung().getVermerke())
     {
       TabGroup tab5 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
