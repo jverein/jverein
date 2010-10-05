@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2010-07-25 18:44:24  jost
+ * Bugfix Zahlungsrhytmus
+ *
  * Revision 1.29  2010/04/08 17:57:21  jost
  * Umstellung auf Logger
  *
@@ -376,18 +379,28 @@ public class Import
           zf.setFeld(results.getString(f.getName()));
           zf.store();
         }
-        for (String feld : eigenschaftenspalten)
+        
+        try 
         {
-          String eig = results.getString(feld);
-          if (eig.length() == 0)
-          {
-            continue;
-          }
-          Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
-              .getDBService().createObject(Eigenschaften.class, null);
-          eigenschaften.setMitglied(m.getID());
-          eigenschaften.setEigenschaft(getEigenschaftID(eig));
-          eigenschaften.store();
+	        for (String feld : eigenschaftenspalten)
+	        {
+	          String eig = results.getString(feld);
+	          if (eig.length() == 0)
+	          {
+	            continue;
+	          }
+	          Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
+	              .getDBService().createObject(Eigenschaften.class, null);
+	          eigenschaften.setMitglied(m.getID());
+	          eigenschaften.setEigenschaft(getEigenschaftID(eig));
+	          eigenschaften.store();
+	        }
+        }
+        catch (Exception e)
+        {
+        	  monitor.log(" Datensatz unvollständing (Eigenschaften) -> Import wird abgebrochen: ID= " + results.getString("Mitglieds_Nr") + " NAME= "
+      	            + results.getString("Nachname") + " " + e.getMessage());     
+        	  return;
         }
 
       }
