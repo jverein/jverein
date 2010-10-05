@@ -32,6 +32,7 @@
     		    <li>Länge der Kontobezeichnung auf 255 Zeichen verlängert.</li>
     			<li>Hibiscus-Import der Konten checkt jetzt auf doppelte Konten.</li>
     			<li>Ausgabe der Zusatzbuchungen im PDF-Format. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17513&group_id=7335'>#17513</a>
+    			<li>Datenimport: Klare Fehlermeldung bei korrupter Import-Datei im Bereich der Eigenschaften. Patch von Umbilo.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -509,6 +510,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.70  2010-10-01 13:30:34  jost
+    *** empty log message ***
+
     Revision 1.69  2010-09-28 18:32:29  jost
     *** empty log message ***
 
