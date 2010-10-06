@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2010-10-05 05:51:16  jost
+ * Umbilos patch: Klare Fehlermeldung bei korrupter Importdatei im Bereich der Eigenschaften.
+ *
  * Revision 1.30  2010-07-25 18:44:24  jost
  * Bugfix Zahlungsrhytmus
  *
@@ -143,6 +146,7 @@ public class Import
   private static final String EIGENSCHAFT = "Eigenschaft_";
 
   private EigenschaftGruppe eigenschaftgruppe;
+  private HashMap<String, String> HM_eigenschaftsgruppen = new HashMap<String, String>();
 
   public Import(String path, String file, ProgressMonitor monitor)
   {
@@ -216,6 +220,16 @@ public class Import
       eigenschaftgruppe.store();
 
       ArrayList<String> eigenschaftenspalten = getEigenschaftspalten(results);
+           
+      for (String feld : eigenschaftenspalten)
+      {
+          eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
+          		.createObject(EigenschaftGruppe.class, null);
+          eigenschaftgruppe.setBezeichnung(feld);
+          eigenschaftgruppe.store();
+          HM_eigenschaftsgruppen.put(feld, eigenschaftgruppe.getID());         
+      }      
+      
       while (results.next())
       {
         anz++;
@@ -392,7 +406,7 @@ public class Import
 	          Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
 	              .getDBService().createObject(Eigenschaften.class, null);
 	          eigenschaften.setMitglied(m.getID());
-	          eigenschaften.setEigenschaft(getEigenschaftID(eig));
+	          eigenschaften.setEigenschaft(getEigenschaftID(eig,feld));	         
 	          eigenschaften.store();
 	        }
         }
@@ -563,7 +577,7 @@ public class Import
     return beitragsgruppen2;
   }
 
-  private String getEigenschaftID(String eigenschaft)
+  private String getEigenschaftID(String eigenschaft, String feld)
   {
     try
     {
@@ -582,6 +596,7 @@ public class Import
         eigenschaftneu.setBezeichnung(eigenschaft);
         eigenschaftneu.setEigenschaftGruppe(new Integer(eigenschaftgruppe
             .getID()));
+        eigenschaftneu.setEigenschaftGruppe(new Integer(HM_eigenschaftsgruppen.get(feld)));                
         eigenschaftneu.store();
         return eigenschaftneu.getID();
       }
