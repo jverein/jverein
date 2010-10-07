@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.23  2009/11/19 19:44:42  jost
  * Bugfix Eigenschaften
  *
@@ -327,5 +330,15 @@ public class MitgliederSucheView extends AbstractView
       int si = folder.getSelectionIndex();
       TabRefresh(control, si);
     }
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
+        + "<p>Durch einen Klick auf einen Karteireiter werden die Mitglieder "
+        + "angezeigt, deren Familienname mit dem entsprechenden Buchstaben beginnt.</p>"
+        + "<p>Anschlieﬂend kann das Mitglied durch einen Doppelklick ausgew‰hlt werden.</p>"
+        + "</form>";
   }
 }

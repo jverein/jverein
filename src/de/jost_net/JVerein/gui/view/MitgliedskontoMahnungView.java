@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-14 06:19:22  jost
+ * Hilfe f. Mitgliedskonto
+ *
  * Revision 1.2  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -60,5 +63,13 @@ public class MitgliedskontoMahnungView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Mahnungen ausgeben</span></p>"
+        + "<p>Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.</p>"
+        + "</form>";
   }
 }

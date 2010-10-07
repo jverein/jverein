@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:39:33  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2010-07-28 07:27:08  jost
  * deprecated
  *
@@ -68,5 +71,6 @@ public class ManuellerZahlungseingangListeView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
 
 }

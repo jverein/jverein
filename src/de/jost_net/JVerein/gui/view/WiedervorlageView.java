@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2009/07/27 15:26:17  jost
  * Focus auf erstes Feld setzen.
  *
@@ -77,4 +80,6 @@ public class WiedervorlageView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
+
 }

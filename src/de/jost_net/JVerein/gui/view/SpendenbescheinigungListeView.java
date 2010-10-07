@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.4  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -56,5 +59,12 @@ public class SpendenbescheinigungListeView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigungen</span></p>"
+        + "</form>";
   }
 }

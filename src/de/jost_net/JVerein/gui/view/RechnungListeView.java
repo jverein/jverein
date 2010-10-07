@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:39:33  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2009/07/14 07:30:06  jost
  * Bugfix Rechnungen.
  *
@@ -80,5 +83,6 @@ public class RechnungListeView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
 
 }

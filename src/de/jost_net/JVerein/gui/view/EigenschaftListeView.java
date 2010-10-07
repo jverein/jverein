@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.2  2009/11/23 20:41:45  jost
  * Bugfix Lösch-Button
  *
@@ -53,5 +56,12 @@ public class EigenschaftListeView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften</span></p>"
+        + "</form>";
   }
 }

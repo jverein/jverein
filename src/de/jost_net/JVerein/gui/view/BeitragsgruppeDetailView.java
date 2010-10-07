@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.11  2009/11/05 20:06:03  jost
  * Image auf Button
  *
@@ -93,4 +96,14 @@ public class BeitragsgruppeDetailView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
+        + "<p>Die Bezeichung und die Höhe des Beitrages sind zu erfassen.</p>"
+        + "<p>Durch die Kennzeichnung als Familientarif können dem Mitglied die Mitglieder "
+        + "zugeordnet, die zur Famlie gehören.</p>" + "</form>";
+  }
+
 }

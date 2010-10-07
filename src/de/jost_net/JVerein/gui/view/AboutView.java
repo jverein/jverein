@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-09-08 10:48:42  jost
+ * E->D
+ *
  * Revision 1.7  2010-03-16 19:26:05  jost
  * Hinweis auf das Forum aufgenommen.
  *
@@ -57,12 +60,14 @@ public class AboutView extends AbstractDialog
   protected void paint(Composite parent) throws Exception
   {
     FormTextPart text = new FormTextPart();
-    text.setText("<form><p><b>"
-        + JVereinPlugin.getI18n().tr(
-            "Plugin für die Vereinsverwaltung unter Jameica") + "</b></p>"
-        + "<br/>Lizenz: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
-        + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
-        + "<p>http://www.jverein.de   Forum: http://www.jverein.de/forum</p></form>");
+    text
+        .setText("<form><p><b>"
+            + JVereinPlugin.getI18n().tr(
+                "Plugin für die Vereinsverwaltung unter Jameica")
+            + "</b></p>"
+            + "<br/>Lizenz: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
+            + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
+            + "<p>http://www.jverein.de   Forum: http://www.jverein.de/forum</p></form>");
 
     text.paint(parent);
 
@@ -93,5 +98,10 @@ public class AboutView extends AbstractDialog
   protected Object getData() throws Exception
   {
     return null;
+  }
+
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Über</span></p></form>";
   }
 }

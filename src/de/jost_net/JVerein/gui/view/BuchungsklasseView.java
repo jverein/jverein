@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.2  2009/09/10 18:46:46  jost
  * Hilfe aufgenommen
  *
@@ -63,4 +66,6 @@ public class BuchungsklasseView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
+
 }

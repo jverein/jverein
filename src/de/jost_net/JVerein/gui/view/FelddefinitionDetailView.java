@@ -60,4 +60,6 @@ public class FelddefinitionDetailView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
+
 }

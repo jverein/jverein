@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.2  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -49,5 +52,12 @@ public class LehrgangsartListeView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Lehrgangsarten</span></p>"
+        + "</form>";
   }
 }

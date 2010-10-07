@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-09 18:50:40  jost
+ * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
+ *
  * Revision 1.2  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -63,5 +66,12 @@ public class EigenschaftGruppeDetailView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppe</span></p>"
+        + "</form>";
   }
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.6  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -79,5 +82,15 @@ public class KontoView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Konto</span></p>"
+        + "<p>Kontonummer, Bezeichnung und Datum der Auflösung des Kontos können gespeichert "
+        + "werden.</p>"
+        + "<p>Für Hibiscus-Konten wird zusätzlich die Hibiscus-ID des Kontos gespeichert.</p>"
+        + "</form>";
   }
 }

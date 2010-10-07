@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010-08-23 13:38:02  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.23  2010-07-25 18:41:49  jost
  * Neu: Mitgliedskonto
  *
@@ -180,5 +183,20 @@ public class AbbuchungView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Abbuchung</span> </p>"
+        + "<p>Zunächst ist der Modus auszuwählen. Die Auswahlmöglichkeiten "
+        + "richten sich nach dem ausgewählten Beitragsmodell (siehe Einstellungen).</p>"
+        + "<p>Der Stichtag wird  zur Prüfung herangezogen, ob die Mitgliedschaft schon/noch besteht "
+        + "und damit eine Abrechnung generiert muss. Liegt das Eintrittsdatum vor dem Stichtag und "
+        + "das Austrittsdatum nach dem Stichtag, wird das Mitglied berücksichtigt.</p>"
+        + "<p>Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen "
+        + "eingetragen. </p>"
+        + "<p>  Es kann angegeben werden, ob Zusatzabbuchungen und Kursteilnehmer berücksichtigt "
+        + " werden sollen.</p></form>";
   }
 }

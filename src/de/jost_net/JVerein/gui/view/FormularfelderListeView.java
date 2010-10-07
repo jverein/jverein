@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.5  2010-08-10 05:40:38  jost
  * Formularanzeige eingebaut
  *
@@ -64,5 +67,16 @@ public class FormularfelderListeView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Formularfelder</span></p>"
+        + "<p>Jedem Formular müssen Formularfelder zugeordnet werden. Mit <i>neu</i> "
+        + "wird ein neues Formularfeld aufgenommen. Mit einem Doppelklick öffnet "
+        + "sich das Bearbeitungsfenster für ein Formularfeld. Durch einen Rechtsklick "
+        + "erscheint ein Kontextmenü. Damit können Formularfelder gelöscht werden.</p>"
+        + "</form>";
   }
 }

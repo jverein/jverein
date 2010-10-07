@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.4  2010/02/23 21:16:02  jost
  * Individueller Zeitraum
  *
@@ -77,5 +80,12 @@ public class BuchungsklasseSaldoView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Buchungsklassen-Saldo</span></p>"
+        + "</form>";
   }
 }

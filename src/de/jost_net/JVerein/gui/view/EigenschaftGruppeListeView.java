@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.2  2009/11/23 20:40:35  jost
  * Neuer Menüpunkt: neu
  *
@@ -55,4 +58,6 @@ public class EigenschaftGruppeListeView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
+
 }

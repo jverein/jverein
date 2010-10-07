@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.11  2009/07/24 20:23:07  jost
  * Focus auf erstes Feld setzen.
  *
@@ -94,5 +97,15 @@ public class StammdatenView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Stammdaten</span></p>"
+        + "<li>Name: Name des Vereins</li>"
+        + "<li>Bankverbindung des Vereins für Abbuchungen</li>"
+        + "<li>Altersgruppen für die Statistik sind nach folgendem Muster einzugeben: 0-6,7-10,11-14,15-18,19-26,27-40,41-60,61-100 </li>"
+        + "</form>";
   }
 }

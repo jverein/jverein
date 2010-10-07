@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-23 13:38:43  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.1  2010/05/18 20:20:43  jost
  * Anpassung Klassenname
  *
@@ -46,5 +49,13 @@ public class AbrechnungslaufListView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
+        + "<p>Mit einem Rechtsklick kann ein Abrechnungslauf gelöscht werden.</p>"
+        + "</form>";
   }
 }

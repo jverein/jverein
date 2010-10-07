@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.32  2010-08-27 19:07:50  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.31  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -266,5 +269,20 @@ public class EinstellungenView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
+        + "<p>Anzeige: In diesem Bereich kann gesteuert werden, welche Datenfelder "
+        + "angezeigt werden.</p>"
+        + "Beitragsmodell:"
+        + "<li>jährlich fester Beitrag</li>"
+        + "<li>halbjährlich fester Beitrag</li>"
+        + "<li>vierteljährlich fester Beitrag</li>"
+        + "<li>monatlich fester Beitrag</li>"
+        + "<li>Monatlicher Beitrag mit jährlicher, halbjährlicher, vierteljährlicher oder monatlicher Zahlungsweise.</li>"
+        + "</form>";
   }
 }

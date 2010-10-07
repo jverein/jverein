@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-09-29 16:38:12  jost
+ * Button umbenannt.
+ *
  * Revision 1.8  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -70,5 +73,16 @@ public class KontoListView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Konten</span></p>"
+        + "<p>Konten können entweder von Hibuscus übernommen werden oder durch einen "
+        + "Klick auf neu aufgenommen werden.</p>"
+        + "<p>Durch einen Rechtsklick auf ein Konto kann entweder der Anfangsbestand des "
+        + "Kontos zu einem Zeitpunkt eingegeben werden oder das Konto kann gelöscht werden, "
+        + "sofern keine Buchungen für das Konto existieren.</p></form>";
   }
 }

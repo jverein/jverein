@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -62,4 +65,12 @@ public class WiedervorlagelisteView extends AbstractView
   {
   }
 
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Wiedervorlage</span></p>"
+        + "<p>In dieser Liste werden die Wiedervorlagen aller Mitglieder angezeigt. "
+        + "Durch einen Rechtsklick kann entweder ein Erledigungsvermerk gesetzt werden "
+        + "oder der Wiedervorlagetermin wird gelöscht.</p></form>";
+  }
 }

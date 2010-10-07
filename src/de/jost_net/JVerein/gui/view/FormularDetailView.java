@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.6  2009/07/24 20:21:34  jost
  * Focus auf erstes Feld setzen.
  *
@@ -63,5 +66,15 @@ public class FormularDetailView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Formular</span></p>"
+        + "<p>Jedem Formuar ist ein eindeutiger Name zu geben. Die Art ist auszuwählen. "
+        + "Ein Dateiname ist bei der Neuaufnahme eines Formulares anzugeben oder wenn "
+        + "das Formular aktualisiert wird. Das Formular muss im PDF-Format vorliegen.</p>"
+        + "</form>";
   }
 }

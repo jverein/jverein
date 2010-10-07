@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.3  2009/07/24 20:22:11  jost
  * Focus auf erstes Feld setzen.
  *
@@ -67,4 +70,7 @@ public class LehrgangsartDetailView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  
+  // TODO getHelp()
+
 }

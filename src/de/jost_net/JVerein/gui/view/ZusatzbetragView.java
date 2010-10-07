@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.6  2009/10/20 17:59:27  jost
  * Neu: Import von Zusatzbeträgen
  *
@@ -99,4 +102,6 @@ public class ZusatzbetragView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+
+  // TODO getHelp()
 }

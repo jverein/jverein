@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-08-23 13:39:33  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.12  2009/11/19 19:44:28  jost
  * Bugfix Eigenschaften
  *
@@ -85,7 +88,7 @@ public class AuswertungMitgliedView extends AbstractView
     {
       left.addLabelPair(JVereinPlugin.getI18n().tr("Eigenschaften"), control
           .getEigenschaftenAuswahl());
-     }
+    }
 
     left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"), control
         .getGeburtsdatumvon());
@@ -126,5 +129,19 @@ public class AuswertungMitgliedView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Auswertung Mitglieder</span></p>"
+        + "<p>Der Mitgliederbestand kann nach Geburtsdatum, Eintrittsdatum, "
+        + "Austrittsdatum und Beitragsgruppen selektiert werden. Werden "
+        + "keine Angaben zum Austrittsdatum gemacht, werden nur Mitglieder "
+        + "ausgewertet, die nicht ausgetreten sind.</p>"
+        + "<p>Die Sortierung kann nach Name-Vorname, Eintrittsdatum oder "
+        + "Austrittsdatum erfolgen.</p>"
+        + "<p>Als Ausgabeformate stehen PDF und CSV zur Verfügung.</p>"
+        + "</form>";
   }
 }

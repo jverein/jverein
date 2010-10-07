@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-10-01 13:30:21  jost
+ * Neu: PDF-Ausgabe der Zusatzbuchungen
+ *
  * Revision 1.6  2010-08-23 13:39:33  jost
  * Optimierung Tastatursteuerung
  *
@@ -86,4 +89,12 @@ public class ZusatzbetraegelisteView extends AbstractView
   {
   }
 
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Liste der Zusatzbeträge</span></p>"
+        + "<p>Anzeige der Zusatzbeträge. Filterung auf alle, aktive, noch nicht ausgeführte und zu einem "
+        + "bestimmten Datum ausgeführte Zusatzbeträge. Die angezeigte Liste kann als PDF-Dokument "
+        + "ausgegeben werden.</p></form>";
+  }
 }

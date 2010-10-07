@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.6  2009/07/27 15:26:04  jost
  * Focus auf erstes Feld setzen.
  *
@@ -77,5 +80,12 @@ public class AnfangsbestandView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Anfangsbestand</span></p>"
+        + "</form>";
   }
 }

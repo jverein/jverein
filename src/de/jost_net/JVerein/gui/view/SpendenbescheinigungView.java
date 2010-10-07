@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.8  2010/01/03 08:58:53  jost
  * Neu-Button aufgenommen.
  *
@@ -118,5 +121,12 @@ public class SpendenbescheinigungView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigung</span></p>"
+        + "</form>";
   }
 }

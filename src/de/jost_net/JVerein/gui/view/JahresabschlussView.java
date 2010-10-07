@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-09-13 18:42:04  jost
+ * Anfangsbestände beim Jahresabschluss setzen und bei der Löschung auch löschen.
+ *
  * Revision 1.6  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -82,4 +85,6 @@ public class JahresabschlussView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
+
 }

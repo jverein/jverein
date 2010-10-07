@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.1  2010-07-25 18:43:40  jost
  * Neu: Mitgliedskonto
  *
@@ -74,5 +77,6 @@ public class MitgliedskontoDetailView extends AbstractView
   public void unbind() throws ApplicationException
   {
   }
+  // TODO getHelp()
 
 }

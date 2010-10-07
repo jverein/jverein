@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.14  2009/09/12 19:03:16  jost
  * neu: Buchungsjournal
  *
@@ -120,5 +123,14 @@ public class BuchungslisteView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Buchungen</span></p>"
+        + "<p>Alle Buchungen aus dem vorgegebenen Zeitraum werden angezeigt. Durch einen "
+        + "Doppelklick auf eine Buchung kann die Buchungsart zugeordnet werden.</p>"
+        + "</form>";
   }
 }

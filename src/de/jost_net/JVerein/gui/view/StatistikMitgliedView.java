@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.8  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -73,5 +76,14 @@ public class StatistikMitgliedView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Statistik</span></p>"
+        + "<p>Durch eine Klick auf Start wird eine Statistik nach Altergruppen und nach "
+        + "Beitragsgruppen im PDF-Format erzeugt. Die Altersgruppen sind "
+        + "bei den Stammdaten vorzugeben.</p></form>";
   }
 }

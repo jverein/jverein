@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.2  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -46,4 +49,10 @@ public class LehrgaengeListeView extends AbstractView
   {
   }
 
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Liste der Lehrgänge</span></p>"
+        + "<p>Mit einem Rechtsklick kann ein Eintrag gelöscht werden.</p></form>";
+  }
 }

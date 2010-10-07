@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.3  2010-08-16 20:17:47  jost
  * Neu: Mahnung
  *
@@ -63,5 +66,13 @@ public class MitgliedskontoRechnungView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Rechnungen ausgeben</span></p>"
+        + "<p>Für den vorgegebenen Zeitraum werden die Rechnungen ausgegeben.</p>"
+        + "</form>";
   }
 }

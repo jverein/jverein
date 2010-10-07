@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.6  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -68,5 +71,13 @@ public class AuswertungKursteilnehmerView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Auswertung Kursteilnehmer</span></p>"
+        + "<p>Die Kursteilnehmer eines vorgegebenen Zeitraums können im PDF-Format ausgegeben werden.</p>"
+        + "</form>";
   }
 }

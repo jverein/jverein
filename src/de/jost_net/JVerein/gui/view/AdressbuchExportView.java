@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-23 13:39:31  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.2  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -55,5 +58,15 @@ public class AdressbuchExportView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Adressbuchexport</span></p>"
+        + "<p>Export der Mitgliederdaten für den Import in ein Adressbuch.</p>"
+        + "<p>Das Trennzeichen und das Encoding können bestimmt werden. Es kann "
+        + "festgelegt werden, ob alle Mitglieder oder nur die Mitglieder mit Email-Adresse "
+        + "ausgegeben werden.</p></form>";
   }
 }

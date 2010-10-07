@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.45  2010-10-05 05:53:16  jost
+ * Mitgliedskonto nur bei nicht neuen Datensätzen
+ *
  * Revision 1.44  2010-09-01 05:57:49  jost
  * neu: Personalbogen
  *
@@ -382,4 +385,17 @@ public class MitgliedDetailView extends AbstractView
   {
   }
 
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
+        + "<li>Anrede: Herrn, Frau ...</li>"
+        + "<li>Titel: Dr., Prof. Dr., ...</li>"
+        + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
+        + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
+        + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"
+        + "<li>Kündigung: Eingangsdatum der Kündigung.</li>"
+        + "<li>Zusatzabbuchung: Sind für das Mitglied zusätzlich zum Jahresbeitrag weitere Beträge abzubuchen, können die entsprechenden Eingaben gemacht werden.</li>"
+        + "</form>";
+  }
 }

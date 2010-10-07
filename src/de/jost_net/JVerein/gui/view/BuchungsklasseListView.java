@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-23 13:39:33  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.1  2009/09/10 18:18:22  jost
  * neu: Buchungsklassen
  *
@@ -47,5 +50,14 @@ public class BuchungsklasseListView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Buchungsklasse</span></p>"
+        + "<p>Buchungsklassen dienen der Gruppierung von Buchungsarten. Z. B. können die "
+        + "Buchungsarten nach Ideeller Betrieb, Wirtschaftlicher Betrieb und Vermögen gruppiert werden.</p>"
+        + "<p>Die Buchungsklassen sind den Buchungsarten zuzuordnen.</p></form>";
   }
 }

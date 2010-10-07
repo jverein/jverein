@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.9  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -74,5 +77,13 @@ public class BeitragsgruppeSucheView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
+        + "<p>Alle Beitragsgruppen werden angezeigt. Durch einen Doppelklick kann eine "
+        + "Beitragsgruppe zur Bearbeitung ausgewählt werden.</p></form>";
   }
 }

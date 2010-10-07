@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.4  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -55,5 +58,17 @@ public class FormularListeView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Formulare</span></p>"
+        + "<p> Alle verfügbaren Formulare werden aufgelistet.</p>"
+        + "<p>Durch einen Doppelklick auf ein Formular wird die Detailansicht zur "
+        + "Bearbeitung geöffnet.</p>"
+        + "<p> Mit einem rechten Mausklick öffnet sich ein Kontext-Menü. Damit können "
+        + "die Formularfelder bearbeitet werden. Das Formular kann angezeigt und "
+        + "gelöscht werden.</p></form>";
   }
 }

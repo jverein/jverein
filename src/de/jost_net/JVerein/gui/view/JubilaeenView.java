@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -69,5 +72,12 @@ public class JubilaeenView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Jubiläen</span></p>"
+        + "<p>Ausgabe der Mitgliedsjubilare und der Altersjubilare.</p></form>";
   }
 }

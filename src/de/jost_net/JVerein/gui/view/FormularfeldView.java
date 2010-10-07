@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-08-23 13:39:32  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.4  2009/06/11 21:03:39  jost
  * Vorbereitung I18N
  *
@@ -71,5 +74,15 @@ public class FormularfeldView extends AbstractView
 
   public void unbind() throws ApplicationException
   {
+  }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Formularfeld</span></p>"
+        + "<p>Je nach Formulartyp können unterschiedliche Formularfelder ausgewählt werden. "
+        + "Jedem Formulartyp ist eine Koordinate mitzugeben. Dabei handelt es sich um die "
+        + "Position von links und von unten in Millimetern. Zusätzlich sind der Zeichensatz "
+        + "und die Höhe des Zeichens anzugeben.</p></form>";
   }
 }
