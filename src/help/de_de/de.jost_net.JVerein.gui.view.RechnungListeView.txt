@@ -1,9 +1,0 @@
-<form>
-	<p>
-		<span color="header" font="header">Rechnungsinformationen</span>
-	</p>
-	<p>JVerein schreibt bei der Abrechnung die Informationen in die Abrechnungstabelle.
-	Die Informationen können für die Erstellung von Rechnungen genutzt werden.</p>
-	<p>Die Daten können nach dem Verwendungszweck oder dem Datum gefiltert werden. 
-	Zur Aktivierung der Suche muss das Eingabefeld verlassen werden.</p>
-</form>

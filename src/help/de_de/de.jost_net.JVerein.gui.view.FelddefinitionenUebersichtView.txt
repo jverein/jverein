@@ -1,8 +1,0 @@
-<form>
-	<p>
-		<span color="header" font="header">Felddefinitionen</span>
-	</p>
-	<p>
-		
-	</p>
-</form>

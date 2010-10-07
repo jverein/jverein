@@ -1,9 +1,0 @@
-<form>
-	<p>
-		<span color="header" font="header">Adressbuchexport</span>
-	</p>
-	<p>Export der Mitgliederdaten für den Import in ein Adressbuch.</p>
-	<p>Das Trennzeichen und das Encoding können bestimmt werden. Es kann 
-	festgelegt werden, ob alle Mitglieder oder nur die Mitglieder mit Email-Adresse
-	ausgegeben werden.</p>
-</form>

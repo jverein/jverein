@@ -1,9 +1,0 @@
-<form>
-	<p>
-		<span color="header" font="header">Zusatzbeträge importieren</span>
-	</p>
-	<p>
-		In anderen Programmen erzeugte Zusatzbeträge können importiert werden. Der Aufbau der Datei ist in der Hilfe beschrieben.
-	</p>
-
-</form>
