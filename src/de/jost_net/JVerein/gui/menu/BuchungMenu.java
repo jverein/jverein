@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2009/06/11 21:03:02  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.10  2009/01/25 10:58:39  jost
  * Icons aufgenommen.
  *
@@ -43,6 +46,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.BuchungBuchungsartZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
+import de.jost_net.JVerein.gui.action.BuchungKontoauszugZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -88,6 +92,9 @@ public class BuchungMenu extends ContextMenu
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Buchungsart zuordnen"),
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Kontoauszug zuordnen"),
+        new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));
     addItem(new CheckedContextMenuItem(
         JVereinPlugin.getI18n().tr("löschen..."), new BuchungDeleteAction(),
         "user-trash.png"));
