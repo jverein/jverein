@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2010-08-23 13:34:26  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.20  2009/07/24 20:18:31  jost
  * Focus auf erstes Feld setzen.
  *
@@ -467,6 +470,10 @@ public class KursteilnehmerControl extends AbstractControl
     try
     {
       saveDefaults();
+      if (part == null)
+      {
+        return;
+      }
       part.removeAll();
       DBIterator kursteilnehmer = getIterator();
       while (kursteilnehmer.hasNext())
