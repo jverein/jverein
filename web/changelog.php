@@ -33,7 +33,11 @@
     			<li>Hibiscus-Import der Konten checkt jetzt auf doppelte Konten.</li>
     			<li>Ausgabe der Zusatzbuchungen im PDF-Format. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17513&group_id=7335'>#17513</a>
     			<li>Datenimport: Klare Fehlermeldung bei korrupter Import-Datei im Bereich der Eigenschaften. Patch von Umbilo.</li>
+    			<li>Datenimport: Eigenschaftengruppen können jetzt auch importiert werden.</li>
     			<li>Buchungen können die Kontoauszugsinformationen (Auszug, Blatt) en bloc zugewiesen werden.</li>
+    			<li>Vermeidung NullPointerException bei der Suche nach Kursteilnehmern.</li>
+    			<li>Intern: Hilfe in die Views verlagert</li>
+    			<li>Import Hibiscus-Konten: Check auf doppelte Konten</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -511,6 +515,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.73  2010-10-10 08:58:29  jost
+    *** empty log message ***
+
     Revision 1.72  2010-10-10 08:55:22  jost
     *** empty log message ***
 
