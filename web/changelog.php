@@ -28,7 +28,7 @@
                 <li>Buchführung: Überall, wo ein Bankkonto auszuwählen ist, wird das zuletzt genutzte vorgegeben.</li>   	
     			<li>Bugfixes bei der Erstellung des Diagnose-Backups.</li>
     			<li>Maximale Länge des Textes für Mails und Mailvorlagen auf 10.000 Zeichen verlängert.</li>
-    			<li>Bei der Erstellung eines Jahresabschlusses werden jetzt die Anfangsbestände des Folgejahres eingetragen. Bei der Löschung von Jahresabschlüssen werden die Anfangsbestände des Folgejahres gelöscht. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16845&group_id=7335'><#16845></li>
+    			<li>Bei der Erstellung eines Jahresabschlusses werden jetzt die Anfangsbestände des Folgejahres eingetragen. Bei der Löschung von Jahresabschlüssen werden die Anfangsbestände des Folgejahres gelöscht. Siehe auch <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=16845&group_id=7335'><#16845></a></li>
     		    <li>Länge der Kontobezeichnung auf 255 Zeichen verlängert.</li>
     			<li>Hibiscus-Import der Konten checkt jetzt auf doppelte Konten.</li>
     			<li>Ausgabe der Zusatzbuchungen im PDF-Format. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17513&group_id=7335'>#17513</a>
@@ -511,6 +511,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.72  2010-10-10 08:55:22  jost
+    *** empty log message ***
+
     Revision 1.71  2010-10-05 05:53:48  jost
     *** empty log message ***
 
