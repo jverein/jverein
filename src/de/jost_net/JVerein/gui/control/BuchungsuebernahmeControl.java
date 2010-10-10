@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-08-23 13:33:14  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.11  2009/12/17 19:23:50  jost
  * Mehrfache Buchungsübernahme verhindert.
  *
@@ -93,7 +96,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
     {
       return konto;
     }
-    konto = new KontoauswahlInput().getKontoAuswahl();
+    konto = new KontoauswahlInput().getKontoAuswahl(false);
     return konto;
   }
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-09-16 18:12:30  jost
+ * Vermeidung ObjectNotFoundException abgefangen.
+ *
  * Revision 1.4  2010-09-12 08:02:49  jost
  * Letztes Konto wird wieder vorgegeben.
  * Siehe auch http://www.jverein.de/forum/viewtopic.php?f=1&t=198
@@ -41,33 +44,43 @@ public class KontoauswahlInput
 
   private de.willuhn.jameica.system.Settings settings;
 
+  private boolean keinkonto;
+
   public KontoauswahlInput()
   {
     this(null);
   }
 
+  /**
+   * 
+   * @param konto
+   */
   public KontoauswahlInput(Konto konto)
   {
     this.konto = konto;
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     settings.setStoreWhenRead(true);
-
   }
 
   /**
    * Liefert ein Auswahlfeld fuer das Konto.
    * 
+   * @param keinkonto
+   *          true= ein kann auch kein Konto ausgewählt werden. false = es muss
+   *          ein Konto ausgewählt werden.
+   * 
    * @return Auswahl-Feld.
    * @throws RemoteException
    */
-  public DialogInput getKontoAuswahl() throws RemoteException
+  public DialogInput getKontoAuswahl(boolean keinkonto) throws RemoteException
   {
     if (kontoAuswahl != null)
     {
       return kontoAuswahl;
     }
+    this.keinkonto = keinkonto;
     KontoAuswahlDialog d = new KontoAuswahlDialog(
-        KontoAuswahlDialog.POSITION_MOUSE);
+        KontoAuswahlDialog.POSITION_MOUSE, keinkonto);
     d.addCloseListener(new KontoListener());
 
     if (konto == null && settings.getString("kontoid", null) != null)
@@ -106,14 +119,28 @@ public class KontoauswahlInput
 
       if (event == null || event.data == null)
       {
+        if (keinkonto)
+        {
+          konto = null;
+          try
+          {
+            getKontoAuswahl(keinkonto).setText("");
+            getKontoAuswahl(keinkonto).setComment("");
+            settings.setAttribute("kontoid", "");
+          }
+          catch (RemoteException e)
+          {
+            Logger.error("Fehler", e);
+          }
+        }
         return;
       }
       konto = (Konto) event.data;
       try
       {
         String b = konto.getBezeichnung();
-        getKontoAuswahl().setText(konto.getNummer());
-        getKontoAuswahl().setComment(b == null ? "" : b);
+        getKontoAuswahl(keinkonto).setText(konto.getNummer());
+        getKontoAuswahl(keinkonto).setComment(b == null ? "" : b);
         settings.setAttribute("kontoid", konto.getID());
       }
       catch (RemoteException er)

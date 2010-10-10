@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/06/09 18:50:05  jost
+ * Größe des Dialog verändert.
+ *
  * Revision 1.3  2009/06/20 12:33:40  jost
  * Vereinheitlichung der Bezeichner
  *
@@ -44,11 +47,14 @@ public class KontoAuswahlDialog extends AbstractDialog
 
   private Konto choosen = null;
 
-  public KontoAuswahlDialog(int position)
+  private boolean keinkonto;
+
+  public KontoAuswahlDialog(int position, boolean keinkonto)
   {
     super(position);
     super.setSize(400, 300);
     this.setTitle(JVereinPlugin.getI18n().tr("Konto-Auswahl"));
+    this.keinkonto = keinkonto;
   }
 
   protected void paint(Composite parent) throws Exception
@@ -67,6 +73,12 @@ public class KontoAuswahlDialog extends AbstractDialog
     {
       public void handleAction(Object context) throws ApplicationException
       {
+        // wenn kein Konto ausgewählt sein darf, wird null zurückgegeben.
+        if (context == null && keinkonto)
+        {
+          choosen = null;
+          return;
+        }
         if (context == null || !(context instanceof Konto))
         {
           return;
@@ -81,7 +93,7 @@ public class KontoAuswahlDialog extends AbstractDialog
     konten.setSummary(false);
     konten.paint(parent);
 
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea(parent, 3);
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -94,6 +106,17 @@ public class KontoAuswahlDialog extends AbstractDialog
         close();
       }
     });
+    if (keinkonto)
+    {
+      b.addButton(i18n.tr("kein Konto"), new Action()
+      {
+        public void handleAction(Object context) throws ApplicationException
+        {
+          choosen = null;
+          close();
+        }
+      });
+    }
     b.addButton(i18n.tr("abbrechen"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException

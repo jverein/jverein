@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2010-09-01 05:56:35  jost
+ * Bugfix numerische Sortierung
+ *
  * Revision 1.25  2010-08-23 13:31:50  jost
  * Optimierung Tastatursteuerung
  *
@@ -239,7 +242,8 @@ public class BuchungsControl extends AbstractControl
     {
       return konto;
     }
-    konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl();
+    konto = new KontoauswahlInput(getBuchung().getKonto())
+        .getKontoAuswahl(false);
     if (withFocus)
     {
       konto.focus();
@@ -395,7 +399,7 @@ public class BuchungsControl extends AbstractControl
     {
       return suchkonto;
     }
-    suchkonto = new KontoauswahlInput().getKontoAuswahl();
+    suchkonto = new KontoauswahlInput().getKontoAuswahl(true);
     return suchkonto;
   }
 
