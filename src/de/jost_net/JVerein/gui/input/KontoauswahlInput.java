@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-10 06:37:26  jost
+ * Bugfix "leere Kontoauswahl".
+ *
  * Revision 1.5  2010-09-16 18:12:30  jost
  * Vermeidung ObjectNotFoundException abgefangen.
  *
@@ -83,12 +86,17 @@ public class KontoauswahlInput
         KontoAuswahlDialog.POSITION_MOUSE, keinkonto);
     d.addCloseListener(new KontoListener());
 
-    if (konto == null && settings.getString("kontoid", null) != null)
+    String kontoid = settings.getString("kontoid", null);
+    if (kontoid.length() == 0)
+    {
+      kontoid = null;
+    }
+    if (konto == null && kontoid != null)
     {
       try
       {
         konto = (Konto) Einstellungen.getDBService().createObject(Konto.class,
-            settings.getString("kontoid", null));
+            kontoid);
       }
       catch (ObjectNotFoundException e)
       {
