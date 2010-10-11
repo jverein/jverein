@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-10-10 06:51:10  jost
+ * Korrekte Null-Wert-Behandlung
+ *
  * Revision 1.6  2010-10-10 06:37:26  jost
  * Bugfix "leere Kontoauswahl".
  *
@@ -87,7 +90,7 @@ public class KontoauswahlInput
     d.addCloseListener(new KontoListener());
 
     String kontoid = settings.getString("kontoid", null);
-    if (kontoid.length() == 0)
+    if (kontoid == null || kontoid.length() == 0)
     {
       kontoid = null;
     }
