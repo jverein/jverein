@@ -38,6 +38,8 @@
     			<li>Vermeidung NullPointerException bei der Suche nach Kursteilnehmern.</li>
     			<li>Intern: Hilfe in die Views verlagert</li>
     			<li>Import Hibiscus-Konten: Check auf doppelte Konten</li>
+    			<li>Bei der Neuaufnahme einer manuellen Buchung wird sofort nach der Speicherung die ID angezeigt.</li>
+    			<li>Korrekter Hinweis auf fehlende Stammdaten bei der Abrechnung.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -515,6 +517,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.74  2010-10-10 17:37:17  jost
+    *** empty log message ***
+
     Revision 1.73  2010-10-10 08:58:29  jost
     *** empty log message ***
 
