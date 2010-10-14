@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2010-10-10 06:35:51  jost
+ * Bugfix "leere Kontoauswahl".
+ *
  * Revision 1.26  2010-09-01 05:56:35  jost
  * Bugfix numerische Sortierung
  *
@@ -608,6 +611,7 @@ public class BuchungsControl extends AbstractControl
         }
         b.setKommentar((String) getKommentar().getValue());
         b.store();
+        getID().setValue(b.getID());
         GUI.getStatusBar().setSuccessText("Buchung gespeichert");
       }
       catch (ApplicationException e)
