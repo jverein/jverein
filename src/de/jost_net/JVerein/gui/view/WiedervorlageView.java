@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.8  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -45,10 +48,11 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class WiedervorlageView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Wiedervorlage"));
@@ -56,12 +60,12 @@ public class WiedervorlageView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Wiedervorlage"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control
-        .getDatum(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk"), control
-        .getVermerk());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Erledigung"), control
-        .getErledigung());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
+        control.getDatum(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk"),
+        control.getVermerk());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Erledigung"),
+        control.getErledigung());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
@@ -70,16 +74,14 @@ public class WiedervorlageView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
   }
 
-  public void unbind() throws ApplicationException
-  {
-  }
   // TODO getHelp()
 
 }

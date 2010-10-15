@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-02-01 20:59:26  jost
+ * Neu: Einfache Mailfunktion
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
@@ -42,6 +45,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog
     setSize(550, 450);
   }
 
+  @Override
   protected void paint(Composite parent) throws Exception
   {
 
@@ -65,13 +69,14 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("ohne Mail-Vorlage"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         close();
       }
     });
   }
 
+  @Override
   protected Object getData() throws Exception
   {
     return retval;

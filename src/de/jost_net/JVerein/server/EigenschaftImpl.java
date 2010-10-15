@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009-11-17 21:03:50  jost
+ * Neu: Eigenschaft und EigenschaftGruppe
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -30,21 +33,25 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "eigenschaft";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute() 
   {
     return "id";
   }
 
+  @Override
   protected void deleteCheck() throws ApplicationException
   {
     insertCheck();
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -68,13 +75,14 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String field) throws RemoteException
+  @Override
+  protected Class getForeignObject(String field) 
   {
     if ("eigenschaftgruppe".equals(field))
     {
@@ -109,6 +117,7 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
     setAttribute("eigenschaftgruppe", eigenschaftgruppe);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

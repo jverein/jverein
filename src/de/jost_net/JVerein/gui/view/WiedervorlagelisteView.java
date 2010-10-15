@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.8  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -44,25 +47,22 @@ import de.jost_net.JVerein.gui.parts.WiedervorlageList;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.util.ApplicationException;
 
 public class WiedervorlagelisteView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Wiedervorlagen"));
-    new WiedervorlageList(new WiedervorlageListeAction())
-        .getWiedervorlageList().paint(this.getParent());
+    new WiedervorlageList(new WiedervorlageListeAction()).getWiedervorlageList().paint(
+        this.getParent());
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.WIEDERVORLAGE, false,
         "help-browser.png");
 
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

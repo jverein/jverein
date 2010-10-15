@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2009-11-17 21:04:07  jost
+ * DB-Aktualisierung optimiert.
+ *
  * Revision 1.11  2009/07/24 20:23:25  jost
  * Überflüssige Imports entfernt.
  *
@@ -62,6 +65,7 @@ import de.willuhn.util.ProgressMonitor;
 public class JVereinDBServiceImpl extends DBServiceImpl implements
     JVereinDBService
 {
+
   private static final long serialVersionUID = 7221618925760171630L;
 
   private DBSupport driver = null;
@@ -78,10 +82,9 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    * Konstruktor mit expliziter Angabe des Treibers.
    * 
    * @param driverClass
-   *          der zu verwendende Treiber.
+   *        der zu verwendende Treiber.
    * @throws RemoteException
    */
-  @SuppressWarnings("unchecked")
   protected JVereinDBServiceImpl(String driverClass) throws RemoteException
   {
     super();
@@ -102,32 +105,38 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     }
   }
 
-  public String getName() throws RemoteException
+  @Override
+  public String getName()
   {
     return JVereinPlugin.getI18n().tr("Datenbank-Service für JVerein");
   }
 
+  @Override
   protected boolean getAutoCommit() throws RemoteException
   {
     return SETTINGS.getBoolean("autocommit", super.getAutoCommit());
   }
 
-  protected String getJdbcDriver() throws RemoteException
+  @Override
+  protected String getJdbcDriver()
   {
     return this.driver.getJdbcDriver();
   }
 
-  protected String getJdbcPassword() throws RemoteException
+  @Override
+  protected String getJdbcPassword()
   {
     return this.driver.getJdbcPassword();
   }
 
-  protected String getJdbcUrl() throws RemoteException
+  @Override
+  protected String getJdbcUrl()
   {
     return this.driver.getJdbcUrl();
   }
 
-  protected String getJdbcUsername() throws RemoteException
+  @Override
+  protected String getJdbcUsername()
   {
     return this.driver.getJdbcUsername();
   }
@@ -162,6 +171,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     // this.driver.execute(getConnection(), file);
   }
 
+  @SuppressWarnings("unused")
   public void update(Version oldVersion, Version newVersion)
       throws RemoteException
   {
@@ -223,11 +233,13 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     return this.driver.getSQLTimestamp(content);
   }
 
+  @Override
   protected boolean getInsertWithID() throws RemoteException
   {
     return this.driver.getInsertWithID();
   }
 
+  @Override
   protected void checkConnection(Connection conn) throws SQLException
   {
     try

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2010-10-04 12:18:46  jost
+ * Tool zur Ermittlung der Views ohne Hilfetext
+ *
  * Revision 1.24  2009-06-11 21:00:26  jost
  * Vorbereitung I18N
  *
@@ -141,6 +144,7 @@ public class JVereinPlugin extends AbstractPlugin
    * 
    * @see de.willuhn.jameica.plugin.AbstractPlugin#init()
    */
+  @Override
   public void init() throws ApplicationException
   {
     Logger.info("starting init process for jverein");
@@ -170,13 +174,13 @@ public class JVereinPlugin extends AbstractPlugin
    * executing init()). if your installation procedure was not successfull,
    * throw an ApplicationException.
    */
+  @Override
   public void install() throws ApplicationException
   {
     call(new ServiceCall()
     {
 
-      public void call(JVereinDBService service) throws ApplicationException,
-          RemoteException
+      public void call(JVereinDBService service) throws RemoteException
       {
         service.install();
       }
@@ -186,13 +190,13 @@ public class JVereinPlugin extends AbstractPlugin
   /**
    * This method will be executed on every version change.
    */
+  @Override
   public void update(final Version oldVersion) throws ApplicationException
   {
     call(new ServiceCall()
     {
 
-      public void call(JVereinDBService service) throws ApplicationException,
-          RemoteException
+      public void call(JVereinDBService service) throws RemoteException
       {
         service.update(oldVersion, getManifest().getVersion());
       }
@@ -203,6 +207,7 @@ public class JVereinPlugin extends AbstractPlugin
    * Here you can do some cleanup stuff. The method will be called on every
    * clean shutdown of jameica.
    */
+  @Override
   public void shutDown()
   {
     try

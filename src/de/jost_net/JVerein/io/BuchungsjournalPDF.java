@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009-09-15 19:22:36  jost
+ * Summenbildung.
+ *
  * Revision 1.1  2009/09/12 19:04:44  jost
  * neu: Buchungsjournal
  *
@@ -20,7 +23,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.Date;
 
 import com.lowagie.text.DocumentException;
@@ -41,9 +43,10 @@ import de.willuhn.util.ProgressMonitor;
 
 public class BuchungsjournalPDF
 {
+
   public BuchungsjournalPDF(DBIterator list, final File file,
       ProgressMonitor monitor, Konto konto, Date dVon, Date dBis)
-      throws ApplicationException, RemoteException
+      throws ApplicationException
   {
     try
     {
@@ -69,7 +72,7 @@ public class BuchungsjournalPDF
       {
         Buchung b = (Buchung) list.next();
         DBIterator listk = Einstellungen.getDBService().createList(Konto.class);
-        listk.addFilter("id = ?", new Object[] { b.getKonto().getID() });
+        listk.addFilter("id = ?", new Object[] { b.getKonto().getID()});
         Konto k = (Konto) listk.next();
         reporter.addColumn(b.getID(), Element.ALIGN_RIGHT);
         reporter.addColumn(Einstellungen.DATEFORMAT.format(b.getDatum()),
@@ -88,8 +91,8 @@ public class BuchungsjournalPDF
         reporter.addColumn(b.getZweck()
             + (b.getZweck2() != null ? (" " + b.getZweck2()) : ""),
             Element.ALIGN_LEFT);
-        reporter.addColumn(b.getBuchungsart() != null ? b.getBuchungsart()
-            .getBezeichnung() : "", Element.ALIGN_LEFT);
+        reporter.addColumn(b.getBuchungsart() != null
+            ? b.getBuchungsart().getBezeichnung() : "", Element.ALIGN_LEFT);
         reporter.addColumn(b.getBetrag());
         if (b.getBuchungsart() != null)
         {
@@ -162,6 +165,7 @@ public class BuchungsjournalPDF
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         public void run()
         {
           try

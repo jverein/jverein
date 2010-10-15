@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.3  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -30,10 +33,11 @@ import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.util.ApplicationException;
 
 public class EigenschaftGruppeListeView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften Gruppe"));
@@ -55,9 +59,6 @@ public class EigenschaftGruppeListeView extends AbstractView
         "document-new.png");
   }
 
-  public void unbind() throws ApplicationException
-  {
-  }
   // TODO getHelp()
 
 }

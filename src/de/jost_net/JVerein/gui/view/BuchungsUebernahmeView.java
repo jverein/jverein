@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.10  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -47,10 +50,11 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class BuchungsUebernahmeView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(
@@ -73,10 +77,6 @@ public class BuchungsUebernahmeView extends AbstractView
         new DokumentationAction(), DokumentationUtil.BUCHUNGENAUSHIBISCUS,
         false, "help-browser.png");
     buttons.addButton(control.getUebernahmeButton());
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

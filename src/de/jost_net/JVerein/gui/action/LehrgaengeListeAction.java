@@ -9,17 +9,20 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009-04-13 11:37:46  jost
+ * Neu: Lehrgänge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.gui.view.LehrgaengeListeView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class LehrgaengeListeAction implements Action
 {
-  public void handleAction(Object context) throws ApplicationException
+
+  public void handleAction(Object context)
   {
     GUI.startView(LehrgaengeListeView.class.getName(), null);
   }

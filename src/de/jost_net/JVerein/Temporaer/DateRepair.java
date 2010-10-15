@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008-11-29 13:17:55  jost
+ * Refactoring: Warnungen beseitigt.
+ *
  * Revision 1.2  2008/02/13 18:18:45  jost
  * ÃœberflÃ¼ssigen Import entfernt.
  *
@@ -43,15 +46,15 @@ import de.willuhn.logging.Logger;
  */
 public class DateRepair implements MessageConsumer
 {
+
   public boolean autoRegister()
   {
     return false;
   }
 
-  @SuppressWarnings("unchecked")
   public Class[] getExpectedMessageTypes()
   {
-    return new Class[] { SystemMessage.class };
+    return new Class[] { SystemMessage.class};
   }
 
   public void handleMessage(Message message) throws Exception
@@ -92,17 +95,17 @@ public class DateRepair implements MessageConsumer
         {
           System.out.println(h2mitglied.getName());
           h2mitglied.setGeburtsdatum(check(mckoimitglied.getVorname(),
-              "Geburtsdatum", mckoimitglied.getGeburtsdatum(), h2mitglied
-                  .getGeburtsdatum()));
+              "Geburtsdatum", mckoimitglied.getGeburtsdatum(),
+              h2mitglied.getGeburtsdatum()));
           h2mitglied.setEintritt(check(mckoimitglied.getVorname(),
-              "Eintrittsdatum", mckoimitglied.getEintritt(), h2mitglied
-                  .getEintritt()));
+              "Eintrittsdatum", mckoimitglied.getEintritt(),
+              h2mitglied.getEintritt()));
           h2mitglied.setAustritt(check(mckoimitglied.getVorname(),
-              "Austrittsdatum", mckoimitglied.getAustritt(), h2mitglied
-                  .getAustritt()));
+              "Austrittsdatum", mckoimitglied.getAustritt(),
+              h2mitglied.getAustritt()));
           h2mitglied.setKuendigung(check(mckoimitglied.getVorname(),
-              "Kündigungsdatum", mckoimitglied.getKuendigung(), h2mitglied
-                  .getKuendigung()));
+              "Kündigungsdatum", mckoimitglied.getKuendigung(),
+              h2mitglied.getKuendigung()));
           h2mitglied.store();
           System.out.println("-------------------------------------");
         }
@@ -122,8 +125,8 @@ public class DateRepair implements MessageConsumer
         {
           h2kursteilnehmer.setGeburtsdatum((check(
               mckoikursteilnehmer.getName(), "Geburtsdatum",
-              mckoikursteilnehmer.getGeburtsdatum(), h2kursteilnehmer
-                  .getGeburtsdatum())));
+              mckoikursteilnehmer.getGeburtsdatum(),
+              h2kursteilnehmer.getGeburtsdatum())));
           h2kursteilnehmer.store();
         }
         System.out.println("-------------------------------------");
@@ -142,14 +145,12 @@ public class DateRepair implements MessageConsumer
   {
     if (mckoi == null && h2 != null)
     {
-      System.out
-          .println(vorname + ": " + feld + "mckoi ist null h2 aber nicht");
+      System.out.println(vorname + ": " + feld + "mckoi ist null h2 aber nicht");
       return h2;
     }
     if (mckoi != null && h2 == null)
     {
-      System.out
-          .println(vorname + ": " + feld + "h2 ist null mckoi aber nicht");
+      System.out.println(vorname + ": " + feld + "h2 ist null mckoi aber nicht");
       return h2;
     }
     if (mckoi == null && h2 == null)
@@ -177,6 +178,7 @@ public class DateRepair implements MessageConsumer
    */
   static class H2DBServiceImpl extends JVereinDBServiceImpl
   {
+
     private static final long serialVersionUID = 4298826411943981642L;
 
     public H2DBServiceImpl() throws RemoteException
@@ -190,13 +192,13 @@ public class DateRepair implements MessageConsumer
           "false");
 
       // Fuer uns selbst aktivieren wir es jedoch
-      System
-          .setProperty(H2DBServiceImpl.class.getName() + ".uppercase", "true");
+      System.setProperty(H2DBServiceImpl.class.getName() + ".uppercase", "true");
     }
   }
 
   static class McKoiDBServiceImpl extends JVereinDBServiceImpl
   {
+
     private static final long serialVersionUID = -5809353547594245107L;
 
     public McKoiDBServiceImpl() throws RemoteException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-02-01 21:03:15  jost
+ * Neu: Einfache Mailfunktion
+ *
  *
  **********************************************************************/
 package de.jost_net.JVerein.server;
@@ -19,11 +22,11 @@ import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
-import de.willuhn.util.ApplicationException;
 
 public class MailEmpfaengerImpl extends AbstractDBObject implements
     MailEmpfaenger, Comparable<MailEmpfaenger>
 {
+
   private static final long serialVersionUID = 1L;
 
   public MailEmpfaengerImpl() throws RemoteException
@@ -31,21 +34,26 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "mailempfaenger";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
-  protected void insertCheck() throws ApplicationException
+  @Override
+  protected void insertCheck()
   {
     // try
     // {
@@ -63,13 +71,14 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
     // }
   }
 
-  protected void updateCheck() throws ApplicationException
+  @Override
+  protected void updateCheck()
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {
@@ -121,6 +130,7 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
     return getAdresse();
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     if (fieldName.equals("mailadresse"))

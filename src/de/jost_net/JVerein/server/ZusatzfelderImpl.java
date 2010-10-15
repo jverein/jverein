@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-09-14 15:41:03  jost
+ * Vermeidung NPE
+ *
  * Revision 1.4  2010-09-07 17:00:29  jost
  * neue Methode
  *
@@ -35,10 +38,10 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 
 public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
 {
+
   private static final long serialVersionUID = 1L;
 
   public ZusatzfelderImpl() throws RemoteException
@@ -46,21 +49,26 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "zusatzfelder";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
-  protected void insertCheck() throws ApplicationException
+  @Override
+  protected void insertCheck()
   {
     // try
     // {
@@ -75,13 +83,14 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
     // }
   }
 
-  protected void updateCheck() throws ApplicationException
+  @Override
+  protected void updateCheck()
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {
@@ -175,12 +184,13 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
     setAttribute("feldjanein", janein);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);
   }
 
-  public String getString() throws RemoteException
+  public String getString()
   {
 
     try

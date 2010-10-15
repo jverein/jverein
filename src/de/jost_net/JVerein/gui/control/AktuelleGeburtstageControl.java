@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-05-16 10:42:55  jost
+ * Einheitlicher Umgang mit ausgetretenen Mitgliedern
+ *
  * Revision 1.1  2009/07/14 07:28:43  jost
  * Neu: Box aktuelle Geburtstage
  *
@@ -35,6 +38,7 @@ import de.willuhn.jameica.system.Settings;
 
 public class AktuelleGeburtstageControl extends AbstractControl
 {
+
   private TablePart aktuelleGeburtstageList;
 
   private SelectInput vorher;
@@ -50,7 +54,7 @@ public class AktuelleGeburtstageControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public SelectInput getVorher() throws RemoteException
+  public SelectInput getVorher()
   {
     if (vorher != null)
     {
@@ -65,7 +69,7 @@ public class AktuelleGeburtstageControl extends AbstractControl
     return vorher;
   }
 
-  public SelectInput getNachher() throws RemoteException
+  public SelectInput getNachher()
   {
     if (nachher != null)
     {
@@ -133,7 +137,7 @@ public class AktuelleGeburtstageControl extends AbstractControl
       aktuelleGeburtstageList.removeAll();
       while (geburtstage.hasNext())
       {
-        aktuelleGeburtstageList.addItem((Mitglied) geburtstage.next());
+        aktuelleGeburtstageList.addItem(geburtstage.next());
       }
     }
     return aktuelleGeburtstageList;

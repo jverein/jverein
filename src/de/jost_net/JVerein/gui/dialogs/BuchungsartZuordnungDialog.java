@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009-06-20 12:33:13  jost
+ * Vereinheitlichung der Bezeichner
+ *
  * Revision 1.2  2009/06/11 21:02:41  jost
  * Vorbereitung I18N
  *
@@ -37,13 +40,13 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Dialog zur Zuordnung einer Buchungsart.
  */
 public class BuchungsartZuordnungDialog extends AbstractDialog
 {
+
   private SelectInput buchungsarten = null;
 
   private CheckboxInput ueberschreiben = null;
@@ -64,19 +67,22 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
     setSize(400, 200);
   }
 
+  @Override
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup group = new LabelGroup(parent, "");
     group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
         getBuchungsartAuswahl());
-    group.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Buchungsarten überschreiben"), getUeberschreiben());
+    group.addLabelPair(
+        JVereinPlugin.getI18n().tr("Buchungsarten überschreiben"),
+        getUeberschreiben());
     group.addLabelPair("", getStatus());
 
     ButtonArea buttons = new ButtonArea(parent, 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         if (buchungsarten.getValue() == null)
         {
@@ -88,20 +94,14 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
         {
           buchungsart = (Buchungsart) buchungsarten.getValue();
         }
-        try
-        {
-          ueberschr = (Boolean) getUeberschreiben().getValue();
-        }
-        catch (RemoteException e)
-        {
-          throw new ApplicationException(e);
-        }
+        ueberschr = (Boolean) getUeberschreiben().getValue();
         close();
       }
     }, null, true);
     buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         throw new OperationCanceledException();
       }
@@ -112,6 +112,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
   /**
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
+  @Override
   public Object getData() throws Exception
   {
     return buchungsart;
@@ -140,6 +141,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
         "Bitte Buchungsart auswählen"));
     buchungsarten.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         status.setValue("");
@@ -148,7 +150,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
     return buchungsarten;
   }
 
-  private LabelInput getStatus() throws RemoteException
+  private LabelInput getStatus()
   {
     if (status != null)
     {
@@ -158,7 +160,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
     return status;
   }
 
-  private CheckboxInput getUeberschreiben() throws RemoteException
+  private CheckboxInput getUeberschreiben()
   {
     if (ueberschreiben != null)
     {

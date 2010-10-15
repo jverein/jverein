@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-08-23 13:33:40  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.9  2009/09/03 18:48:00  jost
  * Vermeidung NPE
  *
@@ -74,6 +77,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class JahressaldoControl extends AbstractControl
 {
+
   private JahressaldoList saldoList;
 
   private SelectInput suchjahr;
@@ -124,6 +128,7 @@ public class JahressaldoControl extends AbstractControl
   {
     Button b = new Button("&PDF", new Action()
     {
+
       public void handleAction(Object context) throws ApplicationException
       {
         starteAuswertung();
@@ -135,6 +140,7 @@ public class JahressaldoControl extends AbstractControl
 
   public void handleStore()
   {
+    //
   }
 
   public Part getSaldoList() throws ApplicationException
@@ -150,8 +156,8 @@ public class JahressaldoControl extends AbstractControl
       }
       else
       {
-        saldoList.setGeschaeftsjahr(new Geschaeftsjahr((Integer) getSuchJahr()
-            .getValue()));
+        saldoList.setGeschaeftsjahr(new Geschaeftsjahr(
+            (Integer) getSuchJahr().getValue()));
         ArrayList<SaldoZeile> zeile = saldoList.getInfo();
         saldoList.removeAll();
         for (SaldoZeile sz : zeile)
@@ -182,14 +188,14 @@ public class JahressaldoControl extends AbstractControl
       //
       Settings settings = new Settings(this.getClass());
       //
-      String path = settings.getString("lastdir", System
-          .getProperty("user.home"));
+      String path = settings.getString("lastdir",
+          System.getProperty("user.home"));
       if (path != null && path.length() > 0)
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("jahressaldo", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("jahressaldo",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -223,6 +229,7 @@ public class JahressaldoControl extends AbstractControl
   {
     BackgroundTask t = new BackgroundTask()
     {
+
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -240,17 +247,11 @@ public class JahressaldoControl extends AbstractControl
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }
-        catch (RemoteException re)
-        {
-          monitor.setStatusText(re.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(re.getMessage());
-          throw new ApplicationException(re);
-        }
       }
 
       public void interrupt()
       {
+        //
       }
 
       public boolean isInterrupted()

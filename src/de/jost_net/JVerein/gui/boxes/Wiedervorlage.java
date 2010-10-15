@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-06-11 21:02:17  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2007/12/29 19:09:41  jost
  * Explizite Höhe der Box vorgegeben.
  *
@@ -56,11 +59,13 @@ public class Wiedervorlage extends AbstractBox implements Box
         .getWiedervorlageList().paint(parent);
   }
 
+  @Override
   public boolean isActive()
   {
     return super.isActive();
   }
 
+  @Override
   public int getHeight()
   {
     return 130;

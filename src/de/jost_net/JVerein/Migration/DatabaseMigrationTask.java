@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2008-12-22 21:19:57  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.4  2008/11/29 13:14:01  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -54,6 +57,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class DatabaseMigrationTask implements BackgroundTask
 {
+
   protected I18N i18n = Application.getPluginLoader().getPlugin(
       JVereinPlugin.class).getResources().getI18N();
 
@@ -138,26 +142,27 @@ public class DatabaseMigrationTask implements BackgroundTask
    * korrigieren.
    * 
    * @param object
-   *          das ggf noch zu korrigierende Objekt.
+   *        das ggf noch zu korrigierende Objekt.
    * @param monitor
-   *          Monitor.
+   *        Monitor.
    * @throws RemoteException
    */
+  @SuppressWarnings("unused")
   protected void fixObject(AbstractDBObject object, ProgressMonitor monitor)
       throws RemoteException
   {
+    //
   }
 
   /**
    * Kopiert eine einzelne Tabelle.
    * 
    * @param type
-   *          Objekttyp.
+   *        Objekttyp.
    * @param monitor
-   *          Monitor.
+   *        Monitor.
    * @throws Exception
    */
-  @SuppressWarnings("unchecked")
   protected void copy(Class type, ProgressMonitor monitor) throws Exception
   {
     monitor.setStatusText(i18n.tr("Kopiere " + type.getName()));
@@ -195,8 +200,7 @@ public class DatabaseMigrationTask implements BackgroundTask
             + ": " + BeanUtil.toString(from), e);
         if (to == null)
         {
-          monitor.log(i18n
-              .tr("Fehler beim Kopieren des Datensatzes, überspringe"));
+          monitor.log(i18n.tr("Fehler beim Kopieren des Datensatzes, überspringe"));
         }
         else
         {
@@ -204,7 +208,7 @@ public class DatabaseMigrationTask implements BackgroundTask
           {
             monitor.log(i18n.tr(
                 "  Fehler beim Kopieren von [ID: {0}]: {1}, überspringe",
-                new String[] { id, BeanUtil.toString(to) }));
+                new String[] { id, BeanUtil.toString(to)}));
             to.transactionRollback();
           }
           catch (Exception e2)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009-06-11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.4  2008/11/29 13:14:58  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -35,6 +38,7 @@ import de.willuhn.util.ApplicationException;
 public class BeitragsgruppeImpl extends AbstractDBObject implements
     Beitragsgruppe
 {
+
   private static final long serialVersionUID = 1L;
 
   public BeitragsgruppeImpl() throws RemoteException
@@ -42,20 +46,25 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "beitragsgruppe";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -79,13 +88,14 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     return null;
   }
@@ -130,6 +140,7 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     setAttribute("beitragsart", art);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

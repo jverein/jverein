@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.2  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -28,10 +31,10 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoDetailView extends AbstractView
 {
+
   private int typ;
 
   public MitgliedskontoDetailView(int typ)
@@ -39,25 +42,26 @@ public class MitgliedskontoDetailView extends AbstractView
     this.typ = typ;
   }
 
+  @Override
   public void bind() throws Exception
   {
-    GUI.getView()
-        .setTitle(JVereinPlugin.getI18n().tr("Mitgliedskonto-Buchung"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Mitgliedskonto-Buchung"));
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
-    LabelGroup grBuchung = new LabelGroup(getParent(), JVereinPlugin.getI18n()
-        .tr((typ == MitgliedskontoNode.SOLL ? "Soll" : "Ist") + "-Buchung"));
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control
-        .getDatum());
+    LabelGroup grBuchung = new LabelGroup(getParent(),
+        JVereinPlugin.getI18n().tr(
+            (typ == MitgliedskontoNode.SOLL ? "Soll" : "Ist") + "-Buchung"));
+    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
+        control.getDatum());
     grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 1"),
         control.getZweck1());
     grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 2"),
         control.getZweck2());
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Zahlungsweg"), control
-        .getZahlungsweg());
+    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Zahlungsweg"),
+        control.getZahlungsweg());
     control.getBetrag().setMandatory(true);
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-        .getBetrag());
+    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+        control.getBetrag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 5);
 
@@ -67,16 +71,14 @@ public class MitgliedskontoDetailView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
   }
 
-  public void unbind() throws ApplicationException
-  {
-  }
   // TODO getHelp()
 
 }

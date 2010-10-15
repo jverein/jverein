@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-07-28 07:25:48  jost
+ * deprecated
+ *
  * Revision 1.3  2009/11/26 19:50:10  jost
  * Mehrfachauswahl ermöglicht.
  *
@@ -39,6 +42,7 @@ import de.willuhn.util.ApplicationException;
  * Datum des Zahlungseingangs löschen.
  * @deprecated In Version 1.5 ausmustern
  */
+@Deprecated
 public class ManuellerZahlungseingangDatumLoeschenAction implements Action
 {
   private TablePart table;

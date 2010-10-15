@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009-06-11 21:04:23  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.5  2008/11/29 13:14:48  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -45,6 +48,7 @@ import de.willuhn.util.ApplicationException;
 public class AnfangsbestandImpl extends AbstractDBObject implements
     Anfangsbestand
 {
+
   private static final long serialVersionUID = 1L;
 
   public AnfangsbestandImpl() throws RemoteException
@@ -52,20 +56,25 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "anfangsbestand";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -82,6 +91,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     try
@@ -121,13 +131,12 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
   {
     try
     {
-      Date beginngeschaeftsjahr = Einstellungen.DATEFORMAT.parse(Einstellungen
-          .getEinstellung().getBeginnGeschaeftsjahr()
+      Date beginngeschaeftsjahr = Einstellungen.DATEFORMAT.parse(Einstellungen.getEinstellung().getBeginnGeschaeftsjahr()
           + "2009");
       DBIterator it = Einstellungen.getDBService().createList(
           Anfangsbestand.class);
-      it.addFilter("konto = ?", new Object[] { getKonto().getID() });
-      it.addFilter("datum >= ?", new Object[] { getDatum() });
+      it.addFilter("konto = ?", new Object[] { getKonto().getID()});
+      it.addFilter("datum >= ?", new Object[] { getDatum()});
       it.setOrder("order by datum desc");
       if (it.size() > 0)
       {
@@ -137,7 +146,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
             Einstellungen.DATEFORMAT.format(anf.getDatum())));
       }
       it = Einstellungen.getDBService().createList(Anfangsbestand.class);
-      it.addFilter("konto = ?", new Object[] { getKonto().getID() });
+      it.addFilter("konto = ?", new Object[] { getKonto().getID()});
       if (it.size() == 0)
       {
         return;
@@ -152,10 +161,8 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
         return;
       }
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr(
-                  "Tag und Monat müssen mit dem Beginn des Geschäftsjahres übereinstimmen."));
+          JVereinPlugin.getI18n().tr(
+              "Tag und Monat müssen mit dem Beginn des Geschäftsjahres übereinstimmen."));
     }
     catch (ParseException e)
     {
@@ -164,8 +171,8 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String field) throws RemoteException
+  @Override
+  protected Class getForeignObject(String field)
   {
     if ("konto".equals(field))
     {
@@ -214,6 +221,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     setAttribute("betrag", new Double(d));
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     if (fieldName.equals("kontotext"))
@@ -230,8 +238,8 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
   {
     DBIterator it = Einstellungen.getDBService().createList(
         Jahresabschluss.class);
-    it.addFilter("von <= ?", new Object[] { (Date) getDatum() });
-    it.addFilter("bis >= ?", new Object[] { (Date) getDatum() });
+    it.addFilter("von <= ?", new Object[] { getDatum()});
+    it.addFilter("bis >= ?", new Object[] { getDatum()});
     if (it.hasNext())
     {
       Jahresabschluss ja = (Jahresabschluss) it.next();

@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-10 06:37:09  jost
+ * Bugfix "leere Kontoauswahl".
+ *
  * Revision 1.4  2010/06/09 18:50:05  jost
  * Größe des Dialog verändert.
  *
@@ -36,7 +39,6 @@ import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Ein Dialog, ueber den man ein Konto auswaehlen kann.
@@ -57,6 +59,7 @@ public class KontoAuswahlDialog extends AbstractDialog
     this.keinkonto = keinkonto;
   }
 
+  @Override
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
@@ -71,7 +74,7 @@ public class KontoAuswahlDialog extends AbstractDialog
 
     Action a = new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         // wenn kein Konto ausgewählt sein darf, wird null zurückgegeben.
         if (context == null && keinkonto)
@@ -96,7 +99,7 @@ public class KontoAuswahlDialog extends AbstractDialog
     ButtonArea b = new ButtonArea(parent, 3);
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         Object o = konten.getSelection();
         if (o == null || !(o instanceof Konto))
@@ -110,7 +113,7 @@ public class KontoAuswahlDialog extends AbstractDialog
     {
       b.addButton(i18n.tr("kein Konto"), new Action()
       {
-        public void handleAction(Object context) throws ApplicationException
+        public void handleAction(Object context) 
         {
           choosen = null;
           close();
@@ -119,7 +122,7 @@ public class KontoAuswahlDialog extends AbstractDialog
     }
     b.addButton(i18n.tr("abbrechen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         throw new OperationCanceledException();
       }
@@ -132,6 +135,7 @@ public class KontoAuswahlDialog extends AbstractDialog
    * 
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
+  @Override
   protected Object getData() throws Exception
   {
     return choosen;

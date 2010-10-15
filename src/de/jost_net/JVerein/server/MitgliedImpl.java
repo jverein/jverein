@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2010-09-15 20:44:26  jost
+ * Bugfix
+ *
  * Revision 1.30  2010-08-27 19:10:03  jost
  * neu: Mitgliedsfoto
  *
@@ -124,6 +127,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedImpl extends AbstractDBObject implements Mitglied
 {
+
   private static final long serialVersionUID = 1L;
 
   public MitgliedImpl() throws RemoteException
@@ -131,20 +135,25 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "mitglied";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "namevorname";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -242,11 +251,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr(
-                    "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                    new String[] { getBlz(), getKonto() }));
+            JVereinPlugin.getI18n().tr(
+                "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                new String[] { getBlz(), getKonto()}));
       }
     }
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
@@ -270,15 +277,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         if (famang.hasNext())
         {
           throw new ApplicationException(
-              JVereinPlugin
-                  .getI18n()
-                  .tr(
-                      "Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
+              JVereinPlugin.getI18n().tr(
+                  "Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
         }
       }
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     try
@@ -294,8 +300,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String field) throws RemoteException
+  @Override
+  protected Class getForeignObject(String field)
   {
     if ("beitragsgruppe".equals(field))
     {
@@ -691,6 +697,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         + getStrasse() + ", " + getPlz() + " " + getOrt();
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     if (fieldName.equals("namevorname"))
@@ -701,11 +708,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
-      it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
+      it.addFilter("name = ?", new Object[] { fieldName.substring(13)});
       Felddefinition fd = (Felddefinition) it.next();
       it = Einstellungen.getDBService().createList(Zusatzfelder.class);
       it.addFilter("felddefinition = ? AND mitglied = ?", new Object[] {
-          fd.getID(), getID() });
+          fd.getID(), getID()});
       if (it.hasNext())
       {
         Zusatzfelder zf = (Zusatzfelder) it.next();

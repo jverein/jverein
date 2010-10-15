@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008-11-16 16:59:30  jost
+ * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
+ *
  * Revision 1.3  2008/06/28 17:08:12  jost
  * refactoring
  *
@@ -88,6 +91,7 @@ public class Geschaeftsjahr
     return endeGeschaeftsjahr;
   }
 
+  @Override
   public String toString()
   {
     return Einstellungen.DATEFORMAT.format(beginnGeschaeftsjahr) + " - "

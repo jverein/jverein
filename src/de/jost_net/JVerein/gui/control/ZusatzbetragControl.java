@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-01 13:30:08  jost
+ * Neu: PDF-Ausgabe der Zusatzbuchungen
+ *
  * Revision 1.4  2010/02/08 18:14:42  jost
  * JaNeinFormatter f. Zusatzzahlungen
  *
@@ -111,6 +114,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class ZusatzbetragControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private DateInput faelligkeit = null;
@@ -164,6 +168,7 @@ public class ZusatzbetragControl extends AbstractControl
     this.faelligkeit.setText("Bitte Fälligkeitsdatum wählen");
     this.faelligkeit.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) faelligkeit.getValue();
@@ -212,6 +217,7 @@ public class ZusatzbetragControl extends AbstractControl
     this.startdatum.setText("Bitte Startdatum wählen");
     this.startdatum.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) startdatum.getValue();
@@ -258,6 +264,7 @@ public class ZusatzbetragControl extends AbstractControl
     this.endedatum.setText("Bitte Startdatum wählen");
     this.endedatum.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) endedatum.getValue();
@@ -284,6 +291,7 @@ public class ZusatzbetragControl extends AbstractControl
     this.ausfuehrung.setText("Bitte Ausführungsdatum wählen");
     this.ausfuehrung.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) ausfuehrung.getValue();
@@ -315,7 +323,8 @@ public class ZusatzbetragControl extends AbstractControl
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         while (rs.next())
         {
@@ -326,9 +335,10 @@ public class ZusatzbetragControl extends AbstractControl
     };
     service.execute(sql, new Object[] {}, rs);
 
-    ausfuehrungSuch = new SelectInput(werte, (String) werte.elementAt(0));
+    ausfuehrungSuch = new SelectInput(werte, werte.elementAt(0));
     ausfuehrungSuch.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         try
@@ -352,8 +362,7 @@ public class ZusatzbetragControl extends AbstractControl
       Zusatzbetrag z = getZusatzbetrag();
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
       z.setStartdatum((Date) getStartdatum(false).getValue());
-      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall()
-          .getValue();
+      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall().getValue();
       z.setIntervall(iz.getKey());
       z.setEndedatum((Date) getEndedatum().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
@@ -384,6 +393,7 @@ public class ZusatzbetragControl extends AbstractControl
           new ZusatzbetraegeAction(null));
       zusatzbetraegeList.addColumn("Name", "mitglied", new Formatter()
       {
+
         public String format(Object o)
         {
           Mitglied m = (Mitglied) o;
@@ -428,7 +438,7 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.removeAll();
       while (zusatzbetraege.hasNext())
       {
-        zusatzbetraegeList.addItem((Zusatzbetrag) zusatzbetraege.next());
+        zusatzbetraegeList.addItem(zusatzbetraege.next());
       }
     }
     if (this.ausfuehrungSuch.getText().equals("Aktive"))
@@ -460,7 +470,7 @@ public class ZusatzbetragControl extends AbstractControl
       {
         Date d = Einstellungen.DATEFORMAT.parse(this.ausfuehrungSuch.getText());
         java.sql.Date sqd = new java.sql.Date(d.getTime());
-        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd });
+        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd});
       }
       catch (ParseException e)
       {
@@ -471,7 +481,6 @@ public class ZusatzbetragControl extends AbstractControl
     return zusatzbetraege;
   }
 
-  @SuppressWarnings("unchecked")
   private void nichtAktiveEliminieren(TablePart table) throws RemoteException
   {
     List li = table.getItems();
@@ -490,6 +499,7 @@ public class ZusatzbetragControl extends AbstractControl
   {
     Button b = new Button("&PDF-Ausgabe", new Action()
     {
+
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -511,15 +521,14 @@ public class ZusatzbetragControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("zusatzbetraege", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("zusatzbetraege", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -535,6 +544,7 @@ public class ZusatzbetragControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -591,6 +601,7 @@ public class ZusatzbetragControl extends AbstractControl
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
+
           public void run()
           {
             try
@@ -610,6 +621,7 @@ public class ZusatzbetragControl extends AbstractControl
 
       public void interrupt()
       {
+        //
       }
 
       public boolean isInterrupted()

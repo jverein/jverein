@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-09-09 18:51:13  jost
+ * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
+ *
  * Revision 1.1  2009/11/17 21:03:38  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -33,20 +36,25 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "eigenschaftgruppe";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -66,13 +74,14 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0) 
   {
     return null;
   }

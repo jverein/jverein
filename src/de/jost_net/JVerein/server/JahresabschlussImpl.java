@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-06-11 21:04:23  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2009/02/07 20:32:39  jost
  * Bugfix: Anfangsbestand kann auch innerhalb des Geschäftsjahres liegen.
  *
@@ -39,6 +42,7 @@ import de.willuhn.util.ApplicationException;
 public class JahresabschlussImpl extends AbstractDBObject implements
     Jahresabschluss
 {
+
   private static final long serialVersionUID = 1L;
 
   public JahresabschlussImpl() throws RemoteException
@@ -46,30 +50,31 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "jahresabschluss";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
+  @Override
   protected void deleteCheck() throws ApplicationException
   {
     try
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Jahresabschluss.class);
-      it.addFilter("von > ?", new Object[] { getVon() });
+      it.addFilter("von > ?", new Object[] { getVon()});
       if (it.hasNext())
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr(
-                    "Jahresabschluss kann nicht gelöscht werden. Es existieren neuere Abschlüsse!"));
+            JVereinPlugin.getI18n().tr(
+                "Jahresabschluss kann nicht gelöscht werden. Es existieren neuere Abschlüsse!"));
       }
     }
     catch (RemoteException e)
@@ -81,6 +86,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
 
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -88,10 +94,8 @@ public class JahresabschlussImpl extends AbstractDBObject implements
       if (hasBuchungenOhneBuchungsart())
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr(
-                    "Achtung! Es existieren noch Buchungen ohne Buchungsart. Kein Abschluss möglich!"));
+            JVereinPlugin.getI18n().tr(
+                "Achtung! Es existieren noch Buchungen ohne Buchungsart. Kein Abschluss möglich!"));
       }
       if (getName() == null || getName().length() == 0)
       {
@@ -107,14 +111,14 @@ public class JahresabschlussImpl extends AbstractDBObject implements
         Konto k1 = (Konto) it.next();
         DBIterator anfangsbestaende = Einstellungen.getDBService().createList(
             Anfangsbestand.class);
-        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID() });
-        anfangsbestaende.addFilter("datum >= ?", new Object[] { gj
-            .getBeginnGeschaeftsjahr() });
+        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID()});
+        anfangsbestaende.addFilter("datum >= ?",
+            new Object[] { gj.getBeginnGeschaeftsjahr()});
         if (!anfangsbestaende.hasNext())
         {
           throw new ApplicationException(JVereinPlugin.getI18n().tr(
               "Für Konto {0} {1} fehlt der Anfangsbestand.",
-              new String[] { k1.getNummer(), k1.getBezeichnung() }));
+              new String[] { k1.getNummer(), k1.getBezeichnung()}));
         }
       }
     }
@@ -132,6 +136,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
@@ -140,14 +145,14 @@ public class JahresabschlussImpl extends AbstractDBObject implements
   private boolean hasBuchungenOhneBuchungsart() throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-    it.addFilter("datum >= ?", new Object[] { getVon() });
-    it.addFilter("datum <= ?", new Object[] { getBis() });
+    it.addFilter("datum >= ?", new Object[] { getVon()});
+    it.addFilter("datum <= ?", new Object[] { getBis()});
     it.addFilter("buchungsart is null");
     return it.hasNext();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String field) throws RemoteException
+  @Override
+  protected Class getForeignObject(String field)
   {
     return null;
   }
@@ -192,6 +197,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     setAttribute("name", name);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

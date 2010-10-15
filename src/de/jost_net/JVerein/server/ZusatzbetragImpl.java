@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009-06-11 21:04:23  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2009/02/12 22:17:26  jost
  * Vermeidung NPE
  *
@@ -60,20 +63,25 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "zusatzabbuchung";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck() 
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -133,13 +141,14 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {
@@ -236,6 +245,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     setAttribute("ausfuehrung", ausfuehrung);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     if (fieldName.equals("intervalltext"))

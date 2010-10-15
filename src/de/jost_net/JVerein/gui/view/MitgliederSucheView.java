@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.24  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -127,10 +130,10 @@ import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
 import de.willuhn.jameica.system.Settings;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractView
 {
+
   private TabFolder folder = null;
 
   private TablePart[] p;
@@ -141,8 +144,9 @@ public class MitgliederSucheView extends AbstractView
 
   private final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H",
       "I", "J", "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U",
-      "Ü", "V", "W", "X", "Y", "Z", "*" };
+      "Ü", "V", "W", "X", "Y", "Z", "*"};
 
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Suche Mitglied"));
@@ -153,14 +157,14 @@ public class MitgliederSucheView extends AbstractView
     DBService service = Einstellungen.getDBService();
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
         return new Long(rs.getLong(1));
       }
     };
-    Long anzahlbeitragsgruppe = (Long) service
-        .execute(sql, new Object[] {}, rs);
+    Long anzahlbeitragsgruppe = (Long) service.execute(sql, new Object[] {}, rs);
     if (anzahlbeitragsgruppe.longValue() == 0)
     {
       new LabelInput(JVereinPlugin.getI18n().tr(
@@ -170,7 +174,8 @@ public class MitgliederSucheView extends AbstractView
 
     rs = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
         return new Long(rs.getLong(1));
@@ -185,8 +190,7 @@ public class MitgliederSucheView extends AbstractView
     Input mitglstat = control.getMitgliedStatus();
     mitglstat.addListener(new FilterListener(control));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedschaft"), mitglstat);
-    IntegerInput suchexternemitgliedsnummer = control
-        .getSuchExterneMitgliedsnummer();
+    IntegerInput suchexternemitgliedsnummer = control.getSuchExterneMitgliedsnummer();
     suchexternemitgliedsnummer.addListener(new FilterListener(control));
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
@@ -253,6 +257,7 @@ public class MitgliederSucheView extends AbstractView
       folder.setSelection(si);
       folder.addSelectionListener(new SelectionListener()
       {
+
         public void widgetDefaultSelected(SelectionEvent e)
         {
           //
@@ -276,10 +281,6 @@ public class MitgliederSucheView extends AbstractView
       buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
           new MitgliedDetailAction(), null, false, "document-new.png");
     }
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   private void TabRefresh(MitgliedControl control, int index)
@@ -314,6 +315,7 @@ public class MitgliederSucheView extends AbstractView
 
   private class FilterListener implements Listener
   {
+
     private MitgliedControl control;
 
     FilterListener(MitgliedControl control)

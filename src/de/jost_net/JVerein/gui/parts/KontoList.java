@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009-06-11 21:03:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/05/22 06:51:59  jost
  * Buchführung
  *
@@ -54,6 +57,7 @@ public class KontoList extends TablePart implements Part
   /**
    * @see de.willuhn.jameica.gui.Part#paint(org.eclipse.swt.widgets.Composite)
    */
+  @Override
   public synchronized void paint(Composite parent) throws RemoteException
   {
     super.paint(parent);

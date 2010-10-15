@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008-11-29 13:18:17  jost
+ * Neu: Konfiguration der Spalten einer Tabelle
+ *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -42,6 +45,7 @@ public class Spalte
     this.align = align;
   }
 
+  @Override
   public boolean equals(Object arg0)
   {
     if (arg0 == null || !(arg0 instanceof Spalte))

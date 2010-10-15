@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009-06-11 21:04:23  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2009/04/13 11:41:02  jost
  * Neu: Lehrgänge
  *
@@ -33,25 +36,31 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "lehrgangsart";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "bezeichnung";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck() 
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     updateCheck();
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     try
@@ -71,8 +80,8 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0) 
   {
     return null;
   }
@@ -117,6 +126,7 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
     setAttribute("veranstalter", veranstalter);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

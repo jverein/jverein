@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-09-19 16:28:56  jost
+ * Weiterentwicklung
+ *
  * Revision 1.3  2009/09/15 19:24:25  jost
  * Saldo-Bildung
  *
@@ -32,6 +35,7 @@ import de.willuhn.datasource.GenericObject;
  */
 public class BuchungsklasseSaldoZeile implements GenericObject
 {
+
   private Buchungsklasse buchungsklasse;
 
   private Buchungsart buchungsart;
@@ -161,11 +165,11 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     throw new RemoteException("Ungültige Spaltenbezeichung: " + arg0);
   }
 
-  public String[] getAttributeNames() throws RemoteException
+  public String[] getAttributeNames()
   {
     return new String[] { "buchungsklassenbezeichnung",
         "buchungsartbezeichnung", "anfangsbestand", "einnahmen", "ausgaben",
-        "umbuchungen", "anzahlbuchungen" };
+        "umbuchungen", "anzahlbuchungen"};
   }
 
   public String getID() throws RemoteException
@@ -173,7 +177,7 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     return buchungsklasse.getID();
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  public String getPrimaryAttribute()
   {
     return "buchungsklasse";
   }

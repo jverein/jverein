@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.7  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -43,10 +46,11 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class RechnungDetailView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle("Rechnungsinformationen");
@@ -55,13 +59,13 @@ public class RechnungDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Beitrag"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Zweck1"), control
-        .getZweck1(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Zweck2"), control
-        .getZweck2());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zweck1"),
+        control.getZweck1(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zweck2"),
+        control.getZweck2());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-        .getBetrag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+        control.getBetrag());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
@@ -72,16 +76,14 @@ public class RechnungDetailView extends AbstractView
         new RechnungListeAction(), null, false, "system-search.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
   }
 
-  public void unbind() throws ApplicationException
-  {
-  }
   // TODO getHelp()
 
 }

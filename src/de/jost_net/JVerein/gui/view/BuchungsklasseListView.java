@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-07 19:49:24  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.2  2010-08-23 13:39:33  jost
  * Optimierung Tastatursteuerung
  *
@@ -26,10 +29,11 @@ import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.util.ApplicationException;
 
 public class BuchungsklasseListView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsklassen"));
@@ -46,10 +50,6 @@ public class BuchungsklasseListView extends AbstractView
 
     buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
         new BuchungsklasseAction(), null, false, "document-new.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

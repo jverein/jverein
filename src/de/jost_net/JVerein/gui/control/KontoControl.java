@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-19 16:14:31  jost
+ * L‰nge der Kontobezeichnung auf 255  Zeichen verl‰ngert.
+ *
  * Revision 1.2  2008/05/26 18:58:39  jost
  * Neu: Er√∂ffnungsdatum
  *
@@ -42,6 +45,7 @@ import de.willuhn.util.ApplicationException;
 
 public class KontoControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private TablePart kontenList;
@@ -214,7 +218,7 @@ public class KontoControl extends AbstractControl
     konten.setOrder("ORDER BY nummer");
     while (konten.hasNext())
     {
-      kontenList.addItem((Konto) konten.next());
+      kontenList.addItem(konten.next());
     }
   }
 

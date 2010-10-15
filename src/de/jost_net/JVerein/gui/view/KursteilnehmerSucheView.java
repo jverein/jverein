@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.8  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -36,7 +39,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -52,11 +54,11 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class KursteilnehmerSucheView extends AbstractView
 {
 
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Suche Kursteilnehmer"));
@@ -67,7 +69,8 @@ public class KursteilnehmerSucheView extends AbstractView
     DBService service = Einstellungen.getDBService();
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
         return new Long(rs.getLong(1));
@@ -77,12 +80,12 @@ public class KursteilnehmerSucheView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Filter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
-        .getSuchname());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Eingabedatum von"), control
-        .getEingabedatumvon());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Eingabedatum bis"), control
-        .getEingabedatumbis());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getSuchname());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Eingabedatum von"),
+        control.getEingabedatumvon());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Eingabedatum bis"),
+        control.getEingabedatumbis());
 
     if (anzahl.longValue() > 0)
     {
@@ -95,10 +98,6 @@ public class KursteilnehmerSucheView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
         new KursteilnehmerDetailAction(), null, false, "document-new.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

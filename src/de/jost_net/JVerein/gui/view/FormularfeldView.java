@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.5  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -37,17 +40,18 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class FormularfeldView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Formularfeld"));
     Formularfeld ff = (Formularfeld) getCurrentObject();
 
-    final FormularfeldControl control = new FormularfeldControl(this, ff
-        .getFormular());
+    final FormularfeldControl control = new FormularfeldControl(this,
+        ff.getFormular());
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Formularfeld"));
@@ -55,8 +59,8 @@ public class FormularfeldView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("von links"), control.getX());
     group.addLabelPair(JVereinPlugin.getI18n().tr("von unten"), control.getY());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Font"), control.getFont());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Font-Höhe"), control
-        .getFontsize());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Font-Höhe"),
+        control.getFontsize());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
@@ -65,15 +69,12 @@ public class FormularfeldView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

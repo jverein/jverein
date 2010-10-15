@@ -9,10 +9,11 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-10-10 08:53:02  jost
+ * Kontoauszugsinformationen en Bloc zuweisen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
-
-import java.rmi.RemoteException;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -26,13 +27,13 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Dialog zur Zuordnung der Kontoauszugsinformationen (Auszug/Blatt)
  */
 public class KontoauszugZuordnungDialog extends AbstractDialog
 {
+
   private IntegerInput auszug = null;
 
   private Integer intAuszug;
@@ -57,6 +58,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     setSize(400, 225);
   }
 
+  @Override
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup group = new LabelGroup(parent, "");
@@ -69,7 +71,8 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     ButtonArea buttons = new ButtonArea(parent, 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         intAuszug = (Integer) auszug.getValue();
         if (intAuszug.intValue() <= 0)
@@ -85,22 +88,16 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
           status.setColor(Color.ERROR);
           return;
         }
-        try
-        {
-          intAuszug = (Integer) getAuszug().getValue();
-          intBlatt = (Integer) getBlatt().getValue();
-          ueberschr = (Boolean) getUeberschreiben().getValue();
-        }
-        catch (RemoteException e)
-        {
-          throw new ApplicationException(e);
-        }
+        intAuszug = (Integer) getAuszug().getValue();
+        intBlatt = (Integer) getBlatt().getValue();
+        ueberschr = (Boolean) getUeberschreiben().getValue();
         close();
       }
     }, null, true);
     buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         throw new OperationCanceledException();
       }
@@ -111,6 +108,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
   /**
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
+  @Override
   public Object getData() throws Exception
   {
     return null;
@@ -131,7 +129,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     return ueberschr;
   }
 
-  private IntegerInput getAuszug() throws RemoteException
+  private IntegerInput getAuszug()
   {
     if (auszug != null)
     {
@@ -141,7 +139,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     return auszug;
   }
 
-  private IntegerInput getBlatt() throws RemoteException
+  private IntegerInput getBlatt()
   {
     if (blatt != null)
     {
@@ -151,7 +149,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     return blatt;
   }
 
-  private LabelInput getStatus() throws RemoteException
+  private LabelInput getStatus()
   {
     if (status != null)
     {
@@ -161,7 +159,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     return status;
   }
 
-  private CheckboxInput getUeberschreiben() throws RemoteException
+  private CheckboxInput getUeberschreiben()
   {
     if (ueberschreiben != null)
     {

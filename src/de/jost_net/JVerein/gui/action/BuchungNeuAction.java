@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008-05-22 06:45:47  jost
+ * Buchführung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -19,11 +22,11 @@ import de.jost_net.JVerein.gui.view.BuchungView;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class BuchungNeuAction implements Action
 {
-  public void handleAction(Object context) throws ApplicationException
+
+  public void handleAction(Object context)
   {
     Buchung buch;
     try

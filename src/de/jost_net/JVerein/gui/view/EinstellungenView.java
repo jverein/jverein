@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.32  2010-08-27 19:07:50  jost
  * neu: Mitgliedsfoto
  *
@@ -122,10 +125,11 @@ import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
-import de.willuhn.util.ApplicationException;
 
 public class EinstellungenView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Einstellungen"));
@@ -140,8 +144,8 @@ public class EinstellungenView extends AbstractView
     TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Anzeige"));
 
-    LabelGroup group = new LabelGroup(tabAnzeige.getComposite(), JVereinPlugin
-        .getI18n().tr("Anzeige"));
+    LabelGroup group = new LabelGroup(tabAnzeige.getComposite(),
+        JVereinPlugin.getI18n().tr("Anzeige"));
     ColumnLayout cols1 = new ColumnLayout(group.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
@@ -149,14 +153,16 @@ public class EinstellungenView extends AbstractView
         control.getGeburtsdatumPflicht());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum Pflichtfeld"),
         control.getEintrittsdatumPflicht());
-    left.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Kommunikationsdaten anzeigen"), control.getKommunikationsdaten());
+    left.addLabelPair(
+        JVereinPlugin.getI18n().tr("Kommunikationsdaten anzeigen"),
+        control.getKommunikationsdaten());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge anzeigen")
         + "*", control.getZusatzbetrag());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Vermerke anzeigen"), control
-        .getVermerke());
-    left.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Wiedervorlage anzeigen" + "*"), control.getWiedervorlage());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Vermerke anzeigen"),
+        control.getVermerke());
+    left.addLabelPair(
+        JVereinPlugin.getI18n().tr("Wiedervorlage anzeigen" + "*"),
+        control.getWiedervorlage());
     left.addLabelPair(JVereinPlugin.getI18n().tr(
         "Kursteilnehmer anzeigen" + "*"), control.getKursteilnehmer());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Lehrgänge anzeigen" + "*"),
@@ -164,10 +170,10 @@ public class EinstellungenView extends AbstractView
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
         "Juristische Personen erlaubt"), control.getJuristischePersonen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"), control
-        .getMitgliedskonto());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"), control
-        .getMitgliedfoto());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"),
+        control.getMitgliedskonto());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"),
+        control.getMitgliedfoto());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
         "manuelle Zahlungen reaktivieren*"), control.getManuelleZahlungen());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
@@ -175,11 +181,11 @@ public class EinstellungenView extends AbstractView
     right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "aktuelle Geburtstage - Tage vorher"), control
-        .getAktuelleGeburtstageVorher());
+        "aktuelle Geburtstage - Tage vorher"),
+        control.getAktuelleGeburtstageVorher());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "aktuelle Geburtstage - Tage nachher"), control
-        .getAktuelleGeburtstageNachher());
+        "aktuelle Geburtstage - Tage nachher"),
+        control.getAktuelleGeburtstageNachher());
     right.addHeadline("* "
         + JVereinPlugin.getI18n().tr("Änderung erfordert Neustart"));
 
@@ -187,8 +193,8 @@ public class EinstellungenView extends AbstractView
         "Beiträge"));
     LabelGroup groupAbu = new LabelGroup(tabBeitraege.getComposite(),
         JVereinPlugin.getI18n().tr("Beiträge"));
-    groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"), control
-        .getBeitragsmodel());
+    groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"),
+        control.getBeitragsmodel());
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
 
@@ -196,15 +202,16 @@ public class EinstellungenView extends AbstractView
         "Dateinamen"));
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
         JVereinPlugin.getI18n().tr("Dateinamen"));
-    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Muster"), control
-        .getDateinamenmuster());
+    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Muster"),
+        control.getDateinamenmuster());
     groupDatei.addText("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit",
         true);
 
     TabGroup tabBuchfuehrung = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Buchführung"));
-    LabelGroup groupBuchfuehrung = new LabelGroup(tabBuchfuehrung
-        .getComposite(), JVereinPlugin.getI18n().tr("Buchführung"));
+    LabelGroup groupBuchfuehrung = new LabelGroup(
+        tabBuchfuehrung.getComposite(), JVereinPlugin.getI18n().tr(
+            "Buchführung"));
     groupBuchfuehrung.addLabelPair(JVereinPlugin.getI18n().tr(
         "Beginn Geschäftsjahr (TT.MM.)"), control.getBeginnGeschaeftsjahr());
 
@@ -216,18 +223,16 @@ public class EinstellungenView extends AbstractView
     {
       groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
           "für Zahlungsweg Abbuchung"), control.getRechnungFuerAbbuchung());
-      groupRechnungen
-          .addLabelPair(JVereinPlugin.getI18n().tr(
-              "für Zahlungsweg Überweisung"), control
-              .getRechnungFuerUeberweisung());
+      groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
+          "für Zahlungsweg Überweisung"), control.getRechnungFuerUeberweisung());
       groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
           "für Zahlungsweg Barzahlung"), control.getRechnungFuerBarzahlung());
     }
     groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Abbuchung"),
         control.getRechnungTextAbbuchung());
     groupRechnungen.addLabelPair(
-        JVereinPlugin.getI18n().tr("Text Überweisung"), control
-            .getRechnungTextUeberweisung());
+        JVereinPlugin.getI18n().tr("Text Überweisung"),
+        control.getRechnungTextUeberweisung());
     groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Bar"),
         control.getRechnungTextBar());
 
@@ -237,15 +242,15 @@ public class EinstellungenView extends AbstractView
     TabFolder folderTabellen = new TabFolder(tabTabellen.getComposite(),
         SWT.NONE);
 
-    TabGroup tabMitglieder = new TabGroup(folderTabellen, JVereinPlugin
-        .getI18n().tr("Mitglieder"));
+    TabGroup tabMitglieder = new TabGroup(folderTabellen,
+        JVereinPlugin.getI18n().tr("Mitglieder"));
     LabelGroup groupMitglieder = new LabelGroup(tabMitglieder.getComposite(),
         JVereinPlugin.getI18n().tr("Trefferliste Mitglieder"));
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
 
     TabGroup tabMail = new TabGroup(folder, JVereinPlugin.getI18n().tr("Mail"));
-    LabelGroup groupMail = new LabelGroup(tabMail.getComposite(), JVereinPlugin
-        .getI18n().tr("Mail"));
+    LabelGroup groupMail = new LabelGroup(tabMail.getComposite(),
+        JVereinPlugin.getI18n().tr("Mail"));
     groupMail.addLabelPair("Server", control.getSmtpServer());
     groupMail.addLabelPair("Port", control.getSmtpPort());
     groupMail.addLabelPair("Benutzer", control.getSmtpAuthUser());
@@ -260,15 +265,12 @@ public class EinstellungenView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

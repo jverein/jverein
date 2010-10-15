@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009-06-11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/12/22 21:07:33  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -79,8 +82,7 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
         return;
       }
 
-      Date vorh = Datum.addInterval(z.getFaelligkeit(), z.getIntervall(), z
-          .getEndedatum());
+      Date vorh = Datum.addInterval(z.getFaelligkeit(), z.getIntervall());
       if (vorh == null)
       {
         GUI.getStatusBar().setErrorText(

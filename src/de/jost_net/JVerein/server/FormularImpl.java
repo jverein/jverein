@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009-06-11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/11/29 13:15:55  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -35,20 +38,25 @@ public class FormularImpl extends AbstractDBObject implements Formular
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "formular";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute() 
   {
     return "bezeichnung";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck() 
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -66,6 +74,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
     updateCheck();
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     try
@@ -85,8 +94,8 @@ public class FormularImpl extends AbstractDBObject implements Formular
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0) 
   {
     return null;
   }
@@ -126,6 +135,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
     setAttribute("art", art);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

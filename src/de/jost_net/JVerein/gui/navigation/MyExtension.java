@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2010-08-16 20:17:14  jost
+ * Neu: Mahnung
+ *
  * Revision 1.29  2010-08-15 19:01:13  jost
  * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
  *
@@ -179,10 +182,8 @@ public class MyExtension implements Extension
       }
       if (Einstellungen.getEinstellung().getMitgliedskonto())
       {
-        jverein
-            .addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-                "Mitgliedskonten"), new MitgliedskontoListeAction(),
-                "rechnung.png"));
+        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+            "Mitgliedskonten"), new MitgliedskontoListeAction(), "rechnung.png"));
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
             "Rechnungen"), new MitgliedskontoRechnungAction(), "rechnung.png"));
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
@@ -241,8 +242,8 @@ public class MyExtension implements Extension
       mail = new MyItem(mail, JVereinPlugin.getI18n().tr("Mail"), null);
       mail.addChild(new MyItem(mail, JVereinPlugin.getI18n().tr("Mails"),
           new MailListeAction()));
-      mail.addChild(new MyItem(mail, JVereinPlugin.getI18n()
-          .tr("Mail-Vorlagen"), new MailVorlagenAction()));
+      mail.addChild(new MyItem(mail,
+          JVereinPlugin.getI18n().tr("Mail-Vorlagen"), new MailVorlagenAction()));
       mail.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Adressbuchexport"), new AdressbuchExportAction(),
           "document-open.png"));
@@ -251,63 +252,69 @@ public class MyExtension implements Extension
       NavigationItem buchfuehrung = null;
       buchfuehrung = new MyItem(buchfuehrung, JVereinPlugin.getI18n().tr(
           "Buchführung"), null);
-      buchfuehrung.addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n()
-          .tr("Konten"), new KontoListAction(), "system-file-manager.png"));
-      buchfuehrung
-          .addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n().tr(
-              "Anfangsbestand"), new AnfangsbestandListAction(), "tab-new.png"));
-      buchfuehrung.addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n()
-          .tr("Buchungsübernahme"), new BuchungsuebernahmeAction(),
-          "view-refresh.png"));
-      buchfuehrung.addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n()
-          .tr("Buchungen"), new BuchungsListeAction(),
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Konten"), new KontoListAction(),
+          "system-file-manager.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Anfangsbestand"),
+          new AnfangsbestandListAction(), "tab-new.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Buchungsübernahme"),
+          new BuchungsuebernahmeAction(), "view-refresh.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Buchungen"), new BuchungsListeAction(),
           "preferences-system-windows.png"));
-      buchfuehrung
-          .addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n().tr(
-              "Buchungsklassen"), new BuchungsklasseSaldoAction(), "summe.png"));
-      buchfuehrung.addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n()
-          .tr("Jahressaldo"), new JahressaldoAction(), "summe.png"));
-      buchfuehrung
-          .addChild(new MyItem(buchfuehrung, JVereinPlugin.getI18n().tr(
-              "Jahresabschluss"), new JahresabschlussListAction(), "summe.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Buchungsklassen"),
+          new BuchungsklasseSaldoAction(), "summe.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Jahressaldo"), new JahressaldoAction(),
+          "summe.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung,
+          JVereinPlugin.getI18n().tr("Jahresabschluss"),
+          new JahresabschlussListAction(), "summe.png"));
       jverein.addChild(buchfuehrung);
 
       NavigationItem einstellungen = null;
       einstellungen = new MyItem(einstellungen, JVereinPlugin.getI18n().tr(
           "Administration"), null);
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Stammdaten"), new StammdatenAction(), "home_nav.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Beitragsgruppe"), new BeitragsgruppeSucheAction(),
-          "breakpoint_view.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Buchungsklasse"), new BuchungsklasseListAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Buchungsart"), new BuchungsartListAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Eigenschaften-Gruppen"), new EigenschaftGruppeListeAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Eigenschaften"), new EigenschaftListeAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Einstellungen"), new EinstellungenAction(), "settings.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Felddefinitionen"), new FelddefinitionenAction(),
-          "category_obj.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Formulare"), new FormularListeAction(), "layout_co.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Lehrgangsarten"), new LehrgangsartListeAction(),
-          "x-office-presentation.png"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Import"), new MitgliedImportAction(), "import_obj.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Stammdaten"), new StammdatenAction(),
+          "home_nav.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Beitragsgruppe"),
+          new BeitragsgruppeSucheAction(), "breakpoint_view.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Buchungsklasse"),
+          new BuchungsklasseListAction(), "activity_category.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Buchungsart"),
+          new BuchungsartListAction(), "activity_category.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Eigenschaften-Gruppen"),
+          new EigenschaftGruppeListeAction(), "activity_category.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Eigenschaften"),
+          new EigenschaftListeAction(), "activity_category.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Einstellungen"),
+          new EinstellungenAction(), "settings.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Felddefinitionen"),
+          new FelddefinitionenAction(), "category_obj.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Formulare"), new FormularListeAction(),
+          "layout_co.gif"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Lehrgangsarten"),
+          new LehrgangsartListeAction(), "x-office-presentation.png"));
+      einstellungen.addChild(new MyItem(einstellungen,
+          JVereinPlugin.getI18n().tr("Import"), new MitgliedImportAction(),
+          "import_obj.gif"));
 
       NavigationItem einstellungenerweitert = null;
-      einstellungenerweitert = new MyItem(einstellungenerweitert, JVereinPlugin
-          .getI18n().tr("Erweitert"), null);
+      einstellungenerweitert = new MyItem(einstellungenerweitert,
+          JVereinPlugin.getI18n().tr("Erweitert"), null);
       einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
           JVereinPlugin.getI18n().tr("Diagnose-Backup erstellen"),
           new BackupCreateAction(), "thread_obj.gif"));

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.46  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.45  2010-10-05 05:53:16  jost
  * Mitgliedskonto nur bei nicht neuen Datensätzen
  *
@@ -181,12 +184,13 @@ import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliedDetailView extends AbstractView
 {
+
   private static int tabindex = -1;
 
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Daten des Mitgliedes"));
@@ -281,8 +285,8 @@ public class MitgliedDetailView extends AbstractView
     }
     if (!control.getMitglied().isNewObject())
     {
-      TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
-          .tr("Mitgliedskonto"));
+      TabGroup tabMitgliedskonto = new TabGroup(folder,
+          JVereinPlugin.getI18n().tr("Mitgliedskonto"));
       controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
           tabMitgliedskonto.getComposite());
     }
@@ -290,10 +294,10 @@ public class MitgliedDetailView extends AbstractView
     {
       TabGroup tab5 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Vermerke"));
-      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"), control
-          .getVermerk1());
-      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"), control
-          .getVermerk2());
+      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"),
+          control.getVermerk1());
+      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"),
+          control.getVermerk2());
     }
 
     if (Einstellungen.getEinstellung().getWiedervorlage())
@@ -311,11 +315,10 @@ public class MitgliedDetailView extends AbstractView
       TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Eigenschaften"));
       SimpleContainer sc = new SimpleContainer(tab7.getComposite(), true);
-      ScrolledContainer scrolledEigenschaften = new ScrolledContainer(sc
-          .getComposite());
+      ScrolledContainer scrolledEigenschaften = new ScrolledContainer(
+          sc.getComposite());
       scrolledEigenschaften.getComposite().setSize(300, 200);
-      control.getEigenschaftenTree()
-          .paint(scrolledEigenschaften.getComposite());
+      control.getEigenschaftenTree().paint(scrolledEigenschaften.getComposite());
     }
     Input[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
@@ -349,6 +352,7 @@ public class MitgliedDetailView extends AbstractView
     }
     folder.addSelectionListener(new SelectionListener()
     {
+
       public void widgetSelected(SelectionEvent arg0)
       {
         tabindex = folder.getSelectionIndex();
@@ -374,15 +378,12 @@ public class MitgliedDetailView extends AbstractView
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

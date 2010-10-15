@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-02-08 10:31:50  jost
+ * Bugfix Gesamtsumme
+ *
  * Revision 1.3  2008/12/30 11:28:23  jost
  * Summenzeilen korrekt ausgeben. Bug #14978
  *
@@ -70,11 +73,12 @@ import de.willuhn.util.ProgressMonitor;
 
 public class BuchungAuswertungPDFEinzelbuchungen
 {
+
   private double summe = 0;
 
   public BuchungAuswertungPDFEinzelbuchungen(DBIterator list, final File file,
       ProgressMonitor monitor, Konto konto, Buchungsart buchungsart, Date dVon,
-      Date dBis) throws ApplicationException, RemoteException
+      Date dBis) throws ApplicationException
   {
     try
     {
@@ -111,6 +115,7 @@ public class BuchungAuswertungPDFEinzelbuchungen
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         public void run()
         {
           try
@@ -183,18 +188,18 @@ public class BuchungAuswertungPDFEinzelbuchungen
 
     reporter.add(pBuchungsart);
     DBIterator listb = Einstellungen.getDBService().createList(Buchung.class);
-    listb.addFilter("datum >= ?", new Object[] { new java.sql.Date(dVon
-        .getTime()) });
-    listb.addFilter("datum <= ?", new Object[] { new java.sql.Date(dBis
-        .getTime()) });
+    listb.addFilter("datum >= ?", new Object[] { new java.sql.Date(
+        dVon.getTime())});
+    listb.addFilter("datum <= ?", new Object[] { new java.sql.Date(
+        dBis.getTime())});
     if (konto != null)
     {
-      listb.addFilter("konto = ?", new Object[] { konto.getID() });
+      listb.addFilter("konto = ?", new Object[] { konto.getID()});
     }
     if (list != null)
     {
       listb.addFilter("buchungsart = ?",
-          new Object[] { new Integer(ba.getID()) });
+          new Object[] { new Integer(ba.getID())});
     }
     else
     {

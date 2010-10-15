@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2010-10-07 19:49:24  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.24  2010-08-23 13:38:02  jost
  * Optimierung Tastatursteuerung
  *
@@ -85,7 +88,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -105,13 +107,16 @@ import de.willuhn.util.ApplicationException;
 
 public class AbbuchungView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     String sql = "select count(*) from stammdaten";
     DBService service = Einstellungen.getDBService();
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
         return new Long(rs.getLong(1));
@@ -121,10 +126,8 @@ public class AbbuchungView extends AbstractView
     if (anzahl.longValue() == 0)
     {
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr(
-                  "Stammdaten fehlen. Bitte unter Plugins|JVerein|Stammdaten erfassen."));
+          JVereinPlugin.getI18n().tr(
+              "Stammdaten fehlen. Bitte unter Plugins|JVerein|Stammdaten erfassen."));
     }
 
     GUI.getView().setTitle("Abrechnung");
@@ -133,23 +136,23 @@ public class AbbuchungView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Parameter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Modus"), control
-        .getAbbuchungsmodus());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"), control
-        .getStichtag());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Von Eingabedatum"), control
-        .getVondatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Modus"),
+        control.getAbbuchungsmodus());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"),
+        control.getStichtag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Von Eingabedatum"),
+        control.getVondatum());
     group.addLabelPair(
-        JVereinPlugin.getI18n().tr("Zahlungsgrund für Beiträge"), control
-            .getZahlungsgrund());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge"), control
-        .getZusatzbetrag());
+        JVereinPlugin.getI18n().tr("Zahlungsgrund für Beiträge"),
+        control.getZahlungsgrund());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge"),
+        control.getZusatzbetrag());
     if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
       control.getZusatzbetrag().setEnabled(false);
     }
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Kursteilnehmer"), control
-        .getKursteilnehmer());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Kursteilnehmer"),
+        control.getKursteilnehmer());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Dtaus-Datei drucken"),
         control.getDtausPrint());
 
@@ -157,16 +160,13 @@ public class AbbuchungView extends AbstractView
     {
       control.getKursteilnehmer().setEnabled(false);
     }
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Abbuchungsausgabe"), control
-        .getAbbuchungsausgabe());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Abbuchungsausgabe"),
+        control.getAbbuchungsausgabe());
     group.addSeparator();
-    group
-        .addText(
-            JVereinPlugin
-                .getI18n()
-                .tr(
-                    "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
-                        + "Üblicherweise 1.1. des Jahres."), true);
+    group.addText(
+        JVereinPlugin.getI18n().tr(
+            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
+                + "Üblicherweise 1.1. des Jahres."), true);
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
@@ -179,10 +179,6 @@ public class AbbuchungView extends AbstractView
         new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartButton());
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

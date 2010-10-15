@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-06-11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2008/11/29 13:14:38  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -40,6 +43,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class MitgliedSearchProvider implements SearchProvider
 {
+
   /**
    * @see de.willuhn.jameica.search.SearchProvider#getName()
    */
@@ -49,8 +53,7 @@ public class MitgliedSearchProvider implements SearchProvider
   }
 
   @SuppressWarnings("unchecked")
-  public List search(String search) throws RemoteException,
-      ApplicationException
+  public List search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
       return null;
@@ -59,7 +62,7 @@ public class MitgliedSearchProvider implements SearchProvider
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vorname) LIKE ? OR "
         + "ort LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?", new String[] {
-        text, text, text, text, text });
+        text, text, text, text, text});
 
     ArrayList results = new ArrayList();
     while (list.hasNext())
@@ -74,6 +77,7 @@ public class MitgliedSearchProvider implements SearchProvider
    */
   private class MyResult implements Result
   {
+
     private static final long serialVersionUID = -1084818772620611937L;
 
     private Mitglied m = null;
@@ -83,7 +87,7 @@ public class MitgliedSearchProvider implements SearchProvider
       this.m = m;
     }
 
-    public void execute() throws RemoteException, ApplicationException
+    public void execute() throws ApplicationException
     {
       new MitgliedDetailAction().handleAction(this.m);
     }

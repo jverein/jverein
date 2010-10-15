@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2010-10-01 16:18:18  jost
+ * Bugfix
+ *
  * Revision 1.22  2010-09-14 06:19:10  jost
  * Hilfe f. Mitgliedskonto
  *
@@ -81,10 +84,6 @@ package de.jost_net.JVerein.gui.view;
 
 public class DokumentationUtil
 {
-  public DokumentationUtil()
-  {
-
-  }
 
   private static final String PRE = "http://www.jverein.de/";
 
@@ -95,7 +94,7 @@ public class DokumentationUtil
 
   public static final String RECHNUNG = PRE + "mitgliedskonto.php#rechnung";
 
-  public static final String MAHNUNG= PRE + "mitgliedskonto.php#mahnung";
+  public static final String MAHNUNG = PRE + "mitgliedskonto.php#mahnung";
 
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
       + "dokumentationauswertungkursteilnehmer.php";

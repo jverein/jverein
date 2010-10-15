@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-09-13 18:43:13  jost
+ * Neue Methode
+ *
  * Revision 1.4  2008/01/01 12:36:50  jost
  * Javadoc korrigiert
  *
@@ -61,8 +64,7 @@ public class Datum
     return getDifferenzInMonaten(datum1, datum2) % intervall == 0;
   }
 
-  public static Date addInterval(Date letztefaelligkeit, int intervall,
-      Date endedatum)
+  public static Date addInterval(Date letztefaelligkeit, int intervall)
   {
     Calendar cal = Calendar.getInstance();
     cal.setTime(letztefaelligkeit);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-02-25 18:58:06  jost
+ * Neu: Suche f. Mails
+ *
  **********************************************************************/
 package de.jost_net.JVerein.search;
 
@@ -31,13 +34,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class MailSearchProvider implements SearchProvider
 {
+
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Mails");
   }
 
-  public List<MyResult> search(String search) throws RemoteException,
-      ApplicationException
+  public List<MyResult> search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
     {
@@ -47,7 +50,7 @@ public class MailSearchProvider implements SearchProvider
     String text = "%" + search.toLowerCase() + "%";
     DBIterator list = Einstellungen.getDBService().createList(Mail.class);
     list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", new String[] {
-        text, text });
+        text, text});
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -62,6 +65,7 @@ public class MailSearchProvider implements SearchProvider
    */
   private class MyResult implements Result
   {
+
     private static final long serialVersionUID = -1685817053590491168L;
 
     private Mail m = null;
@@ -71,7 +75,7 @@ public class MailSearchProvider implements SearchProvider
       this.m = m;
     }
 
-    public void execute() throws RemoteException, ApplicationException
+    public void execute() throws ApplicationException
     {
       new MailDetailAction().handleAction(this.m);
     }

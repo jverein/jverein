@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-07-27 15:21:44  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.3  2008/12/06 16:45:40  jost
  * Debug-Meldung entfernt.
  *
@@ -46,6 +49,7 @@ import de.willuhn.util.ApplicationException;
 
 public class AnfangsbestandControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private TablePart anfangsbestandList;
@@ -81,8 +85,7 @@ public class AnfangsbestandControl extends AbstractControl
     {
       return konto;
     }
-    konto = new TextInput((String) getAnfangsbestand().getKonto().getNummer(),
-        10);
+    konto = new TextInput(getAnfangsbestand().getKonto().getNummer(), 10);
     konto.setEnabled(false);
     return konto;
   }
@@ -121,8 +124,8 @@ public class AnfangsbestandControl extends AbstractControl
     {
       Anfangsbestand a = getAnfangsbestand();
       DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
-      konten.addFilter("nummer = ?", new Object[] { (String) getKonto()
-          .getValue() });
+      konten.addFilter("nummer = ?",
+          new Object[] { (String) getKonto().getValue()});
       if (konten.size() == 0)
       {
         throw new RemoteException("Konto nicht gefunden");
@@ -179,7 +182,7 @@ public class AnfangsbestandControl extends AbstractControl
     anfangsbestaende.setOrder("ORDER BY konto, datum desc");
     while (anfangsbestaende.hasNext())
     {
-      anfangsbestandList.addItem((Anfangsbestand) anfangsbestaende.next());
+      anfangsbestandList.addItem(anfangsbestaende.next());
     }
   }
 

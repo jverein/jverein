@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-08-27 19:09:46  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.1  2010-08-26 11:14:57  jost
  * Neu: Fotos von Mitgliedern
  *
@@ -20,7 +23,6 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.willuhn.datasource.db.AbstractDBObject;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliedfotoImpl extends AbstractDBObject implements Mitgliedfoto
 {
@@ -39,25 +41,25 @@ public class MitgliedfotoImpl extends AbstractDBObject implements Mitgliedfoto
   }
 
   @Override
-  public String getPrimaryAttribute() throws RemoteException
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
   @Override
-  protected void deleteCheck() throws ApplicationException
+  protected void deleteCheck()
   {
     //
   }
 
   @Override
-  protected void insertCheck() throws ApplicationException
+  protected void insertCheck()
   {
     updateCheck();
   }
 
   @Override
-  protected void updateCheck() throws ApplicationException
+  protected void updateCheck()
   {
     //
   }

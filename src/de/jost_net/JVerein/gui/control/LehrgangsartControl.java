@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009-07-24 20:18:46  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.1  2009/04/13 11:39:27  jost
  * Neu: Lehrgänge
  *
@@ -40,6 +43,7 @@ import de.willuhn.util.ApplicationException;
 
 public class LehrgangsartControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private TablePart lehrgangsartList;
@@ -77,7 +81,7 @@ public class LehrgangsartControl extends AbstractControl
     {
       return bezeichnung;
     }
-    bezeichnung = new TextInput((String) getLehrgangsart().getBezeichnung(), 50);
+    bezeichnung = new TextInput(getLehrgangsart().getBezeichnung(), 50);
     if (withFocus)
     {
       bezeichnung.focus();
@@ -101,6 +105,7 @@ public class LehrgangsartControl extends AbstractControl
     this.von.setText("Bitte Beginn oder Tag der Veranstaltung wählen");
     this.von.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) von.getValue();
@@ -129,6 +134,7 @@ public class LehrgangsartControl extends AbstractControl
     this.bis.setText("Bitte Ende der Veranstaltung wählen");
     this.bis.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) bis.getValue();
@@ -147,8 +153,7 @@ public class LehrgangsartControl extends AbstractControl
     {
       return veranstalter;
     }
-    veranstalter = new TextInput((String) getLehrgangsart().getVeranstalter(),
-        50);
+    veranstalter = new TextInput(getLehrgangsart().getVeranstalter(), 50);
     return veranstalter;
   }
 
@@ -208,7 +213,7 @@ public class LehrgangsartControl extends AbstractControl
     lehrgangsarten.setOrder("ORDER BY bezeichnung");
     while (lehrgangsarten.hasNext())
     {
-      lehrgangsartList.addItem((Lehrgangsart) lehrgangsarten.next());
+      lehrgangsartList.addItem(lehrgangsarten.next());
     }
   }
 

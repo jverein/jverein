@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-02-23 21:15:49  jost
+ * Individueller Zeitraum
+ *
  * Revision 1.5  2009/09/19 16:28:16  jost
  * Weiterentwicklung
  *
@@ -30,7 +33,6 @@ package de.jost_net.JVerein.gui.parts;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -56,6 +58,7 @@ import de.willuhn.util.ApplicationException;
 
 public class BuchungsklasseSaldoList extends TablePart implements Part
 {
+
   private TablePart saldoList;
 
   private Date datumvon = null;
@@ -63,7 +66,6 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
   private Date datumbis = null;
 
   public BuchungsklasseSaldoList(Action action, Date datumvon, Date datumbis)
-      throws RemoteException
   {
     super(action);
     this.datumvon = datumvon;
@@ -79,8 +81,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
       if (saldoList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray((GenericObject[]) zeile
-            .toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 
         saldoList = new TablePart(gi, null);
         saldoList.addColumn(JVereinPlugin.getI18n().tr("Buchungsklasse"),
@@ -115,17 +116,10 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
           "Fehler aufgetreten")
           + e.getMessage());
     }
-    catch (ParseException e)
-    {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler aufgetreten")
-          + e.getMessage());
-    }
     return saldoList;
   }
 
-  public ArrayList<BuchungsklasseSaldoZeile> getInfo() throws RemoteException,
-      ParseException
+  public ArrayList<BuchungsklasseSaldoZeile> getInfo() throws RemoteException
   {
     ArrayList<BuchungsklasseSaldoZeile> zeile = new ArrayList<BuchungsklasseSaldoZeile>();
     Buchungsklasse buchungsklasse = null;
@@ -142,7 +136,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
     ResultSetExtractor rsd = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())
         {
@@ -153,7 +148,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     };
     ResultSetExtractor rsi = new ResultSetExtractor()
     {
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
+
+      public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())
         {
@@ -173,7 +169,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
           buchungsklasse));
       DBIterator buchungsartenIt = service.createList(Buchungsart.class);
       buchungsartenIt.addFilter("buchungsklasse = ?",
-          new Object[] { buchungsklasse.getID() });
+          new Object[] { buchungsklasse.getID()});
       suBukEinnahmen = new Double(0);
       suBukAusgaben = new Double(0);
       suBukUmbuchungen = new Double(0);
@@ -185,13 +181,13 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
             + "and buchung.buchungsart = buchungsart.id "
             + "and buchungsart.id = ? " + "and buchungsart.art = ?";
         einnahmen = (Double) service.execute(sql, new Object[] { datumvon,
-            datumbis, buchungsart.getID(), 0 }, rsd);
+            datumbis, buchungsart.getID(), 0}, rsd);
         suBukEinnahmen += einnahmen;
         ausgaben = (Double) service.execute(sql, new Object[] { datumvon,
-            datumbis, buchungsart.getID(), 1 }, rsd);
+            datumbis, buchungsart.getID(), 1}, rsd);
         suBukAusgaben += ausgaben;
         umbuchungen = (Double) service.execute(sql, new Object[] { datumvon,
-            datumbis, buchungsart.getID(), 2 }, rsd);
+            datumbis, buchungsart.getID(), 2}, rsd);
         suBukUmbuchungen += umbuchungen;
         zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
             buchungsart, einnahmen, ausgaben, umbuchungen));
@@ -213,15 +209,15 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
         + "and buchung.buchungsart = buchungsart.id "
         + "and buchungsart.buchungsklasse is null and buchungsart.art = ?";
     einnahmen = (Double) service.execute(sql, new Object[] { datumvon,
-        datumbis, 0 }, rsd);
+        datumbis, 0}, rsd);
     suBukEinnahmen += einnahmen;
     suEinnahmen += einnahmen;
     ausgaben = (Double) service.execute(sql, new Object[] { datumvon, datumbis,
-        1 }, rsd);
+        1}, rsd);
     suBukAusgaben += ausgaben;
     suAusgaben += ausgaben;
     umbuchungen = (Double) service.execute(sql, new Object[] { datumvon,
-        datumbis, 2 }, rsd);
+        datumbis, 2}, rsd);
     suBukUmbuchungen += umbuchungen;
     suUmbuchungen += umbuchungen;
     if (einnahmen != 0 || ausgaben != 0 || umbuchungen != 0)
@@ -229,8 +225,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       Buchungsklasse b = (Buchungsklasse) service.createObject(
           Buchungsklasse.class, null);
       b.setBezeichnung("Nicht zugeordnet");
-      zeile
-          .add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
+      zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
       zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
           "Nicht zugeordnet", einnahmen, ausgaben, umbuchungen));
     }
@@ -244,7 +239,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     sql = "select count(*) from buchung " + "where datum >= ? and datum <= ?  "
         + "and buchung.buchungsart is null";
     Integer anzahl = (Integer) service.execute(sql, new Object[] { datumvon,
-        datumbis }, rsi);
+        datumbis}, rsi);
     if (anzahl > 0)
     {
       zeile.add(new BuchungsklasseSaldoZeile(
@@ -264,11 +259,13 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     this.datumbis = datumbis;
   }
 
+  @Override
   public void removeAll()
   {
     saldoList.removeAll();
   }
 
+  @Override
   public synchronized void paint(Composite parent) throws RemoteException
   {
     super.paint(parent);

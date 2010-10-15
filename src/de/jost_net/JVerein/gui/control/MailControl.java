@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-08-23 13:35:09  jost
+ * Optimierung Tastatursteuerung
+ *
  * Revision 1.7  2010/05/16 10:43:19  jost
  * Einheitlicher Umgang mit ausgetretenen Mitgliedern
  *
@@ -76,6 +79,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MailControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private TablePart empfaenger;
@@ -119,7 +123,7 @@ public class MailControl extends AbstractControl
     {
       DBIterator it = Einstellungen.getDBService().createList(
           MailEmpfaenger.class);
-      it.addFilter("mail = ?", new Object[] { getMail().getID() });
+      it.addFilter("mail = ?", new Object[] { getMail().getID()});
       TreeSet<MailEmpfaenger> empf = new TreeSet<MailEmpfaenger>();
       while (it.hasNext())
       {
@@ -202,7 +206,7 @@ public class MailControl extends AbstractControl
     {
       return betreff;
     }
-    betreff = new TextInput((String) getMail().getBetreff(), 100);
+    betreff = new TextInput(getMail().getBetreff(), 100);
     betreff.setName("Betreff");
     return betreff;
   }
@@ -213,7 +217,7 @@ public class MailControl extends AbstractControl
     {
       return txt;
     }
-    txt = new TextAreaInput((String) getMail().getTxt(), 1000);
+    txt = new TextAreaInput(getMail().getTxt(), 1000);
     txt.setName("Text");
     return txt;
   }
@@ -227,7 +231,7 @@ public class MailControl extends AbstractControl
     if (!getMail().isNewObject() && getMail().getAnhang() == null)
     {
       DBIterator it = Einstellungen.getDBService().createList(MailAnhang.class);
-      it.addFilter("mail = ?", new Object[] { getMail().getID() });
+      it.addFilter("mail = ?", new Object[] { getMail().getID()});
       TreeSet<MailAnhang> anh = new TreeSet<MailAnhang>();
       while (it.hasNext())
       {
@@ -258,6 +262,7 @@ public class MailControl extends AbstractControl
   {
     Button b = new Button("s&peichern + senden", new Action()
     {
+
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -279,7 +284,8 @@ public class MailControl extends AbstractControl
   {
     Button b = new Button("&speichern", new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         handleStore(false);
       }
@@ -294,16 +300,18 @@ public class MailControl extends AbstractControl
 
     BackgroundTask t = new BackgroundTask()
     {
+
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
-          MailSender sender = new MailSender(Einstellungen.getEinstellung()
-              .getSmtpServer(), Einstellungen.getEinstellung().getSmtpPort(),
-              Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
-                  .getEinstellung().getSmtpAuthPwd(), Einstellungen
-                  .getEinstellung().getSmtpFromAddress(), Einstellungen
-                  .getEinstellung().getSmtpSsl());
+          MailSender sender = new MailSender(
+              Einstellungen.getEinstellung().getSmtpServer(),
+              Einstellungen.getEinstellung().getSmtpPort(),
+              Einstellungen.getEinstellung().getSmtpAuthUser(),
+              Einstellungen.getEinstellung().getSmtpAuthPwd(),
+              Einstellungen.getEinstellung().getSmtpFromAddress(),
+              Einstellungen.getEinstellung().getSmtpSsl());
 
           Velocity.init();
           Logger.debug("preparing velocity context");
@@ -367,6 +375,7 @@ public class MailControl extends AbstractControl
 
       public void interrupt()
       {
+        //
       }
 
       public boolean isInterrupted()
@@ -397,7 +406,7 @@ public class MailControl extends AbstractControl
       }
       DBIterator it = Einstellungen.getDBService().createList(
           MailEmpfaenger.class);
-      it.addFilter("mail = ?", new Object[] { m.getID() });
+      it.addFilter("mail = ?", new Object[] { m.getID()});
       while (it.hasNext())
       {
         MailEmpfaenger me = (MailEmpfaenger) it.next();
@@ -412,7 +421,7 @@ public class MailControl extends AbstractControl
         ma.store();
       }
       it = Einstellungen.getDBService().createList(MailAnhang.class);
-      it.addFilter("mail = ?", new Object[] { m.getID() });
+      it.addFilter("mail = ?", new Object[] { m.getID()});
       while (it.hasNext())
       {
         MailAnhang ma = (MailAnhang) it.next();

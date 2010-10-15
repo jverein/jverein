@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-08-15 19:00:23  jost
+ * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
+ *
  * Revision 1.2  2010-08-08 19:32:03  jost
  * Code bereinigt.
  *
@@ -22,11 +25,11 @@ import de.jost_net.JVerein.gui.view.MitgliedskontoRechnungView;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoRechnungAction implements Action
 {
-  public void handleAction(Object context) throws ApplicationException
+
+  public void handleAction(Object context)
   {
     if (context != null && context instanceof Mitgliedskonto)
     {
@@ -38,7 +41,7 @@ public class MitgliedskontoRechnungAction implements Action
       Mitgliedskonto[] mk = (Mitgliedskonto[]) context;
       GUI.startView(MitgliedskontoRechnungView.class.getName(), mk);
     }
-    else 
+    else
     {
       GUI.startView(MitgliedskontoRechnungView.class, null);
     }

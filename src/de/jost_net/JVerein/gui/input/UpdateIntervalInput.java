@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009-09-13 19:20:05  jost
+ * Neu: Prüfung auf Updates
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;
@@ -27,6 +30,7 @@ import de.willuhn.jameica.gui.input.SelectInput;
  */
 public class UpdateIntervalInput extends SelectInput
 {
+
   public static final int MANUELL = 0;
 
   public static final int TAEGLICH = 1;
@@ -48,13 +52,13 @@ public class UpdateIntervalInput extends SelectInput
     l.add(new UpdateIntervalObject(TAEGLICH));
     l.add(new UpdateIntervalObject(MONATLICH));
     l.add(new UpdateIntervalObject(MANUELL));
-    return PseudoIterator.fromArray((UpdateIntervalObject[]) l
-        .toArray(new UpdateIntervalObject[l.size()]));
+    return PseudoIterator.fromArray(l.toArray(new UpdateIntervalObject[l.size()]));
   }
 
   /**
    * @see de.willuhn.jameica.gui.input.Input#getValue()
    */
+  @Override
   public Object getValue()
   {
     UpdateIntervalObject o = (UpdateIntervalObject) super.getValue();
@@ -70,6 +74,7 @@ public class UpdateIntervalInput extends SelectInput
    */
   private static class UpdateIntervalObject implements GenericObject
   {
+
     public Integer updateinterval;
 
     private String label = null;
@@ -96,22 +101,22 @@ public class UpdateIntervalInput extends SelectInput
       }
     }
 
-    public Object getAttribute(String arg0) throws RemoteException
+    public Object getAttribute(String arg0)
     {
       return label;
     }
 
-    public String[] getAttributeNames() throws RemoteException
+    public String[] getAttributeNames()
     {
-      return new String[] { "name" };
+      return new String[] { "name"};
     }
 
-    public String getID() throws RemoteException
+    public String getID()
     {
       return updateinterval.toString();
     }
 
-    public String getPrimaryAttribute() throws RemoteException
+    public String getPrimaryAttribute()
     {
       return "name";
     }

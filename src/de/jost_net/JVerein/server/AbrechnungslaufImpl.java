@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-07-25 18:46:42  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.1  2010/05/18 20:25:09  jost
  * Anpassung Klassenname
  *
@@ -24,11 +27,11 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.willuhn.datasource.db.AbstractDBObject;
-import de.willuhn.util.ApplicationException;
 
 public class AbrechnungslaufImpl extends AbstractDBObject implements
     Abrechnungslauf
 {
+
   private static final long serialVersionUID = 1L;
 
   public AbrechnungslaufImpl() throws RemoteException
@@ -36,31 +39,38 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "abrechnungslauf";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "idtext";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
-  protected void insertCheck() throws ApplicationException
+  @Override
+  protected void insertCheck()
   {
+    //
   }
 
-  protected void updateCheck() throws ApplicationException
+  @Override
+  protected void updateCheck()
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0) 
   {
     return null;
   }
@@ -186,6 +196,7 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     return getID() + " vom " + Einstellungen.DATEFORMAT.format(getDatum());
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     if (fieldName.equals("idtext"))

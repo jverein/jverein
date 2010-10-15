@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-07-28 07:28:05  jost
+ * deprecated
+ *
  * Revision 1.1  2007/03/13 19:58:40  jost
  * Neu: Manueller Zahlungseingang.
  *
@@ -24,6 +27,7 @@ import de.willuhn.util.ApplicationException;
 /**
  * @deprecated In Version 1.5 ausmustern
  */
+@Deprecated
 public interface ManuellerZahlungseingang extends DBObject
 {
   public void setID(String id) throws RemoteException;

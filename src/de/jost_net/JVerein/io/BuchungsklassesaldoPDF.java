@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-05-02 06:09:32  jost
+ * Redakt. Änderung
+ *
  * Revision 1.4  2010/02/23 21:16:13  jost
  * Individueller Zeitraum
  *
@@ -29,7 +32,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,9 +49,10 @@ import de.willuhn.util.ProgressMonitor;
 
 public class BuchungsklassesaldoPDF
 {
+
   public BuchungsklassesaldoPDF(ArrayList<BuchungsklasseSaldoZeile> zeile,
       final File file, ProgressMonitor monitor, Date datumvon, Date datumbis)
-      throws ApplicationException, RemoteException
+      throws ApplicationException
   {
     try
     {
@@ -66,15 +69,16 @@ public class BuchungsklassesaldoPDF
         {
           case BuchungsklasseSaldoZeile.HEADER:
           {
-            reporter.addColumn((String) bkz
-                .getAttribute("buchungsklassenbezeichnung"),
+            reporter.addColumn(
+                (String) bkz.getAttribute("buchungsklassenbezeichnung"),
                 Element.ALIGN_LEFT, new Color(220, 220, 220), 4);
             break;
           }
           case BuchungsklasseSaldoZeile.DETAIL:
           {
-            reporter.addColumn((String) bkz
-                .getAttribute("buchungsartbezeichnung"), Element.ALIGN_LEFT);
+            reporter.addColumn(
+                (String) bkz.getAttribute("buchungsartbezeichnung"),
+                Element.ALIGN_LEFT);
             reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
             reporter.addColumn((Double) bkz.getAttribute("ausgaben"));
             reporter.addColumn((Double) bkz.getAttribute("umbuchungen"));
@@ -82,8 +86,8 @@ public class BuchungsklassesaldoPDF
           }
           case BuchungsklasseSaldoZeile.SALDOFOOTER:
           {
-            reporter.addColumn((String) bkz
-                .getAttribute("buchungsklassenbezeichnung"),
+            reporter.addColumn(
+                (String) bkz.getAttribute("buchungsklassenbezeichnung"),
                 Element.ALIGN_RIGHT);
             reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
             reporter.addColumn((Double) bkz.getAttribute("ausgaben"));
@@ -93,8 +97,8 @@ public class BuchungsklassesaldoPDF
           case BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER:
           {
             reporter.addColumn("Gesamt", Element.ALIGN_LEFT, 4);
-            reporter.addColumn((String) bkz
-                .getAttribute("buchungsklassenbezeichnung"),
+            reporter.addColumn(
+                (String) bkz.getAttribute("buchungsklassenbezeichnung"),
                 Element.ALIGN_RIGHT);
             reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
             reporter.addColumn((Double) bkz.getAttribute("ausgaben"));
@@ -104,8 +108,8 @@ public class BuchungsklassesaldoPDF
           case BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST:
           case BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST:
           {
-            reporter.addColumn((String) bkz
-                .getAttribute("buchungsklassenbezeichnung"),
+            reporter.addColumn(
+                (String) bkz.getAttribute("buchungsklassenbezeichnung"),
                 Element.ALIGN_RIGHT);
             reporter.addColumn((Double) bkz.getAttribute("einnahmen"));
             reporter.addColumn("", Element.ALIGN_LEFT, 2);
@@ -113,10 +117,9 @@ public class BuchungsklassesaldoPDF
           }
           case BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN:
           {
-            reporter
-                .addColumn((String) bkz
-                    .getAttribute("buchungsklassenbezeichnung"),
-                    Element.ALIGN_LEFT);
+            reporter.addColumn(
+                (String) bkz.getAttribute("buchungsklassenbezeichnung"),
+                Element.ALIGN_LEFT);
             reporter.addColumn((Integer) bkz.getAttribute("anzahlbuchungen"));
             reporter.addColumn("", Element.ALIGN_LEFT, 2);
             break;
@@ -129,6 +132,7 @@ public class BuchungsklassesaldoPDF
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         public void run()
         {
           try

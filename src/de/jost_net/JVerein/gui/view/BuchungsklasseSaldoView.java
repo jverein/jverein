@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.5  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -41,6 +44,8 @@ import de.willuhn.util.ApplicationException;
 
 public class BuchungsklasseSaldoView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsklassen-Saldo"));
@@ -50,15 +55,14 @@ public class BuchungsklasseSaldoView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Zeitraum"));
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getDatumvon());
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getDatumvon());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 1);
     Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
         new Action()
         {
+
           public void handleAction(Object context) throws ApplicationException
           {
             control.getSaldoList();
@@ -76,10 +80,6 @@ public class BuchungsklasseSaldoView extends AbstractView
         new DokumentationAction(), DokumentationUtil.JAHRESSALDO, false,
         "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

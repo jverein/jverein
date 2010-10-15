@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-07-28 07:27:54  jost
+ * deprecated
+ *
  * Revision 1.1  2008/08/10 12:37:39  jost
  * Abbuchung -> Abrechnung
  * Vorbereitung der Rechnungserstellung
@@ -24,6 +27,7 @@ import de.willuhn.datasource.rmi.DBObject;
 /**
  * @deprecated In Version 1.5 ausmustern
  */
+@Deprecated
 public interface Abrechnung extends DBObject
 {
   public String getID() throws RemoteException;

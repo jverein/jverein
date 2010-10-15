@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-07-25 18:32:06  jost
+ * Neu: Mitgliedskonto
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -28,6 +31,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 
 public class MitgliedskontoNode implements GenericObjectNode
 {
+
   public static final int UNBEKANNT = 0;
 
   public static final int MITGLIED = 1;
@@ -72,7 +76,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.id = m.getID();
     DBIterator it = Einstellungen.getDBService().createList(
         Mitgliedskonto.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     it.setOrder("order by datum desc");
     while (it.hasNext())
     {
@@ -107,7 +111,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     {
       this.children = new ArrayList<MitgliedskontoNode>();
       DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-      it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
+      it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID()});
       it.setOrder("order by datum desc");
       ist = 0d;
       while (it.hasNext())
@@ -145,23 +149,23 @@ public class MitgliedskontoNode implements GenericObjectNode
     return mitglied;
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  public String getPrimaryAttribute()
   {
     return null;
   }
 
-  public String getID() throws RemoteException
+  public String getID()
   {
     return id;
   }
 
-  public String[] getAttributeNames() throws RemoteException
+  public String[] getAttributeNames()
   {
     return new String[] { "name", "datum", "zweck1", "zweck2", "zahlungsweg",
-        "soll", "ist", "differenz" };
+        "soll", "ist", "differenz"};
   }
 
-  public Object getAttribute(String name) throws RemoteException
+  public Object getAttribute(String name)
   {
     if (name.equals("name"))
     {
@@ -210,27 +214,27 @@ public class MitgliedskontoNode implements GenericObjectNode
     return null;
   }
 
-  public boolean equals(GenericObject other) throws RemoteException
+  public boolean equals(GenericObject other)
   {
     return false;
   }
 
-  public boolean hasChild(GenericObjectNode object) throws RemoteException
+  public boolean hasChild(GenericObjectNode object)
   {
     return children.size() > 0;
   }
 
-  public GenericIterator getPossibleParents() throws RemoteException
+  public GenericIterator getPossibleParents()
   {
     return null;
   }
 
-  public GenericIterator getPath() throws RemoteException
+  public GenericIterator getPath()
   {
     return null;
   }
 
-  public GenericObjectNode getParent() throws RemoteException
+  public GenericObjectNode getParent()
   {
     return parent;
   }
@@ -239,8 +243,7 @@ public class MitgliedskontoNode implements GenericObjectNode
   {
     if (children != null)
     {
-      return PseudoIterator.fromArray((GenericObject[]) children
-          .toArray(new GenericObject[children.size()]));
+      return PseudoIterator.fromArray(children.toArray(new GenericObject[children.size()]));
     }
     return null;
   }

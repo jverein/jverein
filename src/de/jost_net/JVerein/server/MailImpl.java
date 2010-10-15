@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-13 15:26:32  jost
+ * Länge des Textes auf 10.000 Zeichen verlängert.
+ * http://www.jverein.de/forum/viewtopic.php?f=5&t=194
+ *
  * Revision 1.2  2010/02/15 17:24:43  jost
  * Mail-Anhang implementiert
  *
@@ -33,6 +37,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MailImpl extends AbstractDBObject implements Mail
 {
+
   private static final long serialVersionUID = 1L;
 
   private TreeSet<MailEmpfaenger> empfaenger = null;
@@ -44,20 +49,25 @@ public class MailImpl extends AbstractDBObject implements Mail
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "mail";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -72,7 +82,7 @@ public class MailImpl extends AbstractDBObject implements Mail
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Bitte Text eingeben"));
       }
-      if ( getTxt().length()>10000)
+      if (getTxt().length() > 10000)
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Maximale Länge des Textes 10.000 Zeichen"));
@@ -86,35 +96,35 @@ public class MailImpl extends AbstractDBObject implements Mail
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
 
     return null;
   }
 
-  public TreeSet<MailEmpfaenger> getEmpfaenger() throws RemoteException
+  public TreeSet<MailEmpfaenger> getEmpfaenger()
   {
     return empfaenger;
   }
 
   public void setEmpfaenger(TreeSet<MailEmpfaenger> empfaenger)
-      throws RemoteException
   {
     this.empfaenger = empfaenger;
   }
 
-  public TreeSet<MailAnhang> getAnhang() throws RemoteException
+  public TreeSet<MailAnhang> getAnhang()
   {
     return anhang;
   }
 
-  public void setAnhang(TreeSet<MailAnhang> anhang) throws RemoteException
+  public void setAnhang(TreeSet<MailAnhang> anhang)
   {
     this.anhang = anhang;
   }
@@ -159,6 +169,7 @@ public class MailImpl extends AbstractDBObject implements Mail
     setAttribute("versand", versand);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

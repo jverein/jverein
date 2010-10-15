@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-04-25 13:54:45  jost
+ * Vorarbeiten Mitgliedskonto
+ *
  * Revision 1.8  2009/06/11 21:02:51  jost
  * Vorbereitung I18N
  *
@@ -100,13 +103,13 @@ public class AbbuchungsmodusInput extends SelectInput
       l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MO));
       l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
-    return PseudoIterator.fromArray((AbbuchungsmodusObject[]) l
-        .toArray(new AbbuchungsmodusObject[l.size()]));
+    return PseudoIterator.fromArray(l.toArray(new AbbuchungsmodusObject[l.size()]));
   }
 
   /**
    * @see de.willuhn.jameica.gui.input.Input#getValue()
    */
+  @Override
   public Object getValue()
   {
     AbbuchungsmodusObject o = (AbbuchungsmodusObject) super.getValue();
@@ -122,6 +125,7 @@ public class AbbuchungsmodusInput extends SelectInput
    */
   private static class AbbuchungsmodusObject implements GenericObject
   {
+
     public int abbuchungsmodus;
 
     private String label = null;
@@ -132,22 +136,22 @@ public class AbbuchungsmodusInput extends SelectInput
       this.label = Abrechnungsmodi.get(abbuchungsmodus);
     }
 
-    public Object getAttribute(String arg0) throws RemoteException
+    public Object getAttribute(String arg0)
     {
       return label;
     }
 
-    public String[] getAttributeNames() throws RemoteException
+    public String[] getAttributeNames()
     {
-      return new String[] { "name" };
+      return new String[] { "name"};
     }
 
-    public String getID() throws RemoteException
+    public String getID()
     {
       return "" + abbuchungsmodus;
     }
 
-    public String getPrimaryAttribute() throws RemoteException
+    public String getPrimaryAttribute()
     {
       return "name";
     }

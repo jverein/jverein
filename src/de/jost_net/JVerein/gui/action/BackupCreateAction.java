@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-09-12 11:52:10  jost
+ * Bugfixes
+ *
  * Revision 1.8  2010/05/24 14:57:58  jost
  * Weitere Tabellen aufgenommen.
  *
@@ -99,6 +102,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class BackupCreateAction implements Action
 {
+
   // Die Versionstabelle wird nicht mit kopiert
   Class<?>[] tab = { StammdatenImpl.class, EinstellungImpl.class,
       AbrechnungslaufImpl.class, BeitragsgruppeImpl.class,
@@ -112,7 +116,7 @@ public class BackupCreateAction implements Action
       KursteilnehmerImpl.class, WiedervorlageImpl.class,
       ZusatzbetragImpl.class, ZusatzfelderImpl.class, LehrgangsartImpl.class,
       LehrgangImpl.class, MailVorlage.class, MailEmpfaenger.class, Mail.class,
-      MailAnhangImpl.class };
+      MailAnhangImpl.class};
 
   /**
    * Dateformat, welches fuer den Dateinamen genutzt wird.
@@ -127,7 +131,7 @@ public class BackupCreateAction implements Action
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setFilterPath(System.getProperty("user.home"));
     fd.setFileName("jverein-backup-" + DATEFORMAT.format(new Date()) + ".xml");
-    fd.setFilterExtensions(new String[] { "*.xml" });
+    fd.setFilterExtensions(new String[] { "*.xml"});
     fd.setText(JVereinPlugin.getI18n().tr(
         "Bitte wählen Sie die Datei, in der das Backup gespeichert wird"));
     String f = fd.open();
@@ -159,6 +163,7 @@ public class BackupCreateAction implements Action
 
     Application.getController().start(new BackgroundTask()
     {
+
       private boolean cancel = false;
 
       /**
@@ -232,7 +237,6 @@ public class BackupCreateAction implements Action
    * @param monitor
    * @throws Exception
    */
-  @SuppressWarnings("unchecked")
   private static void backup(Class type, Writer writer, ProgressMonitor monitor)
       throws Exception
   {
@@ -255,7 +259,7 @@ public class BackupCreateAction implements Action
             + " - skipping", e);
         monitor.log(JVereinPlugin.getI18n().tr(
             "  {0} fehlerhaft: {1}, überspringe",
-            new String[] { BeanUtil.toString(o), e.getMessage() }));
+            new String[] { BeanUtil.toString(o), e.getMessage()}));
       }
     }
   }

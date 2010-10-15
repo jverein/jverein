@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.12  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -57,10 +60,11 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class StammdatenView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle("Stammdaten");
@@ -69,17 +73,17 @@ public class StammdatenView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Stammdaten"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
-        .getName(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"), control
-        .getBlz());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getName(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
+        control.getBlz());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Altersgruppen"), control
-        .getAltersgruppen());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jubiläen"), control
-        .getJubilaeen());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"), control
-        .getAltersjubilaeen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Altersgruppen"),
+        control.getAltersgruppen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Jubiläen"),
+        control.getJubilaeen());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"),
+        control.getAltersjubilaeen());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
@@ -88,15 +92,12 @@ public class StammdatenView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

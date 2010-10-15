@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009-06-11 21:04:24  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/11/29 13:18:27  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -28,6 +31,7 @@ import de.willuhn.jameica.system.Settings;
 
 public abstract class Spaltenauswahl
 {
+
   private Settings settings;
 
   private String tabelle;
@@ -46,16 +50,16 @@ public abstract class Spaltenauswahl
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
-        .getBoolean(tabelle + "." + spaltenname, defaultvalue)));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
+        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue)));
   }
 
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, Formatter formatter, int align)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
-        .getBoolean(tabelle + "." + spaltenname, defaultvalue), formatter,
-        align));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
+        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
+        formatter, align));
   }
 
   public void setColumns(TablePart part)
@@ -86,8 +90,8 @@ public abstract class Spaltenauswahl
     spaltendefinitionList.paint(parent);
     for (int i = 0; i < spalten.size(); ++i)
     {
-      spaltendefinitionList.setChecked(spalten.get(i), spalten.get(i)
-          .isChecked());
+      spaltendefinitionList.setChecked(spalten.get(i),
+          spalten.get(i).isChecked());
     }
 
     return spaltendefinitionList;
@@ -100,10 +104,10 @@ public abstract class Spaltenauswahl
     {
       settings.setAttribute(tabelle + "." + spalte.getSpaltenname(), false);
     }
-    List<Spalte> trues = (List<Spalte>) spaltendefinitionList.getItems();
+    List<Spalte> trues = spaltendefinitionList.getItems();
     for (int i = 0; i < trues.size(); i++)
     {
-      Spalte spalte = (Spalte) trues.get(i);
+      Spalte spalte = trues.get(i);
       settings.setAttribute(tabelle + "." + spalte.getSpaltenname(), true);
     }
   }

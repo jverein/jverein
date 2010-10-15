@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-10-10 08:52:50  jost
+ * Kontoauszugsinformationen en Bloc zuweisen
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.action;
@@ -20,7 +23,6 @@ import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.BuchungsartZuordnungDialog;
 import de.jost_net.JVerein.gui.dialogs.KontoauszugZuordnungDialog;
 import de.jost_net.JVerein.rmi.Buchung;
-import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.logging.Logger;
@@ -31,6 +33,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class BuchungKontoauszugZuordnungAction implements Action
 {
+
   private BuchungsControl control;
 
   public BuchungKontoauszugZuordnungAction(BuchungsControl control)
@@ -73,8 +76,7 @@ public class BuchungKontoauszugZuordnungAction implements Action
 
         for (Buchung buchung : b)
         {
-          boolean protect = (buchung.getAuszugsnummer().intValue() > 0 || buchung
-              .getBlattnummer().intValue() > 0)
+          boolean protect = (buchung.getAuszugsnummer().intValue() > 0 || buchung.getBlattnummer().intValue() > 0)
               && !kaz.getOverride();
           if (protect)
           {
@@ -93,7 +95,7 @@ public class BuchungKontoauszugZuordnungAction implements Action
         {
           protecttext = JVereinPlugin.getI18n().tr(
               ", {0} Buchungen wurden nicht überschrieben. ",
-              new String[] { counter + "" });
+              new String[] { counter + ""});
         }
         GUI.getStatusBar().setSuccessText(
             JVereinPlugin.getI18n().tr("Kontoauszugsinformationen zugeordnet")

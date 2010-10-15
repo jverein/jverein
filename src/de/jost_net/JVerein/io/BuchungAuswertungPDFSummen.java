@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009-09-19 16:43:00  jost
+ * Summen Einnahmen, Ausgaben und Umbuchungen.
+ *
  * Revision 1.2  2008/12/06 16:46:41  jost
  * Debug-Meldung entfernt.
  *
@@ -45,6 +48,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class BuchungAuswertungPDFSummen
 {
+
   private double summe = 0;
 
   private double summeeinnahmen = 0;
@@ -55,7 +59,7 @@ public class BuchungAuswertungPDFSummen
 
   public BuchungAuswertungPDFSummen(DBIterator list, final File file,
       ProgressMonitor monitor, Konto konto, Buchungsart buchungsart, Date dVon,
-      Date dBis) throws ApplicationException, RemoteException
+      Date dBis) throws ApplicationException
   {
     try
     {
@@ -93,6 +97,7 @@ public class BuchungAuswertungPDFSummen
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         public void run()
         {
           try
@@ -138,8 +143,7 @@ public class BuchungAuswertungPDFSummen
   }
 
   private void createTableContent(Reporter reporter, DBIterator list,
-      Konto konto, Date dVon, Date dBis) throws RemoteException,
-      DocumentException
+      Konto konto, Date dVon, Date dBis) throws RemoteException
   {
     Buchungsart ba = null;
     if (list != null)
@@ -153,18 +157,18 @@ public class BuchungAuswertungPDFSummen
     }
 
     DBIterator listb = Einstellungen.getDBService().createList(Buchung.class);
-    listb.addFilter("datum >= ?", new Object[] { new java.sql.Date(dVon
-        .getTime()) });
-    listb.addFilter("datum <= ?", new Object[] { new java.sql.Date(dBis
-        .getTime()) });
+    listb.addFilter("datum >= ?", new Object[] { new java.sql.Date(
+        dVon.getTime())});
+    listb.addFilter("datum <= ?", new Object[] { new java.sql.Date(
+        dBis.getTime())});
     if (konto != null)
     {
-      listb.addFilter("konto = ?", new Object[] { konto.getID() });
+      listb.addFilter("konto = ?", new Object[] { konto.getID()});
     }
     if (list != null)
     {
       listb.addFilter("buchungsart = ?",
-          new Object[] { new Integer(ba.getID()) });
+          new Object[] { new Integer(ba.getID())});
     }
     else
     {

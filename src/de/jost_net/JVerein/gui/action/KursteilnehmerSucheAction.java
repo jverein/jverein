@@ -9,20 +9,23 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2007-02-25 19:11:53  jost
+ * *** empty log message ***
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class KursteilnehmerSucheAction implements Action
 {
 
-  public void handleAction(Object context) throws ApplicationException
+  public void handleAction(Object context)
   {
-    GUI.startView(de.jost_net.JVerein.gui.view.KursteilnehmerSucheView.class
-        .getName(), null);
+    GUI.startView(
+        de.jost_net.JVerein.gui.view.KursteilnehmerSucheView.class.getName(),
+        null);
   }
 
 }

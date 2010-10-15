@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-07-28 07:26:58  jost
+ * deprecated
+ *
  * Revision 1.3  2009/06/11 21:03:02  jost
  * Vorbereitung I18N
  *
@@ -32,6 +35,7 @@ import de.willuhn.jameica.gui.parts.ContextMenu;
  * Kontext-Menu zu den Rechnungen.
  * @deprecated In Version 1.5 ausmustern
  */
+@Deprecated
 public class RechungMenu extends ContextMenu
 {
 

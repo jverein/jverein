@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2010-08-27 19:09:11  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.16  2010-08-10 18:07:15  jost
  * Zahlungswegtexte für den Rechnungsdruck
  *
@@ -66,7 +69,6 @@ import java.util.Date;
 
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.willuhn.datasource.db.AbstractDBObject;
-import de.willuhn.util.ApplicationException;
 
 public class EinstellungImpl extends AbstractDBObject implements Einstellung
 {
@@ -78,31 +80,38 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "einstellung";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
-  protected void insertCheck() throws ApplicationException
+  @Override
+  protected void insertCheck()
   {
+    //
   }
 
-  protected void updateCheck() throws ApplicationException
+  @Override
+  protected void updateCheck()
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     return null;
   }

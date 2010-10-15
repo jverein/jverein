@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-09-28 18:31:15  jost
+ * Check auf Doppelte Konten
+ *
  * Revision 1.6  2010-09-19 16:15:16  jost
  * Länge der Kontobezeichnung auf 255  Zeichen verlängert.
  *
@@ -51,20 +54,25 @@ public class KontoImpl extends AbstractDBObject implements Konto
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "konto";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -85,6 +93,7 @@ public class KontoImpl extends AbstractDBObject implements Konto
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     plausi();
@@ -119,8 +128,8 @@ public class KontoImpl extends AbstractDBObject implements Konto
 
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     return null;
   }
@@ -175,6 +184,7 @@ public class KontoImpl extends AbstractDBObject implements Konto
     setAttribute("hibiscusid", id);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

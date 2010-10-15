@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-11-17 21:02:51  jost
+ * DB-Aktualisierung optimiert.
+ *
  * Revision 1.3  2009/04/10 09:53:08  jost
  * Umstellung auf aktuelle Methoden.
  *
@@ -40,6 +43,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
 {
+
   private static final long serialVersionUID = -1928366492576556400L;
 
   public String getJdbcDriver()
@@ -55,8 +59,8 @@ public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
   public String getJdbcUrl()
   {
     return ":jdbc:mckoi:local://"
-        + Application.getPluginLoader().getPlugin(JVereinPlugin.class)
-            .getResources().getWorkPath() + "/db/db.conf";
+        + Application.getPluginLoader().getPlugin(JVereinPlugin.class).getResources().getWorkPath()
+        + "/db/db.conf";
   }
 
   /**
@@ -67,15 +71,15 @@ public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
     return "exampleuser";
   }
 
-  public void checkConsistency(Connection conn) throws RemoteException,
-      ApplicationException
+  @Override
+  public void checkConsistency(Connection conn) throws ApplicationException
   {
     if (!Application.inClientMode())
     {
       try
       {
-        new JVereinUpdateProvider(conn, Application.getCallback()
-            .getStartupMonitor());
+        new JVereinUpdateProvider(conn,
+            Application.getCallback().getStartupMonitor());
       }
       catch (Exception e2)
       {
@@ -85,17 +89,17 @@ public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
     }
   }
 
+  @Override
   public void install() throws RemoteException
   {
     try
     {
-      EmbeddedDatabase db = new EmbeddedDatabase(Application.getPluginLoader()
-          .getPlugin(JVereinPlugin.class).getResources().getWorkPath()
-          + "/db", getJdbcUsername(), getJdbcPassword());
+      EmbeddedDatabase db = new EmbeddedDatabase(
+          Application.getPluginLoader().getPlugin(JVereinPlugin.class).getResources().getWorkPath()
+              + "/db", getJdbcUsername(), getJdbcPassword());
       if (!db.exists())
       {
-        I18N i18n = Application.getPluginLoader()
-            .getPlugin(JVereinPlugin.class).getResources().getI18N();
+        I18N i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class).getResources().getI18N();
         ProgressMonitor monitor = Application.getCallback().getStartupMonitor();
         monitor.setStatusText(i18n.tr("Erstelle JVerein-Datenbank"));
         db.create();
@@ -107,17 +111,17 @@ public class DBSupportMcKoiImpl extends AbstractDBSupportImpl
     }
   }
 
-  public String getSQLTimestamp(String content) throws RemoteException
+  public String getSQLTimestamp(String content)
   {
-    return MessageFormat.format("tonumber({0})", new Object[] { content });
+    return MessageFormat.format("tonumber({0})", new Object[] { content});
   }
 
-  public boolean getInsertWithID() throws RemoteException
+  public boolean getInsertWithID()
   {
     return true;
   }
 
-  public void checkConnection(Connection conn) throws RemoteException
+  public void checkConnection(Connection conn)
   {
     // brauchen wir bei McKoi nicht
   }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2008-12-28 07:55:27  jost
+ * Icons an Jameica angepasst
+ *
  * Revision 1.5  2008/12/22 21:16:52  jost
  * Icons ins Menü aufgenommen.
  *
@@ -46,12 +49,12 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.Item;
 import de.willuhn.jameica.gui.NavigationItem;
 import de.willuhn.jameica.gui.util.SWTUtil;
-import de.willuhn.logging.Logger;
 
 /**
  */
 public class MyItem implements NavigationItem
 {
+
   private NavigationItem parent = null;
 
   private Action action;
@@ -79,7 +82,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.NavigationItem#getIconClose()
    */
-  public Image getIconClose() throws RemoteException
+  public Image getIconClose()
   {
     if (action == null)
     {
@@ -94,7 +97,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.NavigationItem#getIconOpen()
    */
-  public Image getIconOpen() throws RemoteException
+  public Image getIconOpen()
   {
     if (action == null)
     {
@@ -109,7 +112,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.NavigationItem#isExpanded()
    */
-  public boolean isExpanded() throws RemoteException
+  public boolean isExpanded()
   {
     return false;
   }
@@ -117,7 +120,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#addChild(de.willuhn.jameica.gui.Item)
    */
-  public void addChild(Item i) throws RemoteException
+  public void addChild(Item i)
   {
     children.add(i);
   }
@@ -125,7 +128,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#getAction()
    */
-  public Action getAction() throws RemoteException
+  public Action getAction()
   {
     return action;
   }
@@ -133,7 +136,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#getName()
    */
-  public String getName() throws RemoteException
+  public String getName()
   {
     return navitext;
   }
@@ -141,7 +144,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#isEnabled()
    */
-  public boolean isEnabled() throws RemoteException
+  public boolean isEnabled()
   {
     return true;
   }
@@ -150,7 +153,6 @@ public class MyItem implements NavigationItem
    * @see de.willuhn.jameica.gui.Item#setEnabled(boolean, boolean)
    */
   public void setEnabled(boolean enabled, boolean recursive)
-      throws RemoteException
   {
     // ignore
   }
@@ -166,15 +168,14 @@ public class MyItem implements NavigationItem
     }
     else
     {
-      return PseudoIterator.fromArray((MyItem[]) children
-          .toArray(new MyItem[children.size()]));
+      return PseudoIterator.fromArray(children.toArray(new MyItem[children.size()]));
     }
   }
 
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getParent()
    */
-  public GenericObjectNode getParent() throws RemoteException
+  public GenericObjectNode getParent()
   {
     return this.parent;
   }
@@ -187,8 +188,7 @@ public class MyItem implements NavigationItem
   {
     List list = PseudoIterator.asList(this.parent.getPath());
     list.add(this);
-    return PseudoIterator.fromArray((NavigationItem[]) list
-        .toArray(new NavigationItem[list.size()]));
+    return PseudoIterator.fromArray((NavigationItem[]) list.toArray(new NavigationItem[list.size()]));
   }
 
   /**
@@ -202,7 +202,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#hasChild(de.willuhn.datasource.GenericObjectNode)
    */
-  public boolean hasChild(GenericObjectNode arg0) throws RemoteException
+  public boolean hasChild(GenericObjectNode arg0)
   {
     return false;
   }
@@ -220,7 +220,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
    */
-  public Object getAttribute(String arg0) throws RemoteException
+  public Object getAttribute(String arg0)
   {
     return getName();
   }
@@ -228,15 +228,15 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getAttributeNames()
    */
-  public String[] getAttributeNames() throws RemoteException
+  public String[] getAttributeNames()
   {
-    return new String[] { "name" };
+    return new String[] { "name"};
   }
 
   /**
    * @see de.willuhn.datasource.GenericObject#getID()
    */
-  public String getID() throws RemoteException
+  public String getID()
   {
     return getClass().getName() + "." + getName();
   }
@@ -244,7 +244,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getPrimaryAttribute()
    */
-  public String getPrimaryAttribute() throws RemoteException
+  public String getPrimaryAttribute()
   {
     return "name";
   }
@@ -254,25 +254,17 @@ public class MyItem implements NavigationItem
    */
   public String getExtendableID()
   {
-    try
-    {
-      return getID();
-    }
-    catch (RemoteException re)
-    {
-      Logger.error("unable to determine id", re);
-      return null;
-    }
+    return getID();
   }
 
 }
 
 /*******************************************************************************
- * $Log$
- * Revision 1.5  2008/12/22 21:16:52  jost
- * Icons ins Menü aufgenommen.
- * Revision 1.4 2008/11/29 13:11:27 jost Refactoring:
- * Warnungen beseitigt.
+ * $Log$ Revision 1.6 2008-12-28 07:55:27 jost Icons an Jameica
+ * angepasst
+ * 
+ * Revision 1.5 2008/12/22 21:16:52 jost Icons ins Menü aufgenommen. Revision
+ * 1.4 2008/11/29 13:11:27 jost Refactoring: Warnungen beseitigt.
  * 
  * Revision 1.3 2008/05/22 06:51:47 jost Buchführung Revision 1.2 2007/08/23
  * 19:25:23 jost Header korrigiert.

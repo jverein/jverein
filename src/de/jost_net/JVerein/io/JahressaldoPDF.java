@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009-03-01 18:00:52  jost
+ * Zusätzliche Zeile "Überschuss/Verlust"
+ *
  * Revision 1.2  2008/07/10 07:59:21  jost
  * Optimierung der internen Reporter-Klasse
  *
@@ -23,7 +26,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import com.lowagie.text.DocumentException;
@@ -40,9 +42,9 @@ import de.willuhn.util.ProgressMonitor;
 
 public class JahressaldoPDF
 {
+
   public JahressaldoPDF(ArrayList<SaldoZeile> zeile, final File file,
-      ProgressMonitor monitor, Geschaeftsjahr gj) throws ApplicationException,
-      RemoteException
+      ProgressMonitor monitor, Geschaeftsjahr gj) throws ApplicationException
   {
     try
     {
@@ -90,6 +92,7 @@ public class JahressaldoPDF
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         public void run()
         {
           try

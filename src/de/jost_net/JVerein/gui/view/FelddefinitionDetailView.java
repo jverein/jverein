@@ -21,10 +21,11 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class FelddefinitionDetailView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Felddefinition"));
@@ -33,13 +34,12 @@ public class FelddefinitionDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Felddefinition"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
-        .getName(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getName(true));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Label"), control.getLabel());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datentyp"), control
-        .getDatentyp());
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Datentyp"),
+        control.getDatentyp());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
@@ -50,16 +50,14 @@ public class FelddefinitionDetailView extends AbstractView
         new FelddefinitionenAction());
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
   }
 
-  public void unbind() throws ApplicationException
-  {
-  }
   // TODO getHelp()
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-07 19:49:24  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.3  2010-09-09 18:50:40  jost
  * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
  *
@@ -31,10 +34,11 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class EigenschaftGruppeDetailView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften-Gruppe"));
@@ -43,10 +47,10 @@ public class EigenschaftGruppeDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Eigenschaften-Gruppe"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
-        .getBezeichnung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Pflicht"), control
-        .getPflicht());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        control.getBezeichnung());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Pflicht"),
+        control.getPflicht());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
@@ -57,15 +61,12 @@ public class EigenschaftGruppeDetailView extends AbstractView
         new EigenschaftGruppeListeAction(), null, false, "system-search.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

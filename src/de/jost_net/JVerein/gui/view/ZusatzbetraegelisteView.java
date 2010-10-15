@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-07 19:49:24  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.7  2010-10-01 13:30:21  jost
  * Neu: PDF-Ausgabe der Zusatzbuchungen
  *
@@ -59,10 +62,11 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class ZusatzbetraegelisteView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(
@@ -72,8 +76,8 @@ public class ZusatzbetraegelisteView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Ausführungstag"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Ausführungstag"), control
-        .getAusfuehrungSuch());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Ausführungstag"),
+        control.getAusfuehrungSuch());
 
     control.getZusatzbetraegeList().paint(this.getParent());
 
@@ -83,10 +87,6 @@ public class ZusatzbetraegelisteView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.ZUSATZBETRAEGE, false,
         "help-browser.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

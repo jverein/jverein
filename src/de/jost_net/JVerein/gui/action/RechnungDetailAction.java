@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008-09-16 18:27:00  jost
+ * Neu: Rechnung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -16,11 +19,11 @@ import de.jost_net.JVerein.gui.view.RechnungDetailView;
 import de.jost_net.JVerein.rmi.Abrechnung;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class RechnungDetailAction implements Action
 {
-  public void handleAction(Object context) throws ApplicationException
+
+  public void handleAction(Object context)
   {
     Abrechnung a = null;
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-03-27 20:10:26  jost
+ * Auswahl überarbeitet.
+ *
  * Revision 1.2  2010/03/05 21:55:33  jost
  * Künftiges Feature auskommentiert.
  *
@@ -54,6 +57,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     setSize(550, 450);
   }
 
+  @Override
   protected void paint(Composite parent) throws Exception
   {
     control.getMitgliedMitMail().paint(parent);
@@ -94,7 +98,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("alle"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         try
         {
@@ -111,7 +115,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("keinen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         try
         {
@@ -128,7 +132,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         try
         {
@@ -150,13 +154,14 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         throw new OperationCanceledException();
       }
     });
   }
 
+  @Override
   protected Object getData() throws Exception
   {
     return null;

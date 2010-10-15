@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-07 19:49:24  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.8  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -44,10 +47,11 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class JubilaeenView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Jubiläen"));
@@ -56,10 +60,9 @@ public class JubilaeenView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Parameter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"), control
-        .getJubeljahr());
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getJubelArt());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
+        control.getJubeljahr());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getJubelArt());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 
@@ -68,10 +71,6 @@ public class JubilaeenView extends AbstractView
         new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
         "help-browser.png");
     buttons.addButton(control.getStartJubilaeenButton());
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

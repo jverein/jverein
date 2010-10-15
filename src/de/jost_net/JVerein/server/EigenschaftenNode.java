@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009-12-12 16:27:04  jost
+ * todo's entfernt.
+ *
  * Revision 1.2  2009/11/22 16:20:36  jost
  * Sortierung der Nodes
  *
@@ -35,6 +38,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 
 public class EigenschaftenNode implements GenericObjectNode
 {
+
   private EigenschaftenNode parent = null;
 
   private Mitglied mitglied = null;
@@ -102,8 +106,8 @@ public class EigenschaftenNode implements GenericObjectNode
     this.eigenschaftgruppe = eg;
     nodetype = EIGENSCHAFTGRUPPE;
     DBIterator it = Einstellungen.getDBService().createList(Eigenschaft.class);
-    it.addFilter("eigenschaftgruppe = ?", new Object[] { eigenschaftgruppe
-        .getID() });
+    it.addFilter("eigenschaftgruppe = ?",
+        new Object[] { eigenschaftgruppe.getID()});
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
@@ -114,7 +118,7 @@ public class EigenschaftenNode implements GenericObjectNode
         DBIterator it2 = Einstellungen.getDBService().createList(
             Eigenschaften.class);
         it2.addFilter("mitglied = ? AND eigenschaft = ?", new Object[] {
-            mitglied.getID(), eigenschaft.getID() });
+            mitglied.getID(), eigenschaft.getID()});
         if (it2.hasNext())
         {
           eigenschaften = (Eigenschaften) it2.next();
@@ -146,8 +150,7 @@ public class EigenschaftenNode implements GenericObjectNode
     {
       return null;
     }
-    return PseudoIterator.fromArray((GenericObject[]) childrens
-        .toArray(new GenericObject[childrens.size()]));
+    return PseudoIterator.fromArray(childrens.toArray(new GenericObject[childrens.size()]));
   }
 
   public boolean removeChild(GenericObjectNode child)
@@ -155,27 +158,27 @@ public class EigenschaftenNode implements GenericObjectNode
     return childrens.remove(child);
   }
 
-  public EigenschaftenNode getParent() throws RemoteException
+  public EigenschaftenNode getParent()
   {
     return parent;
   }
 
-  public GenericIterator getPath() throws RemoteException
+  public GenericIterator getPath()
   {
     return null;
   }
 
-  public GenericIterator getPossibleParents() throws RemoteException
+  public GenericIterator getPossibleParents()
   {
     return null;
   }
 
-  public boolean hasChild(GenericObjectNode object) throws RemoteException
+  public boolean hasChild(GenericObjectNode object)
   {
     return childrens.size() > 0;
   }
 
-  public boolean equals(GenericObject other) throws RemoteException
+  public boolean equals(GenericObject other)
   {
     return false;
   }
@@ -200,17 +203,17 @@ public class EigenschaftenNode implements GenericObjectNode
     return "bla";
   }
 
-  public String[] getAttributeNames() throws RemoteException
+  public String[] getAttributeNames()
   {
     return null;
   }
 
-  public String getID() throws RemoteException
+  public String getID()
   {
     return null;
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  public String getPrimaryAttribute()
   {
     return null;
   }

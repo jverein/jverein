@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010-09-12 07:43:16  jost
+ * Bugfix Sollsumme.
+ * Siehe auch http://www.jverein.de/forum/viewtopic.php?f=5&t=197
+ *
  * Revision 1.10  2010-08-23 13:36:42  jost
  * Optimierung Tastatursteuerung
  *
@@ -108,6 +112,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private DateInput datum = null;
@@ -185,6 +190,7 @@ public class MitgliedskontoControl extends AbstractControl
     this.datum.setText("Bitte Datum wählen");
     this.datum.addListener(new Listener()
     {
+
       public void handleEvent(Event event)
       {
         Date date = (Date) datum.getValue();
@@ -252,7 +258,7 @@ public class MitgliedskontoControl extends AbstractControl
     return formular;
   }
 
-  public DateInput getVondatum(String datumverwendung) throws RemoteException
+  public DateInput getVondatum(String datumverwendung)
   {
     if (vondatum != null)
     {
@@ -270,7 +276,7 @@ public class MitgliedskontoControl extends AbstractControl
       }
       catch (ParseException e)
       {
-        d = null;
+        //
       }
     }
 
@@ -281,7 +287,7 @@ public class MitgliedskontoControl extends AbstractControl
     return vondatum;
   }
 
-  public DateInput getBisdatum(String datumverwendung) throws RemoteException
+  public DateInput getBisdatum(String datumverwendung)
   {
     if (bisdatum != null)
     {
@@ -298,7 +304,7 @@ public class MitgliedskontoControl extends AbstractControl
       }
       catch (ParseException e)
       {
-        d = null;
+        //
       }
     }
     this.bisdatum = new DateInput(d, Einstellungen.DATEFORMAT);
@@ -308,20 +314,20 @@ public class MitgliedskontoControl extends AbstractControl
     return bisdatum;
   }
 
-  public SelectInput getDifferenz(String defaultval) throws RemoteException
+  public SelectInput getDifferenz(String defaultval)
   {
     if (differenz != null)
     {
       return differenz;
     }
     differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
-        "Überzahlung" }, defaultval);
+        "Überzahlung"}, defaultval);
     differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
   }
 
-  public TextInput getSuchName() throws RemoteException
+  public TextInput getSuchName()
   {
     if (suchname != null)
     {
@@ -363,6 +369,9 @@ public class MitgliedskontoControl extends AbstractControl
   {
     mitgliedskontoTree = new TreePart(new MitgliedskontoNode(mitglied), null)
     {
+
+      @SuppressWarnings("unchecked")
+      @Override
       public void paint(Composite composite) throws RemoteException
       {
         super.paint(composite);
@@ -430,7 +439,7 @@ public class MitgliedskontoControl extends AbstractControl
       mitgliedskontoList.removeAll();
       while (mitgliedskonten.hasNext())
       {
-        mitgliedskontoList.addItem((Mitgliedskonto) mitgliedskonten.next());
+        mitgliedskontoList.addItem(mitgliedskonten.next());
       }
     }
     return mitgliedskontoList;
@@ -546,20 +555,20 @@ public class MitgliedskontoControl extends AbstractControl
     PseudoIterator mitgliedskonten = (PseudoIterator) service.execute(sql,
         param.toArray(), new ResultSetExtractor()
         {
+
           public Object extract(ResultSet rs) throws RemoteException,
               SQLException
           {
             ArrayList<Mitgliedskonto> ergebnis = new ArrayList<Mitgliedskonto>();
             while (rs.next())
             {
-              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
-                  .createObject(Mitgliedskonto.class, rs.getString(1));
+              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
+                  Mitgliedskonto.class, rs.getString(1));
               mk.setBetrag(rs.getDouble("sollsumme"));
               mk.setIstBetrag(rs.getDouble("istsumme"));
               ergebnis.add(mk);
             }
-            return PseudoIterator.fromArray((GenericObject[]) ergebnis
-                .toArray(new GenericObject[ergebnis.size()]));
+            return PseudoIterator.fromArray(ergebnis.toArray(new GenericObject[ergebnis.size()]));
           }
         });
 
@@ -570,6 +579,7 @@ public class MitgliedskontoControl extends AbstractControl
   {
     Button button = new Button("&starten", new Action()
     {
+
       public void handleAction(Object context)
       {
 
@@ -596,15 +606,14 @@ public class MitgliedskontoControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("rechnung", "", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("rechnung", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -640,7 +649,7 @@ public class MitgliedskontoControl extends AbstractControl
               Einstellungen.DATEFORMAT.format(d));
         }
 
-        it.addFilter("datum >= ?", new Object[] { d });
+        it.addFilter("datum >= ?", new Object[] { d});
       }
       else
       {
@@ -654,7 +663,7 @@ public class MitgliedskontoControl extends AbstractControl
           settings.setAttribute(datumverwendung + "datumbis",
               Einstellungen.DATEFORMAT.format(d));
         }
-        it.addFilter("datum <= ?", new Object[] { d });
+        it.addFilter("datum <= ?", new Object[] { d});
       }
       else
       {
@@ -672,7 +681,7 @@ public class MitgliedskontoControl extends AbstractControl
     }
     for (ArrayList<Mitgliedskonto> mk : mks)
     {
-      aufbereitenFormular(mk, fo, file);
+      aufbereitenFormular(mk, fo);
     }
     fa.showFormular();
 
@@ -682,6 +691,7 @@ public class MitgliedskontoControl extends AbstractControl
   {
     Button button = new Button("&starten", new Action()
     {
+
       public void handleAction(Object context)
       {
 
@@ -708,15 +718,14 @@ public class MitgliedskontoControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("mahnung", "", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("mahnung", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -787,14 +796,14 @@ public class MitgliedskontoControl extends AbstractControl
     }
     for (ArrayList<Mitgliedskonto> mk : mks)
     {
-      aufbereitenFormular(mk, fo, file);
+      aufbereitenFormular(mk, fo);
     }
     fa.showFormular();
 
   }
 
-  private void aufbereitenFormular(ArrayList<Mitgliedskonto> mk, Formular fo,
-      File file) throws RemoteException
+  private void aufbereitenFormular(ArrayList<Mitgliedskonto> mk, Formular fo)
+      throws RemoteException
   {
     HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -835,20 +844,18 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, zg2.toArray());
     map.put(FormularfeldControl.BETRAG, betrag.toArray());
     map.put(FormularfeldControl.ID, m.getID());
-    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
-        .getExterneMitgliedsnummer());
+    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER,
+        m.getExterneMitgliedsnummer());
     map.put(FormularfeldControl.ANREDE, m.getAnrede());
     map.put(FormularfeldControl.TITEL, m.getTitel());
     map.put(FormularfeldControl.NAME, m.getName());
     map.put(FormularfeldControl.VORNAME, m.getVorname());
-    map
-        .put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m
-            .getAdressierungszusatz());
+    map.put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m.getAdressierungszusatz());
     map.put(FormularfeldControl.STRASSE, m.getStrasse());
     map.put(FormularfeldControl.PLZ, m.getPlz());
     map.put(FormularfeldControl.ORT, m.getOrt());
-    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(m
-        .getZahlungsrhytmus()).getText());
+    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(
+        m.getZahlungsrhytmus()).getText());
     map.put(FormularfeldControl.BLZ, m.getBlz());
     map.put(FormularfeldControl.KONTO, m.getKonto());
     map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
@@ -859,8 +866,8 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.HANDY, m.getHandy());
     map.put(FormularfeldControl.EMAIL, m.getEmail());
     map.put(FormularfeldControl.EINTRITT, m.getEintritt());
-    map.put(FormularfeldControl.BEITRAGSGRUPPE, m.getBeitragsgruppe()
-        .getBezeichnung());
+    map.put(FormularfeldControl.BEITRAGSGRUPPE,
+        m.getBeitragsgruppe().getBezeichnung());
     map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
     map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
     String zahlungsweg = "";
@@ -880,14 +887,13 @@ public class MitgliedskontoControl extends AbstractControl
       }
       case Zahlungsweg.ÜBERWEISUNG:
       {
-        zahlungsweg = Einstellungen.getEinstellung()
-            .getRechnungTextUeberweisung();
+        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextUeberweisung();
         break;
       }
     }
     map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
-    map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
-        .format(new Date()));
+    map.put(FormularfeldControl.TAGESDATUM,
+        Einstellungen.DATEFORMAT.format(new Date()));
 
     fa.writeForm(fo, map);
   }
@@ -915,6 +921,7 @@ public class MitgliedskontoControl extends AbstractControl
       Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
       Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
       {
+
         public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
         {
           try
@@ -947,8 +954,7 @@ public class MitgliedskontoControl extends AbstractControl
         for (Mitgliedskonto mk : mkn)
         {
           if (r.size() == 0
-              || r.get(0).getMitglied().getID()
-                  .equals(mk.getMitglied().getID()))
+              || r.get(0).getMitglied().getID().equals(mk.getMitglied().getID()))
           {
             r.add(mk);
           }
@@ -974,6 +980,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   private class FilterListener implements Listener
   {
+
     public void handleEvent(Event event)
     {
       if (event.type == SWT.Selection || event.type != SWT.FocusOut)
@@ -1017,6 +1024,7 @@ public class MitgliedskontoControl extends AbstractControl
    */
   private class MitgliedskontoMessageConsumer implements MessageConsumer
   {
+
     /**
      * @see de.willuhn.jameica.messaging.MessageConsumer#autoRegister()
      */
@@ -1030,7 +1038,7 @@ public class MitgliedskontoControl extends AbstractControl
      */
     public Class<?>[] getExpectedMessageTypes()
     {
-      return new Class[] { MitgliedskontoMessage.class };
+      return new Class[] { MitgliedskontoMessage.class};
     }
 
     /**

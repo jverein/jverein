@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-10-03 09:48:20  jost
+ * Überflüssigen Import entfernt.
+ *
  * Revision 1.12  2010-09-09 19:55:07  jost
  * Ausgabe der Eigenschaften
  *
@@ -54,7 +57,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -77,15 +79,15 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedAuswertungPDF
 {
+
   public MitgliedAuswertungPDF(ArrayList<Mitglied> list, final File file,
-      ProgressMonitor monitor, String subtitle) throws ApplicationException,
-      RemoteException
+      ProgressMonitor monitor, String subtitle) throws ApplicationException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle, list
-          .size(), 50, 10, 20, 15);
+      Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle,
+          list.size(), 50, 10, 20, 15);
 
       report.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
           Color.LIGHT_GRAY);
@@ -159,7 +161,7 @@ public class MitgliedAuswertungPDF
         // }
         DBIterator it = Einstellungen.getDBService().createList(
             Eigenschaften.class);
-        it.addFilter("mitglied = ?", new Object[] { m.getID() });
+        it.addFilter("mitglied = ?", new Object[] { m.getID()});
         if (it.size() > 0)
         {
           beitragsgruppebemerkung += "\n";
@@ -175,13 +177,14 @@ public class MitgliedAuswertungPDF
       }
       report.closeTable();
 
-      report.add(new Paragraph("Anzahl Mitglieder: " + list.size(), FontFactory
-          .getFont(FontFactory.HELVETICA, 8)));
+      report.add(new Paragraph("Anzahl Mitglieder: " + list.size(),
+          FontFactory.getFont(FontFactory.HELVETICA, 8)));
 
       report.close();
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         public void run()
         {
           try
@@ -221,7 +224,7 @@ public class MitgliedAuswertungPDF
    * Gibt einen Leerstring aus, falls der Text null ist.
    * 
    * @param text
-   *          der Text.
+   *        der Text.
    * @return der Text oder Leerstring - niemals null.
    */
   // private String notNull(String text)

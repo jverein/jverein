@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2008-04-05 16:07:36  jost
+ * Bugfix Aufruf unter Windows
+ *
  * Revision 1.2  2008/01/01 19:46:53  jost
  * Erweiterung um Hilfe-Funktion
  *
@@ -30,23 +33,24 @@ import de.willuhn.util.ApplicationException;
 
 public class DokumentationAction implements Action
 {
-  public void handleAction(Object context) throws ApplicationException
+
+  public void handleAction(Object context)
   {
     final Object cont = context;
     GUI.getDisplay().asyncExec(new Runnable()
     {
+
       public void run()
       {
         try
         {
           if (cont instanceof String)
           {
-            new Program().handleAction((String) cont);
+            new Program().handleAction(cont);
           }
           else
           {
-            new Program()
-                .handleAction("http://www.jverein.de/index.php5?title=Dokumentation");
+            new Program().handleAction("http://www.jverein.de/index.php5?title=Dokumentation");
           }
         }
         catch (ApplicationException ae)

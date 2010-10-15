@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-07-28 07:26:46  jost
+ * deprecated
+ *
  * Revision 1.5  2009/06/11 21:03:02  jost
  * Vorbereitung I18N
  *
@@ -39,6 +42,7 @@ import de.willuhn.jameica.gui.parts.TablePart;
  * Kontext-Menu zu den ManuellenZahlungseingängen.
  * @deprecated In Version 1.5 entfernen
  */
+@Deprecated
 public class ManuellerZahlungseingangMenu extends ContextMenu
 {
 

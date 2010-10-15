@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.9  2010-08-23 13:39:32  jost
  * Optimierung Tastatursteuerung
  *
@@ -51,10 +54,11 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
-import de.willuhn.util.ApplicationException;
 
 public class SpendenbescheinigungView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigung"));
@@ -67,40 +71,40 @@ public class SpendenbescheinigungView extends AbstractView
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
     left.addHeadline(JVereinPlugin.getI18n().tr("Empfänger"));
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 1"), control
-        .getZeile1(true));
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 2"), control
-        .getZeile2());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 3"), control
-        .getZeile3());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 4"), control
-        .getZeile4());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 5"), control
-        .getZeile5());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 6"), control
-        .getZeile6());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 7"), control
-        .getZeile7());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 1"),
+        control.getZeile1(true));
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 2"),
+        control.getZeile2());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 3"),
+        control.getZeile3());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 4"),
+        control.getZeile4());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 5"),
+        control.getZeile5());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 6"),
+        control.getZeile6());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 7"),
+        control.getZeile7());
 
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
 
     right.addHeadline(JVereinPlugin.getI18n().tr("Datum"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Spende"), control
-        .getSpendedatum());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Bescheinigung"), control
-        .getBescheinigungsdatum());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Spende"),
+        control.getSpendedatum());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Bescheinigung"),
+        control.getBescheinigungsdatum());
 
     right.addHeadline(JVereinPlugin.getI18n().tr("Betrag"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-        .getBetrag());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+        control.getBetrag());
 
     right.addHeadline(JVereinPlugin.getI18n().tr("Ersatz für Aufwendungen"));
     right.addLabelPair(JVereinPlugin.getI18n().tr("Ersatz für Aufwendungen"),
         control.getErsatzAufwendungen());
 
     right.addHeadline(JVereinPlugin.getI18n().tr("Formular"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Formular"), control
-        .getFormular());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
+        control.getFormular());
 
     ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton(new Back(false));
@@ -112,15 +116,12 @@ public class SpendenbescheinigungView extends AbstractView
         new SpendenbescheinigungAction(), null, false, "document-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

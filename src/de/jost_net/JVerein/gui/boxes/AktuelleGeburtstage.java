@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009-07-14 07:28:31  jost
+ * Neu: Box aktuelle Geburtstage
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.boxes;
 
@@ -49,11 +52,13 @@ public class AktuelleGeburtstage extends AbstractBox implements Box
         .getAktuelleGeburtstageList().paint(parent);
   }
 
+  @Override
   public boolean isActive()
   {
     return super.isActive();
   }
 
+  @Override
   public int getHeight()
   {
     return 180;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-01-01 20:28:24  jost
+ * Typo
+ *
  * Revision 1.1  2007/12/22 08:27:02  jost
  * Neu: Jubiläenliste
  *
@@ -20,6 +23,7 @@ import java.util.Vector;
 
 public class JubilaeenParser
 {
+
   private Vector<Integer> elemente;
 
   private int ei = 0;
@@ -58,7 +62,7 @@ public class JubilaeenParser
 
   public int getNext()
   {
-    Integer i = (Integer) elemente.elementAt(ei);
+    Integer i = elemente.elementAt(ei);
     ei++;
     return i.intValue();
   }

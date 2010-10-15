@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009-06-11 21:03:52  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.3  2007/02/23 20:28:04  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -30,6 +33,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 
 public class AltersgruppenParser
 {
+
   private Vector<String> elemente;
 
   private int ei = 0;
@@ -47,12 +51,12 @@ public class AltersgruppenParser
     elemente = new Vector<String>();
     for (int i = 0; i < gruppen.size(); i++)
     {
-      stt = new StringTokenizer((String) gruppen.elementAt(i), "-");
+      stt = new StringTokenizer(gruppen.elementAt(i), "-");
       if (stt.countTokens() != 2)
       {
         throw new RuntimeException(JVereinPlugin.getI18n().tr(
             "Ungültige Altersgruppe: {0}}",
-            new String[] { (String) gruppen.elementAt(i) }));
+            new String[] { gruppen.elementAt(i)}));
       }
       elemente.addElement(stt.nextToken());
       elemente.addElement(stt.nextToken());
@@ -79,7 +83,7 @@ public class AltersgruppenParser
 
   private int getValue()
   {
-    int value = Integer.parseInt((String) elemente.elementAt(ei));
+    int value = Integer.parseInt(elemente.elementAt(ei));
     ei++;
     return value;
   }

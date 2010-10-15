@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-07-25 18:46:31  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.3  2009/06/11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -40,20 +43,25 @@ public class AbrechnungImpl extends AbstractDBObject implements Abrechnung
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "abrechnung";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute() 
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck() 
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -73,13 +81,14 @@ public class AbrechnungImpl extends AbstractDBObject implements Abrechnung
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {
@@ -149,6 +158,7 @@ public class AbrechnungImpl extends AbstractDBObject implements Abrechnung
     setAttribute("betrag", new Double(d));
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

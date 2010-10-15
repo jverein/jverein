@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-05-23 07:11:51  jost
+ * Kontextmenü aufgenommen.
+ *
  * Revision 1.5  2010/05/16 12:32:31  jost
  * Direkter Link zum Mitglied. Kommunikationsdaten aufgenommen.
  *
@@ -126,12 +129,13 @@ public class AktuelleGeburtstageList extends TablePart implements Part
       aktuelleGeburtstageList.removeAll();
       while (geburtstage.hasNext())
       {
-        aktuelleGeburtstageList.addItem((Mitglied) geburtstage.next());
+        aktuelleGeburtstageList.addItem( geburtstage.next());
       }
     }
     return aktuelleGeburtstageList;
   }
 
+  @Override
   public synchronized void paint(Composite parent) throws RemoteException
   {
     super.paint(parent);

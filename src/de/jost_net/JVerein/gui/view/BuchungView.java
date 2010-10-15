@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2010-10-07 19:49:24  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.16  2010-08-23 13:39:33  jost
  * Optimierung Tastatursteuerung
  *
@@ -69,10 +72,11 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
-import de.willuhn.util.ApplicationException;
 
 public class BuchungView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchung"));
@@ -85,29 +89,29 @@ public class BuchungView extends AbstractView
         JVereinPlugin.getI18n().tr("Buchung"));
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsnummer"),
         control.getID());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"), control
-        .getUmsatzid());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control
-        .getKonto(true));
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
-        .getName());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-        .getBetrag());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"),
+        control.getUmsatzid());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+        control.getKonto(true));
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getName());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+        control.getBetrag());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck"),
         control.getZweck());
     grKontoauszug.addLabelPair(
         JVereinPlugin.getI18n().tr("Verwendungszweck 2"), control.getZweck2());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control
-        .getDatum());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control
-        .getArt());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
+        control.getDatum());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"),
+        control.getArt());
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
       grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
           control.getMitgliedskonto());
     }
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"), control
-        .getKommentar());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"),
+        control.getKommentar());
 
     LabelGroup grBuchungsinfos = new LabelGroup(scrolled.getComposite(),
         JVereinPlugin.getI18n().tr("Buchungsinfos"));
@@ -127,15 +131,12 @@ public class BuchungView extends AbstractView
         new BuchungNeuAction(), null, false, "document-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
     {
-      public void handleAction(Object context) throws ApplicationException
+
+      public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

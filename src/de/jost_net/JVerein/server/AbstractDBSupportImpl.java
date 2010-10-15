@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2008-07-16 13:02:39  jost
+ * *** empty log message ***
+ *
  * Revision 1.1  2007/10/18 18:20:23  jost
  * Vorbereitung H2-DB
  *
@@ -32,8 +35,10 @@ import de.willuhn.util.ApplicationException;
  */
 public abstract class AbstractDBSupportImpl implements DBSupport
 {
+
   private static final long serialVersionUID = 8344265686929785808L;
 
+  @SuppressWarnings("unused")
   public void checkConsistency(Connection conn) throws RemoteException,
       ApplicationException
   {
@@ -80,12 +85,13 @@ public abstract class AbstractDBSupportImpl implements DBSupport
     }
   }
 
+  @SuppressWarnings("unused")
   public void install() throws RemoteException
   {
     // Leere Dummy-Implementierung
   }
 
-  public int getTransactionIsolationLevel() throws RemoteException
+  public int getTransactionIsolationLevel()
   {
     return -1;
   }

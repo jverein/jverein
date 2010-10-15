@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-08-16 20:16:02  jost
+ * Neu: Mahnung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -16,11 +19,11 @@ import de.jost_net.JVerein.gui.view.MitgliedskontoMahnungView;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoMahnungAction implements Action
 {
-  public void handleAction(Object context) throws ApplicationException
+
+  public void handleAction(Object context)
   {
     if (context != null && context instanceof Mitgliedskonto)
     {

@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-09-13 15:26:48  jost
+ * Länge des Textes auf 10.000 Zeichen verlängert.
+ * http://www.jverein.de/forum/viewtopic.php?f=5&t=194
+ *
  * Revision 1.1  2010/02/01 21:03:15  jost
  * Neu: Einfache Mailfunktion
  *
@@ -26,6 +30,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
 {
+
   private static final long serialVersionUID = 1L;
 
   public MailVorlageImpl() throws RemoteException
@@ -33,20 +38,25 @@ public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "mailvorlage";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -76,13 +86,14 @@ public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     return null;
   }
@@ -107,6 +118,7 @@ public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
     setAttribute("txt", txt);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

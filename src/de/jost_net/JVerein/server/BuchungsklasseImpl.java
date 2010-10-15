@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009-09-10 18:19:58  jost
+ * neu: Buchungsklassen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -30,20 +33,25 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "buchungsklasse";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "bezeichnung";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -68,13 +76,14 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+   @Override
+  protected Class getForeignObject(String arg0)
   {
     return null;
   }
@@ -102,6 +111,7 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     setAttribute("nummer", new Integer(i));
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

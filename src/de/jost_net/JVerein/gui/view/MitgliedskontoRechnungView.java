@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-07 19:49:23  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.4  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -33,10 +36,11 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoRechnungView extends AbstractView
 {
+
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Rechnung"));
@@ -47,14 +51,14 @@ public class MitgliedskontoRechnungView extends AbstractView
         "Parameter"));
     if (this.getCurrentObject() == null)
     {
-      group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"), control
-          .getVondatum(MitgliedskontoControl.DATUM_RECHNUNG));
-      group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"), control
-          .getBisdatum(MitgliedskontoControl.DATUM_RECHNUNG));
+      group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"),
+          control.getVondatum(MitgliedskontoControl.DATUM_RECHNUNG));
+      group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"),
+          control.getBisdatum(MitgliedskontoControl.DATUM_RECHNUNG));
     }
 
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"), control
-        .getFormular(Formularart.RECHNUNG));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
+        control.getFormular(Formularart.RECHNUNG));
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
@@ -62,10 +66,6 @@ public class MitgliedskontoRechnungView extends AbstractView
         new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
-  }
-
-  public void unbind() throws ApplicationException
-  {
   }
 
   @Override

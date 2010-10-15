@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2009-06-20 12:33:53  jost
+ * Vereinheitlichung der Bezeichner
+ *
  * Revision 1.4  2009/06/11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -37,6 +40,7 @@ import de.willuhn.util.ApplicationException;
 public class KursteilnehmerImpl extends AbstractDBObject implements
     Kursteilnehmer
 {
+
   private static final long serialVersionUID = 1L;
 
   public KursteilnehmerImpl() throws RemoteException
@@ -44,20 +48,25 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "kursteilnehmer";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -112,6 +121,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     try
@@ -127,8 +137,8 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String field) throws RemoteException
+  @Override
+  protected Class getForeignObject(String field)
   {
     return null;
   }
@@ -246,6 +256,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     setAttribute("betrag", new Double(d));
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

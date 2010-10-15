@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-07-25 18:47:32  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.2  2010/05/18 20:25:56  jost
  * Anpassung Klassenname
  *
@@ -32,6 +35,7 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedskontoImpl extends AbstractDBObject implements
     Mitgliedskonto
 {
+
   private static final long serialVersionUID = -1234L;
 
   public MitgliedskontoImpl() throws RemoteException
@@ -39,20 +43,25 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     super();
   }
 
+  @Override
   protected String getTableName()
   {
     return "mitgliedskonto";
   }
 
-  public String getPrimaryAttribute() throws RemoteException
+  @Override
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
-  protected void deleteCheck() throws ApplicationException
+  @Override
+  protected void deleteCheck()
   {
+    //
   }
 
+  @Override
   protected void insertCheck() throws ApplicationException
   {
     try
@@ -79,13 +88,14 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
 
-  @SuppressWarnings("unchecked")
-  protected Class getForeignObject(String arg0) throws RemoteException
+  @Override
+  protected Class getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {
@@ -187,6 +197,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     setAttribute("istbetrag", d);
   }
 
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

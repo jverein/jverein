@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010-10-07 19:49:22  jost
+ * Hilfe in die View verlagert.
+ *
  * Revision 1.10  2010-08-23 13:39:31  jost
  * Optimierung Tastatursteuerung
  *
@@ -67,6 +70,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class ImportView extends AbstractView
 {
+  @Override
   public void bind() throws Exception
   {
 
@@ -173,6 +177,7 @@ public class ImportView extends AbstractView
 
       public void interrupt()
       {
+        //
       }
 
       public boolean isInterrupted()
@@ -184,9 +189,6 @@ public class ImportView extends AbstractView
     Application.getController().start(t);
   }
 
-  public void unbind() throws ApplicationException
-  {
-  }
 
   @Override
   public String getHelp()
