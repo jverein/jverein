@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.30  2010-08-16 20:17:14  jost
  * Neu: Mahnung
  *
@@ -183,9 +186,9 @@ public class MyExtension implements Extension
       if (Einstellungen.getEinstellung().getMitgliedskonto())
       {
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Mitgliedskonten"), new MitgliedskontoListeAction(), "rechnung.png"));
+            "Mitgliedskonten"), new MitgliedskontoListeAction(), "human_folder_public.png"));
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Rechnungen"), new MitgliedskontoRechnungAction(), "rechnung.png"));
+            "Rechnungen"), new MitgliedskontoRechnungAction(), "invoice.png"));
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
             "Mahnungen"), new MitgliedskontoMahnungAction(), "rechnung.png"));
       }
