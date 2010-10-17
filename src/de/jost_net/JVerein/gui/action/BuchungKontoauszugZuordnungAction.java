@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:01  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2010-10-10 08:52:50  jost
  * Kontoauszugsinformationen en Bloc zuweisen
  *
@@ -76,7 +79,9 @@ public class BuchungKontoauszugZuordnungAction implements Action
 
         for (Buchung buchung : b)
         {
-          boolean protect = (buchung.getAuszugsnummer().intValue() > 0 || buchung.getBlattnummer().intValue() > 0)
+          boolean protect = ((buchung.getAuszugsnummer() != null && buchung
+              .getAuszugsnummer().intValue() > 0) || (buchung.getBlattnummer() != null && buchung
+              .getBlattnummer().intValue() > 0))
               && !kaz.getOverride();
           if (protect)
           {
@@ -95,7 +100,7 @@ public class BuchungKontoauszugZuordnungAction implements Action
         {
           protecttext = JVereinPlugin.getI18n().tr(
               ", {0} Buchungen wurden nicht überschrieben. ",
-              new String[] { counter + ""});
+              new String[] { counter + "" });
         }
         GUI.getStatusBar().setSuccessText(
             JVereinPlugin.getI18n().tr("Kontoauszugsinformationen zugeordnet")
