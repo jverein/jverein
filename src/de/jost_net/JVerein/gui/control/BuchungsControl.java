@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.28  2010-10-14 18:26:37  jost
  * Nach Neuaufnahme wird die Buchungs-ID sofort angezeigt.
  *
@@ -390,7 +393,7 @@ public class BuchungsControl extends AbstractControl
       return buchungsart;
     }
     DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
-    list.setOrder("ORDER BY nummer");
+    list.setOrder("ORDER BY bezeichnung");
     buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
     buchungsart.setValue(getBuchung().getBuchungsart());
     buchungsart.setAttribute("bezeichnung");
