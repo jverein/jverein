@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.32  2010-10-06 16:25:51  jost
  * Patch von umbilo zum Import von Eigenschaftengruppen
  *
@@ -219,8 +222,8 @@ public class Import
 
       results = stmt.executeQuery("SELECT * FROM " + file.substring(0, pos));
 
-      eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService().createObject(
-          EigenschaftGruppe.class, null);
+      eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
+          .createObject(EigenschaftGruppe.class, null);
       eigenschaftgruppe.setBezeichnung("Noch nicht zugeordnet");
       eigenschaftgruppe.store();
 
@@ -228,8 +231,8 @@ public class Import
 
       for (String feld : eigenschaftenspalten)
       {
-        eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService().createObject(
-            EigenschaftGruppe.class, null);
+        eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
+            .createObject(EigenschaftGruppe.class, null);
         eigenschaftgruppe.setBezeichnung(feld);
         eigenschaftgruppe.store();
         HM_eigenschaftsgruppen.put(feld, eigenschaftgruppe.getID());
@@ -248,8 +251,8 @@ public class Import
         m.setID(results.getString("Mitglieds_Nr"));
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
-          m.setExterneMitgliedsnummer(new Integer(
-              results.getString("Mitglieds_Nr")));
+          m.setExterneMitgliedsnummer(new Integer(results
+              .getString("Mitglieds_Nr")));
         }
         try
         {
@@ -363,8 +366,8 @@ public class Import
           }
         }
         m.setEintritt(eintritt);
-        Integer bg = new Integer(
-            beitragsgruppen2.get(results.getString("Beitragsart_1")));
+        Integer bg = new Integer(beitragsgruppen2.get(results
+            .getString("Beitragsart_1")));
         m.setBeitragsgruppe(bg);
         // beitragsart.setValue(results.getString("Beitragsart_1"));
         String austritt = results.getString("Austritt");
@@ -388,11 +391,28 @@ public class Import
           kuendigung = null;
         }
         m.setKuendigung(kuendigung);
+        try
+        {
+          m.setVermerk1(results.getString("Vermerk1"));
+        }
+        catch (SQLException e)
+        {
+          // Nichts tun
+        }
+        try
+        {
+          m.setVermerk2(results.getString("Vermerk2"));
+        }
+        catch (SQLException e)
+        {
+          // Nichts tun
+        }
+
         m.insert();
         for (Felddefinition f : zusfeld)
         {
-          Zusatzfelder zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
-              Zusatzfelder.class, null);
+          Zusatzfelder zf = (Zusatzfelder) Einstellungen.getDBService()
+              .createObject(Zusatzfelder.class, null);
           zf.setMitglied(new Integer(m.getID()));
           zf.setFelddefinition(new Integer(f.getID()));
           zf.setFeld(results.getString(f.getName()));
@@ -408,8 +428,8 @@ public class Import
             {
               continue;
             }
-            Eigenschaften eigenschaften = (Eigenschaften) Einstellungen.getDBService().createObject(
-                Eigenschaften.class, null);
+            Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
+                .getDBService().createObject(Eigenschaften.class, null);
             eigenschaften.setMitglied(m.getID());
             eigenschaften.setEigenschaft(getEigenschaftID(eig, feld));
             eigenschaften.store();
@@ -417,10 +437,11 @@ public class Import
         }
         catch (Exception e)
         {
-          monitor.log(" Datensatz unvollständing (Eigenschaften) -> Import wird abgebrochen: ID= "
-              + results.getString("Mitglieds_Nr")
-              + " NAME= "
-              + results.getString("Nachname") + " " + e.getMessage());
+          monitor
+              .log(" Datensatz unvollständing (Eigenschaften) -> Import wird abgebrochen: ID= "
+                  + results.getString("Mitglieds_Nr")
+                  + " NAME= "
+                  + results.getString("Nachname") + " " + e.getMessage());
           return;
         }
 
@@ -571,8 +592,8 @@ public class Import
     HashMap<String, String> beitragsgruppen2 = new HashMap<String, String>();
     while (it.hasNext())
     {
-      Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService().createObject(
-          Beitragsgruppe.class, null);
+      Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
+          .createObject(Beitragsgruppe.class, null);
       String key = (String) it.next();
       b.setBezeichnung(key);
       Double betr = beitragsgruppen1.get(key);
@@ -587,8 +608,9 @@ public class Import
   {
     try
     {
-      DBIterator it = Einstellungen.getDBService().createList(Eigenschaft.class);
-      it.addFilter("bezeichnung = ?", new Object[] { eigenschaft});
+      DBIterator it = Einstellungen.getDBService()
+          .createList(Eigenschaft.class);
+      it.addFilter("bezeichnung = ?", new Object[] { eigenschaft });
       if (it.hasNext())
       {
         Eigenschaft eig = (Eigenschaft) it.next();
@@ -596,13 +618,13 @@ public class Import
       }
       else
       {
-        Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService().createObject(
-            Eigenschaft.class, null);
+        Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService()
+            .createObject(Eigenschaft.class, null);
         eigenschaftneu.setBezeichnung(eigenschaft);
-        eigenschaftneu.setEigenschaftGruppe(new Integer(
-            eigenschaftgruppe.getID()));
-        eigenschaftneu.setEigenschaftGruppe(new Integer(
-            HM_eigenschaftsgruppen.get(feld)));
+        eigenschaftneu.setEigenschaftGruppe(new Integer(eigenschaftgruppe
+            .getID()));
+        eigenschaftneu.setEigenschaftGruppe(new Integer(HM_eigenschaftsgruppen
+            .get(feld)));
         eigenschaftneu.store();
         return eigenschaftneu.getID();
       }
