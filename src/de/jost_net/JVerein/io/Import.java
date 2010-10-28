@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.34  2010-10-25 20:31:49  jost
+ * Neu: Vermerk 1 und Vermerk2
+ *
  * Revision 1.33  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -286,6 +289,15 @@ public class Import
         }
         m.setPlz(results.getString("Plz"));
         m.setOrt(results.getString("Ort"));
+        try
+        {
+          m.setStaat(results.getString("Staat"));
+        }
+        catch (SQLException e)
+        {
+          m.setStaat(null);
+        }
+
         m.setGeburtsdatum(results.getString("Geburtsdatum"));
         m.setGeschlecht(results.getString("Geschlecht"));
         m.setBlz(results.getString("Bankleitzahl"));

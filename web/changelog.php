@@ -42,6 +42,7 @@
     			<li>Korrekter Hinweis auf fehlende Stammdaten bei der Abrechnung.</li>
     			<li>Buchung: Dropdown-Liste Buchungsart alphabetisch sortiert</li>
     			<li>Import: Vermerk1 und Vermerk2 können jetzt importiert werden.</li>
+    			<li>Mitglieder im Ausland: Unter Einstellungen kann jetzt ein entsprechendes Häkchen gesetzt werden. Anschließend kann der Staat beim Mitglied erfasst werden.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -519,6 +520,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.77  2010-10-25 20:32:14  jost
+    Neu: Vermerk 1 und Vermerk2
+
     Revision 1.76  2010-10-19 18:12:44  jost
     *** empty log message ***
 

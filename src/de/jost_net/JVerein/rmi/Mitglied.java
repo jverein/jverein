@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-08-27 19:08:41  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.12  2009/10/20 18:01:17  jost
  * Neu: Anzeige IBAN
  *
@@ -98,6 +101,10 @@ public interface Mitglied extends DBObject
   public String getOrt() throws RemoteException;
 
   public void setOrt(String ort) throws RemoteException;
+
+  public String getStaat() throws RemoteException;
+
+  public void setStaat(String staat) throws RemoteException;
 
   public Integer getZahlungsweg() throws RemoteException;
 

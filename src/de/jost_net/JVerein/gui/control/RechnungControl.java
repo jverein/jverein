@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.16  2010-08-23 13:37:14  jost
  * Optimierung Tastatursteuerung
  *
@@ -350,22 +353,23 @@ public class RechnungControl extends AbstractControl
     try
     {
       abrechnungsList.removeAll();
-      DBIterator abr = Einstellungen.getDBService().createList(Abrechnung.class);
+      DBIterator abr = Einstellungen.getDBService()
+          .createList(Abrechnung.class);
       String suchV = (String) getSuchverwendungszweck().getValue();
       if (suchV != null && suchV.length() > 0)
       {
         abr.addFilter("(zweck1 like ? or zweck2 like ?)", new Object[] {
-            "%" + suchV + "%", "%" + suchV + "%"});
+            "%" + suchV + "%", "%" + suchV + "%" });
       }
       if (getVondatum().getValue() != null)
       {
-        abr.addFilter("datum >= ?",
-            new Object[] { (Date) getVondatum().getValue()});
+        abr.addFilter("datum >= ?", new Object[] { (Date) getVondatum()
+            .getValue() });
       }
       if (getBisdatum().getValue() != null)
       {
-        abr.addFilter("datum <= ?",
-            new Object[] { (Date) getBisdatum().getValue()});
+        abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
+            .getValue() });
       }
       while (abr.hasNext())
       {
@@ -410,14 +414,15 @@ public class RechnungControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("rechnung", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("rechnung", "", Einstellungen.getEinstellung()
+        .getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -449,16 +454,17 @@ public class RechnungControl extends AbstractControl
     }
     if (currentObject == null)
     {
-      DBIterator abr = Einstellungen.getDBService().createList(Abrechnung.class);
+      DBIterator abr = Einstellungen.getDBService()
+          .createList(Abrechnung.class);
       if (getVondatum().getValue() != null)
       {
-        abr.addFilter("datum >= ?",
-            new Object[] { (Date) getVondatum().getValue()});
+        abr.addFilter("datum >= ?", new Object[] { (Date) getVondatum()
+            .getValue() });
       }
       if (getBisdatum().getValue() != null)
       {
-        abr.addFilter("datum <= ?",
-            new Object[] { (Date) getBisdatum().getValue()});
+        abr.addFilter("datum <= ?", new Object[] { (Date) getBisdatum()
+            .getValue() });
       }
       while (abr.hasNext())
       {
@@ -484,23 +490,30 @@ public class RechnungControl extends AbstractControl
         + (m.getAdressierungszusatz().length() > 0 ? m.getAdressierungszusatz()
             + "\n" : "") + m.getStrasse() + "\n" + m.getPlz() + " "
         + m.getOrt();
+    if (m.getStaat() != null && m.getStaat().length() > 0)
+    {
+      empfaenger += "\n" + m.getStaat();
+    }
     map.put(FormularfeldControl.EMPFAENGER, empfaenger);
     map.put(FormularfeldControl.ZAHLUNGSGRUND1, abr.getZweck1());
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, abr.getZweck2());
     map.put(FormularfeldControl.BETRAG, abr.getBetrag());
     map.put(FormularfeldControl.ID, m.getID());
-    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER,
-        m.getExterneMitgliedsnummer());
+    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
+        .getExterneMitgliedsnummer());
     map.put(FormularfeldControl.ANREDE, m.getAnrede());
     map.put(FormularfeldControl.TITEL, m.getTitel());
     map.put(FormularfeldControl.NAME, m.getName());
     map.put(FormularfeldControl.VORNAME, m.getVorname());
-    map.put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m.getAdressierungszusatz());
+    map
+        .put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m
+            .getAdressierungszusatz());
     map.put(FormularfeldControl.STRASSE, m.getStrasse());
     map.put(FormularfeldControl.PLZ, m.getPlz());
     map.put(FormularfeldControl.ORT, m.getOrt());
-    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(
-        m.getZahlungsrhytmus()).getText());
+    map.put(FormularfeldControl.STAAT, m.getStaat());
+    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(m
+        .getZahlungsrhytmus()).getText());
     map.put(FormularfeldControl.BLZ, m.getBlz());
     map.put(FormularfeldControl.KONTO, m.getKonto());
     map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
@@ -511,8 +524,8 @@ public class RechnungControl extends AbstractControl
     map.put(FormularfeldControl.HANDY, m.getHandy());
     map.put(FormularfeldControl.EMAIL, m.getEmail());
     map.put(FormularfeldControl.EINTRITT, m.getEintritt());
-    map.put(FormularfeldControl.BEITRAGSGRUPPE,
-        m.getBeitragsgruppe().getBezeichnung());
+    map.put(FormularfeldControl.BEITRAGSGRUPPE, m.getBeitragsgruppe()
+        .getBezeichnung());
     map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
     map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
     String zahlungsweg = "";
@@ -536,8 +549,8 @@ public class RechnungControl extends AbstractControl
       }
     }
     map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
-    map.put(FormularfeldControl.TAGESDATUM,
-        Einstellungen.DATEFORMAT.format(new Date()));
+    map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
+        .format(new Date()));
     // Date tmp = (Date) getBescheinigungsdatum().getValue();
     // String bescheinigungsdatum = Einstellungen.DATEFORMAT.format(tmp);
     // map.put("Bescheinigungsdatum", bescheinigungsdatum);

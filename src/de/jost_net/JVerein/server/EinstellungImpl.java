@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.17  2010-08-27 19:09:11  jost
  * neu: Mitgliedsfoto
  *
@@ -111,7 +114,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }
@@ -233,6 +236,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException
   {
     setAttribute("mitgliedfoto", new Boolean(mitgliedfoto));
+  }
+
+  public boolean getAuslandsadressen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("auslandsadressen"));
+  }
+
+  public void setAuslandsadressen(Boolean auslandsadressen)
+      throws RemoteException
+  {
+    setAttribute("auslandsadressen", new Boolean(auslandsadressen));
   }
 
   public boolean getManuelleZahlungen() throws RemoteException

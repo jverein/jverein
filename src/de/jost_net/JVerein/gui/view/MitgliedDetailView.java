@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.47  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.46  2010-10-07 19:49:23  jost
  * Hilfe in die View verlagert.
  *
@@ -223,6 +226,10 @@ public class MitgliedDetailView extends AbstractView
     right.addInput(control.getStrasse());
     right.addInput(control.getPlz());
     right.addInput(control.getOrt());
+    if (Einstellungen.getEinstellung().getAuslandsadressen())
+    {
+      right.addInput(control.getStaat());
+    }
     if (control.getMitglied().getPersonenart().equals("n"))
     {
       right.addInput(control.getGeburtsdatum());
@@ -285,8 +292,8 @@ public class MitgliedDetailView extends AbstractView
     }
     if (!control.getMitglied().isNewObject())
     {
-      TabGroup tabMitgliedskonto = new TabGroup(folder,
-          JVereinPlugin.getI18n().tr("Mitgliedskonto"));
+      TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
+          .tr("Mitgliedskonto"));
       controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
           tabMitgliedskonto.getComposite());
     }
@@ -294,10 +301,10 @@ public class MitgliedDetailView extends AbstractView
     {
       TabGroup tab5 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Vermerke"));
-      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"),
-          control.getVermerk1());
-      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"),
-          control.getVermerk2());
+      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"), control
+          .getVermerk1());
+      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"), control
+          .getVermerk2());
     }
 
     if (Einstellungen.getEinstellung().getWiedervorlage())
@@ -315,10 +322,11 @@ public class MitgliedDetailView extends AbstractView
       TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Eigenschaften"));
       SimpleContainer sc = new SimpleContainer(tab7.getComposite(), true);
-      ScrolledContainer scrolledEigenschaften = new ScrolledContainer(
-          sc.getComposite());
+      ScrolledContainer scrolledEigenschaften = new ScrolledContainer(sc
+          .getComposite());
       scrolledEigenschaften.getComposite().setSize(300, 200);
-      control.getEigenschaftenTree().paint(scrolledEigenschaften.getComposite());
+      control.getEigenschaftenTree()
+          .paint(scrolledEigenschaften.getComposite());
     }
     Input[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
@@ -392,6 +400,7 @@ public class MitgliedDetailView extends AbstractView
     return "<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
         + "<li>Anrede: Herrn, Frau ...</li>"
         + "<li>Titel: Dr., Prof. Dr., ...</li>"
+        +"<li>Sofern Auslandsadressen erfasst werden sollen, ist das unter Einstellungen anzuhaken. Dann kann auch der Wohnungsstaat eingegeben werden.</li>"
         + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
         + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
         + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"

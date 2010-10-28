@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.11  2010-09-12 07:43:16  jost
  * Bugfix Sollsumme.
  * Siehe auch http://www.jverein.de/forum/viewtopic.php?f=5&t=197
@@ -321,7 +324,7 @@ public class MitgliedskontoControl extends AbstractControl
       return differenz;
     }
     differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
-        "Überzahlung"}, defaultval);
+        "Überzahlung" }, defaultval);
     differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
@@ -562,13 +565,14 @@ public class MitgliedskontoControl extends AbstractControl
             ArrayList<Mitgliedskonto> ergebnis = new ArrayList<Mitgliedskonto>();
             while (rs.next())
             {
-              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
-                  Mitgliedskonto.class, rs.getString(1));
+              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
+                  .createObject(Mitgliedskonto.class, rs.getString(1));
               mk.setBetrag(rs.getDouble("sollsumme"));
               mk.setIstBetrag(rs.getDouble("istsumme"));
               ergebnis.add(mk);
             }
-            return PseudoIterator.fromArray(ergebnis.toArray(new GenericObject[ergebnis.size()]));
+            return PseudoIterator.fromArray(ergebnis
+                .toArray(new GenericObject[ergebnis.size()]));
           }
         });
 
@@ -606,14 +610,15 @@ public class MitgliedskontoControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("rechnung", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("rechnung", "", Einstellungen.getEinstellung()
+        .getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -649,7 +654,7 @@ public class MitgliedskontoControl extends AbstractControl
               Einstellungen.DATEFORMAT.format(d));
         }
 
-        it.addFilter("datum >= ?", new Object[] { d});
+        it.addFilter("datum >= ?", new Object[] { d });
       }
       else
       {
@@ -663,7 +668,7 @@ public class MitgliedskontoControl extends AbstractControl
           settings.setAttribute(datumverwendung + "datumbis",
               Einstellungen.DATEFORMAT.format(d));
         }
-        it.addFilter("datum <= ?", new Object[] { d});
+        it.addFilter("datum <= ?", new Object[] { d });
       }
       else
       {
@@ -718,14 +723,15 @@ public class MitgliedskontoControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("mahnung", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("mahnung", "", Einstellungen.getEinstellung()
+        .getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -816,6 +822,10 @@ public class MitgliedskontoControl extends AbstractControl
         + (m.getAdressierungszusatz().length() > 0 ? m.getAdressierungszusatz()
             + "\n" : "") + m.getStrasse() + "\n" + m.getPlz() + " "
         + m.getOrt();
+    if (m.getStaat() != null && m.getStaat().length() > 0)
+    {
+      empfaenger += "\n" + m.getStaat();
+    }
     map.put(FormularfeldControl.EMPFAENGER, empfaenger);
     ArrayList<Date> buda = new ArrayList<Date>();
     ArrayList<String> zg = new ArrayList<String>();
@@ -844,18 +854,21 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, zg2.toArray());
     map.put(FormularfeldControl.BETRAG, betrag.toArray());
     map.put(FormularfeldControl.ID, m.getID());
-    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER,
-        m.getExterneMitgliedsnummer());
+    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
+        .getExterneMitgliedsnummer());
     map.put(FormularfeldControl.ANREDE, m.getAnrede());
     map.put(FormularfeldControl.TITEL, m.getTitel());
     map.put(FormularfeldControl.NAME, m.getName());
     map.put(FormularfeldControl.VORNAME, m.getVorname());
-    map.put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m.getAdressierungszusatz());
+    map
+        .put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m
+            .getAdressierungszusatz());
     map.put(FormularfeldControl.STRASSE, m.getStrasse());
     map.put(FormularfeldControl.PLZ, m.getPlz());
     map.put(FormularfeldControl.ORT, m.getOrt());
-    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(
-        m.getZahlungsrhytmus()).getText());
+    map.put(FormularfeldControl.STAAT, m.getStaat());
+    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(m
+        .getZahlungsrhytmus()).getText());
     map.put(FormularfeldControl.BLZ, m.getBlz());
     map.put(FormularfeldControl.KONTO, m.getKonto());
     map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
@@ -866,8 +879,8 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.HANDY, m.getHandy());
     map.put(FormularfeldControl.EMAIL, m.getEmail());
     map.put(FormularfeldControl.EINTRITT, m.getEintritt());
-    map.put(FormularfeldControl.BEITRAGSGRUPPE,
-        m.getBeitragsgruppe().getBezeichnung());
+    map.put(FormularfeldControl.BEITRAGSGRUPPE, m.getBeitragsgruppe()
+        .getBezeichnung());
     map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
     map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
     String zahlungsweg = "";
@@ -887,13 +900,14 @@ public class MitgliedskontoControl extends AbstractControl
       }
       case Zahlungsweg.ÜBERWEISUNG:
       {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextUeberweisung();
+        zahlungsweg = Einstellungen.getEinstellung()
+            .getRechnungTextUeberweisung();
         break;
       }
     }
     map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
-    map.put(FormularfeldControl.TAGESDATUM,
-        Einstellungen.DATEFORMAT.format(new Date()));
+    map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
+        .format(new Date()));
 
     fa.writeForm(fo, map);
   }
@@ -954,7 +968,8 @@ public class MitgliedskontoControl extends AbstractControl
         for (Mitgliedskonto mk : mkn)
         {
           if (r.size() == 0
-              || r.get(0).getMitglied().getID().equals(mk.getMitglied().getID()))
+              || r.get(0).getMitglied().getID()
+                  .equals(mk.getMitglied().getID()))
           {
             r.add(mk);
           }
@@ -1038,7 +1053,7 @@ public class MitgliedskontoControl extends AbstractControl
      */
     public Class<?>[] getExpectedMessageTypes()
     {
-      return new Class[] { MitgliedskontoMessage.class};
+      return new Class[] { MitgliedskontoMessage.class };
     }
 
     /**

@@ -95,6 +95,13 @@
 		<td>nein</td>
 	</tr>
 	<tr>
+		<td>Staat</td>
+		<td>Staat bei Auslandsanschriften</td>
+		<td>50</td>
+		<td>nein</td>
+		<td>ja</td>
+	</tr>
+	<tr>
 		<td>Geburtsdatum</td>
 		<td>Format TT.MM.JJJJ</td>
 		<td>10</td>
@@ -249,6 +256,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straﬂe;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.10  2010-10-25 20:32:00  jost
+    Neu: Vermerk 1 und Vermerk2
+
     Revision 1.9  2010-09-19 17:51:44  jost
     *** empty log message ***
 

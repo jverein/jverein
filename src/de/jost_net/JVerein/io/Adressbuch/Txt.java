@@ -23,8 +23,9 @@ public class Txt
         filename)), encoding);
     out.write("\"Name\"" + separator + "\"Vorname\"" + separator
         + "\"Strasse\"" + separator + "\"PLZ\"" + separator + "\"Ort\""
-        + separator + "\"Anzeigename\"" + separator + "\"Email\"" + separator
-        + "\"TelefonPrivat\"" + separator + "\"TelefonMobil\"\n");
+        + separator + "\"Staat\"" + separator + "\"Anzeigename\"" + separator
+        + "\"Email\"" + separator + "\"TelefonPrivat\"" + separator
+        + "\"TelefonMobil\"\n");
     this.separator = separator;
   }
 
@@ -59,6 +60,8 @@ class TxtRecord
     sb.append("\"" + mitglied.getStrasse() + "\"" + separator);
     sb.append("\"" + mitglied.getPlz() + "\"" + separator);
     sb.append("\"" + mitglied.getOrt() + "\"" + separator);
+    sb.append("\"" + (mitglied.getStaat() != null ? mitglied.getStaat() : "")
+        + "\"" + separator);
     sb.append("\"" + mitglied.getVorname() + " " + mitglied.getName() + "\""
         + separator);
     sb.append("\"" + mitglied.getEmail() + "\"" + separator);

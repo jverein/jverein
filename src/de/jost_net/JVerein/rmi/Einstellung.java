@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-08-27 19:08:23  jost
+ * neu: Mitgliedsfoto
+ *
  * Revision 1.14  2010-08-10 18:07:02  jost
  * Zahlungswegtexte für den Rechnungsdruck
  *
@@ -109,6 +112,11 @@ public interface Einstellung extends DBObject
   public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException;
 
   public boolean getMitgliedfoto() throws RemoteException;
+
+  public void setAuslandsadressen(Boolean auslandsadressen)
+      throws RemoteException;
+
+  public boolean getAuslandsadressen() throws RemoteException;
 
   public void setManuelleZahlungen(Boolean manuellezahlungen)
       throws RemoteException;

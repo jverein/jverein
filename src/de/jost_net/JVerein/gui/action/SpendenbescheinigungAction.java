@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/07/18 20:08:27  jost
  * Neu: Spendenbescheinigung
  *
@@ -51,6 +54,10 @@ public class SpendenbescheinigungAction implements Action
           spb.setZeile2(m.getVornameName());
           spb.setZeile3(m.getStrasse());
           spb.setZeile4(m.getPlz() + " " + m.getOrt());
+          if (m.getStaat() != null && m.getStaat().length() > 0)
+          {
+            spb.setZeile5(m.getStaat());
+          }
         }
       }
       GUI.startView(SpendenbescheinigungView.class.getName(), spb);
