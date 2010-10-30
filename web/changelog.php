@@ -43,6 +43,8 @@
     			<li>Buchung: Dropdown-Liste Buchungsart alphabetisch sortiert</li>
     			<li>Import: Vermerk1 und Vermerk2 können jetzt importiert werden.</li>
     			<li>Mitglieder im Ausland: Unter Einstellungen kann jetzt ein entsprechendes Häkchen gesetzt werden. Anschließend kann der Staat beim Mitglied erfasst werden.</li>
+				<li>Sterbetag aufgenommen.</li>
+				<li>Bugfix bei leerer/neuer Datenbank.</li>
     		</ul>
 
 	   	<li>Version 1.3.2 vom 18.05.2010</li>
@@ -520,6 +522,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.78  2010-10-28 19:17:22  jost
+    Neu: Wohnsitzstaat
+
     Revision 1.77  2010-10-25 20:32:14  jost
     Neu: Vermerk 1 und Vermerk2
 

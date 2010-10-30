@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010-10-28 19:15:50  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.13  2010-08-27 19:08:41  jost
  * neu: Mitgliedsfoto
  *
@@ -183,6 +186,12 @@ public interface Mitglied extends DBObject
   public void setKuendigung(Date kuendigung) throws RemoteException;
 
   public void setKuendigung(String kuendigung) throws RemoteException;
+
+  public Date getSterbetag() throws RemoteException;
+
+  public void setSterbetag(Date sterbetag) throws RemoteException;
+
+  public void setSterbetag(String sterbetag) throws RemoteException;
 
   public String getVermerk1() throws RemoteException;
 

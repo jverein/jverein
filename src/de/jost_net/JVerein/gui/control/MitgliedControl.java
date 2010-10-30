@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.91  2010-10-28 19:13:34  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.90  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -438,6 +441,8 @@ public class MitgliedControl extends AbstractControl
 
   private DateInput kuendigung = null;
 
+  private DateInput sterbetag = null;
+
   private Input[] zusatzfelder;
 
   private TreePart eigenschaftenTree;
@@ -449,6 +454,10 @@ public class MitgliedControl extends AbstractControl
   private DateInput geburtsdatumvon = null;
 
   private DateInput geburtsdatumbis = null;
+
+  private DateInput sterbedatumvon = null;
+
+  private DateInput sterbedatumbis = null;
 
   private DateInput eintrittvon = null;
 
@@ -1281,6 +1290,33 @@ public class MitgliedControl extends AbstractControl
     return kuendigung;
   }
 
+  public DateInput getSterbetag() throws RemoteException
+  {
+    if (sterbetag != null)
+    {
+      return sterbetag;
+    }
+    Date d = getMitglied().getSterbetag();
+
+    this.sterbetag = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.sterbetag.setName("Sterbetag");
+    this.sterbetag.setTitle("Sterbetag");
+    this.sterbetag.setText("Bitte Sterbetag wählen");
+    this.sterbetag.addListener(new Listener()
+    {
+
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) sterbetag.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return sterbetag;
+  }
+
   public TextAreaInput getVermerk1() throws RemoteException
   {
     if (vermerk1 != null)
@@ -1573,6 +1609,80 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return geburtsdatumbis;
+  }
+
+  public DateInput getSterbedatumvon()
+  {
+    if (sterbedatumvon != null)
+    {
+      return sterbedatumvon;
+    }
+    Date d = null;
+    String tmp = settings.getString("mitglied.sterbedatumvon", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = Einstellungen.DATEFORMAT.parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        //
+      }
+    }
+    this.sterbedatumvon = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.sterbedatumvon.setTitle("Sterbedatum");
+    this.sterbedatumvon.setText("Beginn des Sterbezeitraumes");
+    this.sterbedatumvon.addListener(new Listener()
+    {
+
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) sterbedatumvon.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return sterbedatumvon;
+  }
+
+  public DateInput getSterbedatumbis()
+  {
+    if (sterbedatumbis != null)
+    {
+      return sterbedatumbis;
+    }
+    Date d = null;
+    String tmp = settings.getString("mitglied.sterbedatumbis", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = Einstellungen.DATEFORMAT.parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        //
+      }
+    }
+    this.sterbedatumbis = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.sterbedatumbis.setTitle("Sterbedatum");
+    this.sterbedatumbis.setText("Ende des Sterbezeitraumes");
+    this.sterbedatumbis.addListener(new Listener()
+    {
+
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) sterbedatumbis.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return sterbedatumbis;
   }
 
   public DateInput getEintrittvon()
@@ -2017,6 +2127,34 @@ public class MitgliedControl extends AbstractControl
       }
     }
 
+    if (sterbedatumvon != null)
+    {
+      Date tmp = (Date) getSterbedatumvon().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.sterbedatumvon",
+            Einstellungen.DATEFORMAT.format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.sterbedatumvon", "");
+      }
+    }
+
+    if (sterbedatumbis != null)
+    {
+      Date tmp = (Date) getSterbedatumbis().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.sterbedatumbis",
+            Einstellungen.DATEFORMAT.format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.sterbedatumbis", "");
+      }
+    }
+
     if (eintrittvon != null)
     {
       Date tmp = (Date) getEintrittvon().getValue();
@@ -2250,6 +2388,7 @@ public class MitgliedControl extends AbstractControl
       m.setKonto((String) getKonto().getValue());
       m.setKontoinhaber((String) getKontoinhaber().getValue());
       m.setKuendigung((Date) getKuendigung().getValue());
+      m.setSterbetag((Date) getSterbetag().getValue());
       m.setName(getName(false).getText());
       m.setOrt((String) getOrt().getValue());
       m.setPlz((String) getPlz().getValue());
@@ -2491,7 +2630,21 @@ public class MitgliedControl extends AbstractControl
         Date d = (Date) austrittbis.getValue();
         subtitle += "Austritt bis " + Einstellungen.DATEFORMAT.format(d) + "  ";
       }
-      if (austrittvon.getValue() == null && austrittbis.getValue() == null)
+      if (sterbedatumvon.getValue() != null)
+      {
+        Date d = (Date) sterbedatumvon.getValue();
+        subtitle += "Sterbetag von " + Einstellungen.DATEFORMAT.format(d)
+            + "  ";
+      }
+      if (sterbedatumbis.getValue() != null)
+      {
+        Date d = (Date) sterbedatumbis.getValue();
+        subtitle += "Sterbedatum bis " + Einstellungen.DATEFORMAT.format(d)
+            + "  ";
+      }
+      if (austrittvon.getValue() == null && austrittbis.getValue() == null
+          && sterbedatumvon.getValue() == null
+          && sterbedatumbis.getValue() == null)
       {
         subtitle += "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)  ";
       }

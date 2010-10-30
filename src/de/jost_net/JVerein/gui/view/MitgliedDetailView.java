@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.48  2010-10-28 19:14:53  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.47  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -263,6 +266,7 @@ public class MitgliedDetailView extends AbstractView
     tab3.addInput(control.getBeitragsgruppe());
     tab3.addInput(control.getAustritt());
     tab3.addInput(control.getKuendigung());
+    tab3.addInput(control.getSterbetag());
     DBIterator it = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
     it.addFilter("beitragsart = 1 or beitragsart = 2");

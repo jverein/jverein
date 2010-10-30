@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2010-10-28 19:15:05  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.34  2010-10-25 20:31:49  jost
  * Neu: Vermerk 1 und Vermerk2
  *
@@ -299,6 +302,14 @@ public class Import
         }
 
         m.setGeburtsdatum(results.getString("Geburtsdatum"));
+        try
+        {
+          m.setSterbetag(results.getString("Sterbetag"));
+        }
+        catch (SQLException e)
+        {
+          // Nichts tun
+        }
         m.setGeschlecht(results.getString("Geschlecht"));
         m.setBlz(results.getString("Bankleitzahl"));
         m.setKonto(results.getString("Kontonummer"));

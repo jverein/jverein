@@ -109,6 +109,13 @@
 		<td>in Abh‰ngigkeit von den Einstellungen</td>
 	</tr>
 	<tr>
+		<td>Sterbetag</td>
+		<td>Format TT.MM.JJJJ</td>
+		<td>10</td>
+		<td>ja</td>
+		<td>ja</td>
+	</tr>
+	<tr>
 		<td>Geschlecht</td>
 		<td>m oder w</td>
 		<td>1</td>
@@ -256,6 +263,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straﬂe;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.11  2010-10-28 19:17:10  jost
+    Neu: Wohnsitzstaat
+
     Revision 1.10  2010-10-25 20:32:00  jost
     Neu: Vermerk 1 und Vermerk2
 

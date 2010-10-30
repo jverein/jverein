@@ -458,6 +458,10 @@ public class JVereinUpdateProvider
     {
       update0120(conn);
     }
+    if (cv < 121)
+    {
+      update0121(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3112,6 +3116,23 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte staat in die Tabelle mitglied aufgenommen", 120);
+  }
+
+  private void update0121(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD sterbetag date before vermerk1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD sterbetag date after kuendigung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte sterbetag in die Tabelle mitglied aufgenommen", 121);
   }
 
 }

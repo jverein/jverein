@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2010-10-28 19:16:52  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.32  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -267,7 +270,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Ungültiger Zahlungsrhytmus:{0} ", getZahlungsrhytmus() + ""));
     }
-
+    if (getSterbetag() != null && getAustritt() == null)
+    {
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Bei verstorbenem Mitglied muss das Austrittsdatum gefüllt sein!"));
+    }
     if (getAustritt() != null || getKuendigung() != null)
     {
       // Person ist ausgetreten
@@ -645,6 +652,21 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     setAttribute("kuendigung", toDate(kuendigung));
   }
 
+  public Date getSterbetag() throws RemoteException
+  {
+    return (Date) getAttribute("sterbetag");
+  }
+
+  public void setSterbetag(Date sterbetag) throws RemoteException
+  {
+    setAttribute("sterbetag", sterbetag);
+  }
+
+  public void setSterbetag(String sterbetag) throws RemoteException
+  {
+    setAttribute("sterbetag", toDate(sterbetag));
+  }
+
   public String getVermerk1() throws RemoteException
   {
     return (String) getAttribute("vermerk1");
@@ -711,7 +733,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return (getAdressierungszusatz() != null
         && getAdressierungszusatz().length() > 0 ? getAdressierungszusatz()
         + ", " : "")
-        + getStrasse() + ", " + getPlz() + " " + getOrt();
+        + getStrasse()
+        + ", "
+        + getPlz()
+        + " "
+        + getOrt()
+        + (getStaat() != null ? ", " + getStaat() : "");
   }
 
   @Override
