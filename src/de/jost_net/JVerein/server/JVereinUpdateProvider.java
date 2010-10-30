@@ -3093,7 +3093,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     sb = new StringBuilder();
     sb
-        .append("ALTER TABLE einstellung ADD auslandsadressen char(5) after mitgliedsfoto;\n");
+        .append("ALTER TABLE einstellung ADD auslandsadressen char(5) after mitgliedfoto;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
