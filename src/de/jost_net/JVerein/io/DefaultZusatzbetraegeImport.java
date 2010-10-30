@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2009/10/20 18:00:03  jost
+ * Neu: Import von Zusatzbeträgen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -27,6 +30,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
 public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
@@ -138,18 +142,26 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
         }
 
         Mitglied m = (Mitglied) list.next();
-        Zusatzbetrag zus = (Zusatzbetrag) Einstellungen.getDBService()
-            .createObject(Zusatzbetrag.class, null);
-        zus.setMitglied(new Integer(m.getID()));
-        zus.setBetrag(results.getDouble("Betrag"));
-        zus.setBuchungstext(results.getString("Buchungstext"));
-        Date d = de.jost_net.JVerein.util.Datum.toDate(results
-            .getString("Fälligkeit"));
-        zus.setFaelligkeit(d);
-        zus.setStartdatum(d);
-        zus.setIntervall(results.getInt("Intervall"));
+        try
+        {
+          Zusatzbetrag zus = (Zusatzbetrag) Einstellungen.getDBService()
+              .createObject(Zusatzbetrag.class, null);
+          zus.setMitglied(new Integer(m.getID()));
+          zus.setBetrag(results.getDouble("Betrag"));
+          zus.setBuchungstext(results.getString("Buchungstext"));
+          Date d = de.jost_net.JVerein.util.Datum.toDate(results
+              .getString("Fälligkeit"));
+          zus.setFaelligkeit(d);
+          zus.setStartdatum(d);
+          zus.setIntervall(results.getInt("Intervall"));
 
-        zus.store();
+          zus.store();
+        }
+        catch (Exception e)
+        {
+          throw new ApplicationException(e.getMessage() + ", "
+              + m.getNameVorname());
+        }
       }
 
       // clean up
