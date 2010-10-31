@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2010-10-30 11:31:08  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.35  2010-10-28 19:15:05  jost
  * Neu: Wohnsitzstaat
  *
@@ -478,7 +481,7 @@ public class Import
     catch (Exception e)
     {
       monitor.log(" nicht importiert: " + e.getMessage());
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 
