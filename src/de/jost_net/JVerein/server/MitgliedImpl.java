@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.34  2010-10-30 11:32:27  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.33  2010-10-28 19:16:52  jost
  * Neu: Wohnsitzstaat
  *
@@ -436,7 +439,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public void setStaat(String staat) throws RemoteException
   {
-    setAttribute("staat", staat.toUpperCase());
+    if (staat != null)
+    {
+      staat = staat.toUpperCase();
+    }
+    setAttribute("staat", staat);
   }
 
   public Integer getZahlungsweg() throws RemoteException
