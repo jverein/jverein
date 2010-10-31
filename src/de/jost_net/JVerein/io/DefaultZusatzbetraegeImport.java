@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-30 11:53:25  jost
+ * Name des Mitglieds wird beim Fehler mit ausgegeben.
+ *
  * Revision 1.1  2009/10/20 18:00:03  jost
  * Neu: Import von Zusatzbeträgen
  *
@@ -30,6 +33,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -172,7 +176,7 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
     catch (Exception e)
     {
       monitor.log(" nicht importiert: " + e.getMessage());
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 
