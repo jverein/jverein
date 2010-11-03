@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -72,7 +75,7 @@ public class EigenschaftGruppeDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppe</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppen</span></p>"
         + "</form>";
   }
 }

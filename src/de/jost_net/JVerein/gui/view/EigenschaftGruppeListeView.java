@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2010-10-07 19:49:23  jost
  * Hilfe in die View verlagert.
  *
@@ -40,7 +43,7 @@ public class EigenschaftGruppeListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften Gruppe"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften Gruppen"));
 
     EigenschaftGruppeControl control = new EigenschaftGruppeControl(this);
 
