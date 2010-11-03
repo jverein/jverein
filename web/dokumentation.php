@@ -26,6 +26,7 @@
 	</ul>
 	</li>
 	<li><a href="mitglied.php">Mitglieder</a></li>
+	<li><a href="mitgliedskonto.php">Mitgliedskonto</a></li>
 	<li><a href="kursteilnehmer.php">Kursteilnehmer</a></li>
 	<li><a href="abrechnung.php">Abrechnung</a></li>
 	<li><a href="mitgliedskonto.php>Mitgliedskonto (inkl. Rechnung und Mahnung) ab Version 1.4</a></li>
@@ -65,6 +66,9 @@
 
     <!-- 
     $Log$
+    Revision 1.12  2010-09-14 06:19:34  jost
+    Hilfe f. Mitgliedskonto
+
     Revision 1.11  2010/02/01 21:03:42  jost
     Neu: Einfache Mailfunktion
 

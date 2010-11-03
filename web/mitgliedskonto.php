@@ -5,7 +5,7 @@
 	<h2>Aktivierung</h2>
 	<p>Zunächst ist das Mitgliedskonto zu aktivieren. Das geschieht unter Administration&gt;Einstellungen&gt;Anzeige
     <img src='images/MitgliedskontoEinstellungen.png' class='screenshot'>
-    <p>Anschließend ist JVerein neu zu starten.</p> 
+    <p>Anschließend muss JVerein neu gestartet werden.</p> 
     <p>Die manuelle Überwachnung des Zahlungseingangs und die alte Version der Rechnungen sind mit der Version
     1.4 obsolet. Wer alte Daten noch nutzen will, kann dies über die Einstellungen reaktivieren. Ab Version 1.5 
     werden diese Daten nicht mehr zur Verfügung stehen.</p> 
@@ -13,7 +13,7 @@
     
     <h2>Abrechnung</h2>
     <p>Die Abrechnung schreibt Informationen zu Mitgliedsbeiträgen und Zusatzabrechnungen in die Tabelle
-    Mitgliedskonto. Zusätzlich werden für den Zahlungsweg Abbuchung Informationen in die Buchungstabelle
+    Mitgliedskonto (Soll). Zusätzlich werden für den Zahlungsweg Abbuchung Informationen (Ist) in die Buchungstabelle
     der Buchführung geschrieben.</p>
     <p>Fehlerhafte oder Test-Abrechnungen können rückgängig gemacht werden. In dem Abrechnungsformular 
     kann durch klick auf Rückgängig</p>
@@ -78,6 +78,9 @@
     
     <!-- 
     $Log$
+    Revision 1.5  2010-10-03 09:48:35  jost
+    Korrekte Syntax
+
     Revision 1.4  2010-09-14 06:19:48  jost
     Hilfe f. Mitgliedskonto
 

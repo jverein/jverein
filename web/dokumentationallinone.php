@@ -11,6 +11,7 @@
 	<? include ("administration_erweitert.php"); ?>
 	<? include ("administration_import.php"); ?>
 	<? include ("mitglied.php"); ?>
+	<? include ("mitgliedskonto.php"); ?>
 	<? include ("kursteilnehmer.php"); ?>
 	<? include ("abrechnung.php"); ?>
 	<? include ("zusatzbetraege.php"); ?>
@@ -42,6 +43,9 @@
 
     <!-- 
     $Log$
+    Revision 1.8  2010-03-05 21:55:46  jost
+    mail aufgenommen.
+
     Revision 1.7  2009/12/22 18:51:56  jost
     *** empty log message ***
 
