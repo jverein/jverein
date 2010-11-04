@@ -58,10 +58,22 @@
     </p>
 
     <h2><a name="rechnung"></a>Rechnungen</h2>
-    <p>wird noch ergänzt</p>
+    <p>Die Erstellung von Rechnungsformularen ist unter <a href='administration_formulare.php'>Administration|Formulare</a>
+    beschrieben.</p>
+    <p>Die Rechnungen werden entweder durch den Menüpunkt Rechnungen oder durch einen Rechtsklick auf das Mitgliedskonto
+    angestoßen.</p>
+    <p>Beim Menüpunkt Rechnungen erscheint folgendes:</p>
+    <img src='images/MitgliedskontoRechnung1.png' class='screenshot'>
+    <p>Beim Rechtsklick auf ein Mitgliedskonto fehlen die Datumsangaben (von-bis).</p>
     
     <h2><a name="mahnung"></a>Mahnungen</h2>
-    <p>wird noch ergänzt</p>
+    <p>Die Erstellung von Mahnungsformularen ist unter <a href='administration_formulare.php'>Administration|Formulare</a>
+    beschrieben.</p>
+    <p>Die Mahnungen werden entweder durch den Menüpunkt Mahnungen oder durch einen Rechtsklick auf das Mitgliedskonto
+    angestoßen.</p>
+    <p>Beim Menüpunkt Mahnungen erscheint folgendes:</p>
+    <img src='images/MitgliedskontoMahnung.png' class='screenshot'>
+    <p>Beim Rechtsklick auf ein Mitgliedskonto fehlen die Datumsangaben (von-bis).</p>
     
  	<h2>sonstiges</h2>
  	<p>Die Einführung des Mitgliedskontos hat Auswirkung auf die Rechnungserstellung und die "Manuelle Überwachung 
@@ -78,6 +90,9 @@
     
     <!-- 
     $Log$
+    Revision 1.6  2010-11-03 12:02:25  jost
+    *** empty log message ***
+
     Revision 1.5  2010-10-03 09:48:35  jost
     Korrekte Syntax
 
