@@ -22,6 +22,7 @@
         <li>Kommunikationsdaten (Tel./eMail)</li>
         <li>Daten zur Mitgliedschaft (Eintritt, Beitragsgruppe, Austritt)</li>
         <li>Eigenschaften des Mitglieds</li>
+        <li>Mitgliedskonto (ab Version 1.4)
         <li>Foto (ab Version 1.4)</li>
         <li>Wiedervorlagetermine</li>
         <li>Vermerke</li>
@@ -29,7 +30,7 @@
         <li>Individuelle Zusatzfelder</li>
         <li>Lehrgänge</li>
      </ul>
-     <p>Ab Version 1.2 können auch juristische Personen (Firmen, Organisationen, Behörden) als Mitglieder
+     <p>Es können neben natürlichen Personen auch juristische Personen (Firmen, Organisationen, Behörden) als Mitglieder
      	gespeichert werden.</p>
 	<p>Für den Beitragseinzug können eine oder mehrere Beitragsgruppen gebildet werden. Die Abbildung eines 
 	   Familientarifes mit der Bildung von Familienverbänden ist möglich. Es wird entweder ein fester 
@@ -54,7 +55,7 @@
 	<p>In Version 1.3 ist der Versand von Mails an Mitglieder realisiert worden. Der Versand ist an einzelne Mitglieder, 
 	   Gruppen von Mitgliedern oder alle Mitglieder möglich. Für regelmäßig zu versendende Mails können Vorlagen erstellt 
 	   werden. Durch Variable ist die Personalisierung der Mails möglich.</p>
-	<p>Die Erstellung von Rechnungen und Spendenbescheinigungen möglich.</p>
+	<p>Die Erstellung von Rechnungen, Mahnungen (ab Version 1.4) und Spendenbescheinigungen möglich.</p>
 	<p>JVerein ist mit vielen Screenshots ausgiebig <a href='dokumentation.php'>dokumentiert</a>.</p>
 	<p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p>
 	<p>Zusätzlich gibt es eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um einen 
@@ -76,6 +77,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.36  2010-09-01 05:59:26  jost
+    *** empty log message ***
+
     Revision 1.35  2010-07-05 18:49:22  jost
     *** empty log message ***
 
