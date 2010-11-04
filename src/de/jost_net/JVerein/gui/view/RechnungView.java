@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-15 09:58:23  jost
+ * Code aufgeräumt
+ *
  * Revision 1.8  2010-10-07 19:49:22  jost
  * Hilfe in die View verlagert.
  *
@@ -97,7 +100,7 @@ public class RechnungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Rechnung"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Rechnung  - wird ab Version 1.5 nicht mehr unterstützt"));
 
     final RechnungControl control = new RechnungControl(this);
 
