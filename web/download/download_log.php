@@ -52,7 +52,7 @@ if(!is_file($downloads_directory.'/'.$dl) or preg_match('#^\.#',$dl)) {
 }
 else {
 	if($email_message_to){
-		mail($email_message_to,"Download: $dl","Download: $dl","FROM:$email_message_to");
+		mail($email_message_to,"Download: $dl, $REMOTE_ADDR","Download: $dl, $REMOTE_ADDR","FROM:$email_message_to");
 	}
 	if(is_file($log_file)){ // überschreiben
 		$count = file($log_file);
