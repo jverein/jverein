@@ -14,9 +14,6 @@
     	Weiterhin kann nach den Eigenschaften, einem Geburtszeitraum und nach Beitragsgruppen selektiert 
     	werden.</p>
     
-    <p>Bis Version 1.2</p>	
-    <img src='images/Mitgliedsucheeigenschaften.jpg' class='screenshot'>
-    <p>Ab Version 1.3</p>	
     <img src='images/Mitgliedsucheeigenschaften13.jpg' class='screenshot'>
     <p>Es können eine oder mehrere Eigenschaften ausgewählt werden (STRG-Taste beim Mausklick gedrückt 
     	halten). Die Eigenschaften sind "und-verknüpft". D. h. es werden die Mitglied angezeigt, die 
@@ -114,7 +111,7 @@
 		der Text auch über die Tastatur eingegeben werden. Neu hinzugefügte Eigenschaften stehen anschließend 
 		für alle anderen Mitglieder zur Auswahl zur Verfügung.</p>
 		
-	<h2>Eigenschaften ab Version 1.3</h2>
+	<h2>Eigenschaften</h2>
 	<img src='images/Mitgliedeigenschaften13.png' class='screenshot'>
 	<p>Die Eigenschaften des Mitgliedes können angehakt werden, bzw. das Häkchen kann entfernt werden. 
 	   Die Änderungen werden bei Druck auf den Speichern-Knopf in die Datenbank geschrieben.</p>
@@ -122,7 +119,6 @@
 	sind in der Administration einzurichten.</p>
 	<a name="Zusatzfelder"></a>
 	<h2>Zusatzfelder</h2>
-	<p>Ab Version 1.1</p>
 	<img src='images/MitgliedZusatzfelder.jpg' class='screenshot'>
 	<p>Durch <a href="administration_felddefinitionen.php">Definition von Zusatzfeldern</a> die können 
 		zusätzliche Datenfelder erfasst werden.</p>
@@ -136,6 +132,9 @@
 
     <!-- 
     $Log$
+    Revision 1.7  2010-07-05 16:20:08  jost
+    *** empty log message ***
+
     Revision 1.6  2010/01/01 22:37:25  jost
     Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
 

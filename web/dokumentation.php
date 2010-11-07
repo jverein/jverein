@@ -43,7 +43,7 @@
 		<li><a href="dokumentationauswertungjubilaeen.php">Jubiläen</a></li>
 		<li><a href="dokumentationauswertungkursteilnehmer.php">Kursteilnehmer</a></li>
 		<li><a href="dokumentationauswertungstatistik.php">Statistik</a></li>
-		<li><a href="dokumentationauswertungadressbuchexport.php">Adressbuch-Export</a>(ab Version 1.2)</li>
+		<li><a href="dokumentationauswertungadressbuchexport.php">Adressbuch-Export</a></li>
 	</ul>
 	</li>
 	<li><a href="mail.php">Mail</a>
@@ -66,6 +66,9 @@
 
     <!-- 
     $Log$
+    Revision 1.13  2010-11-03 11:57:37  jost
+    *** empty log message ***
+
     Revision 1.12  2010-09-14 06:19:34  jost
     Hilfe f. Mitgliedskonto
 

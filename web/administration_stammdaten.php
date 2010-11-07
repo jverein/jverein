@@ -10,13 +10,16 @@
 	werden.</p>
 	<p>Zur Ausgabe einer Jubiläumsliste werden die Jubeljahre durch Komma getrennt eingetragen. 
 	Ohne Eingabe werden die Standardwerte 10,25,40,50 verwendet.</p>
-	<p>Ab Version 1.1 kann eine Liste der Altersjubilare ausgegeben werden. Ohne Eingabe werden 
+	<p>Es kann eine Liste der Altersjubilare ausgegeben werden. Ohne Eingabe werden 
 	die Standardwerte 50,60,65,70,75,80,85,90,95 verwendet.</p>
 	<p>In die <a href='jameica_startseite.php'>Jameica-Startseite</a> kann eine Liste der 
 	Wiedervorlagetermine eingeblendet werden.</p>
 	
 	<!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.2  2009/05/03 15:33:30  jost
     Neue Homepage
 
