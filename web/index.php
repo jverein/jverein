@@ -65,6 +65,7 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
+    	    <li>07.11.2010: Neuer Downloadbereich</li>
     		<li>05.07.2010: Neues Windows-Setup der Jameica-Suite (32 und 64 bit) im Downloadbereich.</li>
     	    <li>31.05.2010: Version 1.3.3 freigegeben</a>.</li>
     		<li>18.05.2010: Version 1.3.2 freigegeben</a>.</li> 
@@ -77,6 +78,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.37  2010-11-04 21:47:34  jost
+    *** empty log message ***
+
     Revision 1.36  2010-09-01 05:59:26  jost
     *** empty log message ***
 

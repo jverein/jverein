@@ -1,15 +1,31 @@
 <? include ("frame.inc"); ?>
     <h1>Download</h1>
-    <h2>Freigegebene Versionen und Entwicklerversionen für alle Betriebssysteme</h2>
-    <p><a href='phpATM'>Zum Downloadbereich</a></p>
-    <h2>Jameica-Suite für Windows-Benutzer</h2>
-	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat die Jameica Suite zusammengestellt. 
-		Windows-Benutzer können Jameica, Hibiscus, Syntax und JVerein per Setup-Datei installieren. 
-		Das Setup steht auch im <a href='phpATM'>Downloadbereich</a> zur Verfügung.</a></p>
+    <ul>
+    	<li>Freigegebene Version</li>
+    		<ul>
+    			<li><a href='download/download_log.php?dl=jverein.1.3.3.zip'>Version 1.3.3</a>&nbsp;Für alle Betriebssysteme. Vom 31.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen.</li>
+    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
+    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_64.exe'>Version 1.3.3</a>&nbsp;Windows 64-bit-Setup.</li>
+    		</ul>
+    	<li>Entwicklerversionen</li>
+    		<ul>
+    			<li><a href='download/download_log.php?dl=jverein.1.4.0-devel-260.zip'>Entwicklerversion 1.4 Build 260</a>&nbsp;vom 7.11.2010 / benötigt Jameica- und Hibiscus-Nightly-Builds >= 7.8.2010)</li>
+    		</ul>
+    	<li>Vorherige Versionen</li>
+    		<ul>
+    			<li><a href='download/download_log.php?dl=jverein.1.3.2.zip'>Version 1.3.2</a>vom 18.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
+    			<li><a href='download/download_log.php?dl=jverein.1.3.1.zip'>Version 1.3.1</a>&nbsp;vom 16.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
+    			<li><a href='download/download_log.php?dl=jverein.1.3.0.zip'>Version 1.3.0</a>&nbsp;vom 9.4.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
+    			<li><a href='download/download_log.php?dl=jverein.1.2.0.zip'>Version 1.2.0</a>&nbsp;vom 23.8.2009 / zusammen mit Jameica 1.8 und Hibiscus 1.10 einsetzen </li>
+    		</ul>
+    <ul>
     
     
     <!-- 
     $Log$
+    Revision 1.13  2010/04/29 12:45:38  jost
+    *** empty log message ***
+
     Revision 1.12  2010/03/28 18:21:01  jost
     Neuer Downloadbereich
 

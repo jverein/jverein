@@ -1,0 +1,30 @@
+###########################################################################
+#  Download Log
+#  (c) 2008 by Peter Garstenauer & Reynhard Boegl for kick-image.at
+#  Free Download: http://www.kick-image.at > WEBTOOLS
+###########################################################################
+
+Mit dem "Download Log" lassen sich sämtliche eingebundenen Downloads von Dateien zählen. Die Anzahl der Downloads wird in eine Text-Datei geschrieben.
+Zusätzlich ist es noch möglich sich per E-mail von einem Download informieren zu lassen.
+Die im Beispielordner "downloads" liegende .htaccess-Datei verhindert das direkte Herunterladen der Datei bei Kenntnis derer Adresse (wenn nicht gewünscht die Datei .htaccess löschen).
+
+###  Datei-Verlinkung auf der Seite: download_log.php?dl=test.jpg  ###
+
+
+VORGEHENSWEISE:
+
+1) In "download_log.php" die nötigen Einstellungen tätigen.
+2) Das Script und die Text-Datei (benötigt Schreibrechte) hochladen
+3) Am Server den vorgesehenen Ordner erstellen und die Download-Dateien reinladen
+4) Verlinkungen zur Download-Datei umschreiben
+
+Mit Aufruf der Datei "download_tabelle.php" ist (geg. nach Ändern der Einstellungen) eine übersichtliche Darstellung der Downloads möglich.
+
+
+###########################################################################
+#  Sämtliche, zum Download zur Verfügung gestellten Dateien werden
+#  von kick-image.at sorgfältig auf Viren und andere Schädlinge
+#  überprüft. kick-image.at übernimmt jedoch keinerlei Haftung für
+#  eventuell entstehende Schäden jeglicher Art, alle Downloads sind
+#  freiwillig und auf eigene Gefahr!
+###########################################################################
