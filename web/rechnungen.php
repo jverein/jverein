@@ -1,7 +1,8 @@
 <? include ("frame.inc"); ?>
     <h1>Rechnung</h1>
     <p>
-    <p>Ab Version 1.1</p>
+    <p>Diese Funktion wird ab Version 1.4 durch die Rechnungen des Mitgliedskontos ersetzt. Ab Version 1.5 steht sie nicht
+       mehr zur Verfügung.</p>
    
    	<p>Vorbereitend ist sind ein oder mehrere <a href="administration_formulare.php">Formulare</a> einzurichten.</p>
    	<p>Als Formularfelder stehen zur Verfügung:</p>
@@ -30,6 +31,9 @@
     
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.2  2009/05/03 15:33:30  jost
     Neue Homepage
 
