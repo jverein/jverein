@@ -60,6 +60,8 @@
     <h2><a name="rechnung"></a>Rechnungen</h2>
     <p>Die Erstellung von Rechnungsformularen ist unter <a href='administration_formulare.php'>Administration|Formulare</a>
     beschrieben.</p>
+    <p>Für die einzelnen Zahlungswege können Texte unter 
+    <a href='administration_einstellungen.php'>Administration|Einstellungen|Rechnungen</a> hinterlegt werden.</a>
     <p>Die Rechnungen werden entweder durch den Menüpunkt Rechnungen oder durch einen Rechtsklick auf das Mitgliedskonto
     angestoßen.</p>
     <p>Beim Menüpunkt Rechnungen erscheint folgendes:</p>
@@ -90,6 +92,9 @@
     
     <!-- 
     $Log$
+    Revision 1.7  2010-11-04 19:52:11  jost
+    *** empty log message ***
+
     Revision 1.6  2010-11-03 12:02:25  jost
     *** empty log message ***
 
