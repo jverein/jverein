@@ -24,7 +24,7 @@ $log_file = 'downloads.txt';
 # E-mail-Adresse für Benachrichtigung bei Download
 # leer lassen wenn keine Benachrichtgiung gewünscht
 # mehrere E-mail-Adressen mit Beistrich getrennt
-$email_message_to = 'heiner@jost-net.de';
+$email_message_to = 'downloads@jost-net.de';
 
 # Sprach-Einstellungen
 $lang['not_found'] = 'Die Datei wurde nicht gefunden!';
@@ -52,7 +52,8 @@ if(!is_file($downloads_directory.'/'.$dl) or preg_match('#^\.#',$dl)) {
 }
 else {
 	if($email_message_to){
-		mail($email_message_to,"Download: $dl, $REMOTE_ADDR","Download: $dl, $REMOTE_ADDR","FROM:$email_message_to");
+	    $ip=$_SERVER['REMOTE_ADDR'];
+		mail($email_message_to,"Download: $dl, $ip","Download: $dl, $ip","FROM:$email_message_to");
 	}
 	if(is_file($log_file)){ // überschreiben
 		$count = file($log_file);
