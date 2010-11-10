@@ -3,9 +3,10 @@
     <ul>
     	<li>Freigegebene Version</li>
     		<ul>
-    			<li><a href='download/download_log.php?dl=jverein.1.3.3.zip'>Version 1.3.3</a>&nbsp;Für alle Betriebssysteme. Vom 31.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen.</li>
-    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
-    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_64.exe'>Version 1.3.3</a>&nbsp;Windows 64-bit-Setup.</li>
+    			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
+    			<li>Die Windows-Installer stehen in Kürze zur Verfügung.</li>
+<!--   			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
+    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_64.exe'>Version 1.3.3</a>&nbsp;Windows 64-bit-Setup.</li>-->
     		</ul>
     	<li>Entwicklerversionen</li>
     		<ul>
@@ -13,6 +14,9 @@
     		</ul>
     	<li>Vorherige Versionen</li>
     		<ul>
+    			<li><a href='download/download_log.php?dl=jverein.1.3.3.zip'>Version 1.3.3</a>&nbsp;Für alle Betriebssysteme. Vom 31.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen.</li>
+    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
+    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_64.exe'>Version 1.3.3</a>&nbsp;Windows 64-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.3.2.zip'>Version 1.3.2</a>vom 18.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
     			<li><a href='download/download_log.php?dl=jverein.1.3.1.zip'>Version 1.3.1</a>&nbsp;vom 16.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
     			<li><a href='download/download_log.php?dl=jverein.1.3.0.zip'>Version 1.3.0</a>&nbsp;vom 9.4.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
@@ -23,6 +27,9 @@
     
     <!-- 
     $Log$
+    Revision 1.14  2010-11-07 15:02:35  jost
+    neuer Downloadbereich
+
     Revision 1.13  2010/04/29 12:45:38  jost
     *** empty log message ***
 
