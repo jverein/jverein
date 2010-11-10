@@ -18,7 +18,7 @@
     		<td align=center>1.3</td><td align=center>1.9</td><td align=center>1.11</td>
        	</tr>
     	<tr> 
-    		<td align=center>1.3 (von der Version 1.4 gibt es noch keine Entwicklerversion)</td><td align=center>Nightly-Build 1.10</td><td align=center>Nightly-Build 1.12</td>
+    		<td align=center>1.4</td><td align=center>1.10</td><td align=center>1.12</td>
        	</tr>
     </table>
     <p></p>
@@ -55,6 +55,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.6  2010-08-04 11:36:51  jost
+    Anker aufgenommen.
+
     Revision 1.5  2010-07-25 18:49:20  jost
     Bugfix Zahlungsrhytmus
 
