@@ -5,8 +5,8 @@
     		<ul>
     			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
     			<li>Die Windows-Installer stehen in Kürze zur Verfügung.</li>
-<!--   			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
-    			<li><a href='download/download_log.php?dl=jameicasuite-setup133_64.exe'>Version 1.3.3</a>&nbsp;Windows 64-bit-Setup.</li>-->
+     			<li><a href='download/download_log.php?dl=jameicasuite-setup140_32.exe'>Version 1.4.0</a>&nbsp;Windows 32-bit-Setup.</li>
+    			<li><a href='download/download_log.php?dl=jameicasuite-setup140_64.exe'>Version 1.4.0</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
     	<li>Entwicklerversionen</li>
     		<ul>
@@ -27,6 +27,9 @@
     
     <!-- 
     $Log$
+    Revision 1.16  2010-11-11 08:18:22  jost
+    *** empty log message ***
+
     Revision 1.15  2010-11-10 18:18:30  jost
     *** empty log message ***
 
