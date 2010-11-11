@@ -10,7 +10,7 @@
     		</ul>
     	<li>Entwicklerversionen</li>
     		<ul>
-    			<li><a href='download/download_log.php?dl=jverein.1.4.0-devel-260.zip'>Entwicklerversion 1.4 Build 260</a>&nbsp;vom 7.11.2010 / benötigt Jameica- und Hibiscus-Nightly-Builds >= 7.8.2010)</li>
+    			<li>Zur Zeit stehen keine Entwicklerversionen zur Verfügung.</li>
     		</ul>
     	<li>Vorherige Versionen</li>
     		<ul>
@@ -27,6 +27,9 @@
     
     <!-- 
     $Log$
+    Revision 1.15  2010-11-10 18:18:30  jost
+    *** empty log message ***
+
     Revision 1.14  2010-11-07 15:02:35  jost
     neuer Downloadbereich
 
