@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2008-07-16 13:02:39  jost
  * *** empty log message ***
  *
@@ -38,7 +41,6 @@ public abstract class AbstractDBSupportImpl implements DBSupport
 
   private static final long serialVersionUID = 8344265686929785808L;
 
-  @SuppressWarnings("unused")
   public void checkConsistency(Connection conn) throws RemoteException,
       ApplicationException
   {
@@ -85,7 +87,6 @@ public abstract class AbstractDBSupportImpl implements DBSupport
     }
   }
 
-  @SuppressWarnings("unused")
   public void install() throws RemoteException
   {
     // Leere Dummy-Implementierung

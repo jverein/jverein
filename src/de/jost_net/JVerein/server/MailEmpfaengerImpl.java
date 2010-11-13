@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2010-02-01 21:03:15  jost
  * Neu: Einfache Mailfunktion
  *
@@ -78,7 +81,7 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {

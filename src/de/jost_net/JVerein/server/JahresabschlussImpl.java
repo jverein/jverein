@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2009-06-11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -152,7 +155,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String field)
+  protected Class<?> getForeignObject(String field)
   {
     return null;
   }

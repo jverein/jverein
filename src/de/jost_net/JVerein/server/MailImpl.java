@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2010-09-13 15:26:32  jost
  * Länge des Textes auf 10.000 Zeichen verlängert.
  * http://www.jverein.de/forum/viewtopic.php?f=5&t=194
@@ -103,7 +106,7 @@ public class MailImpl extends AbstractDBObject implements Mail
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
 
     return null;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2009-09-10 18:19:58  jost
  * neu: Buchungsklassen
  *
@@ -83,7 +86,7 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
   }
 
    @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

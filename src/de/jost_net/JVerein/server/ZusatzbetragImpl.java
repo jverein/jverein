@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2009-06-11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -76,7 +79,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
   }
 
   @Override
-  protected void deleteCheck() 
+  protected void deleteCheck()
   {
     //
   }
@@ -148,7 +151,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {

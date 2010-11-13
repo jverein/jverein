@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2010-08-27 19:09:46  jost
  * neu: Mitgliedsfoto
  *
@@ -65,7 +68,7 @@ public class MitgliedfotoImpl extends AbstractDBObject implements Mitgliedfoto
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

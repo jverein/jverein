@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2010-09-09 18:51:13  jost
  * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
  *
@@ -81,7 +84,7 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0) 
   {
     return null;
   }

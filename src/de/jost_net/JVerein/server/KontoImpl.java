@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.7  2010-09-28 18:31:15  jost
  * Check auf Doppelte Konten
  *
@@ -129,7 +132,7 @@ public class KontoImpl extends AbstractDBObject implements Konto
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

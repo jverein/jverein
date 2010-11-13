@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2010-10-28 19:16:22  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.18  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -249,27 +252,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("auslandsadressen", new Boolean(auslandsadressen));
   }
 
-  public boolean getManuelleZahlungen() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("manuellezahlungen"));
-  }
-
-  public void setManuelleZahlungen(Boolean manuellezahlungen)
-      throws RemoteException
-  {
-    setAttribute("manuellezahlungen", new Boolean(manuellezahlungen));
-  }
-
-  public boolean getRechnungen13() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("rechnungen13"));
-  }
-
-  public void setRechnungen13(Boolean rechnungen13) throws RemoteException
-  {
-    setAttribute("rechnungen13", new Boolean(rechnungen13));
-  }
-
   public String getRechnungTextAbbuchung() throws RemoteException
   {
     String text = (String) getAttribute("rechnungtextabbuchung");
@@ -391,40 +373,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute("mitgliedskontoistzahlung", mitgliedskontoistzahlung);
-  }
-
-  public boolean getRechnungFuerAbbuchung() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("rechnungfuerabbuchung"));
-  }
-
-  public void setRechnungFuerAbbuchung(Boolean rechnungfuerabbuchung)
-      throws RemoteException
-  {
-    setAttribute("rechnungfuerabbuchung", new Boolean(rechnungfuerabbuchung));
-  }
-
-  public boolean getRechnungFuerUeberweisung() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("rechnungfuerueberweisung"));
-  }
-
-  public void setRechnungFuerUeberweisung(Boolean rechnungfuerueberweisung)
-      throws RemoteException
-  {
-    setAttribute("rechnungfuerueberweisung", new Boolean(
-        rechnungfuerueberweisung));
-  }
-
-  public boolean getRechnungFuerBarzahlung() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("rechnungfuerbarzahlung"));
-  }
-
-  public void setRechnungFuerBarzahlung(Boolean rechnungfuerbarzahlung)
-      throws RemoteException
-  {
-    setAttribute("rechnungfuerbarzahlung", new Boolean(rechnungfuerbarzahlung));
   }
 
   public void setUpdateDiagInfos(Boolean updatediaginfos)

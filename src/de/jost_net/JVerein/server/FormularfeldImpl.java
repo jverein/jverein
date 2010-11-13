@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2009-06-11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -86,7 +89,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
   }
 
   @Override
-  protected Class getForeignObject(String field)
+  protected Class<?> getForeignObject(String field)
   {
     if ("formular".equals(field))
     {

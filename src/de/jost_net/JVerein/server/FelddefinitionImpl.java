@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2010-01-01 20:11:12  jost
  * Typisierung der Zusatzfelder
  *
@@ -122,7 +125,7 @@ public class FelddefinitionImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

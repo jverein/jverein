@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2010-10-30 11:31:38  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.19  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -106,12 +109,12 @@ public class MitgliedQuery
     this.dialog = dialog;
   }
 
-  public ArrayList get() throws RemoteException
+  public ArrayList<?> get() throws RemoteException
   {
     return get("*");
   }
 
-  public ArrayList get(String anfangsbuchstabe) throws RemoteException
+  public ArrayList<?> get(String anfangsbuchstabe) throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
 
@@ -347,7 +350,7 @@ public class MitgliedQuery
     {
       bedingungen.add(new Integer(bg.getID()));
     }
-    return (ArrayList) service.execute(sql, bedingungen.toArray(), rs);
+    return (ArrayList<?>) service.execute(sql, bedingungen.toArray(), rs);
   }
 
   private void addCondition(String condition)

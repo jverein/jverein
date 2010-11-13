@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2010-10-31 17:53:52  jost
+ * Vermeidung NPE
+ *
  * Revision 1.34  2010-10-30 11:32:27  jost
  * Neu: Sterbetag
  *
@@ -318,7 +321,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  protected Class getForeignObject(String field)
+  protected Class<?> getForeignObject(String field)
   {
     if ("beitragsgruppe".equals(field))
     {

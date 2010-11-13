@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2009-06-20 12:33:53  jost
  * Vereinheitlichung der Bezeichner
  *
@@ -138,7 +141,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String field)
+  protected Class<?> getForeignObject(String field)
   {
     return null;
   }

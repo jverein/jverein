@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2009-06-11 21:04:23  jost
  * Vorbereitung I18N
  *
@@ -81,7 +84,7 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
   }
 
   @Override
-  protected Class getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0) 
   {
     return null;
   }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2009-11-17 21:03:14  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -89,7 +92,7 @@ public class EigenschaftenImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0) 
   {
     if ("mitglied".equals(arg0))
     {

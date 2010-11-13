@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.12  2009-11-17 21:04:07  jost
  * DB-Aktualisierung optimiert.
  *
@@ -95,7 +98,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     Logger.info("loading database driver: " + driverClass);
     try
     {
-      Class c = Application.getClassLoader().load(driverClass);
+      Class<?> c = Application.getClassLoader().load(driverClass);
       this.driver = (DBSupport) c.newInstance();
     }
     catch (Throwable t)
@@ -171,7 +174,6 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     // this.driver.execute(getConnection(), file);
   }
 
-  @SuppressWarnings("unused")
   public void update(Version oldVersion, Version newVersion)
       throws RemoteException
   {

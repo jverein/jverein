@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.13  2010-09-01 05:58:19  jost
  * Bugfix numerische Sortierung
  *
@@ -135,7 +138,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   }
 
   @Override
-  protected Class getForeignObject(String field)
+  protected Class<?> getForeignObject(String field)
   {
     if ("buchungsart".equals(field))
     {

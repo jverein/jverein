@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2010-07-25 18:47:32  jost
  * Neu: Mitgliedskonto
  *
@@ -95,7 +98,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {

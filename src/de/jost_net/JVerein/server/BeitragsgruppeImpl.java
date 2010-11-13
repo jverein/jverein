@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2009-06-11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -95,7 +98,7 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

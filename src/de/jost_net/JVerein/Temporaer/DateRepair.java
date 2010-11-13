@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2008-11-29 13:17:55  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -52,7 +55,7 @@ public class DateRepair implements MessageConsumer
     return false;
   }
 
-  public Class[] getExpectedMessageTypes()
+  public Class<?>[] getExpectedMessageTypes()
   {
     return new Class[] { SystemMessage.class};
   }

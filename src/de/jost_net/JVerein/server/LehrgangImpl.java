@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2009-04-13 11:41:02  jost
  * Neu: Lehrgänge
  *
@@ -73,7 +76,7 @@ public class LehrgangImpl extends AbstractDBObject implements Lehrgang
   }
 
   @Override
-  protected Class getForeignObject(String arg0)
+  protected Class<?> getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {

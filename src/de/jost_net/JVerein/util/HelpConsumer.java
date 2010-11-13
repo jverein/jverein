@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-10-04 12:18:31  jost
+ * Tool zur Ermittlung der Views ohne Hilfetext
+ *
  * Revision 1.1  2009-03-26 21:05:56  jost
  * Email-Adress-Checker
  *
@@ -39,7 +42,7 @@ public class HelpConsumer implements MessageConsumer
     return true;
   }
 
-  public Class[] getExpectedMessageTypes()
+  public Class<?>[] getExpectedMessageTypes()
   {
     return new Class[] { QueryMessage.class};
   }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.7  2009-06-11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -130,7 +133,7 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
   }
 
   @Override
-  protected Class getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

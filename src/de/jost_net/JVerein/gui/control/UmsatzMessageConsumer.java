@@ -14,9 +14,9 @@ import de.willuhn.jameica.messaging.MessageConsumer;
 public class UmsatzMessageConsumer implements MessageConsumer
 {
 
-  public Class[] getExpectedMessageTypes()
+  public Class<?>[] getExpectedMessageTypes()
   {
-    return new Class[] { ImportMessage.class};
+    return new Class<?>[] { ImportMessage.class };
   }
 
   public void handleMessage(Message message) throws Exception

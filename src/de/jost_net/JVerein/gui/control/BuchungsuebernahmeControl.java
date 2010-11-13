@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.13  2010-10-10 06:36:14  jost
  * Bugfix "leere Kontoauswahl".
  *
@@ -134,7 +137,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
       {
         try
         {
-          List buchungen = buchungsList.getItems();
+          List<?> buchungen = buchungsList.getItems();
           for (int i = 0; i < buchungen.size(); i++)
           {
             Umsatz u = (Umsatz) buchungen.get(i);
@@ -203,14 +206,14 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
     try
     {
-      DBService hibservice = (DBService) Application.getServiceFactory().lookup(
-          HBCI.class, "database");
+      DBService hibservice = (DBService) Application.getServiceFactory()
+          .lookup(HBCI.class, "database");
       DBIterator hibbuchungen = hibservice.createList(Umsatz.class);
       if (maximum.intValue() > 0)
       {
         hibbuchungen.addFilter("id >" + maximum);
       }
-      hibbuchungen.addFilter("konto_id = ?", new Object[] { hibid});
+      hibbuchungen.addFilter("konto_id = ?", new Object[] { hibid });
       hibbuchungen.setOrder("ORDER BY id");
 
       if (buchungsList == null)
