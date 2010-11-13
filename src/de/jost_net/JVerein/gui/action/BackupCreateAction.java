@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-10-15 09:58:01  jost
+ * Code aufgeräumt
+ *
  * Revision 1.9  2010-09-12 11:52:10  jost
  * Bugfixes
  *
@@ -55,7 +58,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.MailVorlage;
-import de.jost_net.JVerein.server.AbrechnungImpl;
 import de.jost_net.JVerein.server.AbrechnungslaufImpl;
 import de.jost_net.JVerein.server.AnfangsbestandImpl;
 import de.jost_net.JVerein.server.BeitragsgruppeImpl;
@@ -75,7 +77,6 @@ import de.jost_net.JVerein.server.KursteilnehmerImpl;
 import de.jost_net.JVerein.server.LehrgangImpl;
 import de.jost_net.JVerein.server.LehrgangsartImpl;
 import de.jost_net.JVerein.server.MailAnhangImpl;
-import de.jost_net.JVerein.server.ManuellerZahlungseingangImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.MitgliedskontoImpl;
 import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
@@ -109,14 +110,12 @@ public class BackupCreateAction implements Action
       BuchungsklasseImpl.class, BuchungsartImpl.class, KontoImpl.class,
       MitgliedImpl.class, MitgliedskontoImpl.class, BuchungImpl.class,
       FelddefinitionImpl.class, SpendenbescheinigungImpl.class,
-      FormularImpl.class, FormularfeldImpl.class, AbrechnungImpl.class,
-      EigenschaftGruppeImpl.class, EigenschaftImpl.class,
-      EigenschaftenImpl.class, AnfangsbestandImpl.class,
-      JahresabschlussImpl.class, ManuellerZahlungseingangImpl.class,
-      KursteilnehmerImpl.class, WiedervorlageImpl.class,
-      ZusatzbetragImpl.class, ZusatzfelderImpl.class, LehrgangsartImpl.class,
-      LehrgangImpl.class, MailVorlage.class, MailEmpfaenger.class, Mail.class,
-      MailAnhangImpl.class};
+      FormularImpl.class, FormularfeldImpl.class, EigenschaftGruppeImpl.class,
+      EigenschaftImpl.class, EigenschaftenImpl.class, AnfangsbestandImpl.class,
+      JahresabschlussImpl.class, KursteilnehmerImpl.class,
+      WiedervorlageImpl.class, ZusatzbetragImpl.class, ZusatzfelderImpl.class,
+      LehrgangsartImpl.class, LehrgangImpl.class, MailVorlage.class,
+      MailEmpfaenger.class, Mail.class, MailAnhangImpl.class };
 
   /**
    * Dateformat, welches fuer den Dateinamen genutzt wird.
@@ -131,7 +130,7 @@ public class BackupCreateAction implements Action
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setFilterPath(System.getProperty("user.home"));
     fd.setFileName("jverein-backup-" + DATEFORMAT.format(new Date()) + ".xml");
-    fd.setFilterExtensions(new String[] { "*.xml"});
+    fd.setFilterExtensions(new String[] { "*.xml" });
     fd.setText(JVereinPlugin.getI18n().tr(
         "Bitte wählen Sie die Datei, in der das Backup gespeichert wird"));
     String f = fd.open();
@@ -181,8 +180,7 @@ public class BackupCreateAction implements Action
 
           for (Class<?> clazz : tab)
           {
-            System.out.println(clazz.getCanonicalName());
-            backup(clazz, writer, monitor);
+             backup(clazz, writer, monitor);
             monitor.addPercentComplete(100 / tab.length);
           }
 
@@ -237,8 +235,8 @@ public class BackupCreateAction implements Action
    * @param monitor
    * @throws Exception
    */
-  private static void backup(Class type, Writer writer, ProgressMonitor monitor)
-      throws Exception
+  private static void backup(Class<?> type, Writer writer,
+      ProgressMonitor monitor) throws Exception
   {
     DBIterator list = Einstellungen.getDBService().createList(type);
     list.setOrder("ORDER by id");
@@ -259,7 +257,7 @@ public class BackupCreateAction implements Action
             + " - skipping", e);
         monitor.log(JVereinPlugin.getI18n().tr(
             "  {0} fehlerhaft: {1}, überspringe",
-            new String[] { BeanUtil.toString(o), e.getMessage()}));
+            new String[] { BeanUtil.toString(o), e.getMessage() }));
       }
     }
   }

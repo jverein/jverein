@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2010-10-28 19:14:43  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.34  2010-10-15 09:58:23  jost
  * Code aufgeräumt
  *
@@ -113,7 +116,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EinstellungControl;
@@ -177,10 +179,6 @@ public class EinstellungenView extends AbstractView
         .getMitgliedfoto());
     right.addLabelPair(JVereinPlugin.getI18n().tr("Auslandsadressen *"),
         control.getAuslandsadressen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "manuelle Zahlungen reaktivieren*"), control.getManuelleZahlungen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "Rechnungen vor V 1.4 reaktivieren*"), control.getRechnungen13());
     right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
     right.addLabelPair(JVereinPlugin.getI18n().tr(
@@ -221,17 +219,6 @@ public class EinstellungenView extends AbstractView
         "Rechnungen"));
     LabelGroup groupRechnungen = new LabelGroup(tabRechnungen.getComposite(),
         JVereinPlugin.getI18n().tr("Rechnungen"));
-    if (Einstellungen.getEinstellung().getRechnungen13())
-    {
-      groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
-          "für Zahlungsweg Abbuchung"), control.getRechnungFuerAbbuchung());
-      groupRechnungen
-          .addLabelPair(JVereinPlugin.getI18n().tr(
-              "für Zahlungsweg Überweisung"), control
-              .getRechnungFuerUeberweisung());
-      groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr(
-          "für Zahlungsweg Barzahlung"), control.getRechnungFuerBarzahlung());
-    }
     groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Abbuchung"),
         control.getRechnungTextAbbuchung());
     groupRechnungen.addLabelPair(

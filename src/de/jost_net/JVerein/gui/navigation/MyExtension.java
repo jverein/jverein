@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2010-11-03 21:28:26  jost
+ * Redakt.
+ *
  * Revision 1.32  2010-10-16 15:35:54  jost
  * neue Icons
  *
@@ -137,13 +140,11 @@ import de.jost_net.JVerein.gui.action.LehrgaengeListeAction;
 import de.jost_net.JVerein.gui.action.LehrgangsartListeAction;
 import de.jost_net.JVerein.gui.action.MailListeAction;
 import de.jost_net.JVerein.gui.action.MailVorlagenAction;
-import de.jost_net.JVerein.gui.action.ManuellerZahlungseingangListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedImportAction;
 import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoMahnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
-import de.jost_net.JVerein.gui.action.RechnungListeAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StammdatenAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
@@ -176,16 +177,6 @@ public class MyExtension implements Extension
       }
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
           "Abrechnung"), new AbbuchungAction(), "accessories-calculator.png"));
-      if (Einstellungen.getEinstellung().getRechnungen13())
-      {
-        if (Einstellungen.getEinstellung().getRechnungFuerAbbuchung()
-            || Einstellungen.getEinstellung().getRechnungFuerUeberweisung()
-            || Einstellungen.getEinstellung().getRechnungFuerBarzahlung())
-        {
-          jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-              "Rechnungen /alt)"), new RechnungListeAction(), "rechnung.png"));
-        }
-      }
       if (Einstellungen.getEinstellung().getMitgliedskonto())
       {
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
@@ -204,13 +195,6 @@ public class MyExtension implements Extension
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
             "Zusatzbeträge importieren"), new ZusatzbetraegeImportAction(),
             "zusatzbetraege.png"));
-      }
-      if (Einstellungen.getEinstellung().getManuelleZahlungen())
-      {
-        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Manueller Zahlungseingang"),
-            new ManuellerZahlungseingangListeAction(),
-            "folder-saved-search.png"));
       }
       if (Einstellungen.getEinstellung().getWiedervorlage())
       {

@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2010-10-31 17:53:28  jost
+ * Vermeidung NPE
+ * Logging
+ *
  * Revision 1.36  2010-10-30 11:31:08  jost
  * Neu: Sterbetag
  *
@@ -140,13 +144,11 @@ import java.util.Set;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Zahlungsweg;
-import de.jost_net.JVerein.rmi.Abrechnung;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
-import de.jost_net.JVerein.rmi.ManuellerZahlungseingang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -504,21 +506,6 @@ public class Import
         Zusatzfelder z = (Zusatzfelder) list.next();
         z.delete();
       }
-      // Manueller Zahlungseingang
-      list = Einstellungen.getDBService().createList(
-          ManuellerZahlungseingang.class);
-      while (list.hasNext())
-      {
-        ManuellerZahlungseingang m = (ManuellerZahlungseingang) list.next();
-        m.delete();
-      }
-      // Abrechnung
-      list = Einstellungen.getDBService().createList(Abrechnung.class);
-      while (list.hasNext())
-      {
-        Abrechnung abr = (Abrechnung) list.next();
-        abr.delete();
-      }
 
       // Wiedervorlage
       list = Einstellungen.getDBService().createList(Wiedervorlage.class);
@@ -613,8 +600,8 @@ public class Import
       beitragsgruppen1.put(results.getString("Beitragsart_1"), new Double(
           results.getString("Beitrag_1").replace(',', '.')));
     }
-    Set keys = beitragsgruppen1.keySet();
-    Iterator it = keys.iterator();
+    Set<?> keys = beitragsgruppen1.keySet();
+    Iterator<?> it = keys.iterator();
     HashMap<String, String> beitragsgruppen2 = new HashMap<String, String>();
     while (it.hasNext())
     {

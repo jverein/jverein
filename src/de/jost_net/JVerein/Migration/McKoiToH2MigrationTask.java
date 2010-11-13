@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2008-11-29 13:14:18  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -99,7 +102,7 @@ public class McKoiToH2MigrationTask extends DatabaseMigrationTask
   }
 
   @Override
-  protected void copy(Class type, ProgressMonitor monitor) throws Exception
+  protected void copy(Class<?> type, ProgressMonitor monitor) throws Exception
   {
     super.copy(type, monitor);
   }

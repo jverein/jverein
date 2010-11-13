@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2010-10-28 19:13:07  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.29  2010-08-27 19:07:06  jost
  * neu: Mitgliedsfoto
  *
@@ -148,10 +151,6 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput auslandsadressen;
 
-  private CheckboxInput manuellezahlungen;
-
-  private CheckboxInput rechnungen13;
-
   private TextInput rechnungtextabbuchung;
 
   private TextInput rechnungtextueberweisung;
@@ -165,12 +164,6 @@ public class EinstellungControl extends AbstractControl
   private TextInput dateinamenmuster;
 
   private TextInput beginngeschaeftsjahr;
-
-  private CheckboxInput rechnungfuerabbuchung;
-
-  private CheckboxInput rechnungfuerueberweisung;
-
-  private CheckboxInput rechnungfuerbarzahlung;
 
   private SelectInput aktuellegeburtstagevorher;
 
@@ -334,28 +327,6 @@ public class EinstellungControl extends AbstractControl
     return auslandsadressen;
   }
 
-  public CheckboxInput getManuelleZahlungen() throws RemoteException
-  {
-    if (manuellezahlungen != null)
-    {
-      return manuellezahlungen;
-    }
-    manuellezahlungen = new CheckboxInput(Einstellungen.getEinstellung()
-        .getManuelleZahlungen());
-    return manuellezahlungen;
-  }
-
-  public CheckboxInput getRechnungen13() throws RemoteException
-  {
-    if (rechnungen13 != null)
-    {
-      return rechnungen13;
-    }
-    rechnungen13 = new CheckboxInput(Einstellungen.getEinstellung()
-        .getRechnungen13());
-    return rechnungen13;
-  }
-
   public TextInput getRechnungTextAbbuchung() throws RemoteException
   {
     if (rechnungtextabbuchung != null)
@@ -463,39 +434,6 @@ public class EinstellungControl extends AbstractControl
     beginngeschaeftsjahr = new TextInput(Einstellungen.getEinstellung()
         .getBeginnGeschaeftsjahr(), 6);
     return beginngeschaeftsjahr;
-  }
-
-  public CheckboxInput getRechnungFuerAbbuchung() throws RemoteException
-  {
-    if (rechnungfuerabbuchung != null)
-    {
-      return rechnungfuerabbuchung;
-    }
-    rechnungfuerabbuchung = new CheckboxInput(Einstellungen.getEinstellung()
-        .getRechnungFuerAbbuchung());
-    return rechnungfuerabbuchung;
-  }
-
-  public CheckboxInput getRechnungFuerUeberweisung() throws RemoteException
-  {
-    if (rechnungfuerueberweisung != null)
-    {
-      return rechnungfuerueberweisung;
-    }
-    rechnungfuerueberweisung = new CheckboxInput(Einstellungen.getEinstellung()
-        .getRechnungFuerUeberweisung());
-    return rechnungfuerueberweisung;
-  }
-
-  public CheckboxInput getRechnungFuerBarzahlung() throws RemoteException
-  {
-    if (rechnungfuerbarzahlung != null)
-    {
-      return rechnungfuerbarzahlung;
-    }
-    rechnungfuerbarzahlung = new CheckboxInput(Einstellungen.getEinstellung()
-        .getRechnungFuerBarzahlung());
-    return rechnungfuerbarzahlung;
   }
 
   public TextInput getSmtpServer() throws RemoteException
@@ -625,8 +563,6 @@ public class EinstellungControl extends AbstractControl
       e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
-      e.setManuelleZahlungen((Boolean) manuellezahlungen.getValue());
-      e.setRechnungen13((Boolean) rechnungen13.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextUeberweisung((String) rechnungtextueberweisung

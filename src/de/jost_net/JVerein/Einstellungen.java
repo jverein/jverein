@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.22  2010/01/21 21:36:47  jost
+ * Zusätzlicher DateTime-Formatter
+ *
  * Revision 1.21  2009/07/18 13:42:30  jost
  * Bugfix DecimalFormat
  *
@@ -184,12 +187,6 @@ public class Einstellungen
             "a$s$-d$-z$"));
         einstellung.setBeginnGeschaeftsjahr(settings.getString(
             "beginngeschaeftsjahr", "01.01."));
-        einstellung.setRechnungFuerAbbuchung(settings.getBoolean(
-            "rechnung.fuer.abbuchung", true));
-        einstellung.setRechnungFuerUeberweisung(settings.getBoolean(
-            "rechnung.fuer.ueberweisung", true));
-        einstellung.setRechnungFuerBarzahlung(settings.getBoolean(
-            "rechnung.fuer.barzahlung", true));
       }
       catch (RemoteException e1)
       {

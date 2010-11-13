@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2008-11-29 13:14:10  jost
  * Refactoring: Warnungen beseitigt.
  *
@@ -49,7 +52,7 @@ public class McKoiToH2MigrationListener implements MessageConsumer
     return s.getBoolean("migration.h2", true);
   }
 
-  public Class[] getExpectedMessageTypes()
+  public Class<?>[] getExpectedMessageTypes()
   {
     return new Class[] { SystemMessage.class};
   }

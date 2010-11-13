@@ -462,6 +462,34 @@ public class JVereinUpdateProvider
     {
       update0121(conn);
     }
+    if (cv < 122)
+    {
+      update0122(conn);
+    }
+    if (cv < 123)
+    {
+      update0123(conn);
+    }
+    if (cv < 124)
+    {
+      update0124(conn);
+    }
+    if (cv < 125)
+    {
+      update0125(conn);
+    }
+    if (cv < 126)
+    {
+      update0126(conn);
+    }
+    if (cv < 127)
+    {
+      update0127(conn);
+    }
+    if (cv < 128)
+    {
+      update0128(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3133,6 +3161,126 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte sterbetag in die Tabelle mitglied aufgenommen", 121);
+  }
+
+  private void update0122(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungen13;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungen13;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungen13 aus der Tabelle einstellung entfernt", 122);
+  }
+
+  private void update0123(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP manuellezahlungen;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP manuellezahlungen;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte manuellezahlungen aus der Tabelle einstellung entfernt", 123);
+  }
+
+  private void update0124(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungfuerabbuchung;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungfuerabbuchung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungfuerabbuchung aus der Tabelle einstellung entfernt",
+        124);
+  }
+
+  private void update0125(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungfuerueberweisung;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungfuerueberweisung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungfuerueberweisung aus der Tabelle einstellung entfernt",
+        125);
+  }
+
+  private void update0126(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungfuerbarzahlung;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP rechnungfuerbarzahlung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte rechnungfuerbarzahlung aus der Tabelle einstellung entfernt",
+        126);
+  }
+
+  private void update0127(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("DROP TABLE abrechnung;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("DROP TABLE abrechnung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle abrechnung gelöscht", 127);
+  }
+
+  private void update0128(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("DROP TABLE manuellerzahlungseingang;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("DROP TABLE manuellerzahlungseingang;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle manuellerzahlungseingang gelöscht", 128);
   }
 
 }

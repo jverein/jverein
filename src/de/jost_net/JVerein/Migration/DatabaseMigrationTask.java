@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2008-12-22 21:19:57  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -34,7 +37,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Version;
 import de.jost_net.JVerein.server.BeitragsgruppeImpl;
 import de.jost_net.JVerein.server.KursteilnehmerImpl;
-import de.jost_net.JVerein.server.ManuellerZahlungseingangImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.StammdatenImpl;
 import de.jost_net.JVerein.server.VersionImpl;
@@ -107,7 +109,6 @@ public class DatabaseMigrationTask implements BackgroundTask
       copy(BeitragsgruppeImpl.class, monitor);
       copy(MitgliedImpl.class, monitor);
       copy(KursteilnehmerImpl.class, monitor);
-      copy(ManuellerZahlungseingangImpl.class, monitor);
       DBIterator v = target.createList(Version.class);
       if (v.size() == 0)
       {
@@ -142,12 +143,11 @@ public class DatabaseMigrationTask implements BackgroundTask
    * korrigieren.
    * 
    * @param object
-   *        das ggf noch zu korrigierende Objekt.
+   *          das ggf noch zu korrigierende Objekt.
    * @param monitor
-   *        Monitor.
+   *          Monitor.
    * @throws RemoteException
    */
-  @SuppressWarnings("unused")
   protected void fixObject(AbstractDBObject object, ProgressMonitor monitor)
       throws RemoteException
   {
@@ -158,12 +158,12 @@ public class DatabaseMigrationTask implements BackgroundTask
    * Kopiert eine einzelne Tabelle.
    * 
    * @param type
-   *        Objekttyp.
+   *          Objekttyp.
    * @param monitor
-   *        Monitor.
+   *          Monitor.
    * @throws Exception
    */
-  protected void copy(Class type, ProgressMonitor monitor) throws Exception
+  protected void copy(Class<?> type, ProgressMonitor monitor) throws Exception
   {
     monitor.setStatusText(i18n.tr("Kopiere " + type.getName()));
     Logger.info("  copying " + type.getName());
@@ -200,7 +200,8 @@ public class DatabaseMigrationTask implements BackgroundTask
             + ": " + BeanUtil.toString(from), e);
         if (to == null)
         {
-          monitor.log(i18n.tr("Fehler beim Kopieren des Datensatzes, überspringe"));
+          monitor.log(i18n
+              .tr("Fehler beim Kopieren des Datensatzes, überspringe"));
         }
         else
         {
@@ -208,7 +209,7 @@ public class DatabaseMigrationTask implements BackgroundTask
           {
             monitor.log(i18n.tr(
                 "  Fehler beim Kopieren von [ID: {0}]: {1}, überspringe",
-                new String[] { id, BeanUtil.toString(to)}));
+                new String[] { id, BeanUtil.toString(to) }));
             to.transactionRollback();
           }
           catch (Exception e2)
