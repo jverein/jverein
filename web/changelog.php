@@ -4,6 +4,7 @@
 	   	<li>Version 1.5.0 (noch nicht freigegeben)</li>
     		<ul>
     			<li>Manuelle Zahlungseingänge und Rechnungen (bis 1.3) entfernt.</li>
+    			<li>Bugfix beim Import von Zusatzfeldern. Bislang wurde nur der Datentyp "Zeichenfolge" korrekt importiert.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -527,6 +528,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.83  2010-11-13 09:32:17  jost
+    Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
+
     Revision 1.82  2010-11-10 18:18:05  jost
     *** empty log message ***
 
