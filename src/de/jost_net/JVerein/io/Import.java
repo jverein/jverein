@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.39  2010-11-17 17:00:29  jost
+ * Bugfix beim Import von Zusatzfeldern.
+ *
  * Revision 1.38  2010-11-13 09:26:41  jost
  * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
  *
@@ -265,7 +268,7 @@ public class Import
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, null);
 
-        m.setID(results.getString("Mitglieds_Nr"));
+        // m.setID(results.getString("Mitglieds_Nr"));
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
           m.setExterneMitgliedsnummer(new Integer(results
