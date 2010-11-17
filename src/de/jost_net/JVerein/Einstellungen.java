@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.23  2010-11-13 09:20:04  jost
+ * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
+ *
  * Revision 1.22  2010/01/21 21:36:47  jost
  * Zusätzlicher DateTime-Formatter
  *
@@ -150,6 +153,7 @@ public class Einstellungen
     NODATE.setTime(cal.getTimeInMillis());
     DECIMALFORMAT.setMinimumFractionDigits(2);
     DECIMALFORMAT.setMaximumFractionDigits(2);
+    DATEFORMAT.setLenient(false);
     try
     {
       einstellung = (Einstellung) getDBService().createObject(
