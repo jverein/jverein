@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.13  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -51,6 +54,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
@@ -74,12 +78,22 @@ public class BeitragsgruppeDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Beitrag"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"),
-        control.getBeitragsArt());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
+        .getBezeichnung(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
+        .getBetrag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"), control
+        .getBeitragsArt());
+
+    if (Einstellungen.getEinstellung().getArbeitseinsatz())
+    {
+      LabelGroup groupAe = new LabelGroup(getParent(), JVereinPlugin.getI18n()
+          .tr("Arbeitseinsatz"));
+      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Stunden"), control
+          .getArbeitseinsatzStunden());
+      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
+          .getArbeitseinsatzBetrag());
+    }
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));

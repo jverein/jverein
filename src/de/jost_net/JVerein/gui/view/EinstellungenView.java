@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2010-11-13 09:25:58  jost
+ * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
+ *
  * Revision 1.35  2010-10-28 19:14:43  jost
  * Neu: Wohnsitzstaat
  *
@@ -179,6 +182,8 @@ public class EinstellungenView extends AbstractView
         .getMitgliedfoto());
     right.addLabelPair(JVereinPlugin.getI18n().tr("Auslandsadressen *"),
         control.getAuslandsadressen());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Arbeitseinsatz *"), control
+        .getArbeitseinsatz());
     right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
     right.addLabelPair(JVereinPlugin.getI18n().tr(

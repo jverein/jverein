@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2010-11-13 09:29:58  jost
+ * Warnings entfernt.
+ *
  * Revision 1.19  2010-10-28 19:16:22  jost
  * Neu: Wohnsitzstaat
  *
@@ -250,6 +253,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute("auslandsadressen", new Boolean(auslandsadressen));
+  }
+
+  public boolean getArbeitseinsatz() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("arbeitseinsatz"));
+  }
+
+  public void setArbeitseinsatz(Boolean arbeitseinsatz) throws RemoteException
+  {
+    setAttribute("arbeitseinsatz", new Boolean(arbeitseinsatz));
   }
 
   public String getRechnungTextAbbuchung() throws RemoteException

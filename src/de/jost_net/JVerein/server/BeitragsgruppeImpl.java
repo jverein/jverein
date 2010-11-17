@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-11-13 09:29:22  jost
+ * Warnings entfernt.
+ *
  * Revision 1.6  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -141,6 +144,38 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
   public void setBeitragsArt(int art) throws RemoteException
   {
     setAttribute("beitragsart", art);
+  }
+
+  public double getArbeitseinsatzStunden() throws RemoteException
+  {
+    Double d = (Double) getAttribute("arbeitseinsatzstunden");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  public void setArbeitseinsatzStunden(double arbeitseinsatzStunden)
+      throws RemoteException
+  {
+    setAttribute("arbeitseinsatzstunden", new Double(arbeitseinsatzStunden));
+  }
+
+  public double getArbeitseinsatzBetrag() throws RemoteException
+  {
+    Double d = (Double) getAttribute("arbeitseinsatzbetrag");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  public void setArbeitseinsatzBetrag(double arbeitseinsatzBetrag)
+      throws RemoteException
+  {
+    setAttribute("arbeitseinsatzbetrag", new Double(arbeitseinsatzBetrag));
   }
 
   @Override

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2008/01/25 16:06:28  jost
+ * Neu: Eigenschaften des Mitgliedes
+ *
  * Revision 1.3  2007/03/25 17:04:01  jost
  * Beitragsart aufgenommen.
  *
@@ -40,4 +43,14 @@ public interface Beitragsgruppe extends DBObject
   public int getBeitragsArt() throws RemoteException;
 
   public void setBeitragsArt(int art) throws RemoteException;
+
+  public double getArbeitseinsatzStunden() throws RemoteException;
+
+  public void setArbeitseinsatzStunden(double arbeitseinsatzStunden)
+      throws RemoteException;
+
+  public double getArbeitseinsatzBetrag() throws RemoteException;
+
+  public void setArbeitseinsatzBetrag(double arbeitseinsatzBetrag)
+      throws RemoteException;
 }

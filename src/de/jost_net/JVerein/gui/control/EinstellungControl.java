@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2010-11-13 09:23:47  jost
+ * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
+ *
  * Revision 1.30  2010-10-28 19:13:07  jost
  * Neu: Wohnsitzstaat
  *
@@ -150,6 +153,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput mitgliedfoto;
 
   private CheckboxInput auslandsadressen;
+
+  private CheckboxInput arbeitseinsatz;
 
   private TextInput rechnungtextabbuchung;
 
@@ -325,6 +330,17 @@ public class EinstellungControl extends AbstractControl
     auslandsadressen = new CheckboxInput(Einstellungen.getEinstellung()
         .getAuslandsadressen());
     return auslandsadressen;
+  }
+
+  public CheckboxInput getArbeitseinsatz() throws RemoteException
+  {
+    if (arbeitseinsatz != null)
+    {
+      return arbeitseinsatz;
+    }
+    arbeitseinsatz = new CheckboxInput(Einstellungen.getEinstellung()
+        .getArbeitseinsatz());
+    return arbeitseinsatz;
   }
 
   public TextInput getRechnungTextAbbuchung() throws RemoteException
@@ -563,6 +579,7 @@ public class EinstellungControl extends AbstractControl
       e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
+      e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextUeberweisung((String) rechnungtextueberweisung

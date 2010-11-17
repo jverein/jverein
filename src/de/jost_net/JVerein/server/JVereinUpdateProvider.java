@@ -490,6 +490,22 @@ public class JVereinUpdateProvider
     {
       update0128(conn);
     }
+    if (cv < 129)
+    {
+      update0129(conn);
+    }
+    if (cv < 130)
+    {
+      update0130(conn);
+    }
+    if (cv < 131)
+    {
+      update0131(conn);
+    }
+    if (cv < 132)
+    {
+      update0132(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3281,6 +3297,97 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle manuellerzahlungseingang gelöscht", 128);
+  }
+
+  private void update0129(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD arbeitseinsatz char(5) before rechnungtextabbuchung;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb
+        .append("ALTER TABLE einstellung ADD arbeitseinsatz char(5) after auslandsadressen;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte arbeitseinsatz in die Tabelle einstellung aufgenommen", 129);
+  }
+
+  private void update0130(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE beitragsgruppe ADD arbeitseinsatzstunden double;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE beitragsgruppe ADD arbeitseinsatzstunden double;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte arbeitseinsatzstunden in die Tabelle beitragsgruppe aufgenommen",
+        130);
+  }
+
+  private void update0131(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE beitragsgruppe ADD arbeitseinsatzbetrag double;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE beitragsgruppe ADD arbeitseinsatzbetrag double;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte arbeitseinsatzbetrag in die Tabelle beitragsgruppe aufgenommen",
+        131);
+  }
+
+  private void update0132(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("create table arbeitseinsatz (");
+    sb.append(" id IDENTITY,");
+    sb.append(" mitglied INTEGER NOT NULL,");
+    sb.append(" datum DATE NOT NULL, ");
+    sb.append(" stunden DOUBLE NOT NULL,");
+    sb.append(" bemerkung VARCHAR(50), ");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(");\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("create table arbeitseinsatz (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" mitglied INTEGER NOT NULL,");
+    sb.append(" datum DATE NOT NULL,");
+    sb.append(" stunden DOUBLE NOT NULL,");
+    sb.append(" bemerkung VARCHAR(50), ");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle arbeitseinsatz aufgenommen", 132);
   }
 
 }

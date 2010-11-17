@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.23  2010-10-01 16:18:18  jost
  * Bugfix
  *
@@ -91,6 +94,8 @@ public class DokumentationUtil
       + "dokumentationauswertungadressbuchexport.php";
 
   public static final String ABRECHNUNG = PRE + "abrechnung.php";
+
+  public static final String ARBEITSEINSATZ = PRE + "arbeitseinsatz.php";
 
   public static final String RECHNUNG = PRE + "mitgliedskonto.php#rechnung";
 
