@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-17 04:48:49  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -16,7 +19,6 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
-import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
