@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-07-25 18:28:31  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.4  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -28,6 +31,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.PersonenartDialog;
 import de.jost_net.JVerein.gui.view.MitgliedDetailView;
+import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
@@ -41,8 +45,12 @@ public class MitgliedDetailAction implements Action
     Mitglied m = null;
     try
     {
-
-      if (context != null && (context instanceof Mitglied))
+      if (context != null && context instanceof ArbeitseinsatzZeile)
+      {
+        ArbeitseinsatzZeile aez = (ArbeitseinsatzZeile) context;
+        m = (Mitglied) aez.getAttribute("mitglied");
+      }
+      else if (context != null && (context instanceof Mitglied))
       {
         m = (Mitglied) context;
       }
