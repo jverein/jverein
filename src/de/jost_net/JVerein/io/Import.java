@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2010-11-17 18:05:54  jost
+ * Sortierung ist nicht mehr erforderlich.
+ *
  * Revision 1.39  2010-11-17 17:00:29  jost
  * Bugfix beim Import von Zusatzfeldern.
  *
@@ -268,7 +271,7 @@ public class Import
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, null);
 
-        // m.setID(results.getString("Mitglieds_Nr"));
+        m.setID(results.getString("Mitglieds_Nr"));
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
           m.setExterneMitgliedsnummer(new Integer(results
