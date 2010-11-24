@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-22 21:00:04  jost
+ * Initial Commit
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.parts;
 
@@ -107,7 +110,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
     String sql = "select mitglied.id as id, arbeitseinsatzstunden  sollstunden, beitragsgruppe.arbeitseinsatzbetrag as betrag, sum(stunden)  iststunden from mitglied "
         + "  join beitragsgruppe on mitglied.beitragsgruppe = beitragsgruppe.id "
         + "  left join arbeitseinsatz on mitglied.id = arbeitseinsatz.mitglied and year(arbeitseinsatz.datum) = ? "
-        + "where  ";
+        + "where  (mitglied.eintritt is null or year(mitglied.eintritt) <= ?) and (mitglied.austritt is null or year(mitglied.austritt) > ?) and";
 
     if (schluessel == ArbeitseinsatzUeberpruefungInput.MINDERLEISTUNG)
     {
@@ -144,7 +147,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
       }
     };
     return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService()
-        .execute(sql, new Object[] { jahr }, rs);
+        .execute(sql, new Object[] { jahr, jahr, jahr }, rs);
   }
 
   @Override
