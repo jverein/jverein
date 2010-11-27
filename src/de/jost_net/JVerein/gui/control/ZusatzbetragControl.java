@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-11-13 09:24:44  jost
+ * Warnings entfernt.
+ *
  * Revision 1.6  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -514,7 +517,7 @@ public class ZusatzbetragControl extends AbstractControl
         {
           Logger.error(e.getMessage());
           throw new ApplicationException(
-              "Fehler beim Start der Mitgliederauswertung");
+              "Fehler beim Start der PDF-Ausgabe der Zusatzbeträge");
         }
       }
     }, null, true, "acroread.png");
