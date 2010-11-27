@@ -9,38 +9,60 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-11-22 20:58:17  jost
+ * Arbeitseinsatzüberprüfung
+ *
  * Revision 1.1  2010-11-17 04:49:05  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
+
+import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.ArbeitseinsatzUeberpruefungInput;
 import de.jost_net.JVerein.gui.parts.ArbeitseinsatzUeberpruefungList;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
+import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
+import de.jost_net.JVerein.util.Dateiname;
+import de.willuhn.datasource.GenericIterator;
+import de.willuhn.datasource.GenericObject;
+import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.gui.parts.Button;
+import de.willuhn.jameica.messaging.StatusBarMessage;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class ArbeitseinsatzControl extends AbstractControl
 {
@@ -193,6 +215,151 @@ public class ArbeitseinsatzControl extends AbstractControl
     // suchjahr.setPleaseChoose("Bitte auswählen");
     suchjahr.setPreselected(settings.getInt("jahr", bis.get(Calendar.YEAR)));
     return suchjahr;
+  }
+
+  public Button getPDFAusgabeButton()
+  {
+    Button b = new Button("&PDF-Ausgabe", new Action()
+    {
+
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          starteAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der PDF-Ausgabe der Arbeitseinsatzüberprüfung");
+        }
+      }
+    }, null, true, "acroread.png");
+    return b;
+  }
+
+  private void starteAuswertung() throws RemoteException, ApplicationException
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
+
+    String s = fd.open();
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.endsWith(".PDF"))
+    {
+      s = s + ".PDF";
+    }
+    final File file = new File(s);
+    final GenericIterator it = getIterator();
+    final int jahr = (Integer) getSuchJahr().getValue();
+    final String sub = getAuswertungSchluessel().getText();
+    settings.setAttribute("lastdir", file.getParent());
+    BackgroundTask t = new BackgroundTask()
+    {
+
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          FileOutputStream fos = new FileOutputStream(file);
+          Reporter reporter = new Reporter(fos, monitor, "Arbeitseinsätze "
+              + jahr, sub, it.size());
+          reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Sollstunden", Element.ALIGN_RIGHT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Iststunden", Element.ALIGN_RIGHT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Differenz", Element.ALIGN_RIGHT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Stundensatz", Element.ALIGN_RIGHT, 30,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Gesamtbetrag", Element.ALIGN_RIGHT, 30,
+              Color.LIGHT_GRAY);
+          reporter.createHeader();
+          while (it.hasNext())
+          {
+            ArbeitseinsatzZeile z = (ArbeitseinsatzZeile) it.next();
+            reporter.addColumn((String) z.getAttribute("namevorname"),
+                Element.ALIGN_LEFT);
+            reporter.addColumn((Double) z.getAttribute("soll"));
+            reporter.addColumn((Double) z.getAttribute("ist"));
+            reporter.addColumn((Double) z.getAttribute("differenz"));
+            reporter.addColumn((Double) z.getAttribute("stundensatz"));
+            reporter.addColumn((Double) z.getAttribute("gesamtbetrag"));
+            reporter.setNextRecord();
+          }
+          reporter.closeTable();
+          reporter.close();
+          fos.close();
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getCurrentView().reload();
+        }
+        catch (Exception e)
+        {
+          Logger.error("Fehler", e);
+          monitor.setStatusText(e.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+          throw new ApplicationException(e);
+        }
+        GUI.getDisplay().asyncExec(new Runnable()
+        {
+
+          public void run()
+          {
+            try
+            {
+              new Program().handleAction(file);
+            }
+            catch (ApplicationException ae)
+            {
+              Application.getMessagingFactory().sendMessage(
+                  new StatusBarMessage(ae.getLocalizedMessage(),
+                      StatusBarMessage.TYPE_ERROR));
+            }
+          }
+        });
+
+      }
+
+      public void interrupt()
+      {
+        //
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+
+  }
+
+  private GenericIterator getIterator() throws RemoteException
+  {
+    ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
+        .getInfo();
+
+    GenericIterator gi = PseudoIterator.fromArray(zeile
+        .toArray(new GenericObject[zeile.size()]));
+    return gi;
   }
 
   public Part getArbeitseinsatzUeberpruefungList() throws ApplicationException

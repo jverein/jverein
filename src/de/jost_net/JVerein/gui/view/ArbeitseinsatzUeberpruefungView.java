@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-22 21:00:20  jost
+ * Initial Commit
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -58,8 +61,9 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
         "Arbeitseinsätze"));
     group2.addPart(control.getArbeitseinsatzUeberpruefungList());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton(new Back(false));
+    buttons2.addButton(control.getPDFAusgabeButton());
     buttons2.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.ARBEITSEINSATZ, false,
         "help-browser.png");
