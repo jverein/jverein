@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-11-26 08:11:06  jost
+ * Änderung von Olaf übernommen.
+ *
  * Revision 1.1  2010-11-25 15:11:45  jost
  * Initial Commit
  *
@@ -19,7 +22,6 @@ package de.jost_net.JVerein.gui.parts;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.calendar.AppointmentProvider;
 import de.willuhn.jameica.gui.calendar.CalendarPart;
-import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.plugin.PluginLoader;
 import de.willuhn.jameica.system.Application;
@@ -39,7 +41,8 @@ public class TerminePart extends CalendarPart
     {
       PluginLoader loader = Application.getPluginLoader();
       AbstractPlugin plugin = loader.getPlugin(JVereinPlugin.class);
-      ClassFinder finder = plugin.getResources().getClassLoader().getClassFinder();
+      ClassFinder finder = plugin.getResources().getClassLoader()
+          .getClassFinder();
 
       Class[] classes = finder.findImplementors(AppointmentProvider.class);
       for (Class c : classes)
