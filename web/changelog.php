@@ -11,6 +11,7 @@
     			<li>Personalbogen: Bugfix Eigenschaften.</li>
     			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
     			<li>Arbeitseinsätze</li>
+    			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> 
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -534,6 +535,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.89  2010-11-27 18:00:01  jost
+    *** empty log message ***
+
     Revision 1.88  2010-11-27 01:00:49  jost
     *** empty log message ***
 

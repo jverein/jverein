@@ -510,6 +510,10 @@ public class JVereinUpdateProvider
     {
       update0133(conn);
     }
+    if (cv < 134)
+    {
+      update0134(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3407,6 +3411,23 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte name der Tabelle formularfeld verlängert", 133);
+  }
+
+  private void update0134(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE eigenschaftgruppe ADD max1 char(5);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE eigenschaftgruppe ADD max1 char(5);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte max1 in die Tabelle eigenschaftgruppe aufgenommen", 134);
   }
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.93  2010-11-17 04:50:00  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.92  2010-10-30 11:29:32  jost
  * Neu: Sterbetag
  *
@@ -2387,6 +2390,43 @@ public class MitgliedControl extends AbstractControl
                 + eg.getBezeichnung() + "\" fehlt ein Eintrag!");
           }
         }
+        // Max eine Eigenschaft pro Gruppe
+        HashMap<String, Boolean> max1gruppen = new HashMap<String, Boolean>();
+        it = Einstellungen.getDBService().createList(EigenschaftGruppe.class);
+        it.addFilter("max1 = ?", new Object[] { "TRUE" });
+        while (it.hasNext())
+        {
+          EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
+          max1gruppen.put(eg.getID(), new Boolean(false));
+        }
+        for (Object o1 : eigenschaftenTree.getItems())
+        {
+          if (o1 instanceof EigenschaftenNode)
+          {
+            EigenschaftenNode node = (EigenschaftenNode) o1;
+            if (node.getNodeType() == EigenschaftenNode.EIGENSCHAFTEN)
+            {
+              Eigenschaft ei = (Eigenschaft) node.getObject();
+              Boolean m1 = max1gruppen.get(ei.getEigenschaftGruppe().getID());
+              if (m1 != null)
+              {
+                if (m1)
+                {
+                  throw new ApplicationException(
+                      "In der Eigenschaftengruppe \""
+                          + ei.getEigenschaftGruppe().getBezeichnung()
+                          + "\" mehr als ein Eintrag markiert!");
+                }
+                else
+                {
+                  max1gruppen.put(ei.getEigenschaftGruppe().getID(),
+                      new Boolean(true));
+                }
+              }
+            }
+          }
+        }
+
       }
 
       m.setAdressierungszusatz((String) getAdressierungszusatz().getValue());

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-11-03 21:32:25  jost
+ * Redakt.
+ *
  * Revision 1.5  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -50,10 +53,12 @@ public class EigenschaftGruppeDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Eigenschaften-Gruppe"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Pflicht"),
-        control.getPflicht());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
+        .getBezeichnung());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Pflicht"), control
+        .getPflicht());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Maximal 1 Eigenschaft"),
+        control.getMax1());
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));

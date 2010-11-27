@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-11-13 09:29:39  jost
+ * Warnings entfernt.
+ *
  * Revision 1.3  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -84,7 +87,7 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class<?> getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }
@@ -107,6 +110,16 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
   public void setPflicht(Boolean pflicht) throws RemoteException
   {
     setAttribute("pflicht", pflicht);
+  }
+
+  public boolean getMax1() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("max1"));
+  }
+
+  public void setMax1(Boolean max1) throws RemoteException
+  {
+    setAttribute("max1", max1);
   }
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-09 18:49:34  jost
+ * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
+ *
  * Revision 1.2  2009/11/23 20:39:44  jost
  * Bugfix Lösch-Button
  *
@@ -47,6 +50,8 @@ public class EigenschaftGruppeControl extends AbstractControl
   private Input bezeichnung;
 
   private CheckboxInput pflicht;
+
+  private CheckboxInput max1;
 
   private EigenschaftGruppe eigenschaftgruppe;
 
@@ -87,6 +92,16 @@ public class EigenschaftGruppeControl extends AbstractControl
     return pflicht;
   }
 
+  public CheckboxInput getMax1() throws RemoteException
+  {
+    if (max1 != null)
+    {
+      return max1;
+    }
+    max1 = new CheckboxInput(getEigenschaftGruppe().getMax1());
+    return max1;
+  }
+
   /**
    * This method stores the project using the current values.
    */
@@ -97,6 +112,7 @@ public class EigenschaftGruppeControl extends AbstractControl
       EigenschaftGruppe eg = getEigenschaftGruppe();
       eg.setBezeichnung((String) getBezeichnung().getValue());
       eg.setPflicht((Boolean) getPflicht().getValue());
+      eg.setMax1((Boolean) getMax1().getValue());
       try
       {
         eg.store();
@@ -131,6 +147,8 @@ public class EigenschaftGruppeControl extends AbstractControl
     eigenschaftgruppeList.addColumn("Bezeichnung", "bezeichnung");
     eigenschaftgruppeList
         .addColumn("Pflicht", "pflicht", new JaNeinFormatter());
+    eigenschaftgruppeList.addColumn("max. 1 Eigenschaft", "max1",
+        new JaNeinFormatter());
     eigenschaftgruppeList.setContextMenu(new EigenschaftGruppeMenu());
     eigenschaftgruppeList.setRememberColWidths(true);
     eigenschaftgruppeList.setRememberOrder(true);
