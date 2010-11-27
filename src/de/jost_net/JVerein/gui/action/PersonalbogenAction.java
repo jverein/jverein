@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-30 11:28:54  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.7  2010-10-15 09:58:01  jost
  * Code aufgeräumt
  *
@@ -39,6 +42,8 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,6 +52,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Paragraph;
 
@@ -150,7 +156,7 @@ public class PersonalbogenAction implements Action
         try
         {
           Reporter rpt = new Reporter(new FileOutputStream(file), monitor, "",
-              "", mitglied.length);
+              "Personalbogen", mitglied.length);
 
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
@@ -169,362 +175,33 @@ public class PersonalbogenAction implements Action
 
             rpt.add("Personalbogen " + m.getVornameName(), 14);
 
-            rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50,
-                Color.LIGHT_GRAY);
-            rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 140,
-                Color.LIGHT_GRAY);
-            rpt.createHeader();
-            DBIterator it = Einstellungen.getDBService().createList(
-                Mitgliedfoto.class);
-            it.addFilter("mitglied = ?", new Object[] { m.getID() });
-            if (it.size() > 0)
-            {
-              Mitgliedfoto foto = (Mitgliedfoto) it.next();
-              if (foto.getFoto() != null)
-              {
-                rpt.addColumn("Foto", Element.ALIGN_LEFT);
-                rpt.addColumn(foto.getFoto(), 100, 100, Element.ALIGN_RIGHT);
-              }
-            }
-            if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
-            {
-              rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
-              rpt.addColumn(m.getExterneMitgliedsnummer() != null ? m
-                  .getExterneMitgliedsnummer()
-                  + "" : "", Element.ALIGN_LEFT);
-            }
-            rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-            rpt.addColumn("Anschrift", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
-            rpt.addColumn("Geburtsdatum", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
-            if (m.getSterbetag() != null)
-            {
-              rpt.addColumn("Sterbetag", Element.ALIGN_LEFT);
-              rpt.addColumn(m.getSterbetag(), Element.ALIGN_LEFT);
-            }
-            rpt.addColumn("Geschlecht", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getGeschlecht(), Element.ALIGN_LEFT);
-            rpt.addColumn("Kommunikation", Element.ALIGN_LEFT);
-            String kommunikation = "";
-            if (m.getTelefonprivat().length() != 0)
-            {
-              kommunikation += "privat: " + m.getTelefonprivat();
-            }
-            if (m.getTelefondienstlich().length() != 0)
-            {
-              if (kommunikation.length() > 0)
-              {
-                kommunikation += "\n";
-              }
-              kommunikation += "dienstlich: " + m.getTelefondienstlich();
-            }
-            if (m.getHandy().length() != 0)
-            {
-              if (kommunikation.length() > 0)
-              {
-                kommunikation += "\n";
-              }
-              kommunikation += "Handy: " + m.getHandy();
-            }
-            if (m.getEmail().length() != 0)
-            {
-              if (kommunikation.length() > 0)
-              {
-                kommunikation += "\n";
-              }
-              kommunikation += "Email: " + m.getEmail();
-            }
-            rpt.addColumn(kommunikation, Element.ALIGN_LEFT);
-            rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
-            rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
-            rpt.addColumn(m.getBeitragsgruppe().getBezeichnung()
-                + " - "
-                + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe()
-                    .getBetrag()) + " EUR", Element.ALIGN_LEFT);
-            rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
-            String akdatum = "";
-            if (m.getAustritt() != null)
-            {
-              akdatum += Einstellungen.DATEFORMAT.format(m.getAustritt());
-            }
-            if (m.getKuendigung() != null)
-            {
-              if (akdatum.length() != 0)
-              {
-                akdatum += " / ";
-              }
-              akdatum += Einstellungen.DATEFORMAT.format(m.getKuendigung());
-            }
-            rpt.addColumn(akdatum, Element.ALIGN_LEFT);
-            rpt.addColumn("Zahlungsweg", Element.ALIGN_LEFT);
-            rpt.addColumn(Zahlungsweg.get(m.getZahlungsweg()),
-                Element.ALIGN_LEFT);
-            if (m.getBlz().length() > 0 && m.getKonto().length() > 0)
-            {
-              rpt.addColumn("Bankverbindung", Element.ALIGN_LEFT);
-              rpt.addColumn(m.getBlz() + "/" + m.getKonto() + " ("
-                  + Einstellungen.getNameForBLZ(m.getBlz()) + ")",
-                  Element.ALIGN_LEFT);
-            }
-            rpt.closeTable();
+            generiereMitglied(rpt, m);
+
             if (Einstellungen.getEinstellung().getZusatzbetrag())
             {
-              it = Einstellungen.getDBService().createList(Zusatzbetrag.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
-              if (it.size() > 0)
-              {
-                rpt.add(new Paragraph("Zusatzbetrag"));
-                rpt.addHeaderColumn("Start", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("nächste Fäll.", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("letzte Ausf.", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Ende", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Buchungstext", Element.ALIGN_LEFT, 60,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Betrag", Element.ALIGN_RIGHT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.createHeader();
-                while (it.hasNext())
-                {
-                  Zusatzbetrag z = (Zusatzbetrag) it.next();
-                  rpt.addColumn(z.getStartdatum(), Element.ALIGN_LEFT);
-                  rpt.addColumn(z.getFaelligkeit(), Element.ALIGN_LEFT);
-                  rpt.addColumn(z.getAusfuehrung(), Element.ALIGN_LEFT);
-                  rpt.addColumn(z.getIntervallText(), Element.ALIGN_LEFT);
-                  rpt.addColumn(z.getEndedatum(), Element.ALIGN_LEFT);
-                  rpt.addColumn(z.getBuchungstext(), Element.ALIGN_LEFT);
-                  rpt.addColumn(z.getBetrag());
-                }
-              }
-              rpt.closeTable();
+              generiereZusatzbetrag(rpt, m);
             }
             if (Einstellungen.getEinstellung().getMitgliedskonto())
             {
-              it = Einstellungen.getDBService()
-                  .createList(Mitgliedskonto.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
-              it.setOrder("order by datum desc");
-              if (it.size() > 0)
-              {
-                rpt.add(new Paragraph("Mitgliedskonto"));
-                rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 12,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Zweck 1", Element.ALIGN_LEFT, 50,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Zweck 2", Element.ALIGN_LEFT, 50,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Zahlungsweg", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.createHeader();
-                while (it.hasNext())
-                {
-                  Mitgliedskonto mk = (Mitgliedskonto) it.next();
-                  rpt.addColumn("Soll", Element.ALIGN_LEFT);
-                  rpt.addColumn(mk.getDatum(), Element.ALIGN_LEFT);
-                  rpt.addColumn(mk.getZweck1(), Element.ALIGN_LEFT);
-                  rpt.addColumn(mk.getZweck2(), Element.ALIGN_LEFT);
-                  rpt.addColumn(Zahlungsweg.get(mk.getZahlungsweg()),
-                      Element.ALIGN_LEFT);
-                  rpt.addColumn(mk.getBetrag());
-                  DBIterator it2 = Einstellungen.getDBService().createList(
-                      Buchung.class);
-                  it2.addFilter("mitgliedskonto = ?",
-                      new Object[] { mk.getID() });
-                  it2.setOrder("order by datum desc");
-                  while (it2.hasNext())
-                  {
-                    Buchung bu = (Buchung) it2.next();
-                    rpt.addColumn("Ist", Element.ALIGN_RIGHT);
-                    rpt.addColumn(bu.getDatum(), Element.ALIGN_LEFT);
-                    rpt.addColumn(bu.getZweck(), Element.ALIGN_LEFT);
-                    rpt.addColumn(bu.getZweck2(), Element.ALIGN_LEFT);
-                    rpt.addColumn("", Element.ALIGN_LEFT);
-                    rpt.addColumn(bu.getBetrag());
-                  }
-                }
-              }
-              rpt.closeTable();
+              generiereMitgliedskonto(rpt, m);
             }
             if (Einstellungen.getEinstellung().getVermerke()
                 && ((m.getVermerk1() != null && m.getVermerk1().length() > 0) || (m
                     .getVermerk2() != null && m.getVermerk2().length() > 0)))
             {
-              rpt.add(new Paragraph("Vermerke"));
-              rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 100,
-                  Color.LIGHT_GRAY);
-              rpt.createHeader();
-              if (m.getVermerk1() != null && m.getVermerk1().length() > 0)
-              {
-                rpt.addColumn(m.getVermerk1(), Element.ALIGN_LEFT);
-              }
-              if (m.getVermerk2() != null && m.getVermerk2().length() > 0)
-              {
-                rpt.addColumn(m.getVermerk2(), Element.ALIGN_LEFT);
-              }
-              rpt.closeTable();
+              generiereVermerke(rpt, m);
             }
             if (Einstellungen.getEinstellung().getWiedervorlage())
             {
-              it = Einstellungen.getDBService().createList(Wiedervorlage.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
-              it.setOrder("order by datum desc");
-              if (it.size() > 0)
-              {
-                rpt.add(new Paragraph("Wiedervorlage"));
-                rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 50,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Vermerk", Element.ALIGN_LEFT, 100,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Erledigung", Element.ALIGN_LEFT, 50,
-                    Color.LIGHT_GRAY);
-                rpt.createHeader();
-                while (it.hasNext())
-                {
-                  Wiedervorlage w = (Wiedervorlage) it.next();
-                  rpt.addColumn(w.getDatum(), Element.ALIGN_LEFT);
-                  rpt.addColumn(w.getVermerk(), Element.ALIGN_LEFT);
-                  rpt.addColumn(w.getErledigung(), Element.ALIGN_LEFT);
-                }
-              }
-              rpt.closeTable();
+              generiereWiedervorlagen(rpt, m);
             }
             if (Einstellungen.getEinstellung().getLehrgaenge())
             {
-              it = Einstellungen.getDBService().createList(Lehrgang.class);
-              it.addFilter("mitglied = ?", new Object[] { m.getID() });
-              it.setOrder("order by von");
-              if (it.size() > 0)
-              {
-                rpt.add(new Paragraph("Lehrgänge"));
-                rpt.addHeaderColumn("Lehrgangsart", Element.ALIGN_LEFT, 50,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("am/vom", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("bis", Element.ALIGN_LEFT, 30,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Veranstalter", Element.ALIGN_LEFT, 60,
-                    Color.LIGHT_GRAY);
-                rpt.addHeaderColumn("Ergebnis", Element.ALIGN_LEFT, 60,
-                    Color.LIGHT_GRAY);
-                rpt.createHeader();
-                while (it.hasNext())
-                {
-                  Lehrgang l = (Lehrgang) it.next();
-                  rpt.addColumn(l.getLehrgangsart().getBezeichnung(),
-                      Element.ALIGN_LEFT);
-                  rpt.addColumn(l.getVon(), Element.ALIGN_LEFT);
-                  rpt.addColumn(l.getBis(), Element.ALIGN_LEFT);
-                  rpt.addColumn(l.getVeranstalter(), Element.ALIGN_LEFT);
-                  rpt.addColumn(l.getErgebnis(), Element.ALIGN_LEFT);
-                }
-              }
-              rpt.closeTable();
+              generiereLehrgaenge(rpt, m);
             }
-
-            it = Einstellungen.getDBService().createList(Felddefinition.class);
-            it.setOrder("order by label");
-            if (it.size() > 0)
-            {
-              rpt.add(new Paragraph("Zusatzfelder"));
-              rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50,
-                  Color.LIGHT_GRAY);
-              rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 130,
-                  Color.LIGHT_GRAY);
-              rpt.createHeader();
-              while (it.hasNext())
-              {
-                Felddefinition fd = (Felddefinition) it.next();
-                rpt.addColumn(fd.getLabel(), Element.ALIGN_LEFT);
-                DBIterator it2 = Einstellungen.getDBService().createList(
-                    Zusatzfelder.class);
-                it2.addFilter("mitglied = ? and felddefinition = ?",
-                    new Object[] { m.getID(), fd.getID() });
-                if (it2.size() > 0)
-                {
-                  Zusatzfelder zf = (Zusatzfelder) it2.next();
-                  rpt.addColumn(zf.getString(), Element.ALIGN_LEFT);
-                }
-                else
-                {
-                  rpt.addColumn("", Element.ALIGN_LEFT);
-                }
-              }
-
-              if (Einstellungen.getEinstellung().getLehrgaenge())
-              {
-                it = Einstellungen.getDBService().createList(Lehrgang.class);
-                it.addFilter("mitglied = ?", new Object[] { m.getID() });
-                it.setOrder("order by von");
-                if (it.size() > 0)
-                {
-                  while (it.hasNext())
-                  {
-                    Lehrgang l = (Lehrgang) it.next();
-                    rpt.addColumn(l.getLehrgangsart().getBezeichnung(),
-                        Element.ALIGN_LEFT);
-                    rpt.addColumn(l.getVon(), Element.ALIGN_LEFT);
-                    rpt.addColumn(l.getBis(), Element.ALIGN_LEFT);
-                    rpt.addColumn(l.getVeranstalter(), Element.ALIGN_LEFT);
-                    rpt.addColumn(l.getErgebnis(), Element.ALIGN_LEFT);
-                  }
-                }
-              }
-              rpt.closeTable();
-            }
+            generiereZusatzfelder(rpt, m);
+            generiereEigenschaften(rpt, m);
             rpt.setNextRecord();
-
-            ResultSetExtractor rs = new ResultSetExtractor()
-            {
-
-              public Object extract(ResultSet rs) throws SQLException
-              {
-                List<String> ids = new ArrayList<String>();
-                while (rs.next())
-                {
-                  ids.add(rs.getString(1));
-                }
-                return ids;
-              }
-            };
-            String sql = "select eigenschaften.id from eigenschaften, eigenschaft "
-                + "where eigenschaften.eigenschaft = eigenschaft.id and mitglied = ? "
-                + "order by eigenschaft.bezeichnung";
-            ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-                .getDBService().execute(sql, new Object[] { m.getID() }, rs);
-            if (idliste.size() > 0)
-            {
-              rpt.addHeaderColumn("Eigenschaftengruppe", Element.ALIGN_LEFT,
-                  100, Color.LIGHT_GRAY);
-              rpt.addHeaderColumn("Eigenschaft", Element.ALIGN_LEFT, 100,
-                  Color.LIGHT_GRAY);
-              rpt.createHeader();
-              for (String id : idliste)
-              {
-                it = Einstellungen.getDBService().createList(
-                    Eigenschaften.class);
-                it.addFilter("id = ?", new Object[] { id });
-                while (it.hasNext())
-                {
-                  Eigenschaften ei = (Eigenschaften) it.next();
-                  rpt.addColumn(ei.getEigenschaft().getEigenschaftGruppe()
-                      .getBezeichnung(), Element.ALIGN_LEFT);
-                  rpt.addColumn(ei.getEigenschaft().getBezeichnung(),
-                      Element.ALIGN_LEFT);
-                }
-              }
-            }
           }
           rpt.close();
           GUI.getDisplay().asyncExec(new Runnable()
@@ -576,5 +253,345 @@ public class PersonalbogenAction implements Action
     };
     Application.getController().start(t);
 
+  }
+
+  private void generiereMitglied(Reporter rpt, Mitglied m)
+      throws DocumentException, MalformedURLException, IOException
+  {
+    rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+    rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 140, Color.LIGHT_GRAY);
+    rpt.createHeader();
+    DBIterator it = Einstellungen.getDBService().createList(Mitgliedfoto.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    if (it.size() > 0)
+    {
+      Mitgliedfoto foto = (Mitgliedfoto) it.next();
+      if (foto.getFoto() != null)
+      {
+        rpt.addColumn("Foto", Element.ALIGN_LEFT);
+        rpt.addColumn(foto.getFoto(), 100, 100, Element.ALIGN_RIGHT);
+      }
+    }
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+    {
+      rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
+      rpt.addColumn(m.getExterneMitgliedsnummer() != null ? m
+          .getExterneMitgliedsnummer()
+          + "" : "", Element.ALIGN_LEFT);
+    }
+    rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
+    rpt.addColumn("Anschrift", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
+    rpt.addColumn("Geburtsdatum", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
+    if (m.getSterbetag() != null)
+    {
+      rpt.addColumn("Sterbetag", Element.ALIGN_LEFT);
+      rpt.addColumn(m.getSterbetag(), Element.ALIGN_LEFT);
+    }
+    rpt.addColumn("Geschlecht", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getGeschlecht(), Element.ALIGN_LEFT);
+    rpt.addColumn("Kommunikation", Element.ALIGN_LEFT);
+    String kommunikation = "";
+    if (m.getTelefonprivat().length() != 0)
+    {
+      kommunikation += "privat: " + m.getTelefonprivat();
+    }
+    if (m.getTelefondienstlich().length() != 0)
+    {
+      if (kommunikation.length() > 0)
+      {
+        kommunikation += "\n";
+      }
+      kommunikation += "dienstlich: " + m.getTelefondienstlich();
+    }
+    if (m.getHandy().length() != 0)
+    {
+      if (kommunikation.length() > 0)
+      {
+        kommunikation += "\n";
+      }
+      kommunikation += "Handy: " + m.getHandy();
+    }
+    if (m.getEmail().length() != 0)
+    {
+      if (kommunikation.length() > 0)
+      {
+        kommunikation += "\n";
+      }
+      kommunikation += "Email: " + m.getEmail();
+    }
+    rpt.addColumn(kommunikation, Element.ALIGN_LEFT);
+    rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
+    rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getBeitragsgruppe().getBezeichnung() + " - "
+        + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe().getBetrag())
+        + " EUR", Element.ALIGN_LEFT);
+    rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
+    String akdatum = "";
+    if (m.getAustritt() != null)
+    {
+      akdatum += Einstellungen.DATEFORMAT.format(m.getAustritt());
+    }
+    if (m.getKuendigung() != null)
+    {
+      if (akdatum.length() != 0)
+      {
+        akdatum += " / ";
+      }
+      akdatum += Einstellungen.DATEFORMAT.format(m.getKuendigung());
+    }
+    rpt.addColumn(akdatum, Element.ALIGN_LEFT);
+    rpt.addColumn("Zahlungsweg", Element.ALIGN_LEFT);
+    rpt.addColumn(Zahlungsweg.get(m.getZahlungsweg()), Element.ALIGN_LEFT);
+    if (m.getBlz().length() > 0 && m.getKonto().length() > 0)
+    {
+      rpt.addColumn("Bankverbindung", Element.ALIGN_LEFT);
+      rpt.addColumn(m.getBlz() + "/" + m.getKonto() + " ("
+          + Einstellungen.getNameForBLZ(m.getBlz()) + ")", Element.ALIGN_LEFT);
+    }
+    rpt.closeTable();
+  }
+
+  private void generiereZusatzbetrag(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(Zusatzbetrag.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    if (it.size() > 0)
+    {
+      rpt.add(new Paragraph("Zusatzbetrag"));
+      rpt.addHeaderColumn("Start", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("nächste Fäll.", Element.ALIGN_LEFT, 30,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("letzte Ausf.", Element.ALIGN_LEFT, 30,
+          Color.LIGHT_GRAY);
+      rpt
+          .addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,
+              Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Ende", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Buchungstext", Element.ALIGN_LEFT, 60,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Betrag", Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+      rpt.createHeader();
+      while (it.hasNext())
+      {
+        Zusatzbetrag z = (Zusatzbetrag) it.next();
+        rpt.addColumn(z.getStartdatum(), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getFaelligkeit(), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getAusfuehrung(), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getIntervallText(), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getEndedatum(), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getBuchungstext(), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getBetrag());
+      }
+    }
+    rpt.closeTable();
+
+  }
+
+  private void generiereMitgliedskonto(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(
+        Mitgliedskonto.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.setOrder("order by datum desc");
+    if (it.size() > 0)
+    {
+      rpt.add(new Paragraph("Mitgliedskonto"));
+      rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 12, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Zweck 1", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Zweck 2", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Zahlungsweg", Element.ALIGN_LEFT, 30,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.createHeader();
+      while (it.hasNext())
+      {
+        Mitgliedskonto mk = (Mitgliedskonto) it.next();
+        rpt.addColumn("Soll", Element.ALIGN_LEFT);
+        rpt.addColumn(mk.getDatum(), Element.ALIGN_LEFT);
+        rpt.addColumn(mk.getZweck1(), Element.ALIGN_LEFT);
+        rpt.addColumn(mk.getZweck2(), Element.ALIGN_LEFT);
+        rpt.addColumn(Zahlungsweg.get(mk.getZahlungsweg()), Element.ALIGN_LEFT);
+        rpt.addColumn(mk.getBetrag());
+        DBIterator it2 = Einstellungen.getDBService().createList(Buchung.class);
+        it2.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
+        it2.setOrder("order by datum desc");
+        while (it2.hasNext())
+        {
+          Buchung bu = (Buchung) it2.next();
+          rpt.addColumn("Ist", Element.ALIGN_RIGHT);
+          rpt.addColumn(bu.getDatum(), Element.ALIGN_LEFT);
+          rpt.addColumn(bu.getZweck(), Element.ALIGN_LEFT);
+          rpt.addColumn(bu.getZweck2(), Element.ALIGN_LEFT);
+          rpt.addColumn("", Element.ALIGN_LEFT);
+          rpt.addColumn(bu.getBetrag());
+        }
+      }
+    }
+    rpt.closeTable();
+
+  }
+
+  private void generiereVermerke(Reporter rpt, Mitglied m)
+      throws DocumentException, RemoteException
+  {
+    rpt.add(new Paragraph("Vermerke"));
+    rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+    rpt.createHeader();
+    if (m.getVermerk1() != null && m.getVermerk1().length() > 0)
+    {
+      rpt.addColumn(m.getVermerk1(), Element.ALIGN_LEFT);
+    }
+    if (m.getVermerk2() != null && m.getVermerk2().length() > 0)
+    {
+      rpt.addColumn(m.getVermerk2(), Element.ALIGN_LEFT);
+    }
+    rpt.closeTable();
+
+  }
+
+  private void generiereWiedervorlagen(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    DBIterator it = Einstellungen.getDBService()
+        .createList(Wiedervorlage.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.setOrder("order by datum desc");
+    if (it.size() > 0)
+    {
+      rpt.add(new Paragraph("Wiedervorlage"));
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Vermerk", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Erledigung", Element.ALIGN_LEFT, 50,
+          Color.LIGHT_GRAY);
+      rpt.createHeader();
+      while (it.hasNext())
+      {
+        Wiedervorlage w = (Wiedervorlage) it.next();
+        rpt.addColumn(w.getDatum(), Element.ALIGN_LEFT);
+        rpt.addColumn(w.getVermerk(), Element.ALIGN_LEFT);
+        rpt.addColumn(w.getErledigung(), Element.ALIGN_LEFT);
+      }
+    }
+    rpt.closeTable();
+
+  }
+
+  private void generiereLehrgaenge(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(Lehrgang.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.setOrder("order by von");
+    if (it.size() > 0)
+    {
+      rpt.add(new Paragraph("Lehrgänge"));
+      rpt.addHeaderColumn("Lehrgangsart", Element.ALIGN_LEFT, 50,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("am/vom", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("bis", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Veranstalter", Element.ALIGN_LEFT, 60,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Ergebnis", Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+      rpt.createHeader();
+      while (it.hasNext())
+      {
+        Lehrgang l = (Lehrgang) it.next();
+        rpt.addColumn(l.getLehrgangsart().getBezeichnung(), Element.ALIGN_LEFT);
+        rpt.addColumn(l.getVon(), Element.ALIGN_LEFT);
+        rpt.addColumn(l.getBis(), Element.ALIGN_LEFT);
+        rpt.addColumn(l.getVeranstalter(), Element.ALIGN_LEFT);
+        rpt.addColumn(l.getErgebnis(), Element.ALIGN_LEFT);
+      }
+    }
+    rpt.closeTable();
+
+  }
+
+  private void generiereZusatzfelder(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(
+        Felddefinition.class);
+    it.setOrder("order by label");
+    if (it.size() > 0)
+    {
+      rpt.add(new Paragraph("Zusatzfelder"));
+      rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 130, Color.LIGHT_GRAY);
+      rpt.createHeader();
+      while (it.hasNext())
+      {
+        Felddefinition fd = (Felddefinition) it.next();
+        rpt.addColumn(fd.getLabel(), Element.ALIGN_LEFT);
+        DBIterator it2 = Einstellungen.getDBService().createList(
+            Zusatzfelder.class);
+        it2.addFilter("mitglied = ? and felddefinition = ?", new Object[] {
+            m.getID(), fd.getID() });
+        if (it2.size() > 0)
+        {
+          Zusatzfelder zf = (Zusatzfelder) it2.next();
+          rpt.addColumn(zf.getString(), Element.ALIGN_LEFT);
+        }
+        else
+        {
+          rpt.addColumn("", Element.ALIGN_LEFT);
+        }
+      }
+      rpt.closeTable();
+    }
+  }
+
+  private void generiereEigenschaften(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    ResultSetExtractor rs = new ResultSetExtractor()
+    {
+
+      public Object extract(ResultSet rs) throws SQLException
+      {
+        List<String> ids = new ArrayList<String>();
+        while (rs.next())
+        {
+          ids.add(rs.getString(1));
+        }
+        return ids;
+      }
+    };
+    String sql = "select eigenschaften.id from eigenschaften, eigenschaft "
+        + "where eigenschaften.eigenschaft = eigenschaft.id and mitglied = ? "
+        + "order by eigenschaft.bezeichnung";
+    ArrayList<String> idliste = (ArrayList<String>) Einstellungen
+        .getDBService().execute(sql, new Object[] { m.getID() }, rs);
+    if (idliste.size() > 0)
+    {
+      rpt.add(new Paragraph("Eigenschaften"));
+      rpt.addHeaderColumn("Eigenschaftengruppe", Element.ALIGN_LEFT, 100,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Eigenschaft", Element.ALIGN_LEFT, 100,
+          Color.LIGHT_GRAY);
+      rpt.createHeader();
+      for (String id : idliste)
+      {
+        DBIterator it = Einstellungen.getDBService().createList(
+            Eigenschaften.class);
+        it.addFilter("id = ?", new Object[] { id });
+        while (it.hasNext())
+        {
+          Eigenschaften ei = (Eigenschaften) it.next();
+          rpt.addColumn(ei.getEigenschaft().getEigenschaftGruppe()
+              .getBezeichnung(), Element.ALIGN_LEFT);
+          rpt.addColumn(ei.getEigenschaft().getBezeichnung(),
+              Element.ALIGN_LEFT);
+        }
+      }
+      rpt.closeTable();
+    }
   }
 }
