@@ -506,6 +506,10 @@ public class JVereinUpdateProvider
     {
       update0132(conn);
     }
+    if (cv < 133)
+    {
+      update0133(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3388,6 +3392,21 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle arbeitseinsatz aufgenommen", 132);
+  }
+
+  private void update0133(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table formularfeld alter column  name varchar(30);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table formularfeld modify column  name varchar(30);\n");
+
+    execute(conn, statements,
+        "Spalte name der Tabelle formularfeld verlängert", 133);
   }
 
 }
