@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-11-27 00:59:20  jost
+ * Bugfix Eigenschaften
+ *
  * Revision 1.8  2010-10-30 11:28:54  jost
  * Neu: Sterbetag
  *
@@ -149,8 +152,6 @@ public class PersonalbogenAction implements Action
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
-
-      @SuppressWarnings("unchecked")
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
