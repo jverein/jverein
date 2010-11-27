@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-11-27 10:56:21  jost
+ * PDF-Ausgabe
+ *
  * Revision 1.2  2010-11-22 20:58:17  jost
  * Arbeitseinsatzüberprüfung
  *
@@ -21,16 +24,21 @@ package de.jost_net.JVerein.gui.control;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
+import org.supercsv.io.CsvMapWriter;
+import org.supercsv.io.ICsvMapWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import com.lowagie.text.Element;
 
@@ -40,6 +48,7 @@ import de.jost_net.JVerein.gui.parts.ArbeitseinsatzUeberpruefungList;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -226,7 +235,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       {
         try
         {
-          starteAuswertung();
+          startePDFAuswertung();
         }
         catch (RemoteException e)
         {
@@ -239,7 +248,30 @@ public class ArbeitseinsatzControl extends AbstractControl
     return b;
   }
 
-  private void starteAuswertung() throws RemoteException, ApplicationException
+  public Button getCSVAusgabeButton()
+  {
+    Button b = new Button("&CSV-Ausgabe", new Action()
+    {
+
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          starteCSVAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der CSV-Ausgabe der Arbeitseinsatzüberprüfung");
+        }
+      }
+    }, null, true, "csv_text.png");
+    return b;
+  }
+
+  private void startePDFAuswertung() throws RemoteException,
+      ApplicationException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
@@ -305,6 +337,116 @@ public class ArbeitseinsatzControl extends AbstractControl
           reporter.closeTable();
           reporter.close();
           fos.close();
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getCurrentView().reload();
+        }
+        catch (Exception e)
+        {
+          Logger.error("Fehler", e);
+          monitor.setStatusText(e.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+          throw new ApplicationException(e);
+        }
+        GUI.getDisplay().asyncExec(new Runnable()
+        {
+
+          public void run()
+          {
+            try
+            {
+              new Program().handleAction(file);
+            }
+            catch (ApplicationException ae)
+            {
+              Application.getMessagingFactory().sendMessage(
+                  new StatusBarMessage(ae.getLocalizedMessage(),
+                      StatusBarMessage.TYPE_ERROR));
+            }
+          }
+        });
+
+      }
+
+      public void interrupt()
+      {
+        //
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+
+  }
+
+  private void starteCSVAuswertung() throws RemoteException,
+      ApplicationException
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "CSV").get());
+    fd.setFilterExtensions(new String[] { "*.CSV" });
+
+    String s = fd.open();
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.endsWith(".CSV"))
+    {
+      s = s + ".CSV";
+    }
+    final File file = new File(s);
+    final GenericIterator it = getIterator();
+    settings.setAttribute("lastdir", file.getParent());
+    BackgroundTask t = new BackgroundTask()
+    {
+
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          CsvPreference csvp = CsvPreference.EXCEL_PREFERENCE;
+          csvp.setDelimiterChar(';');
+          ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file), csvp);
+
+          final String[] header = new String[] { "name", "vorname", "strasse",
+              "adressierungszusatz", "plz", "ort", "anrede", "soll", "ist",
+              "differenz", "stundensatz", "gesamtbetrag" };
+          writer.writeHeader(header);
+          // set up some data to write
+          while (it.hasNext())
+          {
+            ArbeitseinsatzZeile z = (ArbeitseinsatzZeile) it.next();
+            final HashMap<String, ? super Object> data1 = new HashMap<String, Object>();
+            Mitglied m = (Mitglied) z.getAttribute("mitglied");
+            data1.put(header[0], m.getName());
+            data1.put(header[1], m.getVorname());
+            data1.put(header[2], m.getStrasse());
+            data1.put(header[3], m.getAdressierungszusatz());
+            data1.put(header[4], m.getPlz());
+            data1.put(header[5], m.getOrt());
+            data1.put(header[6], m.getAnrede());
+            data1.put(header[7], (Double) z.getAttribute("soll"));
+            data1.put(header[8], (Double) z.getAttribute("ist"));
+            data1.put(header[9], (Double) z.getAttribute("differenz"));
+            data1.put(header[10], (Double) z.getAttribute("stundensatz"));
+            data1.put(header[11], (Double) z.getAttribute("gesamtbetrag"));
+            writer.write(data1, header);
+          }
+          writer.close();
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
