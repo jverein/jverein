@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2010-08-08 19:33:13  jost
  * Zusammenfassung der Rechnungen
  *
@@ -104,10 +107,11 @@ public class FormularAufbereitung
 
       DBIterator it = Einstellungen.getDBService().createList(
           Formularfeld.class);
-      it.addFilter("formular = ?", new Object[] { formular.getID()});
+      it.addFilter("formular = ?", new Object[] { formular.getID() });
       while (it.hasNext())
       {
-        goFormularfeld(contentByte, (Formularfeld) it.next(), map);
+        Formularfeld f = (Formularfeld) it.next();
+        goFormularfeld(contentByte, f, map);
       }
     }
     catch (IOException e)
@@ -222,6 +226,11 @@ public class FormularAufbereitung
     if (val instanceof Double)
     {
       stringVal = Einstellungen.DECIMALFORMAT.format(val);
+      buendig = rechts;
+    }
+    if (val instanceof Integer)
+    {
+      stringVal = val.toString();
       buendig = rechts;
     }
     if (val instanceof Date)
