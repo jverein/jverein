@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-11-27 17:57:53  jost
+ * Generierung von Zusatzzahlungen.
+ *
  * Revision 1.3  2010-11-27 15:20:41  jost
  * CSV-Ausgabe
  *
@@ -35,6 +38,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.util.ApplicationException;
 
 public class ArbeitseinsatzUeberpruefungView extends AbstractView
@@ -83,7 +87,8 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
 
     LabelGroup group2 = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Arbeitseinsätze"));
-    group2.addPart(control.getArbeitseinsatzUeberpruefungList());
+    ScrolledContainer sc = new ScrolledContainer(group2.getComposite());
+    sc.addPart(control.getArbeitseinsatzUeberpruefungList());
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 5);
     buttons2.addButton(new Back(false));
