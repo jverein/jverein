@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-11-27 17:56:37  jost
+ * Generierung von Zusatzzahlungen.
+ *
  * Revision 1.4  2010-11-27 15:20:29  jost
  * CSV-Ausgabe
  *
@@ -122,7 +125,10 @@ public class ArbeitseinsatzControl extends AbstractControl
     }
 
     Date d = getArbeitseinsatz().getDatum();
-
+    if (d == null)
+    {
+      d = new Date();
+    }
     this.datum = new DateInput(d, Einstellungen.DATEFORMAT);
     this.datum.setTitle("Datum");
     this.datum.setText("Datum Arbeitseinsatz wählen");
