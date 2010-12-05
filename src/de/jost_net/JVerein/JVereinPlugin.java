@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.25  2010-10-04 12:18:46  jost
  * Tool zur Ermittlung der Views ohne Hilfetext
  *
@@ -164,8 +167,10 @@ public class JVereinPlugin extends AbstractPlugin
     // this.umc = new UmsatzMessageConsumer();
     // Application.getMessagingFactory().registerMessageConsumer(this.umc);
     MessageConsumer mc = new HelpConsumer();
-    Application.getMessagingFactory().getMessagingQueue("jameica.help.missing").registerMessageConsumer(
-        mc);
+    Application.getMessagingFactory().getMessagingQueue("jameica.help.missing")
+        .registerMessageConsumer(mc);
+
+    // Application.getBootLoader().getBootable(ArchiveService.class);
 
   }
 
@@ -212,7 +217,8 @@ public class JVereinPlugin extends AbstractPlugin
   {
     try
     {
-      getI18n().storeUntranslated(new FileOutputStream("/tmp/untranslated.txt"));
+      getI18n()
+          .storeUntranslated(new FileOutputStream("/tmp/untranslated.txt"));
     }
     catch (FileNotFoundException e)
     {
@@ -253,7 +259,7 @@ public class JVereinPlugin extends AbstractPlugin
    * Hilfsmethode zum bequemen Ausfuehren von Methoden auf dem Service.
    * 
    * @param call
-   *        der Call.
+   *          der Call.
    * @throws ApplicationException
    */
   private void call(ServiceCall call) throws ApplicationException
