@@ -514,6 +514,10 @@ public class JVereinUpdateProvider
     {
       update0134(conn);
     }
+    if (cv < 135)
+    {
+      update0135(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3430,4 +3434,35 @@ public class JVereinUpdateProvider
         "Spalte max1 in die Tabelle eigenschaftgruppe aufgenommen", 134);
   }
 
+  private void update0135(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("create table buchungdokument (");
+    sb.append(" id IDENTITY,");
+    sb.append(" buchung INTEGER NOT NULL,");
+    sb.append(" uuid VARCHAR(50) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(");\n");
+    sb
+        .append("ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (buchung) REFERENCES buchung (id);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("create table buchungdokument (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" buchung INTEGER NOT NULL,");
+    sb.append(" uuid VARCHAR(50) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    sb
+        .append("ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (buchung) REFERENCES buchung (id);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle buchungdokument aufgenommen", 135);
+  }
 }
