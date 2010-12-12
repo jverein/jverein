@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-11-13 09:31:24  jost
+ * Warnings entfernt.
+ *
  * Revision 1.8  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -37,6 +40,7 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.text.ParseException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -90,10 +94,28 @@ public class StammdatenImpl extends AbstractDBObject implements Stammdaten
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Bitte Bankleitzahl eingeben"));
       }
+      try
+      {
+        Integer.parseInt(getBlz());
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException(
+            "Bankleitzahl enthält unzulässige Zeichen!");
+      }
       if (getKonto() == null || getKonto().length() == 0)
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Bitte Kontonummer eingeben"));
+      }
+      try
+      {
+        Integer.parseInt(getKonto());
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException(
+            "Kontonummer enthält unzulässige Zeichen!");
       }
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
