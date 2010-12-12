@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.17  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -65,7 +68,10 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
+import de.jost_net.JVerein.gui.control.DokumentControl;
 import de.jost_net.JVerein.gui.internal.buttons.Back;
+import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.BuchungDokument;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -89,29 +95,29 @@ public class BuchungView extends AbstractView
         JVereinPlugin.getI18n().tr("Buchung"));
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsnummer"),
         control.getID());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"),
-        control.getUmsatzid());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
-        control.getKonto(true));
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
-        control.getName());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"), control
+        .getUmsatzid());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control
+        .getKonto(true));
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
+        .getName());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
+        .getBetrag());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck"),
         control.getZweck());
     grKontoauszug.addLabelPair(
         JVereinPlugin.getI18n().tr("Verwendungszweck 2"), control.getZweck2());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
-        control.getDatum());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"),
-        control.getArt());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control
+        .getDatum());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control
+        .getArt());
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
       grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
           control.getMitgliedskonto());
     }
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"),
-        control.getKommentar());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"), control
+        .getKommentar());
 
     LabelGroup grBuchungsinfos = new LabelGroup(scrolled.getComposite(),
         JVereinPlugin.getI18n().tr("Buchungsinfos"));
@@ -121,6 +127,20 @@ public class BuchungView extends AbstractView
         control.getAuszugsnummer());
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Blattnummer"),
         control.getBlattnummer());
+
+    if (JVereinPlugin.isArchiveServiceActive())
+    {
+      LabelGroup grDokument = new LabelGroup(scrolled.getComposite(),
+          "Dokument");
+      Buchung bu = (Buchung) control.getCurrentObject();
+      BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
+          .createObject(BuchungDokument.class, null);
+      budo.setReferenz(new Integer(bu.getID()));
+      DokumentControl dcontrol = new DokumentControl(this);
+      grDokument.addPart(dcontrol.getDokumenteList(budo));
+      ButtonArea butts = new ButtonArea(grDokument.getComposite(), 1);
+      butts.addButton(dcontrol.getNeuButton(budo));
+    }
 
     ButtonArea buttons = new ButtonArea(scrolled.getComposite(), 4);
     buttons.addButton(new Back(false));

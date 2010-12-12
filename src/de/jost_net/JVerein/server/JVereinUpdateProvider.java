@@ -518,6 +518,14 @@ public class JVereinUpdateProvider
     {
       update0135(conn);
     }
+    if (cv < 136)
+    {
+      update0136(conn);
+    }
+    if (cv < 137)
+    {
+      update0137(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3465,4 +3473,56 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Tabelle buchungdokument aufgenommen", 135);
   }
+
+  private void update0136(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("drop table buchungdokument;");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("drop table buchungdokument;");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, "Tabelle buchungdokument gelöscht", 136);
+  }
+
+  private void update0137(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("create table buchungdokument (");
+    sb.append(" id IDENTITY,");
+    sb.append(" referenz INTEGER NOT NULL,");
+    sb.append(" datum DATE NOT NULL, ");
+    sb.append("  bemerkung VARCHAR(50), ");
+    sb.append(" uuid VARCHAR(50) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(");\n");
+    sb
+        .append("ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (referenz) REFERENCES buchung (id);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("create table buchungdokument (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" referenz INTEGER NOT NULL,");
+    sb.append("  datum DATE NOT NULL, ");
+    sb.append("  bemerkung VARCHAR(50), ");
+    sb.append(" uuid VARCHAR(50) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    sb
+        .append("ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (referenz) REFERENCES buchung (id);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle buchungdokument aufgenommen", 137);
+  }
+
 }

@@ -12,6 +12,7 @@
     			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
     			<li>Arbeitseinsätze</li>
     			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> 
+    			<li>Speicherung von Dokumenten zu Buchungen. Siehe <a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=17106&group_id=7335'>#17106</a></li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -535,6 +536,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.90  2010-11-27 19:30:14  jost
+    Optional: max. eine Eigenschaft auswählbar
+
     Revision 1.89  2010-11-27 18:00:01  jost
     *** empty log message ***
 
