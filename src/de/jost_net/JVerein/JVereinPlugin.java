@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2010-12-12 08:07:58  jost
+ * Neu: Speicherung von Dokumenten
+ *
  * Revision 1.27  2010-12-05 12:28:26  jost
  * Vorbereitung Dokumenten-Speicherung
  *
@@ -97,7 +100,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.Locale;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
