@@ -10,7 +10,7 @@
     		<p>Hinweis! In der Version 1.4.0.1 des Windows-Installers in ein Mini-Bug in Syntax beseitigt worden.</p>
     	<li>Entwicklerversionen</li>
     		<ul>
-    			<li><a href='download/download_log.php?dl=jverein.1.5.0-devel-266.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
+    			<li><a href='download/download_log.php?dl=jverein.1.5.0-devel-266.zip'>Entwicklerversion 1.5.0 Rev. 266</a>&nbsp;Für alle Betriebssysteme. Vom 12.12.2010 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>
     		</ul>
     	<li>Vorherige Versionen</li>
     		<ul>
@@ -27,6 +27,9 @@
     
     <!-- 
     $Log$
+    Revision 1.19  2010-12-12 19:07:09  jost
+    Neu: Speicherung von Dokumenten
+
     Revision 1.18  2010-11-15 18:51:54  jost
     *** empty log message ***
 
