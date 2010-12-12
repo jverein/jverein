@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/hbci4java-2.5.12.jar" sourcepath="/hibiscus/lib.src/hbci4java-2.5.12-src.zip"/>
 	<classpathentry kind="lib" path="lib/SuperCSV-1.52.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jameica.messaging"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
