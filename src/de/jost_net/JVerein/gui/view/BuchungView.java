@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2010-12-12 08:13:01  jost
+ * Neu: Speicherung von Dokumenten
+ *
  * Revision 1.18  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -131,7 +134,7 @@ public class BuchungView extends AbstractView
     if (JVereinPlugin.isArchiveServiceActive())
     {
       LabelGroup grDokument = new LabelGroup(scrolled.getComposite(),
-          "Dokument");
+          "Dokumente");
       Buchung bu = (Buchung) control.getCurrentObject();
       BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
           .createObject(BuchungDokument.class, null);
