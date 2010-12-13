@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.9  2009-12-12 16:26:30  jost
  * Kommentare entfernen.
  *
@@ -155,17 +158,24 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
     return false;
   }
 
+  private long lastCheck = 0;
+ 
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#checkConnection(java.sql.Connection)
    */
   public void checkConnection(Connection conn) throws RemoteException
   {
+   long newCheck = System.currentTimeMillis();
+   if ((newCheck - lastCheck) < (10 * 1000L))
+     return; // Wir checken hoechstens aller 10 Sekunden
+      
     Statement s = null;
     ResultSet rs = null;
     try
     {
       s = conn.createStatement();
       rs = s.executeQuery("select 1");
+      lastCheck = newCheck;
     }
     catch (SQLException e)
     {
