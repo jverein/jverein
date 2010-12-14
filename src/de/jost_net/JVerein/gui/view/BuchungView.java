@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2010-12-12 12:44:17  jost
+ * redakt.
+ *
  * Revision 1.19  2010-12-12 08:13:01  jost
  * Neu: Speicherung von Dokumenten
  *
@@ -139,7 +142,7 @@ public class BuchungView extends AbstractView
       BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
           .createObject(BuchungDokument.class, null);
       budo.setReferenz(new Integer(bu.getID()));
-      DokumentControl dcontrol = new DokumentControl(this);
+      DokumentControl dcontrol = new DokumentControl(this, "buchungen");
       grDokument.addPart(dcontrol.getDokumenteList(budo));
       ButtonArea butts = new ButtonArea(grDokument.getComposite(), 1);
       butts.addButton(dcontrol.getNeuButton(budo));

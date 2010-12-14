@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.51  2010-12-14 21:31:54  jost
+ * Neu: Speicherung von Dokumenten
+ *
  * Revision 1.50  2010-11-17 04:51:26  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -383,7 +386,7 @@ public class MitgliedDetailView extends AbstractView
       MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService()
           .createObject(MitgliedDokument.class, null);
       mido.setReferenz(new Integer(control.getMitglied().getID()));
-      DokumentControl dcontrol = new DokumentControl(this);
+      DokumentControl dcontrol = new DokumentControl(this, "mitglieder");
       grDokument.addPart(dcontrol.getDokumenteList(mido));
       ButtonArea butts = new ButtonArea(grDokument.getComposite(), 1);
       butts.addButton(dcontrol.getNeuButton(mido));

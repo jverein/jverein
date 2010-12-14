@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-12-12 08:13:14  jost
+ * Neu: Speicherung von Dokumenten
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -24,13 +27,19 @@ import de.willuhn.jameica.gui.util.ScrolledContainer;
 
 public class DokumentView extends AbstractView
 {
+  private String verzeichnis;
+
+  public DokumentView(String verzeichnis)
+  {
+    this.verzeichnis = verzeichnis;
+  }
 
   @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Dokument"));
 
-    final DokumentControl control = new DokumentControl(this);
+    final DokumentControl control = new DokumentControl(this, verzeichnis);
 
     ScrolledContainer scrolled = new ScrolledContainer(getParent());
 
@@ -47,7 +56,7 @@ public class DokumentView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
-     buttons.addButton(control.getSpeichernButton("buchungen."));
+    buttons.addButton(control.getSpeichernButton(verzeichnis + "."));
   }
 
   @Override

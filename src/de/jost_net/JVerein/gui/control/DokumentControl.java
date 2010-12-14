@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-12-12 08:11:17  jost
+ * Neu: Speicherung von Dokumenten
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -62,11 +65,14 @@ public class DokumentControl extends AbstractControl
 
   private Button speichernButton;
 
+  private String verzeichnis;
+
   // private de.willuhn.jameica.system.Settings settings;
 
-  public DokumentControl(AbstractView view)
+  public DokumentControl(AbstractView view, String verzeichnis)
   {
     super(view);
+    this.verzeichnis = verzeichnis;
     // settings = new de.willuhn.jameica.system.Settings(this.getClass());
     // settings.setStoreWhenRead(true);
   }
@@ -137,7 +143,7 @@ public class DokumentControl extends AbstractControl
 
       public void handleAction(Object context) throws ApplicationException
       {
-        GUI.startView(new DokumentView(), doc);
+        GUI.startView(new DokumentView(verzeichnis), doc);
       }
     }, null);
     return neuButton;
