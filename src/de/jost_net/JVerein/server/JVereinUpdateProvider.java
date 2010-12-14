@@ -526,6 +526,10 @@ public class JVereinUpdateProvider
     {
       update0137(conn);
     }
+    if (cv < 138)
+    {
+      update0138(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3523,6 +3527,42 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle buchungdokument aufgenommen", 137);
+  }
+
+  private void update0138(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("create table mitglieddokument (");
+    sb.append(" id IDENTITY,");
+    sb.append(" referenz INTEGER NOT NULL,");
+    sb.append(" datum DATE NOT NULL, ");
+    sb.append("  bemerkung VARCHAR(50), ");
+    sb.append(" uuid VARCHAR(50) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(");\n");
+    sb
+        .append("ALTER TABLE mitglieddokument ADD CONSTRAINT fkMitgliedDokument1 FOREIGN KEY (referenz) REFERENCES mitglied (id);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("create table mitglieddokument (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" referenz INTEGER NOT NULL,");
+    sb.append("  datum DATE NOT NULL, ");
+    sb.append("  bemerkung VARCHAR(50), ");
+    sb.append(" uuid VARCHAR(50) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(") TYPE=InnoDB;\n");
+    sb
+        .append("ALTER TABLE mitglieddokument ADD CONSTRAINT fkMitgliedDokument1 FOREIGN KEY (referenz) REFERENCES mitglied (id);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle mitglieddokument aufgenommen", 138);
   }
 
 }

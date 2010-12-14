@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.50  2010-11-17 04:51:26  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.49  2010-10-30 11:30:12  jost
  * Neu: Sterbetag
  *
@@ -173,12 +176,14 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
+import de.jost_net.JVerein.gui.control.DokumentControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.JVereinDBService;
+import de.jost_net.JVerein.rmi.MitgliedDokument;
 import de.jost_net.JVerein.server.DBSupportH2Impl;
 import de.jost_net.JVerein.server.DBSupportMcKoiImpl;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -190,6 +195,7 @@ import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
@@ -367,6 +373,20 @@ public class MitgliedDetailView extends AbstractView
       control.getArbeitseinsatzTable().paint(tabArbEins.getComposite());
       ButtonArea buttonswvl = new ButtonArea(tabArbEins.getComposite(), 1);
       buttonswvl.addButton(control.getArbeitseinsatzNeu());
+    }
+    if (JVereinPlugin.isArchiveServiceActive())
+    {
+      TabGroup tabDokument = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+          "Dokumente"));
+      LabelGroup grDokument = new LabelGroup(tabDokument.getComposite(),
+          "Dokumente");
+      MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService()
+          .createObject(MitgliedDokument.class, null);
+      mido.setReferenz(new Integer(control.getMitglied().getID()));
+      DokumentControl dcontrol = new DokumentControl(this);
+      grDokument.addPart(dcontrol.getDokumenteList(mido));
+      ButtonArea butts = new ButtonArea(grDokument.getComposite(), 1);
+      butts.addButton(dcontrol.getNeuButton(mido));
     }
 
     if (tabindex != -1)
