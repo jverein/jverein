@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.47  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.46  2010-07-26 08:05:53  jost
  * - Mitgliedskonto für Zusatzbeträge
  * - Rechnungsinformationen und Manuelle Zahlungseingänge deaktiviert.
@@ -638,9 +641,9 @@ public class Abbuchung
     String mitgliedname = (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
         ? m.getExterneMitgliedsnummer() : m.getID())
         + "/" + name;
-    if (mitgliedname.length() > 25)
+    if (mitgliedname.length() > 27)
     {
-      mitgliedname = mitgliedname.substring(0, 25);
+      mitgliedname = mitgliedname.substring(0, 27);
     }
     if (m.getKontoinhaber().length() > 0)
     {
