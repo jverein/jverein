@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2010-11-06 20:13:06  jost
+ * Bugfix SQL-Statement (Fehlbetrag)
+ *
  * Revision 1.13  2010-10-28 19:14:05  jost
  * Neu: Wohnsitzstaat
  *
@@ -485,7 +488,7 @@ public class MitgliedskontoControl extends AbstractControl
         settings.setAttribute(datumverwendung + "datumbis", "");
       }
     }
-    String sql = "select  mitgliedskonto.*, sum(mitgliedskonto.betrag) sollsumme, "
+    String sql = "select  mitgliedskonto.*, mitgliedskonto.betrag as sollsumme, "
         + "sum(buchung.betrag)  istsumme,mitglied.name, mitglied.vorname from mitgliedskonto "
         + "join mitglied on (mitgliedskonto.mitglied = mitglied.id) "
         + "left join buchung  on (buchung.mitgliedskonto = mitgliedskonto.id ) ";

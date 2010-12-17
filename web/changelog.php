@@ -14,6 +14,7 @@
     			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> 
     			<li>Speicherung von Dokumenten zu Buchungen und Mitgliedern. Siehe <a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=17106&group_id=7335'>#17106</a></li>
     			<li>Abbuchung: Verwendungszweck 2 ist jetzt auch 27 Zeichen (vorher 25 Zeichen)  lang</li>
+    			<li>Mitgliedskonto: Bugfix Summen</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -537,6 +538,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.93  2010-12-16 19:14:08  jost
+    *** empty log message ***
+
     Revision 1.92  2010-12-14 21:44:29  jost
     *** empty log message ***
 
