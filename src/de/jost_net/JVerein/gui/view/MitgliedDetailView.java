@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.52  2010-12-14 21:42:18  jost
+ * Neu: Speicherung von Dokumenten
+ *
  * Revision 1.51  2010-12-14 21:31:54  jost
  * Neu: Speicherung von Dokumenten
  *
@@ -278,7 +281,10 @@ public class MitgliedDetailView extends AbstractView
     tab3.addInput(control.getBeitragsgruppe());
     tab3.addInput(control.getAustritt());
     tab3.addInput(control.getKuendigung());
-    tab3.addInput(control.getSterbetag());
+    if (control.getMitglied().getPersonenart().equals("n"))
+    {
+      tab3.addInput(control.getSterbetag());
+    }
     DBIterator it = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
     it.addFilter("beitragsart = 1 or beitragsart = 2");
@@ -377,7 +383,8 @@ public class MitgliedDetailView extends AbstractView
       ButtonArea buttonswvl = new ButtonArea(tabArbEins.getComposite(), 1);
       buttonswvl.addButton(control.getArbeitseinsatzNeu());
     }
-    if (JVereinPlugin.isArchiveServiceActive())
+    if (JVereinPlugin.isArchiveServiceActive()
+        && !control.getMitglied().isNewObject())
     {
       TabGroup tabDokument = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Dokumente"));
