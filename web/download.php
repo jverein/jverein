@@ -7,6 +7,7 @@
       			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_64.exe'>Version 1.4.0.1</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
+    		<p>Alternative Downloadmöglichkeit für die <a href='http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html'>Windows-Setups</a></p>
     		<p>Hinweis! In der Version 1.4.0.1 des Windows-Installers in ein Mini-Bug in Syntax beseitigt worden.</p>
     	<li>Entwicklerversionen</li>
     		<ul>
@@ -27,6 +28,9 @@
     
     <!-- 
     $Log$
+    Revision 1.20  2010-12-12 19:21:48  jost
+    *** empty log message ***
+
     Revision 1.19  2010-12-12 19:07:09  jost
     Neu: Speicherung von Dokumenten
 
