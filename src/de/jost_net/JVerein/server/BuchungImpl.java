@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-11-13 09:29:39  jost
+ * Warnings entfernt.
+ *
  * Revision 1.14  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -126,8 +129,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     if (ja != null)
     {
       throw new ApplicationException(
-          JVereinPlugin.getI18n().tr(
-              "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!"));
+          JVereinPlugin
+              .getI18n()
+              .tr(
+                  "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!"));
     }
   }
 
@@ -382,8 +387,8 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     DBIterator it = Einstellungen.getDBService().createList(
         Jahresabschluss.class);
-    it.addFilter("von <= ?", new Object[] { getDatum()});
-    it.addFilter("bis >= ?", new Object[] { getDatum()});
+    it.addFilter("von <= ?", new Object[] { getDatum() });
+    it.addFilter("bis >= ?", new Object[] { getDatum() });
     if (it.hasNext())
     {
       Jahresabschluss ja = (Jahresabschluss) it.next();
@@ -391,4 +396,15 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
     return null;
   }
+
+  public Integer getSplitId() throws RemoteException
+  {
+    return (Integer) getAttribute("splitid");
+  }
+
+  public void setSplitId(Integer splitid) throws RemoteException
+  {
+    setAttribute("splitid", splitid);
+  }
+
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-07-25 18:45:51  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.8  2008/12/03 22:00:50  jost
  * Erweiterung um Auszugs- und Blattnummer
  *
@@ -107,8 +110,13 @@ public interface Buchung extends DBObject
   public void setMitgliedskonto(Mitgliedskonto mitgliedskonto)
       throws RemoteException;
 
-  public void setMitgliedskontoID(Integer mitgliedskonto) throws RemoteException;
+  public void setMitgliedskontoID(Integer mitgliedskonto)
+      throws RemoteException;
 
   public Jahresabschluss getJahresabschluss() throws RemoteException;
+
+  public Integer getSplitId() throws RemoteException;
+
+  public void setSplitId(Integer splitid) throws RemoteException;
 
 }

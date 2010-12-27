@@ -530,6 +530,10 @@ public class JVereinUpdateProvider
     {
       update0138(conn);
     }
+    if (cv < 139)
+    {
+      update0139(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3563,6 +3567,21 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle mitglieddokument aufgenommen", 138);
+  }
+
+  private void update0139(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table buchung add splitid integer;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table buchung add splitid integer;\n");
+
+    execute(conn, statements, "Spalte splitid zur Tabelle buchung hinzugefügt",
+        139);
   }
 
 }
