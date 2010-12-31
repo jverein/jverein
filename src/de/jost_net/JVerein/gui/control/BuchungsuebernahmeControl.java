@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-11-13 09:23:27  jost
+ * Warnings entfernt.
+ *
  * Revision 1.14  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -103,7 +106,8 @@ public class BuchungsuebernahmeControl extends AbstractControl
     {
       return konto;
     }
-    konto = new KontoauswahlInput().getKontoAuswahl(false);
+    String kontoid = settings.getString("kontoid", "");
+    konto = new KontoauswahlInput().getKontoAuswahl(false, kontoid);
     return konto;
   }
 
@@ -117,6 +121,8 @@ public class BuchungsuebernahmeControl extends AbstractControl
         try
         {
           getBuchungsList();
+          Konto k = (Konto) getKonto().getValue();
+          settings.setAttribute("kontoid", k.getID());
         }
         catch (RemoteException e)
         {

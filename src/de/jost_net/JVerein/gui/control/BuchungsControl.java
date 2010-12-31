@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2010-10-19 18:12:22  jost
+ * Sortierung der Buchungsart nach Alphabet
+ *
  * Revision 1.29  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -252,7 +255,9 @@ public class BuchungsControl extends AbstractControl
     {
       return konto;
     }
-    konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl(false);
+    String kontoid = settings.getString("kontoid", "");
+    konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl(
+        false, kontoid);
     if (withFocus)
     {
       konto.focus();
@@ -362,7 +367,8 @@ public class BuchungsControl extends AbstractControl
     {
       return mitgliedskonto;
     }
-    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung()).getMitgliedskontoAuswahl();
+    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
+        .getMitgliedskontoAuswahl();
     return mitgliedskonto;
   }
 
@@ -392,7 +398,8 @@ public class BuchungsControl extends AbstractControl
     {
       return buchungsart;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     list.setOrder("ORDER BY bezeichnung");
     buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
     buchungsart.setValue(getBuchung().getBuchungsart());
@@ -407,7 +414,8 @@ public class BuchungsControl extends AbstractControl
     {
       return suchkonto;
     }
-    suchkonto = new KontoauswahlInput().getKontoAuswahl(true);
+    String kontoid = settings.getString("suchkontoid", "");
+    suchkonto = new KontoauswahlInput().getKontoAuswahl(true, kontoid);
     return suchkonto;
   }
 
@@ -417,7 +425,8 @@ public class BuchungsControl extends AbstractControl
     {
       return suchbuchungsart;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     list.setOrder("ORDER BY nummer");
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
     Buchungsart b = (Buchungsart) Einstellungen.getDBService().createObject(
@@ -598,6 +607,7 @@ public class BuchungsControl extends AbstractControl
           b.setBuchungsart(null);
         }
         b.setKonto((Konto) getKonto(false).getValue());
+        settings.setAttribute("kontoid", b.getKonto().getID());
         b.setAuszugsnummer((Integer) getAuszugsnummer().getValue());
         b.setBlattnummer((Integer) getBlattnummer().getValue());
         b.setName((String) getName().getValue());
@@ -648,17 +658,23 @@ public class BuchungsControl extends AbstractControl
     if (suchkonto.getValue() != null)
     {
       k = (Konto) suchkonto.getValue();
+      settings.setAttribute("suchkontoid", k.getID());
     }
+    else
+    {
+      settings.setAttribute("suchkontoid", "");
+    }
+
     Buchungsart b = null;
     if (suchbuchungsart != null)
     {
       b = (Buchungsart) suchbuchungsart.getValue();
     }
-    buchungen.addFilter("datum >= ?", new Object[] { vd});
-    buchungen.addFilter("datum <= ?", new Object[] { bd});
+    buchungen.addFilter("datum >= ?", new Object[] { vd });
+    buchungen.addFilter("datum <= ?", new Object[] { bd });
     if (k != null)
     {
-      buchungen.addFilter("konto = ?", new Object[] { k.getID()});
+      buchungen.addFilter("konto = ?", new Object[] { k.getID() });
     }
     if (b != null)
     {
@@ -668,7 +684,7 @@ public class BuchungsControl extends AbstractControl
       }
       else if (b.getArt() >= 0)
       {
-        buchungen.addFilter("buchungsart = ?", new Object[] { b.getID()});
+        buchungen.addFilter("buchungsart = ?", new Object[] { b.getID() });
       }
     }
     buchungen.setOrder("ORDER BY umsatzid DESC");
@@ -760,7 +776,7 @@ public class BuchungsControl extends AbstractControl
       list = Einstellungen.getDBService().createList(Buchungsart.class);
       if (ba != null && ba.getArt() != -2)
       {
-        list.addFilter("id = ?", new Object[] { ba.getID()});
+        list.addFilter("id = ?", new Object[] { ba.getID() });
       }
       list.setOrder("ORDER BY nummer");
 
@@ -773,8 +789,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungen",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungen", Einstellungen.getEinstellung()
+          .getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -818,15 +834,15 @@ public class BuchungsControl extends AbstractControl
       list = Einstellungen.getDBService().createList(Buchung.class);
       if (dVon != null)
       {
-        list.addFilter("datum >= ?", new Object[] { dVon});
+        list.addFilter("datum >= ?", new Object[] { dVon });
       }
       if (dBis != null)
       {
-        list.addFilter("datum <= ?", new Object[] { dBis});
+        list.addFilter("datum <= ?", new Object[] { dBis });
       }
       if (k != null)
       {
-        list.addFilter("konto = ?", new Object[] { k.getID()});
+        list.addFilter("konto = ?", new Object[] { k.getID() });
       }
       list.setOrder("ORDER BY datum, auszugsnummer, blattnummer, id");
 
@@ -839,8 +855,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungsjournal",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungsjournal", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 

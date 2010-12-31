@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-11 20:32:40  jost
+ * Vermeidung NPE
+ *
  * Revision 1.7  2010-10-10 06:51:10  jost
  * Korrekte Null-Wert-Behandlung
  *
@@ -78,7 +81,8 @@ public class KontoauswahlInput
    * @return Auswahl-Feld.
    * @throws RemoteException
    */
-  public DialogInput getKontoAuswahl(boolean keinkonto) throws RemoteException
+  public DialogInput getKontoAuswahl(boolean keinkonto, String kontoid)
+      throws RemoteException
   {
     if (kontoAuswahl != null)
     {
@@ -89,7 +93,6 @@ public class KontoauswahlInput
         KontoAuswahlDialog.POSITION_MOUSE, keinkonto);
     d.addCloseListener(new KontoListener());
 
-    String kontoid = settings.getString("kontoid", null);
     if (kontoid == null || kontoid.length() == 0)
     {
       kontoid = null;
@@ -135,8 +138,8 @@ public class KontoauswahlInput
           konto = null;
           try
           {
-            getKontoAuswahl(keinkonto).setText("");
-            getKontoAuswahl(keinkonto).setComment("");
+            getKontoAuswahl(keinkonto, "").setText("");
+            getKontoAuswahl(keinkonto, "").setComment("");
             settings.setAttribute("kontoid", "");
           }
           catch (RemoteException e)
@@ -150,8 +153,8 @@ public class KontoauswahlInput
       try
       {
         String b = konto.getBezeichnung();
-        getKontoAuswahl(keinkonto).setText(konto.getNummer());
-        getKontoAuswahl(keinkonto).setComment(b == null ? "" : b);
+        getKontoAuswahl(keinkonto, "").setText(konto.getNummer());
+        getKontoAuswahl(keinkonto, "").setComment(b == null ? "" : b);
         settings.setAttribute("kontoid", konto.getID());
       }
       catch (RemoteException er)
