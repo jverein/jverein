@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2010-12-17 13:41:10  jost
+ * Vermeidung NPE
+ *
  * Revision 1.21  2010-12-14 21:41:52  jost
  * Neu: Speicherung von Dokumenten
  *
@@ -104,29 +107,29 @@ public class BuchungView extends AbstractView
         JVereinPlugin.getI18n().tr("Buchung"));
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsnummer"),
         control.getID());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"), control
-        .getUmsatzid());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control
-        .getKonto(true));
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control
-        .getName());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-        .getBetrag());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"),
+        control.getUmsatzid());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+        control.getKonto(true));
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getName());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+        control.getBetrag());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck"),
         control.getZweck());
     grKontoauszug.addLabelPair(
         JVereinPlugin.getI18n().tr("Verwendungszweck 2"), control.getZweck2());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control
-        .getDatum());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control
-        .getArt());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
+        control.getDatum());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"),
+        control.getArt());
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
       grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
           control.getMitgliedskonto());
     }
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"), control
-        .getKommentar());
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"),
+        control.getKommentar());
 
     LabelGroup grBuchungsinfos = new LabelGroup(scrolled.getComposite(),
         JVereinPlugin.getI18n().tr("Buchungsinfos"));
@@ -139,11 +142,11 @@ public class BuchungView extends AbstractView
 
     if (JVereinPlugin.isArchiveServiceActive())
     {
-      LabelGroup grDokument = new LabelGroup(scrolled.getComposite(),
-          "Dokumente");
       Buchung bu = (Buchung) control.getCurrentObject();
       if (!bu.isNewObject())
       {
+        LabelGroup grDokument = new LabelGroup(scrolled.getComposite(),
+            "Dokumente");
         BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
             .createObject(BuchungDokument.class, null);
         budo.setReferenz(new Integer(bu.getID()));
