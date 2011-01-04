@@ -3,7 +3,7 @@
     <p>Zu Diagnosezwecken oder zur Migration der Daten in ein anderes Datenbanksystem gibt es einen Export 
     der Datenbank ins XML-Format und einen Import aus dem XML-Format.</p>
     <h2><a name="backup_erstellen"></a>Diagnosebackup erstellen</h2>
-    <p>Im Menü unter Plugins|JVerein|Erweitert kann das Backup erstellt werden. Es erscheint ein 
+    <p>Im Menü unter JVerein|Administration|Erweitert kann das Backup erstellt werden. Es erscheint ein 
     Datei-Speichern-Dialog. Danach wird die Datenbank exportiert. </p>
     <h2><a name="backup_importieren"></a>Diagnosebackup importieren</h2>
     <p>Im Menü unter Plugins|JVerein|Erweitert kann das Backup importiert werden. Es erscheint ein 
@@ -11,6 +11,9 @@
     
     <!-- 
     $Log$
+    Revision 1.1  2009/05/08 14:46:22  jost
+    shtml - php
+
     Revision 1.2  2009/05/03 15:33:30  jost
     Neue Homepage
 
