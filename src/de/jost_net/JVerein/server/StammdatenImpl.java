@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-12-12 12:44:37  jost
+ * Zusätzliche Plausi.
+ *
  * Revision 1.9  2010-11-13 09:31:24  jost
  * Warnings entfernt.
  *
@@ -40,7 +43,6 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
-import java.text.ParseException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
