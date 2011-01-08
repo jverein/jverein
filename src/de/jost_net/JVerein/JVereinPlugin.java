@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2010-12-12 08:10:59  jost
+ * Überflüssigen Import entfernt.
+ *
  * Revision 1.28  2010-12-12 08:07:58  jost
  * Neu: Speicherung von Dokumenten
  *
@@ -313,8 +316,12 @@ public class JVereinPlugin extends AbstractPlugin
     return i18n;
   }
 
-  public static boolean isArchiveServiceActive()
+  public static boolean isArchiveServiceActive() throws RemoteException
   {
+    if (!Einstellungen.getEinstellung().getDokumentenspeicherung())
+    {
+      return false;
+    }
     if (Application.getPluginLoader().getPlugin(
         "de.willuhn.jameica.messaging.Plugin") != null)
     {

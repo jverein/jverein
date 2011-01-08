@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2010-11-17 04:52:47  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.20  2010-11-13 09:29:58  jost
  * Warnings entfernt.
  *
@@ -263,6 +266,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setArbeitseinsatz(Boolean arbeitseinsatz) throws RemoteException
   {
     setAttribute("arbeitseinsatz", new Boolean(arbeitseinsatz));
+  }
+
+  public boolean getDokumentenspeicherung() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("dokumentenspeicherung"));
+  }
+
+  public void setDokumentenspeicherung(Boolean dokumentenspeicherung)
+      throws RemoteException
+  {
+    setAttribute("dokumentenspeicherung", new Boolean(dokumentenspeicherung));
   }
 
   public String getRechnungTextAbbuchung() throws RemoteException

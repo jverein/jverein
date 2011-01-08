@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2010-11-17 04:51:11  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.36  2010-11-13 09:25:58  jost
  * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
  *
@@ -165,8 +168,8 @@ public class EinstellungenView extends AbstractView
         .tr("Kommunikationsdaten anzeigen"), control.getKommunikationsdaten());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge anzeigen")
         + "*", control.getZusatzbetrag());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Vermerke anzeigen"), control
-        .getVermerke());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Vermerke anzeigen"),
+        control.getVermerke());
     left.addLabelPair(JVereinPlugin.getI18n()
         .tr("Wiedervorlage anzeigen" + "*"), control.getWiedervorlage());
     left.addLabelPair(JVereinPlugin.getI18n().tr(
@@ -174,24 +177,27 @@ public class EinstellungenView extends AbstractView
     left.addLabelPair(JVereinPlugin.getI18n().tr("Lehrgänge anzeigen" + "*"),
         control.getLehrgaenge());
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
-    right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "Juristische Personen erlaubt"), control.getJuristischePersonen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"), control
-        .getMitgliedskonto());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"), control
-        .getMitgliedfoto());
+    right.addLabelPair(
+        JVereinPlugin.getI18n().tr("Juristische Personen erlaubt"),
+        control.getJuristischePersonen());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"),
+        control.getMitgliedskonto());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"),
+        control.getMitgliedfoto());
     right.addLabelPair(JVereinPlugin.getI18n().tr("Auslandsadressen *"),
         control.getAuslandsadressen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Arbeitseinsatz *"), control
-        .getArbeitseinsatz());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Arbeitseinsatz *"),
+        control.getArbeitseinsatz());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Dokumentenspeicherung *"),
+        control.getDokumentenspeicherung());
     right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
-    right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "aktuelle Geburtstage - Tage vorher"), control
-        .getAktuelleGeburtstageVorher());
-    right.addLabelPair(JVereinPlugin.getI18n().tr(
-        "aktuelle Geburtstage - Tage nachher"), control
-        .getAktuelleGeburtstageNachher());
+    right.addLabelPair(
+        JVereinPlugin.getI18n().tr("aktuelle Geburtstage - Tage vorher"),
+        control.getAktuelleGeburtstageVorher());
+    right.addLabelPair(
+        JVereinPlugin.getI18n().tr("aktuelle Geburtstage - Tage nachher"),
+        control.getAktuelleGeburtstageNachher());
     right.addHeadline("* "
         + JVereinPlugin.getI18n().tr("Änderung erfordert Neustart"));
 
@@ -199,8 +205,8 @@ public class EinstellungenView extends AbstractView
         "Beiträge"));
     LabelGroup groupAbu = new LabelGroup(tabBeitraege.getComposite(),
         JVereinPlugin.getI18n().tr("Beiträge"));
-    groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"), control
-        .getBeitragsmodel());
+    groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"),
+        control.getBeitragsmodel());
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
 
@@ -208,17 +214,19 @@ public class EinstellungenView extends AbstractView
         "Dateinamen"));
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
         JVereinPlugin.getI18n().tr("Dateinamen"));
-    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Muster"), control
-        .getDateinamenmuster());
+    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Muster"),
+        control.getDateinamenmuster());
     groupDatei.addText("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit",
         true);
 
     TabGroup tabBuchfuehrung = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Buchführung"));
-    LabelGroup groupBuchfuehrung = new LabelGroup(tabBuchfuehrung
-        .getComposite(), JVereinPlugin.getI18n().tr("Buchführung"));
-    groupBuchfuehrung.addLabelPair(JVereinPlugin.getI18n().tr(
-        "Beginn Geschäftsjahr (TT.MM.)"), control.getBeginnGeschaeftsjahr());
+    LabelGroup groupBuchfuehrung = new LabelGroup(
+        tabBuchfuehrung.getComposite(), JVereinPlugin.getI18n().tr(
+            "Buchführung"));
+    groupBuchfuehrung.addLabelPair(
+        JVereinPlugin.getI18n().tr("Beginn Geschäftsjahr (TT.MM.)"),
+        control.getBeginnGeschaeftsjahr());
 
     TabGroup tabRechnungen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Rechnungen"));
@@ -227,8 +235,8 @@ public class EinstellungenView extends AbstractView
     groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Abbuchung"),
         control.getRechnungTextAbbuchung());
     groupRechnungen.addLabelPair(
-        JVereinPlugin.getI18n().tr("Text Überweisung"), control
-            .getRechnungTextUeberweisung());
+        JVereinPlugin.getI18n().tr("Text Überweisung"),
+        control.getRechnungTextUeberweisung());
     groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Bar"),
         control.getRechnungTextBar());
 

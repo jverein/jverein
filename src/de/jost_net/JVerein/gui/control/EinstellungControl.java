@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.32  2010-11-17 04:49:46  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.31  2010-11-13 09:23:47  jost
  * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
  *
@@ -155,6 +158,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput auslandsadressen;
 
   private CheckboxInput arbeitseinsatz;
+
+  private CheckboxInput dokumentenspeicherung;
 
   private TextInput rechnungtextabbuchung;
 
@@ -341,6 +346,17 @@ public class EinstellungControl extends AbstractControl
     arbeitseinsatz = new CheckboxInput(Einstellungen.getEinstellung()
         .getArbeitseinsatz());
     return arbeitseinsatz;
+  }
+
+  public CheckboxInput getDokumentenspeicherung() throws RemoteException
+  {
+    if (dokumentenspeicherung != null)
+    {
+      return dokumentenspeicherung;
+    }
+    dokumentenspeicherung = new CheckboxInput(Einstellungen.getEinstellung()
+        .getDokumentenspeicherung());
+    return dokumentenspeicherung;
   }
 
   public TextInput getRechnungTextAbbuchung() throws RemoteException
@@ -580,6 +596,7 @@ public class EinstellungControl extends AbstractControl
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
       e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());
+      e.setDokumentenspeicherung((Boolean) dokumentenspeicherung.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
