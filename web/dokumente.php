@@ -7,7 +7,8 @@
 	Entweder erfolgt die Installation lokal oder innerhalb eines LANs. Bei der Installation
 	im LAN wird in einer Jameica-Instanz der Archive-Service installiert und gestartet. 
 	In den weiteren Jameica-Instanzen ist keine Installation erforderlich. Jameica findet
-	die zentrale Instanz automatisch im LAN.</p>
+	die zentrale Instanz automatisch im LAN. Unter Einstellungen ist die Dokumentenspeicherung
+	zu aktivieren.</p>
 	
 	<p>Für den ArchiveService müssen folgende Jameica-Plugins zusätzlich installiert werden:</p>
 	
@@ -43,6 +44,9 @@
     
     <!-- 
     $Log$
+    Revision 1.2  2010-12-17 19:07:31  jost
+    *** empty log message ***
+
     Revision 1.1  2010-12-12 17:28:09  jost
     Neu: Speicherung von Dokumenten
 
