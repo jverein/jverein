@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2010-09-12 19:59:25  jost
  * Mitgliedskontoauswahl kann rückgängig gemacht werden.
  *
@@ -26,19 +29,23 @@
 
 package de.jost_net.JVerein.gui.dialogs;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.TabGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 
 /**
@@ -51,11 +58,13 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
 
   private String text = null;
 
-  private Mitgliedskonto choosen = null;
+  private Object choosen = null;
 
   private MitgliedskontoControl control;
 
   private TablePart mitgliedskontolist = null;
+
+  private TablePart mitgliedlist = null;
 
   private Buchung buchung;
 
@@ -75,8 +84,10 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Auswahl des Mitgliedskontos"));
+    TabFolder folder = new TabFolder(parent, SWT.NONE);
+    TabGroup tabNurIst = new TabGroup(folder, "nur Ist");
+    LabelGroup group = new LabelGroup(tabNurIst.getComposite(), JVereinPlugin
+        .getI18n().tr("Auswahl des Mitgliedskontos"));
 
     if (text == null || text.length() == 0)
     {
@@ -91,24 +102,52 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
     Action action = new Action()
     {
 
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         if (context == null || !(context instanceof Mitgliedskonto))
         {
           return;
         }
-        choosen = (Mitgliedskonto) context;
+        choosen = context;
         close();
       }
     };
     mitgliedskontolist = control.getMitgliedskontoList(action, null);
-    mitgliedskontolist.paint(parent);
+    tabNurIst.addPart(mitgliedskontolist);
+    TabGroup tabSollIst = new TabGroup(folder, "Soll + Ist");
+    LabelGroup group2 = new LabelGroup(tabSollIst.getComposite(), JVereinPlugin
+        .getI18n().tr("Auswahl des Mitgliedskontos"));
+
+    if (text == null || text.length() == 0)
+    {
+      text = JVereinPlugin.getI18n().tr(
+          "Bitte wählen Sie das gewünschte Mitgliedskonto aus.");
+    }
+    group2.addText(text, true);
+    control.getSuchName2().setValue(buchung.getName());
+    group2.addInput(control.getSuchName2());
+
+    Action action2 = new Action()
+    {
+
+      public void handleAction(Object context)
+      {
+        if (context == null || !(context instanceof Mitglied))
+        {
+          return;
+        }
+        choosen =  context;
+        close();
+      }
+    };
+    mitgliedlist = control.getMitgliedskontoList2(action2, null);
+    tabSollIst.addPart(mitgliedlist);
 
     ButtonArea b = new ButtonArea(parent, 4);
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
 
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         Object o = mitgliedskontolist.getSelection();
         if (o == null || !(o instanceof Mitgliedskonto))

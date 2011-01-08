@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2010-09-12 19:59:55  jost
  * Mitgliedskontoauswahl kann rückgängig gemacht werden.
  *
@@ -27,6 +30,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.DialogInput;
@@ -40,6 +44,8 @@ public class MitgliedskontoauswahlInput
   private Buchung buchung = null;
 
   private Mitgliedskonto konto = null;
+
+  private Mitglied mitglied = null;
 
   public MitgliedskontoauswahlInput(Buchung buchung) throws RemoteException
   {
@@ -64,10 +70,12 @@ public class MitgliedskontoauswahlInput
         MitgliedskontoAuswahlDialog.POSITION_MOUSE, buchung);
     d.addCloseListener(new MitgliedskontoListener());
 
-    mitgliedskontoAuswahl = new DialogInput(konto != null
-        ? konto.getMitglied().getNameVorname() + ", "
-            + Einstellungen.DATEFORMAT.format(konto.getDatum()) + ", "
-            + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
+    mitgliedskontoAuswahl = new DialogInput(konto != null ? konto.getMitglied()
+        .getNameVorname()
+        + ", "
+        + Einstellungen.DATEFORMAT.format(konto.getDatum())
+        + ", "
+        + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
     mitgliedskontoAuswahl.disableClientControl();
     mitgliedskontoAuswahl.setValue(buchung.getMitgliedskonto());
     return mitgliedskontoAuswahl;
@@ -107,13 +115,21 @@ public class MitgliedskontoauswahlInput
           GUI.getStatusBar().setErrorText(error);
         }
       }
-      konto = (Mitgliedskonto) event.data;
-
       try
       {
-        String b = konto.getMitglied().getNameVorname() + ", "
-            + Einstellungen.DATEFORMAT.format(konto.getDatum()) + ", "
-            + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
+        String b = "";
+        if (event.data instanceof Mitgliedskonto)
+        {
+          konto = (Mitgliedskonto) event.data;
+          b = konto.getMitglied().getNameVorname() + ", "
+              + Einstellungen.DATEFORMAT.format(konto.getDatum()) + ", "
+              + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
+        }
+        else if (event.data instanceof Mitglied)
+        {
+          mitglied = (Mitglied) event.data;
+          b = mitglied.getNameVorname() + ", Sollbuchung erzeugen";
+        }
         getMitgliedskontoAuswahl().setText(b);
       }
       catch (RemoteException er)
@@ -125,5 +141,4 @@ public class MitgliedskontoauswahlInput
       }
     }
   }
-
 }

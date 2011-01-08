@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-12-17 19:05:03  jost
+ * Bugfix Mitgliedskonto Summen
+ *
  * Revision 1.14  2010-11-06 20:13:06  jost
  * Bugfix SQL-Statement (Fehlbetrag)
  *
@@ -142,6 +145,8 @@ public class MitgliedskontoControl extends AbstractControl
 
   private TablePart mitgliedskontoList;
 
+  private TablePart mitgliedskontoList2;
+
   private TreePart mitgliedskontoTree;
 
   public static final String DATUM_MITGLIEDSKONTO = "datum.mitgliedskonto.";
@@ -157,6 +162,8 @@ public class MitgliedskontoControl extends AbstractControl
   private DateInput bisdatum = null;
 
   private TextInput suchname = null;
+
+  private TextInput suchname2 = null;
 
   private SelectInput differenz = null;
 
@@ -348,6 +355,18 @@ public class MitgliedskontoControl extends AbstractControl
     return suchname;
   }
 
+  public TextInput getSuchName2()
+  {
+    if (suchname2 != null)
+    {
+      return suchname2;
+    }
+    suchname2 = new TextInput("", 30);
+    suchname2.setName("Name");
+    suchname2.addListener(new FilterListener());
+    return suchname2;
+  }
+
   public void handleStore()
   {
     try
@@ -452,6 +471,56 @@ public class MitgliedskontoControl extends AbstractControl
       }
     }
     return mitgliedskontoList;
+  }
+
+  public TablePart getMitgliedskontoList2(Action action, ContextMenu menu)
+      throws RemoteException
+  {
+    this.action = action;
+    DBIterator mitglieder = Einstellungen.getDBService().createList(
+        Mitglied.class);
+    if (suchname2 != null && suchname2.getValue() != null)
+    {
+      String where = "";
+      ArrayList<String> object = new ArrayList<String>();
+      StringTokenizer tok = new StringTokenizer((String) suchname2.getValue(),
+          " ,-");
+      int count = 0;
+      while (tok.hasMoreElements())
+      {
+        if (count > 0)
+        {
+          where += "OR ";
+        }
+        count++;
+        where += "upper(name) like upper(?) or upper(vorname) like upper(?) ";
+        String o = tok.nextToken();
+        object.add(o);
+        object.add(o);
+      }
+      mitglieder.addFilter(where, object.toArray());
+    }
+    mitglieder.setOrder("order by name, vorname");
+    if (mitgliedskontoList2 == null)
+    {
+      mitgliedskontoList2 = new TablePart(mitglieder, action);
+      mitgliedskontoList2.addColumn("Name", "name");
+      mitgliedskontoList2.addColumn("Vorname", "vorname");
+      mitgliedskontoList2.setContextMenu(menu);
+      mitgliedskontoList2.setRememberColWidths(true);
+      mitgliedskontoList2.setRememberOrder(true);
+      mitgliedskontoList2.setMulti(true);
+      mitgliedskontoList2.setSummary(true);
+    }
+    else
+    {
+      mitgliedskontoList2.removeAll();
+      while (mitglieder.hasNext())
+      {
+        mitgliedskontoList2.addItem(mitglieder.next());
+      }
+    }
+    return mitgliedskontoList2;
   }
 
   private GenericIterator getMitgliedskontoIterator() throws RemoteException
@@ -762,8 +831,8 @@ public class MitgliedskontoControl extends AbstractControl
     else
     {
       GenericIterator it = getMitgliedskontoIterator();
-      //        
-      //        
+      //
+      //
       // Einstellungen.getDBService().createList(
       // Mitgliedskonto.class);
       // Date d = null;
@@ -860,21 +929,19 @@ public class MitgliedskontoControl extends AbstractControl
     map.put(FormularfeldControl.ZAHLUNGSGRUND2, zg2.toArray());
     map.put(FormularfeldControl.BETRAG, betrag.toArray());
     map.put(FormularfeldControl.ID, m.getID());
-    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, m
-        .getExterneMitgliedsnummer());
+    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER,
+        m.getExterneMitgliedsnummer());
     map.put(FormularfeldControl.ANREDE, m.getAnrede());
     map.put(FormularfeldControl.TITEL, m.getTitel());
     map.put(FormularfeldControl.NAME, m.getName());
     map.put(FormularfeldControl.VORNAME, m.getVorname());
-    map
-        .put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m
-            .getAdressierungszusatz());
+    map.put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m.getAdressierungszusatz());
     map.put(FormularfeldControl.STRASSE, m.getStrasse());
     map.put(FormularfeldControl.PLZ, m.getPlz());
     map.put(FormularfeldControl.ORT, m.getOrt());
     map.put(FormularfeldControl.STAAT, m.getStaat());
-    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, new Zahlungsrhytmus(m
-        .getZahlungsrhytmus()).getText());
+    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS,
+        new Zahlungsrhytmus(m.getZahlungsrhytmus()).getText());
     map.put(FormularfeldControl.BLZ, m.getBlz());
     map.put(FormularfeldControl.KONTO, m.getKonto());
     map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
@@ -912,8 +979,8 @@ public class MitgliedskontoControl extends AbstractControl
       }
     }
     map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
-    map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
-        .format(new Date()));
+    map.put(FormularfeldControl.TAGESDATUM,
+        Einstellungen.DATEFORMAT.format(new Date()));
 
     fa.writeForm(fo, map);
   }
@@ -946,20 +1013,20 @@ public class MitgliedskontoControl extends AbstractControl
         {
           try
           {
-            int c = mk1.getMitglied().getName().compareTo(
-                mk2.getMitglied().getName());
+            int c = mk1.getMitglied().getName()
+                .compareTo(mk2.getMitglied().getName());
             if (c != 0)
             {
               return c;
             }
-            c = mk1.getMitglied().getVorname().compareTo(
-                mk2.getMitglied().getVorname());
+            c = mk1.getMitglied().getVorname()
+                .compareTo(mk2.getMitglied().getVorname());
             if (c != 0)
             {
               return c;
             }
-            return mk1.getMitglied().getID().compareTo(
-                mk2.getMitglied().getID());
+            return mk1.getMitglied().getID()
+                .compareTo(mk2.getMitglied().getID());
           }
           catch (RemoteException e)
           {
