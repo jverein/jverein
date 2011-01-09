@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-11-13 09:27:08  jost
+ * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
+ *
  * Revision 1.6  2010-10-15 09:58:30  jost
  * Code aufgeräumt
  *
@@ -38,7 +41,6 @@ import de.jost_net.JVerein.rmi.Version;
 import de.jost_net.JVerein.server.BeitragsgruppeImpl;
 import de.jost_net.JVerein.server.KursteilnehmerImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
-import de.jost_net.JVerein.server.StammdatenImpl;
 import de.jost_net.JVerein.server.VersionImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
 import de.jost_net.JVerein.server.ZusatzbetragImpl;
@@ -60,8 +62,8 @@ import de.willuhn.util.ProgressMonitor;
 public class DatabaseMigrationTask implements BackgroundTask
 {
 
-  protected I18N i18n = Application.getPluginLoader().getPlugin(
-      JVereinPlugin.class).getResources().getI18N();
+  protected I18N i18n = Application.getPluginLoader()
+      .getPlugin(JVereinPlugin.class).getResources().getI18N();
 
   static de.willuhn.jameica.system.Settings SETTINGS = new de.willuhn.jameica.system.Settings(
       DatabaseMigrationTask.class);
@@ -105,7 +107,6 @@ public class DatabaseMigrationTask implements BackgroundTask
       monitor.log(i18n.tr("Starte Datenmigration"));
       Logger.info("################################################");
       Logger.info("starting data migration");
-      copy(StammdatenImpl.class, monitor);
       copy(BeitragsgruppeImpl.class, monitor);
       copy(MitgliedImpl.class, monitor);
       copy(KursteilnehmerImpl.class, monitor);

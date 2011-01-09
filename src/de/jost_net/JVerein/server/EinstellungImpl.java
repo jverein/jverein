@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2011-01-08 15:56:44  jost
+ * Einstellungen: Dokumentenspeicherung
+ *
  * Revision 1.21  2010-11-17 04:52:47  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -79,8 +82,14 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.io.AltersgruppenParser;
+import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
 
 public class EinstellungImpl extends AbstractDBObject implements Einstellung
 {
@@ -105,19 +114,83 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  protected void deleteCheck()
+  protected void deleteCheck() throws ApplicationException
   {
-    //
+    throw new ApplicationException(JVereinPlugin.getI18n().tr(
+        "Einstellung darf nicht gelöscht werden"));
   }
 
   @Override
-  protected void insertCheck()
+  protected void insertCheck() throws ApplicationException
   {
-    //
+    try
+    {
+      if (getName() == null || getName().length() == 0)
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Namen eingeben"));
+      }
+      if (getBlz() == null || getBlz().length() == 0)
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Bankleitzahl eingeben"));
+      }
+      try
+      {
+        Integer.parseInt(getBlz());
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException(
+            "Bankleitzahl enthält unzulässige Zeichen!");
+      }
+      if (getKonto() == null || getKonto().length() == 0)
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bitte Kontonummer eingeben"));
+      }
+      try
+      {
+        Integer.parseInt(getKonto());
+      }
+      catch (NumberFormatException e)
+      {
+        throw new ApplicationException(
+            "Kontonummer enthält unzulässige Zeichen!");
+      }
+      if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
+      {
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben."));
+      }
+      try
+      {
+        new AltersgruppenParser(getAltersgruppen());
+      }
+      catch (RuntimeException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
+      try
+      {
+        new JubilaeenParser(getJubilaeen());
+      }
+      catch (RuntimeException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
+    }
+    catch (RemoteException e)
+    {
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Einstellung kann nicht gespeichert werden. Siehe system log");
+      Logger.error(fehler, e);
+      throw new ApplicationException(fehler);
+    }
   }
 
   @Override
-  protected void updateCheck()
+  protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
@@ -131,6 +204,36 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setID() throws RemoteException
   {
     setAttribute("id", "1");
+  }
+
+  public String getName() throws RemoteException
+  {
+    return (String) getAttribute("name");
+  }
+
+  public void setName(String name) throws RemoteException
+  {
+    setAttribute("name", name);
+  }
+
+  public String getBlz() throws RemoteException
+  {
+    return (String) getAttribute("blz");
+  }
+
+  public void setBlz(String blz) throws RemoteException
+  {
+    setAttribute("blz", blz);
+  }
+
+  public String getKonto() throws RemoteException
+  {
+    return (String) getAttribute("konto");
+  }
+
+  public void setKonto(String konto) throws RemoteException
+  {
+    setAttribute("konto", konto);
   }
 
   public boolean getGeburtsdatumPflicht() throws RemoteException
@@ -521,6 +624,52 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setZahlungsweg(int zahlungsweg) throws RemoteException
   {
     setAttribute("zahlungsweg", zahlungsweg);
+  }
+
+  public String getAltersgruppen() throws RemoteException
+  {
+    return (String) getAttribute("altersgruppen");
+  }
+
+  public void setAltersgruppen(String altersgruppen) throws RemoteException
+  {
+    setAttribute("altersgruppen", altersgruppen);
+  }
+
+  public String getJubilaeen() throws RemoteException
+  {
+    String ag = (String) getAttribute("jubilaeen");
+    if (ag == null || ag.length() == 0)
+    {
+      ag = "10,25,40,50";
+    }
+    return ag;
+  }
+
+  public void setJubilaeen(String jubilaeen) throws RemoteException
+  {
+    setAttribute("jubilaeen", jubilaeen);
+  }
+
+  public String getAltersjubilaeen() throws RemoteException
+  {
+    String aj = (String) getAttribute("altersjubilaeen");
+    if (aj == null || aj.length() == 0)
+    {
+      aj = "50,60,65,70,75,80,85,90,95,100";
+    }
+    return aj;
+  }
+
+  public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException
+  {
+    setAttribute("altersjubilaeen", altersjubilaeen);
+  }
+
+  @Override
+  public Object getAttribute(String fieldName) throws RemoteException
+  {
+    return super.getAttribute(fieldName);
   }
 
 }

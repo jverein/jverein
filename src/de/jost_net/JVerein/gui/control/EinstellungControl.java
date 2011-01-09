@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2011-01-08 15:56:03  jost
+ * Einstellungen: Dokumentenspeicherung
+ *
  * Revision 1.32  2010-11-17 04:49:46  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -111,6 +114,8 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Beitragsmodel;
@@ -122,16 +127,23 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
+import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Settings;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class EinstellungControl extends AbstractControl
 {
+  private Input name;
+
+  private Input blz;
+
+  private Input konto;
 
   private CheckboxInput geburtsdatumpflicht;
 
@@ -195,6 +207,12 @@ public class EinstellungControl extends AbstractControl
 
   private SelectInput zahlungsrhytmus;
 
+  private Input altersgruppen;
+
+  private Input jubilaeen;
+
+  private Input altersjubilaeen;
+
   private Settings settings;
 
   private MitgliedSpaltenauswahl spalten;
@@ -204,6 +222,47 @@ public class EinstellungControl extends AbstractControl
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+  }
+
+  public Input getName(boolean withFocus) throws RemoteException
+  {
+    if (name != null)
+    {
+      return name;
+    }
+    name = new TextInput(Einstellungen.getEinstellung().getName(), 27);
+    name.setMandatory(true);
+    if (withFocus)
+    {
+      name.focus();
+    }
+    return name;
+  }
+
+  public Input getBlz() throws RemoteException
+  {
+    if (blz != null)
+    {
+      return blz;
+    }
+    blz = new TextInput(Einstellungen.getEinstellung().getBlz(), 8);
+    blz.setMandatory(true);
+    BLZListener l = new BLZListener();
+    blz.addListener(l);
+    l.handleEvent(null);
+    return blz;
+  }
+
+  public Input getKonto() throws RemoteException
+  {
+    if (konto != null)
+    {
+      return konto;
+    }
+    konto = new TextInput(Einstellungen.getEinstellung().getKonto(), 10);
+    konto.setMandatory(true);
+    konto.setComment("für die Abbuchung");
+    return konto;
   }
 
   public CheckboxInput getGeburtsdatumPflicht() throws RemoteException
@@ -558,6 +617,38 @@ public class EinstellungControl extends AbstractControl
     return zahlungsrhytmus;
   }
 
+  public Input getAltersgruppen() throws RemoteException
+  {
+    if (altersgruppen != null)
+    {
+      return altersgruppen;
+    }
+    altersgruppen = new TextInput(Einstellungen.getEinstellung()
+        .getAltersgruppen(), 50);
+    return altersgruppen;
+  }
+
+  public Input getJubilaeen() throws RemoteException
+  {
+    if (jubilaeen != null)
+    {
+      return jubilaeen;
+    }
+    jubilaeen = new TextInput(Einstellungen.getEinstellung().getJubilaeen(), 50);
+    return jubilaeen;
+  }
+
+  public Input getAltersjubilaeen() throws RemoteException
+  {
+    if (altersjubilaeen != null)
+    {
+      return altersjubilaeen;
+    }
+    altersjubilaeen = new TextInput(Einstellungen.getEinstellung()
+        .getAltersjubilaeen(), 50);
+    return altersjubilaeen;
+  }
+
   public TablePart getSpaltendefinitionTable(Composite parent)
       throws RemoteException
   {
@@ -583,6 +674,9 @@ public class EinstellungControl extends AbstractControl
     {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
+      e.setName((String) getName(false).getValue());
+      e.setBlz((String) getBlz().getValue());
+      e.setKonto((String) getKonto().getValue());
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
       e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
       e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
@@ -627,6 +721,9 @@ public class EinstellungControl extends AbstractControl
       e.setZahlungsrhytmus(zr.getKey());
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
       e.setZahlungsweg(zw.getKey());
+      e.setAltersgruppen((String) getAltersgruppen().getValue());
+      e.setJubilaeen((String) getJubilaeen().getValue());
+      e.setAltersjubilaeen((String) getAltersjubilaeen().getValue());
       e.store();
       spalten.save();
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
@@ -638,6 +735,26 @@ public class EinstellungControl extends AbstractControl
     catch (ApplicationException e)
     {
       GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  /**
+   * Sucht das Geldinstitut zur eingegebenen BLZ und zeigt es als Kommentar
+   * hinter dem BLZ-Feld an.
+   */
+  private class BLZListener implements Listener
+  {
+    public void handleEvent(Event event)
+    {
+      try
+      {
+        String blz = (String) getBlz().getValue();
+        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
+      }
+      catch (RemoteException e)
+      {
+        Logger.error("error while updating blz comment", e);
+      }
     }
   }
 

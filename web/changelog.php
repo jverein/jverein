@@ -17,6 +17,7 @@
     			<li>Mitgliedskonto: Bugfix Summen</li>
     			<li>Bugfix bei der Erfassung von Buchungen (Vorgabe Konto). <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17827&group_id=7335'>Bug #17827</a></li>
     			<li>Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos.</li>
+    			<li>Stammdaten des Vereins in die Einstellungen verschoben.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -540,6 +541,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.96  2011-01-08 10:48:37  jost
+    *** empty log message ***
+
     Revision 1.95  2010-12-31 16:56:44  jost
     *** empty log message ***
 

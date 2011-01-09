@@ -1,5 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>Administration: Stammdaten</h1>
+    <p>Bis Version 1.4, ab Version 1.5 in den <a href='administration_einstellungen.php'>Einstellungen</a>
     <p>
     <img src='images/Stammdaten.jpg' class='screenshot'>
     <p>Der Name des Vereins und die Bankverbindung für die Abbuchung sind Pflichtangaben.</p>
@@ -17,6 +18,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.2  2010-11-07 07:13:04  jost
+    Versionshinweise entfernt.
+
     Revision 1.1  2009/05/08 14:46:22  jost
     shtml - php
 

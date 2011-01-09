@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-12-12 17:18:56  jost
+ * Neue Tabellen aufgenommen.
+ *
  * Revision 1.11  2010-11-13 09:20:22  jost
  * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
  *
@@ -85,7 +88,6 @@ import de.jost_net.JVerein.server.MailAnhangImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.MitgliedskontoImpl;
 import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
-import de.jost_net.JVerein.server.StammdatenImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
 import de.jost_net.JVerein.server.ZusatzbetragImpl;
 import de.jost_net.JVerein.server.ZusatzfelderImpl;
@@ -110,10 +112,10 @@ public class BackupCreateAction implements Action
 {
 
   // Die Versionstabelle wird nicht mit kopiert
-  Class<?>[] tab = { StammdatenImpl.class, EinstellungImpl.class,
-      AbrechnungslaufImpl.class, BeitragsgruppeImpl.class,
-      BuchungsklasseImpl.class, BuchungsartImpl.class, KontoImpl.class,
-      MitgliedImpl.class, MitgliedskontoImpl.class, ArbeitseinsatzImpl.class,
+  Class<?>[] tab = { EinstellungImpl.class, AbrechnungslaufImpl.class,
+      BeitragsgruppeImpl.class, BuchungsklasseImpl.class,
+      BuchungsartImpl.class, KontoImpl.class, MitgliedImpl.class,
+      MitgliedskontoImpl.class, ArbeitseinsatzImpl.class,
       BuchungDokumentImpl.class, BuchungImpl.class, FelddefinitionImpl.class,
       SpendenbescheinigungImpl.class, FormularImpl.class,
       FormularfeldImpl.class, EigenschaftGruppeImpl.class,

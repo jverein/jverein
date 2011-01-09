@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.38  2011-01-08 15:56:17  jost
+ * Einstellungen: Dokumentenspeicherung
+ *
  * Revision 1.37  2010-11-17 04:51:11  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -152,6 +155,17 @@ public class EinstellungenView extends AbstractView
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
+    TabGroup tabAllgemein = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Allgemein"));
+    LabelGroup grAllgemein = new LabelGroup(tabAllgemein.getComposite(),
+        JVereinPlugin.getI18n().tr("Allgemein"));
+    grAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getName(true));
+    grAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
+        control.getBlz());
+    grAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+        control.getKonto());
+
     TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Anzeige"));
 
@@ -261,6 +275,17 @@ public class EinstellungenView extends AbstractView
     groupMail.addLabelPair("Passwort", control.getSmtpAuthPwd());
     groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
     groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
+
+    TabGroup tabStatistik = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Statistik"));
+    LabelGroup grStatistik = new LabelGroup(tabStatistik.getComposite(),
+        JVereinPlugin.getI18n().tr("Statistik"));
+    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersgruppen"),
+        control.getAltersgruppen());
+    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Jubiläen"),
+        control.getJubilaeen());
+    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"),
+        control.getAltersjubilaeen());
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));

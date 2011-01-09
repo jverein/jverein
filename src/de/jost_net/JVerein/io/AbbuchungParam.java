@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2009/06/11 21:03:52  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.8  2008/12/22 21:19:17  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -44,7 +47,6 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
-import de.jost_net.JVerein.rmi.Stammdaten;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.hbci.HBCI;
@@ -76,8 +78,6 @@ public class AbbuchungParam
 
   public final String pdffile;
 
-  public final Stammdaten stamm;
-
   public final DBService service;
 
   public Konto konto;
@@ -98,26 +98,6 @@ public class AbbuchungParam
     this.pdffile = pdffile;
     this.dtausfile = dtausfile;
 
-    try
-    {
-      DBIterator list = Einstellungen.getDBService().createList(
-          Stammdaten.class);
-      if (list.size() > 0)
-      {
-        stamm = (Stammdaten) list.next();
-      }
-      else
-      {
-        throw new RemoteException(JVereinPlugin.getI18n().tr(
-            "Keine Stammdaten gespeichert"));
-      }
-    }
-    catch (RemoteException e)
-    {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Stammdaten gespeichert. Bitte erfassen."));
-    }
-
     if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
         || abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
     {
@@ -130,8 +110,9 @@ public class AbbuchungParam
         while (konten.hasNext())
         {
           konto = (Konto) konten.next();
-          if (stamm.getKonto().equals(konto.getKontonummer())
-              && stamm.getBlz().equals(konto.getBLZ()))
+          if (Einstellungen.getEinstellung().getKonto()
+              .equals(konto.getKontonummer())
+              && Einstellungen.getEinstellung().getBlz().equals(konto.getBLZ()))
           {
             // passendes Konto gefunden
             break;

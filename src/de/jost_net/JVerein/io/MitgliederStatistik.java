@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.9  2010-05-16 10:44:28  jost
  * Einheitlicher Umgang mit ausgetretenen Mitgliedern
  *
@@ -59,7 +62,6 @@ import com.lowagie.text.Paragraph;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Stammdaten;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
@@ -101,28 +103,8 @@ public class MitgliederStatistik
           Color.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
-      Stammdaten stamm = null;
-      try
-      {
-        DBIterator list = Einstellungen.getDBService().createList(
-            Stammdaten.class);
-        if (list.size() > 0)
-        {
-          stamm = (Stammdaten) list.next();
-        }
-        else
-        {
-          stamm = (Stammdaten) Einstellungen.getDBService().createObject(
-              Stammdaten.class, null);
-        }
-      }
-      catch (RemoteException e)
-      {
-        throw new ApplicationException(
-            "Keine Stammdaten gespeichert. Bitte erfassen.");
-      }
-
-      AltersgruppenParser ap = new AltersgruppenParser(stamm.getAltersgruppen());
+      AltersgruppenParser ap = new AltersgruppenParser(Einstellungen
+          .getEinstellung().getAltersgruppen());
       while (ap.hasNext())
       {
         Point p = ap.getNext();
@@ -252,11 +234,11 @@ public class MitgliederStatistik
    * Anzahl der Mitglieder in einer Altersgruppe ermitteln
    * 
    * @param von
-   *        Alter in Jahren
+   *          Alter in Jahren
    * @param bis
-   *        Alter in Jahren
+   *          Alter in Jahren
    * @param geschlecht
-   *        m, w oder null
+   *          m, w oder null
    * @return Anzahl der Mitglieder
    */
   private int getAltersgruppe(int von, int bis, String geschlecht, Date stichtag)
@@ -282,15 +264,15 @@ public class MitgliederStatistik
 
     DBIterator list;
     list = Einstellungen.getDBService().createList(Mitglied.class);
-    list.addFilter("geburtsdatum >= ?", new Object[] { vd});
-    list.addFilter("geburtsdatum <= ?", new Object[] { bd});
+    list.addFilter("geburtsdatum >= ?", new Object[] { vd });
+    list.addFilter("geburtsdatum <= ?", new Object[] { bd });
     MitgliedUtils.setNurAktive(list, stichtag);
     list.addFilter("(eintritt is null or eintritt <= ?)",
-        new Object[] { stichtag});
+        new Object[] { stichtag });
 
     if (geschlecht != null)
     {
-      list.addFilter("geschlecht = ?", new Object[] { geschlecht});
+      list.addFilter("geschlecht = ?", new Object[] { geschlecht });
     }
 
     return list.size();
@@ -302,15 +284,15 @@ public class MitgliederStatistik
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setNurAktive(list, stichtag);
     list.addFilter("(eintritt is null or eintritt <= ?)",
-        new Object[] { stichtag});
+        new Object[] { stichtag });
     if (bg != null)
     {
-      list.addFilter("beitragsgruppe = ?", new Object[] { new Integer(
-          bg.getID())});
+      list.addFilter("beitragsgruppe = ?",
+          new Object[] { new Integer(bg.getID()) });
     }
     if (geschlecht != null)
     {
-      list.addFilter("geschlecht = ?", new Object[] { geschlecht});
+      list.addFilter("geschlecht = ?", new Object[] { geschlecht });
     }
 
     return list.size();
@@ -324,8 +306,8 @@ public class MitgliederStatistik
     cal.set(Calendar.DAY_OF_MONTH, 1);
     cal.set(Calendar.MONTH, Calendar.JANUARY);
     Date jahresanfang = new Date(cal.getTimeInMillis());
-    list.addFilter("eintritt >= ? ", new Object[] { jahresanfang});
-    list.addFilter("eintritt <= ? ", new Object[] { stichtag});
+    list.addFilter("eintritt >= ? ", new Object[] { jahresanfang });
+    list.addFilter("eintritt <= ? ", new Object[] { stichtag });
     return list.size();
   }
 
@@ -337,8 +319,8 @@ public class MitgliederStatistik
     cal.set(Calendar.DAY_OF_MONTH, 1);
     cal.set(Calendar.MONTH, Calendar.JANUARY);
     Date jahresanfang = new Date(cal.getTimeInMillis());
-    list.addFilter("austritt >= ? ", new Object[] { jahresanfang});
-    list.addFilter("austritt <= ? ", new Object[] { stichtag});
+    list.addFilter("austritt >= ? ", new Object[] { jahresanfang });
+    list.addFilter("austritt <= ? ", new Object[] { stichtag });
     return list.size();
   }
 

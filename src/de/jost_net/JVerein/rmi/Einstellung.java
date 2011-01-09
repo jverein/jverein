@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2011-01-08 15:56:31  jost
+ * Einstellungen: Dokumentenspeicherung
+ *
  * Revision 1.18  2010-11-17 04:52:09  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -75,6 +78,18 @@ public interface Einstellung extends DBObject
   public String getID() throws RemoteException;
 
   public void setID() throws RemoteException;
+
+  public String getName() throws RemoteException;
+
+  public void setName(String name) throws RemoteException;
+
+  public String getBlz() throws RemoteException;
+
+  public void setBlz(String blz) throws RemoteException;
+
+  public String getKonto() throws RemoteException;
+
+  public void setKonto(String konto) throws RemoteException;
 
   public boolean getGeburtsdatumPflicht() throws RemoteException;
 
@@ -213,4 +228,17 @@ public interface Einstellung extends DBObject
   public int getZahlungsweg() throws RemoteException;
 
   public void setZahlungsweg(int zahlungsweg) throws RemoteException;
+
+  public String getAltersgruppen() throws RemoteException;
+
+  public void setAltersgruppen(String altersgruppen) throws RemoteException;
+
+  public String getJubilaeen() throws RemoteException;
+
+  public void setJubilaeen(String jubilaeen) throws RemoteException;
+
+  public String getAltersjubilaeen() throws RemoteException;
+
+  public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException;
+
 }

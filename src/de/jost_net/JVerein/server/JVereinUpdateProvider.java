@@ -538,6 +538,54 @@ public class JVereinUpdateProvider
     {
       update0140(conn);
     }
+    if (cv < 141)
+    {
+      update0141(conn);
+    }
+    if (cv < 142)
+    {
+      update0142(conn);
+    }
+    if (cv < 143)
+    {
+      update0143(conn);
+    }
+    if (cv < 144)
+    {
+      update0144(conn);
+    }
+    if (cv < 145)
+    {
+      update0145(conn);
+    }
+    if (cv < 146)
+    {
+      update0146(conn);
+    }
+    if (cv < 147)
+    {
+      update0147(conn);
+    }
+    if (cv < 148)
+    {
+      update0148(conn);
+    }
+    if (cv < 149)
+    {
+      update0149(conn);
+    }
+    if (cv < 150)
+    {
+      update0150(conn);
+    }
+    if (cv < 151)
+    {
+      update0151(conn);
+    }
+    if (cv < 152)
+    {
+      update0152(conn);
+    }
   }
 
   public Connection getConnection()
@@ -844,7 +892,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id), ");
     sb.append("UNIQUE (externemitgliedsnummer),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("CREATE TABLE beitragsgruppe (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append("bezeichnung VARCHAR(30) NOT NULL,");
@@ -852,7 +900,7 @@ public class JVereinUpdateProvider
     sb.append("beitragsart INTEGER DEFAULT 0,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id) ;\n");
     sb.append("CREATE TABLE zusatzabbuchung (");
     sb.append("id int(10) AUTO_INCREMENT,");
@@ -866,7 +914,7 @@ public class JVereinUpdateProvider
     sb.append("ausfuehrung DATE,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ;\n");
     sb.append("CREATE TABLE stammdaten (");
     sb.append("id int(10) AUTO_INCREMENT,");
@@ -877,7 +925,7 @@ public class JVereinUpdateProvider
     sb.append("jubilaeen VARCHAR(50),");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("CREATE TABLE kursteilnehmer (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append("name VARCHAR(27) NOT NULL,");
@@ -892,7 +940,7 @@ public class JVereinUpdateProvider
     sb.append("abbudatum DATE,");
     sb.append("UNIQUE (id), ");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("CREATE TABLE manuellerzahlungseingang (");
     sb.append("id int(10) AUTO_INCREMENT, ");
     sb.append("name VARCHAR(27) NOT NULL,");
@@ -903,7 +951,7 @@ public class JVereinUpdateProvider
     sb.append("eingangsdatum DATE,");
     sb.append("UNIQUE (id), ");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("CREATE TABLE wiedervorlage (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append("mitglied INTEGER NOT NULL,");
@@ -912,7 +960,7 @@ public class JVereinUpdateProvider
     sb.append("erledigung DATE,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ;\n");
     sb.append("CREATE TABLE eigenschaften (");
     sb.append("id int(10) AUTO_INCREMENT,");
@@ -920,14 +968,14 @@ public class JVereinUpdateProvider
     sb.append("eigenschaft VARCHAR(50) NOT NULL,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);\n");
     sb.append("CREATE TABLE `version` (");
     sb.append("`id` INTEGER AUTO_INCREMENT,");
     sb.append("`version` INTEGER,");
     sb.append("UNIQUE (`id`),");
     sb.append("PRIMARY KEY (`id`)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("create table felddefinition (");
     sb.append("id int(10) AUTO_INCREMENT,");
     sb.append(" name VARCHAR(50) NOT NULL,");
@@ -935,7 +983,7 @@ public class JVereinUpdateProvider
     sb.append("laenge integer NOT NULL,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("create table zusatzfelder (");
     sb.append("id integer auto_increment,");
     sb.append("mitglied integer NOT NULL,");
@@ -943,7 +991,7 @@ public class JVereinUpdateProvider
     sb.append("feld varchar(1000),");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(")TYPE=InnoDB;\n");
+    sb.append(") ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n");
     sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE;\n");
     sb.append("CREATE TABLE konto (");
@@ -956,7 +1004,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("UNIQUE (nummer),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("CREATE TABLE buchungsart (");
     sb.append("id INTEGER AUTO_INCREMENT,");
     sb.append("nummer INTEGER,");
@@ -965,7 +1013,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("UNIQUE (nummer),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("CREATE TABLE buchung (");
     sb.append("id INTEGER AUTO_INCREMENT,");
     sb.append("umsatzid INTEGER,");
@@ -979,7 +1027,7 @@ public class JVereinUpdateProvider
     sb.append("kommentar TEXT,");
     sb.append("buchungsart   INTEGER,");
     sb.append("PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);\n");
     sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id);\n");
     sb.append("CREATE TABLE anfangsbestand (");
@@ -990,7 +1038,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("UNIQUE (konto, datum),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id);\n");
     sb.append("CREATE TABLE jahresabschluss (");
     sb.append("id INTEGER AUTO_INCREMENT,");
@@ -1000,7 +1048,7 @@ public class JVereinUpdateProvider
     sb.append("name VARCHAR(50),");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("INSERT INTO version VALUES (1,15);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -1030,7 +1078,7 @@ public class JVereinUpdateProvider
     sb.append(" bezeichnung VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle formular erstellt", 16);
@@ -1067,7 +1115,7 @@ public class JVereinUpdateProvider
     sb.append(" fontsize integer,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -1143,7 +1191,7 @@ public class JVereinUpdateProvider
     sb.append(" formular INTEGER,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE RESTRICT;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -1191,7 +1239,7 @@ public class JVereinUpdateProvider
     sb.append(" betrag DOUBLE,");
     sb.append(" UNIQUE (id), ");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle abrechnung erstellt", 22);
@@ -1328,7 +1376,7 @@ public class JVereinUpdateProvider
     sb.append(" rechnungfuerbarzahlung CHAR(5),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle einstellung erstellt", 28);
@@ -1457,7 +1505,7 @@ public class JVereinUpdateProvider
     sb.append(" nutzung TIMESTAMP,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle report aufgenommen", 35);
@@ -1505,7 +1553,7 @@ public class JVereinUpdateProvider
     sb.append(" veranstalter VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle lehrgangsart erstellt", 37);
@@ -1558,7 +1606,7 @@ public class JVereinUpdateProvider
     sb.append(" ergebnis VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle lehrgang aufgenommen", 39);
@@ -1844,7 +1892,7 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id),");
     sb.append(" UNIQUE (nummer),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle buchungsklasse aufgenommen", 55);
@@ -2077,7 +2125,7 @@ public class JVereinUpdateProvider
     sb.append(" bezeichnung VARCHAR(30) NOT NULL,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle eigenschaftgruppe aufgenommen", 68);
@@ -2105,7 +2153,7 @@ public class JVereinUpdateProvider
     sb.append(" bezeichnung VARCHAR(30) NOT NULL,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -2454,7 +2502,7 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id), ");
     sb.append(" UNIQUE (betreff),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle mailvorlage erstellt", 88);
@@ -2486,7 +2534,7 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id), ");
     sb.append("UNIQUE (betreff),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle mail erstellt", 89);
@@ -2515,7 +2563,7 @@ public class JVereinUpdateProvider
     sb.append(" adresse VARCHAR(50),");
     sb.append(" UNIQUE (id), ");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
     execute(conn, statements, "Tabelle mailempfaenger erstellt", 90);
   }
@@ -2575,7 +2623,7 @@ public class JVereinUpdateProvider
     sb.append(" dateiname VARCHAR(50),");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle mailanhang erstellt", 93);
@@ -2660,7 +2708,7 @@ public class JVereinUpdateProvider
     sb.append(" abbuchungsausgabe INTEGER, ");
     sb.append(" UNIQUE (id), ");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle abrechnungslauf erstellt", 96);
@@ -2699,7 +2747,7 @@ public class JVereinUpdateProvider
     sb.append(" INDEX(abrechnungslauf), ");
     sb.append(" INDEX(mitglied), ");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle mitgliedskonto erstellt", 97);
@@ -2968,7 +3016,7 @@ public class JVereinUpdateProvider
     sb.append(" UNIQUE (id),");
     sb.append(" UNIQUE (mitglied), ");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(" ) TYPE=InnoDB;\n");
+    sb.append(" )  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle mitgliedfoto erstellt", 112);
@@ -3323,7 +3371,7 @@ public class JVereinUpdateProvider
     sb.append(" bemerkung VARCHAR(50), ");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle arbeitseinsatz aufgenommen", 132);
@@ -3384,7 +3432,7 @@ public class JVereinUpdateProvider
     sb.append(" uuid VARCHAR(50) NOT NULL,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (buchung) REFERENCES buchung (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -3433,7 +3481,7 @@ public class JVereinUpdateProvider
     sb.append(" uuid VARCHAR(50) NOT NULL,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (referenz) REFERENCES buchung (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -3467,7 +3515,7 @@ public class JVereinUpdateProvider
     sb.append(" uuid VARCHAR(50) NOT NULL,");
     sb.append(" UNIQUE (id),");
     sb.append(" PRIMARY KEY (id)");
-    sb.append(") TYPE=InnoDB;\n");
+    sb.append(")  ENGINE=InnoDB;\n");
     sb.append("ALTER TABLE mitglieddokument ADD CONSTRAINT fkMitgliedDokument1 FOREIGN KEY (referenz) REFERENCES mitglied (id);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -3499,12 +3547,227 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD dokumentspeicherung char(5) after arbeitseinsatz;\n");
+    sb.append("ALTER TABLE einstellung ADD dokumentenspeicherung char(5) after arbeitseinsatz;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Spalte dokumentspeicherung in die Tabelle lehrgangsart aufgenommen",
+        "Spalte dokumentenspeicherung in die Tabelle einstellung aufgenommen",
         140);
+  }
+
+  private void update0141(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD name varchar(30) before geburtsdatumpflicht;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD name varchar(30) first;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte name in die Tabelle einstellung aufgenommen", 141);
+  }
+
+  private void update0142(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD blz varchar(8) before geburtsdatumpflicht;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD blz varchar(8) after name;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte blz in die Tabelle einstellung aufgenommen", 142);
+  }
+
+  private void update0143(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD konto varchar(10) before geburtsdatumpflicht;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD konto varchar(10) after blz;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte konto in die Tabelle einstellung aufgenommen", 143);
+  }
+
+  private void update0144(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD altersgruppen varchar(50);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD altersgruppen varchar(50);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte altersgruppen in die Tabelle einstellung aufgenommen", 144);
+  }
+
+  private void update0145(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD jubilaeen varchar(50);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD jubilaeen varchar(50);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte jubilaeen in die Tabelle einstellung aufgenommen", 145);
+  }
+
+  private void update0146(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD altersjubilaeen varchar(50);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD altersjubilaeen varchar(50);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte altersjubilaeen in die Tabelle einstellung aufgenommen", 146);
+  }
+
+  private void update0147(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET name = (SELECT name from stammdaten);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET name = (SELECT name from stammdaten);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte name aus Tabelle stammdaten in Tabelle einstellung kopiert",
+        147);
+  }
+
+  private void update0148(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET blz = (SELECT blz from stammdaten);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET blz = (SELECT blz from stammdaten);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte blz aus Tabelle stammdaten in Tabelle einstellung kopiert", 148);
+  }
+
+  private void update0149(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET konto = (SELECT konto from stammdaten);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET konto = (SELECT konto from stammdaten);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte konto aus Tabelle stammdaten in Tabelle einstellung kopiert",
+        149);
+  }
+
+  private void update0150(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET altersgruppen = (SELECT altersgruppen from stammdaten);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET altersgruppen = (SELECT altersgruppen from stammdaten);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte altersgruppen aus Tabelle stammdaten in Tabelle einstellung kopiert",
+        150);
+  }
+
+  private void update0151(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET jubilaeen = (SELECT jubilaeen from stammdaten);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET jubilaeen = (SELECT jubilaeen from stammdaten);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte jubilaeen aus Tabelle stammdaten in Tabelle einstellung kopiert",
+        151);
+  }
+
+  private void update0152(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET altersjubilaeen = (SELECT altersjubilaeen from stammdaten);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("UPDATE einstellung SET altersjubilaeen = (SELECT altersjubilaeen from stammdaten);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte altersjubilaeen aus Tabelle stammdaten in Tabelle einstellung kopiert",
+        152);
   }
 
 }
