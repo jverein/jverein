@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.32  2011-01-08 10:44:41  jost
+ * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
+ *
  * Revision 1.31  2010-12-31 16:44:02  jost
  * Bug 17827 gefixed
  *
@@ -582,7 +585,7 @@ public class BuchungsControl extends AbstractControl
 
   public Button getStartAuswertungBuchungsjournalButton()
   {
-    Button b = new Button("&PDF Buchungsjournal", new Action()
+    Button b = new Button("PDF Buchungsjournal", new Action()
     {
 
       public void handleAction(Object context)

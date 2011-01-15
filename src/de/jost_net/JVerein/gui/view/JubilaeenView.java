@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.9  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -67,7 +70,7 @@ public class JubilaeenView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
         "help-browser.png");
     buttons.addButton(control.getStartJubilaeenButton());

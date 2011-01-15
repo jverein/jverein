@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-10-15 09:58:23  jost
+ * Code aufgeräumt
+ *
  * Revision 1.11  2010-10-07 19:49:22  jost
  * Hilfe in die View verlagert.
  *
@@ -78,10 +81,10 @@ public class ImportView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.IMPORT, false,
         "help-browser.png");
-    Button button = new Button(JVereinPlugin.getI18n().tr("&importieren"),
+    Button button = new Button(JVereinPlugin.getI18n().tr("importieren"),
         new Action()
         {
           public void handleAction(Object context) throws ApplicationException
@@ -188,7 +191,6 @@ public class ImportView extends AbstractView
 
     Application.getController().start(t);
   }
-
 
   @Override
   public String getHelp()

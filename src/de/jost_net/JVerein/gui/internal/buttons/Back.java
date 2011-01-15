@@ -37,14 +37,17 @@ public class Back extends Button
    */
   public Back(boolean isDefault)
   {
-    super(Application.getI18n().tr("&Zurück"),
+    super(Application.getI18n().tr("Zurück"),
         new de.willuhn.jameica.gui.internal.action.Back(), null, isDefault,
         "go-previous.png");
   }
 }
 
 /**********************************************************************
- * $Log$ Revision 1.1 2009/01/20 10:51:51 willuhn
+ * $Log$
+ * Revision 1.1  2010-08-23 13:37:38  jost
+ * Optimierung Tastatursteuerung
+ * Revision 1.1 2009/01/20 10:51:51 willuhn
  * 
  * @N Mehr Icons - fuer Buttons
  * 

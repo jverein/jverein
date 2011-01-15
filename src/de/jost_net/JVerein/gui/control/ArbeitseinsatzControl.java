@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-12-04 18:33:38  jost
+ * aktuelles Datum wird per default vorgegeben.
+ *
  * Revision 1.5  2010-11-27 17:56:37  jost
  * Generierung von Zusatzzahlungen.
  *
@@ -239,7 +242,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   public Button getPDFAusgabeButton()
   {
-    Button b = new Button("&PDF-Ausgabe", new Action()
+    Button b = new Button("PDF-Ausgabe", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -261,7 +264,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   public Button getCSVAusgabeButton()
   {
-    Button b = new Button("&CSV-Ausgabe", new Action()
+    Button b = new Button("CSV-Ausgabe", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -283,7 +286,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   public Button getZusatzbetraegeAusgabeButton()
   {
-    Button b = new Button("&Zusatzbeträge generieren", new Action()
+    Button b = new Button("Zusatzbeträge generieren", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.6  2010-10-07 19:49:23  jost
  * Hilfe in die View verlagert.
  *
@@ -64,7 +67,7 @@ public class MitgliedskontoListeView extends AbstractView
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
     buttons2.addButton(new Back(false));
-    buttons2.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT,
         false, "help-browser.png");
   }

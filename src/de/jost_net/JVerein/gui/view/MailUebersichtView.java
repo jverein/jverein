@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -44,10 +47,10 @@ public class MailUebersichtView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MAIL, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new MailDetailAction(), null, false, "document-new.png");
   }
 

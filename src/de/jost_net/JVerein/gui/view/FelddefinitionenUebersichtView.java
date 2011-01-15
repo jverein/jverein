@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.7  2010-10-07 19:49:22  jost
  * Hilfe in die View verlagert.
  *
@@ -56,12 +59,12 @@ public class FelddefinitionenUebersichtView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.FELDDEFINITIONEN, false,
         "help-browser.png");
     // buttons.addButton("Löschen", new BeitragsgruppeDeleteAction(), control
     // .getBeitragsgruppeTable());
-    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new FelddefinitionDetailAction(), null, false, "document-new.png");
   }
 

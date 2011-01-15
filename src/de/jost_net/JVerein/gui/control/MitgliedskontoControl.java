@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-01-08 10:44:56  jost
+ * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
+ *
  * Revision 1.15  2010-12-17 19:05:03  jost
  * Bugfix Mitgliedskonto Summen
  *
@@ -656,7 +659,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Button getStartRechnungButton(final Object currentObject)
   {
-    Button button = new Button("&starten", new Action()
+    Button button = new Button("starten", new Action()
     {
 
       public void handleAction(Object context)
@@ -769,7 +772,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Button getStartMahnungButton(final Object currentObject)
   {
-    Button button = new Button("&starten", new Action()
+    Button button = new Button("starten", new Action()
     {
 
       public void handleAction(Object context)

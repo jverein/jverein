@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-10-15 09:58:23  jost
+ * Code aufgeräumt
+ *
  * Revision 1.11  2010-10-07 19:49:22  jost
  * Hilfe in die View verlagert.
  *
@@ -73,7 +76,7 @@ public class BuchungsUebernahmeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGENAUSHIBISCUS,
         false, "help-browser.png");
     buttons.addButton(control.getUebernahmeButton());

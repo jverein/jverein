@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.8  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -84,7 +87,7 @@ public class ZusatzbetraegelisteView extends AbstractView
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
     buttons.addButton(control.getPDFAusgabeButton());
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ZUSATZBETRAEGE, false,
         "help-browser.png");
   }

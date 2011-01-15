@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.10  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -72,7 +75,7 @@ public class StatistikMitgliedView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.STATISTIKMITGLIEDER,
         false, "help-browser.png");
     buttons.addButton(control.getStartStatistikButton());

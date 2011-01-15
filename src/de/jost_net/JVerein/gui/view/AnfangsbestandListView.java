@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-10-15 09:58:23  jost
+ * Code aufgeräumt
+ *
  * Revision 1.7  2010-10-07 19:49:23  jost
  * Hilfe in die View verlagert.
  *
@@ -56,10 +59,10 @@ public class AnfangsbestandListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new AnfangsbestandNeuAction(), null, true, "document-new.png");
   }
 

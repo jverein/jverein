@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.97  2010-12-06 16:01:37  jost
+ * Skalierung nicht unter Windows.
+ *
  * Revision 1.96  2010-12-05 08:15:41  jost
  * Keine Skalierung der Bilder unter Windows.
  *
@@ -2033,7 +2036,7 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("&starten", new Action()
+    Button b = new Button("starten", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -2056,7 +2059,7 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartStatistikButton()
   {
-    Button b = new Button("&starten", new Action()
+    Button b = new Button("starten", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -2077,7 +2080,7 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartJubilaeenButton()
   {
-    Button b = new Button("&Start", new Action()
+    Button b = new Button("Start", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException

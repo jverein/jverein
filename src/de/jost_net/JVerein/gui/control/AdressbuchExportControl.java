@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2010-08-23 13:30:06  jost
  * Optimierung Tastatursteuerung
  *
@@ -99,7 +102,7 @@ public class AdressbuchExportControl extends AbstractControl
 
   public Button getStartButton()
   {
-    Button button = new Button("&starten", new Action()
+    Button button = new Button("starten", new Action()
     {
 
       public void handleAction(Object context)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.10  2010-08-23 13:33:40  jost
  * Optimierung Tastatursteuerung
  *
@@ -126,7 +129,7 @@ public class JahressaldoControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("&PDF", new Action()
+    Button b = new Button("PDF", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException

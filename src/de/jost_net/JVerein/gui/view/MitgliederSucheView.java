@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2010-10-30 11:30:53  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.26  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -287,12 +290,12 @@ public class MitgliederSucheView extends AbstractView
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIED, false,
         "help-browser.png");
     if (anzahlbeitragsgruppe > 0)
     {
-      buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
+      buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
           new MitgliedDetailAction(), null, false, "document-new.png");
     }
   }

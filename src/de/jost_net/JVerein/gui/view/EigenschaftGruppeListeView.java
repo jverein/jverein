@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-11-03 21:32:44  jost
+ * Redakt.
+ *
  * Revision 1.5  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -51,13 +54,13 @@ public class EigenschaftGruppeListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.EIGENSCHAFTGRUPPE, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&löschen"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
         new EigenschaftGruppeDeleteAction(),
         control.getEigenschaftGruppeList(), false, "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new EigenschaftGruppeDetailAction(true), null, false,
         "document-new.png");
   }

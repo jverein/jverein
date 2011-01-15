@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.16  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -93,7 +96,7 @@ public class BuchungslisteView extends AbstractView
         control.getBisdatum());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 1);
-    Button button = new Button("&suchen", new Action()
+    Button button = new Button("suchen", new Action()
     {
 
       public void handleAction(Object context)
@@ -115,7 +118,7 @@ public class BuchungslisteView extends AbstractView
 
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 6);
     buttons2.addButton(new Back(false));
-    buttons2.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
     buttons2.addButton(control.getStartAuswertungBuchungsjournalButton());

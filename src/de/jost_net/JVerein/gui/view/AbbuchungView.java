@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.25  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -172,10 +175,10 @@ public class AbbuchungView extends AbstractView
     buttons.addButton(new Back(false));
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
-      buttons.addButton("&Rückgängig", new AbrechnunslaufListAction(), null,
+      buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
           false, "edit-undo.png");
     }
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartButton());

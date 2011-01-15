@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-11-17 04:50:41  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.14  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -97,12 +100,12 @@ public class BeitragsgruppeDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("s&uche"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
         new BeitragsgruppeSucheAction(), null, false, "system-search.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
 
       public void handleAction(Object context)

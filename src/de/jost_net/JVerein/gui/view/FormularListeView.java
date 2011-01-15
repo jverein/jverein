@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-10-15 09:58:24  jost
+ * Code aufgeräumt
+ *
  * Revision 1.6  2010-10-07 19:49:24  jost
  * Hilfe in die View verlagert.
  *
@@ -53,10 +56,10 @@ public class FormularListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.FORMULARE, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&neu"), new FormularAction(),
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new FormularAction(),
         null, false, "document-new.png");
   }
 

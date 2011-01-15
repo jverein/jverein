@@ -43,12 +43,12 @@ public class FelddefinitionDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.FELDDEFINITIONEN, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Übersicht"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Übersicht"),
         new FelddefinitionenAction());
-    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
 
       public void handleAction(Object context)

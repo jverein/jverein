@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2010-11-21 21:09:39  jost
+ * Mitgliedsstatus in die Auswertung aufgenommen.
+ *
  * Revision 1.16  2010-10-30 11:29:54  jost
  * Neu: Sterbetag
  *
@@ -140,7 +143,7 @@ public class AuswertungMitgliedView extends AbstractView
     ButtonArea buttons = new ButtonArea(getParent(), 4);
 
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.AUSWERTUNGMITGLIEDER,
         false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());

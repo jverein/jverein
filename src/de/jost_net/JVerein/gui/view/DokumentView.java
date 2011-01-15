@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-12-14 21:42:03  jost
+ * Neu: Speicherung von Dokumenten
+ *
  * Revision 1.1  2010-12-12 08:13:14  jost
  * Neu: Speicherung von Dokumenten
  *
@@ -53,7 +56,7 @@ public class DokumentView extends AbstractView
         .getBemerkung());
     ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
     buttons.addButton(control.getSpeichernButton(verzeichnis + "."));

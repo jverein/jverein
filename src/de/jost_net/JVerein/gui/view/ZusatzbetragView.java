@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.8  2010-10-07 19:49:23  jost
  * Hilfe in die View verlagert.
  *
@@ -88,13 +91,13 @@ public class ZusatzbetragView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ZUSATZBETRAEGE, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&löschen"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
         new ZusatzbetraegeDeleteAction(), control.getZusatzbetrag(), false,
         "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
 
       public void handleAction(Object context)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.23  2010-08-23 13:29:08  jost
  * Optimierung Tastatursteuerung
  *
@@ -281,7 +284,7 @@ public class AbbuchungControl extends AbstractControl
 
   public Button getStartButton()
   {
-    Button button = new Button("&starten", new Action()
+    Button button = new Button("starten", new Action()
     {
 
       public void handleAction(Object context)

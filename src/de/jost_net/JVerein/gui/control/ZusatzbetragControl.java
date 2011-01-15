@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2010-11-27 10:56:35  jost
+ * Redakt.
+ *
  * Revision 1.7  2010-11-13 09:24:44  jost
  * Warnings entfernt.
  *
@@ -504,7 +507,7 @@ public class ZusatzbetragControl extends AbstractControl
 
   public Button getPDFAusgabeButton()
   {
-    Button b = new Button("&PDF-Ausgabe", new Action()
+    Button b = new Button("PDF-Ausgabe", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException

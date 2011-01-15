@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2011-01-11 17:41:10  jost
+ * Keine Vormerkposten übernehmen.
+ *
  * Revision 1.16  2010-12-31 16:44:13  jost
  * Bug 17827 gefixed
  *
@@ -139,7 +142,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
   public Button getUebernahmeButton()
   {
-    Button button = new Button("&Übernahme", new Action()
+    Button button = new Button("Übernahme", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException

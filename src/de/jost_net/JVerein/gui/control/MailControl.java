@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.8  2010-08-23 13:35:09  jost
  * Optimierung Tastatursteuerung
  *
@@ -260,7 +263,7 @@ public class MailControl extends AbstractControl
 
   public Button getMailSendButton()
   {
-    Button b = new Button("s&peichern + senden", new Action()
+    Button b = new Button("speichern + senden", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -282,7 +285,7 @@ public class MailControl extends AbstractControl
 
   public Button getMailSpeichernButton()
   {
-    Button b = new Button("&speichern", new Action()
+    Button b = new Button("speichern", new Action()
     {
 
       public void handleAction(Object context)

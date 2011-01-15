@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.22  2010-10-10 06:36:37  jost
  * Vermeidung NPE
  *
@@ -498,7 +501,7 @@ public class KursteilnehmerControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("&starten", new Action()
+    Button b = new Button("starten", new Action()
     {
 
       public void handleAction(Object context)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2010-08-23 13:32:24  jost
  * Optimierung Tastatursteuerung
  *
@@ -118,7 +121,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("&PDF", new Action()
+    Button b = new Button("PDF", new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException

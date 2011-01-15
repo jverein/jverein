@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-11-27 19:28:55  jost
+ * Optional: max. eine Eigenschaft auswählbar
+ *
  * Revision 1.6  2010-11-03 21:32:25  jost
  * Redakt.
  *
@@ -62,12 +65,12 @@ public class EigenschaftGruppeDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("&Hilfe"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.EIGENSCHAFTGRUPPE, false,
         "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("s&uche"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
         new EigenschaftGruppeListeAction(), null, false, "system-search.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("&speichern"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
 
       public void handleAction(Object context)
