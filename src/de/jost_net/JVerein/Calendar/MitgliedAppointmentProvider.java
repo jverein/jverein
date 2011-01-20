@@ -1,4 +1,5 @@
 package de.jost_net.JVerein.Calendar;
+
 /**********************************************************************
  * $Source$
  * $Revision$
@@ -10,6 +11,9 @@ package de.jost_net.JVerein.Calendar;
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-25 15:11:15  jost
+ * Initial Commit
+ *
  **********************************************************************/
 
 import java.rmi.RemoteException;
@@ -52,7 +56,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
       cal.setTime(from);
       if (from != null)
         list.addFilter("month(geburtsdatum)= ?",
-            new Object[] { cal.get(Calendar.MONTH) + 1});
+            new Object[] { cal.get(Calendar.MONTH) + 1 });
       list.setOrder("ORDER BY day(geburtsdatum)");
 
       List<Appointment> result = new LinkedList<Appointment>();
@@ -166,5 +170,30 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       return new RGB(122, 122, 122);
     }
+
+    /**
+     * @see de.willuhn.jameica.gui.calendar.AbstractAppointment#getUid()
+     */
+    public String getUid()
+    {
+      try
+      {
+        return "jverein.mitglied." + m.getID();
+      }
+      catch (RemoteException re)
+      {
+        Logger.error("unable to create uid", re);
+        return "*Error*";
+      }
+    }
+
+    /**
+     * @see de.willuhn.jameica.gui.calendar.AbstractAppointment#hasAlarm()
+     */
+    public boolean hasAlarm()
+    {
+      return false;
+    }
   }
+
 }

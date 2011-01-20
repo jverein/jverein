@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-11-27 10:56:05  jost
+ * Link zum Mitglied
+ *
  * Revision 1.1  2010-11-25 15:11:23  jost
  * Initial Commit
  *
@@ -54,10 +57,10 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       Calendar cal = Calendar.getInstance();
       cal.setTime(from);
       if (from != null)
-        list.addFilter("datum >= ?", new Object[] { new java.sql.Date(from
-            .getTime()) });
-      list.addFilter("datum <= ?", new Object[] { new java.sql.Date(to
-          .getTime()) });
+        list.addFilter("datum >= ?",
+            new Object[] { new java.sql.Date(from.getTime()) });
+      list.addFilter("datum <= ?",
+          new Object[] { new java.sql.Date(to.getTime()) });
       list.setOrder("ORDER BY day(datum)");
 
       List<Appointment> result = new LinkedList<Appointment>();
@@ -165,5 +168,30 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       return new RGB(122, 122, 122);
     }
+
+    /**
+     * @see de.willuhn.jameica.gui.calendar.AbstractAppointment#getUid()
+     */
+    public String getUid()
+    {
+      try
+      {
+        return "jverein.wiedervorlage." + w.getID();
+      }
+      catch (RemoteException re)
+      {
+        Logger.error("unable to create uid", re);
+        return "*Error*";
+      }
+    }
+
+    /**
+     * @see de.willuhn.jameica.gui.calendar.AbstractAppointment#hasAlarm()
+     */
+    public boolean hasAlarm()
+    {
+      return false;
+    }
+
   }
 }
