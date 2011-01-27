@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.41  2010-11-24 21:57:00  jost
+ * Mitglieds_nr reaktiviert.
+ *
  * Revision 1.40  2010-11-17 18:05:54  jost
  * Sortierung ist nicht mehr erforderlich.
  *
@@ -165,6 +168,7 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -206,7 +210,7 @@ public class Import
       loescheBestand();
       int anz = 0;
 
-      // 
+      //
       // Zusatzfelder ermitteln
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
@@ -270,7 +274,7 @@ public class Import
 
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, null);
-
+        m.setAdresstyp(1);
         m.setID(results.getString("Mitglieds_Nr"));
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
@@ -630,6 +634,7 @@ public class Import
       }
       // Mitglieder
       list = Einstellungen.getDBService().createList(Mitglied.class);
+      MitgliedUtils.setMitglied(list);
       while (list.hasNext())
       {
         Mitglied m = (Mitglied) list.next();

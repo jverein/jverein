@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2011-01-09 14:29:45  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.36  2010-11-25 15:11:38  jost
  * Initial Commit
  *
@@ -123,6 +126,8 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
 import de.jost_net.JVerein.gui.action.AboutAction;
 import de.jost_net.JVerein.gui.action.AdressbuchExportAction;
+import de.jost_net.JVerein.gui.action.AdressenSucheAction;
+import de.jost_net.JVerein.gui.action.AdresstypListAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzUeberpruefungAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
@@ -179,6 +184,8 @@ public class MyExtension implements Extension
       NavigationItem jverein = (NavigationItem) extendable;
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
           "Mitglieder"), new MitgliedSucheAction(), "system-users.png"));
+      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+          "Adressen"), new AdressenSucheAction(), "system-users.png"));
       if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
@@ -313,6 +320,8 @@ public class MyExtension implements Extension
           "x-office-presentation.png"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Import"), new MitgliedImportAction(), "import_obj.gif"));
+      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
+          .tr("Adresstypen"), new AdresstypListAction(), "layout_co.gif"));
 
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, JVereinPlugin

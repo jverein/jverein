@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2011-01-15 09:46:50  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.16  2011-01-08 10:44:56  jost
  * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
  *
@@ -94,6 +97,7 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -482,6 +486,7 @@ public class MitgliedskontoControl extends AbstractControl
     this.action = action;
     DBIterator mitglieder = Einstellungen.getDBService().createList(
         Mitglied.class);
+    MitgliedUtils.setMitglied(mitglieder);
     if (suchname2 != null && suchname2.getValue() != null)
     {
       String where = "";

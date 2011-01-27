@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-09 14:31:23  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.10  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -262,11 +265,11 @@ public class MitgliederStatistik
     calBis.set(Calendar.DAY_OF_MONTH, 31);
     java.sql.Date bd = new java.sql.Date(calBis.getTimeInMillis());
 
-    DBIterator list;
-    list = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
     list.addFilter("geburtsdatum <= ?", new Object[] { bd });
     MitgliedUtils.setNurAktive(list, stichtag);
+    MitgliedUtils.setMitglied(list);
     list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
 
@@ -283,6 +286,7 @@ public class MitgliederStatistik
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setNurAktive(list, stichtag);
+    MitgliedUtils.setMitglied(list);
     list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
     if (bg != null)
@@ -301,6 +305,7 @@ public class MitgliederStatistik
   private int getAnmeldungen(Date stichtag) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    MitgliedUtils.setMitglied(list);
     Calendar cal = Calendar.getInstance();
     cal.setTime(stichtag);
     cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -314,6 +319,7 @@ public class MitgliederStatistik
   private int getAbmeldungen(Date stichtag) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    MitgliedUtils.setMitglied(list);
     Calendar cal = Calendar.getInstance();
     cal.setTime(stichtag);
     cal.set(Calendar.DAY_OF_MONTH, 1);

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.49  2011-01-09 14:30:24  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.48  2010-12-16 19:07:15  jost
  * Verwendungszweck2 auf 27 Zeichen verlängert.
  *
@@ -185,6 +188,7 @@ import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
 import de.jost_net.OBanToo.Dtaus.Dtaus2Pdf;
@@ -298,6 +302,7 @@ public class Abbuchung
     {
       // Alle Mitglieder lesen
       list = Einstellungen.getDBService().createList(Mitglied.class);
+      MitgliedUtils.setMitglied(list);
 
       // Das Mitglied muss bereits eingetreten sein
       list.addFilter("(eintritt <= ? or eintritt is null) ",

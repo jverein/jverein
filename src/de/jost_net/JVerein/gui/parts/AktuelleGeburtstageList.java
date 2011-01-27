@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.6  2010-05-23 07:11:51  jost
  * Kontextmenü aufgenommen.
  *
@@ -61,6 +64,7 @@ public class AktuelleGeburtstageList extends TablePart implements Part
     DBService service = Einstellungen.getDBService();
     DBIterator geburtstage = service.createList(Mitglied.class);
     MitgliedUtils.setNurAktive(geburtstage);
+    MitgliedUtils.setMitglied(geburtstage);
     String filter = "";
     Calendar cal = Calendar.getInstance();
     int vorher = 0;

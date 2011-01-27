@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-10-30 11:31:51  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.14  2010-10-28 19:15:50  jost
  * Neu: Wohnsitzstaat
  *
@@ -67,6 +70,10 @@ public interface Mitglied extends DBObject
   public Integer getExterneMitgliedsnummer() throws RemoteException;
 
   public void setID(String id) throws RemoteException;
+
+  public void setAdresstyp(Integer adresstyp) throws RemoteException;
+
+  public Adresstyp getAdresstyp() throws RemoteException;
 
   public String getPersonenart() throws RemoteException;
 

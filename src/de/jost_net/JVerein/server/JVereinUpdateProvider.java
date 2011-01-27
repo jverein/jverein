@@ -586,6 +586,34 @@ public class JVereinUpdateProvider
     {
       update0152(conn);
     }
+    if (cv < 153)
+    {
+      update0153(conn);
+    }
+    if (cv < 154)
+    {
+      update0154(conn);
+    }
+    if (cv < 155)
+    {
+      update0155(conn);
+    }
+    if (cv < 156)
+    {
+      update0156(conn);
+    }
+    if (cv < 157)
+    {
+      update0157(conn);
+    }
+    if (cv < 158)
+    {
+      update0158(conn);
+    }
+    if (cv < 159)
+    {
+      update0159(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3768,6 +3796,119 @@ public class JVereinUpdateProvider
         statements,
         "Spalte altersjubilaeen aus Tabelle stammdaten in Tabelle einstellung kopiert",
         152);
+  }
+
+  private void update0153(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE adresstyp (");
+    sb.append("  id IDENTITY,");
+    sb.append(" bezeichnung varchar(30),");
+    sb.append(" jvereinid integer,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" UNIQUE (bezeichnung),");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE adresstyp (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" bezeichnung BLOB,");
+    sb.append(" jvereinid integer,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" UNIQUE (bezeichnung),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(" )  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle adresstyp erstellt", 153);
+  }
+
+  private void update0154(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    sb = new StringBuilder();
+    sb.append("INSERT into adresstyp VALUES (1, 'Mitglied', 1);\n");
+    sb.append("INSERT into adresstyp VALUES (2, 'Spender/in', 2);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, "Tabelle adresstyp befüllt", 154);
+  }
+
+  private void update0155(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD adresstyp integer default 1 not null before personenart;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD adresstyp integer default 1 not null after externemitgliedsnummer;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte adresstyp in die Tabelle mitglied aufgenommen", 155);
+  }
+
+  private void update0156(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    sb = new StringBuilder();
+    sb.append("UPDATE mitglied set adresstyp = 1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements,
+        "Spalte adresstyp der Tabelle mitglied initial befüllt", 156);
+  }
+
+  private void update0157(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "CREATE INDEX ixMitglied_1 ON mitglied(adresstyp);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "CREATE INDEX ixMitglied_1 ON mitglied(adresstyp);\n");
+
+    execute(conn, statements, "Index für Tabelle mitglied erstellt", 157);
+  }
+
+  private void update0158(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied2 FOREIGN KEY (adresstyp) REFERENCES adresstyp (id);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied2 FOREIGN KEY (adresstyp) REFERENCES adresstyp (id);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key für Tabelle mitglied angelegt ", 158);
+  }
+
+  private void update0159(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table mitglied alter column  adresstyp integer not null;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mitglied modify column  adresstyp integer not null;\n");
+
+    execute(conn, statements,
+        "Spalte adresstyp der Tabelle mitglied verändert", 159);
   }
 
 }

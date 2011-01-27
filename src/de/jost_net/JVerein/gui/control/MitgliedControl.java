@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.99  2011-01-19 22:06:43  jost
+ * Bugfix Überschrift.
+ *
  * Revision 1.98  2011-01-15 09:46:49  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -334,7 +337,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzAction;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
-import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
@@ -354,6 +356,7 @@ import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
+import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaft;
@@ -410,6 +413,8 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedControl extends AbstractControl
 {
+  private SelectInput adresstyp;
+
   private IntegerInput externemitgliedsnummer;
 
   private Input anrede;
@@ -475,6 +480,7 @@ public class MitgliedControl extends AbstractControl
   private TreePart eigenschaftenAuswahlTree;
 
   // Elemente für die Auswertung
+  private SelectInput suchadresstyp = null;
 
   private DateInput geburtsdatumvon = null;
 
@@ -553,6 +559,34 @@ public class MitgliedControl extends AbstractControl
     }
     mitglied = (Mitglied) getCurrentObject();
     return mitglied;
+  }
+
+  public SelectInput getSuchAdresstyp() throws RemoteException
+  {
+    if (suchadresstyp != null)
+    {
+      return suchadresstyp;
+    }
+    DBIterator at = Einstellungen.getDBService().createList(Adresstyp.class);
+    at.addFilter("jvereinid != 1 or jvereinid is null");
+    at.setOrder("order by bezeichnung");
+    suchadresstyp = new SelectInput(at, null);
+    suchadresstyp.setName("Adresstyp");
+    return suchadresstyp;
+  }
+
+  public SelectInput getAdresstyp() throws RemoteException
+  {
+    if (adresstyp != null)
+    {
+      return adresstyp;
+    }
+    DBIterator at = Einstellungen.getDBService().createList(Adresstyp.class);
+    at.addFilter("jvereinid != 1 or jvereinid is null");
+    at.setOrder("order by bezeichnung");
+    adresstyp = new SelectInput(at, getMitglied().getAdresstyp());
+    adresstyp.setName("Adresstyp");
+    return adresstyp;
   }
 
   public IntegerInput getExterneMitgliedsnummer() throws RemoteException
@@ -2131,14 +2165,14 @@ public class MitgliedControl extends AbstractControl
         "document-new.png");
   }
 
-  public TablePart getMitgliedTable(String anfangsbuchstabe, int adresstyp)
-      throws RemoteException
+  public TablePart getMitgliedTable(String anfangsbuchstabe, int atyp,
+      Action detailaction) throws RemoteException
   {
     TablePart part;
     saveDefaults();
     part = new TablePart(new MitgliedQuery(this, true).get(anfangsbuchstabe,
-        adresstyp), new MitgliedDetailAction());
-    new MitgliedSpaltenauswahl().setColumns(part);
+        atyp), detailaction);
+    new MitgliedSpaltenauswahl().setColumns(part, atyp);
     part.setContextMenu(new MitgliedMenu());
     part.setMulti(true);
     part.setRememberColWidths(true);
@@ -2403,18 +2437,20 @@ public class MitgliedControl extends AbstractControl
 
       }
 
-      m.setAdresstyp(1);
       m.setAdressierungszusatz((String) getAdressierungszusatz().getValue());
       m.setAustritt((Date) getAustritt().getValue());
       m.setAnrede((String) getAnrede().getValue());
       GenericObject o = (GenericObject) getBeitragsgruppe().getValue();
-      try
+      if (adresstyp == null)
       {
-        m.setBeitragsgruppe(new Integer(o.getID()));
-      }
-      catch (NullPointerException e)
-      {
-        throw new ApplicationException("Beitragsgruppe fehlt");
+        try
+        {
+          m.setBeitragsgruppe(new Integer(o.getID()));
+        }
+        catch (NullPointerException e)
+        {
+          throw new ApplicationException("Beitragsgruppe fehlt");
+        }
       }
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       m.setZahlungsweg(zw.getKey());
@@ -2463,7 +2499,8 @@ public class MitgliedControl extends AbstractControl
       }
       m.store();
 
-      if (Einstellungen.getEinstellung().getMitgliedfoto())
+      if (m.getAdresstyp().getJVereinid() == 1
+          && Einstellungen.getEinstellung().getMitgliedfoto())
       {
         Mitgliedfoto f = null;
         DBIterator it = Einstellungen.getDBService().createList(
@@ -2578,7 +2615,16 @@ public class MitgliedControl extends AbstractControl
           zf.store();
         }
       }
-      GUI.getStatusBar().setSuccessText("Mitglied gespeichert");
+      String successtext = "";
+      if (m.getAdresstyp().getJVereinid() == 1)
+      {
+        successtext = "Mitglied gespeichert";
+      }
+      else
+      {
+        successtext = "Adresse gespeichert";
+      }
+      GUI.getStatusBar().setSuccessText(successtext);
     }
     catch (ApplicationException e)
     {

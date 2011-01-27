@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2010-11-13 09:31:24  jost
+ * Warnings entfernt.
+ *
  * Revision 1.35  2010-10-31 17:53:52  jost
  * Vermeidung NPE
  *
@@ -125,6 +128,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
+import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -208,7 +212,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Bitte Vornamen eingeben"));
     }
-    if (getPersonenart().equals("n")
+    if (getAdresstyp().getJVereinid() == 1 && getPersonenart().equals("n")
         && getGeburtsdatum().getTime() == Einstellungen.NODATE.getTime()
         && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
@@ -229,13 +233,15 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
     }
 
-    if (getEintritt().getTime() == Einstellungen.NODATE.getTime()
+    if (getAdresstyp().getJVereinid() == 1
+        && getEintritt().getTime() == Einstellungen.NODATE.getTime()
         && Einstellungen.getEinstellung().getEintrittsdatumPflicht())
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Bitte Eintrittsdatum eingeben"));
     }
-    if (getZahlungsweg() == Zahlungsweg.ABBUCHUNG
+    if (getAdresstyp().getJVereinid() == 1
+        && getZahlungsweg() == Zahlungsweg.ABBUCHUNG
         && getBeitragsgruppe().getBetrag() > 0)
     {
       if (getBlz() == null || getBlz().length() == 0 || getKonto() == null
@@ -265,8 +271,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         throw new ApplicationException(
             JVereinPlugin
                 .getI18n()
-                .tr(
-                    "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
                     new String[] { getBlz(), getKonto() }));
       }
     }
@@ -297,8 +302,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
           throw new ApplicationException(
               JVereinPlugin
                   .getI18n()
-                  .tr(
-                      "Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
+                  .tr("Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
         }
       }
     }
@@ -331,7 +335,21 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       return Mitgliedfoto.class;
     }
+    if ("adresstyp".equals(field))
+    {
+      return Adresstyp.class;
+    }
     return null;
+  }
+
+  public void setAdresstyp(Integer adresstyp) throws RemoteException
+  {
+    setAttribute("adresstyp", adresstyp);
+  }
+
+  public Adresstyp getAdresstyp() throws RemoteException
+  {
+    return (Adresstyp) getAttribute("adresstyp");
   }
 
   public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException
@@ -726,12 +744,25 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
    */
   public String getVornameName() throws RemoteException
   {
-    String ret = getTitel();
-    if (ret.length() > 0)
+    String ret = "";
+    if (getPersonenart().equals("n"))
     {
-      ret += " ";
+      ret = getTitel();
+      if (ret == null)
+      {
+        ret = "";
+      }
+      if (ret.length() > 0)
+      {
+        ret += " ";
+      }
+      ret += getVorname() + " " + getName();
     }
-    ret += getVorname() + " " + getName();
+    else
+    {
+      ret = getName()
+          + (getVorname().length() > 0 ? ("\n" + getVorname()) : "");
+    }
     return ret;
   }
 
@@ -765,8 +796,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
       Felddefinition fd = (Felddefinition) it.next();
       it = Einstellungen.getDBService().createList(Zusatzfelder.class);
-      it.addFilter("felddefinition = ? AND mitglied = ?", new Object[] {
-          fd.getID(), getID() });
+      it.addFilter("felddefinition = ? AND mitglied = ?",
+          new Object[] { fd.getID(), getID() });
       if (it.hasNext())
       {
         Zusatzfelder zf = (Zusatzfelder) it.next();

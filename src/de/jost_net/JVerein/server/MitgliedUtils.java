@@ -17,5 +17,10 @@ public class MitgliedUtils
   {
     setNurAktive(it, new Date());
   }
+  
+  public static void setMitglied(DBIterator it) throws RemoteException
+  {
+    it.addFilter("adresstyp = 1");
+  }
 
 }

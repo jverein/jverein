@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.9  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -192,6 +195,7 @@ public class MailControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setNurAktive(it);
+    MitgliedUtils.setMitglied(it);
     it.addFilter("email is not null and length(email)  > 0");
     mitgliedmitmail = new TablePart(it, null);
     mitgliedmitmail.addColumn("EMail", "email");

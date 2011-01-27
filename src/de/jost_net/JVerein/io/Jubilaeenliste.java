@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-01-09 14:31:13  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.9  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -155,6 +158,7 @@ public class Jubilaeenliste
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
       MitgliedUtils.setNurAktive(mitgl);
+      MitgliedUtils.setMitglied(mitgl);
       Calendar cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, jahr);
       cal.add(Calendar.YEAR, jubi * -1);
@@ -205,6 +209,7 @@ public class Jubilaeenliste
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
       MitgliedUtils.setNurAktive(mitgl);
+      MitgliedUtils.setMitglied(mitgl);
       Calendar cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, jahr);
       cal.add(Calendar.YEAR, jubi * -1);

@@ -12,17 +12,16 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-public class MitgliedDetailView extends AbstractAdresseDetailView
+public class AdresseDetailView extends AbstractAdresseDetailView
 {
 
   public String getTitle()
   {
-    return "Daten des Mitgliedes";
+    return "Adressdaten";
   }
 
   public boolean isMitgliedDetail()
   {
-    return true;
+    return false;
   }
-
 }

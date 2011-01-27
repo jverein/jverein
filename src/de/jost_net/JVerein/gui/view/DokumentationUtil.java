@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2010-11-17 04:50:57  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.24  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -94,6 +97,8 @@ public class DokumentationUtil
       + "dokumentationauswertungadressbuchexport.php";
 
   public static final String ABRECHNUNG = PRE + "abrechnung.php";
+
+  public static final String ADRESSTYPEN = PRE + "adresstypen.php";
 
   public static final String ARBEITSEINSATZ = PRE + "arbeitseinsatz.php";
 

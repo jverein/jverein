@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2008-11-29 13:18:17  jost
  * Neu: Konfiguration der Spalten einer Tabelle
  *
@@ -30,19 +33,27 @@ public class Spalte
 
   private int align;
 
-  public Spalte(String spaltenbezeichnung, String spaltenname, boolean checked)
+  /**
+   * Spezialfall Mitglied/Adressen
+   */
+  private boolean nurMitglied;
+
+  public Spalte(String spaltenbezeichnung, String spaltenname, boolean checked,
+      boolean nurMitglied)
   {
-    this(spaltenbezeichnung, spaltenname, checked, null, Column.ALIGN_AUTO);
+    this(spaltenbezeichnung, spaltenname, checked, null, Column.ALIGN_AUTO,
+        nurMitglied);
   }
 
   public Spalte(String spaltenbezeichnung, String spaltenname, boolean checked,
-      Formatter formatter, int align)
+      Formatter formatter, int align, boolean nurMitglied)
   {
     this.spaltenbezeichnung = spaltenbezeichnung;
     this.spaltenname = spaltenname;
     this.formatter = formatter;
     this.checked = checked;
     this.align = align;
+    this.nurMitglied = nurMitglied;
   }
 
   @Override
@@ -78,5 +89,10 @@ public class Spalte
   public int getAlign()
   {
     return this.align;
+  }
+
+  public boolean isNurAdressen()
+  {
+    return this.nurMitglied;
   }
 }

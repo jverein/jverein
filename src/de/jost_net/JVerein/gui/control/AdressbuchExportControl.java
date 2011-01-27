@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.4  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -86,7 +89,7 @@ public class AdressbuchExportControl extends AbstractControl
       return encoding;
     }
     encoding = new SelectInput(new Object[] { "Cp1250", "ISO8859_15_FDIS",
-        "UTF-8"}, settings.getString("encoding", "ISO8859_15_FDIS"));
+        "UTF-8" }, settings.getString("encoding", "ISO8859_15_FDIS"));
     return encoding;
   }
 
@@ -132,13 +135,14 @@ public class AdressbuchExportControl extends AbstractControl
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Export-Datei auswählen.");
 
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("adressbuchexport",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "CSV").get());
+    fd.setFileName(new Dateiname("adressbuchexport", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "CSV").get());
     final String file = fd.open();
 
     if (file == null || file.length() == 0)
@@ -165,6 +169,7 @@ public class AdressbuchExportControl extends AbstractControl
           DBIterator it = Einstellungen.getDBService().createList(
               Mitglied.class);
           MitgliedUtils.setNurAktive(it);
+          MitgliedUtils.setMitglied(it);
           if (isNurEmail)
           {
             it.addFilter("email is not null and length(email)>0");
