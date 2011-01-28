@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-01-27 22:18:06  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.action.AdresstypAction;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -45,7 +49,7 @@ public class AdresstypControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  private Adresstyp getAdresstyp()
+  public Adresstyp getAdresstyp()
   {
     if (adresstyp != null)
     {
@@ -98,7 +102,7 @@ public class AdresstypControl extends AbstractControl
     DBIterator adresstypen = service.createList(Adresstyp.class);
     adresstypen.setOrder("ORDER BY bezeichnung");
 
-    adresstypList = new TablePart(adresstypen, null);// TODO Action festlegen
+    adresstypList = new TablePart(adresstypen, new AdresstypAction());
     adresstypList.addColumn("Bezeichnung", "bezeichnung");
     // buchungsartList.setContextMenu(new BuchungsartMenu());
     adresstypList.setRememberColWidths(true);
