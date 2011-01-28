@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-01-27 22:16:19  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -31,6 +34,18 @@ public class AdresstypAction implements Action
     if (context != null && (context instanceof Adresstyp))
     {
       at = (Adresstyp) context;
+      try
+      {
+        if (at.getJVereinid() > 0)
+        {
+          throw new ApplicationException(
+              "Dieser Adresstyp ist reserviert und darf durch den Benutzer nicht verändert werden.");
+        }
+      }
+      catch (RemoteException e)
+      {
+        throw new ApplicationException("Fehler aufgetreten", e);
+      }
     }
     else
     {
