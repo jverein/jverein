@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.100  2011-01-27 22:18:52  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.99  2011-01-19 22:06:43  jost
  * Bugfix Überschrift.
  *
@@ -2437,6 +2440,15 @@ public class MitgliedControl extends AbstractControl
 
       }
 
+      if (adresstyp != null)
+      {
+        Adresstyp at = (Adresstyp) getAdresstyp().getValue();
+        m.setAdresstyp(new Integer(at.getID()));
+      }
+      else
+      {
+        m.setAdresstyp(1);
+      }
       m.setAdressierungszusatz((String) getAdressierungszusatz().getValue());
       m.setAustritt((Date) getAustritt().getValue());
       m.setAnrede((String) getAnrede().getValue());
