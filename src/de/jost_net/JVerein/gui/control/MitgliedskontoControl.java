@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-01-27 22:19:04  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.17  2011-01-15 09:46:50  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -486,21 +489,15 @@ public class MitgliedskontoControl extends AbstractControl
     this.action = action;
     DBIterator mitglieder = Einstellungen.getDBService().createList(
         Mitglied.class);
-    MitgliedUtils.setMitglied(mitglieder);
+    MitgliedUtils.setMitgliedOderSpender(mitglieder);
     if (suchname2 != null && suchname2.getValue() != null)
     {
       String where = "";
       ArrayList<String> object = new ArrayList<String>();
       StringTokenizer tok = new StringTokenizer((String) suchname2.getValue(),
           " ,-");
-      int count = 0;
       while (tok.hasMoreElements())
       {
-        if (count > 0)
-        {
-          where += "OR ";
-        }
-        count++;
         where += "upper(name) like upper(?) or upper(vorname) like upper(?) ";
         String o = tok.nextToken();
         object.add(o);
