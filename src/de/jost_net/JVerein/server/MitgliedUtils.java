@@ -17,10 +17,16 @@ public class MitgliedUtils
   {
     setNurAktive(it, new Date());
   }
-  
+
   public static void setMitglied(DBIterator it) throws RemoteException
   {
     it.addFilter("adresstyp = 1");
+  }
+
+  public static void setMitgliedOderSpender(DBIterator it)
+      throws RemoteException
+  {
+    it.addFilter("(adresstyp = 1 or adresstyp = 2)");
   }
 
 }
