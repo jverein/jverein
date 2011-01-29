@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2011-01-09 14:32:11  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.22  2011-01-08 15:56:44  jost
  * Einstellungen: Dokumentenspeicherung
  *
@@ -664,6 +667,23 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException
   {
     setAttribute("altersjubilaeen", altersjubilaeen);
+  }
+
+  public int getDelaytime() throws RemoteException
+  {
+    try
+    {
+      return (Integer) getAttribute("delaytime");
+    }
+    catch (NullPointerException e)
+    {
+      return 1000;
+    }
+  }
+
+  public void setDelaytime(int delaytime) throws RemoteException
+  {
+    setAttribute("delaytime", delaytime);
   }
 
   @Override

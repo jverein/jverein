@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.102  2011-01-29 19:29:48  jost
+ * Feinschliff
+ *
  * Revision 1.101  2011-01-28 13:24:35  jost
  * Bugfix
  *
@@ -696,7 +699,7 @@ public class MitgliedControl extends AbstractControl
     name.setValue(getMitglied().getName());
     name.setName("Name");
     name.setMaxLength(40);
-    name.setDelay(1000);
+    name.setDelay(Einstellungen.getEinstellung().getDelaytime());
     name.setMandatory(true);
     name.setSearchString("");
     if (withFocus)
@@ -753,7 +756,7 @@ public class MitgliedControl extends AbstractControl
     vorname.setValue(getMitglied().getVorname());
     vorname.setName("Vorname");
     vorname.setMaxLength(40);
-    vorname.setDelay(1000);
+    vorname.setDelay(Einstellungen.getEinstellung().getDelaytime());
     vorname.setSearchString("");
     vorname.setMandatory(true);
     return vorname;
@@ -820,7 +823,7 @@ public class MitgliedControl extends AbstractControl
     strasse.setText("bla");
     strasse.setName("Straﬂe");
     strasse.setMaxLength(40);
-    strasse.setDelay(1000);
+    strasse.setDelay(Einstellungen.getEinstellung().getDelaytime());
     strasse.setSearchString("");
 
     return strasse;

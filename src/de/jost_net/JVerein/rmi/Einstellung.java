@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2011-01-09 14:31:47  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.19  2011-01-08 15:56:31  jost
  * Einstellungen: Dokumentenspeicherung
  *
@@ -241,4 +244,7 @@ public interface Einstellung extends DBObject
 
   public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException;
 
+  public int getDelaytime() throws RemoteException;
+
+  public void setDelaytime(int delaytime) throws RemoteException;
 }

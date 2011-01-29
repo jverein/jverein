@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2011-01-15 09:46:47  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.39  2011-01-09 14:30:00  jost
  * Stammdaten in die Einstellungen verschoben.
  *
@@ -215,6 +218,11 @@ public class EinstellungenView extends AbstractView
     right.addLabelPair(
         JVereinPlugin.getI18n().tr("aktuelle Geburtstage - Tage nachher"),
         control.getAktuelleGeburtstageNachher());
+    right
+        .addLabelPair(
+            JVereinPlugin.getI18n().tr(
+                "Verzögerungszeit Suche (in Millisekunden)"),
+            control.getDelaytime());
     right.addHeadline("* "
         + JVereinPlugin.getI18n().tr("Änderung erfordert Neustart"));
 
