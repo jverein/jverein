@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2011-01-27 22:22:31  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.25  2010-11-17 04:50:57  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -92,6 +95,8 @@ public class DokumentationUtil
 {
 
   private static final String PRE = "http://www.jverein.de/";
+
+  public static final String ADRESSEN = PRE + "adressen.php";
 
   public static final String ADRESSBUCHEXPORT = PRE
       + "dokumentationauswertungadressbuchexport.php";
