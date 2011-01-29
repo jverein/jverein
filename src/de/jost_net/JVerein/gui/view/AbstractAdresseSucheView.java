@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-01-28 09:18:30  jost
+ * Korrekte Detailaction
+ *
  * Revision 1.1  2011-01-27 22:21:37  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -117,10 +120,9 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.internal.buttons.Back;
+import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -128,13 +130,15 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.LabelInput;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.TabGroup;
 import de.willuhn.jameica.system.Settings;
+import de.willuhn.logging.Logger;
 
-public abstract class AbstractPersonenSucheView extends AbstractView
+public abstract class AbstractAdresseSucheView extends AbstractView
 {
 
   private TabFolder folder = null;
@@ -147,7 +151,9 @@ public abstract class AbstractPersonenSucheView extends AbstractView
 
   private final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H",
       "I", "J", "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U",
-      "Ü", "V", "W", "X", "Y", "Z", "*"};
+      "Ü", "V", "W", "X", "Y", "Z", "*" };
+
+  final MitgliedControl control = new MitgliedControl(this);
 
   @Override
   public void bind() throws Exception
@@ -155,8 +161,6 @@ public abstract class AbstractPersonenSucheView extends AbstractView
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr(getTitle()));
     this.setCurrentObject(Einstellungen.getDBService().createObject(
         Mitglied.class, null)); // leeres Object erzeugen
-
-    final MitgliedControl control = new MitgliedControl(this);
 
     DBService service = Einstellungen.getDBService();
     String sql = "select count(*) from beitragsgruppe";
@@ -169,7 +173,8 @@ public abstract class AbstractPersonenSucheView extends AbstractView
         return new Long(rs.getLong(1));
       }
     };
-    Long anzahlbeitragsgruppe = (Long) service.execute(sql, new Object[] {}, rs);
+    Long anzahlbeitragsgruppe = (Long) service
+        .execute(sql, new Object[] {}, rs);
     if (anzahlbeitragsgruppe.longValue() == 0)
     {
       new LabelInput(JVereinPlugin.getI18n().tr(
@@ -186,7 +191,7 @@ public abstract class AbstractPersonenSucheView extends AbstractView
       }
     };
 
-    getFilter(control);
+    getFilter();
 
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
@@ -213,7 +218,9 @@ public abstract class AbstractPersonenSucheView extends AbstractView
           si = i;
         }
       }
-      paintTable(control, si, getAdresstyp());
+      Adresstyp at = (Adresstyp) control.getSuchAdresstyp(1).getValue();
+      Logger.debug(at.getID() + ": " + at.getBezeichnung());
+      paintTable(control, si, Integer.parseInt(at.getID()));
       folder.setSelection(si);
       folder.addSelectionListener(new SelectionListener()
       {
@@ -227,15 +234,13 @@ public abstract class AbstractPersonenSucheView extends AbstractView
         {
           int si = folder.getSelectionIndex();
           settings.setAttribute("lasttab", b[si]);
-          TabRefresh(control, si);
+          TabRefresh(si);
         }
       });
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(new Back(false));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MITGLIED, false,
-        "help-browser.png");
+    buttons.addButton(getHilfeButton());
     if (anzahlbeitragsgruppe > 0)
     {
       buttons.addButton(JVereinPlugin.getI18n().tr("neu"), getDetailAction(),
@@ -243,7 +248,7 @@ public abstract class AbstractPersonenSucheView extends AbstractView
     }
   }
 
-  private void TabRefresh(MitgliedControl control, int index)
+  private void TabRefresh(int index)
   {
     try
     {
@@ -256,7 +261,8 @@ public abstract class AbstractPersonenSucheView extends AbstractView
           c1.dispose();
         }
       }
-      paintTable(control, index, 1);
+      Adresstyp at = (Adresstyp) control.getSuchAdresstyp(2).getValue();
+      paintTable(control, index, Integer.parseInt(at.getID()));
     }
     catch (RemoteException e1)
     {
@@ -276,11 +282,8 @@ public abstract class AbstractPersonenSucheView extends AbstractView
   public class FilterListener implements Listener
   {
 
-    private MitgliedControl control;
-
-    FilterListener(MitgliedControl control)
+    FilterListener()
     {
-      this.control = control;
     }
 
     public void handleEvent(Event event)
@@ -293,7 +296,7 @@ public abstract class AbstractPersonenSucheView extends AbstractView
       try
       {
         int si = folder.getSelectionIndex();
-        TabRefresh(control, si);
+        TabRefresh(si);
       }
       catch (NullPointerException e)
       {
@@ -314,10 +317,9 @@ public abstract class AbstractPersonenSucheView extends AbstractView
 
   public abstract String getTitle();
 
-  public abstract void getFilter(MitgliedControl control)
-      throws RemoteException;
-
-  public abstract int getAdresstyp();
+  public abstract void getFilter() throws RemoteException;
 
   public abstract Action getDetailAction();
+
+  public abstract Button getHilfeButton();
 }

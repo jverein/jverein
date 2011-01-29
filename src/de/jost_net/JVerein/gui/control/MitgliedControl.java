@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.101  2011-01-28 13:24:35  jost
+ * Bugfix
+ *
  * Revision 1.100  2011-01-27 22:18:52  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -564,13 +567,29 @@ public class MitgliedControl extends AbstractControl
     return mitglied;
   }
 
-  public SelectInput getSuchAdresstyp() throws RemoteException
+  /**
+   * 
+   * @param typ
+   *          1=Mitglieder 2= alle ohne Mitglieder
+   * @return
+   * @throws RemoteException
+   */
+  public SelectInput getSuchAdresstyp(int typ) throws RemoteException
   {
     if (suchadresstyp != null)
     {
       return suchadresstyp;
     }
     DBIterator at = Einstellungen.getDBService().createList(Adresstyp.class);
+    switch (typ)
+    {
+      case 1:
+        at.addFilter("jvereinid = 1");
+        break;
+      case 2:
+        at.addFilter("jvereinid != 1 or jvereinid is null");
+        break;
+    }
     at.addFilter("jvereinid != 1 or jvereinid is null");
     at.setOrder("order by bezeichnung");
     suchadresstyp = new SelectInput(at, null);
