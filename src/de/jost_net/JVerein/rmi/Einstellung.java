@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2011-01-29 20:32:52  jost
+ * Verzögerungszeit für Suchfelder
+ *
  * Revision 1.20  2011-01-09 14:31:47  jost
  * Stammdaten in die Einstellungen verschoben.
  *
@@ -139,6 +142,10 @@ public interface Einstellung extends DBObject
   public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException;
 
   public boolean getMitgliedfoto() throws RemoteException;
+
+  public void setZusatzadressen(Boolean zusatzadressen) throws RemoteException;
+
+  public boolean getZusatzadressen() throws RemoteException;
 
   public void setAuslandsadressen(Boolean auslandsadressen)
       throws RemoteException;

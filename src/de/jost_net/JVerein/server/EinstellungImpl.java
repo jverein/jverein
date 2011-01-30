@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2011-01-29 20:33:14  jost
+ * Verzögerungszeit für Suchfelder
+ *
  * Revision 1.23  2011-01-09 14:32:11  jost
  * Stammdaten in die Einstellungen verschoben.
  *
@@ -351,6 +354,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException
   {
     setAttribute("mitgliedfoto", new Boolean(mitgliedfoto));
+  }
+
+  public boolean getZusatzadressen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("zusatzadressen"));
+  }
+
+  public void setZusatzadressen(Boolean zusatzadressen) throws RemoteException
+  {
+    setAttribute("zusatzadressen", new Boolean(zusatzadressen));
   }
 
   public boolean getAuslandsadressen() throws RemoteException

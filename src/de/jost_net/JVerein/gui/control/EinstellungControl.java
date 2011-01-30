@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2011-01-29 20:34:00  jost
+ * Verzögerungszeit für Suchfelder
+ *
  * Revision 1.34  2011-01-09 14:29:18  jost
  * Stammdaten in die Einstellungen verschoben.
  *
@@ -169,6 +172,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput mitgliedskonto;
 
   private CheckboxInput mitgliedfoto;
+
+  private CheckboxInput zusatzadressen;
 
   private CheckboxInput auslandsadressen;
 
@@ -388,6 +393,17 @@ public class EinstellungControl extends AbstractControl
     mitgliedfoto = new CheckboxInput(Einstellungen.getEinstellung()
         .getMitgliedfoto());
     return mitgliedfoto;
+  }
+
+  public CheckboxInput getZusatzadressen() throws RemoteException
+  {
+    if (zusatzadressen != null)
+    {
+      return zusatzadressen;
+    }
+    zusatzadressen = new CheckboxInput(Einstellungen.getEinstellung()
+        .getZusatzadressen());
+    return zusatzadressen;
   }
 
   public CheckboxInput getAuslandsadressen() throws RemoteException
@@ -704,6 +720,7 @@ public class EinstellungControl extends AbstractControl
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
+      e.setZusatzadressen((Boolean) zusatzadressen.getValue());
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
       e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());
       e.setDokumentenspeicherung((Boolean) dokumentenspeicherung.getValue());

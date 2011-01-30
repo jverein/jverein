@@ -618,6 +618,10 @@ public class JVereinUpdateProvider
     {
       update0160(conn);
     }
+    if (cv < 161)
+    {
+      update0161(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3930,6 +3934,23 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte delaytime in die Tabelle einstellung aufgenommen", 160);
+  }
+
+  private void update0161(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zusatzadressen char(5);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zusatzadressen char(5);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte zusatzadressen in die Tabelle einstellung aufgenommen", 161);
   }
 
 }

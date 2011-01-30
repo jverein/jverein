@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.15  2010-11-17 04:50:41  jost
  * Erster Code zum Thema Arbeitseinsatz
  *
@@ -57,6 +60,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import java.rmi.RemoteException;
+
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
@@ -66,36 +71,39 @@ import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.util.ApplicationException;
 
 public class BeitragsgruppeDetailView extends AbstractView
 {
+
+  final BeitragsgruppeControl control = new BeitragsgruppeControl(this);
 
   @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppe"));
 
-    final BeitragsgruppeControl control = new BeitragsgruppeControl(this);
-
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Beitrag"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"), control
-        .getBezeichnung(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-        .getBetrag());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"), control
-        .getBeitragsArt());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        control.getBezeichnung(true));
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+        control.getBetrag());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"),
+        control.getBeitragsArt());
 
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
       LabelGroup groupAe = new LabelGroup(getParent(), JVereinPlugin.getI18n()
           .tr("Arbeitseinsatz"));
-      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Stunden"), control
-          .getArbeitseinsatzStunden());
-      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"), control
-          .getArbeitseinsatzBetrag());
+      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Stunden"),
+          control.getArbeitseinsatzStunden());
+      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
+          control.getArbeitseinsatzBetrag());
     }
 
     ButtonArea buttons = new ButtonArea(getParent(), 4);
@@ -124,4 +132,33 @@ public class BeitragsgruppeDetailView extends AbstractView
         + "zugeordnet, die zur Famlie gehören.</p>" + "</form>";
   }
 
+  public void unbind() throws ApplicationException
+  {
+    try
+    {
+      if (control.getBezeichnung(true).hasChanged()
+          || control.getBetrag().hasChanged())
+      {
+        YesNoDialog dialog = new YesNoDialog(AbstractDialog.POSITION_CENTER);
+        dialog.setText("Soll die Änderung gespeichert werden?");
+        try
+        {
+          Boolean yesno = (Boolean) dialog.open();
+          if (yesno)
+          {
+            throw new ApplicationException("Änderungen bitte speichern.");
+          }
+        }
+        catch (Exception e)
+        {
+          throw new ApplicationException(e);
+        }
+      }
+    }
+    catch (RemoteException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 }
