@@ -23,6 +23,9 @@
 					<li>In den Einstellungen im Tab Anzeige kann jetzt die Verzögerungszeit für die Suchfelder Name, Vorname und Strasse der Mitglieder und Adressen eingestellt werden.</li>
 					<li>Speicherung zusätzlicher Adressen (u. a. Spender/innen) ermöglicht.</li>
 					<li>Buchungen können jetzt auch dem "Mitgliedskonto" eines Spenders zugewiesen werden.</li>
+					<hr>
+					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 268 vorgenommen.</li>
+					<li>Textsuche in den Buchungen eingebaut.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -546,6 +549,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.101  2011-01-30 08:29:09  jost
+    Neu: Zusatzadressen
+
     Revision 1.100  2011-01-29 20:34:35  jost
     Verzögerungszeit für Suchfelder
 
