@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.33  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.32  2011-01-08 10:44:41  jost
  * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
  *
@@ -204,6 +207,8 @@ public class BuchungsControl extends AbstractControl
 
   private DateInput bisdatum = null;
 
+  private TextInput suchtext = null;
+
   private Buchung buchung;
 
   private static final String BUCHUNGSART = "buchungsart";
@@ -367,6 +372,16 @@ public class BuchungsControl extends AbstractControl
       }
     });
     return datum;
+  }
+
+  public TextInput getSuchtext() throws RemoteException
+  {
+    if (suchtext != null)
+    {
+      return suchtext;
+    }
+    suchtext = new TextInput(settings.getString("suchtext", ""), 35);
+    return suchtext;
   }
 
   public DialogInput getMitgliedskonto() throws RemoteException
@@ -712,6 +727,22 @@ public class BuchungsControl extends AbstractControl
       {
         buchungen.addFilter("buchungsart = ?", new Object[] { b.getID() });
       }
+    }
+    String sute = (String) getSuchtext().getValue();
+    if (sute.length() > 0)
+    {
+      settings.setAttribute("suchtext", sute);
+      sute = sute.toUpperCase();
+      sute = "%" + sute + "%";
+      buchungen
+          .addFilter(
+              "(upper(name) like ? or upper(zweck) like ? or upper(zweck2) like ?)",
+              new Object[] { sute, sute, sute });
+    }
+    else
+    {
+      settings.setAttribute("suchtext", "");
+
     }
     buchungen.setOrder("ORDER BY umsatzid DESC");
 

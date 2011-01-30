@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.17  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -94,6 +97,8 @@ public class BuchungslisteView extends AbstractView
         control.getVondatum());
     group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"),
         control.getBisdatum());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("enthaltener Text"),
+        control.getSuchtext());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 1);
     Button button = new Button("suchen", new Action()
