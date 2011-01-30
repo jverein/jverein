@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-01-27 22:25:48  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.6  2010/01/01 20:12:34  jost
  * Typisierung der Zusatzfelder
  *
@@ -88,6 +91,9 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
         new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, false);
     add(JVereinPlugin.getI18n().tr("Eingabedatum"), "eingabedatum", false,
         new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, true);
+    add(JVereinPlugin.getI18n().tr("letzte Änderung"), "letzteaenderung",
+        false, new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO,
+        true);
     try
     {
       DBIterator it = Einstellungen.getDBService().createList(

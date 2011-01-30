@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-01-27 22:24:16  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.15  2010-10-30 11:31:51  jost
  * Neu: Sterbetag
  *
@@ -213,6 +216,10 @@ public interface Mitglied extends DBObject
   public void setEingabedatum() throws RemoteException;
 
   public Date getEingabedatum() throws RemoteException;
+
+  public void setLetzteAenderung() throws RemoteException;
+
+  public Date getLetzteAenderung() throws RemoteException;
 
   public String getNameVorname() throws RemoteException;
 

@@ -622,6 +622,10 @@ public class JVereinUpdateProvider
     {
       update0161(conn);
     }
+    if (cv < 162)
+    {
+      update0162(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3951,6 +3955,20 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte zusatzadressen in die Tabelle einstellung aufgenommen", 161);
+  }
+
+  private void update0162(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD letzteaenderung date;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte letzteaenderung in die Tabelle mitglied aufgenommen", 162);
   }
 
 }

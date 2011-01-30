@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.103  2011-01-29 20:34:16  jost
+ * Verzögerungszeit für Suchfelder
+ *
  * Revision 1.102  2011-01-29 19:29:48  jost
  * Feinschliff
  *
@@ -2531,6 +2534,7 @@ public class MitgliedControl extends AbstractControl
       {
         m.setEingabedatum();
       }
+      m.setLetzteAenderung();
       m.store();
 
       if (m.getAdresstyp().getJVereinid() == 1

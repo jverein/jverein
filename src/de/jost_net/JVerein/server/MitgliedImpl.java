@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2011-01-27 22:24:57  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.36  2010-11-13 09:31:24  jost
  * Warnings entfernt.
  *
@@ -723,6 +726,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public Date getEingabedatum() throws RemoteException
   {
     return (Date) getAttribute("eingabedatum");
+  }
+
+  public void setLetzteAenderung() throws RemoteException
+  {
+    setAttribute("letzteaenderung", new Date());
+  }
+
+  public Date getLetzteAenderung() throws RemoteException
+  {
+    return (Date) getAttribute("letzteaenderung");
   }
 
   /**
