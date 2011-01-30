@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-11-27 17:56:10  jost
+ * Warnung entfernt.
+ *
  * Revision 1.9  2010-11-27 00:59:20  jost
  * Bugfix Eigenschaften
  *
@@ -276,9 +279,9 @@ public class PersonalbogenAction implements Action
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
       rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
-      rpt.addColumn(m.getExterneMitgliedsnummer() != null ? m
-          .getExterneMitgliedsnummer()
-          + "" : "", Element.ALIGN_LEFT);
+      rpt.addColumn(
+          m.getExterneMitgliedsnummer() != null ? m.getExterneMitgliedsnummer()
+              + "" : "", Element.ALIGN_LEFT);
     }
     rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
     rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
@@ -324,35 +327,47 @@ public class PersonalbogenAction implements Action
       kommunikation += "Email: " + m.getEmail();
     }
     rpt.addColumn(kommunikation, Element.ALIGN_LEFT);
-    rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
-    rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
-    rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
-    rpt.addColumn(m.getBeitragsgruppe().getBezeichnung() + " - "
-        + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe().getBetrag())
-        + " EUR", Element.ALIGN_LEFT);
-    rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
-    String akdatum = "";
-    if (m.getAustritt() != null)
+    if (m.getAdresstyp().getID().equals("1"))
     {
-      akdatum += Einstellungen.DATEFORMAT.format(m.getAustritt());
-    }
-    if (m.getKuendigung() != null)
-    {
-      if (akdatum.length() != 0)
+      rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
+      rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
+      rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
+      rpt.addColumn(
+          m.getBeitragsgruppe().getBezeichnung()
+              + " - "
+              + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe()
+                  .getBetrag()) + " EUR", Element.ALIGN_LEFT);
+      rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
+      String akdatum = "";
+      if (m.getAustritt() != null)
       {
-        akdatum += " / ";
+        akdatum += Einstellungen.DATEFORMAT.format(m.getAustritt());
       }
-      akdatum += Einstellungen.DATEFORMAT.format(m.getKuendigung());
+      if (m.getKuendigung() != null)
+      {
+        if (akdatum.length() != 0)
+        {
+          akdatum += " / ";
+        }
+        akdatum += Einstellungen.DATEFORMAT.format(m.getKuendigung());
+      }
+      rpt.addColumn(akdatum, Element.ALIGN_LEFT);
     }
-    rpt.addColumn(akdatum, Element.ALIGN_LEFT);
     rpt.addColumn("Zahlungsweg", Element.ALIGN_LEFT);
     rpt.addColumn(Zahlungsweg.get(m.getZahlungsweg()), Element.ALIGN_LEFT);
     if (m.getBlz().length() > 0 && m.getKonto().length() > 0)
     {
       rpt.addColumn("Bankverbindung", Element.ALIGN_LEFT);
-      rpt.addColumn(m.getBlz() + "/" + m.getKonto() + " ("
-          + Einstellungen.getNameForBLZ(m.getBlz()) + ")", Element.ALIGN_LEFT);
+      rpt.addColumn(
+          m.getBlz() + "/" + m.getKonto() + " ("
+              + Einstellungen.getNameForBLZ(m.getBlz()) + ")",
+          Element.ALIGN_LEFT);
     }
+    rpt.addColumn("Datum Erstspeicherung", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getEingabedatum(), Element.ALIGN_LEFT);
+    rpt.addColumn("Datum letzte Änderung", Element.ALIGN_LEFT);
+    rpt.addColumn(m.getLetzteAenderung(), Element.ALIGN_LEFT);
+
     rpt.closeTable();
   }
 
@@ -369,9 +384,7 @@ public class PersonalbogenAction implements Action
           Color.LIGHT_GRAY);
       rpt.addHeaderColumn("letzte Ausf.", Element.ALIGN_LEFT, 30,
           Color.LIGHT_GRAY);
-      rpt
-          .addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,
-              Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Ende", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Buchungstext", Element.ALIGN_LEFT, 60,
           Color.LIGHT_GRAY);
@@ -533,8 +546,8 @@ public class PersonalbogenAction implements Action
         rpt.addColumn(fd.getLabel(), Element.ALIGN_LEFT);
         DBIterator it2 = Einstellungen.getDBService().createList(
             Zusatzfelder.class);
-        it2.addFilter("mitglied = ? and felddefinition = ?", new Object[] {
-            m.getID(), fd.getID() });
+        it2.addFilter("mitglied = ? and felddefinition = ?",
+            new Object[] { m.getID(), fd.getID() });
         if (it2.size() > 0)
         {
           Zusatzfelder zf = (Zusatzfelder) it2.next();
