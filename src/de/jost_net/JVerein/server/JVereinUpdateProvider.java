@@ -626,6 +626,10 @@ public class JVereinUpdateProvider
     {
       update0162(conn);
     }
+    if (cv < 163)
+    {
+      update0163(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3969,6 +3973,21 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte letzteaenderung in die Tabelle mitglied aufgenommen", 162);
+  }
+
+  private void update0163(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE mailempfaenger DROP COLUMN adresse;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE mailempfaenger DROP COLUMN adresse;\n");
+
+    execute(conn, statements,
+        "Spalte adresse aus Tabelle mailempfaenger entfernt", 163);
   }
 
 }

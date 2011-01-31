@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-02-01 21:02:25  jost
+ * Neu: Einfache Mailfunktion
+ *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -27,17 +30,6 @@ public interface MailEmpfaenger extends DBObject
    * ID der zugehörigen Mail
    */
   public void setMail(Mail mail) throws RemoteException;
-
-  /**
-   * "Hart kodierte"-Mailadresse
-   */
-  public String getAdresse() throws RemoteException;
-
-  /**
-   * "Hart kodierte"-Mailadresse
-   */
-
-  public void setAdresse(String adresse) throws RemoteException;
 
   /**
    * Mitglied ist Mail-Empfänger
