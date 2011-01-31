@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-25 15:11:52  jost
+ * Initial Commit
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -60,4 +63,14 @@ public class TermineView extends AbstractView
   {
     currentDate = this.termine.getCurrentDate();
   }
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Termine</span></p>"
+        + "<p>Auf den gewünschten Termin klicken, um die Detailansicht zu öffnen.</p>"
+        + "<p><b>Tipp:</b> Orangefarbener Text steht für Geburtstage und blauer für Wiedervorlagen.</p>"
+        + "</form>";
+  }
+
 }
