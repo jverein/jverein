@@ -3832,7 +3832,7 @@ public class JVereinUpdateProvider
     sb = new StringBuilder();
     sb.append("CREATE TABLE adresstyp (");
     sb.append(" id INTEGER AUTO_INCREMENT,");
-    sb.append(" bezeichnung BLOB,");
+    sb.append(" bezeichnung varchar(30),");
     sb.append(" jvereinid integer,");
     sb.append(" UNIQUE (id),");
     sb.append(" UNIQUE (bezeichnung),");
