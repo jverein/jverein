@@ -28,6 +28,7 @@
 					<li>Textsuche in den Buchungen eingebaut.</li>
 					<li>Das Datum der letzten Änderung wird bei Mitgliedern und Adressen gespeichert. Die Anzeige erfolgt in der Trefferübersicht. Dazu muss unter Administration|Einstellungen|Tabellen das entsprechende Häkchen gesetzt werden.</li>
 					<li>Unterstützung für das neue jameica.ical-Plugin. Installation siehe <a href='http://jameica.berlios.de/doku.php?id=support:install:jameica.ical'>Jameica-Wiki</a> </li>
+    			<li>Mailversand: Unterschiedliche Mitglieder können mit gleicher Adresse angeschrieben werden.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -551,6 +552,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.104  2011-01-31 17:13:59  jost
+    *** empty log message ***
+
     Revision 1.103  2011-01-30 10:32:55  jost
     *** empty log message ***
 
