@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-01-20 18:26:31  jost
+ * AppointmentCode Hibiscus -> Jameica
+ *
  * Revision 1.2  2010-11-27 10:56:05  jost
  * Link zum Mitglied
  *
@@ -136,7 +139,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return i18n.tr(w.getVermerk());
+        return i18n.tr("Wiedervorlage:" + w.getVermerk());
       }
       catch (RemoteException re)
       {
@@ -166,7 +169,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
      */
     public RGB getColor()
     {
-      return new RGB(122, 122, 122);
+      return new RGB(31, 32, 255);
     }
 
     /**
