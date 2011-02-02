@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.7  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -60,7 +63,7 @@ public class MitgliedskontoListeView extends AbstractView
         control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
     group.addLabelPair("bis",
         control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair("Differenz", control.getDifferenz("egal"));
+    group.addLabelPair("Differenz", control.getDifferenz());
 
     control.getMitgliedskontoList(new MitgliedDetailAction(),
         new Mitgliedskonto2Menu()).paint(this.getParent());

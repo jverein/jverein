@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2011-01-29 07:40:31  jost
+ * Mitgliedskonto für Spender
+ *
  * Revision 1.18  2011-01-27 22:19:04  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -340,14 +343,14 @@ public class MitgliedskontoControl extends AbstractControl
     return bisdatum;
   }
 
-  public SelectInput getDifferenz(String defaultval)
+  public SelectInput getDifferenz()
   {
     if (differenz != null)
     {
       return differenz;
     }
     differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
-        "Überzahlung" }, defaultval);
+        "Überzahlung" }, settings.getString("differenz", "egal"));
     differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
@@ -453,6 +456,7 @@ public class MitgliedskontoControl extends AbstractControl
   {
     this.action = action;
     GenericIterator mitgliedskonten = getMitgliedskontoIterator();
+    settings.setAttribute("differenz", (String) getDifferenz().getValue());
     if (mitgliedskontoList == null)
     {
       mitgliedskontoList = new TablePart(mitgliedskonten, action);
