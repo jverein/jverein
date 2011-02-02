@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2011-02-02 16:23:35  jost
+ * Status von "Differenz" wird gespeichert.
+ *
  * Revision 1.19  2011-01-29 07:40:31  jost
  * Mitgliedskonto für Spender
  *
@@ -351,6 +354,19 @@ public class MitgliedskontoControl extends AbstractControl
     }
     differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
         "Überzahlung" }, settings.getString("differenz", "egal"));
+    differenz.setName("Differenz");
+    differenz.addListener(new FilterListener());
+    return differenz;
+  }
+
+  public SelectInput getDifferenz(String defaultvalue)
+  {
+    if (differenz != null)
+    {
+      return differenz;
+    }
+    differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
+        "Überzahlung" }, defaultvalue);
     differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
