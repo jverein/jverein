@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.104  2011-01-30 10:29:59  jost
+ * Datum der letzten Änderung wird gespeichert
+ *
  * Revision 1.103  2011-01-29 20:34:16  jost
  * Verzögerungszeit für Suchfelder
  *
@@ -535,6 +538,8 @@ public class MitgliedControl extends AbstractControl
   private DialogInput eigenschaftenabfrage;
 
   private IntegerInput suchexternemitgliedsnummer;
+
+  private CheckboxInput ohneMail;
 
   private Mitglied mitglied;
 
@@ -2101,6 +2106,16 @@ public class MitgliedControl extends AbstractControl
         "An- und Abgemeldete" }, settings.getString("status.mitglied",
         "Angemeldete"));
     return status;
+  }
+
+  public CheckboxInput getOhneMail()
+  {
+    if (ohneMail != null)
+    {
+      return ohneMail;
+    }
+    ohneMail = new CheckboxInput(false);
+    return ohneMail;
   }
 
   public Button getStartAuswertungButton()
