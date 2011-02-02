@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.38  2011-01-30 10:30:37  jost
+ * Datum der letzten Änderung wird gespeichert
+ *
  * Revision 1.37  2011-01-27 22:24:57  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -190,7 +193,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   private void plausi() throws RemoteException, ApplicationException
   {
-    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+    if (getAdresstyp().getJVereinid() == 1
+        && Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
       if (getExterneMitgliedsnummer() == null)
       {
