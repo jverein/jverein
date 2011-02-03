@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2011-01-30 08:27:42  jost
+ * Neu: Zusatzadressen
+ *
  * Revision 1.35  2011-01-29 20:34:00  jost
  * Verzögerungszeit für Suchfelder
  *
@@ -761,6 +764,7 @@ public class EinstellungControl extends AbstractControl
       e.setDelaytime(delay);
       e.store();
       spalten.save();
+      Einstellungen.setEinstellung(e);
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
     }
     catch (RemoteException e)
