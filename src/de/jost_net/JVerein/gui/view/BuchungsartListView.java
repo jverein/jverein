@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.11  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -63,12 +66,12 @@ public class BuchungsartListView extends AbstractView
 
     control.getBuchungsartList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGSARTEN, false,
         "help-browser.png");
-
+    buttons.addButton(control.getPDFAusgabeButton());
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new BuchungsartAction(), null, false, "document-new.png");
   }

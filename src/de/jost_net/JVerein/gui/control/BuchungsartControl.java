@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2010-08-24 17:40:16  jost
+ * Spalte Bezeichnung verlängert
+ *
  * Revision 1.16  2009/09/20 19:02:45  jost
  * Buchungsart Art war immer Einnahme.
  *
@@ -57,19 +60,30 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.rmi.RemoteException;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+
+import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
+import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.Formatter;
@@ -77,10 +91,16 @@ import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.messaging.StatusBarMessage;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class BuchungsartControl extends AbstractControl
 {
@@ -246,4 +266,153 @@ public class BuchungsartControl extends AbstractControl
     buchungsartList.setSummary(true);
     return buchungsartList;
   }
+
+  public Button getPDFAusgabeButton()
+  {
+    Button b = new Button("PDF-Ausgabe", new Action()
+    {
+
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          starteAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der PDF-Ausgabe der Buchungsarten");
+        }
+      }
+    }, null, true, "acroread.png");
+    return b;
+  }
+
+  private void starteAuswertung() throws RemoteException
+  {
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+    {
+      fd.setFilterPath(path);
+    }
+    fd.setFileName(new Dateiname("buchungsarten", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
+
+    String s = fd.open();
+    if (s == null || s.length() == 0)
+    {
+      return;
+    }
+    if (!s.endsWith(".PDF"))
+    {
+      s = s + ".PDF";
+    }
+    final File file = new File(s);
+    final DBIterator it = Einstellungen.getDBService().createList(
+        Buchungsart.class);
+    settings.setAttribute("lastdir", file.getParent());
+    BackgroundTask t = new BackgroundTask()
+    {
+
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          FileOutputStream fos = new FileOutputStream(file);
+          Reporter reporter = new Reporter(fos, monitor, "Buchungsarten", "",
+              it.size());
+          reporter.addHeaderColumn("Nummer", Element.ALIGN_LEFT, 15,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Bezeichnung", Element.ALIGN_LEFT, 80,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Art", Element.ALIGN_LEFT, 25,
+              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn("Buchungsklasse", Element.ALIGN_LEFT, 80,
+              Color.LIGHT_GRAY);
+          reporter.createHeader();
+          while (it.hasNext())
+          {
+            Buchungsart b = (Buchungsart) it.next();
+            reporter.addColumn(b.getNummer() + "", Element.ALIGN_RIGHT);
+            reporter.addColumn(b.getBezeichnung(), Element.ALIGN_LEFT);
+            String arttxt = "";
+            switch (b.getArt())
+            {
+              case 0:
+                arttxt = "Einnahme";
+                break;
+              case 1:
+                arttxt = "Ausgabe";
+                break;
+              case 2:
+                arttxt = "Umbuchung";
+                break;
+            }
+            reporter.addColumn(arttxt, Element.ALIGN_LEFT);
+            if (b.getBuchungsklasse() != null)
+            {
+              reporter.addColumn(b.getBuchungsklasse().getBezeichnung(),
+                  Element.ALIGN_LEFT);
+            }
+            else
+            {
+              reporter.addColumn("", Element.ALIGN_LEFT);
+            }
+            reporter.setNextRecord();
+          }
+          reporter.closeTable();
+          reporter.close();
+          fos.close();
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getCurrentView().reload();
+        }
+        catch (Exception e)
+        {
+          Logger.error("Fehler", e);
+          monitor.setStatusText(e.getMessage());
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+          throw new ApplicationException(e);
+        }
+        GUI.getDisplay().asyncExec(new Runnable()
+        {
+
+          public void run()
+          {
+            try
+            {
+              new Program().handleAction(file);
+            }
+            catch (ApplicationException ae)
+            {
+              Application.getMessagingFactory().sendMessage(
+                  new StatusBarMessage(ae.getLocalizedMessage(),
+                      StatusBarMessage.TYPE_ERROR));
+            }
+          }
+        });
+
+      }
+
+      public void interrupt()
+      {
+        //
+      }
+
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+
+  }
+
 }
