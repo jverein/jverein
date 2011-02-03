@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.105  2011-02-02 21:59:14  jost
+ * Auswertung erweitert um den Parameter "ohne EMail"
+ *
  * Revision 1.104  2011-01-30 10:29:59  jost
  * Datum der letzten Änderung wird gespeichert
  *
@@ -2216,7 +2219,7 @@ public class MitgliedControl extends AbstractControl
     part = new TablePart(new MitgliedQuery(this, true).get(anfangsbuchstabe,
         atyp), detailaction);
     new MitgliedSpaltenauswahl().setColumns(part, atyp);
-    part.setContextMenu(new MitgliedMenu());
+    part.setContextMenu(new MitgliedMenu(detailaction));
     part.setMulti(true);
     part.setRememberColWidths(true);
     part.setRememberOrder(true);
