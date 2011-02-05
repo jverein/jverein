@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-08-10 15:58:14  jost
+ * neues Feld Zahlungsgrund
+ *
  * Revision 1.9  2010-08-08 19:31:44  jost
  * Bugfix
  *
@@ -108,8 +111,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.KUENDIGUNG, new Date());
       map.put(FormularfeldControl.ZAHLUNGSWEG,
           "Abbuchung von Konto 1234567, BLZ: 10020030");
-      map.put(FormularfeldControl.TAGESDATUM, Einstellungen.DATEFORMAT
-          .format(new Date()));
+      map.put(FormularfeldControl.TAGESDATUM,
+          Einstellungen.DATEFORMAT.format(new Date()));
 
       map.put("Spendedatum", "15.12.2008");
       map.put("Buchungsdatum", new Date());
