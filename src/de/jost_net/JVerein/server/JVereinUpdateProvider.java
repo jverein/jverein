@@ -630,6 +630,10 @@ public class JVereinUpdateProvider
     {
       update0163(conn);
     }
+    if (cv < 164)
+    {
+      update0164(conn);
+    }
   }
 
   public Connection getConnection()
@@ -3988,6 +3992,22 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte adresse aus Tabelle mailempfaenger entfernt", 163);
+  }
+
+  private void update0164(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("drop table stammdaten;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("drop table stammdaten;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle stammdaten gelöscht", 164);
   }
 
 }
