@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2009-09-15 19:22:36  jost
  * Summenbildung.
  *
@@ -32,6 +35,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -51,8 +55,8 @@ public class BuchungsjournalPDF
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      String subtitle = "vom " + Einstellungen.DATEFORMAT.format(dVon)
-          + " bis " + Einstellungen.DATEFORMAT.format(dBis);
+      String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(dVon) + " bis "
+          + new JVDateFormatTTMMJJJJ().format(dBis);
       if (konto != null)
       {
         subtitle += " für Konto " + konto.getNummer() + " - "
@@ -72,10 +76,10 @@ public class BuchungsjournalPDF
       {
         Buchung b = (Buchung) list.next();
         DBIterator listk = Einstellungen.getDBService().createList(Konto.class);
-        listk.addFilter("id = ?", new Object[] { b.getKonto().getID()});
+        listk.addFilter("id = ?", new Object[] { b.getKonto().getID() });
         Konto k = (Konto) listk.next();
         reporter.addColumn(b.getID(), Element.ALIGN_RIGHT);
-        reporter.addColumn(Einstellungen.DATEFORMAT.format(b.getDatum()),
+        reporter.addColumn(new JVDateFormatTTMMJJJJ().format(b.getDatum()),
             Element.ALIGN_LEFT);
         reporter.addColumn(k.getNummer(), Element.ALIGN_RIGHT);
         if (b.getAuszugsnummer() != null)
@@ -88,11 +92,13 @@ public class BuchungsjournalPDF
           reporter.addColumn("", Element.ALIGN_LEFT);
         }
         reporter.addColumn(b.getName(), Element.ALIGN_LEFT);
-        reporter.addColumn(b.getZweck()
-            + (b.getZweck2() != null ? (" " + b.getZweck2()) : ""),
-            Element.ALIGN_LEFT);
-        reporter.addColumn(b.getBuchungsart() != null
-            ? b.getBuchungsart().getBezeichnung() : "", Element.ALIGN_LEFT);
+        reporter
+            .addColumn(
+                b.getZweck()
+                    + (b.getZweck2() != null ? (" " + b.getZweck2()) : ""),
+                Element.ALIGN_LEFT);
+        reporter.addColumn(b.getBuchungsart() != null ? b.getBuchungsart()
+            .getBezeichnung() : "", Element.ALIGN_LEFT);
         reporter.addColumn(b.getBetrag());
         if (b.getBuchungsart() != null)
         {

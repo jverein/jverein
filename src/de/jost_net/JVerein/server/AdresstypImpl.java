@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-01-27 22:24:30  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -100,7 +103,7 @@ public class AdresstypImpl extends AbstractDBObject implements Adresstyp
 
   public void setJVereinid(int jvereinid) throws RemoteException
   {
-    setAttribute("jvereinid", new Integer(jvereinid));
+    setAttribute("jvereinid", Integer.valueOf(jvereinid));
   }
 
   @Override

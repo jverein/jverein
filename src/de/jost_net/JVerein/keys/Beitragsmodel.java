@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:04:03  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/12/13 16:23:55  jost
  * equals()-Methode implementiert.
  *
@@ -69,8 +72,7 @@ public class Beitragsmodel
       case MONATLICH12631:
         return JVereinPlugin
             .getI18n()
-            .tr(
-                "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise");
+            .tr("monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise");
       default:
         return null;
     }
@@ -96,6 +98,12 @@ public class Beitragsmodel
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return model;
   }
 
   @Override

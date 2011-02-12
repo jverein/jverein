@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2010-02-25 18:57:48  jost
  * Neu: Suche f. Buchungen
  *
@@ -52,7 +55,7 @@ public class BuchungSearchProvider implements SearchProvider
     list.addFilter(
         "LOWER(name) LIKE ? OR betrag like ? OR "
             + "LOWER(zweck) LIKE ? OR LOWER(zweck2) LIKE ? OR LOWER(kommentar) LIKE ?",
-        new String[] { text, text, text, text, text});
+        new String[] { text, text, text, text, text });
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -65,7 +68,7 @@ public class BuchungSearchProvider implements SearchProvider
   /**
    * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
    */
-  private class MyResult implements Result
+  private static class MyResult implements Result
   {
 
     private static final long serialVersionUID = -1685817053590491168L;

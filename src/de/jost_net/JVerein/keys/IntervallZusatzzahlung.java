@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:04:02  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/12/13 16:24:55  jost
  * equals()-Methode implementiert.
  *
@@ -99,6 +102,12 @@ public class IntervallZusatzzahlung
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return intervall;
   }
 
   @Override

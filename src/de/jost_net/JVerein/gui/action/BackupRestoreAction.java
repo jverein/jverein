@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-11-13 09:21:13  jost
+ * Warnings entfernt.
+ *
  * Revision 1.8  2010-10-15 09:58:03  jost
  * Code aufgeräumt
  *
@@ -53,6 +56,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.util.JVDateFormatJJJJMMTT;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -98,8 +102,8 @@ public class BackupRestoreAction implements Action
     }
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-    fd.setFileName("jverein-"
-        + BackupCreateAction.DATEFORMAT.format(new Date()) + ".xml");
+    fd.setFileName("jverein-" + new JVDateFormatJJJJMMTT().format(new Date())
+        + ".xml");
     fd.setFilterExtensions(new String[] { "*.xml" });
     fd.setText(JVereinPlugin.getI18n().tr(
         "Bitte wählen Sie die Backup-Datei aus"));
@@ -127,8 +131,8 @@ public class BackupRestoreAction implements Action
       {
         monitor.setStatusText(JVereinPlugin.getI18n().tr("Importiere Backup"));
         Logger.info("importing backup " + file.getAbsolutePath());
-        final ClassLoader loader = Application.getPluginLoader().getPlugin(
-            JVereinPlugin.class).getResources().getClassLoader();
+        final ClassLoader loader = Application.getPluginLoader()
+            .getPlugin(JVereinPlugin.class).getResources().getClassLoader();
 
         try
         {

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-22 21:00:51  jost
+ * Initial Commit
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -37,10 +40,6 @@ public class ArbeitseinsatzZeile implements GenericObject
     this.mitgliedid = mitgliedid;
     this.soll = soll;
     this.ist = ist;
-    if (ist == null)
-    {
-      ist = new Double(0);
-    }
     this.stundensatz = stundensatz;
   }
 

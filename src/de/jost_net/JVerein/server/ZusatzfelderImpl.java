@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-11-13 09:31:24  jost
+ * Warnings entfernt.
+ *
  * Revision 1.6  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -39,6 +42,7 @@ import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 
@@ -113,7 +117,7 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
 
   public void setMitglied(int mitglied) throws RemoteException
   {
-    setAttribute("mitglied", new Integer(mitglied));
+    setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
   public Felddefinition getFelddefinition() throws RemoteException
@@ -123,7 +127,7 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
 
   public void setFelddefinition(int felddefinition) throws RemoteException
   {
-    setAttribute("felddefinition", new Integer(felddefinition));
+    setAttribute("felddefinition", Integer.valueOf(felddefinition));
   }
 
   public String getFeld() throws RemoteException
@@ -179,7 +183,7 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
 
   public Boolean getFeldJaNein() throws RemoteException
   {
-    return new Boolean(Util.getBoolean(getAttribute("feldjanein")));
+    return Util.getBoolean(getAttribute("feldjanein"));
   }
 
   public void setFeldJaNein(Boolean janein) throws RemoteException
@@ -204,7 +208,7 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
         case Datentyp.DATUM:
           if (getFeldDatum() != null)
           {
-            return Einstellungen.DATEFORMAT.format(getFeldDatum());
+            return new JVDateFormatTTMMJJJJ().format(getFeldDatum());
           }
           else
           {

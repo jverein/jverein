@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.37  2011-02-03 22:46:31  jost
+ * Sofortige Übernahme der Änderungen
+ *
  * Revision 1.36  2011-01-30 08:27:42  jost
  * Neu: Zusatzadressen
  *
@@ -679,7 +682,7 @@ public class EinstellungControl extends AbstractControl
     {
       return delaytime;
     }
-    delaytime = new IntegerInput(new Integer(Einstellungen.getEinstellung()
+    delaytime = new IntegerInput(Integer.valueOf(Einstellungen.getEinstellung()
         .getDelaytime()));
     return delaytime;
   }

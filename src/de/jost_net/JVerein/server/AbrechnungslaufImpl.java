@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-11-13 09:28:32  jost
+ * Warnings entfernt.
+ *
  * Revision 1.3  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -29,6 +32,7 @@ import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 
 public class AbrechnungslaufImpl extends AbstractDBObject implements
@@ -196,7 +200,7 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
    */
   public String getIDText() throws RemoteException
   {
-    return getID() + " vom " + Einstellungen.DATEFORMAT.format(getDatum());
+    return getID() + " vom " + new JVDateFormatTTMMJJJJ().format(getDatum());
   }
 
   @Override

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.17  2011-01-11 17:41:10  jost
  * Keine Vormerkposten übernehmen.
  *
@@ -70,6 +73,7 @@ import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -193,8 +197,8 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
   public Part getBuchungsList() throws RemoteException
   {
-    Integer hibid = new Integer(-1);
-    Integer jvid = new Integer(-1);
+    Integer hibid = Integer.valueOf(-1);
+    Integer jvid = Integer.valueOf(-1);
     Konto k = (Konto) getKonto().getValue();
     if (k != null && k.getHibiscusId() != null)
     {
@@ -212,9 +216,9 @@ public class BuchungsuebernahmeControl extends AbstractControl
       {
         if (!rs.next())
         {
-          return new Integer(0);
+          return Integer.valueOf(0);
         }
-        return new Integer(rs.getInt(1));
+        return Integer.valueOf(rs.getInt(1));
       }
     };
     Integer maximum = (Integer) service.execute(sql, new Object[] {}, rs);
@@ -236,7 +240,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
         buchungsList = new TablePart(hibbuchungen, null);
         buchungsList.addColumn("Nr", "id");
         buchungsList.addColumn("Datum", "datum", new DateFormatter(
-            Einstellungen.DATEFORMAT));
+            new JVDateFormatTTMMJJJJ()));
         buchungsList.addColumn("Name", "name");
         buchungsList.addColumn("Verwendungszweck", "zweck");
         buchungsList.addColumn("Verwendungszweck 2", "zweck2");

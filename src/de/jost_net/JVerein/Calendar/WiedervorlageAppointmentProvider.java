@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-01-31 17:13:17  jost
+ * *** empty log message ***
+ *
  * Revision 1.3  2011-01-20 18:26:31  jost
  * AppointmentCode Hibiscus -> Jameica
  *
@@ -91,7 +94,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
   /**
    * Hilfsklasse zum Anzeigen und Oeffnen des Appointments.
    */
-  private class MyAppointment implements Appointment
+  private static class MyAppointment implements Appointment
   {
 
     private Wiedervorlage w = null;

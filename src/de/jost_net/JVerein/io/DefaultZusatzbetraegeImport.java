@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-31 17:53:08  jost
+ * Logging
+ *
  * Revision 1.2  2010-10-30 11:53:25  jost
  * Name des Mitglieds wird beim Fehler mit ausgegeben.
  *
@@ -167,8 +170,6 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
               + m.getNameVorname());
         }
       }
-
-      // clean up
       results.close();
       stmt.close();
       conn.close();
@@ -177,6 +178,10 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
     {
       monitor.log(" nicht importiert: " + e.getMessage());
       Logger.error("Fehler", e);
+    }
+    finally
+    {
+      
     }
   }
 

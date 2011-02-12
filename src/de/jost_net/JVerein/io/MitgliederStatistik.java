@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-01-29 07:10:49  jost
+ * Bugfix. Über 100-jährige wurden in der Summe nicht berücksichtigt.
+ *
  * Revision 1.12  2011-01-27 22:25:09  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -69,6 +72,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -90,7 +94,7 @@ public class MitgliederStatistik
       String subtitle = "";
       if (stichtag != null)
       {
-        subtitle = "Stichtag: " + Einstellungen.DATEFORMAT.format(stichtag);
+        subtitle = "Stichtag: " + new JVDateFormatTTMMJJJJ().format(stichtag);
       }
       Reporter reporter = new Reporter(fos, monitor, "Mitgliederstatistik",
           subtitle, 3);
@@ -266,11 +270,11 @@ public class MitgliederStatistik
     calBis.add(Calendar.YEAR, von * -1);
     calBis.set(Calendar.MONTH, Calendar.DECEMBER);
     calBis.set(Calendar.DAY_OF_MONTH, 31);
-    java.sql.Date bd = new java.sql.Date(calBis.getTimeInMillis());
 
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
-    list.addFilter("geburtsdatum <= ?", new Object[] { bd });
+    list.addFilter("geburtsdatum <= ?",
+        new Object[] { new java.sql.Date(calBis.getTimeInMillis()) });
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
     list.addFilter("(eintritt is null or eintritt <= ?)",

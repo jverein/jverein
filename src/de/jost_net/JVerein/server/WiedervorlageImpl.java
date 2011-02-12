@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-11-13 09:31:24  jost
+ * Warnings entfernt.
+ *
  * Revision 1.4  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -110,7 +113,7 @@ public class WiedervorlageImpl extends AbstractDBObject implements
 
   public void setMitglied(int mitglied) throws RemoteException
   {
-    setAttribute("mitglied", new Integer(mitglied));
+    setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
   public Date getDatum() throws RemoteException

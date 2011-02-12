@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-01-29 19:30:09  jost
+ * Feinschliff
+ *
  * Revision 1.2  2011-01-28 09:18:30  jost
  * Korrekte Detailaction
  *
@@ -170,7 +173,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
       public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
-        return new Long(rs.getLong(1));
+        return Long.valueOf(rs.getLong(1));
       }
     };
     Long anzahlbeitragsgruppe = (Long) service
@@ -187,7 +190,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
       public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
-        return new Long(rs.getLong(1));
+        return Long.valueOf(rs.getLong(1));
       }
     };
 

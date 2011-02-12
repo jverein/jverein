@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010/05/18 20:23:26  jost
+ * Überflüssige Imports entfernt.
+ *
  * Revision 1.1  2010/04/25 13:56:11  jost
  * Vorarbeiten Mitgliedskonto
  *
@@ -109,12 +112,18 @@ public class Abrechnungsmodi
   @Override
   public boolean equals(Object obj)
   {
-    if (obj instanceof Formularart)
+    if (obj instanceof Abrechnungsmodi)
     {
       Abrechnungsmodi v = (Abrechnungsmodi) obj;
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return abrechnungsmodus;
   }
 
   @Override

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-17 04:52:25  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -96,7 +99,7 @@ public class ArbeitseinsatzImpl extends AbstractDBObject implements
 
   public void setMitglied(int mitglied) throws RemoteException
   {
-    setAttribute("mitglied", new Integer(mitglied));
+    setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
   public Date getDatum() throws RemoteException

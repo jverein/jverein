@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2011-02-05 17:39:06  jost
+ * Bugfix: Korrekte Positionierung des Betragsfeldes.
+ *
  * Revision 1.13  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -71,6 +74,7 @@ import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -386,12 +390,12 @@ public class SpendenbescheinigungControl extends AbstractControl
           "Fehler bei der Aufbereitung des Betrages in Worten");
     }
     Date tmp = (Date) getBescheinigungsdatum().getValue();
-    String bescheinigungsdatum = Einstellungen.DATEFORMAT.format(tmp);
+    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ().format(tmp);
     map.put("Bescheinigungsdatum", bescheinigungsdatum);
     tmp = (Date) getSpendedatum().getValue();
-    String spendedatum = Einstellungen.DATEFORMAT.format(tmp);
+    String spendedatum = new JVDateFormatTTMMJJJJ().format(tmp);
     map.put("Spendedatum", spendedatum);
-    String tagesdatum = Einstellungen.DATEFORMAT.format(new Date());
+    String tagesdatum = new JVDateFormatTTMMJJJJ().format(new Date());
     map.put("Tagesdatum", tagesdatum);
     map.put("ErsatzAufwendungen",
         ((Boolean) ersatzaufwendungen.getValue() ? "X" : ""));
@@ -411,9 +415,9 @@ public class SpendenbescheinigungControl extends AbstractControl
     spbList = new TablePart(spendenbescheinigungen,
         new SpendenbescheinigungAction());
     spbList.addColumn("Bescheinigungsdatum", "bescheinigungsdatum",
-        new DateFormatter(Einstellungen.DATEFORMAT));
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     spbList.addColumn("Spendedatum", "spendedatum", new DateFormatter(
-        Einstellungen.DATEFORMAT));
+        new JVDateFormatTTMMJJJJ()));
     spbList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
     spbList.addColumn("Zeile 1", "zeile1");

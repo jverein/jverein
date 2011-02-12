@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:04:03  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/12/13 16:23:33  jost
  * Bugfix Beitragsart.
  *
@@ -83,6 +86,12 @@ public class ArtBeitragsart
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return art;
   }
 
   @Override

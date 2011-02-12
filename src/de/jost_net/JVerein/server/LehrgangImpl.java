@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-11-13 09:30:50  jost
+ * Warnings entfernt.
+ *
  * Revision 1.2  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -97,7 +100,7 @@ public class LehrgangImpl extends AbstractDBObject implements Lehrgang
 
   public void setMitglied(int mitglied) throws RemoteException
   {
-    setAttribute("mitglied", new Integer(mitglied));
+    setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
   public Lehrgangsart getLehrgangsart() throws RemoteException
@@ -107,7 +110,7 @@ public class LehrgangImpl extends AbstractDBObject implements Lehrgang
 
   public void setLehrgangsart(int lehrgangsart) throws RemoteException
   {
-    setAttribute("lehrgangsart", new Integer(lehrgangsart));
+    setAttribute("lehrgangsart", Integer.valueOf(lehrgangsart));
   }
 
   public Date getVon() throws RemoteException

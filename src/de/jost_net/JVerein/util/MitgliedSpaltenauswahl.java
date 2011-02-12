@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-01-30 10:30:48  jost
+ * Datum der letzten Änderung wird gespeichert
+ *
  * Revision 1.7  2011-01-27 22:25:48  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -73,7 +76,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add(JVereinPlugin.getI18n().tr("Konto"), "konto", false, true);
     add(JVereinPlugin.getI18n().tr("Kontoinhaber"), "kontoinhaber", false, true);
     add(JVereinPlugin.getI18n().tr("Geburtsdatum"), "geburtsdatum", true,
-        new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, true);
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     add(JVereinPlugin.getI18n().tr("Geschlecht"), "geschlecht", false, true);
     add(JVereinPlugin.getI18n().tr("Telefon privat"), "telefonprivat", true,
         true);
@@ -82,18 +85,17 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add(JVereinPlugin.getI18n().tr("Handy"), "handy", false, true);
     add(JVereinPlugin.getI18n().tr("Email"), "email", false, true);
     add(JVereinPlugin.getI18n().tr("Eintritt"), "eintritt", true,
-        new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, false);
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, false);
     add(JVereinPlugin.getI18n().tr("Beitragsgruppe"), "beitragsgruppe", false,
         new BeitragsgruppeFormatter(), Column.ALIGN_LEFT, false);
     add(JVereinPlugin.getI18n().tr("Austritt"), "austritt", true,
-        new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, false);
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, false);
     add(JVereinPlugin.getI18n().tr("Kündigung"), "kuendigung", false,
-        new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, false);
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, false);
     add(JVereinPlugin.getI18n().tr("Eingabedatum"), "eingabedatum", false,
-        new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO, true);
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     add(JVereinPlugin.getI18n().tr("letzte Änderung"), "letzteaenderung",
-        false, new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO,
-        true);
+        false, new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     try
     {
       DBIterator it = Einstellungen.getDBService().createList(
@@ -105,8 +107,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
         {
           case Datentyp.DATUM:
             add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
-                new DateFormatter(Einstellungen.DATEFORMAT), Column.ALIGN_AUTO,
-                true);
+                new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
             break;
           case Datentyp.WAEHRUNG:
             add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,

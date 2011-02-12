@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2010-10-30 11:31:23  jost
+ * Neu: Sterbetag
+ *
  * Revision 1.14  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -71,6 +74,7 @@ import com.lowagie.text.Paragraph;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -89,8 +93,8 @@ public class MitgliedAuswertungPDF
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle, list
-          .size(), 50, 10, 20, 15);
+      Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle,
+          list.size(), 50, 10, 20, 15);
 
       report.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
           Color.LIGHT_GRAY);
@@ -142,45 +146,39 @@ public class MitgliedAuswertungPDF
         String zelle = "";
         if (d != null)
         {
-          zelle = Einstellungen.DATEFORMAT.format(d);
+          zelle = new JVDateFormatTTMMJJJJ().format(d);
         }
 
         if (m.getAustritt() != null)
         {
-          zelle += "\n" + Einstellungen.DATEFORMAT.format(m.getAustritt());
+          zelle += "\n" + new JVDateFormatTTMMJJJJ().format(m.getAustritt());
         }
         if (m.getKuendigung() != null)
         {
-          zelle += "\n" + Einstellungen.DATEFORMAT.format(m.getKuendigung());
+          zelle += "\n" + new JVDateFormatTTMMJJJJ().format(m.getKuendigung());
         }
         if (m.getSterbetag() != null)
         {
-          zelle += "\n" + Einstellungen.DATEFORMAT.format(m.getSterbetag());
+          zelle += "\n" + new JVDateFormatTTMMJJJJ().format(m.getSterbetag());
         }
         report.addColumn(zelle, Element.ALIGN_LEFT);
-        String beitragsgruppebemerkung = m.getBeitragsgruppe().getBezeichnung();
-        // if (m.getVermerk1() != null)
-        // {
-        // beitragsgruppebemerkung += "\n" + m.getVermerk1();
-        // }
-        // if (m.getVermerk2() != null)
-        // {
-        // beitragsgruppebemerkung += "\n" + m.getVermerk2();
-        // }
+        StringBuilder beitragsgruppebemerkung = new StringBuilder(m
+            .getBeitragsgruppe().getBezeichnung());
         DBIterator it = Einstellungen.getDBService().createList(
             Eigenschaften.class);
         it.addFilter("mitglied = ?", new Object[] { m.getID() });
         if (it.size() > 0)
         {
-          beitragsgruppebemerkung += "\n";
+          beitragsgruppebemerkung.append("\n");
         }
         while (it.hasNext())
         {
           Eigenschaften ei = (Eigenschaften) it.next();
-          beitragsgruppebemerkung += "\n"
-              + ei.getEigenschaft().getBezeichnung();
+          beitragsgruppebemerkung.append("\n");
+          beitragsgruppebemerkung.append(ei.getEigenschaft().getBezeichnung());
         }
-        report.addColumn(beitragsgruppebemerkung, Element.ALIGN_LEFT);
+        report
+            .addColumn(beitragsgruppebemerkung.toString(), Element.ALIGN_LEFT);
         report.setNextRecord();
       }
       report.closeTable();

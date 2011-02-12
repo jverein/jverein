@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:04:03  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/12/13 16:25:14  jost
  * equals()-Methode implementiert.
  *
@@ -83,6 +86,12 @@ public class Zahlungsweg
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return zahlungsweg;
   }
 
   @Override

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010/01/01 18:39:24  jost
+ * Typisierung der Zusatzfelder
+ *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
@@ -81,12 +84,18 @@ public class Datentyp
   @Override
   public boolean equals(Object obj)
   {
-    if (obj instanceof Formularart)
+    if (obj instanceof Datentyp)
     {
       Datentyp v = (Datentyp) obj;
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return datentyp;
   }
 
   @Override

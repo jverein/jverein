@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2010-01-01 18:36:09  jost
  * Typisierung der Zusatzfelder
  *
@@ -37,6 +40,7 @@ import de.jost_net.JVerein.gui.menu.FelddefinitionMenu;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -194,7 +198,7 @@ public class FelddefinitionControl extends AbstractControl
     }
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     DBIterator it = Einstellungen.getDBService().createList(Zusatzfelder.class);
-    it.addFilter("felddefinition = ?", new Object[] { f.getID()});
+    it.addFilter("felddefinition = ?", new Object[] { f.getID() });
     switch (f.getDatentyp())
     {
       case Datentyp.ZEICHENFOLGE:
@@ -233,8 +237,8 @@ public class FelddefinitionControl extends AbstractControl
                 Date datum = sdf.parse(z.getFeld());
                 if (!checkOnly)
                 {
-                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                      Zusatzfelder.class, z.getID());
+                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                      .createObject(Zusatzfelder.class, z.getID());
                   z1.setFeldDatum(datum);
                   z1.setFeld(null);
                   z1.store();
@@ -255,8 +259,8 @@ public class FelddefinitionControl extends AbstractControl
                 int i = Integer.parseInt(z.getFeld());
                 if (!checkOnly)
                 {
-                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                      Zusatzfelder.class, z.getID());
+                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                      .createObject(Zusatzfelder.class, z.getID());
                   z1.setFeldGanzzahl(i);
                   z1.setFeld(null);
                   z1.store();
@@ -277,11 +281,11 @@ public class FelddefinitionControl extends AbstractControl
               if (b == null || b.equals("") || b.equalsIgnoreCase("false")
                   || b.equalsIgnoreCase("nein"))
               {
-                bool = new Boolean(false);
+                bool = Boolean.valueOf(false);
               }
               else if (b.equalsIgnoreCase("true") || b.equalsIgnoreCase("ja"))
               {
-                bool = new Boolean(true);
+                bool = Boolean.valueOf(true);
               }
               else
               {
@@ -289,8 +293,8 @@ public class FelddefinitionControl extends AbstractControl
               }
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeldJaNein(bool);
                 z1.setFeld(null);
                 z1.store();
@@ -307,8 +311,8 @@ public class FelddefinitionControl extends AbstractControl
                 Number doub = Einstellungen.DECIMALFORMAT.parse(z.getFeld());
                 if (!checkOnly)
                 {
-                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                      Zusatzfelder.class, z.getID());
+                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                      .createObject(Zusatzfelder.class, z.getID());
                   z1.setFeldWaehrung(new BigDecimal(doub.doubleValue()));
                   z1.setFeld(null);
                   z1.store();
@@ -331,9 +335,9 @@ public class FelddefinitionControl extends AbstractControl
               Zusatzfelder z = (Zusatzfelder) it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
-                z1.setFeld(Einstellungen.DATEFORMAT.format(z.getFeldDatum()));
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
+                z1.setFeld(new JVDateFormatTTMMJJJJ().format(z.getFeldDatum()));
                 z1.setFeldDatum(null);
                 z1.store();
               }
@@ -352,8 +356,8 @@ public class FelddefinitionControl extends AbstractControl
               Zusatzfelder z = (Zusatzfelder) it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeld(z.getFeldGanzzahl() + "");
                 z1.setFeldGanzzahl(null);
                 z1.store();
@@ -373,8 +377,8 @@ public class FelddefinitionControl extends AbstractControl
               Zusatzfelder z = (Zusatzfelder) it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeld(z.getFeldJaNein() ? "ja" : "nein");
                 z1.setFeldJaNein(null);
                 z1.store();
@@ -394,9 +398,10 @@ public class FelddefinitionControl extends AbstractControl
               Zusatzfelder z = (Zusatzfelder) it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
-                z1.setFeld(Einstellungen.DECIMALFORMAT.format(z.getFeldWaehrung()));
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
+                z1.setFeld(Einstellungen.DECIMALFORMAT.format(z
+                    .getFeldWaehrung()));
                 z1.setFeldWaehrung(null);
                 z1.store();
               }

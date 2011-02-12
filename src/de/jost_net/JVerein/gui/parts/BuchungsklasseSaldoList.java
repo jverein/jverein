@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.6  2010-02-23 21:15:49  jost
  * Individueller Zeitraum
  *
@@ -81,7 +84,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
       if (saldoList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator.fromArray(zeile
+            .toArray(new GenericObject[zeile.size()]));
 
         saldoList = new TablePart(gi, null);
         saldoList.addColumn(JVereinPlugin.getI18n().tr("Buchungsklasse"),
@@ -124,9 +128,9 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     ArrayList<BuchungsklasseSaldoZeile> zeile = new ArrayList<BuchungsklasseSaldoZeile>();
     Buchungsklasse buchungsklasse = null;
     Buchungsart buchungsart = null;
-    Double einnahmen = new Double(0);
-    Double ausgaben = new Double(0);
-    Double umbuchungen = new Double(0);
+    Double einnahmen;
+    Double ausgaben;
+    Double umbuchungen;
     Double suBukEinnahmen = new Double(0);
     Double suBukAusgaben = new Double(0);
     Double suBukUmbuchungen = new Double(0);
@@ -153,9 +157,9 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       {
         if (!rs.next())
         {
-          return new Integer(0);
+          return Integer.valueOf(0);
         }
-        return new Integer(rs.getInt(1));
+        return Integer.valueOf(rs.getInt(1));
       }
     };
 
@@ -169,7 +173,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
           buchungsklasse));
       DBIterator buchungsartenIt = service.createList(Buchungsart.class);
       buchungsartenIt.addFilter("buchungsklasse = ?",
-          new Object[] { buchungsklasse.getID()});
+          new Object[] { buchungsklasse.getID() });
       suBukEinnahmen = new Double(0);
       suBukAusgaben = new Double(0);
       suBukUmbuchungen = new Double(0);
@@ -181,13 +185,13 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
             + "and buchung.buchungsart = buchungsart.id "
             + "and buchungsart.id = ? " + "and buchungsart.art = ?";
         einnahmen = (Double) service.execute(sql, new Object[] { datumvon,
-            datumbis, buchungsart.getID(), 0}, rsd);
+            datumbis, buchungsart.getID(), 0 }, rsd);
         suBukEinnahmen += einnahmen;
         ausgaben = (Double) service.execute(sql, new Object[] { datumvon,
-            datumbis, buchungsart.getID(), 1}, rsd);
+            datumbis, buchungsart.getID(), 1 }, rsd);
         suBukAusgaben += ausgaben;
         umbuchungen = (Double) service.execute(sql, new Object[] { datumvon,
-            datumbis, buchungsart.getID(), 2}, rsd);
+            datumbis, buchungsart.getID(), 2 }, rsd);
         suBukUmbuchungen += umbuchungen;
         zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
             buchungsart, einnahmen, ausgaben, umbuchungen));
@@ -209,15 +213,15 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
         + "and buchung.buchungsart = buchungsart.id "
         + "and buchungsart.buchungsklasse is null and buchungsart.art = ?";
     einnahmen = (Double) service.execute(sql, new Object[] { datumvon,
-        datumbis, 0}, rsd);
+        datumbis, 0 }, rsd);
     suBukEinnahmen += einnahmen;
     suEinnahmen += einnahmen;
     ausgaben = (Double) service.execute(sql, new Object[] { datumvon, datumbis,
-        1}, rsd);
+        1 }, rsd);
     suBukAusgaben += ausgaben;
     suAusgaben += ausgaben;
     umbuchungen = (Double) service.execute(sql, new Object[] { datumvon,
-        datumbis, 2}, rsd);
+        datumbis, 2 }, rsd);
     suBukUmbuchungen += umbuchungen;
     suUmbuchungen += umbuchungen;
     if (einnahmen != 0 || ausgaben != 0 || umbuchungen != 0)
@@ -225,7 +229,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       Buchungsklasse b = (Buchungsklasse) service.createObject(
           Buchungsklasse.class, null);
       b.setBezeichnung("Nicht zugeordnet");
-      zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
+      zeile
+          .add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
       zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
           "Nicht zugeordnet", einnahmen, ausgaben, umbuchungen));
     }
@@ -239,7 +244,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     sql = "select count(*) from buchung " + "where datum >= ? and datum <= ?  "
         + "and buchung.buchungsart is null";
     Integer anzahl = (Integer) service.execute(sql, new Object[] { datumvon,
-        datumbis}, rsi);
+        datumbis }, rsi);
     if (anzahl > 0)
     {
       zeile.add(new BuchungsklasseSaldoZeile(

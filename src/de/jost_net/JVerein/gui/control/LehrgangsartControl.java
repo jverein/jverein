@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:27  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2009-07-24 20:18:46  jost
  * Focus auf erstes Feld setzen.
  *
@@ -28,6 +31,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.LehrgangsartAction;
 import de.jost_net.JVerein.gui.menu.LehrgangsartMenu;
 import de.jost_net.JVerein.rmi.Lehrgangsart;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -100,7 +104,7 @@ public class LehrgangsartControl extends AbstractControl
     {
       d = null;
     }
-    this.von = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.von = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.von.setTitle("von/am");
     this.von.setText("Bitte Beginn oder Tag der Veranstaltung wählen");
     this.von.addListener(new Listener()
@@ -129,7 +133,7 @@ public class LehrgangsartControl extends AbstractControl
     {
       d = null;
     }
-    this.bis = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.bis = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.bis.setTitle("bis");
     this.bis.setText("Bitte Ende der Veranstaltung wählen");
     this.bis.addListener(new Listener()
@@ -194,9 +198,9 @@ public class LehrgangsartControl extends AbstractControl
     lehrgangsartList = new TablePart(formulare, new LehrgangsartAction());
     lehrgangsartList.addColumn("Bezeichnung", "bezeichnung");
     lehrgangsartList.addColumn("von/am", "von", new DateFormatter(
-        Einstellungen.DATEFORMAT));
+        new JVDateFormatTTMMJJJJ()));
     lehrgangsartList.addColumn("bis", "bis", new DateFormatter(
-        Einstellungen.DATEFORMAT));
+        new JVDateFormatTTMMJJJJ()));
     lehrgangsartList.addColumn("Veranstalter", "veranstalter");
     lehrgangsartList.setRememberColWidths(true);
     lehrgangsartList.setContextMenu(new LehrgangsartMenu());

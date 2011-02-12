@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2010-09-13 18:43:13  jost
  * Neue Methode
  *
@@ -25,6 +28,7 @@ import java.util.Date;
 
 public class Datum
 {
+
   /**
    * Berechnung der Differenz in Monaten zwischen 2 Daten. Die Tagesangaben
    * bleiben unberücksichtigt.

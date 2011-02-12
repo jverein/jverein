@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2010-02-01 20:59:00  jost
  * Vermeidung Warnings.
  *
@@ -74,8 +77,8 @@ public class ImportDialog extends AbstractDialog
   {
     LabelGroup group = new LabelGroup(parent,
         i18n.tr("Auswahl des Import-Filters"));
-    group.addText(
-        i18n.tr("Bitte wählen Sie das gewünschte Dateiformat für den Import aus"),
+    group.addText(i18n
+        .tr("Bitte wählen Sie das gewünschte Dateiformat für den Import aus"),
         true);
 
     Input formats = getImporterList();
@@ -261,7 +264,7 @@ public class ImportDialog extends AbstractDialog
   /**
    * Hilfsklasse zur Anzeige der Importer.
    */
-  private class Imp implements GenericObject
+  private static class Imp implements GenericObject
   {
 
     private Importer importer = null;
@@ -284,7 +287,7 @@ public class ImportDialog extends AbstractDialog
      */
     public String[] getAttributeNames()
     {
-      return new String[] { "name"};
+      return new String[] { "name" };
     }
 
     /**

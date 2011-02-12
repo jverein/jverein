@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2010-11-13 09:29:39  jost
+ * Warnings entfernt.
+ *
  * Revision 1.10  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -137,7 +140,7 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
 
   public void setNummer(int i) throws RemoteException
   {
-    setAttribute("nummer", new Integer(i));
+    setAttribute("nummer", Integer.valueOf(i));
   }
 
   public int getArt() throws RemoteException

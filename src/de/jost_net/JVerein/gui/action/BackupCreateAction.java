@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2011-02-06 10:33:42  jost
+ * überflüssigen import entfernt.
+ *
  * Revision 1.14  2011-02-06 10:23:32  jost
  * weitere Tabellen aufgenommen.
  *
@@ -58,8 +61,6 @@ package de.jost_net.JVerein.gui.action;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -100,6 +101,7 @@ import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
 import de.jost_net.JVerein.server.ZusatzbetragImpl;
 import de.jost_net.JVerein.server.ZusatzfelderImpl;
+import de.jost_net.JVerein.util.JVDateFormatJJJJMMTT;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -136,18 +138,14 @@ public class BackupCreateAction implements Action
       MailEmpfaenger.class, Mail.class, MailAnhangImpl.class };
 
   /**
-   * Dateformat, welches fuer den Dateinamen genutzt wird.
-   */
-  public static DateFormat DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
-  /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
    */
   public void handleAction(Object context) throws ApplicationException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setFilterPath(System.getProperty("user.home"));
-    fd.setFileName("jverein-backup-" + DATEFORMAT.format(new Date()) + ".xml");
+    fd.setFileName("jverein-backup-"
+        + new JVDateFormatJJJJMMTT().format(new Date()) + ".xml");
     fd.setFilterExtensions(new String[] { "*.xml" });
     fd.setText(JVereinPlugin.getI18n().tr(
         "Bitte wählen Sie die Datei, in der das Backup gespeichert wird"));

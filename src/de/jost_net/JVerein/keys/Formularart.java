@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-08-16 20:17:58  jost
+ * Neu: Mahnung
+ *
  * Revision 1.3  2009/06/11 21:04:03  jost
  * Vorbereitung I18N
  *
@@ -86,6 +89,12 @@ public class Formularart
       return (getKey() == v.getKey());
     }
     return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return formularart;
   }
 
   @Override

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.5  2010-05-02 06:09:32  jost
  * Redakt. Änderung
  *
@@ -38,7 +41,7 @@ import java.util.Date;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
-import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
@@ -57,8 +60,8 @@ public class BuchungsklassesaldoPDF
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      String subtitle = Einstellungen.DATEFORMAT.format(datumvon) + " - "
-          + Einstellungen.DATEFORMAT.format(datumbis);
+      String subtitle = new JVDateFormatTTMMJJJJ().format(datumvon) + " - "
+          + new JVDateFormatTTMMJJJJ().format(datumbis);
       Reporter reporter = new Reporter(fos, monitor, "Buchungsklassen-Saldo",
           subtitle, zeile.size());
       makeHeader(reporter);

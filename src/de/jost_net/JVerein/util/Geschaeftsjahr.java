@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2008-11-16 16:59:30  jost
  * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
  *
@@ -42,8 +45,7 @@ public class Geschaeftsjahr
   public Geschaeftsjahr(int jahr) throws ParseException, RemoteException
   {
     beginnGeschaeftsjahr = Datum.toDate(Einstellungen.getEinstellung()
-        .getBeginnGeschaeftsjahr()
-        + jahr);
+        .getBeginnGeschaeftsjahr() + jahr);
     Calendar cal = Calendar.getInstance();
     cal.setTime(beginnGeschaeftsjahr);
     beginnGeschaeftsjahrjahr = cal.get(Calendar.YEAR);
@@ -62,14 +64,12 @@ public class Geschaeftsjahr
     Calendar cal = Calendar.getInstance();
     cal.setTime(datum);
     beginnGeschaeftsjahr = Datum.toDate(Einstellungen.getEinstellung()
-        .getBeginnGeschaeftsjahr()
-        + cal.get(Calendar.YEAR));
+        .getBeginnGeschaeftsjahr() + cal.get(Calendar.YEAR));
     if (datum.before(beginnGeschaeftsjahr))
     {
       cal.add(Calendar.YEAR, -1);
       beginnGeschaeftsjahr = Datum.toDate(Einstellungen.getEinstellung()
-          .getBeginnGeschaeftsjahr()
-          + cal.get(Calendar.YEAR));
+          .getBeginnGeschaeftsjahr() + cal.get(Calendar.YEAR));
     }
     cal.add(Calendar.YEAR, 1);
     cal.add(Calendar.DAY_OF_MONTH, -1);
@@ -94,7 +94,7 @@ public class Geschaeftsjahr
   @Override
   public String toString()
   {
-    return Einstellungen.DATEFORMAT.format(beginnGeschaeftsjahr) + " - "
-        + Einstellungen.DATEFORMAT.format(endeGeschaeftsjahr);
+    return new JVDateFormatTTMMJJJJ().format(beginnGeschaeftsjahr) + " - "
+        + new JVDateFormatTTMMJJJJ().format(endeGeschaeftsjahr);
   }
 }

@@ -11,6 +11,9 @@ package de.jost_net.JVerein.Calendar;
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-01-31 17:13:04  jost
+ * *** empty log message ***
+ *
  * Revision 1.3  2011-01-30 22:57:33  jost
  * Bugfix
  *
@@ -106,7 +109,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
   /**
    * Hilfsklasse zum Anzeigen und Oeffnen des Appointments.
    */
-  private class MyAppointment implements Appointment
+  private static class MyAppointment implements Appointment
   {
 
     private Mitglied m = null;

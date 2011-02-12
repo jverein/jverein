@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2009-06-11 21:04:24  jost
  * Vorbereitung I18N
  *
@@ -58,7 +61,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
         Kursteilnehmer.class);
     list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vzweck1) LIKE ? OR "
         + "vzweck2 LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?",
-        new String[] { text, text, text, text, text});
+        new String[] { text, text, text, text, text });
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -71,7 +74,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
   /**
    * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
    */
-  private class MyResult implements Result
+  private static class MyResult implements Result
   {
 
     private static final long serialVersionUID = -1685817053590491168L;

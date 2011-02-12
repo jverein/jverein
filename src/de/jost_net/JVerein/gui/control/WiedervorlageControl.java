@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/07/27 15:25:34  jost
+ * Focus auf erstes Feld setzen.
+ *
  * Revision 1.3  2009/06/22 18:14:45  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -27,8 +30,8 @@ import java.util.Date;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -72,7 +75,7 @@ public class WiedervorlageControl extends AbstractControl
 
     Date d = getWiedervorlage().getDatum();
 
-    this.datum = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
     this.datum.setText("Bitte Wiedervorlagedatum wählen");
     this.datum.addListener(new Listener()
@@ -113,7 +116,7 @@ public class WiedervorlageControl extends AbstractControl
 
     Date d = getWiedervorlage().getErledigung();
 
-    this.erledigung = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.erledigung = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.erledigung.setTitle("Erledigung");
     this.erledigung.setText("Bitte Erledigungsdatum wählen");
     this.erledigung.addListener(new Listener()

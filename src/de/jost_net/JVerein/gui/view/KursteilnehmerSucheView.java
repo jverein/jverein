@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-15 09:46:47  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.10  2010-10-15 09:58:23  jost
  * Code aufgeräumt
  *
@@ -76,7 +79,7 @@ public class KursteilnehmerSucheView extends AbstractView
       public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
-        return new Long(rs.getLong(1));
+        return Long.valueOf(rs.getLong(1));
       }
     };
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);

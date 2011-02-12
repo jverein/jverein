@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.39  2011-02-02 22:00:50  jost
+ * Bugfix "externe Mitgliedsnummer"
+ *
  * Revision 1.38  2011-01-30 10:30:37  jost
  * Datum der letzten Änderung wird gespeichert
  *
@@ -142,6 +145,7 @@ import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.IbanBicCalc;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -846,7 +850,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
     try
     {
-      d = Einstellungen.DATEFORMAT.parse(datum);
+      d = new JVDateFormatTTMMJJJJ().parse(datum);
     }
     catch (Exception e)
     {

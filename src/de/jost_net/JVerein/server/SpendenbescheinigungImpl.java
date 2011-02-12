@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-11-13 09:31:24  jost
+ * Warnings entfernt.
+ *
  * Revision 1.5  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -238,7 +241,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   public void setErsatzAufwendungen(Boolean ersatzaufwendungen)
       throws RemoteException
   {
-    setAttribute("ersatzaufwendungen", new Boolean(ersatzaufwendungen));
+    setAttribute("ersatzaufwendungen", Boolean.valueOf(ersatzaufwendungen));
   }
 
   @Override

@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.26  2011-02-03 22:46:12  jost
+ * Sofortige Übernahme der Änderungen
+ *
  * Revision 1.25  2011-01-09 14:28:14  jost
  * Stammdaten in die Einstellungen verschoben.
  *
@@ -119,19 +122,8 @@ public class Einstellungen
 
   private static Settings settings = new Settings(Einstellungen.class);
 
-  /**
-   * Datums-Format dd.MM.yyyy.
-   */
-  public static DateFormat DATEFORMAT = new SimpleDateFormat("dd.MM.yyyy");
-
   public static DateFormat DATETIMEFORMAT = new SimpleDateFormat(
       "dd.MM.yyyy HH:mm:ss");
-
-  /**
-   * Timestamp-Format dd.MM.yyyy HH:mm.
-   */
-  public static DateFormat TIMESTAMPFORMAT = new SimpleDateFormat(
-      "dd.MM.yyyy HH:mm");
 
   /**
    * Our decimal formatter.
@@ -159,7 +151,6 @@ public class Einstellungen
     NODATE.setTime(cal.getTimeInMillis());
     DECIMALFORMAT.setMinimumFractionDigits(2);
     DECIMALFORMAT.setMaximumFractionDigits(2);
-    DATEFORMAT.setLenient(false);
     try
     {
       einstellung = (Einstellung) getDBService().createObject(

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-10-15 09:58:30  jost
+ * Code aufgeräumt
+ *
  * Revision 1.1  2010-02-25 18:58:27  jost
  * neu: Suche nach MailVorlagen
  *
@@ -48,9 +51,10 @@ public class MailVorlageSearchProvider implements SearchProvider
     }
 
     String text = "%" + search.toLowerCase() + "%";
-    DBIterator list = Einstellungen.getDBService().createList(MailVorlage.class);
+    DBIterator list = Einstellungen.getDBService()
+        .createList(MailVorlage.class);
     list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", new String[] {
-        text, text});
+        text, text });
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -63,7 +67,7 @@ public class MailVorlageSearchProvider implements SearchProvider
   /**
    * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
    */
-  private class MyResult implements Result
+  private static class MyResult implements Result
   {
 
     private static final long serialVersionUID = -1685817053590491168L;

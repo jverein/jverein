@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2009-06-11 21:03:24  jost
  * Vorbereitung I18N
  *
@@ -28,6 +31,7 @@ import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.Action;
@@ -75,9 +79,9 @@ public class LehrgaengeList extends TablePart implements Part
             }
           });
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("von/am"), "von",
-          new DateFormatter(Einstellungen.DATEFORMAT));
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",
-          new DateFormatter(Einstellungen.DATEFORMAT));
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Veranstalter"),
           "veranstalter");
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Ergebnis"),

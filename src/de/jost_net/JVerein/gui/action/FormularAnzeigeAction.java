@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-02-05 17:38:30  jost
+ * Bugfix: Korrekte Positionierung des Betragsfeldes.
+ *
  * Revision 1.10  2010-08-10 15:58:14  jost
  * neues Feld Zahlungsgrund
  *
@@ -49,11 +52,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.util.ApplicationException;
 
@@ -112,12 +115,12 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.ZAHLUNGSWEG,
           "Abbuchung von Konto 1234567, BLZ: 10020030");
       map.put(FormularfeldControl.TAGESDATUM,
-          Einstellungen.DATEFORMAT.format(new Date()));
+          new JVDateFormatTTMMJJJJ().format(new Date()));
 
       map.put("Spendedatum", "15.12.2008");
       map.put("Buchungsdatum", new Date());
       map.put("Bescheinigungsdatum", "17.12.2008");
-      map.put("Tagesdatum", Einstellungen.DATEFORMAT.format(new Date()));
+      map.put("Tagesdatum", new JVDateFormatTTMMJJJJ().format(new Date()));
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
 
       FormularAufbereitung fab = new FormularAufbereitung(file);

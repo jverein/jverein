@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:25  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2009-06-11 21:03:24  jost
  * Vorbereitung I18N
  *
@@ -31,6 +34,7 @@ import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.Action;
@@ -79,11 +83,11 @@ public class WiedervorlageList extends TablePart implements Part
             }
           });
       wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-          new DateFormatter(Einstellungen.DATEFORMAT));
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Vermerk"),
           "vermerk");
       wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Erledigung"),
-          "erledigung", new DateFormatter(Einstellungen.DATEFORMAT));
+          "erledigung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
       wiedervorlageList
           .setContextMenu(new WiedervorlageMenu(wiedervorlageList));
       wiedervorlageList.setRememberColWidths(true);
@@ -95,7 +99,7 @@ public class WiedervorlageList extends TablePart implements Part
       wiedervorlageList.removeAll();
       while (wiedervorlagen.hasNext())
       {
-        wiedervorlageList.addItem( wiedervorlagen.next());
+        wiedervorlageList.addItem(wiedervorlagen.next());
       }
     }
     return wiedervorlageList;

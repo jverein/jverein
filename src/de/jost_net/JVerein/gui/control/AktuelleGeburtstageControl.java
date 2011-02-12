@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-01-27 22:18:19  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.3  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -29,6 +32,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -92,7 +96,7 @@ public class AktuelleGeburtstageControl extends AbstractControl
     DBService service = Einstellungen.getDBService();
     DBIterator geburtstage = service.createList(Mitglied.class);
     MitgliedUtils.setMitglied(geburtstage);
-    String filter = "";
+    StringBuilder filter = new StringBuilder();
     Calendar cal = Calendar.getInstance();
     int vorher = 3;
     int nachher = 7;
@@ -101,10 +105,13 @@ public class AktuelleGeburtstageControl extends AbstractControl
     {
       if (filter.length() > 0)
       {
-        filter += " OR ";
+        filter.append(" OR ");
       }
-      filter += "(month(geburtsdatum) = " + (cal.get(Calendar.MONTH) + 1)
-          + " AND day(geburtsdatum) = " + cal.get(Calendar.DAY_OF_MONTH) + ")";
+      filter.append("(month(geburtsdatum) = ");
+      filter.append((cal.get(Calendar.MONTH) + 1));
+      filter.append(" AND day(geburtsdatum) = ");
+      filter.append(cal.get(Calendar.DAY_OF_MONTH));
+      filter.append(")");
       cal.add(Calendar.DAY_OF_MONTH, 1);
     }
 
@@ -112,13 +119,17 @@ public class AktuelleGeburtstageControl extends AbstractControl
     {
       if (filter.length() > 0)
       {
-        filter += " OR ";
+        filter.append(" OR ");
       }
-      filter += "(month(geburtsdatum) = " + (cal.get(Calendar.MONTH) + 1)
-          + " AND day(geburtsdatum) = " + cal.get(Calendar.DAY_OF_MONTH) + ")";
+      filter.append("(month(geburtsdatum) = ");
+      filter.append((cal.get(Calendar.MONTH) + 1));
+      filter.append(" AND day(geburtsdatum) = ");
+      filter.append(cal.get(Calendar.DAY_OF_MONTH));
+      filter.append(")");
+      ;
       cal.add(Calendar.DAY_OF_MONTH, 1);
     }
-    geburtstage.addFilter(filter);
+    geburtstage.addFilter(filter.toString());
     MitgliedUtils.setNurAktive(geburtstage);
     geburtstage.setOrder("ORDER BY month(geburtsdatum), day(geburtsdatum)");
 
@@ -131,7 +142,7 @@ public class AktuelleGeburtstageControl extends AbstractControl
           "vorname");
       aktuelleGeburtstageList.addColumn(
           JVereinPlugin.getI18n().tr("Geburtsdatum"), "geburtsdatum",
-          new DateFormatter(Einstellungen.DATEFORMAT));
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       aktuelleGeburtstageList.setRememberColWidths(true);
       aktuelleGeburtstageList.setRememberOrder(true);
       aktuelleGeburtstageList.setSummary(true);

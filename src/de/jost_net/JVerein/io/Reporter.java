@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.15  2010-09-07 16:59:57  jost
  * Bugfix Images
  *
@@ -85,6 +88,7 @@ import com.lowagie.text.pdf.PdfWriter;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.util.ProgressMonitor;
@@ -145,7 +149,7 @@ public class Reporter
     rpt.addTitle(subtitle);
 
     Chunk fuss = new Chunk(title + " | " + subtitle + " | erstellt am "
-        + Einstellungen.DATEFORMAT.format(new Date()) + "     Seite: ",
+        + new JVDateFormatTTMMJJJJ().format(new Date()) + "     Seite: ",
         FontFactory.getFont(FontFactory.HELVETICA, 8, Font.BOLD));
     HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
     hf.setAlignment(Element.ALIGN_CENTER);
@@ -203,7 +207,7 @@ public class Reporter
   public void addHeaderColumn(String text, int align, int width, Color color)
   {
     headers.add(getDetailCell(text, align, color));
-    widths.add(new Integer(width));
+    widths.add(Integer.valueOf(width));
   }
 
   /**
@@ -329,9 +333,9 @@ public class Reporter
    * Erzeugt den Tabellen-Header.
    * 
    * @param tabellenbreiteinprozent
-   *        Breite der Tabelle in Prozent
+   *          Breite der Tabelle in Prozent
    * @param alignment
-   *        Horizontale Ausrichtung der Tabelle (siehe com.lowagie.Element.)
+   *          Horizontale Ausrichtung der Tabelle (siehe com.lowagie.Element.)
    * @throws DocumentException
    */
   public void createHeader(float tabellenbreiteinprozent, int alignment)
@@ -407,11 +411,11 @@ public class Reporter
    * Erzeugt eine Zelle der Tabelle.
    * 
    * @param text
-   *        der anzuzeigende Text.
+   *          der anzuzeigende Text.
    * @param align
-   *        die Ausrichtung.
+   *          die Ausrichtung.
    * @param backgroundcolor
-   *        die Hintergundfarbe.
+   *          die Hintergundfarbe.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
@@ -439,9 +443,9 @@ public class Reporter
    * Erzeugt eine Zelle der Tabelle.
    * 
    * @param text
-   *        der anzuzeigende Text.
+   *          der anzuzeigende Text.
    * @param align
-   *        die Ausrichtung.
+   *          die Ausrichtung.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(String text, int align)
@@ -453,7 +457,7 @@ public class Reporter
    * Erzeugt eine Zelle fuer die uebergebene Zahl.
    * 
    * @param value
-   *        die Zahl.
+   *          die Zahl.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(double value)
@@ -478,7 +482,7 @@ public class Reporter
    * Erzeugt eine Zelle fuer das uebergebene Datum.
    * 
    * @param value
-   *        das Datum.
+   *          das Datum.
    * @return die erzeugte Zelle.
    */
   private PdfPCell getDetailCell(Date value, int align)
@@ -495,7 +499,7 @@ public class Reporter
    * Gibt einen Leerstring aus, falls der Text null ist.
    * 
    * @param text
-   *        der Text.
+   *          der Text.
    * @return der Text oder Leerstring - niemals null.
    */
   public String notNull(String text)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-10-15 09:58:28  jost
+ * Code aufgeräumt
+ *
  * Revision 1.4  2009-02-08 10:31:50  jost
  * Bugfix Gesamtsumme
  *
@@ -62,6 +65,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -83,8 +87,8 @@ public class BuchungAuswertungPDFEinzelbuchungen
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      String subtitle = "vom " + Einstellungen.DATEFORMAT.format(dVon)
-          + " bis " + Einstellungen.DATEFORMAT.format(dBis);
+      String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(dVon)
+          + " bis " + new JVDateFormatTTMMJJJJ().format(dBis);
       if (konto != null)
       {
         subtitle += " für Konto " + konto.getNummer() + " - "
@@ -188,18 +192,18 @@ public class BuchungAuswertungPDFEinzelbuchungen
 
     reporter.add(pBuchungsart);
     DBIterator listb = Einstellungen.getDBService().createList(Buchung.class);
-    listb.addFilter("datum >= ?", new Object[] { new java.sql.Date(
-        dVon.getTime())});
-    listb.addFilter("datum <= ?", new Object[] { new java.sql.Date(
-        dBis.getTime())});
+    listb.addFilter("datum >= ?",
+        new Object[] { new java.sql.Date(dVon.getTime()) });
+    listb.addFilter("datum <= ?",
+        new Object[] { new java.sql.Date(dBis.getTime()) });
     if (konto != null)
     {
-      listb.addFilter("konto = ?", new Object[] { konto.getID()});
+      listb.addFilter("konto = ?", new Object[] { konto.getID() });
     }
     if (list != null)
     {
       listb.addFilter("buchungsart = ?",
-          new Object[] { new Integer(ba.getID())});
+          new Object[] { new Integer(ba.getID()) });
     }
     else
     {
@@ -213,7 +217,7 @@ public class BuchungAuswertungPDFEinzelbuchungen
     {
       gedruckt = true;
       Buchung b = (Buchung) listb.next();
-      reporter.addColumn(Einstellungen.DATEFORMAT.format(b.getDatum()),
+      reporter.addColumn(new JVDateFormatTTMMJJJJ().format(b.getDatum()),
           Element.ALIGN_LEFT);
       if (b.getAuszugsnummer() != null)
       {

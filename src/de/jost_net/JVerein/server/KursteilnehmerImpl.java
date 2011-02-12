@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2010-11-13 09:30:50  jost
+ * Warnings entfernt.
+ *
  * Revision 1.6  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -36,6 +39,7 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -271,7 +275,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
 
     try
     {
-      d = Einstellungen.DATEFORMAT.parse(datum);
+      d = new JVDateFormatTTMMJJJJ().parse(datum);
     }
     catch (Exception e)
     {

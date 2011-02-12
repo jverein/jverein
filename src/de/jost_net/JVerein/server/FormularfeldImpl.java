@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-11-13 09:30:16  jost
+ * Warnings entfernt.
+ *
  * Revision 1.4  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -164,7 +167,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     Integer ret = (Integer) getAttribute("fontsize");
     if (ret == null)
     {
-      ret = new Integer(10);
+      ret = Integer.valueOf(10);
     }
     return ret;
   }
@@ -179,7 +182,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     Integer ret = (Integer) getAttribute("fontstyle");
     if (ret == null)
     {
-      ret = new Integer(SWT.NORMAL);
+      ret = Integer.valueOf(SWT.NORMAL);
     }
     return ret;
   }

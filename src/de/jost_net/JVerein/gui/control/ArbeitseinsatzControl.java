@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.6  2010-12-04 18:33:38  jost
  * aktuelles Datum wird per default vorgegeben.
  *
@@ -61,6 +64,7 @@ import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -132,7 +136,7 @@ public class ArbeitseinsatzControl extends AbstractControl
     {
       d = new Date();
     }
-    this.datum = new DateInput(d, Einstellungen.DATEFORMAT);
+    this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
     this.datum.setText("Datum Arbeitseinsatz wählen");
     this.datum.addListener(new Listener()

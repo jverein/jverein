@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.2  2010-09-13 18:41:49  jost
  * Anfangsbestände beim Jahresabschluss setzen und bei der Löschung auch löschen.
  *
@@ -37,6 +40,7 @@ import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -218,8 +222,8 @@ public class JahresabschlussControl extends AbstractControl
           if (ktonr.length() > 0)
           {
             Double endbestand = (Double) z.getAttribute("endbestand");
-            Anfangsbestand anf = (Anfangsbestand) Einstellungen.getDBService().createObject(
-                Anfangsbestand.class, null);
+            Anfangsbestand anf = (Anfangsbestand) Einstellungen.getDBService()
+                .createObject(Anfangsbestand.class, null);
             Konto konto = (Konto) z.getAttribute("konto");
             anf.setBetrag(endbestand);
             anf.setDatum(Datum.addTage(ja.getBis(), 1));
@@ -257,11 +261,11 @@ public class JahresabschlussControl extends AbstractControl
 
     jahresabschlussList = new TablePart(jahresabschluesse, null);
     jahresabschlussList.addColumn("von", "von", new DateFormatter(
-        Einstellungen.DATEFORMAT));
+        new JVDateFormatTTMMJJJJ()));
     jahresabschlussList.addColumn("bis", "bis", new DateFormatter(
-        Einstellungen.DATEFORMAT));
+        new JVDateFormatTTMMJJJJ()));
     jahresabschlussList.addColumn("Datum", "datum", new DateFormatter(
-        Einstellungen.DATEFORMAT));
+        new JVDateFormatTTMMJJJJ()));
     jahresabschlussList.addColumn("Name", "name");
     jahresabschlussList.setRememberColWidths(true);
     jahresabschlussList.setContextMenu(new JahresabschlussMenu());

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:29  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2010-02-15 17:23:36  jost
  * Mail-Anhang implementiert
  *
@@ -102,7 +105,8 @@ public class MailSender
     props.put("mail.smtp.port", smtp_port);
     if (smtp_ssl)
     {
-      java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+      java.security.Security
+          .addProvider(new com.sun.net.ssl.internal.ssl.Provider());
       props.setProperty("mail.smtp.socketFactory.class",
           "javax.net.ssl.SSLSocketFactory");
       props.setProperty("mail.smtp.socketFactory.fallback", "false");
@@ -185,7 +189,7 @@ public class MailSender
     }
   }
 
-  private class ByteArrayDataSource implements DataSource
+  private static class ByteArrayDataSource implements DataSource
   {
 
     private MailAnhang ma;

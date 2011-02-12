@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2010-11-25 19:34:04  jost
+ * Bugfix bei Zusatzbeträgen ohne Intervall
+ *
  * Revision 1.5  2010-11-13 09:31:24  jost
  * Warnings entfernt.
  *
@@ -170,7 +173,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 
   public void setMitglied(int mitglied) throws RemoteException
   {
-    setAttribute("mitglied", new Integer(mitglied));
+    setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
   public Date getFaelligkeit() throws RemoteException
@@ -287,7 +290,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
           return false;
         }
       }
-      else 
+      else
       {
         // ja: nicht mehr ausführen
         return false;

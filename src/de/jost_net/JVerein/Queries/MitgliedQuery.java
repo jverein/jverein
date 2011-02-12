@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2011-02-02 22:00:26  jost
+ * Auswertung erweitert um den Parameter "ohne EMail"
+ *
  * Revision 1.22  2011-01-27 22:23:51  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -154,22 +157,23 @@ public class MitgliedQuery
     eigenschaften = control.getEigenschaftenString();
     if (eigenschaften != null && eigenschaften.length() > 0)
     {
-      String condEigenschaft = "(select count(*) from eigenschaften where ";
+      StringBuilder condEigenschaft = new StringBuilder(
+          "(select count(*) from eigenschaften where ");
       StringTokenizer st = new StringTokenizer(eigenschaften, ",");
-      condEigenschaft += "eigenschaften.mitglied = mitglied.id AND (";
+      condEigenschaft.append("eigenschaften.mitglied = mitglied.id AND (");
       boolean first = true;
       while (st.hasMoreTokens())
       {
         if (!first)
         {
-          condEigenschaft += "OR ";
+          condEigenschaft.append("OR ");
         }
         st.nextToken();
         first = false;
-        condEigenschaft += "eigenschaft = ? ";
+        condEigenschaft.append("eigenschaft = ? ");
       }
-      condEigenschaft += ")) > 0 ";
-      addCondition(condEigenschaft);
+      condEigenschaft.append(")) > 0 ");
+      addCondition(condEigenschaft.toString());
     }
 
     if (!anfangsbuchstabe.equals("*"))

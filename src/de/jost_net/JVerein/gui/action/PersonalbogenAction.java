@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-30 10:42:19  jost
+ * Bugfix f. Adressen
+ *
  * Revision 1.10  2010-11-27 17:56:10  jost
  * Warnung entfernt.
  *
@@ -77,6 +80,7 @@ import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.Action;
@@ -341,7 +345,7 @@ public class PersonalbogenAction implements Action
       String akdatum = "";
       if (m.getAustritt() != null)
       {
-        akdatum += Einstellungen.DATEFORMAT.format(m.getAustritt());
+        akdatum += new JVDateFormatTTMMJJJJ().format(m.getAustritt());
       }
       if (m.getKuendigung() != null)
       {
@@ -349,7 +353,7 @@ public class PersonalbogenAction implements Action
         {
           akdatum += " / ";
         }
-        akdatum += Einstellungen.DATEFORMAT.format(m.getKuendigung());
+        akdatum += new JVDateFormatTTMMJJJJ().format(m.getKuendigung());
       }
       rpt.addColumn(akdatum, Element.ALIGN_LEFT);
     }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-11-13 09:29:39  jost
+ * Warnings entfernt.
+ *
  * Revision 1.2  2010-10-15 09:58:27  jost
  * Code aufgeräumt
  *
@@ -85,7 +88,7 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     insertCheck();
   }
 
-   @Override
+  @Override
   protected Class<?> getForeignObject(String arg0)
   {
     return null;
@@ -111,7 +114,7 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
 
   public void setNummer(int i) throws RemoteException
   {
-    setAttribute("nummer", new Integer(i));
+    setAttribute("nummer", Integer.valueOf(i));
   }
 
   @Override

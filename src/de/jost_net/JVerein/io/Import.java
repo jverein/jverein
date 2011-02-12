@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2011-01-27 22:23:27  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.41  2010-11-24 21:57:00  jost
  * Mitglieds_nr reaktiviert.
  *
@@ -169,6 +172,7 @@ import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -467,7 +471,7 @@ public class Import
               {
                 try
                 {
-                  zf.setFeldDatum(Einstellungen.DATEFORMAT.parse(inhalt));
+                  zf.setFeldDatum(new JVDateFormatTTMMJJJJ().parse(inhalt));
                 }
                 catch (ParseException e)
                 {

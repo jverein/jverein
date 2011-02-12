@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2010-12-27 13:58:44  jost
+ * Splitid
+ *
  * Revision 1.15  2010-11-13 09:29:39  jost
  * Warnings entfernt.
  *
@@ -65,6 +68,7 @@ import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -131,8 +135,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       throw new ApplicationException(
           JVereinPlugin
               .getI18n()
-              .tr(
-                  "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!"));
+              .tr("Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!"));
     }
   }
 
@@ -374,7 +377,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
     try
     {
-      d = Einstellungen.DATEFORMAT.parse(datum);
+      d = new JVDateFormatTTMMJJJJ().parse(datum);
     }
     catch (Exception e)
     {
