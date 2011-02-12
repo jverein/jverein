@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-01-09 14:31:00  jost
+ * Stammdaten in die Einstellungen verschoben.
+ *
  * Revision 1.9  2009/06/11 21:03:52  jost
  * Vorbereitung I18N
  *
@@ -72,6 +75,8 @@ public class AbbuchungParam
 
   public final Boolean kursteilnehmer;
 
+  public final Boolean kompakteabbuchung;
+
   public final Boolean dtausprint;
 
   public final File dtausfile;
@@ -94,6 +99,7 @@ public class AbbuchungParam
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();
     zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();
     kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
+    kompakteabbuchung = (Boolean) ac.getKompakteAbbuchung().getValue();
     dtausprint = (Boolean) ac.getDtausPrint().getValue();
     this.pdffile = pdffile;
     this.dtausfile = dtausfile;
