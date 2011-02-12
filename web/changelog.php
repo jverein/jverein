@@ -31,6 +31,7 @@
     			<li>Mailversand: Unterschiedliche Mitglieder können mit gleicher Adresse angeschrieben werden.</li>
 					<li>Neu: PDF-Liste der Buchungsarten</li>
 					<li>Bugfix: Änderungen an den Einstellungen werden sofort wirksam.</li>
+					<li>Bugfix: Bei den Spendenbescheinigungen wird der Betrag wie in der Vorschau positioniert.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -554,6 +555,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.106  2011-02-03 22:48:34  jost
+    *** empty log message ***
+
     Revision 1.105  2011-01-31 21:01:04  jost
     *** empty log message ***
 
