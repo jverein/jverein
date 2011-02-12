@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2007/05/07 19:23:41  jost
  * Neu: Wiedervorlage
  *
@@ -52,6 +55,11 @@ public class WiedervorlageAction implements Action
             Wiedervorlage.class, null);
         if (m != null)
         {
+          if (m.getID() == null)
+          {
+            throw new ApplicationException(
+                "Neues Mitglied bitte erst speichern. Dann können Wiedervorlagen aufgenommen werden.");
+          }
           w.setMitglied(new Integer(m.getID()).intValue());
         }
       }

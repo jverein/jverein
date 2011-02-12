@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2009/04/13 11:38:01  jost
  * Neu: Lehrgänge
  *
@@ -52,6 +55,12 @@ public class LehrgangAction implements Action
             Lehrgang.class, null);
         if (m != null)
         {
+          if (m.getID() == null)
+          {
+            throw new ApplicationException(
+                "Neues Mitglied bitte erst speichern. Dann können Lehrgänge aufgenommen werden.");
+          }
+
           l.setMitglied(new Integer(m.getID()).intValue());
         }
       }

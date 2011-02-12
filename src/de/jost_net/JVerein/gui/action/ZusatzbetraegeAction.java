@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/12/22 21:06:50  jost
  * Zusatzabbuchung->Zusatzbetrag
  *
@@ -59,6 +62,12 @@ public class ZusatzbetraegeAction implements Action
       {
         z = (Zusatzbetrag) Einstellungen.getDBService().createObject(
             Zusatzbetrag.class, null);
+        if (m.getID() == null)
+        {
+          throw new ApplicationException(
+              "Neues Mitglied bitte erst speichern. Dann können Zusatzbeträge aufgenommen werden.");
+        }
+
         if (m != null)
         {
           z.setMitglied(new Integer(m.getID()).intValue());

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-17 04:48:29  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -49,6 +52,12 @@ public class ArbeitseinsatzAction implements Action
             Arbeitseinsatz.class, null);
         if (m != null)
         {
+          if (m.getID() == null)
+          {
+            throw new ApplicationException(
+                "Neues Mitglied bitte erst speichern. Dann können Arbeitseinsätze aufgenommen werden.");
+          }
+
           aeins.setMitglied(new Integer(m.getID()).intValue());
         }
       }
