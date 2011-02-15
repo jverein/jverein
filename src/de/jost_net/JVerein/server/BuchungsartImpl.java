@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-02-12 09:42:33  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.11  2010-11-13 09:29:39  jost
  * Warnings entfernt.
  *
@@ -47,6 +50,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
+import de.jost_net.JVerein.server.Cache;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -173,9 +177,15 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     setAttribute("buchungsklasse", buchungsklasse);
   }
 
-  @Override
-  public Object getAttribute(String fieldName) throws RemoteException
+  public void delete() throws RemoteException, ApplicationException
   {
-    return super.getAttribute(fieldName);
+    super.delete();
+    Cache.get(Buchungsart.class, false).remove(this); // Aus Cache loeschen
+  }
+  
+  public void store() throws RemoteException, ApplicationException
+  {
+    super.store();
+    Cache.get(Buchungsart.class, false).put(this); // Cache aktualisieren
   }
 }

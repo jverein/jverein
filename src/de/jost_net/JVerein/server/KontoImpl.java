@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-12-30 18:55:52  jost
+ * Colins Patch zur MySQL-Performance-Steigerung
+ *
  * Revision 1.9  2010-11-13 09:30:50  jost
  * Warnings entfernt.
  *
@@ -190,12 +193,6 @@ public class KontoImpl extends AbstractDBObject implements Konto
     setAttribute("hibiscusid", id);
   }
 
-  @Override
-  public Object getAttribute(String fieldName) throws RemoteException
-  {
-    return super.getAttribute(fieldName);
-  }
-
   public DBIterator getKontenEinesJahres(Geschaeftsjahr gj)
       throws RemoteException
   {
@@ -208,6 +205,7 @@ public class KontoImpl extends AbstractDBObject implements Konto
     konten.setOrder("order by bezeichnung");
     return konten;
   }
+  
   public void delete() throws RemoteException, ApplicationException
   {
     super.delete();
@@ -219,5 +217,4 @@ public class KontoImpl extends AbstractDBObject implements Konto
     super.store();
     Cache.get(Konto.class, false).put(this); // Cache aktualisieren
   }
-
 }
