@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta name="description" content="JVerein">
-    <meta name="keywords" content="Vereinsverwaltung, Mitgliederverwaltung, JVerein, Verein, Open Source, OpenSource, GPL, portable, Buchführung, Jameica, Hibiscus, Java, Linux, Windows, MacOS, MySQL, H2, Mail">
+    <meta name="keywords" content="Vereinsverwaltung, Mitgliederverwaltung, JVerein, Verein, Open Source, OpenSource, GPL, portable, Buchführung, Jameica, Hibiscus, Java, Linux, Windows, MacOS, MySQL, H2, Mail, verwalten">
     <meta name="robots" content="index, follow">
     <meta http-equiv="expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
     <link rel="SHORTCUT ICON" href="images/favicon.ico" type="image/x-icon">
@@ -45,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.8  2010-08-04 10:41:49  jost
+    neu: FAQ
+
     Revision 1.7  2010/03/06 13:04:06  jost
     *** empty log message ***
 
