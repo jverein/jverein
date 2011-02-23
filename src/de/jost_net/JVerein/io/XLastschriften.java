@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-02-12 09:40:32  jost
+ * Vorbereitung kompakte Abbuchung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -72,11 +75,16 @@ public class XLastschriften
     for (String key : comp.keySet())
     {
       ArrayList<XLastschrift> lastliste = comp.get(key);
+      int anzvzw = 0;
+      for (XLastschrift last:lastliste)
+      {
+        anzvzw+=last.getAnzahlVerwendungszwecke();
+      }
       if (lastliste.size() == 1)
       {
         lastschriften.add(lastliste.get(0));
       }
-      else if (lastliste.size() > 15)
+      else if (anzvzw > 15)
       {
         for (XLastschrift l : lastliste)
         {

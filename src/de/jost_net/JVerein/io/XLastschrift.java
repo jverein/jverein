@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-02-12 09:40:32  jost
+ * Vorbereitung kompakte Abbuchung
+ *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -25,7 +28,7 @@ public class XLastschrift
 
   private int blz;
 
-  private int konto;
+  private long konto;
 
   public final static DecimalFormat DECIMALFORMAT = new DecimalFormat(
       "###,##0.00");
@@ -42,6 +45,11 @@ public class XLastschrift
   public String getZahlungspflichtigen(int pos)
   {
     return this.zahlungspflichtiger.get(pos);
+  }
+
+  public int getAnzahlZahlungspflichtige()
+  {
+    return this.zahlungspflichtiger.size();
   }
 
   public void addVerwendungszweck(String verwendungszweck)
@@ -98,12 +106,12 @@ public class XLastschrift
     return this.blz;
   }
 
-  public void setKonto(int konto)
+  public void setKonto(long konto)
   {
     this.konto = konto;
   }
 
-  public int getKonto()
+  public long getKonto()
   {
     return this.konto;
   }
@@ -116,7 +124,10 @@ public class XLastschrift
   public void add(XLastschrift ls)
   {
     betrag = betrag + ls.getBetrag();
-    addVerwendungszweck(ls.getVerwendungszweck(0));
+    for (int i = 0; i < ls.getAnzahlVerwendungszwecke(); i++)
+    {
+      addVerwendungszweck(ls.getVerwendungszweck(i));
+    }
   }
 
   public String toString()
