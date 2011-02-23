@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2011-02-12 09:36:03  jost
+ * Stammdaten -> Einstellungen
+ *
  * Revision 1.27  2011-01-15 09:46:49  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -129,6 +132,7 @@ public class AbbuchungView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Parameter"));
+    group.addLabelPair("Test neue Abbuchung", control.getNeueAbbuchung());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Modus"),
         control.getAbbuchungsmodus());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"),
