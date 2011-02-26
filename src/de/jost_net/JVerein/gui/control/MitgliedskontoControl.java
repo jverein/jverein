@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2011-02-12 09:32:16  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.21  2011-02-02 21:59:41  jost
  * Status von "Differenz" wird gespeichert.
  *
@@ -363,10 +366,10 @@ public class MitgliedskontoControl extends AbstractControl
 
   public SelectInput getDifferenz(String defaultvalue)
   {
-    if (differenz != null)
-    {
-      return differenz;
-    }
+    // if (differenz != null)
+    // {
+    // return differenz;
+    // }
     differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
         "Überzahlung" }, defaultvalue);
     differenz.setName("Differenz");
@@ -376,19 +379,15 @@ public class MitgliedskontoControl extends AbstractControl
 
   public TextInput getSuchName()
   {
-    if (suchname != null)
-    {
-      return suchname;
-    }
     suchname = new TextInput("", 30);
     suchname.setName("Name");
     suchname.addListener(new FilterListener());
     return suchname;
   }
 
-  public TextInput getSuchName2()
+  public TextInput getSuchName2(boolean newcontrol)
   {
-    if (suchname2 != null)
+    if (!newcontrol && suchname2 != null)
     {
       return suchname2;
     }
@@ -518,14 +517,22 @@ public class MitgliedskontoControl extends AbstractControl
       ArrayList<String> object = new ArrayList<String>();
       StringTokenizer tok = new StringTokenizer((String) suchname2.getValue(),
           " ,-");
+      where.append("(");
+      boolean first = true;
       while (tok.hasMoreElements())
       {
+        if (!first)
+        {
+          where.append("or ");
+        }
+        first = false;
         where
             .append("upper(name) like upper(?) or upper(vorname) like upper(?) ");
         String o = tok.nextToken();
         object.add(o);
         object.add(o);
       }
+      where.append(")");
       mitglieder.addFilter(where.toString(), object.toArray());
     }
     mitglieder.setOrder("order by name, vorname");

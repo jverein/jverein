@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.35  2011-02-12 09:29:22  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.34  2011-01-30 10:12:40  jost
  * Textsuche implementiert
  *
@@ -390,11 +393,11 @@ public class BuchungsControl extends AbstractControl
 
   public DialogInput getMitgliedskonto() throws RemoteException
   {
-    if (mitgliedskonto != null)
-    {
-      return mitgliedskonto;
-    }
-    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
+    // if (mitgliedskonto != null)
+    // {
+    // return mitgliedskonto;
+    // }
+    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung(), this)
         .getMitgliedskontoAuswahl();
     return mitgliedskonto;
   }
@@ -513,8 +516,8 @@ public class BuchungsControl extends AbstractControl
     Date d = null;
     try
     {
-      d = new JVDateFormatTTMMJJJJ()
-          .parse(settings.getString("vondatum", "01.01.2006"));
+      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("vondatum",
+          "01.01.2006"));
     }
     catch (ParseException e)
     {
@@ -533,7 +536,8 @@ public class BuchungsControl extends AbstractControl
         {
           return;
         }
-        settings.setAttribute("vondatum", new JVDateFormatTTMMJJJJ().format(date));
+        settings.setAttribute("vondatum",
+            new JVDateFormatTTMMJJJJ().format(date));
       }
     });
     return vondatum;
@@ -548,8 +552,8 @@ public class BuchungsControl extends AbstractControl
     Date d = null;
     try
     {
-      d = new JVDateFormatTTMMJJJJ()
-          .parse(settings.getString("bisdatum", "31.12.2006"));
+      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("bisdatum",
+          "31.12.2006"));
     }
     catch (ParseException e)
     {
@@ -568,7 +572,8 @@ public class BuchungsControl extends AbstractControl
         {
           return;
         }
-        settings.setAttribute("bisdatum", new JVDateFormatTTMMJJJJ().format(date));
+        settings.setAttribute("bisdatum",
+            new JVDateFormatTTMMJJJJ().format(date));
       }
     });
     return bisdatum;

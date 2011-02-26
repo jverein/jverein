@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-02-12 09:34:09  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.4  2011-01-08 10:45:40  jost
  * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
  *
@@ -31,6 +34,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -47,14 +51,17 @@ public class MitgliedskontoauswahlInput
 
   private Buchung buchung = null;
 
+  private BuchungsControl buchungscontrol = null;
+
   private Mitgliedskonto konto = null;
 
   private Mitglied mitglied = null;
 
-  public MitgliedskontoauswahlInput(Buchung buchung) throws RemoteException
+  public MitgliedskontoauswahlInput(Buchung buchung,
+      BuchungsControl buchungscontrol) throws RemoteException
   {
     this.buchung = buchung;
-    System.out.println(buchung.getName());
+    this.buchungscontrol = buchungscontrol;
     this.konto = buchung.getMitgliedskonto();
   }
 
@@ -71,14 +78,15 @@ public class MitgliedskontoauswahlInput
       return mitgliedskontoAuswahl;
     }
     MitgliedskontoAuswahlDialog d = new MitgliedskontoAuswahlDialog(
-        MitgliedskontoAuswahlDialog.POSITION_MOUSE, buchung);
+        MitgliedskontoAuswahlDialog.POSITION_MOUSE, buchungscontrol);
     d.addCloseListener(new MitgliedskontoListener());
 
     mitgliedskontoAuswahl = new DialogInput(konto != null ? konto.getMitglied()
         .getNameVorname()
         + ", "
         + new JVDateFormatTTMMJJJJ().format(konto.getDatum())
-        + ", " + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
+        + ", "
+        + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
     mitgliedskontoAuswahl.disableClientControl();
     mitgliedskontoAuswahl.setValue(buchung.getMitgliedskonto());
     return mitgliedskontoAuswahl;

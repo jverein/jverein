@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2011-01-08 10:45:18  jost
+ * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
+ *
  * Revision 1.5  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -35,9 +38,9 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
@@ -66,9 +69,9 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
 
   private TablePart mitgliedlist = null;
 
-  private Buchung buchung;
+  private BuchungsControl buchung;
 
-  public MitgliedskontoAuswahlDialog(int position, Buchung buchung)
+  public MitgliedskontoAuswahlDialog(int position, BuchungsControl buchung)
   {
     super(position, true);
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
@@ -124,8 +127,8 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
           "Bitte wählen Sie das gewünschte Mitgliedskonto aus.");
     }
     group2.addText(text, true);
-    control.getSuchName2().setValue(buchung.getName());
-    group2.addInput(control.getSuchName2());
+    control.getSuchName2(true).setValue(buchung.getName().getValue());
+    group2.addInput(control.getSuchName2(false));
 
     Action action2 = new Action()
     {
@@ -136,7 +139,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
         {
           return;
         }
-        choosen =  context;
+        choosen = context;
         close();
       }
     };
