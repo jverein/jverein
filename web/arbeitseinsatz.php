@@ -4,6 +4,8 @@
 	
 	<h2>Aktivierung</h2>
 	<p>Zunächst sind die Arbeitseinsätze zu aktivieren. Das geschieht unter Administration&gt;Einstellungen&gt;Anzeige</p>
+	<p>In den betroffenen Beitragsgruppen wird die Anzahl der Pflichtstunden und der Betrag für nicht erbrachte Stunden 
+			hinterlegt.</p>
     <p>Anschließend muss JVerein neu gestartet werden.</p> 
     
     <h2>Arbeitseinsätze buchen</h2>
@@ -21,6 +23,9 @@
     
     <!-- 
     $Log$
+    Revision 1.2  2010-11-27 17:58:26  jost
+    *** empty log message ***
+
     Revision 1.1  2010-11-22 21:28:50  jost
     *** empty log message ***
 
