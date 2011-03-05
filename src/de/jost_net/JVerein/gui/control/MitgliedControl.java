@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.107  2011-02-12 09:31:51  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.106  2011-02-03 22:01:51  jost
  * Bugfix Kontextmenu
  *
@@ -2505,7 +2508,12 @@ public class MitgliedControl extends AbstractControl
       {
         try
         {
-          m.setBeitragsgruppe(new Integer(o.getID()));
+          Beitragsgruppe bg = (Beitragsgruppe)o;
+          m.setBeitragsgruppe(new Integer(bg.getID()));
+          if (bg.getBeitragsArt()!=ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+          {
+            m.setZahlerID(null);
+          }
         }
         catch (NullPointerException e)
         {
