@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2011-02-12 09:40:16  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.16  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -250,6 +253,14 @@ public class Reporter
   public void addColumn(String text, int align, Color backgroundcolor)
   {
     addColumn(getDetailCell(text, align, backgroundcolor));
+  }
+
+  /**
+   * Fuegt eine neue Zelle mit einem boolean-Value zur Tabelle hinzu
+   */
+  public void addColumn(boolean value)
+  {
+    addColumn(value ? "X" : "", Element.ALIGN_CENTER, Color.WHITE);
   }
 
   /**
