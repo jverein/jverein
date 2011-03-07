@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.7  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -36,6 +39,7 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
+import de.jost_net.JVerein.gui.action.*;
 import de.jost_net.JVerein.gui.control.SpendenbescheinigungControl;
 import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
@@ -48,19 +52,23 @@ public class SpendenbescheinigungListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigungen"));
+    GUI.getView()
+        .setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigungen"));
 
     SpendenbescheinigungControl control = new SpendenbescheinigungControl(this);
 
     control.getSpendenbescheinigungList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
         false, "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu (manuell)"),
         new SpendenbescheinigungAction(), null, false, "document-new.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu (automatisch)"),
+        new SpendenbescheinigungAutoNeuAction(), null, false,
+        "document-new.png");
   }
 
   @Override

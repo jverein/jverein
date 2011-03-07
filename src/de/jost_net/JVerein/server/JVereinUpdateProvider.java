@@ -634,6 +634,35 @@ public class JVereinUpdateProvider
     {
       update0164(conn);
     }
+    if (cv < 165)
+    {
+      update0165(conn);
+    }
+    if (cv < 166)
+    {
+      update0166(conn);
+    }
+    if (cv < 167)
+    {
+      update0167(conn);
+    }
+    if (cv < 168)
+    {
+      update0168(conn);
+    }
+    if (cv < 169)
+    {
+      update0169(conn);
+    }
+    if (cv < 170)
+    {
+      update0170(conn);
+    }
+    if (cv < 171)
+    {
+      update0171(conn);
+    }
+
   }
 
   public Connection getConnection()
@@ -4008,6 +4037,93 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle stammdaten gelöscht", 164);
+  }
+
+  private void update0165(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "alter table buchungsart add spende char(5) ;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte spende zur Tabelle buchungsart hinzugefügt", 165);
+  }
+
+  private void update0166(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "alter table buchung add spendenbescheinigung integer ;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte spendenbescheinigung zur Tabelle buchung hinzugefügt", 166);
+  }
+
+  private void update0167(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "CREATE INDEX ixBuchung1 ON buchung(spendenbescheinigung);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    execute(conn, statements, "Index für Tabelle abrechnung erstellt", 167);
+  }
+
+  private void update0168(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "ALTER TABLE buchung ADD CONSTRAINT fkBuchung5 FOREIGN KEY (spendenbescheinigung) REFERENCES spendenbescheinigung (id);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Foreign Key für Tabelle buchung angelegt ", 168);
+  }
+
+  private void update0169(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "alter table spendenbescheinigung add mitglied integer ;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte mitglied zur Tabelle spendenbescheinigung hinzugefügt", 169);
+  }
+
+  private void update0170(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "CREATE INDEX ixSpendenbescheinigung2 ON spendenbescheinigung(mitglied);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    execute(conn, statements,
+        "Index für Tabelle spendenbescheinigung erstellt", 170);
+  }
+
+  private void update0171(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Foreign Key für Tabelle spendenbescheinigung angelegt ", 171);
   }
 
 }
