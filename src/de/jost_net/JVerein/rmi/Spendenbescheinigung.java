@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/01/26 18:48:21  jost
+ * Neu: Ersatz Aufwendungen
+ *
  * Revision 1.1  2008/07/18 20:17:09  jost
  * Neu: Spendenbescheinigung
  *
@@ -70,4 +73,13 @@ public interface Spendenbescheinigung extends DBObject
 
   public void setErsatzAufwendungen(Boolean ersatzaufwendungen)
       throws RemoteException;
+
+  public Mitglied getMitglied() throws RemoteException;
+
+  public int getMitgliedID() throws RemoteException;
+
+  public void setMitglied(Mitglied mitglied) throws RemoteException;
+
+  public void setMitgliedID(Integer mitglied) throws RemoteException;
+
 }

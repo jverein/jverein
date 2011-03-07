@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-02-12 09:43:37  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.6  2010-11-13 09:31:24  jost
  * Warnings entfernt.
  *
@@ -35,6 +38,7 @@ import java.util.Date;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -115,6 +119,11 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     {
       return Formular.class;
     }
+    if ("mitglied".equals(field))
+    {
+      return Mitglied.class;
+    }
+
     return null;
   }
 
@@ -249,4 +258,32 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   {
     return super.getAttribute(fieldName);
   }
+
+  public Mitglied getMitglied() throws RemoteException
+  {
+    return (Mitglied) getAttribute("mitglied");
+  }
+
+  public int getMitgliedID() throws RemoteException
+  {
+    return Integer.parseInt(getMitglied().getID());
+  }
+
+  public void setMitgliedID(Integer mitgliedID) throws RemoteException
+  {
+    setAttribute("mitglied", mitgliedID);
+  }
+
+  public void setMitglied(Mitglied mitglied) throws RemoteException
+  {
+    if (mitglied != null)
+    {
+      setAttribute("mitglied", new Integer(mitglied.getID()));
+    }
+    else
+    {
+      setAttribute("mitglied", null);
+    }
+  }
+
 }
