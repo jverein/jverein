@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.14  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -80,6 +83,9 @@ public class BuchungsartView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getArt());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsklasse"),
         control.getBuchungsklasse());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Spende"),
+        control.getSpende());
+    // TODO Jo Dokumentation nachpflegen
 
     ButtonArea buttons = new ButtonArea(getParent(), 3);
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/09/10 18:19:20  jost
+ * neu: Buchungsklassen
+ *
  * Revision 1.5  2008/05/22 06:55:25  jost
  * Buchführung
  *
@@ -47,5 +50,9 @@ public interface Buchungsart extends DBObject
   public int getBuchungsklasseId() throws RemoteException;
 
   public void setBuchungsklasse(Integer buchungsklasse) throws RemoteException;
+
+  public boolean getSpende() throws RemoteException;
+
+  public void setSpende(Boolean spende) throws RemoteException;
 
 }
