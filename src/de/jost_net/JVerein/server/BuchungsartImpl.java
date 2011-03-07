@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-02-15 20:55:45  jost
+ * Colins Patch zur Performancesteigerung
+ *
  * Revision 1.12  2011-02-12 09:42:33  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -177,12 +180,22 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     setAttribute("buchungsklasse", buchungsklasse);
   }
 
+  public boolean getSpende() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("spende"));
+  }
+
+  public void setSpende(Boolean spende) throws RemoteException
+  {
+    setAttribute("spende", Boolean.valueOf(spende));
+  }
+
   public void delete() throws RemoteException, ApplicationException
   {
     super.delete();
     Cache.get(Buchungsart.class, false).remove(this); // Aus Cache loeschen
   }
-  
+
   public void store() throws RemoteException, ApplicationException
   {
     super.store();

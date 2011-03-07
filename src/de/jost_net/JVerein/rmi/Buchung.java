@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2010-12-27 13:58:24  jost
+ * Splitid
+ *
  * Revision 1.9  2010-07-25 18:45:51  jost
  * Neu: Mitgliedskonto
  *
@@ -119,4 +122,8 @@ public interface Buchung extends DBObject
 
   public void setSplitId(Integer splitid) throws RemoteException;
 
+  public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException;
+
+  public void setSpendenbescheinigungId(Integer spendenbescheinigung)
+      throws RemoteException;
 }

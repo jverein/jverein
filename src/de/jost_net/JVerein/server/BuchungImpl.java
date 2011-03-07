@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-02-15 20:55:45  jost
+ * Colins Patch zur Performancesteigerung
+ *
  * Revision 1.17  2011-02-12 09:42:33  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -71,6 +74,7 @@ import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -158,6 +162,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     else if ("abrechnungslauf".equals(field))
     {
       return Abrechnungslauf.class;
+    }
+    else if ("spendenbescheinigung".equals(field))
+    {
+      return Spendenbescheinigung.class;
     }
     return null;
   }
@@ -291,7 +299,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     Integer i = (Integer) super.getAttribute("buchungsart");
     if (i == null)
       return null; // Keine Buchungsart zugeordnet
-   
+
     Cache cache = Cache.get(Buchungsart.class, true);
     return (Buchungsart) cache.get(i);
   }
@@ -357,6 +365,22 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
   }
 
+  public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException
+  {
+    Integer i = (Integer) super.getAttribute("spendenbescheinigung");
+    if (i == null)
+      return null; // Keine Spendenbescheinigung zugeordnet
+
+    Cache cache = Cache.get(Spendenbescheinigung.class, true);
+    return (Spendenbescheinigung) cache.get(i);
+  }
+
+  public void setSpendenbescheinigungId(Integer spendenbescheinigung)
+      throws RemoteException
+  {
+    setAttribute("spendenbescheinigung", spendenbescheinigung);
+  }
+
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
@@ -375,10 +399,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
     if ("buchungsart".equals(fieldName))
       return getBuchungsart();
-   
+
     if ("konto".equals(fieldName))
       return getKonto();
-   
+
     return super.getAttribute(fieldName);
   }
 
