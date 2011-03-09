@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2008/10/01 14:17:02  jost
  * Warnungen entfernt
  *
@@ -20,8 +23,11 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
@@ -69,9 +75,18 @@ public class SpendenbescheinigungDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Spendenbescheinigung"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Löschen der Spendenbescheinigung"), e);
         return;
+      }
+      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+      it.addFilter("spendenbescheinigung = ?", new Object[] { spb.getID() });
+      while (it.hasNext())
+      {
+        Buchung bu = (Buchung) it.next();
+        bu.setSpendenbescheinigungId(null);
+        bu.store();
       }
       spb.delete();
       GUI.getStatusBar().setSuccessText(
