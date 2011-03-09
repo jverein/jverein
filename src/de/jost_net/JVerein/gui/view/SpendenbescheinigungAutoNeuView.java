@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-03-07 21:05:05  jost
+ * Neu:  Automatische Spendenbescheinigungen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -19,6 +22,7 @@ import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class SpendenbescheinigungAutoNeuView extends AbstractView
 {
@@ -32,6 +36,10 @@ public class SpendenbescheinigungAutoNeuView extends AbstractView
 
     SpendenbescheinigungAutoNeuControl control = new SpendenbescheinigungAutoNeuControl(
         this);
+
+    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
+        "Jahr"));
+    group.addLabelPair("Jahr", control.getJahr());
 
     control.getSpendenbescheinigungTree().paint(this.getParent());
 

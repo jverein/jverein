@@ -9,14 +9,19 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-03-07 21:04:09  jost
+ * Neu:  Automatische Spendenbescheinigungen
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import sun.security.action.GetBooleanAction;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -27,6 +32,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TreePart;
 import de.willuhn.logging.Logger;
@@ -37,6 +43,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   private de.willuhn.jameica.system.Settings settings;
 
+  private SelectInput jahr;
+
   private TreePart spbTree;
 
   public SpendenbescheinigungAutoNeuControl(AbstractView view)
@@ -46,50 +54,40 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  // public Spendenbescheinigung getSpendenbescheinigung()
-  // {
-  // if (spendenbescheinigung != null)
-  // {
-  // return spendenbescheinigung;
-  // }
-  // spendenbescheinigung = (Spendenbescheinigung) getCurrentObject();
-  // return spendenbescheinigung;
-  // }
+  public SelectInput getJahr() throws RemoteException
+  {
+    if (jahr != null)
+    {
+      return jahr;
+    }
+    Calendar cal = Calendar.getInstance();
+    jahr = new SelectInput(new Object[] { cal.get(Calendar.YEAR),
+        cal.get(Calendar.YEAR) - 1 }, cal.get(Calendar.YEAR));
+    jahr.addListener(new Listener()
+    {
+
+      public void handleEvent(Event event)
+      {
+        try
+        {
+          spbTree.setRootObject(new SpendenbescheinigungNode(
+              (Integer) getJahr().getValue()));
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+
+    });
+    return jahr;
+  }
 
   /**
    * This method stores the project using the current values.
    */
   public void handleStore()
   {
-    // try
-    // {
-    // Spendenbescheinigung spb = getSpendenbescheinigung();
-    // spb.setZeile1((String) getZeile1(false).getValue());
-    // spb.setZeile2((String) getZeile2().getValue());
-    // spb.setZeile3((String) getZeile3().getValue());
-    // spb.setZeile4((String) getZeile4().getValue());
-    // spb.setZeile5((String) getZeile5().getValue());
-    // spb.setZeile6((String) getZeile6().getValue());
-    // spb.setZeile7((String) getZeile7().getValue());
-    // spb.setSpendedatum((Date) getSpendedatum().getValue());
-    // spb.setBescheinigungsdatum((Date) getBescheinigungsdatum().getValue());
-    // spb.setBetrag((Double) getBetrag().getValue());
-    // spb.setErsatzAufwendungen((Boolean) getErsatzAufwendungen().getValue());
-    // spb.setFormular((Formular) getFormular().getValue());
-    // spb.store();
-    //
-    // GUI.getStatusBar().setSuccessText("Spendenbescheinigung gespeichert");
-    // }
-    // catch (ApplicationException e)
-    // {
-    // GUI.getStatusBar().setErrorText(e.getMessage());
-    // }
-    // catch (RemoteException e)
-    // {
-    // String fehler = "Fehler bei Speichern der Spendenbescheinigung";
-    // Logger.error(fehler, e);
-    // GUI.getStatusBar().setErrorText(fehler);
-    // }
   }
 
   public Button getSpendenbescheinigungErstellenButton()
@@ -157,7 +155,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   public Part getSpendenbescheinigungTree() throws RemoteException
   {
-    spbTree = new TreePart(new SpendenbescheinigungNode(), null);
+    spbTree = new TreePart(new SpendenbescheinigungNode((Integer) getJahr()
+        .getValue()), null);
     return spbTree;
   }
 
