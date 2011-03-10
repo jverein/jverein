@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2011-01-30 08:28:30  jost
+ * Neu: Zusatzadressen
+ *
  * Revision 1.21  2011-01-29 20:32:52  jost
  * Verzögerungszeit für Suchfelder
  *
@@ -76,6 +79,7 @@
 package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
@@ -88,6 +92,44 @@ public interface Einstellung extends DBObject
   public String getName() throws RemoteException;
 
   public void setName(String name) throws RemoteException;
+
+  public String getStrasse() throws RemoteException;
+
+  public void setStrasse(String strasse) throws RemoteException;
+
+  public String getPlz() throws RemoteException;
+
+  public void setPlz(String plz) throws RemoteException;
+
+  public String getOrt() throws RemoteException;
+
+  public void setOrt(String ort) throws RemoteException;
+
+  public String getFinanzamt() throws RemoteException;
+
+  public void setFinanzamt(String finanzamt) throws RemoteException;
+
+  public String getSteuernummer() throws RemoteException;
+
+  public void setSteuernummer(String steuernummer) throws RemoteException;
+
+  public Date getBescheiddatum() throws RemoteException;
+
+  public void setBescheiddatum(Date bescheiddatum) throws RemoteException;
+
+  public boolean getVorlaeufig() throws RemoteException;
+
+  public void setVorlaeufig(Boolean vorlaeufig) throws RemoteException;
+
+  public String getBeguenstigterzweck() throws RemoteException;
+
+  public void setBeguenstigterzweck(String beguenstigterzweck)
+      throws RemoteException;
+
+  public boolean getMitgliedsbetraege() throws RemoteException;
+
+  public void setMitgliedsbeitraege(Boolean mitgliedsbeitraege)
+      throws RemoteException;
 
   public String getBlz() throws RemoteException;
 

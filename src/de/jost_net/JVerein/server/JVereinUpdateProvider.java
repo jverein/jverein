@@ -662,6 +662,42 @@ public class JVereinUpdateProvider
     {
       update0171(conn);
     }
+    if (cv < 172)
+    {
+      update0172(conn);
+    }
+    if (cv < 173)
+    {
+      update0173(conn);
+    }
+    if (cv < 174)
+    {
+      update0174(conn);
+    }
+    if (cv < 175)
+    {
+      update0175(conn);
+    }
+    if (cv < 176)
+    {
+      update0176(conn);
+    }
+    if (cv < 177)
+    {
+      update0177(conn);
+    }
+    if (cv < 178)
+    {
+      update0178(conn);
+    }
+    if (cv < 179)
+    {
+      update0179(conn);
+    }
+    if (cv < 180)
+    {
+      update0180(conn);
+    }
 
   }
 
@@ -4124,6 +4160,159 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Foreign Key für Tabelle spendenbescheinigung angelegt ", 171);
+  }
+
+  private void update0172(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD strasse char(30) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD strasse char(30) after name;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte strasse in die Tabelle einstellung aufgenommen", 172);
+  }
+
+  private void update0173(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD plz char(5) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD plz char(5) after strasse;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte plz in die Tabelle einstellung aufgenommen", 173);
+  }
+
+  private void update0174(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD ort char(30) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD ort char(30) after plz;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte ort in die Tabelle einstellung aufgenommen", 174);
+  }
+
+  private void update0175(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD finanzamt char(30) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD finanzamt char(30) after ort;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte finanzamt in die Tabelle einstellung aufgenommen", 175);
+  }
+
+  private void update0176(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD steuernummer char(30) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD steuernummer char(30) after finanzamt;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte steuernummer in die Tabelle einstellung aufgenommen", 176);
+  }
+
+  private void update0177(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD bescheiddatum date before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD bescheiddatum date after steuernummer;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte bescheiddatum die Tabelle einstellung aufgenommen", 177);
+  }
+
+  private void update0178(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD vorlaeufig char(5) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD vorlaeufig char(5) after bescheiddatum;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte vorlaeufig in die Tabelle einstellung aufgenommen", 178);
+  }
+
+  private void update0179(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD beguenstigterzweck char(30) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD beguenstigterzweck char(30) after vorlaeufig;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte beguenstigterzweck in die Tabelle einstellung aufgenommen", 179);
+  }
+
+  private void update0180(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD mitgliedsbeitraege char(5) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD mitgliedsbeitraege char(5) after beguenstigterzweck;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte mitgliedsbeitraege in die Tabelle einstellung aufgenommen", 180);
   }
 
 }

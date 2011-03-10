@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2011-01-30 08:28:18  jost
+ * Neu: Zusatzadressen
+ *
  * Revision 1.41  2011-01-29 20:32:34  jost
  * Verzögerungszeit für Suchfelder
  *
@@ -166,14 +169,34 @@ public class EinstellungenView extends AbstractView
 
     TabGroup tabAllgemein = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Allgemein"));
-    LabelGroup grAllgemein = new LabelGroup(tabAllgemein.getComposite(),
-        JVereinPlugin.getI18n().tr("Allgemein"));
-    grAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+    tabAllgemein.addHeadline("Allgemein");
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
         control.getName(true));
-    grAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Straße"),
+        control.getStrasse());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("PLZ"),
+        control.getPlz());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Ort"),
+        control.getOrt());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
         control.getBlz());
-    grAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
         control.getKonto());
+    tabAllgemein.addHeadline("Spendenbescheinigung");
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Finanzamt"),
+        control.getFinanzamt());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Steuernummer"),
+        control.getSteuernummer());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bescheiddatum"),
+        control.getBescheiddatum());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n()
+        .tr("vorläufiger Bescheid"), control.getVorlaeufig());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("begünstigter Zweck"),
+        control.getBeguenstigterzweck());
+    tabAllgemein.addLabelPair(
+        JVereinPlugin.getI18n().tr(
+            "Mitgliedsbeiträge dürfen bescheinigt werden"),
+        control.getMitgliedsbetraege());
 
     TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Anzeige"));
