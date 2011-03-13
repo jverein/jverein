@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.11  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -73,7 +76,11 @@ public class SpendenbescheinigungView extends AbstractView
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
-    left.addHeadline(JVereinPlugin.getI18n().tr("Empfänger"));
+    left.addHeadline("Spendenart");
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Spendenart"),
+        control.getSpendenart());
+
+    left.addHeadline(JVereinPlugin.getI18n().tr("Spender"));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 1"),
         control.getZeile1(true));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 2"),
@@ -89,13 +96,13 @@ public class SpendenbescheinigungView extends AbstractView
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 7"),
         control.getZeile7());
 
-    SimpleContainer right = new SimpleContainer(cols1.getComposite());
-
-    right.addHeadline(JVereinPlugin.getI18n().tr("Datum"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Spende"),
+    left.addHeadline(JVereinPlugin.getI18n().tr("Datum"));
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Spende"),
         control.getSpendedatum());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Bescheinigung"),
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Bescheinigung"),
         control.getBescheinigungsdatum());
+
+    SimpleContainer right = new SimpleContainer(cols1.getComposite());
 
     right.addHeadline(JVereinPlugin.getI18n().tr("Betrag"));
     right.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
@@ -109,12 +116,22 @@ public class SpendenbescheinigungView extends AbstractView
     right.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
         control.getFormular());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 5);
+    right.addHeadline(JVereinPlugin.getI18n().tr(
+        "Zusatzinformationen Sachspenden"));
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung Sachzuwendung"),
+        control.getBezeichnungSachzuwendung());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Herkunft"),
+        control.getHerkunftSpende());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Unterlagen Wertermittlung"),
+        control.getUnterlagenWertermittlung());
+
+    ButtonArea buttons = new ButtonArea(getParent(), 6);
     buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
         false, "help-browser.png");
-    buttons.addButton(control.getPDFButton());
+    buttons.addButton(control.getPDFStandardButton());
+    buttons.addButton(control.getPDFIndividuellButton());
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new SpendenbescheinigungAction(), null, false, "document-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
