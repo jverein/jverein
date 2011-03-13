@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-03-07 21:06:17  jost
+ * Neue Methode f. booleans
+ *
  * Revision 1.17  2011-02-12 09:40:16  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -126,6 +129,22 @@ public class Reporter
       String subtitle, int maxRecords) throws DocumentException
   {
     this(out, monitor, title, subtitle, maxRecords, 80, 30, 20, 20);
+  }
+  public Reporter(OutputStream out,float linkerRand, float rechterRand,
+      float obererRand, float untererRand) throws DocumentException
+  {
+    this.out = out;
+    rpt = new Document();
+    rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
+    hyph = new HyphenationAuto("de", "DE", 2, 2);
+   PdfWriter.getInstance(rpt, out);
+    AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
+        JVereinPlugin.class);
+    rpt.addAuthor(plugin.getManifest().getName() + " - Version "
+        + plugin.getManifest().getVersion());
+    rpt.open();
+    headers = new ArrayList<PdfPCell>();
+    widths = new ArrayList<Integer>();
   }
 
   public Reporter(OutputStream out, ProgressMonitor monitor, String title,
