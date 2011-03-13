@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.2  2007/02/23 20:25:42  jost
  * Mail- und Webadresse im Header korrigiert.
  *
@@ -50,7 +53,7 @@ public class AuswertungMitgliedAction implements Action
       catch (RemoteException e)
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler beim erzeugen eines neuen Mitglied-Objectes: {0}",
+            "Fehler beim erzeugen eines neuen Mitglied-Objektes: {0}",
             new String[] { e.getMessage() }));
       }
     }
