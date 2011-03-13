@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-01-27 22:15:33  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -23,7 +26,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen einer Adresse.
+ * Löschen einer Adresse.
  */
 public class AdresseDeleteAction implements Action
 {

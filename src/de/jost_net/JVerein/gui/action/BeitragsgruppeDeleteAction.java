@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2009/06/22 18:11:51  jost
+ * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
+ *
  * Revision 1.5  2009/06/21 08:51:42  jost
  * Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Siehe #15892
  *
@@ -42,7 +45,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen einer Beitragsgruppe
+ * Löschen einer Beitragsgruppe
  */
 public class BeitragsgruppeDeleteAction implements Action
 {

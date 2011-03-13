@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010/01/01 18:35:45  jost
+ * Daten bei den Mitgliedern werden nach Rückfrage gelöscht.
+ *
  * Revision 1.3  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -36,7 +39,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen einer Felddefiniton
+ * Löschen einer Felddefiniton
  */
 public class FelddefinitionDeleteAction implements Action
 {

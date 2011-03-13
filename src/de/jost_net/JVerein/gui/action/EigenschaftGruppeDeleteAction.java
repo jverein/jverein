@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/11/23 20:39:07  jost
+ * Bugfix Lösch-Button
+ *
  * Revision 1.1  2009/11/17 20:55:11  jost
  * Neu: Eigenschaft und EigenschaftGruppe
  *
@@ -27,7 +30,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen einer EigenschaftGruppe.
+ * Löschen einer EigenschaftGruppe.
  */
 public class EigenschaftGruppeDeleteAction implements Action
 {

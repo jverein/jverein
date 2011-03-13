@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-02-12 09:24:30  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.3  2010-09-06 13:24:40  jost
  * Überflüssigen Code entfernt.
  *
@@ -38,7 +41,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen eines Abrechnungslaufes
+ * Löschen eines Abrechnungslaufes
  */
 public class AbrechnungslaufDeleteAction implements Action
 {

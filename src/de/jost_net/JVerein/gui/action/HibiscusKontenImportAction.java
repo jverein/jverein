@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2009/07/24 20:16:30  jost
+ * Überflüssige Imports entfernt.
+ *
  * Revision 1.2  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -32,7 +35,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen einer Buchungsart.
+ * Hibiscus-Konten importieren
  */
 public class HibiscusKontenImportAction implements Action
 {
@@ -47,7 +50,7 @@ public class HibiscusKontenImportAction implements Action
   {
     if (context == null)
     {
-      // 1) Wir zeigen einen Dialog an, in dem der User das Konto auswaehlt
+      // 1) Wir zeigen einen Dialog an, in dem der User das Konto auswählt
       KontoAuswahlDialog d = new KontoAuswahlDialog(
           KontoAuswahlDialog.POSITION_CENTER);
       try

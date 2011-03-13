@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/07/18 20:06:34  jost
  * Neu: Formulare
  *
@@ -27,7 +30,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen eines Formulares
+ * Löschen eines Formulares
  */
 public class FormularDeleteAction implements Action
 {
@@ -76,7 +79,7 @@ public class FormularDeleteAction implements Action
     catch (RemoteException e)
     {
       String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Formulares");
+          "Fehler beim Löschen des Formulars");
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

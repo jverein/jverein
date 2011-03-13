@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:02:05  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2008/07/18 20:07:05  jost
  * Neu: Formulare
  *
@@ -27,7 +30,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen eines Formularfeldes
+ * Löschen eines Formularfeldes
  */
 public class FormularfeldDeleteAction implements Action
 {

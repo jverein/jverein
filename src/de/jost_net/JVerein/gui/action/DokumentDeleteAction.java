@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-12-12 08:08:22  jost
+ * Neu: Speicherung von Dokumenten
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -26,7 +29,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen von Dokumenten
+ * Löschen von Dokumenten
  */
 public class DokumentDeleteAction implements Action
 {

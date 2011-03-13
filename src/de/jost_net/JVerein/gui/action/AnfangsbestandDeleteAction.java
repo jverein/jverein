@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2009/07/24 20:15:54  jost
+ * *** empty log message ***
+ *
  * Revision 1.3  2009/06/11 21:01:06  jost
  * Vorbereitung I18N
  *
@@ -34,7 +37,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen eines Anfangsbestandes
+ * Löschen eines Anfangsbestandes
  */
 public class AnfangsbestandDeleteAction implements Action
 {

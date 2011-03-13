@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2009/06/11 21:01:50  jost
+ * Vorbereitung I18N
+ *
  * Revision 1.1  2007/05/26 16:25:42  jost
  * Neu: Auswertung Kursteilnehmer
  *
@@ -46,7 +49,7 @@ public class AuswertungKursteilnehmerAction implements Action
       catch (RemoteException e)
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler beim erzeugen eines neuen Kursteilnehmer-Objectes: {0}",
+            "Fehler beim erzeugen eines neuen Kursteilnehmer-Objektes: {0}",
             new String[] { e.getMessage() }));
       }
     }
