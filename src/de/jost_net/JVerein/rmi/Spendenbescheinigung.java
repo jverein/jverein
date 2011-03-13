@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-03-07 21:08:24  jost
+ * Neu:  Automatische Spendenbescheinigungen; Referenz zum Mitglied aufgenommen
+ *
  * Revision 1.2  2009/01/26 18:48:21  jost
  * Neu: Ersatz Aufwendungen
  *
@@ -25,6 +28,10 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Spendenbescheinigung extends DBObject
 {
+  public int getSpendenart() throws RemoteException;
+
+  public void setSpendenart(int spendenart) throws RemoteException;
+
   public String getZeile1() throws RemoteException;
 
   public void setZeile1(String zeile) throws RemoteException;
@@ -81,5 +88,19 @@ public interface Spendenbescheinigung extends DBObject
   public void setMitglied(Mitglied mitglied) throws RemoteException;
 
   public void setMitgliedID(Integer mitglied) throws RemoteException;
+
+  public String getBezeichnungSachzuwendung() throws RemoteException;
+
+  public void setBezeichnungSachzuwendung(String bezeichungsachzuwendung)
+      throws RemoteException;
+
+  public int getHerkunftSpende() throws RemoteException;
+
+  public void setHerkunftSpende(int herkunftspende) throws RemoteException;
+
+  public boolean getUnterlagenWertermittlung() throws RemoteException;
+
+  public void setUnterlagenWertermittlung(Boolean unterlagenwertermittlung)
+      throws RemoteException;
 
 }

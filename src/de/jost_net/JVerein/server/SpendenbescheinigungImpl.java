@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-03-07 21:09:50  jost
+ * Neu:  Automatische Spendenbescheinigungen; Referenz zum Mitglied aufgenommen
+ *
  * Revision 1.7  2011-02-12 09:43:37  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -37,6 +40,8 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.keys.HerkunftSpende;
+import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -125,6 +130,21 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     }
 
     return null;
+  }
+
+  public int getSpendenart() throws RemoteException
+  {
+    Integer ret = (Integer) getAttribute("spendenart");
+    if (ret == null)
+    {
+      ret = Spendenart.GELDSPENDE;
+    }
+    return ret;
+  }
+
+  public void setSpendenart(int spendenart) throws RemoteException
+  {
+    setAttribute("spendenart", spendenart);
   }
 
   public String getZeile1() throws RemoteException
@@ -253,6 +273,32 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     setAttribute("ersatzaufwendungen", Boolean.valueOf(ersatzaufwendungen));
   }
 
+  public String getBezeichnungSachzuwendung() throws RemoteException
+  {
+    return (String) getAttribute("bezeichnungsachzuwendung");
+  }
+
+  public void setBezeichnungSachzuwendung(String bezeichnungsachzuwendung)
+      throws RemoteException
+  {
+    setAttribute("bezeichnungsachzuwendung", bezeichnungsachzuwendung);
+  }
+
+  public int getHerkunftSpende() throws RemoteException
+  {
+    Integer ret = (Integer) getAttribute("herkunftspende");
+    if (ret == null)
+    {
+      ret = HerkunftSpende.KEINEANGABEN;
+    }
+    return ret;
+  }
+
+  public void setHerkunftSpende(int herkunftspende) throws RemoteException
+  {
+    setAttribute("herkunftspende", herkunftspende);
+  }
+
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
@@ -284,6 +330,18 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     {
       setAttribute("mitglied", null);
     }
+  }
+
+  public boolean getUnterlagenWertermittlung() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("unterlagenwertermittlung"));
+  }
+
+  public void setUnterlagenWertermittlung(Boolean unterlagenwertermittlung)
+      throws RemoteException
+  {
+    setAttribute("unterlagenwertermittlung",
+        Boolean.valueOf(unterlagenwertermittlung));
   }
 
 }

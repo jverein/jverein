@@ -698,7 +698,26 @@ public class JVereinUpdateProvider
     {
       update0180(conn);
     }
-
+    if (cv < 181)
+    {
+      update0181(conn);
+    }
+    if (cv < 182)
+    {
+      update0182(conn);
+    }
+    if (cv < 183)
+    {
+      update0183(conn);
+    }
+    if (cv < 184)
+    {
+      update0184(conn);
+    }
+    if (cv < 185)
+    {
+      update0185(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4313,6 +4332,79 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte mitgliedsbeitraege in die Tabelle einstellung aufgenommen", 180);
+  }
+
+  private void update0181(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD vorlaeufigab date before beguenstigterzweck;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD vorlaeufigab date after vorlaeufig;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte vorlaeufigab die Tabelle einstellung aufgenommen", 181);
+  }
+
+  private void update0182(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE spendenbescheinigung ADD spendenart int default 1 not null before zeile1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE spendenart ADD spendenart int default 1 not null after id;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte vorlaeufigab die Tabelle spendenbescheinigung aufgenommen", 182);
+  }
+
+  private void update0183(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "ALTER TABLE spendenbescheinigung ADD bezeichnungsachzuwendung varchar(100);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    execute(
+        conn,
+        statements,
+        "Spalte bezeichnungssachzuwendung in die Tabelle spendenbescheinigung aufgenommen",
+        183);
+  }
+
+  private void update0184(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "ALTER TABLE spendenbescheinigung ADD herkunftspende int;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    execute(
+        conn,
+        statements,
+        "Spalte herkunftspende in die Tabelle spendenbescheinigung aufgenommen",
+        184);
+  }
+
+  private void update0185(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "ALTER TABLE spendenbescheinigung ADD unterlagenwertermittlung char(5);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    execute(
+        conn,
+        statements,
+        "Spalte unterlagenwertermittlung in die Tabelle spendenbescheinigung aufgenommen",
+        185);
   }
 
 }
