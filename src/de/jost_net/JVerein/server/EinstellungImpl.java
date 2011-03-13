@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2011-03-10 20:35:03  jost
+ * Neu: Einstellungen f. Spendenbescheinigung
+ *
  * Revision 1.26  2011-02-12 09:42:54  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -301,6 +304,21 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setVorlaeufig(Boolean vorlaeufig) throws RemoteException
   {
     setAttribute("vorlaeufig", Boolean.valueOf(vorlaeufig));
+  }
+
+  public Date getVorlaeufigab() throws RemoteException
+  {
+    Date d = (Date) getAttribute("vorlaeufigab");
+    if (d == null)
+    {
+      return new Date();
+    }
+    return d;
+  }
+
+  public void setVorlaeufigab(Date vorlaeufigab) throws RemoteException
+  {
+    setAttribute("vorlaeufigab", vorlaeufigab);
   }
 
   public String getBeguenstigterzweck() throws RemoteException
@@ -626,7 +644,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute("mitgliedskontoistzahlung", mitgliedskontoistzahlung);
   }
-
 
   public String getSmtpServer() throws RemoteException
   {

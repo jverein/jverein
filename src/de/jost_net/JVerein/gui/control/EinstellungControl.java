@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.39  2011-03-10 20:34:23  jost
+ * Neu: Einstellungen f. Spendenbescheinigung
+ *
  * Revision 1.38  2011-02-12 09:30:21  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -171,6 +174,8 @@ public class EinstellungControl extends AbstractControl
   private DateInput bescheiddatum;
 
   private CheckboxInput vorlaeufig;
+
+  private DateInput vorlaeufigab;
 
   private TextInput beguenstigterzweck;
 
@@ -349,6 +354,17 @@ public class EinstellungControl extends AbstractControl
     vorlaeufig = new CheckboxInput(Einstellungen.getEinstellung()
         .getVorlaeufig());
     return vorlaeufig;
+  }
+
+  public DateInput getVorlaeufigab() throws RemoteException
+  {
+    if (vorlaeufigab != null)
+    {
+      return vorlaeufigab;
+    }
+    vorlaeufigab = new DateInput(Einstellungen.getEinstellung()
+        .getBescheiddatum());
+    return vorlaeufigab;
   }
 
   public TextInput getBeguenstigterzweck() throws RemoteException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2011-03-10 20:34:50  jost
+ * Neu: Einstellungen f. Spendenbescheinigung
+ *
  * Revision 1.22  2011-01-30 08:28:30  jost
  * Neu: Zusatzadressen
  *
@@ -120,6 +123,10 @@ public interface Einstellung extends DBObject
   public boolean getVorlaeufig() throws RemoteException;
 
   public void setVorlaeufig(Boolean vorlaeufig) throws RemoteException;
+
+  public Date getVorlaeufigab() throws RemoteException;
+
+  public void setVorlaeufigab(Date vorlaeufigab) throws RemoteException;
 
   public String getBeguenstigterzweck() throws RemoteException;
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.43  2011-03-10 20:34:37  jost
+ * Neu: Einstellungen f. Spendenbescheinigung
+ *
  * Revision 1.42  2011-01-30 08:28:18  jost
  * Neu: Zusatzadressen
  *
@@ -191,6 +194,8 @@ public class EinstellungenView extends AbstractView
         control.getBescheiddatum());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n()
         .tr("vorläufiger Bescheid"), control.getVorlaeufig());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Vorläufig ab"),
+        control.getVorlaeufigab());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("begünstigter Zweck"),
         control.getBeguenstigterzweck());
     tabAllgemein.addLabelPair(
