@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-09-13 18:41:33  jost
+ * Anfangsbestände beim Jahresabschluss setzen und bei der Löschung auch löschen.
+ *
  * Revision 1.2  2009/06/11 21:02:05  jost
  * Vorbereitung I18N
  *
@@ -34,7 +37,7 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Loeschen eines Jahresabschlusses
+ * Löschen eines Jahresabschlusses
  */
 public class JahresabschlussDeleteAction implements Action
 {
