@@ -11,6 +11,7 @@
     		<p>Hinweis! In der Version 1.4.0.1 des Windows-Installers in ein Mini-Bug in Syntax beseitigt worden.</p>
     	<li>Entwicklerversionen</li>
     		<ul>
+    			<li><a href='download/download_log.php?dl=jverein.1.5.0-devel-272.zip'>Entwicklerversion 1.5.0 Rev. 272</a>&nbsp;Für alle Betriebssysteme. Vom 14.03.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.5.0-devel-271.zip'>Entwicklerversion 1.5.0 Rev. 271</a>&nbsp;Für alle Betriebssysteme. Vom 13.03.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.5.0-devel-269.zip'>Entwicklerversion 1.5.0 Rev. 269</a>&nbsp;Für alle Betriebssysteme. Vom 23.02.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>
     		</ul>
@@ -29,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.24  2011-03-13 18:30:30  jost
+    *** empty log message ***
+
     Revision 1.23  2011-02-23 18:13:49  jost
     *** empty log message ***
 
