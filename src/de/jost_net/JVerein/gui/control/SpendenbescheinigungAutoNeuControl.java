@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-03-09 22:16:26  jost
+ * Einschränkung auf ein Jahr.
+ *
  * Revision 1.1  2011-03-07 21:04:09  jost
  * Neu:  Automatische Spendenbescheinigungen
  *
@@ -24,6 +27,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.server.SpendenbescheinigungNode;
 import de.willuhn.datasource.GenericIterator;
@@ -110,6 +114,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
                 .next();
             Spendenbescheinigung spbescheinigung = (Spendenbescheinigung) Einstellungen
                 .getDBService().createObject(Spendenbescheinigung.class, null);
+            spbescheinigung.setSpendenart(Spendenart.GELDSPENDE);
             spbescheinigung.setMitglied(sp1.getMitglied());
             spbescheinigung.setZeile1(sp1.getMitglied().getAnrede());
             spbescheinigung.setZeile2(sp1.getMitglied().getVornameName());
