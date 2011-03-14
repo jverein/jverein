@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.8  2010-10-15 09:58:23  jost
  * Code aufgeräumt
  *
@@ -70,7 +73,7 @@ public class AnfangsbestandListView extends AbstractView
   public String getHelp()
   {
     return "<form><p><span color=\"header\" font=\"header\">Anfangsbestände</span></p>"
-        + "<p>Für jedes Konto ist zu Beginn des Geschäfsjahres der Anfangsbestand zu "
+        + "<p>Für jedes Konto ist zu Beginn des Geschäftsjahres der Anfangsbestand zu "
         + "speichern. Die Buchungen sind in chronologisch korrekter Reihenfolge vorzunehmen.</p> "
         + "<p>Durch einen Doppelklick kann ein Anfangsbestand korrigiert werden. Mit einem "
         + "Klick auf neu wird ein neuer Anfangsbestand aufgenommen. Durch einen Rechtsklick "

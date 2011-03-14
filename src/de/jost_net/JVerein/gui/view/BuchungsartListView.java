@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-02-03 22:32:39  jost
+ * Neu: Liste der Buchungsarten
+ *
  * Revision 1.12  2011-01-15 09:46:49  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -81,7 +84,7 @@ public class BuchungsartListView extends AbstractView
   {
     return "<form><p><span color=\"header\" font=\"header\">Buchungsart</span></p>"
         + "<p>Die Nummer und die Bezeichung der Buchungsart sind zu erfassen.</p>"
-        + "<p>Bei der Vergabe der Numern sollten Nummernkreise für Eingaben "
+        + "<p>Bei der Vergabe der Nummern sollten Nummernkreise für Eingaben "
         + "und Ausgaben gebildet werden. Beispielsweise die 1000er Nummern "
         + "für Einnahmen und die 2000er Nummern für Ausgaben. Die Sortierung "
         + "der Buchungsauswertung erfolgt nach diesen Nummern.</p>" + "</form>";
