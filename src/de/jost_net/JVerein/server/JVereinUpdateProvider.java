@@ -4361,7 +4361,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE spendenart ADD spendenart int default 1 not null after id;\n");
+    sb.append("ALTER TABLE spendenbescheinigung ADD spendenart int default 1 not null after id;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
