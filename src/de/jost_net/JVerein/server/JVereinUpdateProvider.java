@@ -718,6 +718,10 @@ public class JVereinUpdateProvider
     {
       update0185(conn);
     }
+    if (cv < 186)
+    {
+      update0186(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4405,6 +4409,24 @@ public class JVereinUpdateProvider
         statements,
         "Spalte unterlagenwertermittlung in die Tabelle spendenbescheinigung aufgenommen",
         185);
+  }
+
+  private void update0186(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagevorher;\n"
+                + "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagenachher;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagevorher, "
+            + "DROP COLUMN aktuellegeburtstagenachher;\n");
+
+    execute(conn, statements, "Spalten aus Tabelle einstellung entfernt", 186);
   }
 
 }

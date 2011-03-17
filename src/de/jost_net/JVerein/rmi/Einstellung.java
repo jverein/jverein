@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2011-03-13 13:49:05  jost
+ * Zusätzliches Feld f. Sachspendenbescheinigungen.
+ *
  * Revision 1.23  2011-03-10 20:34:50  jost
  * Neu: Einstellungen f. Spendenbescheinigung
  *
@@ -229,16 +232,6 @@ public interface Einstellung extends DBObject
   public boolean getExterneMitgliedsnummer() throws RemoteException;
 
   public void setExterneMitgliedsnummer(Boolean externemitgliedsnummer)
-      throws RemoteException;
-
-  public Integer getAktuelleGeburtstageVorher() throws RemoteException;
-
-  public void setAktuelleGeburtstageVorher(Integer vorher)
-      throws RemoteException;
-
-  public Integer getAktuelleGeburtstageNachher() throws RemoteException;
-
-  public void setAktuelleGeburtstageNachher(Integer vorher)
       throws RemoteException;
 
   public int getBeitragsmodel() throws RemoteException;

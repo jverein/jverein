@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.41  2011-03-17 19:00:48  jost
+ * Bugfix Feldname
+ *
  * Revision 1.40  2011-03-13 13:43:36  jost
  * Zusätzliches Feld f. Sachspendenbescheinigungen.
  *
@@ -231,10 +234,6 @@ public class EinstellungControl extends AbstractControl
   private TextInput dateinamenmuster;
 
   private TextInput beginngeschaeftsjahr;
-
-  private SelectInput aktuellegeburtstagevorher;
-
-  private SelectInput aktuellegeburtstagenachher;
 
   private TextInput smtp_server;
 
@@ -626,38 +625,6 @@ public class EinstellungControl extends AbstractControl
     return externemitgliedsnummer;
   }
 
-  public SelectInput getAktuelleGeburtstageVorher() throws RemoteException
-  {
-    if (aktuellegeburtstagevorher != null)
-    {
-      return aktuellegeburtstagevorher;
-    }
-    Integer[] v = new Integer[30];
-    for (int i = 0; i < 30; i++)
-    {
-      v[i] = i;
-    }
-    aktuellegeburtstagevorher = new SelectInput(v, Einstellungen
-        .getEinstellung().getAktuelleGeburtstageVorher());
-    return aktuellegeburtstagevorher;
-  }
-
-  public SelectInput getAktuelleGeburtstageNachher() throws RemoteException
-  {
-    if (aktuellegeburtstagenachher != null)
-    {
-      return aktuellegeburtstagenachher;
-    }
-    Integer[] v = new Integer[30];
-    for (int i = 0; i < 30; i++)
-    {
-      v[i] = i;
-    }
-    aktuellegeburtstagenachher = new SelectInput(v, Einstellungen
-        .getEinstellung().getAktuelleGeburtstageNachher());
-    return aktuellegeburtstagenachher;
-  }
-
   public SelectInput getBeitragsmodel() throws RemoteException
   {
     if (beitragsmodel != null)
@@ -881,18 +848,9 @@ public class EinstellungControl extends AbstractControl
       e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
           .getValue());
       e.setRechnungTextBar((String) rechnungtextbar.getValue());
-      e.setAktuelleGeburtstageVorher((Integer) aktuellegeburtstagevorher
-          .getValue());
-      e.setAktuelleGeburtstageNachher((Integer) aktuellegeburtstagenachher
-          .getValue());
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
-      // e.setRechnungFuerAbbuchung((Boolean) rechnungfuerabbuchung.getValue());
-      // e.setRechnungFuerUeberweisung((Boolean) rechnungfuerueberweisung
-      // .getValue());
-      // e.setRechnungFuerBarzahlung((Boolean)
-      // rechnungfuerbarzahlung.getValue());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setSmtpServer((String) smtp_server.getValue());
