@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-03-13 13:44:46  jost
+ * Neu: Spendenbescheinigungen als Standardformular
+ * Neu: Spendenbescheinigung für Sachspenden.
+ *
  * Revision 1.15  2011-02-12 09:32:49  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -86,7 +90,6 @@ import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
-import de.jost_net.JVerein.server.SpendenbescheinigungNode;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
