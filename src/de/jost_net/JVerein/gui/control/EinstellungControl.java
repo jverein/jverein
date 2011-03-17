@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2011-03-13 13:43:36  jost
+ * Zusätzliches Feld f. Sachspendenbescheinigungen.
+ *
  * Revision 1.39  2011-03-10 20:34:23  jost
  * Neu: Einstellungen f. Spendenbescheinigung
  *
@@ -299,7 +302,7 @@ public class EinstellungControl extends AbstractControl
     {
       return plz;
     }
-    plz = new TextInput(Einstellungen.getEinstellung().getStrasse(), 5);
+    plz = new TextInput(Einstellungen.getEinstellung().getPlz(), 5);
     return plz;
   }
 
