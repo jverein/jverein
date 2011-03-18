@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2011-03-17 19:46:01  jost
+ * überflüssigen import entfernt.
+ *
  * Revision 1.16  2011-03-13 13:44:46  jost
  * Neu: Spendenbescheinigungen als Standardformular
  * Neu: Spendenbescheinigung für Sachspenden.
@@ -538,7 +541,7 @@ public class SpendenbescheinigungControl extends AbstractControl
             + "bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen\n",
         10);
 
-    rpt.addHeaderColumn("Name und Anschrift des Zuwendenden)",
+    rpt.addHeaderColumn("Name und Anschrift des Zuwendenden",
         Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
     rpt.createHeader();
     String zuwendender = (String) getZeile1(false).getValue() + "\n"
