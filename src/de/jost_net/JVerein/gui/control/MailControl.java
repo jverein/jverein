@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-27 22:18:35  jost
+ * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
+ *
  * Revision 1.10  2011-01-15 09:46:49  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -65,6 +68,7 @@ import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -77,6 +81,7 @@ import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
@@ -129,7 +134,7 @@ public class MailControl extends AbstractControl
     {
       DBIterator it = Einstellungen.getDBService().createList(
           MailEmpfaenger.class);
-      it.addFilter("mail = ?", new Object[] { getMail().getID()});
+      it.addFilter("mail = ?", new Object[] { getMail().getID() });
       TreeSet<MailEmpfaenger> empf = new TreeSet<MailEmpfaenger>();
       while (it.hasNext())
       {
@@ -238,7 +243,7 @@ public class MailControl extends AbstractControl
     if (!getMail().isNewObject() && getMail().getAnhang() == null)
     {
       DBIterator it = Einstellungen.getDBService().createList(MailAnhang.class);
-      it.addFilter("mail = ?", new Object[] { getMail().getID()});
+      it.addFilter("mail = ?", new Object[] { getMail().getID() });
       TreeSet<MailAnhang> anh = new TreeSet<MailAnhang>();
       while (it.hasNext())
       {
@@ -312,13 +317,12 @@ public class MailControl extends AbstractControl
       {
         try
         {
-          MailSender sender = new MailSender(
-              Einstellungen.getEinstellung().getSmtpServer(),
-              Einstellungen.getEinstellung().getSmtpPort(),
-              Einstellungen.getEinstellung().getSmtpAuthUser(),
-              Einstellungen.getEinstellung().getSmtpAuthPwd(),
-              Einstellungen.getEinstellung().getSmtpFromAddress(),
-              Einstellungen.getEinstellung().getSmtpSsl());
+          MailSender sender = new MailSender(Einstellungen.getEinstellung()
+              .getSmtpServer(), Einstellungen.getEinstellung().getSmtpPort(),
+              Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
+                  .getEinstellung().getSmtpAuthPwd(), Einstellungen
+                  .getEinstellung().getSmtpFromAddress(), Einstellungen
+                  .getEinstellung().getSmtpSsl());
 
           Velocity.init();
           Logger.debug("preparing velocity context");
@@ -328,6 +332,8 @@ public class MailControl extends AbstractControl
           for (MailEmpfaenger empf : getMail().getEmpfaenger())
           {
             VelocityContext context = new VelocityContext();
+            context.put("dateformat", new JVDateFormatTTMMJJJJ());
+            context.put("decimalformat", Einstellungen.DECIMALFORMAT);
             context.put("email", empf.getMailAdresse());
             context.put("empf", empf.getMitglied());
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -413,7 +419,7 @@ public class MailControl extends AbstractControl
       }
       DBIterator it = Einstellungen.getDBService().createList(
           MailEmpfaenger.class);
-      it.addFilter("mail = ?", new Object[] { m.getID()});
+      it.addFilter("mail = ?", new Object[] { m.getID() });
       while (it.hasNext())
       {
         MailEmpfaenger me = (MailEmpfaenger) it.next();
@@ -428,7 +434,7 @@ public class MailControl extends AbstractControl
         ma.store();
       }
       it = Einstellungen.getDBService().createList(MailAnhang.class);
-      it.addFilter("mail = ?", new Object[] { m.getID()});
+      it.addFilter("mail = ?", new Object[] { m.getID() });
       while (it.hasNext())
       {
         MailAnhang ma = (MailAnhang) it.next();
