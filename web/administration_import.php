@@ -153,7 +153,7 @@
 	<tr>
 		<td>Zahler</td>
 		<td>Kontoinhaber, wenn nicht identisch mit dem Mitglied</td>
-		<td>10</td>
+		<td>27</td>
 		<td>ja</td>
 		<td>ja</td>
 	</tr>
@@ -263,6 +263,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straﬂe;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.12  2010-10-30 11:32:40  jost
+    Neu: Sterbetag
+
     Revision 1.11  2010-10-28 19:17:10  jost
     Neu: Wohnsitzstaat
 
