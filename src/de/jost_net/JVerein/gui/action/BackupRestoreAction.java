@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-02-12 09:25:05  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.9  2010-11-13 09:21:13  jost
  * Warnings entfernt.
  *
@@ -54,6 +57,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatJJJJMMTT;
@@ -95,6 +99,15 @@ public class BackupRestoreAction implements Action
         dialog.open();
         return;
       }
+
+      // Vom System eingefügte Sätze löschen. Ansonsten gibt es duplicate keys
+      it = Einstellungen.getDBService().createList(Adresstyp.class);
+      while (it.hasNext())
+      {
+        Adresstyp a = (Adresstyp) it.next();
+        a.delete();
+      }
+
     }
     catch (Exception e1)
     {

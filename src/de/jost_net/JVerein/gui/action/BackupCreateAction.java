@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-02-12 09:24:44  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.15  2011-02-06 10:33:42  jost
  * überflüssigen import entfernt.
  *
@@ -127,15 +130,15 @@ public class BackupCreateAction implements Action
       AbrechnungslaufImpl.class, BeitragsgruppeImpl.class,
       BuchungsklasseImpl.class, BuchungsartImpl.class, KontoImpl.class,
       MitgliedImpl.class, MitgliedskontoImpl.class, ArbeitseinsatzImpl.class,
-      MitgliedDokumentImpl.class, Mitgliedfoto.class,
-      BuchungDokumentImpl.class, BuchungImpl.class, FelddefinitionImpl.class,
-      SpendenbescheinigungImpl.class, FormularImpl.class,
-      FormularfeldImpl.class, EigenschaftGruppeImpl.class,
-      EigenschaftImpl.class, EigenschaftenImpl.class, AnfangsbestandImpl.class,
+      MitgliedDokumentImpl.class, Mitgliedfoto.class, FormularImpl.class,
+      FormularfeldImpl.class, SpendenbescheinigungImpl.class,
+      BuchungImpl.class, BuchungDokumentImpl.class, FelddefinitionImpl.class,
+      EigenschaftGruppeImpl.class, EigenschaftImpl.class,
+      EigenschaftenImpl.class, AnfangsbestandImpl.class,
       JahresabschlussImpl.class, KursteilnehmerImpl.class,
       WiedervorlageImpl.class, ZusatzbetragImpl.class, ZusatzfelderImpl.class,
-      LehrgangsartImpl.class, LehrgangImpl.class, MailVorlage.class,
-      MailEmpfaenger.class, Mail.class, MailAnhangImpl.class };
+      LehrgangsartImpl.class, LehrgangImpl.class, Mail.class,
+      MailEmpfaenger.class, MailVorlage.class, MailAnhangImpl.class };
 
   /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
