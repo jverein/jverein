@@ -53,6 +53,7 @@
 					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 273 vorgenommen.</li>
 					<li>Die Boxen "aktuelle Geburtstage" und "Wiedervorlagen" für die Startseite entfernt. Ersatz ist die neue Terminübersicht.</li>
 					<li>Neue Box "Termine" für die Startseite erstellt</li>
+					<li>##Spendenbescheinigung: Anzeige nach der Erstellung</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -576,6 +577,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.117  2011-03-18 19:17:27  jost
+    *** empty log message ***
+
     Revision 1.116  2011-03-17 19:51:29  jost
     Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
 
