@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-03-18 19:15:27  jost
+ * redakt.
+ *
  * Revision 1.17  2011-03-17 19:46:01  jost
  * überflüssigen import entfernt.
  *
@@ -66,6 +69,7 @@ package de.jost_net.JVerein.gui.control;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -109,8 +113,11 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.messaging.StatusBarMessage;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -699,6 +706,24 @@ public class SpendenbescheinigungControl extends AbstractControl
         8);
     rpt.close();
     fos.close();
+    GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");
+    GUI.getDisplay().asyncExec(new Runnable()
+    {
+
+      public void run()
+      {
+        try
+        {
+          new Program().handleAction(file);
+        }
+        catch (ApplicationException ae)
+        {
+          Application.getMessagingFactory().sendMessage(
+              new StatusBarMessage(ae.getLocalizedMessage(),
+                  StatusBarMessage.TYPE_ERROR));
+        }
+      }
+    });
   }
 
   private void generiereSpendenbescheinigungIndividuell() throws IOException
