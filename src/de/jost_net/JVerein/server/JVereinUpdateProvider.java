@@ -722,6 +722,10 @@ public class JVereinUpdateProvider
     {
       update0186(conn);
     }
+    if (cv < 187)
+    {
+      update0187(conn);
+    }
   }
 
   public Connection getConnection()
@@ -760,6 +764,9 @@ public class JVereinUpdateProvider
   {
     try
     {
+      String msg = "JVerein-DB-Update: " + newVersion;
+      progressmonitor.setStatusText(msg);
+      Logger.info(msg);
       Statement stmt = conn.createStatement();
       int anzahl = stmt.executeUpdate("UPDATE version SET version = "
           + newVersion + " WHERE id = 1");
@@ -768,9 +775,6 @@ public class JVereinUpdateProvider
         stmt.executeUpdate("INSERT INTO version VALUES (1, " + newVersion + ")");
       }
       stmt.close();
-      String msg = "JVerein-DB-Update: " + newVersion;
-      progressmonitor.setStatusText(msg);
-      Logger.info(msg);
     }
     catch (SQLException e)
     {
@@ -800,8 +804,8 @@ public class JVereinUpdateProvider
     }
     try
     {
-      ScriptExecutor.execute(new StringReader(sql), conn, progressmonitor);
       progressmonitor.log(logstring);
+      ScriptExecutor.execute(new StringReader(sql), conn, null);
       setNewVersion(version);
     }
     catch (Exception e)
@@ -4427,6 +4431,18 @@ public class JVereinUpdateProvider
             + "DROP COLUMN aktuellegeburtstagenachher;\n");
 
     execute(conn, statements, "Spalten aus Tabelle einstellung entfernt", 186);
+  }
+
+  private void update0187(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), "-- nothing to do;\n");
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE `mail`  DROP INDEX `betreff`;\n");
+
+    execute(conn, statements, "Index von mail entfernt (nur MySQL)", 187);
   }
 
 }
