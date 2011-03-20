@@ -42,6 +42,10 @@
    <tr><td>$vormonat</td><td>Vormonat im Format mm.jjjj</td></tr>
    <tr><td>$aktuellermonat</td><td>Aktueller Monat im Format mm.jjjj</td></tr>
    <tr><td>$folgemonat</td><td>Folgemonat im Format mm.jjjj</td></tr>
+	 <tr><td>$empf.id</td><td>Interne Mitgliedsnummer</td></tr>
+	 <tr><td>$empf.externemitgliedsnummer</td><td>externe Mitgliedsnummer</td></tr>
+	 <tr><td>$empf.adresstyp</td><td>interne Nummer des Adresstyps</td></tr>
+	 <tr><td>$empf.personentyp</td><td>Personentyp: n=natürliche Person, j=juristische Person</td></tr>
    <tr><td>$empf.anrede</td><td>Anrede</td></tr>
    <tr><td>$empf.titel</td><td>Titel</td></tr>
    <tr><td>$empf.name</td><td>Name</td></tr>
@@ -50,6 +54,7 @@
    <tr><td>$empf.strasse</td><td>Straße</td></tr>
    <tr><td>$empf.plz</td><td>Postleitzahl</td></tr>
    <tr><td>$empf.ort</td><td>Ort</td></tr>
+   <tr><td>$empf.staat</td><td>Staat</td></tr>
    <tr><td>$empf.blz</td><td>Bankleitzahl</td></tr>
    <tr><td>$empf.konto</td><td>Kontonummer</td></tr>
    <tr><td>$empf.iban</td><td>IBAN</td></tr>
@@ -58,9 +63,34 @@
    <tr><td>$empf.telefonprivat</td><td>Telefon privat</td></tr>
    <tr><td>$empf.telefondienstlich</td><td>Telefon dienstlich</td></tr>
    <tr><td>$empf.handy</td><td>Handy</td></tr>
-   </table>
+   <tr><td>$empf.email</td><td>Email-Adresse</td></tr>
+   <tr><td>$empf.zahlungsweg</td><td>Schlüssel des Zahlungsweges</td></tr>
+   <tr><td>$empf.zahlungsrhytmus</td><td>Schlüssel des Zahlungsrhytmus</td></tr>
+   <tr><td>$empf.geburtsdatum</td><td>Geburtsdatum. Formatierung: $!{dateformat.format(${empf.geburtsdatum})} </td></tr>
+   <tr><td>$empf.eintritt</td><td>Eintrittsdatum. Formatierung: $!{dateformat.format(${empf.eintrittsdatum})} </td></tr>
+   <tr><td>$empf.austritt</td><td>Austrittsdatum. Formatierung: $!{dateformat.format(${empf.austrittsdatum})} </td></tr>
+   <tr><td>$empf.kuendigung</td><td>Kündigungsdatum. Formatierung: $!{dateformat.format(${empf.kuendigung})} </td></tr>
+   <tr><td>$empf.sterbetag</td><td>Sterbetag. Formatierung: $!{dateformat.format(${empf.sterbetag})} </td></tr>
+   <tr><td>$empf.beitragsgruppe.bezeichnung</td><td>Bezeichnung der Beitragsgruppe. </td></tr>
+   <tr><td>$empf.beitragsgruppe.betrag</td><td>Bezeichnung der Beitragsgruppe. Formatierung: $!{decimalformat.format(${empf.beitragsgruppe.betrag})}</td></tr>
+   <tr><td>$empf.beitragsgruppe.beitragsart</td><td>Beitragsart</td></tr>
+   <tr><td>$empf.beitragsgruppe.arbeitseinsatzstunden</td><td>Anzahl Stunden Arbeitseinsatz</td></tr>
+   <tr><td>$empf.beitragsgruppe.arbeitseinsatzbetrag</td><td>Betrag pro Stunde fehlenden Arbeitseinsatzes. Formatierung: $!{decimalformat.format($empf.beitragsgruppe.arbeitseinsatzbetrag})} </td></tr>
+   <tr><td>$empf.zahlerid</td><td>Interne Mitgliedsnummer des zahlenden Mitglieds </td></tr>
+   <tr><td>$empf.vermerk1</td><td>1. Vermerk </td></tr>
+   <tr><td>$empf.vermerk2</td><td>2. Vermerk </td></tr>
+   <tr><td>$empf.eingabedatum</td><td>Datum der Ersteingabe des Datensatzes. Formatierung: $!{dateformat.format(${empf.eingabedatum})} </td></tr>
+   <tr><td>$empf.letzteaenderung</td><td>Datum der letzten Änderung des Datensatzes. Formatierung: $!{dateformat.format(${empf.letzteaenderung})} </td></tr>
+   <tr><td>$empf.namevorname</td><td>Name, Vorname </td></tr>
+   <tr><td>$empf.vornamename</td><td>Vorname Name</td></tr>
+   <tr><td>$empf.anschrift</td><td>Formatierte Anschrift</td></tr>
+ </table>
+ <p>Die Formatierungen von Beträgen und Datumsfeldern funktioniert ab Version 1.5.</p>
     <!-- 
     $Log$
+    Revision 1.4  2010-03-27 20:11:16  jost
+    EigenschaftenAuswahl überarbeitet.
+
     Revision 1.3  2010/02/16 18:07:29  jost
     *** empty log message ***
 
