@@ -56,6 +56,7 @@
 					<li>##Spendenbescheinigung: Anzeige nach der Erstellung</li>
 					<li>Bugfix Diagnose-Backup</li>
 					<li>Liste Zusatzbeträge: Sortierung nach Namen aufgenommen. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17793&group_id=7335'>#17793</a>
+					<li>Zusätzliche Datenfelder in Mails und Formatierung von Datums- und Betragsfeldern <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17648&group_id=7335>#17648</a>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -579,6 +580,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.120  2011-03-20 12:06:40  jost
+    *** empty log message ***
+
     Revision 1.119  2011-03-20 08:47:00  jost
     *** empty log message ***
 
