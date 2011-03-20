@@ -55,6 +55,7 @@
 					<li>Neue Box "Termine" für die Startseite erstellt</li>
 					<li>##Spendenbescheinigung: Anzeige nach der Erstellung</li>
 					<li>Bugfix Diagnose-Backup</li>
+					<li>Liste Zusatzbeträge: Sortierung nach Namen aufgenommen. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17793&group_id=7335'>#17793</a>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -578,6 +579,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.119  2011-03-20 08:47:00  jost
+    *** empty log message ***
+
     Revision 1.118  2011-03-20 06:39:37  jost
     *** empty log message ***
 
