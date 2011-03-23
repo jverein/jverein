@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.52  2011-02-23 18:01:45  jost
+ * Ersten Code für die kompakte Abbuchung wieder entfernt.
+ *
  * Revision 1.51  2011-02-12 09:36:59  jost
  * Statische Codeanalyse mit Findbugs
  * Vorbereitung kompakte Abbuchung
@@ -666,12 +669,12 @@ public class Abbuchung
         .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
     dtaus.addCVerwendungszweck(param.verwendungszweck);
     dtaus.addCVerwendungszweck(mitgliedname);
-    String vzweck = param.verwendungszweck + " "
-        + (m.getPersonenart().equals("n") ? m.getName() : m.getVorname());
-    if (vzweck.length() > 27)
-    {
-      vzweck = vzweck.substring(0, 27);
-    }
+    // String vzweck = param.verwendungszweck + " "
+    // + (m.getPersonenart().equals("n") ? m.getName() : m.getVorname());
+    // if (vzweck.length() > 27)
+    // {
+    // vzweck = vzweck.substring(0, 27);
+    // }
     dtaus.writeCSatz();
   }
 
