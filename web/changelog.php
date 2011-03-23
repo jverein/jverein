@@ -11,7 +11,7 @@
     			<li>Personalbogen: Bugfix Eigenschaften.</li>
     			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
     			<li>Arbeitseinsätze</li>
-    			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> 
+    			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> </li>
     			<li>Speicherung von Dokumenten zu Buchungen und Mitgliedern. Siehe <a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=17106&group_id=7335'>#17106</a></li>
     			<li>Abbuchung: Verwendungszweck 2 ist jetzt auch 27 Zeichen (vorher 25 Zeichen)  lang</li>
     			<li>Mitgliedskonto: Bugfix Summen</li>
@@ -39,7 +39,7 @@
 					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 269 vorgenommen.</li>
 					<li>##Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl</li>
     			<li>Buchungsarten kann jetzt auch die Eigenschaft "Spende" gegeben werden.</li>
-					<li>Bugfix bei der Umschlüsselung eines Mitgliedes von einer Beitragsart mit der Art Familie/Angehöriger in eine andere Beitragsart.</a></li>
+					<li>Bugfix bei der Umschlüsselung eines Mitgliedes von einer Beitragsart mit der Art Familie/Angehöriger in eine andere Beitragsart.</li>
 					<li>Neu: Spendenbescheinigung aus dem Mitgliedskonto (Automatische Spendenbescheinigung)</li>
 					<li>Neu: Standardformular für Spendenbescheinigungen</li>
 					<li>Neu: Spendenbescheinigung für Sachspenden</li>
@@ -55,8 +55,8 @@
 					<li>Neue Box "Termine" für die Startseite erstellt</li>
 					<li>##Spendenbescheinigung: Anzeige nach der Erstellung</li>
 					<li>Bugfix Diagnose-Backup</li>
-					<li>Liste Zusatzbeträge: Sortierung nach Namen aufgenommen. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17793&group_id=7335'>#17793</a>
-					<li>Zusätzliche Datenfelder in Mails und Formatierung von Datums- und Betragsfeldern <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17648&group_id=7335>#17648</a>
+					<li>Liste Zusatzbeträge: Sortierung nach Namen aufgenommen. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17793&group_id=7335'>#17793</a></li>
+					<li>Zusätzliche Datenfelder in Mails und Formatierung von Datums- und Betragsfeldern <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17648&group_id=7335'>#17648</a></li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -580,6 +580,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.121  2011-03-20 19:26:56  jost
+    *** empty log message ***
+
     Revision 1.120  2011-03-20 12:06:40  jost
     *** empty log message ***
 
