@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-02-12 09:35:15  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.3  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -78,6 +81,7 @@ public class LehrgaengeList extends TablePart implements Part
               return name;
             }
           });
+      lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("von/am"), "von",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",
