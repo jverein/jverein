@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-02-12 09:31:26  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.2  2009/06/22 18:13:30  jost
  * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
  *
@@ -85,9 +88,12 @@ public class LehrgangControl extends AbstractControl
         Lehrgangsart la = (Lehrgangsart) lehrgangsart.getValue();
         try
         {
-          getVon().setValue(la.getVon());
-          getBis().setValue(la.getBis());
-          getVeranstalter().setValue(la.getVeranstalter());
+          if (la != null)
+          {
+            getVon().setValue(la.getVon());
+            getBis().setValue(la.getBis());
+            getVeranstalter().setValue(la.getVeranstalter());
+          }
         }
         catch (RemoteException e)
         {
