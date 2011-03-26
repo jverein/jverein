@@ -726,6 +726,14 @@ public class JVereinUpdateProvider
     {
       update0187(conn);
     }
+    if (cv < 188)
+    {
+      update0188(conn);
+    }
+    if (cv < 189)
+    {
+      update0189(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4443,6 +4451,29 @@ public class JVereinUpdateProvider
         "ALTER TABLE `mail`  DROP INDEX `betreff`;\n");
 
     execute(conn, statements, "Index von mail entfernt (nur MySQL)", 187);
+  }
+
+  private void update0188(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "ALTER TABLE beitragsgruppe ADD buchungsart integer;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    execute(conn, statements,
+        "Spalte buchungsart in die Tabelle beitragsgruppe aufgenommen", 188);
+  }
+
+  private void update0189(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "ALTER TABLE beitragsgruppe ADD CONSTRAINT fkBeitragsgruppe1 FOREIGN KEY (buchungsart) REFERENCES buchungsart(id);\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Foreign Key für Tabelle beitragsgruppe angelegt ", 189);
   }
 
 }

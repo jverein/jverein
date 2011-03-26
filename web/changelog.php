@@ -59,6 +59,9 @@
 					<li>Zusätzliche Datenfelder in Mails und Formatierung von Datums- und Betragsfeldern <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17648&group_id=7335'>#17648</a></li>
     			<li>Lehrgangsart in die Übersicht aufgenommen.</li>
     			<li>Vermeidung NPE bei der Erfassung von Lehrgängen.</li>
+					<hr>
+					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 274 vorgenommen.</li>
+					<li>Beitragsgruppen können jetzt Buchungsarten zugewiesen werden. Diese werden bei der Verwendung des Mitgliedskontos bei der Abrechung (z. Z. nur neue Version) in die Istsätze der Abbuchungsbeträge geschrieben.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -582,6 +585,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.124  2011-03-25 12:34:52  jost
+    *** empty log message ***
+
     Revision 1.123  2011-03-24 22:25:08  jost
     *** empty log message ***
 

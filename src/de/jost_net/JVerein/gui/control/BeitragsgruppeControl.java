@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2010-11-17 04:49:31  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.15  2009/07/24 20:16:56  jost
  * Focus auf erstes Feld setzen.
  *
@@ -66,6 +69,7 @@ import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -95,6 +99,8 @@ public class BeitragsgruppeControl extends AbstractControl
   private DecimalInput arbeitseinsatzstunden;
 
   private DecimalInput arbeitseinsatzbetrag;
+
+  private SelectInput buchungsart;
 
   public BeitragsgruppeControl(AbstractView view)
   {
@@ -131,8 +137,7 @@ public class BeitragsgruppeControl extends AbstractControl
       return betrag;
     }
     betrag = new DecimalInput(getBeitragsgruppe().getBetrag(),
-        new DecimalFormat("###,###.##"));
-    // Einstellungen.DECIMALFORMAT);
+        Einstellungen.DECIMALFORMAT);
     betrag.setMandatory(true);
     return betrag;
   }
@@ -170,6 +175,18 @@ public class BeitragsgruppeControl extends AbstractControl
     return arbeitseinsatzbetrag;
   }
 
+  public SelectInput getBuchungsart() throws RemoteException
+  {
+    if (buchungsart != null)
+    {
+      return buchungsart;
+    }
+    DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
+    buchungsart = new SelectInput(it, getBeitragsgruppe().getBuchungsart());
+    buchungsart.setPleaseChoose("bitte auswählen");
+    return buchungsart;
+  }
+
   public void handleStore()
   {
     try
@@ -180,6 +197,11 @@ public class BeitragsgruppeControl extends AbstractControl
       b.setBetrag(d.doubleValue());
       ArtBeitragsart ba = (ArtBeitragsart) getBeitragsArt().getValue();
       b.setBeitragsArt(ba.getKey());
+      Buchungsart bua = (Buchungsart) getBuchungsart().getValue();
+      if (bua != null)
+      {
+        b.setBuchungsart(bua);
+      }
       d = (Double) getArbeitseinsatzStunden().getValue();
       b.setArbeitseinsatzStunden(d.doubleValue());
       d = (Double) getArbeitseinsatzBetrag().getValue();
@@ -223,6 +245,7 @@ public class BeitragsgruppeControl extends AbstractControl
           "arbeitseinsatzbetrag", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
     }
+    beitragsgruppeList.addColumn("Buchungsart", "buchungsart");
     beitragsgruppeList.setContextMenu(new BeitragsgruppeMenu());
     return beitragsgruppeList;
   }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-11-17 04:51:54  jost
+ * Erster Code zum Thema Arbeitseinsatz
+ *
  * Revision 1.4  2008/01/25 16:06:28  jost
  * Neu: Eigenschaften des Mitgliedes
  *
@@ -53,4 +56,9 @@ public interface Beitragsgruppe extends DBObject
 
   public void setArbeitseinsatzBetrag(double arbeitseinsatzBetrag)
       throws RemoteException;
+
+  public Buchungsart getBuchungsart() throws RemoteException;
+
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException;
+
 }

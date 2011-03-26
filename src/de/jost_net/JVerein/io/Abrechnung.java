@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-03-04 16:16:23  jost
+ * Weitere Verwendungszwecke (Mail von Danzelot vom 3.3.2011)
+ *
  * Revision 1.2  2011-02-25 15:00:19  jost
  * Bugfix Verwendungszwecke bei der Übergabe an Hibiscus
  *
@@ -272,7 +275,8 @@ public class Abrechnung
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
       writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", dtaus
-          .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true, getKonto());
+          .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true,
+          getKonto(), null);
     }
 
     if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
@@ -317,11 +321,11 @@ public class Abrechnung
     // Beitragsgruppen-Tabelle lesen und cachen
     list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
     list.addFilter("betrag > 0");
-    Hashtable<String, Double> beitr = new Hashtable<String, Double>();
+    Hashtable<String, Beitragsgruppe> beitragsgruppe = new Hashtable<String, Beitragsgruppe>();
     while (list.hasNext())
     {
       Beitragsgruppe b = (Beitragsgruppe) list.next();
-      beitr.put(b.getID(), new Double(b.getBetrag()));
+      beitragsgruppe.put(b.getID(), b);
     }
 
     if (param.abbuchungsmodus != Abrechnungsmodi.KEINBEITRAG)
@@ -406,7 +410,7 @@ public class Abrechnung
         Double betr;
         if (Einstellungen.getEinstellung().getBeitragsmodel() != Beitragsmodel.MONATLICH12631)
         {
-          betr = beitr.get(m.getBeitragsgruppeId() + "");
+          betr = beitragsgruppe.get(m.getBeitragsgruppeId() + "").getBetrag();
         }
         else
         {
@@ -414,8 +418,8 @@ public class Abrechnung
           // gerechnet.
           try
           {
-            BigDecimal bbetr = new BigDecimal(beitr.get(m.getBeitragsgruppeId()
-                + ""));
+            BigDecimal bbetr = new BigDecimal(beitragsgruppe.get(
+                m.getBeitragsgruppeId() + "").getBetrag());
             bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
             bbetr = bbetr.multiply(bmonate);
@@ -439,7 +443,8 @@ public class Abrechnung
         if (Einstellungen.getEinstellung().getMitgliedskonto())
         {
           writeMitgliedskonto(m, new Date(), param.verwendungszweck, "", betr,
-              abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG, konto);
+              abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG, konto,
+              beitragsgruppe.get(m.getBeitragsgruppeId() + ""));
         }
         if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
         {
@@ -524,7 +529,7 @@ public class Abrechnung
         {
           writeMitgliedskonto(m, new Date(), z.getBuchungstext(), "",
               z.getBetrag(), abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG,
-              konto);
+              konto, null);
         }
 
       }
@@ -710,7 +715,8 @@ public class Abrechnung
 
   private void writeMitgliedskonto(Mitglied mitglied, Date datum,
       String zweck1, String zweck2, double betrag, Abrechnungslauf abrl,
-      boolean haben, Konto konto) throws ApplicationException, RemoteException
+      boolean haben, Konto konto, Beitragsgruppe beitragsgruppe)
+      throws ApplicationException, RemoteException
   {
     Mitgliedskonto mk = null;
     if (mitglied != null) /*
@@ -744,7 +750,13 @@ public class Abrechnung
       {
         buchung.setMitgliedskonto(mk);
       }
+      if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
+      {
+        buchung.setBuchungsart(new Integer(beitragsgruppe.getBuchungsart()
+            .getID()));
+      }
       buchung.store();
+
     }
   }
 
