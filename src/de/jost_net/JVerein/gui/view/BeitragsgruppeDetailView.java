@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.18  2011-03-14 19:23:47  jost
+ * Tippfehler beseitigt.
+ *
  * Revision 1.17  2011-01-30 08:28:07  jost
  * Neu: Zusatzadressen
  *
@@ -98,6 +101,8 @@ public class BeitragsgruppeDetailView extends AbstractView
         control.getBetrag());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"),
         control.getBeitragsArt());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
+        control.getBuchungsart());
 
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
