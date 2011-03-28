@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-03-20 12:05:01  jost
+ * Bug #17793 Sortierung nach Namen aufgenommen.
+ *
  * Revision 1.10  2011-02-12 09:33:27  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -115,12 +118,12 @@ import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
-import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.hbci.HBCIProperties;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
@@ -135,7 +138,7 @@ public class ZusatzbetragControl extends AbstractControl
 
   private DateInput faelligkeit = null;
 
-  private Input buchungstext;
+  private TextInput buchungstext;
 
   private DecimalInput betrag;
 
@@ -197,7 +200,7 @@ public class ZusatzbetragControl extends AbstractControl
     return faelligkeit;
   }
 
-  public Input getBuchungstext() throws RemoteException
+  public TextInput getBuchungstext() throws RemoteException
   {
     if (buchungstext != null)
     {
@@ -205,6 +208,7 @@ public class ZusatzbetragControl extends AbstractControl
     }
     buchungstext = new TextInput(getZusatzbetrag().getBuchungstext(), 27);
     buchungstext.setMandatory(true);
+    buchungstext.setValidChars(HBCIProperties.HBCI_DTAUS_VALIDCHARS);
     return buchungstext;
   }
 
