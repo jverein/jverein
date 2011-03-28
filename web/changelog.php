@@ -62,6 +62,7 @@
 					<hr>
 					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 274 vorgenommen.</li>
 					<li>Beitragsgruppen können jetzt Buchungsarten zugewiesen werden. Diese werden bei der Verwendung des Mitgliedskontos bei der Abrechung (z. Z. nur neue Version) in die Istsätze der Abbuchungsbeträge geschrieben.</li>
+					<li>Zusatzbeträge: In den Verwendungszweck können nur noch die für DTAUS zulässigen Zeichen eingegeben werden.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -585,6 +586,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.125  2011-03-26 15:48:52  jost
+    Buchungsart bei der Abbuchung direkt in den Istsatz schreiben.
+
     Revision 1.124  2011-03-25 12:34:52  jost
     *** empty log message ***
 
