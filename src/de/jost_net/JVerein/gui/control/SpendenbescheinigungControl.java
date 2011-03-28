@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2011-03-20 06:38:26  jost
+ * Anzeige des erzeugten Dokuments
+ *
  * Revision 1.18  2011-03-18 19:15:27  jost
  * redakt.
  *
@@ -69,7 +72,6 @@ package de.jost_net.JVerein.gui.control;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;

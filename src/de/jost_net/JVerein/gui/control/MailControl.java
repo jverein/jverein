@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-03-20 19:18:19  jost
+ * Formatierung von Datumsfeldern und Beträgen.
+ *
  * Revision 1.11  2011-01-27 22:18:35  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -81,7 +84,6 @@ import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
