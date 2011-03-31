@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-03-26 15:48:02  jost
+ * Buchungsart bei der Abbuchung direkt in den Istsatz schreiben.
+ *
  * Revision 1.3  2011-03-04 16:16:23  jost
  * Weitere Verwendungszwecke (Mail von Danzelot vom 3.3.2011)
  *
@@ -239,7 +242,7 @@ public class Abrechnung
     abrechnenMitglieder(lastschriften, monitor, abrl, konto);
     if (param.zusatzbetraege)
     {
-      abbuchenZusatzbetraege(lastschriften, abrl, konto);
+      abbuchenZusatzbetraege(lastschriften, abrl, konto, monitor);
     }
     if (param.kursteilnehmer)
     {
@@ -478,8 +481,8 @@ public class Abrechnung
   }
 
   private void abbuchenZusatzbetraege(XLastschriften lastschriften,
-      Abrechnungslauf abrl, Konto konto) throws NumberFormatException,
-      IOException, ApplicationException
+      Abrechnungslauf abrl, Konto konto, ProgressMonitor monitor)
+      throws NumberFormatException, IOException, ApplicationException
   {
     DBIterator list = Einstellungen.getDBService().createList(
         Zusatzbetrag.class);
@@ -489,6 +492,17 @@ public class Abrechnung
       if (z.isAktiv())
       {
         Mitglied m = z.getMitglied();
+        if ((m.getEingabedatum() == null || m.getEingabedatum().before(
+            param.stichtag))
+            && (m.getAustritt() == null || m.getAustritt().before(
+                param.stichtag)))
+        {
+          //
+        }
+        else
+        {
+          continue;
+        }
         if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
         {
           try
@@ -524,7 +538,19 @@ public class Abrechnung
               z.getIntervall()));
         }
         z.setAusfuehrung(Datum.getHeute());
-        z.store();
+        try
+        {
+          z.store();
+        }
+        catch (ApplicationException e)
+        {
+          String debString = z.getStartdatum() + ", " + z.getEndedatum() + ", "
+              + z.getIntervallText() + ", " + z.getBuchungstext() + ", "
+              + z.getBetrag();
+          Logger.error(z.getMitglied().getNameVorname() + " " + debString, e);
+          monitor.log(z.getMitglied().getName() + " " + debString + " " + e);
+          throw e;
+        }
         if (Einstellungen.getEinstellung().getMitgliedskonto())
         {
           writeMitgliedskonto(m, new Date(), z.getBuchungstext(), "",
