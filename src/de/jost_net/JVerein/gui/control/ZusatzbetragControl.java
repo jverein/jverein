@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-03-28 18:08:12  jost
+ * Nur für DTAUS zulässige Zeichen können in den Verwendungszweck eingegeben werden.
+ *
  * Revision 1.11  2011-03-20 12:05:01  jost
  * Bug #17793 Sortierung nach Namen aufgenommen.
  *
@@ -281,7 +284,7 @@ public class ZusatzbetragControl extends AbstractControl
     Date d = getZusatzbetrag().getEndedatum();
     this.endedatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.endedatum.setTitle("Startdatum");
-    this.endedatum.setText("Bitte Startdatum wählen");
+    this.endedatum.setText("Bitte Endedatum wählen");
     this.endedatum.addListener(new Listener()
     {
 
