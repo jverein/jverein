@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.41  2011-03-25 14:03:04  jost
+ * Plausi Geburtsdatum
+ *
  * Revision 1.40  2011-02-12 09:43:37  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -860,7 +863,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       else
       {
-        return "";
+        switch (fd.getDatentyp())
+        {
+          case Datentyp.GANZZAHL:
+            return 0;
+          default:
+            return "";
+        }
       }
     }
     return super.getAttribute(fieldName);
