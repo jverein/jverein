@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2011-04-02 15:20:26  jost
+ * Nicht gefüllte Ganzzahl-Zusatzfelder werden jetzt mit 0 angezeigt. Dadurch wird die korrekte Sortierung in der Mitgliederübersicht gewährleistet.
+ *
  * Revision 1.41  2011-03-25 14:03:04  jost
  * Plausi Geburtsdatum
  *
@@ -866,7 +869,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         switch (fd.getDatentyp())
         {
           case Datentyp.GANZZAHL:
-            return 0;
+            return null;
           default:
             return "";
         }
