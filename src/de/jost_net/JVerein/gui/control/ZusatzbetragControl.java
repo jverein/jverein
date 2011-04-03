@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-03-31 09:55:35  jost
+ * Bug #18038
+ *
  * Revision 1.12  2011-03-28 18:08:12  jost
  * Nur für DTAUS zulässige Zeichen können in den Verwendungszweck eingegeben werden.
  *
@@ -248,7 +251,7 @@ public class ZusatzbetragControl extends AbstractControl
         {
           return;
         }
-        faelligkeit.setValue(date);
+        startdatum.setValue(date);
       }
     });
     if (withFocus)
