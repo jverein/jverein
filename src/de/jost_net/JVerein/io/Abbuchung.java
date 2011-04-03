@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.53  2011-03-23 22:02:48  jost
+ * Überflüssigen Code auskommentiert.
+ *
  * Revision 1.52  2011-02-23 18:01:45  jost
  * Ersten Code für die kompakte Abbuchung wieder entfernt.
  *
@@ -652,18 +655,12 @@ public class Abbuchung
         .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
         .getID())
         + "/" + name;
-    if (mitgliedname.length() > 27)
-    {
-      mitgliedname = mitgliedname.substring(0, 27);
-    }
+      mitgliedname =dtaus27(mitgliedname);
     if (m.getKontoinhaber().length() > 0)
     {
       name = m.getKontoinhaber();
     }
-    if (name.length() > 27)
-    {
-      name = name.substring(0, 27);
-    }
+    name = dtaus27(name);
     dtaus.setCName(name);
     dtaus
         .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
@@ -762,4 +759,24 @@ public class Abbuchung
     return k;
   }
 
+  private String dtaus27(String in)
+  {
+    String out = in;
+    if (in.length() > 27)
+    {
+      out = in.substring(0, 27);
+    }
+    int lae = out.length();
+    for (int i = 0; i < out.length(); i++)
+    {
+      Character c = out.charAt(i);
+      if (c.equals('Ä') || c.equals('Ö') || c.equals('Ü') || c.equals('ä')
+          || c.equals('ö') || c.equals('ü') || c.equals('ß'))
+      {
+        lae--;
+      }
+    }
+    out = out.substring(0, lae);
+    return out;
+  }
 }

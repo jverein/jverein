@@ -65,6 +65,8 @@
 					<li>Zusatzbeträge: In den Verwendungszweck können nur noch die für DTAUS zulässigen Zeichen eingegeben werden.</li>
     		  <li>Keine Abrechnung von Zusatzbeträgen bei ausgetretenen Mitgliedern</li>
     		  <li>Korrekte Sortierung von Ganzzahl-Zusatzfeldern in der Mitgliederübersicht.</li>
+    		  <li>Neu: Filter für die Lehrgangsübersicht.</li>
+    		  <li>Bugfix Abrechnung DTAUS mit äöüß größer 27 Stellen.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -588,6 +590,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.128  2011-04-02 16:49:28  jost
+    Korrekt jetzt auch mit Null-Werten
+
     Revision 1.127  2011-03-31 18:04:05  jost
     *** empty log message ***
 

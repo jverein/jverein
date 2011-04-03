@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-03-31 18:02:41  jost
+ * Keine Abrechnung von Zusatzbeträgen für ausgetretene Mitglieder
+ *
  * Revision 1.4  2011-03-26 15:48:02  jost
  * Buchungsart bei der Abbuchung direkt in den Istsatz schreiben.
  *
@@ -815,10 +818,7 @@ public class Abrechnung
     {
       zpfl = m.getKontoinhaber();
     }
-    if (zpfl.length() > 27)
-    {
-      zpfl = zpfl.substring(0, 27);
-    }
+    zpfl = dtaus27(zpfl);
     return zpfl;
   }
 
@@ -828,10 +828,29 @@ public class Abrechnung
         .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
         .getID())
         + "/" + m.getNameVorname();
-    if (mitgliedname.length() > 27)
-    {
-      mitgliedname = mitgliedname.substring(0, 27);
-    }
+    mitgliedname = dtaus27(mitgliedname);
     return mitgliedname;
   }
+
+  private String dtaus27(String in)
+  {
+    String out = in;
+    if (in.length() > 27)
+    {
+      out = in.substring(0, 27);
+    }
+    int lae = out.length();
+    for (int i = 0; i < out.length(); i++)
+    {
+      Character c = out.charAt(i);
+      if (c.equals('Ä') || c.equals('Ö') || c.equals('Ü') || c.equals('ä')
+          || c.equals('ö') || c.equals('ü') || c.equals('ß'))
+      {
+        lae--;
+      }
+    }
+    out = out.substring(0, lae);
+    return out;
+  }
+
 }
