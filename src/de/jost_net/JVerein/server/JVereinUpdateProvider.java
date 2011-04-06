@@ -734,6 +734,10 @@ public class JVereinUpdateProvider
     {
       update0189(conn);
     }
+    if (cv < 190)
+    {
+      update0190(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4474,6 +4478,23 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Foreign Key für Tabelle beitragsgruppe angelegt ", 189);
+  }
+
+  private void update0190(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD smtp_starttls char(5);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD smtp_starttls char(5);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte smtp_startls in die Tabelle einstellung aufgenommen", 190);
   }
 
 }

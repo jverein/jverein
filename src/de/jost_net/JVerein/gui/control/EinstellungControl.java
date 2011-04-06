@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.42  2011-03-17 19:45:25  jost
+ * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
+ *
  * Revision 1.41  2011-03-17 19:00:48  jost
  * Bugfix Feldname
  *
@@ -246,6 +249,8 @@ public class EinstellungControl extends AbstractControl
   private TextInput smtp_from_address;
 
   private CheckboxInput smtp_ssl;
+
+  private CheckboxInput smtp_starttls;
 
   private SelectInput zahlungsweg;
 
@@ -723,6 +728,17 @@ public class EinstellungControl extends AbstractControl
     return smtp_ssl;
   }
 
+  public CheckboxInput getSmtpStarttls() throws RemoteException
+  {
+    if (smtp_starttls != null)
+    {
+      return smtp_starttls;
+    }
+    smtp_starttls = new CheckboxInput(Einstellungen.getEinstellung()
+        .getSmtpStarttls());
+    return smtp_starttls;
+  }
+
   public SelectInput getZahlungsweg() throws RemoteException
   {
     if (zahlungsweg != null)
@@ -860,6 +876,7 @@ public class EinstellungControl extends AbstractControl
       e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
       e.setSmtpFromAddress((String) smtp_from_address.getValue());
       e.setSmtpSsl((Boolean) smtp_ssl.getValue());
+      e.setSmtpStarttls((Boolean) smtp_starttls.getValue());
       Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();

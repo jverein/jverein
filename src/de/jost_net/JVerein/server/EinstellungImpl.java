@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2011-03-17 19:46:56  jost
+ * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
+ *
  * Revision 1.28  2011-03-13 13:49:55  jost
  * Zusätzliches Feld f. Sachspendenbescheinigungen.
  *
@@ -690,6 +693,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setSmtpSsl(Boolean smtp_ssl) throws RemoteException
   {
     setAttribute("smtp_ssl", smtp_ssl);
+  }
+
+  public Boolean getSmtpStarttls() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("smtp_starttls"));
+  }
+
+  public void setSmtpStarttls(Boolean smtp_starttls) throws RemoteException
+  {
+    setAttribute("smtp_starttls", smtp_starttls);
   }
 
   public int getZahlungsrhytmus() throws RemoteException

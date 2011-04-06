@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-02-12 09:39:26  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.4  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -69,9 +72,11 @@ public class MailSender
 
   private boolean smtp_ssl;
 
+  private boolean smtp_starttls;
+
   public MailSender(String smtp_host_name, String smtp_port,
       String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,
-      boolean smtp_ssl)
+      boolean smtp_ssl, boolean smtp_starttls)
   {
     this.smtp_host_name = smtp_host_name;
     this.smtp_port = smtp_port;
@@ -79,6 +84,7 @@ public class MailSender
     this.smtp_auth_pwd = smtp_auth_pwd;
     this.smtp_from_address = smtp_from_address;
     this.smtp_ssl = smtp_ssl;
+    this.smtp_starttls = smtp_starttls;
   }
 
   // Send to a single recipient
@@ -113,7 +119,11 @@ public class MailSender
     }
     props.setProperty("mail.smtp.port", smtp_port);
     props.setProperty("mail.smtp.socketFactory.port", smtp_port);
-
+    if (smtp_starttls)
+    {
+      props.put("mail.smtp.starttls.enable", "true");
+      props.put("mail.smtp.tls", "true");
+    }
     Session session = null;
 
     if (smtp_auth_user != null)

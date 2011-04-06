@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2011-04-03 10:02:03  jost
+ * Ausgabe der Zusatzfelder
+ *
  * Revision 1.13  2011-03-28 18:07:14  jost
  * Überflüssigen Code entfernt.
  *
@@ -331,7 +334,8 @@ public class MailControl extends AbstractControl
               Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
                   .getEinstellung().getSmtpAuthPwd(), Einstellungen
                   .getEinstellung().getSmtpFromAddress(), Einstellungen
-                  .getEinstellung().getSmtpSsl());
+                  .getEinstellung().getSmtpSsl(), Einstellungen
+                  .getEinstellung().getSmtpStarttls());
 
           Velocity.init();
           Logger.debug("preparing velocity context");

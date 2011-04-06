@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.45  2011-03-17 19:46:31  jost
+ * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
+ *
  * Revision 1.44  2011-03-13 13:47:01  jost
  * Zusätzliches Feld f. Sachspendenbescheinigungen.
  *
@@ -315,6 +318,7 @@ public class EinstellungenView extends AbstractView
     groupMail.addLabelPair("Passwort", control.getSmtpAuthPwd());
     groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
     groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
+    groupMail.addLabelPair("Starttls verwenden", control.getSmtpStarttls());
 
     TabGroup tabStatistik = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Statistik"));

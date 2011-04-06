@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2011-03-17 19:46:44  jost
+ * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
+ *
  * Revision 1.24  2011-03-13 13:49:05  jost
  * Zusätzliches Feld f. Sachspendenbescheinigungen.
  *
@@ -272,6 +275,10 @@ public interface Einstellung extends DBObject
   public Boolean getSmtpSsl() throws RemoteException;
 
   public void setSmtpSsl(Boolean smtp_ssl) throws RemoteException;
+
+  public Boolean getSmtpStarttls() throws RemoteException;
+
+  public void setSmtpStarttls(Boolean smtp_starttls) throws RemoteException;
 
   public int getZahlungsrhytmus() throws RemoteException;
 
