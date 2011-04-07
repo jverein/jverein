@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.10  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -50,7 +53,6 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -67,8 +69,8 @@ public class KursteilnehmerDetailView extends AbstractView
 
     final KursteilnehmerControl control = new KursteilnehmerControl(this);
 
-    LabelGroup grGrund = new LabelGroup(getParent(),
-        JVereinPlugin.getI18n().tr("Daten für die Abbuchung"));
+    LabelGroup grGrund = new LabelGroup(getParent(), JVereinPlugin.getI18n()
+        .tr("Daten für die Abbuchung"));
     grGrund.getComposite().setSize(290, 190);
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
         control.getName(true));
@@ -82,17 +84,15 @@ public class KursteilnehmerDetailView extends AbstractView
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
         control.getBetrag());
 
-    LabelGroup grStatistik = new LabelGroup(getParent(),
-        JVereinPlugin.getI18n().tr("Statistik"));
+    LabelGroup grStatistik = new LabelGroup(getParent(), JVereinPlugin
+        .getI18n().tr("Statistik"));
     grStatistik.getComposite().setSize(290, 190);
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum"),
         control.getGeburtsdatum());
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Geschlecht"),
         control.getGeschlecht());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 5);
-
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(getParent(), 4);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
         "help-browser.png");

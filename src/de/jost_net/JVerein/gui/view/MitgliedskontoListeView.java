@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-02-02 16:23:50  jost
+ * Status von "Differenz" wird gespeichert.
+ *
  * Revision 1.8  2011-01-15 09:46:48  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -40,7 +43,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.gui.menu.Mitgliedskonto2Menu;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -68,8 +70,7 @@ public class MitgliedskontoListeView extends AbstractView
     control.getMitgliedskontoList(new MitgliedDetailAction(),
         new Mitgliedskonto2Menu()).paint(this.getParent());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
-    buttons2.addButton(new Back(false));
+    ButtonArea buttons2 = new ButtonArea(this.getParent(), 1);
     buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT,
         false, "help-browser.png");

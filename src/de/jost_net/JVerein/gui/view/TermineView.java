@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-01-31 17:13:34  jost
+ * Hilfe aufgenommen.
+ *
  * Revision 1.1  2010-11-25 15:11:52  jost
  * Initial Commit
  *
@@ -21,8 +24,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.parts.TerminePart;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.buttons.Back;
-import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.util.I18N;
 
 /**
@@ -43,16 +44,11 @@ public class TermineView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-
     GUI.getView().setTitle(i18n.tr("Termine"));
 
     this.termine = new TerminePart();
     this.termine.setCurrentDate(currentDate);
     this.termine.paint(getParent());
-
-    ButtonArea buttons = new ButtonArea();
-    buttons.addButton(new Back(false));
-    buttons.paint(getParent());
   }
 
   /**

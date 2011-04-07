@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-01-15 09:46:47  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.12  2010-10-15 09:58:23  jost
  * Code aufgeräumt
  *
@@ -55,7 +58,6 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.io.Import;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -79,8 +81,7 @@ public class ImportView extends AbstractView
 
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Daten-Import"));
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.IMPORT, false,
         "help-browser.png");

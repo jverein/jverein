@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-04-07 19:25:41  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.2  2011-02-12 09:36:15  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -127,7 +130,6 @@ import org.eclipse.swt.widgets.TabFolder;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBService;

@@ -15,7 +15,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.FelddefinitionenAction;
 import de.jost_net.JVerein.gui.control.FelddefinitionControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -39,10 +38,10 @@ public class FelddefinitionDetailView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Label"), control.getLabel());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Datentyp"),
         control.getDatentyp());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(getParent(), 3);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.FELDDEFINITIONEN, false,
         "help-browser.png");

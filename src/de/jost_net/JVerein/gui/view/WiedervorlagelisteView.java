@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-15 09:46:47  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.10  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -45,7 +48,6 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.gui.parts.WiedervorlageList;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -58,10 +60,9 @@ public class WiedervorlagelisteView extends AbstractView
   public void bind() throws Exception
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Wiedervorlagen"));
-    new WiedervorlageList(new WiedervorlageListeAction()).getWiedervorlageList().paint(
-        this.getParent());
+    new WiedervorlageList(new WiedervorlageListeAction())
+        .getWiedervorlageList().paint(this.getParent());
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
-    buttons.addButton(new Back(false));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.WIEDERVORLAGE, false,
         "help-browser.png");

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-02-12 09:36:46  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.7  2011-01-15 09:46:47  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -48,7 +51,6 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.gui.dialogs.MailEmpfaengerAuswahlDialog;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -168,8 +170,7 @@ public class MailDetailView extends AbstractView
     });
     addAttachment.paint(comp5);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MAIL, false,
         "help-browser.png");
@@ -184,25 +185,6 @@ public class MailDetailView extends AbstractView
     text.setText(name);
     text.setLayoutData(new GridData(align));
   }
-
-  //
-  // LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-  // "Mail"));
-  // ScrolledContainer sc1 = new ScrolledContainer(group.getComposite());
-  // control.getEmpfaenger().paint(sc1.getComposite());
-  //
-  // group.addPart(control.getEmpfaenger());
-  // group.addInput(control.getBetreff());
-  // group.addInput(control.getTxt());
-  //
-  // ButtonArea buttons = new ButtonArea(getParent(), 3);
-  // buttons.addButton(new Back(false));
-  // buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-  // new DokumentationAction(), DokumentationUtil.MAIL, false,
-  // "help-browser.png");
-  //
-  // buttons.addButton(control.getMailSendButton());
-  // }
 
   // TODO getHelp()
 

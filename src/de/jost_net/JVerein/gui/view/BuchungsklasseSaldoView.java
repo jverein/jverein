@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-01-15 09:46:48  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.7  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -36,7 +39,6 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseSaldoControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -58,8 +60,10 @@ public class BuchungsklasseSaldoView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Zeitraum"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getDatumvon());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getDatumvon());
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
 
     ButtonArea buttons = new ButtonArea(this.getParent(), 1);
     Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
@@ -77,8 +81,7 @@ public class BuchungsklasseSaldoView extends AbstractView
         "Saldo"), true);
     group2.addPart(control.getSaldoList());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 3);
-    buttons2.addButton(new Back(false));
+    ButtonArea buttons2 = new ButtonArea(this.getParent(), 2);
     buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.JAHRESSALDO, false,
         "help-browser.png");

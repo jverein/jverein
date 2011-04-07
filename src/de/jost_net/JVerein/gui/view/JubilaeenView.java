@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.10  2010-10-15 09:58:25  jost
  * Code aufgeräumt
  *
@@ -45,7 +48,6 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
@@ -65,11 +67,10 @@ public class JubilaeenView extends AbstractView
         "Parameter"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
         control.getJubeljahr());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getJubelArt());
+    group
+        .addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getJubelArt());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 3);
-
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(getParent(), 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
         "help-browser.png");

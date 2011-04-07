@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2011-01-15 09:46:49  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.23  2010-12-31 17:06:35  jost
  * Redakt.
  *
@@ -84,7 +87,6 @@ import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.control.DokumentControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.BuchungDokument;
 import de.willuhn.jameica.gui.AbstractView;
@@ -160,8 +162,7 @@ public class BuchungView extends AbstractView
       }
     }
 
-    ButtonArea buttons = new ButtonArea(scrolled.getComposite(), 4);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(scrolled.getComposite(), 3);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
