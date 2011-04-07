@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2011-01-15 09:46:47  jost
+ * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
+ *
  * Revision 1.5  2010-10-15 09:58:24  jost
  * Code aufgeräumt
  *
@@ -30,7 +33,6 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AdressbuchExportControl;
-import de.jost_net.JVerein.gui.internal.buttons.Back;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
@@ -55,8 +57,7 @@ public class AdressbuchExportView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Trennzeichen"),
         control.getTrennzeichen());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ADRESSBUCHEXPORT, false,
         "help-browser.png");

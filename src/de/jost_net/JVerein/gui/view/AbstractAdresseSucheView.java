@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-02-12 09:36:15  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.1  2011-01-29 19:30:09  jost
  * Feinschliff
  *
@@ -241,8 +244,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
         }
       });
     }
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(getHilfeButton());
     if (anzahlbeitragsgruppe > 0)
     {
