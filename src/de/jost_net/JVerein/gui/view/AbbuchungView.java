@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2011-02-23 18:01:04  jost
+ * Zum Test: Parallele Nutzung der alten und der neuen Abrechnung.
+ *
  * Revision 1.28  2011-02-12 09:36:03  jost
  * Stammdaten -> Einstellungen
  *
@@ -169,8 +172,7 @@ public class AbbuchungView extends AbstractView
                 .tr("*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
                     + "Üblicherweise 1.1. des Jahres."), true);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
-    buttons.addButton(new Back(false));
+    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
       buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
