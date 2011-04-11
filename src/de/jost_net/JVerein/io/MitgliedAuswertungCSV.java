@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2011-02-12 09:39:40  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.14  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -63,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -139,7 +143,27 @@ public class MitgliedAuswertungCSV
           if (it2.size() > 0)
           {
             Zusatzfelder zf = (Zusatzfelder) it2.next();
-            out.print(";" + zf.getFeld());
+            out.print(";");
+            switch (fd.getDatentyp())
+            {
+              case Datentyp.ZEICHENFOLGE:
+                out.print(zf.getFeld());
+                break;
+              case Datentyp.DATUM:
+                out.print(zf.getFeldDatum() != null ? new JVDateFormatTTMMJJJJ()
+                    .format(zf.getFeldDatum()) : "");
+                break;
+              case Datentyp.JANEIN:
+                out.print(zf.getFeldJaNein());
+                break;
+              case Datentyp.GANZZAHL:
+                out.print(zf.getFeldGanzzahl());
+                break;
+              case Datentyp.WAEHRUNG:
+                out.print(zf.getFeldWaehrung() != null ? Einstellungen.DECIMALFORMAT
+                    .format(zf.getFeldWaehrung()) : "");
+                break;
+            }
           }
           else
           {
