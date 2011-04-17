@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2011-01-29 19:31:24  jost
+ * Feinschliff
+ *
  * Revision 1.29  2011-01-27 22:22:59  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -100,14 +103,30 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
         mitglgeschlecht);
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
-    DateInput mitglsterbedatvon = control.getSterbedatumvon();
-    mitglsterbedatvon.addListener(new FilterListener());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Sterbedatum von"),
-        mitglsterbedatvon);
-    DateInput mitglsterbedatbis = control.getSterbedatumbis();
-    mitglsterbedatbis.addListener(new FilterListener());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Sterbedatum bis"),
-        mitglsterbedatbis);
+    DateInput mitgleintrittvon = control.getEintrittvon();
+    mitgleintrittvon.addListener(new FilterListener());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum von"),
+        mitgleintrittvon);
+    DateInput mitgleintrittbis = control.getEintrittbis();
+    mitgleintrittbis.addListener(new FilterListener());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum bis"),
+        mitgleintrittbis);
+    DateInput mitglaustrittvon = control.getAustrittvon();
+    mitglaustrittvon.addListener(new FilterListener());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Austrittsdatum von"),
+        mitglaustrittvon);
+    DateInput mitglaustrittbis = control.getAustrittbis();
+    mitglaustrittbis.addListener(new FilterListener());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Austrittsdatum bis"),
+        mitglaustrittbis);
+
+    DialogInput mitglzusatzfelder = control.getZusatzfelderAuswahl();
+    mitglzusatzfelder.addListener(new FilterListener());
+    if (Einstellungen.getEinstellung().hasZusatzfelder())
+    {
+      left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzfelder"),
+          mitglzusatzfelder);
+    }
   }
 
   public Action getDetailAction()
