@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.108  2011-03-05 11:12:58  jost
+ * Bugfix bei der Umschlüsselung eines Mitgliedes von einer Beitragsart mit der Art Familie/Angehöriger in eine andere Beitragsart.
+ *
  * Revision 1.107  2011-02-12 09:31:51  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -364,6 +367,7 @@ import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
@@ -546,6 +550,8 @@ public class MitgliedControl extends AbstractControl
   private SelectInput beitragsgruppeausw;
 
   private DialogInput eigenschaftenabfrage;
+
+  private DialogInput zusatzfelderabfrage;
 
   private IntegerInput suchexternemitgliedsnummer;
 
@@ -2069,6 +2075,20 @@ public class MitgliedControl extends AbstractControl
     return eigenschaftenabfrage;
   }
 
+  public DialogInput getZusatzfelderAuswahl() throws RemoteException
+  {
+    if (zusatzfelderabfrage != null)
+    {
+      return zusatzfelderabfrage;
+    }
+    final ZusatzfelderAuswahlDialog d = new ZusatzfelderAuswahlDialog(settings);
+    d.addCloseListener(new ZusatzfelderListener());
+
+    zusatzfelderabfrage = new DialogInput("", d);
+    setZusatzfelderAuswahl();
+    return zusatzfelderabfrage;
+  }
+
   public Input getAusgabe()
   {
     if (ausgabe != null)
@@ -2224,8 +2244,8 @@ public class MitgliedControl extends AbstractControl
   {
     TablePart part;
     saveDefaults();
-    part = new TablePart(new MitgliedQuery(this, true).get(anfangsbuchstabe,
-        atyp), detailaction);
+    part = new TablePart(new MitgliedQuery(this).get(anfangsbuchstabe, atyp),
+        detailaction);
     new MitgliedSpaltenauswahl().setColumns(part, atyp);
     part.setContextMenu(new MitgliedMenu(detailaction));
     part.setMulti(true);
@@ -2508,9 +2528,9 @@ public class MitgliedControl extends AbstractControl
       {
         try
         {
-          Beitragsgruppe bg = (Beitragsgruppe)o;
+          Beitragsgruppe bg = (Beitragsgruppe) o;
           m.setBeitragsgruppe(new Integer(bg.getID()));
-          if (bg.getBeitragsArt()!=ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+          if (bg.getBeitragsArt() != ArtBeitragsart.FAMILIE_ANGEHOERIGER)
           {
             m.setZahlerID(null);
           }
@@ -2724,7 +2744,7 @@ public class MitgliedControl extends AbstractControl
   {
     saveDefaults();
     ArrayList list = null;
-    list = new MitgliedQuery(this, false).get(1);
+    list = new MitgliedQuery(this).get(1);
     try
     {
       String subtitle = "";
@@ -2852,6 +2872,11 @@ public class MitgliedControl extends AbstractControl
     {
       e.printStackTrace();
     }
+  }
+
+  public Settings getSettings()
+  {
+    return settings;
   }
 
   private void starteStatistik() throws RemoteException
@@ -3043,6 +3068,23 @@ public class MitgliedControl extends AbstractControl
     Application.getController().start(t);
   }
 
+  public void setZusatzfelderAuswahl()
+  {
+    int selected = settings.getInt("zusatzfelder.selected", 0);
+    if (selected == 0)
+    {
+      zusatzfelderabfrage.setText("kein Feld ausgewählt");
+    }
+    else if (selected == 1)
+    {
+      zusatzfelderabfrage.setText("1 Feld ausgewählt");
+    }
+    else
+    {
+      zusatzfelderabfrage.setText(selected + " Felder ausgewählt");
+    }
+  }
+
   /**
    * Sucht das Geldinstitut zur eingegebenen BLZ und zeigt es als Kommentar
    * hinter dem BLZ-Feld an.
@@ -3100,6 +3142,23 @@ public class MitgliedControl extends AbstractControl
       }
       eigenschaftenabfrage.setText(text.toString());
       settings.setAttribute("mitglied.eigenschaften", id.toString());
+    }
+  }
+
+  /**
+   * Listener, der die Auswahl der Zusatzfelder ueberwacht.
+   */
+  private class ZusatzfelderListener implements Listener
+  {
+    public void handleEvent(Event event)
+    {
+      if (event == null || event.data == null)
+      {
+        return;
+      }
+      int selected = settings.getInt("zusatzfelder.selected", 0);
+      zusatzfelderabfrage.setText(selected > 0 ? selected
+          + " Felder ausgewählt" : "kein Feld ausgewählt");
     }
   }
 

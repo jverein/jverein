@@ -70,6 +70,7 @@
     		  <li>Beim Versand von Mails können die Zusatzfelder mit $zusatzfeld.ZUSATZFELDNAME ausgegeben werden.</li>
     		  <li>Bugfix Zusatzbeträge nächste Fälligkeit.</li>
     		  <li>Bugfix Sollbuchung bearbeiten. Irrtümlich wurde generell der Default-Zahlungsweg vorgegeben.</li>
+    		  <li>Selektion der Mitglieder (Dialog und Auswertung) nach Zusatzfeldern.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -593,6 +594,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.132  2011-04-04 11:16:14  jost
+    Bugfix Zahlungsweg
+
     Revision 1.131  2011-04-03 14:34:52  jost
     *** empty log message ***
 

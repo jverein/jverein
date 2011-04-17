@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2011-04-07 19:28:47  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.19  2011-02-02 22:00:10  jost
  * Auswertung erweitert um den Parameter "ohne EMail"
  *
@@ -69,6 +72,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
@@ -111,7 +115,11 @@ public class AuswertungMitgliedView extends AbstractView
       left.addLabelPair(JVereinPlugin.getI18n().tr("Eigenschaften"),
           control.getEigenschaftenAuswahl());
     }
-
+    if (Einstellungen.getEinstellung().hasZusatzfelder())
+    {
+      left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzfelder"),
+          control.getZusatzfelderAuswahl());
+    }
     left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"),
         control.getGeburtsdatumvon());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum bis"),

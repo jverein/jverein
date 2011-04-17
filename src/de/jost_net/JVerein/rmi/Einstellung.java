@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2011-04-06 16:29:39  jost
+ * Neu: Starttls
+ *
  * Revision 1.25  2011-03-17 19:46:44  jost
  * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
  *
@@ -303,4 +306,6 @@ public interface Einstellung extends DBObject
   public int getDelaytime() throws RemoteException;
 
   public void setDelaytime(int delaytime) throws RemoteException;
+
+  public boolean hasZusatzfelder() throws RemoteException;
 }
