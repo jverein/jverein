@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-04-07 19:22:20  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.2  2011-03-18 19:36:08  jost
  * Neu: Mailversand
  *
@@ -212,6 +215,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.parts.Button;
+import de.willuhn.jameica.gui.parts.PanelButton;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
@@ -439,6 +443,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     });
 
+     
     ButtonArea buttons = new ButtonArea(getParent(), 7);
     if (isMitgliedDetail())
     {
