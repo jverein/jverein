@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-02-01 20:57:58  jost
+ * Neu: Einfache Mailfunktion
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -76,7 +79,7 @@ public class MailVorlageControl extends AbstractControl
     {
       return txt;
     }
-    txt = new TextAreaInput(getMailVorlage().getTxt(), 1000);
+    txt = new TextAreaInput(getMailVorlage().getTxt(), 10000);
     txt.setName("Text");
     txt.setMandatory(true);
     return txt;

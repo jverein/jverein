@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2011-04-06 16:28:50  jost
+ * Neu: Starttls
+ *
  * Revision 1.14  2011-04-03 10:02:03  jost
  * Ausgabe der Zusatzfelder
  *
@@ -241,7 +244,7 @@ public class MailControl extends AbstractControl
     {
       return txt;
     }
-    txt = new TextAreaInput(getMail().getTxt(), 1000);
+    txt = new TextAreaInput(getMail().getTxt(), 10000);
     txt.setName("Text");
     return txt;
   }
