@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2011-04-17 06:40:06  jost
+ * Neu: Mitglieder-Selektion nach Zusatzfeldern
+ *
  * Revision 1.24  2011-02-12 09:41:51  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -154,7 +157,7 @@ public class MitgliedQuery
             {
               sql += "join zusatzfelder " + synonym + " on " + synonym
                   + ".mitglied = mitglied.id  and " + synonym + ".FELD " + cond
-                  + " ? and " + synonym + ".felddefintion = ? ";
+                  + " ? and " + synonym + ".felddefinition = ? ";
               synonym++;
               bedingungen.add(value);
               bedingungen.add(definition);
