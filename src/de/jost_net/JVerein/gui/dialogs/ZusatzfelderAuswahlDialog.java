@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-04-17 06:37:36  jost
+ * Neu: Mitglieder-Selektion nach Zusatzfeldern
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 
@@ -86,7 +89,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog
           counter++;
           settings
               .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", "=");
+          settings.setAttribute("zusatzfeld." + counter + ".cond", "LIKE");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
           settings.setAttribute("zusatzfeld." + counter + ".definition",
