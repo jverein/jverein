@@ -43,6 +43,7 @@
 					<li>Neu: Spendenbescheinigung aus dem Mitgliedskonto (Automatische Spendenbescheinigung)</li>
 					<li>Neu: Standardformular für Spendenbescheinigungen</li>
 					<li>Neu: Spendenbescheinigung für Sachspenden</li>
+					<li>Neu: Neues Abrechnungsmodul. Damit ist es möglich, mit dem Parameter "kompakte Abbuchung" mehrere Abbuchungen von einem Konto zu einer Abbuchung zusammenfassen. Die interne Struktur des Moduls musste generell überarbeitet werden. Daher ausgiebig testen. Das neue Modul steht zunächst über den Parameter "Test neue Abbuchung" zur Verfügung.</li>
 					<hr>
 					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 271 vorgenommen.</li>
 					<li>##Automatische Spendenbescheinigung: Bugfix Spendenart</li>
@@ -597,6 +598,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.134  2011-04-18 08:25:02  jost
+    *** empty log message ***
+
     Revision 1.133  2011-04-17 06:40:51  jost
     Neu: Mitglieder-Selektion nach Zusatzfeldern
 
