@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2011-04-07 19:34:54  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.30  2011-04-07 19:15:33  jost
  * Neue Zurückbutton-Mimik aus Jameica
  *
@@ -137,7 +140,6 @@ public class AbbuchungView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Parameter"));
-    group.addLabelPair("Test neue Abbuchung", control.getNeueAbbuchung());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Modus"),
         control.getAbbuchungsmodus());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"),
