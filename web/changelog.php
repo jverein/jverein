@@ -75,6 +75,7 @@
 					<hr>
 					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 279 vorgenommen.</li>
 					<li>Die Texte von Mails und Mailvorlagen können jetzt 10.000 Zeichen lang sein.</li>
+					<li>##Alte Abrechnung deaktiviert</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -598,6 +599,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.135  2011-04-21 11:43:21  jost
+    *** empty log message ***
+
     Revision 1.134  2011-04-18 08:25:02  jost
     *** empty log message ***
 
