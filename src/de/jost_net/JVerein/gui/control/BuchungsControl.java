@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.36  2011-02-26 15:53:28  jost
+ * Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl
+ *
  * Revision 1.35  2011-02-12 09:29:22  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -799,7 +802,6 @@ public class BuchungsControl extends AbstractControl
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
       buchungsList.setRememberOrder(true);
-      buchungsList.setRememberState(true);
       buchungsList.setSummary(true);
     }
     else

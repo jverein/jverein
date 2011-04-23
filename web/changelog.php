@@ -78,6 +78,9 @@
 					<li>##Alte Abrechnung deaktiviert</li>
 					<li>Freie Formulare eingeführt. Unter Administration|Formulare können die Formulare eingerichtet werden. Mit einem rechten Mausklick auf ein Mitglied werden im Kontextmenü auch die freien Formulare angezeigt. Ein Klick darauf erzeugt das Formular</li>
 					<li>Arbeitseinsätze werden auf dem Personalbogen ausgegeben.</li>
+          <hr>
+          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 280 vorgenommen.</li>
+          <li>Bugfix: Sortierung der Buchungen bleibt nach Bearbeitung der Buchungsart erhalten.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -601,6 +604,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.137  2011-04-23 06:58:00  jost
+    *** empty log message ***
+
     Revision 1.136  2011-04-22 06:29:22  jost
     *** empty log message ***
 
