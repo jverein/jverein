@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-02-12 09:27:06  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.11  2011-01-30 10:42:19  jost
  * Bugfix f. Adressen
  *
@@ -69,6 +72,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.Zahlungsweg;
+import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -209,6 +213,11 @@ public class PersonalbogenAction implements Action
             }
             generiereZusatzfelder(rpt, m);
             generiereEigenschaften(rpt, m);
+            if (Einstellungen.getEinstellung().getArbeitseinsatz())
+            {
+              generiereArbeitseinsaetze(rpt, m);
+            }
+
             rpt.setNextRecord();
           }
           rpt.close();
@@ -612,4 +621,31 @@ public class PersonalbogenAction implements Action
       rpt.closeTable();
     }
   }
+
+  private void generiereArbeitseinsaetze(Reporter rpt, Mitglied m)
+      throws RemoteException, DocumentException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(
+        Arbeitseinsatz.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.setOrder("ORDER BY datum");
+    if (it.size() > 0)
+    {
+      rpt.add(new Paragraph("Arbeitseinsatz"));
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Stunden", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Bemerkung", Element.ALIGN_LEFT, 90, Color.LIGHT_GRAY);
+      rpt.createHeader();
+      while (it.hasNext())
+      {
+        Arbeitseinsatz ae = (Arbeitseinsatz) it.next();
+        rpt.addColumn(ae.getDatum(), Element.ALIGN_LEFT);
+        rpt.addColumn(ae.getStunden());
+        rpt.addColumn(ae.getBemerkung(), Element.ALIGN_LEFT);
+      }
+    }
+    rpt.closeTable();
+
+  }
+
 }
