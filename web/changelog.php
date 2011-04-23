@@ -76,6 +76,8 @@
 					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 279 vorgenommen.</li>
 					<li>Die Texte von Mails und Mailvorlagen können jetzt 10.000 Zeichen lang sein.</li>
 					<li>##Alte Abrechnung deaktiviert</li>
+					<li>Freie Formulare eingeführt. Unter Administration|Formulare können die Formulare eingerichtet werden. Mit einem rechten Mausklick auf ein Mitglied werden im Kontextmenü auch die freien Formulare angezeigt. Ein Klick darauf erzeugt das Formular</li>
+					<li>Arbeitseinsätze werden auf dem Personalbogen ausgegeben.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -599,6 +601,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.136  2011-04-22 06:29:22  jost
+    *** empty log message ***
+
     Revision 1.135  2011-04-21 11:43:21  jost
     *** empty log message ***
 
