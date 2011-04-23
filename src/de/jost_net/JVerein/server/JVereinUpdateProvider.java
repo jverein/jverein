@@ -738,6 +738,10 @@ public class JVereinUpdateProvider
     {
       update0190(conn);
     }
+    if (cv < 191)
+    {
+      update0191(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4495,6 +4499,21 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte smtp_startls in die Tabelle einstellung aufgenommen", 190);
+  }
+
+  private void update0191(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE formularfeld ALTER COLUMN name varchar(60);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE formularfeld MODIFY COLUMN name varchar(60);\n");
+
+    execute(conn, statements,
+        "Spalte name in der Tabelle formularfeld geändert", 191);
   }
 
 }

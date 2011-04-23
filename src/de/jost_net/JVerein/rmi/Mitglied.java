@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2011-01-30 10:30:12  jost
+ * Datum der letzten Änderung wird gespeichert
+ *
  * Revision 1.16  2011-01-27 22:24:16  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -230,5 +233,7 @@ public interface Mitglied extends DBObject
   public Mitgliedfoto getFoto() throws RemoteException;
 
   public void setFoto(Mitgliedfoto foto) throws RemoteException;
+  
+  public String getEmpfaenger() throws RemoteException;
 
 }

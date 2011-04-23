@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2010-10-28 19:13:19  jost
+ * Neu: Wohnsitzstaat
+ *
  * Revision 1.11  2010-10-15 09:58:26  jost
  * Code aufgeräumt
  *
@@ -53,9 +56,11 @@ import com.lowagie.text.pdf.BaseFont;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
 import de.jost_net.JVerein.gui.menu.FormularfeldMenu;
+import de.jost_net.JVerein.io.Variable;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -67,7 +72,6 @@ import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 
 public class FormularfeldControl extends AbstractControl
 {
@@ -179,26 +183,39 @@ public class FormularfeldControl extends AbstractControl
     return formular;
   }
 
-  public SelectInput getName() throws RemoteException
+  public SelectInput getName() throws Exception
   {
     if (name != null)
     {
       return name;
     }
     ArrayList<String> namen = new ArrayList<String>();
-    namen.add(TAGESDATUM);
-    namen.add(EMPFAENGER);
     if (formular.getArt() == Formularart.SPENDENBESCHEINIGUNG)
     {
+      namen.add(TAGESDATUM);
+      namen.add(EMPFAENGER);
       namen.add("Bescheinigungsdatum");
       namen.add("Betrag");
       namen.add("Betrag in Worten");
       namen.add("Spendedatum");
       namen.add("ErsatzAufwendungen");
     }
+    if (formular.getArt() == Formularart.FREIESFORMULAR)
+    {
+      Variable v = new Variable();
+      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
+          Mitglied.class, null);
+      v.set(m);
+      for (String vs : v.getVariablenNamen())
+      {
+        namen.add(vs);
+      }
+    }
     if (formular.getArt() == Formularart.RECHNUNG
         || formular.getArt() == Formularart.MAHNUNG)
     {
+      namen.add(TAGESDATUM);
+      namen.add(EMPFAENGER);
       namen.add(ZAHLUNGSGRUND);
       namen.add(ZAHLUNGSGRUND1);
       namen.add(ZAHLUNGSGRUND2);
@@ -314,7 +331,7 @@ public class FormularfeldControl extends AbstractControl
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
-    catch (ApplicationException e)
+    catch (Exception e)
     {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }

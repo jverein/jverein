@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-02-12 09:39:02  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.7  2010-12-02 21:05:48  jost
  * Bugfix Integer
  *
@@ -115,7 +118,38 @@ public class FormularAufbereitung
       while (it.hasNext())
       {
         Formularfeld f = (Formularfeld) it.next();
-        goFormularfeld(contentByte, f, map);
+        goFormularfeld(contentByte, f, map.get(f.getName()));
+      }
+    }
+    catch (IOException e)
+    {
+      throw new RemoteException("Fehler", e);
+    }
+    catch (DocumentException e)
+    {
+      throw new RemoteException("Fehler", e);
+    }
+  }
+
+  public void writeForm(Formular formular, Variable variable)
+      throws RemoteException
+  {
+    try
+    {
+      doc.newPage();
+      PdfReader reader = new PdfReader(formular.getInhalt());
+      PdfImportedPage page = writer.getImportedPage(reader, 1);
+      PdfContentByte contentByte = writer.getDirectContent();
+      contentByte.addTemplate(page, 0, 0);
+
+      DBIterator it = Einstellungen.getDBService().createList(
+          Formularfeld.class);
+      it.addFilter("formular = ?", new Object[] { formular.getID() });
+      while (it.hasNext())
+      {
+        Formularfeld f = (Formularfeld) it.next();
+        String s = variable.evaluate(f.getName(), true);
+        goFormularfeld(contentByte, f, s);
       }
     }
     catch (IOException e)
@@ -153,14 +187,13 @@ public class FormularAufbereitung
   }
 
   private void goFormularfeld(PdfContentByte contentByte, Formularfeld feld,
-      HashMap<String, Object> map) throws DocumentException, IOException
+      Object val) throws DocumentException, IOException
   {
 
     BaseFont bf = BaseFont.createFont(feld.getFont(), BaseFont.CP1250, false);
 
     float x = mm2point(feld.getX().floatValue());
     float y = mm2point(feld.getY().floatValue());
-    Object val = map.get(feld.getName());
     if (val == null)
     {
       return;
