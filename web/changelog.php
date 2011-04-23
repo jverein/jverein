@@ -81,6 +81,7 @@
           <hr>
           <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 280 vorgenommen.</li>
           <li>Bugfix: Sortierung der Buchungen bleibt nach Bearbeitung der Buchungsart erhalten.</li>
+          <li>Alternative Sortierung des Buchungsjournals nach Buchungsnummer</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -604,6 +605,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.138  2011-04-23 08:48:20  jost
+    Sortierung bleibt nach Bearbeitung der Buchungsart erhalten.
+
     Revision 1.137  2011-04-23 06:58:00  jost
     *** empty log message ***
 
