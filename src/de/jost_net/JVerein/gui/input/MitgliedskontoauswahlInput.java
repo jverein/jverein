@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2011-02-26 15:54:42  jost
+ * Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl
+ *
  * Revision 1.5  2011-02-12 09:34:09  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -28,6 +31,7 @@
 package de.jost_net.JVerein.gui.input;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -135,6 +139,19 @@ public class MitgliedskontoauswahlInput
           b = konto.getMitglied().getNameVorname() + ", "
               + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
               + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
+          String name = (String) buchungscontrol.getName().getValue();
+          String zweck1 = (String) buchungscontrol.getZweck().getValue();
+          String zweck2 = (String) buchungscontrol.getZweck2().getValue();
+          if (name.length() == 0 && zweck1.length() == 0
+              && zweck2.length() == 0)
+          {
+            buchungscontrol.getName().setValue(
+                konto.getMitglied().getNameVorname());
+            buchungscontrol.getZweck().setValue(konto.getZweck1());
+            buchungscontrol.getZweck2().setValue(konto.getZweck2());
+            buchungscontrol.getBetrag().setValue(konto.getBetrag());
+            buchungscontrol.getDatum().setValue(new Date());
+          }
         }
         else if (event.data instanceof Mitglied)
         {

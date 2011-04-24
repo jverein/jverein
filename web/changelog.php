@@ -82,6 +82,7 @@
           <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 280 vorgenommen.</li>
           <li>Bugfix: Sortierung der Buchungen bleibt nach Bearbeitung der Buchungsart erhalten.</li>
           <li>Alternative Sortierung des Buchungsjournals nach Buchungsnummer</li>
+          <li>Bei der Eingabe einer (Ist-)Buchung (Barzahlung) kann zunächst das Mitgliedskonto ausgewählt werden. Name und Vorname des Mitgliedes, Betrag und Verwendungszweck der Sollbuchung sowie das aktuelle Tagesdatum werden in die Buchung eingetragen.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -605,6 +606,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.139  2011-04-23 19:44:47  jost
+    *** empty log message ***
+
     Revision 1.138  2011-04-23 08:48:20  jost
     Sortierung bleibt nach Bearbeitung der Buchungsart erhalten.
 
