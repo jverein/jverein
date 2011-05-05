@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-04-11 21:04:32  jost
+ * Bugfix Zusatzfelder
+ *
  * Revision 1.15  2011-02-12 09:39:40  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -63,13 +66,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
@@ -121,17 +124,17 @@ public class MitgliedAuswertungCSV
         out.print(m.getBlz() + ";");
         out.print(m.getKonto() + ";");
         out.print(m.getKontoinhaber() + ";");
-        out.print(formatDate(m.getGeburtsdatum()) + ";");
+        out.print(Datum.formatDate(m.getGeburtsdatum()) + ";");
         out.print(m.getGeschlecht() + ";");
         out.print(m.getTelefonprivat() + ";");
         out.print(m.getTelefondienstlich() + ";");
         out.print(m.getHandy() + ";");
         out.print(m.getEmail() + ";");
-        out.print(formatDate(m.getEintritt()) + ";");
+        out.print(Datum.formatDate(m.getEintritt()) + ";");
         out.print(m.getBeitragsgruppe().getID() + ";");
         out.print(m.getBeitragsgruppe().getBezeichnung() + ";");
-        out.print(formatDate(m.getAustritt()) + ";");
-        out.print(formatDate(m.getKuendigung()));
+        out.print(Datum.formatDate(m.getAustritt()) + ";");
+        out.print(Datum.formatDate(m.getKuendigung()));
         it.begin();
         while (it.hasNext())
         {
@@ -204,16 +207,6 @@ public class MitgliedAuswertungCSV
       throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
     }
 
-  }
-
-  /**
-   * Gibt einen Leerstring aus, falls der Text null ist.
-   * 
-   * @return der Text oder Leerstring - niemals null.
-   */
-  private String formatDate(Date d)
-  {
-    return d == null ? "" : new JVDateFormatTTMMJJJJ().format(d);
   }
 
 }
