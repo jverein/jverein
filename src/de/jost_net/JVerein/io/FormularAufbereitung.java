@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-04-23 06:56:32  jost
+ * Neu: Freie Formulare
+ *
  * Revision 1.8  2011-02-12 09:39:02  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -41,7 +44,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -101,7 +104,7 @@ public class FormularAufbereitung
     }
   }
 
-  public void writeForm(Formular formular, HashMap<String, Object> map)
+  public void writeForm(Formular formular, Map<String, Object> map)
       throws RemoteException
   {
     try

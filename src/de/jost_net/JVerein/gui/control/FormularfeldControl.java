@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-04-23 06:56:07  jost
+ * Neu: Freie Formulare
+ *
  * Revision 1.12  2010-10-28 19:13:19  jost
  * Neu: Wohnsitzstaat
  *
@@ -54,13 +57,13 @@ import java.util.ArrayList;
 import com.lowagie.text.pdf.BaseFont;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.AllgemeineVar;
+import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
 import de.jost_net.JVerein.gui.menu.FormularfeldMenu;
-import de.jost_net.JVerein.io.Variable;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
-import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -202,13 +205,13 @@ public class FormularfeldControl extends AbstractControl
     }
     if (formular.getArt() == Formularart.FREIESFORMULAR)
     {
-      Variable v = new Variable();
-      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-          Mitglied.class, null);
-      v.set(m);
-      for (String vs : v.getVariablenNamen())
+      for (AllgemeineVar av : AllgemeineVar.values())
       {
-        namen.add(vs);
+        namen.add(av.getName());
+      }
+      for (MitgliedVar mv : MitgliedVar.values())
+      {
+        namen.add(mv.getName());
       }
     }
     if (formular.getArt() == Formularart.RECHNUNG
