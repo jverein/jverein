@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.44  2011-04-23 06:57:53  jost
+ * Neu: Freie Formulare
+ *
  * Revision 1.43  2011-04-02 16:48:23  jost
  * Korrekt jetzt auch mit Null-Werten
  *
@@ -145,9 +148,12 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
@@ -157,8 +163,10 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -847,6 +855,179 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       empfaenger += "\n" + getStaat();
     }
     return empfaenger;
+  }
+
+  public Map<String, Object> getMap(Map<String, Object> inma)
+      throws RemoteException
+  {
+    Map<String, Object> map = null;
+    if (inma == null)
+    {
+      map = new HashMap<String, Object>();
+    }
+    else
+    {
+      map = inma;
+    }
+    if (this.getID() == null)
+    {
+      this.setAdressierungszusatz("3. Hinterhof");
+      this.setAdresstyp(1);
+      this.setAnrede("Herrn");
+      this.setAustritt("01.04.2011");
+      DBIterator it = Einstellungen.getDBService().createList(
+          Beitragsgruppe.class);
+      Beitragsgruppe bg = (Beitragsgruppe) it.next();
+      this.setBeitragsgruppe(Integer.parseInt(bg.getID()));
+      this.setBlz("10020030");
+      this.setEingabedatum();
+      this.setEintritt("05.02.1999");
+      this.setEmail("willi.wichtig@jverein.de");
+      this.setExterneMitgliedsnummer(123456);
+      this.setGeburtsdatum("02.03.1980");
+      this.setGeschlecht("M");
+      this.setHandy("0170/123456789");
+      this.setID("1");
+      this.setKonto("1234567890");
+      this.setKontoinhaber("Wichtig, Willi");
+      this.setKuendigung("21.02.2011");
+      this.setLetzteAenderung();
+      this.setName("Wichtig");
+      this.setOrt("Testenhausen");
+      this.setPersonenart("n");
+      this.setPlz("12345");
+      this.setStaat("Deutschland");
+      this.setSterbetag(new Date());
+      this.setStrasse("Hafengasse 124");
+      this.setTelefondienstlich("123455600");
+      this.setTelefonprivat("123456");
+      this.setTitel("Dr.");
+      this.setVermerk1("Vermerk 1");
+      this.setVermerk2("Vermerk 2");
+      this.setVorname("Willi");
+      this.setZahlungsrhytmus(12);
+      this.setZahlungsweg(1);
+    }
+    map.put(MitgliedVar.ADRESSIERUNGSZUSATZ.getName(),
+        this.getAdressierungszusatz());
+    map.put(MitgliedVar.ADRESSTYP.getName(),
+        StringTool.toNotNullString(this.getAdresstyp().getID()));
+    map.put(MitgliedVar.ANREDE.getName(),
+        StringTool.toNotNullString(this.getAnrede()));
+    map.put(MitgliedVar.AUSTRITT.getName(),
+        Datum.formatDate(this.getAustritt()));
+    map.put(MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
+        Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe()
+            .getArbeitseinsatzBetrag()));
+    map.put(MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
+        Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe()
+            .getArbeitseinsatzStunden()));
+    map.put(MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
+        Einstellungen.DECIMALFORMAT
+            .format(this.getBeitragsgruppe().getBetrag()));
+    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
+        .getBeitragsgruppe().getBezeichnung());
+    map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(), this.getBeitragsgruppe()
+        .getID());
+    map.put(MitgliedVar.BLZ.getName(), this.getBlz());
+    map.put(MitgliedVar.EINGABEDATUM.getName(),
+        Datum.formatDate(this.getEingabedatum()));
+    map.put(MitgliedVar.EINTRITT.getName(),
+        Datum.formatDate(this.getEintritt()));
+    map.put(MitgliedVar.EMAIL.getName(), this.getEmail());
+    map.put(MitgliedVar.EMPFAENGER.getName(), this.getEmpfaenger());
+    map.put(MitgliedVar.EXTERNE_MITGLIEDSNUMMER.getName(),
+        this.getExterneMitgliedsnummer());
+    map.put(MitgliedVar.GEBURTSDATUM.getName(),
+        Datum.formatDate(this.getGeburtsdatum()));
+    map.put(MitgliedVar.GESCHLECHT.getName(), this.getGeschlecht());
+    map.put(MitgliedVar.HANDY.getName(), this.getHandy());
+    map.put(MitgliedVar.IBAN.getName(), this.getIban());
+    map.put(MitgliedVar.ID.getName(), this.getID());
+    map.put(MitgliedVar.KONTO.getName(), this.getKonto());
+    map.put(MitgliedVar.KONTOINHABER.getName(), this.getKonto());
+    map.put(MitgliedVar.KUENDIGUNG.getName(),
+        Datum.formatDate(this.getKuendigung()));
+    map.put(MitgliedVar.LETZTEAENDERUNG.getName(),
+        Datum.formatDate(this.getLetzteAenderung()));
+    map.put(MitgliedVar.NAME.getName(), this.getName());
+    map.put(MitgliedVar.NAMEVORNAME.getName(), this.getNameVorname());
+    map.put(MitgliedVar.ORT.getName(), this.getOrt());
+    map.put(MitgliedVar.PERSONENART.getName(), this.getPersonenart());
+    map.put(MitgliedVar.PLZ.getName(), this.getPlz());
+    map.put(MitgliedVar.STAAT.getName(), this.getStaat());
+    map.put(MitgliedVar.STERBETAG.getName(),
+        Datum.formatDate(this.getSterbetag()));
+    map.put(MitgliedVar.STRASSE.getName(), this.getStrasse());
+    map.put(MitgliedVar.TELEFONDIENSTLICH.getName(),
+        this.getTelefondienstlich());
+    map.put(MitgliedVar.TELEFONPRIVAT.getName(), this.getTelefonprivat());
+    map.put(MitgliedVar.TITEL.getName(), this.getTitel());
+    map.put(MitgliedVar.VERMERK1.getName(), this.getVermerk1());
+    map.put(MitgliedVar.VERMERK2.getName(), this.getVermerk2());
+    map.put(MitgliedVar.VORNAME.getName(), this.getVorname());
+    map.put(MitgliedVar.VORNAMENAME.getName(), this.getVornameName());
+    map.put(MitgliedVar.ZAHLERID.getName(), this.getZahlerID());
+    map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(), this.getZahlungsrhytmus()
+        + "");
+    map.put(MitgliedVar.ZAHLUNGSWEG.getName(), this.getZahlungsweg() + "");
+
+    HashMap<String, String> format = new HashMap<String, String>();
+    DBIterator itfd = Einstellungen.getDBService().createList(
+        Felddefinition.class);
+    while (itfd.hasNext())
+    {
+      Felddefinition fd = (Felddefinition) itfd.next();
+      DBIterator itzus = Einstellungen.getDBService().createList(
+          Zusatzfelder.class);
+      itzus.addFilter("mitglied = ? and felddefinition = ? ", new Object[] {
+          getID(), fd.getID() });
+      Zusatzfelder z = null;
+      if (itzus.hasNext())
+      {
+        z = (Zusatzfelder) itzus.next();
+      }
+      else
+      {
+        z = (Zusatzfelder) Einstellungen.getDBService().createObject(
+            Zusatzfelder.class, null);
+      }
+
+      switch (fd.getDatentyp())
+      {
+        case Datentyp.DATUM:
+          map.put("mitglied_zusatzfeld_" + fd.getName(),
+              Datum.formatDate(z.getFeldDatum()));
+          format.put("mitglied_zusatzfeld_" + fd.getName(), "DATE");
+          break;
+        case Datentyp.JANEIN:
+          map.put("mitglied_zusatzfeld_" + fd.getName(),
+              z.getFeldJaNein() ? "X" : " ");
+          break;
+        case Datentyp.GANZZAHL:
+          map.put("mitglied_zusatzfeld_" + fd.getName(), z.getFeldGanzzahl()
+              + "");
+          format.put("mitglied_zusatzfeld_" + fd.getName(), "INTEGER");
+          break;
+        case Datentyp.WAEHRUNG:
+          if (z.getFeldWaehrung() != null)
+          {
+            map.put("mitglied_zusatzfeld_" + fd.getName(),
+                Einstellungen.DECIMALFORMAT.format(z.getFeldWaehrung()));
+            format.put("mitglied_zusatzfeld_" + fd.getName(), "DOUBLE");
+          }
+          else
+          {
+            map.put("mitglied_zusatzfeld_" + fd.getName(), "");
+          }
+          break;
+        case Datentyp.ZEICHENFOLGE:
+          map.put("mitglied_zusatzfeld_" + fd.getName(), z.getFeld());
+          break;
+      }
+    }
+
+    return map;
   }
 
   @Override

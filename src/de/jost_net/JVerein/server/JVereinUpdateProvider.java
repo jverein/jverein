@@ -742,6 +742,10 @@ public class JVereinUpdateProvider
     {
       update0191(conn);
     }
+    if (cv < 192)
+    {
+      update0192(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4514,6 +4518,21 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte name in der Tabelle formularfeld geändert", 191);
+  }
+
+  private void update0192(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "UPDATE formularfeld set name = replace(name,'.','_');\n";
+    statements.put(DBSupportH2Impl.class.getName(),
+     sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),sql);
+
+    execute(conn, statements,
+        "Umsetzung Formularfeldnamen", 192);
   }
 
 }

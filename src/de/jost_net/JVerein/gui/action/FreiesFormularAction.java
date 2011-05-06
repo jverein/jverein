@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-05-06 14:44:33  jost
+ * Neue Variablenmimik
+ *
  * Revision 1.1  2011-04-23 06:55:33  jost
  * Neu: Freie Formulare
  *
@@ -25,7 +28,6 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.io.FormularAufbereitung;
-import de.jost_net.JVerein.io.Variable;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.Dateiname;
@@ -115,8 +117,6 @@ public class FreiesFormularAction implements Action
     FormularAufbereitung fa = new FormularAufbereitung(file);
     for (Mitglied mi : m)
     {
-      Variable v = new Variable();
-      v.set(mi);
       Formular fo = (Formular) Einstellungen.getDBService().createObject(
           Formular.class, id);
       Map<String, Object> map = mi.getMap(null);

@@ -83,6 +83,10 @@
           <li>Bugfix: Sortierung der Buchungen bleibt nach Bearbeitung der Buchungsart erhalten.</li>
           <li>Alternative Sortierung des Buchungsjournals nach Buchungsnummer</li>
           <li>Bei der Eingabe einer (Ist-)Buchung (Barzahlung) kann zunächst das Mitgliedskonto ausgewählt werden. Name und Vorname des Mitgliedes, Betrag und Verwendungszweck der Sollbuchung sowie das aktuelle Tagesdatum werden in die Buchung eingetragen.</li>
+          <li>Neu: Istbuchung kann vom Mitgliedskonto gelöst werden.</li>
+          <li>##Bugfix Scrollbar bei der Mitgliedskontoauswahl.</li>
+          <li>##Freie Formulare: mehrere Mitglieder können jetzt gleichzeitig ausgegeben werden.</li>
+          <li>##Freie Formulare: Variable NameVorname und VornameName funktionieren jetzt.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -606,6 +610,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.140  2011-04-24 09:51:05  jost
+    Automatisierte Befüllung von Istbuchungen bei der Auswahl des Mitgliedskontos.
+
     Revision 1.139  2011-04-23 19:44:47  jost
     *** empty log message ***
 
