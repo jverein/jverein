@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.1  2011-05-06 15:03:40  jost
+ * Neue Variablenmimik
+ *
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.jost_net.JVerein.util.JVDateFormatJJJJ;
 import de.jost_net.JVerein.util.JVDateFormatMMJJJJ;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 
@@ -25,6 +29,8 @@ public class AllgemeineMap
   private JVDateFormatTTMMJJJJ ttmmjjjj = new JVDateFormatTTMMJJJJ();
 
   private JVDateFormatMMJJJJ mmjjjj = new JVDateFormatMMJJJJ();
+
+  private JVDateFormatJJJJ jjjj = new JVDateFormatJJJJ();
 
   public AllgemeineMap()
   {
@@ -49,6 +55,9 @@ public class AllgemeineMap
     map.put("folgemonat", mmjjjj.format(calendar.getTime()));
     calendar.add(Calendar.MONTH, -2);
     map.put("vormonat", mmjjjj.format(calendar.getTime()));
+    calendar.add(Calendar.MONTH, -1);
+    calendar.add(Calendar.YEAR, 1);
+    map.put("folgejahr", jjjj.format(calendar.getTime()));
     return map;
   }
 }
