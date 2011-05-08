@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-04-07 19:34:54  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.10  2011-01-15 09:46:49  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -71,7 +74,7 @@ public class KontoView extends AbstractView
         control.getEroeffnung());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Konto-Auflösung"),
         control.getAufloesung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Hibiscus-ID"),
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Hibiscus-Konto"),
         control.getHibiscusId());
 
     ButtonArea buttons = new ButtonArea(getParent(), 2);
