@@ -87,6 +87,7 @@
           <li>##Bugfix Scrollbar bei der Mitgliedskontoauswahl.</li>
           <li>##Freie Formulare: mehrere Mitglieder können jetzt gleichzeitig ausgegeben werden.</li>
           <li>##Freie Formulare: Variable NameVorname und VornameName funktionieren jetzt.</li>
+          <li>Änderung der Zuordnung des Hibiscus-Kontos zum JVerein-Konto ermöglicht.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -610,6 +611,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.141  2011-05-06 15:05:50  jost
+    Neue Variablenmimik
+
     Revision 1.140  2011-04-24 09:51:05  jost
     Automatisierte Befüllung von Istbuchungen bei der Auswahl des Mitgliedskontos.
 
