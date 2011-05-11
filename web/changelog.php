@@ -88,6 +88,7 @@
           <li>##Freie Formulare: mehrere Mitglieder können jetzt gleichzeitig ausgegeben werden.</li>
           <li>##Freie Formulare: Variable NameVorname und VornameName funktionieren jetzt.</li>
           <li>Änderung der Zuordnung des Hibiscus-Kontos zum JVerein-Konto ermöglicht.</li>
+          <li>Speicherung der Auswertungs-Optionen und individuelle Überschrift der Auswertungsliste.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -611,6 +612,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.142  2011-05-08 08:05:28  jost
+    *** empty log message ***
+
     Revision 1.141  2011-05-06 15:05:50  jost
     Neue Variablenmimik
 
