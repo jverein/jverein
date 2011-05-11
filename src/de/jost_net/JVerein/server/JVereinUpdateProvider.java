@@ -746,6 +746,18 @@ public class JVereinUpdateProvider
     {
       update0192(conn);
     }
+    if (cv < 193)
+    {
+      update0193(conn);
+    }
+    if (cv < 194)
+    {
+      update0194(conn);
+    }
+    if (cv < 195)
+    {
+      update0195(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4525,14 +4537,86 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     String sql = "UPDATE formularfeld set name = replace(name,'.','_');\n";
-    statements.put(DBSupportH2Impl.class.getName(),
-     sql);
+    statements.put(DBSupportH2Impl.class.getName(), sql);
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Umsetzung Formularfeldnamen", 192);
+  }
+
+  private void update0193(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE auswertung (");
+    sb.append(" id IDENTITY,");
+    sb.append(" bezeichnung VARCHAR(30) NOT NULL,");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE auswertung (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" bezeichnung VARCHAR(30) NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(")  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle auswertung aufgenommen", 193);
+  }
+
+  private void update0194(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE auswertungpos (");
+    sb.append(" id IDENTITY,");
+    sb.append(" auswertung integer not null, ");
+    sb.append(" feld VARCHAR(50) NOT NULL, ");
+    sb.append(" zeichenfolge VARCHAR(100) ,");
+    sb.append(" datum DATE, ");
+    sb.append(" ganzzahl integer, ");
+    sb.append(" janein char(5), ");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE auswertungpos (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" auswertung integer not null, ");
+    sb.append(" feld VARCHAR(50) NOT NULL, ");
+    sb.append(" zeichenfolge VARCHAR(100) ,");
+    sb.append(" datum DATE, ");
+    sb.append(" ganzzahl integer, ");
+    sb.append(" janein char(5), ");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(")  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle auswertungpos aufgenommen", 194);
+  }
+
+  private void update0195(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE auswertungpos ADD CONSTRAINT fkAuswertungpos1 FOREIGN KEY (auswertung) REFERENCES auswertung (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE auswertungpos ADD CONSTRAINT fkAuswertungpos1 FOREIGN KEY (auswertung) REFERENCES auswertung (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements,
-        "Umsetzung Formularfeldnamen", 192);
+        "Foreign Key für Tabelle  auswertungpos aufgenommen", 195);
   }
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2011-04-17 06:38:50  jost
+ * Neu: Mitglieder-Selektion nach Zusatzfeldern
+ *
  * Revision 1.20  2011-04-07 19:28:47  jost
  * Neue Zurückbutton-Mimik aus Jameica
  *
@@ -83,7 +86,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.SimpleContainer;
@@ -106,61 +109,53 @@ public class AuswertungMitgliedView extends AbstractView
     SimpleContainer left = new SimpleContainer(cl.getComposite());
 
     Input mitglstat = control.getMitgliedStatus();
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedschaft"), mitglstat);
+    left.addInput(mitglstat);
 
     if (!JVereinDBService.SETTINGS.getString("database.driver",
         DBSupportH2Impl.class.getName()).equals(
         DBSupportMcKoiImpl.class.getName()))
     {
-      left.addLabelPair(JVereinPlugin.getI18n().tr("Eigenschaften"),
-          control.getEigenschaftenAuswahl());
+      left.addInput(control.getEigenschaftenAuswahl());
     }
     if (Einstellungen.getEinstellung().hasZusatzfelder())
     {
-      left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzfelder"),
-          control.getZusatzfelderAuswahl());
+      left.addInput(control.getZusatzfelderAuswahl());
     }
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"),
-        control.getGeburtsdatumvon());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum bis"),
-        control.getGeburtsdatumbis());
+    left.addInput(control.getGeburtsdatumvon());
+    left.addInput(control.getGeburtsdatumbis());
 
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Sterbedatum von"),
-        control.getSterbedatumvon());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Sterbedatum bis"),
-        control.getSterbedatumbis());
+    left.addInput(control.getSterbedatumvon());
+    left.addInput(control.getSterbedatumbis());
 
     SelectInput inpGeschlecht = control.getGeschlecht();
     inpGeschlecht.setMandatory(false);
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Geschlecht"), inpGeschlecht);
+    left.addInput(inpGeschlecht);
 
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Ohne Mailadresse"),
-        control.getOhneMail());
+    left.addInput(control.getOhneMail());
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintritt von"),
-        control.getEintrittvon());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintritt bis"),
-        control.getEintrittbis());
+    right.addInput(control.getEintrittvon());
+    right.addInput(control.getEintrittbis());
 
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Austritt von"),
-        control.getAustrittvon());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Austritt bis"),
-        control.getAustrittbis());
+    right.addInput(control.getAustrittvon());
+    right.addInput(control.getAustrittbis());
 
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsgruppe"),
-        control.getBeitragsgruppeAusw());
+    right.addInput(control.getBeitragsgruppeAusw());
 
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Ausgabe"),
-        control.getAusgabe());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Sortierung"),
-        control.getSortierung());
+    right.addInput(control.getAusgabe());
+    right.addInput(control.getSortierung());
+    right.addInput(control.getAuswertungUeberschrift());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    LabelGroup gr = new LabelGroup(getParent(), "Einstellungen");
+    gr.addLabelPair("Name", control.getAuswertungName());
+
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.AUSWERTUNGMITGLIEDER,
         false, "help-browser.png");
+    buttons.addButton(control.getAuswertungDialogButton());
     buttons.addButton(control.getStartAuswertungButton());
+    buttons.paint(getParent());
   }
 
   @Override

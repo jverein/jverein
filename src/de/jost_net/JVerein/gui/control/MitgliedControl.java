@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.109  2011-04-17 06:37:20  jost
+ * Neu: Mitglieder-Selektion nach Zusatzfeldern
+ *
  * Revision 1.108  2011-03-05 11:12:58  jost
  * Bugfix bei der Umschlüsselung eines Mitgliedes von einer Beitragsart mit der Art Familie/Angehöriger in eine andere Beitragsart.
  *
@@ -367,6 +370,7 @@ import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.dialogs.MitgliedAuswertungEinstellungenDialog;
 import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
@@ -386,6 +390,7 @@ import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
+import de.jost_net.JVerein.rmi.Auswertung;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
@@ -509,6 +514,8 @@ public class MitgliedControl extends AbstractControl
   private TreePart eigenschaftenAuswahlTree;
 
   // Elemente für die Auswertung
+  private TextInput auswertungUeberschrift = null;
+
   private SelectInput suchadresstyp = null;
 
   private DateInput geburtsdatumvon = null;
@@ -571,9 +578,14 @@ public class MitgliedControl extends AbstractControl
   // Liste der Lehrgänge
   private TablePart lehrgaengeList;
 
+  // Liste der Einstellungen
+  private TablePart auswertungeinstellungenlist;
+
   private TablePart familienangehoerige;
 
   private ImageInput foto;
+
+  private TextInput auswertungname;
 
   private Settings settings = null;
 
@@ -953,6 +965,7 @@ public class MitgliedControl extends AbstractControl
     geschlecht.setName("Geschlecht");
     geschlecht.setPleaseChoose("Bitte auswählen");
     geschlecht.setMandatory(true);
+    geschlecht.setName(JVereinPlugin.getI18n().tr("Geschlecht"));
     return geschlecht;
   }
 
@@ -1225,6 +1238,18 @@ public class MitgliedControl extends AbstractControl
     return beitragsgruppe;
   }
 
+  public TextInput getAuswertungUeberschrift() throws RemoteException
+  {
+    if (auswertungUeberschrift != null)
+    {
+      return auswertungUeberschrift;
+    }
+    auswertungUeberschrift = new TextInput(settings.getString(
+        "auswertung.ueberschrift", ""));
+    auswertungUeberschrift.setName(JVereinPlugin.getI18n().tr("Überschrift"));
+    return auswertungUeberschrift;
+  }
+
   public SelectInput getBeitragsgruppeAusw() throws RemoteException
   {
     if (beitragsgruppeausw != null)
@@ -1253,6 +1278,7 @@ public class MitgliedControl extends AbstractControl
     beitragsgruppeausw.setName("Beitragsgruppe");
     beitragsgruppeausw.setAttribute("bezeichnung");
     beitragsgruppeausw.setPleaseChoose("Bitte auswählen");
+    beitragsgruppeausw.setName(JVereinPlugin.getI18n().tr("Beitragsgruppe"));
     return beitragsgruppeausw;
   }
 
@@ -1710,6 +1736,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    geburtsdatumvon.setName(JVereinPlugin.getI18n().tr("Geburtsdatum von"));
     return geburtsdatumvon;
   }
 
@@ -1747,6 +1774,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    geburtsdatumbis.setName(JVereinPlugin.getI18n().tr("Geburtsdatum bis"));
     return geburtsdatumbis;
   }
 
@@ -1784,6 +1812,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    sterbedatumvon.setName(JVereinPlugin.getI18n().tr("Sterbedatum von"));
     return sterbedatumvon;
   }
 
@@ -1821,6 +1850,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    sterbedatumbis.setName(JVereinPlugin.getI18n().tr("Sterbedatum bis"));
     return sterbedatumbis;
   }
 
@@ -1858,6 +1888,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    eintrittvon.setName(JVereinPlugin.getI18n().tr("Eintritt von"));
     return eintrittvon;
   }
 
@@ -1900,6 +1931,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    eintrittbis.setName(JVereinPlugin.getI18n().tr("Eintritt bis"));
     return eintrittbis;
   }
 
@@ -1937,6 +1969,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    austrittvon.setName(JVereinPlugin.getI18n().tr("Austritt von"));
     return austrittvon;
   }
 
@@ -1979,6 +2012,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    austrittbis.setName(JVereinPlugin.getI18n().tr("Austritt bis"));
     return austrittbis;
   }
 
@@ -2064,6 +2098,7 @@ public class MitgliedControl extends AbstractControl
       }
     }
     eigenschaftenabfrage = new DialogInput(text.toString(), d);
+    eigenschaftenabfrage.setName(JVereinPlugin.getI18n().tr("Eigenschaften"));
     eigenschaftenabfrage.addListener(new Listener()
     {
 
@@ -2086,6 +2121,7 @@ public class MitgliedControl extends AbstractControl
 
     zusatzfelderabfrage = new DialogInput("", d);
     setZusatzfelderAuswahl();
+    zusatzfelderabfrage.setName(JVereinPlugin.getI18n().tr("Zusatzfelder"));
     return zusatzfelderabfrage;
   }
 
@@ -2097,6 +2133,7 @@ public class MitgliedControl extends AbstractControl
     }
     String[] ausg = { "PDF", "CSV" };
     ausgabe = new SelectInput(ausg, "PDF");
+    ausgabe.setName(JVereinPlugin.getI18n().tr("Ausgabe"));
     return ausgabe;
   }
 
@@ -2109,6 +2146,7 @@ public class MitgliedControl extends AbstractControl
     String[] sort = { "Name, Vorname", "Eintrittsdatum", "Geburtsdatum",
         "Geburtstagsliste" };
     sortierung = new SelectInput(sort, "Name, Vorname");
+    sortierung.setName(JVereinPlugin.getI18n().tr("Sortierung"));
     return sortierung;
   }
 
@@ -2136,7 +2174,45 @@ public class MitgliedControl extends AbstractControl
     status = new SelectInput(new String[] { "Angemeldet", "Abgemeldet",
         "An- und Abgemeldete" }, settings.getString("status.mitglied",
         "Angemeldete"));
+    status.setName(JVereinPlugin.getI18n().tr("Mitgliedschaft"));
     return status;
+  }
+
+  public TextInput getAuswertungName() throws RemoteException
+  {
+    if (auswertungname != null)
+    {
+      return auswertungname;
+    }
+    Auswertung auswertung = (Auswertung) Einstellungen.getDBService()
+        .createObject(Auswertung.class,
+            settings.getString("auswertung.name", null));
+    auswertungname = new TextInput(auswertung.getBezeichnung(), 30);
+    auswertungname.setEnabled(false);
+    return auswertungname;
+  }
+
+  public Button getAuswertungDialogButton()
+  {
+    final MitgliedControl mc = this;
+    final Settings setting = settings;
+    Button b = new Button("Einstellungen", new Action()
+    {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          MitgliedAuswertungEinstellungenDialog d = new MitgliedAuswertungEinstellungenDialog(
+              mc, setting);
+          d.open();
+        }
+        catch (Exception e)
+        {
+          throw new ApplicationException(e);
+        }
+      }
+    }, null, false, "preferences-system.png");
+    return b;
   }
 
   public CheckboxInput getOhneMail()
@@ -2146,6 +2222,7 @@ public class MitgliedControl extends AbstractControl
       return ohneMail;
     }
     ohneMail = new CheckboxInput(false);
+    ohneMail.setName(JVereinPlugin.getI18n().tr("Ohne Mailadresse"));
     return ohneMail;
   }
 
@@ -2279,6 +2356,18 @@ public class MitgliedControl extends AbstractControl
       else
       {
         settings.setAttribute("mitglied.geburtsdatumvon", "");
+      }
+    }
+    if (auswertungUeberschrift != null)
+    {
+      String tmp = (String) getAuswertungUeberschrift().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("auswertung.ueberschrift", tmp);
+      }
+      else
+      {
+        settings.setAttribute("auswertung.ueberschrift", "");
       }
     }
 
@@ -2861,6 +2950,11 @@ public class MitgliedControl extends AbstractControl
       final File file = new File(s);
       if (ausgformat.equals("PDF"))
       {
+        String ueberschrift = (String) auswertungUeberschrift.getValue();
+        if (ueberschrift.length() > 0)
+        {
+          subtitle = ueberschrift;
+        }
         auswertungMitgliedPDF(list, file, subtitle);
       }
       if (ausgformat.equals("CSV"))
@@ -3235,5 +3329,24 @@ public class MitgliedControl extends AbstractControl
         e.printStackTrace();
       }
     }
+  }
+
+  public TablePart getAuswertungEinstellungenList() throws RemoteException
+  {
+    if (auswertungeinstellungenlist != null)
+    {
+      return auswertungeinstellungenlist;
+    }
+    DBIterator it = Einstellungen.getDBService().createList(Auswertung.class);
+    it.setOrder("order by bezeichnung");
+    auswertungeinstellungenlist = new TablePart(it, null);
+    auswertungeinstellungenlist.addColumn("Bezeichnung", "bezeichnung");
+    auswertungeinstellungenlist.setMulti(false);
+    return auswertungeinstellungenlist;
+  }
+
+  public void setAuswertungEinstellungenListSetNull()
+  {
+    auswertungeinstellungenlist = null;
   }
 }
