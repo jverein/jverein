@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2011-05-11 15:51:00  jost
+ * Speicherung Auswertungskriterien und Listenüberschrift
+ *
  * Revision 1.21  2011-04-17 06:38:50  jost
  * Neu: Mitglieder-Selektion nach Zusatzfeldern
  *
@@ -154,6 +157,7 @@ public class AuswertungMitgliedView extends AbstractView
         new DokumentationAction(), DokumentationUtil.AUSWERTUNGMITGLIEDER,
         false, "help-browser.png");
     buttons.addButton(control.getAuswertungDialogButton());
+    buttons.addButton(control.getDefaultValuesButton());
     buttons.addButton(control.getStartAuswertungButton());
     buttons.paint(getParent());
   }
