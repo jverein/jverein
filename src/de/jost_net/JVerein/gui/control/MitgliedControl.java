@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.110  2011-05-11 15:50:24  jost
+ * Speicherung Auswertungskriterien und Listenüberschrift
+ *
  * Revision 1.109  2011-04-17 06:37:20  jost
  * Neu: Mitglieder-Selektion nach Zusatzfeldern
  *
@@ -2186,7 +2189,7 @@ public class MitgliedControl extends AbstractControl
     }
     Auswertung auswertung = (Auswertung) Einstellungen.getDBService()
         .createObject(Auswertung.class,
-            settings.getString("auswertung.name", null));
+            settings.getString("auswertung.id", null));
     auswertungname = new TextInput(auswertung.getBezeichnung(), 30);
     auswertungname.setEnabled(false);
     return auswertungname;

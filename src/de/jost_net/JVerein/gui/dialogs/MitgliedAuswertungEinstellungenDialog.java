@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-05-11 15:50:37  jost
+ * Speicherung Auswertungskriterien und Listenüberschrift
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
@@ -30,6 +33,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.dialogs.SimpleDialog;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
@@ -82,12 +86,15 @@ public class MitgliedAuswertungEinstellungenDialog extends AbstractDialog
       {
         try
         {
+          ausw = (Auswertung) Einstellungen.getDBService().createObject(
+              Auswertung.class, settings.getString("einstellung.id", null));
           store(ausw, control);
         }
         catch (RemoteException e)
         {
           throw new ApplicationException(e);
         }
+        control.setAuswertungEinstellungenListSetNull();
         close();
       }
     }, null, true, "save.png");
@@ -117,7 +124,7 @@ public class MitgliedAuswertungEinstellungenDialog extends AbstractDialog
               Auswertung.class, null);
           ausw.setBezeichnung((String) name.getValue());
           ausw.store();
-          settings.setAttribute("auswertung.name", ausw.getID());
+          settings.setAttribute("einstellung.id", ausw.getID());
           control.getAuswertungName().setValue(ausw.getBezeichnung());
           try
           {
@@ -147,6 +154,7 @@ public class MitgliedAuswertungEinstellungenDialog extends AbstractDialog
         {
           Object obj = control.getAuswertungEinstellungenList().getSelection();
           ausw = (Auswertung) obj;
+          settings.setAttribute("einstellung.id", ausw.getID());
           DBIterator it = Einstellungen.getDBService().createList(
               AuswertungPos.class);
           it.addFilter("auswertung = ?", new Object[] { ausw.getID() });
@@ -245,8 +253,41 @@ public class MitgliedAuswertungEinstellungenDialog extends AbstractDialog
     }, null, true, "document-open.png");
     b.addButton(bladen);
 
+    Button bloeschen = new Button("Löschen", new Action()
+    {
+      public void handleAction(Object context)
+      {
+        try
+        {
+          Object obj = control.getAuswertungEinstellungenList().getSelection();
+          ausw = (Auswertung) obj;
+          YesNoDialog d = new YesNoDialog(POSITION_CENTER);
+          d.setText("Soll die Einstellung " + ausw.getBezeichnung()
+              + " wirklich gelöscht werden?");
+          Object o = d.open();
+          if (o instanceof Boolean)
+          {
+            Boolean b = (Boolean) o;
+            if (b)
+            {
+              ausw.delete();
+            }
+          }
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+
+        settings.setAttribute("einstellung.id", "");
+        control.setAuswertungEinstellungenListSetNull();
+        close();
+      }
+    }, null, true, "user-trash-full.png");
+    b.addButton(bloeschen);
+
     b.addButton(JVereinPlugin.getI18n().tr("Hilfe"), new DokumentationAction(),
-        DokumentationUtil.MITGLIEDSKONTO_AUSWAHL, false, "help-browser.png");
+        DokumentationUtil.MITGLIED, false, "help-browser.png");
 
     b.addButton(i18n.tr("abbrechen"), new Action()
     {
@@ -259,7 +300,7 @@ public class MitgliedAuswertungEinstellungenDialog extends AbstractDialog
     }, null, false, "process-stop.png");
     b.paint(parent);
 
-    if (settings.getString("auswertung.name", null) == null)
+    if (settings.getString("einstellung.id", null) == null)
     {
       bspeichern.setEnabled(false);
       bspeichernunter.setEnabled(true);
