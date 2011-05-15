@@ -758,6 +758,10 @@ public class JVereinUpdateProvider
     {
       update0195(conn);
     }
+    if (cv < 196)
+    {
+      update0196(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4617,6 +4621,18 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Foreign Key für Tabelle  auswertungpos aufgenommen", 195);
+  }
+
+  private void update0196(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+
+    String sql = "drop table auswertungpos\n;" + "drop table auswertung;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Foreign Key für Tabelle  auswertungstabellen gelöscht", 196);
   }
 
 }

@@ -88,12 +88,10 @@
           <li>##Freie Formulare: mehrere Mitglieder können jetzt gleichzeitig ausgegeben werden.</li>
           <li>##Freie Formulare: Variable NameVorname und VornameName funktionieren jetzt.</li>
           <li>Änderung der Zuordnung des Hibiscus-Kontos zum JVerein-Konto ermöglicht.</li>
-          <li>Speicherung der Auswertungs-Optionen und individuelle Überschrift der Auswertungsliste.</li>
+          <li>##Speicherung der Auswertungs-Optionen und individuelle Überschrift der Auswertungsliste.</li>
           <hr>
           <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 282 vorgenommen.</li>
-          <li>##Bugfix beim speichern der Einstellungen</li>
-          <li>##Löschen von Einstellungen</li>
-          <li>Default-Values für Auswertungen</li>
+          <li>##Speicherung der Auswertungs-Option wegen technischer Probleme wieder entfernt.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -617,6 +615,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.144  2011-05-12 17:59:57  jost
+    *** empty log message ***
+
     Revision 1.143  2011-05-11 15:54:22  jost
     *** empty log message ***
 
