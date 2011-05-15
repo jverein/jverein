@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2011-04-20 19:42:46  jost
+ * Stringfelder mit LIKE abfragen
+ *
  * Revision 1.26  2011-04-19 19:16:26  jost
  * Bugfix
  *
@@ -115,13 +118,16 @@ public class MitgliedQuery
 
   private MitgliedControl control;
 
+  private boolean batch = false;
+
   private boolean and = false;
 
   private String sql = "";
 
-  public MitgliedQuery(MitgliedControl control)
+  public MitgliedQuery(MitgliedControl control, boolean batch)
   {
     this.control = control;
+    this.batch = batch;
   }
 
   public ArrayList<?> get(int adresstyp) throws RemoteException
@@ -268,7 +274,7 @@ public class MitgliedQuery
         addCondition("austritt is not null and austritt <= current_date()");
       }
     }
-    if ((Boolean) control.getOhneMail().getValue())
+    if (batch && (Boolean) control.getOhneMail().getValue())
     {
       addCondition("(email is null or length(email) = 0)");
     }
@@ -310,11 +316,11 @@ public class MitgliedQuery
       addCondition("geburtsdatum <= ?");
     }
 
-    if (control.getSterbedatumvon().getValue() != null)
+    if (batch && control.getSterbedatumvon().getValue() != null)
     {
       addCondition("sterbetag >= ?");
     }
-    if (control.getSterbedatumbis().getValue() != null)
+    if (batch && control.getSterbedatumbis().getValue() != null)
     {
       addCondition("sterbetag <= ?");
     }
@@ -426,12 +432,12 @@ public class MitgliedQuery
       Date d = (Date) control.getGeburtsdatumbis().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
-    if (control.getSterbedatumvon().getValue() != null)
+    if (batch && control.getSterbedatumvon().getValue() != null)
     {
       Date d = (Date) control.getSterbedatumvon().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
-    if (control.getSterbedatumbis().getValue() != null)
+    if (batch && control.getSterbedatumbis().getValue() != null)
     {
       Date d = (Date) control.getSterbedatumbis().getValue();
       bedingungen.add(new java.sql.Date(d.getTime()));

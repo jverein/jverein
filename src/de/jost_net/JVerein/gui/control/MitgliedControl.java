@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.113  2011-05-15 10:06:45  jost
+ * Projekt "Speicherung Auswertungseinstellungen" eingestampft.
+ *
  * Revision 1.112  2011-05-12 17:57:03  jost
  * Default-Values
  *
@@ -2291,8 +2294,8 @@ public class MitgliedControl extends AbstractControl
   {
     TablePart part;
     saveDefaults();
-    part = new TablePart(new MitgliedQuery(this).get(anfangsbuchstabe, atyp),
-        detailaction);
+    part = new TablePart(new MitgliedQuery(this, false).get(anfangsbuchstabe,
+        atyp), detailaction);
     new MitgliedSpaltenauswahl().setColumns(part, atyp);
     part.setContextMenu(new MitgliedMenu(detailaction));
     part.setMulti(true);
@@ -2803,7 +2806,7 @@ public class MitgliedControl extends AbstractControl
   {
     saveDefaults();
     ArrayList list = null;
-    list = new MitgliedQuery(this).get(1);
+    list = new MitgliedQuery(this, true).get(1);
     try
     {
       String subtitle = "";
