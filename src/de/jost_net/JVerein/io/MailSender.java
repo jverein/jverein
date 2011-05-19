@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-05-16 17:47:47  jost
+ * Encoding geändert.
+ *
  * Revision 1.7  2011-04-08 22:23:46  jost
  * Bugfix Encoding
  *
@@ -115,6 +118,9 @@ public class MailSender
     props.put("mail.smtp.user", smtp_auth_user);
     props.put("mail.smtp.password", smtp_auth_pwd);
     props.put("mail.smtp.port", smtp_port);
+    props.put("mail.mime.charset", "ISO-8859-15");
+    System.setProperty("mail.mime.charset", "ISO-8859-15");
+
     if (smtp_ssl)
     {
       java.security.Security
@@ -149,8 +155,6 @@ public class MailSender
       session.setDebug(false);
     }
     Message msg = new MimeMessage(session);
-    msg.setHeader("Content-Encoding", "ISO-8859-15");
-
     InternetAddress addressFrom = new InternetAddress(smtp_from_address);
     msg.setFrom(addressFrom);
 
@@ -164,33 +168,26 @@ public class MailSender
     msg.setRecipients(Message.RecipientType.TO, addressTo);
     msg.setSubject(subject);
 
-    if (anhang.size() == 0)
-    {
-      msg.setContent(text, "text/plain");
-    }
-    else
-    {
-      BodyPart messageBodyPart = new MimeBodyPart();
-      messageBodyPart.addHeader("Content-Encoding", "ISO-8859-15");
-      // Fill the message
-      messageBodyPart.setText(text);
+    BodyPart messageBodyPart = new MimeBodyPart();
+    messageBodyPart.addHeader("Content-Encoding", "ISO-8859-15");
+    // Fill the message
+    messageBodyPart.setContent(text, "text/plain");
 
-      Multipart multipart = new MimeMultipart();
+    Multipart multipart = new MimeMultipart();
+    multipart.addBodyPart(messageBodyPart);
+
+    for (MailAnhang ma : anhang)
+    {
+      messageBodyPart = new MimeBodyPart();
+
+      messageBodyPart.setDataHandler(new DataHandler(
+          new ByteArrayDataSource(ma)));
+      messageBodyPart.setFileName(ma.getDateiname());
       multipart.addBodyPart(messageBodyPart);
-
-      for (MailAnhang ma : anhang)
-      {
-        messageBodyPart = new MimeBodyPart();
-
-        messageBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(
-            ma)));
-        messageBodyPart.setFileName(ma.getDateiname());
-        multipart.addBodyPart(messageBodyPart);
-      }
-      // Put parts in message
-      msg.setContent(multipart);
-
     }
+    // Put parts in message
+    msg.setContent(multipart);
+
     Transport.send(msg);
 
   }
