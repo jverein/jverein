@@ -92,6 +92,7 @@
           <hr>
           <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 282 vorgenommen.</li>
           <li>##Speicherung der Auswertungs-Option wegen technischer Probleme wieder entfernt.</li>
+          <li>Neu: Individuelle Beitrag pro Mitglied. Überschreibt Betrag in der Beitragsgruppe.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -615,6 +616,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.145  2011-05-15 10:10:24  jost
+    Projekt "Speicherung Auswertungseinstellungen" eingestampft.
+
     Revision 1.144  2011-05-12 17:59:57  jost
     *** empty log message ***
 
