@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2011-04-17 06:40:19  jost
+ * Neu: Mitglieder-Selektion nach Zusatzfeldern
+ *
  * Revision 1.26  2011-04-06 16:29:39  jost
  * Neu: Starttls
  *
@@ -218,6 +221,11 @@ public interface Einstellung extends DBObject
       throws RemoteException;
 
   public boolean getDokumentenspeicherung() throws RemoteException;
+
+  public void setIndividuelleBeitraege(Boolean individuellebeitraege)
+      throws RemoteException;
+
+  public boolean getIndividuelleBeitraege() throws RemoteException;
 
   public void setRechnungTextAbbuchung(String rechnungtextabbuchung)
       throws RemoteException;

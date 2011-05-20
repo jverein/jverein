@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2011-04-03 07:44:56  jost
+ * Bugfix DTAUS mit äöüß
+ *
  * Revision 1.5  2011-03-31 18:02:41  jost
  * Keine Abrechnung von Zusatzbeträgen für ausgetretene Mitglieder
  *
@@ -417,6 +420,11 @@ public class Abrechnung
         if (Einstellungen.getEinstellung().getBeitragsmodel() != Beitragsmodel.MONATLICH12631)
         {
           betr = beitragsgruppe.get(m.getBeitragsgruppeId() + "").getBetrag();
+          if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
+              && m.getIndividuellerBeitrag() > 0)
+          {
+            betr = m.getIndividuellerBeitrag();
+          }
         }
         else
         {
@@ -430,6 +438,11 @@ public class Abrechnung
             BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
             bbetr = bbetr.multiply(bmonate);
             betr = bbetr.doubleValue();
+            if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
+                && m.getIndividuellerBeitrag() > 0)
+            {
+              betr = m.getIndividuellerBeitrag();
+            }
           }
           catch (NullPointerException e)
           {

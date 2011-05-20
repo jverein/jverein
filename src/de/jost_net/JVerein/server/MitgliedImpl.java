@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.45  2011-05-06 15:03:02  jost
+ * Neue Variablenmimik
+ *
  * Revision 1.44  2011-04-23 06:57:53  jost
  * Neu: Freie Formulare
  *
@@ -677,6 +680,21 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException
   {
     setAttribute("beitragsgruppe", beitragsgruppe);
+  }
+
+  public double getIndividuellerBeitrag() throws RemoteException
+  {
+    Double d = (Double) getAttribute("individuellerbeitrag");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  public void setIndividuellerBeitrag(double d) throws RemoteException
+  {
+    setAttribute("individuellerbeitrag", new Double(d));
   }
 
   public Mitgliedfoto getFoto() throws RemoteException

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.47  2011-04-07 19:30:11  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.46  2011-04-06 16:29:04  jost
  * Neu: Starttls
  *
@@ -250,6 +253,8 @@ public class EinstellungenView extends AbstractView
         control.getArbeitseinsatz());
     right.addLabelPair(JVereinPlugin.getI18n().tr("Dokumentenspeicherung *"),
         control.getDokumentenspeicherung());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("individuelle Beiträge *"),
+        control.getIndividuelleBeitraege());
     right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         control.getExterneMitgliedsnummer());
     right

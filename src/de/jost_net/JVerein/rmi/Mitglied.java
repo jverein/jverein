@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2011-05-06 15:02:28  jost
+ * Neue Variablenmimik
+ *
  * Revision 1.18  2011-04-23 06:57:18  jost
  * Neu: Freie Formulare
  *
@@ -187,6 +190,11 @@ public interface Mitglied extends DBObject
   public int getBeitragsgruppeId() throws RemoteException;
 
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException;
+
+  public double getIndividuellerBeitrag() throws RemoteException;
+
+  public void setIndividuellerBeitrag(double individuellerbeitrag)
+      throws RemoteException;
 
   public Integer getZahlerID() throws RemoteException;
 

@@ -199,13 +199,20 @@
 		<td>ja</td>
 		<td>nein</td>
 	</tr>
-	<tr>
-		<td>Beitrag_1</td>
-		<td>Höhe des Beitrages in Euro (Format xxx,xx)</td>
-		<td>&nbsp;</td>
-		<td>ja</td>
-		<td>nein</td>
-	</tr>
+  <tr>
+    <td>Beitrag_1</td>
+    <td>Höhe des Beitrages in Euro (Format xxx,xx)</td>
+    <td>&nbsp;</td>
+    <td>ja</td>
+    <td>nein</td>
+  </tr>
+  <tr>
+    <td>individuellerbeitrag</td>
+    <td>Höhe des individuellen Beitrages in Euro (Format xxx,xx). Ab Version 1.5</td>
+    <td>&nbsp;</td>
+    <td>ja</td>
+    <td>nein</td>
+  </tr>
 	<tr>
 		<td>Austritt</td>
 		<td>Datum des Austritts im Format TT.MM.JJJJ. Je nach Vereinssatzung ist die Kündigung erst 
@@ -263,6 +270,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.13  2011-03-20 11:47:11  jost
+    *** empty log message ***
+
     Revision 1.12  2010-10-30 11:32:40  jost
     Neu: Sterbetag
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2011-04-17 06:40:37  jost
+ * Neu: Mitglieder-Selektion nach Zusatzfeldern
+ *
  * Revision 1.30  2011-04-06 16:29:54  jost
  * Neu: Starttls
  *
@@ -536,6 +539,18 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute("dokumentenspeicherung",
         Boolean.valueOf(dokumentenspeicherung));
+  }
+
+  public boolean getIndividuelleBeitraege() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("individuellebeitraege"));
+  }
+
+  public void setIndividuelleBeitraege(Boolean individuellebeitraege)
+      throws RemoteException
+  {
+    setAttribute("individuellebeitraege",
+        Boolean.valueOf(individuellebeitraege));
   }
 
   public String getRechnungTextAbbuchung() throws RemoteException

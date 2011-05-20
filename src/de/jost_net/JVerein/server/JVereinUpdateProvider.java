@@ -762,6 +762,14 @@ public class JVereinUpdateProvider
     {
       update0196(conn);
     }
+    if (cv < 197)
+    {
+      update0197(conn);
+    }
+    if (cv < 198)
+    {
+      update0198(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4633,6 +4641,41 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Foreign Key für Tabelle  auswertungstabellen gelöscht", 196);
+  }
+
+  private void update0197(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD individuellebeitraege char(5) before rechnungtextabbuchung;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD individuellebeitraege char(5) after dokumentenspeicherung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte individuellebeitraege in die Tabelle lehrgangsart aufgenommen",
+        197);
+  }
+
+  private void update0198(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE mitglied ADD individuellerbeitrag DOUBLE before zahlerid;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE mitglied ADD individuellerbeitrag DOUBLE after beitragsgruppe;\n");
+
+    execute(conn, statements,
+        "Spalte individuellerBeitrag in die Tabelle mitglied eingefügt", 198);
   }
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.43  2011-04-06 16:28:33  jost
+ * Neu: Starttls
+ *
  * Revision 1.42  2011-03-17 19:45:25  jost
  * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
  *
@@ -223,6 +226,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput arbeitseinsatz;
 
   private CheckboxInput dokumentenspeicherung;
+
+  private CheckboxInput individuellebeitraege;
 
   private TextInput rechnungtextabbuchung;
 
@@ -586,6 +591,17 @@ public class EinstellungControl extends AbstractControl
     return dokumentenspeicherung;
   }
 
+  public CheckboxInput getIndividuelleBeitraege() throws RemoteException
+  {
+    if (individuellebeitraege != null)
+    {
+      return individuellebeitraege;
+    }
+    individuellebeitraege = new CheckboxInput(Einstellungen.getEinstellung()
+        .getIndividuelleBeitraege());
+    return individuellebeitraege;
+  }
+
   public TextInput getRechnungTextAbbuchung() throws RemoteException
   {
     if (rechnungtextabbuchung != null)
@@ -859,6 +875,7 @@ public class EinstellungControl extends AbstractControl
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
       e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());
       e.setDokumentenspeicherung((Boolean) dokumentenspeicherung.getValue());
+      e.setIndividuelleBeitraege((Boolean) individuellebeitraege.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
       e.setRechnungTextUeberweisung((String) rechnungtextueberweisung

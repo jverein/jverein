@@ -1,5 +1,5 @@
 /**********************************************************************
- * $Source$
+ei * $Source$
  * $Revision$
  * $Date$
  * $Author$
@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.13  2011-04-23 06:55:56  jost
+ * Arbeitseinsätze auf dem Personalbogen ausgeben
+ *
  * Revision 1.12  2011-02-12 09:27:06  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -350,6 +353,18 @@ public class PersonalbogenAction implements Action
               + " - "
               + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe()
                   .getBetrag()) + " EUR", Element.ALIGN_LEFT);
+      if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
+      {
+        rpt.addColumn("individueller Beitrag", Element.ALIGN_LEFT);
+        if (m.getIndividuellerBeitrag() > 0)
+        {
+          rpt.addColumn(m.getIndividuellerBeitrag());
+        }
+        else
+        {
+          rpt.addColumn("", Element.ALIGN_LEFT);
+        }
+      }
       rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
       String akdatum = "";
       if (m.getAustritt() != null)

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.114  2011-05-15 10:22:55  jost
+ * Bugfix Batch/Dialog-Suche
+ *
  * Revision 1.113  2011-05-15 10:06:45  jost
  * Projekt "Speicherung Auswertungseinstellungen" eingestampft.
  *
@@ -506,6 +509,8 @@ public class MitgliedControl extends AbstractControl
   private DateInput eintritt = null;
 
   private SelectInput beitragsgruppe;
+
+  private DecimalInput individuellerbeitrag;
 
   private Familienverband famverb;
 
@@ -1246,6 +1251,18 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return beitragsgruppe;
+  }
+
+  public DecimalInput getIndividuellerBeitrag() throws RemoteException
+  {
+    if (individuellerbeitrag != null)
+    {
+      return individuellerbeitrag;
+    }
+    individuellerbeitrag = new DecimalInput(getMitglied()
+        .getIndividuellerBeitrag(), Einstellungen.DECIMALFORMAT);
+    individuellerbeitrag.setName("individueller Beitrag");
+    return individuellerbeitrag;
   }
 
   public TextInput getAuswertungUeberschrift() throws RemoteException
@@ -2601,6 +2618,10 @@ public class MitgliedControl extends AbstractControl
         {
           throw new ApplicationException("Beitragsgruppe fehlt");
         }
+      }
+      if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
+      {
+        m.setIndividuellerBeitrag((Double) getIndividuellerBeitrag().getValue());
       }
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       m.setZahlungsweg(zw.getKey());

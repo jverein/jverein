@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-04-17 06:38:27  jost
+ * überflüssiges Import-Statement
+ *
  * Revision 1.3  2011-04-07 19:22:20  jost
  * Neue Zurückbutton-Mimik aus Jameica
  *
@@ -300,6 +303,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
       tab3.addInput(control.getEintritt());
       tab3.addInput(control.getBeitragsgruppe());
+      if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
+      {
+        tab3.addInput(control.getIndividuellerBeitrag());
+      }
       tab3.addInput(control.getAustritt());
       tab3.addInput(control.getKuendigung());
       if (control.getMitglied().getPersonenart().equals("n"))
@@ -443,7 +450,6 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     });
 
-     
     ButtonArea buttons = new ButtonArea(getParent(), 7);
     if (isMitgliedDetail())
     {
