@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2011-05-15 10:23:12  jost
+ * Bugfix Batch/Dialog-Suche
+ *
  * Revision 1.27  2011-04-20 19:42:46  jost
  * Stringfelder mit LIKE abfragen
  *
@@ -141,7 +144,7 @@ public class MitgliedQuery
     final DBService service = Einstellungen.getDBService();
     ArrayList<Object> bedingungen = new ArrayList<Object>();
 
-    sql = "select distinct mitglied.* ";
+    sql = "select distinct mitglied.*, ucase(name), ucase(vorname) ";
     String sort = (String) control.getSortierung().getValue();
     if (sort.equals(JVereinPlugin.getI18n().tr("Geburtstagsliste")))
     {
@@ -377,7 +380,7 @@ public class MitgliedQuery
     }
     if (sort.equals("Name, Vorname"))
     {
-      sql += " ORDER BY name, vorname";
+      sql += " ORDER BY ucase(name), ucase(vorname)";
     }
     else if (sort.equals(JVereinPlugin.getI18n().tr("Eintrittsdatum")))
     {
