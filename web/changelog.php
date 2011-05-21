@@ -94,6 +94,7 @@
           <li>##Speicherung der Auswertungs-Option wegen technischer Probleme wieder entfernt.</li>
           <li>Neu: Individuelle Beitrag pro Mitglied. Überschreibt Betrag in der Beitragsgruppe.</li>
           <li>Mitgliederliste: Bugfix bei der Sortierung nach Namen und Vornamen </li>
+          <li>Korrektes Encoding beim Mailversand unter Ubuntu</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -617,6 +618,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.147  2011-05-21 08:12:27  jost
+    *** empty log message ***
+
     Revision 1.146  2011-05-20 16:08:56  jost
     *** empty log message ***
 
