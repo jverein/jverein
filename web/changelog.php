@@ -96,6 +96,9 @@
           <li>Mitgliederliste: Bugfix bei der Sortierung nach Namen und Vornamen </li>
           <li>Korrektes Encoding beim Mailversand unter Ubuntu</li>
           <li>CSV-Export (Mitgliederauswertung) total überarbeitet. Neue Spaltennamen. Eigenschaften werden mit ausgegeben. Zur Aktivierung des alten Exports in der Datei .jameica/cfg/de.jost_net.JVerein.gui.control.MitgliedControl.properties eine Zeile mit "auswertung.csv.kompatibilitaet=true" einfügen</li>
+          <hr>
+          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 295 vorgenommen.</li>
+          <li>Buchungstext2 für Zusatzbeträge.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -619,6 +622,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.149  2011-05-22 07:44:53  jost
+    *** empty log message ***
+
     Revision 1.148  2011-05-21 12:29:47  jost
     *** empty log message ***
 
