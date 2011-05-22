@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-04-07 19:28:47  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.6  2011-01-15 09:46:48  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -48,7 +51,7 @@ import de.willuhn.util.ApplicationException;
 
 public class ArbeitseinsatzUeberpruefungView extends AbstractView
 {
-  Button butZusatzbetrage = null;
+  Button butArbeitseinsaetze = null;
 
   ArbeitseinsatzUeberpruefungInput aui = null;
 
@@ -59,7 +62,7 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
         JVereinPlugin.getI18n().tr("Arbeitsdienst-Überprüfung"));
 
     final ArbeitseinsatzControl control = new ArbeitseinsatzControl(this);
-    butZusatzbetrage = control.getZusatzbetraegeAusgabeButton();
+    butArbeitseinsaetze = control.getArbeitseinsatzAusgabeButton();
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Filter"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
@@ -71,7 +74,7 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
       public void handleEvent(Event event)
       {
         int i = (Integer) aui.getValue();
-        butZusatzbetrage
+        butArbeitseinsaetze
             .setEnabled(i == ArbeitseinsatzUeberpruefungInput.MINDERLEISTUNG);
       }
 
@@ -98,7 +101,7 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
     ButtonArea buttons2 = new ButtonArea(this.getParent(), 4);
     buttons2.addButton(control.getPDFAusgabeButton());
     buttons2.addButton(control.getCSVAusgabeButton());
-    buttons2.addButton(control.getZusatzbetraegeAusgabeButton());
+    buttons2.addButton(control.getArbeitseinsatzAusgabeButton());
     buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ARBEITSEINSATZ, false,
         "help-browser.png");
