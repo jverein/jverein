@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.1  2011-05-06 15:04:04  jost
+ * Neue Variablenmimik
+ *
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
@@ -34,6 +37,7 @@ public enum MitgliedVar
   HANDY("mitglied_handy"), //
   IBAN("mitglied_iban"), //
   ID("mitglied_id"), //
+  INDIVIDUELLERBEITRAG("mitglied_individuellerbeitrag"), //
   KONTO("mitglied_konto"), //
   KONTOINHABER("mitglied_kontoinhaber"), //
   KUENDIGUNG("mitglied_kuendigung"), //

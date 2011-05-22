@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.17  2011-05-05 19:54:20  jost
+ * neue Datumsformatierung.
+ *
  * Revision 1.16  2011-04-11 21:04:32  jost
  * Bugfix Zusatzfelder
  *
@@ -62,19 +65,20 @@ package de.jost_net.JVerein.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Map;
+
+import org.supercsv.cellprocessor.ConvertNullTo;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvMapWriter;
+import org.supercsv.io.ICsvMapWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.keys.Datentyp;
-import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Zusatzfelder;
-import de.jost_net.JVerein.util.Datum;
-import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
@@ -92,91 +96,20 @@ public class MitgliedAuswertungCSV
 
     try
     {
-      PrintWriter out = new PrintWriter(new FileOutputStream(file));
-      out.print("id;personenart;anrede;titel;name;vorname;adressierungszusatz;strasse;plz;ort;blz;konto;kontoinhaber;");
-      out.print("geburtsdatum;geschlecht;telefonprivat;telefondienstlich;handy;email;");
-      out.print("eintritt;beitragsgruppe;beitragsgruppetext;austritt;kuendigung");
-      DBIterator it = Einstellungen.getDBService().createList(
-          Felddefinition.class);
-      while (it.hasNext())
-      {
-        Felddefinition fd = (Felddefinition) it.next();
-        out.print(";" + fd.getName());
-      }
-      out.println("");
-      int faelle = 0;
+      ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file),
+          CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
-      for (int i = 0; i < list.size(); i++)
+      String[] header = createHeader();
+      CellProcessor[] processors = createCellProcessors();
+
+      writer.writeHeader(header);
+
+      for (Mitglied m : list)
       {
-        faelle++;
-        monitor.setStatus(faelle);
-        Mitglied m = list.get(i);
-        out.print(m.getID() + ";");
-        out.print(m.getPersonenart() + ";");
-        out.print(m.getAnrede() + ";");
-        out.print(m.getTitel() + ";");
-        out.print(m.getName() + ";");
-        out.print(m.getVorname() + ";");
-        out.print(m.getAdressierungszusatz() + ";");
-        out.print(m.getStrasse() + ";");
-        out.print(m.getPlz() + ";");
-        out.print(m.getOrt() + ";");
-        out.print(m.getBlz() + ";");
-        out.print(m.getKonto() + ";");
-        out.print(m.getKontoinhaber() + ";");
-        out.print(Datum.formatDate(m.getGeburtsdatum()) + ";");
-        out.print(m.getGeschlecht() + ";");
-        out.print(m.getTelefonprivat() + ";");
-        out.print(m.getTelefondienstlich() + ";");
-        out.print(m.getHandy() + ";");
-        out.print(m.getEmail() + ";");
-        out.print(Datum.formatDate(m.getEintritt()) + ";");
-        out.print(m.getBeitragsgruppe().getID() + ";");
-        out.print(m.getBeitragsgruppe().getBezeichnung() + ";");
-        out.print(Datum.formatDate(m.getAustritt()) + ";");
-        out.print(Datum.formatDate(m.getKuendigung()));
-        it.begin();
-        while (it.hasNext())
-        {
-          Felddefinition fd = (Felddefinition) it.next();
-          DBIterator it2 = Einstellungen.getDBService().createList(
-              Zusatzfelder.class);
-          it2.addFilter("mitglied = ?", new Object[] { m.getID() });
-          it2.addFilter("felddefinition = ?", new Object[] { fd.getID() });
-          if (it2.size() > 0)
-          {
-            Zusatzfelder zf = (Zusatzfelder) it2.next();
-            out.print(";");
-            switch (fd.getDatentyp())
-            {
-              case Datentyp.ZEICHENFOLGE:
-                out.print(zf.getFeld());
-                break;
-              case Datentyp.DATUM:
-                out.print(zf.getFeldDatum() != null ? new JVDateFormatTTMMJJJJ()
-                    .format(zf.getFeldDatum()) : "");
-                break;
-              case Datentyp.JANEIN:
-                out.print(zf.getFeldJaNein());
-                break;
-              case Datentyp.GANZZAHL:
-                out.print(zf.getFeldGanzzahl());
-                break;
-              case Datentyp.WAEHRUNG:
-                out.print(zf.getFeldWaehrung() != null ? Einstellungen.DECIMALFORMAT
-                    .format(zf.getFeldWaehrung()) : "");
-                break;
-            }
-          }
-          else
-          {
-            out.print(";");
-          }
-        }
-        out.println("");
+        writer.write(m.getMap(null), header, processors);
       }
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
-      out.close();
+      writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
 
@@ -207,6 +140,42 @@ public class MitgliedAuswertungCSV
       throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
     }
 
+  }
+
+  private String[] createHeader()
+  {
+    try
+    {
+      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
+          Mitglied.class, null);
+      return m.getMap(null).keySet().toArray(new String[0]);
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
+    return null;
+  }
+
+  private CellProcessor[] createCellProcessors()
+  {
+    try
+    {
+      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
+          Mitglied.class, null);
+      Map<String, Object> map = m.getMap(null);
+      CellProcessor[] ret = new CellProcessor[map.size()];
+      for (int i = 0; i < map.size(); i++)
+      {
+        ret[i] = new ConvertNullTo("");
+      }
+      return ret;
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
+    return null;
   }
 
 }
