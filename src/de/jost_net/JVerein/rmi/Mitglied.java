@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2011-05-20 13:01:02  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.19  2011-05-06 15:02:28  jost
  * Neue Variablenmimik
  *
@@ -191,7 +194,7 @@ public interface Mitglied extends DBObject
 
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException;
 
-  public double getIndividuellerBeitrag() throws RemoteException;
+  public Double getIndividuellerBeitrag() throws RemoteException;
 
   public void setIndividuellerBeitrag(double individuellerbeitrag)
       throws RemoteException;

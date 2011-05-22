@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.46  2011-05-20 13:01:41  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.45  2011-05-06 15:03:02  jost
  * Neue Variablenmimik
  *
@@ -161,6 +164,8 @@ import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Eigenschaft;
+import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
@@ -682,14 +687,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     setAttribute("beitragsgruppe", beitragsgruppe);
   }
 
-  public double getIndividuellerBeitrag() throws RemoteException
+  public Double getIndividuellerBeitrag() throws RemoteException
   {
     Double d = (Double) getAttribute("individuellerbeitrag");
     if (d == null)
     {
-      return 0;
+      return new Double(0);
     }
-    return d.doubleValue();
+    return d;
   }
 
   public void setIndividuellerBeitrag(double d) throws RemoteException
@@ -906,6 +911,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setGeschlecht("M");
       this.setHandy("0170/123456789");
       this.setID("1");
+      this.setIndividuellerBeitrag(123.45);
       this.setKonto("1234567890");
       this.setKontoinhaber("Wichtig, Willi");
       this.setKuendigung("21.02.2011");
@@ -962,6 +968,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.HANDY.getName(), this.getHandy());
     map.put(MitgliedVar.IBAN.getName(), this.getIban());
     map.put(MitgliedVar.ID.getName(), this.getID());
+    map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
+        Einstellungen.DECIMALFORMAT.format(this.getIndividuellerBeitrag()));
     map.put(MitgliedVar.KONTO.getName(), this.getKonto());
     map.put(MitgliedVar.KONTOINHABER.getName(), this.getKonto());
     map.put(MitgliedVar.KUENDIGUNG.getName(),
@@ -1043,6 +1051,23 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
           map.put("mitglied_zusatzfeld_" + fd.getName(), z.getFeld());
           break;
       }
+    }
+
+    DBIterator iteig = Einstellungen.getDBService().createList(
+        Eigenschaft.class);
+    while (iteig.hasNext())
+    {
+      Eigenschaft eig = (Eigenschaft) iteig.next();
+      DBIterator iteigm = Einstellungen.getDBService().createList(
+          Eigenschaften.class);
+      iteigm.addFilter("mitglied = ? and eigenschaft = ?",
+          new Object[] { this.getID(), eig.getID() });
+      String val = "";
+      if (iteigm.size() > 0)
+      {
+        val = "X";
+      }
+      map.put("mitglied_eigenschaft_" + eig.getBezeichnung(), val);
     }
 
     return map;
