@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-02-12 09:28:58  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.7  2011-01-15 09:46:49  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -288,7 +291,7 @@ public class ArbeitseinsatzControl extends AbstractControl
     return b;
   }
 
-  public Button getZusatzbetraegeAusgabeButton()
+  public Button getArbeitseinsatzAusgabeButton()
   {
     Button b = new Button("Zusatzbeträge generieren", new Action()
     {
@@ -297,7 +300,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       {
         try
         {
-          starteZusatzbetragGenerierung();
+          starteArbeitseinsatzGenerierung();
         }
         catch (RemoteException e)
         {
@@ -534,7 +537,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   }
 
-  private void starteZusatzbetragGenerierung() throws RemoteException,
+  private void starteArbeitseinsatzGenerierung() throws RemoteException,
       ApplicationException
   {
     final GenericIterator it = getIterator();

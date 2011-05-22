@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-05-20 13:00:28  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.6  2011-04-03 07:44:56  jost
  * Bugfix DTAUS mit äöüß
  *
@@ -537,6 +540,10 @@ public class Abrechnung
             lastschrift.setKonto(Long.parseLong(m.getKonto()));
             lastschrift.addZahlungspflichtigen(getZahlungspflichtigen(m));
             lastschrift.addVerwendungszweck(z.getBuchungstext());
+            if (z.getBuchungstext2()!=null&&z.getBuchungstext2().length()>0)
+            {
+              lastschrift.addVerwendungszweck(z.getBuchungstext2());
+            }
             lastschrift.addVerwendungszweck(getVerwendungszweck2(m));
             lastschriften.add(lastschrift);
           }

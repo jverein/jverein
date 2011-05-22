@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-04-07 19:35:47  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.10  2011-01-15 09:46:48  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -86,8 +89,10 @@ public class ZusatzbetragView extends AbstractView
         control.getIntervall());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Endedatum"),
         control.getEndedatum());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungstext"),
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungstext 1"),
         control.getBuchungstext());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungstext 2"),
+        control.getBuchungstext2());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
         control.getBetrag());
 

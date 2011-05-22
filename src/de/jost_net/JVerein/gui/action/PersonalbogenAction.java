@@ -9,6 +9,9 @@ ei * $Source$
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2011-05-20 12:59:19  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.13  2011-04-23 06:55:56  jost
  * Arbeitseinsätze auf dem Personalbogen ausgeben
  *
@@ -426,7 +429,11 @@ public class PersonalbogenAction implements Action
         rpt.addColumn(z.getAusfuehrung(), Element.ALIGN_LEFT);
         rpt.addColumn(z.getIntervallText(), Element.ALIGN_LEFT);
         rpt.addColumn(z.getEndedatum(), Element.ALIGN_LEFT);
-        rpt.addColumn(z.getBuchungstext(), Element.ALIGN_LEFT);
+        rpt.addColumn(
+            z.getBuchungstext()
+                + (z.getBuchungstext2() != null
+                    && z.getBuchungstext2().length() > 0 ? "\n"
+                    + z.getBuchungstext2() : ""), Element.ALIGN_LEFT);
         rpt.addColumn(z.getBetrag());
       }
     }
