@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-02-12 09:43:37  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.6  2010-11-25 19:34:04  jost
  * Bugfix bei Zusatzbeträgen ohne Intervall
  *
@@ -194,6 +197,16 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
   public void setBuchungstext(String buchungstext) throws RemoteException
   {
     setAttribute("buchungstext", buchungstext);
+  }
+
+  public String getBuchungstext2() throws RemoteException
+  {
+    return (String) getAttribute("buchungstext2");
+  }
+
+  public void setBuchungstext2(String buchungstext2) throws RemoteException
+  {
+    setAttribute("buchungstext2", buchungstext2);
   }
 
   public double getBetrag() throws RemoteException

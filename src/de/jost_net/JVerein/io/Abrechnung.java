@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-05-22 08:35:08  jost
+ * Neu: Buchungstext2 für Zusatzbeträge
+ *
  * Revision 1.7  2011-05-20 13:00:28  jost
  * Neu: Individueller Beitrag
  *
@@ -540,7 +543,8 @@ public class Abrechnung
             lastschrift.setKonto(Long.parseLong(m.getKonto()));
             lastschrift.addZahlungspflichtigen(getZahlungspflichtigen(m));
             lastschrift.addVerwendungszweck(z.getBuchungstext());
-            if (z.getBuchungstext2()!=null&&z.getBuchungstext2().length()>0)
+            if (z.getBuchungstext2() != null
+                && z.getBuchungstext2().length() > 0)
             {
               lastschrift.addVerwendungszweck(z.getBuchungstext2());
             }
@@ -576,7 +580,8 @@ public class Abrechnung
         }
         if (Einstellungen.getEinstellung().getMitgliedskonto())
         {
-          writeMitgliedskonto(m, new Date(), z.getBuchungstext(), "",
+          writeMitgliedskonto(m, new Date(), z.getBuchungstext(),
+              z.getBuchungstext2() != null ? z.getBuchungstext2() : "",
               z.getBetrag(), abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG,
               konto, null);
         }

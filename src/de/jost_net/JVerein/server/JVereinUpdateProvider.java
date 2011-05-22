@@ -770,6 +770,10 @@ public class JVereinUpdateProvider
     {
       update0198(conn);
     }
+    if (cv < 199)
+    {
+      update0199(conn);
+    }
   }
 
   public Connection getConnection()
@@ -4676,6 +4680,24 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte individuellerBeitrag in die Tabelle mitglied eingefügt", 198);
+  }
+
+  private void update0199(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE zusatzabbuchung ADD buchungstext2 VARCHAR(27) before betrag;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE zusatzabbuchung ADD buchungstext2 VARCHAR(27) after buchungstext;\n");
+
+    execute(conn, statements,
+        "Spalte buchungstext2 in die Tabelle zusatzabbuchung eingefügt", 199);
   }
 
 }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2008/12/22 21:20:48  jost
+ * Zusatzabbuchung->Zusatzbetrag
+ *
  * Revision 1.3  2007/03/30 13:26:01  jost
  * Wiederkehrende Zusatzabbuchungen.
  *
@@ -39,6 +42,10 @@ public interface Zusatzbetrag extends DBObject
   public String getBuchungstext() throws RemoteException;
 
   public void setBuchungstext(String buchungstext) throws RemoteException;
+
+  public String getBuchungstext2() throws RemoteException;
+
+  public void setBuchungstext2(String buchungstext2) throws RemoteException;
 
   public double getBetrag() throws RemoteException;
 
