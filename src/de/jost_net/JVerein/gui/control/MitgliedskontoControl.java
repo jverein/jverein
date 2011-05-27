@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.26  2011-05-23 17:15:14  jost
+ * Neu: Bei Überweisungen können Abbucher ausgeschlossen werden.
+ *
  * Revision 1.25  2011-04-24 09:31:01  jost
  * Automatisierte Befüllung von Istbuchungen bei der Auswahl des Mitgliedskontos.
  *
@@ -98,8 +101,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
@@ -111,12 +114,13 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
+import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.MitgliedskontoMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.Formularart;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -897,41 +901,6 @@ public class MitgliedskontoControl extends AbstractControl
     else
     {
       GenericIterator it = getMitgliedskontoIterator();
-      //
-      //
-      // Einstellungen.getDBService().createList(
-      // Mitgliedskonto.class);
-      // Date d = null;
-      // if (getVondatum(datumverwendung).getValue() != null)
-      // {
-      // d = (Date) getVondatum(datumverwendung).getValue();
-      // if (d != null)
-      // {
-      // settings.setAttribute(datumverwendung + "datumvon",
-      // Einstellungen.DATEFORMAT.format(d));
-      // }
-      //
-      // it.addFilter("datum >= ?", new Object[] { d });
-      // }
-      // else
-      // {
-      // settings.setAttribute(datumverwendung + "datumvon", "");
-      // }
-      // if (getBisdatum(datumverwendung).getValue() != null)
-      // {
-      // d = (Date) getBisdatum(datumverwendung).getValue();
-      // if (d != null)
-      // {
-      // settings.setAttribute(datumverwendung + "datumbis",
-      // Einstellungen.DATEFORMAT.format(d));
-      // }
-      // it.addFilter("datum <= ?", new Object[] { d });
-      // }
-      // else
-      // {
-      // settings.setAttribute(datumverwendung + "datumbis", "");
-      // }
-
       Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
       int i = 0;
       while (it.hasNext())
@@ -952,109 +921,10 @@ public class MitgliedskontoControl extends AbstractControl
   private void aufbereitenFormular(ArrayList<Mitgliedskonto> mk, Formular fo)
       throws RemoteException
   {
-    HashMap<String, Object> map = new HashMap<String, Object>();
-
+    Map<String, Object> map = new MitgliedskontoMap().getMap(mk, null);
     Mitglied m = mk.get(0).getMitglied();
-
-    String empfaenger = m.getAnrede()
-        + "\n"
-        + m.getVornameName()
-        + "\n"
-        + (m.getAdressierungszusatz().length() > 0 ? m.getAdressierungszusatz()
-            + "\n" : "") + m.getStrasse() + "\n" + m.getPlz() + " "
-        + m.getOrt();
-    if (m.getStaat() != null && m.getStaat().length() > 0)
-    {
-      empfaenger += "\n" + m.getStaat();
-    }
-    map.put(FormularfeldControl.EMPFAENGER, empfaenger);
-    ArrayList<Date> buda = new ArrayList<Date>();
-    ArrayList<String> zg = new ArrayList<String>();
-    ArrayList<String> zg1 = new ArrayList<String>();
-    ArrayList<String> zg2 = new ArrayList<String>();
-    ArrayList<Double> betrag = new ArrayList<Double>();
-    double summe = 0;
-    for (Mitgliedskonto mkto : mk)
-    {
-      buda.add(mkto.getDatum());
-      zg.add(mkto.getZweck1() + " " + mkto.getZweck2());
-      zg1.add(mkto.getZweck1());
-      zg2.add(mkto.getZweck2());
-      betrag.add(new Double(mkto.getBetrag()));
-      summe += mkto.getBetrag();
-    }
-    if (buda.size() > 1)
-    {
-      zg1.add("Summe");
-      zg.add("Summe");
-      betrag.add(summe);
-    }
-    map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
-    map.put(FormularfeldControl.ZAHLUNGSGRUND, zg.toArray());
-    map.put(FormularfeldControl.ZAHLUNGSGRUND1, zg1.toArray());
-    map.put(FormularfeldControl.ZAHLUNGSGRUND2, zg2.toArray());
-    map.put(FormularfeldControl.BETRAG, betrag.toArray());
-    map.put(FormularfeldControl.ID, m.getID());
-    map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER,
-        m.getExterneMitgliedsnummer());
-    map.put(FormularfeldControl.ANREDE, m.getAnrede());
-    map.put(FormularfeldControl.TITEL, m.getTitel());
-    map.put(FormularfeldControl.NAME, m.getName());
-    map.put(FormularfeldControl.VORNAME, m.getVorname());
-    map.put(FormularfeldControl.ADRESSIERUNGSZUSATZ, m.getAdressierungszusatz());
-    map.put(FormularfeldControl.STRASSE, m.getStrasse());
-    map.put(FormularfeldControl.PLZ, m.getPlz());
-    map.put(FormularfeldControl.ORT, m.getOrt());
-    map.put(FormularfeldControl.STAAT, m.getStaat());
-    map.put(FormularfeldControl.ZAHLUNGSRHYTMUS,
-        new Zahlungsrhytmus(m.getZahlungsrhytmus()).getText());
-    map.put(FormularfeldControl.BLZ, m.getBlz());
-    map.put(FormularfeldControl.KONTO, m.getKonto());
-    map.put(FormularfeldControl.KONTOINHABER, m.getKontoinhaber());
-    map.put(FormularfeldControl.GEBURTSDATUM, m.getGeburtsdatum());
-    map.put(FormularfeldControl.GESCHLECHT, m.getGeschlecht());
-    map.put(FormularfeldControl.TELEFONPRIVAT, m.getTelefonprivat());
-    map.put(FormularfeldControl.TELEFONDIENSTLICH, m.getTelefondienstlich());
-    map.put(FormularfeldControl.HANDY, m.getHandy());
-    map.put(FormularfeldControl.EMAIL, m.getEmail());
-    map.put(FormularfeldControl.EINTRITT, m.getEintritt());
-    try
-    {
-      map.put(FormularfeldControl.BEITRAGSGRUPPE, m.getBeitragsgruppe()
-          .getBezeichnung());
-    }
-    catch (NullPointerException e)
-    {
-      map.put(FormularfeldControl.BEITRAGSGRUPPE, "");
-    }
-    map.put(FormularfeldControl.AUSTRITT, m.getAustritt());
-    map.put(FormularfeldControl.KUENDIGUNG, m.getKuendigung());
-    String zahlungsweg = "";
-    switch (mk.get(0).getMitglied().getZahlungsweg())
-    {
-      case Zahlungsweg.ABBUCHUNG:
-      {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", m.getKonto());
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{BLZ\\}", m.getBlz());
-        break;
-      }
-      case Zahlungsweg.BARZAHLUNG:
-      {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextBar();
-        break;
-      }
-      case Zahlungsweg.ÜBERWEISUNG:
-      {
-        zahlungsweg = Einstellungen.getEinstellung()
-            .getRechnungTextUeberweisung();
-        break;
-      }
-    }
-    map.put(FormularfeldControl.ZAHLUNGSWEG, zahlungsweg);
-    map.put(FormularfeldControl.TAGESDATUM,
-        new JVDateFormatTTMMJJJJ().format(new Date()));
-
+    map = m.getMap(map);
+    map = new AllgemeineMap().getMap(map);
     fa.writeForm(fo, map);
   }
 

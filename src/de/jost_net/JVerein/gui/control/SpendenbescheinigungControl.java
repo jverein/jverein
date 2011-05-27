@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.20  2011-03-28 18:07:30  jost
+ * Überflüssigen Code entfernt.
+ *
  * Revision 1.19  2011-03-20 06:38:26  jost
  * Anzeige des erzeugten Dokuments
  *
@@ -77,6 +80,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 
@@ -89,6 +93,8 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
@@ -755,7 +761,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, getSpendenbescheinigung().getFormular().getID());
-    HashMap<String, Object> map = new HashMap<String, Object>();
+    Map<String, Object> map = new HashMap<String, Object>();
     String empfaenger = (String) getZeile1(false).getValue() + "\n"
         + (String) getZeile2().getValue() + "\n"
         + (String) getZeile3().getValue() + "\n"
@@ -763,13 +769,15 @@ public class SpendenbescheinigungControl extends AbstractControl
         + (String) getZeile5().getValue() + "\n"
         + (String) getZeile6().getValue() + "\n"
         + (String) getZeile7().getValue() + "\n";
-    map.put("Empfänger", empfaenger);
-    map.put("Betrag", getBetrag().getValue());
+    map.put(SpendenbescheinigungVar.EMPFAENGER.getName(), empfaenger);
+    map.put(SpendenbescheinigungVar.BETRAG.getName(),
+        Einstellungen.DECIMALFORMAT.format(getBetrag().getValue()));
     Double dWert = (Double) getBetrag().getValue();
     try
     {
       String betraginworten = GermanNumber.toString(dWert.longValue());
-      map.put("Betrag in Worten", "*" + betraginworten + "*");
+      map.put(SpendenbescheinigungVar.BETRAGINWORTEN.getName(), "*"
+          + betraginworten + "*");
     }
     catch (Exception e)
     {
@@ -779,14 +787,14 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     Date tmp = (Date) getBescheinigungsdatum().getValue();
     String bescheinigungsdatum = new JVDateFormatTTMMJJJJ().format(tmp);
-    map.put("Bescheinigungsdatum", bescheinigungsdatum);
+    map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
+        bescheinigungsdatum);
     tmp = (Date) getSpendedatum().getValue();
     String spendedatum = new JVDateFormatTTMMJJJJ().format(tmp);
-    map.put("Spendedatum", spendedatum);
-    String tagesdatum = new JVDateFormatTTMMJJJJ().format(new Date());
-    map.put("Tagesdatum", tagesdatum);
-    map.put("ErsatzAufwendungen",
+    map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), spendedatum);
+    map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN.getName(),
         ((Boolean) ersatzaufwendungen.getValue() ? "X" : ""));
+    map = new AllgemeineMap().getMap(map);
     FormularAufbereitung fa = new FormularAufbereitung(file);
     fa.writeForm(fo, map);
     fa.showFormular();

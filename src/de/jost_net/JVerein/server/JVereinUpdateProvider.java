@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.Variable.MitgliedVar;
+import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.ScriptExecutor;
@@ -773,6 +775,10 @@ public class JVereinUpdateProvider
     if (cv < 199)
     {
       update0199(conn);
+    }
+    if (cv < 200)
+    {
+      update0200(conn);
     }
   }
 
@@ -4698,6 +4704,233 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte buchungstext2 in die Tabelle zusatzabbuchung eingefügt", 199);
+  }
+
+  private void update0200(Connection conn) throws ApplicationException
+  {
+    final String ID = "ID";
+
+    final String EXTERNEMITGLIEDSNUMMER = "externe Mitgliedsnummer";
+
+    final String ANREDE = "Anrede";
+    final String TITEL = "Titel";
+
+    final String NAME = "Name";
+
+    final String VORNAME = "Vorname";
+
+    final String ADRESSIERUNGSZUSATZ = "Adressierungszusatz";
+    final String STRASSE = "Strasse";
+
+    final String PLZ = "PLZ";
+
+    final String ORT = "Ort";
+
+    final String STAAT = "Staat";
+
+    final String ZAHLUNGSRHYTMUS = "Zahlungsrhytmus";
+
+    final String BLZ = "Bankleitzahl";
+
+    final String KONTO = "Konto";
+
+    final String KONTOINHABER = "Kontoinhaber";
+
+    final String GEBURTSDATUM = "Geburtsdatum";
+
+    final String GESCHLECHT = "Geschlecht";
+
+    final String TELEFONPRIVAT = "Telefon privat";
+
+    final String TELEFONDIENSTLICH = "Telefon dienstlich";
+
+    final String HANDY = "Handy";
+
+    final String EMAIL = "Email";
+
+    final String EINTRITT = "Eintritt";
+
+    final String BEITRAGSGRUPPE = "Beitragsgruppe";
+
+    final String AUSTRITT = "Austritt";
+
+    final String ZAHLUNGSGRUND = "Zahlungsgrund";
+
+    final String ZAHLUNGSGRUND1 = "Zahlungsgrund 1";
+
+    final String ZAHLUNGSGRUND2 = "Zahlungsgrund 2";
+
+    final String BUCHUNGSDATUM = "Buchungsdatum";
+
+    final String ZAHLUNGSWEG = "Zahlungsweg";
+
+    final String BETRAG = "Betrag";
+
+    final String KUENDIGUNG = "Kündigung";
+    final String sql1 = "UPDATE formularfeld SET name = '";
+    final String sql2 = "' WHERE name = '";
+    final String sql3 = "';\n";
+    String sql = sql1
+        + MitgliedVar.ID.getName()
+        + sql2
+        + ID
+        + sql3 //
+        + sql1
+        + MitgliedVar.EXTERNE_MITGLIEDSNUMMER.getName()
+        + sql2
+        + EXTERNEMITGLIEDSNUMMER
+        + sql3 //
+        + sql1
+        + MitgliedVar.ANREDE.getName()
+        + sql2
+        + ANREDE
+        + sql3 //
+        + sql1
+        + MitgliedVar.TITEL.getName()
+        + sql2
+        + TITEL
+        + sql3 //
+        + sql1
+        + MitgliedVar.NAME.getName()
+        + sql2
+        + NAME
+        + sql3 //
+        + sql1
+        + MitgliedVar.VORNAME.getName()
+        + sql2
+        + VORNAME
+        + sql3 //
+        + sql1
+        + MitgliedVar.ADRESSIERUNGSZUSATZ.getName()
+        + sql2
+        + ADRESSIERUNGSZUSATZ
+        + sql3 //
+        + sql1
+        + MitgliedVar.STRASSE.getName()
+        + sql2
+        + STRASSE
+        + sql3 //
+        + sql1
+        + MitgliedVar.PLZ.getName()
+        + sql2
+        + PLZ
+        + sql3 //
+        + sql1
+        + MitgliedVar.ORT.getName()
+        + sql2
+        + ORT
+        + sql3 //
+        + sql1
+        + MitgliedVar.STAAT.getName()
+        + sql2
+        + STAAT
+        + sql3 //
+        + sql1
+        + MitgliedVar.ZAHLUNGSRHYTMUS.getName()
+        + sql2
+        + ZAHLUNGSRHYTMUS
+        + sql3 //
+        + sql1
+        + MitgliedVar.ZAHLUNGSWEG.getName()
+        + sql2
+        + ZAHLUNGSWEG
+        + sql3 //
+        + sql1
+        + MitgliedVar.BLZ.getName()
+        + sql2
+        + BLZ
+        + sql3 //
+        + sql1
+        + MitgliedVar.KONTO.getName()
+        + sql2
+        + KONTO
+        + sql3 //
+        + sql1
+        + MitgliedVar.KONTOINHABER.getName()
+        + sql2
+        + KONTOINHABER
+        + sql3 //
+        + sql1
+        + MitgliedVar.GEBURTSDATUM.getName()
+        + sql2
+        + GEBURTSDATUM
+        + sql3 //
+        + sql1
+        + MitgliedVar.GESCHLECHT.getName()
+        + sql2
+        + GESCHLECHT
+        + sql3 //
+        + sql1
+        + MitgliedVar.TELEFONDIENSTLICH.getName()
+        + sql2
+        + TELEFONDIENSTLICH
+        + sql3 //
+        + sql1
+        + MitgliedVar.TELEFONPRIVAT.getName()
+        + sql2
+        + TELEFONPRIVAT
+        + sql3 //
+        + sql1
+        + MitgliedVar.HANDY.getName()
+        + sql2
+        + HANDY
+        + sql3 //
+        + sql1
+        + MitgliedVar.EMAIL.getName()
+        + sql2
+        + EMAIL
+        + sql3 //
+        + sql1
+        + MitgliedVar.EINTRITT.getName()
+        + sql2
+        + EINTRITT
+        + sql3 //
+        + sql1
+        + MitgliedVar.AUSTRITT.getName()
+        + sql2
+        + AUSTRITT
+        + sql3 //
+        + sql1
+        + MitgliedVar.KUENDIGUNG.getName()
+        + sql2
+        + KUENDIGUNG
+        + sql3 //
+        + sql1
+        + MitgliedVar.KUENDIGUNG.getName()
+        + sql2
+        + KUENDIGUNG
+        + sql3 //
+        + sql1
+        + MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName()
+        + sql2
+        + BEITRAGSGRUPPE
+        + sql3 //
+        + sql1
+        + MitgliedskontoVar.ZAHLUNGSGRUND.getName()
+        + sql2
+        + ZAHLUNGSGRUND
+        + sql3//
+        + sql1 + MitgliedskontoVar.ZAHLUNGSGRUND1.getName()
+        + sql2
+        + ZAHLUNGSGRUND1
+        + sql3//
+        + sql1 + MitgliedskontoVar.ZAHLUNGSGRUND2.getName() + sql2
+        + ZAHLUNGSGRUND2
+        + sql3//
+        + sql1 + MitgliedskontoVar.BUCHUNGSDATUM.getName() + sql2
+        + BUCHUNGSDATUM + sql3//
+        + sql1 + "tagesdatum" + sql2 + "Tagesdatum" + sql3//
+        + sql1 + MitgliedskontoVar.BETRAG.getName() + sql2 + BETRAG + sql3//
+    ;
+    System.out.println(sql);
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Tabelle formularfeld an aktualisiert", 200);
   }
 
 }

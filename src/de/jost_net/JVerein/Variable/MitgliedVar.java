@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.2  2011-05-22 07:41:22  jost
+ * CSV-Export überarbeitet. Neue Spaltennamen. Zusätzliche Spalten.
+ *
  * Revision 1.1  2011-05-06 15:04:04  jost
  * Neue Variablenmimik
  *
@@ -59,6 +62,7 @@ public enum MitgliedVar
   VORNAMENAME("mitglied_vornamename"), //
   ZAHLUNGSRHYTMUS("mitglied_zahlungsrhytmus"), //
   ZAHLUNGSWEG("mitglied_zahlungsweg"), //
+  ZAHLUNGSWEGTEXT("mitglied_zahlungsweg_text"), //
   ZAHLERID("mitglied_zahlerid");
 
   private String name;
