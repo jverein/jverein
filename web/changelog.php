@@ -101,7 +101,7 @@
           <li>Buchungstext2 für Zusatzbeträge.</li>
           <li>Jahressaldo: Bugfix abweichendes Geschäftsjahr.</li>
           <li>Neu: Bei der Erstellung von Rechnungen können Abbucher ausgeschlossen werden.</li>
-          <li>Vereinheitlichung im Umgang mit den Variablen. Neue Variablennamen. Teilweise wurden die Werte konvertiert, teilweise muss von Hand nachgebessert werden. An den meisten Stellen stehen jetzt sämtliche Daten des Mitglieds, Eigenschaften und Zusatzfelder zur Verfügung.</li>
+          <li>Vereinheitlichung im Umgang mit den Variablen bei Formularen. Neue Variablennamen. Teilweise wurden die Werte konvertiert, teilweise muss von Hand nachgebessert werden. An den meisten Stellen stehen jetzt sämtliche Daten des Mitglieds, Eigenschaften und Zusatzfelder zur Verfügung.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -625,6 +625,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.153  2011-05-27 18:53:32  jost
+    *** empty log message ***
+
     Revision 1.152  2011-05-23 17:17:56  jost
     Neu: Bei Überweisungen können Abbucher ausgeschlossen werden.
 
