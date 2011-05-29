@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.3  2011-05-27 18:49:30  jost
+ * Vereinheitlichung Variable
+ *
  * Revision 1.2  2011-05-22 07:41:22  jost
  * CSV-Export überarbeitet. Neue Spaltennamen. Zusätzliche Spalten.
  *
@@ -23,6 +26,7 @@ public enum MitgliedVar
   ADRESSIERUNGSZUSATZ("mitglied_adressierungszusatz"), //
   ADRESSTYP("mitglied_adresstyp"), //
   ANREDE("mitglied_anrede"), //
+  ANREDE_FOERMLICH("mitglied_andrede_foermlich"), //
   AUSTRITT("mitglied_austritt"), //
   BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG("mitglied_arbeitseinsatz_betrag"), //
   BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN("mitglied_arbeitseinsatz_stunden"), //

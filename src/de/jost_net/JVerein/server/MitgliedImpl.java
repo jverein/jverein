@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.48  2011-05-27 18:48:29  jost
+ * Vereinheitlichung Variable
+ *
  * Revision 1.47  2011-05-22 07:41:06  jost
  * Neu: Individueller Beitrag
  *
@@ -949,6 +952,22 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         StringTool.toNotNullString(this.getAdresstyp().getID()));
     map.put(MitgliedVar.ANREDE.getName(),
         StringTool.toNotNullString(this.getAnrede()));
+    String anredefoermlich = "Sehr geehrte";
+    if (getGeschlecht().equals("m"))
+    {
+      anredefoermlich += "r Herr " + getTitel()
+          + (getTitel().length() > 0 ? " " : "") + getName() + ",";
+    }
+    else if (getGeschlecht().equals("w"))
+    {
+      anredefoermlich += " Frau " + (getTitel().length() > 0 ? " " : "")
+          + getName() + ",";
+    }
+    else
+    {
+      anredefoermlich += " Damen und Herren,";
+    }
+    map.put(MitgliedVar.ANREDE_FOERMLICH.getName(), anredefoermlich);
     map.put(MitgliedVar.AUSTRITT.getName(),
         Datum.formatDate(this.getAustritt()));
     map.put(
@@ -987,7 +1006,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
         Einstellungen.DECIMALFORMAT.format(this.getIndividuellerBeitrag()));
     map.put(MitgliedVar.KONTO.getName(), this.getKonto());
-    map.put(MitgliedVar.KONTOINHABER.getName(), this.getKonto());
+    map.put(MitgliedVar.KONTOINHABER.getName(), this.getKontoinhaber());
     map.put(MitgliedVar.KUENDIGUNG.getName(),
         Datum.formatDate(this.getKuendigung()));
     map.put(MitgliedVar.LETZTEAENDERUNG.getName(),
