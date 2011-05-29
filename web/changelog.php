@@ -102,6 +102,9 @@
           <li>Jahressaldo: Bugfix abweichendes Geschäftsjahr.</li>
           <li>Neu: Bei der Erstellung von Rechnungen können Abbucher ausgeschlossen werden.</li>
           <li>Vereinheitlichung im Umgang mit den Variablen bei Formularen. Neue Variablennamen. Teilweise wurden die Werte konvertiert, teilweise muss von Hand nachgebessert werden. An den meisten Stellen stehen jetzt sämtliche Daten des Mitglieds, Eigenschaften und Zusatzfelder zur Verfügung.</li>
+          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 297 vorgenommen.</li>
+          <li>Bei der Erfassung der Mails kann mit einem Rechtsklick auf eine Mail-Adresse ein Dialog mit einer Liste aller Variablen angezeigt werden.</li>
+          <li>Zusätzliche Variablen: mitglied_anrede_foermlich und mitglied_anrede_du</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -625,6 +628,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.154  2011-05-27 18:59:19  jost
+    *** empty log message ***
+
     Revision 1.153  2011-05-27 18:53:32  jost
     *** empty log message ***
 
