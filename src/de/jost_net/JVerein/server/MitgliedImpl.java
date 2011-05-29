@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.49  2011-05-29 12:43:35  jost
+ * Neue Variable "mitglied_anrede_foermlich"
+ *
  * Revision 1.48  2011-05-27 18:48:29  jost
  * Vereinheitlichung Variable
  *
@@ -968,6 +971,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       anredefoermlich += " Damen und Herren,";
     }
     map.put(MitgliedVar.ANREDE_FOERMLICH.getName(), anredefoermlich);
+    String anrededu = "Hallo";
+    if (getGeschlecht().length() > 0)
+    {
+      anrededu += " " + getVorname()+",";
+    }
+    map.put(MitgliedVar.ANREDE_DU.getName(), anrededu);
+
     map.put(MitgliedVar.AUSTRITT.getName(),
         Datum.formatDate(this.getAustritt()));
     map.put(
