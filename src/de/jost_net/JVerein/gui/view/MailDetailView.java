@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-04-07 19:34:53  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.8  2011-02-12 09:36:46  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -186,6 +189,13 @@ public class MailDetailView extends AbstractView
     text.setLayoutData(new GridData(align));
   }
 
-  // TODO getHelp()
+
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
+    +"<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
+        + "</form>";
+  }
 
 }
