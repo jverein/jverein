@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.5  2011-05-29 12:51:27  jost
+ * Neue Variable "mitglied_anrede_du"
+ *
  * Revision 1.4  2011-05-29 12:43:51  jost
  * Neue Variable "mitglied_anrede_foermlich"
  *
@@ -29,8 +32,8 @@ public enum MitgliedVar
   ADRESSIERUNGSZUSATZ("mitglied_adressierungszusatz"), //
   ADRESSTYP("mitglied_adresstyp"), //
   ANREDE("mitglied_anrede"), //
-  ANREDE_DU("mitglied_andrede_du"), //
-  ANREDE_FOERMLICH("mitglied_andrede_foermlich"), //
+  ANREDE_DU("mitglied_anrede_du"), //
+  ANREDE_FOERMLICH("mitglied_anrede_foermlich"), //
   AUSTRITT("mitglied_austritt"), //
   BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG("mitglied_arbeitseinsatz_betrag"), //
   BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN("mitglied_arbeitseinsatz_stunden"), //
