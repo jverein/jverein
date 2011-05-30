@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-05-20 13:00:01  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.4  2011-04-17 06:38:27  jost
  * überflüssiges Import-Statement
  *
@@ -218,7 +221,6 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.parts.PanelButton;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
