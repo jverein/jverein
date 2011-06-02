@@ -3,24 +3,19 @@
 <plugin name="jverein" version="1.5.0-devel"
   class="de.jost_net.JVerein.JVereinPlugin"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.0.xsd">
+  xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.1.xsd">
 
   <description>OpenSource-Vereinsverwaltung</description>
   <url>http://www.jverein.de/download.php</url>
   
   <homepage>http://www.jverein.de</homepage>
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
- 
+  <icon>jverein-icon-64x64.png</icon>
   <menu>
     <item name="JVerein" >
-    <item name="Dokumentation"
-      shortcut="ALT+D" 
-      action="de.jost_net.JVerein.gui.action.DokumentationAction">
-	</item>
-	<item name="About" 
-      action="de.jost_net.JVerein.gui.action.AboutAction" />
-  	</item>
-  	
+  	<item name="About" 
+          action="de.jost_net.JVerein.gui.action.AboutAction" />
+        	</item>
   </menu>
   <classfinder>
     <include>jverein\.jar</include>
