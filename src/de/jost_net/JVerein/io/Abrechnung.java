@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-05-22 08:39:27  jost
+ * Neu: Buchungstext2 für Zusatzbeträge
+ *
  * Revision 1.8  2011-05-22 08:35:08  jost
  * Neu: Buchungstext2 für Zusatzbeträge
  *
@@ -229,6 +232,7 @@ import de.jost_net.OBanToo.Dtaus.DtausException;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.hbci.TextSchluessel;
 import de.willuhn.jameica.hbci.rmi.Lastschrift;
 import de.willuhn.jameica.hbci.rmi.SammelLastschrift;
 import de.willuhn.jameica.hbci.rmi.SammelTransferBuchung;
@@ -683,6 +687,7 @@ public class Abrechnung
           o.setGegenkontoName(c.getNameEmpfaenger());
           o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
           o.setGegenkontoNummer(c.getKontonummer() + "");
+          o.setTextSchluessel(TextSchluessel.TS_EINZUG);
           o.store();
         }
         if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
@@ -704,6 +709,7 @@ public class Abrechnung
           o.setGegenkontoName(c.getNameEmpfaenger());
           o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
           o.setGegenkontoNummer(c.getKontonummer() + "");
+          o.setTextSchluessel(TextSchluessel.TS_EINZUG);
           o.store();
         }
         c = parser.next();
