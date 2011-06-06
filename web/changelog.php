@@ -105,6 +105,7 @@
           <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 297 vorgenommen.</li>
           <li>Bei der Erfassung der Mails kann mit einem Rechtsklick auf eine Mail-Adresse ein Dialog mit einer Liste aller Variablen angezeigt werden.</li>
           <li>Zusätzliche Variablen: mitglied_anrede_foermlich und mitglied_anrede_du</li>
+    		  <li>Abrechnung: Bugfix Textschlüssel bei Hibiscusbuchungen</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -628,6 +629,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.155  2011-05-29 12:52:52  jost
+    *** empty log message ***
+
     Revision 1.154  2011-05-27 18:59:19  jost
     *** empty log message ***
 
