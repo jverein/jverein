@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.3  2010-03-27 20:10:26  jost
  * Auswahl überarbeitet.
  *
@@ -74,7 +77,8 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
       {
         try
         {
-          EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog(null);
+          EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog(null,
+              false);
           ArrayList<Object> auswahl = (ArrayList<Object>) ead.open();
           for (Object o : auswahl)
           {
@@ -98,7 +102,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("alle"), new Action()
     {
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         try
         {
@@ -132,7 +136,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     });
     b.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         try
         {

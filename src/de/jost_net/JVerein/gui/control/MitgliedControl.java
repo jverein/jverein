@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.117  2011-05-22 08:33:36  jost
+ * *** empty log message ***
+ *
  * Revision 1.116  2011-05-22 07:40:03  jost
  * CSV-Export überarbeitet. Neue Spaltennamen. Zusätzliche Spalten.
  *
@@ -1650,7 +1653,7 @@ public class MitgliedControl extends AbstractControl
         new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
     zusatzbetraegeList.addColumn("Buchungstext 2", "buchungstext2");
-       zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+    zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
     zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
     zusatzbetraegeList
@@ -2105,7 +2108,8 @@ public class MitgliedControl extends AbstractControl
   public DialogInput getEigenschaftenAuswahl() throws RemoteException
   {
     String tmp = settings.getString("mitglied.eigenschaften", "");
-    final EigenschaftenAuswahlDialog d = new EigenschaftenAuswahlDialog(tmp);
+    final EigenschaftenAuswahlDialog d = new EigenschaftenAuswahlDialog(tmp,
+        false);
     d.addCloseListener(new EigenschaftenListener());
 
     StringTokenizer stt = new StringTokenizer(tmp, ",");
@@ -2813,11 +2817,11 @@ public class MitgliedControl extends AbstractControl
     }
   }
 
-  public TreePart getEigenschaftenAuswahlTree(String vorbelegung)
-      throws RemoteException
+  public TreePart getEigenschaftenAuswahlTree(String vorbelegung,
+      boolean ohnePflicht) throws RemoteException
   {
-    eigenschaftenAuswahlTree = new TreePart(new EigenschaftenNode(vorbelegung),
-        null);
+    eigenschaftenAuswahlTree = new TreePart(new EigenschaftenNode(vorbelegung,
+        ohnePflicht), null);
     eigenschaftenAuswahlTree.setCheckable(true);
     eigenschaftenAuswahlTree.addSelectionListener(new EigenschaftListener(
         eigenschaftenAuswahlTree));

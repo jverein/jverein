@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-04-23 06:56:19  jost
+ * Neu: Freie Formulare
+ *
  * Revision 1.8  2011-02-03 22:02:08  jost
  * Bugfix Kontextmenu
  *
@@ -42,6 +45,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FreiesFormularAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
+import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -73,6 +77,9 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Mail senden ..."), new MitgliedMailSendenAction(),
         "mail-message-new.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Eigenschaften"), new MitgliedEigenschaftZuordnungAction(),
+        "settings.gif"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "Spendenbescheinigung"), new SpendenbescheinigungAction(),
         "rechnung.png"));
@@ -84,7 +91,8 @@ public class MitgliedMenu extends ContextMenu
     {
       Formular f = (Formular) it.next();
       addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-          f.getBezeichnung()), new FreiesFormularAction(f.getID()), "rechnung.png"));
+          f.getBezeichnung()), new FreiesFormularAction(f.getID()),
+          "rechnung.png"));
     }
   }
 }

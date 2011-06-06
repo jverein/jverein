@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2010-10-15 09:58:26  jost
+ * Code aufgeräumt
+ *
  * Revision 1.8  2010-04-08 17:56:56  jost
  * Bugfix
  *
@@ -61,20 +64,21 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
 
   private String defaults = null;
 
-  private ArrayList<Object> retval = new ArrayList<Object>();
+  private boolean ohnePflicht;
+
+  private ArrayList<EigenschaftenNode> retval = new ArrayList<EigenschaftenNode>();
 
   /**
    * Eigenschaften oder Eigenschaftengruppen auswählen
    * 
-   * @param modus
-   *        MODUS_EIGENSCHAFTEN oder MODUS_EIGENSCHAFTEN_UND_GRUPPEN
    * @param defaults
-   *        Liste der Eigenschaften-IDs durch Komma separiert.
+   *          Liste der Eigenschaften-IDs durch Komma separiert.
    */
-  public EigenschaftenAuswahlDialog(String defaults)
+  public EigenschaftenAuswahlDialog(String defaults, boolean ohnePflicht)
   {
     super(EigenschaftenAuswahlDialog.POSITION_CENTER);
     this.setSize(400, 400);
+    this.ohnePflicht = ohnePflicht;
     setTitle(JVereinPlugin.getI18n().tr("Eigenschaften auswählen "));
     control = new MitgliedControl(null);
     this.setDefaults(defaults);
@@ -93,7 +97,8 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
   @Override
   protected void paint(Composite parent) throws RemoteException
   {
-    final TreePart tree = control.getEigenschaftenAuswahlTree(this.defaults);
+    final TreePart tree = control.getEigenschaftenAuswahlTree(this.defaults,
+        ohnePflicht);
 
     LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
         "Eigenschaften"), true);
@@ -108,14 +113,14 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
       {
         try
         {
-          retval = new ArrayList<Object>();
+          retval = new ArrayList<EigenschaftenNode>();
           ArrayList<?> checkednodes = (ArrayList<?>) tree.getItems();
           for (Object o : checkednodes)
           {
             EigenschaftenNode checkedNode = (EigenschaftenNode) o;
             if (checkedNode.getNodeType() == EigenschaftenNode.EIGENSCHAFTEN)
             {
-              retval.add(o);
+              retval.add(checkedNode);
             }
           }
         }
