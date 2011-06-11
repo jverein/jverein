@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-02-12 09:42:02  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.2  2010-10-15 09:58:30  jost
  * Code aufgeräumt
  *
@@ -91,7 +94,7 @@ public class BuchungSearchProvider implements SearchProvider
       {
         return b.getName() + ", " + b.getZweck() + ", " + b.getZweck2() + ", "
             + b.getKommentar() + ", " + JVereinPlugin.getI18n().tr("Konto")
-            + ": " + b.getKonto();
+            + ": " + b.getKonto().getNummer();
       }
       catch (RemoteException re)
       {
