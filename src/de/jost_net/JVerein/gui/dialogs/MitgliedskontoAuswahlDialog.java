@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-05-05 19:50:47  jost
+ * Bugfix Scrollbar
+ *
  * Revision 1.7  2011-02-26 15:54:19  jost
  * Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl
  *
@@ -123,6 +126,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
     mitgliedskontolist = control.getMitgliedskontoList(action, null);
     mitgliedskontolist.paint(tabNurIst.getComposite());
 
+    //
     TabGroup tabSollIst = new TabGroup(folder, "Soll u. Ist", true, 1);
     Container grSollIst = new SimpleContainer(tabSollIst.getComposite());
     grSollIst.addHeadline(JVereinPlugin.getI18n().tr(
@@ -136,9 +140,10 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
     grSollIst.addText(text, true);
     control.getSuchName2(true).setValue(buchung.getName().getValue());
     grSollIst.addLabelPair("Name", control.getSuchName2(false));
-    Action action2 = new Action()
-    {
+    grSollIst.addInput(control.getSpezialSuche());
 
+    final Action action2 = new Action()
+    {
       public void handleAction(Object context)
       {
         if (context == null || !(context instanceof Mitglied))
