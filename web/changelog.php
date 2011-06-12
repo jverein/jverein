@@ -110,6 +110,9 @@
           <li>Zusätzliche Variablen: mitglied_anrede_foermlich und mitglied_anrede_du</li>
     		  <li>Abrechnung: Bugfix Textschlüssel bei Hibiscusbuchungen</li>
     		  <li>Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder</li>
+          <hr>
+          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 299 vorgenommen.</li>
+          <li>Korrekte Darstellung von Buchungen in der globalen Suche.</li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -633,6 +636,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.157  2011-06-06 19:22:37  jost
+    *** empty log message ***
+
     Revision 1.156  2011-06-06 18:50:21  jost
     *** empty log message ***
 
