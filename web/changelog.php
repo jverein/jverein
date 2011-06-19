@@ -114,6 +114,9 @@
           <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 299 vorgenommen.</li>
           <li>Korrekte Darstellung von Buchungen in der globalen Suche.</li>
           <li>Buchung zum Mitgliedskonto zuordnen: Spezialsuche bei Namen mit Namensvorsätzen (von, di, de ...)</li>
+          <li>In der Datenbank den Datentyp für booleans von char(5) auf boolean (H2) bzw. tinyint (MySQL) umgestellt.</li>
+          <li>Foreign Key Arbeitseinsatz->Mitglied aufgenommen.</li>
+          <li>Bei Zusatzbeträgen und Wiedervorlagen Button zum Mitglied eingebaut.<a href='http://www.jverein.de/forum/viewtopic.php?t=583&p=2246#p2246*'>Siehe hier</a></li>
     		</ul>
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
@@ -637,6 +640,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.159  2011-06-12 07:09:47  jost
+    *** empty log message ***
+
     Revision 1.158  2011-06-12 07:08:37  jost
     *** empty log message ***
 
