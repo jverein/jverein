@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-03-07 21:07:52  jost
+ * Neu:  Automatische Spendenbescheinigungen: Eigenschaft Spende aufgenommen
+ *
  * Revision 1.6  2009/09/10 18:19:20  jost
  * neu: Buchungsklassen
  *
@@ -51,7 +54,7 @@ public interface Buchungsart extends DBObject
 
   public void setBuchungsklasse(Integer buchungsklasse) throws RemoteException;
 
-  public boolean getSpende() throws RemoteException;
+  public Boolean getSpende() throws RemoteException;
 
   public void setSpende(Boolean spende) throws RemoteException;
 

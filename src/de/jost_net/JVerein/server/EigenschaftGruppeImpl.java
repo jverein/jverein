@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2010-11-27 19:29:35  jost
+ * Optional: max. eine Eigenschaft auswählbar
+ *
  * Revision 1.4  2010-11-13 09:29:39  jost
  * Warnings entfernt.
  *
@@ -102,7 +105,7 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
     setAttribute("bezeichnung", bezeichnung);
   }
 
-  public boolean getPflicht() throws RemoteException
+  public Boolean getPflicht() throws RemoteException
   {
     return Util.getBoolean(getAttribute("pflicht"));
   }
@@ -112,7 +115,7 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
     setAttribute("pflicht", pflicht);
   }
 
-  public boolean getMax1() throws RemoteException
+  public Boolean getMax1() throws RemoteException
   {
     return Util.getBoolean(getAttribute("max1"));
   }

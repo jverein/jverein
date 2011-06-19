@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2010-07-25 18:45:35  jost
+ * Neu: Mitgliedskonto
+ *
  * Revision 1.1  2010/05/18 20:24:00  jost
  * Anpassung Klassenname
  *
@@ -47,15 +50,15 @@ public interface Abrechnungslauf extends DBObject
 
   public void setZahlungsgrund(String zahlungsgrund) throws RemoteException;
 
-  public boolean getZusatzbetraege() throws RemoteException;
+  public Boolean getZusatzbetraege() throws RemoteException;
 
   public void setZusatzbetraege(Boolean zusatzbetraege) throws RemoteException;
 
-  public boolean getKursteilnehmer() throws RemoteException;
+  public Boolean getKursteilnehmer() throws RemoteException;
 
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException;
 
-  public boolean getDtausdruck() throws RemoteException;
+  public Boolean getDtausdruck() throws RemoteException;
 
   public void setDtausdruck(Boolean dtausdruck) throws RemoteException;
 

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2010-11-27 19:29:11  jost
+ * Optional: max. eine Eigenschaft auswählbar
+ *
  * Revision 1.2  2010-09-09 18:50:57  jost
  * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
  *
@@ -30,10 +33,10 @@ public interface EigenschaftGruppe extends DBObject
 
   public void setPflicht(Boolean pflicht) throws RemoteException;
 
-  public boolean getPflicht() throws RemoteException;
+  public Boolean getPflicht() throws RemoteException;
 
   public void setMax1(Boolean max1) throws RemoteException;
 
-  public boolean getMax1() throws RemoteException;
+  public Boolean getMax1() throws RemoteException;
 
 }

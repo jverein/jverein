@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-03-13 13:49:41  jost
+ * Neu: Sachspenden.
+ *
  * Revision 1.3  2011-03-07 21:08:24  jost
  * Neu:  Automatische Spendenbescheinigungen; Referenz zum Mitglied aufgenommen
  *
@@ -76,7 +79,7 @@ public interface Spendenbescheinigung extends DBObject
 
   public void setFormular(Formular formular) throws RemoteException;
 
-  public boolean getErsatzAufwendungen() throws RemoteException;
+  public Boolean getErsatzAufwendungen() throws RemoteException;
 
   public void setErsatzAufwendungen(Boolean ersatzaufwendungen)
       throws RemoteException;
@@ -98,7 +101,7 @@ public interface Spendenbescheinigung extends DBObject
 
   public void setHerkunftSpende(int herkunftspende) throws RemoteException;
 
-  public boolean getUnterlagenWertermittlung() throws RemoteException;
+  public Boolean getUnterlagenWertermittlung() throws RemoteException;
 
   public void setUnterlagenWertermittlung(Boolean unterlagenwertermittlung)
       throws RemoteException;

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-02-12 09:42:14  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.4  2010-11-13 09:28:32  jost
  * Warnings entfernt.
  *
@@ -153,7 +156,7 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     setAttribute("zahlungsgrund", zahlungsgrund);
   }
 
-  public boolean getZusatzbetraege() throws RemoteException
+  public Boolean getZusatzbetraege() throws RemoteException
   {
     return Util.getBoolean(getAttribute("zusatzbetraege"));
   }
@@ -163,7 +166,7 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     setAttribute("zusatzbetraege", zusatzbetraege);
   }
 
-  public boolean getKursteilnehmer() throws RemoteException
+  public Boolean getKursteilnehmer() throws RemoteException
   {
     return Util.getBoolean(getAttribute("kursteilnehmer"));
   }
@@ -173,7 +176,7 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     setAttribute("kursteilnehmer", kursteilnehmer);
   }
 
-  public boolean getDtausdruck() throws RemoteException
+  public Boolean getDtausdruck() throws RemoteException
   {
     return Util.getBoolean(getAttribute("dtausdruck"));
   }

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2011-03-07 21:09:11  jost
+ * Neu:  Automatische Spendenbescheinigungen: Referenz zur Spendenbescheinigung aufgenommen.
+ *
  * Revision 1.13  2011-02-15 20:55:45  jost
  * Colins Patch zur Performancesteigerung
  *
@@ -180,7 +183,7 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     setAttribute("buchungsklasse", buchungsklasse);
   }
 
-  public boolean getSpende() throws RemoteException
+  public Boolean getSpende() throws RemoteException
   {
     return Util.getBoolean(getAttribute("spende"));
   }

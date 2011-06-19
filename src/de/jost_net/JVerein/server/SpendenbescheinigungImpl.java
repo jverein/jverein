@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-03-13 13:50:49  jost
+ * Neu: Sachspenden.
+ *
  * Revision 1.8  2011-03-07 21:09:50  jost
  * Neu:  Automatische Spendenbescheinigungen; Referenz zum Mitglied aufgenommen
  *
@@ -262,7 +265,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     setAttribute("formular", formular);
   }
 
-  public boolean getErsatzAufwendungen() throws RemoteException
+  public Boolean getErsatzAufwendungen() throws RemoteException
   {
     return Util.getBoolean(getAttribute("ersatzaufwendungen"));
   }
@@ -332,7 +335,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     }
   }
 
-  public boolean getUnterlagenWertermittlung() throws RemoteException
+  public Boolean getUnterlagenWertermittlung() throws RemoteException
   {
     return Util.getBoolean(getAttribute("unterlagenwertermittlung"));
   }
