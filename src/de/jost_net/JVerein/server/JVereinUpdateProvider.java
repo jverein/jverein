@@ -861,7 +861,9 @@ public class JVereinUpdateProvider
       for (String sql : sqls)
       {
         Map<String, String> stmt = new HashMap<String, String>();
+        System.out.println(driver + ":" + sql);
         stmt.put(driver, sql);
+        execute(conn, stmt, logstring, version);
       }
     }
   }
@@ -877,22 +879,20 @@ public class JVereinUpdateProvider
         .getString("database.driver", null);
     I18N i18n = JVereinPlugin.getI18n();
     String sql = statements.get(driver);
-    if (sql == null)
+    if (sql != null)
     {
-      throw new ApplicationException(i18n.tr(
-          "Datenbank {0} wird nicht unterstützt", driver));
-    }
-    try
-    {
-      progressmonitor.log(logstring);
-      ScriptExecutor.execute(new StringReader(sql), conn, null);
-      setNewVersion(version);
-    }
-    catch (Exception e)
-    {
-      Logger.error("unable to execute update", e);
-      throw new ApplicationException(
-          i18n.tr("Fehler beim Ausführen des Updates"), e);
+      try
+      {
+        progressmonitor.log(logstring);
+        ScriptExecutor.execute(new StringReader(sql), conn, null);
+        setNewVersion(version);
+      }
+      catch (Exception e)
+      {
+        Logger.error("unable to execute update", e);
+        throw new ApplicationException(
+            i18n.tr("Fehler beim Ausführen des Updates"), e);
+      }
     }
   }
 
@@ -4948,7 +4948,6 @@ public class JVereinUpdateProvider
         + sql1 + "tagesdatum" + sql2 + "Tagesdatum" + sql3//
         + sql1 + MitgliedskontoVar.BETRAG.getName() + sql2 + BETRAG + sql3//
     ;
-    System.out.println(sql);
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     statements.put(DBSupportH2Impl.class.getName(), sql);
@@ -5025,30 +5024,33 @@ public class JVereinUpdateProvider
     bu.add(new BooleanUpdate("spendenbescheinigung", "unterlagenwertermittlung"));
     bu.add(new BooleanUpdate("zusatzfelder", "feldjanein"));
 
-    Map<String, String[]> statements = new HashMap<String, String[]>();
     for (BooleanUpdate b : bu)
     {
+      System.out.println(b.getTabelle() + "," + b.getSpalte());
       // H2
+      Map<String, String[]> statements = new HashMap<String, String[]>();
       statements.put(
           DBSupportH2Impl.class.getName(),
           new String[] { "ALTER TABLE " + b.getTabelle() + " ALTER COLUMN "
-              + b.getSpalte() + " TINYINT;\n" });
+              + b.getSpalte() + " BOOLEAN;\n" });
+      execute(conn, statements, "Boolean-Spalten angepasst", 203, true);
       // MySQL
+      statements = new HashMap<String, String[]>();
       statements.put(
           DBSupportMySqlImpl.class.getName(),
           new String[] {
               "ALTER TABLE `" + b.getTabelle() + "` ADD COLUMN `"
-                  + b.getSpalte() + "_n` BOOLEAN AFTER `" + b.getSpalte()
+                  + b.getSpalte() + "_b` BIT(1) AFTER `" + b.getSpalte()
                   + "`;\n",
               "UPDATE `" + b.getTabelle() + "` SET `" + b.getSpalte()
-                  + "_n` = false;\n",
+                  + "_b` = false;\n",
               "UPDATE `" + b.getTabelle() + "` SET `" + b.getSpalte()
-                  + "_n` = true WHERE TRIM(`" + b.getSpalte()
+                  + "_b` = true WHERE TRIM(`" + b.getSpalte()
                   + "`) = 'TRUE';\n",
               "ALTER TABLE `" + b.getTabelle() + "` DROP COLUMN `"
                   + b.getSpalte() + "`;\n",
               "ALTER TABLE `" + b.getTabelle() + "` CHANGE COLUMN `"
-                  + b.getSpalte() + "_b` `" + b.getSpalte() + "` TINYINT;\n" });
+                  + b.getSpalte() + "_b` `" + b.getSpalte() + "` BIT(1);\n" });
       execute(conn, statements, "Boolean-Spalten angepasst", 203, true);
     }
   }
