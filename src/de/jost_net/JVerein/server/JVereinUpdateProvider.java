@@ -780,6 +780,18 @@ public class JVereinUpdateProvider
     {
       update0200(conn);
     }
+    if (cv < 201)
+    {
+      update0201(conn);
+    }
+    if (cv < 202)
+    {
+      update0202(conn);
+    }
+    if (cv < 203)
+    {
+      update0203(conn);
+    }
   }
 
   public Connection getConnection()
@@ -837,6 +849,20 @@ public class JVereinUpdateProvider
               "Versionsnummer kann nicht eingefügt werden."), e);
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Versionsnummer kann nicht gespeichert werden."));
+    }
+  }
+
+  public void execute(Connection conn, Map<String, String[]> statements,
+      String logstring, int version, boolean dummy) throws ApplicationException
+  {
+    for (String driver : statements.keySet())
+    {
+      String[] sqls = statements.get(driver);
+      for (String sql : sqls)
+      {
+        Map<String, String> stmt = new HashMap<String, String>();
+        stmt.put(driver, sql);
+      }
     }
   }
 
@@ -4933,4 +4959,120 @@ public class JVereinUpdateProvider
     execute(conn, statements, "Tabelle formularfeld an aktualisiert", 200);
   }
 
+  private void update0201(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "delete from arbeitseinsatz where (select count(*) from mitglied where mitglied.id = arbeitseinsatz.mitglied) = 0";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Arbeitseinsätze ohne Mitglied gelöscht", 201);
+  }
+
+  private void update0202(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+
+    execute(conn, statements,
+        "Foreign Key für Tabelle arbeitseinsatz erstellt", 202);
+  }
+
+  private void update0203(Connection conn) throws ApplicationException
+  {
+    ArrayList<BooleanUpdate> bu = new ArrayList<JVereinUpdateProvider.BooleanUpdate>();
+    bu.add(new BooleanUpdate("einstellung", "vorlaeufig"));
+    bu.add(new BooleanUpdate("einstellung", "geburtsdatumpflicht"));
+    bu.add(new BooleanUpdate("einstellung", "eintrittsdatumpflicht"));
+    bu.add(new BooleanUpdate("einstellung", "kommunikationsdaten"));
+    bu.add(new BooleanUpdate("einstellung", "zusatzabbuchung"));
+    bu.add(new BooleanUpdate("einstellung", "vermerke"));
+    bu.add(new BooleanUpdate("einstellung", "wiedervorlage"));
+    bu.add(new BooleanUpdate("einstellung", "kursteilnehmer"));
+    bu.add(new BooleanUpdate("einstellung", "mitgliedsbeitraege"));
+    bu.add(new BooleanUpdate("einstellung", "lehrgaenge"));
+    bu.add(new BooleanUpdate("einstellung", "juristischepersonen"));
+    bu.add(new BooleanUpdate("einstellung", "mitgliedskonto"));
+    bu.add(new BooleanUpdate("einstellung", "mitgliedfoto"));
+    bu.add(new BooleanUpdate("einstellung", "zusatzadressen"));
+    bu.add(new BooleanUpdate("einstellung", "auslandsadressen"));
+    bu.add(new BooleanUpdate("einstellung", "arbeitseinsatz"));
+    bu.add(new BooleanUpdate("einstellung", "dokumentenspeicherung"));
+    bu.add(new BooleanUpdate("einstellung", "individuellebeitraege"));
+    bu.add(new BooleanUpdate("einstellung", "externemitgliedsnummer"));
+    bu.add(new BooleanUpdate("einstellung", "smtp_ssl"));
+    bu.add(new BooleanUpdate("einstellung", "smtp_starttls"));
+    bu.add(new BooleanUpdate("eigenschaftgruppe", "pflicht"));
+    bu.add(new BooleanUpdate("eigenschaftgruppe", "max1"));
+    bu.add(new BooleanUpdate("abrechnungslauf", "zusatzbetraege"));
+    bu.add(new BooleanUpdate("abrechnungslauf", "kursteilnehmer"));
+    bu.add(new BooleanUpdate("abrechnungslauf", "dtausdruck"));
+    bu.add(new BooleanUpdate("buchungsart", "spende"));
+    bu.add(new BooleanUpdate("spendenbescheinigung", "ersatzaufwendungen"));
+    bu.add(new BooleanUpdate("spendenbescheinigung", "unterlagenwertermittlung"));
+    bu.add(new BooleanUpdate("zusatzfelder", "feldjanein"));
+
+    Map<String, String[]> statements = new HashMap<String, String[]>();
+    for (BooleanUpdate b : bu)
+    {
+      // H2
+      statements.put(
+          DBSupportH2Impl.class.getName(),
+          new String[] { "ALTER TABLE " + b.getTabelle() + " ALTER COLUMN "
+              + b.getSpalte() + " TINYINT;\n" });
+      // MySQL
+      statements.put(
+          DBSupportMySqlImpl.class.getName(),
+          new String[] {
+              "ALTER TABLE `" + b.getTabelle() + "` ADD COLUMN `"
+                  + b.getSpalte() + "_n` BOOLEAN AFTER `" + b.getSpalte()
+                  + "`;\n",
+              "UPDATE `" + b.getTabelle() + "` SET `" + b.getSpalte()
+                  + "_n` = false;\n",
+              "UPDATE `" + b.getTabelle() + "` SET `" + b.getSpalte()
+                  + "_n` = true WHERE TRIM(`" + b.getSpalte()
+                  + "`) = 'TRUE';\n",
+              "ALTER TABLE `" + b.getTabelle() + "` DROP COLUMN `"
+                  + b.getSpalte() + "`;\n",
+              "ALTER TABLE `" + b.getTabelle() + "` CHANGE COLUMN `"
+                  + b.getSpalte() + "_b` `" + b.getSpalte() + "` TINYINT;\n" });
+      execute(conn, statements, "Boolean-Spalten angepasst", 203, true);
+    }
+  }
+
+  public class BooleanUpdate
+  {
+    private String tabelle;
+
+    private String spalte;
+
+    public BooleanUpdate(String tabelle, String spalte)
+    {
+      this.tabelle = tabelle;
+      this.spalte = spalte;
+    }
+
+    public String getTabelle()
+    {
+      return tabelle;
+    }
+
+    public String getSpalte()
+    {
+      return spalte;
+    }
+  }
 }
