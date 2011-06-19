@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-04-07 19:35:47  jost
+ * Neue Zurückbutton-Mimik aus Jameica
+ *
  * Revision 1.11  2011-01-15 09:46:47  jost
  * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
  *
@@ -47,11 +50,12 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.WiedervorlageControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class WiedervorlageView extends AbstractView
@@ -72,10 +76,12 @@ public class WiedervorlageView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Erledigung"),
         control.getErledigung());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.WIEDERVORLAGE, false,
         "help-browser.png");
+    buttons.addButton("Mitglied", new MitgliedDetailAction(), control
+        .getWiedervorlage().getMitglied(), false, "system-users.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
 
@@ -84,6 +90,7 @@ public class WiedervorlageView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(getParent());
   }
 
   // TODO getHelp()
