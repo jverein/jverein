@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.38  2011-04-23 19:43:32  jost
+ * Alternative Sortierung des Buchungsjournals nach ID/Buchungsnummer
+ *
  * Revision 1.37  2011-04-23 08:48:08  jost
  * Sortierung bleibt nach Bearbeitung der Buchungsart erhalten.
  *
@@ -388,7 +391,7 @@ public class BuchungsControl extends AbstractControl
     return datum;
   }
 
-  public TextInput getSuchtext() throws RemoteException
+  public TextInput getSuchtext()
   {
     if (suchtext != null)
     {

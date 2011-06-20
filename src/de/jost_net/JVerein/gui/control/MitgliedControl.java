@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.118  2011-06-06 19:16:22  jost
+ * Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder
+ *
  * Revision 1.117  2011-05-22 08:33:36  jost
  * *** empty log message ***
  *
@@ -1270,7 +1273,7 @@ public class MitgliedControl extends AbstractControl
     return individuellerbeitrag;
   }
 
-  public TextInput getAuswertungUeberschrift() throws RemoteException
+  public TextInput getAuswertungUeberschrift()
   {
     if (auswertungUeberschrift != null)
     {
@@ -2144,7 +2147,7 @@ public class MitgliedControl extends AbstractControl
     return eigenschaftenabfrage;
   }
 
-  public DialogInput getZusatzfelderAuswahl() throws RemoteException
+  public DialogInput getZusatzfelderAuswahl()
   {
     if (zusatzfelderabfrage != null)
     {

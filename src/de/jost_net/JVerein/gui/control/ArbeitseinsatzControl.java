@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-05-22 08:33:22  jost
+ * Neu: Buchungstext2 für Zusatzbeträge
+ *
  * Revision 1.8  2011-02-12 09:28:58  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -427,8 +430,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   }
 
-  private void starteCSVAuswertung() throws RemoteException,
-      ApplicationException
+  private void starteCSVAuswertung() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");

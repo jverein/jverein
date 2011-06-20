@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-02-12 09:29:59  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.2  2010-12-14 21:41:41  jost
  * Neu: Speicherung von Dokumenten
  *
@@ -145,7 +148,7 @@ public class DokumentControl extends AbstractControl
     neuButton = new Button("neu", new Action()
     {
 
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         GUI.startView(new DokumentView(verzeichnis), doc);
       }
