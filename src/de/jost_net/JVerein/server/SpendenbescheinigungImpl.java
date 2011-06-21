@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-06-19 06:36:11  jost
+ * Umstellung Datenbanktyp für booleans von char(5) auf boolean (h2) bzw. tinyint (MySQL)
+ *
  * Revision 1.9  2011-03-13 13:50:49  jost
  * Neu: Sachspenden.
  *
@@ -41,13 +44,19 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -345,6 +354,66 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   {
     setAttribute("unterlagenwertermittlung",
         Boolean.valueOf(unterlagenwertermittlung));
+  }
+
+  public Map<String, Object> getMap(Map<String, Object> inma)
+      throws RemoteException
+  {
+    Map<String, Object> map = null;
+    if (inma == null)
+    {
+      map = new HashMap<String, Object>();
+    }
+    else
+    {
+      map = inma;
+    }
+    if (this.getID() == null)
+    {
+      this.setBescheinigungsdatum(new Date());
+      this.setBetrag(1234.56);
+      this.setBezeichnungSachzuwendung("Buch");
+      this.setErsatzAufwendungen(false);
+      this.setHerkunftSpende(1);
+      this.setSpendedatum(new Date());
+      this.setSpendenart(Spendenart.GELDSPENDE);
+      this.setUnterlagenWertermittlung(true);
+      this.setZeile1("Herrn");
+      this.setZeile2("Dr. Willi Wichtig");
+      this.setZeile3("Hinterm Bahnhof 1");
+      this.setZeile4("12345 Testenhausen");
+      this.setZeile5("");
+      this.setZeile6("");
+      this.setZeile7("");
+    }
+    String empfaenger = getZeile1() + "\n" + getZeile2() + "\n" + getZeile3()
+        + "\n" + getZeile4() + "\n" + getZeile5() + "\n" + getZeile6() + "\n"
+        + getZeile7() + "\n";
+    map.put(SpendenbescheinigungVar.EMPFAENGER.getName(), empfaenger);
+    map.put(SpendenbescheinigungVar.BETRAG.getName(),
+        Einstellungen.DECIMALFORMAT.format(getBetrag()));
+    Double dWert = (Double) getBetrag();
+    try
+    {
+      String betraginworten = GermanNumber.toString(dWert.longValue());
+      map.put(SpendenbescheinigungVar.BETRAGINWORTEN.getName(), "*"
+          + betraginworten + "*");
+    }
+    catch (Exception e)
+    {
+      Logger.error("Fehler", e);
+      throw new RemoteException(
+          "Fehler bei der Aufbereitung des Betrages in Worten");
+    }
+    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ()
+        .format(getBescheinigungsdatum());
+    map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
+        bescheinigungsdatum);
+    String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
+    map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), spendedatum);
+    map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN.getName(),
+        (getErsatzAufwendungen() ? "X" : ""));
+    return map;
   }
 
 }

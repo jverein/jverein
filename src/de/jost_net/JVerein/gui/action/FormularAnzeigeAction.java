@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2011-05-06 14:48:16  jost
+ * Neue Variablenmimik
+ *
  * Revision 1.13  2011-05-06 14:42:48  jost
  * Neue Variablenmimik
  *
@@ -65,6 +68,7 @@ import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.util.ApplicationException;
@@ -130,6 +134,9 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.TAGESDATUM,
           new JVDateFormatTTMMJJJJ().format(new Date()));
 
+      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
+          .getDBService().createObject(Spendenbescheinigung.class, null);
+      map = spb.getMap(map);
       map.put("Spendedatum", "15.12.2008");
       map.put("Buchungsdatum", new Date());
       map.put("Bescheinigungsdatum", "17.12.2008");

@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.21  2011-05-27 18:47:02  jost
+ * Vereinheitlichung Variable
+ *
  * Revision 1.20  2011-03-28 18:07:30  jost
  * Überflüssigen Code entfernt.
  *
@@ -761,39 +764,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, getSpendenbescheinigung().getFormular().getID());
-    Map<String, Object> map = new HashMap<String, Object>();
-    String empfaenger = (String) getZeile1(false).getValue() + "\n"
-        + (String) getZeile2().getValue() + "\n"
-        + (String) getZeile3().getValue() + "\n"
-        + (String) getZeile4().getValue() + "\n"
-        + (String) getZeile5().getValue() + "\n"
-        + (String) getZeile6().getValue() + "\n"
-        + (String) getZeile7().getValue() + "\n";
-    map.put(SpendenbescheinigungVar.EMPFAENGER.getName(), empfaenger);
-    map.put(SpendenbescheinigungVar.BETRAG.getName(),
-        Einstellungen.DECIMALFORMAT.format(getBetrag().getValue()));
-    Double dWert = (Double) getBetrag().getValue();
-    try
-    {
-      String betraginworten = GermanNumber.toString(dWert.longValue());
-      map.put(SpendenbescheinigungVar.BETRAGINWORTEN.getName(), "*"
-          + betraginworten + "*");
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
-      throw new RemoteException(
-          "Fehler bei der Aufbereitung des Betrages in Worten");
-    }
-    Date tmp = (Date) getBescheinigungsdatum().getValue();
-    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ().format(tmp);
-    map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
-        bescheinigungsdatum);
-    tmp = (Date) getSpendedatum().getValue();
-    String spendedatum = new JVDateFormatTTMMJJJJ().format(tmp);
-    map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), spendedatum);
-    map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN.getName(),
-        ((Boolean) ersatzaufwendungen.getValue() ? "X" : ""));
+    Map<String, Object> map = getSpendenbescheinigung().getMap(null);
     map = new AllgemeineMap().getMap(map);
     FormularAufbereitung fa = new FormularAufbereitung(file);
     fa.writeForm(fo, map);
