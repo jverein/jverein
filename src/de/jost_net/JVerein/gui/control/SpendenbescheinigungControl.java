@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.22  2011-06-21 18:46:57  jost
+ * Korrekte Anzeige mit Testdaten
+ *
  * Revision 1.21  2011-05-27 18:47:02  jost
  * Vereinheitlichung Variable
  *
@@ -672,7 +675,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       String txt = "Wir sind wegen Förderung "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
-          + "durch vorläufige Bescheinigung des Finanzamtes"
+          + " durch vorläufige Bescheinigung des Finanzamtes "
           + Einstellungen.getEinstellung().getFinanzamt()
           + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()

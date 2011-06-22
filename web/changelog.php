@@ -1,123 +1,87 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-	   	<li>Version 1.5.0 (noch nicht freigegeben)</li>
+    	<a name="v200">
+	   	<li>Version 2.0.0 vom 23.6.2011</li>
     		<ul>
+    			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
+					<li>Die Boxen "aktuelle Geburtstage" und "Wiedervorlagen" für die Startseite entfernt. Ersatz ist die neue Terminübersicht.</li>
+					<li>Neue Box "Termine" für die Startseite erstellt</li>
+    			<li>Arbeitseinsätze</li>
+					<li>Speicherung zusätzlicher Adressen (u. a. Spender/innen) ermöglicht.</li>
+    			<li>Speicherung von Dokumenten zu Buchungen und Mitgliedern. Siehe <a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=17106&group_id=7335'>#17106</a></li>
+    			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> </li>
+    			<li>Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos.</li>
+    			<li>Stammdaten des Vereins in die Einstellungen verschoben.</li>
+          <li>Neu: Individueller Beitrag pro Mitglied. Überschreibt Betrag in der Beitragsgruppe.</li>
+					<li>Beitragsgruppen können jetzt Buchungsarten zugewiesen werden. Diese werden bei der Verwendung des Mitgliedskontos bei der Abrechung (z. Z. nur neue Version) in die Istsätze der Abbuchungsbeträge geschrieben.</li>
+					<li>Freie Formulare eingeführt. Unter Administration|Formulare können die Formulare eingerichtet werden. Mit einem rechten Mausklick auf ein Mitglied werden im Kontextmenü auch die freien Formulare angezeigt. Ein Klick darauf erzeugt das Formular</li>
+					<li>Buchungen können jetzt auch dem "Mitgliedskonto" eines Spenders zugewiesen werden.</li>
+					<li>Zusätzliche Datenfelder in Mails und Formatierung von Datums- und Betragsfeldern <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17648&group_id=7335'>#17648</a></li>
+          <li>CSV-Export (Mitgliederauswertung) total überarbeitet. Neue Spaltennamen. Eigenschaften werden mit ausgegeben. Zur Aktivierung des alten Exports in der Datei .jameica/cfg/de.jost_net.JVerein.gui.control.MitgliedControl.properties eine Zeile mit "auswertung.csv.kompatibilitaet=true" einfügen</li>
+					<li>Neu: PDF-Liste der Buchungsarten</li>
+    			<li>Buchungsarten kann jetzt auch die Eigenschaft "Spende" gegeben werden.</li>
+					<li>Unterstützung für das neue jameica.ical-Plugin. Installation siehe <a href='http://jameica.berlios.de/doku.php?id=support:install:jameica.ical'>Jameica-Wiki</a> </li>
+          <li>Vereinheitlichung im Umgang mit den Variablen bei Formularen. Neue Variablennamen. Teilweise wurden die Werte konvertiert, teilweise muss von Hand nachgebessert werden. An den meisten Stellen stehen jetzt sämtliche Daten des Mitglieds, Eigenschaften und Zusatzfelder zur Verfügung.</li>
+    		  <li>Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder</li>
+					<li>Neu: Spendenbescheinigung aus dem Mitgliedskonto (Automatische Spendenbescheinigung)</li>
+					<li>Neu: Standardformular für Spendenbescheinigungen</li>
+					<li>Neu: Spendenbescheinigung für Sachspenden</li>
+					<li>Neu: Neues Abrechnungsmodul. Damit ist es möglich, mit dem Parameter "kompakte Abbuchung" mehrere Abbuchungen von einem Konto zu einer Abbuchung zusammenfassen. Die interne Struktur des Moduls musste generell überarbeitet werden. Daher ausgiebig testen. Das neue Modul steht zunächst über den Parameter "Test neue Abbuchung" zur Verfügung.</li>
+					<li>Das Datum der letzten Änderung wird bei Mitgliedern und Adressen gespeichert. Die Anzeige erfolgt in der Trefferübersicht. Dazu muss unter Administration|Einstellungen|Tabellen das entsprechende Häkchen gesetzt werden.</li>
+    		  <li>Beim Versand von Mails können die Zusatzfelder mit $zusatzfeld.ZUSATZFELDNAME ausgegeben werden.</li>
     			<li>Manuelle Zahlungseingänge und Rechnungen (bis 1.3) entfernt.</li>
     			<li>Bugfix beim Import von Zusatzfeldern. Bislang wurde nur der Datentyp "Zeichenfolge" korrekt importiert.</li>
     			<li>Bugfix beim Import. Sortierung der Daten ist nicht mehr erforderlich.</li>
     			<li>Mitgliedsstatus in die Mitgliedsauswertung aufgenommen.</li>
     			<li>Zusatzbeträge: Bugfix bei Buchungen ohne Intervall wird jetzt das Fälligkeitsdatum korrekt behandelt.</li>
     			<li>Personalbogen: Bugfix Eigenschaften.</li>
-    			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
-    			<li>Arbeitseinsätze</li>
-    			<li>Eigenschaftengruppen können so markiert werden, dass maximal eine Eigenschaft ausgewählt werden kann.  <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17741&group_id=7335'>#17741</a> </li>
-    			<li>Speicherung von Dokumenten zu Buchungen und Mitgliedern. Siehe <a href='http://developer.berlios.de/bugs/?func=detailbug&bug_id=17106&group_id=7335'>#17106</a></li>
     			<li>Abbuchung: Verwendungszweck 2 ist jetzt auch 27 Zeichen (vorher 25 Zeichen)  lang</li>
     			<li>Mitgliedskonto: Bugfix Summen</li>
     			<li>Bugfix bei der Erfassung von Buchungen (Vorgabe Konto). <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17827&group_id=7335'>Bug #17827</a></li>
-    			<li>Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos.</li>
-    			<li>Stammdaten des Vereins in die Einstellungen verschoben.</li>
     			<li>Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.</li>
 					<li>Bugfix in der Altersstatistik. Über 100-jährige wurden in der Summe nicht berücksichtigt.Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=339'>Forum</a>.</li>
 					<li>In den Einstellungen im Tab Anzeige kann jetzt die Verzögerungszeit für die Suchfelder Name, Vorname und Strasse der Mitglieder und Adressen eingestellt werden.</li>
-					<li>Speicherung zusätzlicher Adressen (u. a. Spender/innen) ermöglicht.</li>
-					<li>Buchungen können jetzt auch dem "Mitgliedskonto" eines Spenders zugewiesen werden.</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 268 vorgenommen.</li>
-					<li>Textsuche in den Buchungen eingebaut.</li>
-					<li>Das Datum der letzten Änderung wird bei Mitgliedern und Adressen gespeichert. Die Anzeige erfolgt in der Trefferübersicht. Dazu muss unter Administration|Einstellungen|Tabellen das entsprechende Häkchen gesetzt werden.</li>
-					<li>Unterstützung für das neue jameica.ical-Plugin. Installation siehe <a href='http://jameica.berlios.de/doku.php?id=support:install:jameica.ical'>Jameica-Wiki</a> </li>
     			<li>Mailversand: Unterschiedliche Mitglieder können mit gleicher Adresse angeschrieben werden.</li>
-					<li>Neu: PDF-Liste der Buchungsarten</li>
 					<li>Bugfix: Änderungen an den Einstellungen werden sofort wirksam.</li>
 					<li>Bugfix: Bei den Spendenbescheinigungen wird der Betrag wie in der Vorschau positioniert.</li>
 					<li>Warnung bei der Neuaufnahme von Arbeitseinsätzen, Lehrgängen, Wiedervorlagen und Zusatzbeträgen, wenn das neue Mitglied noch nicht gespeichert ist.</li>
 					<li>Colins Patch zur MySQL-Performancesteigerung.</li>
-					<li>Neu: Kompakte Abbuchung. Zusammenfassung von mehreren Abbuchungen zu einer Bankverbindung.</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 269 vorgenommen.</li>
-					<li>##Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl</li>
-    			<li>Buchungsarten kann jetzt auch die Eigenschaft "Spende" gegeben werden.</li>
 					<li>Bugfix bei der Umschlüsselung eines Mitgliedes von einer Beitragsart mit der Art Familie/Angehöriger in eine andere Beitragsart.</li>
-					<li>Neu: Spendenbescheinigung aus dem Mitgliedskonto (Automatische Spendenbescheinigung)</li>
-					<li>Neu: Standardformular für Spendenbescheinigungen</li>
-					<li>Neu: Spendenbescheinigung für Sachspenden</li>
-					<li>Neu: Neues Abrechnungsmodul. Damit ist es möglich, mit dem Parameter "kompakte Abbuchung" mehrere Abbuchungen von einem Konto zu einer Abbuchung zusammenfassen. Die interne Struktur des Moduls musste generell überarbeitet werden. Daher ausgiebig testen. Das neue Modul steht zunächst über den Parameter "Test neue Abbuchung" zur Verfügung.</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 271 vorgenommen.</li>
-					<li>##Automatische Spendenbescheinigung: Bugfix Spendenart</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 272 vorgenommen.</li>
-					<li>##Bugfix Update MySQL-DB</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 273 vorgenommen.</li>
-					<li>Die Boxen "aktuelle Geburtstage" und "Wiedervorlagen" für die Startseite entfernt. Ersatz ist die neue Terminübersicht.</li>
-					<li>Neue Box "Termine" für die Startseite erstellt</li>
-					<li>##Spendenbescheinigung: Anzeige nach der Erstellung</li>
 					<li>Bugfix Diagnose-Backup</li>
 					<li>Liste Zusatzbeträge: Sortierung nach Namen aufgenommen. <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17793&group_id=7335'>#17793</a></li>
-					<li>Zusätzliche Datenfelder in Mails und Formatierung von Datums- und Betragsfeldern <a href='https://developer.berlios.de/bugs/?func=detailbug&bug_id=17648&group_id=7335'>#17648</a></li>
     			<li>Lehrgangsart in die Übersicht aufgenommen.</li>
     			<li>Vermeidung NPE bei der Erfassung von Lehrgängen.</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 274 vorgenommen.</li>
-					<li>Beitragsgruppen können jetzt Buchungsarten zugewiesen werden. Diese werden bei der Verwendung des Mitgliedskontos bei der Abrechung (z. Z. nur neue Version) in die Istsätze der Abbuchungsbeträge geschrieben.</li>
 					<li>Zusatzbeträge: In den Verwendungszweck können nur noch die für DTAUS zulässigen Zeichen eingegeben werden.</li>
     		  <li>Keine Abrechnung von Zusatzbeträgen bei ausgetretenen Mitgliedern</li>
     		  <li>Korrekte Sortierung von Ganzzahl-Zusatzfeldern in der Mitgliederübersicht.</li>
     		  <li>Neu: Filter für die Lehrgangsübersicht.</li>
     		  <li>Bugfix Abrechnung DTAUS mit äöüß größer 27 Stellen.</li>
-    		  <li>Beim Versand von Mails können die Zusatzfelder mit $zusatzfeld.ZUSATZFELDNAME ausgegeben werden.</li>
     		  <li>Bugfix Zusatzbeträge nächste Fälligkeit.</li>
     		  <li>Bugfix Sollbuchung bearbeiten. Irrtümlich wurde generell der Default-Zahlungsweg vorgegeben.</li>
     		  <li>Selektion der Mitglieder (Dialog und Auswertung) nach Zusatzfeldern.</li>
-					<hr>
-					<li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 279 vorgenommen.</li>
 					<li>Die Texte von Mails und Mailvorlagen können jetzt 10.000 Zeichen lang sein.</li>
-					<li>##Alte Abrechnung deaktiviert</li>
-					<li>Freie Formulare eingeführt. Unter Administration|Formulare können die Formulare eingerichtet werden. Mit einem rechten Mausklick auf ein Mitglied werden im Kontextmenü auch die freien Formulare angezeigt. Ein Klick darauf erzeugt das Formular</li>
 					<li>Arbeitseinsätze werden auf dem Personalbogen ausgegeben.</li>
-          <hr>
-          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 280 vorgenommen.</li>
           <li>Bugfix: Sortierung der Buchungen bleibt nach Bearbeitung der Buchungsart erhalten.</li>
           <li>Alternative Sortierung des Buchungsjournals nach Buchungsnummer</li>
           <li>Bei der Eingabe einer (Ist-)Buchung (Barzahlung) kann zunächst das Mitgliedskonto ausgewählt werden. Name und Vorname des Mitgliedes, Betrag und Verwendungszweck der Sollbuchung sowie das aktuelle Tagesdatum werden in die Buchung eingetragen.</li>
           <li>Neu: Istbuchung kann vom Mitgliedskonto gelöst werden.</li>
-          <li>##Bugfix Scrollbar bei der Mitgliedskontoauswahl.</li>
-          <li>##Freie Formulare: mehrere Mitglieder können jetzt gleichzeitig ausgegeben werden.</li>
-          <li>##Freie Formulare: Variable NameVorname und VornameName funktionieren jetzt.</li>
           <li>Änderung der Zuordnung des Hibiscus-Kontos zum JVerein-Konto ermöglicht.</li>
-          <li>##Speicherung der Auswertungs-Optionen und individuelle Überschrift der Auswertungsliste.</li>
-          <hr>
-          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 282 vorgenommen.</li>
-          <li>##Speicherung der Auswertungs-Option wegen technischer Probleme wieder entfernt.</li>
-          <li>Neu: Individuelle Beitrag pro Mitglied. Überschreibt Betrag in der Beitragsgruppe.</li>
           <li>Mitgliederliste: Bugfix bei der Sortierung nach Namen und Vornamen </li>
           <li>Korrektes Encoding beim Mailversand unter Ubuntu</li>
-          <li>CSV-Export (Mitgliederauswertung) total überarbeitet. Neue Spaltennamen. Eigenschaften werden mit ausgegeben. Zur Aktivierung des alten Exports in der Datei .jameica/cfg/de.jost_net.JVerein.gui.control.MitgliedControl.properties eine Zeile mit "auswertung.csv.kompatibilitaet=true" einfügen</li>
-          <hr>
-          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 295 vorgenommen.</li>
           <li>Buchungstext2 für Zusatzbeträge.</li>
           <li>Jahressaldo: Bugfix abweichendes Geschäftsjahr.</li>
           <li>Neu: Bei der Erstellung von Rechnungen können Abbucher ausgeschlossen werden.</li>
-          <li>Vereinheitlichung im Umgang mit den Variablen bei Formularen. Neue Variablennamen. Teilweise wurden die Werte konvertiert, teilweise muss von Hand nachgebessert werden. An den meisten Stellen stehen jetzt sämtliche Daten des Mitglieds, Eigenschaften und Zusatzfelder zur Verfügung.</li>
-          <hr>
-          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 297 vorgenommen.</li>
           <li>Bei der Erfassung der Mails kann mit einem Rechtsklick auf eine Mail-Adresse ein Dialog mit einer Liste aller Variablen angezeigt werden.</li>
-          <hr>
-          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 298 vorgenommen.</li>
           <li>Zusätzliche Variablen: mitglied_anrede_foermlich und mitglied_anrede_du</li>
     		  <li>Abrechnung: Bugfix Textschlüssel bei Hibiscusbuchungen</li>
-    		  <li>Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder</li>
-          <hr>
-          <li>Die Änderungen ab hier wurden nach Upload der Entwicklerversion 299 vorgenommen.</li>
           <li>Korrekte Darstellung von Buchungen in der globalen Suche.</li>
           <li>Buchung zum Mitgliedskonto zuordnen: Spezialsuche bei Namen mit Namensvorsätzen (von, di, de ...)</li>
           <li>In der Datenbank den Datentyp für booleans von char(5) auf boolean (H2) bzw. tinyint (MySQL) umgestellt.</li>
           <li>Foreign Key Arbeitseinsatz->Mitglied aufgenommen.</li>
           <li>Bei Zusatzbeträgen und Wiedervorlagen Button zum Mitglied eingebaut.<a href='http://www.jverein.de/forum/viewtopic.php?t=583&p=2246#p2246*'>Siehe hier</a></li>
     		</ul>
+    	<a name="v140">
 	   	<li>Version 1.4.0 vom 10.11.2010</li>
     		<ul>
     			<li>Box der aktuellen Geburtstage: Durch Doppelklick kann das Mitglied direkt bearbeitet werden. 
@@ -640,6 +604,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.160  2011-06-19 06:58:55  jost
+    *** empty log message ***
+
     Revision 1.159  2011-06-12 07:09:47  jost
     *** empty log message ***
 

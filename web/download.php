@@ -3,8 +3,8 @@
     <ul>
     	<li>Freigegebene Version</li>
     		<ul>
-    			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
-      			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
+    			<li><a href='download/download_log.php?dl=jverein.2.0.0.zip'>Version 2.0.0</a>&nbsp;Für alle Betriebssysteme. Vom 23.06.2011 / zusammen mit Jameica 2.0.0 und Hibiscus 2.0.0 einsetzen.</li>
+      		<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_64.exe'>Version 1.4.0.1</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
     		<p>Alternative Downloadmöglichkeit für die <a href='http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html'>Windows-Setups</a></p>
@@ -16,6 +16,7 @@
     		</ul>
     	<li>Vorherige Versionen</li>
     		<ul>
+    			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.3.3.zip'>Version 1.3.3</a>&nbsp;Für alle Betriebssysteme. Vom 31.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup133_64.exe'>Version 1.3.3</a>&nbsp;Windows 64-bit-Setup.</li>
@@ -29,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.36  2011-06-21 18:55:10  jost
+    *** empty log message ***
+
     Revision 1.35  2011-06-19 08:18:12  jost
     *** empty log message ***
 

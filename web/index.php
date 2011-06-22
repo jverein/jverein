@@ -66,11 +66,12 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
-    	    <li>15.11.2010: Neue Version 1.4.0.1 des Windows-Installers freigegeben. Installation nur, wenn Syntax eingesetzt wird.</li>
-    	    <li>10.11.2010: Version 1.4.0 freigegeben</a>. Siehe <a href='changelog.php'>Changelog</a>.</li>
-    	    <li>07.11.2010: Neuer <a href='download.php'>Downloadbereich</a></li>
+    	  <li>23.06.2011: Version 2.0.0 freigegeben</a>. Siehe <a href='changelog.php#v200'>Changelog</a>.</li>
+    	  <li>15.11.2010: Neue Version 1.4.0.1 des Windows-Installers freigegeben. Installation nur, wenn Syntax eingesetzt wird.</li>
+    	  <li>10.11.2010: Version 1.4.0 freigegeben</a>. Siehe <a href='changelog.php#v140'>Changelog</a>.</li>
+    	  <li>07.11.2010: Neuer <a href='download.php'>Downloadbereich</a></li>
     		<li>05.07.2010: Neues Windows-Setup der Jameica-Suite (32 und 64 bit) im Downloadbereich.</li>
-    	    <li>31.05.2010: Version 1.3.3 freigegeben</a>.</li>
+    	  <li>31.05.2010: Version 1.3.3 freigegeben</a>.</li>
     		<li>18.05.2010: Version 1.3.2 freigegeben</a>.</li> 
 	   		<li>16.05.2010: Version 1.3.1 freigegeben</a>.</li> 
     		<li>29.04.2010: Das Windows-Setup für die Jameica-Suite steht jetzt im Downloadbereich zur Verfügung.</li> 
@@ -80,6 +81,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.42  2010-11-27 18:02:44  jost
+    *** empty log message ***
+
     Revision 1.41  2010-11-15 19:24:10  jost
     *** empty log message ***
 
