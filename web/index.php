@@ -28,8 +28,13 @@
         <li>Vermerke</li>
         <li>Zusatzzahlungen (einmalig und wiederkehrend)</li>
         <li>Individuelle Zusatzfelder</li>
+        <li>Speicherung von Dokumenten zu Buchungen und Mitgliedern (ab Version 2.0)</li>
         <li>Lehrgänge</li>
         <li>Arbeitseinsätze (ab Version 2.0)</li>
+        <li>Freie Formulare (ab Version 2.0)</li>
+        <li>Spendenbescheinigungen (individuell/standard)</li>
+        <li>Versand von Mails</li>
+        <li>Übergabe der Mitgliedsdaten an das Hibiscus-Adressbuch</li>
         <li>Adressdaten von Spendern und anderen Nichtmitgliedern (ab Version 2.0)</li>
      </ul>
      <p>Es können neben natürlichen Personen auch juristische Personen (Firmen, Organisationen, Behörden) als Mitglieder
@@ -82,6 +87,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.44  2011-06-23 05:53:41  jost
+    *** empty log message ***
+
     Revision 1.43  2011-06-22 20:54:58  jost
     *** empty log message ***
 

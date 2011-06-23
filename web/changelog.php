@@ -1,8 +1,7 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-    	<a name="v200">
-	   	<li>Version 2.0.0 vom 23.6.2011</li>
+    	<li><a name="v200">Version 2.0.0 vom 23.6.2011</a></li>
     		<ul>
     			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
 					<li>Die Boxen "aktuelle Geburtstage" und "Wiedervorlagen" für die Startseite entfernt. Ersatz ist die neue Terminübersicht.</li>
@@ -81,8 +80,7 @@
           <li>Foreign Key Arbeitseinsatz->Mitglied aufgenommen.</li>
           <li>Bei Zusatzbeträgen und Wiedervorlagen Button zum Mitglied eingebaut.<a href='http://www.jverein.de/forum/viewtopic.php?t=583&p=2246#p2246*'>Siehe hier</a></li>
     		</ul>
-    	<a name="v140">
-	   	<li>Version 1.4.0 vom 10.11.2010</li>
+	   	<li><a name="v140">Version 1.4.0 vom 10.11.2010</a></li>
     		<ul>
     			<li>Box der aktuellen Geburtstage: Durch Doppelklick kann das Mitglied direkt bearbeitet werden. 
     				Das Kontextmenü steht ebenfalls zur Verfügung.Zusätzlich Telefonnummern und 
@@ -604,6 +602,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.161  2011-06-22 20:53:59  jost
+    *** empty log message ***
+
     Revision 1.160  2011-06-19 06:58:55  jost
     *** empty log message ***
 
