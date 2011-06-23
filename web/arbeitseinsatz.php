@@ -1,6 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>Arbeitseinsatz</h1>
-	<p>ab Version 1.5 verfügbar</p>
+	<p>ab Version 2.0 verfügbar</p>
 	
 	<h2>Aktivierung</h2>
 	<p>Zunächst sind die Arbeitseinsätze zu aktivieren. Das geschieht unter Administration&gt;Einstellungen&gt;Anzeige</p>
@@ -23,6 +23,9 @@
     
     <!-- 
     $Log$
+    Revision 1.3  2011-02-27 18:59:55  jost
+    *** empty log message ***
+
     Revision 1.2  2010-11-27 17:58:26  jost
     *** empty log message ***
 

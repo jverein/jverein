@@ -10,10 +10,10 @@
     		<p>Alternative Downloadmöglichkeit für die <a href='http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html'>Windows-Setups</a></p>
     		<p>Hinweis! In der Version 1.4.0.1 des Windows-Installers in ein Mini-Bug in Syntax beseitigt worden.</p>
     	<li>Entwicklerversionen</li>
-    		<ul>
-          <li><a href='download/download_log.php?dl=jverein.1.5.0-devel-301.zip'>Entwicklerversion 1.5.0 Rev. 301</a>&nbsp;Für alle Betriebssysteme. Vom 21.06.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>
-          <li><a href='download/download_log.php?dl=jverein.1.5.0-devel-300.zip'>Entwicklerversion 1.5.0 Rev. 300</a>&nbsp;Für alle Betriebssysteme. Vom 19.06.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>
-    		</ul>
+     		<ul>
+     		 <li>Zur Zeit nicht verfügbar</li>
+    <!--         <li><a href='download/download_log.php?dl=jverein.1.5.0-devel-301.zip'>Entwicklerversion 1.5.0 Rev. 301</a>&nbsp;Für alle Betriebssysteme. Vom 21.06.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>-->
+    		</ul> 
     	<li>Vorherige Versionen</li>
     		<ul>
     			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
@@ -30,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.37  2011-06-22 20:54:34  jost
+    *** empty log message ***
+
     Revision 1.36  2011-06-21 18:55:10  jost
     *** empty log message ***
 

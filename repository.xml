@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-repository-1.0.xsd"
-            name="Updates fuer Jameica-Plugins">
- 
-  <plugins>
-    <plugin url="http://www.jverein.de/updates/jverein/1.2" />
-  </plugins>
+	xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-repository-1.0.xsd"
+	name="Updates fuer Jameica-Plugins">
+
+	<plugins>
+		<plugin url="http://www.jverein.de/updates/jverein/1.2" />
+		<plugin url="http://www.jverein.de/updates/jverein/1.3" />
+		<plugin url="http://www.jverein.de/updates/jverein/1.4" />
+		<plugin url="http://www.jverein.de/updates/jverein/2.0" />
+	</plugins>
 </repository>

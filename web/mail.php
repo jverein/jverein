@@ -85,11 +85,11 @@
    <tr><td>$empf.vornamename</td><td>Vorname Name</td></tr>
    <tr><td>$empf.anschrift</td><td>Formatierte Anschrift</td></tr>
  </table>
- <p>Ab Version 1.5</p>
- <p>Die Zusatzfelder können über $zusatzfeld. adressiert werden. Beispiel: Es wurde das Zusatzfeld "nickname" eingerichtet. Dann kann das Zusatzfeld mit $zusatzfeld.nickname ausgegeben werden.</p>
- <p>Die Formatierungen von Beträgen und Datumsfeldern funktioniert ab Version 1.5.</p>
     <!-- 
     $Log$
+    Revision 1.6  2011-04-03 10:02:26  jost
+    Ausgabe der Zusatzfelder
+
     Revision 1.5  2011-03-20 19:24:17  jost
     Zusätzliche Felder
 

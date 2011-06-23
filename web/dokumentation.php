@@ -4,20 +4,19 @@
 	<li><a href="dokumentationallinone.php">All-in-One</a></li>
 	<li><a href="jameica_startseite.php">Jameica-Startseite</a></li>
 	<li><a href="mitglied.php">Mitglieder</a></li>
-	<li><a href="adressen.php">Adressen (ab Version 1.5)</a></li>
+	<li><a href="adressen.php">Adressen (ab Version 2.0)</a></li>
 	<li><a href="mitgliedskonto.php">Mitgliedskonto</a></li>
 	<li><a href="kursteilnehmer.php">Kursteilnehmer</a></li>
 	<li><a href="abrechnung.php">Abrechnung</a></li>
 	<li><a href="mitgliedskonto.php">Mitgliedskonto (inkl. Rechnung und Mahnung) ab Version 1.4</a></li>
-	<li><a href="arbeitseinsatz.php">Arbeitseinsätze überprüfen ab Version 1.5</a></li>
+	<li><a href="arbeitseinsatz.php">Arbeitseinsätze überprüfen ab Version 2.0</a></li>
 	<li><a href="zusatzbetraege.php">Zusatzbeiträge</a></li>
 	<li><a href="zusatzbetraege_import.php">Zusatzbeiträge importieren </a></li>
 	<li><a href="manuelle_zahlungseingaenge.php">Manuelle Zahlungseingänge (bis Version 1.3)</a></li>
 	<li><a href="wiedervorlage.php">Wiedervorlage</a></li>
 	<li><a href="lehrgaenge.php">Lehrgänge</a></li>
 	<li><a href="spendenbescheinigung.php">Spendenbescheinigung</a></li>
-	<li><a href="rechnungen.php">Rechnung (bis Version 1.3)</a></li>
-	<li><a href="dokumente.php">Dokumente (ab Version 1.5)</a></li>
+	<li><a href="dokumente.php">Dokumente (ab Version 2.0)</a></li>
 	<li><a href="dokumentationauswertung.php">Auswertung</a>
 	<ul>
 		<li><a href="dokumentationauswertungmitglieder.php">Mitglieder</a></li>
@@ -49,7 +48,7 @@
 		<li><a href="administration_einstellungen.php">Einstellungen</a></li>
 		<li><a href="administration_felddefinitionen.php">Felddefinitionen</a></li>
 		<li><a href="administration_formulare.php">Formulare</a></li>
-		<li><a href="administration_adresstypen.php">Adresstypen (ab Version 1.5)</a></li>
+		<li><a href="administration_adresstypen.php">Adresstypen (ab Version 2.0)</a></li>
 		<li><a href="administration_erweitert.php">Erweitert</a>
 		<ul>
 			<li><a href="administration_erweitert.php#backup_erstellen">Diagnosebackup
@@ -71,6 +70,9 @@
 
     <!-- 
     $Log$
+    Revision 1.19  2011-01-29 19:33:38  jost
+    *** empty log message ***
+
     Revision 1.18  2011-01-29 19:31:58  jost
     *** empty log message ***
 

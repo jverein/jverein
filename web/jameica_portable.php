@@ -6,7 +6,7 @@
 	<p>Wie allgemein bekannt ist setzt das GUI-Framework Jameica sowie dadurch die verschiedenen 
 		Plugins wie Hibiscus (Onlinebanking), JVerein (Vereinsverwaltung), Syntax (Finanzbuchhaltung) 
 		oder Jollina (Lohnbuchhaltung) zwingend ein installiertes Java Runtime Environment (JRE) ab 
-		Version 1.4 (JVerein ab 1.5) auf dem jeweils genutzten PC voraus. Jameica und die Plugins 
+		Version 1.5 auf dem jeweils genutzten PC voraus. Jameica und die Plugins 
 		selbst benötigen ja keine Installation, sondern müssen nur (richtig) entpackt werden.</p>
 	<p>Zu Hause hat man zumeist eine JRE installiert. Wie ist es aber, wenn man z. B. in einem 
 		Internetcafe o.ä. sitzt und seine Onlinebanking-Geschäfte nicht per Browser abwickeln möchte? 
@@ -23,7 +23,7 @@
 			http://portableapps.com/apps/utilities/java_portable</a>)</li>
 		<li> USB-Stick oder anderer Wechseldatenträger mit mindestens 128MB freiem Speicherplatz* 
 			(je nach Anzahl der installierten Plugins entsprechend mehr!)</li>
-		<li> Zur Einrichtung: PC mit installierter JRE ab Version 1.4 (bei JVerein ab 1.5)</li>
+		<li> Zur Einrichtung: PC mit installierter JRE ab Version 1.5</li>
 	</ul>
 	<p>*Der Speicherplatz wird hauptsächlich für die JRE (ca. 80MB) benötigt!</p>
 	<h2>Vorgehensweise:</h2>
@@ -136,6 +136,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.4  2010-11-12 12:29:05  jost
+    *** empty log message ***
+
     Revision 1.3  2010/05/20 18:37:23  jost
     *** empty log message ***
 

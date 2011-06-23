@@ -22,14 +22,15 @@
         <li>Kommunikationsdaten (Tel./eMail)</li>
         <li>Daten zur Mitgliedschaft (Eintritt, Beitragsgruppe, Austritt)</li>
         <li>Eigenschaften des Mitglieds</li>
-        <li>Mitgliedskonto (ab Version 1.4)
-        <li>Foto (ab Version 1.4)</li>
+        <li>Mitgliedskonto</li>
+        <li>Foto</li>
         <li>Wiedervorlagetermine</li>
         <li>Vermerke</li>
         <li>Zusatzzahlungen (einmalig und wiederkehrend)</li>
         <li>Individuelle Zusatzfelder</li>
         <li>Lehrgänge</li>
-        <li>Arbeitseinsätze (ab Version 1.5)</li>
+        <li>Arbeitseinsätze (ab Version 2.0)</li>
+        <li>Adressdaten von Spendern und anderen Nichtmitgliedern (ab Version 2.0)</li>
      </ul>
      <p>Es können neben natürlichen Personen auch juristische Personen (Firmen, Organisationen, Behörden) als Mitglieder
      	gespeichert werden.</p>
@@ -81,6 +82,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.43  2011-06-22 20:54:58  jost
+    *** empty log message ***
+
     Revision 1.42  2010-11-27 18:02:44  jost
     *** empty log message ***
 

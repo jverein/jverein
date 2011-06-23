@@ -208,7 +208,7 @@
   </tr>
   <tr>
     <td>individuellerbeitrag</td>
-    <td>Höhe des individuellen Beitrages in Euro (Format xxx,xx). Ab Version 1.5</td>
+    <td>Höhe des individuellen Beitrages in Euro (Format xxx,xx). Ab Version 2.0</td>
     <td>&nbsp;</td>
     <td>ja</td>
     <td>nein</td>
@@ -270,6 +270,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.14  2011-05-20 13:01:50  jost
+    Neu: Individueller Beitrag
+
     Revision 1.13  2011-03-20 11:47:11  jost
     *** empty log message ***
 

@@ -1,6 +1,6 @@
 <? include ("frame.inc"); ?>
     <h1>Administration: Adresstypen</h1>
-    <p>Ab Version 1.5</p>
+    <p>Ab Version 2.0</p>
     <p>Unter Administration|<a href='administration_einstellungen.php'>Einstellungen</a>|Ansicht ist die Option 'zusätzliche Adressen' zu aktivieren</p>
     <p>
     Neben den Mitgliedern können diverse Adressen gespeichert werden. Die Adressen werden
@@ -12,6 +12,9 @@
     
     <!-- 
     $Log$
+    Revision 1.2  2011-01-30 08:29:09  jost
+    Neu: Zusatzadressen
+
     Revision 1.1  2011-01-29 19:31:37  jost
     *** empty log message ***
 
