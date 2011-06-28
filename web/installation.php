@@ -20,6 +20,9 @@
     	<tr> 
     		<td align=center>1.4</td><td align=center>1.10</td><td align=center>1.12</td>
        	</tr>
+    	<tr> 
+    		<td align=center>2.0.0</td><td align=center>2.0.0</td><td align=center>2.0.0</td>
+       	</tr>
     </table>
     <p></p>
     <h2>Standardinstallation</h2>
@@ -55,6 +58,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.7  2010-11-10 18:18:49  jost
+    *** empty log message ***
+
     Revision 1.6  2010-08-04 11:36:51  jost
     Anker aufgenommen.
 
