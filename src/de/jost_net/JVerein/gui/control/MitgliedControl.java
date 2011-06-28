@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.119  2011-06-20 15:11:22  jost
+ * Überflüssiges throws entfernt.
+ *
  * Revision 1.118  2011-06-06 19:16:22  jost
  * Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder
  *
@@ -743,7 +746,7 @@ public class MitgliedControl extends AbstractControl
               return namen;
             }
           };
-          String sql = "select name from mitglied where name like ? and adresstyp = 1"
+          String sql = "select name from mitglied where name like ? "
               + "group by name order by name";
           return (List<?>) Einstellungen.getDBService().execute(sql,
               new Object[] { text }, rs);
