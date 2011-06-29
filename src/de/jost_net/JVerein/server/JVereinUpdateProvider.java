@@ -861,7 +861,6 @@ public class JVereinUpdateProvider
       for (String sql : sqls)
       {
         Map<String, String> stmt = new HashMap<String, String>();
-        System.out.println(driver + ":" + sql);
         stmt.put(driver, sql);
         execute(conn, stmt, logstring, version);
       }
@@ -875,14 +874,15 @@ public class JVereinUpdateProvider
       String logstring, int version) throws ApplicationException
   {
     Logger.info("TODO: " + logstring);
-    String driver = JVereinDBService.SETTINGS
-        .getString("database.driver", null);
+    String driver = JVereinDBService.SETTINGS.getString("database.driver",
+        DBSupportH2Impl.class.getName());
     I18N i18n = JVereinPlugin.getI18n();
     String sql = statements.get(driver);
     if (sql != null)
     {
       try
       {
+        Logger.debug(sql);
         progressmonitor.log(logstring);
         ScriptExecutor.execute(new StringReader(sql), conn, null);
         setNewVersion(version);
@@ -2424,14 +2424,14 @@ public class JVereinUpdateProvider
       }
       rs.close();
       stmt.close();
-      PreparedStatement pstmt = conn
-          .prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
-      for (String eig : eigenschaften)
-      {
-        pstmt.setString(1, eig);
-        pstmt.executeUpdate();
-      }
-      pstmt.close();
+        PreparedStatement pstmt = conn
+            .prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
+        for (String eig : eigenschaften)
+        {
+          pstmt.setString(1, eig);
+          pstmt.executeUpdate();
+        }
+        pstmt.close();
     }
     catch (Exception e)
     {
@@ -5026,7 +5026,6 @@ public class JVereinUpdateProvider
 
     for (BooleanUpdate b : bu)
     {
-      System.out.println(b.getTabelle() + "," + b.getSpalte());
       // H2
       Map<String, String[]> statements = new HashMap<String, String[]>();
       statements.put(

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 
-<plugin name="jverein" version="2.0.0"
+<plugin name="jverein" version="2.0.1"
   class="de.jost_net.JVerein.JVereinPlugin"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.1.xsd">
