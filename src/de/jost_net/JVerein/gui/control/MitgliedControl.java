@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.120  2011-06-28 07:26:06  jost
+ * Bugfix SearchInput Name
+ *
  * Revision 1.119  2011-06-20 15:11:22  jost
  * Überflüssiges throws entfernt.
  *
@@ -2535,7 +2538,7 @@ public class MitgliedControl extends AbstractControl
         HashMap<String, Boolean> pflichtgruppen = new HashMap<String, Boolean>();
         DBIterator it = Einstellungen.getDBService().createList(
             EigenschaftGruppe.class);
-        it.addFilter("pflicht = ?", new Object[] { "TRUE" });
+        it.addFilter("pflicht = ?", new Object[] { Boolean.TRUE });
         while (it.hasNext())
         {
           EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
@@ -2567,7 +2570,7 @@ public class MitgliedControl extends AbstractControl
         // Max eine Eigenschaft pro Gruppe
         HashMap<String, Boolean> max1gruppen = new HashMap<String, Boolean>();
         it = Einstellungen.getDBService().createList(EigenschaftGruppe.class);
-        it.addFilter("max1 = ?", new Object[] { "TRUE" });
+        it.addFilter("max1 = ?", new Object[] { Boolean.TRUE });
         while (it.hasNext())
         {
           EigenschaftGruppe eg = (EigenschaftGruppe) it.next();

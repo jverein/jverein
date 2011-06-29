@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2011-05-21 08:10:53  jost
+ * Bugfix Sortierung nach Namen, Vornamen
+ *
  * Revision 1.28  2011-05-15 10:23:12  jost
  * Bugfix Batch/Dialog-Suche
  *
@@ -227,7 +230,7 @@ public class MitgliedQuery
             {
               sql += "join zusatzfelder " + synonym + " on " + synonym
                   + ".mitglied = mitglied.id  and " + synonym
-                  + ".FELDJANEIN = 'TRUE' and " + synonym
+                  + ".FELDJANEIN = true and " + synonym
                   + ".felddefinition = ? ";
               bedingungen.add(definition);
               synonym++;

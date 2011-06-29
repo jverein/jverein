@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-06-06 19:17:42  jost
+ * Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder
+ *
  * Revision 1.4  2010-10-15 09:58:28  jost
  * Code aufgeräumt
  *
@@ -94,7 +97,7 @@ public class EigenschaftenNode implements GenericObjectNode
         EigenschaftGruppe.class);
     if (ohnePflicht)
     {
-      it.addFilter("(PFLICHT <> 'TRUE' OR PFLICHT IS NULL) AND (MAX1 <> 'TRUE' OR MAX1 IS NULL)");
+      it.addFilter("(PFLICHT <> true OR PFLICHT IS NULL) AND (MAX1 <> true OR MAX1 IS NULL)");
     }
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
