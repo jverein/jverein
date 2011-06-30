@@ -3,7 +3,7 @@
     <ul>
     	<li>Freigegebene Version</li>
     		<ul>
-    			<li><a href='download/download_log.php?dl=jverein.2.0.0.zip'>Version 2.0.0</a>&nbsp;Für alle Betriebssysteme. Vom 23.06.2011 / zusammen mit Jameica 2.0.0 und Hibiscus 2.0.0 einsetzen.</li>
+    			<li><a href='download/download_log.php?dl=jverein.2.0.1.zip'>Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 30.06.2011 / zusammen mit Jameica >= 2.0.0 und Hibiscus >= 2.0.0 einsetzen.</li>
     			<li>Die Windows-Setups werden in Kürze zur Verfügung gestellt.</li>
       		<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_64.exe'>Version 1.4.0.1</a>&nbsp;Windows 64-bit-Setup.</li>
@@ -16,6 +16,7 @@
     		</ul> 
     	<li>Vorherige Versionen</li>
     		<ul>
+          <li><a href='download/download_log.php?dl=jverein.2.0.0.zip'>Version 2.0.0</a>&nbsp;Für alle Betriebssysteme. Vom 23.06.2011 / zusammen mit Jameica 2.0.0 und Hibiscus 2.0.0 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.3.3.zip'>Version 1.3.3</a>&nbsp;Für alle Betriebssysteme. Vom 31.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
@@ -30,6 +31,9 @@
     
     <!-- 
     $Log$
+    Revision 1.39  2011-06-30 20:08:51  jost
+    *** empty log message ***
+
     Revision 1.38  2011-06-23 05:53:42  jost
     *** empty log message ***
 
