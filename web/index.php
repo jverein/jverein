@@ -72,7 +72,8 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
-    	  <li>23.06.2011: Version 2.0.0 freigegeben</a>. Siehe <a href='changelog.php#v200'>Changelog</a>.</li>
+        <li>30.06.2011: Version 2.0.1 freigegeben</a>. Siehe <a href='changelog.php#v201'>Changelog</a>.</li>
+        <li>23.06.2011: Version 2.0.0 freigegeben</a>. Siehe <a href='changelog.php#v200'>Changelog</a>.</li>
     	  <li>15.11.2010: Neue Version 1.4.0.1 des Windows-Installers freigegeben. Installation nur, wenn Syntax eingesetzt wird.</li>
     	  <li>10.11.2010: Version 1.4.0 freigegeben</a>. Siehe <a href='changelog.php#v140'>Changelog</a>.</li>
     	  <li>07.11.2010: Neuer <a href='download.php'>Downloadbereich</a></li>
@@ -87,6 +88,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.45  2011-06-23 06:11:49  jost
+    *** empty log message ***
+
     Revision 1.44  2011-06-23 05:53:41  jost
     *** empty log message ***
 
