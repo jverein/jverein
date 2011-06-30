@@ -4,11 +4,11 @@
     	<li>Freigegebene Version</li>
     		<ul>
     			<li><a href='download/download_log.php?dl=jverein.2.0.0.zip'>Version 2.0.0</a>&nbsp;Für alle Betriebssysteme. Vom 23.06.2011 / zusammen mit Jameica 2.0.0 und Hibiscus 2.0.0 einsetzen.</li>
+    			<li>Die Windows-Setups werden in Kürze zur Verfügung gestellt.</li>
       		<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_64.exe'>Version 1.4.0.1</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
     		<p>Alternative Downloadmöglichkeit für die <a href='http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html'>Windows-Setups</a></p>
-    		<p>Hinweis! In der Version 1.4.0.1 des Windows-Installers in ein Mini-Bug in Syntax beseitigt worden.</p>
     	<li>Entwicklerversionen</li>
      		<ul>
      		 <li>Zur Zeit nicht verfügbar</li>
@@ -30,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.38  2011-06-23 05:53:42  jost
+    *** empty log message ***
+
     Revision 1.37  2011-06-22 20:54:34  jost
     *** empty log message ***
 

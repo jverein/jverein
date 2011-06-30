@@ -1,6 +1,13 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
+      <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
+        <ul>
+          <li>Bugfix Autovervollständigung Name beim Mitglied.</li>
+          <li>Bugfix Erstinstallation mit H2-Datenbank</li>
+          <li>Bugfix Summierung bei der kompakten Abbuchung.<li>
+          <li>Personalbogen: Sortierung der Zusatzbeträge nach Fälligkeitsdatum.</li>
+      </li>
     	<li><a name="v200">Version 2.0.0 vom 23.6.2011</a></li>
     		<ul>
     			<li>Terminübersicht Geburtstage und Wiedervorlagen.</li>
@@ -602,6 +609,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.162  2011-06-23 06:11:41  jost
+    *** empty log message ***
+
     Revision 1.161  2011-06-22 20:53:59  jost
     *** empty log message ***
 
