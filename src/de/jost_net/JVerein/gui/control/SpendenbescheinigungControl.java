@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.23  2011-06-22 20:53:11  jost
+ * *** empty log message ***
+ *
  * Revision 1.22  2011-06-21 18:46:57  jost
  * Korrekte Anzeige mit Testdaten
  *
@@ -85,7 +88,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
@@ -100,7 +102,6 @@ import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
-import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
