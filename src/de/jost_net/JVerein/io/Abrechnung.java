@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-06-06 18:24:34  jost
+ * Bugfix Textschlüssel bei Hibiscus-Buchungen.
+ *
  * Revision 1.9  2011-05-22 08:39:27  jost
  * Neu: Buchungstext2 für Zusatzbeträge
  *
@@ -480,7 +483,8 @@ public class Abrechnung
           try
           {
             XLastschrift lastschrift = new XLastschrift();
-            lastschrift.setBetrag(betr);
+            lastschrift.setBetrag(new BigDecimal(betr).setScale(2,
+                BigDecimal.ROUND_HALF_UP));
             if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
             {
               throw new DtausException(
@@ -534,7 +538,8 @@ public class Abrechnung
           try
           {
             XLastschrift lastschrift = new XLastschrift();
-            lastschrift.setBetrag(z.getBetrag());
+            lastschrift.setBetrag(new BigDecimal(z.getBetrag()).setScale(2,
+                BigDecimal.ROUND_HALF_UP));
             if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
             {
               throw new DtausException(
@@ -607,7 +612,8 @@ public class Abrechnung
       kt.store();
 
       XLastschrift lastschrift = new XLastschrift();
-      lastschrift.setBetrag(kt.getBetrag());
+      lastschrift.setBetrag(new BigDecimal(kt.getBetrag()).setScale(2,
+          BigDecimal.ROUND_HALF_UP));
       if (!Einstellungen.checkAccountCRC(kt.getBlz(), kt.getKonto()))
       {
         throw new DtausException(
@@ -733,7 +739,7 @@ public class Abrechnung
   private void writeCSatz(DtausDateiWriter dtaus, XLastschrift lastschrift)
       throws DtausException, NumberFormatException, IOException
   {
-    dtaus.setCBetragInEuro(lastschrift.getBetrag());
+    dtaus.setCBetragInEuro(lastschrift.getBetrag().doubleValue());
     dtaus.setCBLZEndbeguenstigt(lastschrift.getBlz());
     dtaus.setCKonto(lastschrift.getKonto());
     dtaus.setCName(lastschrift.getZahlungspflichtigen(0));

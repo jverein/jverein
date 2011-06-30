@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-02-23 18:02:42  jost
+ * Neu: Kompakte Abbuchung
+ *
  * Revision 1.1  2011-02-12 09:40:32  jost
  * Vorbereitung kompakte Abbuchung
  *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,9 +80,9 @@ public class XLastschriften
     {
       ArrayList<XLastschrift> lastliste = comp.get(key);
       int anzvzw = 0;
-      for (XLastschrift last:lastliste)
+      for (XLastschrift last : lastliste)
       {
-        anzvzw+=last.getAnzahlVerwendungszwecke();
+        anzvzw += last.getAnzahlVerwendungszwecke();
       }
       if (lastliste.size() == 1)
       {
@@ -112,12 +116,12 @@ public class XLastschriften
     return lastschriften.size();
   }
 
-  public double getSummeLastschriften()
+  public BigDecimal getSummeLastschriften()
   {
-    double sum = 0;
+    BigDecimal sum = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP);
     for (XLastschrift l : lastschriften)
     {
-      sum += l.getBetrag();
+      sum = sum.add(l.getBetrag());
     }
     return sum;
   }

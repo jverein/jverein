@@ -9,12 +9,16 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-02-23 18:02:27  jost
+ * Neu: Kompakte Abbuchung
+ *
  * Revision 1.1  2011-02-12 09:40:32  jost
  * Vorbereitung kompakte Abbuchung
  *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -24,7 +28,7 @@ public class XLastschrift
 
   private ArrayList<String> verwendungszweck = new ArrayList<String>();
 
-  private double betrag;
+  private BigDecimal betrag;
 
   private int blz;
 
@@ -63,7 +67,7 @@ public class XLastschrift
   }
 
   public void modifyVerwendungszweck(int pos, String verwendungszweck,
-      double betrag)
+      BigDecimal betrag)
   {
     String btrg = DECIMALFORMAT.format(betrag);
     int restlaenge = 27 - btrg.length() - 1;
@@ -86,12 +90,12 @@ public class XLastschrift
     return verwendungszweck.size();
   }
 
-  public void setBetrag(double betrag)
+  public void setBetrag(BigDecimal betrag)
   {
     this.betrag = betrag;
   }
 
-  public double getBetrag()
+  public BigDecimal getBetrag()
   {
     return betrag;
   }
@@ -123,7 +127,7 @@ public class XLastschrift
 
   public void add(XLastschrift ls)
   {
-    betrag = betrag + ls.getBetrag();
+    betrag = betrag.add(ls.getBetrag());
     for (int i = 0; i < ls.getAnzahlVerwendungszwecke(); i++)
     {
       addVerwendungszweck(ls.getVerwendungszweck(i));
