@@ -9,6 +9,9 @@ ei * $Source$
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2011-05-22 08:33:02  jost
+ * Neu: Buchungstext2 für Zusatzbeträge
+ *
  * Revision 1.14  2011-05-20 12:59:19  jost
  * Neu: Individueller Beitrag
  *
@@ -407,6 +410,7 @@ public class PersonalbogenAction implements Action
   {
     DBIterator it = Einstellungen.getDBService().createList(Zusatzbetrag.class);
     it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.setOrder("ORDER BY faelligkeit DESC");
     if (it.size() > 0)
     {
       rpt.add(new Paragraph("Zusatzbetrag"));
