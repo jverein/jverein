@@ -3,12 +3,12 @@
     <ul>
     	<li>Freigegebene Version</li>
     		<ul>
-    			<li><a href='download/download_log.php?dl=jverein.2.0.1.zip'>Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 30.06.2011 / zusammen mit Jameica >= 2.0.0 und Hibiscus >= 2.0.0 einsetzen.</li>
+    			<li><a href='http://prdownload.berlios.de/jverein/jverein.2.0.1.zip'>Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 30.06.2011 / zusammen mit Jameica >= 2.0.0 und Hibiscus >= 2.0.0 einsetzen.</li>
+          <li><a href='http://prdownload.berlios.de/jverein/JameicaSuitePortable.zip'>portable Jameica-Suite Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 1.7.2011 </li>
     			<li>Die Windows-Setups werden in Kürze zur Verfügung gestellt.</li>
       		<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_64.exe'>Version 1.4.0.1</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
-    		<p>Alternative Downloadmöglichkeit für die <a href='http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html'>Windows-Setups</a></p>
     	<li>Entwicklerversionen</li>
      		<ul>
      		 <li>Zur Zeit nicht verfügbar</li>
@@ -31,6 +31,9 @@
     
     <!-- 
     $Log$
+    Revision 1.40  2011-06-30 20:10:36  jost
+    *** empty log message ***
+
     Revision 1.39  2011-06-30 20:08:51  jost
     *** empty log message ***
 
