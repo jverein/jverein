@@ -1,20 +1,18 @@
 <? include ("frame.inc"); ?>
     <h1>Download</h1>
-    <ul>
-    	<li>Freigegebene Version</li>
+    <h2>Freigegebene Version</h2>
     		<ul>
     			<li><a href='http://prdownload.berlios.de/jverein/jverein.2.0.1.zip'>Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 30.06.2011 / zusammen mit Jameica >= 2.0.0 und Hibiscus >= 2.0.0 einsetzen.</li>
           <li><a href='http://prdownload.berlios.de/jverein/JameicaSuitePortable.zip'>portable Jameica-Suite Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 1.7.2011 </li>
     			<li>Die Windows-Setups werden in Kürze zur Verfügung gestellt.</li>
-      		<li><a href='download/download_log.php?dl=jameicasuite-setup1401_32.exe'>Version 1.4.0.1</a>&nbsp;Windows 32-bit-Setup.</li>
-    			<li><a href='download/download_log.php?dl=jameicasuite-setup1401_64.exe'>Version 1.4.0.1</a>&nbsp;Windows 64-bit-Setup.</li>
+      		<li><a href='http://prdownload.berlios.de/jameica-suites/jameicasuite-setup1403_32.exe'>Version 1.4.0.1 32 bit</a>&nbsp;Windows 32-bit-Setup.</li>
+    			<li><a href='http://prdownload.berlios.de/jameica-suites/jameicasuite-setup1403_64.exe'>Version 1.4.0.1 64 bit</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
-    	<li>Entwicklerversionen</li>
+    <h2>Entwicklerversionen</h2>
      		<ul>
      		 <li>Zur Zeit nicht verfügbar</li>
-    <!--         <li><a href='download/download_log.php?dl=jverein.1.5.0-devel-301.zip'>Entwicklerversion 1.5.0 Rev. 301</a>&nbsp;Für alle Betriebssysteme. Vom 21.06.2011 / zusammen mit aktuellen Nightly-Builds von Jameica und Hibiscus einsetzen.</li>-->
     		</ul> 
-    	<li>Vorherige Versionen</li>
+    <h2>Vorherige Versionen</h2>
     		<ul>
           <li><a href='download/download_log.php?dl=jverein.2.0.0.zip'>Version 2.0.0</a>&nbsp;Für alle Betriebssysteme. Vom 23.06.2011 / zusammen mit Jameica 2.0.0 und Hibiscus 2.0.0 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
@@ -26,11 +24,14 @@
     			<li><a href='download/download_log.php?dl=jverein.1.3.0.zip'>Version 1.3.0</a>&nbsp;vom 9.4.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen </li>
     			<li><a href='download/download_log.php?dl=jverein.1.2.0.zip'>Version 1.2.0</a>&nbsp;vom 23.8.2009 / zusammen mit Jameica 1.8 und Hibiscus 1.10 einsetzen </li>
     		</ul>
-    <ul>
+    </ul>
     
     
     <!-- 
     $Log$
+    Revision 1.41  2011-07-01 17:38:32  jost
+    *** empty log message ***
+
     Revision 1.40  2011-06-30 20:10:36  jost
     *** empty log message ***
 
