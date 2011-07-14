@@ -5,6 +5,7 @@
         <ul>
           <li>Bugfix bei der Mitgliedersuche, sofern mit Zusatzfeldern experimentiert wurde.</li>
           <li>Basisdaten des Mitglieds können mit einem Rechtsklick kopiert werden. Siehe auch <a href='http://www.jverein.de/forum/viewtopic.php?t=542&p=2418'>Forum</a></li>
+          <li>Mitgliederübersicht: Korrekte Sortierung nach ID. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=582&p=2436">Forum</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
@@ -616,6 +617,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.166  2011-07-14 19:37:56  jost
+    Neu: Mitglied kopieren
+
     Revision 1.165  2011-07-12 18:04:38  jost
     *** empty log message ***
 

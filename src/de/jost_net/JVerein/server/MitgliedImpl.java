@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.50  2011-05-29 12:51:13  jost
+ * Neue Variable "mitglied_anrede_du"
+ *
  * Revision 1.49  2011-05-29 12:43:35  jost
  * Neue Variable "mitglied_anrede_foermlich"
  *
@@ -974,7 +977,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     String anrededu = "Hallo";
     if (getGeschlecht().length() > 0)
     {
-      anrededu += " " + getVorname()+",";
+      anrededu += " " + getVorname() + ",";
     }
     map.put(MitgliedVar.ANREDE_DU.getName(), anrededu);
 
@@ -1145,6 +1148,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("idint"))
+    {
+      return new Integer(getID());
+    }
     if (fieldName.equals("namevorname"))
     {
       return getNameVorname();

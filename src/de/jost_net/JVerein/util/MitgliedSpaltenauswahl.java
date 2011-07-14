@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-02-12 09:44:06  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.8  2011-01-30 10:30:48  jost
  * Datum der letzten Änderung wird gespeichert
  *
@@ -56,7 +59,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
   public MitgliedSpaltenauswahl()
   {
     super("mitglied");
-    add("ID", "id", false, true);
+    add("ID", "idint", false, true);
     add(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
         "externemitgliedsnummer", false, false);
     add(JVereinPlugin.getI18n().tr("Anrede"), "anrede", false, true);
