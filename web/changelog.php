@@ -4,6 +4,7 @@
       <li><a name="v210">Version 2.1.0 noch nicht freigegeben</a></li>
         <ul>
           <li>Bugfix bei der Mitgliedersuche, sofern mit Zusatzfeldern experimentiert wurde.</li>
+          <li>Basisdaten des Mitglieds können mit einem Rechtsklick kopiert werden. Siehe auch <a href='http://www.jverein.de/forum/viewtopic.php?t=542&p=2418'>Forum</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
@@ -615,6 +616,9 @@
 </ul>
     <!-- 
     $Log$
+    Revision 1.165  2011-07-12 18:04:38  jost
+    *** empty log message ***
+
     Revision 1.164  2011-06-30 20:21:15  jost
     *** empty log message ***
 

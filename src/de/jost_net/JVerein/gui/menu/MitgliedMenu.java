@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-06-06 19:17:27  jost
+ * Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder
+ *
  * Revision 1.9  2011-04-23 06:56:19  jost
  * Neu: Freie Formulare
  *
@@ -46,6 +49,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FreiesFormularAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
+import de.jost_net.JVerein.gui.action.MitgliedKopierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -73,6 +77,8 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "bearbeiten"), detailaction, "edit.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
+        "kopieren"), new MitgliedKopierenAction(), "copy_edit.gif"));
+    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Mail senden ..."), new MitgliedMailSendenAction(),
@@ -86,7 +92,7 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Personalbogen"), new PersonalbogenAction(), "rechnung.png"));
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
-    it.addFilter("art = ?", new Object[] { Formularart.FREIESFORMULAR });
+    it.addFilter("art = ?", new Object[] { Formularart.FREIESFORMULAR});
     while (it.hasNext())
     {
       Formular f = (Formular) it.next();
