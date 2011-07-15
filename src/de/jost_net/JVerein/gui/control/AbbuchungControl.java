@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.28  2011-04-22 06:27:23  jost
+ * Alte Abrechnung deaktiviert
+ *
  * Revision 1.27  2011-02-23 18:00:48  jost
  * Zum Test: Parallele Nutzung der alten und der neuen Abrechnung.
  *
@@ -465,6 +468,7 @@ public class AbbuchungControl extends AbstractControl
           Logger.error(
               "error while reading objects from "
                   + abupar.dtausfile.getAbsolutePath(), e);
+          Logger.error("Fehler:" + e);
           ApplicationException ae = new ApplicationException(
               "Fehler beim erstellen der Abbuchungsdatei: "
                   + abupar.dtausfile.getAbsolutePath(), e);
