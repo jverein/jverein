@@ -4,9 +4,8 @@
     		<ul>
     			<li><a href='http://prdownload.berlios.de/jverein/jverein.2.0.1.zip'>Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 30.06.2011 / zusammen mit Jameica >= 2.0.0 und Hibiscus >= 2.0.0 einsetzen.</li>
           <li><a href='http://prdownload.berlios.de/jverein/JameicaSuitePortable.zip'>portable Jameica-Suite Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 1.7.2011 </li>
-    			<li>Die Windows-Setups werden in Kürze zur Verfügung gestellt.</li>
-      		<li><a href='http://prdownload.berlios.de/jameica-suites/jameicasuite-setup1403_32.exe'>Version 1.4.0.1 32 bit</a>&nbsp;Windows 32-bit-Setup.</li>
-    			<li><a href='http://prdownload.berlios.de/jameica-suites/jameicasuite-setup1403_64.exe'>Version 1.4.0.1 64 bit</a>&nbsp;Windows 64-bit-Setup.</li>
+          <li><a href='http://prdownload.berlios.de/jverein/jameicasuite-setup202_32.exe'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 32-bit-Setup.</li>
+          <li><a href='http://prdownload.berlios.de/jverein/jameicasuite-setup202_64.exe'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 32-bit-Setup.</li>
     		</ul>
     <h2>Entwicklerversionen</h2>
      		<ul>
@@ -15,6 +14,8 @@
     <h2>Vorherige Versionen</h2>
     		<ul>
           <li><a href='download/download_log.php?dl=jverein.2.0.0.zip'>Version 2.0.0</a>&nbsp;Für alle Betriebssysteme. Vom 23.06.2011 / zusammen mit Jameica 2.0.0 und Hibiscus 2.0.0 einsetzen.</li>
+          <li><a href='http://prdownload.berlios.de/jameica-suites/jameicasuite-setup1403_32.exe'>Version 1.4.0.1 32 bit</a>&nbsp;Windows 32-bit-Setup.</li>
+          <li><a href='http://prdownload.berlios.de/jameica-suites/jameicasuite-setup1403_64.exe'>Version 1.4.0.1 64 bit</a>&nbsp;Windows 64-bit-Setup.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.4.0.zip'>Version 1.4.0</a>&nbsp;Für alle Betriebssysteme. Vom 10.11.2010 / zusammen mit Jameica 1.10 und Hibiscus 1.12 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jverein.1.3.3.zip'>Version 1.3.3</a>&nbsp;Für alle Betriebssysteme. Vom 31.5.2010 / zusammen mit Jameica 1.9 und Hibiscus 1.11 einsetzen.</li>
     			<li><a href='download/download_log.php?dl=jameicasuite-setup133_32.exe'>Version 1.3.3</a>&nbsp;Windows 32-bit-Setup.</li>
@@ -29,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.42  2011-07-06 12:12:19  jost
+    *** empty log message ***
+
     Revision 1.41  2011-07-01 17:38:32  jost
     *** empty log message ***
 
