@@ -5,7 +5,7 @@
 	die nachfolgend beschrieben wird, erfolgen.
 	Der Dateiname muss eine Endung haben. Z. B. .csv oder .txt. Es kann jede beliebige Endung verwendet werden. 
 	Die Datenfelder werden durch Semikolon getrennt. Das Encoding muss ISO-8859-1 sein.</p>
-	<p>Zur Zuordnung des Zusazbetrages zum Mitglied muss entweder die Mitglieds_Nr oder Nachname und Vorname angegeben
+	<p>Zur Zuordnung des Zusatzbetrages zum Mitglied muss entweder die Mitglieds_Nr oder Nachname und Vorname angegeben
 	werden. Die Angabe von Nachname und Vorname setzt voraus, dass es keine Doubletten bei den Namen gibt.</p>
 	<table border="1">
 	<tr>
@@ -51,6 +51,9 @@
 	ich um eine Mail.</p> 
 	<!-- 
     $Log$
+    Revision 1.3  2011-07-17 17:06:47  jost
+    *** empty log message ***
+
     Revision 1.2  2009-11-05 20:08:47  jost
     *** empty log message ***
 
