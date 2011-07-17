@@ -24,10 +24,14 @@
 		<td>Betrag</td>
 		<td>Betrag. Anstatt eines Komma ist ein Punkt anzugeben.</td>
 	</tr>
-	<tr>
-		<td>Buchungstext</td>
-		<td>Buchungstext. Max 27 Stellen. Darf kein Semikolon enthalten.</td>
-	</tr>
+  <tr>
+    <td>Buchungstext</td>
+    <td>Buchungstext. Max 27 Stellen. Darf kein Semikolon enthalten.</td>
+  </tr>
+  <tr>
+    <td>Buchungstext2</td>
+    <td>2. Buchungstext. Max 27 Stellen. Darf kein Semikolon enthalten. Optional</td>
+  </tr>
 	<tr>
 		<td>Fälligkeit</td>
 		<td>Datum der Fälligkeit des Betrages. Format TT.MM.JJJJ</td>
@@ -47,6 +51,9 @@
 	ich um eine Mail.</p> 
 	<!-- 
     $Log$
+    Revision 1.2  2009-11-05 20:08:47  jost
+    *** empty log message ***
+
     Revision 1.1  2009/10/17 19:57:40  jost
     *** empty log message ***
 
