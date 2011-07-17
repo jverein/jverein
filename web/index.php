@@ -72,6 +72,7 @@
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
     	<ul>
+        <li>15.07.2011: Windows-Setups der Jameica-Suite stehen in 32- und 64-Bit-Version zur Verfügung.</li>
         <li>30.06.2011: Version 2.0.1 freigegeben</a>. Siehe <a href='changelog.php#v201'>Changelog</a>.</li>
         <li>23.06.2011: Version 2.0.0 freigegeben</a>. Siehe <a href='changelog.php#v200'>Changelog</a>.</li>
     	  <li>15.11.2010: Neue Version 1.4.0.1 des Windows-Installers freigegeben. Installation nur, wenn Syntax eingesetzt wird.</li>
@@ -88,6 +89,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.46  2011-06-30 20:16:17  jost
+    *** empty log message ***
+
     Revision 1.45  2011-06-23 06:11:49  jost
     *** empty log message ***
 

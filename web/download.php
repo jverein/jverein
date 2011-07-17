@@ -5,7 +5,7 @@
     			<li><a href='http://prdownload.berlios.de/jverein/jverein.2.0.1.zip'>Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 30.06.2011 / zusammen mit Jameica >= 2.0.0 und Hibiscus >= 2.0.0 einsetzen.</li>
           <li><a href='http://prdownload.berlios.de/jverein/JameicaSuitePortable.zip'>portable Jameica-Suite Version 2.0.1</a>&nbsp;Für alle Betriebssysteme. Vom 1.7.2011 </li>
           <li><a href='http://prdownload.berlios.de/jverein/jameicasuite-setup202_32.exe'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 32-bit-Setup.</li>
-          <li><a href='http://prdownload.berlios.de/jverein/jameicasuite-setup202_64.exe'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 32-bit-Setup.</li>
+          <li><a href='http://prdownload.berlios.de/jverein/jameicasuite-setup202_64.exe'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 64-bit-Setup.</li>
     		</ul>
     <h2>Entwicklerversionen</h2>
      		<ul>
@@ -30,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.43  2011-07-15 20:44:12  jost
+    *** empty log message ***
+
     Revision 1.42  2011-07-06 12:12:19  jost
     *** empty log message ***
 
