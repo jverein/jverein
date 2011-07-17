@@ -23,6 +23,7 @@
         <li>Daten zur Mitgliedschaft (Eintritt, Beitragsgruppe, Austritt)</li>
         <li>Eigenschaften des Mitglieds</li>
         <li>Mitgliedskonto</li>
+        <li>Personenart (natürliche/juristische Person)</li>
         <li>Foto</li>
         <li>Wiedervorlagetermine</li>
         <li>Vermerke</li>
@@ -37,8 +38,6 @@
         <li>Übergabe der Mitgliedsdaten an das Hibiscus-Adressbuch</li>
         <li>Adressdaten von Spendern und anderen Nichtmitgliedern (ab Version 2.0)</li>
      </ul>
-     <p>Es können neben natürlichen Personen auch juristische Personen (Firmen, Organisationen, Behörden) als Mitglieder
-     	gespeichert werden.</p>
 	<p>Für den Beitragseinzug können eine oder mehrere Beitragsgruppen gebildet werden. Die Abbildung eines 
 	   Familientarifes mit der Bildung von Familienverbänden ist möglich. Es wird entweder ein fester 
 	   Beitrag (pro Beitragsgruppe) in einem Intervall (z. B. Jahresbeitrag oder Monatsbeitrag) erhoben oder 
@@ -50,19 +49,19 @@
 	   oder direkt an <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a> als Einzel- oder 
 	   Sammellastschrift übergeben werden. Alle Abrechnungsdaten werden festgehalten. Daraus können 
 	   anschließend Rechnungen erstellt werden.</p>
-	<p>Für Mitglieder, die nicht am Abbuchungsverfahren teilnehmen werden die Zahlungsdaten zur manuellen 
-	   Überwachung des Zahlungseinganges festgehalten.</p>
-	<p>Zusätzlich können für jedes Mitglied zu beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden 
-	   (Strafgelder, Eigenanteile ...), die auch wiederkehrend sein können.</p>
+	<p>Über das Mitgliedskonto gibt es jederzeit einen Überblick über den Stand der Zahlungen eines
+	   Mitgliedes.</p>
+  <p>Die Erstellung von Rechnungen, Mahnungen sowie Spendenbescheinigungen ist möglich.</p>
+	<p>Für jedes Mitglied können zu beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden 
+	   (Strafgelder, Eigenanteile ...), die entweder einmalig oder wiederkehrend abgerechnet werden.</p>
 	<p>Die Vereinsbuchführung (Einnamen/Ausgaben) kann über eine integrierte einfache 
 	   Buchführung erledigt werden.</p>
 	<p>Die Mitgliederdaten können nach vielen Kriterien <a href="dokumentationauswertungmitglieder.php">
 	   ausgewertet</a> werden. Die Ausgabe erfolgt im PDF-Format oder im CSV-Format. Die Erstellung 
 	   einer Liste mit <a href="dokumentationauswertungjubilaeen.php">Mitgliedschafts- oder Altersjubliäen</a> ist möglich.</p>
-	<p>In Version 1.3 ist der Versand von Mails an Mitglieder realisiert worden. Der Versand ist an einzelne Mitglieder, 
+	<p>Der Versand von Mails ist an einzelne Mitglieder, 
 	   Gruppen von Mitgliedern oder alle Mitglieder möglich. Für regelmäßig zu versendende Mails können Vorlagen erstellt 
-	   werden. Durch Variable ist die Personalisierung der Mails möglich.</p>
-	<p>Die Erstellung von Rechnungen, Mahnungen (ab Version 1.4) und Spendenbescheinigungen möglich.</p>
+	   werden. Durch Variable kann die Mail personalisiert werden.</p>
 	<p>JVerein ist mit vielen Screenshots ausgiebig <a href='dokumentation.php'>dokumentiert</a>.</p>
 	<p>JVerein steht unter GPL. In diesem Rahmen kann JVerein genutzt werden.</p>
 	<p>Zusätzlich gibt es eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um einen 
@@ -78,17 +77,14 @@
     	  <li>15.11.2010: Neue Version 1.4.0.1 des Windows-Installers freigegeben. Installation nur, wenn Syntax eingesetzt wird.</li>
     	  <li>10.11.2010: Version 1.4.0 freigegeben</a>. Siehe <a href='changelog.php#v140'>Changelog</a>.</li>
     	  <li>07.11.2010: Neuer <a href='download.php'>Downloadbereich</a></li>
-    		<li>05.07.2010: Neues Windows-Setup der Jameica-Suite (32 und 64 bit) im Downloadbereich.</li>
-    	  <li>31.05.2010: Version 1.3.3 freigegeben</a>.</li>
-    		<li>18.05.2010: Version 1.3.2 freigegeben</a>.</li> 
-	   		<li>16.05.2010: Version 1.3.1 freigegeben</a>.</li> 
-    		<li>29.04.2010: Das Windows-Setup für die Jameica-Suite steht jetzt im Downloadbereich zur Verfügung.</li> 
-    		<li>09.04.2010: <a href='version1.3.0.php'>Version 1.3.0 freigegeben</a>.</li> 
     	</ul>
 	</div>
 	   
 	<!-- 
     $Log$
+    Revision 1.47  2011-07-17 06:03:37  jost
+    *** empty log message ***
+
     Revision 1.46  2011-06-30 20:16:17  jost
     *** empty log message ***
 
