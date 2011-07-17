@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.44  2011-05-20 13:00:40  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.43  2011-02-12 09:39:13  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -158,6 +161,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
@@ -199,14 +203,39 @@ public class Import
           new FileInputStream(path + "/" + file), "ISO-8859-1"));
       String line = "";
       boolean abbruch = false;
+      // Überprüfe ob erste Zeile mehrfach gleiche Zeilenüberschrift enthält.
+      boolean firstLine = true;
       while ((line = rea.readLine()) != null)
       {
-        int pos = line.indexOf("\"");
-        if (pos >= 0)
+        if (firstLine)
         {
-          monitor.log("Zeile enthält Anführungszeichen: " + line);
-          abbruch = true;
+          String[] columns = line.split(";");
+          Set<String> set = new HashSet<String>();
+
+          for (int i = 0; i < columns.length; i++)
+          {
+            if (set.contains(columns[i]))
+            {
+              monitor.log("Spalte \"" + columns[i] + "\" mehrfach vorhanden!");
+              abbruch = true;
+            }
+            else
+            {
+              set.add(columns[i]);
+            }
+          }
+          firstLine = false;
         }
+
+        // Doppelte Anführungszeichen sind essentiell um Zeilenumbrüche (z.B. in
+        // Kommentaren) zu erlauben.
+        // Sie werden vom CSV verstanden (z.B. MS Excel -> speichern unter ->
+        // CSV)
+        /*
+         * int pos = line.indexOf("\""); if (pos >= 0) {
+         * monitor.log("Zeile enthält Anführungszeichen: " + line); abbruch =
+         * true; }
+         */
       }
       rea.close();
       if (abbruch)
@@ -244,6 +273,12 @@ public class Import
 
       // create a Statement object to execute the query with
       Statement stmt = conn.createStatement();
+
+      if (!checkeSpalten(monitor, file.substring(0, pos), stmt))
+      {
+        monitor.log("Abbruch");
+        return;
+      }
 
       if (!checkeBeitragsgruppen(monitor, file.substring(0, pos), stmt))
       {
@@ -657,6 +692,52 @@ public class Import
       {
         Mitglied m = (Mitglied) list.next();
         m.delete();
+        /*
+         * Folgender Fehler trat hier auf. Ich konnte ihn jedoch nicht
+         * reproduzieren.
+         * 
+         * [Sat Jul 16 17:44:41 CEST
+         * 2011][DEBUG][de.willuhn.datasource.db.DBIteratorImpl.init] executing
+         * sql query: prep50: select MITGLIED.* from MITGLIED where adresstyp =
+         * 1 java.rmi.RemoteException: delete failed, rollback successful;
+         * nested exception is: org.h2.jdbc.JdbcSQLException: Referentielle
+         * Integrität verletzt:
+         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
+         * Referential integrity constraint violation:
+         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
+         * ; SQL statement: delete from MITGLIED where ID = 1 [23003-145] at
+         * de.willuhn
+         * .datasource.db.AbstractDBObject.delete(AbstractDBObject.java:381) at
+         * de.jost_net.JVerein.io.Import.loescheBestand(Import.java:687) at
+         * de.jost_net.JVerein.io.Import.<init>(Import.java:238) at
+         * de.jost_net.JVerein.gui.view.ImportView$2.run(ImportView.java:158) at
+         * de.willuhn.jameica.gui.GUI$6.run(GUI.java:917) Caused by:
+         * org.h2.jdbc.JdbcSQLException: Referentielle Integrität verletzt:
+         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
+         * Referential integrity constraint violation:
+         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
+         * ; SQL statement: delete from MITGLIED where ID = 1 [23003-145] at
+         * org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+         * at org.h2.message.DbException.get(DbException.java:167) at
+         * org.h2.message.DbException.get(DbException.java:144) at
+         * org.h2.constraint
+         * .ConstraintReferential.checkRow(ConstraintReferential.java:382) at
+         * org.h2.constraint.ConstraintReferential.checkRowRefTable(
+         * ConstraintReferential.java:399) at
+         * org.h2.constraint.ConstraintReferential
+         * .checkRow(ConstraintReferential.java:275) at
+         * org.h2.table.Table.fireConstraints(Table.java:803) at
+         * org.h2.table.Table.fireAfterRow(Table.java:820) at
+         * org.h2.command.dml.Delete.update(Delete.java:80) at
+         * org.h2.command.CommandContainer.update(CommandContainer.java:69) at
+         * org.h2.command.Command.executeUpdate(Command.java:201) at
+         * org.h2.jdbc.
+         * JdbcStatement.executeUpdateInternal(JdbcStatement.java:126) at
+         * org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:111) at
+         * de.
+         * willuhn.datasource.db.AbstractDBObject.delete(AbstractDBObject.java
+         * :363) ... 4 more
+         */
       }
       // Beitragsgruppe
       list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
@@ -678,6 +759,46 @@ public class Import
   }
 
   /**
+   * Überprüft, ob alle notwendigen Spalten vorhanden sind.
+   * http://www.jverein.de/administration_import.php (Stand Juli 2011)
+   * 
+   * @param monitor
+   * @param file
+   * @param stmt
+   * @return true, wenn alles in Ordnung ist.
+   * @throws SQLException
+   */
+  private boolean checkeSpalten(ProgressMonitor monitor, String file,
+      Statement stmt) throws SQLException
+  {
+    ResultSet results = stmt.executeQuery("SELECT * FROM " + file);
+    ResultSetMetaData meta = results.getMetaData();
+    HashSet columns = new HashSet();
+    for (int i = 1; i <= meta.getColumnCount(); i++)
+    {
+      columns.add(meta.getColumnName(i));
+      // monitor.log("Col: " + meta.getColumnName(i));
+    }
+    final String[] mussExistieren = new String[] { "Mitglieds_Nr", "Anrede",
+        "Titel", "Nachname", "Vorname", "Strasse", "Plz", "Ort",
+        "Geburtsdatum", "Sterbetag", "Geschlecht", "Bankleitzahl",
+        "Kontonummer", "Zahlungsart", "Zahler", "Telefon_privat",
+        "Telefon_dienstlich", "Email", "Eintritt", "Beitragsart_1",
+        "Beitrag_1", "individuellerbeitrag", "Austritt", "Kuendigung" };
+    boolean ret = true;
+    for (String c : mussExistieren)
+    {
+      if (!columns.contains(c))
+      {
+        monitor.log("Pflicht-Spalte \"" + c + "\" existiert nicht.");
+        ret = false;
+      }
+    }
+    return ret;
+
+  }
+
+  /**
    * Beitragsgruppen in der Importdatei prüfen
    * 
    * @param monitor
@@ -694,10 +815,19 @@ public class Import
     {
       String ba = results.getString("Beitragsart_1");
       String btr = results.getString("Beitrag_1");
-      if (ba == null || ba.length() == 0 || btr == null || btr.length() == 0)
+      // Zeige Benutzer genauen Fehler.
+      if (ba == null || ba.length() == 0)
+      {
+        monitor
+            .log(results.getString("Nachname") + ", "
+                + results.getString("Vorname")
+                + " keine Angaben zur Beitragsart_1");
+        return false;
+      }
+      if (btr == null || btr.length() == 0)
       {
         monitor.log(results.getString("Nachname") + ", "
-            + results.getString("Vorname") + " keine Angaben zur Beitragsart");
+            + results.getString("Vorname") + " keine Angaben zum Beitrag_1");
         return false;
       }
     }
