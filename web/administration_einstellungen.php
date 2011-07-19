@@ -68,6 +68,9 @@
 
 	<h2><a name=mail></a>Mail</h2>
 	<img src='images/Einstellungenmail.jpg' class='screenshot'>
+	<p>Alternativ zur EMail-Adresse kann auch der Name zusätzlich im Format 
+	<code>Vereinsname oder Mein Name &lt;vorstand@verein.de&gt</code>.
+	Wichtig ist dabei das Format: (Name) (Spitze Klammer auf) (Email) (Spitze Klammer zu)</p>
 	
 	<h2><a name=statistik></a>Statistik</h2>
 	<img src='images/Einstellungenstatistik.png' class='screenshot'>
@@ -80,6 +83,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.13  2011-06-23 05:53:26  jost
+    *** empty log message ***
+
     Revision 1.12  2011-01-09 14:32:23  jost
     Stammdaten in die Einstellungen verschoben.
 
