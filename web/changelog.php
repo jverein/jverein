@@ -8,6 +8,7 @@
           <li>Mitgliederübersicht: Korrekte Sortierung nach ID. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=582&p=2436">Forum</li>
           <li>Import benutzerfreundlicher. Patch von Julian.</li>
           <li>Beim Import von Zusatzbeträgen sind jetzt auch Anführungszeichen als Feldbegrenzer erlaubt.</li>
+          <li>Sofortige Aktualisierung der Anzeige nach Ist-Löschung im Mitgliedskonto. Patch von Julian.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
