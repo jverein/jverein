@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.39  2011-01-30 08:27:55  jost
+ * Neu: Zusatzadressen
+ *
  * Revision 1.38  2011-01-27 22:19:39  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -147,6 +150,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeListeAction;
 import de.jost_net.JVerein.gui.action.EigenschaftListeAction;
 import de.jost_net.JVerein.gui.action.EinstellungenAction;
+import de.jost_net.JVerein.gui.action.FamilienbeitragAction;
 import de.jost_net.JVerein.gui.action.FelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.FormularListeAction;
 import de.jost_net.JVerein.gui.action.JahresabschlussListAction;
@@ -163,12 +167,16 @@ import de.jost_net.JVerein.gui.action.MitgliedSucheAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoMahnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
+import de.jost_net.JVerein.gui.action.SpendenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.TermineAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeImportAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeListeAction;
+import de.jost_net.JVerein.keys.ArtBeitragsart;
+import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.NavigationItem;
 import de.willuhn.jameica.gui.extension.Extendable;
 import de.willuhn.jameica.gui.extension.Extension;
@@ -197,6 +205,15 @@ public class MyExtension implements Extension
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
             "Kursteilnehmer"), new KursteilnehmerSucheAction(),
             "system-users.png"));
+      }
+      DBIterator it = Einstellungen.getDBService().createList(
+          Beitragsgruppe.class);
+      it.addFilter("beitragsart = ?",
+          new Object[] { ArtBeitragsart.FAMILIE_ZAHLER });
+      if (it.size() > 0)
+      {
+        jverein.addChild(new MyItem(jverein, "Familienbeitrag",
+            new FamilienbeitragAction(), "family-icon.png"));
       }
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
           "Abrechnung"), new AbbuchungAction(), "accessories-calculator.png"));
@@ -345,6 +362,8 @@ public class MyExtension implements Extension
       jverein.addChild(einstellungen);
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
           "Dokumentation"), new DokumentationAction(), "help_view.gif"));
+      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+          "Spende für JVerein"), new SpendenAction(), "emblem-special.png"));
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr("über"),
           new AboutAction(), "info_tsk.gif"));
     }
