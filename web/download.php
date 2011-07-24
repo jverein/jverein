@@ -9,7 +9,7 @@
     		</ul>
     <h2>Entwicklerversionen</h2>
      		<ul>
-     		 <li>Zur Zeit nicht verfügbar</li>
+     		  <li><a href='http://prdownload.berlios.de/jverein/jverein.2.1.0-devel-309.zip'>Version 2.1 Rev. 309</a>&nbsp;Für alle Betriebssysteme. Vom 25.07.2011 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
     		</ul> 
     <h2>Vorherige Versionen</h2>
     		<ul>
@@ -30,6 +30,9 @@
     
     <!-- 
     $Log$
+    Revision 1.44  2011-07-17 06:03:37  jost
+    *** empty log message ***
+
     Revision 1.43  2011-07-15 20:44:12  jost
     *** empty log message ***
 
