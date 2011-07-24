@@ -9,6 +9,8 @@
           <li>Import benutzerfreundlicher. Patch von Julian.</li>
           <li>Beim Import von Zusatzbeträgen sind jetzt auch Anführungszeichen als Feldbegrenzer erlaubt.</li>
           <li>Sofortige Aktualisierung der Anzeige nach Ist-Löschung im Mitgliedskonto. Patch von Julian.</li>
+          <li>Neu: Spenden für JVerein.</li>
+          <li>Neu: Übersicht Familienbeiträge</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
