@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.45  2011-07-17 06:05:47  jost
+ * Import benutzerfreundlicher gemacht. Patch von Julian.
+ *
  * Revision 1.44  2011-05-20 13:00:40  jost
  * Neu: Individueller Beitrag
  *
@@ -784,7 +787,7 @@ public class Import
         "Geburtsdatum", "Sterbetag", "Geschlecht", "Bankleitzahl",
         "Kontonummer", "Zahlungsart", "Zahler", "Telefon_privat",
         "Telefon_dienstlich", "Email", "Eintritt", "Beitragsart_1",
-        "Beitrag_1", "individuellerbeitrag", "Austritt", "Kuendigung" };
+        "Beitrag_1", "Austritt", "Kuendigung" };
     boolean ret = true;
     for (String c : mussExistieren)
     {
