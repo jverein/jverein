@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.14  2011-02-12 09:40:02  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.13  2011-01-29 07:10:49  jost
  * Bugfix. Über 100-jährige wurden in der Summe nicht berücksichtigt.
  *
@@ -58,6 +61,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -72,6 +76,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
@@ -147,20 +152,31 @@ public class MitgliederStatistik
       addBeitragsgruppe(reporter, null, stichtag);
       reporter.closeTable();
 
-      Paragraph pGuV = new Paragraph("\nAnmeldungen/Abmeldungen",
-          FontFactory.getFont(FontFactory.HELVETICA, 11));
-      reporter.add(pGuV);
-      reporter.addHeaderColumn("Text", Element.ALIGN_CENTER, 100,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Anzahl", Element.ALIGN_CENTER, 30,
-          Color.LIGHT_GRAY);
-      reporter.createHeader(60f, Element.ALIGN_LEFT);
-      reporter.addColumn("Anmeldungen", Element.ALIGN_LEFT);
-      reporter.addColumn(getAnmeldungen(stichtag) + "", Element.ALIGN_RIGHT);
-      reporter.addColumn("Abmeldungen", Element.ALIGN_LEFT);
-      reporter.addColumn(getAbmeldungen(stichtag) + "", Element.ALIGN_RIGHT);
-      reporter.closeTable();
-
+      try
+      {
+        JVDateFormatTTMMJJJJ ttmmjj = new JVDateFormatTTMMJJJJ();
+        Geschaeftsjahr gj = new Geschaeftsjahr(stichtag);
+        Paragraph pGuV = new Paragraph("\nAnmeldungen/Abmeldungen ("
+            + ttmmjj.format(gj.getBeginnGeschaeftsjahr()) + "-"
+            + ttmmjj.format(gj.getEndeGeschaeftsjahr()) + ")",
+            FontFactory.getFont(FontFactory.HELVETICA, 11));
+        reporter.add(pGuV);
+        reporter.addHeaderColumn("Text", Element.ALIGN_CENTER, 100,
+            Color.LIGHT_GRAY);
+        reporter.addHeaderColumn("Anzahl", Element.ALIGN_CENTER, 30,
+            Color.LIGHT_GRAY);
+        reporter.createHeader(60f, Element.ALIGN_LEFT);
+        reporter.addColumn("Anmeldungen", Element.ALIGN_LEFT);
+        reporter.addColumn(getAnmeldungen(gj) + "", Element.ALIGN_RIGHT);
+        reporter.addColumn("Abmeldungen", Element.ALIGN_LEFT);
+        reporter.addColumn(getAbmeldungen(gj) + "", Element.ALIGN_RIGHT);
+        reporter.closeTable();
+      }
+      catch (ParseException e)
+      {
+        Logger.error("Fehler", e);
+        throw new ApplicationException(e);
+      }
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
@@ -309,31 +325,25 @@ public class MitgliederStatistik
     return list.size();
   }
 
-  private int getAnmeldungen(Date stichtag) throws RemoteException
+  private int getAnmeldungen(Geschaeftsjahr gj) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setMitglied(list);
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(stichtag);
-    cal.set(Calendar.DAY_OF_MONTH, 1);
-    cal.set(Calendar.MONTH, Calendar.JANUARY);
-    Date jahresanfang = new Date(cal.getTimeInMillis());
-    list.addFilter("eintritt >= ? ", new Object[] { jahresanfang });
-    list.addFilter("eintritt <= ? ", new Object[] { stichtag });
+    list.addFilter("eintritt >= ? ",
+        new Object[] { gj.getBeginnGeschaeftsjahr() });
+    list.addFilter("eintritt <= ? ",
+        new Object[] { gj.getEndeGeschaeftsjahr() });
     return list.size();
   }
 
-  private int getAbmeldungen(Date stichtag) throws RemoteException
+  private int getAbmeldungen(Geschaeftsjahr gj) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setMitglied(list);
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(stichtag);
-    cal.set(Calendar.DAY_OF_MONTH, 1);
-    cal.set(Calendar.MONTH, Calendar.JANUARY);
-    Date jahresanfang = new Date(cal.getTimeInMillis());
-    list.addFilter("austritt >= ? ", new Object[] { jahresanfang });
-    list.addFilter("austritt <= ? ", new Object[] { stichtag });
+    list.addFilter("austritt >= ? ",
+        new Object[] { gj.getBeginnGeschaeftsjahr() });
+    list.addFilter("austritt <= ? ",
+        new Object[] { gj.getEndeGeschaeftsjahr() });
     return list.size();
   }
 
