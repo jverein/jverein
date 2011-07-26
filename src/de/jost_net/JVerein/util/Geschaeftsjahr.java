@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.6  2011-02-12 09:44:07  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.5  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -71,6 +74,7 @@ public class Geschaeftsjahr
       beginnGeschaeftsjahr = Datum.toDate(Einstellungen.getEinstellung()
           .getBeginnGeschaeftsjahr() + cal.get(Calendar.YEAR));
     }
+    cal.setTime(beginnGeschaeftsjahr);
     cal.add(Calendar.YEAR, 1);
     cal.add(Calendar.DAY_OF_MONTH, -1);
     endeGeschaeftsjahr = cal.getTime();
