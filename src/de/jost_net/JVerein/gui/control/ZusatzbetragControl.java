@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.15  2011-05-22 08:33:54  jost
+ * Neu: Buchungstext2 für Zusatzbeträge
+ *
  * Revision 1.14  2011-04-03 14:34:01  jost
  * Bugfix Ausführungsdatum
  *
@@ -268,6 +271,10 @@ public class ZusatzbetragControl extends AbstractControl
           return;
         }
         startdatum.setValue(date);
+        if (faelligkeit.getValue() == null)
+        {
+          faelligkeit.setValue(startdatum.getValue());
+        }
       }
     });
     if (withFocus)
