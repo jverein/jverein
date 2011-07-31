@@ -16,6 +16,7 @@
           <li>Import: Spalte individuellerbeitrag ist keine Pflichtspalte</li>
           <li>Mitglieder-Statistik: Anpassung Ein- und Austritte an das Geschäftsjahr.</li>
           <li>Geschäftsjahr: Bugfix bei der Berechnung des Endes des Geschäftsjahres.</li>
+          <li>Zusatzbeträge: Bugfix Default-Wert für das Fälligkeitsdatum</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
