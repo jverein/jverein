@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2011-03-07 21:08:46  jost
+ * Neu:  Automatische Spendenbescheinigungen: Referenz zur Spendenbescheinigung aufgenommen.
+ *
  * Revision 1.18  2011-02-15 20:55:45  jost
  * Colins Patch zur Performancesteigerung
  *
@@ -185,7 +188,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     Integer i = (Integer) super.getAttribute("konto");
     if (i == null)
-      return null; // Keine Buchungsart zugeordnet
+      return null; // Kein Konto zugeordnet
 
     Cache cache = Cache.get(Konto.class, true);
     return (Konto) cache.get(i);
@@ -193,7 +196,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   public void setKonto(Konto konto) throws RemoteException
   {
-    setAttribute("konto", konto);
+    setAttribute("konto", new Integer(konto.getID()));
   }
 
   public Integer getAuszugsnummer() throws RemoteException
