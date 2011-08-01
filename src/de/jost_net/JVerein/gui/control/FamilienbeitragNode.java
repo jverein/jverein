@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-07-24 18:03:37  jost
+ * Neu: Auflistung Familienbeiträge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -19,6 +22,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.GenericObjectNode;
@@ -47,6 +51,7 @@ public class FamilienbeitragNode implements GenericObjectNode
   public FamilienbeitragNode() throws RemoteException
   {
     this.parent = null;
+    this.type = ROOT;
     this.children = new ArrayList<FamilienbeitragNode>();
     DBIterator it = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
@@ -72,6 +77,7 @@ public class FamilienbeitragNode implements GenericObjectNode
   {
     this.parent = parent;
     this.mitglied = m;
+    this.type = ZAHLER;
     this.children = new ArrayList<FamilienbeitragNode>();
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
     it.addFilter("zahlerid = ?", new Object[] { m.getID() });
@@ -87,6 +93,7 @@ public class FamilienbeitragNode implements GenericObjectNode
   public FamilienbeitragNode(FamilienbeitragNode parent, Mitglied m, int dummy)
   {
     this.parent = parent;
+    this.type = ANGEHOERIGER;
     this.mitglied = m;
     this.children = new ArrayList<FamilienbeitragNode>();
   }
@@ -124,7 +131,10 @@ public class FamilienbeitragNode implements GenericObjectNode
       {
         return "Familienbeiträge";
       }
+      JVDateFormatTTMMJJJJ jvttmmjjjj = new JVDateFormatTTMMJJJJ();
       return mitglied.getNameVorname()
+          + (mitglied.getGeburtsdatum() != null ? ", "
+              + jvttmmjjjj.format(mitglied.getGeburtsdatum()) : "")
           + (mitglied.getBlz().length() > 0 ? ", " + mitglied.getBlz() + ", "
               + mitglied.getKonto() : "");
     }
