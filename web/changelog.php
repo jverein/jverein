@@ -10,13 +10,14 @@
           <li>Beim Import von Zusatzbeträgen sind jetzt auch Anführungszeichen als Feldbegrenzer erlaubt.</li>
           <li>Sofortige Aktualisierung der Anzeige nach Ist-Löschung im Mitgliedskonto. Patch von Julian.</li>
           <li>Neu: Spenden für JVerein.</li>
-          <li>Neu: Übersicht Familienbeiträge</li>
+          <li>Neu: Übersicht Familienbeiträge. Doppelklick öffnet das Mitglied. Rechtsklick bietet die Möglichkeit, das Mitglied aus dem Famlilienverband zu entfernen.</li>
           <hr>
           <li>Folgende Änderungen wurden nach Rev. 309 vorgenommen:</li>
           <li>Import: Spalte individuellerbeitrag ist keine Pflichtspalte</li>
           <li>Mitglieder-Statistik: Anpassung Ein- und Austritte an das Geschäftsjahr.</li>
           <li>Geschäftsjahr: Bugfix bei der Berechnung des Endes des Geschäftsjahres.</li>
           <li>Zusatzbeträge: Bugfix Default-Wert für das Fälligkeitsdatum</li>
+          <li>##Familienmitglied können jetzt per Rechtsklick entfernt werden.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
