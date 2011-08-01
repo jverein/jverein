@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-04-03 11:01:09  jost
+ * Neu: JVerein-Mitglieder mit Bankverbindung werden in das Hibiscus-Adressbuch übernommen.
+ *
  **********************************************************************/
 package de.jost_net.JVerein;
 
@@ -30,13 +33,14 @@ public class JVereinAdressbuch implements Addressbook
     return "JVerein-Adressbuch";
   }
 
-  public List findAddresses(String text) throws RemoteException
+  public List<MitgliedAddress> findAddresses(String text)
+      throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
     String su = "%" + text + "%";
     it.addFilter("(name like ? or vorname like ?)", new Object[] { su, su });
     it.addFilter("konto is not null and length(konto)>0 and blz is not null and length(blz) > 0");
-    ArrayList list = new ArrayList();
+    ArrayList<MitgliedAddress> list = new ArrayList<MitgliedAddress>();
     while (it.hasNext())
     {
       Mitglied m = (Mitglied) it.next();
