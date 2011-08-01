@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.2  2011-08-01 18:27:57  jost
+ * Funktionalität aus FamilienbeitragControl in MitgliedControl verschoben.
+ *
  * Revision 1.1  2011-07-24 18:04:27  jost
  * Neu: Auflistung Familienbeiträge
  *
@@ -44,6 +47,7 @@ public class FamilienbeitragView extends AbstractView
   public String getHelp()
   {
     return "<form><p><span color=\"header\" font=\"header\">Familienbeiträge</span></p>"
+    +"<p>Doppelklick öffnet das Mitglied. Rechtsklick bietet die Möglichkeit, das Mitglied aus dem Famlilienverband zu entfernen.</p>"
         + "</form>";
   }
 }
