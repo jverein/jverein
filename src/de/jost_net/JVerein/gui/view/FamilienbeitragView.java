@@ -9,12 +9,15 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-07-24 18:04:27  jost
+ * Neu: Auflistung Familienbeiträge
+ *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.control.FamilienbeitragControl;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.util.ButtonArea;
@@ -27,7 +30,7 @@ public class FamilienbeitragView extends AbstractView
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Familienbeitrag"));
 
-    final FamilienbeitragControl control = new FamilienbeitragControl(this);
+    final MitgliedControl control = new MitgliedControl(this);
 
     control.getFamilienbeitraegeTree().paint(this.getParent());
 

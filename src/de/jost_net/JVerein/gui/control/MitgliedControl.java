@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.121  2011-06-29 17:41:54  jost
+ * Korrekte Boolean-Abfrage
+ *
  * Revision 1.120  2011-06-28 07:26:06  jost
  * Bugfix SearchInput Name
  *
@@ -397,9 +400,11 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.Messaging.FamilienbeitragMessage;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzAction;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
+import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
@@ -407,6 +412,7 @@ import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
+import de.jost_net.JVerein.gui.menu.FamilienbeitragMenu;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
@@ -469,6 +475,8 @@ import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.parts.TreePart;
+import de.willuhn.jameica.messaging.Message;
+import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Platform;
@@ -532,6 +540,8 @@ public class MitgliedControl extends AbstractControl
   private DecimalInput individuellerbeitrag;
 
   private Familienverband famverb;
+
+  private TreePart familienbeitragtree;
 
   private SelectInput zahler;
 
@@ -600,6 +610,8 @@ public class MitgliedControl extends AbstractControl
 
   private Mitglied mitglied;
 
+  private FamilienbeitragMessageConsumer fbc = null;
+
   // Liste aller Zusatzbeträge
   private TablePart zusatzbetraegeList;
 
@@ -633,6 +645,11 @@ public class MitgliedControl extends AbstractControl
     }
     mitglied = (Mitglied) getCurrentObject();
     return mitglied;
+  }
+
+  public void setMitglied(Mitglied mitglied)
+  {
+    this.mitglied = mitglied;
   }
 
   /**
@@ -1215,7 +1232,7 @@ public class MitgliedControl extends AbstractControl
     return eintritt;
   }
 
-  public Input getBeitragsgruppe() throws RemoteException
+  public Input getBeitragsgruppe(boolean allgemein) throws RemoteException
   {
     if (beitragsgruppe != null)
     {
@@ -1224,6 +1241,11 @@ public class MitgliedControl extends AbstractControl
     DBIterator list = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
     list.setOrder("ORDER BY bezeichnung");
+    if (!allgemein)
+    {
+      list.addFilter("beitragsart <> ?",
+          new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER });
+    }
     beitragsgruppe = new SelectInput(list, getMitglied().getBeitragsgruppe());
     beitragsgruppe.setName("Beitragsgruppe");
     beitragsgruppe.setValue(getMitglied().getBeitragsgruppe());
@@ -1401,9 +1423,10 @@ public class MitgliedControl extends AbstractControl
       }
     });
 
-    if (getBeitragsgruppe() != null && getBeitragsgruppe().getValue() != null)
+    if (getBeitragsgruppe(true) != null
+        && getBeitragsgruppe(true).getValue() != null)
     {
-      Beitragsgruppe bg2 = (Beitragsgruppe) getBeitragsgruppe().getValue();
+      Beitragsgruppe bg2 = (Beitragsgruppe) getBeitragsgruppe(true).getValue();
       if (bg2.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
       {
         zahler.setEnabled(true);
@@ -2618,7 +2641,7 @@ public class MitgliedControl extends AbstractControl
       m.setAdressierungszusatz((String) getAdressierungszusatz().getValue());
       m.setAustritt((Date) getAustritt().getValue());
       m.setAnrede((String) getAnrede().getValue());
-      GenericObject o = (GenericObject) getBeitragsgruppe().getValue();
+      GenericObject o = (GenericObject) getBeitragsgruppe(true).getValue();
       if (adresstyp == null)
       {
         try
@@ -2836,6 +2859,19 @@ public class MitgliedControl extends AbstractControl
         eigenschaftenAuswahlTree));
     eigenschaftenAuswahlTree.setFormatter(new EigenschaftTreeFormatter());
     return eigenschaftenAuswahlTree;
+  }
+
+  public TreePart getFamilienbeitraegeTree() throws RemoteException
+  {
+    familienbeitragtree = new TreePart(new FamilienbeitragNode(),
+        new MitgliedDetailAction());
+    familienbeitragtree.addColumn("Name", "name");
+    familienbeitragtree.setContextMenu(new FamilienbeitragMenu());
+    familienbeitragtree.setRememberColWidths(true);
+    familienbeitragtree.setRememberOrder(true);
+    this.fbc = new FamilienbeitragMessageConsumer();
+    Application.getMessagingFactory().registerMessageConsumer(this.fbc);
+    return familienbeitragtree;
   }
 
   @SuppressWarnings("unchecked")
@@ -3347,4 +3383,64 @@ public class MitgliedControl extends AbstractControl
       }
     }
   }
+
+  /**
+   * Wird benachrichtigt um die Anzeige zu aktualisieren.
+   */
+  private class FamilienbeitragMessageConsumer implements MessageConsumer
+  {
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#autoRegister()
+     */
+    public boolean autoRegister()
+    {
+      return false;
+    }
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#getExpectedMessageTypes()
+     */
+    public Class<?>[] getExpectedMessageTypes()
+    {
+      return new Class[] { FamilienbeitragMessage.class };
+    }
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#handleMessage(de.willuhn.jameica.messaging.Message)
+     */
+    public void handleMessage(final Message message) throws Exception
+    {
+      GUI.getDisplay().syncExec(new Runnable()
+      {
+
+        public void run()
+        {
+          try
+          {
+            if (familienbeitragtree == null)
+            {
+              // Eingabe-Feld existiert nicht. Also abmelden
+              Application.getMessagingFactory().unRegisterMessageConsumer(
+                  FamilienbeitragMessageConsumer.this);
+              return;
+            }
+
+            FamilienbeitragMessage msg = (FamilienbeitragMessage) message;
+            Mitglied mitglied = (Mitglied) msg.getObject();
+            familienbeitragtree.setRootObject(new FamilienbeitragNode());
+          }
+          catch (Exception e)
+          {
+            // Wenn hier ein Fehler auftrat, deregistrieren wir uns wieder
+            Logger.error("unable to refresh saldo", e);
+            Application.getMessagingFactory().unRegisterMessageConsumer(
+                FamilienbeitragMessageConsumer.this);
+          }
+        }
+
+      });
+    }
+  }
+
 }
