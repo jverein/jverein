@@ -792,6 +792,14 @@ public class JVereinUpdateProvider
     {
       update0203(conn);
     }
+    if (cv < 204)
+    {
+      update0204(conn);
+    }
+    if (cv < 205)
+    {
+      update0205(conn);
+    }
   }
 
   public Connection getConnection()
@@ -2424,14 +2432,14 @@ public class JVereinUpdateProvider
       }
       rs.close();
       stmt.close();
-        PreparedStatement pstmt = conn
-            .prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
-        for (String eig : eigenschaften)
-        {
-          pstmt.setString(1, eig);
-          pstmt.executeUpdate();
-        }
-        pstmt.close();
+      PreparedStatement pstmt = conn
+          .prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
+      for (String eig : eigenschaften)
+      {
+        pstmt.setString(1, eig);
+        pstmt.executeUpdate();
+      }
+      pstmt.close();
     }
     catch (Exception e)
     {
@@ -5076,4 +5084,37 @@ public class JVereinUpdateProvider
       return spalte;
     }
   }
+
+  private void update0204(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "delete from eigenschaften where (select count(*) from eigenschaft where eigenschaft.id = eigenschaften.eigenschaft) = 0;";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Ggfls. Bugfix f. gelöschte Eigenschaften", 204);
+  }
+
+  private void update0205(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n");
+
+    execute(conn, statements, "Foreign Key für Tabelle eigenschaften erstellt",
+        205);
+  }
+
 }

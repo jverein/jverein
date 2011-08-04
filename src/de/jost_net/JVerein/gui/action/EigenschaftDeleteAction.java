@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-03-13 18:29:17  jost
+ * redakt. Kommentare
+ *
  * Revision 1.2  2009/11/23 20:38:36  jost
  * Bugfix Lösch-Button
  *
@@ -20,8 +23,11 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Eigenschaft;
+import de.jost_net.JVerein.rmi.Eigenschaften;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
@@ -55,8 +61,13 @@ public class EigenschaftDeleteAction implements Action
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(JVereinPlugin.getI18n().tr("Eigenschaft löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Eigenschaft wirklich löschen?"));
+      DBIterator it = Einstellungen.getDBService().createList(
+          Eigenschaften.class);
+      it.addFilter("eigenschaft = ?", new Object[] { ei.getID() });
+      d.setText(JVereinPlugin
+          .getI18n()
+          .tr("Wollen Sie diese Eigenschaft wirklich löschen? Sie ist noch mit {0} Mitglied(ern) verknüpft.",
+              it.size() + ""));
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -65,8 +76,9 @@ public class EigenschaftDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Eigenschaft"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr("Fehler beim Löschen der Eigenschaft"),
+            e);
         return;
       }
 
