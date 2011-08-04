@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2011-07-15 20:43:55  jost
+ * Zusätzliches Logging.
+ *
  * Revision 1.28  2011-04-22 06:27:23  jost
  * Alte Abrechnung deaktiviert
  *
@@ -358,17 +361,16 @@ public class AbbuchungControl extends AbstractControl
           "Interner Fehler - kann Abrechnungsmodus nicht auslesen");
     }
     Date vondatum = null;
+    if (stichtag.getValue() == null)
+    {
+      throw new ApplicationException("Stichtag fehlt");
+    }
     if (modus != Abrechnungsmodi.KEINBEITRAG)
     {
       vondatum = (Date) getVondatum().getValue();
       if (modus == Abrechnungsmodi.EINGETRETENEMITGLIEDER && vondatum == null)
       {
         throw new ApplicationException("von-Datum fehlt");
-      }
-
-      if (stichtag.getValue() == null)
-      {
-        throw new ApplicationException("Stichtag fehlt");
       }
     }
     Integer ausgabe;
