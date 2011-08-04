@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.52  2011-07-20 16:38:43  jost
+ * Bugfix NPE CSV-Ausgabe
+ *
  * Revision 1.51  2011-07-14 20:51:22  jost
  * Korrekte Sortierung nach ID
  *
@@ -956,7 +959,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setZahlungsweg(1);
     }
     map.put(MitgliedVar.ADRESSIERUNGSZUSATZ.getName(),
-        this.getAdressierungszusatz());
+        StringTool.toNotNullString(this.getAdressierungszusatz()));
     map.put(MitgliedVar.ADRESSTYP.getName(),
         StringTool.toNotNullString(this.getAdresstyp().getID()));
     map.put(MitgliedVar.ANREDE.getName(),
