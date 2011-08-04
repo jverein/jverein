@@ -18,6 +18,9 @@
           <li>Geschäftsjahr: Bugfix bei der Berechnung des Endes des Geschäftsjahres.</li>
           <li>Zusatzbeträge: Bugfix Default-Wert für das Fälligkeitsdatum</li>
           <li>##Familienmitglied können jetzt per Rechtsklick entfernt werden.</li>
+          <li>Bei der Löschung von Eigenschaften wird jetzt auch die Zuordnung von Mitgliedern zur Eigenschaft gelöscht.</li>
+          <li>Vermeidung NPE bei der Aufbereitung der Variablen für die Mahnung.</li>
+          <li>Abrechnung: Vermeidung NPE bei fehlendem Stichtagsdatum.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
