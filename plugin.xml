@@ -26,8 +26,7 @@
     <item name="JVerein"		
 	  icon-close="folder.png" 
 	  icon-open="folder-open.png" 	
-	  action="de.jost_net.JVerein.gui.action.WelcomeAction"
-      id="jverein.main">
+    id="jverein.main">
     </item>
   </navigation>
    
