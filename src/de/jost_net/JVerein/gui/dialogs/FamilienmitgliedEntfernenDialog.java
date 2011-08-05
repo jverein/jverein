@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-08-01 18:27:16  jost
+ * Neu: Familienmitglied aus Familienverband entfernen.
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;
@@ -19,7 +22,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Messaging.FamilienbeitragMessage;
-import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
 import de.jost_net.JVerein.gui.control.FamilienbeitragNode;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
