@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.5  2011-02-12 09:42:02  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.4  2010-10-15 09:58:30  jost
  * Code aufgeräumt
  *
@@ -60,8 +63,8 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     DBIterator list = Einstellungen.getDBService().createList(
         Kursteilnehmer.class);
     list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vzweck1) LIKE ? OR "
-        + "vzweck2 LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?",
-        new String[] { text, text, text, text, text });
+        + "vzweck2 LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?", text, text,
+        text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())

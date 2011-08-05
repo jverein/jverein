@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.54  2011-04-03 07:44:46  jost
+ * Bugfix DTAUS mit äöüß
+ *
  * Revision 1.53  2011-03-23 22:02:48  jost
  * Überflüssigen Code auskommentiert.
  *
@@ -655,7 +658,7 @@ public class Abbuchung
         .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
         .getID())
         + "/" + name;
-      mitgliedname =dtaus27(mitgliedname);
+    mitgliedname = dtaus27(mitgliedname);
     if (m.getKontoinhaber().length() > 0)
     {
       name = m.getKontoinhaber();
@@ -747,8 +750,7 @@ public class Abbuchung
       return null;
     }
     DBIterator it = Einstellungen.getDBService().createList(Konto.class);
-    it.addFilter("nummer = ?", new String[] { Einstellungen.getEinstellung()
-        .getKonto() });
+    it.addFilter("nummer = ?", Einstellungen.getEinstellung().getKonto());
     if (it.size() != 1)
     {
       throw new ApplicationException("Konto "

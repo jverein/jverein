@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-06-30 20:07:36  jost
+ * Rundungsfehler durch Einsatz von BigDecimal vermieden.
+ *
  * Revision 1.10  2011-06-06 18:24:34  jost
  * Bugfix Textschlüssel bei Hibiscus-Buchungen.
  *
@@ -836,8 +839,7 @@ public class Abrechnung
       return null;
     }
     DBIterator it = Einstellungen.getDBService().createList(Konto.class);
-    it.addFilter("nummer = ?", new String[] { Einstellungen.getEinstellung()
-        .getKonto() });
+    it.addFilter("nummer = ?", Einstellungen.getEinstellung().getKonto());
     if (it.size() != 1)
     {
       throw new ApplicationException("Konto "

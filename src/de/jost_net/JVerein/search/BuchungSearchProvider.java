@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-06-11 09:57:25  jost
+ * Korrekte Darstellung der Buchung in der globalen Suche.
+ *
  * Revision 1.3  2011-02-12 09:42:02  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -58,7 +61,7 @@ public class BuchungSearchProvider implements SearchProvider
     list.addFilter(
         "LOWER(name) LIKE ? OR betrag like ? OR "
             + "LOWER(zweck) LIKE ? OR LOWER(zweck2) LIKE ? OR LOWER(kommentar) LIKE ?",
-        new String[] { text, text, text, text, text });
+        text, text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())

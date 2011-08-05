@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-02-12 09:42:02  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.2  2010-10-15 09:58:30  jost
  * Code aufgeräumt
  *
@@ -53,8 +56,7 @@ public class MailVorlageSearchProvider implements SearchProvider
     String text = "%" + search.toLowerCase() + "%";
     DBIterator list = Einstellungen.getDBService()
         .createList(MailVorlage.class);
-    list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", new String[] {
-        text, text });
+    list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
