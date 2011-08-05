@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.122  2011-08-01 18:27:00  jost
+ * Funktionalität aus FamilienbeitragControl in MitgliedControl verschoben.
+ *
  * Revision 1.121  2011-06-29 17:41:54  jost
  * Korrekte Boolean-Abfrage
  *
@@ -3425,9 +3428,6 @@ public class MitgliedControl extends AbstractControl
                   FamilienbeitragMessageConsumer.this);
               return;
             }
-
-            FamilienbeitragMessage msg = (FamilienbeitragMessage) message;
-            Mitglied mitglied = (Mitglied) msg.getObject();
             familienbeitragtree.setRootObject(new FamilienbeitragNode());
           }
           catch (Exception e)
