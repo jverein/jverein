@@ -21,6 +21,7 @@
           <li>Bei der Löschung von Eigenschaften wird jetzt auch die Zuordnung von Mitgliedern zur Eigenschaft gelöscht.</li>
           <li>Vermeidung NPE bei der Aufbereitung der Variablen für die Mahnung.</li>
           <li>Abrechnung: Vermeidung NPE bei fehlendem Stichtagsdatum.</li>
+          <li>Mahnung: Korrekte Verarbeitung der Mitgliedskonto*-Variablen.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
