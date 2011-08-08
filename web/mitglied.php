@@ -3,7 +3,7 @@
     <p>
     <a name="Suche"></a>
     <h2>Suche</h2>
-    <img src='images/Mitgliedsuche.jpg' class='screenshot'>
+    <img src='images/MitgliedSuche.PNG' class='screenshot'>
     <p>Die Mitglieder sind nach dem Anfangsbuchstaben des Namens in die einzelnen Karteireiter einsortiert. 
     	In dem Karteireiter mit dem Stern sind alle Mitglieder eingetragen. Das System stellt immer den 
     	zuletzt benutzten Karteireiter wieder her. Nach einem Doppelklick auf das Mitglied werden die 
@@ -132,6 +132,9 @@
 
     <!-- 
     $Log$
+    Revision 1.8  2010-11-07 07:15:22  jost
+    Versionshinweise entfernt.
+
     Revision 1.7  2010-07-05 16:20:08  jost
     *** empty log message ***
 
