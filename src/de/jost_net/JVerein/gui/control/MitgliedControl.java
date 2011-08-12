@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.123  2011-08-05 14:51:22  jost
+ * Nicht benötigten Code entfernt.
+ *
  * Revision 1.122  2011-08-01 18:27:00  jost
  * Funktionalität aus FamilienbeitragControl in MitgliedControl verschoben.
  *
@@ -494,6 +497,8 @@ public class MitgliedControl extends AbstractControl
 
   private IntegerInput externemitgliedsnummer;
 
+  private TextInput mitgliedsnummer;
+
   private Input anrede;
 
   private Input titel;
@@ -713,6 +718,18 @@ public class MitgliedControl extends AbstractControl
     externemitgliedsnummer = new IntegerInput(ex);
     externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
     return externemitgliedsnummer;
+  }
+
+  public TextInput getMitgliedsnummer() throws RemoteException
+  {
+    if (mitgliedsnummer != null)
+    {
+      return mitgliedsnummer;
+    }
+    mitgliedsnummer = new TextInput(getMitglied().getID(), 10);
+    mitgliedsnummer.setName("Mitgliedsnummer");
+    mitgliedsnummer.setEnabled(false);
+    return mitgliedsnummer;
   }
 
   public Input getAnrede() throws RemoteException

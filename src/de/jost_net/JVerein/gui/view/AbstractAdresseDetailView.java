@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-08-12 12:26:05  jost
+ * Neu: Kontoauszug-Button
+ *
  * Revision 1.8  2011-08-01 18:27:42  jost
  * *** empty log message ***
  *
@@ -309,6 +312,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
       {
         tab3.addInput(control.getExterneMitgliedsnummer());
+      }
+      else
+      {
+        tab3.addInput(control.getMitgliedsnummer());
       }
       tab3.addInput(control.getEintritt());
       tab3.addInput(control.getBeitragsgruppe(true));
