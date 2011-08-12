@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.8  2011-08-01 18:27:42  jost
+ * *** empty log message ***
+ *
  * Revision 1.7  2011-06-19 06:30:06  jost
  * McKOI ausgemustert.
  *
@@ -208,6 +211,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresseDeleteAction;
 import de.jost_net.JVerein.gui.action.AdresseDetailAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.KontoauszugAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
@@ -224,7 +228,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
@@ -345,10 +349,12 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       TabGroup tab4 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Zusatzbeträge"));
       control.getZusatzbetraegeTable().paint(tab4.getComposite());
-      ButtonArea buttonszus = new ButtonArea(tab4.getComposite(), 1);
+      ButtonArea buttonszus = new ButtonArea();
       buttonszus.addButton(control.getZusatzbetragNeu());
+      buttonszus.paint(tab4.getComposite());
     }
-    if (!control.getMitglied().isNewObject())
+    if (!control.getMitglied().isNewObject()
+        && Einstellungen.getEinstellung().getMitgliedskonto())
     {
       TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
           .tr("Mitgliedskonto"));
@@ -370,8 +376,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       TabGroup tab6 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Wiedervorlage"));
       control.getWiedervorlageTable().paint(tab6.getComposite());
-      ButtonArea buttonswvl = new ButtonArea(tab6.getComposite(), 1);
+      ButtonArea buttonswvl = new ButtonArea();
       buttonswvl.addButton(control.getWiedervorlageNeu());
+      buttonswvl.paint(tab6.getComposite());
     }
     if (isMitgliedDetail())
     {
@@ -401,8 +408,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       TabGroup tab9 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Lehrgänge"));
       control.getLehrgaengeTable().paint(tab9.getComposite());
-      ButtonArea buttonslehrg = new ButtonArea(tab9.getComposite(), 1);
+      ButtonArea buttonslehrg = new ButtonArea();
       buttonslehrg.addButton(control.getLehrgangNeu());
+      buttonslehrg.paint(tab9.getComposite());
     }
     if (isMitgliedDetail() && Einstellungen.getEinstellung().getMitgliedfoto())
     {
@@ -415,8 +423,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       TabGroup tabArbEins = new TabGroup(folder, JVereinPlugin.getI18n().tr(
           "Arbeitseinsatz"));
       control.getArbeitseinsatzTable().paint(tabArbEins.getComposite());
-      ButtonArea buttonswvl = new ButtonArea(tabArbEins.getComposite(), 1);
-      buttonswvl.addButton(control.getArbeitseinsatzNeu());
+      ButtonArea buttonsarbeins = new ButtonArea();
+      buttonsarbeins.addButton(control.getArbeitseinsatzNeu());
+      buttonsarbeins.paint(tabArbEins.getComposite());
     }
     if (JVereinPlugin.isArchiveServiceActive()
         && !control.getMitglied().isNewObject())
@@ -430,8 +439,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       mido.setReferenz(new Integer(control.getMitglied().getID()));
       DokumentControl dcontrol = new DokumentControl(this, "mitglieder");
       grDokument.addPart(dcontrol.getDokumenteList(mido));
-      ButtonArea butts = new ButtonArea(grDokument.getComposite(), 1);
+      ButtonArea butts = new ButtonArea();
       butts.addButton(dcontrol.getNeuButton(mido));
+      butts.paint(grDokument.getComposite());
     }
 
     if (tabindex != -1)
@@ -452,7 +462,15 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     });
 
-    ButtonArea buttons = new ButtonArea(getParent(), 7);
+    ButtonArea buttons = new ButtonArea();
+    if (!control.getMitglied().isNewObject()
+        && Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
+      mkcontrol.getStartKontoauszugButton(control.getMitglied());
+      buttons.addButton(new Button("Kontoauszug", new KontoauszugAction(),
+          control.getMitglied(), false, "rechnung.png"));
+    }
     if (isMitgliedDetail())
     {
       buttons.addButton(new Button("Personalbogen", new PersonalbogenAction(),
@@ -478,6 +496,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(getParent());
   }
 
   @Override
