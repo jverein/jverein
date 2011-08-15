@@ -22,6 +22,11 @@
           <li>Vermeidung NPE bei der Aufbereitung der Variablen für die Mahnung.</li>
           <li>Abrechnung: Vermeidung NPE bei fehlendem Stichtagsdatum.</li>
           <li>Mahnung: Korrekte Verarbeitung der Mitgliedskonto*-Variablen.</li>
+          <hr>
+          <li>Folgende Änderungen wurden nach Rev. 312 vorgenommen:</li>
+          <li>Sterbedatum ist jetzt optional. Unter Einstellungen|Ansicht|Sterbedatum kann die Einstellung vorgenommen werden.</li>
+          <li>Neu: Ausgabe Kontoauszug Mitgliedskonto.</li>
+          <li>Mitglied: Anzeige der Mitgliedsnummer.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
