@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.27  2011-02-12 09:23:28  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.26  2011-02-03 22:46:12  jost
  * Sofortige Übernahme der Änderungen
  *
@@ -170,6 +173,8 @@ public class Einstellungen
             "geburtsdatum.pflicht", true));
         einstellung.setEintrittsdatumPflicht(settings.getBoolean(
             "eintrittsdatum.pflicht", true));
+        einstellung.setSterbedatum(settings.getBoolean(
+            "sterbedatum", false));
         einstellung.setKommunikationsdaten(settings.getBoolean(
             "kommunikationsdaten.einblenden", true));
         einstellung.setZusatzbetrag(settings.getBoolean(

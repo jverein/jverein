@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.48  2011-05-20 13:00:15  jost
+ * Neu: Individueller Beitrag
+ *
  * Revision 1.47  2011-04-07 19:30:11  jost
  * Neue Zurückbutton-Mimik aus Jameica
  *
@@ -226,6 +229,8 @@ public class EinstellungenView extends AbstractView
         control.getGeburtsdatumPflicht());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum Pflichtfeld"),
         control.getEintrittsdatumPflicht());
+    left.addLabelPair(JVereinPlugin.getI18n().tr("Sterbedatum"),
+        control.getSterbedatum());
     left.addLabelPair(JVereinPlugin.getI18n()
         .tr("Kommunikationsdaten anzeigen"), control.getKommunikationsdaten());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge anzeigen")

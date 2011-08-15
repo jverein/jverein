@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2011-06-19 06:33:16  jost
+ * Umstellung Datenbanktyp für booleans von char(5) auf boolean (h2) bzw. tinyint (MySQL)
+ *
  * Revision 1.28  2011-05-20 13:00:51  jost
  * Neu: Individueller Beitrag
  *
@@ -170,6 +173,10 @@ public interface Einstellung extends DBObject
 
   public void setEintrittsdatumPflicht(Boolean eintrittsdatumpflicht)
       throws RemoteException;
+
+  public Boolean getSterbedatum() throws RemoteException;
+
+  public void setSterbedatum(Boolean sterbedatum) throws RemoteException;
 
   public Boolean getKommunikationsdaten() throws RemoteException;
 

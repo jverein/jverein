@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.16  2011-02-12 09:39:52  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.15  2010-10-30 11:31:23  jost
  * Neu: Sterbetag
  *
@@ -102,9 +105,9 @@ public class MitgliedAuswertungPDF
           130, Color.LIGHT_GRAY);
       report.addHeaderColumn("Geburts- datum", Element.ALIGN_CENTER, 30,
           Color.LIGHT_GRAY);
-      report.addHeaderColumn(
-          "Eintritt / \nAustritt / \nKündigung /\nSterbedatum",
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+      report.addHeaderColumn("Eintritt / \nAustritt / \nKündigung"
+          + (Einstellungen.getEinstellung().getSterbedatum() ? "/\nSterbedatum"
+              : ""), Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
       report.addHeaderColumn("Beitragsgruppe /\nEigenschaften",
           Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);

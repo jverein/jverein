@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.25  2011-06-19 06:30:31  jost
+ * McKOI ausgemustert.
+ *
  * Revision 1.24  2011-05-15 10:07:30  jost
  * Projekt "Speicherung Auswertungseinstellungen" eingestampft.
  *
@@ -126,8 +129,11 @@ public class AuswertungMitgliedView extends AbstractView
     left.addInput(control.getGeburtsdatumvon());
     left.addInput(control.getGeburtsdatumbis());
 
-    left.addInput(control.getSterbedatumvon());
-    left.addInput(control.getSterbedatumbis());
+    if (Einstellungen.getEinstellung().getSterbedatum())
+    {
+      left.addInput(control.getSterbedatumvon());
+      left.addInput(control.getSterbedatumbis());
+    }
 
     SelectInput inpGeschlecht = control.getGeschlecht();
     inpGeschlecht.setMandatory(false);

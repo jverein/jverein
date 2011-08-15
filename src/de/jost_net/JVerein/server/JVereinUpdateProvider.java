@@ -800,6 +800,10 @@ public class JVereinUpdateProvider
     {
       update0205(conn);
     }
+    if (cv < 206)
+    {
+      update0206(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5115,6 +5119,23 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key für Tabelle eigenschaften erstellt",
         205);
+  }
+
+  private void update0206(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD sterbedatum boolean before kommunikationsdaten;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD sterbedatum bit(1) after eintrittsdatumpflicht;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte sterbedatum in die Tabelle einstellung aufgenommen", 206);
   }
 
 }
