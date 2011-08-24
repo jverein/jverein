@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.46  2011-08-15 14:57:23  jost
+ * Sterbedatum jetzt optional
+ *
  * Revision 1.45  2011-06-22 20:53:00  jost
  * *** empty log message ***
  *
@@ -783,7 +786,7 @@ public class EinstellungControl extends AbstractControl
     }
     zahlungsweg = new SelectInput(Zahlungsweg.getArray(), new Zahlungsweg(
         Einstellungen.getEinstellung().getZahlungsweg()));
-    zahlungsweg.setName("Zahlungsweg");
+    zahlungsweg.setName("Standard-Zahlungsweg f. neue Mitglieder");
     return zahlungsweg;
   }
 
@@ -796,7 +799,7 @@ public class EinstellungControl extends AbstractControl
     zahlungsrhytmus = new SelectInput(
         Zahlungsrhytmus.getArray(),
         new Zahlungsrhytmus(Einstellungen.getEinstellung().getZahlungsrhytmus()));
-    zahlungsrhytmus.setName("Zahlungsrhytmus");
+    zahlungsrhytmus.setName("Standard-Zahlungsrhytmus f. neue Mitglieder");
     return zahlungsrhytmus;
   }
 
