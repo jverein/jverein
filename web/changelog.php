@@ -28,6 +28,7 @@
           <li>Neu: Ausgabe Kontoauszug Mitgliedskonto.</li>
           <li>Mitglied: Anzeige der Mitgliedsnummer.</li>
           <li>Bugfix bei der Tabellenhöhe der Arbeitsdienstüberprüfung.</li>
+          <li>Bugfix "Übernahme"-Button für Soll+Ist im Mitgliedskontoauswahldialog. <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=680'>Patch von Danzelot.</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
