@@ -15,7 +15,7 @@
 		entsprechender Hinweis. Dann muss entweder ein bislang beitragsfreies Mitglied zum Zahler 
 		erklärt werden oder der Familienverband wird aufgelöst und es werden Einzelbeiträge erhoben.</p>
 	<h2>Zahlungsrhythmen</h2>
-	<p>JVerein unterstützt verschiedene Zahlungsrhythmen:</p>
+	<p>JVerein unterstützt verschiedene Betragsmodelle:</p>
 	<ul>
 		<li>Feste Zahlungstermine. Alle Mitglieder zahlen zu festen Terminen ihren Beitrag. Dieser 
 			Termin kann jährlich, halbjährlich, vierteljährlich oder monatlich sein. Zu diesem Termin 
@@ -24,11 +24,15 @@
 		<li>Unterschiedliche Zahlungstermine. Die Mitglieder zahlen einen Monatsbeitrag gemäß 
 			<a href="administration_beitragsgruppen.php">Beitragsgruppe</a>. Dieser Beitrag wird 
 			entweder jährlich (12 Monatsbeiträge), halbjährlich (6 Monatsbeiträge), vierteljährlich 
-			(3 Monatsbeiträge) oder monatlich erhoben.</li>
+			(3 Monatsbeiträge) oder monatlich erhoben. Bei der Abrechnung muss dann ausgewählt werden,
+			welche Beiträge abgerechnet werden sollen.</li>
 	</ul>
 	
     <!-- 
     $Log$
+    Revision 1.1  2009-05-08 14:46:22  jost
+    shtml - php
+
     Revision 1.1  2009/05/03 15:33:30  jost
     Neue Homepage
 
