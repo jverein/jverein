@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-06-12 07:08:24  jost
+ * Spezialsuche bei Namen mit Namensvorsätzen (von, di, de ...)
+ *
  * Revision 1.8  2011-05-05 19:50:47  jost
  * Bugfix Scrollbar
  *
@@ -158,20 +161,32 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
     mitgliedlist.paint(tabSollIst.getComposite());
 
     ButtonArea b = new ButtonArea();
+
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
-
       public void handleAction(Object context)
       {
         Object o = mitgliedskontolist.getSelection();
-        if (o == null || !(o instanceof Mitgliedskonto))
+
+        if (o instanceof Mitgliedskonto)
         {
-          return;
+          choosen = o;
+          close();
         }
-        choosen = (Mitgliedskonto) o;
-        close();
+        else
+        {
+          o = mitgliedlist.getSelection();
+
+          if (o instanceof Mitglied)
+          {
+            choosen = o;
+            close();
+          }
+        }
+        return;
       }
     }, null, true, "emblem-default.png");
+
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("entfernen")), new Action()
     {
 
