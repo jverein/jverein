@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.9  2011-08-23 17:23:25  jost
+ * Bugfix Tabellenhöhe
+ *
  * Revision 1.8  2011-05-22 08:34:26  jost
  * Namen korrigiert
  *
@@ -49,7 +52,6 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.util.ApplicationException;
 
 public class ArbeitseinsatzUeberpruefungView extends AbstractView
