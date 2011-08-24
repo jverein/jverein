@@ -14,7 +14,7 @@
 		Famlienmitglieder sind miteinander verknüpft. Tritt das zahlende Mitglied aus, erscheint ein 
 		entsprechender Hinweis. Dann muss entweder ein bislang beitragsfreies Mitglied zum Zahler 
 		erklärt werden oder der Familienverband wird aufgelöst und es werden Einzelbeiträge erhoben.</p>
-	<h2>Zahlungsrhythmen</h2>
+	<h2>Beitragsmodelle</h2>
 	<p>JVerein unterstützt verschiedene Betragsmodelle:</p>
 	<ul>
 		<li>Feste Zahlungstermine. Alle Mitglieder zahlen zu festen Terminen ihren Beitrag. Dieser 
@@ -30,6 +30,9 @@
 	
     <!-- 
     $Log$
+    Revision 1.2  2011-08-24 16:49:31  jost
+    *** empty log message ***
+
     Revision 1.1  2009-05-08 14:46:22  jost
     shtml - php
 
