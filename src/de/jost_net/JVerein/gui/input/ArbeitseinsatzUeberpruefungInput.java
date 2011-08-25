@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2010-11-22 20:58:53  jost
+ * Initial Commit
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;
@@ -31,6 +34,8 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
 
   public static final int MEHRLEISTUNG = 3;
 
+  public static final int ALLE = 4;
+
   public ArbeitseinsatzUeberpruefungInput(int schluessel)
       throws RemoteException
   {
@@ -47,6 +52,7 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
     l.add(new ArbeitseinsatzUeberpruefungObject(MINDERLEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(PASSENDELEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(MEHRLEISTUNG));
+    l.add(new ArbeitseinsatzUeberpruefungObject(ALLE));
     return PseudoIterator.fromArray(l
         .toArray(new ArbeitseinsatzUeberpruefungObject[l.size()]));
   }
@@ -77,7 +83,11 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
     {
       this.schluessel = schluessel;
 
-      if (schluessel == MINDERLEISTUNG)
+      if (schluessel == ALLE)
+      {
+        this.label = JVereinPlugin.getI18n().tr("alle");
+      }
+      else if (schluessel == MINDERLEISTUNG)
       {
         this.label = JVereinPlugin.getI18n().tr("Minderleistung");
       }
