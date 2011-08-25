@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-01-04 14:19:59  jost
+ * Einschränkung auf die Beitragsgruppen mit Arbeitseinsätzen.
+ *
  * Revision 1.2  2010-11-24 21:56:31  jost
  * nur angemeldete Mitglieder
  *
@@ -67,24 +70,33 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
       if (arbeitseinsatzueberpruefungList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator.fromArray(zeile
+            .toArray(new GenericObject[zeile.size()]));
 
         arbeitseinsatzueberpruefungList = new TablePart(gi,
             new MitgliedDetailAction());
-        arbeitseinsatzueberpruefungList.addColumn(JVereinPlugin.getI18n().tr(
-            "Name, Vorname"), "namevorname");
-        arbeitseinsatzueberpruefungList.addColumn(JVereinPlugin.getI18n().tr(
-            "Sollstunden"), "soll");
-        arbeitseinsatzueberpruefungList.addColumn(JVereinPlugin.getI18n().tr(
-            "Iststunden"), "ist");
-        arbeitseinsatzueberpruefungList.addColumn(JVereinPlugin.getI18n().tr(
-            "Differenz"), "differenz");
-        arbeitseinsatzueberpruefungList.addColumn(JVereinPlugin.getI18n().tr(
-            "Stundensatz"), "stundensatz", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        arbeitseinsatzueberpruefungList.addColumn(JVereinPlugin.getI18n().tr(
-            "Gesamtbetrag"), "gesamtbetrag", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        arbeitseinsatzueberpruefungList.addColumn(
+            JVereinPlugin.getI18n().tr("Name, Vorname"), "namevorname");
+        arbeitseinsatzueberpruefungList.addColumn(
+            JVereinPlugin.getI18n().tr("Sollstunden"), "soll",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        arbeitseinsatzueberpruefungList.addColumn(
+            JVereinPlugin.getI18n().tr("Iststunden"), "ist",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        arbeitseinsatzueberpruefungList.addColumn(
+            JVereinPlugin.getI18n().tr("Differenz"), "differenz",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        arbeitseinsatzueberpruefungList.addColumn(
+            JVereinPlugin.getI18n().tr("Stundensatz"), "stundensatz",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        arbeitseinsatzueberpruefungList.addColumn(
+            JVereinPlugin.getI18n().tr("Gesamtbetrag"), "gesamtbetrag",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
         arbeitseinsatzueberpruefungList.setRememberColWidths(true);
         arbeitseinsatzueberpruefungList.setSummary(true);
       }
@@ -112,25 +124,25 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
     String sql = "select mitglied.id as id, arbeitseinsatzstunden  sollstunden, beitragsgruppe.arbeitseinsatzbetrag as betrag, sum(stunden)  iststunden from mitglied "
         + "  join beitragsgruppe on mitglied.beitragsgruppe = beitragsgruppe.id "
         + "  left join arbeitseinsatz on mitglied.id = arbeitseinsatz.mitglied and year(arbeitseinsatz.datum) = ? "
-        + "where  (mitglied.eintritt is null or year(mitglied.eintritt) <= ?) and (mitglied.austritt is null or year(mitglied.austritt) > ?) and beitragsgruppe.arbeitseinsatzstunden is not null and beitragsgruppe.arbeitseinsatzstunden > 0 and ";
+        + "where  (mitglied.eintritt is null or year(mitglied.eintritt) <= ?) and (mitglied.austritt is null or year(mitglied.austritt) > ?) and beitragsgruppe.arbeitseinsatzstunden is not null and beitragsgruppe.arbeitseinsatzstunden > 0 ";
 
+    sql += "  group by mitglied.id ";
     if (schluessel == ArbeitseinsatzUeberpruefungInput.MINDERLEISTUNG)
     {
-      sql += "    (arbeitseinsatzstunden is not null and (stunden < arbeitseinsatzstunden or stunden is null)) ";
+      sql += "    having iststunden < arbeitseinsatzstunden or iststunden is null  ";
     }
 
     if (schluessel == ArbeitseinsatzUeberpruefungInput.PASSENDELEISTUNG)
     {
-      sql += "  (arbeitseinsatzstunden is not null and stunden = arbeitseinsatzstunden) ";
+      sql += "    having iststunden = arbeitseinsatzstunden  ";
     }
 
     if (schluessel == ArbeitseinsatzUeberpruefungInput.MEHRLEISTUNG)
     {
-      sql += "  (arbeitseinsatzstunden is not null and stunden > arbeitseinsatzstunden) ";
+      sql += "    having iststunden > arbeitseinsatzstunden  ";
     }
 
-    sql += "  group by mitglied.id "
-        + "  order by mitglied.name, mitglied.vorname, mitglied.id ";
+    sql += "  order by mitglied.name, mitglied.vorname, mitglied.id ";
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
@@ -148,8 +160,8 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
         return ergebnis;
       }
     };
-    return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService().execute(
-        sql, new Object[] { jahr, jahr, jahr}, rs);
+     return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService()
+        .execute(sql, new Object[] { jahr, jahr, jahr }, rs);
   }
 
   @Override
