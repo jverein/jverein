@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.3  2011-02-12 09:41:11  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.2  2010/05/18 20:23:26  jost
  * Überflüssige Imports entfernt.
  *
@@ -27,13 +30,7 @@ public class Abrechnungsmodi
 {
   public static final int KEINBEITRAG = 0;
 
-  public static final int JAEHRLICH = 1;
-
-  public static final int HALBJAEHRLICH = 2;
-
-  public static final int VIERTELJAEHRLICH = 3;
-
-  public static final int MONATLICH = 4;
+  public static final int ALLE = 1;
 
   public static final int JA = 5;
 
@@ -76,13 +73,8 @@ public class Abrechnungsmodi
     {
       case KEINBEITRAG:
         return JVereinPlugin.getI18n().tr("keine Beitragsabrechnung");
-      case JAEHRLICH:
-        return JVereinPlugin.getI18n().tr("Jahresbeiträge");
-      case HALBJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("Halbjahresbeiträge");
-      case VIERTELJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("Vierteljahresbeiträge");
-      case MONATLICH:
+      case ALLE:
+        return JVereinPlugin.getI18n().tr("Alle");
       case MO:
         return JVereinPlugin.getI18n().tr("Monatsbeiträge");
       case VI:

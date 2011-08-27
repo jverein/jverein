@@ -17,7 +17,7 @@
 	<h2>Beitragsmodelle</h2>
 	<p>JVerein unterstützt verschiedene Betragsmodelle:</p>
 	<ul>
-		<li>Feste Zahlungstermine. Alle Mitglieder zahlen zu festen Terminen ihren Beitrag. Dieser 
+		<li>Alle Mitglieder zahlen zu festen Terminen ihren Beitrag. Dieser 
 			Termin kann jährlich, halbjährlich, vierteljährlich oder monatlich sein. Zu diesem Termin 
 			wird für jedes Mitglied der Beitrag gemäß <a href="administration_beitragsgruppen.php">
 			Beitragsgruppe</a> eingezogen.</li>
@@ -30,6 +30,9 @@
 	
     <!-- 
     $Log$
+    Revision 1.3  2011-08-24 17:55:10  jost
+    *** empty log message ***
+
     Revision 1.2  2011-08-24 16:49:31  jost
     *** empty log message ***
 

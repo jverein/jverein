@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-02-12 09:33:56  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.10  2010-10-15 09:58:29  jost
  * Code aufgeräumt
  *
@@ -74,24 +77,9 @@ public class AbbuchungsmodusInput extends SelectInput
   {
     ArrayList<AbbuchungsmodusObject> l = new ArrayList<AbbuchungsmodusObject>();
     l.add(new AbbuchungsmodusObject(Abrechnungsmodi.KEINBEITRAG));
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.JAEHRLICH)
+    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.GLEICHERTERMINFUERALLE)
     {
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAEHRLICH));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
-    }
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.HALBJAEHRLICH)
-    {
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HALBJAEHRLICH));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
-    }
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.VIERTELJAEHRLICH)
-    {
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VIERTELJAEHRLICH));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
-    }
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH)
-    {
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MONATLICH));
+      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ALLE));
       l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
     }
     if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
@@ -119,7 +107,7 @@ public class AbbuchungsmodusInput extends SelectInput
     AbbuchungsmodusObject o = (AbbuchungsmodusObject) super.getValue();
     if (o == null)
     {
-      return Integer.valueOf(Abrechnungsmodi.JAEHRLICH);
+      return Integer.valueOf(Abrechnungsmodi.ALLE);
     }
     return Integer.valueOf(o.abbuchungsmodus);
   }

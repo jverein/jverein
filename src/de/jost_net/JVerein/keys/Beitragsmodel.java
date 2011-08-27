@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.4  2011-02-12 09:41:26  jost
+ * Statische Codeanalyse mit Findbugs
+ *
  * Revision 1.3  2009/06/11 21:04:03  jost
  * Vorbereitung I18N
  *
@@ -30,13 +33,7 @@ import de.jost_net.JVerein.JVereinPlugin;
  */
 public class Beitragsmodel
 {
-  public static final int JAEHRLICH = 1;
-
-  public static final int HALBJAEHRLICH = 2;
-
-  public static final int VIERTELJAEHRLICH = 3;
-
-  public static final int MONATLICH = 4;
+  public static final int GLEICHERTERMINFUERALLE = 1;
 
   public static final int MONATLICH12631 = 5;
 
@@ -61,14 +58,8 @@ public class Beitragsmodel
   {
     switch (key)
     {
-      case JAEHRLICH:
-        return JVereinPlugin.getI18n().tr("jährlich");
-      case HALBJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("halbjährlich");
-      case VIERTELJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("vierteljährlich");
-      case MONATLICH:
-        return JVereinPlugin.getI18n().tr("monatlich");
+      case GLEICHERTERMINFUERALLE:
+        return JVereinPlugin.getI18n().tr("Gleicher Termin für alle");
       case MONATLICH12631:
         return JVereinPlugin
             .getI18n()
@@ -81,10 +72,7 @@ public class Beitragsmodel
   public static ArrayList<Beitragsmodel> getArray()
   {
     ArrayList<Beitragsmodel> ret = new ArrayList<Beitragsmodel>();
-    ret.add(new Beitragsmodel(JAEHRLICH));
-    ret.add(new Beitragsmodel(HALBJAEHRLICH));
-    ret.add(new Beitragsmodel(VIERTELJAEHRLICH));
-    ret.add(new Beitragsmodel(MONATLICH));
+    ret.add(new Beitragsmodel(GLEICHERTERMINFUERALLE));
     ret.add(new Beitragsmodel(MONATLICH12631));
     return ret;
   }

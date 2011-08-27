@@ -804,6 +804,14 @@ public class JVereinUpdateProvider
     {
       update0206(conn);
     }
+    if (cv < 207)
+    {
+      update0207(conn);
+    }
+    if (cv < 208)
+    {
+      update0208(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5136,6 +5144,34 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte sterbedatum in die Tabelle einstellung aufgenommen", 206);
+  }
+
+  private void update0207(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE abrechnungslauf SET modus = 1 where modus >=2 and modus <=4;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Modus modifiziert in Tabelle abrechnungslauf",
+        207);
+  }
+
+  private void update0208(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE einstellung SET beitragsmodel = 1 where beitragsmodel >=2 and beitragsmodel <=4;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Beitragsmodel modifiziert in Tabelle einstellung", 208);
   }
 
 }

@@ -9,6 +9,9 @@
  * www.jverein.de
  * All rights reserved
  * $Log$
+ * Revision 1.28  2011-08-15 14:57:04  jost
+ * Sterbedatum jetzt optional
+ *
  * Revision 1.27  2011-02-12 09:23:28  jost
  * Statische Codeanalyse mit Findbugs
  *
@@ -173,8 +176,7 @@ public class Einstellungen
             "geburtsdatum.pflicht", true));
         einstellung.setEintrittsdatumPflicht(settings.getBoolean(
             "eintrittsdatum.pflicht", true));
-        einstellung.setSterbedatum(settings.getBoolean(
-            "sterbedatum", false));
+        einstellung.setSterbedatum(settings.getBoolean("sterbedatum", false));
         einstellung.setKommunikationsdaten(settings.getBoolean(
             "kommunikationsdaten.einblenden", true));
         einstellung.setZusatzbetrag(settings.getBoolean(
@@ -188,7 +190,7 @@ public class Einstellungen
         einstellung.setExterneMitgliedsnummer(settings.getBoolean(
             "externemitgliedsnummer.verwenden", false));
         einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
-            Beitragsmodel.JAEHRLICH));
+            Beitragsmodel.GLEICHERTERMINFUERALLE));
         einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",
             "a$s$-d$-z$"));
         einstellung.setBeginnGeschaeftsjahr(settings.getString(
