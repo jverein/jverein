@@ -9,7 +9,8 @@
     		</ul>
     <h2>Entwicklerversionen</h2>
      		<ul>
-     		  <li><a href='http://prdownload.berlios.de/jverein/jverein.2.1.0-devel-312.zip'>Version 2.1 Rev. 312</a>&nbsp;Für alle Betriebssysteme. Vom 07.08.2011 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
+          <li><a href='http://prdownload.berlios.de/jverein/jverein.2.1.0-devel-315.zip'>Version 2.1 Rev. 315</a>&nbsp;Für alle Betriebssysteme. Vom 27.08.2011 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
+          <li><a href='http://prdownload.berlios.de/jverein/jverein.2.1.0-devel-312.zip'>Version 2.1 Rev. 312</a>&nbsp;Für alle Betriebssysteme. Vom 07.08.2011 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
     		</ul> 
     <h2>Vorherige Versionen</h2>
     		<ul>
@@ -30,6 +31,9 @@
     
     <!-- 
     $Log$
+    Revision 1.47  2011-08-12 15:57:17  jost
+    *** empty log message ***
+
     Revision 1.46  2011-08-07 08:20:02  jost
     *** empty log message ***
 
