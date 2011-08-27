@@ -31,6 +31,8 @@
           <li>Bugfix "Übernahme"-Button für Soll+Ist im Mitgliedskontoauswahldialog. <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=680'>Patch von Danzelot.</a></li>
           <li>Bugfix Filter Überprüfung Arbeitseinsätze. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=678'>Forum</a></li>
           <li>Neue Filteroption "alle" bei der Überprüfung Arbeitseinsätze. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=678'>Forum</a></li>
+          <li>Mitgliedskontoauswahl: Bugfix OperationCanceledException und Widged is disposed. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=679'>Forum</a>
+          <li>Abrechnung/Beitragsmodell: Vereinfachung der Parameter, jährlich, halbjährlich, vierteljährlich und monatlich zu 'alle' bzw. 'gleicher Termin für alle'</a>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
