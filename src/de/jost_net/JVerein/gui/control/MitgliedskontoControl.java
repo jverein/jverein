@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.29  2011-08-11 15:23:17  jost
+ * Neu: Kontoauszug
+ *
  * Revision 1.28  2011-06-12 07:08:07  jost
  * Spezialsuche bei Namen mit Namensvorsätzen (von, di, de ...)
  *
@@ -390,7 +393,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public CheckboxInput getSpezialSuche()
   {
-    if (spezialsuche != null)
+    if (spezialsuche != null && !spezialsuche.getControl().isDisposed())
     {
       return spezialsuche;
     }
