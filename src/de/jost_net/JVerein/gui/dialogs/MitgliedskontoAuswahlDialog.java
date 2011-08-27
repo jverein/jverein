@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.10  2011-08-24 16:03:50  jost
+ * Bugfix "Übernahme"-Button für Soll+Ist
+ *
  * Revision 1.9  2011-06-12 07:08:24  jost
  * Spezialsuche bei Namen mit Namensvorsätzen (von, di, de ...)
  *
@@ -204,7 +207,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
 
       public void handleAction(Object context)
       {
-        throw new OperationCanceledException();
+        close();
       }
     }, null, false, "process-stop.png");
     b.paint(parent);
