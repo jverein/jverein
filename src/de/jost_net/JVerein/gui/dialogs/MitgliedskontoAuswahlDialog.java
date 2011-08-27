@@ -10,6 +10,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.11  2011-08-27 06:42:29  jost
+ * Bugfix OperationCanceledException
+ * siehe http://www.jverein.de/forum/viewtopic.php?f=5&t=679
+ *
  * Revision 1.10  2011-08-24 16:03:50  jost
  * Bugfix "Übernahme"-Button für Soll+Ist
  *
@@ -44,7 +48,6 @@
 
 package de.jost_net.JVerein.gui.dialogs;
 
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
