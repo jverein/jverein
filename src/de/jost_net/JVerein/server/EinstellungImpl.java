@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.34  2011-08-15 14:58:58  jost
+ * Sterbedatum jetzt optional
+ *
  * Revision 1.33  2011-06-19 06:34:56  jost
  * Umstellung Datenbanktyp für booleans von char(5) auf boolean (h2) bzw. tinyint (MySQL)
  *
@@ -114,6 +117,7 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -123,6 +127,9 @@ import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.plugin.AbstractPlugin;
+import de.willuhn.jameica.plugin.Manifest;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -211,6 +218,25 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       catch (RuntimeException e)
       {
         throw new ApplicationException(e.getMessage());
+      }
+
+      if (getDokumentenspeicherung())
+      {
+        boolean messaging = false;
+        List<AbstractPlugin> plugins = Application.getPluginLoader()
+            .getInstalledPlugins();
+        for (AbstractPlugin plugin : plugins)
+        {
+          if (plugin.getManifest().getName().equals("jameica.messaging"))
+          {
+            messaging = true;
+          }
+        }
+        if (!messaging)
+        {
+          throw new ApplicationException(
+              "Plugin jameica.messaging ist nicht installiert!");
+        }
       }
       try
       {
