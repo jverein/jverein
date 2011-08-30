@@ -33,6 +33,9 @@
           <li>Neue Filteroption "alle" bei der Überprüfung Arbeitseinsätze. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=678'>Forum</a></li>
           <li>Mitgliedskontoauswahl: Bugfix OperationCanceledException und Widged is disposed. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=679'>Forum</a>
           <li>Abrechnung/Beitragsmodell: Vereinfachung der Parameter, jährlich, halbjährlich, vierteljährlich und monatlich zu 'alle' bzw. 'gleicher Termin für alle'</a>
+          <hr>
+          <li>Folgende Änderungen wurden nach Rev. 315 vorgenommen:</li>
+          <li>Bei der Speicherung der Einstellungen wird auf notwendige Plugins geprüft, wenn Dokumentenspeicherung aktiviert wurde.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
