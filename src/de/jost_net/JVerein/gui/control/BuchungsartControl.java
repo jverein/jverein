@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.19  2011-03-07 21:03:51  jost
+ * Neu:  Automatische Spendenbescheinigungen: Eigenschaft Spende aufgenommen
+ *
  * Revision 1.18  2011-02-03 22:32:24  jost
  * Neu: Liste der Buchungsarten
  *
@@ -335,6 +338,7 @@ public class BuchungsartControl extends AbstractControl
     final File file = new File(s);
     final DBIterator it = Einstellungen.getDBService().createList(
         Buchungsart.class);
+    it.setOrder("ORDER BY nummer");
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
