@@ -36,6 +36,7 @@
           <hr>
           <li>Folgende Änderungen wurden nach Rev. 315 vorgenommen:</li>
           <li>Bei der Speicherung der Einstellungen wird auf notwendige Plugins geprüft, wenn Dokumentenspeicherung aktiviert wurde.</li>
+          <li>Bugfix Sortierung Buchungsartenliste. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?t=693&p=2709#p2709'>Forum</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
