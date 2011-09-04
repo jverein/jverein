@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-08-05 14:52:31  jost
+ * Warnings entfernt.
+ *
  * Revision 1.11  2011-06-30 20:07:36  jost
  * Rundungsfehler durch Einsatz von BigDecimal vermieden.
  *
@@ -844,7 +847,7 @@ public class Abrechnung
     {
       throw new ApplicationException("Konto "
           + Einstellungen.getEinstellung().getKonto()
-          + " ist in der Buchführung nicht eingerichtet.");
+          + " ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten");
     }
     Konto k = (Konto) it.next();
     return k;
