@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.30  2011-08-27 06:41:56  jost
+ * Bugfix Control is disposed
+ * siehe http://www.jverein.de/forum/viewtopic.php?f=5&t=679
+ *
  * Revision 1.29  2011-08-11 15:23:17  jost
  * Neu: Kontoauszug
  *
@@ -135,7 +139,6 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
-import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericIterator;
@@ -612,7 +615,7 @@ public class MitgliedskontoControl extends AbstractControl
 
     DBIterator mitglieder = Einstellungen.getDBService().createList(
         Mitglied.class);
-    MitgliedUtils.setMitgliedOderSpender(mitglieder);
+    // MitgliedUtils.setMitgliedOderSpender(mitglieder);
     if (suchname2 != null && suchname2.getValue() != null)
     {
       StringBuffer where = new StringBuffer();
