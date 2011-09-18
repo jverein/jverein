@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.31  2011-09-08 06:59:09  jost
+ * Neben Mitgliedern und Spendern können jetzt alle Adressen ausgewählt werden.
+ *
  * Revision 1.30  2011-08-27 06:41:56  jost
  * Bugfix Control is disposed
  * siehe http://www.jverein.de/forum/viewtopic.php?f=5&t=679
@@ -448,6 +451,10 @@ public class MitgliedskontoControl extends AbstractControl
 
   public TextInput getSuchName()
   {
+    if (suchname != null)
+    {
+      return suchname;
+    }
     suchname = new TextInput("", 30);
     suchname.setName("Name");
     suchname.addListener(new FilterListener());
