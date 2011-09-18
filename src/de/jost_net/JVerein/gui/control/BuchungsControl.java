@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.39  2011-06-20 15:10:59  jost
+ * Überflüssiges throws entfernt.
+ *
  * Revision 1.38  2011-04-23 19:43:32  jost
  * Alternative Sortierung des Buchungsjournals nach ID/Buchungsnummer
  *
@@ -407,7 +410,7 @@ public class BuchungsControl extends AbstractControl
     // {
     // return mitgliedskonto;
     // }
-    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung(), this)
+    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
         .getMitgliedskontoAuswahl();
     return mitgliedskonto;
   }

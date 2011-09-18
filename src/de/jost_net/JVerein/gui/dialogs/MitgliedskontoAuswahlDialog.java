@@ -10,6 +10,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.12  2011-08-27 11:02:59  jost
+ * Überflüssigen Import entfernt.
+ *
  * Revision 1.11  2011-08-27 06:42:29  jost
  * Bugfix OperationCanceledException
  * siehe http://www.jverein.de/forum/viewtopic.php?f=5&t=679
@@ -55,9 +58,9 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
@@ -86,11 +89,11 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
 
   private TablePart mitgliedlist = null;
 
-  private BuchungsControl buchung;
+  private Buchung buchung;
 
-  public MitgliedskontoAuswahlDialog(int position, BuchungsControl buchung)
+  public MitgliedskontoAuswahlDialog(Buchung buchung)
   {
-    super(position, true);
+    super(MitgliedskontoAuswahlDialog.POSITION_MOUSE, true);
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     settings.setStoreWhenRead(true);
 
@@ -147,7 +150,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
           "Bitte wählen Sie das gewünschte Mitgliedskonto aus.");
     }
     grSollIst.addText(text, true);
-    control.getSuchName2(true).setValue(buchung.getName().getValue());
+    control.getSuchName2(true).setValue(buchung.getName());
     grSollIst.addLabelPair("Name", control.getSuchName2(false));
     grSollIst.addInput(control.getSpezialSuche());
 

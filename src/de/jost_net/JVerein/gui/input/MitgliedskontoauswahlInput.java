@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.7  2011-04-24 09:50:53  jost
+ * Automatisierte Befüllung von Istbuchungen bei der Auswahl des Mitgliedskontos.
+ *
  * Revision 1.6  2011-02-26 15:54:42  jost
  * Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl
  *
@@ -38,7 +41,6 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -53,20 +55,25 @@ public class MitgliedskontoauswahlInput
 
   private DialogInput mitgliedskontoAuswahl = null;
 
-  private Buchung buchung = null;
+  private Buchung[] buchungen = null;
 
-  private BuchungsControl buchungscontrol = null;
+  // private BuchungsControl buchungscontrol = null;
 
   private Mitgliedskonto konto = null;
 
   private Mitglied mitglied = null;
 
-  public MitgliedskontoauswahlInput(Buchung buchung,
-      BuchungsControl buchungscontrol) throws RemoteException
+  public MitgliedskontoauswahlInput(Buchung[] buchungen) throws RemoteException
   {
-    this.buchung = buchung;
-    this.buchungscontrol = buchungscontrol;
-    this.konto = buchung.getMitgliedskonto();
+    this.buchungen = buchungen;
+    this.konto = buchungen[0].getMitgliedskonto();
+  }
+
+  public MitgliedskontoauswahlInput(Buchung buchung) throws RemoteException
+  {
+    buchungen = new Buchung[1];
+    buchungen[0] = buchung;
+    this.konto = buchungen[0].getMitgliedskonto();
   }
 
   /**
@@ -82,7 +89,7 @@ public class MitgliedskontoauswahlInput
       return mitgliedskontoAuswahl;
     }
     MitgliedskontoAuswahlDialog d = new MitgliedskontoAuswahlDialog(
-        MitgliedskontoAuswahlDialog.POSITION_MOUSE, buchungscontrol);
+        buchungen[0]);
     d.addCloseListener(new MitgliedskontoListener());
 
     mitgliedskontoAuswahl = new DialogInput(konto != null ? konto.getMitglied()
@@ -92,7 +99,7 @@ public class MitgliedskontoauswahlInput
         + ", "
         + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
     mitgliedskontoAuswahl.disableClientControl();
-    mitgliedskontoAuswahl.setValue(buchung.getMitgliedskonto());
+    mitgliedskontoAuswahl.setValue(buchungen[0].getMitgliedskonto());
     return mitgliedskontoAuswahl;
   }
 
@@ -139,18 +146,17 @@ public class MitgliedskontoauswahlInput
           b = konto.getMitglied().getNameVorname() + ", "
               + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
               + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
-          String name = (String) buchungscontrol.getName().getValue();
-          String zweck1 = (String) buchungscontrol.getZweck().getValue();
-          String zweck2 = (String) buchungscontrol.getZweck2().getValue();
+          String name = (String) buchungen[0].getName();
+          String zweck1 = (String) buchungen[0].getZweck();
+          String zweck2 = (String) buchungen[0].getZweck2();
           if (name.length() == 0 && zweck1.length() == 0
               && zweck2.length() == 0)
           {
-            buchungscontrol.getName().setValue(
-                konto.getMitglied().getNameVorname());
-            buchungscontrol.getZweck().setValue(konto.getZweck1());
-            buchungscontrol.getZweck2().setValue(konto.getZweck2());
-            buchungscontrol.getBetrag().setValue(konto.getBetrag());
-            buchungscontrol.getDatum().setValue(new Date());
+            buchungen[0].setName(konto.getMitglied().getNameVorname());
+            buchungen[0].setZweck(konto.getZweck1());
+            buchungen[0].setZweck2(konto.getZweck2());
+            buchungen[0].setBetrag(konto.getBetrag());
+            buchungen[0].setDatum(new Date());
           }
         }
         else if (event.data instanceof Mitglied)
