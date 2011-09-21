@@ -36,7 +36,7 @@
 	<h2>Jameica-Suite für Windows-Benutzer</h2>
 	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat die Jameica Suite zusammengestellt. 
 		Windows-Benutzer können Jameica, Hibiscus, Syntax und JVerein per Setup-Datei installieren. 
-		<a href="http://www.vb-krautheim.de/projekt01/deutsch/informationen/onlinebanking/software/jameica_banking_und_jameica_suite.html">Download der Jameica-Suite</a></p>
+		<a href="download.php">Download</a></p>
 	<h2>Jameica + Plugins portable</h2>
 	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat eine <a href="jameica_portable.php">
 		Anleitung</a> zur Installation von JRE, Jameica und Plugins auf einem USB-Stick oder anderen 
@@ -58,6 +58,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.8  2011-06-28 07:26:57  jost
+    *** empty log message ***
+
     Revision 1.7  2010-11-10 18:18:49  jost
     *** empty log message ***
 
