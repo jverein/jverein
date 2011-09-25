@@ -39,6 +39,7 @@
           <li>Bugfix Sortierung Buchungsartenliste. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?t=693&p=2709#p2709'>Forum</a></li>
           <li>Mitgliedskonto: Bei der Auswahl können jetzt nicht nur Mitglieder oder Spender sondern alle Adressen ausgewählt werden.</a>
           <li>Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2740'>Forum</a></li>
+          <li>Individuelle Spendenbescheinigung: Check ob auch ein Forumlar ausgewählt wurde - Patch von Christian Lutz</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>

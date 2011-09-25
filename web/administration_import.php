@@ -244,14 +244,6 @@
 		<td>ja</td>
 	</tr>
   <tr>
-    <td>Eigenschaft_nn</td>
-    <td>Eigenschaft eines Mitglieds. Diese Spalte kann mehrfach vorkommen. Anstatt von nn werden 01-99 oder andere Werte eingetragen.
-        Die importieren Eigenschaften werden der Gruppe 'Noch nicht zugeordnet' zugeordnet.</td>
-    <td>30</td>
-    <td>nein</td>
-    <td>ja</td>
-  </tr>
-  <tr>
     <td>Eigenschaft_xxxxx</td>
     <td>Eigenschaft eines Mitglieds. Diese Spalte kann mehrfach vorkommen. Anstatt von xxxxx wird die Eigenschaftengruppe eingetragen.
         Die importieren Eigenschaften dieser Gruppe zugeordnet.</td>
@@ -278,6 +270,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straﬂe;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.19  2011-09-25 13:20:12  jost
+    *** empty log message ***
+
     Revision 1.18  2011-08-24 16:04:03  jost
     *** empty log message ***
 
