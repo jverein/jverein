@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.24  2011-06-30 20:06:55  jost
+ * Überflüssige Imports entfernt.
+ *
  * Revision 1.23  2011-06-22 20:53:11  jost
  * *** empty log message ***
  *
@@ -766,8 +769,16 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
+    
+    /* Check ob auch ein Forumular ausgewaehlt ist */
+    Formular spendeformular = getSpendenbescheinigung().getFormular();
+    if( spendeformular == null ) {
+    	GUI.getStatusBar().setErrorText("Bitte Formular auswaehlen");
+    	return;
+    }
+    
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, getSpendenbescheinigung().getFormular().getID());
+        Formular.class, spendeformular.getID() );
     Map<String, Object> map = getSpendenbescheinigung().getMap(null);
     map = new AllgemeineMap().getMap(map);
     FormularAufbereitung fa = new FormularAufbereitung(file);
