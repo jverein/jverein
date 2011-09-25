@@ -243,14 +243,22 @@
 		<td>nein</td>
 		<td>ja</td>
 	</tr>
-	<tr>
-		<td>Eigenschaft_xx</td>
-		<td>Eigenschaft eines Mitglieds. Diese Spalte kann mehrfach vorkommen. Anstatt von xx werden 01-99 oder andere Werte eingetragen.
-		    Die importieren Eigenschaften werden der Gruppe 'Noch nicht zugeordnet' zugeordnet.</td>
-		<td>30</td>
-		<td>nein</td>
-		<td>ja</td>
-	</tr>
+  <tr>
+    <td>Eigenschaft_nn</td>
+    <td>Eigenschaft eines Mitglieds. Diese Spalte kann mehrfach vorkommen. Anstatt von nn werden 01-99 oder andere Werte eingetragen.
+        Die importieren Eigenschaften werden der Gruppe 'Noch nicht zugeordnet' zugeordnet.</td>
+    <td>30</td>
+    <td>nein</td>
+    <td>ja</td>
+  </tr>
+  <tr>
+    <td>Eigenschaft_xxxxx</td>
+    <td>Eigenschaft eines Mitglieds. Diese Spalte kann mehrfach vorkommen. Anstatt von xxxxx wird die Eigenschaftengruppe eingetragen.
+        Die importieren Eigenschaften dieser Gruppe zugeordnet.</td>
+    <td>30</td>
+    <td>nein</td>
+    <td>ja</td>
+  </tr>
 	</table>
 	<p>Als Feldtrennzeichen wird das Semikolon verwendet. Jede Zeile muss die gleiche Anzahl Semikola 
 	enthalten. Die Datei darf keine Anführungszeichen enthalten. Bei jedem Mitglied müssen die Spalten 
@@ -270,6 +278,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	
 	<!-- 
     $Log$
+    Revision 1.18  2011-08-24 16:04:03  jost
+    *** empty log message ***
+
     Revision 1.17  2011-08-23 20:55:11  jost
     *** empty log message ***
 
