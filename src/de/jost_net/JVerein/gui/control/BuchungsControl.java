@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2011-09-18 09:36:08  jost
+ * Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen.
+ *
  * Revision 1.39  2011-06-20 15:10:59  jost
  * Überflüssiges throws entfernt.
  *
@@ -821,6 +824,7 @@ public class BuchungsControl extends AbstractControl
       {
         buchungsList.addItem(buchungen.next());
       }
+      buchungsList.sort();
     }
     return buchungsList;
   }
