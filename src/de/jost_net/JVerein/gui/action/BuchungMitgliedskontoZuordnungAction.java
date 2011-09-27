@@ -9,16 +9,22 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.1  2011-09-18 09:35:49  jost
+ * Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen.
+ *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -40,7 +46,7 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null
-        || (!(context instanceof Buchung) && !(context instanceof Buchung[])))
+        || !(context instanceof Buchung) && !(context instanceof Buchung[]))
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Keine Buchung(en) ausgewählt"));
@@ -64,13 +70,44 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
       try
       {
         MitgliedskontoAuswahlDialog mkaz = new MitgliedskontoAuswahlDialog(b[0]);
-        Mitgliedskonto mk = (Mitgliedskonto) mkaz.open();
+        Object open = mkaz.open();
+        Mitgliedskonto mk = null;
+
+        if ( open instanceof Mitgliedskonto ) {
+            mk = (Mitgliedskonto) open;
+        }
+        else if ( open instanceof Mitglied ) {
+                    Mitglied m = (Mitglied) open;
+                    mk = (Mitgliedskonto) Einstellungen.getDBService()
+                                                       .createObject( Mitgliedskonto.class, null );
+
+                    Double betrag = 0d;
+                    for ( Buchung buchung : b ) {
+                        betrag += buchung.getBetrag();
+                    }
+
+                    mk.setBetrag(betrag);
+                    mk.setDatum(b[0].getDatum());
+                    mk.setMitglied(m);
+                    mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
+                    mk.setZweck1(b[0].getZweck());
+                    mk.setZweck2(b[0].getZweck2());
+                    mk.store();
+        }
+
+        if ( mk == null ) {
+                    GUI.getStatusBar()
+                       .setErrorText( JVereinPlugin.getI18n()
+                                                   .tr( "Fehler bei der Ermittlung des Mitgliedskontos" ) );
+        }
+
         for (Buchung buchung : b)
         {
-          buchung.setMitgliedskonto(mk);
-          buchung.store();
+            buchung.setMitgliedskonto(mk);
+            buchung.store();
         }
         System.out.println(mk.getBetrag() + mk.getZweck1());
+
         control.getBuchungsList();
         GUI.getStatusBar().setSuccessText(
             JVereinPlugin.getI18n().tr("Mitgliedskonto zugeordnet"));
