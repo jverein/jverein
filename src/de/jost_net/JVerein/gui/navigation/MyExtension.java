@@ -9,6 +9,10 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.40  2011-07-24 18:04:04  jost
+ * Neu: Auflistung Familienbeiträge
+ * Neu: Spenden für JVerein
+ *
  * Revision 1.39  2011-01-30 08:27:55  jost
  * Neu: Zusatzadressen
  *
@@ -138,6 +142,7 @@ import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzUeberpruefungAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
 import de.jost_net.JVerein.gui.action.AuswertungMitgliedAction;
+import de.jost_net.JVerein.gui.action.BLZUpdateAction;
 import de.jost_net.JVerein.gui.action.BackupCreateAction;
 import de.jost_net.JVerein.gui.action.BackupRestoreAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
@@ -349,6 +354,8 @@ public class MyExtension implements Extension
             .getI18n().tr("Adresstypen"), new AdresstypListAction(),
             "layout_co.gif"));
       }
+      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
+          .tr("BLZ-Update"), new BLZUpdateAction(), "adler.png"));
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, JVereinPlugin
           .getI18n().tr("Erweitert"), null);

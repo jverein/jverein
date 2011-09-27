@@ -9,6 +9,9 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
+ * Revision 1.27  2011-01-29 19:31:10  jost
+ * Doku Adressen
+ *
  * Revision 1.26  2011-01-27 22:22:31  jost
  * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
  *
@@ -119,6 +122,8 @@ public class DokumentationUtil
 
   public static final String BEITRAGSGRUPPEN = PRE
       + "administration_beitragsgruppen.php";
+
+  public static final String BLZUPDATE = PRE + "administration_blzupdate.php";
 
   public static final String BUCHUNGSARTEN = PRE
       + "administration_buchungsarten.php";
