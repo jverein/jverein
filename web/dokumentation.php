@@ -49,6 +49,7 @@
 		<li><a href="administration_felddefinitionen.php">Felddefinitionen</a></li>
 		<li><a href="administration_formulare.php">Formulare</a></li>
 		<li><a href="administration_adresstypen.php">Adresstypen (ab Version 2.0)</a></li>
+		<li><a href="administration_blzupdate.php">BLZ-Update (ab Version 2.1)</a></li>
 		<li><a href="administration_erweitert.php">Erweitert</a>
 		<ul>
 			<li><a href="administration_erweitert.php#backup_erstellen">Diagnosebackup
@@ -70,6 +71,9 @@
 
     <!-- 
     $Log$
+    Revision 1.21  2011-07-01 17:38:25  jost
+    *** empty log message ***
+
     Revision 1.20  2011-06-23 05:53:41  jost
     *** empty log message ***
 
