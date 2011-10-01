@@ -9,10 +9,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007/10/18 18:19:52  jost
- * Vorbereitung H2-DB
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
@@ -22,6 +18,7 @@ import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.jameica.plugin.Version;
+
 /**
  * Interface fuer den Datenbank-Service von JVerein.
  */
@@ -34,7 +31,7 @@ public interface JVereinDBService extends DBService
 
   /**
    * Aktualisiert die Datenbank.
-    */
+   */
   public void update(Version oldVersion, Version newVersion)
       throws RemoteException;
 

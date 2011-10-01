@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2007/02/23 20:26:00  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/10/29 07:47:21  jost
- * Neu: Mitgliederstatistik
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

@@ -9,40 +9,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.11  2011-02-12 09:33:56  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.10  2010-10-15 09:58:29  jost
- * Code aufger�umt
- *
- * Revision 1.9  2010-04-25 13:54:45  jost
- * Vorarbeiten Mitgliedskonto
- *
- * Revision 1.8  2009/06/11 21:02:51  jost
- * Vorbereitung I18N
- *
- * Revision 1.7  2008/12/19 06:54:02  jost
- * Eingetretene Mitglieder auch bei monatlicher, .... Abrechnung
- *
- * Revision 1.6  2008/11/29 13:10:11  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.5  2008/11/16 16:57:13  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- * Revision 1.4  2008/08/10 12:35:19  jost
- * Abbuchung -> Abrechnung
- * Vorbereitung der Rechnungserstellung
- *
- * Revision 1.3  2008/01/31 19:36:46  jost
- * Jährliche, Halbjährliche und Vierteljährliche Abbuchungen können jetzt separat ausgeführt werden.
- *
- * Revision 1.2  2007/12/30 10:09:48  jost
- * Neuer Rhytmus: Jahr, Vierteljahr und Monat
- *
- * Revision 1.1  2007/12/02 13:40:04  jost
- * Neu: Beitragsmodelle
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;

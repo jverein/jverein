@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.31  2011-04-17 06:39:26  jost
- * Sterbedatum durch Eintrittsdatum ersetzt.
- *
- * Revision 1.30  2011-01-29 19:31:24  jost
- * Feinschliff
- *
- * Revision 1.29  2011-01-27 22:22:59  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-10-10 08:53:02  jost
- * Kontoauszugsinformationen en Bloc zuweisen
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 
@@ -64,8 +60,9 @@ public class KontoauszugZuordnungDialog extends AbstractDialog
     LabelGroup group = new LabelGroup(parent, "");
     group.addLabelPair(JVereinPlugin.getI18n().tr("Auszug"), getAuszug());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Blatt"), getBlatt());
-    group.addLabelPair(JVereinPlugin.getI18n().tr(
-        "Kontoauszugsinformationen überschreiben"), getUeberschreiben());
+    group.addLabelPair(
+        JVereinPlugin.getI18n().tr("Kontoauszugsinformationen überschreiben"),
+        getUeberschreiben());
     group.addLabelPair("", getStatus());
 
     ButtonArea buttons = new ButtonArea(parent, 2);

@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2009-09-15 19:22:36  jost
- * Summenbildung.
- *
- * Revision 1.1  2009/09/12 19:04:44  jost
- * neu: Buchungsjournal
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -55,8 +45,8 @@ public class BuchungsjournalPDF
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(dVon) + " bis "
-          + new JVDateFormatTTMMJJJJ().format(dBis);
+      String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(dVon)
+          + " bis " + new JVDateFormatTTMMJJJJ().format(dBis);
       if (konto != null)
       {
         subtitle += " für Konto " + konto.getNummer() + " - "

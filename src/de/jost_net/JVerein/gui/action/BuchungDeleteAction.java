@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.8  2010-08-21 08:44:07  jost
- * Bugfix: Keine Löschung, wenn Buchung bereits abgeschlossen.
- *
- * Revision 1.7  2009/12/17 19:21:53  jost
- * Mehrere Buchungen können gleichzeitig gelöscht werden.
- *
- * Revision 1.6  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.5  2008/03/16 07:34:42  jost
- * Reaktivierung BuchfÃ¼hrung
- *
- * Revision 1.3  2007/02/23 20:25:42  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2006/10/18 06:01:26  jost
- * Überflüssige Import-Statements entfernt.
- *
- * Revision 1.1  2006/10/14 16:10:44  jost
- * Buchungen löschen eingeführt
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

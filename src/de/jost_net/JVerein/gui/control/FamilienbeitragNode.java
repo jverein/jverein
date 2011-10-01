@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2011-07-24 18:03:37  jost
- * Neu: Auflistung Familienbeiträge
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

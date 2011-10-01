@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2009/04/13 11:38:48  jost
- * Neu: Lehrgänge
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -66,8 +62,9 @@ public class LehrgangsartDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen einer Lehrgangsart"), e);
+        Logger.error(
+            JVereinPlugin.getI18n()
+                .tr("Fehler beim Löschen einer Lehrgangsart"), e);
         return;
       }
       l.delete();

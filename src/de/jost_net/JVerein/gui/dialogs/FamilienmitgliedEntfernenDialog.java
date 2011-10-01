@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2011-08-01 18:27:16  jost
- * Neu: Familienmitglied aus Familienverband entfernen.
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;

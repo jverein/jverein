@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2009/06/11 21:04:02  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2008/12/13 16:24:55  jost
- * equals()-Methode implementiert.
- *
- * Revision 1.1  2008/11/29 13:13:15  jost
- * Refactoring: Code-Optimierung
- *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 

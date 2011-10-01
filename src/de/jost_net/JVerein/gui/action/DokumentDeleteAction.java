@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-12-12 08:08:22  jost
- * Neu: Speicherung von Dokumenten
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -64,14 +60,14 @@ public class DokumentDeleteAction implements Action
           return;
         }
         QueryMessage qm = new QueryMessage(ad.getUUID(), null);
-        Application.getMessagingFactory().getMessagingQueue(
-            "jameica.messaging.del").sendSyncMessage(qm);
+        Application.getMessagingFactory()
+            .getMessagingQueue("jameica.messaging.del").sendSyncMessage(qm);
         ad.delete();
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen des Dokuments"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr("Fehler beim Löschen des Dokuments"), e);
         return;
       }
       GUI.getStatusBar().setSuccessText(

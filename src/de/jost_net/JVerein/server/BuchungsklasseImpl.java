@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-11-13 09:29:39  jost
- * Warnings entfernt.
- *
- * Revision 1.2  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.1  2009-09-10 18:19:58  jost
- * neu: Buchungsklassen
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

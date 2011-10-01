@@ -8,31 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.8  2011-05-16 17:47:47  jost
- * Encoding geändert.
- *
- * Revision 1.7  2011-04-08 22:23:46  jost
- * Bugfix Encoding
- *
- * Revision 1.6  2011-04-06 16:29:22  jost
- * Neu: Starttls
- *
- * Revision 1.5  2011-02-12 09:39:26  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.4  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2010-02-15 17:23:36  jost
- * Mail-Anhang implementiert
- *
- * Revision 1.2  2010/02/01 21:02:02  jost
- * Logging entsprechend des eingestellten Levels.
- *
- * Revision 1.1  2009/10/17 19:46:59  jost
- * Vorbereitung Mailversand.
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.io;

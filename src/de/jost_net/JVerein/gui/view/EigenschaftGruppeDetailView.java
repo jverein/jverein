@@ -8,31 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.8  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.7  2010-11-27 19:28:55  jost
- * Optional: max. eine Eigenschaft auswählbar
- *
- * Revision 1.6  2010-11-03 21:32:25  jost
- * Redakt.
- *
- * Revision 1.5  2010-10-15 09:58:25  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2010-10-07 19:49:24  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.3  2010-09-09 18:50:40  jost
- * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
- *
- * Revision 1.2  2010-08-23 13:39:32  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.1  2009/11/17 21:00:04  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

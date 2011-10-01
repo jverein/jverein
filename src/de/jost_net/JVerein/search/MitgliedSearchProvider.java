@@ -9,24 +9,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.6  2011-02-12 09:42:02  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.5  2010-10-15 09:58:30  jost
- * Code aufger‰umt
- *
- * Revision 1.4  2009-06-11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.3  2008/11/29 13:14:38  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.2  2008/10/01 14:18:07  jost
- * Warnungen entfernt
- *
- * Revision 1.1  2008/09/04 18:57:37  jost
- * SearchProvider f√ºr die neue Jameica-Suchmaschine
- *
  **********************************************************************/
 package de.jost_net.JVerein.search;
 

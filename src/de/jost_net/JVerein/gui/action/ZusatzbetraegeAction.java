@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2008/12/22 21:06:50  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.3  2007/02/23 20:26:00  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2006/12/20 20:25:44  jost
- * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
- *
- * Revision 1.1  2006/09/20 15:38:12  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

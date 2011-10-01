@@ -8,49 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.14  2011-05-06 14:48:38  jost
- * Neue Variablenmimik
- *
- * Revision 1.13  2011-04-23 06:56:07  jost
- * Neu: Freie Formulare
- *
- * Revision 1.12  2010-10-28 19:13:19  jost
- * Neu: Wohnsitzstaat
- *
- * Revision 1.11  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.10  2010-08-16 20:16:16  jost
- * Neu: Mahnung
- *
- * Revision 1.9  2010-08-10 15:58:34  jost
- * neues Feld Zahlungsgrund
- *
- * Revision 1.8  2010-08-10 05:38:18  jost
- * Undo
- *
- * Revision 1.7  2010-08-08 19:32:26  jost
- * neues Feld Summe
- *
- * Revision 1.6  2009/04/10 17:45:50  jost
- * Zusätzliche Datenfelder für die Rechnungserstellung
- *
- * Revision 1.5  2009/01/26 18:47:34  jost
- * Neu: Ersatz Aufwendungen
- *
- * Revision 1.4  2008/11/29 13:07:42  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.3  2008/10/01 14:17:12  jost
- * Warnungen entfernt
- *
- * Revision 1.2  2008/09/16 18:27:24  jost
- * Refactoring Formularaufbereitung
- *
- * Revision 1.1  2008/07/18 20:09:31  jost
- * Neu: Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-02-01 20:59:00  jost
- * Vermeidung Warnings.
- *
- * Revision 1.1  2009/10/20 17:58:08  jost
- * Neu: Import von Zusatzbeträgen
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 

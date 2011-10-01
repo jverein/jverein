@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2011-04-20 19:42:33  jost
- * Stringfelder mit LIKE abfragen
- *
- * Revision 1.1  2011-04-17 06:37:36  jost
- * Neu: Mitglieder-Selektion nach Zusatzfeldern
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 

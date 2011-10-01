@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2011-04-07 19:35:47  jost
- * Neue Zurückbutton-Mimik aus Jameica
- *
- * Revision 1.2  2011-03-09 22:16:41  jost
- * Einschränkung auf ein Jahr.
- *
- * Revision 1.1  2011-03-07 21:05:05  jost
- * Neu:  Automatische Spendenbescheinigungen
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

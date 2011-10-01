@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2010-11-13 09:31:24  jost
- * Warnings entfernt.
- *
- * Revision 1.6  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.5  2010-09-14 15:41:03  jost
- * Vermeidung NPE
- *
- * Revision 1.4  2010-09-07 17:00:29  jost
- * neue Methode
- *
- * Revision 1.3  2010/01/01 20:12:19  jost
- * Typisierung der Zusatzfelder
- *
- * Revision 1.2  2008/11/29 13:17:46  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.1  2008/04/10 19:03:24  jost
- * Neu: Benutzerdefinierte Datenfelder
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

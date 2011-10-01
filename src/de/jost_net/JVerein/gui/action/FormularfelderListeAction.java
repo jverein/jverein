@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008/07/18 20:07:42  jost
- * Neu: Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

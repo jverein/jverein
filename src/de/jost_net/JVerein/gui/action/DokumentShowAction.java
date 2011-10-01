@@ -8,7 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -47,13 +46,13 @@ public class DokumentShowAction implements Action
         return;
       }
       QueryMessage qm = new QueryMessage(ad.getUUID(), null);
-      Application.getMessagingFactory().getMessagingQueue(
-          "jameica.messaging.getmeta").sendSyncMessage(qm);
+      Application.getMessagingFactory()
+          .getMessagingQueue("jameica.messaging.getmeta").sendSyncMessage(qm);
       Map map = (Map) qm.getData();
 
       qm = new QueryMessage(ad.getUUID(), null);
-      Application.getMessagingFactory().getMessagingQueue(
-          "jameica.messaging.get").sendSyncMessage(qm);
+      Application.getMessagingFactory()
+          .getMessagingQueue("jameica.messaging.get").sendSyncMessage(qm);
       byte[] data = (byte[]) qm.getData();
       final File file = new File(System.getProperty("java.io.tmpdir") + "/"
           + map.get("filename"));

@@ -8,7 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -62,8 +61,9 @@ public class MailVorlageDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der MailVorlage"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr("Fehler beim Löschen der MailVorlage"),
+            e);
         return;
       }
       GUI.getStatusBar().setSuccessText(

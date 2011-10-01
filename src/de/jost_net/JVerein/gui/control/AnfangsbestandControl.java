@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2009-07-27 15:21:44  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.3  2008/12/06 16:45:40  jost
- * Debug-Meldung entfernt.
- *
- * Revision 1.2  2008/07/12 11:55:16  jost
- * Bugfix beim Speichern des Anfangsbestandes.
- *
- * Revision 1.1  2008/05/22 06:47:13  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

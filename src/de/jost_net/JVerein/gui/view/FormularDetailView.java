@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.10  2011-01-15 09:46:48  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.9  2010-10-15 09:58:23  jost
- * Code aufgeräumt
- *
- * Revision 1.8  2010-10-07 19:49:24  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.7  2010-08-23 13:39:32  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.6  2009/07/24 20:21:34  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.5  2009/06/11 21:03:39  jost
- * Vorbereitung I18N
- *
- * Revision 1.4  2009/03/26 21:03:06  jost
- * Javadoc angepasst.
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007/03/21 12:09:32  jost
- * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurÃ¼ckgesetzt werden.
- *
- * Revision 1.2  2007/02/23 20:26:00  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:38:12  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -60,11 +50,9 @@ public class KursteilnehmerAbuResetAction implements Action
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(JVereinPlugin.getI18n().tr("Abbuchungsdatum zurücksetzen"));
-      d
-          .setText(JVereinPlugin
-              .getI18n()
-              .tr(
-                  "Wollen Sie das Ausführungsdatum der Abbuchung wirklich zurücksetzen?"));
+      d.setText(JVereinPlugin
+          .getI18n()
+          .tr("Wollen Sie das Ausführungsdatum der Abbuchung wirklich zurücksetzen?"));
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -73,8 +61,10 @@ public class KursteilnehmerAbuResetAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Reset des Abbuchungsdatums des Kursteilnehmers"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Reset des Abbuchungsdatums des Kursteilnehmers"),
+            e);
         return;
       }
       int ind = table.removeItem(kt);

@@ -8,22 +8,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * All rights reserved
- * $Log$
- * Revision 1.5  2011-05-29 12:51:27  jost
- * Neue Variable "mitglied_anrede_du"
- *
- * Revision 1.4  2011-05-29 12:43:51  jost
- * Neue Variable "mitglied_anrede_foermlich"
- *
- * Revision 1.3  2011-05-27 18:49:30  jost
- * Vereinheitlichung Variable
- *
- * Revision 1.2  2011-05-22 07:41:22  jost
- * CSV-Export überarbeitet. Neue Spaltennamen. Zusätzliche Spalten.
- *
- * Revision 1.1  2011-05-06 15:04:04  jost
- * Neue Variablenmimik
- *
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 

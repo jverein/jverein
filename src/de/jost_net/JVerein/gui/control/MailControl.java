@@ -8,67 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.20  2011-05-16 17:47:34  jost
- * Encoding geändert.
- *
- * Revision 1.19  2011-05-06 14:49:22  jost
- * Neue Variablenmimik
- *
- * Revision 1.18  2011-04-19 19:16:08  jost
- * Bugfix
- *
- * Revision 1.17  2011-04-19 11:14:14  jost
- * Kein Abbruch bei fehlerafter Mailadresse
- *
- * Revision 1.16  2011-04-18 08:24:56  jost
- * Verlängerung der Texte auf 10.000 Zeichen
- *
- * Revision 1.15  2011-04-06 16:28:50  jost
- * Neu: Starttls
- *
- * Revision 1.14  2011-04-03 10:02:03  jost
- * Ausgabe der Zusatzfelder
- *
- * Revision 1.13  2011-03-28 18:07:14  jost
- * Überflüssigen Code entfernt.
- *
- * Revision 1.12  2011-03-20 19:18:19  jost
- * Formatierung von Datumsfeldern und Beträgen.
- *
- * Revision 1.11  2011-01-27 22:18:35  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
- * Revision 1.10  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.9  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.8  2010-08-23 13:35:09  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.7  2010/05/16 10:43:19  jost
- * Einheitlicher Umgang mit ausgetretenen Mitgliedern
- *
- * Revision 1.6  2010/03/27 20:08:11  jost
- * Bugfix 2. Aufruf
- *
- * Revision 1.5  2010/02/17 21:26:09  jost
- * Statusanzeige
- *
- * Revision 1.4  2010/02/17 16:30:34  jost
- * Statusanzeige
- *
- * Revision 1.3  2010/02/15 17:22:14  jost
- * Mail-Anhang implementiert
- *
- * Revision 1.2  2010/02/04 18:38:38  jost
- * Zusätzliche Datenfelder
- *
- * Revision 1.1  2010/02/01 20:57:58  jost
- * Neu: Einfache Mailfunktion
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -413,8 +352,7 @@ public class MailControl extends AbstractControl
     Application.getController().start(t);
   }
 
-  public Map<String, Object> getVariables(Mitglied m)
-      throws RemoteException
+  public Map<String, Object> getVariables(Mitglied m) throws RemoteException
   {
     Map<String, Object> map = m.getMap(null);
     map = new AllgemeineMap().getMap(map);

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-11-17 04:48:49  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -58,8 +54,9 @@ public class ArbeitseinsatzDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen des Arbeitseinsatzes"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Löschen des Arbeitseinsatzes"), e);
         return;
       }
 

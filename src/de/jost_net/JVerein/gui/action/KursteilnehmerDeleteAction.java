@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007/02/25 19:11:24  jost
- * Neu: Kursteilnehmer
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -57,8 +53,9 @@ public class KursteilnehmerDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen des Kursteilnehmers"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Löschen des Kursteilnehmers"), e);
         return;
       }
       kt.delete();

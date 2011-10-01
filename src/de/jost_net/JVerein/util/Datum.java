@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2011-02-12 09:44:06  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.6  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.5  2010-09-13 18:43:13  jost
- * Neue Methode
- *
- * Revision 1.4  2008/01/01 12:36:50  jost
- * Javadoc korrigiert
- *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 

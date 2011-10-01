@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2010-01-01 20:28:24  jost
- * Typo
- *
- * Revision 1.1  2007/12/22 08:27:02  jost
- * Neu: Jubiläenliste
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008-04-10 18:57:49  jost
- * Neu: Benutzerdefinierte Datenfelder
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

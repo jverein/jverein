@@ -8,61 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.19  2011-03-07 21:03:51  jost
- * Neu:  Automatische Spendenbescheinigungen: Eigenschaft Spende aufgenommen
- *
- * Revision 1.18  2011-02-03 22:32:24  jost
- * Neu: Liste der Buchungsarten
- *
- * Revision 1.17  2010-08-24 17:40:16  jost
- * Spalte Bezeichnung verl‰ngert
- *
- * Revision 1.16  2009/09/20 19:02:45  jost
- * Buchungsart Art war immer Einnahme.
- *
- * Revision 1.15  2009/09/15 19:21:15  jost
- * Buchungsklasse in die ‹bersicht aufgenommen.
- *
- * Revision 1.14  2009/09/10 18:16:58  jost
- * neu: Buchungsklassen
- *
- * Revision 1.13  2009/07/24 20:17:10  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.12  2009/06/22 18:12:19  jost
- * *** empty log message ***
- *
- * Revision 1.11  2008/12/13 16:21:39  jost
- * Bugfix Standardwert
- *
- * Revision 1.10  2008/11/30 18:56:20  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.9  2008/11/29 13:06:02  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.8  2008/05/26 18:57:34  jost
- * Spaltenausrichtung
- *
- * Revision 1.7  2008/05/22 06:47:31  jost
- * Buchf√ºhrung
- *
- * Revision 1.6  2008/03/16 07:35:49  jost
- * Reaktivierung Buchf√ºhrung
- *
- * Revision 1.4  2007/02/23 20:26:22  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.3  2006/12/20 20:25:44  jost
- * Patch von Ullrich Sch‰fer, der die Primitive vs. Object Problematik adressiert.
- *
- * Revision 1.2  2006/09/25 19:04:02  jost
- * Vorbereitung Splitbuchungen
- *
- * Revision 1.1  2006/09/20 15:38:30  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

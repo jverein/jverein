@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2011-02-12 09:30:56  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.4  2010-10-15 09:58:27  jost
- * Code aufger‰umt
- *
- * Revision 1.3  2010-09-19 16:14:31  jost
- * L‰nge der Kontobezeichnung auf 255  Zeichen verl‰ngert.
- *
- * Revision 1.2  2008/05/26 18:58:39  jost
- * Neu: Er√∂ffnungsdatum
- *
- * Revision 1.1  2008/05/22 06:48:32  jost
- * Buchf√ºhrung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008/05/22 06:46:00  jost
- * BuchfÃ¼hrung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -56,8 +52,9 @@ public class BuchungsartDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Buchungsart"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr("Fehler beim Löschen der Buchungsart"),
+            e);
         return;
       }
 

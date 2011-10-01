@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008/12/22 21:08:01  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.1  2007/03/30 13:20:45  jost
- * Neu
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -73,8 +66,7 @@ public class ZusatzbetraegeVorherigeFaelligkeitAction implements Action
             .error(
                 JVereinPlugin
                     .getI18n()
-                    .tr(
-                        "Fehler beim Setzen des vorherigen Fälligkeitsdatums des Zusatzbetrages"),
+                    .tr("Fehler beim Setzen des vorherigen Fälligkeitsdatums des Zusatzbetrages"),
                 e);
         return;
       }

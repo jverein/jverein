@@ -8,46 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.13  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.12  2009-11-17 21:04:07  jost
- * DB-Aktualisierung optimiert.
- *
- * Revision 1.11  2009/07/24 20:23:25  jost
- * Überflüssige Imports entfernt.
- *
- * Revision 1.10  2009/06/11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.9  2008/12/30 21:59:48  jost
- * Anpassung an neue Versionsmimik.
- *
- * Revision 1.8  2008/12/22 21:22:36  jost
- * Bugfix MySQL-Support
- *
- * Revision 1.7  2008/11/29 13:16:14  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.6  2008/01/02 10:59:37  jost
- * Standardwert: H2
- *
- * Revision 1.5  2007/12/16 20:27:48  jost
- * Standardwert zurÃ¼ck auf McKoi
- *
- * Revision 1.4  2007/12/01 19:09:16  jost
- * H2-Support
- *
- * Revision 1.3  2007/10/18 18:20:23  jost
- * Vorbereitung H2-DB
- *
- * Revision 1.2  2007/02/23 20:28:42  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:48  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -85,7 +45,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    * Konstruktor mit expliziter Angabe des Treibers.
    * 
    * @param driverClass
-   *        der zu verwendende Treiber.
+   *          der zu verwendende Treiber.
    * @throws RemoteException
    */
   protected JVereinDBServiceImpl(String driverClass) throws RemoteException

@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2011-01-15 09:46:47  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.1  2010-11-17 04:50:29  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

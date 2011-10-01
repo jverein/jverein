@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2008/12/30 10:53:26  jost
- * Fehlende Icons ergänzt.
- *
- * Revision 1.2  2008/12/22 21:15:41  jost
- * Icons ins Menü aufgenommen.
- *
- * Revision 1.1  2007/05/07 19:25:43  jost
- * Neu: Wiedervorlage
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

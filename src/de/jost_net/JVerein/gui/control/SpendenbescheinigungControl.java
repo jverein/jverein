@@ -8,80 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.24  2011-06-30 20:06:55  jost
- * Überflüssige Imports entfernt.
- *
- * Revision 1.23  2011-06-22 20:53:11  jost
- * *** empty log message ***
- *
- * Revision 1.22  2011-06-21 18:46:57  jost
- * Korrekte Anzeige mit Testdaten
- *
- * Revision 1.21  2011-05-27 18:47:02  jost
- * Vereinheitlichung Variable
- *
- * Revision 1.20  2011-03-28 18:07:30  jost
- * Überflüssigen Code entfernt.
- *
- * Revision 1.19  2011-03-20 06:38:26  jost
- * Anzeige des erzeugten Dokuments
- *
- * Revision 1.18  2011-03-18 19:15:27  jost
- * redakt.
- *
- * Revision 1.17  2011-03-17 19:46:01  jost
- * überflüssigen import entfernt.
- *
- * Revision 1.16  2011-03-13 13:44:46  jost
- * Neu: Spendenbescheinigungen als Standardformular
- * Neu: Spendenbescheinigung für Sachspenden.
- *
- * Revision 1.15  2011-02-12 09:32:49  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.14  2011-02-05 17:39:06  jost
- * Bugfix: Korrekte Positionierung des Betragsfeldes.
- *
- * Revision 1.13  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.12  2010-01-03 08:58:22  jost
- * Logo für PDF-Ausgabe
- *
- * Revision 1.11  2009/07/24 20:19:31  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.10  2009/06/22 18:14:21  jost
- * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
- *
- * Revision 1.9  2009/01/26 19:27:30  jost
- * Bugfix Pfad
- *
- * Revision 1.8  2009/01/26 18:47:54  jost
- * Neu: Ersatz Aufwendungen
- *
- * Revision 1.7  2008/12/13 16:22:41  jost
- * Bugfix Tagesdatum
- *
- * Revision 1.6  2008/11/29 13:08:17  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.5  2008/11/16 16:57:20  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- * Revision 1.4  2008/09/16 18:50:54  jost
- * Refactoring Formularaufbereitung
- *
- * Revision 1.3  2008/07/23 19:40:30  jost
- * Bugfix ..PDF
- *
- * Revision 1.2  2008/07/19 19:24:44  jost
- * Korrektes KontextmenÃ¼
- *
- * Revision 1.1  2008/07/18 20:09:46  jost
- * Neu: Spendenbescheinigung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -769,16 +695,17 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    
+
     /* Check ob auch ein Forumular ausgewaehlt ist */
     Formular spendeformular = getSpendenbescheinigung().getFormular();
-    if( spendeformular == null ) {
-    	GUI.getStatusBar().setErrorText("Bitte Formular auswaehlen");
-    	return;
+    if (spendeformular == null)
+    {
+      GUI.getStatusBar().setErrorText("Bitte Formular auswaehlen");
+      return;
     }
-    
+
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, spendeformular.getID() );
+        Formular.class, spendeformular.getID());
     Map<String, Object> map = getSpendenbescheinigung().getMap(null);
     map = new AllgemeineMap().getMap(map);
     FormularAufbereitung fa = new FormularAufbereitung(file);

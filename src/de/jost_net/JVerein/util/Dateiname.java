@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2008/05/24 14:20:07  jost
- * Debug-Infos entfernt.
- *
- * Revision 1.1  2008/01/01 13:14:28  jost
- * Neu: Dateinamenmuster
- *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -29,13 +22,13 @@ import java.util.Date;
  * 
  * <dl>
  * <dt>a$</dt>
- * <dd> Aufgabe (z. B. auswertung, abbuchung) </dd>
+ * <dd>Aufgabe (z. B. auswertung, abbuchung)</dd>
  * <dt>d$</dt>
- * <dd> Aktuelles Datum (z. B. 20080101) </dd>
+ * <dd>Aktuelles Datum (z. B. 20080101)</dd>
  * <dt>$z</dt>
- * <dd> Aktuelle Zeit (z. B. 120503) </dd>
+ * <dd>Aktuelle Zeit (z. B. 120503)</dd>
  * <dt>$s</dt>
- * <dd> Sortierung. Wird nicht immer gefüllt. Ggfls. Leerstring. </dd>
+ * <dd>Sortierung. Wird nicht immer gefüllt. Ggfls. Leerstring.</dd>
  * </dl>
  */
 

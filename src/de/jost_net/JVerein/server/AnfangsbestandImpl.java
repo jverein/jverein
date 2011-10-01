@@ -8,31 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.8  2010-11-13 09:29:03  jost
- * Warnings entfernt.
- *
- * Revision 1.7  2010-10-15 09:58:28  jost
- * Code aufger‰umt
- *
- * Revision 1.6  2009-06-11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.5  2008/11/29 13:14:48  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.4  2008/11/16 16:58:59  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- * Revision 1.3  2008/06/28 17:06:45  jost
- * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
- *
- * Revision 1.2  2008/05/24 14:19:52  jost
- * Debug-Infos entfernt.
- *
- * Revision 1.1  2008/05/22 06:55:50  jost
- * Buchf√ºhrung
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

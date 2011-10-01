@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2011-04-24 09:50:53  jost
- * Automatisierte Befüllung von Istbuchungen bei der Auswahl des Mitgliedskontos.
- *
- * Revision 1.6  2011-02-26 15:54:42  jost
- * Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl
- *
- * Revision 1.5  2011-02-12 09:34:09  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.4  2011-01-08 10:45:40  jost
- * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
- *
- * Revision 1.3  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-09-12 19:59:55  jost
- * Mitgliedskontoauswahl kann rückgängig gemacht werden.
- *
- * Revision 1.1  2010-07-25 18:35:17  jost
- * Neu: Mitgliedskonto
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.input;
 

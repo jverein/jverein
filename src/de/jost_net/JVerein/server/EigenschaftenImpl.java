@@ -9,21 +9,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * $Log$
- * Revision 1.5  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2009-11-17 21:03:14  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
- * Revision 1.3  2009/06/11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2008/11/29 13:15:27  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.1  2008/01/25 16:07:06  jost
- * Neu: Eigenschaften des Mitgliedes
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -54,13 +39,13 @@ public class EigenschaftenImpl extends AbstractDBObject implements
   }
 
   @Override
-  public String getPrimaryAttribute() 
+  public String getPrimaryAttribute()
   {
     return "id";
   }
 
   @Override
-  protected void deleteCheck() 
+  protected void deleteCheck()
   {
     //
   }
@@ -92,7 +77,7 @@ public class EigenschaftenImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected Class<?> getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0)
   {
     if ("mitglied".equals(arg0))
     {

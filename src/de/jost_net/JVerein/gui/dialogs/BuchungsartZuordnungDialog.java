@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2009-06-20 12:33:13  jost
- * Vereinheitlichung der Bezeichner
- *
- * Revision 1.2  2009/06/11 21:02:41  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2009/01/04 16:27:27  jost
- * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 

@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2011-06-06 19:17:42  jost
- * Neu: Funktion zur gleichzeitigen Zuordnung einer Eigenschaft an viele Mitglieder
- *
- * Revision 1.4  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2009-12-12 16:27:04  jost
- * todo's entfernt.
- *
- * Revision 1.2  2009/11/22 16:20:36  jost
- * Sortierung der Nodes
- *
- * Revision 1.1  2009/11/17 21:03:28  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

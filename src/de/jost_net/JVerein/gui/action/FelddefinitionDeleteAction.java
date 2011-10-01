@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2010/01/01 18:35:45  jost
- * Daten bei den Mitgliedern werden nach Rückfrage gelöscht.
- *
- * Revision 1.3  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2009/01/07 19:38:23  jost
- * MySQL-Kompatibilität hergestellt.
- *
- * Revision 1.1  2008/04/10 18:57:04  jost
- * Neu: Benutzerdefinierte Datenfelder
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -67,10 +54,9 @@ public class FelddefinitionDeleteAction implements Action
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(JVereinPlugin.getI18n().tr("Felddefinition löschen"));
-      d
-          .setText("Das Feld ist bei "
-              + it.size()
-              + " Mitgliedern gespeichert. Wollen Sie diese Felddefinition wirklich löschen?");
+      d.setText("Das Feld ist bei "
+          + it.size()
+          + " Mitgliedern gespeichert. Wollen Sie diese Felddefinition wirklich löschen?");
 
       try
       {
@@ -82,8 +68,9 @@ public class FelddefinitionDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Felddefinition"), e);
+        Logger.error(
+            JVereinPlugin.getI18n()
+                .tr("Fehler beim Löschen der Felddefinition"), e);
         return;
       }
       while (it.hasNext())

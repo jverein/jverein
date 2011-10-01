@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2011-01-27 22:16:56  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
- * Revision 1.6  2010-11-22 20:57:53  jost
- * Vorbereitungs Arbeitseinsatzüberprüfung.
- *
- * Revision 1.5  2010-07-25 18:28:31  jost
- * Neu: Mitgliedskonto
- *
- * Revision 1.4  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.3  2009/04/25 05:27:30  jost
- * Neu: Juristische Personen  können als Mitglied gespeichert werden.
- *
- * Revision 1.2  2007/02/23 20:26:00  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:38:12  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

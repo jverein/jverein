@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2008/05/26 18:59:04  jost
- * Neu: Eröffnungsdatum
- *
- * Revision 1.1  2008/05/22 06:55:38  jost
- * Buchführung
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

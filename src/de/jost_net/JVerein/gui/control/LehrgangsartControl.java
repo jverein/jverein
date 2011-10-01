@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2009-07-24 20:18:46  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.1  2009/04/13 11:39:27  jost
- * Neu: Lehrgänge
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

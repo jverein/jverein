@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2011-01-31 17:13:34  jost
- * Hilfe aufgenommen.
- *
- * Revision 1.1  2010-11-25 15:11:52  jost
- * Initial Commit
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

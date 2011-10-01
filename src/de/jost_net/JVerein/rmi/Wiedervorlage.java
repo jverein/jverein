@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007/05/07 19:26:51  jost
- * Neu: Wiedervorlage
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

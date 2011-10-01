@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2009-06-29 19:43:16  jost
- * Debug-Meldung entfernt.
- *
- * Revision 1.1  2009/06/21 08:53:12  jost
- * Ausgabe von Langtexten beim Geschlecht.
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;

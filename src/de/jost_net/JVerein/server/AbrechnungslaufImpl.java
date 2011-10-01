@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2011-02-12 09:42:14  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.4  2010-11-13 09:28:32  jost
- * Warnings entfernt.
- *
- * Revision 1.3  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-07-25 18:46:42  jost
- * Neu: Mitgliedskonto
- *
- * Revision 1.1  2010/05/18 20:25:09  jost
- * Anpassung Klassenname
- *
- * Revision 1.1  2010/04/25 13:56:52  jost
- * Vorarbeiten Mitgliedskonto
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

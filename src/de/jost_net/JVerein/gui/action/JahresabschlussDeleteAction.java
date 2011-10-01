@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-09-13 18:41:33  jost
- * Anfangsbestände beim Jahresabschluss setzen und bei der Löschung auch löschen.
- *
- * Revision 1.2  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2008/06/28 16:55:43  jost
- * Neu: Jahresabschluss
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -75,8 +65,9 @@ public class JahresabschlussDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen des Jahresabschlusses"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Löschen des Jahresabschlusses"), e);
         return;
       }
       a.delete();

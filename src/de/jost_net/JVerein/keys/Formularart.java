@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2011-02-12 09:41:26  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.4  2010-08-16 20:17:58  jost
- * Neu: Mahnung
- *
- * Revision 1.3  2009/06/11 21:04:03  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2008/12/13 16:24:04  jost
- * equals()-Methode implementiert.
- *
- * Revision 1.1  2008/11/29 13:13:06  jost
- * Refactoring: Code-Optimierung
- *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
@@ -41,6 +25,7 @@ public class Formularart
   public static final int RECHNUNG = 2;
 
   public static final int MAHNUNG = 3;
+
   public static final int FREIESFORMULAR = 4;
 
   private int formularart;

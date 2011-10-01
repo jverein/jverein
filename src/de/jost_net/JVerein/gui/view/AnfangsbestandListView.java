@@ -8,37 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.10  2011-03-14 19:23:32  jost
- * Tippfehler beseitigt.
- *
- * Revision 1.9  2011-01-15 09:46:48  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.8  2010-10-15 09:58:23  jost
- * Code aufger�umt
- *
- * Revision 1.7  2010-10-07 19:49:23  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.6  2010-08-23 13:39:31  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.5  2009/06/11 21:03:39  jost
- * Vorbereitung I18N
- *
- * Revision 1.4  2009/01/20 20:09:24  jost
- * neue Icons
- *
- * Revision 1.3  2009/01/20 19:14:06  jost
- * neu: Back-Button mit Icon
- *
- * Revision 1.2  2008/05/24 14:04:08  jost
- * Redatkionelle Änderung
- *
- * Revision 1.1  2008/05/22 06:52:14  jost
- * Buchführung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

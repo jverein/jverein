@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010/01/01 18:39:24  jost
- * Typisierung der Zusatzfelder
- *
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 

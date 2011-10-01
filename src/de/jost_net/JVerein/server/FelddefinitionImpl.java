@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.5  2010-01-01 20:11:12  jost
- * Typisierung der Zusatzfelder
- *
- * Revision 1.4  2009/06/11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.3  2008/11/29 13:15:36  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.2  2008/04/11 12:36:32  jost
- * Mini-Bugfix
- *
- * Revision 1.1  2008/04/10 19:03:24  jost
- * Neu: Benutzerdefinierte Datenfelder
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -89,7 +70,7 @@ public class FelddefinitionImpl extends AbstractDBObject implements
         if (validChars.indexOf(c) == -1)
           throw new ApplicationException(JVereinPlugin.getI18n().tr(
               "Ungültiges Zeichen ({0}) im Feldnamen an Position {1}",
-              new String[] { c + "", i + ""}));
+              new String[] { c + "", i + "" }));
       }
       Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, null);

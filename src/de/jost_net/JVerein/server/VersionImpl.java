@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2008-11-29 13:17:19  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.1  2007/12/01 17:47:50  jost
- * Neue DB-Update-Mimik
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

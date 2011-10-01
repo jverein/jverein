@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008/01/25 16:06:47  jost
- * Neu: Eigenschaften des Mitgliedes
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

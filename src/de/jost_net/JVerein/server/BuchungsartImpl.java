@@ -8,46 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.14  2011-03-07 21:09:11  jost
- * Neu:  Automatische Spendenbescheinigungen: Referenz zur Spendenbescheinigung aufgenommen.
- *
- * Revision 1.13  2011-02-15 20:55:45  jost
- * Colins Patch zur Performancesteigerung
- *
- * Revision 1.12  2011-02-12 09:42:33  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.11  2010-11-13 09:29:39  jost
- * Warnings entfernt.
- *
- * Revision 1.10  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.9  2009-09-10 18:19:47  jost
- * neu: Buchungsklassen
- *
- * Revision 1.8  2009/06/11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.7  2009/01/04 16:28:02  jost
- * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
- *
- * Revision 1.6  2008/11/29 13:15:19  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.5  2008/05/22 06:56:17  jost
- * BuchfÃ¼hrung
- *
- * Revision 1.4  2008/03/16 07:38:12  jost
- * Reaktivierung BuchfÃ¼hrung
- *
- * Revision 1.2  2007/02/23 20:28:41  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:48  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

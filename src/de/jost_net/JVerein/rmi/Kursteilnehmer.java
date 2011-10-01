@@ -8,11 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007/02/25 19:14:37  jost
- * Neu: Kursteilnehmer
- *
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

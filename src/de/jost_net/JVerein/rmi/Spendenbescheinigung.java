@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2011-06-19 06:33:29  jost
- * Umstellung Datenbanktyp für booleans von char(5) auf boolean (h2) bzw. tinyint (MySQL)
- *
- * Revision 1.4  2011-03-13 13:49:41  jost
- * Neu: Sachspenden.
- *
- * Revision 1.3  2011-03-07 21:08:24  jost
- * Neu:  Automatische Spendenbescheinigungen; Referenz zum Mitglied aufgenommen
- *
- * Revision 1.2  2009/01/26 18:48:21  jost
- * Neu: Ersatz Aufwendungen
- *
- * Revision 1.1  2008/07/18 20:17:09  jost
- * Neu: Spendenbescheinigung
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

@@ -8,55 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.16  2010-11-17 04:49:31  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
- * Revision 1.15  2009/07/24 20:16:56  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.14  2009/07/18 13:42:50  jost
- * Bugfix DecimalFormat
- *
- * Revision 1.13  2009/06/22 18:12:10  jost
- * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
- *
- * Revision 1.12  2009/06/21 08:52:21  jost
- * Vorbereitung I18N
- *
- * Revision 1.11  2008/12/19 06:52:57  jost
- * Überflüssiges Import-Statement entfernt
- *
- * Revision 1.10  2008/12/13 16:21:17  jost
- * Bugfix Beitragsart.
- *
- * Revision 1.9  2008/11/30 18:56:00  jost
- * Neu: Konfiguration der Spalten einer Tabelle
- *
- * Revision 1.8  2008/11/29 13:05:48  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.7  2007/08/30 19:47:45  jost
- * Part -> TablePart
- *
- * Revision 1.6  2007/08/23 19:24:23  jost
- * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
- *
- * Revision 1.5  2007/03/25 16:56:48  jost
- * Beitragsart aufgenommen.
- *
- * Revision 1.4  2007/03/18 08:38:24  jost
- * Pflichtfelder gekennzeichnet
- *
- * Revision 1.3  2007/02/23 20:26:22  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2006/12/20 20:25:44  jost
- * Patch von Ullrich Sch�fer, der die Primitive vs. Object Problematik adressiert.
- *
- * Revision 1.1  2006/09/20 15:38:30  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

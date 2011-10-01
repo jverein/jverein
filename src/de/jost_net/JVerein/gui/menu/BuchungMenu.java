@@ -8,40 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.12  2010-10-10 08:53:18  jost
- * Kontoauszugsinformationen en Bloc zuweisen
- *
- * Revision 1.11  2009/06/11 21:03:02  jost
- * Vorbereitung I18N
- *
- * Revision 1.10  2009/01/25 10:58:39  jost
- * Icons aufgenommen.
- *
- * Revision 1.9  2009/01/10 19:27:23  jost
- * Jameica 1.8-Kompatibilität hergestellt.
- *
- * Revision 1.8  2009/01/04 16:27:44  jost
- * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
- *
- * Revision 1.7  2008/12/22 21:12:25  jost
- * Icons ins MenÃ¼ aufgenommen.
- *
- * Revision 1.6  2008/12/06 10:50:07  jost
- * Bearbeiten aufgenommen
- *
- * Revision 1.5  2008/05/22 06:50:44  jost
- * BuchfÃ¼hrung
- *
- * Revision 1.4  2008/03/16 07:36:10  jost
- * Reaktivierung BuchfÃ¼hrung
- *
- * Revision 1.2  2007/02/23 20:26:58  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/10/14 16:11:34  jost
- * Buchungen löschen eingeführt
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

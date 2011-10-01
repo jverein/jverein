@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2009/01/04 16:26:03  jost
- * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.action;

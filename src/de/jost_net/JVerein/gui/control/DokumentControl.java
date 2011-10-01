@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2011-02-12 09:29:59  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.2  2010-12-14 21:41:41  jost
- * Neu: Speicherung von Dokumenten
- *
- * Revision 1.1  2010-12-12 08:11:17  jost
- * Neu: Speicherung von Dokumenten
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -241,7 +231,8 @@ public class DokumentControl extends AbstractControl
     docs.setOrder("ORDER BY datum desc");
 
     docsList = new TablePart(docs, null /* new KontoAction() */);
-    docsList.addColumn("Datum", "datum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    docsList.addColumn("Datum", "datum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
     docsList.addColumn("Bemerkung", "bemerkung");
     docsList.setRememberColWidths(true);
     docsList.setContextMenu(new DokumentMenu());

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010/02/01 20:57:35  jost
- * Neu: Einfache Mailfunktion
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -92,8 +88,9 @@ public class MitgliedMailSendenAction implements Action
           }
           catch (Exception e)
           {
-            Logger.error(JVereinPlugin.getI18n().tr(
-                "Fehler bei der Auswahl der Mail-Empfänger"), e);
+            Logger.error(
+                JVereinPlugin.getI18n().tr(
+                    "Fehler bei der Auswahl der Mail-Empfänger"), e);
             return;
           }
 

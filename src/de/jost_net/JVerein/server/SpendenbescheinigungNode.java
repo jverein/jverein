@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2011-03-09 22:16:59  jost
- * Einschränkung auf ein Jahr.
- *
- * Revision 1.1  2011-03-07 21:10:06  jost
- * Neu:  Automatische Spendenbescheinigungen
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

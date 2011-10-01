@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.1  2008-11-29 13:18:17  jost
- * Neu: Konfiguration der Spalten einer Tabelle
- *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 

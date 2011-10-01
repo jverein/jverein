@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008/12/27 15:19:41  jost
- * Bugfix Booleans aus MySQL-DB lesen.
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

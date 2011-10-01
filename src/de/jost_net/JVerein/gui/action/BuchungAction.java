@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.6  2008/07/09 13:17:48  jost
- * Überflüssige Imports entfernt.
- *
- * Revision 1.5  2008/06/28 16:55:24  jost
- * Bearbeiten nur, wenn kein Jahresabschluss vorliegt.
- *
- * Revision 1.4  2008/03/16 07:34:30  jost
- * Reaktivierung Buchführung
- *
- * Revision 1.2  2007/02/23 20:25:42  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:38:12  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

@@ -8,34 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.9  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.8  2010-04-08 17:56:56  jost
- * Bugfix
- *
- * Revision 1.7  2010/03/27 20:10:05  jost
- * EigenschaftenAuswahl überarbeitet.
- *
- * Revision 1.6  2010/02/01 20:58:46  jost
- * Vermeidung Warnings.
- *
- * Revision 1.5  2009/12/06 21:40:39  jost
- * Überflüssigen Code entfernt.
- *
- * Revision 1.4  2009/11/19 19:44:02  jost
- * Bugfix Eigenschaften
- *
- * Revision 1.3  2009/11/17 20:57:34  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
- * Revision 1.2  2009/06/11 21:02:41  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2008/01/25 16:02:57  jost
- * Neu: Eigenschaften des Mitgliedes
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 

@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008/12/22 21:20:48  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.3  2007/03/30 13:26:01  jost
- * Wiederkehrende Zusatzabbuchungen.
- *
- * Revision 1.2  2007/02/23 20:28:24  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:35  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

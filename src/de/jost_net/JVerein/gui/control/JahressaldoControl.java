@@ -8,46 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.12  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.11  2010-10-15 09:58:26  jost
- * Code aufger‰umt
- *
- * Revision 1.10  2010-08-23 13:33:40  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.9  2009/09/03 18:48:00  jost
- * Vermeidung NPE
- *
- * Revision 1.8  2009/03/01 17:39:49  jost
- * - Ausgew‰hltes Jahr wird jetzt korrekt gespeichert und wiederhergestellt
- * - Zus‰tzliche Zeile "‹berschuss/Verlust"
- * - Code bereinigt
- *
- * Revision 1.7  2009/01/20 20:09:24  jost
- * neue Icons
- *
- * Revision 1.6  2008/11/16 16:56:35  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- * Revision 1.5  2008/10/13 18:57:14  jost
- * RemoteException ->ApplicationException
- *
- * Revision 1.4  2008/07/11 07:33:02  jost
- * Ausgabeverzeichnis f√ºr den n√§chsten Aufruf merken.
- *
- * Revision 1.3  2008/06/28 16:57:29  jost
- * Vereinheitlichung des Jahressaldos
- *
- * Revision 1.2  2008/05/26 18:58:19  jost
- * Spaltenausrichtung
- * Ber√ºcksichtigung von Er√∂ffnungs- und ggfls. Aufl√∂sungsdatum
- *
- * Revision 1.1  2008/05/25 19:36:13  jost
- * Neu: Jahressaldo
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

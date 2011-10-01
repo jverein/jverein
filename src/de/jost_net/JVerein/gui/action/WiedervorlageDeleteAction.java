@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007/05/07 19:24:08  jost
- * Neu: Wiedervorlage
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -56,8 +52,10 @@ public class WiedervorlageDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Wiedervorlage"), e);
+        Logger
+            .error(
+                JVereinPlugin.getI18n().tr(
+                    "Fehler beim Löschen der Wiedervorlage"), e);
         return;
       }
 

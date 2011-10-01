@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2011-02-12 09:24:30  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.3  2010-09-06 13:24:40  jost
- * Überflüssigen Code entfernt.
- *
- * Revision 1.2  2010-08-21 08:43:41  jost
- * Bugfix: Keine Löschung, wenn Buchung bereits abgeschlossen.
- *
- * Revision 1.1  2010-07-25 18:28:03  jost
- * Neu: Mitgliedskonto
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

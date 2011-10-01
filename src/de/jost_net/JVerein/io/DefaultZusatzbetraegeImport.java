@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2011-07-17 17:05:04  jost
- * Anführungszeichen sind jetzt auch zugelassen.
- *
- * Revision 1.5  2011-05-22 08:35:23  jost
- * Neu: Buchungstext2 für Zusatzbeträge
- *
- * Revision 1.4  2011-02-12 09:38:50  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.3  2010-10-31 17:53:08  jost
- * Logging
- *
- * Revision 1.2  2010-10-30 11:53:25  jost
- * Name des Mitglieds wird beim Fehler mit ausgegeben.
- *
- * Revision 1.1  2009/10/20 18:00:03  jost
- * Neu: Import von Zusatzbeträgen
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

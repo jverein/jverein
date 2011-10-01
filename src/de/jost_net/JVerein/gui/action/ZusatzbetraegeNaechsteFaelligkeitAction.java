@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2009-06-11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2008/12/22 21:07:33  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.1  2007/03/30 13:19:57  jost
- * Neu
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -76,8 +66,7 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
             .error(
                 JVereinPlugin
                     .getI18n()
-                    .tr(
-                        "Fehler beim Setzen des nächsten Fälligkeitsdatums des Zusatzbetrages"),
+                    .tr("Fehler beim Setzen des nächsten Fälligkeitsdatums des Zusatzbetrages"),
                 e);
         return;
       }

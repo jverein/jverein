@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2011-01-31 17:13:17  jost
- * *** empty log message ***
- *
- * Revision 1.3  2011-01-20 18:26:31  jost
- * AppointmentCode Hibiscus -> Jameica
- *
- * Revision 1.2  2010-11-27 10:56:05  jost
- * Link zum Mitglied
- *
- * Revision 1.1  2010-11-25 15:11:23  jost
- * Initial Commit
- *
  **********************************************************************/
 package de.jost_net.JVerein.Calendar;
 

@@ -8,49 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2011-02-12 09:43:37  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.6  2010-11-25 19:34:04  jost
- * Bugfix bei Zusatzbeträgen ohne Intervall
- *
- * Revision 1.5  2010-11-13 09:31:24  jost
- * Warnings entfernt.
- *
- * Revision 1.4  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2009-06-11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2009/02/12 22:17:26  jost
- * Vermeidung NPE
- *
- * Revision 1.1  2008/12/22 21:23:10  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.7  2008/12/19 12:25:52  jost
- * Bugfix FÃ¤lligkeitsberechung
- *
- * Revision 1.6  2008/11/29 13:17:37  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.5  2008/09/22 20:26:03  jost
- * Plausi korrigiert
- *
- * Revision 1.4  2007/03/30 13:26:12  jost
- * Wiederkehrende Zusatzabbuchungen.
- *
- * Revision 1.3  2007/02/23 20:28:42  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2006/12/20 20:25:44  jost
- * Patch von Ullrich Schäfer, der die Primitive vs. Object Problematik adressiert.
- *
- * Revision 1.1  2006/09/20 15:39:48  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

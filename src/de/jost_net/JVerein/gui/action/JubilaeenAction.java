@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007-12-22 08:24:57  jost
- * Neu: Jubiläenliste
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

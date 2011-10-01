@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-02-01 21:01:30  jost
- * Vermeidung Warnings.
- *
- * Revision 1.2  2009/12/17 19:25:44  jost
- * *** empty log message ***
- *
- * Revision 1.1  2009/10/20 18:00:48  jost
- * Neu: Import von Zusatzbeträgen
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
@@ -47,7 +37,7 @@ public class IORegistry
    * Sucht im Classpath nach allen Filtern.
    * 
    * @param type
-   *        zu ladender Typ.
+   *          zu ladender Typ.
    * @return Liste der gefundenen Importer/Exporter.
    */
   private static synchronized ArrayList<?> load(Class<?> type)
@@ -73,8 +63,9 @@ public class IORegistry
         }
         catch (Exception e)
         {
-          Logger.error("error while loading import/export filter "
-              + list[i].getName(), e);
+          Logger.error(
+              "error while loading import/export filter " + list[i].getName(),
+              e);
         }
       }
 
@@ -94,7 +85,8 @@ public class IORegistry
   {
     if (type.getName().equals(IZusatzbetraegeImport.class.getName()))
     {
-      return zusatzbetraege.toArray(new IZusatzbetraegeImport[zusatzbetraege.size()]);
+      return zusatzbetraege.toArray(new IZusatzbetraegeImport[zusatzbetraege
+          .size()]);
     }
     throw new ClassNotFoundException("Klasse " + type.getCanonicalName()
         + " nicht gefunden.");

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2011-04-03 11:01:09  jost
- * Neu: JVerein-Mitglieder mit Bankverbindung werden in das Hibiscus-Adressbuch übernommen.
- *
  **********************************************************************/
 package de.jost_net.JVerein;
 

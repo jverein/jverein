@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-09-09 18:49:34  jost
- * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
- *
- * Revision 1.2  2009/11/23 20:39:44  jost
- * Bugfix Lösch-Button
- *
- * Revision 1.1  2009/11/17 20:56:33  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

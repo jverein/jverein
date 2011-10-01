@@ -8,8 +8,6 @@
  *
  * Copyright (c) by willuhn software & services
  * All rights reserved
- * $Log$
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;

@@ -8,37 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.10  2011-06-19 06:36:11  jost
- * Umstellung Datenbanktyp für booleans von char(5) auf boolean (h2) bzw. tinyint (MySQL)
- *
- * Revision 1.9  2011-03-13 13:50:49  jost
- * Neu: Sachspenden.
- *
- * Revision 1.8  2011-03-07 21:09:50  jost
- * Neu:  Automatische Spendenbescheinigungen; Referenz zum Mitglied aufgenommen
- *
- * Revision 1.7  2011-02-12 09:43:37  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.6  2010-11-13 09:31:24  jost
- * Warnings entfernt.
- *
- * Revision 1.5  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2009-06-11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.3  2009/01/26 18:48:36  jost
- * Neu: Ersatz Aufwendungen
- *
- * Revision 1.2  2008/11/29 13:17:02  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.1  2008/07/18 20:18:45  jost
- * Neu: Spendenbescheinigung
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

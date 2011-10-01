@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-08-04 10:40:21  jost
- * Prerelease Rechnung
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.menu;

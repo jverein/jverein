@@ -8,79 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.24  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.23  2010-10-15 09:58:26  jost
- * Code aufger�umt
- *
- * Revision 1.22  2010-10-10 06:36:37  jost
- * Vermeidung NPE
- *
- * Revision 1.21  2010-08-23 13:34:26  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.20  2009/07/24 20:18:31  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.19  2009/06/22 18:13:14  jost
- * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
- *
- * Revision 1.18  2009/06/21 08:52:45  jost
- * Ausgabe von Langtexten beim Geschlecht.
- *
- * Revision 1.17  2009/01/26 19:27:13  jost
- * Bugfix Pfad
- *
- * Revision 1.16  2009/01/22 18:23:43  jost
- * neue Icons
- *
- * Revision 1.15  2008/11/30 18:57:42  jost
- * Bugfix: PDF-Dokument öffnen
- *
- * Revision 1.14  2008/11/24 19:25:15  jost
- * Debug-Meldung entfernt.
- *
- * Revision 1.13  2008/11/24 19:21:07  jost
- * Defaultwerte speichern.
- *
- * Revision 1.12  2008/11/23 13:03:46  jost
- * Verwendungszweck 2 in die Trefferliste aufgenommen.
- *
- * Revision 1.11  2008/11/16 16:56:45  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- * Revision 1.10  2008/10/01 14:00:13  jost
- * Codeoptimierung
- *
- * Revision 1.9  2008/09/30 12:07:31  jost
- * Debug-Meldung entfernt.
- *
- * Revision 1.8  2008/09/30 10:20:37  jost
- * Kursteilnehmer können nach Namen und Eingabedatum gefiltert werden.
- *
- * Revision 1.7  2008/07/10 07:57:05  jost
- * Optimierung der internen Reporter-Klasse
- *
- * Revision 1.6  2008/01/01 13:13:37  jost
- * Neu: Dateinamenmuster
- *
- * Revision 1.5  2007/12/01 10:05:34  jost
- * Änderung wg. neuem Classloader in Jameica
- *
- * Revision 1.4  2007/05/26 16:26:09  jost
- * Neu: Auswertung Kursteilnehmer
- *
- * Revision 1.3  2007/03/21 12:11:22  jost
- * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurückgesetzt werden.
- *
- * Revision 1.2  2007/03/10 13:41:08  jost
- * Redaktionelle Änderung
- *
- * Revision 1.1  2007/02/25 19:12:29  jost
- * Neu: Kursteilnehmer
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -651,8 +578,8 @@ public class KursteilnehmerControl extends AbstractControl
       if (abbuchungsdatumvon.getValue() != null)
       {
         Date d = (Date) abbuchungsdatumvon.getValue();
-        subtitle += "Abbuchungsdatum von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        subtitle += "Abbuchungsdatum von "
+            + new JVDateFormatTTMMJJJJ().format(d) + "  ";
         list.addFilter("abbudatum >= ?",
             new Object[] { new java.sql.Date(d.getTime()) });
       }

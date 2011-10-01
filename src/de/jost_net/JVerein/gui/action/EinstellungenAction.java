@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2007-08-22 20:42:41  jost
- * Bug #011762
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

@@ -8,18 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-09-13 15:26:48  jost
- * Länge des Textes auf 10.000 Zeichen verlängert.
- * http://www.jverein.de/forum/viewtopic.php?f=5&t=194
- *
- * Revision 1.1  2010/02/01 21:03:15  jost
- * Neu: Einfache Mailfunktion
- *
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

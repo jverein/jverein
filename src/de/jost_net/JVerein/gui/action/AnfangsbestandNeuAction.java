@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2009/06/11 21:01:40  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2008/05/22 06:45:35  jost
- * Buchführung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

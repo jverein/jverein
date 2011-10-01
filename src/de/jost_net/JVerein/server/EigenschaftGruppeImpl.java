@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2010-11-27 19:29:35  jost
- * Optional: max. eine Eigenschaft auswählbar
- *
- * Revision 1.4  2010-11-13 09:29:39  jost
- * Warnings entfernt.
- *
- * Revision 1.3  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-09-09 18:51:13  jost
- * Eigenschaftengruppen können jetzt auch das Merkmal "Pflicht" haben. Dann muß mindestens eine Eigenschaft ausgewählt werden.
- *
- * Revision 1.1  2009/11/17 21:03:38  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

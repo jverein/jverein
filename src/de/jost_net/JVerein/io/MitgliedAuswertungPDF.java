@@ -8,56 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.16  2011-02-12 09:39:52  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.15  2010-10-30 11:31:23  jost
- * Neu: Sterbetag
- *
- * Revision 1.14  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.13  2010-10-03 09:48:20  jost
- * Überflüssigen Import entfernt.
- *
- * Revision 1.12  2010-09-09 19:55:07  jost
- * Ausgabe der Eigenschaften
- *
- * Revision 1.11  2009/07/18 13:43:25  jost
- * NPE verhindert.
- *
- * Revision 1.10  2009/01/25 16:08:41  jost
- * Vermerke entfernt.
- *
- * Revision 1.9  2008/12/30 21:57:50  jost
- * ÃœberflÃ¼ssige Methode auskommentiert.
- *
- * Revision 1.8  2008/12/29 08:41:04  jost
- * Korrekte Verarbeitung bei fehlendem Geburts- und/oder Eintrittsdatum
- *
- * Revision 1.7  2008/10/01 14:17:48  jost
- * Warnungen entfernt
- *
- * Revision 1.6  2008/07/10 09:21:38  jost
- * Umstellung auf den Reporter
- * Kommunikationsdaten aufgenommen
- *
- * Revision 1.5  2008/01/27 09:43:42  jost
- * Vereinheitlichung der Mitgliedersuche durch die Klasse MitgliedQuery
- *
- * Revision 1.4  2007/02/23 20:28:04  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.3  2007/02/02 19:40:15  jost
- * RÃ¤nder korrigiert.
- *
- * Revision 1.2  2006/10/14 16:12:33  jost
- * Pagesize und Ränder gesetzt.
- *
- * Revision 1.1  2006/09/20 15:39:24  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

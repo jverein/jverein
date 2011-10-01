@@ -8,34 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.9  2011-04-07 19:34:53  jost
- * Neue Zurückbutton-Mimik aus Jameica
- *
- * Revision 1.8  2011-02-12 09:36:46  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.7  2011-01-15 09:46:47  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.6  2010-10-15 09:58:24  jost
- * Code aufgeräumt
- *
- * Revision 1.5  2010-10-07 19:49:22  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.4  2010-08-23 13:39:31  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.3  2010/02/16 20:21:29  jost
- * Layout-Korrektur
- *
- * Revision 1.2  2010/02/15 17:22:49  jost
- * Mail-Anhang implementiert
- *
- * Revision 1.1  2010/02/01 21:00:49  jost
- * Neu: Einfache Mailfunktion
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
@@ -189,12 +161,11 @@ public class MailDetailView extends AbstractView
     text.setLayoutData(new GridData(align));
   }
 
-
   @Override
   public String getHelp()
   {
     return "<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
-    +"<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
+        + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
         + "</form>";
   }
 

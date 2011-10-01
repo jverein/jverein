@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2008/12/22 21:14:03  jost
- * Icons ins Menü aufgenommen.
- *
- * Revision 1.1  2008/06/28 16:58:24  jost
- * Neu: Jahresabschluss
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

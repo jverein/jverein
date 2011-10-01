@@ -10,19 +10,6 @@ package de.jost_net.JVerein.Calendar;
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2011-01-31 17:13:04  jost
- * *** empty log message ***
- *
- * Revision 1.3  2011-01-30 22:57:33  jost
- * Bugfix
- *
- * Revision 1.2  2011-01-20 18:26:15  jost
- * AppointmentCode Hibiscus -> Jameica
- *
- * Revision 1.1  2010-11-25 15:11:15  jost
- * Initial Commit
- *
  **********************************************************************/
 
 import java.rmi.RemoteException;

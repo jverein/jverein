@@ -8,110 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.34  2011-08-15 14:58:58  jost
- * Sterbedatum jetzt optional
- *
- * Revision 1.33  2011-06-19 06:34:56  jost
- * Umstellung Datenbanktyp für booleans von char(5) auf boolean (h2) bzw. tinyint (MySQL)
- *
- * Revision 1.32  2011-05-20 13:01:14  jost
- * Neu: Individueller Beitrag
- *
- * Revision 1.31  2011-04-17 06:40:37  jost
- * Neu: Mitglieder-Selektion nach Zusatzfeldern
- *
- * Revision 1.30  2011-04-06 16:29:54  jost
- * Neu: Starttls
- *
- * Revision 1.29  2011-03-17 19:46:56  jost
- * Aktuelle Geburtstage und Wiedervorlage ausgemustert. Ersatz durch die neue Terminübersicht.
- *
- * Revision 1.28  2011-03-13 13:49:55  jost
- * Zusätzliches Feld f. Sachspendenbescheinigungen.
- *
- * Revision 1.27  2011-03-10 20:35:03  jost
- * Neu: Einstellungen f. Spendenbescheinigung
- *
- * Revision 1.26  2011-02-12 09:42:54  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.25  2011-01-30 08:28:42  jost
- * Neu: Zusatzadressen
- *
- * Revision 1.24  2011-01-29 20:33:14  jost
- * Verzögerungszeit für Suchfelder
- *
- * Revision 1.23  2011-01-09 14:32:11  jost
- * Stammdaten in die Einstellungen verschoben.
- *
- * Revision 1.22  2011-01-08 15:56:44  jost
- * Einstellungen: Dokumentenspeicherung
- *
- * Revision 1.21  2010-11-17 04:52:47  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
- * Revision 1.20  2010-11-13 09:29:58  jost
- * Warnings entfernt.
- *
- * Revision 1.19  2010-10-28 19:16:22  jost
- * Neu: Wohnsitzstaat
- *
- * Revision 1.18  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.17  2010-08-27 19:09:11  jost
- * neu: Mitgliedsfoto
- *
- * Revision 1.16  2010-08-10 18:07:15  jost
- * Zahlungswegtexte für den Rechnungsdruck
- *
- * Revision 1.15  2010-08-10 05:41:15  jost
- * Reaktivierung alter Rechnungen
- *
- * Revision 1.14  2010-07-26 08:23:36  jost
- * Manuelle Zahlungen defaultmäßig deaktviert. Reaktvierbar durch Einstellungen.
- *
- * Revision 1.13  2010-07-25 18:47:09  jost
- * Neu: Mitgliedskonto
- *
- * Revision 1.12  2010/01/21 21:37:47  jost
- * Vermeidung NPE
- *
- * Revision 1.11  2010/01/01 22:36:19  jost
- * Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
- *
- * Revision 1.10  2009/11/19 21:11:16  jost
- * Update-Option entfernt.
- *
- * Revision 1.9  2009/10/17 19:48:01  jost
- * Vorbereitung Mailversand.
- *
- * Revision 1.8  2009/09/13 19:26:44  jost
- * Vermeidung NPE
- *
- * Revision 1.7  2009/09/13 19:20:40  jost
- * Neu: Prüfung auf Updates
- *
- * Revision 1.6  2009/07/14 07:30:30  jost
- * Bugfix Rechnungen.
- *
- * Revision 1.5  2009/04/25 05:32:03  jost
- * Neu: Juristische Personen  können als Mitglied gespeichert werden.
- *
- * Revision 1.4  2009/04/13 11:41:02  jost
- * Neu: Lehrgänge
- *
- * Revision 1.3  2008/12/27 15:19:27  jost
- * Bugfix Booleans aus MySQL-DB lesen.
- *
- * Revision 1.2  2008/12/22 21:22:10  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.1  2008/11/16 16:59:11  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -128,7 +24,6 @@ import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.plugin.AbstractPlugin;
-import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;

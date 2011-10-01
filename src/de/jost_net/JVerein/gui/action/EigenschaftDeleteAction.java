@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2011-03-13 18:29:17  jost
- * redakt. Kommentare
- *
- * Revision 1.2  2009/11/23 20:38:36  jost
- * Bugfix Lösch-Button
- *
- * Revision 1.1  2009/11/17 20:54:14  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

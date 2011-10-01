@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-02-01 20:59:26  jost
- * Neu: Einfache Mailfunktion
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;

@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2009/11/23 20:39:07  jost
- * Bugfix Lösch-Button
- *
- * Revision 1.1  2009/11/17 20:55:11  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -65,8 +58,9 @@ public class EigenschaftGruppeDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Eigenschaften-Gruppe"), e);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Löschen der Eigenschaften-Gruppe"), e);
         return;
       }
 

@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2011-01-15 09:46:47  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.5  2010-10-15 09:58:23  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2010-10-07 19:49:22  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.3  2010-08-23 13:39:31  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.2  2009/09/10 18:46:46  jost
- * Hilfe aufgenommen
- *
- * Revision 1.1  2009/09/10 18:18:45  jost
- * neu: Buchungsklassen
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

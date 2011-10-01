@@ -8,34 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.9  2011-08-23 17:23:25  jost
- * Bugfix Tabellenhöhe
- *
- * Revision 1.8  2011-05-22 08:34:26  jost
- * Namen korrigiert
- *
- * Revision 1.7  2011-04-07 19:28:47  jost
- * Neue Zurückbutton-Mimik aus Jameica
- *
- * Revision 1.6  2011-01-15 09:46:48  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.5  2010-12-04 18:34:20  jost
- * Tabelle scrolled jetzt
- *
- * Revision 1.4  2010-11-27 17:57:53  jost
- * Generierung von Zusatzzahlungen.
- *
- * Revision 1.3  2010-11-27 15:20:41  jost
- * CSV-Ausgabe
- *
- * Revision 1.2  2010-11-27 10:56:48  jost
- * PDF-Ausgabe
- *
- * Revision 1.1  2010-11-22 21:00:20  jost
- * Initial Commit
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

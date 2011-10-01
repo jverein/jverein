@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2011-05-06 15:03:13  jost
- * Neu
- *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 

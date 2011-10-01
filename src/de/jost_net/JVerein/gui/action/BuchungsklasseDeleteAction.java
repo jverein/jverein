@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2009/09/10 18:16:18  jost
- * neu: Buchungsklassen
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -56,8 +52,9 @@ public class BuchungsklasseDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen der Buchungsklasse"), e);
+        Logger.error(
+            JVereinPlugin.getI18n()
+                .tr("Fehler beim Löschen der Buchungsklasse"), e);
         return;
       }
 

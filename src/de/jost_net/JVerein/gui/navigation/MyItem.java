@@ -8,32 +8,8 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2008-12-28 07:55:27  jost
- * Icons an Jameica angepasst
- *
- * Revision 1.5  2008/12/22 21:16:52  jost
- * Icons ins Menü aufgenommen.
- *
- * Revision 1.4  2008/11/29 13:11:27  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.3  2008/05/22 06:51:47  jost
- * Buchführung
- *
- * Revision 1.2  2007/08/23 19:25:23  jost
- * Header korrigiert.
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.navigation;
-
-/*******************************************************************************
- * $Revision$ $Date$ $Author$ $Locker$
- * $State$
- * 
- * Copyright (c) by willuhn software & services All rights reserved
- * 
- ******************************************************************************/
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -168,7 +144,8 @@ public class MyItem implements NavigationItem
     }
     else
     {
-      return PseudoIterator.fromArray(children.toArray(new MyItem[children.size()]));
+      return PseudoIterator.fromArray(children.toArray(new MyItem[children
+          .size()]));
     }
   }
 
@@ -188,7 +165,8 @@ public class MyItem implements NavigationItem
   {
     List list = PseudoIterator.asList(this.parent.getPath());
     list.add(this);
-    return PseudoIterator.fromArray((NavigationItem[]) list.toArray(new NavigationItem[list.size()]));
+    return PseudoIterator.fromArray((NavigationItem[]) list
+        .toArray(new NavigationItem[list.size()]));
   }
 
   /**
@@ -230,7 +208,7 @@ public class MyItem implements NavigationItem
    */
   public String[] getAttributeNames()
   {
-    return new String[] { "name"};
+    return new String[] { "name" };
   }
 
   /**
@@ -260,8 +238,8 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.6 2008-12-28 07:55:27 jost Icons an Jameica
- * angepasst
+ * $Log$ Revision 1.7 2010-10-15 09:58:29 jost Code aufger�umt
+ * Revision 1.6 2008-12-28 07:55:27 jost Icons an Jameica angepasst
  * 
  * Revision 1.5 2008/12/22 21:16:52 jost Icons ins Menü aufgenommen. Revision
  * 1.4 2008/11/29 13:11:27 jost Refactoring: Warnungen beseitigt.

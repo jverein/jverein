@@ -8,58 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.18  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.17  2011-01-11 17:41:10  jost
- * Keine Vormerkposten übernehmen.
- *
- * Revision 1.16  2010-12-31 16:44:13  jost
- * Bug 17827 gefixed
- *
- * Revision 1.15  2010-11-13 09:23:27  jost
- * Warnings entfernt.
- *
- * Revision 1.14  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.13  2010-10-10 06:36:14  jost
- * Bugfix "leere Kontoauswahl".
- *
- * Revision 1.12  2010-08-23 13:33:14  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.11  2009/12/17 19:23:50  jost
- * Mehrfache Buchungsübernahme verhindert.
- *
- * Revision 1.10  2009/01/22 18:23:35  jost
- * neue Icons
- *
- * Revision 1.9  2009/01/20 20:09:24  jost
- * neue Icons
- *
- * Revision 1.8  2009/01/04 16:27:14  jost
- * Neu: Für mehrere Buchungen gleichzeitig die Buchungsart festlegen.
- *
- * Revision 1.7  2008/11/29 13:06:41  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.6  2008/05/24 16:39:17  jost
- * Wegfall der Spalte Saldo
- *
- * Revision 1.5  2008/05/22 06:48:07  jost
- * BuchfÃ¼hrung
- *
- * Revision 1.4  2008/03/16 07:35:49  jost
- * Reaktivierung BuchfÃ¼hrung
- *
- * Revision 1.2  2007/02/23 20:26:22  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:38:30  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

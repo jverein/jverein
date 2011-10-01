@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2009-03-01 18:00:52  jost
- * Zusätzliche Zeile "Überschuss/Verlust"
- *
- * Revision 1.2  2008/07/10 07:59:21  jost
- * Optimierung der internen Reporter-Klasse
- *
- * Revision 1.1  2008/05/25 19:37:08  jost
- * Neu: Jahressaldo
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

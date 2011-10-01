@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2009/07/27 15:25:34  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.3  2009/06/22 18:14:45  jost
- * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
- *
- * Revision 1.2  2007/12/20 20:32:53  jost
- * Neu: Wiedervorlage-Übersicht in der Jameica-Startseite
- *
- * Revision 1.1  2007/05/07 19:25:22  jost
- * Neu: Wiedervorlage
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

@@ -8,31 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.8  2010-11-17 04:52:36  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
- * Revision 1.7  2010-11-13 09:29:22  jost
- * Warnings entfernt.
- *
- * Revision 1.6  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.5  2009-06-11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.4  2008/11/29 13:14:58  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.3  2007/03/25 17:04:58  jost
- * Beitragsart aufgenommen.
- *
- * Revision 1.2  2007/02/23 20:28:41  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:48  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

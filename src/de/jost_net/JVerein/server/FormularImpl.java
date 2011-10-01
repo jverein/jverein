@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2009-06-11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2008/11/29 13:15:55  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.1  2008/07/18 20:18:12  jost
- * Neu: Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -48,13 +35,13 @@ public class FormularImpl extends AbstractDBObject implements Formular
   }
 
   @Override
-  public String getPrimaryAttribute() 
+  public String getPrimaryAttribute()
   {
     return "bezeichnung";
   }
 
   @Override
-  protected void deleteCheck() 
+  protected void deleteCheck()
   {
     //
   }
@@ -98,7 +85,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
   }
 
   @Override
-  protected Class<?> getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

@@ -8,7 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -32,7 +31,8 @@ public class TermineAction implements Action
 }
 
 /**********************************************************************
- * $Log$ Revision 1.1 2010-11-19 18:37:19 willuhn
+ * $Log$ Revision 1.1 2010-11-25 15:11:30 jost Initial
+ * Commit Revision 1.1 2010-11-19 18:37:19 willuhn
  * 
  * @N Erste Version der Termin-View mit Appointment-Providern
  * 

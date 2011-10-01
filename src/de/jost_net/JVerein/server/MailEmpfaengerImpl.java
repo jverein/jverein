@@ -8,17 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-11-13 09:30:50  jost
- * Warnings entfernt.
- *
- * Revision 1.2  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.1  2010-02-01 21:03:15  jost
- * Neu: Einfache Mailfunktion
- *
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

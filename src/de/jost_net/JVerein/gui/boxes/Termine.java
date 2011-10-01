@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2011-03-18 19:15:03  jost
- * Neu: JVerein-Termine auf der Startseite
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.boxes;
 

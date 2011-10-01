@@ -8,43 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.12  2011-02-12 09:36:28  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.11  2011-01-15 09:46:47  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.10  2010-10-15 09:58:23  jost
- * Code aufger�umt
- *
- * Revision 1.9  2010-10-07 19:49:22  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.8  2010-08-23 13:39:31  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.7  2009/06/11 21:03:39  jost
- * Vorbereitung I18N
- *
- * Revision 1.6  2009/01/20 20:09:24  jost
- * neue Icons
- *
- * Revision 1.5  2009/01/20 19:15:19  jost
- * neu: Back-Button mit Icon
- *
- * Revision 1.4  2008/09/30 10:20:46  jost
- * Kursteilnehmer können nach Namen und Eingabedatum gefiltert werden.
- *
- * Revision 1.3  2008/05/24 14:04:08  jost
- * Redatkionelle Änderung
- *
- * Revision 1.2  2008/01/01 19:51:59  jost
- * Erweiterung um Hilfe-Funktion
- *
- * Revision 1.1  2007/02/25 19:13:46  jost
- * Neu: Kursteilnehmer
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2009/06/11 21:03:02  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2008/12/22 21:15:24  jost
- * Icons ins Menü aufgenommen.
- *
- * Revision 1.1  2008/07/19 19:24:58  jost
- * Neu: Spendenbescheinigung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

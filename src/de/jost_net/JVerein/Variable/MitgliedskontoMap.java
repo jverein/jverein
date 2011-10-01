@@ -8,10 +8,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * All rights reserved
- * $Log$
- * Revision 1.1  2011-05-27 18:48:45  jost
- * Vereinheitlichung Variable
- *
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 

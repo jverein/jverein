@@ -9,44 +9,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.12  2011-08-27 11:02:59  jost
- * Überflüssigen Import entfernt.
- *
- * Revision 1.11  2011-08-27 06:42:29  jost
- * Bugfix OperationCanceledException
- * siehe http://www.jverein.de/forum/viewtopic.php?f=5&t=679
- *
- * Revision 1.10  2011-08-24 16:03:50  jost
- * Bugfix "Übernahme"-Button für Soll+Ist
- *
- * Revision 1.9  2011-06-12 07:08:24  jost
- * Spezialsuche bei Namen mit Namensvorsätzen (von, di, de ...)
- *
- * Revision 1.8  2011-05-05 19:50:47  jost
- * Bugfix Scrollbar
- *
- * Revision 1.7  2011-02-26 15:54:19  jost
- * Bugfix Mitgliedskontoauswahl bei neuer Buchung, mehrfacher Mitgliedskontoauswahl
- *
- * Revision 1.6  2011-01-08 10:45:18  jost
- * Erzeugung Sollbuchung bei Zuordnung des Mitgliedskontos
- *
- * Revision 1.5  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2010-09-12 19:59:25  jost
- * Mitgliedskontoauswahl kann rückgängig gemacht werden.
- *
- * Revision 1.3  2010-08-16 20:16:58  jost
- * Neu: Mahnung
- *
- * Revision 1.2  2010-08-08 11:32:29  jost
- * Nicht-Case-Sensitive-Suche
- *
- * Revision 1.1  2010-07-25 18:32:23  jost
- * Neu: Mitgliedskonto
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.dialogs;

@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2010/05/18 20:24:32  jost
- * Anpassung Klassenname
- *
- * Revision 1.1  2010/04/28 06:17:50  jost
- * Neu: Mitgliedskonto
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

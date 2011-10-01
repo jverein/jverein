@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-11-22 20:58:53  jost
- * Initial Commit
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.input;

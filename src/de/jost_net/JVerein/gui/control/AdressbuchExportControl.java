@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.4  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2010-08-23 13:30:06  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.2  2010/05/16 10:42:38  jost
- * Einheitlicher Umgang mit ausgetretenen Mitgliedern
- *
- * Revision 1.1  2009/03/26 20:58:32  jost
- * Neu: Adressbuchexport
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.control;

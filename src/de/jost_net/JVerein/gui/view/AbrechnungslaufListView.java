@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2011-04-07 19:16:04  jost
- * Neue Zurückbutton-Mimik aus Jameica
- *
- * Revision 1.5  2011-01-15 09:46:47  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.4  2010-10-15 09:58:25  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2010-10-07 19:49:22  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.2  2010-08-23 13:38:43  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.1  2010/05/18 20:20:43  jost
- * Anpassung Klassenname
- *
- * Revision 1.1  2010/04/25 13:55:18  jost
- * Vorarbeiten Mitgliedskonto
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

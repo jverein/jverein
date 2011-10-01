@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2011-01-04 14:19:59  jost
- * Einschränkung auf die Beitragsgruppen mit Arbeitseinsätzen.
- *
- * Revision 1.2  2010-11-24 21:56:31  jost
- * nur angemeldete Mitglieder
- *
- * Revision 1.1  2010-11-22 21:00:04  jost
- * Initial Commit
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.parts;
 
@@ -160,7 +150,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
         return ergebnis;
       }
     };
-     return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService()
+    return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService()
         .execute(sql, new Object[] { jahr, jahr, jahr }, rs);
   }
 

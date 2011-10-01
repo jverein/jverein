@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2010-11-13 09:30:16  jost
- * Warnings entfernt.
- *
- * Revision 1.4  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.3  2009-06-11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.2  2008/11/29 13:15:45  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.1  2008/07/18 20:17:55  jost
- * Neu: Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

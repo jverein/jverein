@@ -7,8 +7,6 @@
  * Author Collin Finck
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

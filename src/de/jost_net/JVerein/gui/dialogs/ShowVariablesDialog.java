@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2011-05-29 12:41:36  jost
- * Neu. Anzeige der Variablen.
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 

@@ -3,44 +3,10 @@
  * $Revision$
  * $Date$
  * $Author$
- *
  * Copyright (c) by Michael Trapp
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.10  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.9  2009-12-12 16:26:30  jost
- * Kommentare entfernen.
- *
- * Revision 1.8  2009/11/17 21:03:03  jost
- * DB-Aktualisierung optimiert.
- *
- * Revision 1.7  2009/06/11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.6  2009/04/25 05:31:41  jost
- * Neu: Juristische Personen  können als Mitglied gespeichert werden.
- *
- * Revision 1.5  2009/04/19 18:51:02  jost
- * Bugfix
- *
- * Revision 1.4  2009/04/10 09:53:08  jost
- * Umstellung auf aktuelle Methoden.
- *
- * Revision 1.3  2008/12/28 21:26:26  jost
- * Javadoc entfernt.
- *
- * Revision 1.2  2008/12/22 21:21:48  jost
- * Bugfix MySQL-Support
- *
- * Revision 1.1  2008/01/29 18:32:23  jost
- * MySQL-Support von Michael Trapp Ã¼bernommen
- *
- * Revision 1.0  2008/01/14 12:00:00  trapp
- * @N Erster Code fuer Unterstuetzung von MySQL
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -90,9 +56,10 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
    */
   public String getJdbcUrl()
   {
-    return JVereinDBService.SETTINGS.getString(
-        "database.driver.mysql.jdbcurl",
-        "jdbc:mysql://localhost:3306/jverein?useUnicode=Yes&characterEncoding=ISO8859_1");
+    return JVereinDBService.SETTINGS
+        .getString(
+            "database.driver.mysql.jdbcurl",
+            "jdbc:mysql://localhost:3306/jverein?useUnicode=Yes&characterEncoding=ISO8859_1");
   }
 
   /**
@@ -111,13 +78,14 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
     {
       try
       {
-        new JVereinUpdateProvider(conn,
-            Application.getCallback().getStartupMonitor());
+        new JVereinUpdateProvider(conn, Application.getCallback()
+            .getStartupMonitor());
       }
       catch (Exception e2)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Datenbankupdate kann nicht ausgeführt werden."), e2);
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Datenbankupdate kann nicht ausgeführt werden."), e2);
         throw new ApplicationException(e2);
       }
     }
@@ -147,7 +115,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   public String getSQLTimestamp(String content)
   {
     return MessageFormat.format("(UNIX_TIMESTAMP({0})*1000)",
-        new Object[] { content});
+        new Object[] { content });
   }
 
   /**
@@ -159,16 +127,16 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   }
 
   private long lastCheck = 0;
- 
+
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#checkConnection(java.sql.Connection)
    */
   public void checkConnection(Connection conn) throws RemoteException
   {
-   long newCheck = System.currentTimeMillis();
-   if ((newCheck - lastCheck) < (10 * 1000L))
-     return; // Wir checken hoechstens aller 10 Sekunden
-      
+    long newCheck = System.currentTimeMillis();
+    if ((newCheck - lastCheck) < (10 * 1000L))
+      return; // Wir checken hoechstens aller 10 Sekunden
+
     Statement s = null;
     ResultSet rs = null;
     try
@@ -206,7 +174,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   }
 
   @Override
-  public int getTransactionIsolationLevel() 
+  public int getTransactionIsolationLevel()
   {
     // damit sehen wir Datenbank-Updates durch andere
     // ohne vorher ein COMMIT machen zu muessen

@@ -8,49 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.14  2011-05-06 14:48:16  jost
- * Neue Variablenmimik
- *
- * Revision 1.13  2011-05-06 14:42:48  jost
- * Neue Variablenmimik
- *
- * Revision 1.12  2011-02-12 09:26:22  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.11  2011-02-05 17:38:30  jost
- * Bugfix: Korrekte Positionierung des Betragsfeldes.
- *
- * Revision 1.10  2010-08-10 15:58:14  jost
- * neues Feld Zahlungsgrund
- *
- * Revision 1.9  2010-08-08 19:31:44  jost
- * Bugfix
- *
- * Revision 1.8  2010-07-26 14:47:18  jost
- * Bugfix
- *
- * Revision 1.7  2009/10/17 19:44:19  jost
- * *** empty log message ***
- *
- * Revision 1.6  2009/09/21 18:18:04  jost
- * Weitere Testdaten aufgenommen.
- *
- * Revision 1.5  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.4  2008/12/29 09:19:15  jost
- * Vermeidung NPE: Tagesdatum besetzen
- *
- * Revision 1.3  2008/10/01 14:16:51  jost
- * Warnungen entfernt
- *
- * Revision 1.2  2008/09/16 18:26:13  jost
- * Refactoring Formularaufbereitung
- *
- * Revision 1.1  2008/07/18 20:06:19  jost
- * Neu: Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

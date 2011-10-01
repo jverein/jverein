@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2011-01-15 09:46:48  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.2  2010-12-14 21:42:03  jost
- * Neu: Speicherung von Dokumenten
- *
- * Revision 1.1  2010-12-12 08:13:14  jost
- * Neu: Speicherung von Dokumenten
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

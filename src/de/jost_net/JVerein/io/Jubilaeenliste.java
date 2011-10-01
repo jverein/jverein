@@ -8,37 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.10  2011-01-09 14:31:13  jost
- * Stammdaten in die Einstellungen verschoben.
- *
- * Revision 1.9  2010-10-15 09:58:28  jost
- * Code aufger‰umt
- *
- * Revision 1.8  2010-05-16 10:44:15  jost
- * Einheitlicher Umgang mit ausgetretenen Mitgliedern
- *
- * Revision 1.7  2010/01/01 20:28:09  jost
- * Konkrete Fehlermeldung, wenn bei der Erstellung einer Altersjubil‰umsliste der Eintag in den Stammdaten fehlt.
- *
- * Revision 1.6  2008/12/24 09:17:09  jost
- * Bei Altersjubil√§en wird jetzt das Geburtsdatum anstatt des Eintrittsdatums ausgegeben.
- *
- * Revision 1.5  2008/12/06 16:46:57  jost
- * Debug-Meldung entfernt.
- *
- * Revision 1.4  2008/09/21 08:46:10  jost
- * Neu: Altersjubli√§en
- *
- * Revision 1.3  2008/07/10 07:59:38  jost
- * Optimierung der internen Reporter-Klasse
- *
- * Revision 1.2  2007/12/28 13:14:50  jost
- * Bugfix beim erzeugen eines Stammdaten-Objektes
- *
- * Revision 1.1  2007/12/22 08:26:51  jost
- * Neu: Jubil√§enliste
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2009/06/22 18:11:51  jost
- * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
- *
- * Revision 1.5  2009/06/21 08:51:42  jost
- * Bessere Fehlermeldung bei der Löschung von Beitragsgruppen, denen noch Mitglieder zugeordnet sind. Siehe #15892
- *
- * Revision 1.4  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.3  2008/01/26 16:21:03  jost
- * Debug-Message entfernt.
- *
- * Revision 1.2  2007/08/30 19:47:17  jost
- * Jetzt auch Ã¼ber einen Button auslÃ¶sbar.
- *
- * Revision 1.1  2007/08/23 19:24:05  jost
- * Bug #11819 - Beitragsgruppen kÃ¶nnen jetzt gelÃ¶scht werden
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -76,8 +57,7 @@ public class BeitragsgruppeDeleteAction implements Action
         throw new ApplicationException(
             JVereinPlugin
                 .getI18n()
-                .tr(
-                    "Beitragsgruppe \"{0}\" kann nicht gelöscht werden. {1} Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
+                .tr("Beitragsgruppe \"{0}\" kann nicht gelöscht werden. {1} Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
                     new String[] { bg.getBezeichnung(), mitgl.size() + "" }));
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);

@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-08-16 20:16:02  jost
- * Neu: Mahnung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

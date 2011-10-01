@@ -8,50 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.14  2011-02-12 09:40:02  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.13  2011-01-29 07:10:49  jost
- * Bugfix. Über 100-jährige wurden in der Summe nicht berücksichtigt.
- *
- * Revision 1.12  2011-01-27 22:25:09  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
- * Revision 1.11  2011-01-09 14:31:23  jost
- * Stammdaten in die Einstellungen verschoben.
- *
- * Revision 1.10  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.9  2010-05-16 10:44:28  jost
- * Einheitlicher Umgang mit ausgetretenen Mitgliedern
- *
- * Revision 1.8  2009/03/02 21:09:39  jost
- * Bugfix Altersgruppen und Berücksichtigung des Eintrittsdatums
- *
- * Revision 1.7  2008/07/10 07:59:52  jost
- * Optimierung der internen Reporter-Klasse
- *
- * Revision 1.6  2007/12/28 13:15:05  jost
- * Bugfix beim erzeugen eines Stammdaten-Objektes
- *
- * Revision 1.5  2007/12/21 11:28:20  jost
- * Mitgliederstatistik jetzt Stichtagsbezogen
- *
- * Revision 1.4  2007/12/16 20:25:53  jost
- * Umstellung auf Reporter
- *
- * Revision 1.3  2007/02/23 20:28:04  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2007/02/02 19:40:51  jost
- * Bugfix: Nur aktive Mitglieder
- *
- * Revision 1.1  2006/10/29 07:50:08  jost
- * Neu: Mitgliederstatistik
- *
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

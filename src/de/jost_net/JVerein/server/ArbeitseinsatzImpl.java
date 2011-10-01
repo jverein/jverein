@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010-11-17 04:52:25  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

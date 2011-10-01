@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2009-06-11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2009/04/13 11:41:02  jost
- * Neu: Lehrgänge
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -52,7 +42,7 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
   }
 
   @Override
-  protected void deleteCheck() 
+  protected void deleteCheck()
   {
     //
   }
@@ -84,7 +74,7 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
   }
 
   @Override
-  protected Class<?> getForeignObject(String arg0) 
+  protected Class<?> getForeignObject(String arg0)
   {
     return null;
   }

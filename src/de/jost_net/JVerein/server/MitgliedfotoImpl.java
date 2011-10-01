@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-08-27 19:09:46  jost
- * neu: Mitgliedsfoto
- *
- * Revision 1.1  2010-08-26 11:14:57  jost
- * Neu: Fotos von Mitgliedern
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

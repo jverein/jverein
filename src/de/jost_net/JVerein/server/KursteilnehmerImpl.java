@@ -8,28 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.7  2010-11-13 09:30:50  jost
- * Warnings entfernt.
- *
- * Revision 1.6  2010-10-15 09:58:28  jost
- * Code aufger‰umt
- *
- * Revision 1.5  2009-06-20 12:33:53  jost
- * Vereinheitlichung der Bezeichner
- *
- * Revision 1.4  2009/06/11 21:04:23  jost
- * Vorbereitung I18N
- *
- * Revision 1.3  2008/11/29 13:16:35  jost
- * Refactoring: Warnungen beseitigt.
- *
- * Revision 1.2  2007/03/21 12:10:43  jost
- * Neu: Abbuchungsdatum beim Kursteilnehmer kann zur√ºckgesetzt werden.
- *
- * Revision 1.1  2007/02/25 19:14:53  jost
- * Neu: Kursteilnehmer
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 

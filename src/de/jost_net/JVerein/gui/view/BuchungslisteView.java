@@ -8,61 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.19  2011-01-30 10:12:53  jost
- * Textsuche implementiert
- *
- * Revision 1.18  2011-01-15 09:46:48  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.17  2010-10-15 09:58:24  jost
- * Code aufger�umt
- *
- * Revision 1.16  2010-10-07 19:49:24  jost
- * Hilfe in die View verlagert.
- *
- * Revision 1.15  2010-08-23 13:39:32  jost
- * Optimierung Tastatursteuerung
- *
- * Revision 1.14  2009/09/12 19:03:16  jost
- * neu: Buchungsjournal
- *
- * Revision 1.13  2009/06/11 21:03:39  jost
- * Vorbereitung I18N
- *
- * Revision 1.12  2009/01/20 20:09:24  jost
- * neue Icons
- *
- * Revision 1.11  2009/01/20 19:15:19  jost
- * neu: Back-Button mit Icon
- *
- * Revision 1.10  2008/07/10 07:57:21  jost
- * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
- *
- * Revision 1.9  2008/05/24 19:32:21  jost
- * PDF-Ausgabe verschoben
- *
- * Revision 1.8  2008/05/24 16:39:48  jost
- * Zusätzliche Selektionskriterien
- *
- * Revision 1.7  2008/05/24 14:04:08  jost
- * Redatkionelle Änderung
- *
- * Revision 1.6  2008/05/22 06:52:50  jost
- * Buchführung
- *
- * Revision 1.5  2008/03/16 07:36:29  jost
- * Reaktivierung Buchführung
- *
- * Revision 1.3  2007/02/23 20:27:28  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.2  2006/10/14 16:47:34  jost
- * Reihenfolge der Buttons standardisiert.
- *
- * Revision 1.1  2006/09/20 15:39:10  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 

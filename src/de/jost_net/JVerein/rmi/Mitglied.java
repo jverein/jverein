@@ -8,67 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.20  2011-05-20 13:01:02  jost
- * Neu: Individueller Beitrag
- *
- * Revision 1.19  2011-05-06 15:02:28  jost
- * Neue Variablenmimik
- *
- * Revision 1.18  2011-04-23 06:57:18  jost
- * Neu: Freie Formulare
- *
- * Revision 1.17  2011-01-30 10:30:12  jost
- * Datum der letzten Änderung wird gespeichert
- *
- * Revision 1.16  2011-01-27 22:24:16  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
- * Revision 1.15  2010-10-30 11:31:51  jost
- * Neu: Sterbetag
- *
- * Revision 1.14  2010-10-28 19:15:50  jost
- * Neu: Wohnsitzstaat
- *
- * Revision 1.13  2010-08-27 19:08:41  jost
- * neu: Mitgliedsfoto
- *
- * Revision 1.12  2009/10/20 18:01:17  jost
- * Neu: Anzeige IBAN
- *
- * Revision 1.11  2009/04/25 05:31:24  jost
- * Neu: Juristische Personen  können als Mitglied gespeichert werden.
- *
- * Revision 1.10  2008/11/13 20:18:28  jost
- * Adressierungszusatz aufgenommen.
- *
- * Revision 1.9  2008/07/18 20:16:53  jost
- * Neue Methode
- *
- * Revision 1.8  2008/06/29 07:58:45  jost
- * Neu: Handy
- *
- * Revision 1.7  2008/03/08 19:30:47  jost
- * Neu: Externe Mitgliedsnummer
- *
- * Revision 1.6  2007/12/02 13:44:00  jost
- * Neu: Beitragsmodelle
- *
- * Revision 1.5  2007/03/25 17:04:34  jost
- * Herstellung des Familienverbandes
- *
- * Revision 1.4  2007/03/10 20:28:58  jost
- * Neu: Zahlungsweg
- *
- * Revision 1.3  2007/03/10 13:44:56  jost
- * Vermerke eingefÃ¼hrt.
- *
- * Revision 1.2  2007/02/23 20:28:24  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.1  2006/09/20 15:39:35  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 

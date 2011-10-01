@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2011-05-06 14:44:33  jost
- * Neue Variablenmimik
- *
- * Revision 1.1  2011-04-23 06:55:33  jost
- * Neu: Freie Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

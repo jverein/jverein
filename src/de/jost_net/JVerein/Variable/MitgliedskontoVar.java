@@ -8,7 +8,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * All rights reserved
- * $Log$
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 

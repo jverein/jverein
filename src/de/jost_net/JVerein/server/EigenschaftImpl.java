@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2010-10-15 09:58:28  jost
- * Code aufgeräumt
- *
- * Revision 1.1  2009-11-17 21:03:50  jost
- * Neu: Eigenschaft und EigenschaftGruppe
- *
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -43,7 +36,7 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
   }
 
   @Override
-  public String getPrimaryAttribute() 
+  public String getPrimaryAttribute()
   {
     return "id";
   }
@@ -85,7 +78,7 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
   }
 
   @Override
-  protected Class<?> getForeignObject(String field) 
+  protected Class<?> getForeignObject(String field)
   {
     if ("eigenschaftgruppe".equals(field))
     {

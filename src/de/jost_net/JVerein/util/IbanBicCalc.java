@@ -7,10 +7,6 @@
  * Copyright (c) by Ralf Neumaier
  * All rights reserved
  * www.jverein.de
- * $Log$
- * Revision 1.1  2009/10/20 18:01:47  jost
- * Neu: Anzeige IBAN
- *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 

@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2011-02-12 09:34:29  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.3  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2010-08-04 10:40:52  jost
- * Javadoc
- *
- * Revision 1.1  2010-07-25 18:36:03  jost
- * Neu: Mitgliedskonto
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

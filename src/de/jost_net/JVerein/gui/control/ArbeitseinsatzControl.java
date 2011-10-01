@@ -8,34 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.9  2011-05-22 08:33:22  jost
- * Neu: Buchungstext2 für Zusatzbeträge
- *
- * Revision 1.8  2011-02-12 09:28:58  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.7  2011-01-15 09:46:49  jost
- * Tastatursteuerung wegen Problemen mit Jameica/Hibiscus wieder entfernt.
- *
- * Revision 1.6  2010-12-04 18:33:38  jost
- * aktuelles Datum wird per default vorgegeben.
- *
- * Revision 1.5  2010-11-27 17:56:37  jost
- * Generierung von Zusatzzahlungen.
- *
- * Revision 1.4  2010-11-27 15:20:29  jost
- * CSV-Ausgabe
- *
- * Revision 1.3  2010-11-27 10:56:21  jost
- * PDF-Ausgabe
- *
- * Revision 1.2  2010-11-22 20:58:17  jost
- * Arbeitseinsatzüberprüfung
- *
- * Revision 1.1  2010-11-17 04:49:05  jost
- * Erster Code zum Thema Arbeitseinsatz
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

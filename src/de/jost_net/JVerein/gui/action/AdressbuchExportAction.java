@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2009-03-26 20:54:48  jost
- * Neu: Adressbuchexport
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

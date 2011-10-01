@@ -8,37 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.10  2011-01-09 14:31:00  jost
- * Stammdaten in die Einstellungen verschoben.
- *
- * Revision 1.9  2009/06/11 21:03:52  jost
- * Vorbereitung I18N
- *
- * Revision 1.8  2008/12/22 21:19:17  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.7  2008/11/30 10:45:42  jost
- * Neu: Konfiguration der Spalten einer Tabelle
- *
- * Revision 1.6  2008/11/29 13:12:13  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.5  2008/02/13 18:18:16  jost
- * Überflüssigen Import entfernt.
- *
- * Revision 1.4  2008/02/09 14:35:51  jost
- * Bugfix. Zusatzabbuchungen und Kursteilnehmer nur abbuchen, wenn das Häkchen gesetzt ist.
- *
- * Revision 1.3  2008/01/31 19:41:18  jost
- * Berücksichtigung eines Stichtages für die Abbuchung
- *
- * Revision 1.2  2007/12/28 13:14:25  jost
- * Bugfix beim erzeugen eines Stammdaten-Objektes
- *
- * Revision 1.1  2007/12/26 18:13:47  jost
- * Lastschriften können jetzt als Einzellastschriften oder Sammellastschriften direkt in Hibuscus verbucht werden.
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

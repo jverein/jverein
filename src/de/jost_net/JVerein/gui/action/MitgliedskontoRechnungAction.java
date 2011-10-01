@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-08-15 19:00:23  jost
- * Rechnungen auch für einen vorgegebenen Zeitraum ausgeben.
- *
- * Revision 1.2  2010-08-08 19:32:03  jost
- * Code bereinigt.
- *
- * Revision 1.1  2010-08-04 10:39:50  jost
- * Prerelease Rechnung
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

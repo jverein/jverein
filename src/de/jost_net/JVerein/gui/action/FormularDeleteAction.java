@@ -8,13 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.2  2009/06/11 21:02:05  jost
- * Vorbereitung I18N
- *
- * Revision 1.1  2008/07/18 20:06:34  jost
- * Neu: Formulare
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
@@ -68,8 +61,10 @@ public class FormularDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen des Formulares"), e);
+        Logger
+            .error(
+                JVereinPlugin.getI18n()
+                    .tr("Fehler beim Löschen des Formulares"), e);
         return;
       }
       f.delete();

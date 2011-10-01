@@ -8,22 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2010-10-15 09:58:26  jost
- * Code aufgeräumt
- *
- * Revision 1.4  2010-01-01 18:36:09  jost
- * Typisierung der Zusatzfelder
- *
- * Revision 1.3  2009/07/24 20:17:47  jost
- * Focus auf erstes Feld setzen.
- *
- * Revision 1.2  2009/06/22 18:12:59  jost
- * Einheitliche Ausgabe von Fehlermeldungen in der Statusbar
- *
- * Revision 1.1  2008/04/10 18:58:13  jost
- * Neu: Benutzerdefinierte Datenfelder
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 

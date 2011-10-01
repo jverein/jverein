@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-11-27 17:57:27  jost
- * Überflüssigen Import entfernt.
- *
- * Revision 1.2  2010-11-26 08:11:06  jost
- * Änderung von Olaf übernommen.
- *
- * Revision 1.1  2010-11-25 15:11:45  jost
- * Initial Commit
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.gui.parts;

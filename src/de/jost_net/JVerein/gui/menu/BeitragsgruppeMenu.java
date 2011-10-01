@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2008/12/22 21:12:08  jost
- * Icons ins Menü aufgenommen.
- *
- * Revision 1.2  2007/12/02 13:41:04  jost
- * überflüssiges Import-Statement entfernt.
- *
- * Revision 1.1  2007/08/23 19:24:45  jost
- * Bug #11819 - Beitragsgruppen können jetzt gelöscht werden
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

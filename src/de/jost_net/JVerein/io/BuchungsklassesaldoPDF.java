@@ -8,25 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.6  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.5  2010-05-02 06:09:32  jost
- * Redakt. Änderung
- *
- * Revision 1.4  2010/02/23 21:16:13  jost
- * Individueller Zeitraum
- *
- * Revision 1.3  2009/09/19 16:28:38  jost
- * Weiterentwicklung
- *
- * Revision 1.2  2009/09/15 19:24:12  jost
- * Saldo-Bildung
- *
- * Revision 1.1  2009/09/12 19:05:02  jost
- * neu: Buchungsklassen
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

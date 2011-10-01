@@ -10,7 +10,6 @@ package de.jost_net.JVerein.DBTools;
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
  **********************************************************************/
 
 import java.sql.Connection;

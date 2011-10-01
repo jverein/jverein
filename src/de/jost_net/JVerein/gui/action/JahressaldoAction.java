@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2008-05-25 19:36:00  jost
- * Neu: Jahressaldo
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

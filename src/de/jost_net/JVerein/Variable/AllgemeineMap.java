@@ -8,10 +8,6 @@
  * heiner@jverein.de
  * www.jverein.de
  * All rights reserved
- * $Log$
- * Revision 1.1  2011-05-06 15:03:40  jost
- * Neue Variablenmimik
- *
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 

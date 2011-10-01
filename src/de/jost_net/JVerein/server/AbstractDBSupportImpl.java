@@ -9,16 +9,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2010-10-15 09:58:27  jost
- * Code aufgeräumt
- *
- * Revision 1.2  2008-07-16 13:02:39  jost
- * *** empty log message ***
- *
- * Revision 1.1  2007/10/18 18:20:23  jost
- * Vorbereitung H2-DB
- *
  **********************************************************************/
 
 package de.jost_net.JVerein.server;

@@ -8,19 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.4  2011-06-11 09:57:25  jost
- * Korrekte Darstellung der Buchung in der globalen Suche.
- *
- * Revision 1.3  2011-02-12 09:42:02  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.2  2010-10-15 09:58:30  jost
- * Code aufgeräumt
- *
- * Revision 1.1  2010-02-25 18:57:48  jost
- * Neu: Suche f. Buchungen
- *
  **********************************************************************/
 package de.jost_net.JVerein.search;
 

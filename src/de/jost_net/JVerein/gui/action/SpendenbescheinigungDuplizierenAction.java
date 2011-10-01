@@ -8,10 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.1  2010/01/01 21:40:04  jost
- * Existierende Spendenbescheinigung kann als Vorlage für eine neue Spendenbescheinigung verwendet werden.
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 

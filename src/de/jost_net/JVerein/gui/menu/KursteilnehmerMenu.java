@@ -8,16 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.3  2008/12/22 21:14:32  jost
- * Icons ins Menü aufgenommen.
- *
- * Revision 1.2  2007/03/21 12:10:00  jost
- * Neu: Abbuchungsdatum beim Kursteilnehmer kann zurückgesetzt werden.
- *
- * Revision 1.1  2007/02/25 19:12:44  jost
- * Neu: Kursteilnehmer
- *
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 

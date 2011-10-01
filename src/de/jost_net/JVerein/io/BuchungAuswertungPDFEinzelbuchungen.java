@@ -8,43 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.5  2010-10-15 09:58:28  jost
- * Code aufger‰umt
- *
- * Revision 1.4  2009-02-08 10:31:50  jost
- * Bugfix Gesamtsumme
- *
- * Revision 1.3  2008/12/30 11:28:23  jost
- * Summenzeilen korrekt ausgeben. Bug #14978
- *
- * Revision 1.2  2008/12/11 19:19:00  jost
- * *** empty log message ***
- *
- * Revision 1.1  2008/07/10 07:57:51  jost
- * PDF-Export der Buchungen jetzt mit Einzelbuchungen und als Summen
- *
- * Revision 1.7  2008/05/24 19:32:42  jost
- * Auswertung √ºberarbeitet.
- *
- * Revision 1.6  2008/03/16 07:37:37  jost
- * Reaktivierung Buchf√ºhrung
- *
- * Revision 1.4  2007/02/23 20:28:04  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.3  2006/10/16 17:40:02  jost
- * Korrekte Subtitle-Ausgabe
- *
- * Revision 1.2  2006/10/14 16:11:56  jost
- * Pagesize und R‰nder gesetzt.
- *
- * Revision 1.1  2006/10/14 06:03:00  jost
- * Erweiterung um Buchungsauswertung
- *
- * Revision 1.1  2006/09/20 15:39:24  jost
- * *** empty log message ***
- *
  **********************************************************************/
 package de.jost_net.JVerein.io;
 

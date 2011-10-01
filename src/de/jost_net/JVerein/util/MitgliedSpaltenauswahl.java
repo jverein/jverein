@@ -8,34 +8,6 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.9  2011-02-12 09:44:06  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.8  2011-01-30 10:30:48  jost
- * Datum der letzten Änderung wird gespeichert
- *
- * Revision 1.7  2011-01-27 22:25:48  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
- * Revision 1.6  2010/01/01 20:12:34  jost
- * Typisierung der Zusatzfelder
- *
- * Revision 1.5  2009/06/11 21:04:24  jost
- * Vorbereitung I18N
- *
- * Revision 1.4  2009/03/02 19:22:41  jost
- * Bug #15335
- *
- * Revision 1.3  2009/02/12 22:19:12  jost
- * Anrede aufgenommen.
- *
- * Revision 1.2  2008/11/30 18:58:59  jost
- * Neu: Konfiguration der Spalten einer Tabelle
- *
- * Revision 1.1  2008/11/29 13:18:07  jost
- * Neu: Konfiguration der Spalten einer Tabelle
- *
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
@@ -98,7 +70,8 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add(JVereinPlugin.getI18n().tr("Eingabedatum"), "eingabedatum", false,
         new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     add(JVereinPlugin.getI18n().tr("letzte Änderung"), "letzteaenderung",
-        false, new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+        false, new DateFormatter(new JVDateFormatTTMMJJJJ()),
+        Column.ALIGN_AUTO, true);
     try
     {
       DBIterator it = Einstellungen.getDBService().createList(
@@ -110,7 +83,8 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
         {
           case Datentyp.DATUM:
             add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
-                new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+                new DateFormatter(new JVDateFormatTTMMJJJJ()),
+                Column.ALIGN_AUTO, true);
             break;
           case Datentyp.WAEHRUNG:
             add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
