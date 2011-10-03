@@ -681,12 +681,16 @@ public class Abrechnung
     return mitgliedname;
   }
 
-  private String dtaus27(String in)
+  public static String dtaus27(String in)
   {
     String out = in;
     if (in.length() > 27)
     {
       out = in.substring(0, 27);
+    }
+    while (out.length() < 27)
+    {
+      out += " ";
     }
     int lae = out.length();
     for (int i = 0; i < out.length(); i++)

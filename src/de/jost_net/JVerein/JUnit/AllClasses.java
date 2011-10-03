@@ -13,6 +13,7 @@ package de.jost_net.JVerein.JUnit;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import de.jost_net.JVerein.io.AbrechnungTest;
 import de.jost_net.JVerein.io.XLastschriftenTest;
 
 public class AllClasses
@@ -21,6 +22,7 @@ public class AllClasses
   {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(XLastschriftenTest.class);
+    suite.addTestSuite(AbrechnungTest.class);
     return suite;
 
   }
