@@ -106,8 +106,6 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
           buchung.setMitgliedskonto(mk);
           buchung.store();
         }
-        System.out.println(mk.getBetrag() + mk.getZweck1());
-
         control.getBuchungsList();
         GUI.getStatusBar().setSuccessText(
             JVereinPlugin.getI18n().tr("Mitgliedskonto zugeordnet"));
