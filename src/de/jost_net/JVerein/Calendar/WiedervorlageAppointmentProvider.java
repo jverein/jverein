@@ -129,7 +129,8 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return i18n.tr("Wiedervorlage:" + w.getVermerk());
+        return i18n.tr("Wiedervorlage:" + w.getMitglied().getNameVorname()
+            + ": " + w.getVermerk());
       }
       catch (RemoteException re)
       {
