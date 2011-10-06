@@ -41,7 +41,8 @@
           <li>Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2740'>Forum</a></li>
           <li>Individuelle Spendenbescheinigung: Check ob auch ein Forumlar ausgewählt wurde - Patch von Christian Lutz</li>
           <li>Bugfix Sortierung Buchungsübersicht.</li>
-          <li>##Bugfix bei der Übernahme mehrerer Buchung in das Mitgliedskonto - Patch von Danzelot - siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2778&hilit=patch#p2775'>Forum</a></li> 
+          <li>##Bugfix bei der Übernahme mehrerer Buchung in das Mitgliedskonto - Patch von Danzelot - siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2778&hilit=patch#p2775'>Forum</a></li>
+          <li>Terminkalender zu Jameica verschoben. Termin-Box gelöscht.</li> 
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
