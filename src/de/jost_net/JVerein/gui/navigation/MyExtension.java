@@ -55,7 +55,6 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.SpendenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
-import de.jost_net.JVerein.gui.action.TermineAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeImportAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeListeAction;
@@ -112,8 +111,6 @@ public class MyExtension implements Extension
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
             "Mahnungen"), new MitgliedskontoMahnungAction(), "rechnung.png"));
       }
-      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n()
-          .tr("Termine"), new TermineAction(), "office-calendar.png"));
       if (Einstellungen.getEinstellung().getArbeitseinsatz())
       {
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
