@@ -42,6 +42,7 @@
           <li>Individuelle Spendenbescheinigung: Check ob auch ein Forumlar ausgewählt wurde - Patch von Christian Lutz</li>
           <li>Bugfix Sortierung Buchungsübersicht.</li>
           <li>##Bugfix bei der Übernahme mehrerer Buchung in das Mitgliedskonto - Patch von Danzelot - siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2778&hilit=patch#p2775'>Forum</a></li>
+          <li>Neu: BLZ-Update mit Hilfe der BLZ-Datei der Bundesbank</li>
           <li>Terminkalender zu Jameica verschoben. Termin-Box gelöscht.</li>
           <li>Erweiterung des Imports. Zuordnung der Spaltennamen im Dialog. Änderung von Christian Lutz.</li> 
         </ul>
