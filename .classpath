@@ -14,7 +14,7 @@
 	<classpathentry kind="lib" path="/hibiscus/lib/hbci4java-2.5.12.jar" sourcepath="/hibiscus/lib.src/hbci4java-2.5.12-src.zip"/>
 	<classpathentry kind="lib" path="lib/SuperCSV-1.52.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jameica.messaging"/>
-	<classpathentry kind="lib" path="/jameica/lib/swt/win32/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
+	<classpathentry exported="true" kind="lib" path="/jameica/lib/swt/win32/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
 	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
