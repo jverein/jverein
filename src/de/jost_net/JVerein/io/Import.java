@@ -8,166 +8,21 @@
  * All rights reserved
  * heiner@jverein.de
  * www.jverein.de
- * $Log$
- * Revision 1.45  2011-07-17 06:05:47  jost
- * Import benutzerfreundlicher gemacht. Patch von Julian.
- *
- * Revision 1.44  2011-05-20 13:00:40  jost
- * Neu: Individueller Beitrag
- *
- * Revision 1.43  2011-02-12 09:39:13  jost
- * Statische Codeanalyse mit Findbugs
- *
- * Revision 1.42  2011-01-27 22:23:27  jost
- * Neu: Speicherung von weiteren Adressen in der Mitgliedertabelle
- *
- * Revision 1.41  2010-11-24 21:57:00  jost
- * Mitglieds_nr reaktiviert.
- *
- * Revision 1.40  2010-11-17 18:05:54  jost
- * Sortierung ist nicht mehr erforderlich.
- *
- * Revision 1.39  2010-11-17 17:00:29  jost
- * Bugfix beim Import von Zusatzfeldern.
- *
- * Revision 1.38  2010-11-13 09:26:41  jost
- * Mit V 1.5 deprecatete Spalten und Tabellen entfernt.
- *
- * Revision 1.37  2010-10-31 17:53:28  jost
- * Vermeidung NPE
- * Logging
- *
- * Revision 1.36  2010-10-30 11:31:08  jost
- * Neu: Sterbetag
- *
- * Revision 1.35  2010-10-28 19:15:05  jost
- * Neu: Wohnsitzstaat
- *
- * Revision 1.34  2010-10-25 20:31:49  jost
- * Neu: Vermerk 1 und Vermerk2
- *
- * Revision 1.33  2010-10-15 09:58:29  jost
- * Code aufgeräumt
- *
- * Revision 1.32  2010-10-06 16:25:51  jost
- * Patch von umbilo zum Import von Eigenschaftengruppen
- *
- * Revision 1.31  2010-10-05 05:51:16  jost
- * Umbilos patch: Klare Fehlermeldung bei korrupter Importdatei im Bereich der Eigenschaften.
- *
- * Revision 1.30  2010-07-25 18:44:24  jost
- * Bugfix Zahlungsrhytmus
- *
- * Revision 1.29  2010/04/08 17:57:21  jost
- * Umstellung auf Logger
- *
- * Revision 1.28  2010/02/28 15:05:11  jost
- * Bugfix Eintrittsdatum
- *
- * Revision 1.27  2009/11/25 22:14:33  jost
- * Bugfix letzte Spalte
- *
- * Revision 1.26  2009/11/22 16:20:09  jost
- * Bugfix Eigenschaften-Import
- *
- * Revision 1.25  2009/11/22 12:22:54  jost
- * Eigenschaften importieren.
- *
- * Revision 1.24  2009/09/15 19:24:49  jost
- * Bugfix Zahlungsrhytmus
- *
- * Revision 1.23  2009/08/19 21:01:13  jost
- * Zahlungsweg "überweisung" kann jetzt auch importiert werden.
- *
- * Revision 1.22  2009/08/18 17:31:03  jost
- * - Abrechnungsdaten löschen
- * - Bugfix Barzahlung
- *
- * Revision 1.21  2009/04/25 05:30:20  jost
- * Neu: Juristische Personen  können als Mitglied gespeichert werden.
- *
- * Revision 1.20  2009/04/15 21:04:22  jost
- * Vermeidung NPE
- *
- * Revision 1.19  2008/12/23 21:10:06  jost
- * Vermeidung von NPE's
- *
- * Revision 1.18  2008/12/22 21:19:31  jost
- * Zusatzabbuchung->Zusatzbetrag
- *
- * Revision 1.17  2008/12/19 06:55:10  jost
- * Wenn die Spalte adressierungszusatz in der Import-Datei fehlt, wird Leerstring in die DB eingetragen.
- *
- * Revision 1.16  2008/11/29 13:12:24  jost
- * Refactoring: Code-Optimierung
- *
- * Revision 1.15  2008/11/16 16:58:29  jost
- * Speicherung der Einstellung von Property-Datei in die Datenbank verschoben.
- *
- * Revision 1.14  2008/11/13 20:18:00  jost
- * Adressierungszusatz aufgenommen.
- *
- * Revision 1.13  2008/06/29 07:58:31  jost
- * Neu: Handy
- *
- * Revision 1.12  2008/05/07 05:48:54  jost
- * LÃ¶schung zusÃ¤tzlicher Tabellen bei wiederholtem Import
- *
- * Revision 1.11  2008/04/10 19:00:35  jost
- * Neu: Benutzerdefinierte Datenfelder
- *
- * Revision 1.10  2008/03/08 19:30:32  jost
- * Neu: Externe Mitgliedsnummer
- *
- * Revision 1.9  2008/02/22 17:31:29  jost
- * Fehlermeldung sauber ausgeben.
- *
- * Revision 1.8  2008/02/17 08:29:02  jost
- * Bugfix beim Import des Zahlungsrhytmusses
- *
- * Revision 1.7  2007/12/18 17:25:21  jost
- * Neu: Zahlungsrhytmus importieren
- *
- * Revision 1.6  2007/03/25 17:03:44  jost
- * 1. Zusätzliche Plausibilitäten
- * 2. Import des Zahlungsweges
- *
- * Revision 1.5  2007/03/24 20:22:19  jost
- * Bugfix. Jetzt kÃ¶nnen, wie dokumentiert, beliebige Dateinamen verwendet werden.
- *
- * Revision 1.4  2007/02/23 20:28:04  jost
- * Mail- und Webadresse im Header korrigiert.
- *
- * Revision 1.3  2007/01/14 12:42:42  jost
- * Java 1.5-KompatibilitÃ¤t
- *
- * Revision 1.2  2006/10/23 19:09:06  jost
- * Import optimiert
- *
- * Revision 1.1  2006/09/20 15:39:24  jost
- * *** empty log message ***
- *
  **********************************************************************/
+
 package de.jost_net.JVerein.io;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -188,119 +43,423 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
+/**
+ * 
+ * @author Heiner
+ * @author Julian
+ * @author Christian
+ * 
+ * 
+ */
 public class Import
 {
 
+  /* Variablen fuer Eigenschaften */
   private static final String EIGENSCHAFT = "Eigenschaft_";
 
   private EigenschaftGruppe eigenschaftgruppe;
 
   private HashMap<String, String> HM_eigenschaftsgruppen = new HashMap<String, String>();
 
-  public Import(String path, String file, ProgressMonitor monitor)
+  /* Variablen fuer Spalten und deren entsprechenden Namen */
+  private Map<String, String> colMap;
+
+  /* Variable fuer Statusinformationen */
+  private final ProgressMonitor progMonitor;
+
+  /**
+   * Constructor
+   * 
+   * @param monitor
+   */
+  public Import(final ProgressMonitor monitor)
   {
-    ResultSet results;
+    if (monitor == null)
+      throw new NullPointerException("Monitor may not be null");
+    this.progMonitor = monitor;
+
+  }
+
+  /**
+   * Diese Methode erzeugt alle Beitragsgruppen die es in der zu importierenden
+   * Datei gibt und legt diese als Map ab.
+   * 
+   * @param results
+   *          der zu Importierende Datensatz
+   * @return gibt die erzeugten Beitragsgruppen als Map zurueck mit dem Format
+   *         key=Beitraggruppe item=BGID
+   * @throws SQLException
+   * @throws RemoteException
+   * @throws ApplicationException
+   */
+  private HashMap<String, Integer> aufbauenBeitragsgruppenAusImport(
+      final ResultSet results) throws SQLException, RemoteException,
+      ApplicationException
+  {
+
+    HashMap<String, Double> bestehendeBeitragsgruppen = new HashMap<String, Double>();
+
     try
     {
-      BufferedReader rea = new BufferedReader(new InputStreamReader(
-          new FileInputStream(path + "/" + file), "ISO-8859-1"));
-      String line = "";
-      boolean abbruch = false;
-      // Überprüfe ob erste Zeile mehrfach gleiche Zeilenüberschrift enthält.
-      boolean firstLine = true;
-      while ((line = rea.readLine()) != null)
+      /* find all existing groups in the dataset */
+      while (results.next())
       {
-        if (firstLine)
+        bestehendeBeitragsgruppen.put(this.getResultFrom(results,
+            InternalColumns.BEITRAGSART),
+            new Double(this.getResultFrom(results, InternalColumns.BEITRAG)
+                .replace(',', '.')));
+      }
+    }
+    catch (NumberFormatException e)
+    {
+      throw new ApplicationException("In Zeile: " + results.getRow()
+          + " besteht folgende ungueltige Formatierung: " + e.getMessage());
+    }
+
+    /* add them to the db and return a string map */
+    HashMap<String, Integer> beitragsgruppen = new HashMap<String, Integer>();
+    for (String key : bestehendeBeitragsgruppen.keySet())
+    {
+      Double betr = bestehendeBeitragsgruppen.get(key);
+
+      int bid = createBeitragsgruppeAndID(betr, key);
+
+      beitragsgruppen.put(key, bid);
+    }
+
+    return beitragsgruppen;
+  }
+
+  /**
+   * store the specified group and get the id what is assigned to the group
+   * 
+   * @param beitrag
+   *          amount of money
+   * @param beitragsgruppe
+   *          group name
+   * @return the id of the created group
+   * @throws RemoteException
+   * @throws ApplicationException
+   */
+  private int createBeitragsgruppeAndID(Double beitrag, String beitragsgruppe)
+      throws RemoteException, ApplicationException
+  {
+
+    Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
+        .createObject(Beitragsgruppe.class, null);
+
+    /* if beitragsgruppe larger than 30 signs it will be cuted */
+    b.setBezeichnung(beitragsgruppe.length() > 30 ? beitragsgruppe.substring(0,
+        29) : beitragsgruppe);
+    b.setBetrag(beitrag);
+    b.store();
+
+    return (new Integer(b.getID())).intValue();
+  }
+
+  /**
+   * Beitragsgruppen in der Importdatei pruefen. Es wird Beitragsart und Beitrag
+   * sowohl auf existens als auch auf den erwartet Wert geprueft.
+   * 
+   * @param results
+   * @return true, wenn alles in Ordnung ist.
+   * @throws SQLException
+   */
+  private boolean checkeBeitragsgruppen(final ResultSet results)
+      throws SQLException
+  {
+    boolean groupsAreValid = true;
+
+    while (results.next())
+    {
+      String ba = this.getResultFrom(results, InternalColumns.BEITRAGSART);
+      String btr = this.getResultFrom(results, InternalColumns.BEITRAG);
+      // Zeige Benutzer genauen Fehler.
+      if (ba == null || ba.length() == 0)
+      {
+        progMonitor.log(this.getResultFrom(results, InternalColumns.NACHNAME)
+            + ", " + this.getResultFrom(results, InternalColumns.VORNAME)
+            + " keine Angaben zur Beitragsart_1");
+        groupsAreValid = false;
+      }
+      else if (ba.length() > 30)
+      {
+        progMonitor
+            .log(this.getResultFrom(results, InternalColumns.NACHNAME)
+                + ", "
+                + this.getResultFrom(results, InternalColumns.VORNAME)
+                + " maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt");
+      }
+
+      if (btr == null || btr.length() == 0)
+      {
+        progMonitor.log(this.getResultFrom(results, InternalColumns.NACHNAME)
+            + ", " + this.getResultFrom(results, InternalColumns.VORNAME)
+            + " keine Angaben zum Beitrag_1");
+        groupsAreValid = false;
+      }
+    }
+    return groupsAreValid;
+  }
+
+  /**
+   * Passt die Formatierung von einem Datum immer so an dass es in folgendem
+   * Format ist: dd.mm.yyyy Wenn date leer ist oder 0.0.00 enthaelt, dann wird
+   * ein leerer String zuerueck gegeben.
+   * 
+   * @param date
+   * @return Ein Datum in Format dd.mm.yyyy
+   * @throws ApplicationException
+   * @throws ParseException
+   */
+  private String formatDate(final String date) throws ParseException
+  {
+
+    if (date == null)
+      throw new NullPointerException("Date may not be null");
+
+    String result = "";
+
+    // TODO Es waere moeglich auch Datums mit dem Format 1.Sep.2001 zu
+    // unterstuetzen.
+
+    /* change format from xx/xx/xxxx to xx.xx.xxxx */
+    String dotDate = date.replace('/', '.');
+
+    if (dotDate.matches("0?0\\.0?0\\.(00){1,2}") || dotDate.trim().equals("")) // format
+                                                                               // 0.0.00
+    {
+      // dont do anything return an empty result, because date isn't defined
+    }
+    else if (dotDate.matches("\\d{2}\\.\\d{2}\\.\\d{4}")) // format 01.01.2000
+    {
+      result = dotDate;
+    }
+    else if (dotDate.matches("\\d?\\d\\.\\d?\\d\\.(\\d{2})?\\d{2}")) // format
+                                                                     // 1.1.00
+    {
+      String[] parts = dotDate.split("(\\.|/)");
+      if (parts[0].length() == 1)
+        parts[0] = "0" + parts[0];
+      if (parts[1].length() == 1)
+        parts[1] = "0" + parts[1];
+      if (parts[2].length() == 2)
+      {
+        Date curDate = new Date(System.currentTimeMillis());
+        // only the last two digets of the year
+        String year = curDate.toString().substring(
+            curDate.toString().lastIndexOf(" ") + 2);
+        // compare them an than decide
+        if ((new Integer(year)).compareTo(new Integer(parts[2])) < 0)
         {
-          String[] columns = line.split(";");
-          Set<String> set = new HashSet<String>();
-
-          for (int i = 0; i < columns.length; i++)
-          {
-            if (set.contains(columns[i]))
-            {
-              monitor.log("Spalte \"" + columns[i] + "\" mehrfach vorhanden!");
-              abbruch = true;
-            }
-            else
-            {
-              set.add(columns[i]);
-            }
-          }
-          firstLine = false;
+          parts[2] = "19" + parts[2];
         }
-
-        // Doppelte Anführungszeichen sind essentiell um Zeilenumbrüche (z.B. in
-        // Kommentaren) zu erlauben.
-        // Sie werden vom CSV verstanden (z.B. MS Excel -> speichern unter ->
-        // CSV)
-        /*
-         * int pos = line.indexOf("\""); if (pos >= 0) {
-         * monitor.log("Zeile enthält Anführungszeichen: " + line); abbruch =
-         * true; }
-         */
+        else
+        {
+          parts[2] = "20" + parts[2];
+          progMonitor.log("Fuer " + dotDate
+              + " wurde das 21 Jahrhundert angenommen");
+        }
       }
-      rea.close();
-      if (abbruch)
+
+      result = parts[0] + "." + parts[1] + "." + parts[2];
+    }
+    else
+    {
+      throw new ParseException("Unsupported Date Format " + dotDate, 0);
+    }
+
+    return result;
+  }
+
+  /**
+   * return the id of a specified property field
+   * 
+   * @param eigenschaft
+   * @param feld
+   * @return
+   */
+  private String getEigenschaftID(String eigenschaft, String feld)
+  {
+    try
+    {
+      DBIterator it = Einstellungen.getDBService()
+          .createList(Eigenschaft.class);
+      it.addFilter("bezeichnung = ?", new Object[] { eigenschaft });
+      if (it.hasNext())
       {
-        monitor.log("Abbruch");
-        return;
+        Eigenschaft eig = (Eigenschaft) it.next();
+        return eig.getID();
       }
-      loescheBestand();
-      int anz = 0;
+      else
+      {
+        Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService()
+            .createObject(Eigenschaft.class, null);
+        eigenschaftneu.setBezeichnung(eigenschaft);
+        eigenschaftneu.setEigenschaftGruppe(new Integer(eigenschaftgruppe
+            .getID()));
+        eigenschaftneu.setEigenschaftGruppe(new Integer(HM_eigenschaftsgruppen
+            .get(feld)));
+        eigenschaftneu.store();
+        return eigenschaftneu.getID();
+      }
+    }
+    catch (Exception e)
+    {
+      Logger.error("Fehler", e);
+    }
+    return null;
+  }
 
-      //
-      // Zusatzfelder ermitteln
+  /**
+   * 
+   * @param results
+   * @return
+   * @throws SQLException
+   */
+  private ArrayList<String> getEigenschaftspalten(ResultSet results)
+      throws SQLException
+  {
+    ArrayList<String> ret = new ArrayList<String>();
+    ResultSetMetaData rsm = results.getMetaData();
+    int anzspalten = rsm.getColumnCount();
+    for (int i = 1; i <= anzspalten; i++)
+    {
+      String colname = rsm.getColumnName(i);
+      Logger.info(colname);
+      if (colname.startsWith(EIGENSCHAFT))
+      {
+        ret.add(colname);
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * 
+   * if it is a necessary column the result will be returned or an exception
+   * will be raised if it is an optional column it will be checked, wheather it
+   * exist or not if it exist the result will be return otherwise an empty
+   * String
+   * 
+   * @param results
+   * @param column
+   * @return
+   * @throws SQLException
+   */
+  private String getResultFrom(final ResultSet results,
+      final InternalColumns column) throws SQLException
+  {
+
+    String resultValue = "";
+
+    if (column.isNecessary()
+        || (!column.isNecessary() && colMap.containsKey(column.getColumnName())))
+    {
+      try
+      {
+
+        resultValue = results.getString(colMap.get(column.getColumnName()));
+
+        /* remove white spaces */
+        resultValue = resultValue.trim();
+
+        /* remove leading and trailing commatas */
+        if (resultValue.startsWith("\"") && resultValue.endsWith("\""))
+        {
+          resultValue = resultValue.substring(1, resultValue.length() - 2)
+              .trim();
+        }
+      }
+      catch (NullPointerException e)
+      {
+
+        progMonitor
+            .log("Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: "
+                + column.getColumnName());
+
+        /*
+         * unhandled Exception because it shouldn't happen if the maps are used
+         * correctly
+         */
+        throw new NullPointerException();
+      }
+      catch (SQLException e)
+      {
+
+        progMonitor.log("Fehler beim lesen der Importdatei in der Spalte: "
+            + colMap.get(column.getColumnName()));
+        throw new SQLException();
+      }
+    }
+
+    return resultValue;
+  }
+
+  /**
+   * This method starts the import
+   * 
+   * @param csvFile
+   *          with the all the data
+   * @throws SQLException
+   * @throws ApplicationException
+   * @throws RemoteException
+   */
+  public boolean importFile(final ResultSet results, final int nrOfResults,
+      final Map<String, String> colMap) throws RemoteException,
+      ApplicationException
+  {
+
+    if (results == null)
+      throw new NullPointerException("results my not be null");
+    if (colMap == null)
+      throw new NullPointerException("colMap may not be null");
+
+    this.colMap = colMap;
+
+    try
+    {
+
+      /* verify if beitrag and groups available and in the correct format */
+      results.beforeFirst();
+      if (!checkeBeitragsgruppen(results))
+      {
+        progMonitor.log("Abbruch");
+        return false;
+      }
+
+      /*
+       * Step 1 - delete complete exisiting dataset
+       */
+
+      /* delete existing dataset */
+      loescheBestand();
+
+      /*
+       * Step 2 - build up the inital propeties, groups etc
+       */
+
+      /* create groups in the db save them locally for the import process */
+      results.beforeFirst();
+      HashMap<String, Integer> beitragsgruppen = aufbauenBeitragsgruppenAusImport(results);
+
+      /* Zusatzfelder ermitteln und in Liste ablegen */
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
-      Felddefinition[] zusfeld = new Felddefinition[it.size()];
+      LinkedList<Felddefinition> zusfeld = new LinkedList<Felddefinition>();
       for (int i = 0; i < it.size(); i++)
       {
-        zusfeld[i] = (Felddefinition) it.next();
+        zusfeld.add((Felddefinition) it.next());
       }
 
-      Properties props = new java.util.Properties();
-      props.put("separator", ";"); // separator is a bar
-      props.put("suppressHeaders", "false"); // first line contains data
-      props.put("charset", "ISO-8859-1");
-      int pos = file.lastIndexOf('.');
-      props.put("fileExtension", file.substring(pos));
-
-      // load the driver into memory
-      Class.forName("org.relique.jdbc.csv.CsvDriver");
-
-      // create a connection. The first command line parameter is assumed to
-      // be the directory in which the .csv files are held
-      Connection conn = DriverManager.getConnection("jdbc:relique:csv:" + path,
-          props);
-
-      // create a Statement object to execute the query with
-      Statement stmt = conn.createStatement();
-
-      if (!checkeSpalten(monitor, file.substring(0, pos), stmt))
-      {
-        monitor.log("Abbruch");
-        return;
-      }
-
-      if (!checkeBeitragsgruppen(monitor, file.substring(0, pos), stmt))
-      {
-        monitor.log("Abbruch");
-        return;
-      }
-
-      HashMap<String, String> beitragsgruppen2 = aufbauenBeitragsgruppenAusImport(
-          file.substring(0, pos), stmt);
-
-      results = stmt.executeQuery("SELECT * FROM " + file.substring(0, pos));
-
+      /* create a default property group */
       eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
           .createObject(EigenschaftGruppe.class, null);
       eigenschaftgruppe.setBezeichnung("Noch nicht zugeordnet");
       eigenschaftgruppe.store();
 
+      results.beforeFirst();
       ArrayList<String> eigenschaftenspalten = getEigenschaftspalten(results);
-
       for (String feld : eigenschaftenspalten)
       {
         eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
@@ -310,296 +469,44 @@ public class Import
         HM_eigenschaftsgruppen.put(feld, eigenschaftgruppe.getID());
       }
 
+      /*
+       * Step 3 - start importing dataset
+       */
+      int anz = 0;
+
+      results.beforeFirst();
       while (results.next())
       {
+        /* Status - Progress */
         anz++;
-        monitor.setStatus(anz);
-        monitor.log("ID= " + results.getString("Mitglieds_Nr") + " NAME= "
-            + results.getString("Nachname"));
+        progMonitor.setPercentComplete(anz * 100 / nrOfResults);
 
+        /* import new member */
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, null);
-        m.setAdresstyp(1);
-        m.setID(results.getString("Mitglieds_Nr"));
-        if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
-        {
-          m.setExterneMitgliedsnummer(new Integer(results
-              .getString("Mitglieds_Nr")));
-        }
-        try
-        {
-          m.setPersonenart(results.getString("Personenart"));
-        }
-        catch (Exception e)
-        {
-          m.setPersonenart("n");
-        }
-
-        m.setAnrede(results.getString("Anrede"));
-        m.setTitel(results.getString("Titel"));
-        m.setName(results.getString("Nachname"));
-        m.setVorname(results.getString("Vorname"));
-        try
-        {
-          m.setAdressierungszusatz(results.getString("Adressierungszusatz"));
-        }
-        catch (Exception e)
-        {
-          m.setAdressierungszusatz("");
-        }
 
         try
         {
-          m.setStrasse(results.getString("Straße"));
+          importMitglied(results, m, beitragsgruppen);
         }
-        catch (Exception e)
+        catch (ParseException e1)
         {
-          m.setStrasse(results.getString("Strasse"));
-        }
-        m.setPlz(results.getString("Plz"));
-        m.setOrt(results.getString("Ort"));
-        try
-        {
-          m.setStaat(results.getString("Staat"));
-        }
-        catch (SQLException e)
-        {
-          m.setStaat(null);
+          progMonitor.log("ID= "
+              + getResultFrom(results, InternalColumns.MITGLIEDSNR) + " NAME= "
+              + getResultFrom(results, InternalColumns.NACHNAME) + " "
+              + e1.getMessage());
+          return false;
         }
 
-        m.setGeburtsdatum(results.getString("Geburtsdatum"));
-        try
-        {
-          m.setSterbetag(results.getString("Sterbetag"));
-        }
-        catch (SQLException e)
-        {
-          // Nichts tun
-        }
-        m.setGeschlecht(results.getString("Geschlecht"));
-        m.setBlz(results.getString("Bankleitzahl"));
-        m.setKonto(results.getString("Kontonummer"));
-
-        if (results.getString("Zahlungsart").equals("l"))
-        {
-          m.setZahlungsweg(Zahlungsweg.ABBUCHUNG);
-        }
-        else if (results.getString("Zahlungsart").equals("b"))
-        {
-          m.setZahlungsweg(Zahlungsweg.BARZAHLUNG);
-        }
-        else if (results.getString("Zahlungsart").equals("u"))
-        {
-          m.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
-        }
-        else
-        {
-          monitor.log(m.getNameVorname()
-              + " ungültige Zahlungsart. Bar wird angenommen.");
-          m.setZahlungsweg(Zahlungsweg.BARZAHLUNG);
-        }
-        String zahlungsrhytmus = "12";
-        try
-        {
-          zahlungsrhytmus = results.getString("Zahlungsrhytmus");
-          if (zahlungsrhytmus.length() == 0)
-          {
-            zahlungsrhytmus = "12";
-          }
-        }
-        catch (SQLException e)
-        {
-          // Nichts tun
-        }
-        m.setZahlungsrhytmus(Integer.parseInt(zahlungsrhytmus));
-        m.setKontoinhaber(results.getString("Zahler"));
-        m.setTelefonprivat(results.getString("Telefon_privat"));
-        m.setTelefondienstlich(results.getString("Telefon_dienstlich"));
-        try
-        {
-          m.setHandy(results.getString("Handy"));
-        }
-        catch (SQLException e)
-        {
-          // Nichts tun
-        }
-        if (m.getTelefondienstlich() == null)
-        {
-          m.setTelefondienstlich("");
-        }
-        if (m.getTelefonprivat() == null)
-        {
-          m.setTelefonprivat("");
-        }
-        if (m.getHandy() == null)
-        {
-          m.setHandy("");
-        }
-        m.setEmail(results.getString("Email"));
-        if (m.getEmail() == null)
-        {
-          m.setEmail("");
-        }
-        String eintritt = results.getString("Eintritt");
-        if (eintritt == null || eintritt.length() == 0
-            || eintritt.equals("00.00.0000"))
-        {
-          if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
-          {
-            throw new ApplicationException(m.getNameVorname()
-                + ": Eintrittsdatum fehlt!");
-          }
-          else
-          {
-            eintritt = null;
-          }
-        }
-        m.setEintritt(eintritt);
-        Integer bg = new Integer(beitragsgruppen2.get(results
-            .getString("Beitragsart_1")));
-        m.setBeitragsgruppe(bg);
-        try
-        {
-          if (results.getDouble("individuellerbeitrag") > 0)
-          {
-            m.setIndividuellerBeitrag(results.getDouble("individuellerbeitrag"));
-          }
-        }
-        catch (SQLException e)
-        {
-          //
-        }
-        // beitragsart.setValue(results.getString("Beitragsart_1"));
-        String austritt = results.getString("Austritt");
-        if (austritt != null && austritt.equals("00.00.0000"))
-        {
-          austritt = null;
-        }
-        m.setAustritt(austritt);
-        String kuendigung;
-
-        try
-        {
-          kuendigung = results.getString("Kündigung");
-        }
-        catch (Exception e)
-        {
-          kuendigung = results.getString("Kuendigung");
-        }
-        if (kuendigung != null && kuendigung.equals("00.00.0000"))
-        {
-          kuendigung = null;
-        }
-        m.setKuendigung(kuendigung);
-        try
-        {
-          m.setVermerk1(results.getString("Vermerk1"));
-        }
-        catch (SQLException e)
-        {
-          // Nichts tun
-        }
-        try
-        {
-          m.setVermerk2(results.getString("Vermerk2"));
-        }
-        catch (SQLException e)
-        {
-          // Nichts tun
-        }
-
-        m.insert();
+        /* import all additonal fields */
         for (Felddefinition f : zusfeld)
         {
           Zusatzfelder zf = (Zusatzfelder) Einstellungen.getDBService()
               .createObject(Zusatzfelder.class, null);
-          zf.setMitglied(new Integer(m.getID()));
-          zf.setFelddefinition(new Integer(f.getID()));
-          String inhalt = results.getString(f.getName());
-          switch (f.getDatentyp())
-          {
-            case Datentyp.DATUM:
-              if (inhalt.length() > 0)
-              {
-                try
-                {
-                  zf.setFeldDatum(new JVDateFormatTTMMJJJJ().parse(inhalt));
-                }
-                catch (ParseException e)
-                {
-                  throw new ApplicationException(m.getNameVorname()
-                      + ": ungültiges Datumsformat " + f.getName() + ": "
-                      + inhalt);
-                }
-              }
-              else
-              {
-                zf.setFeldDatum(null);
-              }
-              break;
-            case Datentyp.GANZZAHL:
-              if (inhalt.length() > 0)
-              {
-                try
-                {
-                  zf.setFeldGanzzahl(Integer.parseInt(inhalt));
-                }
-                catch (NumberFormatException e)
-                {
-                  throw new ApplicationException(m.getNameVorname()
-                      + ": ungültiges Datenformat " + f.getName() + ": "
-                      + inhalt);
-                }
-              }
-              else
-              {
-                zf.setFeldGanzzahl(null);
-              }
-              break;
-            case Datentyp.JANEIN:
-              if (inhalt.equalsIgnoreCase("true")
-                  || inhalt.equalsIgnoreCase("ja"))
-              {
-                zf.setFeldJaNein(true);
-              }
-              else if (inhalt.equalsIgnoreCase("false")
-                  || inhalt.equalsIgnoreCase("nein"))
-              {
-                zf.setFeldJaNein(false);
-              }
-              else
-              {
-                throw new ApplicationException(m.getNameVorname()
-                    + ": ungültiges Datenformat " + f.getName() + ": " + inhalt);
-              }
-              break;
-            case Datentyp.WAEHRUNG:
-              inhalt = inhalt.replace(",", ".");
-              if (inhalt.length() > 0)
-              {
-                try
-                {
-                  zf.setFeldWaehrung(new BigDecimal(inhalt));
-                }
-                catch (NumberFormatException e)
-                {
-                  throw new ApplicationException(m.getNameVorname()
-                      + ": ungültiges Datenformat " + f.getName() + ": "
-                      + inhalt);
-                }
-              }
-              else
-              {
-                zf.setFeldGanzzahl(null);
-              }
-              break;
-            case Datentyp.ZEICHENFOLGE:
-              zf.setFeld(results.getString(f.getName()));
-              break;
-          }
-          zf.store();
+          importZusatzfelder(results, zf, m, f);
         }
 
+        /* import all property fields */
         try
         {
           for (String feld : eigenschaftenspalten)
@@ -618,33 +525,416 @@ public class Import
         }
         catch (Exception e)
         {
-          monitor
-              .log(" Datensatz unvollständing (Eigenschaften) -> Import wird abgebrochen: ID= "
-                  + results.getString("Mitglieds_Nr")
+          progMonitor
+              .log(" Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= "
+                  + getResultFrom(results, InternalColumns.MITGLIEDSNR)
                   + " NAME= "
-                  + results.getString("Nachname") + " " + e.getMessage());
-          return;
+                  + getResultFrom(results, InternalColumns.NACHNAME)
+                  + " "
+                  + e.getMessage());
+          return false;
         }
 
       }
 
-      // clean up
-      results.close();
-      stmt.close();
-      conn.close();
+      progMonitor.setStatusText("Import vollstaendig - Es wurden " + anz
+          + " Datensaetze importiert");
+
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
-      monitor.log(" nicht importiert: " + e.getMessage());
-      Logger.error("Fehler", e);
+      e.printStackTrace();
+      progMonitor.log("Fehler beim lesen der zu importierenden Datei");
+      throw new ApplicationException("Datei Fehler");
     }
+
+    return true;
+
   }
 
+  /**
+   * this method imports a new member from the specified ResultSet, it will only
+   * insert the current selected one. If you want another to import you have to
+   * move the cursor of the results by your own. All information will be saved
+   * into the defined member m
+   * 
+   * @param results
+   * @param m
+   * @param necColMap
+   * @param optColMap
+   * @throws SQLException
+   * @throws RemoteException
+   * @throws ApplicationException
+   * @throws ParseException
+   */
+  private void importMitglied(final ResultSet results, final Mitglied m,
+      final Map<String, Integer> beitragsGruppen) throws RemoteException,
+      SQLException, ApplicationException, ParseException
+  {
+
+    m.setAdresstyp(1);
+
+    /*
+     * necessary columns
+     */
+
+    /* Setze Stammdaten */
+    m.setID(getResultFrom(results, InternalColumns.MITGLIEDSNR));
+    m.setAnrede(getResultFrom(results, InternalColumns.ANREDE));
+    m.setTitel(getResultFrom(results, InternalColumns.TITEL));
+    m.setName(getResultFrom(results, InternalColumns.NACHNAME));
+    m.setVorname(getResultFrom(results, InternalColumns.VORNAME));
+    m.setStrasse(getResultFrom(results, InternalColumns.STRASSE));
+    m.setPlz(getResultFrom(results, InternalColumns.PLZ));
+    m.setOrt(getResultFrom(results, InternalColumns.ORT));
+
+    String geschlecht = getResultFrom(results, InternalColumns.GESCHLECHT);
+    if (geschlecht.matches("^(m|M).*"))
+      geschlecht = "m";
+    else if (geschlecht.matches("^(w|W).*"))
+      geschlecht = "w";
+    else
+    {
+      /*
+       * Wenn Anrede gesetzt ist koennte auch damit das Geschlecht ermittelt
+       * werden
+       */
+      if (m.getAnrede().equalsIgnoreCase("Frau"))
+        geschlecht = "w";
+      else if (m.getAnrede().startsWith("Herr"))
+        geschlecht = "m";
+      else
+        geschlecht = "";
+    }
+    m.setGeschlecht(geschlecht);
+
+    String gebDatum = formatDate(getResultFrom(results,
+        InternalColumns.GEBDATUM));
+    if (gebDatum.length() == 0)
+    {
+      gebDatum = null;
+
+      if (Einstellungen.getEinstellung().getGeburtsdatumPflicht())
+      {
+        throw new ApplicationException(m.getNameVorname()
+            + ": Geburtsdatum fehlt!");
+      }
+    }
+    m.setGeburtsdatum(gebDatum);
+
+    m.setTelefonprivat(getResultFrom(results, InternalColumns.TELEPRIVAT));
+    m.setTelefondienstlich(getResultFrom(results, InternalColumns.TELEDIENST));
+    m.setEmail(getResultFrom(results, InternalColumns.EMAIL));
+
+    /* Setze Konto und Zahlungsvorgaenge */
+    int zahlweg = Zahlungsweg.BARZAHLUNG;
+    String blz = getResultFrom(results, InternalColumns.BLZ);
+    String ktnr = getResultFrom(results, InternalColumns.KONTONR);
+    String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
+
+    if (zahlart.equalsIgnoreCase("l")
+        || zahlart.equalsIgnoreCase("lastschrift")
+        || zahlart.equalsIgnoreCase("abbuchung")
+        || zahlart.equalsIgnoreCase("bankeinzug"))
+    {
+
+      /*
+       * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine BLZ und
+       * eine KTNR geben
+       */
+      zahlweg = Zahlungsweg.ABBUCHUNG;
+      if (blz.length() == 0 || ktnr.length() == 0)
+      {
+        progMonitor
+            .log("Bei "
+                + m.getNameVorname()
+                + " "
+                + "ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen");
+        throw new ApplicationException();
+      }
+    }
+    else if (zahlart.equalsIgnoreCase("b") || zahlart.equalsIgnoreCase("bar")
+        || zahlart.equalsIgnoreCase("barzahlung"))
+    {
+
+      zahlweg = Zahlungsweg.BARZAHLUNG;
+    }
+    else if (zahlart.equalsIgnoreCase("u")
+        || zahlart.equalsIgnoreCase("ueberweisung"))
+    {
+      zahlweg = Zahlungsweg.ÜBERWEISUNG;
+    }
+    else
+    {
+      progMonitor.log(m.getNameVorname()
+          + " ungueltige Zahlungsart. Bar wird angenommen.");
+    }
+
+    m.setBlz(blz);
+    m.setKonto(ktnr);
+    m.setZahlungsweg(zahlweg);
+    m.setKontoinhaber(getResultFrom(results, InternalColumns.KONTOINHABER));
+
+    Integer bg = beitragsGruppen.get(getResultFrom(results,
+        InternalColumns.BEITRAGSART));
+    m.setBeitragsgruppe(bg);
+
+    /* Setze verschiedene Ein/Ausdritt etc Daten */
+    String eintritt = formatDate(getResultFrom(results,
+        InternalColumns.EINTRITTSDATUM));
+    if (eintritt.length() == 0)
+    {
+      eintritt = null;
+
+      if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
+      {
+        throw new ApplicationException(m.getNameVorname()
+            + ": Eintrittsdatum fehlt!");
+      }
+    }
+    m.setEintritt(eintritt);
+
+    String austritt = formatDate(getResultFrom(results,
+        InternalColumns.AUSTRITTSDATUM));
+    if (austritt.length() == 0)
+    {
+      austritt = null;
+    }
+    m.setAustritt(austritt);
+
+    String sterbeTag = formatDate(getResultFrom(results,
+        InternalColumns.STERBEDATUM));
+    if (sterbeTag.length() == 0)
+    {
+      sterbeTag = null;
+    }
+    else
+    {
+      if (austritt == null)
+      {
+        progMonitor
+            .log(m.getVornameName()
+                + ": beim einem definierten Sterbedatum muss es auch ein "
+                + "Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum");
+        m.setAustritt(sterbeTag);
+      }
+    }
+    m.setSterbetag(sterbeTag);
+
+    String kuendigung = formatDate(getResultFrom(results,
+        InternalColumns.KUENDIGUNGSDATUM));
+    if (kuendigung.length() == 0)
+    {
+      kuendigung = null;
+    }
+    m.setKuendigung(kuendigung);
+
+    /*
+     * optional columns
+     */
+
+    String individuellerBeitrag = getResultFrom(results,
+        InternalColumns.BEITRAGINDI);
+    if (individuellerBeitrag.length() > 0)
+    {
+
+      /* Preprocessing - replace all , with . */
+      individuellerBeitrag = individuellerBeitrag.replaceAll(",", ".");
+
+      /* Check if remaining string matches the supported format */
+      if (individuellerBeitrag.matches("[0-9]+(\\.[0-9]+)?"))
+      {
+        Double beitrag = new Double(individuellerBeitrag);
+        if (beitrag > 0)
+        {
+          m.setIndividuellerBeitrag(beitrag);
+        }
+      }
+      else
+      {
+        progMonitor.log("Individueller Beitrag fuer " + m.getVornameName()
+            + " enthaelt keine gueltige Formatierung und wird verworfen.");
+      }
+    }
+
+    String personenArt = getResultFrom(results, InternalColumns.PERSONENART);
+    if (personenArt.length() > 0)
+    {
+      if (personenArt.matches("^(j|J).*"))
+      {
+        m.setPersonenart("j");
+      }
+      else if (personenArt.matches("^(n|N).*"))
+      {
+        m.setPersonenart("n");
+      }
+      else
+      {
+        progMonitor
+            .log("Personenart fuer "
+                + m.getVornameName()
+                + "enthaelt keine gueltige Formatierung. Es duerfen nur Woerter verwendet werden"
+                + "die mit einem j fuer juristische Personen oder n fuer natuerliche Personen beginnen."
+                + "Bei leerem Inhalt wird der Standardwert n verwendet");
+        throw new ApplicationException();
+      }
+
+    }
+    else
+    { // Default value
+      m.setPersonenart("n");
+    }
+
+    m.setHandy(getResultFrom(results, InternalColumns.TELEMOBIL));
+    m.setAdressierungszusatz(getResultFrom(results, InternalColumns.ADRZUSATZ));
+    m.setStaat(getResultFrom(results, InternalColumns.STAAT)); // Default was
+                                                               // null warum?
+
+    String zahlungsrhythmus = getResultFrom(results, InternalColumns.ZAHLRYTHM);
+    if (zahlungsrhythmus.length() > 0)
+    {
+      if (zahlungsrhythmus.matches("[0-9]+"))
+      {
+        m.setZahlungsrhytmus(Integer.parseInt(zahlungsrhythmus));
+      }
+      else
+      {
+        progMonitor
+            .log("Zahlungsrythmus bei: "
+                + m.getVornameName()
+                + " ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate");
+        m.setZahlungsrhytmus(new Integer(12));
+      }
+    }
+    else
+    { // Default value
+      m.setZahlungsrhytmus(new Integer(12));
+    }
+
+    m.setVermerk1(getResultFrom(results, InternalColumns.VERMERKA));
+    m.setVermerk2(getResultFrom(results, InternalColumns.VERMERKB));
+
+    /*
+     * set properties correctly
+     */
+
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+    {
+      m.setExterneMitgliedsnummer(new Integer(getResultFrom(results,
+          InternalColumns.MITGLIEDSNR)));
+    }
+
+    m.insert();
+
+  }
+
+  /**
+   * to import the additional mandatory fields
+   * 
+   * @param results
+   * @param f
+   * @throws RemoteException
+   * @throws SQLException
+   * @throws ApplicationException
+   */
+  private void importZusatzfelder(final ResultSet results,
+      final Zusatzfelder zusatzfeld, final Mitglied curMitglied,
+      final Felddefinition f) throws RemoteException, SQLException,
+      ApplicationException
+  {
+
+    zusatzfeld.setMitglied(new Integer(curMitglied.getID()));
+    zusatzfeld.setFelddefinition(new Integer(f.getID()));
+    String inhalt = results.getString(colMap.get(f.getName()));
+
+    switch (f.getDatentyp())
+    {
+      case Datentyp.DATUM:
+        if (inhalt.length() > 0)
+        {
+          try
+          {
+            zusatzfeld.setFeldDatum(new JVDateFormatTTMMJJJJ().parse(inhalt));
+          }
+          catch (ParseException e)
+          {
+            throw new ApplicationException(curMitglied.getNameVorname()
+                + ": ungueltiges Datumsformat " + f.getName() + ": " + inhalt);
+          }
+        }
+        else
+        {
+          zusatzfeld.setFeldDatum(null);
+        }
+        break;
+      case Datentyp.GANZZAHL:
+        if (inhalt.length() > 0)
+        {
+          try
+          {
+            zusatzfeld.setFeldGanzzahl(Integer.parseInt(inhalt));
+          }
+          catch (NumberFormatException e)
+          {
+            throw new ApplicationException(curMitglied.getNameVorname()
+                + ": ungueltiges Datenformat " + f.getName() + ": " + inhalt);
+          }
+        }
+        else
+        {
+          zusatzfeld.setFeldGanzzahl(null);
+        }
+        break;
+      case Datentyp.JANEIN:
+        if (inhalt.equalsIgnoreCase("true") || inhalt.equalsIgnoreCase("ja"))
+        {
+          zusatzfeld.setFeldJaNein(true);
+        }
+        else if (inhalt.equalsIgnoreCase("false")
+            || inhalt.equalsIgnoreCase("nein"))
+        {
+          zusatzfeld.setFeldJaNein(false);
+        }
+        else
+        {
+          throw new ApplicationException(curMitglied.getNameVorname()
+              + ": ungueltiges Datenformat " + f.getName() + ": " + inhalt);
+        }
+        break;
+      case Datentyp.WAEHRUNG:
+        inhalt = inhalt.replace(",", ".");
+        if (inhalt.length() > 0)
+        {
+          try
+          {
+            zusatzfeld.setFeldWaehrung(new BigDecimal(inhalt));
+          }
+          catch (NumberFormatException e)
+          {
+            throw new ApplicationException(curMitglied.getNameVorname()
+                + ": ungueltiges Datenformat " + f.getName() + ": " + inhalt);
+          }
+        }
+        else
+        {
+          zusatzfeld.setFeldGanzzahl(null);
+        }
+        break;
+      case Datentyp.ZEICHENFOLGE:
+        zusatzfeld.setFeld(inhalt);
+        break;
+    }
+    zusatzfeld.store();
+  }
+
+  /**
+   * remove all Data from the Database
+   */
   private void loescheBestand()
   {
     try
     {
-      // Zusatzbeträge
+      // Zusatzbetraege
       DBIterator list = Einstellungen.getDBService().createList(
           Zusatzbetrag.class);
       while (list.hasNext())
@@ -695,52 +985,7 @@ public class Import
       {
         Mitglied m = (Mitglied) list.next();
         m.delete();
-        /*
-         * Folgender Fehler trat hier auf. Ich konnte ihn jedoch nicht
-         * reproduzieren.
-         * 
-         * [Sat Jul 16 17:44:41 CEST
-         * 2011][DEBUG][de.willuhn.datasource.db.DBIteratorImpl.init] executing
-         * sql query: prep50: select MITGLIED.* from MITGLIED where adresstyp =
-         * 1 java.rmi.RemoteException: delete failed, rollback successful;
-         * nested exception is: org.h2.jdbc.JdbcSQLException: Referentielle
-         * Integrität verletzt:
-         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
-         * Referential integrity constraint violation:
-         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
-         * ; SQL statement: delete from MITGLIED where ID = 1 [23003-145] at
-         * de.willuhn
-         * .datasource.db.AbstractDBObject.delete(AbstractDBObject.java:381) at
-         * de.jost_net.JVerein.io.Import.loescheBestand(Import.java:687) at
-         * de.jost_net.JVerein.io.Import.<init>(Import.java:238) at
-         * de.jost_net.JVerein.gui.view.ImportView$2.run(ImportView.java:158) at
-         * de.willuhn.jameica.gui.GUI$6.run(GUI.java:917) Caused by:
-         * org.h2.jdbc.JdbcSQLException: Referentielle Integrität verletzt:
-         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
-         * Referential integrity constraint violation:
-         * "FKMAILEMPFAENGER2: PUBLIC.MAILEMPFAENGER FOREIGN KEY(MITGLIED) REFERENCES PUBLIC.MITGLIED(ID)"
-         * ; SQL statement: delete from MITGLIED where ID = 1 [23003-145] at
-         * org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
-         * at org.h2.message.DbException.get(DbException.java:167) at
-         * org.h2.message.DbException.get(DbException.java:144) at
-         * org.h2.constraint
-         * .ConstraintReferential.checkRow(ConstraintReferential.java:382) at
-         * org.h2.constraint.ConstraintReferential.checkRowRefTable(
-         * ConstraintReferential.java:399) at
-         * org.h2.constraint.ConstraintReferential
-         * .checkRow(ConstraintReferential.java:275) at
-         * org.h2.table.Table.fireConstraints(Table.java:803) at
-         * org.h2.table.Table.fireAfterRow(Table.java:820) at
-         * org.h2.command.dml.Delete.update(Delete.java:80) at
-         * org.h2.command.CommandContainer.update(CommandContainer.java:69) at
-         * org.h2.command.Command.executeUpdate(Command.java:201) at
-         * org.h2.jdbc.
-         * JdbcStatement.executeUpdateInternal(JdbcStatement.java:126) at
-         * org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:111) at
-         * de.
-         * willuhn.datasource.db.AbstractDBObject.delete(AbstractDBObject.java
-         * :363) ... 4 more
-         */
+
       }
       // Beitragsgruppe
       list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
@@ -759,161 +1004,6 @@ public class Import
     {
       e.printStackTrace();
     }
-  }
-
-  /**
-   * Überprüft, ob alle notwendigen Spalten vorhanden sind.
-   * http://www.jverein.de/administration_import.php (Stand Juli 2011)
-   * 
-   * @param monitor
-   * @param file
-   * @param stmt
-   * @return true, wenn alles in Ordnung ist.
-   * @throws SQLException
-   */
-  private boolean checkeSpalten(ProgressMonitor monitor, String file,
-      Statement stmt) throws SQLException
-  {
-    ResultSet results = stmt.executeQuery("SELECT * FROM " + file);
-    ResultSetMetaData meta = results.getMetaData();
-    HashSet columns = new HashSet();
-    for (int i = 1; i <= meta.getColumnCount(); i++)
-    {
-      columns.add(meta.getColumnName(i));
-      // monitor.log("Col: " + meta.getColumnName(i));
-    }
-    final String[] mussExistieren = new String[] { "Mitglieds_Nr", "Anrede",
-        "Titel", "Nachname", "Vorname", "Strasse", "Plz", "Ort",
-        "Geburtsdatum", "Sterbetag", "Geschlecht", "Bankleitzahl",
-        "Kontonummer", "Zahlungsart", "Zahler", "Telefon_privat",
-        "Telefon_dienstlich", "Email", "Eintritt", "Beitragsart_1",
-        "Beitrag_1", "Austritt", "Kuendigung" };
-    boolean ret = true;
-    for (String c : mussExistieren)
-    {
-      if (!columns.contains(c))
-      {
-        monitor.log("Pflicht-Spalte \"" + c + "\" existiert nicht.");
-        ret = false;
-      }
-    }
-    return ret;
-
-  }
-
-  /**
-   * Beitragsgruppen in der Importdatei prüfen
-   * 
-   * @param monitor
-   * @param file
-   * @param stmt
-   * @return true, wenn alles in Ordnung ist.
-   * @throws SQLException
-   */
-  private boolean checkeBeitragsgruppen(ProgressMonitor monitor, String file,
-      Statement stmt) throws SQLException
-  {
-    ResultSet results = stmt.executeQuery("SELECT * FROM " + file);
-    while (results.next())
-    {
-      String ba = results.getString("Beitragsart_1");
-      String btr = results.getString("Beitrag_1");
-      // Zeige Benutzer genauen Fehler.
-      if (ba == null || ba.length() == 0)
-      {
-        monitor
-            .log(results.getString("Nachname") + ", "
-                + results.getString("Vorname")
-                + " keine Angaben zur Beitragsart_1");
-        return false;
-      }
-      if (btr == null || btr.length() == 0)
-      {
-        monitor.log(results.getString("Nachname") + ", "
-            + results.getString("Vorname") + " keine Angaben zum Beitrag_1");
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private HashMap<String, String> aufbauenBeitragsgruppenAusImport(String file,
-      Statement stmt) throws SQLException, RemoteException,
-      ApplicationException
-  {
-    HashMap<String, Double> beitragsgruppen1 = new HashMap<String, Double>();
-    ResultSet results = stmt.executeQuery("SELECT * FROM " + file);
-
-    while (results.next())
-    {
-      beitragsgruppen1.put(results.getString("Beitragsart_1"), new Double(
-          results.getString("Beitrag_1").replace(',', '.')));
-    }
-    Set<?> keys = beitragsgruppen1.keySet();
-    Iterator<?> it = keys.iterator();
-    HashMap<String, String> beitragsgruppen2 = new HashMap<String, String>();
-    while (it.hasNext())
-    {
-      Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
-          .createObject(Beitragsgruppe.class, null);
-      String key = (String) it.next();
-      b.setBezeichnung(key);
-      Double betr = beitragsgruppen1.get(key);
-      b.setBetrag(betr.doubleValue());
-      b.store();
-      beitragsgruppen2.put(key, b.getID());
-    }
-    return beitragsgruppen2;
-  }
-
-  private String getEigenschaftID(String eigenschaft, String feld)
-  {
-    try
-    {
-      DBIterator it = Einstellungen.getDBService()
-          .createList(Eigenschaft.class);
-      it.addFilter("bezeichnung = ?", new Object[] { eigenschaft });
-      if (it.hasNext())
-      {
-        Eigenschaft eig = (Eigenschaft) it.next();
-        return eig.getID();
-      }
-      else
-      {
-        Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService()
-            .createObject(Eigenschaft.class, null);
-        eigenschaftneu.setBezeichnung(eigenschaft);
-        eigenschaftneu.setEigenschaftGruppe(new Integer(eigenschaftgruppe
-            .getID()));
-        eigenschaftneu.setEigenschaftGruppe(new Integer(HM_eigenschaftsgruppen
-            .get(feld)));
-        eigenschaftneu.store();
-        return eigenschaftneu.getID();
-      }
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
-    }
-    return null;
-  }
-
-  private ArrayList<String> getEigenschaftspalten(ResultSet results)
-      throws SQLException
-  {
-    ArrayList<String> ret = new ArrayList<String>();
-    ResultSetMetaData rsm = results.getMetaData();
-    int anzspalten = rsm.getColumnCount();
-    for (int i = 1; i <= anzspalten; i++)
-    {
-      String colname = rsm.getColumnName(i);
-      Logger.info(colname);
-      if (colname.startsWith(EIGENSCHAFT))
-      {
-        ret.add(colname);
-      }
-    }
-    return ret;
   }
 
 }
