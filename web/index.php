@@ -70,7 +70,7 @@
 	</div>   
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
-    	<ul>http://sourceforge.net/projects/jverein/'>Sourceforge</a> umgezogen.</li>
+    	<ul>Da Berlios zum 31.12.2011 die Pforten schlieﬂt, erfolgt der Umzug zu <a href='http://sourceforge.net/projects/jverein/'>Sourceforge</a> umgezogen.</li>
         <li>15.07.2011: Windows-Setups der Jameica-Suite stehen in 32- und 64-Bit
     	  <li>16.10.2011: Da Berlios zum 31.12.2011 die Tore schlieﬂt, ist JVerein zu <a href='-Version zur Verf¸gung.</li>
         <li>30.06.2011: Version 2.0.1 freigegeben</a>. Siehe <a href='changelog.php#v201'>Changelog</a>.</li>
