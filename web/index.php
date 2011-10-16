@@ -70,8 +70,9 @@
 	</div>   
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
-    	<ul>
-        <li>15.07.2011: Windows-Setups der Jameica-Suite stehen in 32- und 64-Bit-Version zur Verfügung.</li>
+    	<ul>http://sourceforge.net/projects/jverein/'>Sourceforge</a> umgezogen.</li>
+        <li>15.07.2011: Windows-Setups der Jameica-Suite stehen in 32- und 64-Bit
+    	  <li>16.10.2011: Da Berlios zum 31.12.2011 die Tore schließt, ist JVerein zu <a href='-Version zur Verfügung.</li>
         <li>30.06.2011: Version 2.0.1 freigegeben</a>. Siehe <a href='changelog.php#v201'>Changelog</a>.</li>
         <li>23.06.2011: Version 2.0.0 freigegeben</a>. Siehe <a href='changelog.php#v200'>Changelog</a>.</li>
     	  <li>15.11.2010: Neue Version 1.4.0.1 des Windows-Installers freigegeben. Installation nur, wenn Syntax eingesetzt wird.</li>
@@ -82,6 +83,9 @@
 	   
 	<!-- 
     $Log$
+    Revision 1.48  2011/07/17 09:32:52  jost
+    *** empty log message ***
+
     Revision 1.47  2011-07-17 06:03:37  jost
     *** empty log message ***
 

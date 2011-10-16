@@ -26,10 +26,9 @@
     </table>
     <p></p>
     <h2>Standardinstallation</h2>
-	<p><a href="http://www.willuhn.de/products/jameica/">Jameica</a>  ist gem‰ﬂ 
-		<a href="http://jameica.berlios.de/doku.php?id=support:install">Anleitung</a> zu installieren.</p>
-	<p>Anschlieﬂend wird <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a> gem‰ﬂ 
-		<a href="http://hibiscus.berlios.de/doku.php?id=support:install">Anleitung</a> installiert.</p>
+	<p><a href="http://www.willuhn.de/products/jameica/">Jameica</a> und
+	   <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a> sind gem‰ﬂ 
+		<a href="http://www.willuhn.de/wiki/doku.php?id=handbuch:sonstiges:install">Anleitung</a> zu installieren.</p>
 	<p>F¸r die Installation von JVerein wird das heruntergeladene ZIP-Archiv in das plugins-Verzeichnis 
 		von <a href="http://www.willuhn.de/products/jameica/">Jameica</a> entpackt. Fertig.</p>
 	<p>Version 1.1 von JVerein setzt die Version 1.7 von Jameica und 1.9 von Hibiscus voraus.</p>
@@ -58,6 +57,9 @@
 	
 	<!-- 
     $Log$
+    Revision 1.9  2011/09/21 21:18:34  jost
+    *** empty log message ***
+
     Revision 1.8  2011-06-28 07:26:57  jost
     *** empty log message ***
 

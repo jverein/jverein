@@ -45,6 +45,9 @@
           <li>Neu: BLZ-Update mit Hilfe der BLZ-Datei der Bundesbank</li>
           <li>Terminkalender zu Jameica verschoben. Termin-Box gelöscht.</li>
           <li>Erweiterung des Imports. Zuordnung der Spaltennamen im Dialog. Änderung von Christian Lutz.</li> 
+          <hr>
+          <li>Folgende Änderungen wurden nach Rev. 319 vorgenommen:</li>
+          <li>Am 16.10.2011 erfolgte der Umzug von Berlios zu Sourceforge</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
