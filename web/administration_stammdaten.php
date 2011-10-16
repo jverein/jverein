@@ -16,21 +16,6 @@
 	<p>In die <a href='jameica_startseite.php'>Jameica-Startseite</a> kann eine Liste der 
 	Wiedervorlagetermine eingeblendet werden.</p>
 	
-	<!-- 
-    $Log$
-    Revision 1.3  2011-01-09 14:32:23  jost
-    Stammdaten in die Einstellungen verschoben.
 
-    Revision 1.2  2010-11-07 07:13:04  jost
-    Versionshinweise entfernt.
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-	
  <? include ("footer.inc"); ?>
 

@@ -109,18 +109,5 @@
     <p>Beispiel für ein ausgefülltes Formular</p>
     <img src='images/Formularausgefuellt.jpg' class='screenshot'>
     
-    <!-- 
-    $Log$
-    Revision 1.2  2010/01/03 08:59:09  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-    
 <? include ("footer.inc"); ?>
 

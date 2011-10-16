@@ -7,14 +7,7 @@
     <img src='images/Buchungsklasseuebersicht.png' class='screenshot'>
     <p>
     <img src='images/Buchungsklasse.png' class='screenshot'>
-    
-    <!-- 
-    $Log$
-    Revision 1.1  2009/11/22 16:20:47  jost
-    *** empty log message ***
-
-    -->
-
+ 
 <? include ("footer.inc"); ?>
   
 

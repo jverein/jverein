@@ -29,20 +29,5 @@
 		abgerechnet werden, bieten sich die Zusatzabbuchungen an.</p>
     <img src='images/Abbuchung095.jpg' class='screenshot'>
         
-    <!-- 
-    $Log$
-    Revision 1.2  2009/11/05 20:07:02  jost
-    Hinweis auf 'manuellen Zahlungseingang' aufgenommen.
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.3  2009/05/03 15:31:53  jost
-    Neue Homepage
-
-    Revision 1.2  2009/05/03 09:29:14  jost
-    Neue Homepage
-
-    -->
 <? include ("footer.inc"); ?>
 

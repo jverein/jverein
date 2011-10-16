@@ -70,7 +70,8 @@
 	</div>   
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
-    	<ul>Da Berlios zum 31.12.2011 die Pforten schlieﬂt, erfolgt der Umzug zu <a href='http://sourceforge.net/projects/jverein/'>Sourceforge</a> umgezogen.</li>
+    	<ul>
+    	  <li>16.10.2011: Da Berlios zum 31.12.2011 die Pforten schlieﬂt, ist JVerein zu <a href='http://sourceforge.net/projects/jverein/'>Sourceforge</a> umgezogen.</li>
         <li>15.07.2011: Windows-Setups der Jameica-Suite stehen in 32- und 64-Bit
     	  <li>16.10.2011: Da Berlios zum 31.12.2011 die Tore schlieﬂt, ist JVerein zu <a href='-Version zur Verf¸gung.</li>
         <li>30.06.2011: Version 2.0.1 freigegeben</a>. Siehe <a href='changelog.php#v201'>Changelog</a>.</li>
@@ -80,158 +81,7 @@
     	  <li>07.11.2010: Neuer <a href='download.php'>Downloadbereich</a></li>
     	</ul>
 	</div>
-	   
-	<!-- 
-    $Log$
-    Revision 1.48  2011/07/17 09:32:52  jost
-    *** empty log message ***
-
-    Revision 1.47  2011-07-17 06:03:37  jost
-    *** empty log message ***
-
-    Revision 1.46  2011-06-30 20:16:17  jost
-    *** empty log message ***
-
-    Revision 1.45  2011-06-23 06:11:49  jost
-    *** empty log message ***
-
-    Revision 1.44  2011-06-23 05:53:41  jost
-    *** empty log message ***
-
-    Revision 1.43  2011-06-22 20:54:58  jost
-    *** empty log message ***
-
-    Revision 1.42  2010-11-27 18:02:44  jost
-    *** empty log message ***
-
-    Revision 1.41  2010-11-15 19:24:10  jost
-    *** empty log message ***
-
-    Revision 1.40  2010-11-15 19:13:54  jost
-    *** empty log message ***
-
-    Revision 1.39  2010-11-10 18:18:41  jost
-    *** empty log message ***
-
-    Revision 1.38  2010-11-07 15:02:35  jost
-    neuer Downloadbereich
-
-    Revision 1.37  2010-11-04 21:47:34  jost
-    *** empty log message ***
-
-    Revision 1.36  2010-09-01 05:59:26  jost
-    *** empty log message ***
-
-    Revision 1.35  2010-07-05 18:49:22  jost
-    *** empty log message ***
-
-    Revision 1.34  2010-07-05 18:45:21  jost
-    *** empty log message ***
-
-    Revision 1.33  2010/05/18 20:51:27  jost
-    *** empty log message ***
-
-    Revision 1.32  2010/05/16 12:09:46  jost
-    *** empty log message ***
-
-    Revision 1.31  2010/04/29 12:45:50  jost
-    *** empty log message ***
-
-    Revision 1.30  2010/04/09 13:09:58  jost
-    *** empty log message ***
-
-    Revision 1.29  2010/04/09 08:56:56  jost
-    Version 1.3.0
-
-    Revision 1.28  2010/04/08 17:57:56  jost
-    *** empty log message ***
-
-    Revision 1.27  2010/03/28 18:37:06  jost
-    *** empty log message ***
-
-    Revision 1.26  2010/03/27 20:18:47  jost
-    *** empty log message ***
-
-    Revision 1.25  2010/03/16 19:22:14  jost
-    Hinweis auf das Forum
-
-    Revision 1.24  2010/03/05 21:56:02  jost
-    Hinweis auf Mails
-
-    Revision 1.23  2010/03/01 17:14:02  jost
-    *** empty log message ***
-
-    Revision 1.22  2010/02/15 20:07:25  jost
-    *** empty log message ***
-
-    Revision 1.21  2010/02/01 21:05:50  jost
-    *** empty log message ***
-
-    Revision 1.20  2010/01/10 21:00:12  jost
-    *** empty log message ***
-
-    Revision 1.19  2010/01/01 22:40:33  jost
-    *** empty log message ***
-
-    Revision 1.18  2010/01/01 21:40:37  jost
-    *** empty log message ***
-
-    Revision 1.17  2010/01/01 20:13:21  jost
-    *** empty log message ***
-
-    Revision 1.16  2009/12/22 18:51:56  jost
-    *** empty log message ***
-
-    Revision 1.15  2009/12/02 22:32:06  jost
-    Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
-
-    Revision 1.14  2009/12/01 20:20:45  jost
-    *** empty log message ***
-
-    Revision 1.13  2009/10/31 14:23:14  jost
-    *** empty log message ***
-
-    Revision 1.12  2009/10/17 19:57:40  jost
-    *** empty log message ***
-
-    Revision 1.11  2009/09/27 21:31:48  jost
-    *** empty log message ***
-
-    Revision 1.10  2009/08/30 06:30:45  jost
-    *** empty log message ***
-
-    Revision 1.9  2009/08/24 20:08:17  jost
-    *** empty log message ***
-
-    Revision 1.8  2009/08/24 17:19:33  jost
-    *** empty log message ***
-
-    Revision 1.7  2009/08/23 18:59:21  jost
-    Version 1.2
-
-    Revision 1.6  2009/08/20 20:15:32  jost
-    *** empty log message ***
-
-    Revision 1.5  2009/08/17 18:52:58  jost
-    neues Layout
-
-    Revision 1.4  2009/08/09 15:36:17  jost
-    *** empty log message ***
-
-    Revision 1.3  2009/08/09 15:34:41  jost
-    *** empty log message ***
-
-    Revision 1.2  2009/07/17 11:42:16  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.22  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-	   
+   
  <? include ("footer.inc"); ?>
   
 

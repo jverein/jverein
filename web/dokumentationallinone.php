@@ -40,36 +40,3 @@
 	<? include ("jameica_portable.php"); ?>
 	<? include ("openofficeh2.php"); ?>
 
-    <!-- 
-    $Log$
-    Revision 1.10  2011-04-17 17:56:45  jost
-    *** empty log message ***
-
-    Revision 1.9  2010-11-03 11:57:37  jost
-    *** empty log message ***
-
-    Revision 1.8  2010-03-05 21:55:46  jost
-    mail aufgenommen.
-
-    Revision 1.7  2009/12/22 18:51:56  jost
-    *** empty log message ***
-
-    Revision 1.6  2009/12/02 22:32:06  jost
-    Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
-
-    Revision 1.5  2009/11/22 16:20:47  jost
-    *** empty log message ***
-
-    Revision 1.4  2009/11/05 20:08:07  jost
-    Zusatzbeträge-Import aufgenommen.
-
-    Revision 1.3  2009/10/17 19:57:40  jost
-    *** empty log message ***
-
-    Revision 1.2  2009/08/20 20:15:32  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/06/02 17:13:13  jost
-    *** empty log message ***
-
-    -->

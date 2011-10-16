@@ -85,27 +85,5 @@
    <tr><td>$empf.vornamename</td><td>Vorname Name</td></tr>
    <tr><td>$empf.anschrift</td><td>Formatierte Anschrift</td></tr>
  </table>
-    <!-- 
-    $Log$
-    Revision 1.6  2011-04-03 10:02:26  jost
-    Ausgabe der Zusatzfelder
-
-    Revision 1.5  2011-03-20 19:24:17  jost
-    Zusätzliche Felder
-
-    Revision 1.4  2010-03-27 20:11:16  jost
-    EigenschaftenAuswahl überarbeitet.
-
-    Revision 1.3  2010/02/16 18:07:29  jost
-    *** empty log message ***
-
-    Revision 1.2  2010/02/04 18:38:56  jost
-    Zusätzliche Datenfelder
-
-    Revision 1.1  2010/02/01 21:03:42  jost
-    Neu: Einfache Mailfunktion
-
-    -->
-        
 <? include ("footer.inc"); ?>
 

@@ -134,27 +134,5 @@
 	<p>In den Eigenschaften des Programmes:</p>
 	<img src='images/Jameica_portable-img12.png' class='screenshot'>
 	
-	<!-- 
-    $Log$
-    Revision 1.4  2010-11-12 12:29:05  jost
-    *** empty log message ***
-
-    Revision 1.3  2010/05/20 18:37:23  jost
-    *** empty log message ***
-
-    Revision 1.2  2009/06/20 18:38:05  jost
-    Umlaute korrekt darstellen.
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.2  2009/05/03 15:45:50  jost
-    Encoding korrigiert.
-
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-	
 <? include ("footer.inc"); ?>
 

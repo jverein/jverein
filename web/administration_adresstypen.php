@@ -10,16 +10,6 @@
     <p>
     <img src='images/Adresstyp.png' class='screenshot'>
     
-    <!-- 
-    $Log$
-    Revision 1.2  2011-01-30 08:29:09  jost
-    Neu: Zusatzadressen
-
-    Revision 1.1  2011-01-29 19:31:37  jost
-    *** empty log message ***
-
-    -->
-
 <? include ("footer.inc"); ?>
   
 

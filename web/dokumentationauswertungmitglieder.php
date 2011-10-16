@@ -16,18 +16,5 @@
 	    wurden, werden die in die CSV-Datei exportiert.</p>
     <img src='images/Auswertung.jpg' class='screenshot'>
    
-    <!-- 
-    $Log$
-    Revision 1.2  2009/09/10 15:51:43  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-        
 <? include ("footer.inc"); ?>
 

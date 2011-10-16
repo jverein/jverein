@@ -29,15 +29,5 @@
 	<p>Beispiel für eine Rechnung</p>
 	<img src='images/Rechnungausgefuellt.jpg' class='screenshot'>
     
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-
  <? include ("footer.inc"); ?>
 

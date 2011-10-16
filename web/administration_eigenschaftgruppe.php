@@ -6,10 +6,6 @@
     <p>
     <img src='images/EigenschaftenGruppe.png' class='screenshot'>
     
-    <!-- 
-    $Log$
-    -->
-
 <? include ("footer.inc"); ?>
   
 

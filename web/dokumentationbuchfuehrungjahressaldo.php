@@ -8,12 +8,5 @@
     <img src='images/Jahressaldo.jpg' class='screenshot'>
 	<p>Die Daten können ins PDF-Format ausgegeben werden.</p>
      
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-     
 <? include ("footer.inc"); ?>
 

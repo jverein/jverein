@@ -90,30 +90,5 @@
  	<p>In der Version 1.5 wird es die alte Rechnungsmimik und die manuelle Überwachung des Zahlungseinganges
  	nicht mehr geben.</p>   
     
-    <!-- 
-    $Log$
-    Revision 1.7  2010-11-04 19:52:11  jost
-    *** empty log message ***
-
-    Revision 1.6  2010-11-03 12:02:25  jost
-    *** empty log message ***
-
-    Revision 1.5  2010-10-03 09:48:35  jost
-    Korrekte Syntax
-
-    Revision 1.4  2010-09-14 06:19:48  jost
-    Hilfe f. Mitgliedskonto
-
-    Revision 1.3  2010-08-10 05:35:24  jost
-    Hinweis auf die Reaktivierung alter Features
-
-    Revision 1.2  2010-07-26 14:47:27  jost
-    *** empty log message ***
-
-    Revision 1.1  2010-07-25 18:49:30  jost
-    Neu: Mitgliedskonto
-
-    -->
-    
 <? include ("footer.inc"); ?>
 

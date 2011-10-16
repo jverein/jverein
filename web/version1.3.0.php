@@ -20,12 +20,6 @@
     </ul>
     </p>
     <p><a href='download.php'>Download </a></p>
-    <!-- 
-    $Log$
-    Revision 1.1  2010/04/09 08:57:46  jost
-    Version 1.3.0
-
-    -->
-
+ 
 <? include ("footer.inc"); ?>
 

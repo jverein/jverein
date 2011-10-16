@@ -8,10 +8,6 @@
     <p>
     <img src='images/Eigenschaft.png' class='screenshot'>
     
-    <!-- 
-    $Log$
-    -->
-
 <? include ("footer.inc"); ?>
   
 

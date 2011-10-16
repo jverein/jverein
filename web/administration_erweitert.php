@@ -9,15 +9,5 @@
     <p>Im Menü unter Plugins|JVerein|Erweitert kann das Backup importiert werden. Es erscheint ein 
     Datei-Auswahl-Dialog. Danach wird die Datenbank importiert.  </p>
     
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-    
 <? include ("footer.inc"); ?>
 

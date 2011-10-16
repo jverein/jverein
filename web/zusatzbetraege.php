@@ -46,12 +46,5 @@
 		Am oder nach dem 1.12.2008 findet die nächste Berechnung statt. Danach wird das 
 		Fälligkeitsdatum auf den 1.1.2009 gesetzt.....</p>
 
-    <!-- 
-    $Log$
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-        
 <? include ("footer.inc"); ?>
 

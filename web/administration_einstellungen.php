@@ -81,55 +81,5 @@
 	<p>Es kann eine Liste der Altersjubilare ausgegeben werden. Ohne Eingabe werden 
 	die Standardwerte 50,60,65,70,75,80,85,90,95 verwendet.</p>
 	
-	<!-- 
-    $Log$
-    Revision 1.13  2011-06-23 05:53:26  jost
-    *** empty log message ***
-
-    Revision 1.12  2011-01-09 14:32:23  jost
-    Stammdaten in die Einstellungen verschoben.
-
-    Revision 1.11  2010-11-07 07:12:42  jost
-    Versionshinweise entfernt.
-
-    Revision 1.10  2010-08-10 18:07:42  jost
-    Zahlungswegtexte für den Rechnungsdruck
-
-    Revision 1.9  2010/05/20 18:37:17  jost
-    *** empty log message ***
-
-    Revision 1.8  2010/02/01 21:03:42  jost
-    Neu: Einfache Mailfunktion
-
-    Revision 1.7  2010/01/10 20:59:50  jost
-    *** empty log message ***
-
-    Revision 1.6  2010/01/01 22:37:06  jost
-    Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
-
-    Revision 1.5  2009/11/19 21:11:43  jost
-    *** empty log message ***
-
-    Revision 1.4  2009/11/17 21:05:16  jost
-    *** empty log message ***
-
-    Revision 1.3  2009/09/13 19:20:57  jost
-    *** empty log message ***
-
-    Revision 1.2  2009/09/01 19:53:56  jost
-    Einstellungen Tabellen korrekt beschrieben
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.3  2009/05/05 17:28:50  jost
-    Neu: Juristische Personen als Mitglieder
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-	
-	
  <? include ("footer.inc"); ?>
 

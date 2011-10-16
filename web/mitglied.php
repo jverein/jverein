@@ -130,40 +130,6 @@
     <h2>Lehrgang beim Mitglied anlegen</h2>
     <img src='images/Mitgliedlehrgang.jpg' class='screenshot'>
 
-    <!-- 
-    $Log$
-    Revision 1.8  2010-11-07 07:15:22  jost
-    Versionshinweise entfernt.
-
-    Revision 1.7  2010-07-05 16:20:08  jost
-    *** empty log message ***
-
-    Revision 1.6  2010/01/01 22:37:25  jost
-    Standardwerte für Zahlungsweg und Zahlungsrhytmus können vorgegeben werden.
-
-    Revision 1.5  2009/11/22 16:20:47  jost
-    *** empty log message ***
-
-    Revision 1.4  2009/11/17 21:07:53  jost
-    *** empty log message ***
-
-    Revision 1.3  2009/07/16 16:46:02  jost
-    -Überarbeitung
-    -Zahlungwege
-
-    Revision 1.2  2009/05/15 19:10:33  jost
-    Lehrgänge aufgenommen.
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.3  2009/05/05 17:28:50  jost
-    Neu: Juristische Personen als Mitglieder
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-    
+   
 <? include ("footer.inc"); ?>
 

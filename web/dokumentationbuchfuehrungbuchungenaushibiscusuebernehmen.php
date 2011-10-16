@@ -7,12 +7,6 @@
     	JVerein-Buchführung übernommen.</p>
 	<img src='images/BuchungenausHibiscus.jpg' class='screenshot'>
 
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
 
 <? include ("footer.inc"); ?>
 

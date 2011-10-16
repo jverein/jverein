@@ -49,18 +49,6 @@
 	<p>In JVerein wird momentan ein Plugin-Mechanismus für Im- und Exportformate entwickelt. Damit wird es möglich sein, 
 	spezielle Formate eingelesen werden. Möglich sind spezielle CSV-Formate, Datenbanken, XML ..... Ich Bedarfsfalle bitte
 	ich um eine Mail.</p> 
-	<!-- 
-    $Log$
-    Revision 1.3  2011-07-17 17:06:47  jost
-    *** empty log message ***
 
-    Revision 1.2  2009-11-05 20:08:47  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/10/17 19:57:40  jost
-    *** empty log message ***
-
-    -->
-	
 <? include ("footer.inc"); ?>
 

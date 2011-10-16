@@ -194,15 +194,5 @@
 		kontrolliert wurde). Somit kann für jede Zeile in der "Buchungsklassenliste" nachvollzogen werden, 
 		welche Buchungen im einzelnen zu diesem Wert geführt haben.</p>
 	
-   <!-- 
-    $Log$
-    Revision 1.2  2009/10/17 19:48:22  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/10/10 16:03:39  jost
-    *** empty log message ***
-
-    -->
-
 <? include ("footer.inc"); ?>
 

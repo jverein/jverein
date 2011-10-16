@@ -14,12 +14,5 @@
 	<p>Durch eine Klick auf neu kann ein neuer Jahresabschluss vorgenommen werden:</p>
     <img src='images/Jahresabschluss.jpg' class='screenshot'>
     
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-     
 <? include ("footer.inc"); ?>
 

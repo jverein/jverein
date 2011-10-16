@@ -83,12 +83,5 @@
 		verloren. Es existiert keine Möglichkeit, die Datenbank ohne diese Schlüssel wiederherzustellen. 
 		Erstelle daher <b>regelmäßig</b> Backups des kompletten Benutzerverzeichnisses <i>.jameica</i>!</p>
 
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-
-<? include ("footer.inc"); ?>
+ <? include ("footer.inc"); ?>
 

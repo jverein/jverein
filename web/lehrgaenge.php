@@ -14,12 +14,5 @@
     <h2>Lehrgang beim Mitglied anlegen</h2>
     <img src='images/Mitgliedlehrgang.jpg' class='screenshot'>
 
-    <!-- 
-    $Log$
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-
 <? include ("footer.inc"); ?>
 

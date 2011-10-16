@@ -12,9 +12,5 @@
     in der Liste angezeigt. Durch einen Klick auf "speichern" werden die Änderungen
     in die Datenbank geschrieben.</p>
     
-    <!-- 
-    $Log$
-    -->
-    
 <? include ("footer.inc"); ?>
 

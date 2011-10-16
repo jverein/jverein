@@ -20,15 +20,6 @@
     <img src='images/Buchung.jpg' class='screenshot'>
     <p><a href="mitgliedskonto.php#auswahl">Siehe auch Mitgliedskonto</a></p>
     
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
     
 <? include ("footer.inc"); ?>
 

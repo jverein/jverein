@@ -55,39 +55,5 @@
 	<h2>H2</h2>
 	<p><a href="dokumentationmigrationinsh2format.php">Migration der Datenbank ins H2-Format</a></p>
 	
-	<!-- 
-    $Log$
-    Revision 1.9  2011/09/21 21:18:34  jost
-    *** empty log message ***
-
-    Revision 1.8  2011-06-28 07:26:57  jost
-    *** empty log message ***
-
-    Revision 1.7  2010-11-10 18:18:49  jost
-    *** empty log message ***
-
-    Revision 1.6  2010-08-04 11:36:51  jost
-    Anker aufgenommen.
-
-    Revision 1.5  2010-07-25 18:49:20  jost
-    Bugfix Zahlungsrhytmus
-
-    Revision 1.4  2010/02/06 21:09:35  jost
-    *** empty log message ***
-
-    Revision 1.3  2009/09/11 13:41:38  jost
-    Neue Download-Adresse der Jamaica-Suite
-
-    Revision 1.2  2009/08/19 21:01:34  jost
-    *** empty log message ***
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.6  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-	
  <? include ("footer.inc"); ?>
 

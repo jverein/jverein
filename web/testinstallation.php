@@ -30,12 +30,6 @@
     Wichtig! Der Datenordner darf nicht innerhalb des Programmordners liegen. Wird der Schalter -f vergessen,
     wird das <a href="faq.php#programmordner">Standardordner</a> überschrieben.</p>
     </p>
-    <!-- 
-    $Log$
-    Revision 1.1  2010-08-04 11:36:59  jost
-    Neu
-
-    -->
        
 <? include ("footer.inc"); ?>
 

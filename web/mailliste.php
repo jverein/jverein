@@ -5,12 +5,6 @@
     beantworten.</p>
 	<p><a href="https://lists.berlios.de/pipermail/jverein-mailliste/" target=blank>Archiv</a></p>
     
-    <!-- 
-    $Log$
-    Revision 1.4  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-    
+   
 <? include ("footer.inc"); ?>
 

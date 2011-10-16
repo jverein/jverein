@@ -21,18 +21,5 @@
     Serienbriefdatenquelle mit beliebigen Textverarbeitungen z. B. zur Erzeugung von Mahnungen zur Erledigung der Arbeit
     verwendet werden. Weiterhin ist die Generierung von Zusatzbeträgen zur weiteren Abrechnung möglich.</p>
     
-    <!-- 
-    $Log$
-    Revision 1.3  2011-02-27 18:59:55  jost
-    *** empty log message ***
-
-    Revision 1.2  2010-11-27 17:58:26  jost
-    *** empty log message ***
-
-    Revision 1.1  2010-11-22 21:28:50  jost
-    *** empty log message ***
-
-    -->
-    
-<? include ("footer.inc"); ?>
+ <? include ("footer.inc"); ?>
 

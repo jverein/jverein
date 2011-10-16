@@ -14,12 +14,5 @@
     <p>In diesem Bereich wird die Anzahl der An- und Abmeldungen zwischen dem 1.1. und dem eingegebenen 
     	Stichtag ermittelt.</p>
 
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-
-<? include ("footer.inc"); ?>
+ <? include ("footer.inc"); ?>
 

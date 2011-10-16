@@ -7,9 +7,6 @@
    		<li> Verwaltung und Abrechnung von Arbeitsdiensten</li>
    		<li> Filterung der Mitglieder auf die Zusatzfelder erweitern</li>
    	</ul>
-    <!-- 
-    $Log$
-    -->
 
  <? include ("footer.inc"); ?>
 

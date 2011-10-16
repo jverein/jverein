@@ -15,12 +15,5 @@
 		Damit kann ein Anfangsbestand gelöscht werden.</p>
 	<img src='images/Anfangsbestand.jpg' class='screenshot'>
 
-    <!-- 
-    $Log$
-    Revision 1.1  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-
 <? include ("footer.inc"); ?>
 

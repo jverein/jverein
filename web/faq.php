@@ -63,30 +63,5 @@
           wovon ich rede. Den übrigen Vorstandsmitgliedern können PDF-Dokumente oder CSV-Dateien 
           zur Serienbriefgenerierung zur Verfügung
           gestellt werden. Darin kann auch ohne Probleme gesucht werden.</p> 
-    <!-- 
-    $Log$
-    Revision 1.7  2010-10-04 14:32:55  jost
-    *** empty log message ***
-
-    Revision 1.6  2010-10-01 09:06:16  jost
-    *** empty log message ***
-
-    Revision 1.5  2010-10-01 08:37:54  jost
-    Datenverzeichnis verschieben.
-
-    Revision 1.4  2010-08-08 14:46:12  jost
-    Neuer Beitrag und Inhaltsverzeichnis
-
-    Revision 1.3  2010-08-05 07:52:52  jost
-    neuer Anker
-
-    Revision 1.2  2010-08-04 11:36:38  jost
-    redakt
-
-    Revision 1.1  2010-08-04 10:41:39  jost
-    neu: FAQ
-
-    -->
-       
 <? include ("footer.inc"); ?>
 

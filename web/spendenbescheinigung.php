@@ -28,18 +28,5 @@
 	<p>Beispiel für eine Spendenbescheinigung:</p>
     <img src='images/Formularausgefuellt.jpg' class='screenshot'>
 
-    <!-- 
-    $Log$
-    Revision 1.2  2009/11/05 20:08:35  jost
-    Hinweis auf Rechtsklick in der Mitgliedersuche aufgenommen.
-
-    Revision 1.1  2009/05/08 14:46:22  jost
-    shtml - php
-
-    Revision 1.2  2009/05/03 15:33:30  jost
-    Neue Homepage
-
-    -->
-
 <? include ("footer.inc"); ?>
 

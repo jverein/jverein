@@ -42,18 +42,5 @@
     <p>Die gespeicherten Dokumente werden nicht durch die Sicherung von Jameica erfasst. Am einfachsten
     ist es, dass .jameica-Verzeichns komplett zu sichern.</p> 
     
-    <!-- 
-    $Log$
-    Revision 1.3  2011-01-08 15:59:28  jost
-    *** empty log message ***
-
-    Revision 1.2  2010-12-17 19:07:31  jost
-    *** empty log message ***
-
-    Revision 1.1  2010-12-12 17:28:09  jost
-    Neu: Speicherung von Dokumenten
-
-    -->
-    
 <? include ("footer.inc"); ?>
 

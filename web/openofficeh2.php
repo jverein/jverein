@@ -19,17 +19,5 @@
 	<p>Passwort: jverein</p>
 	<img src='images/oobaseh2passwort.png' class='screenshot'>
 	
-	
-			
-    <!-- 
-    $Log$
-    Revision 1.2  2009/12/03 07:02:05  jost
-    Zusätzlicher Hinweis.
-
-    Revision 1.1  2009/12/02 22:32:06  jost
-    Neues Dokument: Zugriff mit OpenOffice-Base auf die H2-Datenbank
-
-    -->
-    
 <? include ("footer.inc"); ?>
 
