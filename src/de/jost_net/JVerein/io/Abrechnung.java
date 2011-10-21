@@ -334,8 +334,8 @@ public class Abrechnung
       if (z.isAktiv())
       {
         Mitglied m = z.getMitglied();
-        if ((m.getEingabedatum() == null || m.getEingabedatum().before(
-            param.stichtag))
+        if ((m.getEintritt() == null || m.getEintritt().before(param.stichtag) || m
+            .getEintritt().equals(param.stichtag))
             && (m.getAustritt() == null || m.getAustritt().before(
                 param.stichtag)))
         {
