@@ -5,7 +5,17 @@
  * $Author$
  *
  * Copyright (c) by Heiner Jostkleigrewe
- * All rights reserved
+ * This program is free software: you can redistribute it and/or modify it under the terms of the 
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
+ *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ *  the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program.  If not, 
+ * see <http://www.gnu.org/licenses/>.
+ * 
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
@@ -238,7 +248,10 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.7 2010-10-15 09:58:29 jost Code aufger‰umt
+ * $Log$
+ * Revision 1.8  2011/10/01 21:44:40  jost
+ * Log-Eintr‰ge entfernt. Zeigt Eclipse-History-View viel besser an. Macht den Quelltext schlanker.
+ * Revision 1.7 2010-10-15 09:58:29 jost Code aufger‰umt
  * Revision 1.6 2008-12-28 07:55:27 jost Icons an Jameica angepasst
  * 
  * Revision 1.5 2008/12/22 21:16:52 jost Icons ins Men√º aufgenommen. Revision
