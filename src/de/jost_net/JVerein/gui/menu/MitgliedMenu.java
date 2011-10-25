@@ -28,8 +28,8 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FreiesFormularAction;
 import de.jost_net.JVerein.gui.action.KontoauszugAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
+import de.jost_net.JVerein.gui.action.MitgliedDuplizierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
-import de.jost_net.JVerein.gui.action.MitgliedKopierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -57,7 +57,7 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "bearbeiten"), detailaction, "edit.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "kopieren"), new MitgliedKopierenAction(), "copy_edit.gif"));
+        "duplizieren"), new MitgliedDuplizierenAction(), "copy_edit.gif"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(

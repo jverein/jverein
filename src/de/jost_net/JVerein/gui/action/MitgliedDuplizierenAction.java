@@ -29,7 +29,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.util.ApplicationException;
 
-public class MitgliedKopierenAction implements Action
+public class MitgliedDuplizierenAction implements Action
 {
 
   public void handleAction(Object context) throws ApplicationException
@@ -55,7 +55,7 @@ public class MitgliedKopierenAction implements Action
     catch (Exception e)
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim kopieren eines Mitgliedes"), e);
+          "Fehler beim duplizieren eines Mitgliedes"), e);
     }
   }
 }

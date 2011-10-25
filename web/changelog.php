@@ -49,6 +49,7 @@
           <li>Folgende Änderungen wurden nach Rev. 319 vorgenommen:</li>
           <li>Am 16.10.2011 erfolgte der Umzug von Berlios zu Sourceforge</li>
           <li>Bugfix bei der Abrechnung von Zusatzbeträgen neuer Mitglieder.</li>
+          <li>##Kontextmenü Mitglied: kopieren &rarr; duplizieren umbenannt.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
