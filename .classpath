@@ -8,12 +8,12 @@
 	<classpathentry kind="lib" path="lib/nc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/hibiscus"/>
-	<classpathentry kind="lib" path="/hibiscus/lib/obantoo-bin-1.4.11.jar"/>
 	<classpathentry kind="lib" path="lib/itext-hyph-xml.jar"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/hbci4java-2.5.12.jar" sourcepath="/hibiscus/lib.src/hbci4java-2.5.12-src.zip"/>
 	<classpathentry kind="lib" path="lib/SuperCSV-1.52.jar"/>
 	<classpathentry exported="true" kind="lib" path="/jameica/lib/swt/win32/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
 	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="/hibiscus/lib/obantoo-bin-1.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
