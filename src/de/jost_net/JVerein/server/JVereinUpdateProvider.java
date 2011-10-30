@@ -833,6 +833,14 @@ public class JVereinUpdateProvider
     {
       update0208(conn);
     }
+    if (cv < 209)
+    {
+      update0209(conn);
+    }
+    if (cv < 210)
+    {
+      update0210(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5193,6 +5201,37 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Beitragsmodel modifiziert in Tabelle einstellung", 208);
+  }
+
+  private void update0209(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD dtaustextschluessel char(2) before altersgruppen;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD dtaustextschluessel char(2) after zahlungsrhytmus;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte dtaustextschluessel in die Tabelle einstellung aufgenommen",
+        209);
+  }
+
+  private void update0210(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "UPDATE einstellung SET dtaustextschluessel = '05' WHERE dtaustextschluessel IS NULL";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte dtaustextschluessel in der Tabelle einstellung initialisiert",
+        210);
   }
 
 }

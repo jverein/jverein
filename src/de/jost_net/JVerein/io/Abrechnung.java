@@ -57,7 +57,6 @@ import de.jost_net.OBanToo.Dtaus.DtausException;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.hbci.TextSchluessel;
 import de.willuhn.jameica.hbci.rmi.Lastschrift;
 import de.willuhn.jameica.hbci.rmi.SammelLastschrift;
 import de.willuhn.jameica.hbci.rmi.SammelTransferBuchung;
@@ -515,7 +514,8 @@ public class Abrechnung
           o.setGegenkontoName(c.getNameEmpfaenger());
           o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
           o.setGegenkontoNummer(c.getKontonummer() + "");
-          o.setTextSchluessel(TextSchluessel.TS_EINZUG);
+          o.setTextSchluessel(Einstellungen.getEinstellung()
+              .getDtausTextschluessel());
           o.store();
         }
         if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
@@ -537,7 +537,8 @@ public class Abrechnung
           o.setGegenkontoName(c.getNameEmpfaenger());
           o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
           o.setGegenkontoNummer(c.getKontonummer() + "");
-          o.setTextSchluessel(TextSchluessel.TS_EINZUG);
+          o.setTextSchluessel(Einstellungen.getEinstellung()
+              .getDtausTextschluessel());
           o.store();
         }
         c = parser.next();
@@ -574,8 +575,8 @@ public class Abrechnung
     {
       dtaus.addCVerwendungszweck(lastschrift.getVerwendungszweck(i));
     }
-    dtaus
-        .setCTextschluessel(CSatz.TS_LASTSCHRIFT_EINZUGSERMAECHTIGUNGSVERFAHREN);
+    dtaus.setCTextschluessel(Integer.parseInt(Einstellungen.getEinstellung()
+        .getDtausTextschluessel()) * 1000);
     dtaus.writeCSatz();
   }
 

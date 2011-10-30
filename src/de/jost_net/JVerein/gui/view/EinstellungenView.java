@@ -148,6 +148,7 @@ public class EinstellungenView extends AbstractView
         control.getBeitragsmodel());
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
+    groupAbu.addInput(control.getDtausTextschluessel());
 
     TabGroup tabDateinamen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Dateinamen"));

@@ -231,6 +231,11 @@ public interface Einstellung extends DBObject
 
   public void setZahlungsweg(int zahlungsweg) throws RemoteException;
 
+  public String getDtausTextschluessel() throws RemoteException;
+
+  public void setDtausTextschluessel(String dtaustextschluessel)
+      throws RemoteException;
+
   public String getAltersgruppen() throws RemoteException;
 
   public void setAltersgruppen(String altersgruppen) throws RemoteException;

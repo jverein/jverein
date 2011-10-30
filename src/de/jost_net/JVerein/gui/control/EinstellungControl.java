@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.DtausTextschluesselInput;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -143,6 +144,8 @@ public class EinstellungControl extends AbstractControl
   private SelectInput zahlungsweg;
 
   private SelectInput zahlungsrhytmus;
+
+  private SelectInput dtaustextschluessel;
 
   private Input altersgruppen;
 
@@ -685,6 +688,18 @@ public class EinstellungControl extends AbstractControl
     return altersgruppen;
   }
 
+  public SelectInput getDtausTextschluessel() throws RemoteException
+  {
+    if (dtaustextschluessel != null)
+    {
+      return dtaustextschluessel;
+    }
+    dtaustextschluessel = new DtausTextschluesselInput(Einstellungen
+        .getEinstellung().getDtausTextschluessel());
+
+    return dtaustextschluessel;
+  }
+
   public Input getJubilaeen() throws RemoteException
   {
     if (jubilaeen != null)
@@ -794,6 +809,7 @@ public class EinstellungControl extends AbstractControl
       e.setZahlungsrhytmus(zr.getKey());
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
       e.setZahlungsweg(zw.getKey());
+      e.setDtausTextschluessel((String) getDtausTextschluessel().getValue());
       e.setAltersgruppen((String) getAltersgruppen().getValue());
       e.setJubilaeen((String) getJubilaeen().getValue());
       e.setAltersjubilaeen((String) getAltersjubilaeen().getValue());

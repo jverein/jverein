@@ -712,6 +712,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("zahlungsweg", zahlungsweg);
   }
 
+  public String getDtausTextschluessel() throws RemoteException
+  {
+    return (String) getAttribute("dtaustextschluessel");
+  }
+
+  public void setDtausTextschluessel(String dtaustextschluessel)
+      throws RemoteException
+  {
+    setAttribute("dtaustextschluessel", dtaustextschluessel);
+  }
+
   public String getAltersgruppen() throws RemoteException
   {
     return (String) getAttribute("altersgruppen");
