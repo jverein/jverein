@@ -6,7 +6,21 @@
 	Der Dateiname muss eine Endung haben. Z. B. .csv oder .txt. Es kann jede beliebige Endung verwendet werden. 
 	Die Datenfelder werden durch Semikolon getrennt. Das Encoding muss ISO-8859-1 sein.</p>
 	<p>Zur Zuordnung des Zusatzbetrages zum Mitglied muss entweder die Mitglieds_Nr oder Nachname und Vorname angegeben
-	werden. Die Angabe von Nachname und Vorname setzt voraus, dass es keine Doubletten bei den Namen gibt.</p>
+	werden. Die nicht benötigten Spalten sind wegzulassen. Die Angabe von Nachname und Vorname setzt voraus, dass es keine 
+	Doubletten bei den Namen gibt.</p>
+	
+<p>Vorlage mit Mitglieds_Nr:</p>
+<code>
+Mitglieds_Nr;Betrag;Buchungstext;Fälligkeit;Intervall<br>
+123;53.25;Jahresbeitrag;1.1.2011;12
+</code>
+<p>Vorlage mit Nachname und Vorname:</p>
+<code>
+Nachname;Vorname;Betrag;Buchungstext;Fälligkeit;Intervall<br>
+Schmitt;Monika;53.25;Jahresbeitrag;1.1.2011;12
+</code>	
+<br><br>
+	
 	<table border="1">
 	<tr>
 		<td>Mitglieds_Nr</td>
