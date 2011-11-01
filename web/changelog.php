@@ -52,8 +52,9 @@
           <li>##Kontextmenü Mitglied: kopieren &rarr; duplizieren umbenannt.</li>
           <li>Folgende Änderungen wurden nach Rev. 320 vorgenommen:</li>
           <li>Unter Einstellungen|Beiträge kann der DTAUS-Textschlüssel ausgewählt werden. Standardmäßig ist Lastschrift eingestellt. Wer aus Abbuchung umstellt, sollte sich über die Bedeutung im Klaren sein. Ggfls. nach Rückspräche mit der Hausbank.</li>
-          <li>Zusatzbeträge-Import: Zusätzliche Plausi zum Aufbau der Datei.</li>
-          <li>Terminübersicht: Ausgetretene Mitglieder werden nicht mehr angezeigt.</li>
+          <li>Zusatzbeträge-Import: Zusätzliche Plausi zum Aufbau der Datei. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=744">Siehe Forum</a></li>
+          <li>Terminübersicht: Ausgetretene Mitglieder werden nicht mehr angezeigt. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=753">Siehe Forum</a><</li>
+          <li>Bugfix Adressbuch-Export für Hibiscus: NPE beseitigt bei Nichtmitgliedern mit Bankverbindung. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=755&p=2944">Siehe Forum</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
