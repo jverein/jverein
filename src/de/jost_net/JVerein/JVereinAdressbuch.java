@@ -50,9 +50,13 @@ public class JVereinAdressbuch implements Addressbook
     while (it.hasNext())
     {
       Mitglied m = (Mitglied) it.next();
+      String kategorie = m.getAdresstyp().getBezeichnung();
+      if (m.getAdresstyp().getID().equals("1"))
+      {
+        kategorie = m.getBeitragsgruppe().getBezeichnung();
+      }
       MitgliedAddress ma = new MitgliedAddress(m.getKonto(), m.getBlz(),
-          m.getNameVorname(), "", "", m.getIban(), m.getBeitragsgruppe()
-              .getBezeichnung());
+          m.getNameVorname(), "", "", m.getIban(), kategorie);
       list.add(ma);
     }
     return list;
