@@ -55,7 +55,9 @@
 	<p>Für jedes Mitglied können zu beliebigen Zeitpunkten Zusatzabbuchungen eingegeben werden 
 	   (Strafgelder, Eigenanteile ...), die entweder einmalig oder wiederkehrend abgerechnet werden.</p>
 	<p>Die Vereinsbuchführung (Einnamen/Ausgaben) kann über eine integrierte einfache 
-	   Buchführung erledigt werden.</p>
+	   Buchführung erledigt werden. Dabei kann eine Einteilung in die Bereiche Ideeller Bereich,
+	   Vermögensverwaltung, Zweckbetrieb und Wirtschaftlicher Geschäftsbetrieb über Buchungsklassen 
+	   vorgenommen werden. </p>
 	<p>Die Mitgliederdaten können nach vielen Kriterien <a href="dokumentationauswertungmitglieder.php">
 	   ausgewertet</a> werden. Die Ausgabe erfolgt im PDF-Format oder im CSV-Format. Die Erstellung 
 	   einer Liste mit <a href="dokumentationauswertungjubilaeen.php">Mitgliedschafts- oder Altersjubliäen</a> ist möglich.</p>
