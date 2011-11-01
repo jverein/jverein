@@ -49,25 +49,6 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
     ResultSet results;
     try
     {
-      // BufferedReader rea = new BufferedReader(new InputStreamReader(
-      // new FileInputStream(path + "/" + file), "ISO-8859-1"));
-      // String line = "";
-      // boolean abbruch = false;
-      // while ((line = rea.readLine()) != null)
-      // {
-      // int pos = line.indexOf("\"");
-      // if (pos >= 0)
-      // {
-      // monitor.log("Zeile enthält Anführungszeichen: " + line);
-      // abbruch = true;
-      // }
-      // }
-      // rea.close();
-      // if (abbruch)
-      // {
-      // monitor.log("Abbruch");
-      // return;
-      // }
       int anz = 0;
 
       Properties props = new java.util.Properties();
@@ -107,6 +88,13 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
         {
           b_vorname = true;
         }
+      }
+      if (b_mitgliedsnummer && (b_nachname || b_vorname))
+      {
+        monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+        monitor
+            .setStatusText("Entweder Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds angeben. Abbruch!");
+        return;
       }
 
       while (results.next())
