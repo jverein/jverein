@@ -59,6 +59,8 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
       list.addFilter("geburtsdatum is not null");
+      list.addFilter("(austritt is null or austritt > ?)",
+          new Date());
       Calendar calf = Calendar.getInstance();
       Calendar calt = Calendar.getInstance();
       Calendar calm = Calendar.getInstance();
@@ -67,6 +69,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
       while (list.hasNext())
       {
         Mitglied m = (Mitglied) list.next();
+        System.out.println(m.getNameVorname() );
         calm.setTime(m.getGeburtsdatum());
         calf.setTime(from);
         calf.set(Calendar.DAY_OF_MONTH, calm.get(Calendar.DAY_OF_MONTH));

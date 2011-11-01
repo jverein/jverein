@@ -53,6 +53,7 @@
           <li>Folgende Änderungen wurden nach Rev. 320 vorgenommen:</li>
           <li>Unter Einstellungen|Beiträge kann der DTAUS-Textschlüssel ausgewählt werden. Standardmäßig ist Lastschrift eingestellt. Wer aus Abbuchung umstellt, sollte sich über die Bedeutung im Klaren sein. Ggfls. nach Rückspräche mit der Hausbank.</li>
           <li>Zusatzbeträge-Import: Zusätzliche Plausi zum Aufbau der Datei.</li>
+          <li>Terminübersicht: Ausgetretene Mitglieder werden nicht mehr angezeigt.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
