@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <meta name="description" content="JVerein">
+    <meta name="description" content="JVerein - OpenSource Vereinsverwaltung mit Anbindung an Jameica und Hibiscus">
     <meta name="keywords" content="Vereinsverwaltung, Mitgliederverwaltung, JVerein, Verein, Open Source, OpenSource, GPL, portable, Buchführung, Jameica, Hibiscus, Java, Linux, Windows, MacOS, MySQL, H2, Mail, verwalten, Ideeller Bereich,Vermögensverwaltung, Zweckbetrieb, Wirtschaftlicher, Geschäftsbetrieb">
     <meta name="robots" content="index, follow">
     <meta http-equiv="expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
@@ -45,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.10  2011/11/01 20:40:10  jverein
+    *** empty log message ***
+
     Revision 1.9  2011/02/16 22:24:31  jost
     *** empty log message ***
 
