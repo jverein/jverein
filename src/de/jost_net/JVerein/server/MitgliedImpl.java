@@ -826,8 +826,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       else if (getGeschlecht().equals("w"))
       {
-        anredefoermlich += " Frau " + (getTitel().length() > 0 ? " " : "")
-            + getName() + ",";
+        anredefoermlich += " Frau " + getTitel()
+            + (getTitel().length() > 0 ? " " : "") + getName() + ",";
       }
       else
       {
