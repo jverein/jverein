@@ -34,9 +34,33 @@
 	</ul>
 	
 	<h2><a name='beitraege'></a>Beiträge</h2>
-    <img src='images/Einstellungenbeitraege.jpg' class='screenshot'>
+    <img src='images/Einstellungenbeitraege.png' class='screenshot'>
 	<p>Beitragsmodell, siehe auch <a href='dokumentationbeitragsmodelle.php'>Beitragsmodelle</a></</p>
-	<p>Ab Version 1.3 können die Standardwerte für den Zahlungsweg und den Zahlungsrhytmus für die Neueingabe von Mitgliedern eingestellt werden.</p>
+	<p>Ab Version 1.3 können die Standardwerte für den Zahlungsweg und den Zahlungsrhytmus für die 
+	Neueingabe von Mitgliedern eingestellt werden.</p>
+	
+	<p>Ab Version 2.1 wird beim Standard-Zahlungsweg zusätzlich über das Feld DTAUS-Textschlüssel 
+	unterschieden nach der Art. Dieser Zahlungsweg wird mit der DTAUS-Datei für einen Sammelauftrag 
+	entweder direkt an die Bank oder an Hibiscus übergeben.</p>
+	
+	<p><b>Lastschrift:</b> Das Mitglied gestattet dem Verein, die Beiträge von seinem Konto 
+	abzubuchen (Einzugsermächtigung). Der Kontoinhaber hat das Recht, über viele Jahre die 
+	Lastschrift zu stornieren und das Geld zurück zu buchen. Dies ist zur Zeit die normale 
+	Zahlungsweise und funktioniert immer. Bei Unsicherheit diese Auswahl treffen, bzw. mit der Bank klären.</p>
+  <p><b>Abbuchung:</b> Das Mitglied beauftragt seine Bank, Abbuchungen dieses Vereins ohne 
+  Rückfrage auszuführen. Der Kontoinhaber hat nicht mehr das Recht, die Lastschrift zu 
+  stornieren und das Geld zurück zu buchen. Nur Unterdeckung verhindert die Abbuchung.
+  In der Praxis bekommt der Verein bei der Freischaltung dieser Zahlungsart von seiner Bank 
+  ein Blanko-Formular, das jedes Mitglied ausfüllt und seiner Bank übergibt (alternativ kann 
+  es auch eingesammelt und vom Verein eingereicht werden). Diese zur Zeit besondere Art der 
+  Abbuchung gibt dem Verein und der Bank erhöhte Sicherheit, da Abbuchungen nicht mehr 
+  zurückgefordert werden können.</p>
+
+  <p>Bei der Abwicklung der Abbuchung über Hibiscus kann die Art nachträglich durch Ändern der 
+  einzelnen Buchungen innerhalb der Sammellastsachrift nachträglich geändert werden 
+  (Doppelklick auf die Sammellastschrift und ändern der Einzeldaten für jedes Mitglied).
+  Bei falscher Wahl der Zahlungsart auf "Abbuchung" können durch die Abweisung der Lastschrift 
+  Rückbuchungsgebühren belastet werden.</p>
 	
 	<h2>Dateinamenmuster</h2>
 	<img src='images/Einstellungendateinamen.jpg' class='screenshot'>
