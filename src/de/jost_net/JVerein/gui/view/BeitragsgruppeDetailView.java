@@ -118,8 +118,7 @@ public class BeitragsgruppeDetailView extends AbstractView
     }
     catch (RemoteException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new ApplicationException(e);
     }
   }
 }
