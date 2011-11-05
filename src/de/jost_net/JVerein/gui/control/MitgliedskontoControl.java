@@ -822,7 +822,7 @@ public class MitgliedskontoControl extends AbstractControl
       }
       if ((Boolean) getOhneAbbucher().getValue())
       {
-        it.addFilter("zahlungsweg <> ?", new Object[] { Zahlungsweg.ABBUCHUNG });
+        it.addFilter("zahlungsweg <> ?", new Object[] { Zahlungsweg.DTAUS });
       }
 
       Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];

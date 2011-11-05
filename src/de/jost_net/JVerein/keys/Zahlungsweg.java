@@ -30,7 +30,7 @@ import de.jost_net.JVerein.JVereinPlugin;
  */
 public class Zahlungsweg
 {
-  public static final int ABBUCHUNG = 1;
+  public static final int DTAUS = 1;
 
   public static final int ÜBERWEISUNG = 2;
 
@@ -57,8 +57,8 @@ public class Zahlungsweg
   {
     switch (key)
     {
-      case ABBUCHUNG:
-        return JVereinPlugin.getI18n().tr("Abbuchung");
+      case DTAUS:
+        return JVereinPlugin.getI18n().tr("Datenaustausch Bank");
       case ÜBERWEISUNG:
         return JVereinPlugin.getI18n().tr("Überweisung");
       case BARZAHLUNG:
@@ -71,7 +71,7 @@ public class Zahlungsweg
   public static ArrayList<Zahlungsweg> getArray()
   {
     ArrayList<Zahlungsweg> ret = new ArrayList<Zahlungsweg>();
-    ret.add(new Zahlungsweg(ABBUCHUNG));
+    ret.add(new Zahlungsweg(DTAUS));
     ret.add(new Zahlungsweg(ÜBERWEISUNG));
     ret.add(new Zahlungsweg(BARZAHLUNG));
     return ret;

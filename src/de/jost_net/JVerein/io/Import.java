@@ -652,7 +652,7 @@ public class Import
        * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine BLZ und
        * eine KTNR geben
        */
-      zahlweg = Zahlungsweg.ABBUCHUNG;
+      zahlweg = Zahlungsweg.DTAUS;
       if (blz.length() == 0 || ktnr.length() == 0)
       {
         progMonitor

@@ -170,7 +170,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
           "Bitte Eintrittsdatum eingeben"));
     }
     if (getAdresstyp().getJVereinid() == 1
-        && getZahlungsweg() == Zahlungsweg.ABBUCHUNG
+        && getZahlungsweg() == Zahlungsweg.DTAUS
         && getBeitragsgruppe().getBetrag() > 0)
     {
       if (getBlz() == null || getBlz().length() == 0 || getKonto() == null
@@ -910,7 +910,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     String zahlungsweg = "";
     switch (this.getZahlungsweg())
     {
-      case Zahlungsweg.ABBUCHUNG:
+      case Zahlungsweg.DTAUS:
       {
         zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", this.getKonto());

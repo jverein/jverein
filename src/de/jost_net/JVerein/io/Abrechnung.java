@@ -296,10 +296,10 @@ public class Abrechnung
         if (Einstellungen.getEinstellung().getMitgliedskonto())
         {
           writeMitgliedskonto(m, new Date(), param.verwendungszweck, "", betr,
-              abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG, konto,
+              abrl, m.getZahlungsweg() == Zahlungsweg.DTAUS, konto,
               beitragsgruppe.get(m.getBeitragsgruppeId() + ""));
         }
-        if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
+        if (m.getZahlungsweg() == Zahlungsweg.DTAUS)
         {
           try
           {
@@ -354,7 +354,7 @@ public class Abrechnung
         {
           continue;
         }
-        if (m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG)
+        if (m.getZahlungsweg() == Zahlungsweg.DTAUS)
         {
           try
           {
@@ -412,7 +412,7 @@ public class Abrechnung
         {
           writeMitgliedskonto(m, new Date(), z.getBuchungstext(),
               z.getBuchungstext2() != null ? z.getBuchungstext2() : "",
-              z.getBetrag(), abrl, m.getZahlungsweg() == Zahlungsweg.ABBUCHUNG,
+              z.getBetrag(), abrl, m.getZahlungsweg() == Zahlungsweg.DTAUS,
               konto, null);
         }
 

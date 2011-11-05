@@ -694,8 +694,8 @@ public class MitgliedControl extends AbstractControl
       public void handleEvent(Event event)
       {
         Zahlungsweg z = (Zahlungsweg) zahlungsweg.getValue();
-        blz.setMandatory(z.getKey() == Zahlungsweg.ABBUCHUNG);
-        konto.setMandatory(z.getKey() == Zahlungsweg.ABBUCHUNG);
+        blz.setMandatory(z.getKey() == Zahlungsweg.DTAUS);
+        konto.setMandatory(z.getKey() == Zahlungsweg.DTAUS);
       }
     });
     return zahlungsweg;
@@ -731,7 +731,7 @@ public class MitgliedControl extends AbstractControl
     blz = new TextInput(getMitglied().getBlz(), 8);
     blz.setName("BLZ");
     blz.setMandatory(getMitglied().getZahlungsweg() == null
-        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.ABBUCHUNG);
+        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     BLZListener l = new BLZListener();
     blz.addListener(l);
     l.handleEvent(null); // Einmal initial ausfuehren
@@ -765,7 +765,7 @@ public class MitgliedControl extends AbstractControl
     konto = new TextInput(getMitglied().getKonto(), 10);
     konto.setName("Konto");
     konto.setMandatory(getMitglied().getZahlungsweg() == null
-        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.ABBUCHUNG);
+        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     konto.addListener(new Listener()
     {
 
@@ -795,7 +795,7 @@ public class MitgliedControl extends AbstractControl
     iban = new TextInput(getMitglied().getIban(), 30);
     iban.setName("IBAN");
     iban.setMandatory(getMitglied().getZahlungsweg() == null
-        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.ABBUCHUNG);
+        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     iban.setEnabled(false);
     return iban;
   }
