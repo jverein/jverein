@@ -56,6 +56,7 @@
           <li>Terminübersicht: Ausgetretene Mitglieder werden nicht mehr angezeigt. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=753">Siehe Forum</a><</li>
           <li>Bugfix Adressbuch-Export für Hibiscus: NPE beseitigt bei Nichtmitgliedern mit Bankverbindung. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=755&p=2944">Siehe Forum</a></li>
           <li>Bugfix CSV-Export: Bei Akademikerinnen wurde der Titel nicht ausgegeben. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=757">Siehe Forum</a></li>
+          <li>Bugfix "neue Buchung / Mitgliedskontoauswahl". <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=773">Siehe Forum</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
