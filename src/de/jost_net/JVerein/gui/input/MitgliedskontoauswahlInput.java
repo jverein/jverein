@@ -45,8 +45,6 @@ public class MitgliedskontoauswahlInput
 
   private Buchung[] buchungen = null;
 
-  // private BuchungsControl buchungscontrol = null;
-
   private Mitgliedskonto konto = null;
 
   private Mitglied mitglied = null;
@@ -120,7 +118,7 @@ public class MitgliedskontoauswahlInput
         catch (RemoteException er)
         {
           String error = JVereinPlugin.getI18n().tr(
-              "Fehler bei des Mitgliedskontos");
+              "Fehler bei Auswahl des Mitgliedskontos");
           Logger.error(error, er);
           GUI.getStatusBar().setErrorText(error);
         }
@@ -137,8 +135,9 @@ public class MitgliedskontoauswahlInput
           String name = (String) buchungen[0].getName();
           String zweck1 = (String) buchungen[0].getZweck();
           String zweck2 = (String) buchungen[0].getZweck2();
-          if (name.length() == 0 && zweck1.length() == 0
-              && zweck2.length() == 0)
+          if ((name == null || name.length() == 0)
+              && (zweck1 == null || zweck1.length() == 0)
+              && (zweck2 == null || zweck2.length() == 0))
           {
             buchungen[0].setName(konto.getMitglied().getNameVorname());
             buchungen[0].setZweck(konto.getZweck1());

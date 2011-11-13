@@ -299,12 +299,34 @@ public class BuchungsControl extends AbstractControl
 
   public DialogInput getMitgliedskonto() throws RemoteException
   {
-    // if (mitgliedskonto != null)
-    // {
-    // return mitgliedskonto;
-    // }
     mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
         .getMitgliedskontoAuswahl();
+    mitgliedskonto.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        try
+        {
+          String name = (String) getName().getValue();
+          String zweck1 = (String) getZweck().getValue();
+          String zweck2 = (String) getZweck2().getValue();
+          if (mitgliedskonto.getValue() != null && name.length() == 0
+              && zweck1.length() == 0 && zweck2.length() == 0)
+          {
+            Mitgliedskonto mk = (Mitgliedskonto) mitgliedskonto.getValue();
+            getName().setValue(mk.getMitglied().getNameVorname());
+            getBetrag().setValue(mk.getBetrag());
+            getZweck().setValue(mk.getZweck1());
+            getZweck2().setValue(mk.getZweck2());
+            getDatum().setValue(mk.getDatum());
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
     return mitgliedskonto;
   }
 
