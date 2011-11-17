@@ -11,8 +11,12 @@
 	<h2>Datenbankassistent</h2>
 	<p>OpenOffice-Base aufrufen</p>
 	<img src='images/oobaseh2datenbankassistent0.png' class='screenshot'>
-	<p>Als Datenquellen-URL ist h2:/pfad zur Datenbank   einzutragen. Beispiel: <code>h2:/home/heiner/jameica.buch/jverein/h2db/jverein</code>
-	   Der Datenbanktreiber heiﬂt org.h2.Driver</p>
+	<p>Als Datenquellen-URL ist h2:/pfad zur Datenbank   einzutragen.</p>
+	 <p>Beispiele: </p>
+	 <p>Linux: <code> h2:/home/heiner/jameica.buch/jverein/h2db/jverein</code></p>
+	<p>Windows <code>h2:file:C:/Pfad/zur/Datenbank/.jameica/jverein/h2db/jverein</code></p>
+	
+	<p>Der Datenbanktreiber heiﬂt org.h2.Driver</p>
 	<img src='images/oobaseh2datenbankassistent1.png' class='screenshot'>
 	<p>Benutzername: jverein, Kennwort erforderlich</p>
 	<img src='images/oobaseh2datenbankassistent2.png' class='screenshot'>
