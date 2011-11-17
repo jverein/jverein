@@ -110,6 +110,7 @@ public class AdresstypControl extends AbstractControl
 
     adresstypList = new TablePart(adresstypen, new AdresstypAction());
     adresstypList.addColumn("Bezeichnung", "bezeichnung");
+    adresstypList.addColumn("ID", "id");
     // buchungsartList.setContextMenu(new BuchungsartMenu());
     adresstypList.setRememberColWidths(true);
     adresstypList.setRememberOrder(true);
