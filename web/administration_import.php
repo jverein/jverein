@@ -29,15 +29,24 @@
 		<td>ja</td>
 		<td>nein</td>
 	</tr>
-	<tr>
-		<td>Personenart</td>
-		<td>n = natürliche Person, j = juristische Person (Firma, Organisation, Behörde). 
-		Wenn die Spalte Personenart nicht in der Importdatei existiert, wird defaultmäßig 'n' 
-		übernommen.</td>
-		<td>1</td>
-		<td>nein</td>
-		<td>nein</td>
-	</tr>
+  <tr>
+    <td>Adresstyp</td>
+    <td>1 = Mitglied, 2 = Spender 
+    Weitere Adresstypen können über Administration | Adresstypen erfasst werden. Die ID wird in der
+    Übersicht angezeigt. Ab Version 2.1</td>
+    <td>2</td>
+    <td>nein</td>
+    <td>nein</td>
+  </tr>
+  <tr>
+    <td>Personenart</td>
+    <td>n = natürliche Person, j = juristische Person (Firma, Organisation, Behörde). 
+    Wenn die Spalte Personenart nicht in der Importdatei existiert, wird defaultmäßig 'n' 
+    übernommen.</td>
+    <td>1</td>
+    <td>nein</td>
+    <td>nein</td>
+  </tr>
 	<tr>
 		<td>Anrede</td>
 		<td>Herrn/Frau</td>
@@ -274,6 +283,9 @@ Mitglieds_Nr;Anrede;Titel;Nachname;Vorname;Straße;Plz;Ort;Geburtsdatum;Geschlech
 	<p>Es gibt nicht nur sichtbare &Auml;nderungen sondern ein paar auch unter der Haube. Deshalb hat sich die Tabelle ein wenig ge&auml;ndert, vor allem die m&ouml;glichen Formatierungen wurden erweitert.
 	  <!-- 
     $Log$
+    Revision 1.21  2011/10/10 20:55:27  jost
+    Import überarbeitet - Spaltenzuordnung im Dialog. Patch von Chrisitian Lutz.
+
     Revision 1.20  2011-09-25 13:27:56  jost
     *** empty log message ***
 

@@ -821,6 +821,27 @@ public class Import
       m.setZahlungsrhytmus(new Integer(12));
     }
 
+    String adresstyp = getResultFrom(results, InternalColumns.ADRESSTYP);
+    if (adresstyp.length() > 0)
+    {
+      if (adresstyp.matches("[0-9]+"))
+      {
+        m.setAdresstyp(Integer.parseInt(adresstyp));
+      }
+      else
+      {
+        progMonitor
+            .log("Adresstyp bei: "
+                + m.getVornameName()
+                + " ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)");
+        m.setZahlungsrhytmus(new Integer(1));
+      }
+    }
+    else
+    { // Default value
+      m.setZahlungsrhytmus(new Integer(1));
+    }
+
     m.setVermerk1(getResultFrom(results, InternalColumns.VERMERKA));
     m.setVermerk2(getResultFrom(results, InternalColumns.VERMERKB));
 
