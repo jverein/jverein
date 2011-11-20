@@ -128,7 +128,7 @@ public class BuchungsControl extends AbstractControl
 
   private Buchung buchung;
 
-  private static final String BUCHUNGSART = "buchungsart";
+  public static final String BUCHUNGSART = "suchbuchungsart";
 
   public BuchungsControl(AbstractView view)
   {
@@ -298,6 +298,7 @@ public class BuchungsControl extends AbstractControl
       return suchtext;
     }
     suchtext = new TextInput(settings.getString("suchtext", ""), 35);
+    suchtext.addListener(new FilterListener());
     return suchtext;
   }
 
@@ -407,6 +408,7 @@ public class BuchungsControl extends AbstractControl
     }
     String kontoid = settings.getString("suchkontoid", "");
     suchkonto = new KontoauswahlInput().getKontoAuswahl(true, kontoid);
+    suchkonto.addListener(new FilterListener());
     return suchkonto;
   }
 
@@ -422,13 +424,13 @@ public class BuchungsControl extends AbstractControl
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
     Buchungsart b = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
-    b.setArt(-2);
+    b.setNummer(-2);
     b.setBezeichnung("---");
     b.setNummer(-2);
     liste.add(b);
     b = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
-    b.setArt(-1);
+    b.setNummer(-1);
     b.setBezeichnung("Ohne Buchungsart");
     b.setNummer(-1);
     liste.add(b);
@@ -437,34 +439,20 @@ public class BuchungsControl extends AbstractControl
       liste.add((Buchungsart) list.next());
     }
     int bwert = settings.getInt(BUCHUNGSART, -2);
+    System.out.println("ttt>" + bwert);
     for (int i = 0; i < liste.size(); i++)
     {
-      if (liste.get(i).getArt() == bwert)
+      if (liste.get(i).getNummer() == bwert)
       {
         b = liste.get(i);
         break;
       }
     }
+    System.out.println("//>" + b.getNummer());
     suchbuchungsart = new SelectInput(liste, b);
-    suchbuchungsart.addListener(new Listener()
-    {
-
-      public void handleEvent(Event event)
-      {
-        Buchungsart ba = (Buchungsart) suchbuchungsart.getValue();
-        try
-        {
-          settings.setAttribute(BUCHUNGSART, ba.getArt());
-        }
-        catch (RemoteException e)
-        {
-          // e.printStackTrace();
-        }
-      }
-    });
+    suchbuchungsart.addListener(new FilterListener());
 
     suchbuchungsart.setAttribute("bezeichnung");
-    // suchbuchungsart.setPleaseChoose("Ohne Buchungsart");
     return suchbuchungsart;
   }
 
@@ -487,20 +475,7 @@ public class BuchungsControl extends AbstractControl
     this.vondatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.vondatum.setTitle("Anfangsdatum");
     this.vondatum.setText("Bitte Anfangsdatum wählen");
-    this.vondatum.addListener(new Listener()
-    {
-
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) vondatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-        settings.setAttribute("vondatum",
-            new JVDateFormatTTMMJJJJ().format(date));
-      }
-    });
+    this.vondatum.addListener(new FilterListener());
     return vondatum;
   }
 
@@ -523,20 +498,7 @@ public class BuchungsControl extends AbstractControl
     this.bisdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.bisdatum.setTitle("Anfangsdatum");
     this.bisdatum.setText("Bitte Anfangsdatum wählen");
-    this.bisdatum.addListener(new Listener()
-    {
-
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) bisdatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-        settings.setAttribute("bisdatum",
-            new JVDateFormatTTMMJJJJ().format(date));
-      }
-    });
+    this.bisdatum.addListener(new FilterListener());
     return bisdatum;
   }
 
@@ -550,7 +512,6 @@ public class BuchungsControl extends AbstractControl
         starteAuswertung(true);
       }
     }, null, true, "pdf.png"); // "true" defines this button as the default
-    // button
     return b;
   }
 
@@ -564,7 +525,6 @@ public class BuchungsControl extends AbstractControl
         starteAuswertung(false);
       }
     }, null, true, "pdf.png"); // "true" defines this button as the default
-    // button
     return b;
   }
 
@@ -572,13 +532,11 @@ public class BuchungsControl extends AbstractControl
   {
     Button b = new Button("PDF Buchungsjournal", new Action()
     {
-
       public void handleAction(Object context)
       {
         starteAuswertungBuchungsjournal();
       }
     }, null, true, "pdf.png"); // "true" defines this button as the default
-    // button
     return b;
   }
 
@@ -933,6 +891,31 @@ public class BuchungsControl extends AbstractControl
       }
     };
     Application.getController().start(t);
+  }
+
+  public class FilterListener implements Listener
+  {
+
+    FilterListener()
+    {
+    }
+
+    public void handleEvent(Event event)
+    {
+      if (event.type != SWT.Selection && event.type != SWT.FocusOut)
+      {
+        return;
+      }
+
+      try
+      {
+        getBuchungsList();
+      }
+      catch (RemoteException e)
+      {
+        Logger.error("Fehler", e);
+      }
+    }
   }
 
 }

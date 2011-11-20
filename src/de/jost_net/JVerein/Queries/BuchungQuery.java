@@ -81,7 +81,13 @@ public class BuchungQuery
     if (control.getSuchBuchungsart() != null)
     {
       b = (Buchungsart) control.getSuchBuchungsart().getValue();
+      settings.setAttribute(BuchungsControl.BUCHUNGSART, b.getNummer());
     }
+    else
+    {
+      settings.setAttribute(BuchungsControl.BUCHUNGSART, -2);
+    }
+
     addCondition("datum >= ? ", vd);
     addCondition("datum <= ? ", bd);
     if (k != null)
@@ -116,7 +122,7 @@ public class BuchungQuery
     }
     sql += "ORDER BY umsatzid DESC";
 
-    Logger.info(sql);
+    Logger.debug(sql);
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {

@@ -21,16 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import java.rmi.RemoteException;
-
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.AbstractView;
-import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
@@ -57,35 +53,16 @@ public class BuchungslisteView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("enthaltener Text"),
         control.getSuchtext());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 1);
-    Button button = new Button("suchen", new Action()
-    {
-
-      public void handleAction(Object context)
-      {
-        try
-        {
-          control.getBuchungsList();
-        }
-        catch (RemoteException e)
-        {
-          e.printStackTrace();
-        }
-      }
-    }, null, true, "system-search.png");
-
-    buttons.addButton(button);
-
     control.getBuchungsList().paint(this.getParent());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 5);
-    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+    ButtonArea buttons = new ButtonArea(this.getParent(), 5);
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
-    buttons2.addButton(control.getStartAuswertungBuchungsjournalButton());
-    buttons2.addButton(control.getStartAuswertungEinzelbuchungenButton());
-    buttons2.addButton(control.getStartAuswertungSummenButton());
-    buttons2.addButton(JVereinPlugin.getI18n().tr("neu"),
+    buttons.addButton(control.getStartAuswertungBuchungsjournalButton());
+    buttons.addButton(control.getStartAuswertungEinzelbuchungenButton());
+    buttons.addButton(control.getStartAuswertungSummenButton());
+    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new BuchungNeuAction(), null, false, "document-new.png");
 
   }
