@@ -23,9 +23,12 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.Variable.BuchungVar;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -34,6 +37,7 @@ import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -339,6 +343,72 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     setAttribute("spendenbescheinigung", spendenbescheinigung);
   }
 
+  public Map<String, Object> getMap(Map<String, Object> inma)
+      throws RemoteException
+  {
+    Map<String, Object> map = null;
+    if (inma == null)
+    {
+      map = new HashMap<String, Object>();
+    }
+    else
+    {
+      map = inma;
+    }
+    if (this.getID() == null)
+    {
+    }
+    map.put(BuchungVar.ABRECHNUNGSLAUF.getName(),
+        (this.getAbrechnungslauf() != null ? this.getAbrechnungslauf()
+            .getDatum() : ""));
+    map.put(BuchungVar.ART.getName(), StringTool.toNotNullString(this.getArt()));
+    map.put(BuchungVar.AUSZUGSNUMMER.getName(), this.getAuszugsnummer());
+    map.put(BuchungVar.BETRAG.getName(), this.getBetrag());
+    map.put(BuchungVar.BLATTNUMMER.getName(), this.getBlattnummer());
+    if (this.getBuchungsart() != null)
+    {
+      map.put(BuchungVar.BUCHUNGSARBEZEICHNUNG.getName(), this.getBuchungsart()
+          .getBezeichnung());
+      map.put(BuchungVar.BUCHUNGSARTNUMMER.getName(), this.getBuchungsart()
+          .getNummer());
+      if (this.getBuchungsart().getBuchungsklasse() != null)
+      {
+        map.put(BuchungVar.BUCHUNGSKLASSEBEZEICHNUNG.getName(), this
+            .getBuchungsart().getBuchungsklasse().getBezeichnung());
+        map.put(BuchungVar.BUCHUNGSKLASSENUMMER.getName(), this
+            .getBuchungsart().getBuchungsklasse().getNummer());
+      }
+      else
+      {
+        map.put(BuchungVar.BUCHUNGSKLASSEBEZEICHNUNG.getName(), "");
+        map.put(BuchungVar.BUCHUNGSKLASSENUMMER.getName(), "");
+      }
+    }
+    else
+    {
+      map.put(BuchungVar.BUCHUNGSARBEZEICHNUNG.getName(), "");
+      map.put(BuchungVar.BUCHUNGSARTNUMMER.getName(), "");
+      map.put(BuchungVar.BUCHUNGSKLASSEBEZEICHNUNG.getName(), "");
+      map.put(BuchungVar.BUCHUNGSKLASSENUMMER.getName(), "");
+    }
+    map.put(BuchungVar.DATUM.getName(), this.getDatum());
+    map.put(BuchungVar.JAHRESABSCHLUSS.getName(),
+        this.getJahresabschluss() != null ? this.getJahresabschluss().getBis()
+            : "");
+    map.put(BuchungVar.KOMMENTAR.getName(),
+        StringTool.toNotNullString(this.getKommentar()));
+    map.put(BuchungVar.KONTONUMMER.getName(), this.getKonto().getNummer());
+    map.put(BuchungVar.MITGLIEDSKONTO.getName(),
+        this.getMitgliedskonto() != null ? this.getMitgliedskonto()
+            .getMitglied().getNameVorname() : "");
+    map.put(BuchungVar.NAME.getName(), this.getName());
+    map.put(BuchungVar.ZWECK1.getName(),
+        StringTool.toNotNullString(this.getZweck()));
+    map.put(BuchungVar.ZWECK2.getName(),
+        StringTool.toNotNullString(this.getZweck2()));
+    return map;
+  }
+
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
@@ -401,6 +471,16 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   public void setSplitId(Integer splitid) throws RemoteException
   {
     setAttribute("splitid", splitid);
+  }
+
+  public Boolean getVerzicht() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("verzicht"));
+  }
+
+  public void setVerzicht(Boolean verzicht) throws RemoteException
+  {
+    setAttribute("verzicht", verzicht);
   }
 
 }
