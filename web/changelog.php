@@ -58,6 +58,8 @@
           <li>Bugfix CSV-Export: Bei Akademikerinnen wurde der Titel nicht ausgegeben. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=757">Siehe Forum</a></li>
           <li>Bugfix "neue Buchung / Mitgliedskontoauswahl". <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=773">Siehe Forum</a></li>
           <li>Adresstyp beim Import eingefügt.</li>
+          <li>Bugfix. Klick in der Mitgliedskontenübersicht auf eine Adresse öffnete Mitglied. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=776">Siehe Forum</a>
+          <li>Erweiterung Spendenbescheinigung um Sammelbescheinigung. Patch von Danzelot.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
