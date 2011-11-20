@@ -841,6 +841,14 @@ public class JVereinUpdateProvider
     {
       update0210(conn);
     }
+    if (cv < 211)
+    {
+        update0211(conn);
+    }
+    if (cv < 212)
+    {
+        update0212(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5232,6 +5240,30 @@ public class JVereinUpdateProvider
     execute(conn, statements,
         "Spalte dtaustextschluessel in der Tabelle einstellung initialisiert",
         210);
+  }
+
+  private void update0211(Connection conn) throws ApplicationException {
+      Map<String, String> statements = new HashMap<String, String>();
+
+      String sql = "ALTER TABLE buchung ADD verzicht BOOLEAN";
+      statements.put(DBSupportH2Impl.class.getName(), sql);
+      statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+      execute(conn, statements,
+              "Spalte verzicht in der Tabelle buchung aufgenommen",
+              211);
+  }
+
+  private void update0212(Connection conn) throws ApplicationException {
+      Map<String, String> statements = new HashMap<String, String>();
+
+      String sql = "ALTER TABLE spendenbescheinigung ADD autocreate BOOLEAN default false";
+      statements.put(DBSupportH2Impl.class.getName(), sql);
+      statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+      execute(conn, statements,
+              "Spalte autocreate in der Tabelle spendenbescheinigung aufgenommen",
+              212);
   }
 
 }

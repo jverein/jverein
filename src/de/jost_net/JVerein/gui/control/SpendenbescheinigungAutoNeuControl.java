@@ -146,6 +146,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             spbescheinigung.setBescheinigungsdatum(new Date());
             spbescheinigung.setSpendedatum(new Date());
             spbescheinigung.setBetrag(0.01);
+            spbescheinigung.setAutocreate( Boolean.TRUE );
             spbescheinigung.store();
             Date spendedatum = new Date();
             double summe = 0;

@@ -97,6 +97,21 @@ public class SpendenbescheinigungView extends AbstractView
     right.addLabelPair(JVereinPlugin.getI18n().tr("Unterlagen Wertermittlung"),
         control.getUnterlagenWertermittlung());
 
+    /*
+     * Spendenart kann bei automatisch erzeugten Bestätigungen nicht geändert
+     * werden
+     */
+    if (control.getSpendenbescheinigung().getAutocreate())
+    {
+      control.getSpendenart().setEnabled(false);
+      control.getBetrag().setEnabled(false);
+    }
+    else
+    {
+      control.getSpendenart().setEnabled(true);
+      control.getBetrag().setEnabled(true);
+    }
+
     ButtonArea buttons = new ButtonArea(getParent(), 5);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,

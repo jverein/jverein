@@ -85,6 +85,11 @@ public class BuchungView extends AbstractView
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Blattnummer"),
         control.getBlattnummer());
 
+    LabelGroup grSpendeninfos = new LabelGroup(scrolled.getComposite(),
+                                                JVereinPlugin.getI18n().tr("Spendendetails"));
+    grSpendeninfos.addLabelPair( JVereinPlugin.getI18n().tr( "Erstattungsverzicht" ),
+        control.getVerzicht() );
+
     if (JVereinPlugin.isArchiveServiceActive())
     {
       Buchung bu = (Buchung) control.getCurrentObject();

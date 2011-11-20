@@ -62,6 +62,7 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
+import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.DialogInput;
@@ -121,6 +122,8 @@ public class BuchungsControl extends AbstractControl
   private DateInput bisdatum = null;
 
   private TextInput suchtext = null;
+
+  private CheckboxInput verzicht;
 
   private Buchung buchung;
 
@@ -295,6 +298,24 @@ public class BuchungsControl extends AbstractControl
     }
     suchtext = new TextInput(settings.getString("suchtext", ""), 35);
     return suchtext;
+  }
+
+
+  public CheckboxInput getVerzicht() throws RemoteException {
+
+    if ( verzicht != null ) {
+        return verzicht;
+    }
+
+    Boolean vz = buchung.getVerzicht();
+
+    if ( vz == null ) {
+        vz = Boolean.FALSE;
+    }
+
+    verzicht = new CheckboxInput( vz );
+
+    return verzicht;
   }
 
   public DialogInput getMitgliedskonto() throws RemoteException
@@ -576,6 +597,8 @@ public class BuchungsControl extends AbstractControl
         b.setZweck2((String) getZweck2().getValue());
         b.setDatum((Date) getDatum().getValue());
         b.setArt((String) getArt().getValue());
+        b.setVerzicht( (Boolean) getVerzicht().getValue() );
+
         if (Einstellungen.getEinstellung().getMitgliedskonto())
         {
           if (mitgliedskonto.getValue() != null)

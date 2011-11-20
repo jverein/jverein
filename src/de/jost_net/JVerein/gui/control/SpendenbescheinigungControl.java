@@ -26,7 +26,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
@@ -38,6 +41,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
+import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
@@ -49,6 +53,7 @@ import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.Dateiname;
@@ -472,6 +477,26 @@ public class SpendenbescheinigungControl extends AbstractControl
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
     FileOutputStream fos = new FileOutputStream(file);
+
+    /* Ermitteln der Buchungen zu einer Spendenbescheinigung */
+    DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+    it.addFilter("spendenbescheinigung = ?",
+        new Object[] { getSpendenbescheinigung().getID() });
+    it.setOrder("ORDER BY datum asc");
+
+    List<Buchung> buchungen = new ArrayList<Buchung>();
+    double summe = 0d;
+
+    while (it.hasNext())
+    {
+      Buchung bu = (Buchung) it.next();
+      buchungen.add(bu);
+
+      summe += bu.getBetrag();
+    }
+
+    boolean isSammelbestaetigung = buchungen.size() > 1;
+
     Reporter rpt = new Reporter(fos, 80, 50, 50, 50);
     rpt.addHeaderColumn(
         "Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)",
@@ -488,8 +513,16 @@ public class SpendenbescheinigungControl extends AbstractControl
     switch (spa.getKey())
     {
       case Spendenart.GELDSPENDE:
+
+        String bestaetigungsart = "Bestätigung";
+        if (isSammelbestaetigung)
+        {
+          bestaetigungsart = "Sammelbestätigung";
+        }
+
         rpt.add(
-            "Bestätigung über Geldzuwendungen"
+            bestaetigungsart
+                + " über Geldzuwendungen"
                 + (Einstellungen.getEinstellung().getMitgliedsbetraege() ? "/Mitgliedsbeitrag"
                     : ""), 13);
         break;
@@ -546,8 +579,15 @@ public class SpendenbescheinigungControl extends AbstractControl
       throw new RemoteException(
           "Fehler bei der Aufbereitung des Betrages in Worten");
     }
+
     String spendedatum = new JVDateFormatTTMMJJJJ()
         .format((Date) getSpendedatum().getValue());
+
+    if (isSammelbestaetigung)
+    {
+      spendedatum = "(s. Anlage)";
+    }
+
     rpt.addColumn(spendedatum, Element.ALIGN_CENTER);
     rpt.closeTable();
 
@@ -589,13 +629,38 @@ public class SpendenbescheinigungControl extends AbstractControl
         }
     }
 
+    /*
+     * Bei Sammelbestätigungen ist der Verweis auf Verzicht in der Anlage
+     * vermerkt
+     */
     String verzicht = "nein";
-    if ((Boolean) getErsatzAufwendungen().getValue())
+    boolean andruckVerzicht = false;
+
+    if (getSpendenbescheinigung().getAutocreate())
     {
-      verzicht = "ja";
+      if (!isSammelbestaetigung)
+      {
+        if (buchungen.get(0).getVerzicht().booleanValue())
+        {
+          verzicht = "ja";
+        }
+        andruckVerzicht = true;
+      }
     }
-    rpt.add("Es handelt sich um den Verzicht von Aufwendungen: " + verzicht
-        + "\n\n", 9);
+    else
+    {
+      if ((Boolean) getErsatzAufwendungen().getValue())
+      {
+        verzicht = "ja";
+      }
+      andruckVerzicht = true;
+    }
+
+    if (andruckVerzicht)
+    {
+      rpt.add("Es handelt sich um den Verzicht von Aufwendungen: " + verzicht
+          + "\n\n", 9);
+    }
 
     if (!Einstellungen.getEinstellung().getVorlaeufig())
     {
@@ -638,12 +703,22 @@ public class SpendenbescheinigungControl extends AbstractControl
           "Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag i.S.v § 10b Abs. 1 Satz 2 Einkommensteuergesetzes handelt.",
           9);
     }
+
+    if (isSammelbestaetigung)
+    {
+      rpt.add(new Paragraph(" "));
+      rpt.add(
+          "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.",
+          9);
+    }
+
     rpt.add(
         "\n\n"
             + Einstellungen.getEinstellung().getOrt()
             + ", "
             + new JVDateFormatTTMMJJJJ().format((Date) getBescheinigungsdatum()
                 .getValue()), 9);
+
     rpt.add(
         "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
         9);
@@ -658,6 +733,51 @@ public class SpendenbescheinigungControl extends AbstractControl
             + "Datum des Freistellungsbescheides länger als 5 Jahre bzw. das Datum der vorläufigen Bescheinigung länger als 3 Jahre "
             + "seit Ausstellung der Bestätigung zurückliegt (BMF vom 15.12.1994 - BStBl I S. 884).",
         8);
+
+    /* Es sind mehrere Spenden für diese Spendenbescheinigung vorhanden */
+    if (isSammelbestaetigung)
+    {
+
+      rpt.newPage();
+      String datumBestaetigung = new JVDateFormatTTMMJJJJ()
+          .format(getSpendenbescheinigung().getBescheinigungsdatum());
+      rpt.add("Anlage zur Sammelbestätigung vom " + datumBestaetigung, 13);
+
+      String datumVon = new JVDateFormatTTMMJJJJ().format(buchungen.get(0)
+          .getDatum());
+      String datumBis = new JVDateFormatTTMMJJJJ().format(buchungen.get(
+          buchungen.size() - 1).getDatum());
+      rpt.add("für den Zeitraum vom " + datumVon + " bis " + datumBis, 13);
+
+      rpt.add(new Paragraph(""));
+      rpt.add(new Paragraph(""));
+
+      rpt.addHeaderColumn("Zuwendungsart", Element.ALIGN_LEFT, 400,
+          Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Verzicht auf Erstattung von Aufwendungen",
+          Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+      rpt.createHeader();
+
+      for (Buchung buchung : buchungen)
+      {
+        rpt.addColumn(buchung.getZweck(), Element.ALIGN_LEFT);
+        rpt.addColumn(Double.valueOf(buchung.getBetrag()));
+        rpt.addColumn(buchung.getDatum(), Element.ALIGN_RIGHT);
+        rpt.addColumn(buchung.getVerzicht().booleanValue());
+      }
+
+      /* Summenzeile */
+      DecimalFormat f = new DecimalFormat("###,###.00");
+      String sumString = f.format(summe);
+      rpt.addColumn("Summe", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
+      rpt.addColumn(sumString, Element.ALIGN_RIGHT, Color.LIGHT_GRAY);
+      rpt.addColumn("", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
+
+      rpt.closeTable();
+    }
+
     rpt.close();
     fos.close();
     GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");

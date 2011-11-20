@@ -335,6 +335,16 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         Boolean.valueOf(unterlagenwertermittlung));
   }
 
+  public Boolean getAutocreate() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("autocreate"));
+  }
+
+  public void setAutocreate(Boolean autocreate) throws RemoteException
+  {
+    setAttribute("autocreate", Boolean.valueOf(autocreate));
+  }
+
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException
   {
@@ -371,7 +381,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     map.put(SpendenbescheinigungVar.EMPFAENGER.getName(), empfaenger);
     map.put(SpendenbescheinigungVar.BETRAG.getName(),
         Einstellungen.DECIMALFORMAT.format(getBetrag()));
-    Double dWert = (Double) getBetrag();
+    Double dWert = getBetrag();
     try
     {
       String betraginworten = GermanNumber.toString(dWert.longValue());

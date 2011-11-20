@@ -107,4 +107,24 @@ public interface Spendenbescheinigung extends DBObject
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException;
 
+    /**
+     * Gibt an, ob die Spendenbescheinigung automaitsch oder manuell erstellt
+     * wurde.
+     *
+     * @return <code>true</code>, wenn die Spendenbescheinigung automatisch
+     *         erzeugt wurde, ansonstenm <code>false</code>
+     * @throws RemoteException
+     */
+  public Boolean getAutocreate() throws RemoteException;
+
+    /**
+     * Setzt ein Flag, wenn die Spendenbescheinigung automatisch erzeugt wurde.
+     *
+     * @param autocreate
+     *            <code>true</code>, wenn die Spendenbescheinigung automatisch
+     *            erzeugt wurde, ansonsten <code>false</code>
+     * @throws RemoteException
+     */
+  public void setAutocreate( Boolean autocreate ) throws RemoteException;
+
 }
