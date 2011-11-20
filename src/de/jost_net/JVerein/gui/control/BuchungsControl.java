@@ -300,20 +300,22 @@ public class BuchungsControl extends AbstractControl
     return suchtext;
   }
 
+  public CheckboxInput getVerzicht() throws RemoteException
+  {
 
-  public CheckboxInput getVerzicht() throws RemoteException {
-
-    if ( verzicht != null ) {
-        return verzicht;
+    if (verzicht != null)
+    {
+      return verzicht;
     }
 
     Boolean vz = buchung.getVerzicht();
 
-    if ( vz == null ) {
-        vz = Boolean.FALSE;
+    if (vz == null)
+    {
+      vz = Boolean.FALSE;
     }
 
-    verzicht = new CheckboxInput( vz );
+    verzicht = new CheckboxInput(vz);
 
     return verzicht;
   }
@@ -334,12 +336,21 @@ public class BuchungsControl extends AbstractControl
           if (mitgliedskonto.getValue() != null && name.length() == 0
               && zweck1.length() == 0 && zweck2.length() == 0)
           {
-            Mitgliedskonto mk = (Mitgliedskonto) mitgliedskonto.getValue();
-            getName().setValue(mk.getMitglied().getNameVorname());
-            getBetrag().setValue(mk.getBetrag());
-            getZweck().setValue(mk.getZweck1());
-            getZweck2().setValue(mk.getZweck2());
-            getDatum().setValue(mk.getDatum());
+            if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
+            {
+              Mitgliedskonto mk = (Mitgliedskonto) mitgliedskonto.getValue();
+              getName().setValue(mk.getMitglied().getNameVorname());
+              getBetrag().setValue(mk.getBetrag());
+              getZweck().setValue(mk.getZweck1());
+              getZweck2().setValue(mk.getZweck2());
+              getDatum().setValue(mk.getDatum());
+            }
+            if (mitgliedskonto.getValue() instanceof Mitglied)
+            {
+              Mitglied m2 = (Mitglied) mitgliedskonto.getValue();
+              getName().setValue(m2.getNameVorname());
+              getDatum().setValue(new Date());
+            }
           }
         }
         catch (RemoteException e)
@@ -597,7 +608,7 @@ public class BuchungsControl extends AbstractControl
         b.setZweck2((String) getZweck2().getValue());
         b.setDatum((Date) getDatum().getValue());
         b.setArt((String) getArt().getValue());
-        b.setVerzicht( (Boolean) getVerzicht().getValue() );
+        b.setVerzicht((Boolean) getVerzicht().getValue());
 
         if (Einstellungen.getEinstellung().getMitgliedskonto())
         {
