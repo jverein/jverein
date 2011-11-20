@@ -25,6 +25,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FamilienbeitragNode;
 import de.jost_net.JVerein.gui.dialogs.PersonenartDialog;
+import de.jost_net.JVerein.gui.view.AdresseDetailView;
 import de.jost_net.JVerein.gui.view.MitgliedDetailView;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -75,12 +76,19 @@ public class MitgliedDetailAction implements Action
           m.setPersonenart("n");
         }
       }
+      if (m.getAdresstyp() == null || m.getAdresstyp().getID().equals("1"))
+      {
+        GUI.startView(new MitgliedDetailView(), m);
+      }
+      else
+      {
+        GUI.startView(new AdresseDetailView(), m);
+      }
     }
     catch (Exception e)
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Fehler bei der Erzeugung eines neuen Mitgliedes"), e);
     }
-    GUI.startView(new MitgliedDetailView(), m);
   }
 }
