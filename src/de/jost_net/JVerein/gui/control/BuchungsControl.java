@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
@@ -53,7 +54,6 @@ import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -74,6 +74,7 @@ import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
@@ -659,67 +660,10 @@ public class BuchungsControl extends AbstractControl
 
   public Part getBuchungsList() throws RemoteException
   {
-    DBService service = Einstellungen.getDBService();
-    DBIterator buchungen = service.createList(Buchung.class);
-    Date d1 = (Date) vondatum.getValue();
-    java.sql.Date vd = new java.sql.Date(d1.getTime());
-    d1 = (Date) bisdatum.getValue();
-    java.sql.Date bd = new java.sql.Date(d1.getTime());
-
-    Konto k = null;
-    if (suchkonto.getValue() != null)
-    {
-      k = (Konto) suchkonto.getValue();
-      settings.setAttribute("suchkontoid", k.getID());
-    }
-    else
-    {
-      settings.setAttribute("suchkontoid", "");
-    }
-
-    Buchungsart b = null;
-    if (suchbuchungsart != null)
-    {
-      b = (Buchungsart) suchbuchungsart.getValue();
-    }
-    buchungen.addFilter("datum >= ?", new Object[] { vd });
-    buchungen.addFilter("datum <= ?", new Object[] { bd });
-    if (k != null)
-    {
-      buchungen.addFilter("konto = ?", new Object[] { k.getID() });
-    }
-    if (b != null)
-    {
-      if (b.getArt() == -1)
-      {
-        buchungen.addFilter("buchungsart is null");
-      }
-      else if (b.getArt() >= 0)
-      {
-        buchungen.addFilter("buchungsart = ?", new Object[] { b.getID() });
-      }
-    }
-    String sute = (String) getSuchtext().getValue();
-    if (sute.length() > 0)
-    {
-      settings.setAttribute("suchtext", sute);
-      sute = sute.toUpperCase();
-      sute = "%" + sute + "%";
-      buchungen
-          .addFilter(
-              "(upper(name) like ? or upper(zweck) like ? or upper(zweck2) like ?)",
-              new Object[] { sute, sute, sute });
-    }
-    else
-    {
-      settings.setAttribute("suchtext", "");
-
-    }
-    buchungen.setOrder("ORDER BY umsatzid DESC");
-
+    BuchungQuery query = new BuchungQuery(this);
     if (buchungsList == null)
     {
-      buchungsList = new TablePart(buchungen, new BuchungAction());
+      buchungsList = new TablePart(query.get(), new BuchungAction());
       buchungsList.addColumn("Nr", "id-int");
       buchungsList.addColumn("Konto", "konto", new Formatter()
       {
@@ -766,9 +710,10 @@ public class BuchungsControl extends AbstractControl
     else
     {
       buchungsList.removeAll();
-      while (buchungen.hasNext())
+
+      for (Buchung bu : query.get())
       {
-        buchungsList.addItem(buchungen.next());
+        buchungsList.addItem(bu);
       }
       buchungsList.sort();
     }
@@ -777,30 +722,15 @@ public class BuchungsControl extends AbstractControl
 
   private void starteAuswertung(boolean einzelbuchungen)
   {
-    DBIterator list;
-    Date dVon = null;
-    Date dBis = null;
-    Konto k = null;
-    Buchungsart ba = null;
-    if (bisdatum.getValue() != null)
-    {
-      dVon = (Date) vondatum.getValue();
-    }
-    if (bisdatum.getValue() != null)
-    {
-      dBis = (Date) bisdatum.getValue();
-    }
-    if (suchkonto.getValue() != null)
-    {
-      k = (Konto) suchkonto.getValue();
-    }
-    if (suchbuchungsart.getValue() != null)
-    {
-      ba = (Buchungsart) suchbuchungsart.getValue();
-    }
 
     try
     {
+      DBIterator list;
+      BuchungQuery query = new BuchungQuery(this);
+      Date dVon = query.getDatumvon();
+      Date dBis = query.getDatumbis();
+      Konto k = query.getKonto();
+      Buchungsart ba = query.getBuchungart();
       list = Einstellungen.getDBService().createList(Buchungsart.class);
       if (ba != null && ba.getArt() != -2)
       {
@@ -960,6 +890,11 @@ public class BuchungsControl extends AbstractControl
       }
     };
     Application.getController().start(t);
+  }
+
+  public Settings getSettings()
+  {
+    return settings;
   }
 
   private void auswertungBuchungsjournalPDF(final DBIterator list,
