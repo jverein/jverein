@@ -55,10 +55,11 @@ public class BuchungslisteView extends AbstractView
 
     control.getBuchungsList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 5);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 6);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
+    buttons.addButton(control.getStartCSVAuswertungButton());
     buttons.addButton(control.getStartAuswertungBuchungsjournalButton());
     buttons.addButton(control.getStartAuswertungEinzelbuchungenButton());
     buttons.addButton(control.getStartAuswertungSummenButton());

@@ -41,6 +41,7 @@ import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
+import de.jost_net.JVerein.io.BuchungAuswertungCSV;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFEinzelbuchungen;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFSummen;
 import de.jost_net.JVerein.io.BuchungsjournalPDF;
@@ -515,6 +516,19 @@ public class BuchungsControl extends AbstractControl
     return b;
   }
 
+  public Button getStartCSVAuswertungButton()
+  {
+    Button b = new Button("CSV-Export", new Action()
+    {
+
+      public void handleAction(Object context)
+      {
+        starteCSVExport();
+      }
+    }, null, true, "csv.jpg"); // "true" defines this button as the default
+    return b;
+  }
+
   public Button getStartAuswertungSummenButton()
   {
     Button b = new Button("PDF Summen", new Action()
@@ -719,6 +733,77 @@ public class BuchungsControl extends AbstractControl
       settings.setAttribute("lastdir", file.getParent());
 
       auswertungBuchungPDF(list, file, k, ba, dVon, dBis, einzelbuchungen);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  private void starteCSVExport()
+  {
+
+    try
+    {
+      BuchungQuery query = new BuchungQuery(this);
+      final ArrayList<Buchung> buchungen = query.get();
+
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("Ausgabedatei wählen.");
+
+      String path = settings.getString("lastdir",
+          System.getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname("buchungen", Einstellungen.getEinstellung()
+          .getDateinamenmuster(), "CSV").get());
+
+      final String s = fd.open();
+
+      if (s == null || s.length() == 0)
+      {
+        return;
+      }
+
+      final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
+
+      BackgroundTask t = new BackgroundTask()
+      {
+
+        public void run(ProgressMonitor monitor) throws ApplicationException
+        {
+          try
+          {
+            new BuchungAuswertungCSV(buchungen, file, monitor);
+            monitor.setPercentComplete(100);
+            monitor.setStatus(ProgressMonitor.STATUS_DONE);
+            GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+            GUI.getCurrentView().reload();
+          }
+          catch (Exception ae)
+          {
+            monitor.setStatusText(ae.getMessage());
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            GUI.getStatusBar().setErrorText(ae.getMessage());
+            ae.printStackTrace();
+            throw new ApplicationException(ae);
+          }
+        }
+
+        public void interrupt()
+        {
+          //
+        }
+
+        public boolean isInterrupted()
+        {
+          return false;
+        }
+      };
+      Application.getController().start(t);
     }
     catch (RemoteException e)
     {

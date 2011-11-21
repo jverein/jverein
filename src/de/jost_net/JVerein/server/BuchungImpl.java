@@ -397,7 +397,8 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
             : "");
     map.put(BuchungVar.KOMMENTAR.getName(),
         StringTool.toNotNullString(this.getKommentar()));
-    map.put(BuchungVar.KONTONUMMER.getName(), this.getKonto().getNummer());
+    map.put(BuchungVar.KONTONUMMER.getName(), this.getKonto() != null ? this
+        .getKonto().getNummer() : "");
     map.put(BuchungVar.MITGLIEDSKONTO.getName(),
         this.getMitgliedskonto() != null ? this.getMitgliedskonto()
             .getMitglied().getNameVorname() : "");
