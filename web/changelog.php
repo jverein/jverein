@@ -60,6 +60,7 @@
           <li>Adresstyp beim Import eingefügt.</li>
           <li>Bugfix. Klick in der Mitgliedskontenübersicht auf eine Adresse öffnete Mitglied. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=776">Siehe Forum</a>
           <li>Erweiterung Spendenbescheinigung um Sammelbescheinigung. Patch von Danzelot.</li>
+          <li>Neu: Buchungsexport im CSV-Format</a> 
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
