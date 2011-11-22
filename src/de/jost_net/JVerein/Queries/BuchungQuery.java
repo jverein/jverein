@@ -77,8 +77,8 @@ public class BuchungQuery
       settings.setAttribute("suchkontoid", "");
     }
 
-    Buchungsart b = null;
-    if (control.getSuchBuchungsart() != null)
+    Buchungsart b = (Buchungsart) control.getSuchBuchungsart().getValue();
+    if (b != null && b.getNummer() >= 0)
     {
       b = (Buchungsart) control.getSuchBuchungsart().getValue();
       settings.setAttribute(BuchungsControl.BUCHUNGSART, b.getNummer());
@@ -96,11 +96,11 @@ public class BuchungQuery
     }
     if (b != null)
     {
-      if (b.getArt() == -1)
+      if (b.getNummer() == -1)
       {
         addCondition("buchungsart is null ");
       }
-      else if (b.getArt() >= 0)
+      else if (b.getNummer() >= 0)
       {
         addCondition("buchungsart = ? ", b.getID());
       }
