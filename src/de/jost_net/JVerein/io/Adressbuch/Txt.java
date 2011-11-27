@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.io.Adressbuch;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -35,13 +36,12 @@ public class Txt
 
   private String separator;
 
-  public Txt(String filename, String encoding, String separator)
-      throws Exception
+  public Txt(File file, String separator) throws IOException 
   {
     // Vermerk für mich: Encodings siehe
     // http://www.cafeconleche.org/books/xmljava/chapters/ch03s03.html
     out = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(
-        filename)), encoding);
+        file)));
     out.write("\"Name\"" + separator + "\"Vorname\"" + separator
         + "\"Strasse\"" + separator + "\"PLZ\"" + separator + "\"Ort\""
         + separator + "\"Staat\"" + separator + "\"Anzeigename\"" + separator

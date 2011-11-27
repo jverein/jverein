@@ -63,6 +63,7 @@ import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.Jubilaeenliste;
+import de.jost_net.JVerein.io.MitgliedAdressbuchExport;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
@@ -1870,7 +1871,7 @@ public class MitgliedControl extends AbstractControl
       return ausgabe;
     }
     ausgabe = new SelectInput(new Object[] { new MitgliedAuswertungPDF(this),
-        new MitgliedAuswertungCSV(this) }, null);
+        new MitgliedAuswertungCSV(this), new MitgliedAdressbuchExport() }, null);
     ausgabe.setName(JVereinPlugin.getI18n().tr("Ausgabe"));
     return ausgabe;
   }

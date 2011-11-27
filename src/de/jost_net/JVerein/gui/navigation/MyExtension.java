@@ -25,7 +25,6 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
 import de.jost_net.JVerein.gui.action.AboutAction;
-import de.jost_net.JVerein.gui.action.AdressbuchExportAction;
 import de.jost_net.JVerein.gui.action.AdressenSucheAction;
 import de.jost_net.JVerein.gui.action.AdresstypListAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
@@ -176,9 +175,6 @@ public class MyExtension implements Extension
           new MailListeAction()));
       mail.addChild(new MyItem(mail, JVereinPlugin.getI18n()
           .tr("Mail-Vorlagen"), new MailVorlagenAction()));
-      mail.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Adressbuchexport"), new AdressbuchExportAction(),
-          "document-open.png"));
       jverein.addChild(mail);
 
       NavigationItem buchfuehrung = null;
