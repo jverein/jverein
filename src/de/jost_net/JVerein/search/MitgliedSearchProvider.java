@@ -50,8 +50,7 @@ public class MitgliedSearchProvider implements SearchProvider
     return JVereinPlugin.getI18n().tr("Mitglieder");
   }
 
-  @SuppressWarnings("unchecked")
-  public List search(String search) throws RemoteException
+  public List<MyResult> search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
       return null;
@@ -62,7 +61,7 @@ public class MitgliedSearchProvider implements SearchProvider
         + "ort LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?", text, text,
         text, text, text);
 
-    ArrayList results = new ArrayList();
+    ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
     {
       results.add(new MyResult((Mitglied) list.next()));

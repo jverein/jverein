@@ -118,6 +118,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
     return arbeitseinsatzueberpruefungList;
   }
 
+  @SuppressWarnings("unchecked")
   public ArrayList<ArbeitseinsatzZeile> getInfo() throws RemoteException
   {
 

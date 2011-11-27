@@ -60,12 +60,12 @@ public class MitgliedQuery
     this.batch = batch;
   }
 
-  public ArrayList<?> get(int adresstyp) throws RemoteException
+  public ArrayList<Mitglied> get(int adresstyp) throws RemoteException
   {
     return get("*", adresstyp);
   }
 
-  public ArrayList<?> get(String anfangsbuchstabe, int adresstyp)
+  public ArrayList<Mitglied> get(String anfangsbuchstabe, int adresstyp)
       throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
@@ -420,7 +420,8 @@ public class MitgliedQuery
     {
       bedingungen.add(new Integer(bg.getID()));
     }
-    return (ArrayList<?>) service.execute(sql, bedingungen.toArray(), rs);
+    return (ArrayList<Mitglied>) service
+        .execute(sql, bedingungen.toArray(), rs);
   }
 
   private void addCondition(String condition)
