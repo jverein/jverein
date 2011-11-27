@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.input.MailAuswertungInput;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -210,9 +211,14 @@ public class MitgliedQuery
         addCondition("austritt is not null and austritt <= current_date()");
       }
     }
-    if (batch && (Boolean) control.getOhneMail().getValue())
+    int mailauswahl = (Integer) control.getMailauswahl().getValue();
+    if (batch && mailauswahl == MailAuswertungInput.OHNE)
     {
       addCondition("(email is null or length(email) = 0)");
+    }
+    if (batch && mailauswahl == MailAuswertungInput.MIT)
+    {
+      addCondition("(email is  not null and length(email) > 0)");
     }
     String eigenschaften = "";
     eigenschaften = control.getEigenschaftenString();

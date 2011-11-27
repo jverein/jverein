@@ -53,6 +53,7 @@ import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
 import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
+import de.jost_net.JVerein.gui.input.MailAuswertungInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
 import de.jost_net.JVerein.gui.menu.FamilienbeitragMenu;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
@@ -252,7 +253,7 @@ public class MitgliedControl extends AbstractControl
 
   private IntegerInput suchexternemitgliedsnummer;
 
-  private CheckboxInput ohneMail;
+  private SelectInput mailAuswahl;
 
   private Mitglied mitglied;
 
@@ -1915,15 +1916,15 @@ public class MitgliedControl extends AbstractControl
     return status;
   }
 
-  public CheckboxInput getOhneMail()
+  public SelectInput getMailauswahl() throws RemoteException
   {
-    if (ohneMail != null)
+    if (mailAuswahl != null)
     {
-      return ohneMail;
+      return mailAuswahl;
     }
-    ohneMail = new CheckboxInput(false);
-    ohneMail.setName(JVereinPlugin.getI18n().tr("Ohne Mailadresse"));
-    return ohneMail;
+    mailAuswahl = new MailAuswertungInput(1);
+    mailAuswahl.setName(JVereinPlugin.getI18n().tr("Mail"));
+    return mailAuswahl;
   }
 
   public Button getStartAuswertungButton()

@@ -73,7 +73,7 @@ public class AuswertungMitgliedView extends AbstractView
     inpGeschlecht.setMandatory(false);
     left.addInput(inpGeschlecht);
 
-    left.addInput(control.getOhneMail());
+    left.addInput(control.getMailauswahl());
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
     right.addInput(control.getEintrittvon());
