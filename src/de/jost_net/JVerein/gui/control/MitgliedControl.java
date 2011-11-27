@@ -60,9 +60,9 @@ import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
+import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.Jubilaeenliste;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
-import de.jost_net.JVerein.io.MitgliedAuswertungCSValt;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
@@ -114,11 +114,13 @@ import de.willuhn.jameica.gui.input.SearchInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.parts.TreePart;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
+import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Platform;
@@ -1866,8 +1868,8 @@ public class MitgliedControl extends AbstractControl
     {
       return ausgabe;
     }
-    String[] ausg = { "PDF", "CSV" };
-    ausgabe = new SelectInput(ausg, "PDF");
+    ausgabe = new SelectInput(new Object[] { new MitgliedAuswertungPDF(this),
+        new MitgliedAuswertungCSV(this) }, null);
     ausgabe.setName(JVereinPlugin.getI18n().tr("Ausgabe"));
     return ausgabe;
   }
@@ -2543,82 +2545,14 @@ public class MitgliedControl extends AbstractControl
     return familienbeitragtree;
   }
 
-  @SuppressWarnings("unchecked")
   private void starteAuswertung() throws RemoteException
   {
+    final IAuswertung ausw = (IAuswertung) getAusgabe().getValue();
     saveDefaults();
-    ArrayList list = null;
+    ArrayList<Mitglied> list = null;
     list = new MitgliedQuery(this, true).get(1);
     try
     {
-      String subtitle = "";
-      if (getMitgliedStatus().getValue().equals(
-          JVereinPlugin.getI18n().tr("Abgemeldet")))
-      {
-        subtitle += "Abgemeldet ";
-      }
-      if (geburtsdatumvon.getValue() != null)
-      {
-        Date d = (Date) geburtsdatumvon.getValue();
-        subtitle += "Geburtsdatum von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (geburtsdatumbis.getValue() != null)
-      {
-        Date d = (Date) geburtsdatumbis.getValue();
-        subtitle += "Geburtsdatum bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (eintrittvon.getValue() != null)
-      {
-        Date d = (Date) eintrittvon.getValue();
-        subtitle += "Eintritt von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (eintrittbis.getValue() != null)
-      {
-        Date d = (Date) eintrittbis.getValue();
-        subtitle += "Eintritt bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (austrittvon.getValue() != null)
-      {
-        Date d = (Date) austrittvon.getValue();
-        subtitle += "Austritt von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (austrittbis.getValue() != null)
-      {
-        Date d = (Date) austrittbis.getValue();
-        subtitle += "Austritt bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (sterbedatumvon.getValue() != null)
-      {
-        Date d = (Date) sterbedatumvon.getValue();
-        subtitle += "Sterbetag von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (sterbedatumbis.getValue() != null)
-      {
-        Date d = (Date) sterbedatumbis.getValue();
-        subtitle += "Sterbedatum bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (getMitgliedStatus().getValue().equals(
-          JVereinPlugin.getI18n().tr("Angemeldet"))
-          && austrittvon.getValue() == null
-          && austrittbis.getValue() == null
-          && sterbedatumvon.getValue() == null
-          && sterbedatumbis.getValue() == null)
-      {
-        subtitle += "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)  ";
-      }
-      if (beitragsgruppeausw.getValue() != null)
-      {
-        Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppeausw.getValue();
-        subtitle += "nur Beitragsgruppe " + bg.getBezeichnung();
-      }
 
       String sort = (String) sortierung.getValue();
       String dateinamensort = "";
@@ -2648,34 +2582,85 @@ public class MitgliedControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      String ausgformat = (String) ausgabe.getValue();
       fd.setFileName(new Dateiname("auswertung", dateinamensort, Einstellungen
-          .getEinstellung().getDateinamenmuster(), ausgformat).get());
-      fd.setFilterExtensions(new String[] { "*." + ausgformat });
+          .getEinstellung().getDateinamenmuster(), ausw.getDateiendung()).get());
+      fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
 
       String s = fd.open();
       if (s == null || s.length() == 0)
       {
         return;
       }
-      if (!s.endsWith(ausgformat))
+      if (!s.endsWith(ausw.getDateiendung()))
       {
-        s = s + "." + ausgformat;
+        s = s + "." + ausw.getDateiendung();
       }
       final File file = new File(s);
-      if (ausgformat.equals("PDF"))
+
+      final ArrayList<Mitglied> flist = list;
+      ausw.beforeGo();
+      BackgroundTask t = new BackgroundTask()
       {
-        String ueberschrift = (String) auswertungUeberschrift.getValue();
-        if (ueberschrift.length() > 0)
+
+        public void run(ProgressMonitor monitor) throws ApplicationException
         {
-          subtitle = ueberschrift;
+          try
+          {
+            ausw.go(flist, file, monitor);
+            monitor.setPercentComplete(100);
+            monitor.setStatus(ProgressMonitor.STATUS_DONE);
+            GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+            GUI.getCurrentView().reload();
+            if (ausw.openFile())
+            {
+              GUI.getDisplay().asyncExec(new Runnable()
+              {
+
+                public void run()
+                {
+                  try
+                  {
+                    new Program().handleAction(file);
+                  }
+                  catch (ApplicationException ae)
+                  {
+                    Application.getMessagingFactory().sendMessage(
+                        new StatusBarMessage(ae.getLocalizedMessage(),
+                            StatusBarMessage.TYPE_ERROR));
+                  }
+                }
+              });
+            }
+          }
+          catch (ApplicationException ae)
+          {
+            Logger.error("", ae);
+            monitor.setStatusText(ae.getMessage());
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            GUI.getStatusBar().setErrorText(ae.getMessage());
+            throw ae;
+          }
+          catch (Exception re)
+          {
+            Logger.error("", re);
+            monitor.setStatusText(re.getMessage());
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            GUI.getStatusBar().setErrorText(re.getMessage());
+            throw new ApplicationException(re);
+          }
         }
-        auswertungMitgliedPDF(list, file, subtitle);
-      }
-      if (ausgformat.equals("CSV"))
-      {
-        auswertungMitgliedCSV(list, file);
-      }
+
+        public void interrupt()
+        {
+          //
+        }
+
+        public boolean isInterrupted()
+        {
+          return false;
+        }
+      };
+      Application.getController().start(t);
     }
     catch (RemoteException e)
     {
@@ -2772,103 +2757,9 @@ public class MitgliedControl extends AbstractControl
 
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         new Jubilaeenliste(file, monitor, jahr, art);
-      }
-
-      public void interrupt()
-      {
-        //
-      }
-
-      public boolean isInterrupted()
-      {
-        return false;
-      }
-    };
-    Application.getController().start(t);
-
-  }
-
-  private void auswertungMitgliedPDF(final ArrayList<Mitglied> list,
-      final File file, final String subtitle)
-  {
-    BackgroundTask t = new BackgroundTask()
-    {
-
-      public void run(ProgressMonitor monitor) throws ApplicationException
-      {
-        try
-        {
-          new MitgliedAuswertungPDF(list, file, monitor, subtitle);
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
-          GUI.getCurrentView().reload();
-        }
-        catch (ApplicationException ae)
-        {
-          Logger.error("", ae);
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
-        catch (Exception re)
-        {
-          Logger.error("", re);
-          monitor.setStatusText(re.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(re.getMessage());
-          throw new ApplicationException(re);
-        }
-      }
-
-      public void interrupt()
-      {
-        //
-      }
-
-      public boolean isInterrupted()
-      {
-        return false;
-      }
-    };
-    Application.getController().start(t);
-  }
-
-  private void auswertungMitgliedCSV(final ArrayList<Mitglied> list,
-      final File file)
-  {
-    BackgroundTask t = new BackgroundTask()
-    {
-
-      public void run(ProgressMonitor monitor) throws ApplicationException
-      {
-        try
-        {
-          if (settings.getBoolean("auswertung.csv.kompatibilitaet", false))
-          {
-            new MitgliedAuswertungCSValt(list, file, monitor);
-          }
-          else
-          {
-            new MitgliedAuswertungCSV(list, file, monitor);
-          }
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
-          GUI.getCurrentView().reload();
-        }
-        catch (ApplicationException ae)
-        {
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
       }
 
       public void interrupt()

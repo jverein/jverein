@@ -36,6 +36,8 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -45,10 +47,19 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class MitgliedAuswertungCSV
+public class MitgliedAuswertungCSV implements IAuswertung
 {
 
-  public MitgliedAuswertungCSV(ArrayList<Mitglied> list, final File file,
+  public MitgliedAuswertungCSV(MitgliedControl control)
+  {
+  }
+
+  public void beforeGo() throws RemoteException
+  {
+    // Nothing to do
+  }
+
+  public void go(ArrayList<Mitglied> list, final File file,
       ProgressMonitor monitor) throws ApplicationException
   {
 
@@ -134,6 +145,26 @@ public class MitgliedAuswertungCSV
       Logger.error("Fehler", e);
     }
     return null;
+  }
+
+  public String getDateiname()
+  {
+    return "mitglied";
+  }
+
+  public String getDateiendung()
+  {
+    return "CSV";
+  }
+
+  public String toString()
+  {
+    return "Mitgliederliste CSV";
+  }
+
+  public boolean openFile()
+  {
+    return true;
   }
 
 }

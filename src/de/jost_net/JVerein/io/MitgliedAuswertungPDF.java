@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,27 +36,112 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.view.IAuswertung;
+import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class MitgliedAuswertungPDF
+public class MitgliedAuswertungPDF implements IAuswertung
 {
+  private MitgliedControl control;
 
-  public MitgliedAuswertungPDF(ArrayList<Mitglied> list, final File file,
-      ProgressMonitor monitor, String subtitle) throws ApplicationException
+  private String subtitle = "";
+
+  public MitgliedAuswertungPDF(MitgliedControl control)
+  {
+    this.control = control;
+  }
+
+  public void beforeGo() throws RemoteException
+  {
+    if (control.getMitgliedStatus().getValue()
+        .equals(JVereinPlugin.getI18n().tr("Abgemeldet")))
+    {
+      subtitle += "Abgemeldet ";
+    }
+    if (control.getGeburtsdatumvon().getValue() != null)
+    {
+      Date d = (Date) control.getGeburtsdatumvon().getValue();
+      subtitle += "Geburtsdatum von " + new JVDateFormatTTMMJJJJ().format(d)
+          + "  ";
+    }
+    if (control.getGeburtsdatumbis().getValue() != null)
+    {
+      Date d = (Date) control.getGeburtsdatumbis().getValue();
+      subtitle += "Geburtsdatum bis " + new JVDateFormatTTMMJJJJ().format(d)
+          + "  ";
+    }
+    if (control.getEintrittvon().getValue() != null)
+    {
+      Date d = (Date) control.getEintrittvon().getValue();
+      subtitle += "Eintritt von " + new JVDateFormatTTMMJJJJ().format(d) + "  ";
+    }
+    if (control.getEintrittbis().getValue() != null)
+    {
+      Date d = (Date) control.getEintrittbis().getValue();
+      subtitle += "Eintritt bis " + new JVDateFormatTTMMJJJJ().format(d) + "  ";
+    }
+    if (control.getAustrittvon().getValue() != null)
+    {
+      Date d = (Date) control.getAustrittvon().getValue();
+      subtitle += "Austritt von " + new JVDateFormatTTMMJJJJ().format(d) + "  ";
+    }
+    if (control.getAustrittbis().getValue() != null)
+    {
+      Date d = (Date) control.getAustrittbis().getValue();
+      subtitle += "Austritt bis " + new JVDateFormatTTMMJJJJ().format(d) + "  ";
+    }
+    if (control.getSterbedatumvon().getValue() != null)
+    {
+      Date d = (Date) control.getSterbedatumvon().getValue();
+      subtitle += "Sterbetag von " + new JVDateFormatTTMMJJJJ().format(d)
+          + "  ";
+    }
+    if (control.getSterbedatumbis().getValue() != null)
+    {
+      Date d = (Date) control.getSterbedatumbis().getValue();
+      subtitle += "Sterbedatum bis " + new JVDateFormatTTMMJJJJ().format(d)
+          + "  ";
+    }
+    if (control.getMitgliedStatus().getValue()
+        .equals(JVereinPlugin.getI18n().tr("Angemeldet"))
+        && control.getAustrittvon().getValue() == null
+        && control.getAustrittbis().getValue() == null
+        && control.getSterbedatumvon().getValue() == null
+        && control.getSterbedatumbis().getValue() == null)
+    {
+      subtitle += "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)  ";
+    }
+    if (control.getBeitragsgruppeAusw().getValue() != null)
+    {
+      Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
+          .getValue();
+      subtitle += "nur Beitragsgruppe " + bg.getBezeichnung();
+    }
+
+    String ueberschrift = (String) control.getAuswertungUeberschrift()
+        .getValue();
+    if (ueberschrift.length() > 0)
+    {
+      subtitle = ueberschrift;
+    }
+
+  }
+
+  public void go(ArrayList<Mitglied> list, final File file,
+      ProgressMonitor monitor) throws ApplicationException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
+
       Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle,
           list.size(), 50, 10, 20, 15);
 
@@ -151,24 +237,6 @@ public class MitgliedAuswertungPDF
 
       report.close();
       monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
-      GUI.getDisplay().asyncExec(new Runnable()
-      {
-
-        public void run()
-        {
-          try
-          {
-            new Program().handleAction(file);
-          }
-          catch (ApplicationException ae)
-          {
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(ae.getLocalizedMessage(),
-                    StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      });
-
     }
     catch (DocumentException e)
     {
@@ -189,15 +257,23 @@ public class MitgliedAuswertungPDF
 
   }
 
-  /**
-   * Gibt einen Leerstring aus, falls der Text null ist.
-   * 
-   * @param text
-   *          der Text.
-   * @return der Text oder Leerstring - niemals null.
-   */
-  // private String notNull(String text)
-  // {
-  // return text == null ? "" : text;
-  // }
+  public String getDateiname()
+  {
+    return "auswertung";
+  }
+
+  public String getDateiendung()
+  {
+    return "PDF";
+  }
+
+  public String toString()
+  {
+    return "Mitgliederliste PDF";
+  }
+
+  public boolean openFile()
+  {
+    return true;
+  }
 }
