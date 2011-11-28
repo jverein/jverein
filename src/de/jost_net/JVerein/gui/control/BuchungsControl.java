@@ -440,7 +440,6 @@ public class BuchungsControl extends AbstractControl
       liste.add((Buchungsart) list.next());
     }
     int bwert = settings.getInt(BUCHUNGSART, -2);
-    System.out.println("ttt>" + bwert);
     for (int i = 0; i < liste.size(); i++)
     {
       if (liste.get(i).getNummer() == bwert)
@@ -449,7 +448,6 @@ public class BuchungsControl extends AbstractControl
         break;
       }
     }
-    System.out.println("//>" + b.getNummer());
     suchbuchungsart = new SelectInput(liste, b);
     suchbuchungsart.addListener(new FilterListener());
 
