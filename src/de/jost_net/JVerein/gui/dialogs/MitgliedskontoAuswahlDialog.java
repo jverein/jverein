@@ -37,6 +37,7 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.Container;
@@ -91,8 +92,9 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
           "Bitte wählen Sie das gewünschte Mitgliedskonto aus.");
     }
     grNurIst.addText(text, true);
-    control.getSuchName().setValue(buchung.getName());
-    grNurIst.addLabelPair("Name", control.getSuchName());
+    TextInput suNa = control.getSuchName();
+    suNa.setValue(buchung.getName());
+    grNurIst.addLabelPair("Name", suNa);
     grNurIst.addLabelPair("Differenz", control.getDifferenz("Fehlbetrag"));
     Action action = new Action()
     {
@@ -166,7 +168,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
         }
         return;
       }
-    }, null, true, "emblem-default.png");
+    }, null, false, "emblem-default.png");
 
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("entfernen")), new Action()
     {
@@ -176,7 +178,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog
         choosen = null;
         close();
       }
-    }, null, true, "edit-undo.png");
+    }, null, false, "edit-undo.png");
     b.addButton(JVereinPlugin.getI18n().tr("Hilfe"), new DokumentationAction(),
         DokumentationUtil.MITGLIEDSKONTO_AUSWAHL, false, "help-browser.png");
 

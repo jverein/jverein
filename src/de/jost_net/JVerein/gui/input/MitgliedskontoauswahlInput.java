@@ -70,7 +70,7 @@ public class MitgliedskontoauswahlInput
    */
   public DialogInput getMitgliedskontoAuswahl() throws RemoteException
   {
-    if (mitgliedskontoAuswahl != null)
+    if (mitgliedskontoAuswahl != null && !mitgliedskontoAuswahl.getControl().isDisposed())
     {
       return mitgliedskontoAuswahl;
     }

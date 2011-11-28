@@ -365,7 +365,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public TextInput getSuchName()
   {
-    if (suchname != null)
+    if (suchname != null && !suchname.getControl().isDisposed())
     {
       return suchname;
     }
