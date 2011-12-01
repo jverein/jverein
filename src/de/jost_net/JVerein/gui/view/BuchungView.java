@@ -32,7 +32,7 @@ import de.jost_net.JVerein.rmi.BuchungDokument;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 
@@ -46,7 +46,7 @@ public class BuchungView extends AbstractView
 
     final BuchungsControl control = new BuchungsControl(this);
 
-    ScrolledContainer scrolled = new ScrolledContainer(getParent());
+    ScrolledContainer scrolled = new ScrolledContainer(getParent(), 1);
 
     LabelGroup grKontoauszug = new LabelGroup(scrolled.getComposite(),
         JVereinPlugin.getI18n().tr("Buchung"));
@@ -86,9 +86,10 @@ public class BuchungView extends AbstractView
         control.getBlattnummer());
 
     LabelGroup grSpendeninfos = new LabelGroup(scrolled.getComposite(),
-                                                JVereinPlugin.getI18n().tr("Spendendetails"));
-    grSpendeninfos.addLabelPair( JVereinPlugin.getI18n().tr( "Erstattungsverzicht" ),
-        control.getVerzicht() );
+        JVereinPlugin.getI18n().tr("Spendendetails"));
+    grSpendeninfos.addLabelPair(
+        JVereinPlugin.getI18n().tr("Erstattungsverzicht"),
+        control.getVerzicht());
 
     if (JVereinPlugin.isArchiveServiceActive())
     {
@@ -102,12 +103,13 @@ public class BuchungView extends AbstractView
         budo.setReferenz(new Integer(bu.getID()));
         DokumentControl dcontrol = new DokumentControl(this, "buchungen");
         grDokument.addPart(dcontrol.getDokumenteList(budo));
-        ButtonArea butts = new ButtonArea(grDokument.getComposite(), 1);
+        ButtonArea butts = new ButtonArea();
         butts.addButton(dcontrol.getNeuButton(budo));
+        butts.paint(scrolled.getComposite());
       }
     }
 
-    ButtonArea buttons = new ButtonArea(scrolled.getComposite(), 3);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
@@ -121,6 +123,7 @@ public class BuchungView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(scrolled.getComposite());
   }
 
   @Override
