@@ -65,6 +65,9 @@
           <li>Codeoptimierung bei den Mitgliederauswertungen.</li>
           <li>Mitgliedauswertungen: Selection nach Mailadressen erweitert.</li>
           <li>Adressbuch-Export von Mail zu den den Mitgliederauswertungen verschoben.</li>
+           <hr>
+          <li>Folgende Änderungen wurden nach Rev. 325 vorgenommen:</li>
+          <li>Trefferliste der Mitglieder: Mit einem Rechtsklick können die sichtbaren Daten in die Zwischenablage kopiert werden. Patch von NotDifficult.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
