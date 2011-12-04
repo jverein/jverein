@@ -80,6 +80,11 @@ public abstract class Spaltenauswahl
     }
   }
 
+  public ArrayList<Spalte> getSpalten()
+  {
+    return spalten;
+  }
+
   public TablePart paintSpaltenpaintSpaltendefinitionTable(Composite parent)
       throws RemoteException
   {

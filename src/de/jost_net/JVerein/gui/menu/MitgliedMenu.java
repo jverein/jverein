@@ -30,6 +30,7 @@ import de.jost_net.JVerein.gui.action.KontoauszugAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDuplizierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
+import de.jost_net.JVerein.gui.action.MitgliedInZwischenablageKopierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -40,9 +41,10 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
+import de.willuhn.jameica.gui.parts.ContextMenuItem;
 
 /**
- * Kontext-Menu zu den Beitragsgruppen.
+ * Kontext-Menu zu den Mitgliedern
  */
 public class MitgliedMenu extends ContextMenu
 {
@@ -57,10 +59,13 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "bearbeiten"), detailaction, "edit.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "duplizieren"), new MitgliedDuplizierenAction(), "copy_edit.gif"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
+        "duplizieren"), new MitgliedDuplizierenAction(), "copy_v2.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+		"in Zwischenablage kopieren"), new MitgliedInZwischenablageKopierenAction(), "copy_edit.gif"));
+	addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
+	    "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
+	addItem(ContextMenuItem.SEPARATOR);
+	addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Mail senden ..."), new MitgliedMailSendenAction(),
         "mail-message-new.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
