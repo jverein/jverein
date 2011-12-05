@@ -69,6 +69,7 @@
 	<p>Zusätzlich gibt es eine Bitte des Autors: Wenn JVerein "produktiv" genutzt wird, bitte ich um einen 
 	   Eintrag im <a href="http://www.jverein.de/forum/viewforum.php?f=3">Forum unter Vorstellung der Verein, 
 	   die JVerein nutzen</a>. Diese Daten dienen der "Erfolgskontrolle".</p>
+	<p>Downloadbereich und Sourcecode-Repository bei <a href="http://sourceforge.net/projects/jverein"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=606425&amp;type=16" width="150" height="40" /></a>.</p>
 	</div>   
 	<div style="float:left; width:200px;  left: 850px; ">    
 	   	<h1>News</h1>
