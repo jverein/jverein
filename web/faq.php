@@ -6,6 +6,7 @@
     <a href='#datenordner'>Wo liegt der JVerein-Datenordner standardmäßig?</a><br>
     <a href='#datenordnerverschieben'>Wie kann ich den Datenordner an einen Nichtstandardplatz legen?</a><br>
     <a href='#internet'>Kann JVerein über ein Netzwerk betrieben werden?</a><br>
+    <a href='#bankverbindung'>Warum kann ich eine Bankverbindung nicht speichern/importieren?</a><br>
     <br>
     <a name="neuerlaptop"></a>
     <p>Q: Ich habe mir einen neuen Laptop zugelegt. Nun möchte ich von meinem alten Laptop alles auf den Neuen übertragen.
@@ -62,6 +63,18 @@
           Ich bin selber Kassenwart eines Vereins mit ca. 400 Mitgliedern und weiß somit 
           wovon ich rede. Den übrigen Vorstandsmitgliedern können PDF-Dokumente oder CSV-Dateien 
           zur Serienbriefgenerierung zur Verfügung
-          gestellt werden. Darin kann auch ohne Probleme gesucht werden.</p> 
+          gestellt werden. Darin kann auch ohne Probleme gesucht werden.</p>
+    <a name='bankverbindung'> </a>
+    <p>Q: Warum kann ich eine Bankverbindung nicht speichern/importieren?<br>
+       A: Die Banken verwenden Prüfziffernmethoden zur Überprüfung der Kontonummern.
+          Siehe <a href="http://www.bundesbank.de/zahlungsverkehr/zahlungsverkehr_pruefziffernberechnung.php">Prüfziffernberechnung bei der Deutschen Bundesbank</a>.
+          JVerein verwendet zur Berechnung der Prüfziffern die Bibliothek 
+          <a href="http://hbci4java.kapott.org/">HBCI4Java</a>. Bisher ist mir kein Fehler in der 
+          Prüfziffernberechnung bekannt. Daher gehe ich davon aus, das die Meldung immer korrekt
+          ausgegeben wird. Die Prüfziffernberechnung kann unter Hibiscus | Einstellungen | Grundeinstellungen |
+          Kontonummern und Bankleitzahlen mittels Prüfziffern testen ausschalten. Damit wird die 
+          Prüfziffernberechnung generell ausgeschaltet. Das gilt sowohl für Hibiscus als auch für JVerein.
+ </p> 
+          
 <? include ("footer.inc"); ?>
 
