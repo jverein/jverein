@@ -32,6 +32,7 @@ import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -138,9 +139,16 @@ public class KontoControl extends AbstractControl
       hibid = getKonto().getHibiscusId().toString();
       if (!hibid.equals("-1"))
       {
-        preselected = (de.willuhn.jameica.hbci.rmi.Konto) Settings
-            .getDBService().createObject(
-                de.willuhn.jameica.hbci.rmi.Konto.class, hibid);
+        try
+        {
+          preselected = (de.willuhn.jameica.hbci.rmi.Konto) Settings
+              .getDBService().createObject(
+                  de.willuhn.jameica.hbci.rmi.Konto.class, hibid);
+        }
+        catch (ObjectNotFoundException e)
+        {
+          preselected = null;
+        }
       }
     }
     catch (NullPointerException e)
