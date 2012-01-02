@@ -45,7 +45,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
 /**
  * Dialog zur Zuordnung einer Buchungsart.
  */
-public class BuchungsartZuordnungDialog extends AbstractDialog
+public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
 {
 
   private SelectInput buchungsarten = null;
@@ -114,7 +114,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
   @Override
-  public Object getData() throws Exception
+  public Buchungsart getData() throws Exception
   {
     return buchungsart;
   }

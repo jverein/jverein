@@ -47,7 +47,7 @@ import de.willuhn.util.ApplicationException;
  * Ein Dialog, ueber den man die Beitragsgruppe beim Auflösen eines
  * Familienverbandes auswählen kann.
  */
-public class FamilienmitgliedEntfernenDialog extends AbstractDialog
+public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
 {
 
   private String selected = null;
@@ -149,7 +149,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog
   }
 
   @Override
-  protected Object getData() throws Exception
+  protected String getData() throws Exception
   {
     return this.selected;
   }

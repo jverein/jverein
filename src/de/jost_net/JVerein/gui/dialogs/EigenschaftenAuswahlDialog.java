@@ -39,7 +39,8 @@ import de.willuhn.logging.Logger;
 /**
  * Dialog, zur Auswahl von Eigenschaften eines Mitglied.
  */
-public class EigenschaftenAuswahlDialog extends AbstractDialog
+public class EigenschaftenAuswahlDialog extends
+    AbstractDialog<ArrayList<EigenschaftenNode>>
 {
 
   private MitgliedControl control;
@@ -116,7 +117,7 @@ public class EigenschaftenAuswahlDialog extends AbstractDialog
   }
 
   @Override
-  protected Object getData()
+  protected ArrayList<EigenschaftenNode> getData()
   {
     return retval;
   }

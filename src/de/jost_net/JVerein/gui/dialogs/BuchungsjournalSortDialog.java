@@ -38,7 +38,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
  * Ein Dialog, ueber den man die Personenart eines neuen Mitglieds auswählen
  * kann.
  */
-public class BuchungsjournalSortDialog extends AbstractDialog
+public class BuchungsjournalSortDialog extends AbstractDialog<String>
 {
 
   public final static String DATUM = JVereinPlugin.getI18n().tr("Datum");
@@ -84,7 +84,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog
   }
 
   @Override
-  protected Object getData() throws Exception
+  protected String getData() throws Exception
   {
     return this.selected;
   }

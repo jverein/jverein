@@ -46,12 +46,10 @@ import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.Settings;
 
-public class ZusatzfelderAuswahlDialog extends AbstractDialog
+public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
 {
 
   private ArrayList<Input> felder;
-
-  private ArrayList<Object> retval = new ArrayList<Object>();
 
   private Settings settings;
 
@@ -339,6 +337,6 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog
   @Override
   protected Object getData()
   {
-    return retval;
+    return null;
   }
 }

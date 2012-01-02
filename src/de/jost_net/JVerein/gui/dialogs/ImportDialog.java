@@ -54,7 +54,7 @@ import de.willuhn.util.ProgressMonitor;
 /**
  * Dialog, ueber den Daten importiert werden koennen.
  */
-public class ImportDialog extends AbstractDialog
+public class ImportDialog extends AbstractDialog<Object>
 {
 
   private Input importerListe = null;

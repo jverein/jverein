@@ -37,7 +37,7 @@ import de.willuhn.util.ApplicationException;
 /**
  * Ein Dialog, ueber den die Vorlage für eine Mail ausgewählt werden kann.
  */
-public class MailVorlagenAuswahlDialog extends AbstractDialog
+public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
 {
   private MailVorlageControl control;
 
@@ -83,7 +83,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog
   }
 
   @Override
-  protected Object getData() throws Exception
+  protected MailVorlage getData() throws Exception
   {
     return retval;
   }

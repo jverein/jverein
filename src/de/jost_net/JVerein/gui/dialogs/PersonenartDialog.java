@@ -38,7 +38,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
  * Ein Dialog, ueber den man die Personenart eines neuen Mitglieds auswählen
  * kann.
  */
-public class PersonenartDialog extends AbstractDialog
+public class PersonenartDialog extends AbstractDialog<String>
 {
 
   private final static String NATUERLICHE_PERSON = JVereinPlugin.getI18n().tr(
@@ -85,7 +85,7 @@ public class PersonenartDialog extends AbstractDialog
   }
 
   @Override
-  protected Object getData() throws Exception
+  protected String getData() throws Exception
   {
     return this.selected;
   }

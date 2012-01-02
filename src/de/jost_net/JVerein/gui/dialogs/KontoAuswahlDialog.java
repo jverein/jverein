@@ -37,7 +37,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
 /**
  * Ein Dialog, ueber den man ein Konto auswaehlen kann.
  */
-public class KontoAuswahlDialog extends AbstractDialog
+public class KontoAuswahlDialog extends AbstractDialog<Konto>
 {
   private String text = null;
 
@@ -130,7 +130,7 @@ public class KontoAuswahlDialog extends AbstractDialog
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
   @Override
-  protected Object getData() throws Exception
+  protected Konto getData() throws Exception
   {
     return choosen;
   }

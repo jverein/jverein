@@ -41,7 +41,7 @@ import de.willuhn.logging.Logger;
 /**
  * Dialog zur Zuordnung einer Buchungsart.
  */
-public class ShowVariablesDialog extends AbstractDialog
+public class ShowVariablesDialog extends AbstractDialog<Object>
 {
   private Map<String, Object> vars;
 

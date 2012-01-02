@@ -47,7 +47,7 @@ import de.willuhn.jameica.gui.util.TabGroup;
 /**
  * Ein Dialog, ueber den man ein Mitgliedskonto auswaehlen kann.
  */
-public class MitgliedskontoAuswahlDialog extends AbstractDialog
+public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 {
 
   private de.willuhn.jameica.system.Settings settings;

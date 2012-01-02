@@ -37,7 +37,7 @@ import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
 
-public class AboutView extends AbstractDialog
+public class AboutView extends AbstractDialog<Object>
 {
 
   public AboutView(int position)

@@ -45,7 +45,7 @@ import de.willuhn.util.ApplicationException;
 /**
  * Ein Dialog, ueber den man Empfänger für eine Mail auswählen kann.
  */
-public class MailEmpfaengerAuswahlDialog extends AbstractDialog
+public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
 {
   private MailControl control;
 
@@ -69,17 +69,15 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog
     ButtonArea b = new ButtonArea(parent, 5);
     b.addButton(JVereinPlugin.getI18n().tr("Eigenschaften"), new Action()
     {
-      @SuppressWarnings("unchecked")
       public void handleAction(Object context) throws ApplicationException
       {
         try
         {
           EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog(null,
               false);
-          ArrayList<Object> auswahl = (ArrayList<Object>) ead.open();
-          for (Object o : auswahl)
+          ArrayList<EigenschaftenNode> auswahl = ead.open();
+          for (EigenschaftenNode node : auswahl)
           {
-            EigenschaftenNode node = (EigenschaftenNode) o;
             DBIterator it = Einstellungen.getDBService().createList(
                 Eigenschaften.class);
             it.addFilter("eigenschaft = ?", new Object[] { node

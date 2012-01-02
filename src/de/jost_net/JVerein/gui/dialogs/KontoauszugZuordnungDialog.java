@@ -37,7 +37,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
 /**
  * Dialog zur Zuordnung der Kontoauszugsinformationen (Auszug/Blatt)
  */
-public class KontoauszugZuordnungDialog extends AbstractDialog
+public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
 {
 
   private IntegerInput auszug = null;
