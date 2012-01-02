@@ -43,8 +43,8 @@ public class MitgliedEigenschaftZuordnungAction implements Action
 {
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null && !(context instanceof Mitglied)
-        && !(context instanceof Mitglied[]))
+    if (context == null
+        || (!(context instanceof Mitglied) && !(context instanceof Mitglied[])))
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Kein Mitglied ausgewählt"));
