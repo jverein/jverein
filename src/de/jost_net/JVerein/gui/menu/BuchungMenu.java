@@ -54,6 +54,9 @@ public class BuchungMenu extends ContextMenu
         new BuchungNeuAction(), "document-new.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "bearbeiten"), new BuchungAction(), "edit.png"));
+    // Einführung der Splitbuchungen auf Version 2.2 verschoben
+    // addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
+    // "Splitbuchung"), new SplitBuchungAction(), "edit.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Buchungsart zuordnen"),
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
