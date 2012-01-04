@@ -77,6 +77,7 @@
           <li>Bugfix Erstinstallation mit H2-Datenbank</li>
           <li>Bugfix Summierung bei der kompakten Abbuchung.</li>
           <li>Personalbogen: Sortierung der Zusatzbeträge nach Fälligkeitsdatum.</li>
+          <li>Bugfix Speicherung der Suchkriterien von- und bis-Datum bei Buchungen</li>
         </ul>
       </li>
     	<li><a name="v200">Version 2.0.0 vom 23.6.2011</a></li>
