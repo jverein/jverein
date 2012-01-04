@@ -78,6 +78,7 @@
           <li>Bugfix Summierung bei der kompakten Abbuchung.</li>
           <li>Personalbogen: Sortierung der Zusatzbeträge nach Fälligkeitsdatum.</li>
           <li>Bugfix Speicherung der Suchkriterien von- und bis-Datum bei Buchungen</li>
+          <li>Vermeidung NPE bei Mitgliedskonto-Zuordnung</li>
         </ul>
       </li>
     	<li><a name="v200">Version 2.0.0 vom 23.6.2011</a></li>
