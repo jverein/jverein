@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Listener;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
+import de.jost_net.JVerein.gui.action.SplitBuchungDetailAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
@@ -87,6 +88,8 @@ public class BuchungsControl extends AbstractControl
 
   private TablePart buchungsList;
 
+  private TablePart splitbuchungsList;
+
   private Input id;
 
   private Input umsatzid;
@@ -130,6 +133,8 @@ public class BuchungsControl extends AbstractControl
   private Buchung buchung;
 
   public static final String BUCHUNGSART = "suchbuchungsart";
+
+  private ArrayList<Buchung> splitbuchungen = null;
 
   public BuchungsControl(AbstractView view)
   {
@@ -305,21 +310,17 @@ public class BuchungsControl extends AbstractControl
 
   public CheckboxInput getVerzicht() throws RemoteException
   {
-
     if (verzicht != null)
     {
       return verzicht;
     }
 
     Boolean vz = buchung.getVerzicht();
-
     if (vz == null)
     {
       vz = Boolean.FALSE;
     }
-
     verzicht = new CheckboxInput(vz);
-
     return verzicht;
   }
 
@@ -367,7 +368,7 @@ public class BuchungsControl extends AbstractControl
 
   public Input getArt() throws RemoteException
   {
-    if (art != null)
+    if (art != null && !art.getControl().isDisposed())
     {
       return art;
     }
@@ -377,7 +378,7 @@ public class BuchungsControl extends AbstractControl
 
   public Input getKommentar() throws RemoteException
   {
-    if (kommentar != null)
+    if (kommentar != null && !kommentar.getControl().isDisposed())
     {
       return kommentar;
     }
@@ -387,7 +388,7 @@ public class BuchungsControl extends AbstractControl
 
   public Input getBuchungsart() throws RemoteException
   {
-    if (buchungsart != null)
+    if (buchungsart != null && !buchungsart.getControl().isDisposed())
     {
       return buchungsart;
     }
@@ -551,7 +552,7 @@ public class BuchungsControl extends AbstractControl
     }, null, true, "pdf.png"); // "true" defines this button as the default
     return b;
   }
-
+  
   public void handleStore()
   {
     try
@@ -688,6 +689,127 @@ public class BuchungsControl extends AbstractControl
       buchungsList.sort();
     }
     return buchungsList;
+  }
+
+  public Part getSplitBuchungsList() throws RemoteException
+  {
+    if (splitbuchungsList == null)
+    {
+      splitbuchungen = new ArrayList<Buchung>();
+      Buchung b = (Buchung) getCurrentObject();
+      // Wenn eine gesplittete Buchung aufgerufen wird, wird die Hauptbuchung
+      // gelesen
+      if (b.getSplitId() != null)
+      {
+        b = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
+            b.getSplitId() + "");
+      }
+      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+      it.addFilter("id = ? or splitid = ?", b.getID(), b.getID());
+      while (it.hasNext())
+      {
+        splitbuchungen.add((Buchung) it.next());
+      }
+      it = Einstellungen.getDBService().createList(Buchung.class);
+      it.addFilter("(id = ? or splitid = ?)", b.getID(), b.getID());
+      it.addFilter("betrag = ?", b.getBetrag() * -1);
+
+      if (!it.hasNext())
+      {
+        // Buchung btest = (Buchung) it.next();
+        // System.out.println(btest.getName() + btest.getBetrag());
+        Buchung b2 = (Buchung) Einstellungen.getDBService().createObject(
+            Buchung.class, null);
+        b2.setArt(b.getArt());
+        b2.setAuszugsnummer(b.getAuszugsnummer());
+        b2.setBetrag(b.getBetrag() * -1);
+        b2.setBlattnummer(b.getBlattnummer());
+        b2.setBuchungsart(b.getBuchungsartId());
+        b2.setDatum(b.getDatum());
+        b2.setKommentar(b.getKommentar());
+        b2.setKonto(b.getKonto());
+        b2.setMitgliedskonto(b.getMitgliedskonto());
+        b2.setName(b.getName());
+        b2.setSplitId(Integer.parseInt(b.getID()));
+        b2.setUmsatzid(b.getUmsatzid());
+        b2.setZweck(b.getZweck());
+        b2.setZweck2(b.getZweck2());
+        splitbuchungen.add(b2);
+      }
+      splitbuchungsList = new TablePart(splitbuchungen,
+          new SplitBuchungDetailAction(this, this.view));
+      splitbuchungsList.addColumn("Nr", "id-int");
+      splitbuchungsList.addColumn("Konto", "konto", new Formatter()
+      {
+        public String format(Object o)
+        {
+          Konto k = (Konto) o;
+          if (k != null)
+          {
+            try
+            {
+              return k.getBezeichnung();
+            }
+            catch (RemoteException e)
+            {
+              e.printStackTrace();
+            }
+          }
+          return "";
+        }
+      });
+      splitbuchungsList.addColumn("Datum", "datum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      splitbuchungsList.addColumn("Auszug", "auszugsnummer");
+      splitbuchungsList.addColumn("Blatt", "blattnummer");
+      splitbuchungsList.addColumn("Name", "name");
+      splitbuchungsList.addColumn("Verwendungszweck", "zweck");
+      splitbuchungsList.addColumn("Verwendungszweck 2", "zweck2");
+      splitbuchungsList.addColumn("Buchungsart", "buchungsart",
+          new BuchungsartFormatter());
+      splitbuchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+          Einstellungen.DECIMALFORMAT));
+      if (Einstellungen.getEinstellung().getMitgliedskonto())
+      {
+        splitbuchungsList.addColumn("Mitglied", "mitgliedskonto",
+            new MitgliedskontoFormatter());
+      }
+      // buchungsList.setContextMenu(new BuchungMenu(this));
+      splitbuchungsList.setRememberColWidths(true);
+      splitbuchungsList.setSummary(true);
+    }
+    else
+    {
+      refreshSplitbuchungen();
+    }
+    return splitbuchungsList;
+  }
+
+  public void refreshSplitbuchungen() throws RemoteException
+  {
+    splitbuchungsList.removeAll();
+
+    try
+    {
+      for (Buchung b : splitbuchungen)
+      {
+          splitbuchungsList.addItem(b);
+      }
+    }
+    catch (RemoteException e)
+    {
+      throw e;
+    }
+  }
+
+  public String getDifference(Buchung b2) throws RemoteException
+  {
+    Double summe = b2.getBetrag();
+    for (Buchung b : splitbuchungen)
+    {
+      summe += b.getBetrag();
+    }
+    return Einstellungen.DECIMALFORMAT.format(summe);
   }
 
   private void starteAuswertung(boolean einzelbuchungen)
