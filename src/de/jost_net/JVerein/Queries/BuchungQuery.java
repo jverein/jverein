@@ -32,6 +32,7 @@ import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.system.Settings;
@@ -64,7 +65,11 @@ public class BuchungQuery
     Settings settings = control.getSettings();
 
     java.sql.Date vd = new java.sql.Date(getDatumvon().getTime());
+    settings.setAttribute("vondatum",
+        new JVDateFormatTTMMJJJJ().format(getDatumvon().getTime()));
     java.sql.Date bd = new java.sql.Date(getDatumbis().getTime());
+    settings.setAttribute("bisdatum",
+        new JVDateFormatTTMMJJJJ().format(getDatumbis().getTime()));
 
     Konto k = null;
     if (control.getSuchKonto().getValue() != null)
