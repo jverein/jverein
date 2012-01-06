@@ -313,19 +313,21 @@ public class MitgliedControl extends AbstractControl
     {
       return suchadresstyp;
     }
-    settings.setAttribute("mitglied.austrittvon", "");
-    settings.setAttribute("mitglied.austrittbis", "");
-    settings.setAttribute("mitglied.beitragsgruppe", "");
-    settings.setAttribute("mitglied.eigenschaften", "");
-    settings.setAttribute("mitglied.eintrittbis", "");
-    settings.setAttribute("mitglied.eintrittvon", "");
-    settings.setAttribute("mitglied.geburtsdatumbis", "");
-    settings.setAttribute("mitglied.geburtsdatumvon", "");
-    settings.setAttribute("mitglied.sterbedatumbis", "");
-    settings.setAttribute("mitglied.sterbedatumvon", "");
-    settings.setAttribute("status.mitglied", "");
-    settings.setAttribute("zusatzfelder.selected", 0);
-
+    if (typ != 1)
+    {
+      settings.setAttribute("mitglied.austrittvon", "");
+      settings.setAttribute("mitglied.austrittbis", "");
+      settings.setAttribute("mitglied.beitragsgruppe", "");
+      settings.setAttribute("mitglied.eigenschaften", "");
+      settings.setAttribute("mitglied.eintrittbis", "");
+      settings.setAttribute("mitglied.eintrittvon", "");
+      settings.setAttribute("mitglied.geburtsdatumbis", "");
+      settings.setAttribute("mitglied.geburtsdatumvon", "");
+      settings.setAttribute("mitglied.sterbedatumbis", "");
+      settings.setAttribute("mitglied.sterbedatumvon", "");
+      settings.setAttribute("status.mitglied", "");
+      settings.setAttribute("zusatzfelder.selected", 0);
+    }
     DBIterator at = Einstellungen.getDBService().createList(Adresstyp.class);
     switch (typ)
     {
