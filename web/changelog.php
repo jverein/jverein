@@ -79,7 +79,7 @@
           <li>Personalbogen: Sortierung der Zusatzbeträge nach Fälligkeitsdatum.</li>
           <li>Bugfix Speicherung der Suchkriterien von- und bis-Datum bei Buchungen</li>
           <li>Vermeidung NPE bei Mitgliedskonto-Zuordnung</li>
-          <li>Buchungsklassen-Saldo: Sortierung der Buchungsarten innerhalb der Buchungsklassen nach Nummer</li>
+          <li>Buchungsklassen-Saldo: Sortierung der Buchungsarten innerhalb der Buchungsklassen nach Nummer. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=1&t=834">Forum</a></li>
         </ul>
       </li>
     	<li><a name="v200">Version 2.0.0 vom 23.6.2011</a></li>
