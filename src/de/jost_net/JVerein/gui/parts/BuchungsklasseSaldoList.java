@@ -162,6 +162,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       DBIterator buchungsartenIt = service.createList(Buchungsart.class);
       buchungsartenIt.addFilter("buchungsklasse = ?",
           new Object[] { buchungsklasse.getID() });
+      buchungsartenIt.setOrder("order by nummer");
       suBukEinnahmen = new Double(0);
       suBukAusgaben = new Double(0);
       suBukUmbuchungen = new Double(0);
