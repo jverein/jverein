@@ -29,6 +29,7 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoDetailSollLoeschenAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoDetailSollNeuAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoIstLoesenAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -62,6 +63,10 @@ public class MitgliedskontoMenu extends ContextMenu
         "accessories-calculator.png"));
     addItem(new SollMitIstItem(i18n.tr("Istbuchung vom Mitgliedskonto lösen"),
         new MitgliedskontoIstLoesenAction(), "accessories-calculator.png"));
+    addItem(ContextMenuItem.SEPARATOR);
+    addItem(new SpendenbescheinigungItem(
+        i18n.tr("Spendenbescheinigung erstellen"),
+        new SpendenbescheinigungAction(), "accessories-calculator.png"));
   }
 
   private static class MitgliedItem extends CheckedContextMenuItem
@@ -198,6 +203,40 @@ public class MitgliedskontoMenu extends ContextMenu
       {
         MitgliedskontoNode mkn = (MitgliedskontoNode) o;
         if (mkn.getType() == MitgliedskontoNode.IST)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+      return super.isEnabledFor(o);
+    }
+  }
+
+  private static class SpendenbescheinigungItem extends CheckedContextMenuItem
+  {
+
+    /**
+     * @param text
+     * @param action
+     * @param optionale
+     *          Angabe eines Icons.
+     */
+    private SpendenbescheinigungItem(String text, Action action, String icon)
+    {
+      super(text, action, icon);
+    }
+
+    @Override
+    public boolean isEnabledFor(Object o)
+    {
+      if (o instanceof MitgliedskontoNode)
+      {
+        MitgliedskontoNode mkn = (MitgliedskontoNode) o;
+        if (mkn.getType() == MitgliedskontoNode.IST
+            || mkn.getType() == MitgliedskontoNode.MITGLIED)
         {
           return true;
         }

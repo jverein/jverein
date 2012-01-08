@@ -24,8 +24,12 @@ package de.jost_net.JVerein.gui.menu;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungDeleteAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungDuplizierenAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungPrintAction;
+import de.jost_net.JVerein.rmi.Spendenbescheinigung;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
+import de.willuhn.jameica.gui.parts.ContextMenuItem;
 
 /**
  * Kontext-Menu zu den Spendenbescheinigungen.
@@ -39,10 +43,48 @@ public class SpendenbescheinigungMenu extends ContextMenu
   public SpendenbescheinigungMenu()
   {
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Drucken (Standard)"), new SpendenbescheinigungPrintAction(true),
+        "acroread.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Drucken (individuell)"), new SpendenbescheinigungPrintAction(false),
+        "acroread.png"));
+    addItem(ContextMenuItem.SEPARATOR);
+    addItem(new DuplicateMenuItem(JVereinPlugin.getI18n().tr(
         "als Vorlage für neue Spende"),
         new SpendenbescheinigungDuplizierenAction(), "edit-copy.png"));
+    addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem(
         JVereinPlugin.getI18n().tr("löschen..."),
         new SpendenbescheinigungDeleteAction(), "user-trash.png"));
   }
+
+  private static class DuplicateMenuItem extends CheckedContextMenuItem
+  {
+
+    /**
+     * @param text
+     * @param action
+     * @param icon
+     *          Optionale Angabe eines Icons.
+     */
+    private DuplicateMenuItem(String text, Action action, String icon)
+    {
+      super(text, action, icon);
+    }
+
+    @Override
+    public boolean isEnabledFor(Object o)
+    {
+      if (o instanceof Spendenbescheinigung)
+      {
+        return true;
+      }
+      if (o instanceof Spendenbescheinigung[])
+      {
+        return false;
+      }
+      return super.isEnabledFor(o);
+    }
+  }
+
 }

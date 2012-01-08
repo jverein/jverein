@@ -28,7 +28,9 @@ public enum SpendenbescheinigungVar
   BETRAGINWORTEN("spendenbescheinigung_betraginworten"), //
   BESCHEINIGUNGDATUM("spendenbescheinigung_datum"), //
   SPENDEDATUM("spendenbescheinigung_spendedatum"), //
-  ERSATZAUFWENDUNGEN("spendenbescheinigung_ersatzaufwendungen"); //
+  SPENDENZEITRAUM("spendenbescheinigung_spendenzeitraum"), //
+  ERSATZAUFWENDUNGEN("spendenbescheinigung_ersatzaufwendungen"), //
+  BUCHUNGSLISTE("spendenbescheinigung_buchungsliste"); //
 
   private String name;
 

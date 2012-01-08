@@ -57,6 +57,8 @@ public class FormularfeldControl extends AbstractControl
 
   private SelectInput name;
 
+  private IntegerInput seite;
+
   private DecimalInput x;
 
   private DecimalInput y;
@@ -176,6 +178,17 @@ public class FormularfeldControl extends AbstractControl
         namen.add(spv.getName());
       }
     }
+    if (formular.getArt() == Formularart.SAMMELSPENDENBESCHEINIGUNG)
+    {
+      for (AllgemeineVar av : AllgemeineVar.values())
+      {
+        namen.add(av.getName());
+      }
+      for (SpendenbescheinigungVar spv : SpendenbescheinigungVar.values())
+      {
+        namen.add(spv.getName());
+      }
+    }
     if (formular.getArt() == Formularart.FREIESFORMULAR)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
@@ -206,6 +219,17 @@ public class FormularfeldControl extends AbstractControl
     }
     name = new SelectInput(namen, getFormularfeld().getName());
     return name;
+  }
+
+  public IntegerInput getSeite() throws RemoteException
+  {
+    if (seite != null)
+    {
+      return seite;
+    }
+    seite = new IntegerInput(getFormularfeld().getSeite());
+    seite.setComment("Seite");
+    return seite;
   }
 
   public DecimalInput getX() throws RemoteException
@@ -273,6 +297,7 @@ public class FormularfeldControl extends AbstractControl
       Formularfeld f = getFormularfeld();
       f.setFormular(getFormular());
       f.setName((String) getName().getValue());
+      f.setSeite((Integer) getSeite().getValue());
       f.setX((Double) getX().getValue());
       f.setY((Double) getY().getValue());
       f.setFont((String) getFont().getValue());
@@ -298,10 +323,11 @@ public class FormularfeldControl extends AbstractControl
     DBService service = Einstellungen.getDBService();
     DBIterator formularfelder = service.createList(Formularfeld.class);
     formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
-    formularfelder.setOrder("ORDER BY x, y");
+    formularfelder.setOrder("ORDER BY seite, x, y");
 
     formularfelderList = new TablePart(formularfelder, new FormularfeldAction());
     formularfelderList.addColumn("Name", "name");
+    formularfelderList.addColumn("Seite", "seite");
     formularfelderList.addColumn("von links", "x");
     formularfelderList.addColumn("von unten", "y");
     formularfelderList.addColumn("Font", "font");

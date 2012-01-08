@@ -115,6 +115,21 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     setAttribute("name", name);
   }
 
+  public int getSeite() throws RemoteException
+  {
+    Integer ret = (Integer) getAttribute("seite");
+    if (ret == null)
+    {
+      ret = new Integer(1);
+    }
+    return ret;
+  }
+
+  public void setSeite(int seite) throws RemoteException
+  {
+    setAttribute("seite", seite);
+  }
+
   public Double getX() throws RemoteException
   {
     Double ret = (Double) getAttribute("x");

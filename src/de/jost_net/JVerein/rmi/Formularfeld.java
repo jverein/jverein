@@ -35,6 +35,10 @@ public interface Formularfeld extends DBObject
 
   public void setName(String name) throws RemoteException;
 
+  public int getSeite() throws RemoteException;
+
+  public void setSeite(int seite) throws RemoteException;
+
   public Double getX() throws RemoteException;
 
   public void setX(Double x) throws RemoteException;

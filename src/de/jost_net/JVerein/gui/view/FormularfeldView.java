@@ -46,6 +46,7 @@ public class FormularfeldView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Formularfeld"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Seite"), control.getSeite());
     group.addLabelPair(JVereinPlugin.getI18n().tr("von links"), control.getX());
     group.addLabelPair(JVereinPlugin.getI18n().tr("von unten"), control.getY());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Font"), control.getFont());

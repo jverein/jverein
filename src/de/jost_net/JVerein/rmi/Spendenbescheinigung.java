@@ -23,6 +23,7 @@ package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import de.willuhn.datasource.rmi.DBObject;
@@ -90,6 +91,48 @@ public interface Spendenbescheinigung extends DBObject
 
   public void setMitgliedID(Integer mitglied) throws RemoteException;
 
+  /**
+   * Liefert als Kennzeichen zurück, ob die Spendenbescheinigung eine
+   * Sammelbestaetigung ist. Dies ist der Fall, wenn die Liste der Buchungen
+   * mehr als eine Buchung enthält. Ist keine oder nur eine Buchung zugewiesen,
+   * liegt eine Einzelbestätigung vor.
+   * 
+   * @return Flag, ob Sammelbestätigung
+   * @throws RemoteException
+   */
+  public boolean isSammelbestaetigung() throws RemoteException;
+
+  /**
+   * Fügt der Liste der Buchungen eine Buchung hinzu. Der Gesamtbetrag der
+   * Spendenbescheinigung wird anhand der Einzelbeträge der Buchungen berechnet.
+   * Die Spendenart wird auf "GELDSPENDE" gesetzt.
+   * 
+   * @param buchung
+   *          Die Buchung zum Hinzufügen
+   */
+  public void addBuchung(Buchung buchung) throws RemoteException;
+
+  /**
+   * Hängt eine Buchung an die Spendenbescheinigung, wenn es eine
+   * Einzelbestätigung werden soll. Sollten vorher schon Buchungen eingetragen
+   * worden sein, wird die Liste der Buchungen vorher gelöscht.
+   * 
+   * @param buchung
+   *          Die Buchung, die der Spendenbescheinigung zugeordnet wird
+   */
+  public void setBuchung(Buchung buchung) throws RemoteException;
+
+  /**
+   * Liefert die Liste der Buchungen einer Spendenbescheinigung zurück. Falls
+   * die Liste noch nicht angelegt wurde, wird sie aus der Datenbank
+   * nachgeladen. Sollten der Spendenbescheinigung noch keine Buchungen
+   * zugeordnet sein, wird eine leere Liste zurückgegeben.<br>
+   * Beim Laden der Buchungen wird der Gesamtbetrag berechnet
+   * 
+   * @return Liste der der Spendenbescheinigung zugeordneten Buchungen
+   */
+  public List<Buchung> getBuchungen() throws RemoteException;
+
   public String getBezeichnungSachzuwendung() throws RemoteException;
 
   public void setBezeichnungSachzuwendung(String bezeichungsachzuwendung)
@@ -107,24 +150,24 @@ public interface Spendenbescheinigung extends DBObject
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException;
 
-    /**
-     * Gibt an, ob die Spendenbescheinigung automaitsch oder manuell erstellt
-     * wurde.
-     *
-     * @return <code>true</code>, wenn die Spendenbescheinigung automatisch
-     *         erzeugt wurde, ansonstenm <code>false</code>
-     * @throws RemoteException
-     */
+  /**
+   * Gibt an, ob die Spendenbescheinigung automaitsch oder manuell erstellt
+   * wurde.
+   * 
+   * @return <code>true</code>, wenn die Spendenbescheinigung automatisch
+   *         erzeugt wurde, ansonstenm <code>false</code>
+   * @throws RemoteException
+   */
   public Boolean getAutocreate() throws RemoteException;
 
-    /**
-     * Setzt ein Flag, wenn die Spendenbescheinigung automatisch erzeugt wurde.
-     *
-     * @param autocreate
-     *            <code>true</code>, wenn die Spendenbescheinigung automatisch
-     *            erzeugt wurde, ansonsten <code>false</code>
-     * @throws RemoteException
-     */
-  public void setAutocreate( Boolean autocreate ) throws RemoteException;
+  /**
+   * Setzt ein Flag, wenn die Spendenbescheinigung automatisch erzeugt wurde.
+   * 
+   * @param autocreate
+   *          <code>true</code>, wenn die Spendenbescheinigung automatisch
+   *          erzeugt wurde, ansonsten <code>false</code>
+   * @throws RemoteException
+   */
+  public void setAutocreate(Boolean autocreate) throws RemoteException;
 
 }

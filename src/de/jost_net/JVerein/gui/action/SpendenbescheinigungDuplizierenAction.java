@@ -37,6 +37,11 @@ import de.willuhn.util.ApplicationException;
  */
 public class SpendenbescheinigungDuplizierenAction implements Action
 {
+  /**
+   * Duplizieren einer Spendenbescheinigung. Es kann nur dann eine Kopie
+   * erstellt werden, wenn genau ein Eintrag selektiert ist. Es wird zusätzlich
+   * auch das Mitglied in die neue Spendenbescheinugung übernommen.
+   */
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Spendenbescheinigung))
@@ -59,6 +64,7 @@ public class SpendenbescheinigungDuplizierenAction implements Action
       spb2.setZeile5(spb.getZeile5());
       spb2.setZeile6(spb.getZeile6());
       spb2.setZeile7(spb.getZeile7());
+      spb2.setMitglied(spb.getMitglied());
       GUI.startView(SpendenbescheinigungView.class.getName(), spb2);
     }
     catch (RemoteException e)

@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import org.eclipse.swt.widgets.Composite;
@@ -40,6 +41,8 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
+import de.willuhn.jameica.gui.input.DecimalInput;
+import de.willuhn.jameica.gui.input.DirectoryInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
@@ -54,6 +57,8 @@ public class EinstellungControl extends AbstractControl
 {
 
   private Input name;
+
+  private Input namelang;
 
   private Input strasse;
 
@@ -125,6 +130,14 @@ public class EinstellungControl extends AbstractControl
 
   private TextInput dateinamenmuster;
 
+  private TextInput dateinamenmusterspende;
+
+  private DecimalInput spendenbescheinigungminbetrag;
+
+  private DirectoryInput spendenbescheinigungverzeichnis;
+
+  private CheckboxInput spendenbescheinigungprintbuchungsart;
+
   private TextInput beginngeschaeftsjahr;
 
   private TextInput smtp_server;
@@ -181,13 +194,23 @@ public class EinstellungControl extends AbstractControl
     return name;
   }
 
+  public Input getNameLang() throws RemoteException
+  {
+    if (namelang != null)
+    {
+      return namelang;
+    }
+    namelang = new TextInput(Einstellungen.getEinstellung().getNameLang(), 100);
+    return namelang;
+  }
+
   public Input getStrasse() throws RemoteException
   {
     if (strasse != null)
     {
       return strasse;
     }
-    strasse = new TextInput(Einstellungen.getEinstellung().getStrasse(), 30);
+    strasse = new TextInput(Einstellungen.getEinstellung().getStrasse(), 50);
     return strasse;
   }
 
@@ -207,7 +230,7 @@ public class EinstellungControl extends AbstractControl
     {
       return ort;
     }
-    ort = new TextInput(Einstellungen.getEinstellung().getOrt(), 30);
+    ort = new TextInput(Einstellungen.getEinstellung().getOrt(), 50);
     return ort;
   }
 
@@ -272,7 +295,7 @@ public class EinstellungControl extends AbstractControl
       return beguenstigterzweck;
     }
     beguenstigterzweck = new TextInput(Einstellungen.getEinstellung()
-        .getBeguenstigterzweck(), 30);
+        .getBeguenstigterzweck(), 100);
     return beguenstigterzweck;
   }
 
@@ -562,7 +585,58 @@ public class EinstellungControl extends AbstractControl
     }
     dateinamenmuster = new TextInput(Einstellungen.getEinstellung()
         .getDateinamenmuster(), 30);
+    dateinamenmuster
+        .setComment("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit");
     return dateinamenmuster;
+  }
+
+  public TextInput getDateinamenmusterSpende() throws RemoteException
+  {
+    if (dateinamenmusterspende != null)
+    {
+      return dateinamenmusterspende;
+    }
+    dateinamenmusterspende = new TextInput(Einstellungen.getEinstellung()
+        .getDateinamenmusterSpende(), 30);
+    dateinamenmusterspende
+        .setComment("n$ = Name, v$ = Vorname, d$ = Datum, z$ = Zeit");
+    return dateinamenmusterspende;
+  }
+
+  public DecimalInput getSpendenbescheinigungminbetrag() throws RemoteException
+  {
+    if (spendenbescheinigungminbetrag != null)
+    {
+      return spendenbescheinigungminbetrag;
+    }
+    spendenbescheinigungminbetrag = new DecimalInput(Einstellungen
+        .getEinstellung().getSpendenbescheinigungminbetrag(),
+        new DecimalFormat("###0.00"));
+    return spendenbescheinigungminbetrag;
+  }
+
+  public DirectoryInput getSpendenbescheinigungverzeichnis()
+      throws RemoteException
+  {
+    if (spendenbescheinigungverzeichnis != null)
+    {
+      return spendenbescheinigungverzeichnis;
+    }
+    spendenbescheinigungverzeichnis = new DirectoryInput(Einstellungen
+        .getEinstellung().getSpendenbescheinigungverzeichnis());
+    return spendenbescheinigungverzeichnis;
+  }
+
+  public CheckboxInput getSpendenbescheinigungPrintBuchungsart()
+      throws RemoteException
+  {
+    if (spendenbescheinigungprintbuchungsart != null)
+    {
+      return spendenbescheinigungprintbuchungsart;
+    }
+    spendenbescheinigungprintbuchungsart = new CheckboxInput(Einstellungen
+        .getEinstellung().getSpendenbescheinigungPrintBuchungsart());
+    return spendenbescheinigungprintbuchungsart;
   }
 
   public TextInput getBeginnGeschaeftsjahr() throws RemoteException
@@ -758,6 +832,7 @@ public class EinstellungControl extends AbstractControl
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setName((String) getName(false).getValue());
+      e.setNameLang((String) getNameLang().getValue());
       e.setStrasse((String) getStrasse().getValue());
       e.setPlz((String) getPlz().getValue());
       e.setOrt((String) getOrt().getValue());
@@ -796,6 +871,13 @@ public class EinstellungControl extends AbstractControl
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
+      e.setDateinamenmusterSpende((String) dateinamenmusterspende.getValue());
+      e.setSpendenbescheinigungminbetrag((Double) spendenbescheinigungminbetrag
+          .getValue());
+      e.setSpendenbescheinigungverzeichnis((String) spendenbescheinigungverzeichnis
+          .getValue());
+      e.setSpendenbescheinigungPrintBuchungsart((Boolean) spendenbescheinigungprintbuchungsart
+          .getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setSmtpServer((String) smtp_server.getValue());
       Integer port = (Integer) smtp_port.getValue();

@@ -36,6 +36,10 @@ public interface Einstellung extends DBObject
 
   public void setName(String name) throws RemoteException;
 
+  public String getNameLang() throws RemoteException;
+
+  public void setNameLang(String name) throws RemoteException;
+
   public String getStrasse() throws RemoteException;
 
   public void setStrasse(String strasse) throws RemoteException;
@@ -187,6 +191,27 @@ public interface Einstellung extends DBObject
   public String getDateinamenmuster() throws RemoteException;
 
   public void setDateinamenmuster(String dateinamenmuster)
+      throws RemoteException;
+
+  public String getDateinamenmusterSpende() throws RemoteException;
+
+  public void setDateinamenmusterSpende(String dateinamenmusterspende)
+      throws RemoteException;
+
+  public double getSpendenbescheinigungminbetrag() throws RemoteException;
+
+  public void setSpendenbescheinigungminbetrag(double minbetrag)
+      throws RemoteException;
+
+  public String getSpendenbescheinigungverzeichnis() throws RemoteException;
+
+  public void setSpendenbescheinigungverzeichnis(
+      String spendenbescheinigungverzeichnis) throws RemoteException;
+
+  public boolean getSpendenbescheinigungPrintBuchungsart()
+      throws RemoteException;
+
+  public void setSpendenbescheinigungPrintBuchungsart(Boolean printbuchungsart)
       throws RemoteException;
 
   public String getBeginnGeschaeftsjahr() throws RemoteException;

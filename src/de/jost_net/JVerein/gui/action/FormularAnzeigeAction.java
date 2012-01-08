@@ -31,6 +31,7 @@ import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
@@ -104,10 +105,12 @@ public class FormularAnzeigeAction implements Action
       Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
           .getDBService().createObject(Spendenbescheinigung.class, null);
       map = spb.getMap(map);
-      map.put("Spendedatum", "15.12.2008");
+      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "15.12.2008");
       map.put("Buchungsdatum", new Date());
-      map.put("Bescheinigungsdatum", "17.12.2008");
+      map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(), "17.12.2008");
       map.put("Tagesdatum", new JVDateFormatTTMMJJJJ().format(new Date()));
+      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), "13.02.2008 - 12.11.2008");
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), "Datum     Betrag  Verzicht  Verwendung\n\n13.02.2008  15,00            Beitrag\n12.11.2008  1234,96     X      Spende\n\nGesamt:    1249,96");
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);

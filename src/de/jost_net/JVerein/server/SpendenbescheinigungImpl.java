@@ -22,6 +22,8 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,11 +34,13 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -45,6 +49,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 {
 
   private static final long serialVersionUID = -1861750218155086064L;
+
+  private List<Buchung> buchungen = null;
 
   public SpendenbescheinigungImpl() throws RemoteException
   {
@@ -140,7 +146,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile1() throws RemoteException
   {
-    return (String) getAttribute("zeile1");
+    return getAttribute("zeile1") == null ? ""
+        : (String) getAttribute("zeile1");
   }
 
   public void setZeile1(String zeile1) throws RemoteException
@@ -150,7 +157,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile2() throws RemoteException
   {
-    return (String) getAttribute("zeile2");
+    return getAttribute("zeile2") == null ? ""
+        : (String) getAttribute("zeile2");
   }
 
   public void setZeile2(String zeile2) throws RemoteException
@@ -160,7 +168,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile3() throws RemoteException
   {
-    return (String) getAttribute("zeile3");
+    return getAttribute("zeile3") == null ? ""
+        : (String) getAttribute("zeile3");
   }
 
   public void setZeile3(String zeile3) throws RemoteException
@@ -170,7 +179,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile4() throws RemoteException
   {
-    return (String) getAttribute("zeile4");
+    return getAttribute("zeile4") == null ? ""
+        : (String) getAttribute("zeile4");
   }
 
   public void setZeile4(String zeile4) throws RemoteException
@@ -180,7 +190,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile5() throws RemoteException
   {
-    return (String) getAttribute("zeile5");
+    return getAttribute("zeile5") == null ? ""
+        : (String) getAttribute("zeile5");
   }
 
   public void setZeile5(String zeile5) throws RemoteException
@@ -190,7 +201,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile6() throws RemoteException
   {
-    return (String) getAttribute("zeile6");
+    return getAttribute("zeile6") == null ? ""
+        : (String) getAttribute("zeile6");
   }
 
   public void setZeile6(String zeile6) throws RemoteException
@@ -200,7 +212,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
 
   public String getZeile7() throws RemoteException
   {
-    return (String) getAttribute("zeile7");
+    return getAttribute("zeile7") == null ? ""
+        : (String) getAttribute("zeile7");
   }
 
   public void setZeile7(String zeile7) throws RemoteException
@@ -226,6 +239,29 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   public Date getSpendedatum() throws RemoteException
   {
     return (Date) getAttribute("spendedatum");
+  }
+
+  /**
+   * Liefert aus der Buchungsliste entweder das größte Datum zurück. Falls noch
+   * keine Buchungen eingetragen sind, wird das Spendendatum zurückgeliefert.
+   * 
+   * @return
+   * @throws RemoteException
+   */
+  public Date getZeitraumBis() throws RemoteException
+  {
+    Date maxDate = getSpendedatum();
+    if (buchungen.size() > 0)
+    {
+      for (Buchung b : buchungen)
+      {
+        if (maxDate.before(b.getDatum()))
+        {
+          maxDate = b.getDatum();
+        }
+      }
+    }
+    return maxDate;
   }
 
   public void setBescheinigungsdatum(Date datum) throws RemoteException
@@ -296,6 +332,29 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return super.getAttribute(fieldName);
   }
 
+  @Override
+  public void store() throws RemoteException, ApplicationException
+  {
+    super.store();
+    int id = Integer.parseInt(getID());
+    for (Buchung b : buchungen)
+    {
+      b.setSpendenbescheinigungId(id);
+      b.store();
+    }
+  }
+
+  @Override
+  public void delete() throws RemoteException, ApplicationException
+  {
+    for (Buchung b : getBuchungen())
+    {
+      b.setSpendenbescheinigungId(null);
+      b.store();
+    }
+    super.delete();
+  }
+
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
@@ -321,6 +380,104 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     {
       setAttribute("mitglied", null);
     }
+  }
+
+  /**
+   * Liefert als Kennzeichen zurück, ob die Spendenbescheinigung eine
+   * Sammelbestaetigung ist. Dies ist der Fall, wenn die Liste der Buchungen
+   * mehr als eine Buchung enthält. Ist keine oder nur eine Buchung zugewiesen,
+   * liegt eine Einzelbestätigung vor.
+   * 
+   * @return Flag, ob Sammelbestätigung
+   * @throws RemoteException
+   */
+  public boolean isSammelbestaetigung() throws RemoteException
+  {
+    if (getBuchungen() == null)
+      return false;
+    return getBuchungen().size() > 1;
+  }
+
+  /**
+   * Fügt der Liste der Buchungen eine Buchung hinzu. Der Gesamtbetrag der
+   * Spendenbescheinigung wird anhand der Einzelbeträge der Buchungen berechnet.
+   * Die Spendenart wird auf "GELDSPENDE" gesetzt.
+   * 
+   * @param buchung
+   *          Die Buchung zum Hinzufügen
+   */
+  public void addBuchung(Buchung buchung) throws RemoteException
+  {
+    if (buchung != null)
+    {
+      double betrag = 0.0;
+      if (buchungen == null)
+      {
+        buchungen = new ArrayList<Buchung>();
+      }
+      buchungen.add(buchung);
+      for (Buchung b : buchungen)
+      {
+        betrag += b.getBetrag();
+      }
+      setBetrag(betrag);
+      if (buchung.getDatum().before(getSpendedatum()))
+      {
+        setSpendedatum(buchung.getDatum());
+      }
+      setSpendenart(Spendenart.GELDSPENDE);
+    }
+  }
+
+  /**
+   * Hängt eine Buchung an die Spendenbescheinigung, wenn es eine
+   * Einzelbestätigung werden soll. Sollten vorher schon Buchungen eingetragen
+   * worden sein, wird die Liste der Buchungen vorher gelöscht.
+   * 
+   * @param buchung
+   *          Die Buchung, die der Spendenbescheinigung zugeordnet wird
+   */
+  public void setBuchung(Buchung buchung) throws RemoteException
+  {
+    if (buchungen != null)
+    {
+      buchungen.clear();
+      setBetrag(0.0);
+    }
+    if (buchung != null)
+    {
+      addBuchung(buchung);
+      setSpendedatum(buchung.getDatum());
+    }
+  }
+
+  /**
+   * Liefert die Liste der Buchungen einer Spendenbescheinigung zurück. Falls
+   * die Liste noch nicht angelegt wurde, wird sie aus der Datenbank
+   * nachgeladen. Sollten der Spendenbescheinigung noch keine Buchungen
+   * zugeordnet sein, wird eine leere Liste zurückgegeben.<br>
+   * Beim Laden der Buchungen wird der Gesamtbetrag berechnet
+   * 
+   * @return Liste der der Spendenbescheinigung zugeordneten Buchungen
+   */
+  public List<Buchung> getBuchungen() throws RemoteException
+  {
+    if (buchungen == null)
+    {
+      buchungen = new ArrayList<Buchung>();
+      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+      it.addFilter("spendenbescheinigung = ?", getID());
+      it.setOrder("ORDER BY datum asc");
+      double summe = 0.0;
+      while (it.hasNext())
+      {
+        Buchung bu = (Buchung) it.next();
+        buchungen.add(bu);
+        summe += bu.getBetrag();
+      }
+      setBetrag(summe);
+    }
+    return buchungen;
   }
 
   public Boolean getUnterlagenWertermittlung() throws RemoteException
@@ -371,9 +528,9 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       this.setZeile2("Dr. Willi Wichtig");
       this.setZeile3("Hinterm Bahnhof 1");
       this.setZeile4("12345 Testenhausen");
-      this.setZeile5("");
-      this.setZeile6("");
-      this.setZeile7("");
+      this.setZeile5(null);
+      this.setZeile6(null);
+      this.setZeile7(null);
     }
     String empfaenger = getZeile1() + "\n" + getZeile2() + "\n" + getZeile3()
         + "\n" + getZeile4() + "\n" + getZeile5() + "\n" + getZeile6() + "\n"
@@ -399,7 +556,63 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
         bescheinigungsdatum);
     String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
-    map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), spendedatum);
+    boolean printBuchungsart = Einstellungen.getEinstellung()
+        .getSpendenbescheinigungPrintBuchungsart();
+
+    // bei Sammelbestätigungen ein Zeitraum und "siehe Anlage"
+    if (getBuchungen() != null && getBuchungen().size() > 1)
+    {
+      final String targetString = "          ";
+      String zeitraumende = new JVDateFormatTTMMJJJJ().format(getZeitraumBis());
+      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "s. Anlage");
+      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), spendedatum
+          + " - " + zeitraumende);
+      StringBuilder bl = new StringBuilder();
+      bl.append("Datum     ");
+      bl.append("  ");
+      bl.append("    Betrag   ");
+      bl.append("  ");
+      bl.append("Verzicht");
+      bl.append("  ");
+      bl.append("Zuwendungsart");
+      bl.append("\n");
+      for (Buchung b : buchungen)
+      {
+        bl.append(new JVDateFormatTTMMJJJJ().format(b.getDatum()));
+        bl.append("  ");
+        String str = Einstellungen.DECIMALFORMAT.format(b.getBetrag());
+        int len = str.length();
+        if (len < targetString.length())
+          str = (targetString + str).substring(len);
+        bl.append(str);
+        bl.append("  ");
+        bl.append("    " + (b.getVerzicht() ? "X" : " ") + "      ");
+        bl.append("  ");
+        if (printBuchungsart)
+        {
+          bl.append(b.getBuchungsart().getBezeichnung());
+        }
+        else
+        {
+          bl.append(b.getZweck());
+        }
+        bl.append("\n");
+      }
+      bl.append("\n");
+      bl.append("Summe:    ");
+      bl.append("  ");
+      String str = Einstellungen.DECIMALFORMAT.format(getBetrag());
+      int len = str.length();
+      if (len < targetString.length())
+        str = (targetString + str).substring(len);
+      bl.append(str);
+      bl.append("\n");
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), bl.toString());
+    }
+    else
+    {
+      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), spendedatum);
+    }
     map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN.getName(),
         (getErsatzAufwendungen() ? "X" : ""));
     return map;

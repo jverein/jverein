@@ -843,11 +843,59 @@ public class JVereinUpdateProvider
     }
     if (cv < 211)
     {
-        update0211(conn);
+      update0211(conn);
     }
     if (cv < 212)
     {
-        update0212(conn);
+      update0212(conn);
+    }
+    if (cv < 213)
+    {
+      update0213(conn);
+    }
+    if (cv < 214)
+    {
+      update0214(conn);
+    }
+    if (cv < 215)
+    {
+      update0215(conn);
+    }
+    if (cv < 216)
+    {
+      update0216(conn);
+    }
+    if (cv < 217)
+    {
+      update0217(conn);
+    }
+    if (cv < 218)
+    {
+      update0218(conn);
+    }
+    if (cv < 219)
+    {
+      update0219(conn);
+    }
+    if (cv < 220)
+    {
+      update0220(conn);
+    }
+    if (cv < 221)
+    {
+      update0221(conn);
+    }
+    if (cv < 222)
+    {
+      update0222(conn);
+    }
+    if (cv < 223)
+    {
+      update0223(conn);
+    }
+    if (cv < 224)
+    {
+      update0224(conn);
     }
   }
 
@@ -5242,28 +5290,189 @@ public class JVereinUpdateProvider
         210);
   }
 
-  private void update0211(Connection conn) throws ApplicationException {
-      Map<String, String> statements = new HashMap<String, String>();
+  private void update0211(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
 
-      String sql = "ALTER TABLE buchung ADD verzicht BOOLEAN";
-      statements.put(DBSupportH2Impl.class.getName(), sql);
-      statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    String sql = "ALTER TABLE buchung ADD verzicht BOOLEAN";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
-      execute(conn, statements,
-              "Spalte verzicht in der Tabelle buchung aufgenommen",
-              211);
+    execute(conn, statements,
+        "Spalte verzicht in der Tabelle buchung aufgenommen", 211);
   }
 
-  private void update0212(Connection conn) throws ApplicationException {
-      Map<String, String> statements = new HashMap<String, String>();
+  private void update0212(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
 
-      String sql = "ALTER TABLE spendenbescheinigung ADD autocreate BOOLEAN default false";
-      statements.put(DBSupportH2Impl.class.getName(), sql);
-      statements.put(DBSupportMySqlImpl.class.getName(), sql);
+    String sql = "ALTER TABLE spendenbescheinigung ADD autocreate BOOLEAN default false";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
-      execute(conn, statements,
-              "Spalte autocreate in der Tabelle spendenbescheinigung aufgenommen",
-              212);
+    execute(conn, statements,
+        "Spalte autocreate in der Tabelle spendenbescheinigung aufgenommen",
+        212);
+  }
+
+  private void update0213(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung ADD namelang VARCHAR(100) before strasse;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung ADD namelang VARCHAR(100) after name;\n");
+    execute(conn, statements,
+        "Spalte NameLang in die Tabelle Einstellung aufgenommen", 213);
+  }
+
+  private void update0214(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD dateinamenmusterspende VARCHAR(50) before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD dateinamenmusterspende VARCHAR(50) after dateinamenmuster;\n");
+    execute(conn, statements,
+        "Spalte dateinamenmusterspende in die Tabelle einstellung aufgenommen",
+        214);
+  }
+
+  private void update0215(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungminbetrag DOUBLE before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungminbetrag DOUBLE after dateinamenmusterspende;\n");
+    execute(
+        conn,
+        statements,
+        "Spalte spendenbescheinigungminbetrag in die Tabelle einstellung aufgenommen",
+        215);
+  }
+
+  private void update0216(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungverzeichnis VARCHAR(200) before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungverzeichnis VARCHAR(200) after spendenbescheinigungminbetrag;\n");
+    execute(
+        conn,
+        statements,
+        "Spalte spendenbescheinigungverzeichnis in die Tabelle einstellung aufgenommen",
+        216);
+  }
+
+  private void update0217(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungprintbuchungsart BOOLEAN DEFAULT FALSE before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungprintbuchungsart BOOLEAN DEFAULT FALSE after spendenbescheinigungverzeichnis;\n");
+    execute(
+        conn,
+        statements,
+        "Spalte spendenbescheinigungprintbuchungsart in die Tabelle einstellung aufgenommen",
+        217);
+  }
+
+  private void update0218(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung ALTER COLUMN strasse VARCHAR(50);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung MODIFY COLUMN strasse VARCHAR(50);\n");
+    execute(conn, statements,
+        "Spalte strasse in der Tabelle einstellung verlängert", 218);
+  }
+
+  private void update0219(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung ALTER COLUMN ort VARCHAR(50);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung MODIFY COLUMN ort VARCHAR(50);\n");
+    execute(conn, statements,
+        "Spalte ort in der Tabelle einstellung verlängert", 219);
+  }
+
+  private void update0220(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ALTER COLUMN beguenstigterzweck VARCHAR(100);\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung MODIFY COLUMN beguenstigterzweck VARCHAR(100);\n");
+    execute(conn, statements,
+        "Spalte beguenstigterzweck in der Tabelle einstellung verlängert", 220);
+  }
+
+  private void update0221(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE formularfeld ADD seite INTEGER DEFAULT 1 before x;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE formularfeld ADD Seite INTEGER DEFAULT 1 after name;\n");
+    execute(conn, statements,
+        "Spalte seite in die Tabelle formularfeld aufgenommen", 221);
+  }
+
+  private void update0222(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "UPDATE einstellung SET namelang = name;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "UPDATE einstellung SET namelang = name;\n");
+    execute(conn, statements,
+        "Defaultwert für namelang in der Tabelle einstellung gesetzt", 222);
+  }
+
+  private void update0223(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "UPDATE einstellung SET spendenbescheinigungminbetrag = 0;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "UPDATE einstellung SET spendenbescheinigungminbetrag = 0;\n");
+    execute(conn, statements,
+        "Defaultwert für Spalte spendenbescheinigungminbetrag gesetzt", 223);
+  }
+
+  private void update0224(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    statements.put(DBSupportH2Impl.class.getName(),
+        "UPDATE formularfeld SET seite = 1;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "UPDATE formularfeld SET seite = 1;\n");
+    execute(conn, statements,
+        "Defaultwert für Spalte seite in der Tabelle formularfeld gesetzt", 224);
   }
 
 }

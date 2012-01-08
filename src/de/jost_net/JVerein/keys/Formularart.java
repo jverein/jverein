@@ -38,6 +38,8 @@ public class Formularart
 
   public static final int FREIESFORMULAR = 4;
 
+  public static final int SAMMELSPENDENBESCHEINIGUNG = 5;
+
   private int formularart;
 
   public Formularart(int key)
@@ -67,6 +69,8 @@ public class Formularart
         return JVereinPlugin.getI18n().tr("Mahnung");
       case FREIESFORMULAR:
         return JVereinPlugin.getI18n().tr("Freies Formular");
+      case SAMMELSPENDENBESCHEINIGUNG:
+        return JVereinPlugin.getI18n().tr("Sammelbestätigung");
       default:
         return null;
     }
@@ -76,6 +80,7 @@ public class Formularart
   {
     ArrayList<Formularart> ret = new ArrayList<Formularart>();
     ret.add(new Formularart(SPENDENBESCHEINIGUNG));
+    ret.add(new Formularart(SAMMELSPENDENBESCHEINIGUNG));
     ret.add(new Formularart(RECHNUNG));
     ret.add(new Formularart(MAHNUNG));
     ret.add(new Formularart(FREIESFORMULAR));

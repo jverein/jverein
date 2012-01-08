@@ -21,8 +21,11 @@
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import de.jost_net.JVerein.rmi.Mitglied;
 
 /**
  * <p>
@@ -34,16 +37,31 @@ import java.util.Date;
  * <dt>a$</dt>
  * <dd>Aufgabe (z. B. auswertung, abbuchung)</dd>
  * <dt>d$</dt>
- * <dd>Aktuelles Datum (z. B. 20080101)</dd>
+ * <dd>Aktuelles Datum (z. B. 20080101) oder das Datum des Dokumentes, wenn
+ * übergeben</dd>
  * <dt>$z</dt>
- * <dd>Aktuelle Zeit (z. B. 120503)</dd>
+ * <dd>Aktuelle Zeit (z. B. 120503) oder vom übergebenen Datum</dd>
  * <dt>$s</dt>
  * <dd>Sortierung. Wird nicht immer gefüllt. Ggfls. Leerstring.</dd>
+ * <dt>$n</dt>
+ * <dd>Name des Mitglieds. Wird nicht immer gefüllt. Ggfls. Leerstring.</dd>
+ * <dt>$v</dt>
+ * <dd>Vorname des Mitglieds. Wird nicht immer gefüllt. Ggfls. Leerstring.</dd>
+ * <dt>$o</dt>
+ * <dd>Bezeichnung des Dokuments. Wird nicht immer gefüllt. Ggfls. Leerstring.</dd>
  * </dl>
  */
 
 public class Dateiname
 {
+  private Date datum = new Date();
+
+  private String mitgliedName;
+
+  private String mitgliedVorname;
+
+  private String dokument;
+
   private String aufgabe;
 
   private String muster;
@@ -79,6 +97,82 @@ public class Dateiname
     this.muster = muster;
     this.extension = extension;
     this.sortierung = sortierung;
+    this.mitgliedName = "";
+    this.mitgliedVorname = "";
+    this.dokument = "";
+  }
+
+  /**
+   * Konstruktor für die Erzeugung eines Dateinames für ein Mitgliedsdokument
+   * 
+   * @param mitglied
+   *          Das Mitglied
+   * @param datum
+   *          Datum des Dokuments
+   * @param dokument
+   *          Typ oder Name des Dokumentes (z.B. Spendenbescheinigung)
+   * @param muster
+   *          Dateinamenmuster
+   * @param extension
+   *          Extension der Datei
+   */
+  public Dateiname(Mitglied mitglied, Date datum, String dokument,
+      String muster, String extension)
+  {
+    this.mitgliedName = "";
+    this.mitgliedVorname = "";
+    if (mitglied != null)
+    {
+      try
+      {
+        this.mitgliedName = mitglied.getName();
+        this.mitgliedVorname = mitglied.getVorname();
+      }
+      catch (RemoteException re)
+      {
+      }
+    }
+    if (datum != null)
+    {
+      this.datum = datum;
+    }
+    this.dokument = dokument;
+    this.muster = muster;
+    this.extension = extension;
+    this.aufgabe = "";
+    this.sortierung = "";
+  }
+
+  /**
+   * Konstruktor für die Erzeugung eines Dateinames für ein Mitglied
+   * 
+   * @param name
+   *          Name des Mitglieds
+   * @param vorname
+   *          Vorname des Mitglieds
+   * @param datum
+   *          Datum des Dokuments
+   * @param dokument
+   *          Typ oder Name des Dokumentes (z.B. Spendenbescheinigung)
+   * @param muster
+   *          Dateinamenmuster
+   * @param extension
+   *          Extension der Datei
+   */
+  public Dateiname(String name, String vorname, Date datum, String dokument,
+      String muster, String extension)
+  {
+    this.mitgliedName = name;
+    this.mitgliedVorname = vorname;
+    if (datum != null)
+    {
+      this.datum = datum;
+    }
+    this.dokument = dokument;
+    this.muster = muster;
+    this.extension = extension;
+    this.aufgabe = "";
+    this.sortierung = "";
   }
 
   /**
@@ -87,16 +181,20 @@ public class Dateiname
    */
   public String get()
   {
-    if (muster.length() == 0)
+    if (muster != null && muster.length() > 0)
     {
-      return "";
+      String ret = muster;
+      // a$ = Aufgabe, s$ = Sortierung, d$ = Datum, z$ = Zeit
+      ret = ret.replace("a$", aufgabe);
+      ret = ret.replace("d$", new SimpleDateFormat("yyyyMMdd").format(datum));
+      ret = ret.replace("z$", new SimpleDateFormat("HHmmss").format(datum));
+      ret = ret.replace("s$", sortierung);
+      // n$ = Name, v$ = Vorname, o$ = Dokument, d$ = Datum
+      ret = ret.replace("o$", dokument);
+      ret = ret.replace("n$", mitgliedName);
+      ret = ret.replace("v$", mitgliedVorname);
+      return ret + "." + extension;
     }
-    String ret = muster;
-    ret = ret.replace("a$", aufgabe);
-    ret = ret
-        .replace("d$", new SimpleDateFormat("yyyyMMdd").format(new Date()));
-    ret = ret.replace("z$", new SimpleDateFormat("HHmmss").format(new Date()));
-    ret = ret.replace("s$", sortierung);
-    return ret + "." + extension;
+    return "";
   }
 }

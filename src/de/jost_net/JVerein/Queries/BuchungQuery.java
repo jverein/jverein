@@ -118,8 +118,8 @@ public class BuchungQuery
       sute = sute.toUpperCase();
       sute = "%" + sute + "%";
       addCondition(
-          "(upper(name) like ? or upper(zweck) like ? or upper(zweck2) like ?) ",
-          new Object[] { sute, sute, sute });
+          "(upper(name) like ? or upper(zweck) like ? or upper(zweck2) like ? or upper(kommentar) like ?) ",
+          new Object[] { sute, sute, sute, sute });
     }
     else
     {

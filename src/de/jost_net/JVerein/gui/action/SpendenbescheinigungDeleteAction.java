@@ -40,30 +40,42 @@ import de.willuhn.util.ApplicationException;
  */
 public class SpendenbescheinigungDeleteAction implements Action
 {
+  /**
+   * Löschen von einer oder mehreren Spendenbescheinigungen, die in der View markiert
+   * sind.
+   */
   public void handleAction(Object context) throws ApplicationException
   {
+    Spendenbescheinigung[] spbArr = null;
     if (context instanceof TablePart)
     {
       TablePart tp = (TablePart) context;
       context = tp.getSelection();
     }
-    if (context == null || !(context instanceof Spendenbescheinigung))
+    if (context == null)
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Keine Spendenbescheinigung ausgewählt"));
     }
+    else if (context instanceof Spendenbescheinigung)
+    {
+      spbArr = new Spendenbescheinigung[] { (Spendenbescheinigung) context };
+    }
+    else if (context instanceof Spendenbescheinigung[])
+    {
+      spbArr = (Spendenbescheinigung[]) context;
+    }
+    else
+    {
+      return;
+    }
     try
     {
-      Spendenbescheinigung spb = (Spendenbescheinigung) context;
-      if (spb.isNewObject())
-      {
-        return;
-      }
-
+      String mehrzahl = spbArr.length > 1 ? "en" : "";
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigung löschen"));
+      d.setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigung" + mehrzahl + " löschen"));
       d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie die Spendenbescheinigung wirklich löschen?"));
+          "Wollen Sie die Spendenbescheinigung" + mehrzahl + " wirklich löschen?"));
 
       try
       {
@@ -77,20 +89,19 @@ public class SpendenbescheinigungDeleteAction implements Action
       {
         Logger.error(
             JVereinPlugin.getI18n().tr(
-                "Fehler beim Löschen der Spendenbescheinigung"), e);
+                "Fehler beim Löschen der Spendenbescheinigung" + mehrzahl), e);
         return;
       }
-      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-      it.addFilter("spendenbescheinigung = ?", new Object[] { spb.getID() });
-      while (it.hasNext())
+      for (Spendenbescheinigung spb : spbArr)
       {
-        Buchung bu = (Buchung) it.next();
-        bu.setSpendenbescheinigungId(null);
-        bu.store();
+        if (spb.isNewObject())
+        {
+          continue;
+        }
+        spb.delete();
       }
-      spb.delete();
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Spendenbescheinigung gelöscht."));
+              JVereinPlugin.getI18n().tr("Spendenbescheinigung" + mehrzahl + "  gelöscht."));
     }
     catch (RemoteException e)
     {

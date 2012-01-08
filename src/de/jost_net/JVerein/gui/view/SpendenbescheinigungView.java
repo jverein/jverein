@@ -43,6 +43,7 @@ public class SpendenbescheinigungView extends AbstractView
 
     final SpendenbescheinigungControl control = new SpendenbescheinigungControl(
         this);
+
     ScrolledContainer scrolled = new ScrolledContainer(getParent());
 
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);

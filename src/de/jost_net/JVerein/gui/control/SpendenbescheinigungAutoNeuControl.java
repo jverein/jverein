@@ -57,7 +57,9 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   private TreePart spbTree;
 
-  private SelectInput formular;
+  private SelectInput formularEinzel;
+
+  private SelectInput formularSammel;
 
   public SpendenbescheinigungAutoNeuControl(AbstractView view)
   {
@@ -97,14 +99,27 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   public SelectInput getFormular() throws RemoteException
   {
-    if (formular != null)
+    if (formularEinzel != null)
     {
-      return formular;
+      return formularEinzel;
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
     it.addFilter("art = ?", new Object[] { Formularart.SPENDENBESCHEINIGUNG });
-    formular = new SelectInput(it, null);
-    return formular;
+    formularEinzel = new SelectInput(it, null);
+    return formularEinzel;
+  }
+
+  public SelectInput getFormularSammelbestaetigung() throws RemoteException
+  {
+    if (formularSammel != null)
+    {
+      return formularSammel;
+    }
+    DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+    it.addFilter("art = ?",
+        new Object[] { Formularart.SAMMELSPENDENBESCHEINIGUNG });
+    formularSammel = new SelectInput(it, null);
+    return formularSammel;
   }
 
   /**
@@ -128,6 +143,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
           List items = spbTree.getItems();
           SpendenbescheinigungNode spn = (SpendenbescheinigungNode) items
               .get(0);
+          // Loop über die Mitglieder
           GenericIterator it1 = spn.getChildren();
           while (it1.hasNext())
           {
@@ -146,24 +162,26 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             spbescheinigung.setBescheinigungsdatum(new Date());
             spbescheinigung.setSpendedatum(new Date());
             spbescheinigung.setBetrag(0.01);
-            spbescheinigung.setAutocreate( Boolean.TRUE );
-            spbescheinigung.store();
-            Date spendedatum = new Date();
-            double summe = 0;
+            spbescheinigung.setAutocreate(Boolean.TRUE);
+            // Loop über die Buchungen eines Mitglieds
             GenericIterator it2 = sp1.getChildren();
             while (it2.hasNext())
             {
               SpendenbescheinigungNode sp2 = (SpendenbescheinigungNode) it2
                   .next();
-              spendedatum = sp2.getBuchung().getDatum();
-              summe += sp2.getBuchung().getBetrag();
-              sp2.getBuchung().setSpendenbescheinigungId(
-                  new Integer(spbescheinigung.getID()));
-              sp2.getBuchung().store();
+              spbescheinigung.addBuchung(sp2.getBuchung());
             }
-            spbescheinigung.setSpendedatum(spendedatum);
-            spbescheinigung.setBetrag(summe);
-            spbescheinigung.setFormular((Formular) getFormular().getValue());
+            // Nun noch das korrekte Formular setzen
+            if (spbescheinigung.getBuchungen().size() > 1)
+            {
+              spbescheinigung
+                  .setFormular((Formular) getFormularSammelbestaetigung()
+                      .getValue());
+            }
+            else
+            {
+              spbescheinigung.setFormular((Formular) getFormular().getValue());
+            }
             spbescheinigung.store();
           }
           GUI.getStatusBar()

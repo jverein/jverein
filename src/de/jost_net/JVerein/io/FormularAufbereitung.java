@@ -64,6 +64,13 @@ public class FormularAufbereitung
 
   private int buendig = links;
 
+  /**
+   * Öffnet die Datei und startet die PDF-Generierung
+   * 
+   * @param f
+   *          Die Datei, in die geschrieben werden soll
+   * @throws RemoteException
+   */
   public FormularAufbereitung(final File f) throws RemoteException
   {
     this.f = f;
@@ -91,19 +98,24 @@ public class FormularAufbereitung
   {
     try
     {
-      doc.newPage();
       PdfReader reader = new PdfReader(formular.getInhalt());
-      PdfImportedPage page = writer.getImportedPage(reader, 1);
-      PdfContentByte contentByte = writer.getDirectContent();
-      contentByte.addTemplate(page, 0, 0);
-
-      DBIterator it = Einstellungen.getDBService().createList(
-          Formularfeld.class);
-      it.addFilter("formular = ?", new Object[] { formular.getID() });
-      while (it.hasNext())
+      int numOfPages = reader.getNumberOfPages();
+      for (int i = 1; i <= numOfPages; i++)
       {
-        Formularfeld f = (Formularfeld) it.next();
-        goFormularfeld(contentByte, f, map.get(f.getName()));
+        doc.newPage();
+        PdfImportedPage page = writer.getImportedPage(reader, i);
+        PdfContentByte contentByte = writer.getDirectContent();
+        contentByte.addTemplate(page, 0, 0);
+
+        DBIterator it = Einstellungen.getDBService().createList(
+            Formularfeld.class);
+        it.addFilter("formular = ? and seite = ?",
+            new Object[] { formular.getID(), i });
+        while (it.hasNext())
+        {
+          Formularfeld f = (Formularfeld) it.next();
+          goFormularfeld(contentByte, f, map.get(f.getName()));
+        }
       }
     }
     catch (IOException e)
@@ -116,11 +128,27 @@ public class FormularAufbereitung
     }
   }
 
-  public void showFormular() throws IOException
+  /**
+   * Schließen des aktuellen Formulars, damit die Datei korrekt gespeichert wird
+   * 
+   * @throws IOException
+   */
+  public void closeFormular() throws IOException
   {
     doc.close();
     writer.close();
     fos.close();
+  }
+
+  /**
+   * Anzeige des gerade aufbereiteten Formulars. Die Ausgabedatei wird vorher
+   * geschlossen.
+   * 
+   * @throws IOException
+   */
+  public void showFormular() throws IOException
+  {
+    closeFormular();
     GUI.getDisplay().asyncExec(new Runnable()
     {
 

@@ -188,6 +188,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("name", name);
   }
 
+  public String getNameLang() throws RemoteException
+  {
+    return (String) getAttribute("namelang");
+  }
+
+  public void setNameLang(String name) throws RemoteException
+  {
+    setAttribute("namelang", name);
+  }
+
   public String getStrasse() throws RemoteException
   {
     return (String) getAttribute("strasse");
@@ -571,13 +581,71 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public String getDateinamenmuster() throws RemoteException
   {
-    return (String) getAttribute("dateinamenmuster");
+    String muster = (String) getAttribute("dateinamenmuster");
+    if (muster == null)
+    {
+      muster = "a$s$-d$-z$";
+    }
+    return muster;
   }
 
   public void setDateinamenmuster(String dateinamenmuster)
       throws RemoteException
   {
     setAttribute("dateinamenmuster", dateinamenmuster);
+  }
+
+  public String getDateinamenmusterSpende() throws RemoteException
+  {
+    String muster = (String) getAttribute("dateinamenmusterspende");
+    if (muster == null)
+    {
+      muster = "a$-d$-z$-$n-$v";
+    }
+    return muster;
+  }
+
+  public void setDateinamenmusterSpende(String dateinamenmusterspende)
+      throws RemoteException
+  {
+    setAttribute("dateinamenmusterspende", dateinamenmusterspende);
+  }
+
+  public double getSpendenbescheinigungminbetrag() throws RemoteException
+  {
+    return (Double) getAttribute("spendenbescheinigungminbetrag");
+  }
+
+  public void setSpendenbescheinigungminbetrag(double minbetrag)
+      throws RemoteException
+  {
+    setAttribute("spendenbescheinigungminbetrag", minbetrag);
+  }
+
+  public String getSpendenbescheinigungverzeichnis() throws RemoteException
+  {
+    return (String) getAttribute("spendenbescheinigungverzeichnis");
+  }
+
+  public void setSpendenbescheinigungverzeichnis(
+      String spendenbescheinigungverzeichnis) throws RemoteException
+  {
+    setAttribute("spendenbescheinigungverzeichnis",
+        spendenbescheinigungverzeichnis);
+  }
+
+  public boolean getSpendenbescheinigungPrintBuchungsart()
+      throws RemoteException
+  {
+    return Util
+        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+  }
+
+  public void setSpendenbescheinigungPrintBuchungsart(Boolean printbuchungsart)
+      throws RemoteException
+  {
+    setAttribute("spendenbescheinigungprintbuchungsart",
+        Boolean.valueOf(printbuchungsart));
   }
 
   public String getBeginnGeschaeftsjahr() throws RemoteException

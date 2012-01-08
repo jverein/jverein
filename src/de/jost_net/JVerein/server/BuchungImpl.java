@@ -329,12 +329,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException
   {
-    Integer i = (Integer) super.getAttribute("spendenbescheinigung");
-    if (i == null)
-      return null; // Keine Spendenbescheinigung zugeordnet
-
-    Cache cache = Cache.get(Spendenbescheinigung.class, true);
-    return (Spendenbescheinigung) cache.get(i);
+    return (Spendenbescheinigung) getAttribute("spendenbescheinigung");
   }
 
   public void setSpendenbescheinigungId(Integer spendenbescheinigung)

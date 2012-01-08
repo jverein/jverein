@@ -59,6 +59,8 @@ public class EinstellungenView extends AbstractView
     tabAllgemein.addHeadline("Allgemein");
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
         control.getName(true));
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Langer Name"),
+        control.getNameLang());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Straße"),
         control.getStrasse());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("PLZ"),
@@ -153,11 +155,24 @@ public class EinstellungenView extends AbstractView
     TabGroup tabDateinamen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Dateinamen"));
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
-        JVereinPlugin.getI18n().tr("Dateinamen"));
-    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Muster"),
+        JVereinPlugin.getI18n().tr("Dateinamenmuster"));
+    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Auswertung"),
         control.getDateinamenmuster());
-    groupDatei.addText("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit",
-        true);
+    groupDatei.addLabelPair(JVereinPlugin.getI18n()
+        .tr("Spendenbescheinigungen"), control.getDateinamenmusterSpende());
+
+    TabGroup tabSpendenbescheinigung = new TabGroup(folder, JVereinPlugin
+        .getI18n().tr("Spendenbescheinigungen"));
+    LabelGroup groupSpenden = new LabelGroup(
+        tabSpendenbescheinigung.getComposite(), JVereinPlugin.getI18n().tr(
+            "Spendenbescheinigungen"));
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Mindestbetrag"),
+        control.getSpendenbescheinigungminbetrag());
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Verzeichnis"),
+        control.getSpendenbescheinigungverzeichnis());
+    groupSpenden.addLabelPair(
+        JVereinPlugin.getI18n().tr("Buchungsart drucken"),
+        control.getSpendenbescheinigungPrintBuchungsart());
 
     TabGroup tabBuchfuehrung = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Buchführung"));

@@ -21,39 +21,27 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
-import java.awt.Color;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-
-import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Paragraph;
-
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungPrintAction;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
-import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.Dateiname;
@@ -293,7 +281,15 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       def = getSpendenbescheinigung().getFormular().getID();
     }
-    formular = new FormularInput(Formularart.SPENDENBESCHEINIGUNG, def);
+    if (getSpendenbescheinigung().getBuchungen() != null
+        && getSpendenbescheinigung().getBuchungen().size() > 1)
+    {
+      formular = new FormularInput(Formularart.SAMMELSPENDENBESCHEINIGUNG, def);
+    }
+    else
+    {
+      formular = new FormularInput(Formularart.SPENDENBESCHEINIGUNG, def);
+    }
     return formular;
   }
 
@@ -393,25 +389,80 @@ public class SpendenbescheinigungControl extends AbstractControl
     Button b = new Button("PDF (Standard)", new Action()
     {
 
+      /**
+       * Diese Action verwendet die "SpendenbescheinigungPrintAction" für die
+       * Aufbereitung des Dokumentes. Als Rahmen ist der Dialog zur Dateiauswahl
+       * und die Anzeige des Dokumentes um die Generierung gesetzt.
+       */
       public void handleAction(Object context) throws ApplicationException
       {
         try
         {
-          generiereSpendenbescheinigungStandard();
+          Spendenbescheinigung spb = getSpendenbescheinigung();
+          if (spb.isNewObject())
+          {
+            GUI.getStatusBar().setErrorText(
+                "Spendenbescheinigung bitte erst speichern!");
+            return;
+          }
+          FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+          fd.setText("Ausgabedatei wählen.");
+          String path = Einstellungen.getEinstellung()
+              .getSpendenbescheinigungverzeichnis();
+          if (path != null && path.length() > 0)
+          {
+            fd.setFilterPath(path);
+          }
+          if (spb.getMitglied() != null)
+          {
+            fd.setFileName(new Dateiname(spb.getMitglied(), spb
+                .getBescheinigungsdatum(), "Spendenbescheinigung",
+                Einstellungen.getEinstellung().getDateinamenmusterSpende(),
+                "pdf").get());
+          }
+          else
+          {
+            fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(), spb
+                .getBescheinigungsdatum(), "Spendenbescheinigung",
+                Einstellungen.getEinstellung().getDateinamenmusterSpende(),
+                "pdf").get());
+          }
+          fd.setFilterExtensions(new String[] { "*.pdf" });
+
+          String s = fd.open();
+          if (s == null || s.length() == 0)
+          {
+            return;
+          }
+          if (!s.endsWith(".pdf"))
+          {
+            s = s + ".pdf";
+          }
+          final File file = new File(s);
+          //
+          SpendenbescheinigungPrintAction spa = new SpendenbescheinigungPrintAction(
+              true, s);
+          spa.handleAction(spb);
+          GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");
+          GUI.getDisplay().asyncExec(new Runnable()
+          {
+
+            public void run()
+            {
+              try
+              {
+                new Program().handleAction(file);
+              }
+              catch (ApplicationException ae)
+              {
+                Application.getMessagingFactory().sendMessage(
+                    new StatusBarMessage(ae.getLocalizedMessage(),
+                        StatusBarMessage.TYPE_ERROR));
+              }
+            }
+          });
         }
         catch (RemoteException e)
-        {
-          Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler bei der Aufbereitung der Spendenbescheinigung");
-        }
-        catch (IOException e)
-        {
-          Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler bei der Aufbereitung der Spendenbescheinigung");
-        }
-        catch (DocumentException e)
         {
           Logger.error(e.getMessage());
           throw new ApplicationException(
@@ -450,379 +501,45 @@ public class SpendenbescheinigungControl extends AbstractControl
     return b;
   }
 
-  private void generiereSpendenbescheinigungStandard() throws IOException,
-      DocumentException
-  {
-    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
-    if (path != null && path.length() > 0)
-    {
-      fd.setFilterPath(path);
-    }
-    fd.setFileName(new Dateiname("spendenbescheinigung", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
-
-    String s = fd.open();
-    if (s == null || s.length() == 0)
-    {
-      return;
-    }
-    if (!s.endsWith(".PDF"))
-    {
-      s = s + ".PDF";
-    }
-    final File file = new File(s);
-    settings.setAttribute("lastdir", file.getParent());
-    FileOutputStream fos = new FileOutputStream(file);
-
-    /* Ermitteln der Buchungen zu einer Spendenbescheinigung */
-    DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-    it.addFilter("spendenbescheinigung = ?",
-        new Object[] { getSpendenbescheinigung().getID() });
-    it.setOrder("ORDER BY datum asc");
-
-    List<Buchung> buchungen = new ArrayList<Buchung>();
-    double summe = 0d;
-
-    while (it.hasNext())
-    {
-      Buchung bu = (Buchung) it.next();
-      buchungen.add(bu);
-
-      summe += bu.getBetrag();
-    }
-
-    boolean isSammelbestaetigung = buchungen.size() > 1;
-
-    Reporter rpt = new Reporter(fos, 80, 50, 50, 50);
-    rpt.addHeaderColumn(
-        "Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)",
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-
-    rpt.createHeader();
-    rpt.addColumn("\n" + Einstellungen.getEinstellung().getName() + ", "
-        + Einstellungen.getEinstellung().getStrasse() + ", "
-        + Einstellungen.getEinstellung().getPlz() + " "
-        + Einstellungen.getEinstellung().getOrt() + "\n ", Element.ALIGN_LEFT);
-    rpt.closeTable();
-
-    Spendenart spa = (Spendenart) getSpendenart().getValue();
-    switch (spa.getKey())
-    {
-      case Spendenart.GELDSPENDE:
-
-        String bestaetigungsart = "Bestätigung";
-        if (isSammelbestaetigung)
-        {
-          bestaetigungsart = "Sammelbestätigung";
-        }
-
-        rpt.add(
-            bestaetigungsart
-                + " über Geldzuwendungen"
-                + (Einstellungen.getEinstellung().getMitgliedsbetraege() ? "/Mitgliedsbeitrag"
-                    : ""), 13);
-        break;
-      case Spendenart.SACHSPENDE:
-        rpt.add("Bestätigung über Sachzuwendungen", 13);
-        break;
-    }
-    rpt.add(
-        "im Sinne des § 10b des Einkommenssteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftssteuergesetzes "
-            + "bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen\n",
-        10);
-
-    rpt.addHeaderColumn("Name und Anschrift des Zuwendenden",
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-    rpt.createHeader();
-    String zuwendender = (String) getZeile1(false).getValue() + "\n"
-        + (String) getZeile2().getValue() + "\n"
-        + (String) getZeile3().getValue() + "\n"
-        + (String) getZeile4().getValue() + "\n"
-        + (String) getZeile5().getValue() + "\n"
-        + (String) getZeile6().getValue() + "\n"
-        + (String) getZeile7().getValue() + "\n";
-    rpt.addColumn(zuwendender, Element.ALIGN_LEFT);
-    rpt.closeTable();
-
-    switch (spa.getKey())
-    {
-      case Spendenart.GELDSPENDE:
-        rpt.addHeaderColumn("Betrag der Zuwendung -in Ziffern-",
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-        break;
-      case Spendenart.SACHSPENDE:
-        rpt.addHeaderColumn("Wert der Zuwendung -in Ziffern-",
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-        break;
-    }
-    rpt.addHeaderColumn("-in Buchstaben-", Element.ALIGN_CENTER, 250,
-        Color.LIGHT_GRAY);
-    rpt.addHeaderColumn("Tag der Zuwendung", Element.ALIGN_CENTER, 50,
-        Color.LIGHT_GRAY);
-    rpt.createHeader();
-    Double dWert = (Double) getBetrag().getValue();
-    String sWert = "*" + Einstellungen.DECIMALFORMAT.format(dWert) + "*";
-    rpt.addColumn(sWert, Element.ALIGN_CENTER);
-    try
-    {
-      String betraginworten = GermanNumber.toString(dWert.longValue());
-      betraginworten = "*" + betraginworten + "*";
-      rpt.addColumn(betraginworten, Element.ALIGN_CENTER);
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
-      throw new RemoteException(
-          "Fehler bei der Aufbereitung des Betrages in Worten");
-    }
-
-    String spendedatum = new JVDateFormatTTMMJJJJ()
-        .format((Date) getSpendedatum().getValue());
-
-    if (isSammelbestaetigung)
-    {
-      spendedatum = "(s. Anlage)";
-    }
-
-    rpt.addColumn(spendedatum, Element.ALIGN_CENTER);
-    rpt.closeTable();
-
-    switch (spa.getKey())
-    {
-      case Spendenart.SACHSPENDE:
-        rpt.addHeaderColumn(
-            "Genaue Bezeichnung der Sachzuwendung mit Alter, Zustand, Kaufpreis usw.",
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-        rpt.createHeader();
-        rpt.addColumn((String) getBezeichnungSachzuwendung().getValue(),
-            Element.ALIGN_LEFT);
-        rpt.closeTable();
-        HerkunftSpende hsp = (HerkunftSpende) getHerkunftSpende().getValue();
-        switch (hsp.getKey())
-        {
-          case HerkunftSpende.BETRIEBSVERMOEGEN:
-            rpt.add(
-                "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Betriebsvermögen und ist "
-                    + "mit dem Entnahmewert (ggf. mit dem niedrigeren gemeinen Wert) bewertet.\n\n",
-                9);
-            break;
-          case HerkunftSpende.PRIVATVERMOEGEN:
-            rpt.add(
-                "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Privatvermögen.\n\n",
-                9);
-            break;
-          case HerkunftSpende.KEINEANGABEN:
-            rpt.add(
-                "Der Zuwendende hat trotz Aufforderung keine Angaben zur Herkunft der Sachzuwendung gemacht.\n\n",
-                9);
-            break;
-        }
-        if ((Boolean) getUnterlagenWertermittlung().getValue())
-        {
-          rpt.add(
-              "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor.\n\n",
-              9);
-        }
-    }
-
-    /*
-     * Bei Sammelbestätigungen ist der Verweis auf Verzicht in der Anlage
-     * vermerkt
-     */
-    String verzicht = "nein";
-    boolean andruckVerzicht = false;
-
-    if (getSpendenbescheinigung().getAutocreate())
-    {
-      if (!isSammelbestaetigung)
-      {
-        if (buchungen.get(0).getVerzicht().booleanValue())
-        {
-          verzicht = "ja";
-        }
-        andruckVerzicht = true;
-      }
-    }
-    else
-    {
-      if ((Boolean) getErsatzAufwendungen().getValue())
-      {
-        verzicht = "ja";
-      }
-      andruckVerzicht = true;
-    }
-
-    if (andruckVerzicht)
-    {
-      rpt.add("Es handelt sich um den Verzicht von Aufwendungen: " + verzicht
-          + "\n\n", 9);
-    }
-
-    if (!Einstellungen.getEinstellung().getVorlaeufig())
-    {
-      String txt = "Wir sind wegen Förderung "
-          + Einstellungen.getEinstellung().getBeguenstigterzweck()
-          + " nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
-          + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
-          + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
-      rpt.add(txt, 9);
-    }
-    else
-    {
-      String txt = "Wir sind wegen Förderung "
-          + Einstellungen.getEinstellung().getBeguenstigterzweck()
-          + " durch vorläufige Bescheinigung des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
-          + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
-          + " ab "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getVorlaeufigab())
-          + " als steuerbegünstigten Zwecken dienend anerkannt.";
-      rpt.add(txt, 9);
-    }
-    rpt.add("\n\nEs wird bestätigt, dass die Zuwendung nur zur Förderung "
-        + Einstellungen.getEinstellung().getBeguenstigterzweck()
-        + " verwendet wird.\n", 9);
-    if (!Einstellungen.getEinstellung().getMitgliedsbetraege()
-        && spa.getKey() == Spendenart.GELDSPENDE)
-    {
-      rpt.add(
-          "Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag i.S.v § 10b Abs. 1 Satz 2 Einkommensteuergesetzes handelt.",
-          9);
-    }
-
-    if (isSammelbestaetigung)
-    {
-      rpt.add(new Paragraph(" "));
-      rpt.add(
-          "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.",
-          9);
-    }
-
-    rpt.add(
-        "\n\n"
-            + Einstellungen.getEinstellung().getOrt()
-            + ", "
-            + new JVDateFormatTTMMJJJJ().format((Date) getBescheinigungsdatum()
-                .getValue()), 9);
-
-    rpt.add(
-        "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
-        9);
-
-    rpt.add("\n\nHinweis:", 9);
-    rpt.add(
-        "\nWer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder wer veranlasst, dass "
-            + "Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet "
-            + "werden, haftet für die Steuer, die dem Fiskus durch einen etwaigen Abzug der Zuwendungen beim Zuwendenden "
-            + "entgeht (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG).\n\n"
-            + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das "
-            + "Datum des Freistellungsbescheides länger als 5 Jahre bzw. das Datum der vorläufigen Bescheinigung länger als 3 Jahre "
-            + "seit Ausstellung der Bestätigung zurückliegt (BMF vom 15.12.1994 - BStBl I S. 884).",
-        8);
-
-    /* Es sind mehrere Spenden für diese Spendenbescheinigung vorhanden */
-    if (isSammelbestaetigung)
-    {
-
-      rpt.newPage();
-      String datumBestaetigung = new JVDateFormatTTMMJJJJ()
-          .format(getSpendenbescheinigung().getBescheinigungsdatum());
-      rpt.add("Anlage zur Sammelbestätigung vom " + datumBestaetigung, 13);
-
-      String datumVon = new JVDateFormatTTMMJJJJ().format(buchungen.get(0)
-          .getDatum());
-      String datumBis = new JVDateFormatTTMMJJJJ().format(buchungen.get(
-          buchungen.size() - 1).getDatum());
-      rpt.add("für den Zeitraum vom " + datumVon + " bis " + datumBis, 13);
-
-      rpt.add(new Paragraph(""));
-      rpt.add(new Paragraph(""));
-
-      rpt.addHeaderColumn("Zuwendungsart", Element.ALIGN_LEFT, 400,
-          Color.LIGHT_GRAY);
-      rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
-      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
-      rpt.addHeaderColumn("Verzicht auf Erstattung von Aufwendungen",
-          Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
-      rpt.createHeader();
-
-      for (Buchung buchung : buchungen)
-      {
-        rpt.addColumn(buchung.getZweck(), Element.ALIGN_LEFT);
-        rpt.addColumn(Double.valueOf(buchung.getBetrag()));
-        rpt.addColumn(buchung.getDatum(), Element.ALIGN_RIGHT);
-        rpt.addColumn(buchung.getVerzicht().booleanValue());
-      }
-
-      /* Summenzeile */
-      DecimalFormat f = new DecimalFormat("###,###.00");
-      String sumString = f.format(summe);
-      rpt.addColumn("Summe", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
-      rpt.addColumn(sumString, Element.ALIGN_RIGHT, Color.LIGHT_GRAY);
-      rpt.addColumn("", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
-      rpt.addColumn("", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
-
-      rpt.closeTable();
-    }
-
-    rpt.close();
-    fos.close();
-    GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");
-    GUI.getDisplay().asyncExec(new Runnable()
-    {
-
-      public void run()
-      {
-        try
-        {
-          new Program().handleAction(file);
-        }
-        catch (ApplicationException ae)
-        {
-          Application.getMessagingFactory().sendMessage(
-              new StatusBarMessage(ae.getLocalizedMessage(),
-                  StatusBarMessage.TYPE_ERROR));
-        }
-      }
-    });
-  }
-
   private void generiereSpendenbescheinigungIndividuell() throws IOException
   {
+    Spendenbescheinigung spb = getSpendenbescheinigung();
+    if (spb.isNewObject())
+    {
+      GUI.getStatusBar().setErrorText(
+          "Spendenbescheinigung bitte erst speichern!");
+      return;
+    }
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = Einstellungen.getEinstellung()
+        .getSpendenbescheinigungverzeichnis();
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("spendenbescheinigung", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    if (spb.getMitglied() != null)
+    {
+      fd.setFileName(new Dateiname(spb.getMitglied(), spb
+          .getBescheinigungsdatum(), "Spendenbescheinigung", Einstellungen
+          .getEinstellung().getDateinamenmusterSpende(), "pdf").get());
+    }
+    else
+    {
+      fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(), spb
+          .getBescheinigungsdatum(), "Spendenbescheinigung", Einstellungen
+          .getEinstellung().getDateinamenmusterSpende(), "pdf").get());
+    }
+    fd.setFilterExtensions(new String[] { "*.pdf" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
     {
       return;
     }
-    if (!s.endsWith(".PDF"))
+    if (!s.endsWith(".pdf"))
     {
-      s = s + ".PDF";
+      s = s + ".pdf";
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
@@ -872,6 +589,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     spbList.setContextMenu(new SpendenbescheinigungMenu());
     spbList.setRememberOrder(true);
     spbList.setSummary(false);
+    spbList.setMulti(true);
     return spbList;
   }
 

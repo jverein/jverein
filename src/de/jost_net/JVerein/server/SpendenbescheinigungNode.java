@@ -59,12 +59,27 @@ public class SpendenbescheinigungNode implements GenericObjectNode
 
   private int nodetype = NONE;
 
+  /**
+   * Selektiert über die Buchungen mit einer Buchungsart, die als Spende
+   * markiert ist, alle Mitglieder, die eine Buchung im Mitgliedskonto
+   * eingetragen haben. Die Buchungen dürfen noch nicht auf einer
+   * Spendenbescheinigung eingetragen sein. Es werden nur die Mitglieder
+   * selektiert, bei denen auch eine Adresse (Straße, PLZ, Ort) eingetragen ist.
+   * Zusätzlich muss die Summe der Buchungen größer gleich dem in den
+   * Einstellungen hinterlegten Mindestbetrag für Spendenbescheinigungen sein.
+   * 
+   * @param jahr
+   *          Das Jahr der Buchung
+   * @throws RemoteException
+   */
   public SpendenbescheinigungNode(final int jahr) throws RemoteException
   {
     childrens = new ArrayList<GenericObjectNode>();
     nodetype = ROOT;
+    double minBetrag = Einstellungen.getEinstellung()
+        .getSpendenbescheinigungminbetrag();
 
-    ResultSetExtractor rs = new ResultSetExtractor()
+    ResultSetExtractor rse = new ResultSetExtractor()
     {
       public Object extract(ResultSet rs) throws SQLException
       {
@@ -76,24 +91,57 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         return ids;
       }
     };
-    String sql = "select mitglied.id from buchung "
-        + "    JOIN buchungsart on buchung.buchungsart = buchungsart.id "
-        + "    join mitgliedskonto on buchung.mitgliedskonto = mitgliedskonto.id "
-        + "    join mitglied on mitgliedskonto.mitglied = mitglied.id "
-        + "  where year(buchung.datum) = ? and buchungsart.spende = true and buchung.spendenbescheinigung is null and buchung.mitgliedskonto is not null "
-        + "  group by mitglied.name, mitglied.vorname, mitglied.id "
-        + "  order by mitglied.name, mitglied.vorname, mitglied.id ";
+    String sql = "SELECT mitglied.id, sum(buchung.betrag) "
+        + "FROM buchung "
+        + "  JOIN buchungsart ON buchung.buchungsart = buchungsart.id "
+        + "  JOIN mitgliedskonto ON buchung.mitgliedskonto = mitgliedskonto.id "
+        + "  JOIN mitglied ON mitgliedskonto.mitglied = mitglied.id "
+        + "WHERE year(buchung.datum) = ? "
+        + "  AND buchungsart.spende = true "
+        + "  AND buchung.spendenbescheinigung IS NULL "
+        + "  AND buchung.mitgliedskonto IS NOT NULL "
+        // rdc: Nur Mitglieder mit bekannter Adresse
+        + "  AND (mitglied.strasse IS NOT NULL OR LENGTH(mitglied.strasse) > 0) "
+        + "  AND (mitglied.plz IS NOT NULL OR LENGTH(mitglied.plz) > 0) "
+        + "  AND (mitglied.ort IS NOT NULL OR LENGTH(mitglied.ort) > 0) "
+        + "GROUP BY mitglied.name, mitglied.vorname, mitglied.id "
+        // rdc: Nur Spendenbescheinigungen, deren Betrag >= Mindestbetrag
+        + "HAVING sum(buchung.betrag) >= ? "
+        + "ORDER BY mitglied.name, mitglied.vorname, mitglied.id";
     ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-        .getDBService().execute(sql, new Object[] { jahr }, rs);
+        .getDBService().execute(sql, new Object[] { jahr, minBetrag }, rse);
 
     for (String id : idliste)
     {
       Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, id);
+      // rdc: hier nochmal prüfen, ob auch wirklich eine gültige Adresse
+      // vorliegt.
+      // rdc: Es kommen manchmal Datensätze ohne Straße/Ort ...
+      if ((m.getStrasse() == null)
+          || (m.getStrasse() != null && m.getStrasse().length() == 0))
+        continue;
+      if ((m.getPlz() == null)
+          || (m.getPlz() != null && m.getPlz().length() == 0))
+        continue;
+      if ((m.getOrt() == null)
+          || (m.getOrt() != null && m.getOrt().length() == 0))
+        continue;
       childrens.add(new SpendenbescheinigungNode(m, jahr));
     }
   }
 
+  /**
+   * Selektiert zu einem Mitglied die Buchungen mit einer Buchungsart, die als
+   * Spende markiert sind. Die Buchungen dürfen noch nicht auf einer
+   * Spendenbescheinigung eingetragen sein.
+   * 
+   * @param mitglied
+   *          Das Mitglied des Kontos, zu dem die Buchungen selektiert werden
+   * @param jahr
+   *          Das Jahr der Buchung
+   * @throws RemoteException
+   */
   private SpendenbescheinigungNode(Mitglied mitglied, final int jahr)
       throws RemoteException
   {
@@ -114,11 +162,14 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         return ids;
       }
     };
-    String sql = "select buchung.id, buchung.datum from buchung "
-        + "    JOIN buchungsart on buchung.buchungsart = buchungsart.id "
-        + "    join mitgliedskonto on buchung.mitgliedskonto = mitgliedskonto.id "
-        + "  where year(buchung.datum) = ? and buchungsart.spende = true and mitgliedskonto.mitglied = ? and buchung.spendenbescheinigung is null and buchung.mitgliedskonto is not null "
-        + "  order by buchung.datum";
+    String sql = "SELECT buchung.id, buchung.datum FROM buchung "
+        + "  JOIN buchungsart ON buchung.buchungsart = buchungsart.id "
+        + "  JOIN mitgliedskonto ON buchung.mitgliedskonto = mitgliedskonto.id "
+        + "WHERE year(buchung.datum) = ? " + "  AND buchungsart.spende = true "
+        + "  AND mitgliedskonto.mitglied = ? "
+        + "  AND buchung.spendenbescheinigung IS NULL "
+        + "  AND buchung.mitgliedskonto IS NOT NULL "
+        + "ORDER BY buchung.datum";
     ArrayList<String> idliste = (ArrayList<String>) Einstellungen
         .getDBService().execute(sql, new Object[] { jahr, mitglied.getID() },
             rs);
@@ -191,7 +242,18 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       }
       case MITGLIED:
       {
-        return mitglied.getNameVorname();
+        GenericIterator it1 = getChildren();
+        double betrag = 0.0;
+        while (it1.hasNext())
+        {
+          SpendenbescheinigungNode sp1 = (SpendenbescheinigungNode) it1.next();
+          if (sp1.getNodeType() == BUCHUNG)
+          {
+            betrag += sp1.getBuchung().getBetrag();
+          }
+        }
+        return mitglied.getNameVorname() + " ("
+            + Einstellungen.DECIMALFORMAT.format(betrag) + ")";
       }
       case BUCHUNG:
       {
@@ -277,8 +339,8 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       }
       if (this.nodetype == BUCHUNG)
       {
-        return "----> BUCHUNG" + buchung.getDatum() + ";" + buchung.getZweck()
-            + ";" + buchung.getBetrag();
+        return "----> BUCHUNG: " + buchung.getDatum() + ";"
+            + buchung.getZweck() + ";" + buchung.getBetrag();
       }
     }
     catch (RemoteException e)
