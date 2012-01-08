@@ -69,6 +69,7 @@ public class FamilienbeitragNode implements GenericObjectNode
       DBIterator it2 = Einstellungen.getDBService().createList(Mitglied.class);
       it2.addFilter("beitragsgruppe = ?", new Object[] { bg.getID() });
       it2.addFilter("austritt is null");
+      it2.setOrder("ORDER BY name, vorname");
       while (it2.hasNext())
       {
         Mitglied m = (Mitglied) it2.next();
