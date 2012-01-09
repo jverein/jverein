@@ -72,6 +72,7 @@
           <li>Mitglieder-Suche: Bugfix Speicherung der Suchkriterien. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=838">Forum</a></li>
           <li>Überarbeitung der Spendenbescheinigungen. Siehe auch <a href="spendenbescheinigung.php#v21">Dokumentation</a>. Patch von Rolf.</li>
           <li>Bugfix Sortierung der Familienbeiträge. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=839">Forum</a></li>
+          <li>##Bugfix Dateinamen für Spendenbescheinigungen</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
