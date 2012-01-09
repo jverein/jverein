@@ -90,6 +90,8 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
         saldoList.addColumn(JVereinPlugin.getI18n().tr("Umbuchungen"),
             "umbuchungen", new CurrencyFormatter("",
                 Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn(JVereinPlugin.getI18n().tr("Anzahl"),
+            "anzahlbuchungen");
         saldoList.setRememberColWidths(true);
         saldoList.setSummary(false);
       }
