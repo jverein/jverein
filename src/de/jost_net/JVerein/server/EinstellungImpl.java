@@ -600,7 +600,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String muster = (String) getAttribute("dateinamenmusterspende");
     if (muster == null)
     {
-      muster = "a$-d$-n$-v$";
+      muster = "o$-d$-n$-v$";
     }
     return muster;
   }
