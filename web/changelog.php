@@ -74,6 +74,9 @@
           <li>Bugfix Sortierung der Familienbeiträge. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=839">Forum</a></li>
           <li>##Bugfix Dateinamen für Spendenbescheinigungen</li>
           <li>Buchungklassen: Bugfix "Anzahl Buchungen ohne Buchungsart". Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=849">Forum</a></li>
+           <hr>
+          <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
+          <li>Buchungsliste: Bugfix fehlende Einzelbuchungen bei Auswahl "Ohne Buchungsart". Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=819">Forum</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
