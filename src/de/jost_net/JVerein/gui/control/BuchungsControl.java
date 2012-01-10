@@ -424,23 +424,24 @@ public class BuchungsControl extends AbstractControl
         .createList(Buchungsart.class);
     list.setOrder("ORDER BY nummer");
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
-    Buchungsart b = (Buchungsart) Einstellungen.getDBService().createObject(
+    Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
-    b.setNummer(-2);
-    b.setBezeichnung("---");
-    b.setNummer(-2);
-    liste.add(b);
-    b = (Buchungsart) Einstellungen.getDBService().createObject(
+    b1.setNummer(-2);
+    b1.setBezeichnung("-ohne-");
+    b1.setArt(-2);
+    liste.add(b1);
+    Buchungsart b2 = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
-    b.setNummer(-1);
-    b.setBezeichnung("Ohne Buchungsart");
-    b.setNummer(-1);
-    liste.add(b);
+    b2.setNummer(-1);
+    b2.setBezeichnung("Ohne Buchungsart");
+    b2.setArt(-1);
+    liste.add(b2);
     while (list.hasNext())
     {
       liste.add((Buchungsart) list.next());
     }
     int bwert = settings.getInt(BUCHUNGSART, -2);
+    Buchungsart b = null;
     for (int i = 0; i < liste.size(); i++)
     {
       if (liste.get(i).getNummer() == bwert)
@@ -552,7 +553,7 @@ public class BuchungsControl extends AbstractControl
     }, null, true, "pdf.png"); // "true" defines this button as the default
     return b;
   }
-  
+
   public void handleStore()
   {
     try
@@ -793,7 +794,7 @@ public class BuchungsControl extends AbstractControl
     {
       for (Buchung b : splitbuchungen)
       {
-          splitbuchungsList.addItem(b);
+        splitbuchungsList.addItem(b);
       }
     }
     catch (RemoteException e)
