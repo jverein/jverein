@@ -169,7 +169,15 @@ public class BuchungsartControl extends AbstractControl
     try
     {
       Buchungsart b = getBuchungsart();
-      b.setNummer(((Integer) getNummer(false).getValue()).intValue());
+      try
+      {
+        b.setNummer(((Integer) getNummer(false).getValue()).intValue());
+      }
+      catch (NullPointerException e)
+      {
+        GUI.getStatusBar().setErrorText("Nummer fehlt");
+        return;
+      }
       b.setBezeichnung((String) getBezeichnung().getValue());
       ArtBuchungsart ba = (ArtBuchungsart) getArt().getValue();
       b.setArt(ba.getKey());
