@@ -77,6 +77,7 @@
            <hr>
           <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
           <li>Buchungsliste: Bugfix fehlende Einzelbuchungen bei Auswahl "Ohne Buchungsart". Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=819">Forum</a></li>
+          <li>Bugfix "leere Nummer" bei Speicherung von Buchungsarten. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=845">Forum</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
