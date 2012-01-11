@@ -427,7 +427,7 @@ public class BuchungsControl extends AbstractControl
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
     b1.setNummer(-2);
-    b1.setBezeichnung("-ohne-");
+    b1.setBezeichnung("Alle Buchungsarten");
     b1.setArt(-2);
     liste.add(b1);
     Buchungsart b2 = (Buchungsart) Einstellungen.getDBService().createObject(
