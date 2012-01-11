@@ -401,7 +401,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   /**
    * Fügt der Liste der Buchungen eine Buchung hinzu. Der Gesamtbetrag der
    * Spendenbescheinigung wird anhand der Einzelbeträge der Buchungen berechnet.
-   * Die Spendenart wird auf "GELDSPENDE" gesetzt.
+   * Die Spendenart wird auf "GELDSPENDE" gesetzt. Das Spendendatum wird auf das
+   * kleinste Datum der Buchungen gesetzt.
    * 
    * @param buchung
    *          Die Buchung zum Hinzufügen
@@ -421,7 +422,12 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         betrag += b.getBetrag();
       }
       setBetrag(betrag);
-      if (buchung.getDatum().before(getSpendedatum()))
+      if (getSpendedatum() != null
+          && buchung.getDatum().before(getSpendedatum()))
+      {
+        setSpendedatum(buchung.getDatum());
+      }
+      else if (getSpendedatum() == null)
       {
         setSpendedatum(buchung.getDatum());
       }

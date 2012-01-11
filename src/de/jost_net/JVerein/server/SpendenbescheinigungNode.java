@@ -259,9 +259,11 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       {
         return new JVDateFormatTTMMJJJJ().format(buchung.getDatum())
             + ", "
-            + buchung.getZweck()
+            + (buchung.getZweck() != null && buchung.getZweck().length() > 0 ? buchung
+                .getZweck() : "")
             + ", "
-            + (buchung.getZweck2().length() > 0 ? buchung.getZweck2() + ", "
+            + (buchung.getZweck2() != null && buchung.getZweck2().length() > 0 ? buchung
+                .getZweck2() + ", "
                 : "") + Einstellungen.DECIMALFORMAT.format(buchung.getBetrag());
       }
     }
