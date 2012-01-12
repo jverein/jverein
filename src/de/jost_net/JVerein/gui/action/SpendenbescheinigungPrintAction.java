@@ -428,7 +428,8 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (!Einstellungen.getEinstellung().getVorlaeufig())
     {
-      String txt = "Wir sind wegen Förderung "
+      // rdc: "Förderung" entfernt, da /in "Beguenstigterzweck" enthalten
+      String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamtes "
           + Einstellungen.getEinstellung().getFinanzamt()
@@ -442,7 +443,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-      // rdc: "Förderung" entfernt, da in "Beguenstigterzweck" enthalten
+      // rdc: "Förderung" entfernt, da /in "Beguenstigterzweck" enthalten
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " durch vorläufige Bescheinigung des Finanzamtes "
