@@ -5,7 +5,7 @@
     <a href='#programmordner'>Wo liegt der JVerein-Programmordner?</a><br>
     <a href='#datenordner'>Wo liegt der JVerein-Datenordner standardmäßig?</a><br>
     <a href='#datenordnerverschieben'>Wie kann ich den Datenordner an einen Nichtstandardplatz legen?</a><br>
-    <a href='#internet'>Kann JVerein über ein Netzwerk betrieben werden?</a><br>
+    <a href='#internet'>Kann JVerein über ein Netzwerk/Internet betrieben werden?</a><br>
     <a href='#bankverbindung'>Warum kann ich eine Bankverbindung nicht speichern/importieren?</a><br>
     <br>
     <a name="neuerlaptop"></a>
@@ -45,12 +45,12 @@
           Beim Aufruf von Jameica wird der Schalter <code>-f pfad</code> angegeben.</p>
           <p>Beispiel: jameica.bat -f c:/meinejameicadaten</p>
           <p>siehe auch <a href='http://jameica.berlios.de/doku.php?id=support:install#optionale_startparameter'>Jameica-Doku</a>.
-    <a name='internet'></a>
           <p>Unter Windows kann mit einem rechten Mausklick auf das Jameica-Icon &gt; Eigenschaften folgendes Bild geöffnet
              werden:</p>
           <img src='../images/jameicasuiteeigenschaften.png' class='screenshot'>
           <p>Im Feld Ziel wird der Schalter -f VERZEICHNIS wie angegeben verändert.</p>
-    <p>Q: Kann JVerein übers Netzwerk betrieben werden?<br>
+    <a name='internet'></a>
+    <p>Q: Kann JVerein übers Netzwerk/Internet betrieben werden?<br>
        A: JVerein kann seine Daten in einer MySQL-Datenbank speichern. Siehe auch 
           <a href='http://www.jverein.de/dokumentationmysql.php'>MySQL-Support</a>.
           Beim Betrieb über das Internet ist darauf zu achten, dass die Daten 
