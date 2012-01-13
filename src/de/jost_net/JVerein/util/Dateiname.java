@@ -74,18 +74,6 @@ public class Dateiname
    * Konstruktor
    * 
    * @param aufgabe
-   * @param muster
-   * @param extension
-   */
-  public Dateiname(String aufgabe, String muster, String extension)
-  {
-    this(aufgabe, "", muster, extension);
-  }
-
-  /**
-   * Konstruktor
-   * 
-   * @param aufgabe
    * @param sortierung
    * @param muster
    * @param extension
@@ -109,14 +97,14 @@ public class Dateiname
    *          Das Mitglied
    * @param datum
    *          Datum des Dokuments
-   * @param dokument
-   *          Typ oder Name des Dokumentes (z.B. Spendenbescheinigung)
+   * @param aufgabe
+   *          Aufgabe (z.B. Spendenbescheinigung)
    * @param muster
    *          Dateinamenmuster
    * @param extension
    *          Extension der Datei
    */
-  public Dateiname(Mitglied mitglied, Date datum, String dokument,
+  public Dateiname(Mitglied mitglied, Date datum, String aufgabe,
       String muster, String extension)
   {
     this.mitgliedName = "";
@@ -136,7 +124,7 @@ public class Dateiname
     {
       this.datum = datum;
     }
-    this.dokument = dokument;
+    this.aufgabe = aufgabe;
     this.muster = muster;
     this.extension = extension;
     this.aufgabe = "";
@@ -152,14 +140,14 @@ public class Dateiname
    *          Vorname des Mitglieds
    * @param datum
    *          Datum des Dokuments
-   * @param dokument
-   *          Typ oder Name des Dokumentes (z.B. Spendenbescheinigung)
+   * @param aufgabe
+   *          Aufgabe (z.B. Spendenbescheinigung)
    * @param muster
    *          Dateinamenmuster
    * @param extension
    *          Extension der Datei
    */
-  public Dateiname(String name, String vorname, Date datum, String dokument,
+  public Dateiname(String name, String vorname, Date datum, String aufgabe,
       String muster, String extension)
   {
     this.mitgliedName = name;
@@ -168,7 +156,7 @@ public class Dateiname
     {
       this.datum = datum;
     }
-    this.dokument = dokument;
+    this.aufgabe = aufgabe;
     this.muster = muster;
     this.extension = extension;
     this.aufgabe = "";
@@ -189,8 +177,9 @@ public class Dateiname
       ret = ret.replace("d$", new SimpleDateFormat("yyyyMMdd").format(datum));
       ret = ret.replace("z$", new SimpleDateFormat("HHmmss").format(datum));
       ret = ret.replace("s$", sortierung);
-      // n$ = Name, v$ = Vorname, o$ = Dokument, d$ = Datum
-      ret = ret.replace("o$", dokument);
+      // n$ = Name, v$ = Vorname, d$ = Datum
+      ret = ret.replace("a$", aufgabe); // wird für den Umstieg von 2.0 -> 2.1
+                                        // zur Kompatibilität benötigt.
       ret = ret.replace("n$", mitgliedName);
       ret = ret.replace("v$", mitgliedVorname);
       return ret + "." + extension;

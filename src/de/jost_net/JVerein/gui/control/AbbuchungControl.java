@@ -308,8 +308,8 @@ public class AbbuchungControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchung", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "TXT").get());
+      fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "TXT").get());
       String file = fd.open();
 
       if (file == null || file.length() == 0)
@@ -345,8 +345,8 @@ public class AbbuchungControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchung", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
       pdffile = fd.open();
     }
 

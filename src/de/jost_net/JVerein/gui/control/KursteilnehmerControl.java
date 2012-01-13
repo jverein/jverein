@@ -611,7 +611,7 @@ public class KursteilnehmerControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("kursteilnehmer", Einstellungen
+      fd.setFileName(new Dateiname("kursteilnehmer", "", Einstellungen
           .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();

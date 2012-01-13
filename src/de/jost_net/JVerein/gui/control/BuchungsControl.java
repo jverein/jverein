@@ -840,8 +840,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungen", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungen", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -878,8 +878,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungen", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "CSV").get());
+      fd.setFileName(new Dateiname("buchungen", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "CSV").get());
 
       final String s = fd.open();
 
@@ -987,7 +987,7 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungsjournal", Einstellungen
+      fd.setFileName(new Dateiname("buchungsjournal", "", Einstellungen
           .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();

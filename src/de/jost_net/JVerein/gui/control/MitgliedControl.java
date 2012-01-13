@@ -2690,8 +2690,8 @@ public class MitgliedControl extends AbstractControl
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("statistik", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname("statistik", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
 
     String s = fd.open();
 
@@ -2741,7 +2741,7 @@ public class MitgliedControl extends AbstractControl
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname((String) getJubelArt().getValue(),
+    fd.setFileName(new Dateiname((String) getJubelArt().getValue(), "",
         Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     String s = fd.open();
 

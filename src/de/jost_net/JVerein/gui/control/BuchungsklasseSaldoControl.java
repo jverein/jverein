@@ -188,7 +188,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungsklassensaldo", Einstellungen
+      fd.setFileName(new Dateiname("buchungsklassensaldo", "", Einstellungen
           .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
