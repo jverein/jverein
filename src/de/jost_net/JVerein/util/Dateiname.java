@@ -178,7 +178,7 @@ public class Dateiname
       ret = ret.replace("z$", new SimpleDateFormat("HHmmss").format(datum));
       ret = ret.replace("s$", sortierung);
       // n$ = Name, v$ = Vorname, d$ = Datum
-      ret = ret.replace("a$", aufgabe); // wird für den Umstieg von 2.0 -> 2.1
+      ret = ret.replace("o$", aufgabe); // wird für den Umstieg von 2.0 -> 2.1
                                         // zur Kompatibilität benötigt.
       ret = ret.replace("n$", mitgliedName);
       ret = ret.replace("v$", mitgliedVorname);
