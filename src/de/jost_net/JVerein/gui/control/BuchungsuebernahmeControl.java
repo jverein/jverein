@@ -34,6 +34,7 @@ import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -185,6 +186,33 @@ public class BuchungsuebernahmeControl extends AbstractControl
     {
       DBService hibservice = (DBService) Application.getServiceFactory()
           .lookup(HBCI.class, "database");
+      try
+      {
+        @SuppressWarnings("unused")
+        // Hier wird getestet, ob das Hibiscus-Konto existiert. Die Variable
+        // wird nicht benötigt. Falls das Konto nicht existiert, wird eine
+        // Exception geworfen.
+        de.willuhn.jameica.hbci.rmi.Konto hkto = (de.willuhn.jameica.hbci.rmi.Konto) hibservice
+            .createObject(de.willuhn.jameica.hbci.rmi.Konto.class, hibid + "");
+      }
+      catch (ObjectNotFoundException e)
+      {
+        DBIterator hibkonten = hibservice
+            .createList(de.willuhn.jameica.hbci.rmi.Konto.class);
+        hibkonten.addFilter("kontonummer = ?", k.getNummer());
+        if (hibkonten.size() == 1)
+        {
+          de.willuhn.jameica.hbci.rmi.Konto k2 = (de.willuhn.jameica.hbci.rmi.Konto) hibkonten
+              .next();
+          k.setHibiscusId(Integer.parseInt(k2.getID()));
+          k.store();
+        }
+        else
+        {
+          GUI.getStatusBar().setErrorText(
+              "Konto " + k.getNummer() + " ist nicht ordnungsgemäß verknüpft!");
+        }
+      }
       DBIterator hibbuchungen = hibservice.createList(Umsatz.class);
       if (maximum.intValue() > 0)
       {
@@ -224,5 +252,4 @@ public class BuchungsuebernahmeControl extends AbstractControl
     }
     return buchungsList;
   }
-
 }
