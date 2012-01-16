@@ -54,13 +54,12 @@ import de.jost_net.JVerein.rmi.Mitglied;
 
 public class Dateiname
 {
+
   private Date datum = new Date();
 
   private String mitgliedName;
 
   private String mitgliedVorname;
-
-  private String dokument;
 
   private String aufgabe;
 
@@ -87,22 +86,21 @@ public class Dateiname
     this.sortierung = sortierung;
     this.mitgliedName = "";
     this.mitgliedVorname = "";
-    this.dokument = "";
   }
 
   /**
    * Konstruktor für die Erzeugung eines Dateinames für ein Mitgliedsdokument
    * 
    * @param mitglied
-   *          Das Mitglied
+   *        Das Mitglied
    * @param datum
-   *          Datum des Dokuments
+   *        Datum des Dokuments
    * @param aufgabe
-   *          Aufgabe (z.B. Spendenbescheinigung)
+   *        Aufgabe (z.B. Spendenbescheinigung)
    * @param muster
-   *          Dateinamenmuster
+   *        Dateinamenmuster
    * @param extension
-   *          Extension der Datei
+   *        Extension der Datei
    */
   public Dateiname(Mitglied mitglied, Date datum, String aufgabe,
       String muster, String extension)
@@ -118,6 +116,7 @@ public class Dateiname
       }
       catch (RemoteException re)
       {
+        //
       }
     }
     if (datum != null)
@@ -127,7 +126,6 @@ public class Dateiname
     this.aufgabe = aufgabe;
     this.muster = muster;
     this.extension = extension;
-    this.aufgabe = "";
     this.sortierung = "";
   }
 
@@ -135,17 +133,17 @@ public class Dateiname
    * Konstruktor für die Erzeugung eines Dateinames für ein Mitglied
    * 
    * @param name
-   *          Name des Mitglieds
+   *        Name des Mitglieds
    * @param vorname
-   *          Vorname des Mitglieds
+   *        Vorname des Mitglieds
    * @param datum
-   *          Datum des Dokuments
+   *        Datum des Dokuments
    * @param aufgabe
-   *          Aufgabe (z.B. Spendenbescheinigung)
+   *        Aufgabe (z.B. Spendenbescheinigung)
    * @param muster
-   *          Dateinamenmuster
+   *        Dateinamenmuster
    * @param extension
-   *          Extension der Datei
+   *        Extension der Datei
    */
   public Dateiname(String name, String vorname, Date datum, String aufgabe,
       String muster, String extension)
@@ -159,7 +157,6 @@ public class Dateiname
     this.aufgabe = aufgabe;
     this.muster = muster;
     this.extension = extension;
-    this.aufgabe = "";
     this.sortierung = "";
   }
 
