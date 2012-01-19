@@ -40,6 +40,7 @@ import com.lowagie.text.Paragraph;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.HerkunftSpende;
@@ -267,6 +268,9 @@ public class SpendenbescheinigungPrintAction implements Action
     final File file = new File(fileName);
     FileOutputStream fos = new FileOutputStream(file);
 
+    Map<String, Object> map = spb.getMap(null);
+    map = new AllgemeineMap().getMap(map);
+
     boolean isSammelbestaetigung = spb.isSammelbestaetigung();
 
     Reporter rpt = new Reporter(fos, 80, 50, 50, 50);
@@ -279,26 +283,7 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.addColumn("\n" + getAussteller() + "\n ", Element.ALIGN_LEFT);
     rpt.closeTable();
 
-    switch (spb.getSpendenart())
-    {
-      case Spendenart.GELDSPENDE:
-
-        String bestaetigungsart = "Bestätigung";
-        if (isSammelbestaetigung)
-        {
-          bestaetigungsart = "Sammelbestätigung";
-        }
-
-        rpt.add(
-            bestaetigungsart
-                + " über Geldzuwendungen"
-                + (Einstellungen.getEinstellung().getMitgliedsbetraege() ? "/Mitgliedsbeitrag"
-                    : ""), 13);
-        break;
-      case Spendenart.SACHSPENDE:
-        rpt.add("Bestätigung über Sachzuwendungen", 13);
-        break;
-    }
+    rpt.add("Bestätigung über "+ map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     rpt.add(
         "im Sinne des § 10b des Einkommenssteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftssteuergesetzes "
             + "bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen\n",
@@ -307,10 +292,7 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.addHeaderColumn("Name und Anschrift des Zuwendenden",
         Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
     rpt.createHeader();
-    String zuwendender = spb.getZeile1() + "\n" + spb.getZeile2() + "\n"
-        + spb.getZeile3() + "\n" + spb.getZeile4() + "\n" + spb.getZeile5()
-        + "\n" + spb.getZeile6() + "\n" + spb.getZeile7() + "\n";
-    rpt.addColumn(zuwendender, Element.ALIGN_LEFT);
+    rpt.addColumn((String)map.get(SpendenbescheinigungVar.EMPFAENGER.getName()), Element.ALIGN_LEFT);
     rpt.closeTable();
 
     switch (spb.getSpendenart())
@@ -329,31 +311,9 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.addHeaderColumn("Tag der Zuwendung", Element.ALIGN_CENTER, 50,
         Color.LIGHT_GRAY);
     rpt.createHeader();
-    Double dWert = (Double) spb.getBetrag();
-    String sWert = "*" + Einstellungen.DECIMALFORMAT.format(dWert) + "*";
-    rpt.addColumn(sWert, Element.ALIGN_CENTER);
-    try
-    {
-      String betraginworten = GermanNumber.toString(dWert.longValue());
-      betraginworten = "*" + betraginworten + "*";
-      rpt.addColumn(betraginworten, Element.ALIGN_CENTER);
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
-      throw new RemoteException(
-          "Fehler bei der Aufbereitung des Betrages in Worten");
-    }
-
-    String spendedatum = new JVDateFormatTTMMJJJJ()
-        .format(spb.getSpendedatum());
-
-    if (isSammelbestaetigung)
-    {
-      spendedatum = "(s. Anlage)";
-    }
-
-    rpt.addColumn(spendedatum, Element.ALIGN_CENTER);
+    rpt.addColumn("*" + Einstellungen.DECIMALFORMAT.format((Double)map.get(SpendenbescheinigungVar.BETRAG.getName())) + "*", Element.ALIGN_CENTER);
+    rpt.addColumn((String)map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()), Element.ALIGN_CENTER);
+    rpt.addColumn((String)map.get(SpendenbescheinigungVar.SPENDEDATUM.getName()), Element.ALIGN_CENTER);
     rpt.closeTable();
 
     switch (spb.getSpendenart())
@@ -403,7 +363,6 @@ public class SpendenbescheinigungPrintAction implements Action
     {
       if (!isSammelbestaetigung)
       {
-        // if (buchungen.get(0).getVerzicht().booleanValue())
         if (spb.getBuchungen().get(0).getVerzicht().booleanValue())
         {
           verzicht = "ja";
@@ -428,7 +387,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (!Einstellungen.getEinstellung().getVorlaeufig())
     {
-      // rdc: "Förderung" entfernt, da /in "Beguenstigterzweck" enthalten
+      // rdc: "Förderung" entfernt, da in "Beguenstigterzweck" enthalten
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamtes "
@@ -443,7 +402,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-      // rdc: "Förderung" entfernt, da /in "Beguenstigterzweck" enthalten
+      // rdc: "Förderung" entfernt, da in "Beguenstigterzweck" enthalten
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " durch vorläufige Bescheinigung des Finanzamtes "
@@ -504,20 +463,13 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.newPage();
       rpt.add(getAussteller(), 16);
-      String datumBestaetigung = new JVDateFormatTTMMJJJJ().format(spb
-          .getBescheinigungsdatum());
-      rpt.add("Anlage zur Sammelbestätigung vom " + datumBestaetigung, 13);
-
-      String datumVon = new JVDateFormatTTMMJJJJ().format(buchungen.get(0)
-          .getDatum());
-      String datumBis = new JVDateFormatTTMMJJJJ().format(buchungen.get(
-          buchungen.size() - 1).getDatum());
-      rpt.add("für den Zeitraum vom " + datumVon + " bis " + datumBis, 13);
+      rpt.add("Anlage zur Sammelbestätigung vom " + (String)map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 13);
+      rpt.add("für den Zeitraum vom " + (String)map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()), 13);
 
       rpt.add(new Paragraph(""));
       rpt.add(new Paragraph(""));
 
-      rpt.addHeaderColumn("Zuwendungsart", Element.ALIGN_LEFT, 400,
+      rpt.addHeaderColumn("Verwendung", Element.ALIGN_LEFT, 400,
           Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
@@ -545,9 +497,7 @@ public class SpendenbescheinigungPrintAction implements Action
       }
 
       /* Summenzeile */
-      DecimalFormat f = new DecimalFormat("###,###.00");
-      f = Einstellungen.DECIMALFORMAT;
-      String sumString = f.format(spb.getBetrag());
+      String sumString = Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
       rpt.addColumn("Summe", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
       rpt.addColumn(sumString, Element.ALIGN_RIGHT, Color.LIGHT_GRAY);
       rpt.addColumn("", Element.ALIGN_LEFT, Color.LIGHT_GRAY);

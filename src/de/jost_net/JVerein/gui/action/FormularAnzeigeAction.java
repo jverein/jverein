@@ -110,7 +110,7 @@ public class FormularAnzeigeAction implements Action
       map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(), "17.12.2008");
       map.put("Tagesdatum", new JVDateFormatTTMMJJJJ().format(new Date()));
       map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), "13.02.2008 - 12.11.2008");
-      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), "Datum     Betrag  Verzicht  Verwendung\n\n13.02.2008  15,00            Beitrag\n12.11.2008  1234,96     X      Spende\n\nGesamt:    1249,96");
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), "Datum         Betrag     Verwendung\n----------  -----------  ----------------------------------\n13.02.2008        15,00  Beitrag (a)\n12.11.2008      1234,96  Spende (b)\n----------  -----------  ----------------------------------\nSumme:          1249,96\n\n\nLegende:\n(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen\n(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);

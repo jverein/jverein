@@ -27,6 +27,7 @@ public enum SpendenbescheinigungVar
   BETRAG("spendenbescheinigung_betrag"), //
   BETRAGINWORTEN("spendenbescheinigung_betraginworten"), //
   BESCHEINIGUNGDATUM("spendenbescheinigung_datum"), //
+  SPENDEART("spendenbescheinigung_spendenart"), //
   SPENDEDATUM("spendenbescheinigung_spendedatum"), //
   SPENDENZEITRAUM("spendenbescheinigung_spendenzeitraum"), //
   ERSATZAUFWENDUNGEN("spendenbescheinigung_ersatzaufwendungen"), //

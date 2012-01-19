@@ -39,6 +39,7 @@ import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -468,7 +469,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    */
   public List<Buchung> getBuchungen() throws RemoteException
   {
-    if (buchungen == null)
+    if (getSpendenart() == Spendenart.GELDSPENDE && buchungen == null)
     {
       buchungen = new ArrayList<Buchung>();
       DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
@@ -512,6 +513,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       throws RemoteException
   {
     Map<String, Object> map = null;
+    final String newLineStr = "\n";
     if (inma == null)
     {
       map = new HashMap<String, Object>();
@@ -538,13 +540,22 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       this.setZeile6(null);
       this.setZeile7(null);
     }
-    String empfaenger = getZeile1() + "\n" + getZeile2() + "\n" + getZeile3()
-        + "\n" + getZeile4() + "\n" + getZeile5() + "\n" + getZeile6() + "\n"
-        + getZeile7() + "\n";
+    String empfaenger = getZeile1() + newLineStr
+        + getZeile2() + newLineStr
+        + getZeile3() + newLineStr
+        + getZeile4() + newLineStr
+        + getZeile5() + newLineStr
+        + getZeile6() + newLineStr
+        + getZeile7() + newLineStr;
     map.put(SpendenbescheinigungVar.EMPFAENGER.getName(), empfaenger);
-    map.put(SpendenbescheinigungVar.BETRAG.getName(),
-        Einstellungen.DECIMALFORMAT.format(getBetrag()));
     Double dWert = getBetrag();
+    // Hier keinen String, sondern ein Double-Objekt in die Map stellen,
+    // damit eine rechtsbündige Ausrichtung des Betrages in der Formular-
+    // aufbereitung.getString() erfolgt.
+    // Dies ist der Zustand vor Version 2.0
+    // map.put(SpendenbescheinigungVar.BETRAG.getName(),
+    //     Einstellungen.DECIMALFORMAT.format(getBetrag()));
+    map.put(SpendenbescheinigungVar.BETRAG.getName(), dWert);
     try
     {
       String betraginworten = GermanNumber.toString(dWert.longValue());
@@ -561,6 +572,20 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         .format(getBescheinigungsdatum());
     map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
         bescheinigungsdatum);
+    switch(getSpendenart())
+    {
+      case Spendenart.GELDSPENDE:
+        String art = "Geldzuwendungen";
+        if (Einstellungen.getEinstellung().getMitgliedsbetraege())
+        {
+          art += "/Mitgliedsbeitrag";
+        }
+        map.put(SpendenbescheinigungVar.SPENDEART.getName(), art);
+        break;
+      case Spendenart.SACHSPENDE:
+        map.put(SpendenbescheinigungVar.SPENDEART.getName(), "Sachzuwendungen");
+        break;
+    }
     String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
     boolean printBuchungsart = Einstellungen.getEinstellung()
         .getSpendenbescheinigungPrintBuchungsart();
@@ -568,31 +593,30 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     // bei Sammelbestätigungen ein Zeitraum und "siehe Anlage"
     if (getBuchungen() != null && getBuchungen().size() > 1)
     {
-      final String targetString = "          ";
       String zeitraumende = new JVDateFormatTTMMJJJJ().format(getZeitraumBis());
       map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "s. Anlage");
       map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), spendedatum
-          + " - " + zeitraumende);
+          + " bis " + zeitraumende);
       StringBuilder bl = new StringBuilder();
-      bl.append("Datum     ");
+      bl.append(StringTool.rpad("Datum", 10));
       bl.append("  ");
-      bl.append("    Betrag   ");
+      bl.append(StringTool.rpad(StringTool.lpad("Betrag", 8), 11));
       bl.append("  ");
-      bl.append("Verzicht");
+      bl.append("Verwendung");
+      bl.append(newLineStr);
+
+      bl.append("----------");
       bl.append("  ");
-      bl.append("Zuwendungsart");
-      bl.append("\n");
+      bl.append("-----------");
+      bl.append("  ");
+      bl.append("-----------------------------------------");
+      bl.append(newLineStr);
       for (Buchung b : buchungen)
       {
         bl.append(new JVDateFormatTTMMJJJJ().format(b.getDatum()));
         bl.append("  ");
         String str = Einstellungen.DECIMALFORMAT.format(b.getBetrag());
-        int len = str.length();
-        if (len < targetString.length())
-          str = (targetString + str).substring(len);
-        bl.append(str);
-        bl.append("  ");
-        bl.append("    " + (b.getVerzicht() ? "X" : " ") + "      ");
+        bl.append(StringTool.lpad(str, 11));
         bl.append("  ");
         if (printBuchungsart)
         {
@@ -602,17 +626,30 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         {
           bl.append(b.getZweck());
         }
-        bl.append("\n");
+        bl.append(" ");
+        bl.append((b.getVerzicht() ? "(b)" : "(a)"));
+        bl.append(newLineStr);
       }
-      bl.append("\n");
-      bl.append("Summe:    ");
+      bl.append(newLineStr);
+      bl.append("----------");
+      bl.append("  ");
+      bl.append("-----------");
+      bl.append("  ");
+      bl.append("-----------------------------------------");
+      bl.append(newLineStr);
+      bl.append(StringTool.rpad("Summe:", 10));
       bl.append("  ");
       String str = Einstellungen.DECIMALFORMAT.format(getBetrag());
-      int len = str.length();
-      if (len < targetString.length())
-        str = (targetString + str).substring(len);
-      bl.append(str);
-      bl.append("\n");
+      bl.append(StringTool.lpad(str, 11));
+      bl.append(newLineStr);
+      bl.append(newLineStr);
+      bl.append(newLineStr);
+      bl.append("Legende:");
+      bl.append(newLineStr);
+      bl.append("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen");
+      bl.append(newLineStr);
+      bl.append("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
+      bl.append(newLineStr);
       map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), bl.toString());
     }
     else
