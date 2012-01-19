@@ -80,6 +80,19 @@
           <li>Bugfix "leere Nummer" bei Speicherung von Buchungsarten. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=845">Forum</a></li>
           <li>Mehr Fehlertoleranz bei der Buchungsübernahme aus Hibiscus.</li>
           <li>##Bugfixes Spendenbescheinigungen.</li>
+           <hr>
+          <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
+          <li>##Weitere Bugfixes im Bereich der Spendenbescheinigungen. Patch von Rolf.</li>
+          <ul>
+              <li>Rechtsbündige Ausgabe des Spendenbetrages</li>
+              <li>Fehler bei Sachzuwendungen behoben</li>
+              <li>Buchungsliste auf Sammelbestätigung anders formatiert. Anstelle der Spalte "Verzicht" wird jede Zeile mit einem Merker versehen, der in 
+                 einer Legende erklärt wird.</li>
+              <li>Verwendung der Map aus SpendenbescheinigungImpl auch in der Standard-Generierung, damit nur einmal Aufbereitung der Felder durchgeführt werden muss.</li>
+              <li>Zusätzliche Formular-Variable SPENDENART (spendebescheinigung_spendenart), die folgende Texte enthalten kann:
+                  Geldzuwendungen, Geldzuwendungen/Mitgliedsbeitrag, Sachzuwendungen</li>
+              <li>StringTool um ein paar Formatierungsfunktionen erweitert</li>
+          </ul>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
