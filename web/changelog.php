@@ -39,7 +39,7 @@
           <li>Bugfix Sortierung Buchungsartenliste. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?t=693&p=2709#p2709'>Forum</a></li>
           <li>Mitgliedskonto: Bei der Auswahl können jetzt nicht nur Mitglieder oder Spender sondern alle Adressen ausgewählt werden.</a>
           <li>Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2740'>Forum</a></li>
-          <li>Individuelle Spendenbescheinigung: Check ob auch ein Forumlar ausgewählt wurde - Patch von Christian Lutz</li>
+          <li>Individuelle Spendenbescheinigung: Check ob auch ein Formular ausgewählt wurde - Patch von Christian Lutz</li>
           <li>Bugfix Sortierung Buchungsübersicht.</li>
           <li>##Bugfix bei der Übernahme mehrerer Buchung in das Mitgliedskonto - Patch von Danzelot - siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2778&hilit=patch#p2775'>Forum</a></li>
           <li>Neu: BLZ-Update mit Hilfe der BLZ-Datei der Bundesbank</li>
