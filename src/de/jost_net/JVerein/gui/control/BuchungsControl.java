@@ -717,8 +717,6 @@ public class BuchungsControl extends AbstractControl
 
       if (!it.hasNext())
       {
-        // Buchung btest = (Buchung) it.next();
-        // System.out.println(btest.getName() + btest.getBetrag());
         Buchung b2 = (Buchung) Einstellungen.getDBService().createObject(
             Buchung.class, null);
         b2.setArt(b.getArt());
