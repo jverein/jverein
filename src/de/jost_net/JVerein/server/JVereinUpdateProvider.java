@@ -1007,7 +1007,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitglied (");
-    sb.append("id IDENTITY, ");
+    sb.append("id IDENTITY(1), ");
     sb.append("externemitgliedsnummer INTEGER,");
     sb.append("anrede VARCHAR(10),");
     sb.append("titel VARCHAR(20),");
@@ -1039,7 +1039,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (externemitgliedsnummer),");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("CREATE TABLE beitragsgruppe(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("bezeichnung VARCHAR(30) NOT NULL,");
     sb.append("betrag DOUBLE,");
     sb.append("beitragsart INTEGER DEFAULT 0,");
@@ -1047,7 +1047,7 @@ public class JVereinUpdateProvider
     sb.append("PRIMARY KEY (id));\n");
     sb.append("ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE zusatzabbuchung(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("mitglied INTEGER NOT NULL,");
     sb.append("faelligkeit DATE NOT NULL,");
     sb.append("buchungstext VARCHAR(27) NOT NULL,");
@@ -1060,7 +1060,7 @@ public class JVereinUpdateProvider
     sb.append("PRIMARY KEY (id));\n");
     sb.append("ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE stammdaten(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("name VARCHAR(30) NOT NULL,");
     sb.append("blz VARCHAR(8)  NOT NULL,");
     sb.append("konto VARCHAR(10) NOT NULL,");
@@ -1069,7 +1069,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("CREATE TABLE kursteilnehmer (");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("name VARCHAR(27) NOT NULL,");
     sb.append("vzweck1 VARCHAR(27) NOT NULL,");
     sb.append("vzweck2 VARCHAR(27),");
@@ -1083,7 +1083,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id), ");
     sb.append("PRIMARY KEY (id));");
     sb.append("CREATE TABLE manuellerzahlungseingang (");
-    sb.append("id IDENTITY, ");
+    sb.append("id IDENTITY(1), ");
     sb.append("name VARCHAR(27) NOT NULL,");
     sb.append("vzweck1 VARCHAR(27) NOT NULL,");
     sb.append("vzweck2 VARCHAR(27),");
@@ -1093,7 +1093,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (id), ");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("CREATE TABLE wiedervorlage(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("mitglied INTEGER NOT NULL,");
     sb.append("datum DATE NOT NULL,");
     sb.append("vermerk VARCHAR(50) NOT NULL,");
@@ -1102,26 +1102,26 @@ public class JVereinUpdateProvider
     sb.append("PRIMARY KEY (id));\n");
     sb.append("ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE eigenschaften(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("mitglied INTEGER NOT NULL,");
     sb.append("eigenschaft VARCHAR(50) NOT NULL,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("CREATE UNIQUE INDEX ixEigenschaften1 ON eigenschaften(mitglied, eigenschaft);\n");
     sb.append("CREATE TABLE `version` (");
-    sb.append("`id` IDENTITY, ");
+    sb.append("`id` IDENTITY(1), ");
     sb.append("`version` INTEGER,");
     sb.append("UNIQUE (`id`), ");
     sb.append("PRIMARY KEY (`id`));\n");
     sb.append("create table felddefinition(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("name VARCHAR(50) NOT NULL,");
     sb.append("label VARCHAR(50) NOT NULL,");
     sb.append("laenge integer NOT NULL,");
     sb.append("UNIQUE (id),");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("create table zusatzfelder(");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("mitglied integer NOT NULL,");
     sb.append("felddefinition integer NOT NULL,");
     sb.append("feld varchar(1000),");
@@ -1130,7 +1130,7 @@ public class JVereinUpdateProvider
     sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) DEFERRABLE;\n");
     sb.append("ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition(id) ON DELETE CASCADE DEFERRABLE;\n");
     sb.append("CREATE TABLE konto (");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("nummer VARCHAR(10),");
     sb.append("bezeichnung VARCHAR(30),");
     sb.append("eroeffnung DATE,");
@@ -1140,7 +1140,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (nummer),");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("CREATE TABLE buchungsart (");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("nummer INTEGER,");
     sb.append("bezeichnung VARCHAR(30),");
     sb.append("art INTEGER,");
@@ -1148,7 +1148,7 @@ public class JVereinUpdateProvider
     sb.append("UNIQUE (nummer),");
     sb.append("PRIMARY KEY (id));\n");
     sb.append("CREATE TABLE buchung (");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("umsatzid INTEGER,");
     sb.append("konto INTEGER  NOT NULL,");
     sb.append("name VARCHAR(100),");
@@ -1172,7 +1172,7 @@ public class JVereinUpdateProvider
     sb.append("PRIMARY KEY (id));\n");
     sb.append("ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE jahresabschluss (");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("von DATE,");
     sb.append("bis DATE,");
     sb.append("datum DATE,");
@@ -1386,7 +1386,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE formular (");
-    sb.append("  id IDENTITY,");
+    sb.append("  id IDENTITY(1),");
     sb.append(" inhalt BLOB,");
     sb.append(" art integer,");
     sb.append(" bezeichnung VARCHAR(50),");
@@ -1416,7 +1416,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE formularfeld(");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" formular integer,");
     sb.append(" name VARCHAR(20),");
     sb.append(" x double,");
@@ -1482,7 +1482,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE spendenbescheinigung (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" zeile1 VARCHAR(40),");
     sb.append(" zeile2 VARCHAR(40),");
     sb.append(" zeile3 VARCHAR(40),");
@@ -1543,7 +1543,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE abrechnung (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" mitglied INTEGER,");
     sb.append(" datum DATE,");
     sb.append(" zweck1 VARCHAR(27),");
@@ -1662,7 +1662,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE einstellung (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" geburtsdatumpflicht CHAR(5),");
     sb.append(" eintrittsdatumpflicht CHAR(5),");
     sb.append(" kommunikationsdaten CHAR(5),");
@@ -1806,7 +1806,7 @@ public class JVereinUpdateProvider
     sb = new StringBuilder();
     sb.append("CREATE TABLE report");
     sb.append("(");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" bezeichnung VARCHAR(50),");
     sb.append(" art INTEGER,");
     sb.append(" quelle BLOB,");
@@ -1858,7 +1858,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("create table lehrgangsart (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" bezeichnung VARCHAR(50) NOT NULL,");
     sb.append(" von DATE,");
     sb.append(" bis DATE,");
@@ -1907,7 +1907,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("create table lehrgang (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" mitglied INTEGER NOT NULL,");
     sb.append(" lehrgangsart INTEGER NOT NULL,");
     sb.append(" von DATE,");
@@ -2200,7 +2200,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE buchungsklasse (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" nummer INTEGER,");
     sb.append(" bezeichnung VARCHAR(30),");
     sb.append(" UNIQUE (id),");
@@ -2438,7 +2438,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE eigenschaftgruppe (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" bezeichnung VARCHAR(30) NOT NULL,");
     sb.append(" PRIMARY KEY (id));\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
@@ -2462,7 +2462,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE eigenschaft (");
-    sb.append("id                IDENTITY,");
+    sb.append("id                IDENTITY(1),");
     sb.append("eigenschaftgruppe     INTEGER,");
     sb.append("bezeichnung     VARCHAR(30) NOT NULL,");
     sb.append("UNIQUE        (id),");
@@ -2810,7 +2810,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mailvorlage (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" betreff VARCHAR(100) NOT NULL,");
     sb.append(" txt VARCHAR(1000) NOT NULL,");
     sb.append(" UNIQUE (id), ");
@@ -2839,7 +2839,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mail (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" betreff VARCHAR(100) NOT NULL,");
     sb.append(" txt VARCHAR(1000) NOT NULL,");
     sb.append(" bearbeitung TIMESTAMP NOT NULL, ");
@@ -2871,7 +2871,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mailempfaenger (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" mail INTEGER NOT NULL, ");
     sb.append(" mitglied INTEGER,");
     sb.append(" adresse VARCHAR(50),");
@@ -2931,7 +2931,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mailanhang (");
-    sb.append("  id IDENTITY,");
+    sb.append("  id IDENTITY,(1)");
     sb.append(" mail INTEGER NOT NULL, ");
     sb.append(" anhang BLOB,");
     sb.append(" dateiname VARCHAR(50),");
@@ -3004,7 +3004,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE abrechnungslauf (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" datum DATE NOT NULL,");
     sb.append(" modus INTEGER NOT NULL,");
     sb.append(" stichtag DATE, ");
@@ -3045,7 +3045,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitgliedskonto (");
-    sb.append(" id IDENTITY, ");
+    sb.append(" id IDENTITY(1), ");
     sb.append(" abrechnungslauf INTEGER,");
     sb.append(" mitglied INTEGER NOT NULL,");
     sb.append(" datum DATE NOT NULL,");
@@ -3324,7 +3324,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitgliedfoto (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" mitglied INTEGER NOT NULL, ");
     sb.append(" foto BLOB,");
     sb.append(" UNIQUE (id),");
@@ -3676,7 +3676,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("create table arbeitseinsatz (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" mitglied INTEGER NOT NULL,");
     sb.append(" datum DATE NOT NULL, ");
     sb.append(" stunden DOUBLE NOT NULL,");
@@ -3740,7 +3740,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("create table buchungdokument (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" buchung INTEGER NOT NULL,");
     sb.append(" uuid VARCHAR(50) NOT NULL,");
     sb.append(" UNIQUE (id),");
@@ -3785,7 +3785,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("create table buchungdokument (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" referenz INTEGER NOT NULL,");
     sb.append(" datum DATE NOT NULL, ");
     sb.append("  bemerkung VARCHAR(50), ");
@@ -3819,7 +3819,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("create table mitglieddokument (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" referenz INTEGER NOT NULL,");
     sb.append(" datum DATE NOT NULL, ");
     sb.append("  bemerkung VARCHAR(50), ");
@@ -4101,7 +4101,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE adresstyp (");
-    sb.append("  id IDENTITY,");
+    sb.append("  id IDENTITY(1),");
     sb.append(" bezeichnung varchar(30),");
     sb.append(" jvereinid integer,");
     sb.append(" UNIQUE (id),");
@@ -4704,7 +4704,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE auswertung (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" bezeichnung VARCHAR(30) NOT NULL,");
     sb.append(" PRIMARY KEY (id));\n");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
@@ -4728,7 +4728,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE auswertungpos (");
-    sb.append(" id IDENTITY,");
+    sb.append(" id IDENTITY(1),");
     sb.append(" auswertung integer not null, ");
     sb.append(" feld VARCHAR(50) NOT NULL, ");
     sb.append(" zeichenfolge VARCHAR(100) ,");
