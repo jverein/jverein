@@ -1163,7 +1163,7 @@ public class JVereinUpdateProvider
     sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id) DEFERRABLE;\n");
     sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto)       REFERENCES konto (id) DEFERRABLE;\n");
     sb.append("CREATE TABLE anfangsbestand (");
-    sb.append("id IDENTITY,");
+    sb.append("id IDENTITY(1),");
     sb.append("konto INTEGER,");
     sb.append("datum DATE,");
     sb.append("betrag DOUBLE,");
@@ -2931,7 +2931,7 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mailanhang (");
-    sb.append("  id IDENTITY,(1)");
+    sb.append("  id IDENTITY(1), ");
     sb.append(" mail INTEGER NOT NULL, ");
     sb.append(" anhang BLOB,");
     sb.append(" dateiname VARCHAR(50),");
