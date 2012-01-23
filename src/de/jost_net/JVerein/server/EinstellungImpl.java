@@ -613,7 +613,12 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public double getSpendenbescheinigungminbetrag() throws RemoteException
   {
-    return (Double) getAttribute("spendenbescheinigungminbetrag");
+    Double d = (Double)getAttribute("spendenbescheinigungminbetrag");
+    if (d == null)
+    {
+      d = new Double(0);
+    }
+    return (d) ;
   }
 
   public void setSpendenbescheinigungminbetrag(double minbetrag)

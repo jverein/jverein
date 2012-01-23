@@ -93,6 +93,9 @@
                   Geldzuwendungen, Geldzuwendungen/Mitgliedsbeitrag, Sachzuwendungen</li>
               <li>StringTool um ein paar Formatierungsfunktionen erweitert</li>
           </ul>
+           <hr>
+          <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
+          <li>##Bugfix bei den Einstellungen bei einer "frischen" Datenbank.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
