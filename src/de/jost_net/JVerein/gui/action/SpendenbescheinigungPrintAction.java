@@ -5,17 +5,17 @@
  * $Author$
  *
  * Copyright (c) by Heiner Jostkleigrewe
- * This program is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
- *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without
+ *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  *  the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with this program.  If not, 
+ * You should have received a copy of the GNU General Public License along with this program.  If not,
  * see <http://www.gnu.org/licenses/>.
- * 
+ *
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
@@ -27,11 +27,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
-
-import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -283,7 +280,9 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.addColumn("\n" + getAussteller() + "\n ", Element.ALIGN_LEFT);
     rpt.closeTable();
 
-    rpt.add("Bestätigung über "+ map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+    rpt.add(
+        "Bestätigung über "
+            + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     rpt.add(
         "im Sinne des § 10b des Einkommenssteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftssteuergesetzes "
             + "bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen\n",
@@ -292,7 +291,9 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.addHeaderColumn("Name und Anschrift des Zuwendenden",
         Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
     rpt.createHeader();
-    rpt.addColumn((String)map.get(SpendenbescheinigungVar.EMPFAENGER.getName()), Element.ALIGN_LEFT);
+    rpt.addColumn(
+        (String) map.get(SpendenbescheinigungVar.EMPFAENGER.getName()),
+        Element.ALIGN_LEFT);
     rpt.closeTable();
 
     switch (spb.getSpendenart())
@@ -311,9 +312,17 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.addHeaderColumn("Tag der Zuwendung", Element.ALIGN_CENTER, 50,
         Color.LIGHT_GRAY);
     rpt.createHeader();
-    rpt.addColumn("*" + Einstellungen.DECIMALFORMAT.format((Double)map.get(SpendenbescheinigungVar.BETRAG.getName())) + "*", Element.ALIGN_CENTER);
-    rpt.addColumn((String)map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()), Element.ALIGN_CENTER);
-    rpt.addColumn((String)map.get(SpendenbescheinigungVar.SPENDEDATUM.getName()), Element.ALIGN_CENTER);
+    rpt.addColumn(
+        "*"
+            + Einstellungen.DECIMALFORMAT.format(map
+                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        Element.ALIGN_CENTER);
+    rpt.addColumn(
+        (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
+        Element.ALIGN_CENTER);
+    rpt.addColumn(
+        (String) map.get(SpendenbescheinigungVar.SPENDEDATUM.getName()),
+        Element.ALIGN_CENTER);
     rpt.closeTable();
 
     switch (spb.getSpendenart())
@@ -463,8 +472,14 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.newPage();
       rpt.add(getAussteller(), 16);
-      rpt.add("Anlage zur Sammelbestätigung vom " + (String)map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 13);
-      rpt.add("für den Zeitraum vom " + (String)map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()), 13);
+      rpt.add(
+          "Anlage zur Sammelbestätigung vom "
+              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
+                  .getName()), 13);
+      rpt.add(
+          "für den Zeitraum vom "
+              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
+                  .getName()), 13);
 
       rpt.add(new Paragraph(""));
       rpt.add(new Paragraph(""));
@@ -493,7 +508,8 @@ public class SpendenbescheinigungPrintAction implements Action
         }
         rpt.addColumn(Double.valueOf(buchung.getBetrag()));
         rpt.addColumn(buchung.getDatum(), Element.ALIGN_RIGHT);
-        rpt.addColumn(buchung.getVerzicht().booleanValue());
+        rpt.addColumn(buchung.getVerzicht().booleanValue() == true ? "Ja"
+            : "Nein", Element.ALIGN_CENTER);
       }
 
       /* Summenzeile */
