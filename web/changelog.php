@@ -98,6 +98,7 @@
           <li>##Bugfix bei den Einstellungen bei einer "frischen" Datenbank.</li>
           <li>Initialer Wert 1 für Primary Key bei H2-Datenbank, siehe <a href="http://www.onlinebanking-forum.de/phpBB2/viewtopic.php?p=80884">Homebanking-Forum</a></li>
           <li>##Patch von Danzelot: <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=873&p=3521#p3521">Siehe Forum.</a></li>
+          <li>Bugfix bei den Zusatzbeträgen: "monatlich" wurde mehrfach als Intervall angeboten. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=894">Siehe Forum.</a></li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
