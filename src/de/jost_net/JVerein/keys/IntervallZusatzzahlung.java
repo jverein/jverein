@@ -89,7 +89,6 @@ public class IntervallZusatzzahlung
     ret.add(new IntervallZusatzzahlung(VIERTELJAEHRLICH));
     ret.add(new IntervallZusatzzahlung(HALBJAEHRLICH));
     ret.add(new IntervallZusatzzahlung(JAEHRLICH));
-    ret.add(new IntervallZusatzzahlung(MONATLICH));
     return ret;
   }
 
