@@ -1006,6 +1006,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return map;
   }
 
+  public boolean isAngemeldet(Date stichtag) throws RemoteException
+  {
+    return ((getEintritt() != null || getEintritt().before(stichtag))
+        && getAustritt() == null || getAustritt().after(stichtag));
+  }
+
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {

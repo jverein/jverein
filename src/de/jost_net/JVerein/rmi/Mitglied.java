@@ -200,6 +200,8 @@ public interface Mitglied extends DBObject
 
   public String getEmpfaenger() throws RemoteException;
 
+  public boolean isAngemeldet(Date stichtag) throws RemoteException;
+
   public Map<String, Object> getMap(Map<String, Object> map)
       throws RemoteException;
 
