@@ -250,6 +250,10 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 
   public boolean isAktiv() throws RemoteException
   {
+    if (!getMitglied().isAngemeldet(new Date()))
+    {
+      return false;
+    }
     // Wenn der Auftrag noch nie ausgeführt wurde, ist er auszuführen
     // if (getAusfuehrung() == null)
     // {
