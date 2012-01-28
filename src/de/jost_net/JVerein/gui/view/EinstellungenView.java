@@ -71,23 +71,6 @@ public class EinstellungenView extends AbstractView
         control.getBlz());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
         control.getKonto());
-    tabAllgemein.addHeadline("Spendenbescheinigung");
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Finanzamt"),
-        control.getFinanzamt());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Steuernummer"),
-        control.getSteuernummer());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bescheiddatum"),
-        control.getBescheiddatum());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n()
-        .tr("vorläufiger Bescheid"), control.getVorlaeufig());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Vorläufig ab"),
-        control.getVorlaeufigab());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("begünstigter Zweck"),
-        control.getBeguenstigterzweck());
-    tabAllgemein.addLabelPair(
-        JVereinPlugin.getI18n().tr(
-            "Mitgliedsbeiträge dürfen bescheinigt werden"),
-        control.getMitgliedsbetraege());
 
     TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Anzeige"));
@@ -166,6 +149,22 @@ public class EinstellungenView extends AbstractView
     LabelGroup groupSpenden = new LabelGroup(
         tabSpendenbescheinigung.getComposite(), JVereinPlugin.getI18n().tr(
             "Spendenbescheinigungen"));
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Finanzamt"),
+        control.getFinanzamt());
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Steuernummer"),
+        control.getSteuernummer());
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Bescheiddatum"),
+        control.getBescheiddatum());
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n()
+        .tr("vorläufiger Bescheid"), control.getVorlaeufig());
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Vorläufig ab"),
+        control.getVorlaeufigab());
+    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("begünstigter Zweck"),
+        control.getBeguenstigterzweck());
+    groupSpenden.addLabelPair(
+        JVereinPlugin.getI18n().tr(
+            "Mitgliedsbeiträge dürfen bescheinigt werden"),
+        control.getMitgliedsbetraege());
     groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Mindestbetrag"),
         control.getSpendenbescheinigungminbetrag());
     groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Verzeichnis"),
