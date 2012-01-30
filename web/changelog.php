@@ -101,6 +101,9 @@
           <li>Bugfix bei den Zusatzbeträgen: "monatlich" wurde mehrfach als Intervall angeboten. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=894">Siehe Forum.</a></li>
           <li>Bugfix Zusatzbeträge: keine Abrechnung bei ausgetretenen Mitgliedern. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=895">Siehe Forum.</a></li>
           <li>Einstellungen: Spendenbescheinigungsinformationen vom Tab Allgemein in den Tab Spendenbescheinigungen verschoben.</li>
+           <hr>
+          <li>Folgende Änderungen wurden nach Rev. 335 vorgenommen:</li>
+          <li>Bugfix Variable "anrede_du"</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
