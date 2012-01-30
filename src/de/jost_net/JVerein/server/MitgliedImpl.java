@@ -840,6 +840,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     map.put(MitgliedVar.ANREDE_FOERMLICH.getName(), anredefoermlich);
     String anrededu = "Hallo";
+    if (getPersonenart().equals("n"))
+    {
+      anrededu += " " + getVorname();
+    }
     map.put(MitgliedVar.ANREDE_DU.getName(), anrededu);
 
     map.put(MitgliedVar.AUSTRITT.getName(),
