@@ -43,6 +43,9 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
 
   public final static String DATUM = JVereinPlugin.getI18n().tr("Datum");
 
+  public final static String DATUM_NAME = JVereinPlugin.getI18n().tr(
+      "Datum, Name, Buchungsnummer");
+
   public final static String BUCHUNGSNUMMER = JVereinPlugin.getI18n().tr(
       "Buchungsnummer");
 
@@ -55,7 +58,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     super(position);
 
     setTitle(JVereinPlugin.getI18n().tr("Buchungsjournal-Sortierung"));
-    setSize(250, 150);
+    setSize(300, 180);
   }
 
   @Override
@@ -95,7 +98,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     {
       return this.sortierung;
     }
-    this.sortierung = new SelectInput(new Object[] { DATUM, BUCHUNGSNUMMER },
+    this.sortierung = new SelectInput(new Object[] { DATUM, DATUM_NAME, BUCHUNGSNUMMER },
         null);
     this.sortierung.setName(JVereinPlugin.getI18n().tr("Sortierung"));
     this.sortierung.addListener(new Listener()

@@ -42,6 +42,7 @@ import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
+import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.io.BuchungAuswertungCSV;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFEinzelbuchungen;
 import de.jost_net.JVerein.io.BuchungAuswertungPDFSummen;
@@ -635,7 +636,8 @@ public class BuchungsControl extends AbstractControl
     BuchungQuery query = new BuchungQuery(this);
     if (buchungsList == null)
     {
-      buchungsList = new TablePart(query.get(), new BuchungAction());
+      // buchungsList = new TablePart(query.get(), new BuchungAction());
+      buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
       buchungsList.addColumn("Nr", "id-int");
       buchungsList.addColumn("Konto", "konto", new Formatter()
       {
@@ -971,6 +973,10 @@ public class BuchungsControl extends AbstractControl
       if (sort.equals(BuchungsjournalSortDialog.DATUM))
       {
         list.setOrder("ORDER BY datum, auszugsnummer, blattnummer, id");
+      }
+      else if (sort.equals(BuchungsjournalSortDialog.DATUM_NAME))
+      {
+        list.setOrder("ORDER BY datum, name, id");
       }
       else
       {
