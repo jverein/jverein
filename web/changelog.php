@@ -104,6 +104,8 @@
            <hr>
           <li>Folgende Änderungen wurden nach Rev. 335 vorgenommen:</li>
           <li>Bugfix Variable "anrede_du"</li>
+          <li>Patch von Rolf zur Buchungsliste und zum Buchungsjournal.</li>
+          <li>Fehlerbehandlung bei der Mitgliedsstatistik</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
