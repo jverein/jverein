@@ -491,7 +491,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public String getTelefonprivat() throws RemoteException
   {
-    return (String) getAttribute("telefonprivat");
+    String telefon = (String) getAttribute("telefonprivat");
+    if (telefon == null)
+    {
+      telefon = "";
+    }
+    return telefon;
   }
 
   public void setTelefonprivat(String telefonprivat) throws RemoteException
@@ -501,7 +506,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public String getTelefondienstlich() throws RemoteException
   {
-    return (String) getAttribute("telefondienstlich");
+    String telefon = (String) getAttribute("telefondienstlich");
+    if (telefon == null)
+    {
+      telefon = "";
+    }
+    return telefon;
   }
 
   public void setTelefondienstlich(String telefondienstlich)
@@ -512,7 +522,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public String getHandy() throws RemoteException
   {
-    return (String) getAttribute("handy");
+    String telefon = (String) getAttribute("handy");
+    if (telefon == null)
+    {
+      telefon = "";
+    }
+    return telefon;
   }
 
   public void setHandy(String handy) throws RemoteException
@@ -522,7 +537,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   public String getEmail() throws RemoteException
   {
-    return (String) getAttribute("email");
+    String email = (String) getAttribute("email");
+    if (email == null)
+    {
+      email = "";
+    }
+    return email;
   }
 
   public void setEmail(String email) throws RemoteException
