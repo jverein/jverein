@@ -73,6 +73,10 @@ public class Jubilaeenliste
         reporter.close();
         fos.close();
       }
+      catch (NullPointerException e)
+      {
+        throw new ApplicationException("Fehler in den Mitgliedsdaten");
+      }
       catch (RemoteException e)
       {
         throw new ApplicationException(
@@ -204,11 +208,18 @@ public class Jubilaeenliste
       mitgl.addFilter("geburtsdatum <= ?",
           new Object[] { new java.sql.Date(bis.getTime()) });
       mitgl.setOrder("order by geburtsdatum");
-
-      while (mitgl.hasNext())
+      try
       {
-        Mitglied m = (Mitglied) mitgl.next();
-        addDetail(MitgliedControl.JUBELART_ALTER, reporter, m);
+        while (mitgl.hasNext())
+        {
+          Mitglied m = (Mitglied) mitgl.next();
+          addDetail(MitgliedControl.JUBELART_ALTER, reporter, m);
+        }
+      }
+      catch (NullPointerException e)
+      {
+        Logger.error("Fehler: ", e);
+        throw new RemoteException(e.getMessage());
       }
       if (mitgl.size() == 0)
       {
@@ -265,6 +276,7 @@ public class Jubilaeenliste
       kommunikation += ", ";
     }
     kommunikation += m.getTelefondienstlich();
+
     if (kommunikation.length() > 0 && m.getEmail().length() > 0)
     {
       kommunikation += ", ";
