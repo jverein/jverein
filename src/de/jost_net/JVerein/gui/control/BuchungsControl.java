@@ -478,6 +478,7 @@ public class BuchungsControl extends AbstractControl
     this.vondatum.setTitle("Anfangsdatum");
     this.vondatum.setText("Bitte Anfangsdatum wählen");
     this.vondatum.addListener(new FilterListener());
+    this.vondatum.setMandatory(true);
     return vondatum;
   }
 
@@ -501,6 +502,7 @@ public class BuchungsControl extends AbstractControl
     this.bisdatum.setTitle("Anfangsdatum");
     this.bisdatum.setText("Bitte Anfangsdatum wählen");
     this.bisdatum.addListener(new FilterListener());
+    this.bisdatum.setMandatory(true);
     return bisdatum;
   }
 
@@ -1123,7 +1125,7 @@ public class BuchungsControl extends AbstractControl
       }
       catch (RemoteException e)
       {
-        Logger.error("Fehler", e);
+        GUI.getStatusBar().setErrorText(e.getMessage());
       }
     }
   }

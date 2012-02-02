@@ -64,10 +64,27 @@ public class BuchungQuery
     sql += "from buchung ";
     Settings settings = control.getSettings();
 
-    java.sql.Date vd = new java.sql.Date(getDatumvon().getTime());
+    java.sql.Date vd = null;
+    try
+    {
+      vd = new java.sql.Date(getDatumvon().getTime());
+    }
+    catch (NullPointerException e)
+    {
+      throw new RemoteException("von-Datum fehlt");
+    }
     settings.setAttribute("vondatum",
         new JVDateFormatTTMMJJJJ().format(getDatumvon().getTime()));
-    java.sql.Date bd = new java.sql.Date(getDatumbis().getTime());
+    java.sql.Date bd = null;
+
+    try
+    {
+      bd = new java.sql.Date(getDatumbis().getTime());
+    }
+    catch (NullPointerException e)
+    {
+      throw new RemoteException("bis-Datum fehlt");
+    }
     settings.setAttribute("bisdatum",
         new JVDateFormatTTMMJJJJ().format(getDatumbis().getTime()));
 
