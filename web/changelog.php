@@ -106,6 +106,8 @@
           <li>Bugfix Variable "anrede_du"</li>
           <li>Patch von Rolf zur Buchungsliste und zum Buchungsjournal.</li>
           <li>Fehlerbehandlung bei der Mitgliedsstatistik</li>
+          <li>Numerische Sortierung der Hibiscus-Buchungen bei der Übernahme zu JVerein.</li>
+          <li>Bei der Buchungsübernahme werden nur Hibiscus-Konten angeboten.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>
