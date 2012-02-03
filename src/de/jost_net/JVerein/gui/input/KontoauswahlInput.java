@@ -71,8 +71,8 @@ public class KontoauswahlInput
    * @return Auswahl-Feld.
    * @throws RemoteException
    */
-  public DialogInput getKontoAuswahl(boolean keinkonto, String kontoid)
-      throws RemoteException
+  public DialogInput getKontoAuswahl(boolean keinkonto, String kontoid,
+      boolean onlyHibiscus) throws RemoteException
   {
     if (kontoAuswahl != null)
     {
@@ -80,7 +80,7 @@ public class KontoauswahlInput
     }
     this.keinkonto = keinkonto;
     KontoAuswahlDialog d = new KontoAuswahlDialog(
-        KontoAuswahlDialog.POSITION_MOUSE, keinkonto);
+        KontoAuswahlDialog.POSITION_MOUSE, keinkonto, onlyHibiscus);
     d.addCloseListener(new KontoListener());
 
     if (kontoid == null || kontoid.length() == 0)
@@ -128,8 +128,8 @@ public class KontoauswahlInput
           konto = null;
           try
           {
-            getKontoAuswahl(keinkonto, "").setText("");
-            getKontoAuswahl(keinkonto, "").setComment("");
+            getKontoAuswahl(keinkonto, "", false).setText("");
+            getKontoAuswahl(keinkonto, "", false).setComment("");
             settings.setAttribute("kontoid", "");
           }
           catch (RemoteException e)
@@ -143,8 +143,8 @@ public class KontoauswahlInput
       try
       {
         String b = konto.getBezeichnung();
-        getKontoAuswahl(keinkonto, "").setText(konto.getNummer());
-        getKontoAuswahl(keinkonto, "").setComment(b == null ? "" : b);
+        getKontoAuswahl(keinkonto, "", false).setText(konto.getNummer());
+        getKontoAuswahl(keinkonto, "", false).setComment(b == null ? "" : b);
         settings.setAttribute("kontoid", konto.getID());
       }
       catch (RemoteException er)

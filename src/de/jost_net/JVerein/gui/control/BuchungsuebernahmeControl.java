@@ -76,7 +76,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
       return konto;
     }
     String kontoid = settings.getString("kontoid", "");
-    konto = new KontoauswahlInput().getKontoAuswahl(false, kontoid);
+    konto = new KontoauswahlInput().getKontoAuswahl(false, kontoid, true);
     return konto;
   }
 
@@ -224,7 +224,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
       if (buchungsList == null)
       {
         buchungsList = new TablePart(hibbuchungen, null);
-        buchungsList.addColumn("Nr", "id");
+        buchungsList.addColumn("Nr", "id-int");
         buchungsList.addColumn("Datum", "datum", new DateFormatter(
             new JVDateFormatTTMMJJJJ()));
         buchungsList.addColumn("Name", "name");

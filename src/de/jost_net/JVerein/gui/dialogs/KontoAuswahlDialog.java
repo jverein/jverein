@@ -45,12 +45,16 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
 
   private boolean keinkonto;
 
-  public KontoAuswahlDialog(int position, boolean keinkonto)
+  private boolean onlyHibiscus;
+
+  public KontoAuswahlDialog(int position, boolean keinkonto,
+      boolean onlyHibiscus)
   {
     super(position);
     super.setSize(400, 300);
     this.setTitle(JVereinPlugin.getI18n().tr("Konto-Auswahl"));
     this.keinkonto = keinkonto;
+    this.onlyHibiscus = onlyHibiscus;
   }
 
   @Override
@@ -85,7 +89,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
       }
     };
     final KontoList konten = new de.jost_net.JVerein.gui.parts.KontoList(a,
-        true);
+        onlyHibiscus);
     konten.setContextMenu(null);
     konten.setMulti(false);
     konten.setSummary(false);
