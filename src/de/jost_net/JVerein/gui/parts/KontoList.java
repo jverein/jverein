@@ -41,9 +41,9 @@ import de.willuhn.jameica.gui.parts.TablePart;
  */
 public class KontoList extends TablePart implements Part
 {
-  public KontoList(Action action) throws RemoteException
+  public KontoList(Action action, boolean onlyHibiscus) throws RemoteException
   {
-    this(init(), action);
+    this(init(onlyHibiscus), action);
   }
 
   public KontoList(GenericIterator konten, Action action)
@@ -72,9 +72,13 @@ public class KontoList extends TablePart implements Part
    * @return Liste der Konten.
    * @throws RemoteException
    */
-  private static DBIterator init() throws RemoteException
+  private static DBIterator init(boolean onlyHibiscus) throws RemoteException
   {
     DBIterator i = Einstellungen.getDBService().createList(Konto.class);
+    if (onlyHibiscus)
+    {
+      i.addFilter("hibiscusid > -1");
+    }
     i.setOrder("ORDER BY nummer, bezeichnung");
     return i;
   }

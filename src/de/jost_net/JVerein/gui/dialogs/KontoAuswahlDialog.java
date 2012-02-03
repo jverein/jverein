@@ -84,7 +84,8 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
         close();
       }
     };
-    final KontoList konten = new de.jost_net.JVerein.gui.parts.KontoList(a);
+    final KontoList konten = new de.jost_net.JVerein.gui.parts.KontoList(a,
+        true);
     konten.setContextMenu(null);
     konten.setMulti(false);
     konten.setSummary(false);
