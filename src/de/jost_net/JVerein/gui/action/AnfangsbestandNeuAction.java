@@ -53,7 +53,7 @@ public class AnfangsbestandNeuAction implements Action
       else
       {
         KontoAuswahlDialog d = new KontoAuswahlDialog(
-            KontoAuswahlDialog.POSITION_CENTER, false);
+            KontoAuswahlDialog.POSITION_CENTER, false, false);
         try
         {
           context = d.open();
