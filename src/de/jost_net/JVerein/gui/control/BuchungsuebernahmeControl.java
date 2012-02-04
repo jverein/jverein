@@ -34,7 +34,6 @@ import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
-import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -75,7 +74,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
     {
       return konto;
     }
-   // String kontoid = settings.getString("kontoid", "");
+    // String kontoid = settings.getString("kontoid", "");
     konto = new KontoauswahlInput().getKontoAuswahl(false, "", true);
     return konto;
   }
