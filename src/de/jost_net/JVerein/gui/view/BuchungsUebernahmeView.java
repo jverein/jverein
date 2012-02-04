@@ -47,10 +47,7 @@ public class BuchungsUebernahmeView extends AbstractView
     ButtonArea suchButton = new ButtonArea(group.getComposite(), 1);
     suchButton.addButton(control.getSuchButton());
 
-    if (control.getKonto().getValue() != null)
-    {
-      control.getBuchungsList().paint(this.getParent());
-    }
+    control.getBuchungsList().paint(this.getParent());
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGENAUSHIBISCUS,
