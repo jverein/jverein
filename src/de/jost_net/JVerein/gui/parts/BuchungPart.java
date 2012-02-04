@@ -35,8 +35,10 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 
 public class BuchungPart implements Part
 {
@@ -56,8 +58,11 @@ public class BuchungPart implements Part
 
     ScrolledContainer scrolled = new ScrolledContainer(parent, 1);
 
-    LabelGroup grKontoauszug = new LabelGroup(scrolled.getComposite(),
-        JVereinPlugin.getI18n().tr("Buchung"));
+    ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
+
+    SimpleContainer grKontoauszug = new SimpleContainer(cols1.getComposite());
+
+    grKontoauszug.addHeadline(JVereinPlugin.getI18n().tr("Buchung"));
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsnummer"),
         control.getID());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"),
@@ -84,8 +89,9 @@ public class BuchungPart implements Part
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"),
         control.getKommentar());
 
-    LabelGroup grBuchungsinfos = new LabelGroup(scrolled.getComposite(),
-        JVereinPlugin.getI18n().tr("Buchungsinfos"));
+    SimpleContainer grBuchungsinfos = new SimpleContainer(cols1.getComposite());
+
+    grBuchungsinfos.addHeadline(JVereinPlugin.getI18n().tr("Buchungsinfos"));
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
         control.getBuchungsart());
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Auszugsnummer"),
@@ -93,8 +99,8 @@ public class BuchungPart implements Part
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Blattnummer"),
         control.getBlattnummer());
 
-    LabelGroup grSpendeninfos = new LabelGroup(scrolled.getComposite(),
-        JVereinPlugin.getI18n().tr("Spendendetails"));
+    SimpleContainer grSpendeninfos = grBuchungsinfos;
+    grSpendeninfos.addHeadline(JVereinPlugin.getI18n().tr("Spendendetails"));
     grSpendeninfos.addLabelPair(
         JVereinPlugin.getI18n().tr("Erstattungsverzicht"),
         control.getVerzicht());
@@ -116,22 +122,5 @@ public class BuchungPart implements Part
         butts.paint(scrolled.getComposite());
       }
     }
-
-    // ButtonArea buttons = new ButtonArea();
-    // buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-    // new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
-    // "help-browser.png");
-    // buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-    // new BuchungNeuAction(), null, false, "document-new.png");
-    // buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
-    // {
-    //
-    // public void handleAction(Object context)
-    // {
-    // control.handleStore();
-    // }
-    // }, null, true, "document-save.png");
-    // buttons.paint(scrolled.getComposite());
   }
-
 }
