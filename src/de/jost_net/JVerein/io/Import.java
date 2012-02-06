@@ -360,7 +360,6 @@ public class Import
   private String getResultFrom(final ResultSet results,
       final InternalColumns column) throws SQLException
   {
-
     String resultValue = "";
 
     if (column.isNecessary()
@@ -368,7 +367,6 @@ public class Import
     {
       try
       {
-
         resultValue = results.getString(colMap.get(column.getColumnName()));
 
         /* remove white spaces */
@@ -383,7 +381,6 @@ public class Import
       }
       catch (NullPointerException e)
       {
-
         progMonitor
             .log("Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: "
                 + column.getColumnName());
@@ -396,13 +393,11 @@ public class Import
       }
       catch (SQLException e)
       {
-
         progMonitor.log("Fehler beim lesen der Importdatei in der Spalte: "
             + colMap.get(column.getColumnName()));
         throw new SQLException();
       }
     }
-
     return resultValue;
   }
 
@@ -419,17 +414,19 @@ public class Import
       final Map<String, String> colMap) throws RemoteException,
       ApplicationException
   {
-
     if (results == null)
+    {
       throw new NullPointerException("results my not be null");
+    }
     if (colMap == null)
+    {
       throw new NullPointerException("colMap may not be null");
+    }
 
     this.colMap = colMap;
 
     try
     {
-
       /* verify if beitrag and groups available and in the correct format */
       results.beforeFirst();
       if (!checkeBeitragsgruppen(results))
@@ -666,7 +663,6 @@ public class Import
     else if (zahlart.equalsIgnoreCase("b") || zahlart.equalsIgnoreCase("bar")
         || zahlart.equalsIgnoreCase("barzahlung"))
     {
-
       zahlweg = Zahlungsweg.BARZAHLUNG;
     }
     else if (zahlart.equalsIgnoreCase("u")
@@ -855,8 +851,15 @@ public class Import
           InternalColumns.MITGLIEDSNR)));
     }
 
-    m.insert();
-
+    try
+    {
+      m.insert();
+    }
+    catch (ApplicationException e)
+    {
+      progMonitor.log(m.getNameVorname() + ": " + e.getMessage());
+      throw e;
+    }
   }
 
   /**

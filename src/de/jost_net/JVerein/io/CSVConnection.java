@@ -96,7 +96,9 @@ public class CSVConnection
         for (lastPosition = 0; lastPosition < numberOfChars; lastPosition++)
         {
           if (rCache[lastPosition] == seperator)
+          {
             numColumns++;
+          }
           else if (rCache[lastPosition] == '\n')
           {
             numColumns++;
