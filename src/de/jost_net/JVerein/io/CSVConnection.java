@@ -118,7 +118,8 @@ public class CSVConnection
       /* not ending header */
       if (!headerComplete)
       {
-        monitor.setStatusText("Keine Daten, oder keine Kopfzeile");
+        monitor
+            .setStatusText("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php");
         valid = false;
       }
 
