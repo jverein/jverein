@@ -1,5 +1,5 @@
 <? include ("frame.inc"); ?>
-    <h1>Abrechung</h1>
+  <h1>Abrechung</h1>
 	<p>Die Abrechnung wird mit dem untenstehenden Bildschirm initiiert. Es können</p>
 	<ul>
 		<li>Mitgliedsbeiträge je nach <a href="dokumentationbeitragsmodelle.php">Beitragsmodell</a></li>
@@ -21,13 +21,15 @@
 		werden. Die Kontonummer in den <a href="administration_stammdaten.php">Stammdaten</a> 
 		wird mit den Kontonummern in Hibiscus abgeglichen. Gibt es eine übereinstimmende Bankverbindung, 
 		wird diese verwendet. Ansonsten erscheint der Hibiscus-Konto-Auswahldialog. </p>
-	<p>Für Mitglieder ohne den Zahlungsweg 'Abbuchung' werden die Daten für die Überwachung des Zahlungseinganges
-		in die Tabelle 'manuelle Zahlungseingänge' geschrieben.</p>
+  <p>Kompakte Abbuchung: Alle Abbuchungen von einem Konto werden in eine Abbuchung zusammengefasst, soweit die
+    Verwendungszwecke (max. 15) in einen Datensatz passen.</p>
+	<p>Die Abrechnungsdaten werden in das Mitgliedskonto geschrieben, sofern der entsprechende Parameter 
+	  unter Administration|Einstellungen gesetzt wurde.</p>
 	<p>Optional kann die ausgegebene DTAUS-Datei in ein PDF-Dokument zum Ausdruck ausgegeben werden.</p>
     <p>Teilnehmer von Kursen können abgerechnet werden. Kursteilnehmer sind Personen, die
 		nicht Mitglied des Vereins sind. Sofern Mitglieder an Kursen teilnehmen, die zusätzlich
 		abgerechnet werden, bieten sich die Zusatzabbuchungen an.</p>
-    <img src='images/Abbuchung095.jpg' class='screenshot'>
+    <img src='images/Abbuchung.png' class='screenshot'>
         
 <? include ("footer.inc"); ?>
 
