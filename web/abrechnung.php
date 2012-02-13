@@ -29,7 +29,7 @@
     <p>Teilnehmer von Kursen können abgerechnet werden. Kursteilnehmer sind Personen, die
 		nicht Mitglied des Vereins sind. Sofern Mitglieder an Kursen teilnehmen, die zusätzlich
 		abgerechnet werden, bieten sich die Zusatzabbuchungen an.</p>
-    <img src='images/Abbuchung.png' class='screenshot'>
+    <img src='images/Abrechnung.png' class='screenshot'>
         
 <? include ("footer.inc"); ?>
 
