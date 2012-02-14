@@ -1,4 +1,3 @@
-	<? include ("jameica_startseite.php"); ?>
 	<? include ("administration_stammdaten.php"); ?>
 	<? include ("administration_beitragsgruppen.php"); ?>
 	<? include ("administration_buchungsklasse.php"); ?>

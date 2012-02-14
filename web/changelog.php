@@ -1,115 +1,80 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
     <ul>
-      <li><a name="v210">Version 2.1.0 noch nicht freigegeben</a></li>
+      <li><a name="v220">Version 2.2.0 vom 14.02.2012</a></li>
         <ul>
-          <li>Bugfix bei der Mitgliedersuche, sofern mit Zusatzfeldern experimentiert wurde.</li>
-          <li>Basisdaten des Mitglieds können mit einem Rechtsklick kopiert werden. Siehe auch <a href='http://www.jverein.de/forum/viewtopic.php?t=542&p=2418'>Forum</a></li>
-          <li>Mitgliederübersicht: Korrekte Sortierung nach ID. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=582&p=2436">Forum</a></li>
           <li>Import benutzerfreundlicher. Patch von Julian.</li>
-          <li>Beim Import von Zusatzbeträgen sind jetzt auch Anführungszeichen als Feldbegrenzer erlaubt.</li>
-          <li>Sofortige Aktualisierung der Anzeige nach Ist-Löschung im Mitgliedskonto. Patch von Julian.</li>
+          <li>Erweiterung des Imports. Zuordnung der Spaltennamen im Dialog. Änderung von Christian Lutz.</li> 
           <li>Neu: Spenden für JVerein.</li>
+          <li>Neu: Ausgabe Kontoauszug Mitgliedskonto.</li>
+          <li>Neu: BLZ-Update mit Hilfe der BLZ-Datei der Bundesbank</li>
+          <li>Am 16.10.2011 erfolgte der Umzug von Berlios zu Sourceforge</li>
+          <li>Teil 1: Erweiterung Spendenbescheinigung um Sammelbescheinigung. Patch von Danzelot.</li>
+          <li>Teil 2: Überarbeitung der Spendenbescheinigungen. Siehe auch <a href="spendenbescheinigung.php#v21">Dokumentation</a>. Patch von Rolf.</li>
+          <li>Neu: Buchungsexport im CSV-Format</a> 
+
+          <li>Basisdaten des Mitglieds können mit einem Rechtsklick kopiert werden. Siehe auch <a href='http://www.jverein.de/forum/viewtopic.php?t=542&p=2418'>Forum</a></li>
+          <li>Beim Import von Zusatzbeträgen sind jetzt auch Anführungszeichen als Feldbegrenzer erlaubt.</li>
           <li>Neu: Übersicht Familienbeiträge. Doppelklick öffnet das Mitglied. Rechtsklick bietet die Möglichkeit, das Mitglied aus dem Famlilienverband zu entfernen.</li>
-          <hr>
-          <li>Folgende Änderungen wurden nach Rev. 309 vorgenommen:</li>
+          <li>Sterbedatum ist jetzt optional. Unter Einstellungen|Ansicht|Sterbedatum kann die Einstellung vorgenommen werden.</li>
+          <li>Mitglied: Anzeige der Mitgliedsnummer.</li>
+          <li>Neue Filteroption "alle" bei der Überprüfung Arbeitseinsätze. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=678'>Forum</a></li>
+          <li>Abrechnung/Beitragsmodell: Vereinfachung der Parameter, jährlich, halbjährlich, vierteljährlich und monatlich zu 'alle' bzw. 'gleicher Termin für alle'</a>
+          <li>Mitgliedskonto: Bei der Auswahl können jetzt nicht nur Mitglieder oder Spender sondern alle Adressen ausgewählt werden.</a>
+          <li>Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2740'>Forum</a></li>
+          <li>Terminkalender zu Jameica verschoben. Termin-Box gelöscht.</li>
+          <li>Unter Einstellungen|Beiträge kann der DTAUS-Textschlüssel ausgewählt werden. Standardmäßig ist Lastschrift eingestellt. Wer aus Abbuchung umstellt, sollte sich über die Bedeutung im Klaren sein. Ggfls. nach Rückspräche mit der Hausbank.</li>
+          <li>Zusatzbeträge-Import: Zusätzliche Plausi zum Aufbau der Datei. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=744">Siehe Forum</a></li>
+          <li>Adresstyp beim Import eingefügt.</li>
+          <li>Mitgliedauswertungen: Selektion nach Mailadressen erweitert.</li>
+          <li>Trefferliste der Mitglieder: Mit einem Rechtsklick können die sichtbaren Daten in die Zwischenablage kopiert werden. Patch von NotDifficult.</li>
+          <li>Mehr Fehlertoleranz bei der Buchungsübernahme aus Hibiscus.</li>
+          <li>Initialer Wert 1 für Primary Key bei H2-Datenbank, siehe <a href="http://www.onlinebanking-forum.de/phpBB2/viewtopic.php?p=80884">Homebanking-Forum</a></li>
+          <li>Einstellungen: Spendenbescheinigungsinformationen vom Tab Allgemein in den Tab Spendenbescheinigungen verschoben.</li>
+          <li>Fehlerbehandlung bei der Mitgliedsstatistik</li>
+          <li>Numerische Sortierung der Hibiscus-Buchungen bei der Übernahme zu JVerein.</li>
+
+          <li>Bugfix bei der Mitgliedersuche, sofern mit Zusatzfeldern experimentiert wurde.</li>
+          <li>Mitgliederübersicht: Korrekte Sortierung nach ID. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=582&p=2436">Forum</a></li>
+          <li>Sofortige Aktualisierung der Anzeige nach Ist-Löschung im Mitgliedskonto. Patch von Julian.</li>
           <li>Import: Spalte individuellerbeitrag ist keine Pflichtspalte</li>
           <li>Mitglieder-Statistik: Anpassung Ein- und Austritte an das Geschäftsjahr.</li>
           <li>Geschäftsjahr: Bugfix bei der Berechnung des Endes des Geschäftsjahres.</li>
           <li>Zusatzbeträge: Bugfix Default-Wert für das Fälligkeitsdatum</li>
-          <li>##Familienmitglied können jetzt per Rechtsklick entfernt werden.</li>
           <li>Bei der Löschung von Eigenschaften wird jetzt auch die Zuordnung von Mitgliedern zur Eigenschaft gelöscht.</li>
           <li>Vermeidung NPE bei der Aufbereitung der Variablen für die Mahnung.</li>
           <li>Abrechnung: Vermeidung NPE bei fehlendem Stichtagsdatum.</li>
           <li>Mahnung: Korrekte Verarbeitung der Mitgliedskonto*-Variablen.</li>
-          <hr>
-          <li>Folgende Änderungen wurden nach Rev. 312 vorgenommen:</li>
-          <li>Sterbedatum ist jetzt optional. Unter Einstellungen|Ansicht|Sterbedatum kann die Einstellung vorgenommen werden.</li>
-          <li>Neu: Ausgabe Kontoauszug Mitgliedskonto.</li>
-          <li>Mitglied: Anzeige der Mitgliedsnummer.</li>
           <li>Bugfix bei der Tabellenhöhe der Arbeitsdienstüberprüfung.</li>
           <li>Bugfix "Übernahme"-Button für Soll+Ist im Mitgliedskontoauswahldialog. <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=680'>Patch von Danzelot.</a></li>
           <li>Bugfix Filter Überprüfung Arbeitseinsätze. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=678'>Forum</a></li>
-          <li>Neue Filteroption "alle" bei der Überprüfung Arbeitseinsätze. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=678'>Forum</a></li>
           <li>Mitgliedskontoauswahl: Bugfix OperationCanceledException und Widged is disposed. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=679'>Forum</a>
-          <li>Abrechnung/Beitragsmodell: Vereinfachung der Parameter, jährlich, halbjährlich, vierteljährlich und monatlich zu 'alle' bzw. 'gleicher Termin für alle'</a>
-          <hr>
-          <li>Folgende Änderungen wurden nach Rev. 315 vorgenommen:</li>
           <li>Bei der Speicherung der Einstellungen wird auf notwendige Plugins geprüft, wenn Dokumentenspeicherung aktiviert wurde.</li>
           <li>Bugfix Sortierung Buchungsartenliste. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?t=693&p=2709#p2709'>Forum</a></li>
-          <li>Mitgliedskonto: Bei der Auswahl können jetzt nicht nur Mitglieder oder Spender sondern alle Adressen ausgewählt werden.</a>
-          <li>Mehreren Buchungen ein Mitgliedskonto gleichzeitig zuordnen. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2740'>Forum</a></li>
           <li>Individuelle Spendenbescheinigung: Check ob auch ein Formular ausgewählt wurde - Patch von Christian Lutz</li>
           <li>Bugfix Sortierung Buchungsübersicht.</li>
-          <li>##Bugfix bei der Übernahme mehrerer Buchung in das Mitgliedskonto - Patch von Danzelot - siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=1&t=699&p=2778&hilit=patch#p2775'>Forum</a></li>
-          <li>Neu: BLZ-Update mit Hilfe der BLZ-Datei der Bundesbank</li>
-          <li>Terminkalender zu Jameica verschoben. Termin-Box gelöscht.</li>
-          <li>Erweiterung des Imports. Zuordnung der Spaltennamen im Dialog. Änderung von Christian Lutz.</li> 
-          <hr>
-          <li>Folgende Änderungen wurden nach Rev. 319 vorgenommen:</li>
-          <li>Am 16.10.2011 erfolgte der Umzug von Berlios zu Sourceforge</li>
           <li>Bugfix bei der Abrechnung von Zusatzbeträgen neuer Mitglieder.</li>
-          <li>##Kontextmenü Mitglied: kopieren &rarr; duplizieren umbenannt.</li>
-          <li>Folgende Änderungen wurden nach Rev. 320 vorgenommen:</li>
-          <li>Unter Einstellungen|Beiträge kann der DTAUS-Textschlüssel ausgewählt werden. Standardmäßig ist Lastschrift eingestellt. Wer aus Abbuchung umstellt, sollte sich über die Bedeutung im Klaren sein. Ggfls. nach Rückspräche mit der Hausbank.</li>
-          <li>Zusatzbeträge-Import: Zusätzliche Plausi zum Aufbau der Datei. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=744">Siehe Forum</a></li>
           <li>Terminübersicht: Ausgetretene Mitglieder werden nicht mehr angezeigt. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=753">Siehe Forum</a><</li>
           <li>Bugfix Adressbuch-Export für Hibiscus: NPE beseitigt bei Nichtmitgliedern mit Bankverbindung. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=755&p=2944">Siehe Forum</a></li>
           <li>Bugfix CSV-Export: Bei Akademikerinnen wurde der Titel nicht ausgegeben. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=757">Siehe Forum</a></li>
           <li>Bugfix "neue Buchung / Mitgliedskontoauswahl". <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=773">Siehe Forum</a></li>
-          <li>Adresstyp beim Import eingefügt.</li>
           <li>Bugfix. Klick in der Mitgliedskontenübersicht auf eine Adresse öffnete Mitglied. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=776">Siehe Forum</a>
-          <li>Erweiterung Spendenbescheinigung um Sammelbescheinigung. Patch von Danzelot.</li>
-          <li>Neu: Buchungsexport im CSV-Format</a> 
           <li>Bugfix Adressensuche. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=781">Siehe Forum.</a></li>
           <li>Codeoptimierung bei den Mitgliederauswertungen.</li>
-          <li>Mitgliedauswertungen: Selection nach Mailadressen erweitert.</li>
           <li>Adressbuch-Export von Mail zu den den Mitgliederauswertungen verschoben.</li>
-           <hr>
-          <li>Folgende Änderungen wurden nach Rev. 325 vorgenommen:</li>
-          <li>Trefferliste der Mitglieder: Mit einem Rechtsklick können die sichtbaren Daten in die Zwischenablage kopiert werden. Patch von NotDifficult.</li>
           <li>Bugfix in der Kontenübersicht bei Wechsel der ID des Hibiscus-Kontos</li>
           <li>Mitglieder-Suche: Bugfix Speicherung der Suchkriterien. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=838">Forum</a></li>
-          <li>Überarbeitung der Spendenbescheinigungen. Siehe auch <a href="spendenbescheinigung.php#v21">Dokumentation</a>. Patch von Rolf.</li>
           <li>Bugfix Sortierung der Familienbeiträge. Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=839">Forum</a></li>
-          <li>##Bugfix Dateinamen für Spendenbescheinigungen</li>
           <li>Buchungklassen: Bugfix "Anzahl Buchungen ohne Buchungsart". Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=849">Forum</a></li>
-           <hr>
-          <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
           <li>Buchungsliste: Bugfix fehlende Einzelbuchungen bei Auswahl "Alle Buchungsarten". Siehe auch <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=819">Forum</a></li>
           <li>Bugfix "leere Nummer" bei Speicherung von Buchungsarten. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=845">Forum</a></li>
-          <li>Mehr Fehlertoleranz bei der Buchungsübernahme aus Hibiscus.</li>
-          <li>##Bugfixes Spendenbescheinigungen.</li>
-           <hr>
-          <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
-          <li>##Weitere Bugfixes im Bereich der Spendenbescheinigungen. Patch von Rolf.</li>
-          <ul>
-              <li>Rechtsbündige Ausgabe des Spendenbetrages</li>
-              <li>Fehler bei Sachzuwendungen behoben</li>
-              <li>Buchungsliste auf Sammelbestätigung anders formatiert. Anstelle der Spalte "Verzicht" wird jede Zeile mit einem Merker versehen, der in 
-                 einer Legende erklärt wird.</li>
-              <li>Verwendung der Map aus SpendenbescheinigungImpl auch in der Standard-Generierung, damit nur einmal Aufbereitung der Felder durchgeführt werden muss.</li>
-              <li>Zusätzliche Formular-Variable SPENDENART (spendebescheinigung_spendenart), die folgende Texte enthalten kann:
-                  Geldzuwendungen, Geldzuwendungen/Mitgliedsbeitrag, Sachzuwendungen</li>
-              <li>StringTool um ein paar Formatierungsfunktionen erweitert</li>
-          </ul>
-           <hr>
-          <li>Folgende Änderungen wurden nach Rev. 326 vorgenommen:</li>
           <li>##Bugfix bei den Einstellungen bei einer "frischen" Datenbank.</li>
-          <li>Initialer Wert 1 für Primary Key bei H2-Datenbank, siehe <a href="http://www.onlinebanking-forum.de/phpBB2/viewtopic.php?p=80884">Homebanking-Forum</a></li>
-          <li>##Patch von Danzelot: <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=873&p=3521#p3521">Siehe Forum.</a></li>
           <li>Bugfix bei den Zusatzbeträgen: "monatlich" wurde mehrfach als Intervall angeboten. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=894">Siehe Forum.</a></li>
           <li>Bugfix Zusatzbeträge: keine Abrechnung bei ausgetretenen Mitgliedern. <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=895">Siehe Forum.</a></li>
-          <li>Einstellungen: Spendenbescheinigungsinformationen vom Tab Allgemein in den Tab Spendenbescheinigungen verschoben.</li>
-           <hr>
-          <li>Folgende Änderungen wurden nach Rev. 335 vorgenommen:</li>
           <li>Bugfix Variable "anrede_du"</li>
           <li>Patch von Rolf zur Buchungsliste und zum Buchungsjournal.</li>
-          <li>Fehlerbehandlung bei der Mitgliedsstatistik</li>
           <li>Numerische Sortierung der Hibiscus-Buchungen bei der Übernahme zu JVerein.</li>
-          <li>Bei der Buchungsübernahme werden nur Hibiscus-Konten angeboten.</li>
           <li>2-spaltiges Layout bei den Buchungen wiederhergestellt. Patch von Rolf.</li>
-          <li>##Kleine Änderungen an den Spendenbescheinigungen.</li>
         </ul>
       </li>
       <li><a name="v201">Version 2.0.1 vom 29.6.2011</a></li>

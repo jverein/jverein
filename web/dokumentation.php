@@ -2,7 +2,6 @@
 <h1>Dokumentation</h1>
 <ul>
 	<li><a href="dokumentationallinone.php">All-in-One</a></li>
-	<li><a href="jameica_startseite.php">Jameica-Startseite</a></li>
 	<li><a href="mitglied.php">Mitglieder</a></li>
 	<li><a href="adressen.php">Adressen (ab Version 2.0)</a></li>
 	<li><a href="mitgliedskonto.php">Mitgliedskonto</a></li>
