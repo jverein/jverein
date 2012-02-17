@@ -830,7 +830,7 @@ public class Import
             .log("Adresstyp bei: "
                 + m.getVornameName()
                 + " ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)");
-        m.setZahlungsrhytmus(new Integer(1));
+        m.setAdresstyp(new Integer(1));
       }
     }
     else
