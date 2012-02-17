@@ -864,6 +864,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       anrededu += " " + getVorname();
     }
+    anrededu += ",";
     map.put(MitgliedVar.ANREDE_DU.getName(), anrededu);
 
     map.put(MitgliedVar.AUSTRITT.getName(),
