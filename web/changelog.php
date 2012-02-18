@@ -1,6 +1,15 @@
 <? include ("frame.inc"); ?>
     <h1>Changelog</h1>
-    <ul>
+    <ul>      
+      <li><a name="v230">Version 2.3.0 (noch nicht freigegeben)</a></li>
+        <ul>
+          <li>Mitglieder-Suche: Tabs entfernt. Gründe: Unterschiedliches Verhalten der Tabellen innerhalb der Tabs und Performance-Optimierung.</li>
+          <li>Bugfix Import: Bei fehlender Spalte Adresstyp wurde der Zahlungsrhytmus überschrieben. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=417&p=3655">Forum</a> [2.2.1]</li>
+          <li>Bugfix Formularfeld "Anrede_du": Komma fehlte am Ende. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=934">Forum</a>[2.2.1]</li>
+         </ul>
+      </li>
+    
+    
       <li><a name="v220">Version 2.2.0 vom 14.02.2012</a></li>
         <ul>
           <li>Import benutzerfreundlicher. Patch von Julian.</li>
