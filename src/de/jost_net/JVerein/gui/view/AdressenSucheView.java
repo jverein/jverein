@@ -30,6 +30,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.input.Input;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
@@ -52,6 +53,10 @@ public class AdressenSucheView extends AbstractAdresseSucheView
   {
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Filter"));
+    TextInput suchName = control.getSuchname();
+    suchName.addListener(new FilterListener());
+    group.addInput(suchName);
+
     Input adrtyp = control.getSuchAdresstyp(2);
     Adresstyp at = (Adresstyp) Einstellungen.getDBService().createObject(
         Adresstyp.class, "2");

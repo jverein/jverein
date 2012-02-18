@@ -63,12 +63,6 @@ public class MitgliedQuery
 
   public ArrayList<Mitglied> get(int adresstyp) throws RemoteException
   {
-    return get("*", adresstyp);
-  }
-
-  public ArrayList<Mitglied> get(String anfangsbuchstabe, int adresstyp)
-      throws RemoteException
-  {
     final DBService service = Einstellungen.getDBService();
     ArrayList<Object> bedingungen = new ArrayList<Object>();
 
@@ -243,10 +237,11 @@ public class MitgliedQuery
       addCondition(condEigenschaft.toString());
     }
 
-    if (!anfangsbuchstabe.equals("*"))
+    String tmpSuchname = (String) control.getSuchname().getValue();
+    if (!batch && tmpSuchname.length() > 0)
     {
-      addCondition("(name like '" + anfangsbuchstabe + "%' OR " + "name like '"
-          + anfangsbuchstabe.toLowerCase() + "%')");
+      addCondition("(name like '" + tmpSuchname + "%' OR " + "name like '"
+          + tmpSuchname.toLowerCase() + "%')");
     }
 
     if (control.getGeburtsdatumvon().getValue() != null)

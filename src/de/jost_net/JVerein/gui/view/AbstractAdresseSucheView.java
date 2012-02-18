@@ -26,13 +26,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -48,25 +43,15 @@ import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.jameica.gui.util.Color;
-import de.willuhn.jameica.gui.util.TabGroup;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 
 public abstract class AbstractAdresseSucheView extends AbstractView
 {
 
-  private TabFolder folder = null;
-
-  private TablePart[] p;
-
-  private TabGroup[] tab;
+  private TablePart p;
 
   private Settings settings;
-
-  private final String[] b = { "A", "Ä", "B", "C", "D", "E", "F", "G", "H",
-      "I", "J", "K", "L", "M", "N", "O", "Ö", "P", "Q", "R", "S", "T", "U",
-      "Ü", "V", "W", "X", "Y", "Z", "*" };
 
   final MitgliedControl control = new MitgliedControl(this);
 
@@ -114,44 +99,11 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     Long anzahl = (Long) service.execute(sql, new Object[] {}, rs);
     if (anzahl.longValue() > 0)
     {
-      folder = new TabFolder(getParent(), SWT.NONE);
-      folder.setLayoutData(new GridData(GridData.FILL_BOTH));
-      folder.setBackground(Color.BACKGROUND.getSWTColor());
-
-      tab = new TabGroup[b.length];
-      p = new TablePart[b.length];
-
-      for (int i = 0; i < b.length; i++)
-      {
-        tab[i] = new TabGroup(folder, b[i], true, 1);
-      }
-      int si = 0;
-      for (int i = 0; i < b.length; i++)
-      {
-        if (b[i].equals(settings.getString("lasttab", "A")))
-        {
-          si = i;
-        }
-      }
       Adresstyp at = (Adresstyp) control.getSuchAdresstyp(1).getValue();
       Logger.debug(at.getID() + ": " + at.getBezeichnung());
-      paintTable(control, si, Integer.parseInt(at.getID()));
-      folder.setSelection(si);
-      folder.addSelectionListener(new SelectionListener()
-      {
-
-        public void widgetDefaultSelected(SelectionEvent e)
-        {
-          //
-        }
-
-        public void widgetSelected(SelectionEvent e)
-        {
-          int si = folder.getSelectionIndex();
-          settings.setAttribute("lasttab", b[si]);
-          TabRefresh(si);
-        }
-      });
+      p = control.getMitgliedTable(Integer.parseInt(at.getID()),
+          getDetailAction());
+      p.paint(getParent());
     }
     ButtonArea buttons = new ButtonArea(this.getParent(), 2);
     buttons.addButton(getHilfeButton());
@@ -162,35 +114,18 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     }
   }
 
-  private void TabRefresh(int index)
+  private void TabRefresh()
   {
     try
     {
       control.saveDefaults();
-      if (p[index] != null)
-      {
-        Control[] c = tab[index].getComposite().getChildren();
-        for (Control c1 : c)
-        {
-          c1.dispose();
-        }
-      }
       Adresstyp at = (Adresstyp) control.getSuchAdresstyp(2).getValue();
-      paintTable(control, index, Integer.parseInt(at.getID()));
+      control.refreshMitgliedTable(Integer.parseInt(at.getID()));
     }
     catch (RemoteException e1)
     {
       e1.printStackTrace();
     }
-  }
-
-  private void paintTable(MitgliedControl control, int index, int adresstyp)
-      throws RemoteException
-  {
-    p[index] = control.getMitgliedTable(b[index], adresstyp, getDetailAction());
-    p[index].paint(tab[index].getComposite());
-
-    folder.getParent().layout(true, true);
   }
 
   public class FilterListener implements Listener
@@ -209,8 +144,8 @@ public abstract class AbstractAdresseSucheView extends AbstractView
 
       try
       {
-        int si = folder.getSelectionIndex();
-        TabRefresh(si);
+        System.out.println("refresh");
+        TabRefresh();
       }
       catch (NullPointerException e)
       {

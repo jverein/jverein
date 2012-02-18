@@ -34,6 +34,7 @@ import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
@@ -83,6 +84,10 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
         mitglbeitragsgruppe);
 
     SimpleContainer middle = new SimpleContainer(cl.getComposite());
+    TextInput suchName = control.getSuchname();
+    suchName.addListener(new FilterListener());
+    middle.addInput(suchName);
+    
     DateInput mitglgebdatvon = control.getGeburtsdatumvon();
     mitglgebdatvon.addListener(new FilterListener());
     middle.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"),

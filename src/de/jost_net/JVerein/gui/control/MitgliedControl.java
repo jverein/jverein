@@ -133,6 +133,8 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedControl extends AbstractControl
 {
+  private TablePart part;
+
   private SelectInput adresstyp;
 
   private IntegerInput externemitgliedsnummer;
@@ -209,6 +211,8 @@ public class MitgliedControl extends AbstractControl
   private TextInput auswertungUeberschrift = null;
 
   private SelectInput suchadresstyp = null;
+
+  private TextInput suchname = null;
 
   private DateInput geburtsdatumvon = null;
 
@@ -1756,6 +1760,18 @@ public class MitgliedControl extends AbstractControl
     return austrittbis;
   }
 
+  public TextInput getSuchname()
+  {
+    if (suchname != null)
+    {
+      return suchname;
+    }
+    this.suchname = new TextInput(settings.getString("mitglied.suchname", ""),
+        50);
+    suchname.setName(JVereinPlugin.getI18n().tr("Name"));
+    return suchname;
+  }
+
   public DateInput getStichtag()
   {
     if (stichtag != null)
@@ -2020,19 +2036,28 @@ public class MitgliedControl extends AbstractControl
         "document-new.png");
   }
 
-  public TablePart getMitgliedTable(String anfangsbuchstabe, int atyp,
-      Action detailaction) throws RemoteException
+  public TablePart getMitgliedTable(int atyp, Action detailaction)
+      throws RemoteException
   {
-    TablePart part;
-    saveDefaults();
-    part = new TablePart(new MitgliedQuery(this, false).get(anfangsbuchstabe,
-        atyp), detailaction);
+    part = new TablePart(new MitgliedQuery(this, false).get(atyp), detailaction);
     new MitgliedSpaltenauswahl().setColumns(part, atyp);
     part.setContextMenu(new MitgliedMenu(detailaction));
     part.setMulti(true);
     part.setRememberColWidths(true);
     part.setRememberOrder(true);
     part.setRememberState(true);
+    return part;
+  }
+
+  public TablePart refreshMitgliedTable(int atyp) throws RemoteException
+  {
+    saveDefaults();
+    part.removeAll();
+    ArrayList<Mitglied> mitglieder = new MitgliedQuery(this, false).get(atyp);
+    for (Mitglied m : mitglieder)
+    {
+      part.addItem(m);
+    }
     return part;
   }
 
@@ -2073,6 +2098,20 @@ public class MitgliedControl extends AbstractControl
       {
         settings.setAttribute("auswertung.ueberschrift", "");
       }
+    }
+    
+    if (suchname != null)
+    {
+      String tmp = (String) getSuchname().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.suchname", tmp);
+      }
+      else
+      {
+        settings.setAttribute("mitglied.suchname", "");
+      }
+      
     }
 
     if (geburtsdatumbis != null)
