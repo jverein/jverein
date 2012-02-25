@@ -20,18 +20,21 @@
     	<tr> 
     		<td align=center>1.4</td><td align=center>1.10</td><td align=center>1.12</td>
        	</tr>
-    	<tr> 
-    		<td align=center>2.0.0</td><td align=center>2.0.0</td><td align=center>2.0.0</td>
-       	</tr>
+      <tr> 
+        <td align=center>2.0.0</td><td align=center>2.0.0</td><td align=center>2.0.0</td>
+        </tr>
+      <tr> 
+        <td align=center>2.2.0</td><td align=center>2.2.0</td><td align=center>2.2.0</td>
+        </tr>
     </table>
     <p></p>
     <h2>Standardinstallation</h2>
 	<p><a href="http://www.willuhn.de/products/jameica/">Jameica</a> und
 	   <a href="http://www.willuhn.de/products/hibiscus/">Hibiscus</a> sind gemäß 
 		<a href="http://www.willuhn.de/wiki/doku.php?id=handbuch:sonstiges:install">Anleitung</a> zu installieren.</p>
-	<p>Für die Installation von JVerein wird das heruntergeladene ZIP-Archiv in das plugins-Verzeichnis 
-		von <a href="http://www.willuhn.de/products/jameica/">Jameica</a> entpackt. Fertig.</p>
-	<p>Version 1.1 von JVerein setzt die Version 1.7 von Jameica und 1.9 von Hibiscus voraus.</p>
+	<p>JVerein muss heruntergeladen werden. In Jameica auf "Neues Plugin installieren..." klicken und die Datei "jverein.zip"
+	 auswählen. Der Plugin-Manager kann alternativ auch unter "Datei&rarr;Einstellungen&rarr;Plugins" gefunden werden.  
+	</p>
 	<h2>Jameica-Suite für Windows-Benutzer</h2>
 	<p><a href="mailto:Marco.huegel@gmx.de">Marco Hügel</a> hat die Jameica Suite zusammengestellt. 
 		Windows-Benutzer können Jameica, Hibiscus, Syntax und JVerein per Setup-Datei installieren. 
