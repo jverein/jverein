@@ -173,7 +173,7 @@ public class Kontoauszug
 
   private void zeigeDokument()
   {
-    GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");
+    GUI.getStatusBar().setSuccessText("Kontoauszug erstellt");
     GUI.getDisplay().asyncExec(new Runnable()
     {
 
