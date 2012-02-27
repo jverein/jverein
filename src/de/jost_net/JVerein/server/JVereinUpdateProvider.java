@@ -897,6 +897,10 @@ public class JVereinUpdateProvider
     {
       update0224(conn);
     }
+    if (cv < 225)
+    {
+      update0225(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5473,6 +5477,33 @@ public class JVereinUpdateProvider
         "UPDATE formularfeld SET seite = 1;\n");
     execute(conn, statements,
         "Defaultwert für Spalte seite in der Tabelle formularfeld gesetzt", 224);
+  }
+
+  private void update0225(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE lesefeld (");
+    sb.append("  id IDENTITY(1),");
+    sb.append(" bezeichnung VARCHAR(50),");
+    sb.append(" script VARCHAR(1000),");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE lesefeld (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" bezeichnung VARCHAR(50),");
+    sb.append(" script VARCHAR(1000),");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(" )  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle lesefeld erstellt", 225);
   }
 
 }

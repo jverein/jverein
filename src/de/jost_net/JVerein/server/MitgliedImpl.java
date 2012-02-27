@@ -27,6 +27,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import bsh.EvalError;
+import bsh.Interpreter;
+import bsh.TargetError;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedVar;
@@ -38,6 +41,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
+import de.jost_net.JVerein.rmi.LeseFeld;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -1026,6 +1030,99 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         val = "X";
       }
       map.put("mitglied_eigenschaft_" + eig.getBezeichnung(), val);
+    }
+
+    DBIterator itlesefelder = Einstellungen.getDBService().createList(
+        LeseFeld.class);
+    if (itlesefelder.hasNext())
+    {
+      Interpreter bsh = new Interpreter();
+
+      // Mache alle Variablen aus map in BeanScript verfügbar.
+      // '.', '-' und ' ' werden ersetzt durch '_'.
+      for (String key : map.keySet())
+      {
+
+        // TODO: gibt es noch mehr Zeichen, die ersetzt werden müssen?
+        String keyNormalized = key.replace("-", "_").replace(".", "_")
+            .replace(" ", "_");
+
+        try
+        {
+          bsh.set(keyNormalized, map.get(key));
+        }
+        catch (TargetError e)
+        {
+          System.out
+              .println("The script or code called by the script threw an exception: "
+                  + e.getTarget());
+        }
+        catch (EvalError e2)
+        {
+          System.out.println("There was an error in evaluating the script:"
+              + e2);
+        }
+      }
+
+      // DEBUG: Zeige alle gesetzten Variablen.
+      String[] vars = bsh.getNameSpace().getVariableNames();
+      try
+      {
+        for (int i = 0; i < vars.length; i++)
+        {
+          // Logger.info(vars[i] + ": ");
+          String s = "print(\"" + vars[i] + ":\" + " + vars[i] + ");";
+          Object obj = bsh.eval(s);
+          int dd = 4;
+        }
+      }
+      catch (EvalError e)
+      {
+        e.printStackTrace();
+      }
+
+      // Für jedes LeseFeld wird nun der Wert berechnet.
+      // Das heißt, das entsprechende BeanScript wird ausgewertet.
+      // Alle Scripte (Felder), die korrekt ausgewertet wurden,
+      // werden mit Prefix mitglied_lesefeld_ in die map eingefügt.
+      while (itlesefelder.hasNext())
+      {
+        LeseFeld vfeld = (LeseFeld) itlesefelder.next();
+        String script = vfeld.getScript();
+
+        Object zem = null;
+        try
+        {
+          zem = bsh.eval(script);
+          String val = zem == null ? "" : zem.toString();
+          Logger.info("LeseFeld: " + vfeld.getBezeichnung() + "=" + val);
+          map.put("mitglied_lesefeld_" + vfeld.getBezeichnung(), val);
+
+        }
+        catch (EvalError e)
+        {
+          Logger.error("Fehler. EvalError: \"" + e.getMessage() + "\".", e);
+
+          e.printStackTrace();
+        }
+
+        /*
+         * ZemObject zem = null; String val = ""; try { zem =
+         * interpreter.eval(zemScript); val = zem.toString();
+         * Logger.info("LeseFeld: " + vfeld.getBezeichnung() + "=" + val);
+         * map.put("mitglied_lesefeld_" + vfeld.getBezeichnung(), val); } catch
+         * (UnsetVariableException e) {
+         * Logger.error("Fehler. \""+e.getMessage()+"\".", e);
+         * e.printStackTrace(); } catch (ParserException e) {
+         * Logger.error("Fehler. ParserException: \""+e.getMessage()+"\".", e);
+         * e.printStackTrace(); } catch (ZemException e) {
+         * Logger.error("Fehler. ZemException: \""+e.getMessage()+"\".", e);
+         * e.printStackTrace(); } catch (IOException e1) {
+         * Logger.error("Unerwarteter Fehler. IOException in MitgliedImpl.",
+         * e1); e1.printStackTrace(); }
+         */
+
+      }
     }
 
     return map;

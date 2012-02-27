@@ -58,12 +58,12 @@ public class AllgemeineMap
     map.put(AllgemeineVar.AKTUELLERMONAT.getName(), mmjjjj.format(new Date()));
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MONTH, 1);
-    map.put("folgemonat", mmjjjj.format(calendar.getTime()));
+    map.put(AllgemeineVar.FOLGEMONAT.getName(), mmjjjj.format(calendar.getTime()));
     calendar.add(Calendar.MONTH, -2);
-    map.put("vormonat", mmjjjj.format(calendar.getTime()));
+    map.put(AllgemeineVar.VORMONAT.getName(), mmjjjj.format(calendar.getTime()));
     calendar.add(Calendar.MONTH, -1);
     calendar.add(Calendar.YEAR, 1);
-    map.put("folgejahr", jjjj.format(calendar.getTime()));
+    map.put(AllgemeineVar.FOLGEJAHR.getName(), jjjj.format(calendar.getTime()));
     return map;
   }
 }

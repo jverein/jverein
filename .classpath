@@ -15,5 +15,6 @@
 	<classpathentry exported="true" kind="lib" path="/jameica/lib/swt/win32/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
 	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/obantoo-bin-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/bsh-core-2.0b4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
