@@ -22,45 +22,39 @@
 
 package de.jost_net.JVerein.io;
 
-
 /**
- * Basis-Interface aller Importer und Exporter.
+ * Dieses Interface kapselt die Datei-Formate. Jeder Importer oder Exporter
+ * unterstuetzt ein oder mehrere Dateiformate. Ueber
+ * <code>de.willuhn.jameica.hbci.io.IO#getIOFormats(Class type)</code> kann ein
+ * Importer/Exporter abgefragt werden, welche Formate er unterstuetzt.
  */
-public interface IO
+public interface IOFormat
 {
   /**
-   * Liefert einen sprechenden Namen des Exporters/Importers.
-   * Z.Bsp. "Swift MT-940 Format".
-   * @return Name
+   * Liefert einen sprechenden Namen fuer das Datei-Format. Zum Beispiel
+   * &quotCSV-Datei&quot;
+   * 
+   * @return Sprechender Name des Datei-Formats.
    */
   public String getName();
 
   /**
-   * Liefert eine Liste der von diesem unterstuetzten Datei-Formate.
-   * @param objectType Art der zu exportierenden/importierenden Objekte.
-   * Z.Bsb.: Umsatz.class oder SammellastBuchung.class.
-   * Abhaengig davon kann der Exporter/Importer eine unterschiedliche
-   * Liste von Dateiformaten liefern, die er zu dieser Objektart unterstuetzt.
-   * @return Liste der Export-Formate.
+   * Liefert die Datei-Endungen des Formats. Zum Beispiel "*.csv" oder "*.txt".
+   * 
+   * @return Datei-Endung.
    */
-  public IOFormat[] getIOFormats(Class objectType);
-
-
+  public String[] getFileExtensions();
 }
 
-
 /*********************************************************************
- * $Log$
- * Revision 1.4  2006/10/16 12:51:32  willuhn
- * @B Uebernahme des originalen Datums aus dem Kontoauszug
- *
- * Revision 1.3  2006/03/15 18:01:30  willuhn
- * @N AbstractHBCIJob#getName
- *
- * Revision 1.2  2006/01/17 00:22:36  willuhn
+ * $Log$ Revision 1.2 2006/01/23 23:07:23 willuhn
+ * 
+ * @N csv import stuff
+ * 
+ *    Revision 1.1 2006/01/17 00:22:36 willuhn
  * @N erster Code fuer Swift MT940-Import
- *
- * Revision 1.1  2005/06/08 16:48:54  web0
- * @N new Import/Export-System
- *
- *********************************************************************/
+ * 
+ *    Revision 1.1 2005/06/30 23:52:42 web0
+ * @N export via velocity
+ * 
+ **********************************************************************/

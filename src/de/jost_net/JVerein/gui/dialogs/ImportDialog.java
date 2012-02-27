@@ -19,17 +19,19 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
+
 package de.jost_net.JVerein.gui.dialogs;
 
 import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 
-import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.io.IOFormat;
 import de.jost_net.JVerein.io.IORegistry;
 import de.jost_net.JVerein.io.Importer;
 import de.willuhn.datasource.GenericObject;
@@ -41,42 +43,65 @@ import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.Container;
+import de.willuhn.jameica.gui.util.SimpleContainer;
+import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.I18N;
 import de.willuhn.util.ProgressMonitor;
 
 /**
  * Dialog, ueber den Daten importiert werden koennen.
  */
-public class ImportDialog extends AbstractDialog<Object>
+public class ImportDialog extends AbstractDialog
 {
+  private final static int WINDOW_WIDTH = 420;
+
+  private final static I18N i18n = Application.getPluginLoader()
+      .getPlugin(HBCI.class).getResources().getI18N();
 
   private Input importerListe = null;
 
   private GenericObject context = null;
 
-  private Class<?> type = null;
+  private Class type = null;
 
-  public ImportDialog(GenericObject context, Class<?> type)
+  private Settings settings = null;
+
+  /**
+   * ct.
+   * 
+   * @param context
+   *          Context.
+   * @param type
+   *          die Art der zu importierenden Objekte.
+   */
+  public ImportDialog(GenericObject context, Class type)
   {
     super(POSITION_CENTER);
-    i18n = JVereinPlugin.getI18n();
-    setTitle(i18n.tr("Daten-Import"));
+
     this.context = context;
     this.type = type;
+
+    this.setTitle(i18n.tr("Daten-Import"));
+    this.setSize(WINDOW_WIDTH, SWT.DEFAULT);
+
+    settings = new Settings(this.getClass());
+    settings.setStoreWhenRead(true);
   }
 
-  @Override
+  /**
+   * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#paint(org.eclipse.swt.widgets.Composite)
+   */
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup group = new LabelGroup(parent,
-        i18n.tr("Auswahl des Import-Filters"));
+    Container group = new SimpleContainer(parent);
     group.addText(i18n
         .tr("Bitte wählen Sie das gewünschte Dateiformat für den Import aus"),
         true);
@@ -84,26 +109,26 @@ public class ImportDialog extends AbstractDialog<Object>
     Input formats = getImporterList();
     group.addLabelPair(i18n.tr("Verfügbare Formate:"), formats);
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     Button button = new Button(i18n.tr("Import starten"), new Action()
     {
-
       public void handleAction(Object context) throws ApplicationException
       {
         doImport();
-        close();
       }
-    }, null, true);
+    }, null, true, "ok.png");
     button.setEnabled(!(formats instanceof LabelInput));
     buttons.addButton(button);
     buttons.addButton(i18n.tr("Abbrechen"), new Action()
     {
-
-      public void handleAction(Object context)
+      public void handleAction(Object context) throws ApplicationException
       {
         throw new OperationCanceledException();
       }
-    });
+    }, null, false, "process-stop.png");
+    group.addButtonArea(buttons);
+    getShell()
+        .setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
   }
 
   /**
@@ -130,67 +155,66 @@ public class ImportDialog extends AbstractDialog<Object>
       throw new ApplicationException(
           i18n.tr("Bitte wählen Sie ein Import-Format aus"));
 
-    Settings settings = new Settings(this.getClass());
-    settings.setStoreWhenRead(true);
+    settings.setAttribute("lastformat", imp.format.getName());
+
+    FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
+    fd.setText(i18n
+        .tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
+    fd.setFilterNames(imp.format.getFileExtensions());
+
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
+    if (path != null && path.length() > 0)
+      fd.setFilterPath(path);
+
+    final String s = fd.open();
+
+    if (s == null || s.length() == 0)
+    {
+      close();
+      return;
+    }
+
+    final File file = new File(s);
+    if (!file.exists() || !file.isFile())
+      throw new ApplicationException(
+          i18n.tr("Datei existiert nicht oder ist nicht lesbar"));
+
+    // Wir merken uns noch das Verzeichnis vom letzten mal
+    settings.setAttribute("lastdir", file.getParent());
+
+    // Dialog schliessen
+    close();
 
     final Importer importer = imp.importer;
-    if (importer.hasFileDialog())
-    {
-
-      FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-      fd.setText(JVereinPlugin.getI18n().tr(
-          "Bitte wählen Sie die Import-Datei aus."));
-
-      String path = settings.getString("lastdir",
-          System.getProperty("user.home"));
-      if (path != null && path.length() > 0)
-      {
-        fd.setFilterPath(path);
-      }
-      final String s = fd.open();
-
-      if (s == null || s.length() == 0)
-      {
-        return;
-      }
-
-      final File file = new File(s);
-      if (!file.exists() || !file.isFile())
-      {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Datei existiert nicht oder ist nicht lesbar"));
-      }
-      // Wir merken uns noch das Verzeichnis fürs nächste mal
-      settings.setAttribute("lastdir", file.getParent());
-      importer.set(file.getParent(), file.getName());
-    }
+    final IOFormat format = imp.format;
 
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
-          importer.doImport(context, monitor);
+          importer.doImport(context, format, file, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText(i18n.tr("Daten importiert"));
+          GUI.getStatusBar().setSuccessText(
+              i18n.tr("Daten importiert aus {0}", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
         {
-          monitor.setStatusText(ae.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }
         catch (Exception e)
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          Logger.error("error while reading objects", e);
-          ApplicationException ae = new ApplicationException(
-              i18n.tr("Fehler beim Importieren der Daten"), e);
+          Logger.error("error while reading objects from " + s, e);
+          ApplicationException ae = new ApplicationException(i18n.tr(
+              "Fehler beim Importieren der Daten aus {0}", s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
@@ -199,7 +223,6 @@ public class ImportDialog extends AbstractDialog<Object>
 
       public void interrupt()
       {
-        //
       }
 
       public boolean isInterrupted()
@@ -220,25 +243,38 @@ public class ImportDialog extends AbstractDialog<Object>
   private Input getImporterList() throws Exception
   {
     if (importerListe != null)
-    {
       return importerListe;
-    }
 
-    Importer[] importers = IORegistry.getImporter(type);
-
-    ArrayList<Imp> l = new ArrayList<Imp>();
+    Importer[] importers = IORegistry.getImporters();
 
     int size = 0;
+    ArrayList l = new ArrayList();
+    String lastFormat = settings.getString("lastformat", null);
+    Imp selected = null;
 
     for (int i = 0; i < importers.length; ++i)
     {
       Importer imp = importers[i];
       if (imp == null)
+        continue;
+      IOFormat[] formats = imp.getIOFormats(type);
+      if (formats == null || formats.length == 0)
       {
+        Logger.debug("importer " + imp.getName()
+            + " provides no import formats for " + type.getName()
+            + ", skipping");
         continue;
       }
-      l.add(new Imp(imp));
-      size++;
+      for (int j = 0; j < formats.length; ++j)
+      {
+        size++;
+        Imp im = new Imp(imp, formats[j]);
+        l.add(im);
+
+        String lf = im.format.getName();
+        if (lastFormat != null && lf != null && lf.equals(lastFormat))
+          selected = im;
+      }
     }
 
     if (size == 0)
@@ -247,15 +283,15 @@ public class ImportDialog extends AbstractDialog<Object>
       return importerListe;
     }
 
-    Imp[] imp = l.toArray(new Imp[size]);
-    importerListe = new SelectInput(PseudoIterator.fromArray(imp), null);
+    Collections.sort(l);
+    Imp[] imp = (Imp[]) l.toArray(new Imp[size]);
+    importerListe = new SelectInput(PseudoIterator.fromArray(imp), selected);
     return importerListe;
   }
 
   /**
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
-  @Override
   protected Object getData() throws Exception
   {
     return null;
@@ -264,28 +300,30 @@ public class ImportDialog extends AbstractDialog<Object>
   /**
    * Hilfsklasse zur Anzeige der Importer.
    */
-  private static class Imp implements GenericObject
+  private class Imp implements GenericObject, Comparable
   {
-
     private Importer importer = null;
 
-    private Imp(Importer importer)
+    private IOFormat format = null;
+
+    private Imp(Importer importer, IOFormat format)
     {
       this.importer = importer;
+      this.format = format;
     }
 
     /**
      * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
      */
-    public Object getAttribute(String arg0)
+    public Object getAttribute(String arg0) throws RemoteException
     {
-      return this.importer.getName();
+      return this.format.getName();
     }
 
     /**
      * @see de.willuhn.datasource.GenericObject#getAttributeNames()
      */
-    public String[] getAttributeNames()
+    public String[] getAttributeNames() throws RemoteException
     {
       return new String[] { "name" };
     }
@@ -293,15 +331,16 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see de.willuhn.datasource.GenericObject#getID()
      */
-    public String getID()
+    public String getID() throws RemoteException
     {
-      return this.importer.getClass().getName();
+      return this.importer.getClass().getName() + "#"
+          + this.format.getClass().getName();
     }
 
     /**
      * @see de.willuhn.datasource.GenericObject#getPrimaryAttribute()
      */
-    public String getPrimaryAttribute()
+    public String getPrimaryAttribute() throws RemoteException
     {
       return "name";
     }
@@ -312,10 +351,26 @@ public class ImportDialog extends AbstractDialog<Object>
     public boolean equals(GenericObject arg0) throws RemoteException
     {
       if (arg0 == null)
-      {
         return false;
-      }
       return this.getID().equals(arg0.getID());
+    }
+
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo(Object o)
+    {
+      if (o == null || !(o instanceof Imp))
+        return -1;
+      try
+      {
+        return this.format.getName().compareTo(((Imp) o).format.getName());
+      }
+      catch (Exception e)
+      {
+        // Tss, dann halt nicht
+      }
+      return 0;
     }
   }
 }

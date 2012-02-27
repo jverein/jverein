@@ -21,6 +21,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
+import java.io.File;
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -38,13 +40,10 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
+public class DefaultZusatzbetraegeImport implements Importer
 {
-  private String path;
-
-  private String file;
-
-  public void doImport(Object context, ProgressMonitor monitor)
+  public void doImport(Object context, IOFormat format, File file,
+      ProgressMonitor monitor) throws RemoteException, ApplicationException
   {
     ResultSet results;
     try
@@ -55,8 +54,10 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
       props.put("separator", ";"); // separator is a bar
       props.put("suppressHeaders", "false"); // first line contains data
       props.put("charset", "ISO-8859-1");
-      int pos = file.lastIndexOf('.');
-      props.put("fileExtension", file.substring(pos));
+      String path = file.getParent();
+      String fil = file.getName();
+      int pos = fil.lastIndexOf('.');
+      props.put("fileExtension", fil.substring(pos));
 
       // load the driver into memory
       Class.forName("org.relique.jdbc.csv.CsvDriver");
@@ -69,7 +70,7 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
       // create a Statement object to execute the query with
       Statement stmt = conn.createStatement();
 
-      results = stmt.executeQuery("SELECT * FROM " + file.substring(0, pos));
+      results = stmt.executeQuery("SELECT * FROM " + fil.substring(0, pos));
       boolean b_mitgliedsnummer = false;
       boolean b_nachname = false;
       boolean b_vorname = false;
@@ -181,7 +182,7 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
 
   public String getName()
   {
-    return "Default";
+    return "Default-Zusatzbeträge";
   }
 
   public boolean hasFileDialog()
@@ -189,20 +190,27 @@ public class DefaultZusatzbetraegeImport implements IZusatzbetraegeImport
     return true;
   }
 
-  public void set(String path, String file)
+  public IOFormat[] getIOFormats(Class objectType)
   {
-    this.path = path;
-    this.file = file;
-  }
+    if (objectType != Zusatzbetrag.class)
+    {
+      return null;
+    }
+    IOFormat f = new IOFormat()
+    {
+      public String getName()
+      {
+        return DefaultZusatzbetraegeImport.this.getName();
+      }
 
-  public String getPath()
-  {
-    return path;
+      /**
+       * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
+       */
+      public String[] getFileExtensions()
+      {
+        return new String[] { "*.csv" };
+      }
+    };
+    return new IOFormat[] { f };
   }
-
-  public String getFile()
-  {
-    return file;
-  }
-
 }

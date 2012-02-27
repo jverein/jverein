@@ -22,6 +22,7 @@
 
 package de.jost_net.JVerein.io;
 
+import java.io.File;
 import java.rmi.RemoteException;
 
 import de.willuhn.util.ApplicationException;
@@ -33,14 +34,24 @@ import de.willuhn.util.ProgressMonitor;
 public interface Importer extends IO
 {
 
-  public void doImport(Object context, ProgressMonitor monitor)
-      throws RemoteException, ApplicationException;
+  /**
+   * Importiert Daten aus dem InputStream.
+   * 
+   * @param context
+   *          Context, der dem Importer hilft, den Zusammenhang zu erkennen, in
+   *          dem er aufgerufen wurde. Das kann zum Beispiel ein Konto sein.
+   * @param format
+   *          das vom User ausgewaehlte Import-Format.
+   * @param file
+   *          der File-Object.
+   * @param monitor
+   *          ein Monitor, an den der Importer Ausgaben ueber seinen
+   *          Bearbeitungszustand ausgeben kann. Der Importer muss den
+   *          Import-Stream selbst schliessen!
+   * @throws RemoteException
+   * @throws ApplicationException
+   */
+  public void doImport(Object context, IOFormat format, File file,
+      ProgressMonitor monitor) throws RemoteException, ApplicationException;
 
-  public boolean hasFileDialog();
-
-  public void set(String path, String file);
-
-  public String getPath();
-
-  public String getFile();
 }
