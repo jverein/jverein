@@ -55,6 +55,9 @@ public class DokumentationUtil
   public static final String BUCHUNGSARTEN = PRE
       + "administration_buchungsarten.php";
 
+  public static final String BUCHUNGSIMPORT = PRE
+      + "buchungsimport.php";
+
   public static final String BUCHUNGSKLASSEN = PRE
       + "administration_buchungsklasse.php";
 

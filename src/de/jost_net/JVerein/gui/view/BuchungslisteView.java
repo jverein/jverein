@@ -22,12 +22,13 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.BuchungImportAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class BuchungslisteView extends AbstractView
@@ -55,17 +56,19 @@ public class BuchungslisteView extends AbstractView
 
     control.getBuchungsList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 6);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Import"),
+        new BuchungImportAction());
     buttons.addButton(control.getStartCSVAuswertungButton());
     buttons.addButton(control.getStartAuswertungBuchungsjournalButton());
     buttons.addButton(control.getStartAuswertungEinzelbuchungenButton());
     buttons.addButton(control.getStartAuswertungSummenButton());
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new BuchungNeuAction(), null, false, "document-new.png");
-
+    buttons.paint(this.getParent());
   }
 
   @Override
