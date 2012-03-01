@@ -31,6 +31,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 
+import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.io.IOFormat;
 import de.jost_net.JVerein.io.IORegistry;
 import de.jost_net.JVerein.io.Importer;
@@ -70,9 +73,11 @@ public class ImportDialog extends AbstractDialog
 
   private GenericObject context = null;
 
-  private Class type = null;
+  private Class<?> type = null;
 
   private Settings settings = null;
+
+  private String helplink = null;
 
   /**
    * ct.
@@ -82,7 +87,7 @@ public class ImportDialog extends AbstractDialog
    * @param type
    *          die Art der zu importierenden Objekte.
    */
-  public ImportDialog(GenericObject context, Class type)
+  public ImportDialog(GenericObject context, Class<?> type, String helplink)
   {
     super(POSITION_CENTER);
 
@@ -94,6 +99,7 @@ public class ImportDialog extends AbstractDialog
 
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    this.helplink = helplink;
   }
 
   /**
@@ -110,13 +116,16 @@ public class ImportDialog extends AbstractDialog
     group.addLabelPair(i18n.tr("Verfügbare Formate:"), formats);
 
     ButtonArea buttons = new ButtonArea();
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), helplink, false, "help-browser.png");
+
     Button button = new Button(i18n.tr("Import starten"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
         doImport();
       }
-    }, null, true, "ok.png");
+    }, null, true, "import_obj.gif");
     button.setEnabled(!(formats instanceof LabelInput));
     buttons.addButton(button);
     buttons.addButton(i18n.tr("Abbrechen"), new Action()

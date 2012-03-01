@@ -23,6 +23,7 @@ package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ImportDialog;
+import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -44,7 +45,8 @@ public class ZusatzbetraegeImportAction implements Action
   {
     try
     {
-      ImportDialog d = new ImportDialog(null, Zusatzbetrag.class);
+      ImportDialog d = new ImportDialog(null, Zusatzbetrag.class,
+          DokumentationUtil.ZUSATZBETRAEGEIMPORT);
       d.open();
     }
     catch (OperationCanceledException oce)
