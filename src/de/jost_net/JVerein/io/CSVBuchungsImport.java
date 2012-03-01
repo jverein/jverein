@@ -26,7 +26,6 @@ import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
@@ -35,8 +34,8 @@ import java.util.Properties;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.BuchungVar;
 import de.jost_net.JVerein.rmi.Buchung;
-import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Zusatzbetrag;
+import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -83,19 +82,125 @@ public class CSVBuchungsImport implements Importer
         {
           Buchung bu = (Buchung) Einstellungen.getDBService().createObject(
               Buchung.class, null);
-          bu.setAuszugsnummer(results.getInt(BuchungVar.AUSZUGSNUMMER.getName()));
-          bu.setArt(results.getString(BuchungVar.ART.getName()));
-          bu.setBetrag(results.getDouble(BuchungVar.BETRAG.getName()));
-          bu.setBlattnummer(results.getInt(BuchungVar.BLATTNUMMER.getName()));
+          try
+          {
+            bu.setAuszugsnummer(results.getInt(BuchungVar.AUSZUGSNUMMER
+                .getName()));
+          }
+          catch (SQLException e)
+          {
+            // Optionales Feld
+          }
+          try
+          {
+            bu.setArt(results.getString(BuchungVar.ART.getName()));
+          }
+          catch (SQLException e)
+          {
+            // Optionales Feld.
+          }
+          try
+          {
+            bu.setBetrag(results.getDouble(BuchungVar.BETRAG.getName()));
+          }
+          catch (SQLException e)
+          {
+            throw new ApplicationException("Spalte "
+                + BuchungVar.BETRAG.getName() + " fehlt!");
+          }
+          try
+          {
+            bu.setBlattnummer(results.getInt(BuchungVar.BLATTNUMMER.getName()));
+          }
+          catch (SQLException e)
+          {
+            // Optionales Feld
+          }
           // bu.setBuchungsart()
-          Date d = de.jost_net.JVerein.util.Datum.toDate(results
-              .getString(BuchungVar.DATUM.getName()));
-          bu.setDatum(d);
-          bu.setKommentar(results.getString(BuchungVar.KOMMENTAR.getName()));
-          // bu.setKonto(konto);
-          bu.setName(results.getString(BuchungVar.NAME.getName()));
-          bu.setZweck(results.getString(BuchungVar.ZWECK1.getName()));
-          bu.setZweck2(results.getString(BuchungVar.ZWECK2.getName()));
+          try
+          {
+            Date d = de.jost_net.JVerein.util.Datum.toDate(results
+                .getString(BuchungVar.DATUM.getName()));
+            bu.setDatum(d);
+          }
+          catch (SQLException e)
+          {
+            throw new ApplicationException("Spalte "
+                + BuchungVar.DATUM.getName() + " fehlt!");
+          }
+          try
+          {
+            bu.setKommentar(results.getString(BuchungVar.KOMMENTAR.getName()));
+          }
+          catch (SQLException e)
+          {
+            // Optionales Feld
+          }
+          try
+          {
+            Long knr = results.getLong(BuchungVar.KONTONUMMER.getName());
+            DBIterator kit = Einstellungen.getDBService().createList(
+                Konto.class);
+            kit.addFilter("nummer = ?", knr);
+            Konto k1 = (Konto) kit.next();
+            if (kit.size() == 0)
+            {
+              throw new ApplicationException("Konto " + knr
+                  + " existiert nicht in JVerein!");
+            }
+            bu.setKonto(k1);
+          }
+          catch (SQLException e)
+          {
+            throw new ApplicationException("Spalte "
+                + BuchungVar.KONTONUMMER.getName() + " fehlt!");
+          }
+          try
+          {
+            Integer bart = results.getInt(BuchungVar.BUCHUNGSARTNUMMER
+                .getName());
+            DBIterator bit = Einstellungen.getDBService().createList(
+                Buchungsart.class);
+            bit.addFilter("nummer = ?", bart);
+            Buchungsart b1 = (Buchungsart) bit.next();
+            if (bit.size() == 0)
+            {
+              throw new ApplicationException("Buchungsart " + bart
+                  + " existiert nicht in JVerein!");
+            }
+            bu.setBuchungsart(Integer.parseInt(b1.getID()));
+          }
+          catch (SQLException e)
+          {
+            throw new ApplicationException("Spalte "
+                + BuchungVar.BUCHUNGSARTNUMMER.getName() + " fehlt!");
+          }
+          try
+          {
+            bu.setName(results.getString(BuchungVar.NAME.getName()));
+          }
+          catch (SQLException e)
+          {
+            throw new ApplicationException("Spalte "
+                + BuchungVar.NAME.getName() + " fehlt!");
+          }
+          try
+          {
+            bu.setZweck(results.getString(BuchungVar.ZWECK1.getName()));
+          }
+          catch (SQLException e)
+          {
+            throw new ApplicationException("Spalte "
+                + BuchungVar.ZWECK1.getName() + " fehlt!");
+          }
+          try
+          {
+            bu.setZweck2(results.getString(BuchungVar.ZWECK2.getName()));
+          }
+          catch (SQLException e)
+          {
+            // Optionales Feld
+          }
           bu.store();
         }
         catch (Exception e)
