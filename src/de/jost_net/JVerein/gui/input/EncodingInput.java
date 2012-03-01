@@ -20,39 +20,42 @@
  * www.jverein.de
  **********************************************************************/
 
-package de.jost_net.JVerein.io;
+package de.jost_net.JVerein.gui.input;
 
-import java.io.File;
+import java.nio.charset.Charset;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
-import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
+import de.willuhn.jameica.gui.input.SelectInput;
 
 /**
- * Basis-Interface aller Importer.
+ * Combo-Box, fuer die Auswahl des Encodings.
  */
-public interface Importer extends IO
+public class EncodingInput extends SelectInput
 {
 
+  public EncodingInput(String encoding) throws RemoteException
+  {
+    super(init(), encoding);
+  }
+
   /**
-   * Importiert Daten aus dem InputStream.
-   * 
-   * @param context
-   *          Context, der dem Importer hilft, den Zusammenhang zu erkennen, in
-   *          dem er aufgerufen wurde. Das kann zum Beispiel ein Konto sein.
-   * @param format
-   *          das vom User ausgewaehlte Import-Format.
-   * @param file
-   *          der File-Object.
-   * @param monitor
-   *          ein Monitor, an den der Importer Ausgaben ueber seinen
-   *          Bearbeitungszustand ausgeben kann. Der Importer muss den
-   *          Import-Stream selbst schliessen!
+   * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
-   * @throws ApplicationException
    */
-  public void doImport(Object context, IOFormat format, File file,
-      String encoding, ProgressMonitor monitor) throws RemoteException,
-      ApplicationException;
+  private static ArrayList<String> init() throws RemoteException
+  {
+    ArrayList<String> ret = new ArrayList<String>();
+    Map<String, Charset> map = Charset.availableCharsets();
+    Iterator<String> it = map.keySet().iterator();
+    while (it.hasNext())
+    {
+      String charsetName = (String) it.next();
+      ret.add(charsetName);
+    }
+    return ret;
+  }
 
 }

@@ -44,7 +44,8 @@ import de.willuhn.util.ProgressMonitor;
 public class CSVBuchungsImport implements Importer
 {
   public void doImport(Object context, IOFormat format, File file,
-      ProgressMonitor monitor) throws RemoteException, ApplicationException
+      String encoding, ProgressMonitor monitor) throws RemoteException,
+      ApplicationException
   {
     ResultSet results;
     try
@@ -54,7 +55,7 @@ public class CSVBuchungsImport implements Importer
       Properties props = new java.util.Properties();
       props.put("separator", ";"); // separator is a bar
       props.put("suppressHeaders", "false"); // first line contains data
-      props.put("charset", "ISO-8859-1");
+      props.put("charset", encoding);
       String path = file.getParent();
       String fil = file.getName();
       int pos = fil.lastIndexOf('.');

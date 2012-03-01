@@ -2,7 +2,7 @@
   <h1>Buchungs-Import</h1>
   <p>Buchungen können im CSV-Format importiert werden.
 	Der Dateiname muss eine Endung haben. Z. B. .csv oder .txt. Es kann jede beliebige Endung verwendet werden. 
-	Die Datenfelder werden durch Semikolon getrennt. Das Encoding muss ISO-8859-1 sein.</p>
+	Die Datenfelder werden durch Semikolon getrennt. Das Encoding kann ausgewählt werden.</p>
 	
 	<table border="1">
 	    <tr><th>Feldbezeichnung</th><th>Pflicht/optional</th></tr>

@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.input.EncodingInput;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.io.IOFormat;
 import de.jost_net.JVerein.io.IORegistry;
@@ -79,6 +80,8 @@ public class ImportDialog extends AbstractDialog
 
   private String helplink = null;
 
+  private SelectInput encoding = null;
+
   /**
    * ct.
    * 
@@ -86,8 +89,10 @@ public class ImportDialog extends AbstractDialog
    *          Context.
    * @param type
    *          die Art der zu importierenden Objekte.
+   * @throws RemoteException
    */
   public ImportDialog(GenericObject context, Class<?> type, String helplink)
+      throws RemoteException
   {
     super(POSITION_CENTER);
 
@@ -100,6 +105,7 @@ public class ImportDialog extends AbstractDialog
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
     this.helplink = helplink;
+    this.encoding = new EncodingInput(settings.getString("encoding", null));
   }
 
   /**
@@ -114,6 +120,7 @@ public class ImportDialog extends AbstractDialog
 
     Input formats = getImporterList();
     group.addLabelPair(i18n.tr("Verfügbare Formate:"), formats);
+    group.addLabelPair("Encoding", encoding);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
@@ -191,7 +198,8 @@ public class ImportDialog extends AbstractDialog
 
     // Wir merken uns noch das Verzeichnis vom letzten mal
     settings.setAttribute("lastdir", file.getParent());
-
+    settings.setAttribute("encoding", encoding.getText());
+    final String enc = encoding.getText();
     // Dialog schliessen
     close();
 
@@ -204,7 +212,7 @@ public class ImportDialog extends AbstractDialog
       {
         try
         {
-          importer.doImport(context, format, file, monitor);
+          importer.doImport(context, format, file, enc, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(

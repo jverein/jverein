@@ -4,7 +4,8 @@
 	<p>Zusatzbeträge können auch importiert werden. Der Import kann über eine CSV-Datei (Default-Format), 
 	die nachfolgend beschrieben wird, erfolgen.
 	Der Dateiname muss eine Endung haben. Z. B. .csv oder .txt. Es kann jede beliebige Endung verwendet werden. 
-	Die Datenfelder werden durch Semikolon getrennt. Das Encoding muss ISO-8859-1 sein.</p>
+	Die Datenfelder werden durch Semikolon getrennt. Das Encoding muss ISO-8859-1 sein. Ab Version 2.4 kann das
+	Encoding beim Import ausgewählt werden.</p>
 	<p>Zur Zuordnung des Zusatzbetrages zum Mitglied muss entweder die Mitglieds_Nr oder Nachname und Vorname angegeben
 	werden. Die nicht benötigten Spalten sind wegzulassen. Die Angabe von Nachname und Vorname setzt voraus, dass es keine 
 	Doubletten bei den Namen gibt.</p>
