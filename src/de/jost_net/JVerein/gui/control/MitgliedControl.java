@@ -1240,7 +1240,7 @@ public class MitgliedControl extends AbstractControl
       f = fo.getFoto();
     }
     foto = new ImageInput(f, 150, 200);
-    foto.setScale(Application.getPlatform().getOS() != Platform.OS_WINDOWS);
+    // foto.setScale(Application.getPlatform().getOS() != Platform.OS_WINDOWS);
     return foto;
   }
 
@@ -2099,7 +2099,7 @@ public class MitgliedControl extends AbstractControl
         settings.setAttribute("auswertung.ueberschrift", "");
       }
     }
-    
+
     if (suchname != null)
     {
       String tmp = (String) getSuchname().getValue();
@@ -2111,7 +2111,7 @@ public class MitgliedControl extends AbstractControl
       {
         settings.setAttribute("mitglied.suchname", "");
       }
-      
+
     }
 
     if (geburtsdatumbis != null)
