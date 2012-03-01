@@ -21,14 +21,45 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
+import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.dialogs.ImportDialog;
+import de.jost_net.JVerein.gui.view.DokumentationUtil;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.system.OperationCanceledException;
+import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
 
 public class BuchungImportAction implements Action
 {
 
-  public void handleAction(Object context)
+  /**
+   * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
+   */
+  public void handleAction(Object context) throws ApplicationException
   {
-    // GUI.startView(BuchungImportView.class.getName(), null);
+    try
+    {
+      ImportDialog d = new ImportDialog(null, Buchung.class,
+          DokumentationUtil.BUCHUNGSIMPORT);
+      d.open();
+    }
+    catch (OperationCanceledException oce)
+    {
+      Logger.info(oce.getMessage());
+      return;
+    }
+    catch (ApplicationException ae)
+    {
+      throw ae;
+    }
+    catch (Exception e)
+    {
+      Logger.error("error while importing transfers", e);
+      GUI.getStatusBar().setErrorText(
+          JVereinPlugin.getI18n().tr("Fehler beim Importieren von Buchungen"));
+    }
   }
 
 }
