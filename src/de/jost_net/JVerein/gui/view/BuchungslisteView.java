@@ -61,7 +61,7 @@ public class BuchungslisteView extends AbstractView
         new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("Import"),
-        new BuchungImportAction());
+        new BuchungImportAction(), null, false, "import_obj.gif");
     buttons.addButton(control.getStartCSVAuswertungButton());
     buttons.addButton(control.getStartAuswertungBuchungsjournalButton());
     buttons.addButton(control.getStartAuswertungEinzelbuchungenButton());
