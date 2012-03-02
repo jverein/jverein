@@ -155,6 +155,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   public void setKonto(Konto konto) throws RemoteException
   {
+    if (konto == null)
+    {
+      throw new RemoteException("Konto fehlt!");
+    }
     setAttribute("konto", new Integer(konto.getID()));
   }
 
