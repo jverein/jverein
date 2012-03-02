@@ -3,7 +3,9 @@
     <ul>      
       <li><a name="v230">Version 2.3.0 (noch nicht freigegeben)</a></li>
         <ul>
-          <li>Bugfix Personalbogen. Scalierung des Bildes unter Windows entfernt. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=237&p=3724#p3724'>Forum</a></li>
+          <li>Bugfix: Übersicht Lehrgänge. Die Such-Lehrgangsart wurde immer wieder zurückgesetzt.</li>
+          <li>Neu: Import von Buchungen. Siehe <a href="http://www.jverein.de/buchung_import.php">Dokumentation.</a></li>
+          <li>Bugfix Personalbogen. Scalierung des Bildes unter Windows entfernt. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=237&p=3724#p3724'>Forum</a>[2.2.1]</li>
           <li>Mitglieder-Suche: Tabs entfernt. Gründe: Unterschiedliches Verhalten der Tabellen innerhalb der Tabs und Performance-Optimierung.</li>
           <li>Bugfix Import: Bei fehlender Spalte Adresstyp wurde der Zahlungsrhytmus überschrieben. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=417&p=3655">Forum</a> [2.2.1]</li>
           <li>Bugfix Formularfeld "Anrede_du": Komma fehlte am Ende. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=934">Forum</a>[2.2.1]</li>
