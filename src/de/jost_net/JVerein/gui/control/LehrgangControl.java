@@ -38,6 +38,7 @@ import de.jost_net.JVerein.rmi.Lehrgangsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -210,9 +211,16 @@ public class LehrgangControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Lehrgangsart.class);
     it.setOrder("order by bezeichnung");
-    Lehrgang letztesuche = (Lehrgang) Einstellungen.getDBService()
-        .createObject(Lehrgang.class,
-            settings.getString("suchlehrgangsart", null));
+    Lehrgangsart letztesuche = null;
+    try
+    {
+      letztesuche = (Lehrgangsart) Einstellungen.getDBService().createObject(
+          Lehrgangsart.class, settings.getString("suchlehrgangsart", null));
+    }
+    catch (ObjectNotFoundException e)
+    {
+      //
+    }
     suchlehrgangsart = new SelectInput(it, letztesuche);
     suchlehrgangsart.setPleaseChoose("Bitte auswählen");
     suchlehrgangsart.addListener(new FilterListener());
