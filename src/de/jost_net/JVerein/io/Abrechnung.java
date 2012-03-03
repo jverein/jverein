@@ -343,10 +343,7 @@ public class Abrechnung
       if (z.isAktiv())
       {
         Mitglied m = z.getMitglied();
-        if ((m.getEintritt() == null || m.getEintritt().before(param.stichtag) || m
-            .getEintritt().equals(param.stichtag))
-            && (m.getAustritt() == null || m.getAustritt().before(
-                param.stichtag)))
+        if (m.isAngemeldet(param.stichtag))
         {
           //
         }
