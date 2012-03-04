@@ -25,34 +25,47 @@ package de.jost_net.JVerein.io;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
-import de.willuhn.util.Session;
 
-/**
- * Basis-Interface aller Exporter.
- * Alle Klassen, die dieses Interface implementieren, werden automatisch
- * von Hibiscus erkannt und dem Benutzer als Export-Moeglichkeit angeboten
- * insofern sie einen parameterlosen Konstruktor mit dem Modifier "public"
- * besitzen (Java-Bean-Konvention).
- */
-public interface Exporter extends IO
+public class MitgliedJubilarExportCSV implements Exporter
 {
-  /**
-   * Eine Session fuer zusaetzliche Parameter.
-   */
-  public final static Session SESSION = new Session();
-  
-  /**
-   * Exportiert die genannten Objekte in den angegebenen OutputStream.
-   * @param objects die zu exportierenden Objekte.
-   * @param format das vom User ausgewaehlte Export-Format.
-   * @param os der Ziel-Ausgabe-Stream.
-   * Der Exporter muss den OutputStream selbst schliessen!
-   * @param monitor ein Monitor, an den der Exporter Ausgaben ueber seinen
-   * Bearbeitungszustand ausgeben kann.
-   * @throws RemoteException
-   * @throws ApplicationException 
-   */
-  public void doExport(Object[] objects, IOFormat format, OutputStream os, ProgressMonitor monitor) throws RemoteException, ApplicationException;
+
+  public String getName()
+  {
+    return "Jubilare CSV-Export";
+  }
+
+  public IOFormat[] getIOFormats(Class<?> objectType)
+  {
+    if (objectType != Mitglied.class)
+    {
+      return null;
+    }
+    IOFormat f = new IOFormat()
+    {
+      public String getName()
+      {
+        return MitgliedJubilarExportCSV.this.getName();
+      }
+
+      /**
+       * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
+       */
+      public String[] getFileExtensions()
+      {
+        return new String[] { "*.csv" };
+      }
+    };
+    return new IOFormat[] { f };
+  }
+
+  public void doExport(Object[] objects, IOFormat format, OutputStream os,
+      ProgressMonitor monitor) throws RemoteException, ApplicationException
+  {
+    // TODO Auto-generated method stub
+
+  }
+
 }
