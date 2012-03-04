@@ -3,6 +3,7 @@
     <ul>      
       <li><a name="v230">Version 2.3.0 (noch nicht freigegeben)</a></li>
         <ul>
+          <li>Bugfix bei der Neuaufnahme von neuen Mitgliedern wenn die Option "juristische Personen" aktiviert wurde [2.2.1]</li>
           <li>Bugfix Abrechung Zusatzbeträge bei Austrittsdatum in der Zukunft. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=950&p=3732">Forum</a>[2.2.1]</li>
           <li>Bugfix: Fehlendes Konto bei 1. Buchung. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=946">Forum</a></li>
           <li>Bugfix: Übersicht Lehrgänge. Die Such-Lehrgangsart wurde immer wieder zurückgesetzt.</li>
