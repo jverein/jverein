@@ -71,6 +71,8 @@ public class PersonenartDialog extends AbstractDialog<String>
 
       public void handleAction(Object context)
       {
+        String s = (String) personenart.getValue();
+        selected = s.substring(0, 1);
         close();
       }
     });
