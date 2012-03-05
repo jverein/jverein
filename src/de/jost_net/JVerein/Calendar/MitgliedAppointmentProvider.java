@@ -37,6 +37,7 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.calendar.Appointment;
 import de.willuhn.jameica.gui.calendar.AppointmentProvider;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.I18N;
@@ -78,13 +79,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
 
         if (calf.getTime().after(from) && calf.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calf.getTime(), calf
-              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calf.getTime(),
+              calf.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
         else if (calt.getTime().after(from) && calt.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calt.getTime(), calt
-              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calt.getTime(),
+              calt.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
       }
       return result;
@@ -116,11 +117,15 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
 
     private int alter = -1;
 
+    private Settings settings;
+
     private MyAppointment(Mitglied m, Date datum, int alter)
     {
       this.m = m;
       this.datum = datum;
       this.alter = alter;
+      settings = new Settings(this.getClass());
+      settings.setStoreWhenRead(true);
     }
 
     /**
@@ -178,7 +183,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
      */
     public RGB getColor()
     {
-      return new RGB(255, 178, 31);
+      return settings.getRGB("color", new RGB(255, 178, 31));
     }
 
     /**

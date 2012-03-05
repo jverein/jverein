@@ -36,6 +36,7 @@ import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.calendar.Appointment;
 import de.willuhn.jameica.gui.calendar.AppointmentProvider;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.I18N;
 
@@ -61,9 +62,9 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       cal.setTime(from);
       if (from != null)
         list.addFilter("datum >= ?",
-            new Object[] { new java.sql.Date(from.getTime()) });
+            new Object[] { new java.sql.Date(from.getTime())});
       list.addFilter("datum <= ?",
-          new Object[] { new java.sql.Date(to.getTime()) });
+          new Object[] { new java.sql.Date(to.getTime())});
       list.setOrder("ORDER BY day(datum)");
 
       List<Appointment> result = new LinkedList<Appointment>();
@@ -96,9 +97,14 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
 
     private Wiedervorlage w = null;
 
+    private Settings settings;
+
     private MyAppointment(Wiedervorlage w)
     {
       this.w = w;
+      settings = new Settings(this.getClass());
+      settings.setStoreWhenRead(true);
+
     }
 
     /**
@@ -170,7 +176,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
      */
     public RGB getColor()
     {
-      return new RGB(31, 32, 255);
+      return settings.getRGB("color", new RGB(31, 32, 255));
     }
 
     /**
