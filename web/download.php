@@ -2,7 +2,7 @@
     <h1>Download</h1>
     <h2>Freigegebene Version</h2>
     		<ul>
-    	<li><a href='http://sourceforge.net/projects/jverein/files/V_2.2/jverein.2.2.0.zip/download'>Version 2.2.0</a>&nbsp;Für alle Betriebssysteme. Vom 14.02.2012 / zusammen mit Jameica >= 2.2.0 und Hibiscus >= 2.2.0 einsetzen.</li>
+    	<li><a href='http://sourceforge.net/projects/jverein/files/V_2.2/jverein.2.2.1.zip/download'>Version 2.2.1</a>&nbsp;Für alle Betriebssysteme. Vom 04.03.2012 / zusammen mit Jameica >= 2.2.0 und Hibiscus >= 2.2.0 einsetzen.</li>
    	    <li><a href='http://sourceforge.net/projects/jverein/files/aktuelleVersion/JameicaSuitePortable.zip/download'>portable Jameica-Suite Version 2.0.1</a>&nbsp;Für Windows und Linux. Vom 1.7.2011 </li>
         <li><a href='http://sourceforge.net/projects/jverein/files/aktuelleVersion/jameicasuite-setup202_32.exe/download'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 32-bit-Setup.</li>
         <li><a href='http://sourceforge.net/projects/jverein/files/aktuelleVersion/jameicasuite-setup202_64.exe/download'>Jameica-Suite Version 2.0.2</a>&nbsp;Version 2.0.2</a>&nbsp;Windows 64-bit-Setup.</li>

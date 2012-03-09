@@ -7,6 +7,8 @@
           <li>Bugfix: Übersicht Lehrgänge. Die Such-Lehrgangsart wurde immer wieder zurückgesetzt.</li>
           <li>Neu: Import von Buchungen. Siehe <a href="http://www.jverein.de/buchung_import.php">Dokumentation.</a></li>
           <li>Mitglieder-Suche: Tabs entfernt. Gründe: Unterschiedliches Verhalten der Tabellen innerhalb der Tabs und Performance-Optimierung.</li>
+  				<li>Bugfix bei der Speicherung von Formularen unter MySQL. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=957">Forum</a></li>
+  
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
