@@ -32,6 +32,7 @@ import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 
 public class AllgemeineMap
 {
+
   private JVDateFormatTTMMJJJJ ttmmjjjj = new JVDateFormatTTMMJJJJ();
 
   private JVDateFormatMMJJJJ mmjjjj = new JVDateFormatMMJJJJ();
@@ -55,10 +56,12 @@ public class AllgemeineMap
       map = inma;
     }
     map.put(AllgemeineVar.TAGESDATUM.getName(), ttmmjjjj.format(new Date()));
+    map.put(AllgemeineVar.AKTUELLESJAHR.getName(), jjjj.format(new Date()));
     map.put(AllgemeineVar.AKTUELLERMONAT.getName(), mmjjjj.format(new Date()));
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MONTH, 1);
-    map.put(AllgemeineVar.FOLGEMONAT.getName(), mmjjjj.format(calendar.getTime()));
+    map.put(AllgemeineVar.FOLGEMONAT.getName(),
+        mmjjjj.format(calendar.getTime()));
     calendar.add(Calendar.MONTH, -2);
     map.put(AllgemeineVar.VORMONAT.getName(), mmjjjj.format(calendar.getTime()));
     calendar.add(Calendar.MONTH, -1);

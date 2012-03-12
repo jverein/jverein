@@ -21,9 +21,9 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
-public enum AllgemeineVar
-{
+public enum AllgemeineVar {
   AKTUELLERMONAT("aktuellermonat"), //
+  AKTUELLESJAHR("aktuellesjahr"), //
   FOLGEJAHR("folgejahr"), //
   FOLGEMONAT("folgemonat"), //
   TAGESDATUM("tagesdatum"), //
