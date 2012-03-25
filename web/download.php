@@ -9,8 +9,8 @@
     		</ul>
     <h2>Entwicklerversionen</h2>
      		<ul>
+          <li><a href='http://sourceforge.net/projects/jverein/files/Entwicklerversionen/jverein.2.3.0-devel-342.zip/download'>Version 2.3 Rev. 342</a>&nbsp;Für alle Betriebssysteme. Vom 27.03.2012 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
           <li><a href='http://sourceforge.net/projects/jverein/files/Entwicklerversionen/jverein.2.1.0-devel-339.zip/download'>Version 2.1 Rev. 339</a>&nbsp;Für alle Betriebssysteme. Vom 05.02.2012 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
-          <li><a href='http://sourceforge.net/projects/jverein/files/Entwicklerversionen/jverein.2.1.0-devel-335.zip/download'>Version 2.1 Rev. 335</a>&nbsp;Für alle Betriebssysteme. Vom 29.01.2012 / zusammen mit aktuellen Nighly-Builds von Jameica und Hibiscus einsetzen.</li>
     		</ul> 
     <h2>Vorherige Versionen</h2>
     		<ul>
