@@ -67,8 +67,7 @@ public class MitgliederStatistik
       {
         subtitle = "Stichtag: " + new JVDateFormatTTMMJJJJ().format(stichtag);
       }
-      Reporter reporter = new Reporter(fos, monitor, "Mitgliederstatistik",
-          subtitle, 3);
+      Reporter reporter = new Reporter(fos, "Mitgliederstatistik", subtitle, 3);
 
       Paragraph pAltersgruppen = new Paragraph("\nAltersgruppen",
           FontFactory.getFont(FontFactory.HELVETICA, 11));

@@ -335,8 +335,8 @@ public class ArbeitseinsatzControl extends AbstractControl
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, monitor, "Arbeitseinsätze "
-              + jahr, sub, it.size());
+          Reporter reporter = new Reporter(fos, "Arbeitseinsätze " + jahr, sub,
+              it.size());
           reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
               Color.LIGHT_GRAY);
           reporter.addHeaderColumn("Sollstunden", Element.ALIGN_RIGHT, 30,
@@ -360,21 +360,16 @@ public class ArbeitseinsatzControl extends AbstractControl
             reporter.addColumn((Double) z.getAttribute("differenz"));
             reporter.addColumn((Double) z.getAttribute("stundensatz"));
             reporter.addColumn((Double) z.getAttribute("gesamtbetrag"));
-            reporter.setNextRecord();
           }
           reporter.closeTable();
           reporter.close();
           fos.close();
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
           Logger.error("Fehler", e);
-          monitor.setStatusText(e.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
@@ -474,16 +469,12 @@ public class ArbeitseinsatzControl extends AbstractControl
             writer.write(data1, header);
           }
           writer.close();
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
           Logger.error("Fehler", e);
-          monitor.setStatusText(e.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
@@ -549,8 +540,6 @@ public class ArbeitseinsatzControl extends AbstractControl
             zb.setMitglied(new Integer((String) z.getAttribute("mitgliedid")));
             zb.store();
           }
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
               "Generierung Zusatzbeträge gestartet");
           GUI.getCurrentView().reload();
@@ -558,8 +547,6 @@ public class ArbeitseinsatzControl extends AbstractControl
         catch (Exception e)
         {
           Logger.error("Fehler", e);
-          monitor.setStatusText(e.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }

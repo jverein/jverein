@@ -49,9 +49,9 @@ import com.lowagie.text.pdf.PdfWriter;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
-import de.willuhn.util.ProgressMonitor;
 
 /**
  * Kapselt den Export von Daten im PDF-Format.
@@ -71,18 +71,12 @@ public class Reporter
 
   private PdfPTable table;
 
-  private int maxRecords;
-
-  private int currRecord = 0;
-
-  private ProgressMonitor monitor;
-
   private HyphenationAuto hyph;
 
-  public Reporter(OutputStream out, ProgressMonitor monitor, String title,
-      String subtitle, int maxRecords) throws DocumentException
+  public Reporter(OutputStream out, String title, String subtitle,
+      int maxRecords) throws DocumentException
   {
-    this(out, monitor, title, subtitle, maxRecords, 80, 30, 20, 20);
+    this(out, title, subtitle, maxRecords, 80, 30, 20, 20);
   }
 
   public Reporter(OutputStream out, float linkerRand, float rechterRand,
@@ -102,23 +96,15 @@ public class Reporter
     widths = new ArrayList<Integer>();
   }
 
-  public Reporter(OutputStream out, ProgressMonitor monitor, String title,
-      String subtitle, int maxRecords, float linkerRand, float rechterRand,
-      float obererRand, float untererRand) throws DocumentException
+  public Reporter(OutputStream out, String title, String subtitle,
+      int maxRecords, float linkerRand, float rechterRand, float obererRand,
+      float untererRand) throws DocumentException
   {
-    // this.i18n = Application.getPluginLoader().getPlugin(JVereinPlugin.class)
-    // .getResources().getI18N();
     this.out = out;
-    this.monitor = monitor;
     rpt = new Document();
     hyph = new HyphenationAuto("de", "DE", 2, 2);
     PdfWriter.getInstance(rpt, out);
     rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
-    if (this.monitor != null)
-    {
-      this.monitor.setStatusText("Erzeuge Liste");
-      this.monitor.addPercentComplete(1);
-    }
     AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
         JVereinPlugin.class);
     rpt.addAuthor(plugin.getManifest().getName() + " - Version "
@@ -148,9 +134,6 @@ public class Reporter
     }
     headers = new ArrayList<PdfPCell>();
     widths = new ArrayList<Integer>();
-
-    monitor.setPercentComplete(0);
-    this.maxRecords = maxRecords;
   }
 
   /**
@@ -295,16 +278,6 @@ public class Reporter
   }
 
   /**
-   * Rueckt den Monitor weiter.
-   */
-  public void setNextRecord()
-  {
-    currRecord++;
-    if (monitor != null)
-      monitor.setPercentComplete(currRecord / maxRecords * 100);
-  }
-
-  /**
    * Erzeugt den Tabellen-Header mit 100 % Breite.
    * 
    * @throws DocumentException
@@ -373,11 +346,7 @@ public class Reporter
   {
     try
     {
-      if (monitor != null)
-      {
-        monitor.setPercentComplete(100);
-        monitor.setStatusText("PDF-Export beendet");
-      }
+      GUI.getStatusBar().setSuccessText("PDF-Export beendet");
       if (table != null)
       {
         rpt.add(table);

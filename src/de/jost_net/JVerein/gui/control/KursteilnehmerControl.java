@@ -633,12 +633,9 @@ public class KursteilnehmerControl extends AbstractControl
         {
           try
           {
-            Reporter rpt = new Reporter(new FileOutputStream(file), monitor,
+            Reporter rpt = new Reporter(new FileOutputStream(file),
                 "Kursteilnehmer", subtitle2, list.size());
 
-            monitor.setPercentComplete(100);
-            monitor.setStatus(ProgressMonitor.STATUS_DONE);
-            GUI.getStatusBar().setSuccessText("Auswertung gestartet");
             GUI.getCurrentView().reload();
 
             rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 50,
@@ -658,7 +655,6 @@ public class KursteilnehmerControl extends AbstractControl
               rpt.addColumn(kt.getVZweck1() + "\n" + kt.getVZweck2(),
                   Element.ALIGN_LEFT);
               rpt.addColumn(kt.getBetrag());
-              rpt.setNextRecord();
             }
             rpt.close();
             GUI.getDisplay().asyncExec(new Runnable()
@@ -682,15 +678,13 @@ public class KursteilnehmerControl extends AbstractControl
           }
           catch (ApplicationException ae)
           {
-            monitor.setStatusText(ae.getMessage());
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            Logger.error("Fehler", ae);
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw ae;
           }
           catch (Exception re)
           {
-            monitor.setStatusText(re.getMessage());
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            Logger.error("Fehler", re);
             GUI.getStatusBar().setErrorText(re.getMessage());
             throw new ApplicationException(re);
           }

@@ -48,6 +48,7 @@ import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -212,15 +213,11 @@ public class JahressaldoControl extends AbstractControl
         try
         {
           new JahressaldoPDF(zeile, file, monitor, gj);
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
         {
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          Logger.error("Fehler", ae);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }

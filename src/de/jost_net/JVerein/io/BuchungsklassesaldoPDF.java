@@ -39,13 +39,12 @@ import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 public class BuchungsklassesaldoPDF
 {
 
   public BuchungsklassesaldoPDF(ArrayList<BuchungsklasseSaldoZeile> zeile,
-      final File file, ProgressMonitor monitor, Date datumvon, Date datumbis)
+      final File file, Date datumvon, Date datumbis)
       throws ApplicationException
   {
     try
@@ -53,8 +52,8 @@ public class BuchungsklassesaldoPDF
       FileOutputStream fos = new FileOutputStream(file);
       String subtitle = new JVDateFormatTTMMJJJJ().format(datumvon) + " - "
           + new JVDateFormatTTMMJJJJ().format(datumbis);
-      Reporter reporter = new Reporter(fos, monitor, "Buchungsklassen-Saldo",
-          subtitle, zeile.size());
+      Reporter reporter = new Reporter(fos, "Buchungsklassen-Saldo", subtitle,
+          zeile.size());
       makeHeader(reporter);
 
       for (BuchungsklasseSaldoZeile bkz : zeile)
@@ -120,7 +119,7 @@ public class BuchungsklassesaldoPDF
           }
         }
       }
-      monitor.setStatusText("Auswertung fertig.");
+      GUI.getStatusBar().setSuccessText("Auswertung fertig.");
       reporter.closeTable();
       reporter.close();
       fos.close();

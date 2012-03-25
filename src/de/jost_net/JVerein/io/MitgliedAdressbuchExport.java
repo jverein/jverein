@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.Adressbuch.Txt;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.willuhn.jameica.gui.GUI;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedAdressbuchExport implements IAuswertung
 {
@@ -44,7 +44,7 @@ public class MitgliedAdressbuchExport implements IAuswertung
     // Nothing to do
   }
 
-  public void go(ArrayList<Mitglied> list, File file, ProgressMonitor monitor)
+  public void go(ArrayList<Mitglied> list, File file)
       throws ApplicationException
   {
     try
@@ -55,7 +55,8 @@ public class MitgliedAdressbuchExport implements IAuswertung
         txt.add(m);
       }
       txt.close();
-      monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
+      GUI.getStatusBar().setSuccessText(
+          "Auswertung fertig. " + list.size() + " Sätze.");
     }
     catch (IOException e)
     {

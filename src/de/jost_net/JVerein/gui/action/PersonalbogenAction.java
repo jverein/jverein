@@ -138,11 +138,9 @@ public class PersonalbogenAction implements Action
       {
         try
         {
-          Reporter rpt = new Reporter(new FileOutputStream(file), monitor, "",
+          Reporter rpt = new Reporter(new FileOutputStream(file), "",
               "Personalbogen", mitglied.length);
 
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
 
@@ -188,8 +186,6 @@ public class PersonalbogenAction implements Action
             {
               generiereArbeitseinsaetze(rpt, m);
             }
-
-            rpt.setNextRecord();
           }
           rpt.close();
           GUI.getDisplay().asyncExec(new Runnable()
@@ -214,16 +210,12 @@ public class PersonalbogenAction implements Action
         catch (ApplicationException ae)
         {
           Logger.error("Fehler", ae);
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }
         catch (Exception re)
         {
           Logger.error("Fehler", re);
-          monitor.setStatusText(re.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(re.getMessage());
           throw new ApplicationException(re);
         }

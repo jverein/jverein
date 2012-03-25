@@ -50,7 +50,7 @@ public class JahressaldoPDF
     {
       FileOutputStream fos = new FileOutputStream(file);
       String subtitle = gj.toString();
-      Reporter reporter = new Reporter(fos, monitor, "Jahressaldo", subtitle,
+      Reporter reporter = new Reporter(fos, "Jahressaldo", subtitle,
           zeile.size());
 
       reporter.addHeaderColumn("Konto-\nnummer", Element.ALIGN_CENTER, 50,
@@ -86,7 +86,7 @@ public class JahressaldoPDF
             Element.ALIGN_LEFT);
       }
       reporter.closeTable();
-      monitor.setStatusText("Auswertung fertig.");
+      GUI.getStatusBar().setSuccessText("Auswertung fertig.");
 
       reporter.close();
       fos.close();

@@ -540,8 +540,7 @@ public class ZusatzbetragControl extends AbstractControl
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, monitor, "Zusatzbeträge", "",
-              it.size());
+          Reporter reporter = new Reporter(fos, "Zusatzbeträge", "", it.size());
           reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
               Color.LIGHT_GRAY);
           reporter.addHeaderColumn("Startdatum", Element.ALIGN_LEFT, 30,
@@ -575,21 +574,15 @@ public class ZusatzbetragControl extends AbstractControl
                         && z.getBuchungstext2().length() > 0 ? "\n"
                         + z.getBuchungstext() : ""), Element.ALIGN_LEFT);
             reporter.addColumn(z.getBetrag());
-            reporter.setNextRecord();
           }
           reporter.closeTable();
           reporter.close();
           fos.close();
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
-          GUI.getCurrentView().reload();
+           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
           Logger.error("Fehler", e);
-          monitor.setStatusText(e.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }

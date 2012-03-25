@@ -311,8 +311,7 @@ public class BuchungsartControl extends AbstractControl
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, monitor, "Buchungsarten", "",
-              it.size());
+          Reporter reporter = new Reporter(fos, "Buchungsarten", "", it.size());
           reporter.addHeaderColumn("Nummer", Element.ALIGN_LEFT, 15,
               Color.LIGHT_GRAY);
           reporter.addHeaderColumn("Bezeichnung", Element.ALIGN_LEFT, 80,
@@ -353,21 +352,16 @@ public class BuchungsartControl extends AbstractControl
               reporter.addColumn("", Element.ALIGN_LEFT);
             }
             reporter.addColumn(b.getSpende());
-            reporter.setNextRecord();
           }
           reporter.closeTable();
           reporter.close();
           fos.close();
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
           Logger.error("Fehler", e);
-          monitor.setStatusText(e.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }

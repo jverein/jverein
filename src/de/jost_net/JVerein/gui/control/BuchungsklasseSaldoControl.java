@@ -221,16 +221,11 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         try
         {
-          new BuchungsklassesaldoPDF(zeile, file, monitor, datumvon, datumbis);
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          new BuchungsklassesaldoPDF(zeile, file, datumvon, datumbis);
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
         {
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }

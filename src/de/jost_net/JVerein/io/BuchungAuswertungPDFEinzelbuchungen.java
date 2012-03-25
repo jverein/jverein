@@ -46,7 +46,6 @@ import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 public class BuchungAuswertungPDFEinzelbuchungen
 {
@@ -54,8 +53,8 @@ public class BuchungAuswertungPDFEinzelbuchungen
   private double summe = 0;
 
   public BuchungAuswertungPDFEinzelbuchungen(DBIterator list, final File file,
-      ProgressMonitor monitor, Konto konto, Buchungsart buchungsart, Date dVon,
-      Date dBis) throws ApplicationException
+      Konto konto, Buchungsart buchungsart, Date dVon, Date dBis)
+      throws ApplicationException
   {
     try
     {
@@ -67,7 +66,7 @@ public class BuchungAuswertungPDFEinzelbuchungen
         subtitle += " für Konto " + konto.getNummer() + " - "
             + konto.getBezeichnung();
       }
-      Reporter reporter = new Reporter(fos, monitor, "Buchungsliste", subtitle,
+      Reporter reporter = new Reporter(fos, "Buchungsliste", subtitle,
           list.size());
 
       while (list.hasNext())
@@ -86,7 +85,8 @@ public class BuchungAuswertungPDFEinzelbuchungen
       reporter.addColumn("Gesamtsumme ", Element.ALIGN_LEFT);
       reporter.addColumn(summe);
       reporter.closeTable();
-      monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
+      GUI.getStatusBar().setSuccessText(
+          "Auswertung fertig. " + list.size() + " Sätze.");
 
       reporter.close();
       fos.close();

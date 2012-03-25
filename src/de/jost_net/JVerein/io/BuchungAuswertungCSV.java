@@ -66,7 +66,8 @@ public class BuchungAuswertungCSV
       {
         writer.write(b.getMap(null), header, processors);
       }
-      monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
+      GUI.getStatusBar().setSuccessText(
+          "Auswertung fertig. " + list.size() + " Sätze.");
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {

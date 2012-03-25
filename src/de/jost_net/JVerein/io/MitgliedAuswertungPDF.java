@@ -44,9 +44,9 @@ import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.gui.GUI;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedAuswertungPDF implements IAuswertung
 {
@@ -135,15 +135,15 @@ public class MitgliedAuswertungPDF implements IAuswertung
 
   }
 
-  public void go(ArrayList<Mitglied> list, final File file,
-      ProgressMonitor monitor) throws ApplicationException
+  public void go(ArrayList<Mitglied> list, final File file)
+      throws ApplicationException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
 
-      Reporter report = new Reporter(fos, monitor, "Mitglieder", subtitle,
-          list.size(), 50, 10, 20, 15);
+      Reporter report = new Reporter(fos, "Mitglieder", subtitle, list.size(),
+          50, 10, 20, 15);
 
       report.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
           Color.LIGHT_GRAY);
@@ -158,11 +158,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
           Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
-      int faelle = 0;
-
       for (int i = 0; i < list.size(); i++)
       {
-        faelle++;
         Mitglied m = list.get(i);
         report.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
         String anschriftkommunikation = m.getAnschrift();
@@ -228,7 +225,6 @@ public class MitgliedAuswertungPDF implements IAuswertung
         }
         report
             .addColumn(beitragsgruppebemerkung.toString(), Element.ALIGN_LEFT);
-        report.setNextRecord();
       }
       report.closeTable();
 
@@ -236,7 +232,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
           .getFont(FontFactory.HELVETICA, 8)));
 
       report.close();
-      monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
+      GUI.getStatusBar().setSuccessText(
+          "Auswertung fertig. " + list.size() + " Sätze.");
     }
     catch (DocumentException e)
     {

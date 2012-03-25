@@ -901,17 +901,12 @@ public class BuchungsControl extends AbstractControl
           try
           {
             new BuchungAuswertungCSV(buchungen, file, monitor);
-            monitor.setPercentComplete(100);
-            monitor.setStatus(ProgressMonitor.STATUS_DONE);
-            GUI.getStatusBar().setSuccessText("Auswertung gestartet");
             GUI.getCurrentView().reload();
           }
           catch (Exception ae)
           {
-            monitor.setStatusText(ae.getMessage());
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            Logger.error("Fehler", ae);
             GUI.getStatusBar().setErrorText(ae.getMessage());
-            ae.printStackTrace();
             throw new ApplicationException(ae);
           }
         }
@@ -1027,23 +1022,20 @@ public class BuchungsControl extends AbstractControl
         {
           if (einzelbuchungen)
           {
-            new BuchungAuswertungPDFEinzelbuchungen(list, file, monitor, konto,
+            new BuchungAuswertungPDFEinzelbuchungen(list, file, konto,
                 buchungsart, dVon, dBis);
           }
           else
           {
-            new BuchungAuswertungPDFSummen(list, file, monitor, konto,
-                buchungsart, dVon, dBis);
+            new BuchungAuswertungPDFSummen(list, file, konto, buchungsart,
+                dVon, dBis);
           }
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
         {
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          Logger.error("Fehler", ae);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }
@@ -1077,16 +1069,11 @@ public class BuchungsControl extends AbstractControl
       {
         try
         {
-          new BuchungsjournalPDF(list, file, monitor, konto, dVon, dBis);
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          new BuchungsjournalPDF(list, file, konto, dVon, dBis);
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
         {
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }
