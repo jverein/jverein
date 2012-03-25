@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.input.EncodingInput;
-import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.io.IOFormat;
 import de.jost_net.JVerein.io.IORegistry;
 import de.jost_net.JVerein.io.Importer;

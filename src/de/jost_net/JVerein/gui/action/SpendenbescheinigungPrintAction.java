@@ -27,11 +27,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
-
-import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -311,14 +308,14 @@ public class SpendenbescheinigungPrintAction implements Action
 
     switch (spb.getSpendenart())
     {
-    case Spendenart.GELDSPENDE:
-      rpt.addHeaderColumn("Betrag der Zuwendung -in Ziffern-",
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-      break;
-    case Spendenart.SACHSPENDE:
-      rpt.addHeaderColumn("Wert der Zuwendung -in Ziffern-",
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-      break;
+      case Spendenart.GELDSPENDE:
+        rpt.addHeaderColumn("Betrag der Zuwendung -in Ziffern-",
+            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        break;
+      case Spendenart.SACHSPENDE:
+        rpt.addHeaderColumn("Wert der Zuwendung -in Ziffern-",
+            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        break;
     }
     rpt.addHeaderColumn("-in Buchstaben-", Element.ALIGN_CENTER, 250,
         Color.LIGHT_GRAY);
@@ -340,38 +337,38 @@ public class SpendenbescheinigungPrintAction implements Action
 
     switch (spb.getSpendenart())
     {
-    case Spendenart.SACHSPENDE:
-      rpt.addHeaderColumn(
-          "Genaue Bezeichnung der Sachzuwendung mit Alter, Zustand, Kaufpreis usw.",
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
-      rpt.createHeader();
-      rpt.addColumn(spb.getBezeichnungSachzuwendung(), Element.ALIGN_LEFT);
-      rpt.closeTable();
-      switch (spb.getHerkunftSpende())
-      {
-      case HerkunftSpende.BETRIEBSVERMOEGEN:
-        rpt.add(
-            "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Betriebsvermögen und ist "
-                + "mit dem Entnahmewert (ggf. mit dem niedrigeren gemeinen Wert) bewertet.\n\n",
-            9);
-        break;
-      case HerkunftSpende.PRIVATVERMOEGEN:
-        rpt.add(
-            "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Privatvermögen.\n\n",
-            9);
-        break;
-      case HerkunftSpende.KEINEANGABEN:
-        rpt.add(
-            "Der Zuwendende hat trotz Aufforderung keine Angaben zur Herkunft der Sachzuwendung gemacht.\n\n",
-            9);
-        break;
-      }
-      if (spb.getUnterlagenWertermittlung())
-      {
-        rpt.add(
-            "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor.\n\n",
-            9);
-      }
+      case Spendenart.SACHSPENDE:
+        rpt.addHeaderColumn(
+            "Genaue Bezeichnung der Sachzuwendung mit Alter, Zustand, Kaufpreis usw.",
+            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        rpt.createHeader();
+        rpt.addColumn(spb.getBezeichnungSachzuwendung(), Element.ALIGN_LEFT);
+        rpt.closeTable();
+        switch (spb.getHerkunftSpende())
+        {
+          case HerkunftSpende.BETRIEBSVERMOEGEN:
+            rpt.add(
+                "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Betriebsvermögen und ist "
+                    + "mit dem Entnahmewert (ggf. mit dem niedrigeren gemeinen Wert) bewertet.\n\n",
+                9);
+            break;
+          case HerkunftSpende.PRIVATVERMOEGEN:
+            rpt.add(
+                "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Privatvermögen.\n\n",
+                9);
+            break;
+          case HerkunftSpende.KEINEANGABEN:
+            rpt.add(
+                "Der Zuwendende hat trotz Aufforderung keine Angaben zur Herkunft der Sachzuwendung gemacht.\n\n",
+                9);
+            break;
+        }
+        if (spb.getUnterlagenWertermittlung())
+        {
+          rpt.add(
+              "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor.\n\n",
+              9);
+        }
     }
 
     /*
@@ -523,25 +520,25 @@ public class SpendenbescheinigungPrintAction implements Action
         if (printBuchungsart)
         {
           verwendung = buchung.getBuchungsart().getBezeichnung();
-          //rpt.addColumn(buchung.getBuchungsart().getBezeichnung(),
-          //    Element.ALIGN_LEFT);
+          // rpt.addColumn(buchung.getBuchungsart().getBezeichnung(),
+          // Element.ALIGN_LEFT);
         }
         else
         {
           verwendung = buchung.getZweck();
-          //rpt.addColumn(buchung.getZweck(), Element.ALIGN_LEFT);
+          // rpt.addColumn(buchung.getZweck(), Element.ALIGN_LEFT);
         }
         if (buchung.getVerzicht().booleanValue())
         {
           verwendung = verwendung + " (b)";
-          //rpt.addColumn("Verzicht auf Erstattung von Aufwendungen",
-          //    Element.ALIGN_LEFT);
+          // rpt.addColumn("Verzicht auf Erstattung von Aufwendungen",
+          // Element.ALIGN_LEFT);
         }
         else
         {
           verwendung = verwendung + " (a)";
-          //rpt.addColumn("Kein Verzicht auf Erstattung von Aufwendungen",
-          //    Element.ALIGN_LEFT);
+          // rpt.addColumn("Kein Verzicht auf Erstattung von Aufwendungen",
+          // Element.ALIGN_LEFT);
         }
         rpt.addColumn(verwendung, Element.ALIGN_LEFT);
       }
@@ -557,8 +554,12 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.add(new Paragraph(" "));
       // Nun noch die Legende
       rpt.add("Legende:", 8);
-      rpt.add("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen", 8);
-      rpt.add("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen", 8);
+      rpt.add(
+          "(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen",
+          8);
+      rpt.add(
+          "(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen",
+          8);
     }
 
     rpt.close();

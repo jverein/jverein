@@ -23,11 +23,8 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
-import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
@@ -41,8 +38,8 @@ import de.willuhn.util.ApplicationException;
 public class SpendenbescheinigungDeleteAction implements Action
 {
   /**
-   * Löschen von einer oder mehreren Spendenbescheinigungen, die in der View markiert
-   * sind.
+   * Löschen von einer oder mehreren Spendenbescheinigungen, die in der View
+   * markiert sind.
    */
   public void handleAction(Object context) throws ApplicationException
   {
@@ -73,9 +70,11 @@ public class SpendenbescheinigungDeleteAction implements Action
     {
       String mehrzahl = spbArr.length > 1 ? "en" : "";
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigung" + mehrzahl + " löschen"));
+      d.setTitle(JVereinPlugin.getI18n().tr(
+          "Spendenbescheinigung" + mehrzahl + " löschen"));
       d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie die Spendenbescheinigung" + mehrzahl + " wirklich löschen?"));
+          "Wollen Sie die Spendenbescheinigung" + mehrzahl
+              + " wirklich löschen?"));
 
       try
       {
@@ -101,7 +100,8 @@ public class SpendenbescheinigungDeleteAction implements Action
         spb.delete();
       }
       GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr("Spendenbescheinigung" + mehrzahl + "  gelöscht."));
+          JVereinPlugin.getI18n().tr(
+              "Spendenbescheinigung" + mehrzahl + "  gelöscht."));
     }
     catch (RemoteException e)
     {
