@@ -369,7 +369,6 @@ public class AbbuchungControl extends AbstractControl
         try
         {
           new Abrechnung(abupar, monitor);
-          // new Abbuchung(abupar, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
