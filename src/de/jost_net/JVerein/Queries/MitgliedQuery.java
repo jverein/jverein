@@ -352,11 +352,9 @@ public class MitgliedQuery
     if (eigenschaften != null && eigenschaften.length() > 0)
     {
       StringTokenizer st = new StringTokenizer(eigenschaften, ",");
-      int tokcount = 0;
       while (st.hasMoreTokens())
       {
         bedingungen.add(st.nextToken());
-        tokcount++;
       }
     }
     if (control.getGeburtsdatumvon().getValue() != null)
