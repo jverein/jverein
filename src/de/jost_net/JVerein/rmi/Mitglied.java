@@ -202,6 +202,8 @@ public interface Mitglied extends DBObject
 
   public boolean isAngemeldet(Date stichtag) throws RemoteException;
 
+  public void addVariable(String name, String wert) throws RemoteException;
+
   public Map<String, Object> getMap(Map<String, Object> map)
       throws RemoteException;
 

@@ -21,21 +21,17 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 
+import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.jameica.gui.Action;
@@ -50,7 +46,6 @@ import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Container;
 import de.willuhn.jameica.gui.util.SimpleContainer;
-import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
@@ -67,10 +62,7 @@ public class ExportDialog extends AbstractDialog
 {
   private final static int WINDOW_WIDTH = 420;
 
-  private static DateFormat DATEFORMAT = new SimpleDateFormat("yyyyMMdd");
-
-  private final static I18N i18n = Application.getPluginLoader()
-      .getPlugin(HBCI.class).getResources().getI18N();
+  private final static I18N i18n = JVereinPlugin.getI18n();
 
   private Input exporterListe = null;
 
@@ -180,14 +172,16 @@ public class ExportDialog extends AbstractDialog
     String[] se = exp.format.getFileExtensions();
     String ext = se == null ? "" : se[0];
     ext = ext.replaceAll("\\*.", ""); // "*." entfernen
-    fd.setFileName(i18n.tr("hibiscus-export-{0}." + ext,
-        DATEFORMAT.format(new Date())));
+
+    fd.setFileName(new Dateiname(exp.exporter.getDateiname(), "", "a$-d$z$",
+        ext).get());
 
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
+    {
       fd.setFilterPath(path);
-
+    }
     final String s = fd.open();
 
     if (s == null || s.length() == 0)
@@ -215,9 +209,7 @@ public class ExportDialog extends AbstractDialog
       {
         try
         {
-          // Der Exporter schliesst den OutputStream selbst
-          OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
-          exporter.doExport(objects, format, os, monitor);
+          exporter.doExport(objects, format, file, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(

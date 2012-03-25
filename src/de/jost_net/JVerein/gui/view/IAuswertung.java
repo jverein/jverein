@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 /**
  * Interface für alle Mitgliederauswertungen
@@ -60,7 +59,7 @@ public interface IAuswertung
   /**
    * Startet die Auswertung
    */
-  public void go(ArrayList<Mitglied> list, File file, ProgressMonitor monitor)
+  public void go(ArrayList<Mitglied> list, File file)
       throws ApplicationException;
 
   /**

@@ -23,7 +23,7 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.action.MitgliedJubilaeumCSVExportAction;
+import de.jost_net.JVerein.gui.action.JubilaeumsExportAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -44,16 +44,14 @@ public class JubilaeenView extends AbstractView
         "Parameter"));
     group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
         control.getJubeljahr());
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getJubelArt());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
         "help-browser.png");
-    buttons.addButton(control.getStartJubilaeenButton());
-    buttons.addButton(JVereinPlugin.getI18n().tr("Export"),
-        new MitgliedJubilaeumCSVExportAction());
+    buttons.addButton(JVereinPlugin.getI18n().tr("Start"),
+        new JubilaeumsExportAction(), control.getJubeljahr().getValue(), true,
+        "go.png");
     buttons.paint(getParent());
   }
 

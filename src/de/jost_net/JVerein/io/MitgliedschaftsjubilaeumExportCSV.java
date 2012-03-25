@@ -22,19 +22,24 @@
 
 package de.jost_net.JVerein.io;
 
-import java.io.OutputStream;
+import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
-public class MitgliedJubilarExportCSV implements Exporter
+public class MitgliedschaftsjubilaeumExportCSV extends MitgliedschaftsjubilaeumsExport
 {
+  private ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
+
+  private int jahrgang;
 
   public String getName()
   {
-    return "Jubilare CSV-Export";
+    return "Mitgliedschaftsjubilare CSV-Export";
   }
 
   public IOFormat[] getIOFormats(Class<?> objectType)
@@ -47,7 +52,7 @@ public class MitgliedJubilarExportCSV implements Exporter
     {
       public String getName()
       {
-        return MitgliedJubilarExportCSV.this.getName();
+        return MitgliedschaftsjubilaeumExportCSV.this.getName();
       }
 
       /**
@@ -61,10 +66,44 @@ public class MitgliedJubilarExportCSV implements Exporter
     return new IOFormat[] { f };
   }
 
-  public void doExport(Object[] objects, IOFormat format, OutputStream os,
-      ProgressMonitor monitor) throws RemoteException, ApplicationException
+  public String getDateiname()
   {
-    // TODO Auto-generated method stub
+    return "mitgliedschaftsjubilare";
+  }
+
+  protected void open() throws DocumentException, FileNotFoundException
+  {
+    //
+  }
+
+  protected void startJahrgang(int jahrgang)
+  {
+    this.jahrgang = jahrgang;
+  }
+
+  protected void endeJahrgang()
+  {
+    //
+  }
+
+  protected void add(Mitglied m) throws RemoteException
+  {
+      m.addVariable("mitgliedsschaftsjubilaeum", jahrgang + "");
+    mitglieder.add(m);
+  }
+
+  protected void close()
+  {
+    MitgliedAuswertungCSV mcsv = new MitgliedAuswertungCSV();
+    try
+    {
+      mcsv.go(mitglieder, file);
+    }
+    catch (ApplicationException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
   }
 

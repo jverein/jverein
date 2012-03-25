@@ -36,7 +36,6 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
@@ -45,12 +44,11 @@ import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedAuswertungCSV implements IAuswertung
 {
 
-  public MitgliedAuswertungCSV(MitgliedControl control)
+  public MitgliedAuswertungCSV()
   {
   }
 
@@ -59,25 +57,39 @@ public class MitgliedAuswertungCSV implements IAuswertung
     // Nothing to do
   }
 
-  public void go(ArrayList<Mitglied> list, final File file,
-      ProgressMonitor monitor) throws ApplicationException
+  public void go(ArrayList<Mitglied> list, final File file)
+      throws ApplicationException
   {
-
     try
     {
       ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file),
           CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
-      String[] header = createHeader();
-      CellProcessor[] processors = createCellProcessors();
+      Mitglied m = null;
+      if (list.size() > 0)
+      {
+        m = list.get(0);
+      }
+      else
+      {
+        m = (Mitglied) Einstellungen.getDBService().createObject(
+            Mitglied.class, null);
+      }
+
+      String[] header = createHeader(m);
+      Logger.debug("Header");
+      for (String s : header)
+      {
+        Logger.debug(s);
+      }
+      CellProcessor[] processors = createCellProcessors(m);
 
       writer.writeHeader(header);
 
-      for (Mitglied m : list)
+      for (Mitglied mit : list)
       {
-        writer.write(m.getMap(null), header, processors);
+        writer.write(mit.getMap(null), header, processors);
       }
-      monitor.setStatusText("Auswertung fertig. " + list.size() + " Sätze.");
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
@@ -111,12 +123,10 @@ public class MitgliedAuswertungCSV implements IAuswertung
 
   }
 
-  private String[] createHeader()
+  private String[] createHeader(Mitglied m)
   {
     try
     {
-      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-          Mitglied.class, null);
       return m.getMap(null).keySet().toArray(new String[0]);
     }
     catch (RemoteException e)
@@ -126,12 +136,10 @@ public class MitgliedAuswertungCSV implements IAuswertung
     return null;
   }
 
-  private CellProcessor[] createCellProcessors()
+  private CellProcessor[] createCellProcessors(Mitglied m)
   {
     try
     {
-      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-          Mitglied.class, null);
       Map<String, Object> map = m.getMap(null);
       CellProcessor[] ret = new CellProcessor[map.size()];
       for (int i = 0; i < map.size(); i++)

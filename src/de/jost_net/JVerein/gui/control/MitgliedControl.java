@@ -62,7 +62,6 @@ import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.gui.view.IAuswertung;
-import de.jost_net.JVerein.io.Jubilaeenliste;
 import de.jost_net.JVerein.io.MitgliedAdressbuchExport;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
@@ -125,7 +124,6 @@ import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
-import de.willuhn.jameica.system.Platform;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -243,12 +241,6 @@ public class MitgliedControl extends AbstractControl
   private DateInput stichtag;
 
   private SelectInput jubeljahr;
-
-  private SelectInput jubelart;
-
-  public final static String JUBELART_MITGLIEDSCHAFT = "Mitgliedschaftsjubiläen";
-
-  public final static String JUBELART_ALTER = "Altersjubiläen";
 
   private SelectInput beitragsgruppeausw;
 
@@ -1817,17 +1809,6 @@ public class MitgliedControl extends AbstractControl
     return jubeljahr;
   }
 
-  public SelectInput getJubelArt()
-  {
-    if (jubelart != null)
-    {
-      return jubelart;
-    }
-    String[] ja = { JUBELART_MITGLIEDSCHAFT, JUBELART_ALTER };
-    jubelart = new SelectInput(ja, JUBELART_MITGLIEDSCHAFT);
-    return jubelart;
-  }
-
   public DialogInput getEigenschaftenAuswahl() throws RemoteException
   {
     String tmp = settings.getString("mitglied.eigenschaften", "");
@@ -1889,7 +1870,7 @@ public class MitgliedControl extends AbstractControl
       return ausgabe;
     }
     ausgabe = new SelectInput(new Object[] { new MitgliedAuswertungPDF(this),
-        new MitgliedAuswertungCSV(this), new MitgliedAdressbuchExport() }, null);
+        new MitgliedAuswertungCSV(), new MitgliedAdressbuchExport() }, null);
     ausgabe.setName(JVereinPlugin.getI18n().tr("Ausgabe"));
     return ausgabe;
   }
@@ -1982,28 +1963,6 @@ public class MitgliedControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          throw new ApplicationException(e);
-        }
-      }
-    }, null, true, "go.png"); // "true" defines this button as the default
-    // button
-    return b;
-  }
-
-  public Button getStartJubilaeenButton()
-  {
-    Button b = new Button("Start", new Action()
-    {
-
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
-        {
-          starteJubilaeenListe();
-        }
-        catch (RemoteException e)
-        {
-          Logger.error("Fehler:", e);
           throw new ApplicationException(e);
         }
       }
@@ -2649,10 +2608,7 @@ public class MitgliedControl extends AbstractControl
         {
           try
           {
-            ausw.go(flist, file, monitor);
-            monitor.setPercentComplete(100);
-            monitor.setStatus(ProgressMonitor.STATUS_DONE);
-            GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+            ausw.go(flist, file);
             GUI.getCurrentView().reload();
             if (ausw.openFile())
             {
@@ -2677,17 +2633,13 @@ public class MitgliedControl extends AbstractControl
           }
           catch (ApplicationException ae)
           {
-            Logger.error("", ae);
-            monitor.setStatusText(ae.getMessage());
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            Logger.error("Fehler", ae);
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw ae;
           }
           catch (Exception re)
           {
-            Logger.error("", re);
-            monitor.setStatusText(re.getMessage());
-            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            Logger.error("Fehler", re);
             GUI.getStatusBar().setErrorText(re.getMessage());
             throw new ApplicationException(re);
           }
@@ -2766,56 +2718,6 @@ public class MitgliedControl extends AbstractControl
     };
     Application.getController().start(t);
 
-  }
-
-  private void starteJubilaeenListe() throws RemoteException
-  {
-    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
-    fd.setFilterExtensions(new String[] { "*.PDF" });
-    Settings settings = new Settings(this.getClass());
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
-    if (path != null && path.length() > 0)
-    {
-      fd.setFilterPath(path);
-    }
-    fd.setFileName(new Dateiname((String) getJubelArt().getValue(), "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    String s = fd.open();
-
-    if (s == null || s.length() == 0)
-    {
-      return;
-    }
-    if (!s.toUpperCase().endsWith("PDF"))
-    {
-      s = s + ".PDF";
-    }
-
-    final File file = new File(s);
-    settings.setAttribute("lastdir", file.getParent());
-    final Integer jahr = (Integer) jubeljahr.getValue();
-    final String art = (String) jubelart.getValue();
-
-    BackgroundTask t = new BackgroundTask()
-    {
-      public void run(ProgressMonitor monitor) throws ApplicationException
-      {
-        new Jubilaeenliste(file, monitor, jahr, art);
-      }
-
-      public void interrupt()
-      {
-        //
-      }
-
-      public boolean isInterrupted()
-      {
-        return false;
-      }
-    };
-    Application.getController().start(t);
   }
 
   public void setZusatzfelderAuswahl()

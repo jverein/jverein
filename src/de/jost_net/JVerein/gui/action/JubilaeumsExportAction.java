@@ -30,7 +30,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class MitgliedJubilaeumCSVExportAction implements Action
+public class JubilaeumsExportAction implements Action
 {
 
   /**
@@ -40,7 +40,8 @@ public class MitgliedJubilaeumCSVExportAction implements Action
   {
     try
     {
-      ExportDialog d = new ExportDialog(null, Mitglied.class);
+      ExportDialog d = new ExportDialog(new Object[] { context },
+          Mitglied.class);
       d.open();
     }
     catch (OperationCanceledException oce)

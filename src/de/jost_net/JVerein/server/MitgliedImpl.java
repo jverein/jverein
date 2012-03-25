@@ -60,9 +60,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   private static final long serialVersionUID = 1L;
 
+  private transient Map<String, String> variable;
+
   public MitgliedImpl() throws RemoteException
   {
     super();
+    variable = new HashMap<String, String>();
   }
 
   @Override
@@ -1032,6 +1035,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       map.put("mitglied_eigenschaft_" + eig.getBezeichnung(), val);
     }
 
+    for (String varname : variable.keySet())
+    {
+      System.out.println(varname + "=" + variable.get(varname));
+      map.put(varname, variable.get(varname));
+    }
+
     DBIterator itlesefelder = Einstellungen.getDBService().createList(
         LeseFeld.class);
     if (itlesefelder.hasNext())
@@ -1123,6 +1132,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
          */
 
       }
+      Logger.debug("Variable für " + this.getNameVorname());
+      for (String key : map.keySet())
+      {
+        Logger.debug(key + "=" + map.get(key));
+      }
     }
 
     return map;
@@ -1207,4 +1221,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     return d;
   }
+
+  public void addVariable(String name, String wert) throws RemoteException
+  {
+    variable.put(name, wert);
+  }
+
 }
