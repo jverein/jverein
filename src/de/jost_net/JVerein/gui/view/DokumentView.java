@@ -44,7 +44,7 @@ public class DokumentView extends AbstractView
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Dokument"));
 
-    final DokumentControl control = new DokumentControl(this, verzeichnis);
+    final DokumentControl control = new DokumentControl(this, verzeichnis, true);
 
     ScrolledContainer scrolled = new ScrolledContainer(getParent());
 

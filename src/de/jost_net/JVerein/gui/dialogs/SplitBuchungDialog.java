@@ -55,7 +55,7 @@ public class SplitBuchungDialog extends AbstractDialog<Buchung>
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    BuchungPart part = new BuchungPart(control, view);
+    BuchungPart part = new BuchungPart(control, view, true);
     part.paint(parent);
 
     getShell().setMinimumSize(getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT));

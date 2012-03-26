@@ -42,21 +42,6 @@ public class BuchungAction implements Action
     if (context != null && (context instanceof Buchung))
     {
       b = (Buchung) context;
-      try
-      {
-        Jahresabschluss ja = b.getJahresabschluss();
-        if (ja != null)
-        {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Buchung wurde bereits am {0} von {1} abgeschlossen.",
-              new String[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                  ja.getName() }));
-        }
-      }
-      catch (RemoteException e)
-      {
-        throw new ApplicationException(e.getMessage());
-      }
     }
     else
     {

@@ -74,14 +74,13 @@ public class DokumentControl extends AbstractControl
 
   private String verzeichnis;
 
-  // private de.willuhn.jameica.system.Settings settings;
+  private boolean enabled;
 
-  public DokumentControl(AbstractView view, String verzeichnis)
+  public DokumentControl(AbstractView view, String verzeichnis, boolean enabled)
   {
     super(view);
     this.verzeichnis = verzeichnis;
-    // settings = new de.willuhn.jameica.system.Settings(this.getClass());
-    // settings.setStoreWhenRead(true);
+    this.enabled = enabled;
   }
 
   private AbstractDokument getDokument() throws RemoteException
@@ -153,6 +152,7 @@ public class DokumentControl extends AbstractControl
         GUI.startView(new DokumentView(verzeichnis), doc);
       }
     }, null);
+    neuButton.setEnabled(enabled);
     return neuButton;
   }
 
@@ -245,7 +245,7 @@ public class DokumentControl extends AbstractControl
         new JVDateFormatTTMMJJJJ()));
     docsList.addColumn("Bemerkung", "bemerkung");
     docsList.setRememberColWidths(true);
-    docsList.setContextMenu(new DokumentMenu());
+    docsList.setContextMenu(new DokumentMenu(enabled));
     docsList.setRememberOrder(true);
     docsList.setSummary(true);
     return docsList;

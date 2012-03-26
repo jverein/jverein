@@ -144,7 +144,7 @@ public class BuchungsControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  private Buchung getBuchung() throws RemoteException
+  public Buchung getBuchung() throws RemoteException
   {
     if (buchung != null)
     {
@@ -638,7 +638,6 @@ public class BuchungsControl extends AbstractControl
     BuchungQuery query = new BuchungQuery(this);
     if (buchungsList == null)
     {
-      // buchungsList = new TablePart(query.get(), new BuchungAction());
       buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
       buchungsList.addColumn("Nr", "id-int");
       buchungsList.addColumn("Konto", "konto", new Formatter()

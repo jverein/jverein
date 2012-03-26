@@ -46,10 +46,14 @@ public class BuchungPart implements Part
 
   private AbstractView view;
 
-  public BuchungPart(BuchungsControl control, AbstractView view)
+  private boolean buchungabgeschlossen;
+
+  public BuchungPart(BuchungsControl control, AbstractView view,
+      boolean buchungabgeschlossen)
   {
     this.control = control;
     this.view = view;
+    this.buchungabgeschlossen = buchungabgeschlossen;
   }
 
   public void paint(Composite parent) throws RemoteException
@@ -115,7 +119,8 @@ public class BuchungPart implements Part
         BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
             .createObject(BuchungDokument.class, null);
         budo.setReferenz(new Integer(bu.getID()));
-        DokumentControl dcontrol = new DokumentControl(view, "buchungen");
+        DokumentControl dcontrol = new DokumentControl(view, "buchungen",
+            !buchungabgeschlossen);
         grDokument.addPart(dcontrol.getDokumenteList(budo));
         ButtonArea butts = new ButtonArea();
         butts.addButton(dcontrol.getNeuButton(budo));

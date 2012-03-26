@@ -34,14 +34,16 @@ import de.willuhn.jameica.gui.parts.ContextMenuItem;
 public class DokumentMenu extends ContextMenu
 {
 
-  public DokumentMenu()
+  public DokumentMenu(boolean enabled)
   {
     new ContextMenuItem();
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("anzeigen"),
         new DokumentShowAction(), "show.png"));
-    addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new DokumentDeleteAction(),
-        "user-trash.png"));
+    if (enabled)
+    {
+      addItem(ContextMenuItem.SEPARATOR);
+      addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+          "löschen..."), new DokumentDeleteAction(), "user-trash.png"));
+    }
   }
 }
