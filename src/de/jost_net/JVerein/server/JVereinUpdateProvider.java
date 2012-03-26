@@ -5521,7 +5521,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE formular ");
+    sb.append("ALTER TABLE formularfeld ");
     sb.append("  CHANGE COLUMN `Seite` `seite` INT(10) NULL;");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
     execute(conn, statements, "Spaltenname Seite in seite geändert", 226);
