@@ -10,6 +10,10 @@
   				<li>Bugfix bei der Speicherung von Formularen unter MySQL. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=957">Forum</a></li>
           <li>Variable "aktuellesjahr" aufgenommen. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?t=962&p=3774">Forum.</a></li>
           <li>Jubiläumsauswertungen (Mitgliedschafts- und Altersjubliäen) überarbeitet. Jetzt auch CSV-Export möglich. </li>
+          <hr>
+          <li>Folgende Änderungen wurden nach Rev. 342 vorgenommen</li>
+          <li>Bei abgeschlossenen Buchungen konnten gespeicherte Dokumente nicht mehr angezeigt werden. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=8&t=688">Forum</a></li>
+          <li>Fehler beim MySQL-Update beseitigt. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?t=974&p=3822">Siehe Forum</a></li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
@@ -19,9 +23,6 @@
           <li>Bugfix Personalbogen. Scalierung des Bildes unter Windows entfernt. Siehe <a href='http://www.jverein.de/forum/viewtopic.php?f=5&t=237&p=3724#p3724'>Forum</a></li>
           <li>Bugfix Import: Bei fehlender Spalte Adresstyp wurde der Zahlungsrhytmus überschrieben. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=417&p=3655">Forum</a></li>
           <li>Bugfix Formularfeld "Anrede_du": Komma fehlte am Ende. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=5&t=934">Forum</a></li>
-          <hr>
-          <li>Folgende Änderungen wurden nach Rev. 342 vorgenommen</li>
-          <li>Bei abgeschlossenen Buchungen konnten gespeicherte Dokumente nicht mehr angezeigt werden. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=8&t=688">Forum</a></li>
          </ul>
       </li>
     
