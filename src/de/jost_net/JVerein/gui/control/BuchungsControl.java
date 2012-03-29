@@ -208,12 +208,12 @@ public class BuchungsControl extends AbstractControl
     {
       return auszugsnummer;
     }
-    Integer i = getBuchung().getAuszugsnummer();
-    if (i == null)
+    String val = "";
+    if (getBuchung().getAuszugsnummer() != null)
     {
-      i = Integer.valueOf(0);
+      val = getBuchung().getAuszugsnummer() + "";
     }
-    auszugsnummer = new IntegerInput(i);
+    auszugsnummer = new TextInput(val + "", 5);
     return auszugsnummer;
   }
 
@@ -223,12 +223,12 @@ public class BuchungsControl extends AbstractControl
     {
       return blattnummer;
     }
-    Integer i = getBuchung().getBlattnummer();
-    if (i == null)
+    String val = "";
+    if (getBuchung().getBlattnummer() != null)
     {
-      i = Integer.valueOf(0);
+      val = getBuchung().getBlattnummer() + "";
     }
-    blattnummer = new IntegerInput(i);
+    blattnummer = new TextInput(val, 5);
     return blattnummer;
   }
 
@@ -576,8 +576,20 @@ public class BuchungsControl extends AbstractControl
         }
         b.setKonto((Konto) getKonto(false).getValue());
         settings.setAttribute("kontoid", b.getKonto().getID());
-        b.setAuszugsnummer((Integer) getAuszugsnummer().getValue());
-        b.setBlattnummer((Integer) getBlattnummer().getValue());
+        Integer val = null;
+        String sval = (String) getAuszugsnummer().getValue();
+        if (sval.length() > 0)
+        {
+          val = Integer.parseInt((String) getAuszugsnummer().getValue());
+        }
+        b.setAuszugsnummer(val);
+        val = null;
+        sval = (String) getBlattnummer().getValue();
+        if (sval.length() > 0)
+        {
+          val = Integer.parseInt((String) getBlattnummer().getValue());
+        }
+        b.setBlattnummer(val);
         b.setName((String) getName().getValue());
         b.setBetrag((Double) getBetrag().getValue());
         b.setZweck((String) getZweck().getValue());

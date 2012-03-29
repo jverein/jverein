@@ -27,9 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import bsh.EvalError;
-import bsh.Interpreter;
-import bsh.TargetError;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedVar;
@@ -41,7 +38,6 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
-import de.jost_net.JVerein.rmi.LeseFeld;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
