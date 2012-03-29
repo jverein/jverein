@@ -127,17 +127,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
       if (getDokumentenspeicherung())
       {
-        boolean messaging = false;
-        List<AbstractPlugin> plugins = Application.getPluginLoader()
-            .getInstalledPlugins();
-        for (AbstractPlugin plugin : plugins)
-        {
-          if (plugin.getManifest().getName().equals("jameica.messaging"))
-          {
-            messaging = true;
-          }
-        }
-        if (!messaging)
+        if (Application.getPluginLoader().getManifestByName("jameica.messaging") == null)
         {
           throw new ApplicationException(
               "Plugin jameica.messaging ist nicht installiert!");
