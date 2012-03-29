@@ -49,6 +49,7 @@ import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -1041,103 +1042,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       map.put(varname, variable.get(varname));
     }
 
-    DBIterator itlesefelder = Einstellungen.getDBService().createList(
-        LeseFeld.class);
-    if (itlesefelder.hasNext())
-    {
-      Interpreter bsh = new Interpreter();
-
-      // Mache alle Variablen aus map in BeanScript verfügbar.
-      // '.', '-' und ' ' werden ersetzt durch '_'.
-      for (String key : map.keySet())
-      {
-
-        // TODO: gibt es noch mehr Zeichen, die ersetzt werden müssen?
-        String keyNormalized = key.replace("-", "_").replace(".", "_")
-            .replace(" ", "_");
-
-        try
-        {
-          bsh.set(keyNormalized, map.get(key));
-        }
-        catch (TargetError e)
-        {
-          System.out
-              .println("The script or code called by the script threw an exception: "
-                  + e.getTarget());
-        }
-        catch (EvalError e2)
-        {
-          System.out.println("There was an error in evaluating the script:"
-              + e2);
-        }
-      }
-
-      // DEBUG: Zeige alle gesetzten Variablen.
-      String[] vars = bsh.getNameSpace().getVariableNames();
-      try
-      {
-        for (int i = 0; i < vars.length; i++)
-        {
-          // Logger.info(vars[i] + ": ");
-          String s = "print(\"" + vars[i] + ":\" + " + vars[i] + ");";
-          Object obj = bsh.eval(s);
-          int dd = 4;
-        }
-      }
-      catch (EvalError e)
-      {
-        e.printStackTrace();
-      }
-
-      // Für jedes LeseFeld wird nun der Wert berechnet.
-      // Das heißt, das entsprechende BeanScript wird ausgewertet.
-      // Alle Scripte (Felder), die korrekt ausgewertet wurden,
-      // werden mit Prefix mitglied_lesefeld_ in die map eingefügt.
-      while (itlesefelder.hasNext())
-      {
-        LeseFeld vfeld = (LeseFeld) itlesefelder.next();
-        String script = vfeld.getScript();
-
-        Object zem = null;
-        try
-        {
-          zem = bsh.eval(script);
-          String val = zem == null ? "" : zem.toString();
-          Logger.info("LeseFeld: " + vfeld.getBezeichnung() + "=" + val);
-          map.put("mitglied_lesefeld_" + vfeld.getBezeichnung(), val);
-
-        }
-        catch (EvalError e)
-        {
-          Logger.error("Fehler. EvalError: \"" + e.getMessage() + "\".", e);
-
-          e.printStackTrace();
-        }
-
-        /*
-         * ZemObject zem = null; String val = ""; try { zem =
-         * interpreter.eval(zemScript); val = zem.toString();
-         * Logger.info("LeseFeld: " + vfeld.getBezeichnung() + "=" + val);
-         * map.put("mitglied_lesefeld_" + vfeld.getBezeichnung(), val); } catch
-         * (UnsetVariableException e) {
-         * Logger.error("Fehler. \""+e.getMessage()+"\".", e);
-         * e.printStackTrace(); } catch (ParserException e) {
-         * Logger.error("Fehler. ParserException: \""+e.getMessage()+"\".", e);
-         * e.printStackTrace(); } catch (ZemException e) {
-         * Logger.error("Fehler. ZemException: \""+e.getMessage()+"\".", e);
-         * e.printStackTrace(); } catch (IOException e1) {
-         * Logger.error("Unerwarteter Fehler. IOException in MitgliedImpl.",
-         * e1); e1.printStackTrace(); }
-         */
-
-      }
-      Logger.debug("Variable für " + this.getNameVorname());
-      for (String key : map.keySet())
-      {
-        Logger.debug(key + "=" + map.get(key));
-      }
-    }
+    // Füge Lesefelder diesem Mitglied-Objekt hinzu.
+    LesefeldAuswerter l = new LesefeldAuswerter();
+    l.setLesefelderDefinitionsFromDatabase();
+    l.setMap(map);
+    map.putAll(l.getLesefelderMap());
 
     return map;
   }

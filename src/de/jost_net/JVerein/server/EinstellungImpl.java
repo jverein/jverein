@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -33,7 +32,6 @@ import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -127,7 +125,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
       if (getDokumentenspeicherung())
       {
-        if (Application.getPluginLoader().getManifestByName("jameica.messaging") == null)
+        if (Application.getPluginLoader()
+            .getManifestByName("jameica.messaging") == null)
         {
           throw new ApplicationException(
               "Plugin jameica.messaging ist nicht installiert!");
@@ -603,12 +602,12 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   public double getSpendenbescheinigungminbetrag() throws RemoteException
   {
-    Double d = (Double)getAttribute("spendenbescheinigungminbetrag");
+    Double d = (Double) getAttribute("spendenbescheinigungminbetrag");
     if (d == null)
     {
       d = new Double(0);
     }
-    return (d) ;
+    return (d);
   }
 
   public void setSpendenbescheinigungminbetrag(double minbetrag)
