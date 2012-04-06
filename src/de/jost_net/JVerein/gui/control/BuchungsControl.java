@@ -53,6 +53,7 @@ import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericObject;
@@ -119,9 +120,13 @@ public class BuchungsControl extends AbstractControl
 
   private SelectInput buchungsart;
 
+  private SelectInput projekt;
+
   private Input suchkonto;
 
   private SelectInput suchbuchungsart;
+
+  private SelectInput suchprojekt;
 
   private DateInput vondatum = null;
 
@@ -134,6 +139,8 @@ public class BuchungsControl extends AbstractControl
   private Buchung buchung;
 
   public static final String BUCHUNGSART = "suchbuchungsart";
+
+  public static final String PROJEKT = "suchprojekt";
 
   private ArrayList<Buchung> splitbuchungen = null;
 
@@ -403,6 +410,21 @@ public class BuchungsControl extends AbstractControl
     return buchungsart;
   }
 
+  public Input getProjekt() throws RemoteException
+  {
+    if (projekt != null && !projekt.getControl().isDisposed())
+    {
+      return projekt;
+    }
+    DBIterator list = Einstellungen.getDBService().createList(Projekt.class);
+    list.setOrder("ORDER BY bezeichnung");
+    projekt = new SelectInput(list, getBuchung().getProjekt());
+    projekt.setValue(getBuchung().getProjekt());
+    projekt.setAttribute("bezeichnung");
+    projekt.setPleaseChoose("Bitte auswählen");
+    return projekt;
+  }
+
   public Input getSuchKonto() throws RemoteException
   {
     if (suchkonto != null)
@@ -413,6 +435,21 @@ public class BuchungsControl extends AbstractControl
     suchkonto = new KontoauswahlInput().getKontoAuswahl(true, kontoid, false);
     suchkonto.addListener(new FilterListener());
     return suchkonto;
+  }
+
+  public Input getSuchProjekt() throws RemoteException
+  {
+    if (suchprojekt != null)
+    {
+      return suchprojekt;
+    }
+    DBIterator list = Einstellungen.getDBService().createList(Projekt.class);
+    list.setOrder("ORDER BY bezeichnung");
+    suchprojekt = new SelectInput(list, null);
+    suchprojekt.addListener(new FilterListener());
+    suchprojekt.setAttribute("bezeichnung");
+    suchprojekt.setPleaseChoose("keine Einschränkung");
+    return suchprojekt;
   }
 
   public Input getSuchBuchungsart() throws RemoteException
@@ -573,6 +610,15 @@ public class BuchungsControl extends AbstractControl
         else
         {
           b.setBuchungsart(null);
+        }
+        o = (GenericObject) getProjekt().getValue();
+        if (o != null)
+        {
+          b.setProjektID(new Integer(o.getID()));
+        }
+        else
+        {
+          b.setProjekt(null);
         }
         b.setKonto((Konto) getKonto(false).getValue());
         settings.setAttribute("kontoid", b.getKonto().getID());

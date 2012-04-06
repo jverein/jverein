@@ -35,6 +35,7 @@ import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.StringTool;
@@ -128,6 +129,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     else if ("spendenbescheinigung".equals(field))
     {
       return Spendenbescheinigung.class;
+    }
+    else if ("projekt".equals(field))
+    {
+      return Projekt.class;
     }
     return null;
   }
@@ -331,6 +336,33 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
   }
 
+  public Projekt getProjekt() throws RemoteException
+  {
+    return (Projekt) getAttribute("projekt");
+  }
+
+  public int getProjektID() throws RemoteException
+  {
+    return Integer.parseInt(getProjekt().getID());
+  }
+
+  public void setProjektID(Integer projektID) throws RemoteException
+  {
+    setAttribute("projekt", projektID);
+  }
+
+  public void setProjekt(Projekt projekt) throws RemoteException
+  {
+    if (projekt != null)
+    {
+      setAttribute("projekt", new Integer(projekt.getID()));
+    }
+    else
+    {
+      setAttribute("projekt", null);
+    }
+  }
+
   public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException
   {
     return (Spendenbescheinigung) getAttribute("spendenbescheinigung");
@@ -390,6 +422,19 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       map.put(BuchungVar.BUCHUNGSKLASSEBEZEICHNUNG.getName(), "");
       map.put(BuchungVar.BUCHUNGSKLASSENUMMER.getName(), "");
     }
+
+    if (this.getProjekt() != null)
+    {
+      map.put(BuchungVar.PROJEKTNUMMER.getName(), this.getProjektID());
+      map.put(BuchungVar.PROJEKTBEZEICHNUNG.getName(), this.getProjekt()
+          .getBezeichnung());
+    }
+    else
+    {
+      map.put(BuchungVar.PROJEKTNUMMER.getName(), "");
+      map.put(BuchungVar.PROJEKTBEZEICHNUNG.getName(), "");
+    }
+
     map.put(BuchungVar.DATUM.getName(), this.getDatum());
     map.put(BuchungVar.JAHRESABSCHLUSS.getName(),
         this.getJahresabschluss() != null ? this.getJahresabschluss().getBis()

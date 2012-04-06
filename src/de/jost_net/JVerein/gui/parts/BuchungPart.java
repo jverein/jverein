@@ -98,6 +98,8 @@ public class BuchungPart implements Part
     grBuchungsinfos.addHeadline(JVereinPlugin.getI18n().tr("Buchungsinfos"));
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
         control.getBuchungsart());
+    grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Projekt"),
+        control.getProjekt());
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Auszugsnummer"),
         control.getAuszugsnummer());
     grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Blattnummer"),

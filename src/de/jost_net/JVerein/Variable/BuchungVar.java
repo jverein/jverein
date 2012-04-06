@@ -38,6 +38,8 @@ public enum BuchungVar
   KONTONUMMER("buchung_kontonummer"), //
   MITGLIEDSKONTO("buchung_mitgliedskonto"), //
   NAME("buchung_name"), //
+  PROJEKTNUMMER("buchung_projektnummer"), //
+  PROJEKTBEZEICHNUNG("buchung_projektbezeichnung"), //
   SPENDENBESCHEINIGUNG("buchung_spendenbescheinigung"), // ;
   ZWECK1("buchung_zweck1"), //
   ZWECK2("buchung_zweck2");

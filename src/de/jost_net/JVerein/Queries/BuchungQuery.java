@@ -32,6 +32,7 @@ import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -110,6 +111,17 @@ public class BuchungQuery
       settings.setAttribute(BuchungsControl.BUCHUNGSART, -2);
     }
 
+    Projekt p = (Projekt) control.getSuchProjekt().getValue();
+    if (p != null)
+    {
+      p = (Projekt) control.getSuchProjekt().getValue();
+      settings.setAttribute(BuchungsControl.PROJEKT, p.getID());
+    }
+    else
+    {
+      settings.setAttribute(BuchungsControl.PROJEKT, -2);
+    }
+
     addCondition("datum >= ? ", vd);
     addCondition("datum <= ? ", bd);
     if (k != null)
@@ -126,6 +138,11 @@ public class BuchungQuery
       {
         addCondition("buchungsart = ? ", b.getID());
       }
+    }
+
+    if (p != null)
+    {
+      addCondition("projekt = ?", p.getID());
     }
 
     String sute = (String) control.getSuchtext().getValue();

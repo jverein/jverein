@@ -905,6 +905,18 @@ public class JVereinUpdateProvider
     {
       update0226(conn);
     }
+    if (cv < 227)
+    {
+      update0227(conn);
+    }
+    if (cv < 228)
+    {
+      update0228(conn);
+    }
+    if (cv < 229)
+    {
+      update0229(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5525,6 +5537,63 @@ public class JVereinUpdateProvider
     sb.append("  CHANGE COLUMN `Seite` `seite` INT(10) NULL;");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
     execute(conn, statements, "Spaltenname Seite in seite geändert", 226);
+  }
+
+  private void update0227(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("create table projekt (");
+    sb.append(" id IDENTITY(1),");
+    sb.append(" bezeichnung VARCHAR(50),");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(");\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("create table projekt (");
+    sb.append(" id INTEGER AUTO_INCREMENT,");
+    sb.append(" bezeichnung VARCHAR(50),");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(")  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle projekt aufgenommen", 227);
+  }
+
+  private void update0228(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table buchung add projekt integer;\n");
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table buchung add projekt integer;\n");
+
+    execute(conn, statements, "Spalte projekt zur Tabelle buchung hinzugefügt",
+        228);
+  }
+
+  private void update0229(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung6 FOREIGN KEY (projekt) REFERENCES projekt (id) ;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE buchung ADD CONSTRAINT fkBuchung6 FOREIGN KEY (projekt) REFERENCES projekt (id) ;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
+        229);
   }
 
 }

@@ -99,6 +99,14 @@ public interface Buchung extends DBObject
   public void setMitgliedskontoID(Integer mitgliedskonto)
       throws RemoteException;
 
+  public Projekt getProjekt() throws RemoteException;
+
+  public int getProjektID() throws RemoteException;
+
+  public void setProjekt(Projekt projekt) throws RemoteException;
+
+  public void setProjektID(Integer projekt) throws RemoteException;
+
   public Jahresabschluss getJahresabschluss() throws RemoteException;
 
   public Integer getSplitId() throws RemoteException;

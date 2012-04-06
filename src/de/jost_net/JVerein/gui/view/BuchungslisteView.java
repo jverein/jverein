@@ -47,6 +47,8 @@ public class BuchungslisteView extends AbstractView
         control.getSuchKonto());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
         control.getSuchBuchungsart());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Projekt"),
+        control.getSuchProjekt());
     group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"),
         control.getVondatum());
     group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"),
