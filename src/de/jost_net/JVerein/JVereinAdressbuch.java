@@ -43,8 +43,9 @@ public class JVereinAdressbuch implements Addressbook
       throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
-    String su = "%" + text + "%";
-    it.addFilter("(name like ? or vorname like ?)", new Object[] { su, su });
+    String su = "%" + text.toLowerCase() + "%";
+    it.addFilter("(lower(name) like ? or lower(vorname) like ?)", new Object[] {
+        su, su });
     it.addFilter("konto is not null and length(konto)>0 and blz is not null and length(blz) > 0");
     ArrayList<MitgliedAddress> list = new ArrayList<MitgliedAddress>();
     while (it.hasNext())
