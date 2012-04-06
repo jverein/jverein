@@ -125,11 +125,10 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
       if (getDokumentenspeicherung())
       {
-        if (Application.getPluginLoader()
-            .getManifestByName("jameica.messaging") == null)
+        if (!JVereinPlugin.isArchiveServiceActive())
         {
           throw new ApplicationException(
-              "Plugin jameica.messaging ist nicht installiert!");
+              "Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar!");
         }
       }
       try
