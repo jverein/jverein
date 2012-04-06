@@ -28,6 +28,7 @@ import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
 import de.jost_net.JVerein.gui.action.BuchungKontoauszugZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungMitgliedskontoZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
+import de.jost_net.JVerein.gui.action.BuchungProjektZuordnungAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
@@ -63,6 +64,9 @@ public class BuchungMenu extends ContextMenu
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Mitgliedskonto zuordnen"), new BuchungMitgliedskontoZuordnungAction(
         control), "human_folder_public.png"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "Projekt zuordnen"), new BuchungProjektZuordnungAction(
+        control), "projects.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Kontoauszug zuordnen"),
         new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));

@@ -47,7 +47,7 @@ public class ProjektImpl extends AbstractDBObject implements Projekt
   @Override
   public String getPrimaryAttribute()
   {
-    return "id";
+    return "bezeichnung";
   }
 
   @Override

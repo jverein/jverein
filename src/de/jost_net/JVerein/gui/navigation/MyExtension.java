@@ -217,7 +217,7 @@ public class MyExtension implements Extension
           .tr("Buchungsarten"), new BuchungsartListAction(),
           "activity_category.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Projekte"), new ProjektListAction(), "activity_category.gif"));
+          .tr("Projekte"), new ProjektListAction(), "projects.png"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Eigenschaften-Gruppen"), new EigenschaftGruppeListeAction(),
           "activity_category.gif"));
