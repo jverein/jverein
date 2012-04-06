@@ -16,6 +16,9 @@
           <li>Fehler beim MySQL-Update beseitigt. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?t=974&p=3822">Siehe Forum</a></li>
           <li>Jameica-changed-pluginloader.patch von Olaf</li>
           <li>Neu: Projekte in der Buchführung. Projekte können unter Administration erfasst werden und den betreffenden Buchungen zugeordnet werden. Die Suche nach Projekten ist möglich. Die Projekteinformationen werden bei der CSV-Ausgabe berücksichtigt.</li>
+          <hr>
+          <li>Folgende Änderungen wurden nach Rev. 344 vorgenommen</li>
+          <li>Suche im Jameica-Adressbuch über die JVerein-Adressen ist nicht mehr casesensitiv. Siehe <a href="www.jverein.de/forum/viewtopic.php?t=988&p=3865">Forum</a></li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
