@@ -210,14 +210,21 @@ public class MyExtension implements Extension
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Beitragsgruppen"), new BeitragsgruppeSucheAction(),
           "breakpoint_view.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Buchungsklassen"), new BuchungsklasseListAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Buchungsarten"), new BuchungsartListAction(),
-          "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Projekte"), new ProjektListAction(), "projects.png"));
+
+      NavigationItem einstellungenbuchfuehrung = null;
+      einstellungenbuchfuehrung = new MyItem(einstellungenbuchfuehrung,
+          JVereinPlugin.getI18n().tr("Buchführung"), null);
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          JVereinPlugin.getI18n().tr("Buchungsklassen"),
+          new BuchungsklasseListAction(), "activity_category.gif"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          JVereinPlugin.getI18n().tr("Buchungsarten"),
+          new BuchungsartListAction(), "activity_category.gif"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          JVereinPlugin.getI18n().tr("Projekte"), new ProjektListAction(),
+          "projects.png"));
+      einstellungen.addChild(einstellungenbuchfuehrung);
+
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Eigenschaften-Gruppen"), new EigenschaftGruppeListeAction(),
           "activity_category.gif"));
