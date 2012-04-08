@@ -917,6 +917,10 @@ public class JVereinUpdateProvider
     {
       update0229(conn);
     }
+    if (cv < 230)
+    {
+      update0230(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5594,6 +5598,21 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key für Tabelle buchung aufgenommen",
         229);
+  }
+
+  private void update0230(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE formularfeld ALTER COLUMN font varchar(50);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE formularfeld MODIFY COLUMN font varchar(50);\n");
+
+    execute(conn, statements,
+        "Spalte font in der Tabelle formularfeld verlängert", 230);
   }
 
 }
