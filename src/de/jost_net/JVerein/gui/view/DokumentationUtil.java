@@ -96,7 +96,7 @@ public class DokumentationUtil
   public static final String MANUELLEZAHLUNGSEINGAENGE = PRE
       + "manuelle_zahlungseingaenge.php";
 
-  public static final String PROJEKTE = PRE + "projekte.php";
+  public static final String PROJEKTE = PRE + "administration_projekte.php";
 
   public static final String STAMMDATEN = PRE + "administration_stammdaten.php";
 
