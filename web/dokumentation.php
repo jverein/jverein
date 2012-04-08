@@ -42,6 +42,7 @@
 		<li><a href="administration_beitragsgruppen.php">Beitragsgruppen</a></li>
 		<li><a href="administration_buchungsklasse.php">Buchungsklasse</a></li>
 		<li><a href="administration_buchungsarten.php">Buchungsart</a></li>
+		<li><a href="administration_projekte.php">Projekte</a></li>
 		<li><a href="administration_eigenschaftgruppe.php">Eigenschaften-Gruppe</a></li>
 		<li><a href="administration_eigenschaft.php">Eigenschaften</a></li>
 		<li><a href="administration_einstellungen.php">Einstellungen</a></li>
