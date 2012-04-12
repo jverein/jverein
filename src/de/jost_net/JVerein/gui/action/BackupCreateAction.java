@@ -61,6 +61,7 @@ import de.jost_net.JVerein.server.MitgliedDokumentImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
 import de.jost_net.JVerein.server.MitgliedfotoImpl;
 import de.jost_net.JVerein.server.MitgliedskontoImpl;
+import de.jost_net.JVerein.server.ProjektImpl;
 import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
 import de.jost_net.JVerein.server.ZusatzbetragImpl;
@@ -105,6 +106,7 @@ public class BackupCreateAction implements Action
       MailAnhangImpl.class,//
       MailVorlageImpl.class,//
       BuchungsartImpl.class,//
+      ProjektImpl.class,//
       EigenschaftImpl.class,//
       BeitragsgruppeImpl.class,//
       MitgliedImpl.class,//
