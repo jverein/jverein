@@ -36,10 +36,10 @@ public class IORegistry
 {
 
   // Liste der Export-Filter
-  private static ArrayList exporters = null;
+  private static ArrayList<IO> exporters = null;
 
   // Liste der Importer
-  private static ArrayList importers = null;
+  private static ArrayList<IO> importers = null;
 
   static
   {
@@ -56,9 +56,9 @@ public class IORegistry
    *          zu ladender Typ.
    * @return Liste der gefundenen Importer/Exporter.
    */
-  private static synchronized ArrayList load(Class type)
+  private static synchronized ArrayList<IO> load(Class<?> type)
   {
-    ArrayList l = new ArrayList();
+    ArrayList<IO> l = new ArrayList<IO>();
     try
     {
       ClassFinder finder = Application.getClassLoader().getClassFinder();
@@ -114,7 +114,8 @@ public class IORegistry
 }
 
 /**********************************************************************
- * $Log$ Revision 1.3 2010/06/01 21:55:40 willuhn
+ * $Log$ Revision 1.7 2012/02/27 21:11:10 jverein
+ * Import-Logik überarbeitet. Revision 1.3 2010/06/01 21:55:40 willuhn
  * 
  * @N uebersichtlichere Log-Ausgabe
  * 

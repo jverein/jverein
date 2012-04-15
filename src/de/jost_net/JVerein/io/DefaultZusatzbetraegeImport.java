@@ -191,7 +191,7 @@ public class DefaultZusatzbetraegeImport implements Importer
     return true;
   }
 
-  public IOFormat[] getIOFormats(Class objectType)
+  public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Zusatzbetrag.class)
     {

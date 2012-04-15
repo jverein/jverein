@@ -234,7 +234,7 @@ public class CSVBuchungsImport implements Importer
     return true;
   }
 
-  public IOFormat[] getIOFormats(Class objectType)
+  public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Buchung.class)
     {

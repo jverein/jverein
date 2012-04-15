@@ -62,7 +62,7 @@ import de.willuhn.util.ProgressMonitor;
 /**
  * Dialog, ueber den Daten importiert werden koennen.
  */
-public class ImportDialog extends AbstractDialog
+public class ImportDialog extends AbstractDialog<Object>
 {
   private final static int WINDOW_WIDTH = 420;
 
@@ -264,7 +264,7 @@ public class ImportDialog extends AbstractDialog
     Importer[] importers = IORegistry.getImporters();
 
     int size = 0;
-    ArrayList l = new ArrayList();
+    ArrayList<Imp> l = new ArrayList<Imp>();
     String lastFormat = settings.getString("lastformat", null);
     Imp selected = null;
 
