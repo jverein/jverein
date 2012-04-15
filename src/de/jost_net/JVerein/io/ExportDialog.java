@@ -58,7 +58,7 @@ import de.willuhn.util.ProgressMonitor;
 /**
  * Dialog, ueber den Daten exportiert werden koennen.
  */
-public class ExportDialog extends AbstractDialog
+public class ExportDialog extends AbstractDialog<Object>
 {
   private final static int WINDOW_WIDTH = 420;
 
