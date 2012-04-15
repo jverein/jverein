@@ -26,17 +26,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
-import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
-import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.messaging.StatusBarMessage;
@@ -47,21 +44,14 @@ import de.willuhn.util.ApplicationException;
 public class BuchungsjournalPDF
 {
 
-  public BuchungsjournalPDF(DBIterator list, final File file, Konto konto,
-      Date dVon, Date dBis) throws ApplicationException
+  public BuchungsjournalPDF(BuchungQuery query, final File file)
+      throws ApplicationException
   {
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(dVon)
-          + " bis " + new JVDateFormatTTMMJJJJ().format(dBis);
-      if (konto != null)
-      {
-        subtitle += " für Konto " + konto.getNummer() + " - "
-            + konto.getBezeichnung();
-      }
-      Reporter reporter = new Reporter(fos, "Buchungsjournal", subtitle,
-          list.size());
+      Reporter reporter = new Reporter(fos, "Buchungsjournal",
+          query.getSubtitle(), 1);
 
       double einnahmen = 0;
       double ausgaben = 0;
@@ -70,16 +60,12 @@ public class BuchungsjournalPDF
 
       createTableHeader(reporter);
 
-      while (list.hasNext())
+      for (Buchung b : query.get())
       {
-        Buchung b = (Buchung) list.next();
-        DBIterator listk = Einstellungen.getDBService().createList(Konto.class);
-        listk.addFilter("id = ?", new Object[] { b.getKonto().getID() });
-        Konto k = (Konto) listk.next();
         reporter.addColumn(b.getID(), Element.ALIGN_RIGHT);
         reporter.addColumn(new JVDateFormatTTMMJJJJ().format(b.getDatum()),
             Element.ALIGN_LEFT);
-        reporter.addColumn(k.getNummer(), Element.ALIGN_RIGHT);
+        reporter.addColumn(b.getKonto().getNummer(), Element.ALIGN_RIGHT);
         if (b.getAuszugsnummer() != null)
         {
           reporter.addColumn(b.getAuszugsnummer() + "/" + b.getBlattnummer(),
@@ -163,8 +149,7 @@ public class BuchungsjournalPDF
       }
 
       reporter.closeTable();
-      GUI.getStatusBar().setSuccessText(
-          "Auswertung fertig. " + list.size() + " Sätze.");
+      GUI.getStatusBar().setSuccessText("Auswertung fertig. ");
 
       reporter.close();
       fos.close();
@@ -223,6 +208,5 @@ public class BuchungsjournalPDF
     reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 50,
         Color.LIGHT_GRAY);
     reporter.createHeader();
-
   }
 }

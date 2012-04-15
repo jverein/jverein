@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
@@ -36,13 +35,21 @@ import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
-import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 
 public class BuchungQuery
 {
+  private Date datumvon;
 
-  private BuchungsControl control;
+  private Date datumbis;
+
+  private Konto konto;
+
+  public Buchungsart buchungart;
+
+  private Projekt projekt;
+
+  public String text;
 
   private boolean and = false;
 
@@ -52,115 +59,144 @@ public class BuchungQuery
 
   private ArrayList<Buchung> ergebnis;
 
-  public BuchungQuery(BuchungsControl control)
+  private static final int ORDER_UMSATZID = 0;
+
+  private static final int ORDER_DATUM = 1;
+
+  private static final int ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER = 2;
+
+  private static final int ORDER_DATUM_NAME = 3;
+
+  private static final int ORDER_ID = 4;
+
+  private int order = ORDER_UMSATZID;
+
+  public BuchungQuery(Date datumvon, Date datumbis, Konto konto,
+      Buchungsart buchungsart, Projekt projekt, String text)
   {
-    this.control = control;
+    this.datumvon = datumvon;
+    this.datumbis = datumbis;
+    this.konto = konto;
+    this.buchungart = buchungsart;
+    this.projekt = projekt;
+    this.text = text;
+  }
+
+  public void setOrderID()
+  {
+    order = ORDER_ID;
+  }
+
+  public void setOrderDatum()
+  {
+    order = ORDER_DATUM;
+  }
+
+  public void setOrderDatumAuszugsnummerBlattnummer()
+  {
+    order = ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER;
+  }
+
+  public void setOrderDatumName()
+  {
+    order = ORDER_DATUM_NAME;
+  }
+
+  public Date getDatumvon()
+  {
+    return datumvon;
+  }
+
+  public Date getDatumbis()
+  {
+    return datumbis;
+  }
+
+  public Konto getKonto()
+  {
+    return konto;
+  }
+
+  public Buchungsart getBuchungsart()
+  {
+    return buchungart;
+  }
+
+  public Projekt getProjekt()
+  {
+    return projekt;
+  }
+
+  public String getText()
+  {
+    return text;
   }
 
   public ArrayList<Buchung> get() throws RemoteException
   {
+    and = false;
+    bedingungen = new ArrayList<Object>();
+
     final DBService service = Einstellungen.getDBService();
     ergebnis = new ArrayList<Buchung>();
     sql = "select buchung.* ";
     sql += "from buchung ";
-    Settings settings = control.getSettings();
 
-    java.sql.Date vd = null;
-    try
+    addCondition("datum >= ? ", datumvon);
+    addCondition("datum <= ? ", datumbis);
+    if (konto != null)
     {
-      vd = new java.sql.Date(getDatumvon().getTime());
+      addCondition("konto = ? ", konto.getID());
     }
-    catch (NullPointerException e)
+    if (buchungart != null)
     {
-      throw new RemoteException("von-Datum fehlt");
-    }
-    settings.setAttribute("vondatum",
-        new JVDateFormatTTMMJJJJ().format(getDatumvon().getTime()));
-    java.sql.Date bd = null;
-
-    try
-    {
-      bd = new java.sql.Date(getDatumbis().getTime());
-    }
-    catch (NullPointerException e)
-    {
-      throw new RemoteException("bis-Datum fehlt");
-    }
-    settings.setAttribute("bisdatum",
-        new JVDateFormatTTMMJJJJ().format(getDatumbis().getTime()));
-
-    Konto k = null;
-    if (control.getSuchKonto().getValue() != null)
-    {
-      k = (Konto) control.getSuchKonto().getValue();
-      settings.setAttribute("suchkontoid", k.getID());
-    }
-    else
-    {
-      settings.setAttribute("suchkontoid", "");
-    }
-
-    Buchungsart b = (Buchungsart) control.getSuchBuchungsart().getValue();
-    if (b != null && b.getNummer() >= 0)
-    {
-      b = (Buchungsart) control.getSuchBuchungsart().getValue();
-      settings.setAttribute(BuchungsControl.BUCHUNGSART, b.getNummer());
-    }
-    else
-    {
-      settings.setAttribute(BuchungsControl.BUCHUNGSART, -2);
-    }
-
-    Projekt p = (Projekt) control.getSuchProjekt().getValue();
-    if (p != null)
-    {
-      p = (Projekt) control.getSuchProjekt().getValue();
-      settings.setAttribute(BuchungsControl.PROJEKT, p.getID());
-    }
-    else
-    {
-      settings.setAttribute(BuchungsControl.PROJEKT, -2);
-    }
-
-    addCondition("datum >= ? ", vd);
-    addCondition("datum <= ? ", bd);
-    if (k != null)
-    {
-      addCondition("konto = ? ", k.getID());
-    }
-    if (b != null)
-    {
-      if (b.getNummer() == -1)
+      if (buchungart.getNummer() == -1)
       {
         addCondition("buchungsart is null ");
       }
-      else if (b.getNummer() >= 0)
+      else if (buchungart.getNummer() >= 0)
       {
-        addCondition("buchungsart = ? ", b.getID());
+        addCondition("buchungsart = ? ", buchungart.getID());
       }
     }
 
-    if (p != null)
+    if (projekt != null)
     {
-      addCondition("projekt = ?", p.getID());
+      addCondition("projekt = ?", projekt.getID());
     }
 
-    String sute = (String) control.getSuchtext().getValue();
-    if (sute.length() > 0)
+    if (text.length() > 0)
     {
-      settings.setAttribute("suchtext", sute);
-      sute = sute.toUpperCase();
-      sute = "%" + sute + "%";
+      String ttext = text.toUpperCase();
+      ttext = "%" + ttext + "%";
       addCondition(
           "(upper(name) like ? or upper(zweck) like ? or upper(zweck2) like ? or upper(kommentar) like ?) ",
-          new Object[] { sute, sute, sute, sute });
+          new Object[] { ttext, ttext, ttext, ttext });
     }
-    else
+    switch (order)
     {
-      settings.setAttribute("suchtext", "");
-    }
-    sql += "ORDER BY umsatzid DESC";
+      case ORDER_UMSATZID:
+      {
+        sql += "ORDER BY umsatzid DESC";
+        break;
+      }
+      case ORDER_DATUM:
+      {
+        sql += "ORDER BY datum";
+        break;
+      }
+      case ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER:
+      {
+        sql += "ORDER BY datum, auszugsnummer, blattnummer, id";
+        break;
+      }
+      case ORDER_DATUM_NAME:
+      {
+        sql += "ORDER BY datum, name, id";
+        break;
+      }
 
+    }
     Logger.debug(sql);
 
     ResultSetExtractor rs = new ResultSetExtractor()
@@ -182,26 +218,25 @@ public class BuchungQuery
     return ergebnis;
   }
 
-  public Date getDatumvon()
+  public String getSubtitle() throws RemoteException
   {
-    return (Date) control.getVondatum().getValue();
-  }
+    String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(getDatumvon())
+        + " bis " + new JVDateFormatTTMMJJJJ().format(getDatumbis());
+    if (getKonto() != null)
+    {
+      subtitle += " für Konto " + getKonto().getNummer() + " - "
+          + getKonto().getBezeichnung();
+    }
+    if (getProjekt() != null)
+    {
+      subtitle += ", Projekt " + getProjekt().getBezeichnung();
+    }
+    if (getText() != null && getText().length() > 0)
+    {
+      subtitle += ", Text=" + getText();
+    }
 
-  public Date getDatumbis()
-  {
-    return (Date) control.getBisdatum().getValue();
-  }
-
-  public Konto getKonto() throws RemoteException
-  {
-    return (control.getSuchKonto().getValue() != null ? (Konto) control
-        .getSuchKonto().getValue() : null);
-  }
-
-  public Buchungsart getBuchungart() throws RemoteException
-  {
-    return (control.getSuchBuchungsart().getValue() != null ? (Buchungsart) control
-        .getSuchBuchungsart().getValue() : null);
+    return subtitle;
   }
 
   public int getSize()

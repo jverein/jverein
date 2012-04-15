@@ -44,8 +44,7 @@ import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.io.BuchungAuswertungCSV;
-import de.jost_net.JVerein.io.BuchungAuswertungPDFEinzelbuchungen;
-import de.jost_net.JVerein.io.BuchungAuswertungPDFSummen;
+import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.io.BuchungsjournalPDF;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -137,6 +136,8 @@ public class BuchungsControl extends AbstractControl
   private CheckboxInput verzicht;
 
   private Buchung buchung;
+
+  private BuchungQuery query;
 
   public static final String BUCHUNGSART = "suchbuchungsart";
 
@@ -693,7 +694,44 @@ public class BuchungsControl extends AbstractControl
 
   public Part getBuchungsList() throws RemoteException
   {
-    BuchungQuery query = new BuchungQuery(this);
+    // Werte speichern
+    Date dv = (Date) getVondatum().getValue();
+    settings.setAttribute("vondatum", new JVDateFormatTTMMJJJJ().format(dv));
+    Date db = (Date) getBisdatum().getValue();
+    settings.setAttribute("bisdatum", new JVDateFormatTTMMJJJJ().format(db));
+    Konto k = null;
+    if (getSuchKonto().getValue() != null)
+    {
+      k = (Konto) getSuchKonto().getValue();
+      settings.setAttribute("suchkontoid", k.getID());
+    }
+    else
+    {
+      settings.setAttribute("suchkontoid", "");
+    }
+    Buchungsart b = (Buchungsart) getSuchBuchungsart().getValue();
+    if (b != null && b.getNummer() >= 0)
+    {
+      b = (Buchungsart) getSuchBuchungsart().getValue();
+      settings.setAttribute(BuchungsControl.BUCHUNGSART, b.getNummer());
+    }
+    else
+    {
+      settings.setAttribute(BuchungsControl.BUCHUNGSART, -2);
+    }
+    Projekt p = (Projekt) getSuchProjekt().getValue();
+    if (p != null)
+    {
+      p = (Projekt) getSuchProjekt().getValue();
+      settings.setAttribute(BuchungsControl.PROJEKT, p.getID());
+    }
+    else
+    {
+      settings.setAttribute(BuchungsControl.PROJEKT, -2);
+    }
+    settings.setAttribute("suchtext", (String) getSuchtext().getValue());
+
+    query = new BuchungQuery(dv, db, k, b, p, (String) getSuchtext().getValue());
     if (buchungsList == null)
     {
       buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
@@ -877,18 +915,33 @@ public class BuchungsControl extends AbstractControl
 
     try
     {
-      DBIterator list;
-      BuchungQuery query = new BuchungQuery(this);
-      Date dVon = query.getDatumvon();
-      Date dBis = query.getDatumbis();
-      Konto k = query.getKonto();
-      Buchungsart ba = query.getBuchungart();
-      list = Einstellungen.getDBService().createList(Buchungsart.class);
-      if (ba != null && ba.getArt() != -2)
+      DBIterator list = Einstellungen.getDBService().createList(
+          Buchungsart.class);
+      if (query.getBuchungsart() != null
+          && query.getBuchungsart().getArt() != -2)
       {
-        list.addFilter("id = ?", new Object[] { ba.getID() });
+        list.addFilter("id = ?",
+            new Object[] { query.getBuchungsart().getID() });
+      }
+      if (query.getBuchungsart() != null
+          && query.getBuchungsart().getArt() == -1)
+      {
+        list.addFilter("id = ?", -1);
       }
       list.setOrder("ORDER BY nummer");
+      ArrayList<Buchungsart> buchungsarten = new ArrayList<Buchungsart>();
+      while (list.hasNext())
+      {
+        buchungsarten.add((Buchungsart) list.next());
+      }
+      if (buchungsarten.size() > 1)
+      {
+        Buchungsart ohnezuordnung = (Buchungsart) Einstellungen.getDBService()
+            .createObject(Buchungsart.class, null);
+        ohnezuordnung.setBezeichnung("Ohne Zuordnung");
+        ohnezuordnung.setArt(-1);
+        buchungsarten.add(ohnezuordnung);
+      }
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
@@ -912,7 +965,7 @@ public class BuchungsControl extends AbstractControl
       final File file = new File(s);
       settings.setAttribute("lastdir", file.getParent());
 
-      auswertungBuchungPDF(list, file, k, ba, dVon, dBis, einzelbuchungen);
+      auswertungBuchungPDF(buchungsarten, file, einzelbuchungen);
     }
     catch (RemoteException e)
     {
@@ -925,7 +978,6 @@ public class BuchungsControl extends AbstractControl
 
     try
     {
-      BuchungQuery query = new BuchungQuery(this);
       final ArrayList<Buchung> buchungen = query.get();
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -988,53 +1040,24 @@ public class BuchungsControl extends AbstractControl
 
   private void starteAuswertungBuchungsjournal()
   {
-    DBIterator list;
-    Date dVon = null;
-    Date dBis = null;
-    Konto k = null;
-    if (bisdatum.getValue() != null)
-    {
-      dVon = (Date) vondatum.getValue();
-    }
-    if (bisdatum.getValue() != null)
-    {
-      dBis = (Date) bisdatum.getValue();
-    }
-    if (suchkonto.getValue() != null)
-    {
-      k = (Konto) suchkonto.getValue();
-    }
 
     try
     {
-      list = Einstellungen.getDBService().createList(Buchung.class);
-      if (dVon != null)
-      {
-        list.addFilter("datum >= ?", new Object[] { dVon });
-      }
-      if (dBis != null)
-      {
-        list.addFilter("datum <= ?", new Object[] { dBis });
-      }
-      if (k != null)
-      {
-        list.addFilter("konto = ?", new Object[] { k.getID() });
-      }
 
       BuchungsjournalSortDialog djs = new BuchungsjournalSortDialog(
           BuchungsjournalSortDialog.POSITION_CENTER);
       String sort = (String) djs.open();
       if (sort.equals(BuchungsjournalSortDialog.DATUM))
       {
-        list.setOrder("ORDER BY datum, auszugsnummer, blattnummer, id");
+        query.setOrderDatumAuszugsnummerBlattnummer();
       }
       else if (sort.equals(BuchungsjournalSortDialog.DATUM_NAME))
       {
-        list.setOrder("ORDER BY datum, name, id");
+        query.setOrderDatumName();
       }
       else
       {
-        list.setOrder("ORDER BY id");
+        query.setOrderID();
       }
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
@@ -1058,7 +1081,7 @@ public class BuchungsControl extends AbstractControl
       final File file = new File(s);
       settings.setAttribute("lastdir", file.getParent());
 
-      auswertungBuchungsjournalPDF(list, file, k, dVon, dBis);
+      auswertungBuchungsjournalPDF(query, file);
     }
     catch (Exception e)
     {
@@ -1066,9 +1089,8 @@ public class BuchungsControl extends AbstractControl
     }
   }
 
-  private void auswertungBuchungPDF(final DBIterator list, final File file,
-      final Konto konto, final Buchungsart buchungsart, final Date dVon,
-      final Date dBis, final boolean einzelbuchungen)
+  private void auswertungBuchungPDF(final ArrayList<Buchungsart> buchungsarten,
+      final File file, final boolean einzelbuchungen)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -1077,18 +1099,8 @@ public class BuchungsControl extends AbstractControl
       {
         try
         {
-          if (einzelbuchungen)
-          {
-            new BuchungAuswertungPDFEinzelbuchungen(list, file, konto,
-                buchungsart, dVon, dBis);
-          }
-          else
-          {
-            new BuchungAuswertungPDFSummen(list, file, konto, buchungsart,
-                dVon, dBis);
-          }
           GUI.getStatusBar().setSuccessText("Auswertung gestartet");
-          GUI.getCurrentView().reload();
+          new BuchungAuswertungPDF(buchungsarten, file, query, einzelbuchungen);
         }
         catch (ApplicationException ae)
         {
@@ -1116,8 +1128,8 @@ public class BuchungsControl extends AbstractControl
     return settings;
   }
 
-  private void auswertungBuchungsjournalPDF(final DBIterator list,
-      final File file, final Konto konto, final Date dVon, final Date dBis)
+  private void auswertungBuchungsjournalPDF(final BuchungQuery query,
+      final File file)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -1126,7 +1138,7 @@ public class BuchungsControl extends AbstractControl
       {
         try
         {
-          new BuchungsjournalPDF(list, file, konto, dVon, dBis);
+          new BuchungsjournalPDF(query, file);
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
