@@ -88,11 +88,12 @@ import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.jameica.system.Settings;
 
 public class MitgliedskontoControl extends AbstractControl
 {
 
-  private de.willuhn.jameica.system.Settings settings;
+  private Settings settings;
 
   private DateInput datum = null;
 
@@ -159,6 +160,11 @@ public class MitgliedskontoControl extends AbstractControl
     }
     mkto = (Mitgliedskonto) getCurrentObject();
     return mkto;
+  }
+
+  public Settings getSettings()
+  {
+    return settings;
   }
 
   public DateInput getDatum() throws RemoteException
