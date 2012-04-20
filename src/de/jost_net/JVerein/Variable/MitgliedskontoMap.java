@@ -82,7 +82,29 @@ public class MitgliedskontoMap
     map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), zg1.toArray());
     map.put(MitgliedskontoVar.ZAHLUNGSGRUND2.getName(), zg2.toArray());
     map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
-
     return map;
   }
+
+  public Map<String, Object> getMap(Mitgliedskonto mk, Map<String, Object> inma)
+      throws RemoteException
+  {
+    Map<String, Object> map = null;
+    if (inma == null)
+    {
+      map = new HashMap<String, Object>();
+    }
+    else
+    {
+      map = inma;
+    }
+
+    map.put(MitgliedskontoVar.BUCHUNGSDATUM.getName(), mk.getDatum());
+    map.put(MitgliedskontoVar.ZAHLUNGSGRUND.getName(),
+        mk.getZweck1() + mk.getZweck2());
+    map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), mk.getZweck1());
+    map.put(MitgliedskontoVar.ZAHLUNGSGRUND2.getName(), mk.getZweck2());
+    map.put(MitgliedskontoVar.BETRAG.getName(), mk.getBetrag());
+    return map;
+  }
+
 }
