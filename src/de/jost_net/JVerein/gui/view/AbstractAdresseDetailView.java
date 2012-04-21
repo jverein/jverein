@@ -47,15 +47,19 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public abstract class AbstractAdresseDetailView extends AbstractView
@@ -350,7 +354,25 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (control.hasChanged())
     {
-      throw new ApplicationException("Die Daten wurden noch nicht gespeichert!");
+      YesNoDialog ynd = new YesNoDialog(AbstractDialog.POSITION_CENTER);
+      ynd.setPanelText("Die Daten wurden noch nicht gespeichert");
+      ynd.setSize(400, 200);
+      ynd.setText("Jetzt speichern?");
+      ynd.setTitle("Daten noch nicht gespeichert");
+      ynd.setSideImage(SWTUtil.getImage("dialog-warning-large.png"));
+
+      try
+      {
+        Boolean choice = (Boolean) ynd.open();
+        if (choice)
+        {
+          control.handleStore();
+        }
+      }
+      catch (Exception e)
+      {
+        Logger.error("Fehler", e);
+      }
     }
   }
 }

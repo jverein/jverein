@@ -2563,6 +2563,8 @@ public class MitgliedControl extends AbstractControl
       {
         successtext = "Adresse gespeichert";
       }
+      hasChanged();// Wird aufgerufen, damit die jetzt aktuellen Daten als neue
+                   // Vergleichswerte gelten.
       GUI.getStatusBar().setSuccessText(successtext);
     }
     catch (ApplicationException e)
