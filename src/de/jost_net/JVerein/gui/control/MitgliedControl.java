@@ -199,6 +199,8 @@ public class MitgliedControl extends AbstractControl
 
   private DateInput sterbetag = null;
 
+  private ArrayList<Input> inputs;
+
   private Input[] zusatzfelder;
 
   private TreePart eigenschaftenTree;
@@ -279,6 +281,13 @@ public class MitgliedControl extends AbstractControl
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    inputs = new ArrayList<Input>();
+  }
+
+  private void addInput(Input input)
+  {
+    inputs.add(input);
+    input.hasChanged();
   }
 
   public Mitglied getMitglied()
@@ -368,6 +377,7 @@ public class MitgliedControl extends AbstractControl
     }
     externemitgliedsnummer = new IntegerInput(ex);
     externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
+    addInput(externemitgliedsnummer);
     return externemitgliedsnummer;
   }
 
@@ -380,6 +390,7 @@ public class MitgliedControl extends AbstractControl
     mitgliedsnummer = new TextInput(getMitglied().getID(), 10);
     mitgliedsnummer.setName("Mitgliedsnummer");
     mitgliedsnummer.setEnabled(false);
+    addInput(mitgliedsnummer);
     return mitgliedsnummer;
   }
 
@@ -391,6 +402,7 @@ public class MitgliedControl extends AbstractControl
     }
     anrede = new TextInput(getMitglied().getAnrede(), 40);
     anrede.setName("Anrede");
+    addInput(anrede);
     return anrede;
   }
 
@@ -402,6 +414,7 @@ public class MitgliedControl extends AbstractControl
     }
     titel = new TextInput(getMitglied().getTitel(), 40);
     titel.setName("Titel");
+    addInput(titel);
     return titel;
   }
 
@@ -459,6 +472,7 @@ public class MitgliedControl extends AbstractControl
     {
       name.focus();
     }
+    addInput(name);
     return name;
   }
 
@@ -512,6 +526,7 @@ public class MitgliedControl extends AbstractControl
     vorname.setDelay(Einstellungen.getEinstellung().getDelaytime());
     vorname.setSearchString("");
     vorname.setMandatory(true);
+    addInput(vorname);
     return vorname;
   }
 
@@ -524,6 +539,7 @@ public class MitgliedControl extends AbstractControl
     adressierungszusatz = new TextInput(getMitglied().getAdressierungszusatz(),
         40);
     adressierungszusatz.setName("Adressierungszusatz");
+    addInput(adressierungszusatz);
     return adressierungszusatz;
   }
 
@@ -578,7 +594,7 @@ public class MitgliedControl extends AbstractControl
     strasse.setMaxLength(40);
     strasse.setDelay(Einstellungen.getEinstellung().getDelaytime());
     strasse.setSearchString("");
-
+    addInput(strasse);
     return strasse;
   }
 
@@ -615,6 +631,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(plz);
     return plz;
   }
 
@@ -626,6 +643,7 @@ public class MitgliedControl extends AbstractControl
     }
     ort = new TextInput(getMitglied().getOrt(), 40);
     ort.setName("Ort");
+    addInput(ort);
     return ort;
   }
 
@@ -637,6 +655,7 @@ public class MitgliedControl extends AbstractControl
     }
     staat = new TextInput(getMitglied().getStaat(), 50);
     staat.setName("Staat");
+    addInput(staat);
     return staat;
   }
 
@@ -669,6 +688,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(geburtsdatum);
     return geburtsdatum;
   }
 
@@ -683,6 +703,7 @@ public class MitgliedControl extends AbstractControl
     geschlecht.setPleaseChoose("Bitte auswählen");
     geschlecht.setMandatory(true);
     geschlecht.setName(JVereinPlugin.getI18n().tr("Geschlecht"));
+    addInput(geschlecht);
     return geschlecht;
   }
 
@@ -713,6 +734,7 @@ public class MitgliedControl extends AbstractControl
         konto.setMandatory(z.getKey() == Zahlungsweg.DTAUS);
       }
     });
+    addInput(zahlungsweg);
     return zahlungsweg;
   }
 
@@ -734,6 +756,7 @@ public class MitgliedControl extends AbstractControl
               .getZahlungsrhytmus()));
     }
     zahlungsrhytmus.setName("Zahlungsrhytmus");
+    addInput(zahlungsrhytmus);
     return zahlungsrhytmus;
   }
 
@@ -768,6 +791,7 @@ public class MitgliedControl extends AbstractControl
       }
 
     });
+    addInput(blz);
     return blz;
   }
 
@@ -798,6 +822,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(konto);
     return konto;
   }
 
@@ -812,6 +837,7 @@ public class MitgliedControl extends AbstractControl
     iban.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     iban.setEnabled(false);
+    addInput(iban);
     return iban;
   }
 
@@ -823,6 +849,7 @@ public class MitgliedControl extends AbstractControl
     }
     kontoinhaber = new TextInput(getMitglied().getKontoinhaber(), 27);
     kontoinhaber.setName("Kontoinhaber");
+    addInput(kontoinhaber);
     return kontoinhaber;
   }
 
@@ -834,6 +861,7 @@ public class MitgliedControl extends AbstractControl
     }
     telefonprivat = new TextInput(getMitglied().getTelefonprivat(), 20);
     telefonprivat.setName("Telefon priv.");
+    addInput(telefonprivat);
     return telefonprivat;
   }
 
@@ -845,6 +873,7 @@ public class MitgliedControl extends AbstractControl
     }
     telefondienstlich = new TextInput(getMitglied().getTelefondienstlich(), 20);
     telefondienstlich.setName("Telefon dienstl.");
+    addInput(telefondienstlich);
     return telefondienstlich;
   }
 
@@ -856,6 +885,7 @@ public class MitgliedControl extends AbstractControl
     }
     handy = new TextInput(getMitglied().getHandy(), 20);
     handy.setName("Handy");
+    addInput(handy);
     return handy;
   }
 
@@ -867,6 +897,7 @@ public class MitgliedControl extends AbstractControl
     }
     email = new TextInput(getMitglied().getEmail(), 50);
     email.setName("EMail");
+    addInput(email);
     return email;
   }
 
@@ -900,6 +931,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(eintritt);
     return eintritt;
   }
 
@@ -957,6 +989,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(beitragsgruppe);
     return beitragsgruppe;
   }
 
@@ -969,6 +1002,7 @@ public class MitgliedControl extends AbstractControl
     individuellerbeitrag = new DecimalInput(getMitglied()
         .getIndividuellerBeitrag(), Einstellungen.DECIMALFORMAT);
     individuellerbeitrag.setName("individueller Beitrag");
+    addInput(individuellerbeitrag);
     return individuellerbeitrag;
   }
 
@@ -1107,6 +1141,7 @@ public class MitgliedControl extends AbstractControl
         zahler.setEnabled(false);
       }
     }
+    addInput(zahler);
     return zahler;
   }
 
@@ -1134,6 +1169,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(austritt);
     return austritt;
   }
 
@@ -1161,6 +1197,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(kuendigung);
     return kuendigung;
   }
 
@@ -1188,6 +1225,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
+    addInput(sterbetag);
     return sterbetag;
   }
 
@@ -1199,6 +1237,7 @@ public class MitgliedControl extends AbstractControl
     }
     vermerk1 = new TextAreaInput(getMitglied().getVermerk1(), 255);
     vermerk1.setName("Vermerk 1");
+    addInput(vermerk1);
     return vermerk1;
   }
 
@@ -1210,6 +1249,7 @@ public class MitgliedControl extends AbstractControl
     }
     vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
     vermerk2.setName("Vermerk 2");
+    addInput(vermerk2);
     return vermerk2;
   }
 
@@ -1233,6 +1273,7 @@ public class MitgliedControl extends AbstractControl
     }
     foto = new ImageInput(f, 150, 200);
     // foto.setScale(Application.getPlatform().getOS() != Platform.OS_WINDOWS);
+    addInput(foto);
     return foto;
   }
 
@@ -1307,6 +1348,7 @@ public class MitgliedControl extends AbstractControl
       {
         zusatzfelder[i].setName(fd.getName());
       }
+      addInput(zusatzfelder[i]);
       i++;
     }
     return zusatzfelder;
@@ -1925,6 +1967,19 @@ public class MitgliedControl extends AbstractControl
     mailAuswahl = new MailAuswertungInput(1);
     mailAuswahl.setName(JVereinPlugin.getI18n().tr("Mail"));
     return mailAuswahl;
+  }
+
+  public boolean hasChanged()
+  {
+    boolean changed = false;
+    for (Input i : inputs)
+    {
+      if (i.hasChanged())
+      {
+        changed = true;
+      }
+    }
+    return changed;
   }
 
   public Button getStartAuswertungButton()

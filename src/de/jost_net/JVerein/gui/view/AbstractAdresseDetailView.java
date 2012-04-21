@@ -56,6 +56,7 @@ import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
+import de.willuhn.util.ApplicationException;
 
 public abstract class AbstractAdresseDetailView extends AbstractView
 {
@@ -343,4 +344,13 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   public abstract String getTitle();
 
   public abstract boolean isMitgliedDetail();
+
+  @Override
+  public void unbind() throws ApplicationException
+  {
+    if (control.hasChanged())
+    {
+      throw new ApplicationException("Die Daten wurden noch nicht gespeichert!");
+    }
+  }
 }

@@ -21,6 +21,7 @@
           <li>Suche im Jameica-Adressbuch über die JVerein-Adressen ist nicht mehr casesensitiv. Siehe <a href="www.jverein.de/forum/viewtopic.php?t=988&p=3865">Forum</a></li>
           <li>Spalte FONT in der Tabelle formularfeld auf 50 Stellen verlängert.</li>
           <li>Neu: "Abrechnungslauf rückgängig" setzt jetzt auch die Zusatzbeträge zurück.</li>
+          <li>Mitglieder: Es gibt jetzt einen Hinweis auf ungespeicherte Inhalte.</li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
