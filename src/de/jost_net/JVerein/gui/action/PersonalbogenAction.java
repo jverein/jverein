@@ -259,6 +259,11 @@ public class PersonalbogenAction implements Action
           m.getExterneMitgliedsnummer() != null ? m.getExterneMitgliedsnummer()
               + "" : "", Element.ALIGN_LEFT);
     }
+    else
+    {
+      rpt.addColumn("Mitgliedsnummer", Element.ALIGN_LEFT);
+      rpt.addColumn(m.getID(), Element.ALIGN_LEFT);
+    }
     rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
     rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
     rpt.addColumn("Anschrift", Element.ALIGN_LEFT);

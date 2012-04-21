@@ -22,6 +22,7 @@
           <li>Spalte FONT in der Tabelle formularfeld auf 50 Stellen verlängert.</li>
           <li>Neu: "Abrechnungslauf rückgängig" setzt jetzt auch die Zusatzbeträge zurück.</li>
           <li>Mitglieder: Es gibt jetzt einen Hinweis auf ungespeicherte Inhalte.</li>
+          <li>Personalbogen: Mitgliedsnummer aufgenommen.</li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
