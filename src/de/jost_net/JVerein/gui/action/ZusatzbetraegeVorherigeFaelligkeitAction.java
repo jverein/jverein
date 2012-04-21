@@ -22,11 +22,9 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
-import de.jost_net.JVerein.util.Datum;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
@@ -80,24 +78,12 @@ public class ZusatzbetraegeVorherigeFaelligkeitAction implements Action
                 e);
         return;
       }
-
-      Date vorh = Datum.subtractInterval(z.getFaelligkeit(), z.getIntervall(),
-          z.getStartdatum());
-      if (vorh == null)
-      {
-        GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr(
-                "Datum kann nicht weiter zurückgesetzt werden"));
-      }
-      else
-      {
-        int ind = table.removeItem(z);
-        z.setFaelligkeit(vorh);
-        z.store();
-        table.addItem(z, ind);
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Fälligkeitsdatum gesetzt."));
-      }
+      int ind = table.removeItem(z);
+      z.vorherigeFaelligkeit();
+      z.store();
+      table.addItem(z, ind);
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Fälligkeitsdatum gesetzt."));
     }
     catch (RemoteException e)
     {

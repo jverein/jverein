@@ -47,6 +47,7 @@ import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
+import de.jost_net.JVerein.rmi.ZusatzbetragAbrechnungslauf;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
@@ -391,9 +392,16 @@ public class Abrechnung
           z.setFaelligkeit(Datum.addInterval(z.getFaelligkeit(),
               z.getIntervall()));
         }
-        z.setAusfuehrung(Datum.getHeute());
         try
         {
+          ZusatzbetragAbrechnungslauf za = (ZusatzbetragAbrechnungslauf) Einstellungen
+              .getDBService().createObject(ZusatzbetragAbrechnungslauf.class,
+                  null);
+          za.setAbrechnungslauf(abrl);
+          za.setZusatzbetrag(z);
+          za.setLetzteAusfuehrung(z.getAusfuehrung());
+          za.store();
+          z.setAusfuehrung(Datum.getHeute());
           z.store();
         }
         catch (ApplicationException e)

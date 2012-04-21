@@ -29,6 +29,8 @@ import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
+import de.jost_net.JVerein.rmi.ZusatzbetragAbrechnungslauf;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
@@ -116,7 +118,19 @@ public class AbrechnungslaufDeleteAction implements Action
             .createObject(Mitgliedskonto.class, mkt.getID());
         mk.delete();
       }
-
+      it = Einstellungen.getDBService().createList(
+          ZusatzbetragAbrechnungslauf.class);
+      it.addFilter("abrechnungslauf = ?", abrl.getID());
+      while (it.hasNext())
+      {
+        ZusatzbetragAbrechnungslauf za = (ZusatzbetragAbrechnungslauf) it
+            .next();
+        Zusatzbetrag z = (Zusatzbetrag) Einstellungen.getDBService()
+            .createObject(Zusatzbetrag.class, za.getZusatzbetrag().getID());
+        z.vorherigeFaelligkeit();
+        z.setAusfuehrung(za.getLetzteAusfuehrung());
+        z.store();
+      }
       abrl.delete();
       GUI.getStatusBar().setSuccessText(
           JVereinPlugin.getI18n().tr("Abrechnungslauf gelöscht."));

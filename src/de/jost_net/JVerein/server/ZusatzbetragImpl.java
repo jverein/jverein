@@ -295,4 +295,34 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 
     return false;
   }
+
+  public void naechsteFaelligkeit() throws RemoteException
+  {
+    Date vorh = Datum.addInterval(getFaelligkeit(), getIntervall());
+    if (vorh == null)
+    {
+      throw new RemoteException(JVereinPlugin.getI18n().tr(
+          "Datum kann nicht weiter vorgesetzt werden"));
+    }
+    else
+    {
+      setFaelligkeit(vorh);
+    }
+
+  }
+
+  public void vorherigeFaelligkeit() throws RemoteException
+  {
+    Date vorh = Datum.subtractInterval(getFaelligkeit(), getIntervall(),
+        getStartdatum());
+    if (vorh == null)
+    {
+      throw new RemoteException(JVereinPlugin.getI18n().tr(
+          "Datum kann nicht weiter zurückgesetzt werden"));
+    }
+    else
+    {
+      setFaelligkeit(vorh);
+    }
+  }
 }

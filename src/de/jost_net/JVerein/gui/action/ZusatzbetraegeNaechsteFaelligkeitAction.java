@@ -80,23 +80,13 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
                 e);
         return;
       }
+      z.naechsteFaelligkeit();
 
-      Date vorh = Datum.addInterval(z.getFaelligkeit(), z.getIntervall());
-      if (vorh == null)
-      {
-        GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr(
-                "Datum kann nicht weiter vorgesetzt werden"));
-      }
-      else
-      {
-        int ind = table.removeItem(z);
-        z.setFaelligkeit(vorh);
-        z.store();
-        table.addItem(z, ind);
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Fälligkeitsdatum gesetzt."));
-      }
+      int ind = table.removeItem(z);
+      z.store();
+      table.addItem(z, ind);
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Fälligkeitsdatum gesetzt."));
     }
     catch (RemoteException e)
     {

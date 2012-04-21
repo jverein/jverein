@@ -921,6 +921,10 @@ public class JVereinUpdateProvider
     {
       update0230(conn);
     }
+    if (cv < 231)
+    {
+      update0231(conn);
+    }
   }
 
   public Connection getConnection()
@@ -1435,7 +1439,6 @@ public class JVereinUpdateProvider
 
   private void update0017(Connection conn) throws ApplicationException
   {
-    Logger.info("");
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     sb = new StringBuilder();
@@ -5613,6 +5616,39 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte font in der Tabelle formularfeld verlängert", 230);
+  }
+
+  private void update0231(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE zusatzbetragabrechnungslauf(");
+    sb.append(" id IDENTITY(1),");
+    sb.append(" abrechnungslauf integer not null,");
+    sb.append(" zusatzbetrag integer not null,");
+    sb.append(" letzteausfuehrung date, ");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id));\n");
+    sb.append("ALTER TABLE zusatzbetragabrechnungslauf ADD CONSTRAINT fkZusatzbetragabrechnungslauf1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
+    sb.append("ALTER TABLE zusatzbetragabrechnungslauf ADD CONSTRAINT fkZusatzbetragabrechnungslauf2 FOREIGN KEY (zusatzbetrag) REFERENCES zusatzabbuchung (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE zusatzbetragabrechnungslauf(");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" abrechnungslauf integer not null,");
+    sb.append(" zusatzbetrag integer not null,");
+    sb.append(" letzteausfuehrung date, ");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(")  ENGINE=InnoDB;\n");
+    sb.append("ALTER TABLE zusatzbetragabrechnungslauf ADD CONSTRAINT fkZusatzbetragabrechnungslauf1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
+    sb.append("ALTER TABLE zusatzbetragabrechnungslauf ADD CONSTRAINT fkZusatzbetragabrechnungslauf2 FOREIGN KEY (zusatzbetrag) REFERENCES zusatzabbuchung (id) ON DELETE CASCADE ON UPDATE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle zusatzbetragabrechnungslauf", 231);
   }
 
 }

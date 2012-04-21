@@ -67,4 +67,8 @@ public interface Zusatzbetrag extends DBObject
   public void setAusfuehrung(Date ausfuehrung) throws RemoteException;
 
   public boolean isAktiv() throws RemoteException;
+
+  public void naechsteFaelligkeit() throws RemoteException;
+
+  public void vorherigeFaelligkeit() throws RemoteException;
 }
