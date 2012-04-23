@@ -23,6 +23,9 @@
           <li>Neu: "Abrechnungslauf rückgängig" setzt jetzt auch die Zusatzbeträge zurück.</li>
           <li>Mitglieder: Es gibt jetzt einen Hinweis auf ungespeicherte Inhalte.</li>
           <li>Personalbogen: Mitgliedsnummer aufgenommen.</li>
+          <hr>
+          <li>Folgende Änderung wurde auch zur Rev. 345 vorgenommen. Ist leider nicht passend dokumentiert worden.</li>
+          <li>Neu: Export der Mitgliedskonten</li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
