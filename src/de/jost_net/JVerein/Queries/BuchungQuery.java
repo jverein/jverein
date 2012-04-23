@@ -195,6 +195,11 @@ public class BuchungQuery
         sql += "ORDER BY datum, name, id";
         break;
       }
+      case ORDER_ID:
+      {
+        sql += "ORDER BY id";
+        break;
+      }
 
     }
     Logger.debug(sql);
