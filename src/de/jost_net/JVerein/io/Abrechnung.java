@@ -35,6 +35,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
+import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
@@ -319,6 +320,25 @@ public class Abrechnung
             lastschrift.setKonto(Long.parseLong(m.getKonto()));
             lastschrift.addVerwendungszweck(param.verwendungszweck);
             lastschrift.addVerwendungszweck(getVerwendungszweck2(m));
+            if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
+            {
+              DBIterator angeh = Einstellungen.getDBService().createList(
+                  Mitglied.class);
+              angeh.addFilter("zahlerid = ?", m.getID());
+              String an = "";
+              int i = 0;
+              while (angeh.hasNext())
+              {
+                Mitglied a = (Mitglied) angeh.next();
+                if (i > 0)
+                {
+                  an += ", ";
+                }
+                i++;
+                an += a.getVorname();
+              }
+              lastschrift.addVerwendungszweck(an);
+            }
             lastschrift.addZahlungspflichtigen(getZahlungspflichtigen(m));
             lastschriften.add(lastschrift);
           }
