@@ -52,7 +52,6 @@ public interface Importer extends IO
    * @throws ApplicationException
    */
   public void doImport(Object context, IOFormat format, File file,
-      String encoding, ProgressMonitor monitor) throws RemoteException,
-      ApplicationException;
+      String encoding, ProgressMonitor monitor) throws Exception;
 
 }

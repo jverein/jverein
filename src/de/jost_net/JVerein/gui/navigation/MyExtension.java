@@ -50,6 +50,8 @@ import de.jost_net.JVerein.gui.action.FormularListeAction;
 import de.jost_net.JVerein.gui.action.JahresabschlussListAction;
 import de.jost_net.JVerein.gui.action.JahressaldoAction;
 import de.jost_net.JVerein.gui.action.JubilaeenAction;
+import de.jost_net.JVerein.gui.action.KontenrahmenExportAction;
+import de.jost_net.JVerein.gui.action.KontenrahmenImportAction;
 import de.jost_net.JVerein.gui.action.KontoListAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.LehrgaengeListeAction;
@@ -220,6 +222,12 @@ public class MyExtension implements Extension
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
           JVereinPlugin.getI18n().tr("Buchungsarten"),
           new BuchungsartListAction(), "activity_category.gif"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          JVereinPlugin.getI18n().tr("Kontenrahmen-Export"),
+          new KontenrahmenExportAction(), "activity_category.gif"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          JVereinPlugin.getI18n().tr("Kontenrahmen-Import"),
+          new KontenrahmenImportAction(), "activity_category.gif"));
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
           JVereinPlugin.getI18n().tr("Projekte"), new ProjektListAction(),
           "projects.png"));
