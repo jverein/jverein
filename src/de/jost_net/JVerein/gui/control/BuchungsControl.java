@@ -696,8 +696,16 @@ public class BuchungsControl extends AbstractControl
   {
     // Werte speichern
     Date dv = (Date) getVondatum().getValue();
+    if (dv == null)
+    {
+      throw new RemoteException("von-Datum fehlt!");
+    }
     settings.setAttribute("vondatum", new JVDateFormatTTMMJJJJ().format(dv));
     Date db = (Date) getBisdatum().getValue();
+    if (db == null)
+    {
+      throw new RemoteException("bis-Datum fehlt!");
+    }
     settings.setAttribute("bisdatum", new JVDateFormatTTMMJJJJ().format(db));
     Konto k = null;
     if (getSuchKonto().getValue() != null)
