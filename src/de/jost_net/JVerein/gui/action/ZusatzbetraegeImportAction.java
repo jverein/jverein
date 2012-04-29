@@ -45,7 +45,7 @@ public class ZusatzbetraegeImportAction implements Action
   {
     try
     {
-      ImportDialog d = new ImportDialog(null, Zusatzbetrag.class,
+      ImportDialog d = new ImportDialog(null, Zusatzbetrag.class, true,
           DokumentationUtil.ZUSATZBETRAEGEIMPORT);
       d.open();
     }

@@ -22,7 +22,8 @@
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.io.ExportDialog;
+import de.jost_net.JVerein.gui.dialogs.ExportDialog;
+import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,7 +42,7 @@ public class JubilaeumsExportAction implements Action
     try
     {
       ExportDialog d = new ExportDialog(new Object[] { context },
-          Mitglied.class);
+          Mitglied.class, DokumentationUtil.JUBILAEEN);
       d.open();
     }
     catch (OperationCanceledException oce)
