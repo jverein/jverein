@@ -23,20 +23,14 @@
 package de.jost_net.JVerein.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Calendar;
-import java.util.Date;
 
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
-import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
@@ -61,6 +55,10 @@ public abstract class KontenrahmenExport implements Exporter
     DBIterator klassen = Einstellungen.getDBService().createList(
         Buchungsklasse.class);
     klassen.setOrder("order by nummer");
+    if (klassen.size() == 0)
+    {
+      throw new ApplicationException("Es existieren keine Buchungsklassen");
+    }
     while (klassen.hasNext())
     {
       Buchungsklasse klasse = (Buchungsklasse) klassen.next();

@@ -25,16 +25,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Enumeration;
 
-import org.eclipse.jface.viewers.IElementComparer;
-
 import net.n3.nanoxml.IXMLElement;
 import net.n3.nanoxml.IXMLParser;
 import net.n3.nanoxml.StdXMLReader;
 import net.n3.nanoxml.XMLParserFactory;
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
+import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
 public class KontenrahmenImportXML implements Importer
@@ -42,6 +41,20 @@ public class KontenrahmenImportXML implements Importer
   public void doImport(Object context, IOFormat format, File file,
       String encoding, ProgressMonitor monitor) throws Exception
   {
+    DBIterator it = Einstellungen.getDBService().createList(
+        Buchungsklasse.class);
+    if (it.size() > 0)
+    {
+      throw new ApplicationException(
+          "Import abgebrochen! Es sind bereits Buchungsklassen vorhanden.");
+    }
+
+    it = Einstellungen.getDBService().createList(Buchungsart.class);
+    if (it.size() > 0)
+    {
+      throw new ApplicationException(
+          "Import abgebrochen! Es sind bereits Buchungsarten vorhanden.");
+    }
     // Parser erzeugen
     IXMLParser parser = XMLParserFactory.createDefaultXMLParser();
     parser.setReader(new StdXMLReader(new FileInputStream(file)));
