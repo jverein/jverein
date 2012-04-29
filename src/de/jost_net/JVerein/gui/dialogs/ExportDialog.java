@@ -19,7 +19,7 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.io;
+package de.jost_net.JVerein.gui.dialogs;
 
 import java.io.File;
 import java.rmi.RemoteException;
@@ -31,6 +31,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.io.Exporter;
+import de.jost_net.JVerein.io.IOFormat;
+import de.jost_net.JVerein.io.IORegistry;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -74,6 +78,8 @@ public class ExportDialog extends AbstractDialog<Object>
 
   private Settings settings = null;
 
+  private String helplink = null;
+
   /**
    * ct.
    * 
@@ -82,7 +88,7 @@ public class ExportDialog extends AbstractDialog<Object>
    * @param type
    *          die Art der zu exportierenden Objekte.
    */
-  public ExportDialog(Object[] objects, Class<?> type)
+  public ExportDialog(Object[] objects, Class<?> type, String helplink)
   {
     super(POSITION_CENTER);
     setTitle(i18n.tr("Daten-Export"));
@@ -93,6 +99,7 @@ public class ExportDialog extends AbstractDialog<Object>
 
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    this.helplink = helplink;
   }
 
   /**
@@ -116,6 +123,8 @@ public class ExportDialog extends AbstractDialog<Object>
       group.addCheckbox(getOpenFile(), i18n.tr("Datei nach dem Export öffnen"));
     }
     ButtonArea buttons = new ButtonArea();
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+        new DokumentationAction(), helplink, false, "help-browser.png");
     Button button = new Button(i18n.tr("Export starten"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
