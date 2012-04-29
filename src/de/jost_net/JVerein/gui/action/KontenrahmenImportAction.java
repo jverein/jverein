@@ -41,8 +41,8 @@ public class KontenrahmenImportAction implements Action
   {
     try
     {
-      ImportDialog d = new ImportDialog(null, Buchungsklasse.class,
-          DokumentationUtil.BUCHUNGSIMPORT);
+      ImportDialog d = new ImportDialog(null, Buchungsklasse.class, false,
+          DokumentationUtil.KONTENRAHMEN);
       d.open();
     }
     catch (OperationCanceledException oce)
