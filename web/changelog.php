@@ -29,7 +29,7 @@
           <hr>
           <li>Folgende Änderungen wurden nach Rev. 345 vorgenommen</li>
           <li>Abrechnung: Bei der Abbuchung werden die Vornamen der Familienangehörigen mit ausgegeben. Siehe <a="http://www.jverein.de/forum/viewtopic.php?f=1&t=914&p=3600">Forum</a></li>
-          <li>Neu: Export und Import von Kontenrahmen. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=1&t=886&p=3485">Forum</a></li>
+          <li>Neu: Export und Import von Kontenrahmen. Siehe <a href="http://www.jverein.de/forum/viewtopic.php?f=1&t=886&p=3485">Forum</a> und <a href="http://www.jverein.de/wiki/index.php?title=Kontenrahmen_Export_Import">Wiki</a>  </li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
