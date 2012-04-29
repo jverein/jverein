@@ -41,7 +41,7 @@ public class BuchungImportAction implements Action
   {
     try
     {
-      ImportDialog d = new ImportDialog(null, Buchung.class,
+      ImportDialog d = new ImportDialog(null, Buchung.class, true,
           DokumentationUtil.BUCHUNGSIMPORT);
       d.open();
     }
