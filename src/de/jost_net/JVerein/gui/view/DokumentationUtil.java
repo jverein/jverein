@@ -25,6 +25,7 @@ public class DokumentationUtil
 {
 
   private static final String PRE = "http://www.jverein.de/";
+  private static final String PREWIKI = "http://www.jverein.de/wiki/index.php?title=";
 
   public static final String ADRESSEN = PRE + "adressen.php";
 
@@ -80,6 +81,9 @@ public class DokumentationUtil
       + "dokumentationauswertungjubilaeen.php";
 
   public static final String LEHRGANG = PRE + "lehrgaenge.php";
+
+  public static final String KONTENRAHMEN = PREWIKI
+      + "Kontenrahmen_Export_Import";
 
   public static final String MAIL = PRE + "mail.php";
 

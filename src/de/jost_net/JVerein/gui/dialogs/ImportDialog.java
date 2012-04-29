@@ -66,8 +66,7 @@ public class ImportDialog extends AbstractDialog<Object>
 {
   private final static int WINDOW_WIDTH = 420;
 
-  private final static I18N i18n = Application.getPluginLoader()
-      .getPlugin(HBCI.class).getResources().getI18N();
+  private final static I18N i18n = JVereinPlugin.getI18n();
 
   private Input importerListe = null;
 
@@ -90,8 +89,8 @@ public class ImportDialog extends AbstractDialog<Object>
    *          die Art der zu importierenden Objekte.
    * @throws RemoteException
    */
-  public ImportDialog(GenericObject context, Class<?> type, String helplink)
-      throws RemoteException
+  public ImportDialog(GenericObject context, Class<?> type, boolean enc,
+      String helplink) throws RemoteException
   {
     super(POSITION_CENTER);
 
@@ -104,7 +103,10 @@ public class ImportDialog extends AbstractDialog<Object>
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
     this.helplink = helplink;
-    this.encoding = new EncodingInput(settings.getString("encoding", null));
+    if (enc)
+    {
+      this.encoding = new EncodingInput(settings.getString("encoding", null));
+    }
   }
 
   /**
@@ -119,8 +121,10 @@ public class ImportDialog extends AbstractDialog<Object>
 
     Input formats = getImporterList();
     group.addLabelPair(i18n.tr("Verfügbare Formate:"), formats);
-    group.addLabelPair("Encoding", encoding);
-
+    if (this.encoding != null)
+    {
+      group.addLabelPair("Encoding", encoding);
+    }
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), helplink, false, "help-browser.png");
@@ -197,8 +201,11 @@ public class ImportDialog extends AbstractDialog<Object>
 
     // Wir merken uns noch das Verzeichnis vom letzten mal
     settings.setAttribute("lastdir", file.getParent());
-    settings.setAttribute("encoding", encoding.getText());
-    final String enc = encoding.getText();
+    if (encoding != null)
+    {
+      settings.setAttribute("encoding", encoding.getText());
+    }
+    final String enc = encoding != null ? encoding.getText() : null;
     // Dialog schliessen
     close();
 
