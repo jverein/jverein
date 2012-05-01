@@ -31,7 +31,8 @@ import com.lowagie.text.DocumentException;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.util.ApplicationException;
 
-public class MitgliedschaftsjubilaeumExportCSV extends MitgliedschaftsjubilaeumsExport
+public class MitgliedschaftsjubilaeumExportCSV extends
+    MitgliedschaftsjubilaeumsExport
 {
   private ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
 
@@ -88,7 +89,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends Mitgliedschaftsjubilaeums
 
   protected void add(Mitglied m) throws RemoteException
   {
-      m.addVariable("mitgliedsschaftsjubilaeum", jahrgang + "");
+    m.addVariable("mitgliedsschaftsjubilaeum", jahrgang + "");
     mitglieder.add(m);
   }
 
