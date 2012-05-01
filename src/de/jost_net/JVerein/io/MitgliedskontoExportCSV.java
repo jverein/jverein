@@ -47,6 +47,7 @@ import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedskontoExportCSV extends MitgliedskontoExport
 {
@@ -106,7 +107,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
     mkonten.add(mk);
   }
 
-  protected void close()
+  protected void close(ProgressMonitor monitor)
   {
     try
     {
@@ -128,7 +129,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
             Mitglied.class, null);
       }
 
-      Map<String, Object> map = mk.getMitglied().getMap(null);
+      Map<String, Object> map = m.getMap(null);
       map = new MitgliedskontoMap().getMap(mk, map);
       String[] header = createHeader(map);
       Logger.debug("Header");
@@ -145,6 +146,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
         Map<String, Object> mp = mkto.getMitglied().getMap(null);
         map = new MitgliedskontoMap().getMap(mkto, mp);
         writer.write(map, header, processors);
+        monitor.log("Export: " + mkto.getMitglied().getNameVorname());
       }
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()

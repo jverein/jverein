@@ -75,10 +75,11 @@ public abstract class MitgliedskontoExport implements Exporter
       for (Mitgliedskonto mk : mkq.get())
       {
         add(mk);
+        monitor.log("Vorbereitung: " + m.getNameVorname());
       }
       endeMitglied();
     }
-    close();
+    close(monitor);
   }
 
   public String getDateiname()
@@ -95,5 +96,6 @@ public abstract class MitgliedskontoExport implements Exporter
 
   protected abstract void add(Mitgliedskonto mk) throws RemoteException;
 
-  protected abstract void close() throws IOException, DocumentException;
+  protected abstract void close(ProgressMonitor monitor) throws IOException,
+      DocumentException;
 }
