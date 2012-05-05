@@ -35,7 +35,7 @@ import de.willuhn.datasource.rmi.DBObject;
  * @author Julian
  * 
  */
-public interface LeseFeld extends DBObject
+public interface Lesefeld extends DBObject
 {
   public String getBezeichnung() throws RemoteException;
 
@@ -44,5 +44,19 @@ public interface LeseFeld extends DBObject
   public String getScript() throws RemoteException;
 
   public void setScript(String script) throws RemoteException;
+
+  /**
+   * EvaluatedContent kann den Inhalt eines ausgewerteten Skriptes enthalten.
+   * Dieser Wert gilt für ein bestimmtes Mitglied. Dieser Wert wird nicht
+   * gespeichert und dient lediglich als temporärer Speicher.
+   */
+  public String getEvaluatedContent() throws RemoteException;
+
+  /**
+   * EvaluatedContent kann den Inhalt eines ausgewerteten Skriptes enthalten.
+   * Dieser Wert gilt für ein bestimmtes Mitglied. Dieser Wert wird nicht
+   * gespeichert und dient lediglich als temporärer Speicher.
+   */
+  public void setEvaluatedContent(String content) throws RemoteException;
 
 }

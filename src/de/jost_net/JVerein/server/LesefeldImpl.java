@@ -24,16 +24,18 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.rmi.LeseFeld;
+import de.jost_net.JVerein.rmi.Lesefeld;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class LeseFeldImpl extends AbstractDBObject implements LeseFeld
+public class LesefeldImpl extends AbstractDBObject implements Lesefeld
 {
   private static final long serialVersionUID = 1610434197155984031L;
 
-  public LeseFeldImpl() throws RemoteException
+  private String sampleContent;
+
+  public LesefeldImpl() throws RemoteException
   {
     super();
   }
@@ -107,5 +109,15 @@ public class LeseFeldImpl extends AbstractDBObject implements LeseFeld
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);
+  }
+
+  public String getEvaluatedContent()
+  {
+    return sampleContent;
+  }
+
+  public void setEvaluatedContent(String content)
+  {
+    sampleContent = content;
   }
 }

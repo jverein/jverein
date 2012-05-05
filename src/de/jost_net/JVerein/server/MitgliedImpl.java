@@ -785,6 +785,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException
   {
+    return getMap(inma, false);
+  }
+
+  public Map<String, Object> getMap(Map<String, Object> inma,
+      boolean ohneLesefelder) throws RemoteException
+  {
     Map<String, Object> map = null;
     if (inma == null)
     {
@@ -1038,11 +1044,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       map.put(varname, variable.get(varname));
     }
 
-    // Füge Lesefelder diesem Mitglied-Objekt hinzu.
-    LesefeldAuswerter l = new LesefeldAuswerter();
-    l.setLesefelderDefinitionsFromDatabase();
-    l.setMap(map);
-    map.putAll(l.getLesefelderMap());
+    if (!ohneLesefelder)
+    {
+      // Füge Lesefelder diesem Mitglied-Objekt hinzu.
+      LesefeldAuswerter l = new LesefeldAuswerter();
+      l.setLesefelderDefinitionsFromDatabase();
+      l.setMap(map);
+      map.putAll(l.getLesefelderMap());
+    }
 
     return map;
   }

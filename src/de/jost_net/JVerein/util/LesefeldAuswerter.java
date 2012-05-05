@@ -30,7 +30,7 @@ import java.util.Map;
 import bsh.EvalError;
 import bsh.Interpreter;
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.rmi.LeseFeld;
+import de.jost_net.JVerein.rmi.Lesefeld;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 
@@ -64,7 +64,7 @@ public class LesefeldAuswerter
   // BeanShell-Interpreter.
   Interpreter bsh;
 
-  List<LeseFeld> lesefelder;
+  List<Lesefeld> lesefelder;
 
   // Name des aktuellen Mitgliedes für Debug-Zwecke:
   String vornamename = "";
@@ -75,14 +75,29 @@ public class LesefeldAuswerter
   public LesefeldAuswerter()
   {
     bsh = new Interpreter();
-    lesefelder = new ArrayList<LeseFeld>();
+    lesefelder = new ArrayList<Lesefeld>();
+  }
+
+  public Map<String, Object> getMap() throws EvalError
+  {
+    Map<String, Object> map = new HashMap<String, Object>();
+    String[] vars = bsh.getNameSpace().getVariableNames();
+    for (int i = 0; i < vars.length; i++)
+    {
+      if (vars[i].compareTo("bsh") == 0)
+        continue;
+      String s2 = "return " + vars[i] + ";";
+      Object o = bsh.eval(s2);
+      map.put(vars[i], o);
+    }
+    return map;
   }
 
   /**
    * Nimmt eine map mit Mitgliedsdaten entgegen und macht es dem Interpreter
    * verfügbar. map enthält Zuordnung von Variablen-Name zu Variablen-Inhalt.
-   * map kann direkt von einem Mitglied-Objekt über die Funktion getMap()
-   * erhalten werden.
+   * map kann direkt von einem Mitglied-Objekt über die Funktion getMap(null,
+   * true) erhalten werden.
    * 
    * @param map
    *          map mit Mitgliedsdaten
@@ -114,22 +129,14 @@ public class LesefeldAuswerter
     }
 
     // DEBUG: Zeige alle gesetzten Variablen.
-    String[] vars = bsh.getNameSpace().getVariableNames();
-    try
-    {
-      for (int i = 0; i < vars.length; i++)
-      {
-        if (vars[i].compareTo("bsh") == 0)
-          continue;
-        String s2 = "\"" + vars[i] + ":\" + " + vars[i] + ";";
-        Object o = bsh.eval(s2);
-        Logger.debug("Skript-Variable: " + o);
-      }
-    }
-    catch (EvalError e)
-    {
-      e.printStackTrace();
-    }
+    /*
+     * String[] vars = bsh.getNameSpace().getVariableNames(); try { for (int i =
+     * 0; i < vars.length; i++) { if (vars[i].compareTo("bsh") == 0) continue;
+     * String s2 = "\"" + vars[i] + ":\" + " + vars[i] + ";"; Object o =
+     * bsh.eval(s2); Logger.debug("Skript-Variable: " + o); } } catch (EvalError
+     * e) { e.printStackTrace(); }
+     */
+    // END DEBUG.
   }
 
   /**
@@ -141,15 +148,27 @@ public class LesefeldAuswerter
   public void setLesefelderDefinitionsFromDatabase() throws RemoteException
   {
     DBIterator itlesefelder = Einstellungen.getDBService().createList(
-        LeseFeld.class);
+        Lesefeld.class);
     while (itlesefelder.hasNext())
     {
-      LeseFeld lesefeld = (LeseFeld) itlesefelder.next();
+      Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
       lesefelder.add(lesefeld);
     }
   }
 
-  public void setLesefelderDefinitions(List<LeseFeld> list)
+  /**
+   * Liefert Anzahl der definierten Lesefelder.
+   * 
+   * @return Anzahl der definierten Lesefelder.
+   */
+  public int countLesefelder()
+  {
+    if (lesefelder != null)
+      return lesefelder.size();
+    return 0;
+  }
+
+  public void setLesefelderDefinitions(List<Lesefeld> list)
   {
     lesefelder = list;
   }
@@ -167,25 +186,12 @@ public class LesefeldAuswerter
   public Map<String, Object> getLesefelderMap() throws RemoteException
   {
     Map<String, Object> map = new HashMap<String, Object>();
-    for (LeseFeld lesefeld : lesefelder)
+    for (Lesefeld lesefeld : lesefelder)
     {
 
-      String script = lesefeld.getScript();
-
-      Object scriptResult = null;
-      try
-      {
-        scriptResult = bsh.eval(script);
-        String val = scriptResult == null ? "" : scriptResult.toString();
-        map.put("mitglied_lesefeld_" + lesefeld.getBezeichnung(), val);
-      }
-      catch (EvalError e)
-      {
-        Logger.error("Fehler beim Auswerten des Skriptes: \"" + e.getMessage()
-            + "\".", e);
-        e.printStackTrace();
-      }
-
+      lesefeld = evalLesefeld(lesefeld);
+      map.put("mitglied_lesefeld_" + lesefeld.getBezeichnung(),
+          lesefeld.getEvaluatedContent());
     }
     Logger.debug("Lesefeld-Variablen für Mitglied " + vornamename + ":");
     for (String key : map.keySet())
@@ -193,6 +199,18 @@ public class LesefeldAuswerter
       Logger.debug(key + "=" + map.get(key));
     }
     return map;
+  }
+
+  /**
+   * Liefert geladene Lesefelder. Wurde keine geladen (mit
+   * setLesefelderDefinitions*()-Funktionen, liefert getLesefelder() null
+   * zurück.
+   * 
+   * @return geladene Lesefelder.
+   */
+  public List<Lesefeld> getLesefelder()
+  {
+    return lesefelder;
   }
 
   /**
@@ -207,5 +225,71 @@ public class LesefeldAuswerter
   public Object eval(String script) throws EvalError
   {
     return bsh.eval(script);
+  }
+
+  /**
+   * Wertet das Skript des Lesefeldes lesefeld aus und speichert den Inhalt in
+   * lesefeld.evaluatedContent. Dabei werden alle Mitglieder-Variablen
+   * berücksichtig, die vorher mit setMap() gesetzt wurden.
+   * 
+   * @param lesefeld
+   *          Auszuwertendes Lesefeld
+   * @return Lesefeld in das der ausgewertete Inhalt des Skriptes geschrieben
+   *         wurde.
+   * @throws RemoteException
+   */
+  private Lesefeld evalLesefeld(Lesefeld lesefeld) throws RemoteException
+  {
+    String script = lesefeld.getScript();
+    Object scriptResult = null;
+    try
+    {
+      scriptResult = eval(script);
+      String val = scriptResult == null ? "" : scriptResult.toString();
+      lesefeld.setEvaluatedContent(val);
+    }
+    catch (EvalError e)
+    {
+      Logger.error("Fehler beim Auswerten des Skriptes: \"" + e.getMessage()
+          + "\".", e);
+      e.printStackTrace();
+      return null;
+    }
+    return lesefeld;
+  }
+
+  /**
+   * Wertet Skripte aller geladenen Lesefelder aus und speichert den Inhalt
+   * jeweils in lesefeld.evaluatedContent. Dabei werden alle
+   * Mitglieder-Variablen berücksichtig, die vorher mit setMap() gesetzt wurden.
+   * 
+   * @throws RemoteException
+   */
+  public void evalAlleLesefelder() throws RemoteException
+  {
+    for (Lesefeld lesefeld : lesefelder)
+    {
+      lesefeld = evalLesefeld(lesefeld);
+    }
+  }
+
+  public void addLesefelderDefinition(Lesefeld lf)
+  {
+    lesefelder.add(lf);
+  }
+
+  public void updateLesefelderDefinition(Lesefeld lf) throws RemoteException
+  {
+
+    for (Lesefeld lesefeld : lesefelder)
+    {
+      if (lesefeld.getID() != null && lesefeld.getID().endsWith(lf.getID()))
+        lesefeld = lf;
+    }
+  }
+
+  public void deleteLesefelderDefinition(Lesefeld lf)
+  {
+    lesefelder.remove(lf);
   }
 }

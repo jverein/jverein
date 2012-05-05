@@ -207,4 +207,7 @@ public interface Mitglied extends DBObject
   public Map<String, Object> getMap(Map<String, Object> map)
       throws RemoteException;
 
+  public Map<String, Object> getMap(Map<String, Object> map,
+      boolean ohneLesefelder) throws RemoteException;
+
 }
