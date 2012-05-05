@@ -31,7 +31,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
@@ -88,6 +90,7 @@ import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.GenericObjectNode;
@@ -203,6 +206,8 @@ public class MitgliedControl extends AbstractControl
 
   private Input[] zusatzfelder;
 
+  private Input[] lesefelder;
+
   private TreePart eigenschaftenTree;
 
   private TreePart eigenschaftenAuswahlTree;
@@ -275,6 +280,8 @@ public class MitgliedControl extends AbstractControl
   private ImageInput foto;
 
   private Settings settings = null;
+
+  private LesefeldAuswerter lesefeldAuswerter = null;
 
   public MitgliedControl(AbstractView view)
   {
@@ -1352,6 +1359,46 @@ public class MitgliedControl extends AbstractControl
       i++;
     }
     return zusatzfelder;
+  }
+
+  public Input[] getLesefelder() throws RemoteException
+  {
+    if (lesefelder != null)
+    {
+      return lesefelder;
+    }
+
+    // erstelle lesefeldAuswerter, der alle Daten und Methoden
+    // zum Evaluieren von Skripten enthält.
+    if (lesefeldAuswerter == null)
+    {
+      lesefeldAuswerter = new LesefeldAuswerter();
+      lesefeldAuswerter.setLesefelderDefinitionsFromDatabase();
+    }
+
+    // Sind keine Lesefelder definiert, erzeuge keine GUI-Elemente
+    if (lesefeldAuswerter.countLesefelder() == 0)
+      return null;
+
+    lesefeldAuswerter.setMap(getMitglied().getMap(null, true));
+
+    lesefelder = new Input[lesefeldAuswerter.countLesefelder()];
+
+    int i = 0;
+    Iterator<Entry<String, Object>> it = lesefeldAuswerter.getLesefelderMap()
+        .entrySet().iterator();
+    while (it.hasNext())
+    {
+      // Evaluiere Skripte und erzeuge für jedes ein TextAreaInput mit
+      // dem ausgewerteten Inhalt sowie dem Skriptnamen davor.
+      Entry<String, Object> pairs = it.next();
+      TextAreaInput t = new TextAreaInput(pairs.getValue().toString());
+      t.setEnabled(false);
+      t.setName(pairs.getKey());
+      lesefelder[i] = t;
+      i++;
+    }
+    return lesefelder;
   }
 
   public Part getFamilienangehoerigenTable() throws RemoteException

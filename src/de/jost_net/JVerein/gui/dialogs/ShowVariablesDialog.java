@@ -34,33 +34,50 @@ import de.jost_net.JVerein.gui.menu.ShowVariablesMenu;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.logging.Logger;
 
 /**
- * Dialog zur Zuordnung einer Buchungsart.
+ * Dialog, zum Anzeigen von Variablen-Namen und deren Inhalten. Action für
+ * Doppelklick auf Eintrag und ContextMenu können mit setDoubleClickAction() und
+ * setContextMenu() gesetzt werden. Standard: null und new ShowVariablesMenu()
  */
 public class ShowVariablesDialog extends AbstractDialog<Object>
 {
   private Map<String, Object> vars;
+
+  private ContextMenu contextMenu;
+
+  private Action doubleClickAction = null;
 
   /**
    * @param position
    */
   public ShowVariablesDialog(Map<String, Object> vars)
   {
+    this(vars, true);
+  }
+
+  public ShowVariablesDialog(Map<String, Object> vars, boolean open)
+  {
     super(AbstractDialog.POSITION_CENTER);
     setTitle(JVereinPlugin.getI18n().tr("Liste der Variablen"));
     setSize(400, 400);
     this.vars = vars;
-    try
+    // default context menu
+    contextMenu = new ShowVariablesMenu();
+    if (open)
     {
-      this.open();
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
+      try
+      {
+        this.open();
+      }
+      catch (Exception e)
+      {
+        Logger.error("Fehler", e);
+      }
     }
   }
 
@@ -74,12 +91,13 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
     {
       list.add(new Var(entry));
     }
-    TablePart tab = new TablePart(list, null);
+    TablePart tab = new TablePart(list, doubleClickAction);
     tab.addColumn("Name", "name");
     tab.addColumn("Wert", "wert");
     tab.setRememberOrder(true);
-    tab.setContextMenu(new ShowVariablesMenu(parent));
+    tab.setContextMenu(contextMenu);
     tab.paint(parent);
+
     ButtonArea buttons = new ButtonArea(parent, 2);
     buttons.addButton(JVereinPlugin.getI18n().tr("OK"), new Action()
     {
@@ -90,6 +108,27 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       }
     });
 
+  }
+
+  /**
+   * Setze ContextMenu für Tabelle.
+   * 
+   * @param newContextMenu
+   */
+  public void setContextMenu(ContextMenu newContextMenu)
+  {
+    this.contextMenu = newContextMenu;
+  }
+
+  /**
+   * Setze Action, die ausgelöst wird, wenn Nutzer doppelt auf Eintrag in
+   * Tabelle klickt.
+   * 
+   * @param newDoubleClickAction
+   */
+  public void setDoubleClickAction(Action newDoubleClickAction)
+  {
+    doubleClickAction = newDoubleClickAction;
   }
 
   /**

@@ -56,6 +56,7 @@ import de.jost_net.JVerein.gui.action.KontoListAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerSucheAction;
 import de.jost_net.JVerein.gui.action.LehrgaengeListeAction;
 import de.jost_net.JVerein.gui.action.LehrgangsartListeAction;
+import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.MailListeAction;
 import de.jost_net.JVerein.gui.action.MailVorlagenAction;
 import de.jost_net.JVerein.gui.action.MitgliedImportAction;
@@ -241,6 +242,9 @@ public class MyExtension implements Extension
           "activity_category.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Felddefinitionen"), new FelddefinitionenAction(),
+          "category_obj.gif"));
+      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
+          .tr("Lesefeld-Definitionen"), new LesefelddefinitionenAction(null),
           "category_obj.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Formulare"), new FormularListeAction(), "layout_co.gif"));

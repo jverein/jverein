@@ -26,29 +26,73 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ShowVariablesDialog.Var;
 import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Kontext-Menu
+ * Kontext-Menu für einen ShowVariablesDialog. Auswahl "kopieren" kopiert den
+ * selektierten Eintrag in den Zwischenspeicher. Mit setPrependCopyText() und
+ * setAppendCopyText() kann der zu kopierende Eintrag in anderen Text
+ * eingebettet werden. Standard: "${" und "}"
  */
 public class ShowVariablesMenu extends ContextMenu
 {
+  private Action copy;
+
+  /**
+   * Liefert Action, die den gewählten Eintrag in den Zwischenspeicher kopiert.
+   * 
+   * @return Action, die den gewählten Eintrag in den Zwischenspeicher kopiert.
+   */
+  public Action getCopyToClipboardAction()
+  {
+    return copy;
+  };
+
+  private String prependCopyText = "${";
+
+  /**
+   * Setzt Text, der vor den Eintrag in den Zwischen speicher kopiert werden
+   * soll.
+   * 
+   * @param pre
+   *          Text, der vor den Eintrag in den Zwischen speicher kopiert werden
+   *          soll.
+   */
+  public void setPrependCopyText(String pre)
+  {
+    prependCopyText = pre;
+  };
+
+  private String appendCopyText = "}";
+
+  /**
+   * Setzt Text, der hinter den Eintrag in den Zwischen speicher kopiert werden
+   * soll.
+   * 
+   * @param append
+   *          Text, der hinter den Eintrag in den Zwischen speicher kopiert
+   *          werden soll.
+   */
+  public void setAppendCopyText(String append)
+  {
+    appendCopyText = append;
+  };
 
   /**
    * Erzeugt ein Kontext-Menu
    */
-  public ShowVariablesMenu(Composite parent)
+  public ShowVariablesMenu()
   {
-    final Clipboard cb = new Clipboard(parent.getDisplay());
+    final Clipboard cb = new Clipboard(GUI.getDisplay());
 
-    Action copy = new Action()
+    copy = new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -62,8 +106,8 @@ public class ShowVariablesMenu extends ContextMenu
             if (textData.length() > 0)
             {
               TextTransfer textTransfer = TextTransfer.getInstance();
-              cb.setContents(new Object[] { "${" + textData + "}" },
-                  new Transfer[] { textTransfer });
+              cb.setContents(new Object[] { prependCopyText + textData
+                  + appendCopyText }, new Transfer[] { textTransfer });
             }
           }
         }

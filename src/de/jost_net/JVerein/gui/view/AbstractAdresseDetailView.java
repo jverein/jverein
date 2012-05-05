@@ -33,6 +33,7 @@ import de.jost_net.JVerein.gui.action.AdresseDeleteAction;
 import de.jost_net.JVerein.gui.action.AdresseDetailAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KontoauszugAction;
+import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
@@ -247,6 +248,23 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     {
       TabGroup tab10 = new TabGroup(folder, JVereinPlugin.getI18n().tr("Foto"));
       tab10.addLabelPair("Foto", control.getFoto());
+    }
+    // TODO: getLesefelder() ist zu langsam. Inhalt von Lesefeldern sollte erst
+    // evaluiert werden, wenn Lesefelder-Tab angeklickt wird.
+    Input[] lesefelder = control.getLesefelder();
+    if (lesefelder != null)
+    {
+      TabGroup tab11 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+          "Lesefelder"));
+      ButtonArea buttonszus = new ButtonArea();
+      buttonszus.addButton(new Button(JVereinPlugin.getI18n().tr("Bearbeiten"),
+          new LesefelddefinitionenAction(control.getMitglied())));
+      buttonszus.paint(tab11.getComposite());
+      ScrolledContainer cont = new ScrolledContainer(tab11.getComposite());
+      for (Input inp : lesefelder)
+      {
+        cont.addInput(inp);
+      }
     }
     if (isMitgliedDetail()
         && Einstellungen.getEinstellung().getArbeitseinsatz())
