@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.gui.view.LesefeldDetailView;
 import de.jost_net.JVerein.rmi.Lesefeld;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -147,11 +149,13 @@ public class LesefeldUebersichtPart implements Part
     }
 
     // BUTTON AREA
-    ButtonArea buttons = new ButtonArea(parent, 1);
+    ButtonArea buttons = new ButtonArea(parent, 5);
+    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
+          new DokumentationAction(), DokumentationUtil.LESEFELDER, false,
+          "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new NewLesefeldAction(), null, false, "document-new.png");
     // END BUTTON AREA
-
   }
 
   /**

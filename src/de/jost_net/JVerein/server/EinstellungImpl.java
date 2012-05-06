@@ -442,6 +442,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("mitgliedfoto", Boolean.valueOf(mitgliedfoto));
   }
 
+  public boolean getUseLesefelder() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("uselesefelder"));
+  }
+
+  public void setUseLesefelder(boolean use) throws RemoteException
+  {
+    setAttribute("uselesefelder", Boolean.valueOf(use));
+  }
+
   public Boolean getZusatzadressen() throws RemoteException
   {
     return Util.getBoolean(getAttribute("zusatzadressen"));
@@ -651,17 +661,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("beginngeschaeftsjahr", beginngeschaeftsjahr);
   }
 
-  public String getMitgliedskontoIstzahlung() throws RemoteException
-  {
-    return (String) getAttribute("mitgliedskontoistzahlung");
-  }
-
-  public void setMitgliedskontoIstzahlung(String mitgliedskontoistzahlung)
-      throws RemoteException
-  {
-    setAttribute("mitgliedskontoistzahlung", mitgliedskontoistzahlung);
-  }
-
   public String getSmtpServer() throws RemoteException
   {
     return (String) getAttribute("smtp_server");
@@ -856,5 +855,4 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     return super.getAttribute(fieldName);
   }
-
 }

@@ -105,6 +105,8 @@ public class EinstellungenView extends AbstractView
     left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"),
         control.getMitgliedfoto());
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
+    right.addLabelPair(JVereinPlugin.getI18n().tr("Lesefelder anzeigen *"),
+        control.getUseLesefelder());
     right.addLabelPair(JVereinPlugin.getI18n().tr("zusätzliche Adressen *"),
         control.getZusatzadressen());
     right.addLabelPair(JVereinPlugin.getI18n().tr("Auslandsadressen *"),

@@ -246,20 +246,24 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     }
     // TODO: getLesefelder() ist zu langsam. Inhalt von Lesefeldern sollte erst
     // evaluiert werden, wenn Lesefelder-Tab angeklickt wird.
-    Input[] lesefelder = control.getLesefelder();
-    if (lesefelder != null)
+    if (Einstellungen.getEinstellung().getUseLesefelder())
     {
-      TabGroup tab11 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Lesefelder"));
-      ButtonArea buttonszus = new ButtonArea();
-      buttonszus.addButton(new Button(JVereinPlugin.getI18n().tr("Bearbeiten"),
-          new LesefelddefinitionenAction(control.getMitglied())));
-      buttonszus.paint(tab11.getComposite());
-      ScrolledContainer cont = new ScrolledContainer(tab11.getComposite());
-      for (Input inp : lesefelder)
+      Input[] lesefelder = control.getLesefelder();
+      if (lesefelder != null)
       {
-        inp.hasChanged();
-        cont.addInput(inp);
+        TabGroup tab11 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+            "Lesefelder"));
+        ButtonArea buttonszus = new ButtonArea();
+        buttonszus.addButton(new Button(JVereinPlugin.getI18n()
+            .tr("Bearbeiten"), new LesefelddefinitionenAction(control
+            .getMitglied())));
+        buttonszus.paint(tab11.getComposite());
+        ScrolledContainer cont = new ScrolledContainer(tab11.getComposite());
+        for (Input inp : lesefelder)
+        {
+          inp.hasChanged();
+          cont.addInput(inp);
+        }
       }
     }
     if (isMitgliedDetail()

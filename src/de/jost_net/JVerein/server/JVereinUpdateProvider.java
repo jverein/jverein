@@ -925,6 +925,10 @@ public class JVereinUpdateProvider
     {
       update0231(conn);
     }
+    if (cv < 232)
+    {
+      update0232(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5649,6 +5653,23 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(conn, statements, "Tabelle zusatzbetragabrechnungslauf", 231);
+  }
+  
+  private void update0232(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD uselesefelder char(5) before auslandsadressen;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD uselesefelder char(5) after mitgliedfoto;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte uselesefelder in die Tabelle einstellung aufgenommen", 232);
   }
 
 }

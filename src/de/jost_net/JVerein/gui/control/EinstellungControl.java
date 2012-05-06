@@ -107,6 +107,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput mitgliedskonto;
 
   private CheckboxInput mitgliedfoto;
+  
+  private CheckboxInput uselesefelder;
 
   private CheckboxInput zusatzadressen;
 
@@ -465,6 +467,16 @@ public class EinstellungControl extends AbstractControl
     mitgliedfoto = new CheckboxInput(Einstellungen.getEinstellung()
         .getMitgliedfoto());
     return mitgliedfoto;
+  }
+  
+  public CheckboxInput getUseLesefelder() throws RemoteException
+  {
+    if (uselesefelder == null)
+    {
+      uselesefelder = new CheckboxInput(Einstellungen.getEinstellung()
+        .getUseLesefelder());
+    }
+    return uselesefelder;
   }
 
   public CheckboxInput getZusatzadressen() throws RemoteException
@@ -857,6 +869,7 @@ public class EinstellungControl extends AbstractControl
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
+      e.setUseLesefelder((Boolean) uselesefelder.getValue());
       e.setZusatzadressen((Boolean) zusatzadressen.getValue());
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
       e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());

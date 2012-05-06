@@ -71,8 +71,7 @@ public class DokumentationUtil
   public static final String FELDDEFINITIONEN = PRE
       + "administration_felddefinitionen.php";
 
-  public static final String LESEFELDDEFINITIONEN = PRE
-      + "administration_lesefelddefinitionen.php";
+  public static final String LESEFELDER = PREWIKI + "Lesefelder";
 
   public static final String FORMULARE = PRE + "administration_formulare.php";
 

@@ -243,9 +243,12 @@ public class MyExtension implements Extension
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Felddefinitionen"), new FelddefinitionenAction(),
           "category_obj.gif"));
+      if (Einstellungen.getEinstellung().getUseLesefelder())
+      {
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Lesefeld-Definitionen"), new LesefelddefinitionenAction(null),
+          .tr("Lesefelder"), new LesefelddefinitionenAction(null),
           "category_obj.gif"));
+      }
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Formulare"), new FormularListeAction(), "layout_co.gif"));
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()

@@ -278,4 +278,8 @@ public interface Einstellung extends DBObject
   public void setDelaytime(int delaytime) throws RemoteException;
 
   public boolean hasZusatzfelder() throws RemoteException;
+  
+  public boolean getUseLesefelder() throws RemoteException;
+  
+  public void setUseLesefelder(boolean use) throws RemoteException;
 }
