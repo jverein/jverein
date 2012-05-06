@@ -33,6 +33,7 @@
           <hr>
           <li>Folgende Änderungen wurden nach Rev. 346 vorgenommen</li>
           <li>##Aktivitätsanzeige beim Mitgliedskontoexport</li>
+          <li>Neu: Lesefelder. Siehe <a href="http://www.jverein.de/wiki/index.php?title=Lesefelder">Wiki</a>. Patch von NotDifficult.</li>
          </ul>
       </li>
       <li><a name="v221">Version 2.2.1 vom 04.03.2012</a></li>
