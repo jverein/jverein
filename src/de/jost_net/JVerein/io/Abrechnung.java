@@ -414,15 +414,18 @@ public class Abrechnung
         }
         try
         {
-          ZusatzbetragAbrechnungslauf za = (ZusatzbetragAbrechnungslauf) Einstellungen
-              .getDBService().createObject(ZusatzbetragAbrechnungslauf.class,
-                  null);
-          za.setAbrechnungslauf(abrl);
-          za.setZusatzbetrag(z);
-          za.setLetzteAusfuehrung(z.getAusfuehrung());
-          za.store();
-          z.setAusfuehrung(Datum.getHeute());
-          z.store();
+          if (abrl != null)
+          {
+            ZusatzbetragAbrechnungslauf za = (ZusatzbetragAbrechnungslauf) Einstellungen
+                .getDBService().createObject(ZusatzbetragAbrechnungslauf.class,
+                    null);
+            za.setAbrechnungslauf(abrl);
+            za.setZusatzbetrag(z);
+            za.setLetzteAusfuehrung(z.getAusfuehrung());
+            za.store();
+            z.setAusfuehrung(Datum.getHeute());
+            z.store();
+          }
         }
         catch (ApplicationException e)
         {
