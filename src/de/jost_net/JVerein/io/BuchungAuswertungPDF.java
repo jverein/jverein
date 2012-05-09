@@ -108,7 +108,7 @@ public class BuchungAuswertungPDF
           reporter.addColumn("Summe Umbuchungen", Element.ALIGN_LEFT);
           reporter.addColumn(summeumbuchungen);
           reporter.addColumn("Saldo", Element.ALIGN_LEFT);
-          reporter.addColumn(summeeinnahmen - summeausgaben - summeumbuchungen);
+          reporter.addColumn(summeeinnahmen + summeausgaben + summeumbuchungen);
         }
 
       }
