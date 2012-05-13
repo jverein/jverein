@@ -21,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
@@ -31,6 +32,9 @@ import java.util.TreeSet;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
@@ -240,6 +244,7 @@ public class MailControl extends AbstractControl
     }
     anhang = new TablePart(anhang2, null);
     anhang.addColumn("Dateiname", "dateiname");
+    anhang.setRememberColWidths(true);
     anhang.setContextMenu(new MailAnhangMenu(this));
     anhang.setRememberOrder(true);
     anhang.setSummary(false);
@@ -281,10 +286,17 @@ public class MailControl extends AbstractControl
     return b;
   }
 
+  public String getBetreffString() throws RemoteException
+  {
+    return (String) getBetreff().getValue();
+  }
+  public String getTxtString() throws RemoteException
+  {
+    return (String) getTxt().getValue();
+  }
+  
   private void sendeMail() throws RemoteException
   {
-    final String betr = (String) getBetreff().getValue();
-    final String txt = (String) getTxt().getValue();
     BackgroundTask t = new BackgroundTask()
     {
 
@@ -307,19 +319,9 @@ public class MailControl extends AbstractControl
           int zae = 0;
           for (MailEmpfaenger empf : getMail().getEmpfaenger())
           {
-            VelocityContext context = new VelocityContext();
-            context.put("dateformat", new JVDateFormatTTMMJJJJ());
-            context.put("decimalformat", Einstellungen.DECIMALFORMAT);
-            context.put("email", empf.getMailAdresse());
-            context.put("empf", empf.getMitglied());
-            Map<String, Object> map = getVariables(empf.getMitglied());
-            VarTools.add(context, map);
-            StringWriter wbetr = new StringWriter();
-            Velocity.evaluate(context, wbetr, "LOG", betr);
-            StringWriter wtext = new StringWriter();
-            Velocity.evaluate(context, wtext, "LOG", txt);
+            EvalMail em = new EvalMail(empf);
             sender.sendMail(empf.getMailAdresse(),
-                wbetr.getBuffer().toString(), wtext.getBuffer().toString(),
+                em.evalBetreff(getBetreffString()), em.evalText(getTxtString()),
                 getMail().getAnhang());
             monitor.log(empf.getMailAdresse());
             zae++;
@@ -445,6 +447,37 @@ public class MailControl extends AbstractControl
     mailsList.setContextMenu(new MailMenu());
     mailsList.setRememberOrder(true);
     return mailsList;
+  }
+  
+  public class EvalMail
+  {
+    VelocityContext context = null;
+    public EvalMail(MailEmpfaenger empf) throws RemoteException
+    {
+      context = new VelocityContext();
+      context.put("dateformat", new JVDateFormatTTMMJJJJ());
+      context.put("decimalformat", Einstellungen.DECIMALFORMAT);
+      context.put("email", empf.getMailAdresse());
+      context.put("empf", empf.getMitglied());
+      Map<String, Object> map = getVariables(empf.getMitglied());
+      VarTools.add(context, map);
+    }
+    
+    public String evalBetreff(String betr) throws ParseErrorException, MethodInvocationException, ResourceNotFoundException, IOException
+    {
+      if(context == null) return null;
+      StringWriter wbetr = new StringWriter();
+      Velocity.evaluate(context, wbetr, "LOG", betr);
+      return wbetr.getBuffer().toString();
+    }
+    
+    public String evalText(String txt) throws ParseErrorException, MethodInvocationException, ResourceNotFoundException, IOException
+    {
+      if(context == null) return null;
+      StringWriter wtext = new StringWriter();
+      Velocity.evaluate(context, wtext, "LOG", txt);
+      return wtext.getBuffer().toString();
+    }
   }
 
 }
