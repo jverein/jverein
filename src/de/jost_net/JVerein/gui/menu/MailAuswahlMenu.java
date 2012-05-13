@@ -26,6 +26,8 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailAuswahlDeleteAction;
 import de.jost_net.JVerein.gui.control.MailControl;
+import de.jost_net.JVerein.gui.dialogs.MailEmpfaengerAuswahlDialog;
+import de.jost_net.JVerein.gui.dialogs.MailVorschauDialog;
 import de.jost_net.JVerein.gui.dialogs.ShowVariablesDialog;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.willuhn.jameica.gui.Action;
@@ -71,6 +73,26 @@ public class MailAuswahlMenu extends ContextMenu
           }
 
         }, "variable_view.gif"));
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("Vorschau"),
+        new Action()
+        {
+
+          public void handleAction(Object context) throws ApplicationException
+          {
+            if (context instanceof MailEmpfaenger)
+            {
+              MailEmpfaenger m = (MailEmpfaenger) context;
+              new MailVorschauDialog(contr, m, MailEmpfaengerAuswahlDialog.POSITION_CENTER);
+            }
+            else
+            {
+              Logger.error("ShowVariablesDiaglog: Ungültige Klasse: "
+                  + context.getClass().getCanonicalName());
+            }
+
+          }
+
+        }, "edit.png" /*"mail-message-new.png"*/));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("entfernen"),
         new MailAuswahlDeleteAction(control), "user-trash.png"));
   }

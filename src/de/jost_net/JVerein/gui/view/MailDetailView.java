@@ -176,6 +176,7 @@ public class MailDetailView extends AbstractView
   {
     return "<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
         + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
+        + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse kann eine Vorschau angezeigt werden.</p>"
         + "</form>";
   }
 

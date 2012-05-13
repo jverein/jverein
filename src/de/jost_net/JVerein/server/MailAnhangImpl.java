@@ -23,9 +23,12 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
 
 public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
     Comparable<MailAnhang>
@@ -57,7 +60,7 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
   }
 
   @Override
-  protected void insertCheck()
+  protected void insertCheck() throws ApplicationException
   {
     // try
     // {
@@ -73,14 +76,36 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
     // throw new ApplicationException(JVereinPlugin.getI18n().tr(
     // "MailVorlage kann nicht gespeichert werden. Siehe system log"));
     // }
+    try
+    {
+      dateinameCheck(getDateiname());
+    }
+    catch (RemoteException e)
+    {
+      String fehler = JVereinPlugin.getI18n().tr(
+          "MailVorlage kann nicht gespeichert werden. Siehe system log");
+      Logger.error(fehler, e);
+      throw new ApplicationException(fehler);
+    }
+    
+  }
+  
+  private void dateinameCheck(String dateiname) throws ApplicationException
+  {
+  //Länge des Dateinamens auf 50 Zeichen begrenzt:
+    //JVereinUpdateProvider: update0093(Connection)
+    if(dateiname.length()>50)
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Maximale Länge (50) von Mail-Anhang überschritten. ("+dateiname.length()+", "+dateiname.substring(0, 50)+"...)"));
   }
 
   @Override
-  protected void updateCheck()
+  protected void updateCheck() throws ApplicationException
   {
     insertCheck();
   }
-
+  
+  
   @Override
   protected Class<?> getForeignObject(String arg0)
   {
