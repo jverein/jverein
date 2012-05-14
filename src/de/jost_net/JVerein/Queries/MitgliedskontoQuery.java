@@ -67,9 +67,9 @@ public class MitgliedskontoQuery
     ergebnis = new ArrayList<Mitgliedskonto>();
     sql = "select mitgliedskonto.*, sum(buchung.betrag) ";
     sql += "from mitgliedskonto ";
-    sql += "join buchung on mitgliedskonto.id = buchung.MITGLIEDSKONTO ";
+    sql += "left join buchung on mitgliedskonto.id = buchung.MITGLIEDSKONTO ";
 
-    addCondition("mitglied = ?", mitglied.getID());
+    addCondition("mitgliedskonto.mitglied = ?", mitglied.getID());
 
     java.sql.Date vd = null;
     try
@@ -94,11 +94,11 @@ public class MitgliedskontoQuery
     addCondition("mitgliedskonto.datum >= ? ", vd);
     addCondition("mitgliedskonto.datum <= ? ", bd);
 
-    sql += "group by buchung.mitgliedskonto ";
+    sql += "group by mitgliedskonto.id ";
 
     if (differenz.equals("Fehlbetrag"))
     {
-      sql += "having sum(buchung.betrag) < mitgliedskonto.betrag ";
+      sql += "having sum(buchung.betrag) < mitgliedskonto.betrag or sum(buchung.betrag) is null";
     }
     if (differenz.equals("Überzahlung"))
     {
