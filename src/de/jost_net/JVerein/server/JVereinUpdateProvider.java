@@ -929,6 +929,10 @@ public class JVereinUpdateProvider
     {
       update0232(conn);
     }
+    if (cv < 233)
+    {
+      update0233(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5670,6 +5674,23 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte uselesefelder in die Tabelle einstellung aufgenommen", 232);
+  }
+  
+  private void update0233(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mailempfaenger ADD versand TIMESTAMP;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mailempfaenger ADD versand TIMESTAMP;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte versand in die Tabelle mailempfaenger aufgenommen", 233);
   }
 
 }

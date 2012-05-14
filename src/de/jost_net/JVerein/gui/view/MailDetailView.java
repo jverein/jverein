@@ -155,11 +155,12 @@ public class MailDetailView extends AbstractView
     });
     addAttachment.paint(comp5);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea(this.getParent(), 5);
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MAIL, false,
         "help-browser.png");
     buttons.addButton(control.getMailSpeichernButton());
+    buttons.addButton(control.getMailReSendButton());
     buttons.addButton(control.getMailSendButton());
   }
 

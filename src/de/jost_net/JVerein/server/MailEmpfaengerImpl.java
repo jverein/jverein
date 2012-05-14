@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
@@ -119,6 +120,16 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
   public String getMailAdresse() throws RemoteException
   {
     return getMitglied().getEmail();
+  }
+  
+  public Timestamp getVersand() throws RemoteException
+  {
+    return (Timestamp) getAttribute("versand");
+  }
+
+  public void setVersand(Timestamp versand) throws RemoteException
+  {
+    setAttribute("versand", versand);
   }
 
   @Override

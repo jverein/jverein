@@ -37,6 +37,7 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.action.MailDetailAction;
@@ -57,6 +58,8 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.dialogs.SimpleDialog;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -136,6 +139,8 @@ public class MailControl extends AbstractControl
     empfaenger = new TablePart(empf2, null);
     empfaenger.addColumn("Mail-Adresse", "mailadresse");
     empfaenger.addColumn("Name", "name");
+    empfaenger.addColumn("Versand", "versand", new DateFormatter(
+        Einstellungen.DATETIMEFORMAT));
     empfaenger.setContextMenu(new MailAuswahlMenu(this));
     empfaenger.setRememberOrder(true);
     empfaenger.setSummary(false);
@@ -260,7 +265,56 @@ public class MailControl extends AbstractControl
       {
         try
         {
-          sendeMail();
+          int toBeSentCount = 0;
+          for (final MailEmpfaenger empf : getMail().getEmpfaenger())
+          {
+            if (empf.getVersand() == null)
+            {
+              toBeSentCount++;
+            }
+          }
+          if (toBeSentCount == 0)
+          {
+            SimpleDialog d = new SimpleDialog(SimpleDialog.POSITION_CENTER);
+            d.setTitle(JVereinPlugin.getI18n().tr("Mail bereits versendet"));
+            d.setText(JVereinPlugin.getI18n().tr(
+                "Mail wurde bereits an alle Empfänger versendet!"));
+            try
+            {
+              d.open();
+            }
+            catch (Exception e)
+            {
+              Logger.error(
+                  JVereinPlugin.getI18n().tr(
+                      "Fehler beim Nicht-Senden der Mail"), e);
+            }
+            return;
+          }
+          if (toBeSentCount != getMail().getEmpfaenger().size())
+          {
+            YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+            d.setTitle(JVereinPlugin.getI18n().tr("Mail senden?"));
+            d.setText(JVereinPlugin
+                .getI18n()
+                .tr("Diese Mail wurde bereits an "
+                    + (getMail().getEmpfaenger().size() - toBeSentCount)
+                    + " der gewählten Empfänger versendet. Wollen Sie diese Mail an alle weiteren "
+                    + toBeSentCount + " Empfänger senden?"));
+            try
+            {
+              Boolean choice = (Boolean) d.open();
+              if (!choice.booleanValue())
+                return;
+            }
+            catch (Exception e)
+            {
+              Logger.error(
+                  JVereinPlugin.getI18n().tr("Fehler beim Senden der Mail"), e);
+              return;
+            }
+          }
+          sendeMail(false);
           handleStore(true);
         }
         catch (RemoteException e)
@@ -270,6 +324,57 @@ public class MailControl extends AbstractControl
         }
       }
     }, null, true, "mail-message-new.png");
+    return b;
+  }
+
+  public Button getMailReSendButton()
+  {
+    Button b = new Button("speichern + erneut senden", new Action()
+    {
+
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          boolean mailAlreadySent = false;
+          for (final MailEmpfaenger empf : getMail().getEmpfaenger())
+          {
+            if (empf.getVersand() != null)
+            {
+              mailAlreadySent = true;
+              break;
+            }
+          }
+          if (mailAlreadySent)
+          {
+            YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+            d.setTitle(JVereinPlugin.getI18n().tr("Mail erneut senden?"));
+            d.setText(JVereinPlugin
+                .getI18n()
+                .tr("An mindestens einen Empfänger wurde diese Mail bereits versendet. Wollen Sie diese Mail wirklich erneut an alle Empfänger senden?"));
+            try
+            {
+              Boolean choice = (Boolean) d.open();
+              if (!choice.booleanValue())
+                return;
+            }
+            catch (Exception e)
+            {
+              Logger.error(
+                  JVereinPlugin.getI18n().tr("Fehler beim Senden der Mail"), e);
+              return;
+            }
+          }
+          sendeMail(true);
+          handleStore(true);
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException("Fehler beim Senden der Mail");
+        }
+      }
+    }, null, false, "mail-message-new.png");
     return b;
   }
 
@@ -290,13 +395,21 @@ public class MailControl extends AbstractControl
   {
     return (String) getBetreff().getValue();
   }
+
   public String getTxtString() throws RemoteException
   {
     return (String) getTxt().getValue();
   }
-  
-  private void sendeMail() throws RemoteException
+
+  /**
+   * Versende Mail an Empfänger. Wenn erneutSenden==false wird Mail nur an
+   * Empfänger versendet, die Mail noch nicht erhalten haben.
+   */
+  private void sendeMail(final boolean erneutSenden) throws RemoteException
   {
+
+    final String betr = getBetreffString();
+    final String txt = getTxtString();
     BackgroundTask t = new BackgroundTask()
     {
 
@@ -317,25 +430,40 @@ public class MailControl extends AbstractControl
           monitor.setStatus(ProgressMonitor.STATUS_RUNNING);
           monitor.setPercentComplete(0);
           int zae = 0;
-          for (MailEmpfaenger empf : getMail().getEmpfaenger())
+          int sentCount = 0;
+          for (final MailEmpfaenger empf : getMail().getEmpfaenger())
           {
             EvalMail em = new EvalMail(empf);
-            sender.sendMail(empf.getMailAdresse(),
-                em.evalBetreff(getBetreffString()), em.evalText(getTxtString()),
-                getMail().getAnhang());
-            monitor.log(empf.getMailAdresse());
+            if (erneutSenden || empf.getVersand() == null)
+            {
+              sender.sendMail(empf.getMailAdresse(), em.evalBetreff(betr),
+                  em.evalText(txt), getMail().getAnhang());
+              sentCount++;
+              monitor.log(empf.getMailAdresse() + " - versendet");
+              // Nachricht wurde erfolgreich versendet; speicher Versand-Datum
+              // persistent.
+              empf.setVersand(new Timestamp(new Date().getTime()));
+              empf.store();
+              // aktualisiere TablePart getEmpfaenger() (zeige neues
+              // Versand-Datum)
+              GUI.startView(GUI.getCurrentView().getClass(), GUI
+                  .getCurrentView().getCurrentObject());
+            }
+            else
+            {
+              monitor.log(empf.getMailAdresse() + " - übersprungen");
+            }
             zae++;
             double proz = (double) zae
                 / (double) getMail().getEmpfaenger().size() * 100d;
             monitor.setPercentComplete((int) proz);
+
           }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor.setStatusText("Anzahl verschickter Mails: "
-              + getMail().getEmpfaenger().size());
+          monitor.setStatusText("Anzahl verschickter Mails: " + sentCount);
           GUI.getStatusBar().setSuccessText(
-              "Mail" + (getMail().getEmpfaenger().size() > 1 ? "s" : "")
-                  + " verschickt");
+              "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
           getMail().store();
           GUI.getCurrentView().reload();
         }
@@ -371,13 +499,19 @@ public class MailControl extends AbstractControl
     return map;
   }
 
+  /**
+   * Speichert die Mail in der DB.
+   * 
+   * @param mitversand
+   *          wenn true, wird Spalte Versand auf aktuelles Datum gesetzt.
+   */
   public void handleStore(boolean mitversand)
   {
     try
     {
       Mail m = getMail();
-      m.setBetreff((String) getBetreff().getValue());
-      m.setTxt((String) getTxt().getValue());
+      m.setBetreff(getBetreffString());
+      m.setTxt(getTxtString());
       m.setBearbeitung(new Timestamp(new Date().getTime()));
       if (mitversand)
       {
@@ -448,10 +582,11 @@ public class MailControl extends AbstractControl
     mailsList.setRememberOrder(true);
     return mailsList;
   }
-  
+
   public class EvalMail
   {
     VelocityContext context = null;
+
     public EvalMail(MailEmpfaenger empf) throws RemoteException
     {
       context = new VelocityContext();
@@ -462,18 +597,22 @@ public class MailControl extends AbstractControl
       Map<String, Object> map = getVariables(empf.getMitglied());
       VarTools.add(context, map);
     }
-    
-    public String evalBetreff(String betr) throws ParseErrorException, MethodInvocationException, ResourceNotFoundException, IOException
+
+    public String evalBetreff(String betr) throws ParseErrorException,
+        MethodInvocationException, ResourceNotFoundException, IOException
     {
-      if(context == null) return null;
+      if (context == null)
+        return null;
       StringWriter wbetr = new StringWriter();
       Velocity.evaluate(context, wbetr, "LOG", betr);
       return wbetr.getBuffer().toString();
     }
-    
-    public String evalText(String txt) throws ParseErrorException, MethodInvocationException, ResourceNotFoundException, IOException
+
+    public String evalText(String txt) throws ParseErrorException,
+        MethodInvocationException, ResourceNotFoundException, IOException
     {
-      if(context == null) return null;
+      if (context == null)
+        return null;
       StringWriter wtext = new StringWriter();
       Velocity.evaluate(context, wtext, "LOG", txt);
       return wtext.getBuffer().toString();

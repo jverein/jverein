@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 
 import de.willuhn.datasource.rmi.DBObject;
 
@@ -54,4 +55,14 @@ public interface MailEmpfaenger extends DBObject
    */
   public String getMailAdresse() throws RemoteException;
 
+  /**
+   * Gibt das Datum des letzten Versand der Mail zurück.
+   */
+  public Timestamp getVersand() throws RemoteException;
+  
+  /**
+   * Setzt das Datum des letzten Versand der Mail.
+   */
+  public void setVersand(Timestamp versand) throws RemoteException;
+  
 }

@@ -140,6 +140,8 @@ public class MailSender
       session.setDebug(false);
     }
     Message msg = new MimeMessage(session);
+    /*msg.addHeader("Disposition-Notification-To", smtp_from_address);
+    msg.addHeader("Return-Receipt-To", smtp_from_address);*/
     InternetAddress addressFrom = new InternetAddress(smtp_from_address);
     msg.setFrom(addressFrom);
 
