@@ -51,7 +51,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedskontoExportCSV extends MitgliedskontoExport
 {
-  private ArrayList<Mitgliedskonto> mkonten = new ArrayList<Mitgliedskonto>();
+  private ArrayList<Mitgliedskonto> mkonten = null;
 
   public String getName()
   {
@@ -89,7 +89,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
 
   protected void open() throws DocumentException, FileNotFoundException
   {
-    //
+    mkonten = new ArrayList<Mitgliedskonto>();
   }
 
   protected void startMitglied(Mitglied m)
