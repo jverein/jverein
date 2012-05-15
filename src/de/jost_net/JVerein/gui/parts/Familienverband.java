@@ -28,7 +28,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.util.Container;
@@ -44,7 +46,7 @@ public class Familienverband implements Part
   private MitgliedControl control;
 
   private Container cont;
-
+  
   public Familienverband(MitgliedControl control, Beitragsgruppe gruppe)
   {
     this.control = control;
@@ -58,15 +60,15 @@ public class Familienverband implements Part
 
     tab = new TabFolder(cont.getComposite(), SWT.NONE);
     tab.setLayoutData(g);
-    new TabGroup(tab, "");
-    TabGroup tg1 = new TabGroup(tab, "");
+    TabGroup tg1 = new TabGroup(tab, JVereinPlugin.getI18n().tr("Familienverband"));
     control.getFamilienangehoerigenTable().paint(tg1.getComposite());
-    TabGroup tg2 = new TabGroup(tab, "");
+    TabGroup tg2 = new TabGroup(tab, JVereinPlugin.getI18n().tr("Zahlendes Familienmitglied"));
+    control.getZahler().setComment(JVereinPlugin.getI18n().tr("Nur für Beitragsgruppe: \"Familie: Angehörige\""));
     tg2.addLabelPair("Zahler", control.getZahler());
+    
     if (gruppe != null)
     {
-      tab.setSelection(gruppe.getBeitragsArt());
-      tab.layout(true);
+      setBeitragsgruppe(gruppe);
     }
   }
 
@@ -75,7 +77,10 @@ public class Familienverband implements Part
     this.gruppe = gruppe;
     try
     {
-      tab.setSelection(gruppe.getBeitragsArt());
+      if(gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
+        tab.setSelection(0);
+      if(gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+        tab.setSelection(1);
     }
     catch (RemoteException e)
     {

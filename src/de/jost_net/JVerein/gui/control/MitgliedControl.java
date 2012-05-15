@@ -106,6 +106,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
+import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.formatter.TreeFormatter;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
@@ -920,7 +921,10 @@ public class MitgliedControl extends AbstractControl
     list.setOrder("ORDER BY bezeichnung");
     if (!allgemein)
     {
-      list.addFilter("beitragsart <> ?",
+      // alte Beitragsgruppen hatten das Feld Beitragsarten noch nicht gesetzt
+      // (NULL)
+      // diese Beitragsgruppen müssen hier auch erlaubt sein.
+      list.addFilter("beitragsart <> ? or beitragsart IS NULL",
           new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER });
     }
     beitragsgruppe = new SelectInput(list, getMitglied().getBeitragsgruppe());
@@ -941,21 +945,39 @@ public class MitgliedControl extends AbstractControl
         try
         {
           Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
+          // Aktiviere "richtigen" Tab in der Tabs-Tabelle Familienverband
           if (famverb != null)
           {
             famverb.setBeitragsgruppe(bg);
           }
+          // Feld zahler ist nur aktiviert, wenn aktuelles Mitglied nicht das
+          // zahlende Mitglied der Familie ist.
           if (bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
           {
             zahler.setEnabled(true);
           }
           else if (bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
-            zahler.setValue(Einstellungen.getDBService().createObject(
-                Mitglied.class, ""));
             getMitglied().setZahlerID(null);
-            zahler.setEnabled(false);
+            if (zahler != null)
+            {
+              zahler.setValue(Einstellungen.getDBService().createObject(
+                  Mitglied.class, ""));
+              zahler.setEnabled(false);
+            }
           }
+          else
+          {
+            getMitglied().setZahlerID(null);
+            if (zahler != null)
+            {
+              zahler.setPreselected(null);
+              zahler.setEnabled(false);
+            }
+          }
+
+          refreshFamilienangehoerigeTable();
+
         }
         catch (RemoteException e)
         {
@@ -1044,7 +1066,7 @@ public class MitgliedControl extends AbstractControl
     // Beitragsgruppen ermitteln, die Zahler für andere Mitglieder sind
     DBIterator bg = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
-    bg.addFilter("beitragsart = 1");
+    bg.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER);
     while (bg.hasNext())
     {
       if (cond.length() > 0)
@@ -1092,6 +1114,7 @@ public class MitgliedControl extends AbstractControl
           {
             getMitglied().setZahlerID(null);
           }
+          refreshFamilienangehoerigeTable();
         }
         catch (RemoteException e)
         {
@@ -1110,6 +1133,7 @@ public class MitgliedControl extends AbstractControl
       }
       else
       {
+        zahler.setPreselected(getMitglied());
         zahler.setEnabled(false);
       }
     }
@@ -1358,21 +1382,56 @@ public class MitgliedControl extends AbstractControl
     return lesefelder;
   }
 
+  public void refreshFamilienangehoerigeTable() throws RemoteException
+  {
+    if (familienangehoerige == null)
+      return;
+    familienangehoerige.removeAll();
+    DBService service = Einstellungen.getDBService();
+    DBIterator famiter = service.createList(Mitglied.class);
+    famiter.addFilter("zahlerid = ? or zahlerid = ? or id = ? or id = ?",
+        getMitglied().getID(), getMitglied().getZahlerID(), getMitglied()
+            .getID(), getMitglied().getZahlerID());
+    while (famiter.hasNext())
+    {
+      Mitglied m = (Mitglied) famiter.next();
+      // Wenn der Iterator auf das aktuelle Mitglied zeigt,
+      // nutze stattdessen getMitglied() damit nicht das alte, unveränderte
+      // Mitglied
+      // aus der DB verwendet wird, sondern das vom Nutzer veränderte Mitglied.
+      if (m.getID().equalsIgnoreCase(getMitglied().getID()))
+        m = getMitglied();
+      familienangehoerige.addItem(m);
+    }
+  }
+
   public Part getFamilienangehoerigenTable() throws RemoteException
   {
     if (familienangehoerige != null)
     {
       return familienangehoerige;
     }
-    DBService service = Einstellungen.getDBService();
-    DBIterator famiter = service.createList(Mitglied.class);
-    famiter.addFilter("zahlerid = " + getMitglied().getID());
-    familienangehoerige = new TablePart(famiter, null);
+
+    familienangehoerige = new TablePart(new MitgliedDetailAction());
     familienangehoerige.setRememberColWidths(true);
     familienangehoerige.setRememberOrder(true);
-
+    refreshFamilienangehoerigeTable();
     familienangehoerige.addColumn("Name", "name");
     familienangehoerige.addColumn("Vorname", "vorname");
+    familienangehoerige.addColumn("", "zahlerid", new Formatter()
+    {
+      public String format(Object o)
+      {
+        // Alle Familienmitglieder, die eine Zahler-ID eingetragen haben, sind
+        // nicht selbst das zahlende Mitglied.
+        // Der Eintrag ohne zahlerid ist also das zahlende Mitglied.
+        Integer m = (Integer) o;
+        if (m == null)
+          return "";
+        else
+          return JVereinPlugin.getI18n().tr("nicht zahlendes Mitglied");
+      }
+    });
 
     return familienangehoerige;
   }
@@ -2924,7 +2983,7 @@ public class MitgliedControl extends AbstractControl
         {
           return;
         }
-        List children = PseudoIterator.asList(o.getChildren());
+        List<?> children = PseudoIterator.asList(o.getChildren());
         boolean b = event.detail > 0;
         tree.setChecked(children.toArray(new Object[children.size()]), b);
       }

@@ -41,6 +41,7 @@ import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.control.DokumentControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
+import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.MitgliedDokument;
@@ -149,9 +150,11 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       {
         tab3.addInput(control.getSterbetag());
       }
+      //Wenn es mindestens eine Beitragsgruppe mit Beitragsart "Familie: Zahler" 
+      //oder "Familie: Angehöriger" gibt, zeige Familienverband-Part.
       DBIterator it = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
-      it.addFilter("beitragsart = 1 or beitragsart = 2");
+      it.addFilter("beitragsart = ? or beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
       if (it.hasNext())
       {
         tab3.addPart(control.getFamilienverband());
