@@ -46,7 +46,7 @@ public class Familienverband implements Part
   private MitgliedControl control;
 
   private Container cont;
-  
+
   public Familienverband(MitgliedControl control, Beitragsgruppe gruppe)
   {
     this.control = control;
@@ -60,12 +60,16 @@ public class Familienverband implements Part
 
     tab = new TabFolder(cont.getComposite(), SWT.NONE);
     tab.setLayoutData(g);
-    TabGroup tg1 = new TabGroup(tab, JVereinPlugin.getI18n().tr("Familienverband"));
+    TabGroup tg1 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
+        "Familienverband"));
     control.getFamilienangehoerigenTable().paint(tg1.getComposite());
-    TabGroup tg2 = new TabGroup(tab, JVereinPlugin.getI18n().tr("Zahlendes Familienmitglied"));
-    control.getZahler().setComment(JVereinPlugin.getI18n().tr("Nur für Beitragsgruppe: \"Familie: Angehörige\""));
+    TabGroup tg2 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
+        "Zahlendes Familienmitglied"));
+    control.getZahler().setComment(
+        JVereinPlugin.getI18n().tr(
+            "Nur für Beitragsgruppenart: \"Familie: Angehörige\""));
     tg2.addLabelPair("Zahler", control.getZahler());
-    
+
     if (gruppe != null)
     {
       setBeitragsgruppe(gruppe);
@@ -77,9 +81,9 @@ public class Familienverband implements Part
     this.gruppe = gruppe;
     try
     {
-      if(gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
+      if (gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
         tab.setSelection(0);
-      if(gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+      if (gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
         tab.setSelection(1);
     }
     catch (RemoteException e)
@@ -88,6 +92,12 @@ public class Familienverband implements Part
     }
     tab.redraw();
     tab.layout(true);
+  }
+
+  public void setVisible(boolean visible)
+  {
+    if (cont.getComposite() != null)
+      cont.getComposite().setVisible(visible);
   }
 
 }

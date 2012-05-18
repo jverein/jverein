@@ -150,14 +150,26 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       {
         tab3.addInput(control.getSterbetag());
       }
-      //Wenn es mindestens eine Beitragsgruppe mit Beitragsart "Familie: Zahler" 
-      //oder "Familie: Angehöriger" gibt, zeige Familienverband-Part.
+      // Wenn es mindestens eine Beitragsgruppe mit Beitragsart
+      // "Familie: Zahler"
+      // oder "Familie: Angehöriger" gibt, zeige Familienverband-Part.
       DBIterator it = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
-      it.addFilter("beitragsart = ? or beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
+      it.addFilter("beitragsart = ? or beitragsart = ?",
+          ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
       if (it.hasNext())
       {
         tab3.addPart(control.getFamilienverband());
+
+        // Verstecke Familienverband wenn aktuelles Mitglied nicht Teil einer
+        // Familie ist.
+        // Durch das Erstellen und anschließende Verstecken ist es möglich, denn
+        // Familienverband sofort dynamisch einzublenden, sobald der Nutzer für
+        // das Mitglied eine Familien-Beitragsart wählt.
+        if (control.getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.NORMAL)
+        {
+          control.getFamilienverband().setVisible(false);
+        }
       }
     }
     TabGroup tab1 = new TabGroup(folder, JVereinPlugin.getI18n().tr("Zahlung"));

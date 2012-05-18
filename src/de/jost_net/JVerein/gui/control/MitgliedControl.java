@@ -954,10 +954,12 @@ public class MitgliedControl extends AbstractControl
           // zahlende Mitglied der Familie ist.
           if (bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
           {
+            getFamilienverband().setVisible(true);
             zahler.setEnabled(true);
           }
           else if (bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
+            getFamilienverband().setVisible(true);
             getMitglied().setZahlerID(null);
             if (zahler != null)
             {
@@ -974,6 +976,8 @@ public class MitgliedControl extends AbstractControl
               zahler.setPreselected(null);
               zahler.setEnabled(false);
             }
+
+            getFamilienverband().setVisible(false);
           }
 
           refreshFamilienangehoerigeTable();
@@ -1429,7 +1433,8 @@ public class MitgliedControl extends AbstractControl
         if (m == null)
           return "";
         else
-          return JVereinPlugin.getI18n().tr("nicht zahlendes Mitglied");
+          return JVereinPlugin.getI18n().tr(
+              "beitragsbefreites Familienmitglied");
       }
     });
 
