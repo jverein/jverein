@@ -62,7 +62,7 @@ public class IORegistry
     try
     {
       ClassFinder finder = Application.getClassLoader().getClassFinder();
-      Class[] list = finder.findImplementors(type);
+      Class<?>[] list = finder.findImplementors(type);
       if (list == null || list.length == 0)
         throw new ClassNotFoundException();
 
@@ -114,8 +114,9 @@ public class IORegistry
 }
 
 /**********************************************************************
- * $Log$ Revision 1.7 2012/02/27 21:11:10 jverein
- * Import-Logik überarbeitet. Revision 1.3 2010/06/01 21:55:40 willuhn
+ * $Log$ Revision 1.8 2012/04/15 08:30:24 jverein Generics
+ * Revision 1.7 2012/02/27 21:11:10 jverein Import-Logik überarbeitet. Revision
+ * 1.3 2010/06/01 21:55:40 willuhn
  * 
  * @N uebersichtlichere Log-Ausgabe
  * 

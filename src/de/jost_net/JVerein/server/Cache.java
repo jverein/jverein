@@ -42,7 +42,7 @@ class Cache
   private static int timeout = 0;
 
   // Enthaelt alle Caches.
-  private final static Map<Class, Cache> caches = new HashMap<Class, Cache>();
+  private final static Map<Class<?>, Cache> caches = new HashMap<Class<?>, Cache>();
 
   // Der konkrete Cache
   private Map<String, DBObject> data = new HashMap<String, DBObject>();
