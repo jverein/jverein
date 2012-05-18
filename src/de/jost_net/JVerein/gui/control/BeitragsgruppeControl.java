@@ -157,6 +157,13 @@ public class BeitragsgruppeControl extends AbstractControl
       Double d = (Double) getBetrag().getValue();
       b.setBetrag(d.doubleValue());
       ArtBeitragsart ba = (ArtBeitragsart) getBeitragsArt().getValue();
+      if (ba.getKey() == ArtBeitragsart.FAMILIE_ANGEHOERIGER && d != 0)
+      {
+        throw new ApplicationException(
+            JVereinPlugin
+                .getI18n()
+                .tr("Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben."));
+      }
       b.setBeitragsArt(ba.getKey());
       Buchungsart bua = (Buchungsart) getBuchungsart().getValue();
       if (bua != null)
