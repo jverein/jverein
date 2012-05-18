@@ -166,7 +166,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         // Durch das Erstellen und anschließende Verstecken ist es möglich, denn
         // Familienverband sofort dynamisch einzublenden, sobald der Nutzer für
         // das Mitglied eine Familien-Beitragsart wählt.
-        if (control.getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.NORMAL)
+        if (control.getMitglied().getBeitragsgruppe() != null
+            && control.getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.NORMAL)
         {
           control.getFamilienverband().setVisible(false);
         }
