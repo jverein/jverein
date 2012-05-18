@@ -246,7 +246,6 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * Liefert aus der Buchungsliste entweder das größte Datum zurück. Falls noch
    * keine Buchungen eingetragen sind, wird das Spendendatum zurückgeliefert.
    * 
-   * @return
    * @throws RemoteException
    */
   public Date getZeitraumBis() throws RemoteException
@@ -540,13 +539,9 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       this.setZeile6(null);
       this.setZeile7(null);
     }
-    String empfaenger = getZeile1() + newLineStr
-        + getZeile2() + newLineStr
-        + getZeile3() + newLineStr
-        + getZeile4() + newLineStr
-        + getZeile5() + newLineStr
-        + getZeile6() + newLineStr
-        + getZeile7() + newLineStr;
+    String empfaenger = getZeile1() + newLineStr + getZeile2() + newLineStr
+        + getZeile3() + newLineStr + getZeile4() + newLineStr + getZeile5()
+        + newLineStr + getZeile6() + newLineStr + getZeile7() + newLineStr;
     map.put(SpendenbescheinigungVar.EMPFAENGER.getName(), empfaenger);
     Double dWert = getBetrag();
     // Hier keinen String, sondern ein Double-Objekt in die Map stellen,
@@ -554,7 +549,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     // aufbereitung.getString() erfolgt.
     // Dies ist der Zustand vor Version 2.0
     // map.put(SpendenbescheinigungVar.BETRAG.getName(),
-    //     Einstellungen.DECIMALFORMAT.format(getBetrag()));
+    // Einstellungen.DECIMALFORMAT.format(getBetrag()));
     map.put(SpendenbescheinigungVar.BETRAG.getName(), dWert);
     try
     {
@@ -572,7 +567,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         .format(getBescheinigungsdatum());
     map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
         bescheinigungsdatum);
-    switch(getSpendenart())
+    switch (getSpendenart())
     {
       case Spendenart.GELDSPENDE:
         String art = "Geldzuwendungen";

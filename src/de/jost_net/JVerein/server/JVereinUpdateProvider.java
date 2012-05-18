@@ -1008,10 +1008,7 @@ public class JVereinUpdateProvider
     }
   }
 
-  /**
-   * @see de.willuhn.sql.version.Update#execute(de.willuhn.sql.version.UpdateProvider)
-   */
-  public void execute(Connection conn, Map<String, String> statements,
+   public void execute(Connection conn, Map<String, String> statements,
       String logstring, int version) throws ApplicationException
   {
     Logger.info("TODO: " + logstring);

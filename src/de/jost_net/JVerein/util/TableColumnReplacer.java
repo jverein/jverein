@@ -273,7 +273,6 @@ public class TableColumnReplacer
    * Checks if specified column is already defined
    * 
    * @param column
-   * @return
    */
   public boolean isColumnDefined(final String column)
   {
@@ -337,7 +336,6 @@ public class TableColumnReplacer
    * 
    * @param column
    * @param replacement
-   * @return
    */
   public boolean setColumnReplacement(final String column,
       final String replacement)
