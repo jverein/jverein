@@ -32,7 +32,7 @@
     <li><a href="index.php" title="Home"><span>Home</span></a></li>
     <li><a href="dokumentation.php" title="Dokumentation"><span>Dokumentation</span></a></li>
     <li><a href="http://www.jverein.de/wiki/index.php?title=Changelog" title="Changelog"><span>Changelog</span></a></li>
-    <li><a href="download.php" title="Download"><span>Download</span></a></li>
+    <li><a href="http://www.jverein.de/wiki/index.php?title=Download" title="Download"><span>Download</span></a></li>
     <li><a href="faq.php" title="FAQ"><span>FAQ</span></a></li>
     <li><a href="installation.php" title="Installation"><span>Installation</span></a></li>
     <li><a href="cvs.php" title="CVS"><span>CVS</span></a></li>
@@ -45,6 +45,9 @@
   <br><br>
     <!-- 
     $Log$
+    Revision 1.12  2012/05/09 20:43:56  jverein
+    *** empty log message ***
+
     Revision 1.11  2011/11/02 21:46:43  jverein
     *** empty log message ***
 
