@@ -50,6 +50,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.Input;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
@@ -277,8 +278,19 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         ScrolledContainer cont = new ScrolledContainer(tab11.getComposite());
         for (Input inp : lesefelder)
         {
-          inp.hasChanged();
-          cont.addInput(inp);
+          if(inp == null)
+          {
+            String errorText = "Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!";
+            Input errorInput = new TextInput(errorText);
+            errorInput.setEnabled(false);
+            cont.addInput(errorInput);
+            GUI.getStatusBar().setErrorText(errorText);
+          }
+          else
+          {
+            inp.hasChanged();
+            cont.addInput(inp);
+          }
         }
       }
     }

@@ -190,7 +190,11 @@ public class LesefeldAuswerter
     {
 
       lesefeld = evalLesefeld(lesefeld);
-      map.put("mitglied_lesefeld_" + lesefeld.getBezeichnung(),
+      if(lesefeld == null)
+      {
+        continue;
+      }
+      map.put(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung(),
           lesefeld.getEvaluatedContent());
     }
     Logger.debug("Lesefeld-Variablen für Mitglied " + vornamename + ":");

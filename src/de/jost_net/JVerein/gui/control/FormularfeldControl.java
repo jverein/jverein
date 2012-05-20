@@ -34,8 +34,10 @@ import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
 import de.jost_net.JVerein.gui.menu.FormularfeldMenu;
 import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
+import de.jost_net.JVerein.rmi.Lesefeld;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -217,6 +219,23 @@ public class FormularfeldControl extends AbstractControl
       }
 
     }
+    
+    DBIterator itlesefelder = Einstellungen.getDBService().createList(
+        Lesefeld.class);
+    while (itlesefelder.hasNext())
+    {
+      Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
+      namen.add(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung());
+    }
+    
+    DBIterator zusatzfelder = Einstellungen.getDBService().createList(
+        Felddefinition.class);
+    while (zusatzfelder.hasNext())
+    {
+      Felddefinition zusatzfeld = (Felddefinition) zusatzfelder.next();
+      namen.add(Einstellungen.ZUSATZFELD_PRE + zusatzfeld.getName());
+    }
+    
     name = new SelectInput(namen, getFormularfeld().getName());
     return name;
   }

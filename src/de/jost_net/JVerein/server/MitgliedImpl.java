@@ -990,33 +990,33 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       switch (fd.getDatentyp())
       {
         case Datentyp.DATUM:
-          map.put("mitglied_zusatzfeld_" + fd.getName(),
+          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
               Datum.formatDate(z.getFeldDatum()));
-          format.put("mitglied_zusatzfeld_" + fd.getName(), "DATE");
+          format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "DATE");
           break;
         case Datentyp.JANEIN:
-          map.put("mitglied_zusatzfeld_" + fd.getName(),
+          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
               z.getFeldJaNein() ? "X" : " ");
           break;
         case Datentyp.GANZZAHL:
-          map.put("mitglied_zusatzfeld_" + fd.getName(), z.getFeldGanzzahl()
+          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), z.getFeldGanzzahl()
               + "");
-          format.put("mitglied_zusatzfeld_" + fd.getName(), "INTEGER");
+          format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "INTEGER");
           break;
         case Datentyp.WAEHRUNG:
           if (z.getFeldWaehrung() != null)
           {
-            map.put("mitglied_zusatzfeld_" + fd.getName(),
+            map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
                 Einstellungen.DECIMALFORMAT.format(z.getFeldWaehrung()));
-            format.put("mitglied_zusatzfeld_" + fd.getName(), "DOUBLE");
+            format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "DOUBLE");
           }
           else
           {
-            map.put("mitglied_zusatzfeld_" + fd.getName(), "");
+            map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "");
           }
           break;
         case Datentyp.ZEICHENFOLGE:
-          map.put("mitglied_zusatzfeld_" + fd.getName(), z.getFeld());
+          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), z.getFeld());
           break;
       }
     }

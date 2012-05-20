@@ -1364,7 +1364,17 @@ public class MitgliedControl extends AbstractControl
     // Sind keine Lesefelder definiert, erzeuge keine GUI-Elemente
     if (lesefeldAuswerter.countLesefelder() == 0)
       return null;
-
+    
+    //Ist noch keine ID verfügbar, wird das Mitglied gerade angelegt.
+    //Dann darf getMap() nicht aufgerufen werden, da sonst Standard-Werte
+    //für Mitglied gesetzt werden (z.B. das Sterbedatum auf heute!)
+    //Da lesefeldAuswerter aber einen kompletten Datensatz eines Mitglieds
+    //benötigt um alle Skripte fehlerfrei zu parsen, dürfen die Lesefelder
+    //noch nicht ausgewertet werden. Die GUI-Elemente werden daher beim
+    //ersten Erstellen eines neuen Mitglieds noch nicht angezeigt.
+    if(getMitglied().getID() == null)
+      return null;
+    
     lesefeldAuswerter.setMap(getMitglied().getMap(null, true));
 
     lesefelder = new Input[lesefeldAuswerter.countLesefelder()];

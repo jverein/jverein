@@ -68,6 +68,10 @@ public class Einstellungen
   public final static String CURRENCY = "EUR";
 
   public static Date NODATE = new Date();
+  
+  public final static String ZUSATZFELD_PRE = "mitglied_zusatzfeld_";
+  
+  public final static String LESEFELD_PRE = "mitglied_lesefelder_";
 
   static
   {
