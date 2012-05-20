@@ -1,29 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Administration: Felddefinitionen</h1>
-    <p>
-    <img src='images/Felddefinitionen.jpg' class='screenshot'>
-	<p>Der Benutzer kann zusätzliche Datenfelder definieren. Durch einen Klick auf neu öffnet sich folgendes 
-	Fenster:
-    <img src='images/Felddefinition.jpg' class='screenshot'>
-    <p>Der Names des Feldes kann auch den Zeichen a-z und 0-9 und _ (Unterstrich) bestehen. Er darf keine 
-    Leerzeichen enthalten und sich nicht mit existierenden Feldnamen überschneiden. Als Label kann ein 
-    beliebiger Begriff verwendet werden, der bei der Eingabe der Daten den Feld vorangestellt wird. 
-    </p>
-    <p>Ab Version 1.3 kann aus den Datentypen
-    <ul>
-    	<li>Zeichenkette (bis zu 1.000 Zeichen lang)</li>
-    	<li>Datum (Format TT.MM.JJJJ)</li>
-    	<li>Ganzzahl</li>
-    	<li>Ja/Nein-Wert</li>
-    	<li>Währung</li>
-    </ul>
-    ausgewählt werden.</p>
-    <p>Feldnamen und Label können jederzeit geändert werden. Daten gehen hierdurch nicht verloren. Bis zur 
-    Version 1.2 (einschl.) kann ein Feld kann nur gelöscht werden, wenn bei keinem Mitglied Daten in diesem 
-    Feld gespeichert sind. Ab Version 1.3 werden die Daten nach Rückfrage gelöscht.</li>
-	<p>Bei der Änderung des Datentypen ist zu beachten, dass eine Konvertierung möglich sein muss. Beispielsweise
-	kann ein Zusatzfeld vom Typ Zeichenfolge nur dann in den Typ Datum umgewandelt werden, wenn ausschließlich Daten
-	in der Form TT.MM.JJJJ gespeichert sind. Alle Datentypen können in Zeichenfolge umgewandelt werden.</li>     
-
-<? include ("footer.inc"); ?>
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Felddefinitionen");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Felddefinitionen\">http://www.jverein.de/wiki/index.php?title=Felddefinitionen</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

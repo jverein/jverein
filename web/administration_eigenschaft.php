@@ -1,13 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Administration: Eigenschaften</h1>
-    <p>
-    Die Eigenschaften, die den Mitgliedern zugeordnet werden können, werden hier
-    administriert. Jeder Eigenschaft ist eine 
-    <a href='administration_eigenschaftgruppe.php'>Eigenschaftengruppe</a> zuzuordnen.</p>
-    <img src='images/Eigenschaftuebersicht.png' class='screenshot'>
-    <p>
-    <img src='images/Eigenschaft.png' class='screenshot'>
-    
-<? include ("footer.inc"); ?>
-  
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Eigenschaften");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Eigenschaften\">http://www.jverein.de/wiki/index.php?title=Eigenschaften</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

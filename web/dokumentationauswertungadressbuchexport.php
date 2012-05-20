@@ -1,12 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Auswertung: Adressbuchexport</h1>
-    <img src='images/Adressbuchexport.jpg' class='screenshot'>
-    <p>Die Mitglieder können für ein Adressbuch exportiert werden. Dabei können Trennzeichen und Encoding 
-    	vorgegeben werden. Weiterhin kann festgelegt werden, ob alle Mitglieder oder nur die Mitglieder 
-    	mit Email-Adresse ausgegeben werden sollen.</p>
-    <p>Hinweis! Ich habe die Funktion nur mit Thunderbird und Outlook-Express getestet. Sollte es Probleme 
-    	mit anderen Mail-Clients/Adressbüchern geben, sagt mir bitte Bescheid.</p>
-
-
-<? include ("footer.inc"); ?>
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Adressbuch-Export");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Adressbuch-Export\">http://www.jverein.de/wiki/index.php?title=Adressbuch-Export</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

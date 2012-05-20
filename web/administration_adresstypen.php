@@ -1,15 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Administration: Adresstypen</h1>
-    <p>Ab Version 2.0</p>
-    <p>Unter Administration|<a href='administration_einstellungen.php'>Einstellungen</a>|Ansicht ist die Option 'zusätzliche Adressen' zu aktivieren</p>
-    <p>
-    Neben den Mitgliedern können diverse Adressen gespeichert werden. Die Adressen werden
-    kategorisiert. Vorgegeben ist der Adresstyp 'Spender/in'. Weitere Adresstypen können hier
-    eingerichtet werden.</p>
-    <img src='images/Adresstypuebersicht.png' class='screenshot'>
-    <p>
-    <img src='images/Adresstyp.png' class='screenshot'>
-    
-<? include ("footer.inc"); ?>
-  
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Adresstypen");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Adresstypen\">http://www.jverein.de/wiki/index.php?title=Adresstypen</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

@@ -1,12 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Auswertung: Jubiläen</h1>
-    <p>Die Mitglieder, die ein Mitgliedschaft- oder Alters-Jubiläum begehen, können ausgewertet 
-       werden. Unter <a href="administration_stammdaten.php">Stammdaten</a> werden die Jubeljahre 
-       eingetragen. Bei der Auswertung kann aus einer Dropdown-Box das Jahr ausgewählt werden. Zur 
-       Verfügung stehen das aktuelle Jahr, das Vorjahr und 2 Folgejahre. Die Ausgabe erfolgt im 
-       PDF-Format.</p>
-    <img src='images/Jubilaeen.jpg' class='screenshot'>
-    
-    
-<? include ("footer.inc"); ?>
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Jubiläen");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Jubiläen\">http://www.jverein.de/wiki/index.php?title=Jubiläen</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

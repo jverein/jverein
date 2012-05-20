@@ -1,18 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Lehrgänge</h1>
-    <p>Zur Nutzung der Lehrgänge ist die Option in den <a href='administration_einstellungen.php'>Einstellungen</a> 
-    	(Plugins&gt;JVerein&gt;Einstellungen) zu aktivieren.</p>
-    <h2>Lehrgangsarten</h2>
-	<h3>Übersicht über die Lehrgangsarten</h3>
-    <img src='images/Lehrgangsarten.jpg' class='screenshot'>
-	<h3>Lehrgangsart neu anlegen oder bearbeiten</h3>
-    <img src='images/Lehrgangsart.jpg' class='screenshot'>
-    <p>Die Bezeichnung des Lehrgangs muss ausgefüllt werden. Die restlichen Daten können leer gelassen werden. 
-    	Diese Daten sind dann einzugeben, wenn beim Mitglied der Lehrgang angelegt wird.</p> 
-	<h2>Lehrgangsübersicht beim Mitglied</h2>
-    <img src='images/Mitgliedlehrgaenge.jpg' class='screenshot'>
-    <h2>Lehrgang beim Mitglied anlegen</h2>
-    <img src='images/Mitgliedlehrgang.jpg' class='screenshot'>
-
-<? include ("footer.inc"); ?>
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Lehrgänge");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Lehrgänge\">http://www.jverein.de/wiki/index.php?title=Lehrgänge</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

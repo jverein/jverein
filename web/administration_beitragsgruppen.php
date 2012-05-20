@@ -1,22 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Administration: Beitragsgruppen</h1>
-    <p>
-    <img src='images/Beitragsgruppenuebersicht.jpg' class='screenshot'>
-    <p>Mit <b>neu</b> kann eine neue Beitragsgruppe eingerichtet werden.</p>
-	<p>Durch einen Doppelklick wird die Bearbeitung einer Beitragsgruppe eingeleitet.</p>
-	<p>Durch die Markierung einer Beitragsgruppe und löschen wir die Löschung eingeleitet. 
-	Alternativ kann mit einem rechten Mausklick auf eine Beitragsgruppe öffnet sich ein 
-	Kontext-Menü. Damit kann eine Beitragsgruppe, die keinem Mitglied zugeordnet ist, gelöscht 
-	werden. Bei zugeordneten Beitragsgruppen erscheint eine Fehlermeldung.</p> 
-    <img src='images/Beitragsgruppe.jpg' class='screenshot'>
-    <p>Es muß mindestens eine Beitragsgruppe erfasst werden. Jeder Beitragsgruppe ist eine der 
-    folgenden Arten zuzuordnen:</p>
-    <ul>
-    <li>Normal</li>
-    <li>Familie: Zahler</li>
-    <li>Familie: Angehöriger</li> 
-    </ul>
-
-<? include ("footer.inc"); ?>
-  
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Beitragsgruppen");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Beitragsgruppen\">http://www.jverein.de/wiki/index.php?title=Beitragsgruppen</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

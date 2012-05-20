@@ -1,13 +1,19 @@
-<? include ("frame.inc"); ?>
-    <h1>Administration: Buchungsklasse</h1>
-    <p>Ab Version 1.3</p>
-    <p>
-    Die Buchungsklassen dienen dazu die einzelnen Buchungen entsprechend den steuerlichen Vorgaben zu gruppieren. 
-    Siehe auch <a href='buchfuehrungzusammenhaenge.php'> Zusammenhänge der Buchführung</a>
-    <img src='images/Buchungsklasseuebersicht.png' class='screenshot'>
-    <p>
-    <img src='images/Buchungsklasse.png' class='screenshot'>
- 
-<? include ("footer.inc"); ?>
-  
-
+<?php
+header("Location: http://www.jverein.de/wiki/index.php?title=Buchungsklasse");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"http://www.jverein.de/wiki/index.php?title=Buchungsklasse\">http://www.jverein.de/wiki/index.php?title=Buchungsklasse</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>
