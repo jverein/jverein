@@ -224,17 +224,16 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       buttonswvl.addButton(control.getWiedervorlageNeu());
       buttonswvl.paint(tab6.getComposite());
     }
-    if (isMitgliedDetail())
-    {
-      TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Eigenschaften"));
-      SimpleContainer sc = new SimpleContainer(tab7.getComposite(), true);
-      ScrolledContainer scrolledEigenschaften = new ScrolledContainer(
-          sc.getComposite());
-      scrolledEigenschaften.getComposite().setSize(300, 200);
-      control.getEigenschaftenTree()
-          .paint(scrolledEigenschaften.getComposite());
-    }
+
+    TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Eigenschaften"));
+    SimpleContainer sc = new SimpleContainer(tab7.getComposite(), true);
+    ScrolledContainer scrolledEigenschaften = new ScrolledContainer(
+        sc.getComposite());
+    scrolledEigenschaften.getComposite().setSize(300, 200);
+    control.getEigenschaftenTree()
+        .paint(scrolledEigenschaften.getComposite());
+
     Input[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
     {
