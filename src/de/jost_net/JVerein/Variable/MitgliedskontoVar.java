@@ -27,7 +27,9 @@ public enum MitgliedskontoVar
   ZAHLUNGSGRUND1("mitgliedskonto_zahlungsgrund1"), //
   ZAHLUNGSGRUND2("mitgliedskonto_zahlungsgrund2"), //
   BUCHUNGSDATUM("mitgliedskonto_buchungsdatum"), //
-  BETRAG("mitgliedskonto_betrag");
+  BETRAG("mitgliedskonto_betrag"), //
+  IST("mitgliedskonto_ist"), //
+  DIFFERENZ("mitgliedskonto_differenz");
 
   private String name;
 

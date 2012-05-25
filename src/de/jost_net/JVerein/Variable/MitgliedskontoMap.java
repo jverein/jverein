@@ -56,6 +56,8 @@ public class MitgliedskontoMap
     ArrayList<String> zg1 = new ArrayList<String>();
     ArrayList<String> zg2 = new ArrayList<String>();
     ArrayList<Double> betrag = new ArrayList<Double>();
+    ArrayList<Double> ist = new ArrayList<Double>();
+    ArrayList<Double> differenz = new ArrayList<Double>();
     double summe = 0;
     for (Mitgliedskonto mkto : mk)
     {
@@ -64,6 +66,8 @@ public class MitgliedskontoMap
       zg1.add(mkto.getZweck1());
       zg2.add(mkto.getZweck2());
       betrag.add(new Double(mkto.getBetrag()));
+      ist.add(mkto.getIstSumme());
+      differenz.add(mkto.getBetrag() - mkto.getIstSumme());
       summe += mkto.getBetrag();
     }
     if (buda.size() > 1)
@@ -82,6 +86,8 @@ public class MitgliedskontoMap
     map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), zg1.toArray());
     map.put(MitgliedskontoVar.ZAHLUNGSGRUND2.getName(), zg2.toArray());
     map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
+    map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
+    map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
     return map;
   }
 
@@ -104,6 +110,9 @@ public class MitgliedskontoMap
     map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), mk.getZweck1());
     map.put(MitgliedskontoVar.ZAHLUNGSGRUND2.getName(), mk.getZweck2());
     map.put(MitgliedskontoVar.BETRAG.getName(), mk.getBetrag());
+    map.put(MitgliedskontoVar.IST.getName(), mk.getIstSumme());
+    map.put(MitgliedskontoVar.DIFFERENZ.getName(),
+        mk.getBetrag() - mk.getIstSumme());
     return map;
   }
 
