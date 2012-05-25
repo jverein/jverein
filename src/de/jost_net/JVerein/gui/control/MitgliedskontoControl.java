@@ -481,7 +481,7 @@ public class MitgliedskontoControl extends AbstractControl
       mitgliedskontoList.addColumn("Zweck2", "zweck2");
       mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
-      mitgliedskontoList.addColumn("Zahlungseingang", "istbetrag",
+      mitgliedskontoList.addColumn("Zahlungseingang", "istsumme",
           new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       mitgliedskontoList.setContextMenu(menu);
       mitgliedskontoList.setRememberColWidths(true);
@@ -612,10 +612,8 @@ public class MitgliedskontoControl extends AbstractControl
         settings.setAttribute(datumverwendung + "datumbis", "");
       }
     }
-    String sql = "select  mitgliedskonto.*, mitgliedskonto.betrag as sollsumme, "
-        + "sum(buchung.betrag)  istsumme,mitglied.name, mitglied.vorname from mitgliedskonto "
-        + "join mitglied on (mitgliedskonto.mitglied = mitglied.id) "
-        + "left join buchung  on (buchung.mitgliedskonto = mitgliedskonto.id ) ";
+    String sql = "select  mitgliedskonto.*, mitglied.name, mitglied.vorname from mitgliedskonto "
+        + "join mitglied on (mitgliedskonto.mitglied = mitglied.id) ";
     String where = "";
     ArrayList<Object> param = new ArrayList<Object>();
     if (vd != null)
@@ -666,24 +664,6 @@ public class MitgliedskontoControl extends AbstractControl
     {
       sql += "WHERE " + where;
     }
-    sql += "group by mitgliedskonto.id ";
-    String diff = "";
-    if (differenz != null)
-    {
-      diff = (String) differenz.getValue();
-    }
-    if (diff.equals("Fehlbetrag"))
-    {
-      sql += "having sollsumme > istsumme or istsumme is null ";
-    }
-    if (diff.equals("Überzahlung"))
-    {
-      sql += "having sollsumme < istsumme ";
-    }
-    // if (offenePosten != null && (Boolean) offenePosten.getValue())
-    // {
-    // sql += "having sollsumme > istsumme or istsumme is null ";
-    // }
     sql += "order by mitglied.name, mitglied.vorname, mitgliedskonto.datum desc";
     PseudoIterator mitgliedskonten = (PseudoIterator) service.execute(sql,
         param.toArray(), new ResultSetExtractor()
@@ -697,8 +677,21 @@ public class MitgliedskontoControl extends AbstractControl
             {
               Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
                   .createObject(Mitgliedskonto.class, rs.getString(1));
-              mk.setBetrag(rs.getDouble("sollsumme"));
-              mk.setIstBetrag(rs.getDouble("istsumme"));
+              String diff = "";
+              if (differenz != null)
+              {
+                diff = (String) differenz.getValue();
+              }
+              if (diff.equals("Fehlbetrag")
+                  && mk.getIstSumme() >= mk.getBetrag())
+              {
+                continue;
+              }
+              if (diff.equals("Überzahlung")
+                  && mk.getIstSumme() <= mk.getBetrag())
+              {
+                continue;
+              }
               ergebnis.add(mk);
             }
             return PseudoIterator.fromArray(ergebnis

@@ -22,13 +22,18 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -37,6 +42,8 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
 {
 
   private static final long serialVersionUID = -1234L;
+
+  private Double ist = null;
 
   public MitgliedskontoImpl() throws RemoteException
   {
@@ -187,20 +194,39 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     setAttribute("betrag", d);
   }
 
-  public Double getIstBetrag() throws RemoteException
+  public Double getIstSumme() throws RemoteException
   {
-    return (Double) getAttribute("istbetrag");
-  }
+    if (ist != null)
+    {
+      return ist;
+    }
 
-  public void setIstBetrag(Double d) throws RemoteException
-  {
-    setAttribute("istbetrag", d);
+    DBService service = Einstellungen.getDBService();
+    String sql = "select sum(betrag) from buchung where mitgliedskonto = "
+        + this.getID();
+
+    ResultSetExtractor rs = new ResultSetExtractor()
+    {
+      public Object extract(ResultSet rs) throws SQLException
+      {
+        if (!rs.next())
+        {
+          return new Double(0.0d);
+        }
+        return Double.valueOf(rs.getDouble(1));
+      }
+    };
+    ist = new Double((Double) service.execute(sql, new Object[] {}, rs));
+    return ist;
   }
 
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("istsumme"))
+    {
+      return getIstSumme();
+    }
     return super.getAttribute(fieldName);
   }
-
 }

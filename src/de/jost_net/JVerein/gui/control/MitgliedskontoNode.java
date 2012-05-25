@@ -112,7 +112,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.zweck1 = mk.getZweck1();
     this.zweck2 = mk.getZweck2();
     this.soll = mk.getBetrag();
-    this.ist = mk.getIstBetrag();
+    this.ist = mk.getIstSumme();
     if (this.type == SOLL)
     {
       this.children = new ArrayList<MitgliedskontoNode>();

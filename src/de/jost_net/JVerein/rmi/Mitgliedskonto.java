@@ -60,8 +60,5 @@ public interface Mitgliedskonto extends DBObject
 
   public Double getBetrag() throws RemoteException;
 
-  public void setIstBetrag(Double betrag) throws RemoteException;
-
-  public Double getIstBetrag() throws RemoteException;
-
+  public Double getIstSumme() throws RemoteException;
 }
