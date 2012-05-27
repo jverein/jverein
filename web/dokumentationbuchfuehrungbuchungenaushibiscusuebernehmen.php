@@ -1,12 +1,20 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Buchführung: Buchungen aus Hibiscus übernehmen</h1>
-    <p>Umsätze aus Hibiscus können automatisiert übernommen werden. Dazu ist das Konto auszuwählen. Nach 
-    	einem Klick auf suchen werden die Buchungen angezeigt, die übernehmbar sind. Dabei wird intern 
-    	geprüft, welche Buchung zuletzt für dieses Konto übernommen wurde. Die darauffolgenden Buchungen 
-    	werden zur Übernahme angeboten. Durch einen Klick auf Übernahme werden die Buchungen in die 
-    	JVerein-Buchführung übernommen.</p>
-	<img src='images/BuchungenausHibiscus.jpg' class='screenshot'>
-
-
-<? include ("footer.inc"); ?>
-
+<?php
+$URL="http://www.jverein.de/wiki/index.php?title=Buchungsübernahme";
+header("Location: $URL");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"$URL\">$URL</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

@@ -1,18 +1,20 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Auswertung: Statistik</h1>
-    <img src='images/Statistik.jpg' class='screenshot'>
-    <p>Für die Statistik ist ein Stichtag vorzugeben. Standardmässig wird der 31.12. des aktuellen Jahres 
-    	vorgegeben.</p>
-    <h2>Altergruppen</h2>
-    <p>In der Statistik nach Altersgruppen wird der Mitgliederbestand nach den in den 
-    	<a href="administration_stammdaten.php">Stammdaten</a> eingetragenen Altersgruppen summiert. 
-    		Die Ausgabe erfolgt nach Geschlecht getrennt und insgesamt.</p>
-    <h2>Beitragsgruppen</h2>
-    <p>Die Statistik nach Beitragsgruppen summiert den Mitgliederbestand nach den 
-    	<a href="administration_beitragsgruppen.php">Beitragsgruppen</a> nach Geschlecht und insgesamt.</p>
-    <h2>Anmeldungen/Abmeldungen</h2>
-    <p>In diesem Bereich wird die Anzahl der An- und Abmeldungen zwischen dem 1.1. und dem eingegebenen 
-    	Stichtag ermittelt.</p>
-
- <? include ("footer.inc"); ?>
-
+<?php
+$URL="http://www.jverein.de/wiki/index.php?title=Statistik";
+header("Location: $URL");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"$URL\">$URL</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

@@ -1,12 +1,20 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Buchführung: Jahressaldo</h1>
-     <p>Hier können für alle Konten die Salden eines Geschäftsjahres angezeigt werden. Der Beginn 
-    	des Geschäftsjahres wird unter unter <a href="administration_einstellungen.php">Einstellungen</a>
-    	eingegeben.</p>
-    <p>Sofern kein <a href="dokumentationbuchfuehrunganfangsbestaende.php">Anfangsbestand</a> 
-    	vorhanden ist, wird ein entsprechender Hinweis ausgegeben.</p>
-    <img src='images/Jahressaldo.jpg' class='screenshot'>
-	<p>Die Daten können ins PDF-Format ausgegeben werden.</p>
-     
-<? include ("footer.inc"); ?>
-
+<?php
+$URL="http://www.jverein.de/wiki/index.php?title=Jahressaldo";
+header("Location: $URL");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"$URL\">$URL</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

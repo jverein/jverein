@@ -1,50 +1,20 @@
-<? include ("frame.inc"); ?>
-    <h1>Zusatzbeiträge</h1>
-    <p>Für jedes Mitglied können Zusatzbeträge hinterlegt werden. Diese Beträge werden zusätzlich 
-    	zum Mitgliedsbeitrag eingezogen. Die Abrechnungen können einmalig (z. B. Eigenanteil für die 
-    	Teilnahme an einer Veranstaltung) oder wiederkehrend (z. B. Instrumentenversicherung)
-    	angelegt werden. Als Wiederholungs-Intervall stehen</p>
-	<ul>
-		<li>monatlich</li>
-		<li>zweimonatlich</li>
-		<li>vierteljährlich</li>
-		<li>halbjährlich</li>
-		<li>jährlich</li>
-	</ul>
-	<p>zur Auswahl.</p>
-	<p>Die Zusatzbeträge können sowohl bei jedem Mitglied auf dem entsprechenden Reiter angesehen 
-	werden, als auch in einer Übersicht für alle Mitglieder. Dabei kann die Anzeige eingeschränkt 
-	werden auf</p>
-	<ul>
-		<li>alle Mitglieder</li>
-		<li>aktive</li>
-		<li>noch nicht ausgeführte Beträge</li>
-		<li>nach den verschieden Ausführungsterminen.</li>
-	</ul>
-	<p>Durch einen Doppelklick auf einen Zusatzbetrag wird der Bildschirm für die Bearbeitung geöffnet. 
-		Mit einem Rechtsklick öffnet sich ein Menü. Damit kann</p>
-	<ul>
-		<li>der nächste Fälligkeitstermin gesetzt werden</li>
-		<li>der vorherige Fälligkeitstermin gesetzt werden</li>
-		<li>das Ausführungsdatum gelöscht werden</li>
-		<li>der Zusatzbetrag werden</li>
-	</ul>
-    <img src='images/Zusatzabbuchungenuebersicht.jpg' class='screenshot'>
-  	<img src='images/Mitgliedzusatzabbuchungneu.jpg' class='screenshot'>
-	
-	<p>Bei der Abrechnung finden folgende Prüfungen statt:</p>
-	<ul>
-		<li> liegt das Fälligkeitsdatum auf dem Endedatum oder danach. Keine Berechnung.</li>
-		<li> liegt das Fälligkeitsdatum auf dem Tagesdatum oder davor. Berechnung. Auf das 
-			Fälligkeitsdatum wird das Intervall addiert.</li>
-	</ul>
-	<p>Beipiel 1:</p>
-	<p>Fälligkeitsdatum: 1.11.2008 Endedatum: 31.10.2008  - keine Berechnung</p>
-	<p>Beispiel 2:</p>
-	<p>Fälligkeitsdatum: 1.11.2008 Endedatum: 31.12.2100 Intervall: Monatlich  Tagesdatum: 
-		1.11.2008 - Berechnung. Anschließend wird das Fälligkeitsdatum auf den 1.12.2008 gesetzt. 
-		Am oder nach dem 1.12.2008 findet die nächste Berechnung statt. Danach wird das 
-		Fälligkeitsdatum auf den 1.1.2009 gesetzt.....</p>
-
-<? include ("footer.inc"); ?>
-
+<?php
+$URL="http://www.jverein.de/wiki/index.php?title=Zusatzbeträge";
+header("Location: $URL");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"$URL\">$URL</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

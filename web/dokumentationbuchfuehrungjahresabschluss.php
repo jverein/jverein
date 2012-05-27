@@ -1,18 +1,20 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Buchführung: Jahresabschluss</h1>
-    <p>Zunächst wird eine Liste der bereits getätigten Jahresabschlüsse angezeigt:</p>
-    <img src='images/Jahresabschluesse.jpg' class='screenshot'>
-    <p>In der Liste der Jahresabschlüsse kann mit einem Linksklick auf einen Abschluss ein 
-    	Kontext-Menü geöffnet werden. Hiermit wird die Löschung eines Jahresabschlusses erledigt.</p>
-    <p>Damit ein Jahresabschluss verbucht werden kann, müssen folgende Bedingungen erfüllt sein:</p>
-	<ul>
-		<li> Für jedes Konto muss ein Jahresanfangsbestand existieren</li>
-		<li> Alle Buchungen müssen einer Buchungsart zugeordnet worden sein.</li>
-		<li> Die Abschlüsse müssen in chronologischer Reihenfolge erfolgen.</li>
-	</ul>
-	<p>Es kann jeweils nur der neuste Jahresabschluss gelöscht werden.</p>
-	<p>Durch eine Klick auf neu kann ein neuer Jahresabschluss vorgenommen werden:</p>
-    <img src='images/Jahresabschluss.jpg' class='screenshot'>
-    
-<? include ("footer.inc"); ?>
-
+<?php
+$URL="http://www.jverein.de/wiki/index.php?title=Jahresabschluss";
+header("Location: $URL");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"$URL\">$URL</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>

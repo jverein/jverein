@@ -1,25 +1,20 @@
-<? include ("frame.inc"); ?>
-    <h1>Dokumentation: Buchführung: Buchungen</h1>
-    <h2>Liste der Buchungen</h2>
-	<p>Die im System gespeicherten Buchungen können nach folgenden Kriterien selektiert werden:</p>
-	<ul>
-		<li>Konto</li>
-		<li>Buchungsart</li>
-		<li>von Datum</li>
-		<li>bis Datum</li>
-	</ul>
-    <img src='images/Buchungen.jpg' class='screenshot'>
-	<p>Mit einem Doppelklick auf eine Buchung wird die Detailansicht zur Bearbeitung geöffnet. Mit 
-		einem rechten Mausklick öffnet sich ein Kontextmenü. Damit können neue Buchungen aufgenommen 
-		werden und bestehende Buchungen gelöscht werden. Der Export der Daten ins PDF-Format wird 
-		durch einen Klick auf PDF angestoßen.</p>
-	<p>Buchungen können nur neu aufgenommen, geändert oder gelöscht werden, wenn sie nicht durch 
-		einen <a href="dokumentationbuchfuehrungjahresabschluss.php">Jahresabschluss</a> abgeschlossen 
-		wurden.</p>
-	<h2>Buchung</h2>
-    <img src='images/Buchung.jpg' class='screenshot'>
-    <p><a href="mitgliedskonto.php#auswahl">Siehe auch Mitgliedskonto</a></p>
-    
-    
-<? include ("footer.inc"); ?>
-
+<?php
+$URL="http://www.jverein.de/wiki/index.php?title=Buchungsübernahme";
+header("Location: $URL");
+echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n";
+echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"
+  lang=\"de\" xml:lang=\"de\">\n";
+echo "  <head>\n";
+echo "    <meta http-equiv=\"content-type\"\n";
+echo "      content=\"text/html; charset=utf-8\" />\n";
+echo "    <title>Weiterleitung</title>\n";
+echo "  </head>\n";
+echo "  <body>\n";
+echo "    <p>Die gesuchte Ressource wurde nach";
+echo "      <a href=\"$URL\">$URL</a>";
+echo "      verschoben.</p>\n";
+echo "  </body>\n";
+echo "</html>";
+exit();
+?>
