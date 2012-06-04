@@ -27,8 +27,6 @@ public class DokumentationUtil
 
   public static final String ADRESSEN = PRE + "Adressen";
 
-  public static final String ADRESSBUCHEXPORT = PRE + "Adressbuch-Export";
-
   public static final String ABRECHNUNG = PRE + "Abrechnung";
 
   public static final String ADRESSTYPEN = PRE + "Adresstypen";
