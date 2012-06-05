@@ -21,10 +21,13 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import java.rmi.RemoteException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -33,7 +36,6 @@ import de.jost_net.JVerein.gui.action.AdresseDeleteAction;
 import de.jost_net.JVerein.gui.action.AdresseDetailAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KontoauszugAction;
-import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
@@ -41,10 +43,13 @@ import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.control.DokumentControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
+import de.jost_net.JVerein.gui.util.SimpleVerticalContainer;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.MitgliedDokument;
+import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -54,7 +59,7 @@ import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
-import de.willuhn.jameica.gui.util.ColumnLayout;
+import de.willuhn.jameica.gui.util.Container;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
@@ -62,11 +67,14 @@ import de.willuhn.jameica.gui.util.TabGroup;
 
 public abstract class AbstractAdresseDetailView extends AbstractView
 {
-
+  // Statische Variable, die den zuletzt ausgewählten Tab speichert.
   private static int tabindex = -1;
 
   final MitgliedControl control = new MitgliedControl(this);
 
+  /**
+   * @wbp.parser.entryPoint
+   */
   @Override
   public void bind() throws Exception
   {
@@ -74,259 +82,59 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
     final MitgliedskontoControl controlMk = new MitgliedskontoControl(this);
 
-    ScrolledContainer scrolled = new ScrolledContainer(getParent());
+    ScrolledContainer scrolled = new ScrolledContainer(getParent(), 1);
 
-    ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
-    SimpleContainer left = new SimpleContainer(cols1.getComposite());
-    if (!isMitgliedDetail())
-    {
-      left.addInput(control.getAdresstyp());
-    }
-    left.addInput(control.getAnrede());
-    if (control.getMitglied().getPersonenart().equals("n"))
-    {
-      left.addInput(control.getTitel());
-    }
-    if (control.getMitglied().getPersonenart().equals("j"))
-    {
-      control.getName(true).setName(JVereinPlugin.getI18n().tr("Name Zeile 1"));
-      control.getVorname().setName(JVereinPlugin.getI18n().tr("Name Zeile 2"));
-      control.getVorname().setMandatory(false);
-    }
-    left.addInput(control.getName(true));
-    left.addInput(control.getVorname());
-    left.addInput(control.getAdressierungszusatz());
-
-    SimpleContainer right = new SimpleContainer(cols1.getComposite());
-    right.addInput(control.getStrasse());
-    right.addInput(control.getPlz());
-    right.addInput(control.getOrt());
-    if (Einstellungen.getEinstellung().getAuslandsadressen())
-    {
-      right.addInput(control.getStaat());
-    }
-    if (control.getMitglied().getPersonenart().equals("n"))
-    {
-      right.addInput(control.getGeburtsdatum());
-      right.addInput(control.getGeschlecht());
-    }
-
-    if (Einstellungen.getEinstellung().getKommunikationsdaten())
-    {
-      ColumnLayout cols2 = new ColumnLayout(scrolled.getComposite(), 2);
-      SimpleContainer left2 = new SimpleContainer(cols2.getComposite());
-      left2.addInput(control.getTelefonprivat());
-      left2.addInput(control.getHandy());
-      SimpleContainer right2 = new SimpleContainer(cols2.getComposite());
-      right2.addInput(control.getTelefondienstlich());
-      right2.addInput(control.getEmail());
-    }
+    SimpleContainer oben = new SimpleContainer(scrolled.getComposite(), false,
+        1);
 
     final TabFolder folder = new TabFolder(scrolled.getComposite(), SWT.NONE);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-    if (isMitgliedDetail())
-    {
-      TabGroup tab3 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Mitgliedschaft"));
-      if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
-      {
-        tab3.addInput(control.getExterneMitgliedsnummer());
-      }
-      else
-      {
-        tab3.addInput(control.getMitgliedsnummer());
-      }
-      tab3.addInput(control.getEintritt());
-      tab3.addInput(control.getBeitragsgruppe(true));
-      if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
-      {
-        tab3.addInput(control.getIndividuellerBeitrag());
-      }
-      tab3.addInput(control.getAustritt());
-      tab3.addInput(control.getKuendigung());
-      if (Einstellungen.getEinstellung().getSterbedatum()
-          && control.getMitglied().getPersonenart().equals("n"))
-      {
-        tab3.addInput(control.getSterbetag());
-      }
-      // Wenn es mindestens eine Beitragsgruppe mit Beitragsart
-      // "Familie: Zahler"
-      // oder "Familie: Angehöriger" gibt, zeige Familienverband-Part.
-      DBIterator it = Einstellungen.getDBService().createList(
-          Beitragsgruppe.class);
-      it.addFilter("beitragsart = ? or beitragsart = ?",
-          ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
-      if (it.hasNext())
-      {
-        tab3.addPart(control.getFamilienverband());
+    DBIterator zhl = Einstellungen.getDBService().createList(Mitglied.class);
+    MitgliedUtils.setNurAktive(zhl);
+    MitgliedUtils.setMitglied(zhl);
+    zhl.setOrder("ORDER BY name, vorname");
 
-        // Verstecke Familienverband wenn aktuelles Mitglied nicht Teil einer
-        // Familie ist.
-        // Durch das Erstellen und anschließende Verstecken ist es möglich, denn
-        // Familienverband sofort dynamisch einzublenden, sobald der Nutzer für
-        // das Mitglied eine Familien-Beitragsart wählt.
-        if (control.getMitglied().getBeitragsgruppe() != null
-            && control.getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.NORMAL)
-        {
-          control.getFamilienverband().setVisible(false);
-        }
-      }
-    }
-    TabGroup tab1 = new TabGroup(folder, JVereinPlugin.getI18n().tr("Zahlung"));
-    if (isMitgliedDetail())
-    {
-      tab1.addInput(control.getZahlungsweg());
-      if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
-      {
-        tab1.addInput(control.getZahlungsrhytmus());
-      }
-    }
-    tab1.addInput(control.getKontoinhaber());
-    tab1.addInput(control.getBlz());
-    tab1.addInput(control.getKonto());
-    tab1.addInput(control.getIban());
+    zeicheStammdaten(oben.getComposite(), 2);
 
-    if (isMitgliedDetail() && Einstellungen.getEinstellung().getZusatzbetrag())
-    {
-      TabGroup tab4 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Zusatzbeträge"));
-      control.getZusatzbetraegeTable().paint(tab4.getComposite());
-      ButtonArea buttonszus = new ButtonArea();
-      buttonszus.addButton(control.getZusatzbetragNeu());
-      buttonszus.paint(tab4.getComposite());
-    }
-    if (!control.getMitglied().isNewObject()
-        && Einstellungen.getEinstellung().getMitgliedskonto())
-    {
-      TabGroup tabMitgliedskonto = new TabGroup(folder, JVereinPlugin.getI18n()
-          .tr("Mitgliedskonto"));
-      controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
-          tabMitgliedskonto.getComposite());
-    }
-    if (Einstellungen.getEinstellung().getVermerke())
-    {
-      TabGroup tab5 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Vermerke"));
-      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"),
-          control.getVermerk1());
-      tab5.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"),
-          control.getVermerk2());
-    }
+    boolean showInTab = true;
+    zeichneMitgliedschaft(showInTab ? folder : oben.getComposite(), 1);
 
-    if (Einstellungen.getEinstellung().getWiedervorlage())
-    {
-      TabGroup tab6 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Wiedervorlage"));
-      control.getWiedervorlageTable().paint(tab6.getComposite());
-      ButtonArea buttonswvl = new ButtonArea();
-      buttonswvl.addButton(control.getWiedervorlageNeu());
-      buttonswvl.paint(tab6.getComposite());
-    }
+    showInTab = true;
+    zeichneZahlung(showInTab ? folder : oben.getComposite(), 1);
 
-    TabGroup tab7 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Eigenschaften"));
-    SimpleContainer sc = new SimpleContainer(tab7.getComposite(), true);
-    ScrolledContainer scrolledEigenschaften = new ScrolledContainer(
-        sc.getComposite());
-    scrolledEigenschaften.getComposite().setSize(300, 200);
-    control.getEigenschaftenTree()
-        .paint(scrolledEigenschaften.getComposite());
+    zeichneZustzbeitraege(showInTab ? folder : oben.getComposite());
 
-    Input[] zusatzfelder = control.getZusatzfelder();
-    if (zusatzfelder != null)
-    {
-      TabGroup tab8 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Zusatzfelder"));
-      ScrolledContainer cont = new ScrolledContainer(tab8.getComposite());
-      for (Input inp : zusatzfelder)
-      {
-        cont.addInput(inp);
-      }
-    }
+    zeichneMitgliedkonto(controlMk, showInTab ? folder : oben.getComposite());
 
-    if (isMitgliedDetail() && Einstellungen.getEinstellung().getLehrgaenge())
-    {
-      TabGroup tab9 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Lehrgänge"));
-      control.getLehrgaengeTable().paint(tab9.getComposite());
-      ButtonArea buttonslehrg = new ButtonArea();
-      buttonslehrg.addButton(control.getLehrgangNeu());
-      buttonslehrg.paint(tab9.getComposite());
-    }
-    if (isMitgliedDetail() && Einstellungen.getEinstellung().getMitgliedfoto())
-    {
-      TabGroup tab10 = new TabGroup(folder, JVereinPlugin.getI18n().tr("Foto"));
-      tab10.addLabelPair("Foto", control.getFoto());
-    }
-    // TODO: getLesefelder() ist zu langsam. Inhalt von Lesefeldern sollte erst
-    // evaluiert werden, wenn Lesefelder-Tab angeklickt wird.
-    if (Einstellungen.getEinstellung().getUseLesefelder())
-    {
-      Input[] lesefelder = control.getLesefelder();
-      if (lesefelder != null)
-      {
-        TabGroup tab11 = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-            "Lesefelder"));
-        ButtonArea buttonszus = new ButtonArea();
-        buttonszus.addButton(new Button(JVereinPlugin.getI18n()
-            .tr("Bearbeiten"), new LesefelddefinitionenAction(control
-            .getMitglied())));
-        buttonszus.paint(tab11.getComposite());
-        ScrolledContainer cont = new ScrolledContainer(tab11.getComposite());
-        for (Input inp : lesefelder)
-        {
-          if(inp == null)
-          {
-            String errorText = "Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!";
-            Input errorInput = new TextInput(errorText);
-            errorInput.setEnabled(false);
-            cont.addInput(errorInput);
-            GUI.getStatusBar().setErrorText(errorText);
-          }
-          else
-          {
-            inp.hasChanged();
-            cont.addInput(inp);
-          }
-        }
-      }
-    }
-    if (isMitgliedDetail()
-        && Einstellungen.getEinstellung().getArbeitseinsatz())
-    {
-      TabGroup tabArbEins = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Arbeitseinsatz"));
-      control.getArbeitseinsatzTable().paint(tabArbEins.getComposite());
-      ButtonArea buttonsarbeins = new ButtonArea();
-      buttonsarbeins.addButton(control.getArbeitseinsatzNeu());
-      buttonsarbeins.paint(tabArbEins.getComposite());
-    }
-    if (JVereinPlugin.isArchiveServiceActive()
-        && !control.getMitglied().isNewObject())
-    {
-      TabGroup tabDokument = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-          "Dokumente"));
-      LabelGroup grDokument = new LabelGroup(tabDokument.getComposite(),
-          "Dokumente");
-      MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService()
-          .createObject(MitgliedDokument.class, null);
-      mido.setReferenz(new Integer(control.getMitglied().getID()));
-      DokumentControl dcontrol = new DokumentControl(this, "mitglieder", true);
-      grDokument.addPart(dcontrol.getDokumenteList(mido));
-      ButtonArea butts = new ButtonArea();
-      butts.addButton(dcontrol.getNeuButton(mido));
-      butts.paint(grDokument.getComposite());
-    }
+    zeichneVermerke(showInTab ? folder : oben.getComposite(), 1);
 
+    zeichneWiedervorlage(showInTab ? folder : oben.getComposite());
+
+    zeichneEigenschaften(showInTab ? folder : oben.getComposite());
+
+    zeichneZusatzfelder(showInTab ? folder : oben.getComposite(), 1);
+
+    zeichneLehrgaenge(showInTab ? folder : oben.getComposite());
+
+    zeichneMitgliedfoto(showInTab ? folder : oben.getComposite());
+
+    zeichneLesefelder(showInTab ? folder : oben.getComposite(), 1);
+
+    zeichneMitgliedDetail(showInTab ? folder : oben.getComposite());
+
+    zeichneDokumente(showInTab ? folder : oben.getComposite());
+
+    // Aktivier zuletzt ausgewählten Tab.
     if (tabindex != -1)
     {
       folder.setSelection(tabindex);
     }
     folder.addSelectionListener(new SelectionListener()
     {
-
+      // Wenn Tab angeklickt, speicher diesen um ihn später automatisch
+      // wieder auszuwählen.
       public void widgetSelected(SelectionEvent arg0)
       {
         tabindex = folder.getSelectionIndex();
@@ -334,10 +142,15 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
       public void widgetDefaultSelected(SelectionEvent arg0)
       {
-        //
       }
     });
 
+    zeichneButtonArea(getParent());
+
+  }
+
+  private void zeichneButtonArea(Composite parent) throws RemoteException
+  {
     ButtonArea buttons = new ButtonArea();
     if (!control.getMitglied().isNewObject()
         && Einstellungen.getEinstellung().getMitgliedskonto())
@@ -372,7 +185,381 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
-    buttons.paint(getParent());
+    buttons.paint(parent);
+  }
+
+  private void zeichneDokumente(Composite parentComposite)
+      throws RemoteException
+  {
+    if (JVereinPlugin.isArchiveServiceActive()
+        && !control.getMitglied().isNewObject())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Dokumente"));
+
+      MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService()
+          .createObject(MitgliedDokument.class, null);
+      mido.setReferenz(new Integer(control.getMitglied().getID()));
+      DokumentControl dcontrol = new DokumentControl(this, "mitglieder", true);
+      cont.addPart(dcontrol.getDokumenteList(mido));
+      ButtonArea butts = new ButtonArea();
+      butts.addButton(dcontrol.getNeuButton(mido));
+      butts.paint(cont.getComposite());
+    }
+  }
+
+  private void zeichneMitgliedDetail(Composite parentComposite)
+      throws RemoteException
+  {
+    if (isMitgliedDetail()
+        && Einstellungen.getEinstellung().getArbeitseinsatz())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Arbeitseinsatz"));
+
+      control.getArbeitseinsatzTable().paint(cont.getComposite());
+      ButtonArea buttonsarbeins = new ButtonArea();
+      buttonsarbeins.addButton(control.getArbeitseinsatzNeu());
+      buttonsarbeins.paint(cont.getComposite());
+    }
+  }
+
+  private void zeichneLesefelder(Composite parentComposite, int spaltenanzahl)
+      throws RemoteException
+  {
+    // TODO: getLesefelder() ist zu langsam. Inhalt von Lesefeldern sollte erst
+    // evaluiert werden, wenn Lesefelder-Tab angeklickt wird.
+    if (Einstellungen.getEinstellung().getUseLesefelder())
+    {
+      Input[] lesefelder = control.getLesefelder();
+      if (lesefelder != null)
+      {
+        Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+            .getI18n().tr("Lesefelder"));
+        SimpleVerticalContainer svc = new SimpleVerticalContainer(
+            cont.getComposite(), false, spaltenanzahl);
+        for (Input inp : lesefelder)
+        {
+          if (inp == null)
+          {
+            String errorText = "Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!";
+            Input errorInput = new TextInput(errorText);
+            errorInput.setEnabled(false);
+            svc.addInput(errorInput);
+            GUI.getStatusBar().setErrorText(errorText);
+          }
+          else
+          {
+            svc.addInput(inp);
+          }
+        }
+        svc.arrangeVertically();
+        ButtonArea buttonszus = new ButtonArea();
+        buttonszus.addButton(control.getLesefelderEdit());
+        cont.addButtonArea(buttonszus);
+      }
+    }
+  }
+
+  private void zeichneMitgliedfoto(Composite parentComposite)
+      throws RemoteException
+  {
+    if (isMitgliedDetail() && Einstellungen.getEinstellung().getMitgliedfoto())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Foto"));
+      cont.addLabelPair("Foto", control.getFoto());
+    }
+  }
+
+  private void zeichneLehrgaenge(Composite parentComposite)
+      throws RemoteException
+  {
+    if (isMitgliedDetail() && Einstellungen.getEinstellung().getLehrgaenge())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Lehrgänge"));
+
+      control.getLehrgaengeTable().paint(cont.getComposite());
+      ButtonArea buttonslehrg = new ButtonArea();
+      buttonslehrg.addButton(control.getLehrgangNeu());
+      buttonslehrg.paint(cont.getComposite());
+    }
+  }
+
+  private void zeichneZusatzfelder(Composite parentComposite, int spaltenanzahl)
+      throws RemoteException
+  {
+    Input[] zusatzfelder = control.getZusatzfelder();
+    if (zusatzfelder != null)
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Zusatzfelder"));
+      SimpleVerticalContainer svc = new SimpleVerticalContainer(
+          cont.getComposite(), true, spaltenanzahl);
+      for (Input inp : zusatzfelder)
+      {
+        svc.addInput(inp);
+      }
+      svc.arrangeVertically();
+    }
+  }
+
+  private void zeichneEigenschaften(Composite parentComposite)
+      throws RemoteException
+  {
+    if (isMitgliedDetail())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Eigenschaften"));
+
+      control.getEigenschaftenTree().paint(cont.getComposite());
+    }
+  }
+
+  private void zeichneWiedervorlage(Composite parentComposite)
+      throws RemoteException
+  {
+    if (Einstellungen.getEinstellung().getWiedervorlage())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Wiedervorlage"));
+
+      control.getWiedervorlageTable().paint(cont.getComposite());
+      ButtonArea buttonswvl = new ButtonArea();
+      buttonswvl.addButton(control.getWiedervorlageNeu());
+      buttonswvl.paint(cont.getComposite());
+    }
+  }
+
+  private void zeichneVermerke(Composite parentComposite, int spaltenanzahl)
+      throws RemoteException
+  {
+    if (Einstellungen.getEinstellung().getVermerke())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Vermerke"));
+      SimpleContainer cols = new SimpleContainer(cont.getComposite(), true,
+          spaltenanzahl * 2);
+
+      // Stelle sicher, dass Eingabefeld sich über mehrere Zeilen erstreckt.
+      GridData gridData = new GridData(GridData.FILL_BOTH);
+      gridData.minimumHeight = 80;
+      cols.getComposite().setLayoutData(gridData);
+
+      cols.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"),
+          control.getVermerk1());
+      cols.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"),
+          control.getVermerk2());
+    }
+  }
+
+  /**
+   * Zeichnet das Mitgliedskonto, wenn dieses aktiviert ist und es sich nicht um
+   * ein neues Mitglied handelt (für dieses macht ein Mitgliedskonto noch kein
+   * Sinn!)
+   * 
+   * @param parentComposite
+   * @param spaltenanzahl
+   * @throws RemoteException
+   */
+  private void zeichneMitgliedkonto(MitgliedskontoControl controlMk,
+      Composite parentComposite) throws RemoteException
+  {
+    if (!control.getMitglied().isNewObject()
+        && Einstellungen.getEinstellung().getMitgliedskonto())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Mitgliedskonto"));
+      controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
+          cont.getComposite());
+    }
+
+  }
+
+  private void zeichneZustzbeitraege(Composite parentComposite)
+      throws RemoteException
+  {
+    if (isMitgliedDetail() && Einstellungen.getEinstellung().getZusatzbetrag())
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Zusatzbeträge"));
+
+      control.getZusatzbetraegeTable().paint(cont.getComposite());
+      ButtonArea buttonszus = new ButtonArea();
+      buttonszus.addButton(control.getZusatzbetragNeu());
+      buttonszus.paint(cont.getComposite());
+    }
+  }
+
+  private void zeichneZahlung(Composite parentComposite, int spaltenanzahl)
+      throws RemoteException
+  {
+    Container container = getTabOrLabelContainer(parentComposite, JVereinPlugin
+        .getI18n().tr("Zahlung"));
+    SimpleVerticalContainer cols = new SimpleVerticalContainer(
+        container.getComposite(), true, spaltenanzahl);
+
+    if (isMitgliedDetail())
+    {
+      cols.addInput(control.getZahlungsweg());
+      if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
+      {
+        cols.addInput(control.getZahlungsrhytmus());
+      }
+    }
+    cols.addInput(control.getKontoinhaber());
+    cols.addInput(control.getBlz());
+    cols.addInput(control.getKonto());
+    cols.addInput(control.getIban());
+
+    cols.arrangeVertically();
+  }
+
+  /**
+   * Erzeugt einen Container, der in einem TabFolder oder einer LabelGroup
+   * eingebettet ist. Ist parentComposite ein TabFolder wird SimpleContainer in
+   * eine TabGroup eingebettet, anderenfalls in eine LabelGroup.
+   * 
+   * @param parentComposite
+   *          Parent composite in das TabGroup bzw. LabelGroup und
+   *          SimpleContainer gezeichnet wird.
+   * @param titel
+   *          Beschriftung von TabGroup bzw. LabelGroup
+   * @return SimpleContainer, in den Inhalt gezeichnet werden kann.
+   */
+  private Container getTabOrLabelContainer(Composite parentComposite,
+      String titel)
+  {
+    Container container;
+    if (parentComposite instanceof TabFolder)
+    {
+      container = new TabGroup((TabFolder) parentComposite, titel);
+    }
+    else
+    {
+      container = new LabelGroup(parentComposite, titel);
+    }
+    return container;
+  }
+
+  private void zeichneMitgliedschaft(Composite parentComposite,
+      int spaltenanzahl) throws RemoteException
+  {
+    if (isMitgliedDetail())
+    {
+      Container container = getTabOrLabelContainer(parentComposite,
+          JVereinPlugin.getI18n().tr("Mitgliedschaft"));
+
+      SimpleVerticalContainer cols = new SimpleVerticalContainer(
+          container.getComposite(), false, spaltenanzahl);
+
+      if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+      {
+        cols.addInput(control.getExterneMitgliedsnummer());
+      }
+      else
+      {
+        cols.addInput(control.getMitgliedsnummer());
+      }
+      cols.addInput(control.getEintritt());
+      cols.addInput(control.getAustritt());
+      cols.addInput(control.getBeitragsgruppe(true));
+      if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
+      {
+        cols.addInput(control.getIndividuellerBeitrag());
+      }
+      cols.addInput(control.getKuendigung());
+      if (Einstellungen.getEinstellung().getSterbedatum()
+          && control.getMitglied().getPersonenart().equals("n"))
+      {
+        cols.addInput(control.getSterbetag());
+      }
+      cols.arrangeVertically();
+
+      // Wenn es mindestens eine Beitragsgruppe mit Beitragsart
+      // "Familie: Zahler"
+      // oder "Familie: Angehöriger" gibt, zeige Familienverband-Part.
+      // Dieser Familien-Part soll über die komplette Breite angezeigt werden,
+      // kann daher nicht im SimpleVerticalContainer angezeigt werden.
+      DBIterator it = Einstellungen.getDBService().createList(
+          Beitragsgruppe.class);
+      it.addFilter("beitragsart = ? or beitragsart = ?",
+          ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
+      if (it.hasNext())
+      {
+        // Verstecke Familienverband wenn aktuelles Mitglied nicht Teil einer
+        // Familie ist.
+        if (control.getMitglied().getBeitragsgruppe() != null
+            && control.getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.NORMAL)
+        {
+          control.getFamilienverband().setVisible(false);
+        }
+        // Container lässt nur das Hinzufügen von Parts zu.
+        // Aus diesem Grund ist Part Familienverband dynamisch:
+        // Entweder wird der Familienverband angezeigt (setShow(true))
+        // oder ein leeres Composite (setShow(false))
+        container.addPart(control.getFamilienverband());
+      }
+    }
+  }
+
+  /**
+   * Zeichnet GUI-Felder für Stammdaten. Wenn Kommunikationsdaten aktiviert
+   * sind, werden drei Spalten angezeigt, ansonsten zwei.
+   * 
+   * @param parentComposite
+   *          Composite auf dem gezeichnet wird.
+   * @throws RemoteException
+   */
+  private void zeicheStammdaten(Composite parentComposite, int spaltenanzahl)
+      throws RemoteException
+  {
+    Container container = getTabOrLabelContainer(parentComposite, JVereinPlugin
+        .getI18n().tr("Stammdaten"));
+    SimpleVerticalContainer cols = new SimpleVerticalContainer(
+        container.getComposite(), true, spaltenanzahl);
+
+    if (!isMitgliedDetail())
+    {
+      cols.addInput(control.getAdresstyp());
+    }
+    cols.addInput(control.getAnrede());
+    if (control.getMitglied().getPersonenart().equals("n"))
+    {
+      cols.addInput(control.getTitel());
+    }
+    if (control.getMitglied().getPersonenart().equals("j"))
+    {
+      control.getName(true).setName(JVereinPlugin.getI18n().tr("Name Zeile 1"));
+      control.getVorname().setName(JVereinPlugin.getI18n().tr("Name Zeile 2"));
+      control.getVorname().setMandatory(false);
+    }
+    cols.addInput(control.getName(true));
+    cols.addInput(control.getVorname());
+    cols.addInput(control.getAdressierungszusatz());
+
+    cols.addInput(control.getStrasse());
+    cols.addInput(control.getPlz());
+    cols.addInput(control.getOrt());
+    if (Einstellungen.getEinstellung().getAuslandsadressen())
+    {
+      cols.addInput(control.getStaat());
+    }
+    if (control.getMitglied().getPersonenart().equals("n"))
+    {
+      cols.addInput(control.getGeburtsdatum());
+      cols.addInput(control.getGeschlecht());
+    }
+
+    if (Einstellungen.getEinstellung().getKommunikationsdaten())
+    {
+      cols.addInput(control.getTelefonprivat());
+      cols.addInput(control.getHandy());
+      cols.addInput(control.getTelefondienstlich());
+      cols.addInput(control.getEmail());
+    }
+    cols.arrangeVertically();
   }
 
   @Override

@@ -48,6 +48,7 @@ import de.jost_net.JVerein.Messaging.FamilienbeitragMessage;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzAction;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
+import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
@@ -945,19 +946,22 @@ public class MitgliedControl extends AbstractControl
         try
         {
           Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
-          // Aktiviere "richtigen" Tab in der Tabs-Tabelle Familienverband
-          if (famverb != null)
-          {
-            famverb.setBeitragsgruppe(bg);
-          }
           // Feld zahler ist nur aktiviert, wenn aktuelles Mitglied nicht das
           // zahlende Mitglied der Familie ist.
-          if (bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+          if (bg != null && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
           {
             getFamilienverband().setVisible(true);
-            zahler.setEnabled(true);
+            if (zahler != null)
+            {
+              zahler.setEnabled(true);
+            }
+            // Aktiviere "richtigen" Tab in der Tabs-Tabelle Familienverband
+            if (famverb != null)
+            {
+              famverb.setBeitragsgruppe(bg);
+            }
           }
-          else if (bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
+          else if (bg != null && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
             getFamilienverband().setVisible(true);
             getMitglied().setZahlerID(null);
@@ -1048,9 +1052,18 @@ public class MitgliedControl extends AbstractControl
     return beitragsgruppeausw;
   }
 
+  /**
+   * Liefert ein Part zurück, das den Familienverband anzeigt.
+   * Da Container jedoch nur das Hinzufügen von Parts zulassen,
+   * ist das Part Familienverband dynamisch:
+   *   Entweder wird der Familienverband angezeigt (setShow(true)),
+   *   oder ein leeres Composite (setShow(false))
+   * @return Familienverband Part
+   * @throws RemoteException
+   */
   public Familienverband getFamilienverband() throws RemoteException
   {
-    if (famverb != null)
+   if (famverb != null)
     {
       return famverb;
     }
@@ -1060,9 +1073,19 @@ public class MitgliedControl extends AbstractControl
 
   public Input getZahler() throws RemoteException
   {
+    return getZahler(false);
+  }
+  
+  public Input getZahler(boolean force) throws RemoteException
+  {
     if (zahler != null)
     {
-      return zahler;
+      //wenn force nicht gesetzt, gib aktuellen zahler zurück.
+      if(force != true)
+        return zahler;
+      //ansonsten: erzeuge neuen...
+      //Dies ist nötig, wenn Zahler ausgeblendet wurde und daher der
+      //Parent vom GC disposed wurde.
     }
 
     StringBuffer cond = new StringBuffer();
@@ -2049,7 +2072,8 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("starten", new Action()
+    Button b = new Button(JVereinPlugin.getI18n()
+        .tr("starten"), new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -2072,7 +2096,8 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartStatistikButton()
   {
-    Button b = new Button("starten", new Action()
+    Button b = new Button(JVereinPlugin.getI18n()
+        .tr("starten"), new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -2091,27 +2116,37 @@ public class MitgliedControl extends AbstractControl
     return b;
   }
 
+  public Button getLesefelderEdit()
+  {
+    return new Button(JVereinPlugin.getI18n()
+        .tr("Bearbeiten"), new LesefelddefinitionenAction(getMitglied()), null, false, "edit.png");
+  }
+  
   public Button getZusatzbetragNeu()
   {
-    return new Button("Neu", new ZusatzbetraegeAction(getMitglied()), null,
+    return new Button(JVereinPlugin.getI18n()
+        .tr("Neu"), new ZusatzbetraegeAction(getMitglied()), null,
         false, "document-new.png");
   }
 
   public Button getWiedervorlageNeu()
   {
-    return new Button("Neu", new WiedervorlageAction(getMitglied()), null,
+    return new Button(JVereinPlugin.getI18n()
+        .tr("Neu"), new WiedervorlageAction(getMitglied()), null,
         false, "document-new.png");
   }
 
   public Button getArbeitseinsatzNeu()
   {
-    return new Button("Neu", new ArbeitseinsatzAction(getMitglied()), null,
+    return new Button(JVereinPlugin.getI18n()
+        .tr("Neu"), new ArbeitseinsatzAction(getMitglied()), null,
         false, "document-new.png");
   }
 
   public Button getLehrgangNeu()
   {
-    return new Button("Neu", new LehrgangAction(getMitglied()), null, false,
+    return new Button(JVereinPlugin.getI18n()
+        .tr("Neu"), new LehrgangAction(getMitglied()), null, false,
         "document-new.png");
   }
 
@@ -3064,5 +3099,7 @@ public class MitgliedControl extends AbstractControl
       });
     }
   }
+
+  
 
 }

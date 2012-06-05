@@ -26,6 +26,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.JVereinPlugin;
@@ -46,44 +47,111 @@ public class Familienverband implements Part
   private MitgliedControl control;
 
   private Container cont;
+  private Container contPlatzhalter;
+  
+  private boolean visible;
+  
+  private Composite parent;
+
 
   public Familienverband(MitgliedControl control, Beitragsgruppe gruppe)
   {
     this.control = control;
     this.gruppe = gruppe;
+    this.visible = true;
+    this.parent = null;
+    this.cont = null;
+    this.tab = null;
   }
 
+  /**
+   * Zeichnet den Familienverband Part. Die Ausgabe hängt von Feld visible
+   * ab, das über die Funktion setVisible(boolean) gesetzt wird.
+   */
   public void paint(Composite parent) throws RemoteException
   {
-    cont = new SimpleContainer(parent);
-    final GridData g = new GridData(GridData.FILL_HORIZONTAL);
-
-    tab = new TabFolder(cont.getComposite(), SWT.NONE);
-    tab.setLayoutData(g);
-    TabGroup tg1 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
-        "Familienverband"));
-    control.getFamilienangehoerigenTable().paint(tg1.getComposite());
-    TabGroup tg2 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
-        "Zahlendes Familienmitglied"));
-    control.getZahler().setComment(
-        JVereinPlugin.getI18n().tr(
-            "Nur für Beitragsgruppenart: \"Familie: Angehörige\""));
-    tg2.addLabelPair("Zahler", control.getZahler());
-
-    if (gruppe != null)
+    if(this.parent == null)
     {
-      setBeitragsgruppe(gruppe);
+      this.parent = parent;
     }
+    
+    //Familienverband soll nicht angezeigt werden...
+    if(visible == false) 
+    {
+      if(contPlatzhalter == null)
+      {
+        contPlatzhalter = new SimpleContainer(parent);
+        //Mache Platzhalter so klein wie möglich:
+        final GridData grid = new GridData(GridData.FILL_HORIZONTAL);
+        grid.heightHint = 1;
+        contPlatzhalter.getComposite().setLayoutData(grid);
+        //Alternativ kann Textfeld angezeigt werden:
+        //contPlatzhalter.addText(JVereinPlugin.getI18n().tr("Ohne Familienzugehörigkeit"), false);
+      }
+      return;
+    }
+    
+    //Familienverband soll angezeigt werden...
+    
+    //Hier beginnt das eigentlich Zeichnen des Familienverbandes:
+    if(cont == null)
+      cont = new SimpleContainer(parent, true, 5);
+    
+    final GridData grid = new GridData(GridData.FILL_HORIZONTAL);
+    grid.grabExcessHorizontalSpace = true;
+    cont.getComposite().setLayoutData(grid);
+    
+    boolean zeichneFamilienverbandAlsTabGroup = true;
+    if(zeichneFamilienverbandAlsTabGroup)
+    {
+      final GridData g = new GridData(GridData.FILL_HORIZONTAL);
+      
+      tab = new TabFolder(cont.getComposite(), SWT.NONE);
+      tab.setLayoutData(g);
+      TabGroup tg1 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
+          "Familienverband"));
+      control.getFamilienangehoerigenTable().paint(tg1.getComposite());
+      TabGroup tg2 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
+          "Zahlendes Familienmitglied"));
+      //erstelle neuen zahler: (force == true)
+      control.getZahler(true).setComment(
+          JVereinPlugin.getI18n().tr(
+              "Nur für Beitragsgruppenart: \"Familie: Angehörige\""));
+      tg2.addLabelPair("Zahler", control.getZahler());
+  
+      if (gruppe != null)
+      {
+        setBeitragsgruppe(gruppe);
+      }
+    }
+    else
+    {
+      tab = null;
+    //erstelle neuen zahler: (force == true)
+      cont.addLabelPair("Zahler", control.getZahler(true));
+      control.getZahler().setMandatory(true);
+      cont.addPart(control.getFamilienangehoerigenTable());
+    }
+    
   }
 
+  /**
+   * Aktiviert den ersten Tab, wenn Beitragsgruppe FAMILIE_ZAHLER ist,
+   * ansonsten den zweiten Tab.
+   * So kann für Mitglieder deren Beitragsgruppe FAMILIE_ANGEHOERIGER
+   * direkt auf dem zweiten Tab ihr Familien-Zahler eingestellt werden.
+   * @param gruppe
+   */
   public void setBeitragsgruppe(Beitragsgruppe gruppe)
   {
     this.gruppe = gruppe;
+    if(tab == null)
+      return;
     try
     {
       if (gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
         tab.setSelection(0);
-      if (gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+      else if (gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
         tab.setSelection(1);
     }
     catch (RemoteException e)
@@ -94,10 +162,66 @@ public class Familienverband implements Part
     tab.layout(true);
   }
 
-  public void setVisible(boolean visible)
+  /**
+   * Zeige GUI-Komponente für Familienverband an oder blendet diese aus.
+   * Ist showFamilienverband == false, wird ein Platzhalter angezeigt.
+   * @param showFamilienverband
+   */
+  public void setVisible(boolean showFamilienverband)
   {
-    if (cont.getComposite() != null)
-      cont.getComposite().setVisible(visible);
+    if(this.visible == showFamilienverband)
+      return;
+    this.visible = showFamilienverband;
+
+    if(showFamilienverband == false)
+    {
+      //lösche cont, damit in paint() contPlatzhalter gemalt werden kann..
+      if(cont != null)
+      {
+        cont.getComposite().dispose();
+        cont = null;
+      }
+    }
+    else if(showFamilienverband)
+    {
+      //lösche Platzhalter contPlatzhalter, damit in paint() Familienverband gemalt werden kann.
+      if(contPlatzhalter != null)
+      {
+        contPlatzhalter.getComposite().dispose();
+        contPlatzhalter = null;
+      }
+    }
+    
+    if(parent != null)
+    {
+      try
+      {
+        paint(parent);
+      }
+      catch (RemoteException e)
+      {
+        e.printStackTrace();
+      }
+      updateGUI();
+    }
+  }
+  
+  private void updateGUI()
+  {
+    Composite c = parent.getParent();
+    Composite c2 = parent.getParent().getParent();
+    if(c instanceof Group) //Group Mitgliedschaft
+    {                                                 
+      //ist Familienverband-Tabelle im LabelRahmen, muss
+      // größe des rahmens neuberechnet werden ( --> parent.getParent().getParent().pack(true);)
+      // und auch Größe und Positionen der Geschwister des Rahmens! -->
+      parent.getParent().getParent().getParent().pack(true); 
+    }
+    else if(c2 instanceof TabFolder)
+    {
+      //ist parent ein Tab, reicht der Neuberechnung dessen Inhalte -->
+      parent.pack(true); 
+    }
   }
 
 }
