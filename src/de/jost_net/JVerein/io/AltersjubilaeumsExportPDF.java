@@ -130,7 +130,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
       kommunikation += ", ";
     }
     kommunikation += m.getEmail();
-    reporter.addColumn(kommunikation, Element.ALIGN_LEFT);
+    reporter.addColumn(kommunikation, Element.ALIGN_LEFT, false);
     anz++;
   }
 
