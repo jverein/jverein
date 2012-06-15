@@ -40,10 +40,9 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
-import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.server.Tools.EigenschaftenTool;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -210,21 +209,25 @@ public class MitgliedAuswertungPDF implements IAuswertung
         report.addColumn(zelle, Element.ALIGN_LEFT);
         StringBuilder beitragsgruppebemerkung = new StringBuilder(m
             .getBeitragsgruppe().getBezeichnung());
-        DBIterator it = Einstellungen.getDBService().createList(
-            Eigenschaften.class);
-        it.addFilter("mitglied = ?", new Object[] { m.getID() });
-        if (it.size() > 0)
+
+        StringBuilder eigenschaften = new StringBuilder();
+        ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m
+            .getID());
+        for (int i2 = 0; i2 < eig.size(); i2 = i2 + 2)
         {
-          beitragsgruppebemerkung.append("\n");
+          if (i2 == 0)
+          {
+            beitragsgruppebemerkung.append("\n");
+          }
+          eigenschaften.append(eig.get(i2));
+          eigenschaften.append(": ");
+          eigenschaften.append(eig.get(i2 + 1));
+          eigenschaften.append("\n");
         }
-        while (it.hasNext())
-        {
-          Eigenschaften ei = (Eigenschaften) it.next();
-          beitragsgruppebemerkung.append("\n");
-          beitragsgruppebemerkung.append(ei.getEigenschaft().getBezeichnung());
-        }
-        report
-            .addColumn(beitragsgruppebemerkung.toString(), Element.ALIGN_LEFT);
+
+        report.addColumn(
+            beitragsgruppebemerkung.toString() + eigenschaften.toString(),
+            Element.ALIGN_LEFT);
       }
       report.closeTable();
 
