@@ -166,7 +166,22 @@ public class Reporter
    */
   public void addHeaderColumn(String text, int align, int width, Color color)
   {
-    headers.add(getDetailCell(text, align, color));
+    headers.add(getDetailCell(text, align, color, true));
+    widths.add(Integer.valueOf(width));
+  }
+
+  /**
+   * Fuegt der Tabelle einen neuen Spaltenkopf hinzu.
+   * 
+   * @param text
+   * @param align
+   * @param width
+   * @param color
+   */
+  public void addHeaderColumn(String text, int align, int width, Color color,
+      boolean silbentrennung)
+  {
+    headers.add(getDetailCell(text, align, color, silbentrennung));
     widths.add(Integer.valueOf(width));
   }
 
@@ -209,7 +224,16 @@ public class Reporter
    */
   public void addColumn(String text, int align, Color backgroundcolor)
   {
-    addColumn(getDetailCell(text, align, backgroundcolor));
+    addColumn(getDetailCell(text, align, backgroundcolor, true));
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(String text, int align, Color backgroundcolor,
+      boolean silbentrennung)
+  {
+    addColumn(getDetailCell(text, align, backgroundcolor, silbentrennung));
   }
 
   /**
@@ -217,7 +241,7 @@ public class Reporter
    */
   public void addColumn(boolean value)
   {
-    addColumn(value ? "X" : "", Element.ALIGN_CENTER, Color.WHITE);
+    addColumn(value ? "X" : "", Element.ALIGN_CENTER, Color.WHITE, true);
   }
 
   /**
@@ -225,7 +249,15 @@ public class Reporter
    */
   public void addColumn(String text, int align)
   {
-    addColumn(getDetailCell(text, align, Color.WHITE));
+    addColumn(getDetailCell(text, align, Color.WHITE, true));
+  }
+
+  /**
+   * Fuegt eine neue Zelle zur Tabelle hinzu.
+   */
+  public void addColumn(String text, int align, boolean silbentrennung)
+  {
+    addColumn(getDetailCell(text, align, Color.WHITE, silbentrennung));
   }
 
   public void addColumn(String text, int align, int colspan)
@@ -250,7 +282,7 @@ public class Reporter
     }
     else
     {
-      addColumn(getDetailCell("", Element.ALIGN_LEFT));
+      addColumn(getDetailCell("", Element.ALIGN_LEFT, false));
     }
   }
 
@@ -273,7 +305,7 @@ public class Reporter
     }
     else
     {
-      addColumn("", Element.ALIGN_LEFT);
+      addColumn("", Element.ALIGN_LEFT, false);
     }
   }
 
@@ -372,10 +404,21 @@ public class Reporter
    *          die Hintergundfarbe.
    * @return die erzeugte Zelle.
    */
-  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor)
+  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor,
+      boolean silbentrennung)
   {
-    PdfPCell cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-        FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
+
+    PdfPCell cell = null;
+    if (silbentrennung)
+    {
+      cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
+          FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
+    }
+    else
+    {
+      cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
+          FontFactory.getFont(FontFactory.HELVETICA, 8))));
+    }
     cell.setHorizontalAlignment(align);
     cell.setBackgroundColor(backgroundcolor);
     return cell;
@@ -402,9 +445,9 @@ public class Reporter
    *          die Ausrichtung.
    * @return die erzeugte Zelle.
    */
-  private PdfPCell getDetailCell(String text, int align)
+  private PdfPCell getDetailCell(String text, int align, boolean silbentrennung)
   {
-    return getDetailCell(text, align, Color.WHITE);
+    return getDetailCell(text, align, Color.WHITE, silbentrennung);
   }
 
   /**
@@ -443,10 +486,10 @@ public class Reporter
   {
     if (value.equals(Einstellungen.NODATE))
     {
-      return getDetailCell("", Element.ALIGN_LEFT);
+      return getDetailCell("", Element.ALIGN_LEFT, false);
     }
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    return getDetailCell(sdf.format(value), align);
+    return getDetailCell(sdf.format(value), align, false);
   }
 
   /**
