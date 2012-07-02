@@ -143,12 +143,12 @@ public class CSVBuchungsImport implements Importer
             DBIterator kit = Einstellungen.getDBService().createList(
                 Konto.class);
             kit.addFilter("nummer = ?", knr);
-            Konto k1 = (Konto) kit.next();
             if (kit.size() == 0)
             {
               throw new ApplicationException("Konto " + knr
                   + " existiert nicht in JVerein!");
             }
+            Konto k1 = (Konto) kit.next();
             bu.setKonto(k1);
           }
           catch (SQLException e)
@@ -193,14 +193,6 @@ public class CSVBuchungsImport implements Importer
           {
             throw new ApplicationException("Spalte "
                 + BuchungVar.ZWECK1.getName() + " fehlt!");
-          }
-          try
-          {
-            bu.setZweck2(results.getString(BuchungVar.ZWECK2.getName()));
-          }
-          catch (SQLException e)
-          {
-            // Optionales Feld
           }
           bu.store();
         }
