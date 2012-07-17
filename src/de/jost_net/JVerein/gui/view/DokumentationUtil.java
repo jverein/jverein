@@ -72,6 +72,8 @@ public class DokumentationUtil
   public static final String LEHRGANG = PRE + "Lehrgänge";
 
   public static final String KONTENRAHMEN = PRE + "Kontenrahmen_Export_Import";
+  
+  public static final String KONTOAUSZUG = PRE + "Kontoauszug";
 
   public static final String MAIL = PRE + "Mail";
 
