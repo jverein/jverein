@@ -649,7 +649,6 @@ public class Abrechnung
       mk.setDatum(datum);
       mk.setMitglied(mitglied);
       mk.setZweck1(zweck1);
-      mk.setZweck2(zweck2);
       mk.store();
     }
     if (haben)
@@ -662,7 +661,6 @@ public class Abrechnung
       buchung.setKonto(konto);
       buchung.setName(mitglied != null ? mitglied.getNameVorname() : "JVerein");
       buchung.setZweck(zweck1);
-      buchung.setZweck2(zweck2);
       if (mk != null)
       {
         buchung.setMitgliedskonto(mk);

@@ -153,25 +153,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
 
   public void setZweck1(String zweck1) throws RemoteException
   {
-    if (zweck1.length() > 27)
-    {
-      zweck1 = zweck1.substring(0, 27);
-    }
     setAttribute("zweck1", zweck1);
-  }
-
-  public String getZweck2() throws RemoteException
-  {
-    return (String) getAttribute("zweck2");
-  }
-
-  public void setZweck2(String zweck2) throws RemoteException
-  {
-    if (zweck2.length() > 27)
-    {
-      zweck2 = zweck2.substring(0, 27);
-    }
-    setAttribute("zweck2", zweck2);
   }
 
   public Integer getZahlungsweg() throws RemoteException

@@ -170,8 +170,8 @@ public class BuchungQuery
       String ttext = text.toUpperCase();
       ttext = "%" + ttext + "%";
       addCondition(
-          "(upper(name) like ? or upper(zweck) like ? or upper(zweck2) like ? or upper(kommentar) like ?) ",
-          new Object[] { ttext, ttext, ttext, ttext });
+          "(upper(name) like ? or upper(zweck) like ? or upper(kommentar) like ?) ",
+          new Object[] { ttext, ttext, ttext });
     }
     switch (order)
     {

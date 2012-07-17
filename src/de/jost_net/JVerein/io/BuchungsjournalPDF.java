@@ -76,11 +76,7 @@ public class BuchungsjournalPDF
           reporter.addColumn("", Element.ALIGN_LEFT);
         }
         reporter.addColumn(b.getName(), Element.ALIGN_LEFT);
-        reporter
-            .addColumn(
-                b.getZweck()
-                    + (b.getZweck2() != null ? (" " + b.getZweck2()) : ""),
-                Element.ALIGN_LEFT);
+        reporter.addColumn(b.getZweck(), Element.ALIGN_LEFT);
         reporter.addColumn(b.getBuchungsart() != null ? b.getBuchungsart()
             .getBezeichnung() : "", Element.ALIGN_LEFT);
         reporter.addColumn(b.getBetrag());

@@ -220,16 +220,6 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     setAttribute("zweck", zweck);
   }
 
-  public String getZweck2() throws RemoteException
-  {
-    return (String) getAttribute("zweck2");
-  }
-
-  public void setZweck2(String zweck2) throws RemoteException
-  {
-    setAttribute("zweck2", zweck2);
-  }
-
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
@@ -449,8 +439,6 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     map.put(BuchungVar.NAME.getName(), this.getName());
     map.put(BuchungVar.ZWECK1.getName(),
         StringTool.toNotNullString(this.getZweck()));
-    map.put(BuchungVar.ZWECK2.getName(),
-        StringTool.toNotNullString(this.getZweck2()));
     return map;
   }
 

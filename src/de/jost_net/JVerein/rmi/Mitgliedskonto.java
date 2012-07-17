@@ -48,10 +48,6 @@ public interface Mitgliedskonto extends DBObject
 
   public void setZweck1(String zweck1) throws RemoteException;
 
-  public String getZweck2() throws RemoteException;
-
-  public void setZweck2(String zweck2) throws RemoteException;
-
   public Integer getZahlungsweg() throws RemoteException;
 
   public void setZahlungsweg(Integer zahlungsweg) throws RemoteException;

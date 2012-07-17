@@ -57,8 +57,8 @@ public class BuchungSearchProvider implements SearchProvider
     DBIterator list = Einstellungen.getDBService().createList(Buchung.class);
     list.addFilter(
         "LOWER(name) LIKE ? OR betrag like ? OR "
-            + "LOWER(zweck) LIKE ? OR LOWER(zweck2) LIKE ? OR LOWER(kommentar) LIKE ?",
-        text, text, text, text, text);
+            + "LOWER(zweck) LIKE ? OR LOWER(kommentar) LIKE ?",
+        text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -92,9 +92,9 @@ public class BuchungSearchProvider implements SearchProvider
     {
       try
       {
-        return b.getName() + ", " + b.getZweck() + ", " + b.getZweck2() + ", "
-            + b.getKommentar() + ", " + JVereinPlugin.getI18n().tr("Konto")
-            + ": " + b.getKonto().getNummer();
+        return b.getName() + ", " + b.getZweck() + ", " + b.getKommentar()
+            + ", " + JVereinPlugin.getI18n().tr("Konto") + ": "
+            + b.getKonto().getNummer();
       }
       catch (RemoteException re)
       {

@@ -54,8 +54,6 @@ public class MitgliedskontoDetailView extends AbstractView
         control.getDatum());
     grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 1"),
         control.getZweck1());
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 2"),
-        control.getZweck2());
     grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Zahlungsweg"),
         control.getZahlungsweg());
     control.getBetrag().setMandatory(true);

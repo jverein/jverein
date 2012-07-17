@@ -933,6 +933,30 @@ public class JVereinUpdateProvider
     {
       update0233(conn);
     }
+    if (cv < 234)
+    {
+      update0234(conn);
+    }
+    if (cv < 235)
+    {
+      update0235(conn);
+    }
+    if (cv < 236)
+    {
+      update0236(conn);
+    }
+    if (cv < 237)
+    {
+      update0237(conn);
+    }
+    if (cv < 238)
+    {
+      update0238(conn);
+    }
+    if (cv < 239)
+    {
+      update0239(conn);
+    }
   }
 
   public Connection getConnection()
@@ -1008,7 +1032,7 @@ public class JVereinUpdateProvider
     }
   }
 
-   public void execute(Connection conn, Map<String, String> statements,
+  public void execute(Connection conn, Map<String, String> statements,
       String logstring, int version) throws ApplicationException
   {
     Logger.info("TODO: " + logstring);
@@ -5655,7 +5679,7 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Tabelle zusatzbetragabrechnungslauf", 231);
   }
-  
+
   private void update0232(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -5672,7 +5696,7 @@ public class JVereinUpdateProvider
     execute(conn, statements,
         "Spalte uselesefelder in die Tabelle einstellung aufgenommen", 232);
   }
-  
+
   private void update0233(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
@@ -5688,6 +5712,93 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte versand in die Tabelle mailempfaenger aufgenommen", 233);
+  }
+
+  private void update0234(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE buchung ALTER COLUMN zweck varchar(500);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE buchung MODIFY COLUMN zweck varchar(500);\n");
+
+    execute(conn, statements, "Spalte zweck in der Tabelle buchung verlängert",
+        234);
+  }
+
+  private void update0235(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "update buchung set zweck = concat(zweck, char(13), char(10), zweck2) where zweck2 is not null and length(zweck2) >0;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte zweck und zweck2 in der Tabelle buchung vereinigt", 235);
+  }
+
+  private void update0236(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE buchung DROP COLUMN zweck2;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE buchung DROP COLUMN zweck2;\n");
+
+    execute(conn, statements, "Spalte zweck2 aus Tabelle buchung entfernt", 236);
+  }
+
+  private void update0237(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE mitgliedskonto ALTER COLUMN zweck1 varchar(500);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE mitgliedskonto MODIFY COLUMN zweck1 varchar(500);\n");
+
+    execute(conn, statements,
+        "Spalte zweck1 in der Tabelle mitgliedskonto verlängert", 237);
+  }
+
+  private void update0238(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "update mitgliedskonto set zweck1 = concat(zweck1, char(13), char(10), zweck2) where zweck2 is not null and length(zweck2) >0;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte zweck1 und zweck2 in der Tabelle mitgliedskonto vereinigt", 238);
+  }
+
+  private void update0239(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE mitgliedskonto DROP COLUMN zweck2;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE mitgliedskonto DROP COLUMN zweck2;\n");
+
+    execute(conn, statements,
+        "Spalte zweck2 aus Tabelle mitgliedskonto entfernt", 239);
   }
 
 }

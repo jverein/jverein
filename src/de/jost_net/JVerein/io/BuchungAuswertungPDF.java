@@ -94,7 +94,6 @@ public class BuchungAuswertungPDF
           reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("", Element.ALIGN_LEFT);
-          reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("Gesamtsumme ", Element.ALIGN_LEFT);
           reporter.addColumn(summe);
           reporter.closeTable();
@@ -164,8 +163,6 @@ public class BuchungAuswertungPDF
         Color.LIGHT_GRAY);
     reporter.addHeaderColumn("Zahlungsgrund", Element.ALIGN_CENTER, 100,
         Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Zahlungsgrund2", Element.ALIGN_CENTER, 100,
-        Color.LIGHT_GRAY);
     reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 50,
         Color.LIGHT_GRAY);
     reporter.createHeader();
@@ -231,7 +228,6 @@ public class BuchungAuswertungPDF
         }
         reporter.addColumn(b.getName(), Element.ALIGN_LEFT);
         reporter.addColumn(b.getZweck(), Element.ALIGN_LEFT);
-        reporter.addColumn(b.getZweck2(), Element.ALIGN_LEFT);
         reporter.addColumn(b.getBetrag());
       }
       buchungsartSumme += b.getBetrag();
@@ -258,11 +254,9 @@ public class BuchungAuswertungPDF
         reporter.addColumn("keine Buchung", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
       }
       else
       {
-        reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);

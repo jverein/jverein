@@ -41,8 +41,7 @@ public enum BuchungVar
   PROJEKTNUMMER("buchung_projektnummer"), //
   PROJEKTBEZEICHNUNG("buchung_projektbezeichnung"), //
   SPENDENBESCHEINIGUNG("buchung_spendenbescheinigung"), // ;
-  ZWECK1("buchung_zweck1"), //
-  ZWECK2("buchung_zweck2");
+  ZWECK1("buchung_zweck1");
 
   private String name;
 

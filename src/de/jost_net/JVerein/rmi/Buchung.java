@@ -57,10 +57,6 @@ public interface Buchung extends DBObject
 
   public void setZweck(String zweck) throws RemoteException;
 
-  public String getZweck2() throws RemoteException;
-
-  public void setZweck2(String zweck2) throws RemoteException;
-
   public Date getDatum() throws RemoteException;
 
   public void setDatum(Date datum) throws RemoteException;
