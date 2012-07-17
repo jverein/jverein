@@ -64,19 +64,19 @@ public class Kontoauszug
     rpt = new Reporter(new FileOutputStream(file), 40, 20, 20, 40);
   }
 
-  public Kontoauszug(Object object) throws Exception
+  public Kontoauszug(Object object, Date von, Date bis) throws Exception
   {
     this();
     if (object instanceof Mitglied)
     {
-      generiereMitglied((Mitglied) object);
+      generiereMitglied((Mitglied) object, von, bis);
     }
     else if (object instanceof Mitglied[])
     {
       Mitglied[] mitglieder = (Mitglied[]) object;
       for (Mitglied m : mitglieder)
       {
-        generiereMitglied(m);
+        generiereMitglied(m, von, bis);
       }
     }
     rpt.close();
@@ -110,8 +110,8 @@ public class Kontoauszug
     settings.setAttribute("lastdir", file.getParent());
   }
 
-  private void generiereMitglied(Mitglied m) throws RemoteException,
-      DocumentException
+  private void generiereMitglied(Mitglied m, Date von, Date bis)
+      throws RemoteException, DocumentException
   {
     rpt.newPage();
     rpt.add(Einstellungen.getEinstellung().getName(), 20);
@@ -121,15 +121,14 @@ public class Kontoauszug
 
     rpt.addHeaderColumn(" ", Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
     rpt.addHeaderColumn("Datum", Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
-    rpt.addHeaderColumn("Zweck 1", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
-    rpt.addHeaderColumn("Zweck 2", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+    rpt.addHeaderColumn("Zweck", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
     rpt.addHeaderColumn("Zahlungsweg", Element.ALIGN_LEFT, 20, Color.LIGHT_GRAY);
     rpt.addHeaderColumn("Soll", Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
     rpt.addHeaderColumn("Ist", Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
     rpt.addHeaderColumn("Differenz", Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
     rpt.createHeader();
 
-    MitgliedskontoNode node = new MitgliedskontoNode(m);
+    MitgliedskontoNode node = new MitgliedskontoNode(m, von, bis);
     generiereZeile(node);
     GenericIterator gi1 = node.getChildren();
     while (gi1.hasNext())
@@ -163,7 +162,6 @@ public class Kontoauszug
     }
     rpt.addColumn((Date) node.getAttribute("datum"), Element.ALIGN_CENTER);
     rpt.addColumn((String) node.getAttribute("zweck1"), Element.ALIGN_LEFT);
-    rpt.addColumn((String) node.getAttribute("zweck2"), Element.ALIGN_LEFT);
     rpt.addColumn(Zahlungsweg.get((Integer) node.getAttribute("zahlungsweg")),
         Element.ALIGN_LEFT);
     rpt.addColumn((Double) node.getAttribute("soll"));
