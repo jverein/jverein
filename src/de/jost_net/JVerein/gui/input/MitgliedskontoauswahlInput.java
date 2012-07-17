@@ -70,7 +70,8 @@ public class MitgliedskontoauswahlInput
    */
   public DialogInput getMitgliedskontoAuswahl() throws RemoteException
   {
-    if (mitgliedskontoAuswahl != null && !mitgliedskontoAuswahl.getControl().isDisposed())
+    if (mitgliedskontoAuswahl != null
+        && !mitgliedskontoAuswahl.getControl().isDisposed())
     {
       return mitgliedskontoAuswahl;
     }
@@ -134,14 +135,11 @@ public class MitgliedskontoauswahlInput
               + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
           String name = (String) buchungen[0].getName();
           String zweck1 = (String) buchungen[0].getZweck();
-          String zweck2 = (String) buchungen[0].getZweck2();
           if ((name == null || name.length() == 0)
-              && (zweck1 == null || zweck1.length() == 0)
-              && (zweck2 == null || zweck2.length() == 0))
+              && (zweck1 == null || zweck1.length() == 0))
           {
             buchungen[0].setName(konto.getMitglied().getNameVorname());
             buchungen[0].setZweck(konto.getZweck1());
-            buchungen[0].setZweck2(konto.getZweck2());
             buchungen[0].setBetrag(konto.getBetrag());
             buchungen[0].setDatum(new Date());
           }

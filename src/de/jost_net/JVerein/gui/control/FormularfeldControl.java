@@ -81,8 +81,6 @@ public class FormularfeldControl extends AbstractControl
 
   public static final String ZAHLUNGSGRUND1 = "Zahlungsgrund 1";
 
-  public static final String ZAHLUNGSGRUND2 = "Zahlungsgrund 2";
-
   public static final String BUCHUNGSDATUM = "Buchungsdatum";
 
   public static final String BETRAG = "Betrag";

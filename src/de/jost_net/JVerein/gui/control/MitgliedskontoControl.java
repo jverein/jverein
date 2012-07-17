@@ -77,6 +77,7 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -97,9 +98,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   private DateInput datum = null;
 
-  private Input zweck1;
-
-  private Input zweck2;
+  private TextAreaInput zweck1;
 
   private SelectInput zahlungsweg;
 
@@ -195,25 +194,16 @@ public class MitgliedskontoControl extends AbstractControl
     return datum;
   }
 
-  public Input getZweck1() throws RemoteException
+  public TextAreaInput getZweck1() throws RemoteException
   {
     if (zweck1 != null)
     {
       return zweck1;
     }
-    zweck1 = new TextInput(getMitgliedskonto().getZweck1(), 27);
+    zweck1 = new TextAreaInput(getMitgliedskonto().getZweck1(), 500);
+    zweck1.setHeight(50);
     zweck1.setMandatory(true);
     return zweck1;
-  }
-
-  public Input getZweck2() throws RemoteException
-  {
-    if (zweck2 != null)
-    {
-      return zweck2;
-    }
-    zweck2 = new TextInput(getMitgliedskonto().getZweck2(), 27);
-    return zweck2;
   }
 
   public SelectInput getZahlungsweg() throws RemoteException
@@ -403,7 +393,6 @@ public class MitgliedskontoControl extends AbstractControl
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       mkto.setZahlungsweg(zw.getKey());
       mkto.setZweck1((String) getZweck1().getValue());
-      mkto.setZweck2((String) getZweck2().getValue());
       mkto.store();
       GUI.getStatusBar().setSuccessText("Mitgliedskonto gespeichert");
     }
@@ -445,7 +434,6 @@ public class MitgliedskontoControl extends AbstractControl
     mitgliedskontoTree.addColumn("Datum", "datum", new DateFormatter(
         new JVDateFormatTTMMJJJJ()));
     mitgliedskontoTree.addColumn("Zweck1", "zweck1");
-    mitgliedskontoTree.addColumn("Zweck2", "zweck2");
     mitgliedskontoTree.addColumn("Zahlungsweg", "zahlungsweg",
         new ZahlungswegFormatter());
     mitgliedskontoTree.addColumn("Soll", "soll", new CurrencyFormatter("",
@@ -477,8 +465,7 @@ public class MitgliedskontoControl extends AbstractControl
           new JVDateFormatTTMMJJJJ()));
       mitgliedskontoList.addColumn("Abrechnungslauf", "abrechnungslauf");
       mitgliedskontoList.addColumn("Name", "mitglied");
-      mitgliedskontoList.addColumn("Zweck1", "zweck1");
-      mitgliedskontoList.addColumn("Zweck2", "zweck2");
+      mitgliedskontoList.addColumn("Zweck", "zweck1");
       mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
       mitgliedskontoList.addColumn("Zahlungseingang", "istsumme",
@@ -729,7 +716,8 @@ public class MitgliedskontoControl extends AbstractControl
     return button;
   }
 
-  public Button getStartKontoauszugButton(final Object currentObject)
+  public Button getStartKontoauszugButton(final Object currentObject,
+      final Date von, final Date bis)
   {
     Button button = new Button("starten", new Action()
     {
@@ -739,7 +727,7 @@ public class MitgliedskontoControl extends AbstractControl
 
         try
         {
-          new Kontoauszug(currentObject);
+          new Kontoauszug(currentObject, von, bis);
         }
         catch (Exception e)
         {

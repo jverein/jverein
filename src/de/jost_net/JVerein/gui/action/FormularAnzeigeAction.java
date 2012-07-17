@@ -70,7 +70,6 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.ZAHLUNGSGRUND,
           "Zahlungsgrund1 Zahlungsgrund2");
       map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
-      map.put(FormularfeldControl.ZAHLUNGSGRUND2, "Zahlungsgrund 2");
       map.put(FormularfeldControl.BETRAG, new Double(1234));
       map.put("Betrag in Worten", GermanNumber.toString(1234));
       map.put(FormularfeldControl.ID, "444");

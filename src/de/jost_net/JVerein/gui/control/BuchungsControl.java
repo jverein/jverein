@@ -72,6 +72,7 @@ import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -105,9 +106,7 @@ public class BuchungsControl extends AbstractControl
 
   private DecimalInput betrag;
 
-  private Input zweck;
-
-  private Input zweck2;
+  private TextAreaInput zweck;
 
   private DateInput datum = null;
 
@@ -267,18 +266,9 @@ public class BuchungsControl extends AbstractControl
     {
       return zweck;
     }
-    zweck = new TextInput(getBuchung().getZweck(), 35);
+    zweck = new TextAreaInput(getBuchung().getZweck(), 500);
+    zweck.setHeight(50);
     return zweck;
-  }
-
-  public Input getZweck2() throws RemoteException
-  {
-    if (zweck2 != null)
-    {
-      return zweck2;
-    }
-    zweck2 = new TextInput(getBuchung().getZweck2(), 35);
-    return zweck2;
   }
 
   public DateInput getDatum() throws RemoteException
@@ -345,9 +335,8 @@ public class BuchungsControl extends AbstractControl
         {
           String name = (String) getName().getValue();
           String zweck1 = (String) getZweck().getValue();
-          String zweck2 = (String) getZweck2().getValue();
           if (mitgliedskonto.getValue() != null && name.length() == 0
-              && zweck1.length() == 0 && zweck2.length() == 0)
+              && zweck1.length() == 0)
           {
             if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
             {
@@ -355,7 +344,6 @@ public class BuchungsControl extends AbstractControl
               getName().setValue(mk.getMitglied().getNameVorname());
               getBetrag().setValue(mk.getBetrag());
               getZweck().setValue(mk.getZweck1());
-              getZweck2().setValue(mk.getZweck2());
               getDatum().setValue(mk.getDatum());
             }
             if (mitgliedskonto.getValue() instanceof Mitglied)
@@ -640,7 +628,6 @@ public class BuchungsControl extends AbstractControl
         b.setName((String) getName().getValue());
         b.setBetrag((Double) getBetrag().getValue());
         b.setZweck((String) getZweck().getValue());
-        b.setZweck2((String) getZweck2().getValue());
         b.setDatum((Date) getDatum().getValue());
         b.setArt((String) getArt().getValue());
         b.setVerzicht((Boolean) getVerzicht().getValue());
@@ -663,7 +650,6 @@ public class BuchungsControl extends AbstractControl
               mk.setMitglied(mitglied);
               mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
               mk.setZweck1(b.getZweck());
-              mk.setZweck2(b.getZweck2());
               mk.store();
               b.setMitgliedskonto(mk);
               mitgliedskonto.setValue(mk);
@@ -770,7 +756,6 @@ public class BuchungsControl extends AbstractControl
       buchungsList.addColumn("Blatt", "blattnummer");
       buchungsList.addColumn("Name", "name");
       buchungsList.addColumn("Verwendungszweck", "zweck");
-      buchungsList.addColumn("Verwendungszweck 2", "zweck2");
       buchungsList.addColumn("Buchungsart", "buchungsart",
           new BuchungsartFormatter());
       buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
@@ -839,7 +824,6 @@ public class BuchungsControl extends AbstractControl
         b2.setSplitId(Integer.parseInt(b.getID()));
         b2.setUmsatzid(b.getUmsatzid());
         b2.setZweck(b.getZweck());
-        b2.setZweck2(b.getZweck2());
         splitbuchungen.add(b2);
       }
       splitbuchungsList = new TablePart(splitbuchungen,
@@ -870,7 +854,6 @@ public class BuchungsControl extends AbstractControl
       splitbuchungsList.addColumn("Blatt", "blattnummer");
       splitbuchungsList.addColumn("Name", "name");
       splitbuchungsList.addColumn("Verwendungszweck", "zweck");
-      splitbuchungsList.addColumn("Verwendungszweck 2", "zweck2");
       splitbuchungsList.addColumn("Buchungsart", "buchungsart",
           new BuchungsartFormatter());
       splitbuchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",

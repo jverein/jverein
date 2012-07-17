@@ -100,14 +100,6 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
           mk.setMitglied(m);
           mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
           mk.setZweck1(b[0].getZweck());
-          try
-          {
-            mk.setZweck2(b[0].getZweck2());
-          }
-          catch (NullPointerException e)
-          {
-            mk.setZweck2("");
-          }
           mk.store();
         }
 

@@ -79,8 +79,6 @@ public class BuchungPart implements Part
         control.getBetrag());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck"),
         control.getZweck());
-    grKontoauszug.addLabelPair(
-        JVereinPlugin.getI18n().tr("Verwendungszweck 2"), control.getZweck2());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
         control.getDatum());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"),

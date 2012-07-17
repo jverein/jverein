@@ -58,8 +58,6 @@ public class MitgliedskontoNode implements GenericObjectNode
 
   private String zweck1 = null;
 
-  private String zweck2 = null;
-
   private Integer zahlungsweg = null;
 
   private Double soll = null;
@@ -72,6 +70,12 @@ public class MitgliedskontoNode implements GenericObjectNode
 
   public MitgliedskontoNode(Mitglied m) throws RemoteException
   {
+    this(m, null, null);
+  }
+
+  public MitgliedskontoNode(Mitglied m, Date von, Date bis)
+      throws RemoteException
+  {
     type = MITGLIED;
     this.mitglied = m;
     this.zahlungsweg = m.getZahlungsweg();
@@ -83,6 +87,14 @@ public class MitgliedskontoNode implements GenericObjectNode
     DBIterator it = Einstellungen.getDBService().createList(
         Mitgliedskonto.class);
     it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    if (von != null)
+    {
+      it.addFilter("datum >= ?", von);
+    }
+    if (bis != null)
+    {
+      it.addFilter("datum <= ?", bis);
+    }
     it.setOrder("order by datum desc");
     while (it.hasNext())
     {
@@ -110,7 +122,6 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.zahlungsweg = mk.getZahlungsweg();
     this.datum = mk.getDatum();
     this.zweck1 = mk.getZweck1();
-    this.zweck2 = mk.getZweck2();
     this.soll = mk.getBetrag();
     this.ist = mk.getIstSumme();
     if (this.type == SOLL)
@@ -141,7 +152,6 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.zahlungsweg = mk.getZahlungsweg();
     this.datum = bist.getDatum();
     this.zweck1 = bist.getZweck();
-    this.zweck2 = bist.getZweck2();
     this.ist = bist.getBetrag();
   }
 
@@ -167,8 +177,8 @@ public class MitgliedskontoNode implements GenericObjectNode
 
   public String[] getAttributeNames()
   {
-    return new String[] { "name", "datum", "zweck1", "zweck2", "zahlungsweg",
-        "soll", "ist", "differenz" };
+    return new String[] { "name", "datum", "zweck1", "zahlungsweg", "soll",
+        "ist", "differenz" };
   }
 
   public Object getAttribute(String name)
@@ -184,10 +194,6 @@ public class MitgliedskontoNode implements GenericObjectNode
     else if (name.equals("zweck1"))
     {
       return zweck1;
-    }
-    else if (name.equals("zweck2"))
-    {
-      return zweck2;
     }
     else if (name.equals("zahlungsweg"))
     {

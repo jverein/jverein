@@ -124,7 +124,23 @@ public class BuchungsuebernahmeControl extends AbstractControl
               b.setName(u.getGegenkontoName());
               b.setBetrag(u.getBetrag());
               b.setZweck(u.getZweck());
-              b.setZweck2(u.getZweck2());
+              String[] moreLines = u.getWeitereVerwendungszwecke();
+              String zweck = u.getZweck();
+              String line2 = u.getZweck2();
+              if (line2 != null && line2.trim().length() > 0)
+              {
+                zweck += "\r\n" + line2.trim();
+              }
+              if (moreLines != null && moreLines.length > 0)
+              {
+                for (String s : moreLines)
+                {
+                  if (s == null || s.trim().length() == 0)
+                    continue;
+                  zweck += "\r\n" + s.trim();
+                }
+              }
+              b.setZweck(zweck);
               b.setDatum(u.getDatum());
               b.setArt(u.getArt());
               b.setKommentar(u.getKommentar());
@@ -230,7 +246,6 @@ public class BuchungsuebernahmeControl extends AbstractControl
             new JVDateFormatTTMMJJJJ()));
         buchungsList.addColumn("Name", "name");
         buchungsList.addColumn("Verwendungszweck", "zweck");
-        buchungsList.addColumn("Verwendungszweck 2", "zweck2");
         buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
             Einstellungen.DECIMALFORMAT));
         buchungsList.setContextMenu(new BuchungMenu());

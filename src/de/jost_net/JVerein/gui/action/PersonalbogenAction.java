@@ -417,7 +417,6 @@ public class PersonalbogenAction implements Action
       rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 12, Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Zweck 1", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
-      rpt.addHeaderColumn("Zweck 2", Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Zahlungsweg", Element.ALIGN_LEFT, 30,
           Color.LIGHT_GRAY);
       rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
@@ -428,7 +427,6 @@ public class PersonalbogenAction implements Action
         rpt.addColumn("Soll", Element.ALIGN_LEFT);
         rpt.addColumn(mk.getDatum(), Element.ALIGN_LEFT);
         rpt.addColumn(mk.getZweck1(), Element.ALIGN_LEFT);
-        rpt.addColumn(mk.getZweck2(), Element.ALIGN_LEFT);
         rpt.addColumn(Zahlungsweg.get(mk.getZahlungsweg()), Element.ALIGN_LEFT);
         rpt.addColumn(mk.getBetrag());
         DBIterator it2 = Einstellungen.getDBService().createList(Buchung.class);
@@ -440,7 +438,6 @@ public class PersonalbogenAction implements Action
           rpt.addColumn("Ist", Element.ALIGN_RIGHT);
           rpt.addColumn(bu.getDatum(), Element.ALIGN_LEFT);
           rpt.addColumn(bu.getZweck(), Element.ALIGN_LEFT);
-          rpt.addColumn(bu.getZweck2(), Element.ALIGN_LEFT);
           rpt.addColumn("", Element.ALIGN_LEFT);
           rpt.addColumn(bu.getBetrag());
         }

@@ -156,7 +156,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         && Einstellungen.getEinstellung().getMitgliedskonto())
     {
       MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
-      mkcontrol.getStartKontoauszugButton(control.getMitglied());
+      mkcontrol.getStartKontoauszugButton(control.getMitglied(), null, null);
       buttons.addButton(new Button("Kontoauszug", new KontoauszugAction(),
           control.getMitglied(), false, "rechnung.png"));
     }
