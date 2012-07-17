@@ -61,11 +61,12 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "duplizieren"), new MitgliedDuplizierenAction(), "copy_v2.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-		"in Zwischenablage kopieren"), new MitgliedInZwischenablageKopierenAction(), "copy_edit.gif"));
-	addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-	    "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
-	addItem(ContextMenuItem.SEPARATOR);
-	addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
+        "in Zwischenablage kopieren"),
+        new MitgliedInZwischenablageKopierenAction(), "copy_edit.gif"));
+    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
+        "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
+    addItem(ContextMenuItem.SEPARATOR);
+    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Mail senden ..."), new MitgliedMailSendenAction(),
         "mail-message-new.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
