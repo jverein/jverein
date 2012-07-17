@@ -145,6 +145,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Geburtsdatum liegt in der Zukunft"));
       }
+      if (getSterbetag() != null)
+      {
+        cal2.setTime(getSterbetag());
+      }
       cal2.add(Calendar.YEAR, -150);
       if (cal1.before(cal2))
       {
@@ -999,8 +1003,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
               z.getFeldJaNein() ? "X" : " ");
           break;
         case Datentyp.GANZZAHL:
-          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), z.getFeldGanzzahl()
-              + "");
+          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
+              z.getFeldGanzzahl() + "");
           format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "INTEGER");
           break;
         case Datentyp.WAEHRUNG:
