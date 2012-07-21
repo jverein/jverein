@@ -29,7 +29,7 @@ import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class FormularfelderListeView extends AbstractView
 {
@@ -43,7 +43,7 @@ public class FormularfelderListeView extends AbstractView
         (Formular) getCurrentObject());
     control.getFormularfeldList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.FORMULARE, false,
         "help-browser.png");
@@ -52,6 +52,7 @@ public class FormularfelderListeView extends AbstractView
     buttons
         .addButton(JVereinPlugin.getI18n().tr("neu"), new FormularfeldAction(),
             getCurrentObject(), false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.action.EigenschaftDetailAction;
 import de.jost_net.JVerein.gui.control.EigenschaftControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class EigenschaftListeView extends AbstractView
 {
@@ -42,7 +42,7 @@ public class EigenschaftListeView extends AbstractView
 
     control.getEigenschaftList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.EIGENSCHAFT, false,
         "help-browser.png");
@@ -51,6 +51,7 @@ public class EigenschaftListeView extends AbstractView
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new EigenschaftDetailAction(true), null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

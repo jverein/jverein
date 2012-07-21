@@ -37,7 +37,7 @@ import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
@@ -78,7 +78,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
         .tr("Buchungsarten überschreiben"), getUeberschreiben());
     group.addLabelPair("", getStatus());
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
 
@@ -106,6 +106,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
         throw new OperationCanceledException();
       }
     });
+    buttons.paint(parent);
     getShell().setMinimumSize(getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
   }

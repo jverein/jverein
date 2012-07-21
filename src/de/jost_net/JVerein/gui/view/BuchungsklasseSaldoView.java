@@ -28,7 +28,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
@@ -50,7 +50,7 @@ public class BuchungsklasseSaldoView extends AbstractView
     group
         .addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 1);
+    ButtonArea buttons = new ButtonArea();
     Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
         new Action()
         {
@@ -61,16 +61,18 @@ public class BuchungsklasseSaldoView extends AbstractView
           }
         }, null, true, "system-search.png");
     buttons.addButton(button);
+    buttons.paint(this.getParent());
 
     LabelGroup group2 = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Saldo"), true);
     group2.addPart(control.getSaldoList());
 
-    ButtonArea buttons2 = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons2 = new ButtonArea();
     buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.JAHRESSALDO, false,
         "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());
+    buttons2.paint(this.getParent());
   }
 
   @Override

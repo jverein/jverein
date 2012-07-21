@@ -30,7 +30,7 @@ import de.jost_net.JVerein.gui.menu.Mitgliedskonto2Menu;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class MitgliedskontoListeView extends AbstractView
@@ -54,7 +54,7 @@ public class MitgliedskontoListeView extends AbstractView
     control.getMitgliedskontoList(new MitgliedDetailAction(),
         new Mitgliedskonto2Menu()).paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(new Button("Export", new MitgliedskontoExportAction(),
         new Object[] {
             control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
@@ -65,6 +65,7 @@ public class MitgliedskontoListeView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT,
         false, "help-browser.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

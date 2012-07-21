@@ -30,7 +30,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 
@@ -65,7 +65,7 @@ public class PersonenartDialog extends AbstractDialog<String>
     LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
         "Personenart"));
     options.addInput(this.getPersonenart());
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
 
@@ -84,6 +84,7 @@ public class PersonenartDialog extends AbstractDialog<String>
         throw new OperationCanceledException();
       }
     });
+    b.paint(parent);
   }
 
   @Override

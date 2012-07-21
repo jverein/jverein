@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.control.ProjektControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class ProjektView extends AbstractView
@@ -45,7 +45,7 @@ public class ProjektView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
         control.getBezeichnung());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.PROJEKTE, false,
         "help-browser.png");
@@ -56,6 +56,7 @@ public class ProjektView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

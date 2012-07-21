@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.keys.Formularart;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class MitgliedskontoRechnungView extends AbstractView
@@ -55,11 +55,12 @@ public class MitgliedskontoRechnungView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
         control.getFormular(Formularart.RECHNUNG));
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.RECHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
+    buttons.paint(this.getParent());
   }
 
   @Override

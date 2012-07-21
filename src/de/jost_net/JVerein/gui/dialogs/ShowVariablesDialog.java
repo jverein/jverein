@@ -34,9 +34,9 @@ import de.jost_net.JVerein.gui.menu.ShowVariablesMenu;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.logging.Logger;
 
 /**
@@ -98,7 +98,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
     tab.setContextMenu(contextMenu);
     tab.paint(parent);
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("OK"), new Action()
     {
 
@@ -107,7 +107,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
         close();
       }
     });
-
+    buttons.paint(parent);
   }
 
   /**

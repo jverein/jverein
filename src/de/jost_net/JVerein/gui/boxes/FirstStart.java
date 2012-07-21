@@ -30,8 +30,8 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.EinstellungenAction;
 import de.willuhn.jameica.gui.boxes.AbstractBox;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.FormTextPart;
-import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
@@ -89,11 +89,12 @@ public class FirstStart extends AbstractBox
 
     text.paint(parent);
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Einstellungen"),
         new EinstellungenAction(), null);
     buttons.addButton(JVereinPlugin.getI18n().tr("Beitragsgruppen"),
         new BeitragsgruppeSucheAction(), null);
+    buttons.paint(parent);
   }
 
   @Override

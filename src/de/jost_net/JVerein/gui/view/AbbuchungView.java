@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
@@ -91,7 +91,7 @@ public class AbbuchungView extends AbstractView
                 .tr("*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
                     + "Üblicherweise 1.1. des Jahres."), true);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea();
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
       buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
@@ -101,6 +101,7 @@ public class AbbuchungView extends AbstractView
         new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
         "help-browser.png");
     buttons.addButton(control.getStartButton());
+    buttons.paint(this.getParent());
   }
 
   @Override

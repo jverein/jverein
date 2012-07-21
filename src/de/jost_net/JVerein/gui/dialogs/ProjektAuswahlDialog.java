@@ -35,7 +35,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 
@@ -63,7 +63,7 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
         "Projekte"));
     options.addInput(this.getProjekte());
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
 
@@ -81,6 +81,7 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
         throw new OperationCanceledException();
       }
     });
+    b.paint(parent);
   }
 
   @Override

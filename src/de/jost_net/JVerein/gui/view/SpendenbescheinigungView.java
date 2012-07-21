@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.control.SpendenbescheinigungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
@@ -113,7 +113,7 @@ public class SpendenbescheinigungView extends AbstractView
       control.getBetrag().setEnabled(true);
     }
 
-    ButtonArea buttons = new ButtonArea(getParent(), 5);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
         false, "help-browser.png");
@@ -129,6 +129,7 @@ public class SpendenbescheinigungView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

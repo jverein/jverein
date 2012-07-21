@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.control.ArbeitseinsatzControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class ArbeitseinsatzDetailView extends AbstractView
@@ -47,7 +47,7 @@ public class ArbeitseinsatzDetailView extends AbstractView
         control.getStunden());
     group.addInput(control.getBemerkung());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ARBEITSEINSATZ, false,
         "help-browser.png");
@@ -58,6 +58,7 @@ public class ArbeitseinsatzDetailView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   // TODO getHelp()

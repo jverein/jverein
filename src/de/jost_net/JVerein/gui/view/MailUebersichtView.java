@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.action.MailDetailAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class MailUebersichtView extends AbstractView
 {
@@ -41,12 +41,13 @@ public class MailUebersichtView extends AbstractView
 
     control.getMailList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MAIL, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new MailDetailAction(), null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

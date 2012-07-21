@@ -35,7 +35,7 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.dialogs.SimpleDialog;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.system.Application;
@@ -89,7 +89,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     lgBank.addLabelPair("Konto", control.getKonto());
     lgBank.addLabelPair("Bankleitzahl", control.getBlz());
     lgBank.addLabelPair("Kontoinhaber", control.getKontoinhaber());
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
       public void handleAction(Object context)
@@ -146,6 +146,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
         throw new OperationCanceledException();
       }
     });
+    b.paint(parent);
   }
 
   @Override

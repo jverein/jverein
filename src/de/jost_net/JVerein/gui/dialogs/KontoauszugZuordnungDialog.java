@@ -29,7 +29,7 @@ import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.LabelInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
@@ -75,7 +75,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
         getUeberschreiben());
     group.addLabelPair("", getStatus());
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
 
@@ -109,7 +109,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
         throw new OperationCanceledException();
       }
     });
-
+    buttons.paint(parent);
   }
 
   /**

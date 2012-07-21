@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.control.BuchungsartControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class BuchungsartView extends AbstractView
@@ -53,7 +53,7 @@ public class BuchungsartView extends AbstractView
         control.getSpende());
     // TODO Jo Dokumentation nachpflegen
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGSARTEN, false,
         "help-browser.png");
@@ -64,6 +64,7 @@ public class BuchungsartView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

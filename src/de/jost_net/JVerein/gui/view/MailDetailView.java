@@ -41,7 +41,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -155,14 +155,15 @@ public class MailDetailView extends AbstractView
     });
     addAttachment.paint(comp5);
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 5);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MAIL, false,
         "help-browser.png");
     buttons.addButton(control.getMailSpeichernButton());
     buttons.addButton(control.getMailReSendButton());
     buttons.addButton(control.getMailSendButton());
-  }
+    buttons.paint(this.getParent());
+ }
 
   private void addLabel(String name, Composite parent, int align)
   {

@@ -29,7 +29,7 @@ import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class KursteilnehmerDetailView extends AbstractView
@@ -65,7 +65,7 @@ public class KursteilnehmerDetailView extends AbstractView
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Geschlecht"),
         control.getGeschlecht());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 4);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
         "help-browser.png");
@@ -76,12 +76,12 @@ public class KursteilnehmerDetailView extends AbstractView
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   // TODO getHelp()

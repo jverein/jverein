@@ -30,7 +30,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 
@@ -67,7 +67,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
         "Buchungsjournal-Sortierung"));
     options.addInput(this.getSortierung());
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
 
@@ -84,6 +84,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
         throw new OperationCanceledException();
       }
     });
+    b.paint(parent);
   }
 
   @Override
@@ -98,8 +99,8 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     {
       return this.sortierung;
     }
-    this.sortierung = new SelectInput(new Object[] { DATUM, DATUM_NAME, BUCHUNGSNUMMER },
-        null);
+    this.sortierung = new SelectInput(new Object[] { DATUM, DATUM_NAME,
+        BUCHUNGSNUMMER }, null);
     this.sortierung.setName(JVereinPlugin.getI18n().tr("Sortierung"));
     this.sortierung.addListener(new Listener()
     {

@@ -29,7 +29,7 @@ import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
@@ -149,12 +149,13 @@ public class LesefeldUebersichtPart implements Part
     }
 
     // BUTTON AREA
-    ButtonArea buttons = new ButtonArea(parent, 5);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
           new DokumentationAction(), DokumentationUtil.LESEFELDER, false,
           "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new NewLesefeldAction(), null, false, "document-new.png");
+    buttons.paint(parent);
     // END BUTTON AREA
   }
 

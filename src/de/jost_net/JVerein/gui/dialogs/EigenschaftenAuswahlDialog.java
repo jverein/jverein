@@ -31,8 +31,8 @@ import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TreePart;
-import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.logging.Logger;
 
@@ -88,7 +88,7 @@ public class EigenschaftenAuswahlDialog extends
 
     group.addPart(tree);
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
     {
 
@@ -114,6 +114,7 @@ public class EigenschaftenAuswahlDialog extends
         close();
       }
     });
+    buttons.paint(parent);
   }
 
   @Override

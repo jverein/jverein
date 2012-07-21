@@ -37,7 +37,7 @@ import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -66,7 +66,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
       control.getMitgliedMitMail().setChecked(o, false);
     }
 
-    ButtonArea b = new ButtonArea(parent, 5);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("Eigenschaften"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -158,6 +158,8 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         throw new OperationCanceledException();
       }
     });
+    b.paint(parent);
+
   }
 
   @Override

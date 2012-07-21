@@ -26,7 +26,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.LehrgangControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class LehrgaengeListeView extends AbstractView
@@ -49,10 +49,11 @@ public class LehrgaengeListeView extends AbstractView
         control.getDatumbis());
 
     control.getLehrgaengeList().paint(this.getParent());
-    ButtonArea buttons = new ButtonArea(this.getParent(), 1);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.LEHRGANG, false,
         "help-browser.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

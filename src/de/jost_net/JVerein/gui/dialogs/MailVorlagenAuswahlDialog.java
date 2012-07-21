@@ -31,7 +31,7 @@ import de.jost_net.JVerein.gui.control.MailVorlageControl;
 import de.jost_net.JVerein.rmi.MailVorlage;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.util.ApplicationException;
 
 /**
@@ -57,7 +57,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
 
     control.getMailVorlageTable().paint(parent);
 
-    ButtonArea b = new ButtonArea(parent, 2);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("verwenden"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
@@ -80,6 +80,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
         close();
       }
     });
+    b.paint(parent);
   }
 
   @Override

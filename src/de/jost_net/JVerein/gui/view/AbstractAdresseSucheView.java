@@ -41,8 +41,8 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.Button;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 
@@ -105,13 +105,14 @@ public abstract class AbstractAdresseSucheView extends AbstractView
           getDetailAction());
       p.paint(getParent());
     }
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(getHilfeButton());
     if (anzahlbeitragsgruppe > 0)
     {
       buttons.addButton(JVereinPlugin.getI18n().tr("neu"), getDetailAction(),
           null, false, "document-new.png");
     }
+    buttons.paint(this.getParent());
   }
 
   private void TabRefresh()

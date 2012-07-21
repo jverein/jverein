@@ -41,7 +41,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -84,7 +84,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
     if (lesefeld != null)
       updateScriptResult();
 
-    ButtonArea buttonArea = new ButtonArea(parent, 4);
+    ButtonArea buttonArea = new ButtonArea();
     Button button = new Button(
         JVereinPlugin.getI18n().tr("Aktualisieren (F5)"), new Action()
         {
@@ -103,6 +103,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
     button = new Button(JVereinPlugin.getI18n().tr("Abbrechen und zurück"),
         new AbortEditLesefeldAction(), null, false, "process-stop.png");
     buttonArea.addButton(button);
+    buttonArea.paint(this.getParent());
   }
 
   /**

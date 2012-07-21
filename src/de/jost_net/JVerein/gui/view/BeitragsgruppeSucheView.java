@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BeitragsgruppeControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class BeitragsgruppeSucheView extends AbstractView
 {
@@ -42,7 +42,7 @@ public class BeitragsgruppeSucheView extends AbstractView
 
     control.getBeitragsgruppeTable().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
         "help-browser.png");
@@ -51,6 +51,7 @@ public class BeitragsgruppeSucheView extends AbstractView
         false, "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new BeitragsgruppeDetailAction(), null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

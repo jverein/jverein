@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.action.KontoAction;
 import de.jost_net.JVerein.gui.control.KontoControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class KontoListView extends AbstractView
 {
@@ -42,7 +42,7 @@ public class KontoListView extends AbstractView
 
     control.getKontenList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 4);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.KONTEN, false,
         "help-browser.png");
@@ -50,6 +50,7 @@ public class KontoListView extends AbstractView
         new HibiscusKontenImportAction(control), null, false, "go.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new KontoAction(),
         null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

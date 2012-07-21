@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.control.AnfangsbestandControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class AnfangsbestandView extends AbstractView
@@ -52,7 +52,7 @@ public class AnfangsbestandView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
         control.getBetrag());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
         "help-browser.png");
@@ -64,6 +64,7 @@ public class AnfangsbestandView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

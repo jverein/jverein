@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.control.FormularControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class FormularDetailView extends AbstractView
@@ -47,7 +47,7 @@ public class FormularDetailView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Art"), control.getArt());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Datei"), control.getDatei());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 3);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.FORMULARE, false,
         "help-browser.png");
@@ -59,6 +59,7 @@ public class FormularDetailView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

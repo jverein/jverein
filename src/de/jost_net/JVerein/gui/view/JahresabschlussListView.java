@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.action.JahresabschlussDetailAction;
 import de.jost_net.JVerein.gui.control.JahresabschlussControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class JahresabschlussListView extends AbstractView
 {
@@ -41,12 +41,13 @@ public class JahresabschlussListView extends AbstractView
 
     control.getJahresabschlussList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new JahresabschlussDetailAction(), null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

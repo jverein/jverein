@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class BuchungsklasseListView extends AbstractView
 {
@@ -41,12 +41,13 @@ public class BuchungsklasseListView extends AbstractView
 
     control.getBuchungsklasseList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.BUCHUNGSKLASSEN, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new BuchungsklasseAction(), null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

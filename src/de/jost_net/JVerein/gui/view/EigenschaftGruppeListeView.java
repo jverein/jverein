@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.action.EigenschaftGruppeDetailAction;
 import de.jost_net.JVerein.gui.control.EigenschaftGruppeControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class EigenschaftGruppeListeView extends AbstractView
 {
@@ -42,7 +42,7 @@ public class EigenschaftGruppeListeView extends AbstractView
 
     control.getEigenschaftGruppeList().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(this.getParent(), 3);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.EIGENSCHAFTGRUPPE, false,
         "help-browser.png");
@@ -52,6 +52,7 @@ public class EigenschaftGruppeListeView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new EigenschaftGruppeDetailAction(true), null, false,
         "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   // TODO getHelp()

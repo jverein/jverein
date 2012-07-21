@@ -33,7 +33,7 @@ import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class KursteilnehmerSucheView extends AbstractView
@@ -72,12 +72,13 @@ public class KursteilnehmerSucheView extends AbstractView
     {
       control.getKursteilnehmerTable().paint(getParent());
     }
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new KursteilnehmerDetailAction(), null, false, "document-new.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

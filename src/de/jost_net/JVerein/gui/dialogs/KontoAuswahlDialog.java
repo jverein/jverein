@@ -30,7 +30,7 @@ import de.jost_net.JVerein.gui.parts.KontoList;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 
@@ -95,7 +95,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     konten.setSummary(false);
     konten.paint(parent);
 
-    ButtonArea b = new ButtonArea(parent, 3);
+    ButtonArea b = new ButtonArea();
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
       public void handleAction(Object context)
@@ -126,6 +126,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
         throw new OperationCanceledException();
       }
     });
+    b.paint(parent);
   }
 
   /**

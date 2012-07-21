@@ -26,7 +26,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class FamilienbeitragView extends AbstractView
 {
@@ -40,10 +40,11 @@ public class FamilienbeitragView extends AbstractView
 
     control.getFamilienbeitraegeTree().paint(this.getParent());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
         "help-browser.png");
+    buttons.paint(this.getParent());
   }
 
   @Override

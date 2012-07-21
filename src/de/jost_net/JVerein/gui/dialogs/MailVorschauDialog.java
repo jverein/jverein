@@ -46,8 +46,8 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.logging.Logger;
@@ -150,7 +150,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
       anhang.paint(comp4);
     }
 
-    ButtonArea b = new ButtonArea(parent, 5);
+    ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("Schlieﬂen"), new Action()
     {
       public void handleAction(Object context)
@@ -158,6 +158,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
         close();
       }
     });
+    b.paint(parent);
   }
 
   @Override

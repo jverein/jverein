@@ -28,7 +28,7 @@ import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class MitgliedskontoDetailView extends AbstractView
@@ -60,7 +60,7 @@ public class MitgliedskontoDetailView extends AbstractView
     grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
         control.getBetrag());
 
-    ButtonArea buttons = new ButtonArea(getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
         "help-browser.png");
@@ -72,6 +72,7 @@ public class MitgliedskontoDetailView extends AbstractView
         control.handleStore();
       }
     }, null, true, "document-save.png");
+    buttons.paint(this.getParent());
   }
 
   // TODO getHelp()

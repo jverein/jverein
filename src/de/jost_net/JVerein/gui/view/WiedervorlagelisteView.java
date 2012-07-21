@@ -27,7 +27,7 @@ import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.parts.WiedervorlageList;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 
 public class WiedervorlagelisteView extends AbstractView
 {
@@ -38,11 +38,11 @@ public class WiedervorlagelisteView extends AbstractView
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Wiedervorlagen"));
     new WiedervorlageList(new WiedervorlageListeAction())
         .getWiedervorlageList().paint(this.getParent());
-    ButtonArea buttons = new ButtonArea(this.getParent(), 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.WIEDERVORLAGE, false,
         "help-browser.png");
-
+    buttons.paint(this.getParent());
   }
 
   @Override

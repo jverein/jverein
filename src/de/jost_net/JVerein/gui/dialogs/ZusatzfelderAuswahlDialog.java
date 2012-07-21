@@ -42,7 +42,7 @@ import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.util.ButtonArea;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.Settings;
 
@@ -245,7 +245,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
       settings.setAttribute("zusatzfelder.counter", counter);
     }
 
-    ButtonArea buttons = new ButtonArea(parent, 2);
+    ButtonArea buttons = new ButtonArea();
     buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
     {
 
@@ -332,6 +332,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
         close();
       }
     });
+    buttons.paint(parent);
   }
 
   @Override
