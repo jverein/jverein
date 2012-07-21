@@ -58,6 +58,8 @@ public class MitgliedskontoMap
     ArrayList<Double> ist = new ArrayList<Double>();
     ArrayList<Double> differenz = new ArrayList<Double>();
     double summe = 0;
+    double saldo = 0;
+    double suist = 0;
     for (Mitgliedskonto mkto : mk)
     {
       buda.add(mkto.getDatum());
@@ -65,14 +67,18 @@ public class MitgliedskontoMap
       zg1.add(mkto.getZweck1());
       betrag.add(new Double(mkto.getBetrag()));
       ist.add(mkto.getIstSumme());
+      suist += mkto.getIstSumme();
       differenz.add(mkto.getBetrag() - mkto.getIstSumme());
       summe += mkto.getBetrag();
+      saldo += mkto.getBetrag() - mkto.getIstSumme();
     }
     if (buda.size() > 1)
     {
       zg1.add("Summe");
       zg.add("Summe");
       betrag.add(summe);
+      differenz.add(saldo);
+      ist.add(suist);
     }
     map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
     map.put(FormularfeldControl.ZAHLUNGSGRUND, zg.toArray());
@@ -109,5 +115,4 @@ public class MitgliedskontoMap
         mk.getBetrag() - mk.getIstSumme());
     return map;
   }
-
 }
