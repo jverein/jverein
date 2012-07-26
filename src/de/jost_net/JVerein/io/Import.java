@@ -835,7 +835,7 @@ public class Import
     }
     else
     { // Default value
-      m.setZahlungsrhytmus(new Integer(1));
+      m.setAdresstyp(new Integer(1));
     }
 
     m.setVermerk1(getResultFrom(results, InternalColumns.VERMERKA));
