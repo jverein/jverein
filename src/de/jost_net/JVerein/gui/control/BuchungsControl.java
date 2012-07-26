@@ -755,7 +755,21 @@ public class BuchungsControl extends AbstractControl
       buchungsList.addColumn("Auszug", "auszugsnummer");
       buchungsList.addColumn("Blatt", "blattnummer");
       buchungsList.addColumn("Name", "name");
-      buchungsList.addColumn("Verwendungszweck", "zweck");
+      buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
+      {
+        public String format(Object value)
+        {
+          if (value == null)
+          {
+            return null;
+          }
+          String s = value.toString();
+          s = s.replaceAll("\r\n", " ");
+          s = s.replaceAll("\r", " ");
+          s = s.replaceAll("\n", " ");
+          return s;
+        }
+      });
       buchungsList.addColumn("Buchungsart", "buchungsart",
           new BuchungsartFormatter());
       buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
