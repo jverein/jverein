@@ -117,7 +117,6 @@ public class CSVBuchungsImport implements Importer
           {
             // Optionales Feld
           }
-          // bu.setBuchungsart()
           try
           {
             Date d = de.jost_net.JVerein.util.Datum.toDate(results
@@ -173,8 +172,7 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException("Spalte "
-                + BuchungVar.BUCHUNGSARTNUMMER.getName() + " fehlt!");
+            // Optionales Feld
           }
           try
           {
