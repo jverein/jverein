@@ -75,7 +75,6 @@ import de.willuhn.jameica.gui.formatter.TreeFormatter;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
-import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -87,9 +86,9 @@ import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.jameica.system.Settings;
 
 public class MitgliedskontoControl extends AbstractControl
 {
@@ -699,6 +698,7 @@ public class MitgliedskontoControl extends AbstractControl
 
         try
         {
+          System.out.println(currentObject);
           generiereRechnung(currentObject);
         }
         catch (RemoteException e)
@@ -765,6 +765,10 @@ public class MitgliedskontoControl extends AbstractControl
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
     Formular form = (Formular) getFormular(Formularart.RECHNUNG).getValue();
+    if (form == null)
+    {
+      throw new IOException("kein Rechnungsformular ausgewählt");
+    }
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
     fa = new FormularAufbereitung(file);
