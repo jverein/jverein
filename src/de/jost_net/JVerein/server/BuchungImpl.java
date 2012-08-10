@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,6 +100,21 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Bitte Datum eingeben"));
     }
+    Calendar cal1 = Calendar.getInstance();
+    cal1.setTime(getDatum());
+    Calendar cal2 = Calendar.getInstance();
+    if (cal1.after(cal2))
+    {
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Buchungsdatum liegt in der Zukunft"));
+    }
+    cal2.add(Calendar.YEAR, -10);
+    if (cal1.before(cal2))
+    {
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Buchung liegt mehr als 10 Jahre zurück"));
+    }
+
     Jahresabschluss ja = getJahresabschluss();
     if (ja != null)
     {
