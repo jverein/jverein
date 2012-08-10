@@ -108,18 +108,15 @@ public class DefaultZusatzbetraegeImport implements Importer
             Mitglied.class);
         if (b_mitgliedsnummer)
         {
-          list.addFilter("id = ? ",
-              new Object[] { results.getString("Mitglieds_Nr") });
+          list.addFilter("id = ? ", results.getString("Mitglieds_Nr"));
         }
         if (b_nachname)
         {
-          list.addFilter("name = ? ",
-              new Object[] { results.getString("Nachname") });
+          list.addFilter("name = ? ", results.getString("Nachname"));
         }
         if (b_vorname)
         {
-          list.addFilter("vorname = ? ",
-              new Object[] { results.getString("Vorname") });
+          list.addFilter("vorname = ? ", results.getString("Vorname"));
         }
         if (list.size() == 0)
         {
