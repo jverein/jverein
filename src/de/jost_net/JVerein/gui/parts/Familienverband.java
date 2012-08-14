@@ -128,7 +128,7 @@ public class Familienverband implements Part
     {
       tab = null;
     //erstelle neuen zahler: (force == true)
-      cont.addLabelPair("Zahler", control.getZahler(true));
+      cont.addLabelPair(JVereinPlugin.getI18n().tr("Zahler"), control.getZahler(true));
       control.getZahler().setMandatory(true);
       cont.addPart(control.getFamilienangehoerigenTable());
     }

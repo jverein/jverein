@@ -191,11 +191,11 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       suAusgaben += suBukAusgaben;
       suUmbuchungen += suBukUmbuchungen;
       zeile.add(new BuchungsklasseSaldoZeile(
-          BuchungsklasseSaldoZeile.SALDOFOOTER, "Saldo "
+          BuchungsklasseSaldoZeile.SALDOFOOTER, JVereinPlugin.getI18n().tr("Saldo") + " "
               + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
           suBukUmbuchungen));
       zeile.add(new BuchungsklasseSaldoZeile(
-          BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST, "Gewinn/Verlust "
+          BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST, JVereinPlugin.getI18n().tr("Gewinn/Verlust") + " "
               + buchungsklasse.getBezeichnung(), suBukEinnahmen + suBukAusgaben
               + suBukUmbuchungen));
     }
@@ -219,17 +219,17 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     {
       Buchungsklasse b = (Buchungsklasse) service.createObject(
           Buchungsklasse.class, null);
-      b.setBezeichnung("Nicht zugeordnet");
+      b.setBezeichnung(JVereinPlugin.getI18n().tr("Nicht zugeordnet"));
       zeile
           .add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
       zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
-          "Nicht zugeordnet", einnahmen, ausgaben, umbuchungen));
+          JVereinPlugin.getI18n().tr("Nicht zugeordnet"), einnahmen, ausgaben, umbuchungen));
     }
     zeile.add(new BuchungsklasseSaldoZeile(
-        BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER, "Gesamtsaldo ",
+        BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER, JVereinPlugin.getI18n().tr("Gesamtsaldo") + " ",
         suEinnahmen, suAusgaben, suUmbuchungen));
     zeile.add(new BuchungsklasseSaldoZeile(
-        BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST, "Gesamt Gewinn/Verlust ",
+        BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST, JVereinPlugin.getI18n().tr("Gesamt Gewinn/Verlust")+" ",
         suEinnahmen + suAusgaben + suUmbuchungen));
 
     sql = "select count(*) from buchung " + "where datum >= ? and datum <= ?  "
@@ -240,7 +240,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     {
       zeile.add(new BuchungsklasseSaldoZeile(
           BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN,
-          "Anzahl Buchungen ohne Buchungsart ", anzahl));
+          JVereinPlugin.getI18n().tr( "Anzahl Buchungen ohne Buchungsart"), anzahl));
     }
     return zeile;
   }

@@ -50,8 +50,8 @@ public class FamilienbeitragView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Familienbeiträge</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Familienbeiträge</span></p>"
         + "<p>Doppelklick öffnet das Mitglied. Rechtsklick bietet die Möglichkeit, das Mitglied aus dem Famlilienverband zu entfernen.</p>"
-        + "</form>";
+        + "</form>");
   }
 }

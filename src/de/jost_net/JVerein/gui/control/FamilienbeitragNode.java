@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -136,7 +137,7 @@ public class FamilienbeitragNode implements GenericObjectNode
     {
       if (mitglied == null)
       {
-        return "Familienbeiträge";
+        return JVereinPlugin.getI18n().tr("Familienbeiträge");
       }
       JVDateFormatTTMMJJJJ jvttmmjjjj = new JVDateFormatTTMMJJJJ();
       return mitglied.getNameVorname()
@@ -147,7 +148,7 @@ public class FamilienbeitragNode implements GenericObjectNode
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     return null;
   }

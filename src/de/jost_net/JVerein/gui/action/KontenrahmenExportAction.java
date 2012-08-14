@@ -56,10 +56,10 @@ public class KontenrahmenExportAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error("Fehler beim Export", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       GUI.getStatusBar().setErrorText(
           JVereinPlugin.getI18n().tr(
-              "Fehler beim exportieren der Mitglieder-Jubiläen"));
+              "Fehler beim exportieren des Kontenrahmens"));
     }
   }
 }

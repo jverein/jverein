@@ -75,20 +75,20 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler FamilienmitgliedEntfernenDialog", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
   }
 
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup lgBeitragsgruppe = new LabelGroup(parent, "Beitragsgruppe");
-    lgBeitragsgruppe.addLabelPair("Beitragsgruppe",
+    LabelGroup lgBeitragsgruppe = new LabelGroup(parent, JVereinPlugin.getI18n().tr("Beitragsgruppe"));
+    lgBeitragsgruppe.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsgruppe"),
         control.getBeitragsgruppe(false));
-    LabelGroup lgBank = new LabelGroup(parent, "Bankverbindung");
-    lgBank.addLabelPair("Konto", control.getKonto());
-    lgBank.addLabelPair("Bankleitzahl", control.getBlz());
-    lgBank.addLabelPair("Kontoinhaber", control.getKontoinhaber());
+    LabelGroup lgBank = new LabelGroup(parent, JVereinPlugin.getI18n().tr("Bankverbindung"));
+    lgBank.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
+    lgBank.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"), control.getBlz());
+    lgBank.addLabelPair(JVereinPlugin.getI18n().tr("Kontoinhaber"), control.getKontoinhaber());
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
@@ -99,7 +99,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
         {
           if (control.getBeitragsgruppe(false).getValue() == null)
           {
-            throw new ApplicationException("Bitte Beitragsgruppe auswählen");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr("Bitte Beitragsgruppe auswählen"));
           }
           Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppe(false)
               .getValue();
@@ -118,7 +118,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
         catch (ApplicationException e)
         {
           SimpleDialog sd = new SimpleDialog(SimpleDialog.POSITION_CENTER);
-          sd.setTitle("Fehler");
+          sd.setTitle(JVereinPlugin.getI18n().tr("Fehler"));
           sd.setText(e.getMessage());
           sd.setSideImage(SWTUtil.getImage("dialog-warning-large.png"));
           try
@@ -127,14 +127,14 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
           }
           catch (Exception e1)
           {
-            Logger.error("Fehler", e1);
+            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e1);
           }
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
           return;
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
           return;
         }
       }

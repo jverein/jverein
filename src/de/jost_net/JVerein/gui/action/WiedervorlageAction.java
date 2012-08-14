@@ -61,7 +61,9 @@ public class WiedervorlageAction implements Action
           if (m.getID() == null)
           {
             throw new ApplicationException(
-                "Neues Mitglied bitte erst speichern. Dann können Wiedervorlagen aufgenommen werden.");
+                JVereinPlugin
+                    .getI18n()
+                    .tr("Neues Mitglied bitte erst speichern. Dann können Wiedervorlagen aufgenommen werden."));
           }
           w.setMitglied(new Integer(m.getID()).intValue());
         }

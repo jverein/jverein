@@ -120,8 +120,9 @@ public class Abrechnung
     // Gegenbuchung für das Mitgliedskonto schreiben
     if (Einstellungen.getEinstellung().getMitgliedskonto())
     {
-      writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", dtaus
-          .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true,
+      writeMitgliedskonto(null, new Date(),
+          JVereinPlugin.getI18n().tr("Gegenbuchung"), "", dtaus
+              .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true,
           getKonto(), null);
     }
 
@@ -248,7 +249,8 @@ public class Abrechnung
       }
       list.setOrder("ORDER BY name, vorname");
       // Sätze im Resultset
-      monitor.log("Anzahl Sätze: " + list.size());
+      monitor.log(JVereinPlugin.getI18n().tr("Anzahl Sätze: {0}",
+          list.size() + ""));
 
       int count = 0;
       while (list.hasNext())
@@ -291,9 +293,9 @@ public class Abrechnung
             while (li.hasNext())
             {
               Beitragsgruppe bg = (Beitragsgruppe) li.next();
-              Logger.error("Beitragsgruppe: " + bg.getID() + ", "
-                  + bg.getBezeichnung() + ", " + bg.getBetrag() + ", "
-                  + bg.getBeitragsArt());
+              Logger.error(JVereinPlugin.getI18n().tr("Beitragsgruppe:") + " "
+                  + bg.getID() + ", " + bg.getBezeichnung() + ", "
+                  + bg.getBetrag() + ", " + bg.getBeitragsArt());
             }
             throw e;
           }
@@ -585,12 +587,14 @@ public class Abrechnung
     }
     catch (IOException e)
     {
-      throw new ApplicationException("Fehler beim öffnen der DTAUS-Datei");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim öffnen der DTAUS-Datei"));
     }
     catch (DtausException e)
     {
-      throw new ApplicationException("Fehler beim parsen der DTAUS-Datei: "
-          + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim parsen der DTAUS-Datei:")
+          + " " + e.getMessage());
     }
   }
 
@@ -678,7 +682,6 @@ public class Abrechnung
             .getID()));
       }
       buchung.store();
-
     }
   }
 
@@ -696,9 +699,10 @@ public class Abrechnung
     if (it.size() != 1)
     {
       throw new ApplicationException(
-          "Konto "
-              + Einstellungen.getEinstellung().getKonto()
-              + " ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten");
+          JVereinPlugin
+              .getI18n()
+              .tr("Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+                  Einstellungen.getEinstellung().getKonto()));
     }
     Konto k = (Konto) it.next();
     return k;

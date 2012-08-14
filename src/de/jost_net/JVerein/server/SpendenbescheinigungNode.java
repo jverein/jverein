@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -238,7 +239,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     {
       case ROOT:
       {
-        return "Spendenbescheinigungen";
+        return JVereinPlugin.getI18n().tr("Spendenbescheinigungen");
       }
       case MITGLIED:
       {

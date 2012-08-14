@@ -90,7 +90,8 @@ public class LesefeldUebersichtPart implements Part
     if (selectedMitglied == null)
     {
       Label textLabel = new Label(container.getComposite(), SWT.NONE);
-      textLabel.setText("Bitte erst ein Mitglied anlegen.");
+      textLabel.setText(JVereinPlugin.getI18n().tr(
+          "Bitte erst ein Mitglied anlegen."));
       return;
     }
 
@@ -119,7 +120,8 @@ public class LesefeldUebersichtPart implements Part
         }
         catch (RemoteException e)
         {
-          String fehler = "Fehler beim Auswählen des Mitgliedes";
+          String fehler = JVereinPlugin.getI18n().tr(
+              "Fehler beim Auswählen des Mitgliedes");
           Logger.error(fehler, e);
           GUI.getStatusBar().setErrorText(fehler);
           e.printStackTrace();
@@ -128,7 +130,8 @@ public class LesefeldUebersichtPart implements Part
       }
     });
     mitgliederSelectInput.setName(JVereinPlugin.getI18n().tr("Mitgliedschaft"));
-    container.addLabelPair("Mitglied", mitgliederSelectInput);
+    container.addLabelPair(JVereinPlugin.getI18n().tr("Mitglied"),
+        mitgliederSelectInput);
     // ENDE MITGLIEDER AUSWAHL-FELD
 
     // LesefelderListeLayout
@@ -151,8 +154,8 @@ public class LesefeldUebersichtPart implements Part
     // BUTTON AREA
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-          new DokumentationAction(), DokumentationUtil.LESEFELDER, false,
-          "help-browser.png");
+        new DokumentationAction(), DokumentationUtil.LESEFELDER, false,
+        "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         new NewLesefeldAction(), null, false, "document-new.png");
     buttons.paint(parent);
@@ -376,7 +379,8 @@ public class LesefeldUebersichtPart implements Part
       }
       catch (RemoteException e)
       {
-        String fehler = "Fehler beim Löschen des Lesefeldes";
+        String fehler = JVereinPlugin.getI18n().tr(
+            "Fehler beim Löschen des Lesefeldes");
         Logger.error(fehler, e);
         GUI.getStatusBar().setErrorText(fehler);
         e.printStackTrace();

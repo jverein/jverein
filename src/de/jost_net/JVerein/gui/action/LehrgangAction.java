@@ -61,7 +61,9 @@ public class LehrgangAction implements Action
           if (m.getID() == null)
           {
             throw new ApplicationException(
-                "Neues Mitglied bitte erst speichern. Dann können Lehrgänge aufgenommen werden.");
+                JVereinPlugin
+                    .getI18n()
+                    .tr("Neues Mitglied bitte erst speichern. Dann können Lehrgänge aufgenommen werden."));
           }
 
           l.setMitglied(new Integer(m.getID()).intValue());

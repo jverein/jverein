@@ -72,81 +72,94 @@ public class SpendenbescheinigungAction implements Action
         }
         else if (context != null && (context instanceof MitgliedskontoNode))
         {
-        	MitgliedskontoNode mkn = (MitgliedskontoNode) context;
-            spb.setSpendenart(Spendenart.GELDSPENDE);
-            spb.setErsatzAufwendungen(false);
-            spb.setBescheinigungsdatum(new Date());
-        	if (mkn.getMitglied() != null)
-        	{
-          	  // Mitglied aus Mitgliedskonto lesen
-      		  Mitglied m = mkn.getMitglied();
-              spb.setMitglied(m);
-              spb.setZeile1(m.getAnrede());
-              spb.setZeile2(m.getVornameName());
-              spb.setZeile3(m.getStrasse());
-              spb.setZeile4(m.getPlz() + " " + m.getOrt());
-              if (m.getStaat() != null && m.getStaat().length() > 0)
+          MitgliedskontoNode mkn = (MitgliedskontoNode) context;
+          spb.setSpendenart(Spendenart.GELDSPENDE);
+          spb.setErsatzAufwendungen(false);
+          spb.setBescheinigungsdatum(new Date());
+          if (mkn.getMitglied() != null)
+          {
+            // Mitglied aus Mitgliedskonto lesen
+            Mitglied m = mkn.getMitglied();
+            spb.setMitglied(m);
+            spb.setZeile1(m.getAnrede());
+            spb.setZeile2(m.getVornameName());
+            spb.setZeile3(m.getStrasse());
+            spb.setZeile4(m.getPlz() + " " + m.getOrt());
+            if (m.getStaat() != null && m.getStaat().length() > 0)
+            {
+              spb.setZeile5(m.getStaat());
+            }
+          }
+          if (mkn.getType() == MitgliedskontoNode.IST)
+          {
+            // Buchung eintragen
+            Object o = Einstellungen.getDBService().createObject(Buchung.class,
+                mkn.getID());
+            if (o != null)
+            {
+              Buchung b = (Buchung) o;
+              if (b.getSpendenbescheinigung() != null)
               {
-                spb.setZeile5(m.getStaat());
+                throw new ApplicationException(
+                    JVereinPlugin
+                        .getI18n()
+                        .tr("Die Buchung ist bereits auf einer Spendenbescheinigung eingetragen!"));
               }
-        	}
-            if (mkn.getType() == MitgliedskontoNode.IST) {
-              // Buchung eintragen
-              Object o = Einstellungen.getDBService().createObject(Buchung.class, mkn.getID());
-              if (o != null) {
-            	Buchung b = (Buchung) o;
-            	if (b.getSpendenbescheinigung() != null) {
-            	  throw new ApplicationException("Die Buchung ist bereits auf einer Spendenbescheinigung eingetragen!");
-            	}
-            	spb.setBuchung(b);
-            	spb.setSpendedatum(b.getDatum());
-              }
-            } else if (mkn.getType() == MitgliedskontoNode.MITGLIED) {
-                /* Ermitteln der Buchungen zu der neuen Spendenbescheinigung */
-                Date minDatum = Calendar.getInstance().getTime();
-                Date maxDatum = Calendar.getInstance().getTime();
-                DBIterator itMk = Einstellungen.getDBService().createList(Mitgliedskonto.class);
-                itMk.addFilter("mitglied = ?",
-                        new Object[] { mkn.getID() });
-                //it.addFilter("spendenbescheinigung = ?",
-                //    new Object[] { null });
-                itMk.setOrder("ORDER BY datum asc");
+              spb.setBuchung(b);
+              spb.setSpendedatum(b.getDatum());
+            }
+          }
+          else if (mkn.getType() == MitgliedskontoNode.MITGLIED)
+          {
+            /* Ermitteln der Buchungen zu der neuen Spendenbescheinigung */
+            Date minDatum = Calendar.getInstance().getTime();
+            Date maxDatum = Calendar.getInstance().getTime();
+            DBIterator itMk = Einstellungen.getDBService().createList(
+                Mitgliedskonto.class);
+            itMk.addFilter("mitglied = ?", new Object[] { mkn.getID() });
+            // it.addFilter("spendenbescheinigung = ?",
+            // new Object[] { null });
+            itMk.setOrder("ORDER BY datum asc");
 
-                while (itMk.hasNext())
+            while (itMk.hasNext())
+            {
+              Mitgliedskonto mk = (Mitgliedskonto) itMk.next();
+
+              DBIterator it = Einstellungen.getDBService().createList(
+                  Buchung.class);
+              it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
+              it.addFilter("spendenbescheinigung is null");
+              it.setOrder("ORDER BY datum asc");
+
+              while (it.hasNext())
+              {
+                Buchung bu = (Buchung) it.next();
+                if (bu.getSpendenbescheinigung() == null)
                 {
-                  Mitgliedskonto mk = (Mitgliedskonto) itMk.next();
-                  
-                  DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-                  it.addFilter("mitgliedskonto = ?",
-                          new Object[] { mk.getID() });
-                  it.addFilter("spendenbescheinigung is null");
-                  it.setOrder("ORDER BY datum asc");
-
-                  while (it.hasNext())
+                  if (bu.getBuchungsart().getSpende())
                   {
-                    Buchung bu = (Buchung) it.next();
-                    if (bu.getSpendenbescheinigung() == null) {
-                      if (bu.getBuchungsart().getSpende()) {
-                        if (minDatum.after(bu.getDatum())) {
-                          minDatum = bu.getDatum();
-                        }
-                        if (maxDatum.before(bu.getDatum())) {
-                            maxDatum = bu.getDatum();
-                        }
-                  	    spb.addBuchung(bu);
-                      }
+                    if (minDatum.after(bu.getDatum()))
+                    {
+                      minDatum = bu.getDatum();
                     }
+                    if (maxDatum.before(bu.getDatum()))
+                    {
+                      maxDatum = bu.getDatum();
+                    }
+                    spb.addBuchung(bu);
                   }
                 }
-                spb.setSpendedatum(minDatum);
+              }
             }
+            spb.setSpendedatum(minDatum);
+          }
         }
       }
       GUI.startView(SpendenbescheinigungView.class.getName(), spb);
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Fehler bei der Erstellung der Spendenbescheinigung"));
     }

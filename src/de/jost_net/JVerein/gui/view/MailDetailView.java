@@ -79,31 +79,34 @@ public class MailDetailView extends AbstractView
     GridLayout gl3 = new GridLayout();
     gl3.marginWidth = 0;
     comp3.setLayout(gl3);
-    Button add = new Button("Hinzufügen", new Action()
-    {
-
-      public void handleAction(Object context) throws ApplicationException
-      {
-        MailEmpfaengerAuswahlDialog mead = new MailEmpfaengerAuswahlDialog(
-            control, MailEmpfaengerAuswahlDialog.POSITION_CENTER);
-        try
+    Button add = new Button(JVereinPlugin.getI18n().tr("Hinzufügen"),
+        new Action()
         {
-          mead.open();
-        }
-        catch (Exception e)
-        {
-          throw new ApplicationException(e.getMessage());
-        }
-      }
-    });
+          public void handleAction(Object context) throws ApplicationException
+          {
+            MailEmpfaengerAuswahlDialog mead = new MailEmpfaengerAuswahlDialog(
+                control, MailEmpfaengerAuswahlDialog.POSITION_CENTER);
+            try
+            {
+              mead.open();
+            }
+            catch (Exception e)
+            {
+              throw new ApplicationException(e.getMessage());
+            }
+          }
+        });
     add.paint(comp3);
 
-    addLabel("Betreff", comp, GridData.VERTICAL_ALIGN_CENTER);
+    addLabel(JVereinPlugin.getI18n().tr("Betreff"), comp,
+        GridData.VERTICAL_ALIGN_CENTER);
     control.getBetreff().paint(comp);
-    addLabel("Text", comp, GridData.VERTICAL_ALIGN_BEGINNING);
+    addLabel(JVereinPlugin.getI18n().tr("Text"), comp,
+        GridData.VERTICAL_ALIGN_BEGINNING);
     control.getTxt().paint(comp);
 
-    addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
+    addLabel(JVereinPlugin.getI18n().tr("Anhang"), comp,
+        GridData.VERTICAL_ALIGN_BEGINNING);
     Composite comp4 = new Composite(comp, SWT.NONE);
     GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
     gd4.heightHint = 90;
@@ -120,14 +123,15 @@ public class MailDetailView extends AbstractView
     GridLayout gl5 = new GridLayout();
     gl5.marginWidth = 0;
     comp5.setLayout(gl5);
-    Button addAttachment = new Button("    Anlage    ", new Action()
+    Button addAttachment = new Button("    "
+        + JVereinPlugin.getI18n().tr("Anlage") + "    ", new Action()
     {
-
       public void handleAction(Object context) throws ApplicationException
       {
         FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
         fd.setFilterPath(System.getProperty("user.home"));
-        fd.setText("Bitte wählen Sie einen Anhang aus.");
+        fd.setText(JVereinPlugin.getI18n().tr(
+            "Bitte wählen Sie einen Anhang aus."));
         String f = fd.open();
         if (f != null)
         {
@@ -163,7 +167,7 @@ public class MailDetailView extends AbstractView
     buttons.addButton(control.getMailReSendButton());
     buttons.addButton(control.getMailSendButton());
     buttons.paint(this.getParent());
- }
+  }
 
   private void addLabel(String name, Composite parent, int align)
   {
@@ -176,10 +180,12 @@ public class MailDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
-        + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
-        + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse kann eine Vorschau angezeigt werden.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
+            + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
+            + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse kann eine Vorschau angezeigt werden.</p>"
+            + "</form>");
   }
 
 }

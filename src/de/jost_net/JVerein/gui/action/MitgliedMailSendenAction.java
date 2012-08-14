@@ -134,7 +134,7 @@ public class MitgliedMailSendenAction implements Action
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Fehler aufgetreten: "
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler")
           + e.getLocalizedMessage());
     }
   }

@@ -233,11 +233,9 @@ public class ImportView extends AbstractView
     /* define action to remove a set assignment */
     necTable.addKeyListener(new KeyAdapter()
     {
-
       @Override
       public void keyPressed(KeyEvent event)
       {
-
         if (event.keyCode == SWT.BS || event.keyCode == SWT.DEL)
         {
           TableItem[] item = necTable.getSelection();
@@ -281,14 +279,11 @@ public class ImportView extends AbstractView
      */
     selectImportFile.addSelectionListener(new SelectionAdapter()
     {
-
       @Override
       public void widgetSelected(SelectionEvent e)
       {
-
         loadFromImportFile(parent, showPathFile, necTable, list);
       }
-
     });
 
     /*
@@ -312,13 +307,11 @@ public class ImportView extends AbstractView
     dt.setTransfer(new Transfer[] { TextTransfer.getInstance() });
     dt.addDropListener(new DropTargetAdapter()
     {
-
       public void drop(DropTargetEvent event)
       {
         TableItem curItem = (TableItem) event.item;
         if (curItem != null)
         { // only if a item is selected
-
           String movedItem = (String) event.data;
           addColumnReplacementTableItem(curItem, movedItem);
           columns.setColumnReplacement(curItem.getText(0), movedItem);
@@ -327,7 +320,6 @@ public class ImportView extends AbstractView
         }
       }
     });
-
     parent.pack();
   }
 
@@ -340,7 +332,6 @@ public class ImportView extends AbstractView
    */
   private void clearAssignment(final TableItem item)
   {
-
     if (item == null)
       return;
 
@@ -355,7 +346,6 @@ public class ImportView extends AbstractView
 
     /* remove already defined replacement */
     columns.setColumnReplacement(item.getText(0), null);
-
   }
 
   /**
@@ -367,8 +357,9 @@ public class ImportView extends AbstractView
     if (!columns.allNecessaryColumnsAvailable())
     {
       SimpleDialog sd = new SimpleDialog(AbstractDialog.POSITION_CENTER);
-      sd.setText("Es wurden nicht alle Pflichtfelder (rot) festgelegt");
-      sd.setTitle("Fehler:");
+      sd.setText(JVereinPlugin.getI18n().tr(
+          "Es wurden nicht alle Pflichtfelder (rot) festgelegt"));
+      sd.setTitle(JVereinPlugin.getI18n().tr("Fehler"));
       try
       {
         sd.open();
@@ -427,15 +418,13 @@ public class ImportView extends AbstractView
           else
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            GUI.getStatusBar().setErrorText("Fehler in der Import Datei");
+            GUI.getStatusBar().setErrorText(
+                JVereinPlugin.getI18n().tr("Fehler in der Import Datei"));
           }
-
           csvConn.closeCsvDB();
-
         }
         catch (SQLException sqlE)
         {
-
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error opening reading objects from " + s, sqlE);
           ApplicationException ae = new ApplicationException(JVereinPlugin
@@ -444,7 +433,6 @@ public class ImportView extends AbstractView
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
-
         }
         catch (ApplicationException ae)
         {
@@ -490,7 +478,6 @@ public class ImportView extends AbstractView
   private java.util.List<String> getEigenschaftFields(
       final java.util.List<String> columns)
   {
-
     LinkedList<String> eigenschaftCol = new LinkedList<String>();
 
     for (String column : columns)
@@ -507,11 +494,13 @@ public class ImportView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Import</span></p>"
-        + "<p>Import der Daten aus einer CSV-Datei. Der Aufbau der Datei ist in der Hilfe beschrieben.  </p>"
-        + "<p>Mit Drag und Drop die Spaltennamen aus der rechten Liste in die entsprechende Zeile der linken"
-        + " Tabelle ziehen. Mit der Entf Taste koennen falsch gesetzte auch wieder geloescht werden </p>"
-        + "<p>Achtung! Existierende Daten werden gelöscht.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Import</span></p>"
+            + "<p>Import der Daten aus einer CSV-Datei. Der Aufbau der Datei ist in der Hilfe beschrieben.  </p>"
+            + "<p>Mit Drag und Drop die Spaltennamen aus der rechten Liste in die entsprechende Zeile der linken"
+            + " Tabelle ziehen. Mit der Entf Taste koennen falsch gesetzte auch wieder geloescht werden </p>"
+            + "<p>Achtung! Existierende Daten werden gelöscht.</p></form>");
   }
 
   /**
@@ -525,60 +514,58 @@ public class ImportView extends AbstractView
   private void loadFromImportFile(final Composite parent,
       final Label showPathFile, final Table necTable, final List list)
   {
-
     try
     {
       resetAllAssignment(necTable);
 
-      File importFile = selectFile(parent.getShell(), SWT.OPEN,
-          "Bitte wählen Sie die Import-Datei aus.", "lastdir");
+      File importFile = selectFile(parent.getShell(), SWT.OPEN, JVereinPlugin
+          .getI18n().tr("Bitte wählen Sie die Import-Datei aus."), "lastdir");
 
       if (importFile != null)
       {
-
         showPathFile.setText(importFile.getAbsolutePath());
         showPathFile.pack();
 
         /* set import file */
         if (csvConn.setCSVFile(importFile))
         {
-
           try
           {
             csvConn.openCsvDB();
-
             setLoadedItems(csvConn.getColumnHeaders(), necTable, list);
-
             columns = acIO.readAssignments(csvConn.getColumnHeaders(), columns);
-
             csvConn.closeCsvDB();
-
             updateColumnTable(necTable);
-
           }
           catch (SQLException e1)
           {
             GUI.getStatusBar().setErrorText(
-                "Fehler - SQL Fehler beim lesen der Import Datei");
+                JVereinPlugin.getI18n().tr(
+                    "Fehler - SQL Fehler beim lesen der Import Datei"));
           }
         }
         else
         {
           GUI.getStatusBar().setErrorText(
-              "Fehler - Formatierungsfehler in der Import Datei");
+              JVereinPlugin.getI18n().tr(
+                  "Fehler - Formatierungsfehler in der Import Datei"));
         }
       }
       else
       {
         GUI.getStatusBar()
-            .setErrorText("Fehler - Import Datei existiert nicht");
+            .setErrorText(
+                JVereinPlugin.getI18n().tr(
+                    "Fehler - Import Datei existiert nicht"));
       }
-
     }
     catch (RemoteException e2)
     {
-      GUI.getStatusBar().setErrorText(
-          "Fehler - Table Reset war nicht moeglich, bitte JVerein neustarten");
+      GUI.getStatusBar()
+          .setErrorText(
+              JVereinPlugin
+                  .getI18n()
+                  .tr("Fehler - Table Reset war nicht moeglich, bitte JVerein neustarten"));
     }
   }
 
@@ -592,7 +579,6 @@ public class ImportView extends AbstractView
    */
   private void resetAllAssignment(final Table table) throws RemoteException
   {
-
     /*
      * create the container with all the columns, where their corresponding
      * names will be saved
@@ -653,7 +639,6 @@ public class ImportView extends AbstractView
   private File selectFile(final Shell parent, final int tagOpenClose,
       final String dialogText, final String settingsVariable)
   {
-
     Settings settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
 
@@ -671,21 +656,20 @@ public class ImportView extends AbstractView
     if (s == null || s.length() == 0)
     {
       GUI.getStatusBar().setErrorText(
-          "Abbruch - Es wurde keine gueltige Datei gewaehlt");
+          JVereinPlugin.getI18n().tr(
+              "Abbruch - Es wurde keine gueltige Datei gewaehlt"));
       return null;
     }
 
     final File file = new File(s);
     if (tagOpenClose == SWT.OPEN && (!file.exists() || !file.isFile()))
     {
-      GUI.getStatusBar().setErrorText("Abbruch - Datei existiert nicht");
+      GUI.getStatusBar().setErrorText(
+          JVereinPlugin.getI18n().tr("Abbruch - Datei existiert nicht"));
       return null;
     }
-
     settings.setAttribute(settingsVariable, file.getParent());
-
     return file;
-
   }
 
   /**
@@ -702,17 +686,18 @@ public class ImportView extends AbstractView
   private void setLoadedItems(final java.util.List<String> importColumns,
       final Table necTable, final List list)
   {
-
     if (importColumns == null)
     {
-      GUI.getStatusBar().setErrorText("Import Datei existiert nicht");
+      GUI.getStatusBar().setErrorText(
+          JVereinPlugin.getI18n().tr("Import Datei existiert nicht"));
       return;
     }
 
     if (importColumns.size() == 0)
     {
       GUI.getStatusBar().setErrorText(
-          "Konnte keine Spalten in der Import-Datei finden");
+          JVereinPlugin.getI18n().tr(
+              "Konnte keine Spalten in der Import-Datei finden"));
       return;
     }
 
@@ -737,7 +722,6 @@ public class ImportView extends AbstractView
      * considered during the auto assignment
      */
     autoColumnsAssignment(necTable, importColumns);
-
   }
 
   /**
@@ -747,19 +731,15 @@ public class ImportView extends AbstractView
    */
   private void updateColumnTable(final Table table)
   {
-
     TableItem[] items = table.getItems();
-
     for (TableItem item : items)
     {
-
       String newReplCol = columns.getReplacementForColumn(item.getText(0));
 
       /* if the text changed provide the changes to the table */
       if (newReplCol != null && item.getText(1) != null
           && !newReplCol.equals(item.getText(1)))
       {
-
         addColumnReplacementTableItem(item, newReplCol);
       }
     }

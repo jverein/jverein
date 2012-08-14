@@ -69,7 +69,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     updateCheck();
   }

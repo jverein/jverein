@@ -54,7 +54,6 @@ public class BuchungsklasseView extends AbstractView
 
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();

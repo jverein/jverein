@@ -87,16 +87,19 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
-    
+
   }
-  
+
   private void dateinameCheck(String dateiname) throws ApplicationException
   {
-  //Länge des Dateinamens auf 50 Zeichen begrenzt:
-    //JVereinUpdateProvider: update0093(Connection)
-    if(dateiname.length()>50)
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Maximale Länge (50) von Mail-Anhang überschritten. ("+dateiname.length()+", "+dateiname.substring(0, 50)+"...)"));
+    // Länge des Dateinamens auf 50 Zeichen begrenzt:
+    // JVereinUpdateProvider: update0093(Connection)
+    if (dateiname.length() > 50)
+      throw new ApplicationException(
+          JVereinPlugin
+              .getI18n()
+              .tr("Maximale Länge (50) des Dateinamens von Mail-Anhang überschritten. ({0}, {1}...)",
+                  dateiname.length() + "", dateiname.substring(0, 50)));
   }
 
   @Override
@@ -104,8 +107,7 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
   {
     insertCheck();
   }
-  
-  
+
   @Override
   protected Class<?> getForeignObject(String arg0)
   {

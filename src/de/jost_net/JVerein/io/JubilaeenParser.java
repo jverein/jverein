@@ -24,6 +24,8 @@ package de.jost_net.JVerein.io;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import de.jost_net.JVerein.JVereinPlugin;
+
 public class JubilaeenParser
 {
 
@@ -46,7 +48,8 @@ public class JubilaeenParser
       }
       catch (NumberFormatException e)
       {
-        throw new RuntimeException("Ungültiger Eintrag: " + element);
+        throw new RuntimeException(JVereinPlugin.getI18n().tr(
+            "Ungültiger Eintrag: {0}", element));
       }
     }
   }

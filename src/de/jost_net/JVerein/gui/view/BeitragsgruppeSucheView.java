@@ -57,8 +57,8 @@ public class BeitragsgruppeSucheView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
         + "<p>Alle Beitragsgruppen werden angezeigt. Durch einen Doppelklick kann eine "
-        + "Beitragsgruppe zur Bearbeitung ausgewählt werden.</p></form>";
+        + "Beitragsgruppe zur Bearbeitung ausgewählt werden.</p></form>");
   }
 }

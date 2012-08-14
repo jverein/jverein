@@ -28,7 +28,9 @@ import java.util.ArrayList;
 
 import com.lowagie.text.DocumentException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class MitgliedschaftsjubilaeumExportCSV extends
@@ -40,7 +42,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends
 
   public String getName()
   {
-    return "Mitgliedschaftsjubilare CSV-Export";
+    return JVereinPlugin.getI18n().tr("Mitgliedschaftsjubilare CSV-Export");
   }
 
   public IOFormat[] getIOFormats(Class<?> objectType)
@@ -69,7 +71,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends
 
   public String getDateiname()
   {
-    return "mitgliedschaftsjubilare";
+    return JVereinPlugin.getI18n().tr("mitgliedschaftsjubilare");
   }
 
   protected void open() throws DocumentException, FileNotFoundException
@@ -102,10 +104,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends
     }
     catch (ApplicationException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
-
   }
-
 }

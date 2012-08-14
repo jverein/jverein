@@ -60,8 +60,8 @@ public class AbrechnungslaufDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr(
-          "Abrechnungslauf " + abrl.getID() + " löschen"));
+      d.setTitle(JVereinPlugin.getI18n().tr("Abrechnungslauf {0} löschen",
+          abrl.getID()));
       d.setText(JVereinPlugin.getI18n().tr(
           "Wollen Sie diesen Abrechnungslauf wirklich löschen?"));
 

@@ -70,7 +70,8 @@ public class KontoImpl extends AbstractDBObject implements Konto
       it.addFilter("nummer = ?", new Object[] { getNummer() });
       if (it.size() > 0)
       {
-        throw new ApplicationException("Konto existiert bereits");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Konto existiert bereits"));
       }
     }
     catch (RemoteException e)
@@ -113,7 +114,6 @@ public class KontoImpl extends AbstractDBObject implements Konto
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Konto kann nicht gespeichert werden. Siehe system log"));
     }
-
   }
 
   @Override

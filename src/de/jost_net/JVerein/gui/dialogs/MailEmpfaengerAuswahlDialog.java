@@ -91,7 +91,8 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (Exception e)
         {
-          throw new ApplicationException("Fehler" + e);
+          throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler")
+              + e);
         }
       }
     });
@@ -108,7 +109,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler:", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
       }
     });
@@ -125,7 +126,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
       }
     });
@@ -146,7 +147,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
         close();
       }
@@ -159,7 +160,6 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
       }
     });
     b.paint(parent);
-
   }
 
   @Override

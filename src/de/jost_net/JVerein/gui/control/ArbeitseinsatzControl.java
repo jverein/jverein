@@ -43,6 +43,7 @@ import org.supercsv.prefs.CsvPreference;
 import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.ArbeitseinsatzUeberpruefungInput;
 import de.jost_net.JVerein.gui.parts.ArbeitseinsatzUeberpruefungList;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
@@ -125,8 +126,9 @@ public class ArbeitseinsatzControl extends AbstractControl
       d = new Date();
     }
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle("Datum");
-    this.datum.setText("Datum Arbeitseinsatz wählen");
+    this.datum.setTitle(JVereinPlugin.getI18n().tr("Datum"));
+    this.datum.setText(JVereinPlugin.getI18n()
+        .tr("Datum Arbeitseinsatz wählen"));
     this.datum.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -159,7 +161,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       return bemerkung;
     }
     bemerkung = new TextInput(getArbeitseinsatz().getBemerkung(), 50);
-    bemerkung.setName("Bemerkung");
+    bemerkung.setName(JVereinPlugin.getI18n().tr("Bemerkung"));
     return bemerkung;
   }
 
@@ -183,7 +185,8 @@ public class ArbeitseinsatzControl extends AbstractControl
       ae.setStunden((Double) getStunden().getValue());
       ae.setBemerkung((String) getBemerkung().getValue());
       ae.store();
-      GUI.getStatusBar().setSuccessText("Arbeitseinsatz gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Arbeitseinsatz gespeichert"));
     }
     catch (ApplicationException e)
     {
@@ -191,7 +194,8 @@ public class ArbeitseinsatzControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Arbeitseinsatzes";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Arbeitseinsatzes");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -215,8 +219,8 @@ public class ArbeitseinsatzControl extends AbstractControl
     }
     else
     {
-      throw new ApplicationException(
-          "Abbruch! Es existiert noch kein Arbeitseinsatz");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Abbruch! Es existiert noch kein Arbeitseinsatz"));
     }
     Calendar bis = Calendar.getInstance();
     ArrayList<Integer> jahre = new ArrayList<Integer>();
@@ -234,53 +238,57 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   public Button getPDFAusgabeButton()
   {
-    Button b = new Button("PDF-Ausgabe", new Action()
-    {
-
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
+    Button b = new Button(JVereinPlugin.getI18n().tr("PDF-Ausgabe"),
+        new Action()
         {
-          startePDFAuswertung();
-        }
-        catch (RemoteException e)
-        {
-          Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler beim Start der PDF-Ausgabe der Arbeitseinsatzüberprüfung");
-        }
-      }
-    }, null, true, "acroread.png");
+          public void handleAction(Object context) throws ApplicationException
+          {
+            try
+            {
+              startePDFAuswertung();
+            }
+            catch (RemoteException e)
+            {
+              Logger.error(e.getMessage());
+              throw new ApplicationException(
+                  JVereinPlugin
+                      .getI18n()
+                      .tr("Fehler beim Start der PDF-Ausgabe der Arbeitseinsatzüberprüfung"));
+            }
+          }
+        }, null, true, "acroread.png");
     return b;
   }
 
   public Button getCSVAusgabeButton()
   {
-    Button b = new Button("CSV-Ausgabe", new Action()
-    {
-
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
+    Button b = new Button(JVereinPlugin.getI18n().tr("CSV-Ausgabe"),
+        new Action()
         {
-          starteCSVAuswertung();
-        }
-        catch (RemoteException e)
-        {
-          Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler beim Start der CSV-Ausgabe der Arbeitseinsatzüberprüfung");
-        }
-      }
-    }, null, true, "csv_text.png");
+          public void handleAction(Object context) throws ApplicationException
+          {
+            try
+            {
+              starteCSVAuswertung();
+            }
+            catch (RemoteException e)
+            {
+              Logger.error(e.getMessage());
+              throw new ApplicationException(
+                  JVereinPlugin
+                      .getI18n()
+                      .tr("Fehler beim Start der CSV-Ausgabe der Arbeitseinsatzüberprüfung"));
+            }
+          }
+        }, null, true, "csv_text.png");
     return b;
   }
 
   public Button getArbeitseinsatzAusgabeButton()
   {
-    Button b = new Button("Zusatzbeträge generieren", new Action()
+    Button b = new Button(JVereinPlugin.getI18n()
+        .tr("Zusatzbeträge generieren"), new Action()
     {
-
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -290,8 +298,8 @@ public class ArbeitseinsatzControl extends AbstractControl
         catch (RemoteException e)
         {
           Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler beim der Zusatzbetragsgenerierung");
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Fehler beim der Zusatzbetragsgenerierung"));
         }
       }
     }, null, true, "zusatzbetraege.png");
@@ -302,7 +310,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       ApplicationException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
+    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
@@ -329,26 +337,25 @@ public class ArbeitseinsatzControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, "Arbeitseinsätze " + jahr, sub,
-              it.size());
-          reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
+          Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
+              "Arbeitseinsätze {0}", jahr + ""), sub, it.size());
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Mitglied"),
+              Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Sollstunden"),
+              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Iststunden"),
+              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Differenz"),
+              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(("Stundensatz"), Element.ALIGN_RIGHT, 30,
               Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Sollstunden", Element.ALIGN_RIGHT, 30,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Iststunden", Element.ALIGN_RIGHT, 30,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Differenz", Element.ALIGN_RIGHT, 30,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Stundensatz", Element.ALIGN_RIGHT, 30,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Gesamtbetrag", Element.ALIGN_RIGHT, 30,
-              Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Gesamtbetrag"),
+              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
           {
@@ -364,18 +371,18 @@ public class ArbeitseinsatzControl extends AbstractControl
           reporter.closeTable();
           reporter.close();
           fos.close();
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getStatusBar().setSuccessText(
+              JVereinPlugin.getI18n().tr("Auswertung gestartet"));
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
-
           public void run()
           {
             try
@@ -390,7 +397,6 @@ public class ArbeitseinsatzControl extends AbstractControl
             }
           }
         });
-
       }
 
       public void interrupt()
@@ -404,21 +410,21 @@ public class ArbeitseinsatzControl extends AbstractControl
       }
     };
     Application.getController().start(t);
-
   }
 
   private void starteCSVAuswertung() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
+    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "CSV").get());
+    fd.setFileName(new Dateiname(
+        JVereinPlugin.getI18n().tr("arbeitseinsaetze"), "", Einstellungen
+            .getEinstellung().getDateinamenmuster(), "CSV").get());
     fd.setFilterExtensions(new String[] { "*.CSV" });
 
     String s = fd.open();
@@ -435,7 +441,6 @@ public class ArbeitseinsatzControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -469,18 +474,18 @@ public class ArbeitseinsatzControl extends AbstractControl
             writer.write(data1, header);
           }
           writer.close();
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getStatusBar().setSuccessText(
+              JVereinPlugin.getI18n().tr("Auswertung gestartet"));
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
-
           public void run()
           {
             try
@@ -520,7 +525,6 @@ public class ArbeitseinsatzControl extends AbstractControl
 
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -533,7 +537,8 @@ public class ArbeitseinsatzControl extends AbstractControl
             Double betrag = (Double) z.getAttribute("gesamtbetrag");
             betrag = betrag * -1;
             zb.setBetrag(betrag);
-            zb.setBuchungstext("Arbeitseinsatz " + jahr);
+            zb.setBuchungstext(JVereinPlugin.getI18n().tr("Arbeitseinsatz {0}",
+                +jahr + ""));
             zb.setFaelligkeit(new Date());
             zb.setStartdatum(new Date());
             zb.setIntervall(IntervallZusatzzahlung.KEIN);
@@ -541,7 +546,7 @@ public class ArbeitseinsatzControl extends AbstractControl
             zb.store();
           }
           GUI.getStatusBar().setSuccessText(
-              "Generierung Zusatzbeträge gestartet");
+              JVereinPlugin.getI18n().tr("Liste Arbeitseinsätze gestartet"));
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
@@ -608,7 +613,9 @@ public class ArbeitseinsatzControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler aufgetreten {0}", e.getMessage()));
     }
     return arbeitseinsatzueberpruefungList.getArbeitseinsatzUeberpruefungList();
   }

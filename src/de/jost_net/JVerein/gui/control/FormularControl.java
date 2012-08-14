@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FormularAction;
 import de.jost_net.JVerein.gui.formatter.FormularartFormatter;
 import de.jost_net.JVerein.gui.menu.FormularMenu;
@@ -135,28 +136,32 @@ public class FormularControl extends AbstractControl
         f.setInhalt(b);
       }
       f.store();
-      GUI.getStatusBar().setSuccessText("Formular gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Formular gespeichert"));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Speichern des Formulares";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Speichern des Formulares");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
     catch (ApplicationException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (FileNotFoundException e)
     {
-      Logger.error("Fehler", e);
-      GUI.getStatusBar().setErrorText("Datei nicht gefunden");
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      GUI.getStatusBar().setErrorText(
+          JVereinPlugin.getI18n().tr("Datei nicht gefunden"));
     }
     catch (IOException e)
     {
-      Logger.error("Fehler", e);
-      GUI.getStatusBar().setErrorText("Ein-/Ausgabe-Fehler");
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      GUI.getStatusBar().setErrorText(
+          JVereinPlugin.getI18n().tr("Ein-/Ausgabe-Fehler"));
     }
   }
 
@@ -167,9 +172,10 @@ public class FormularControl extends AbstractControl
     formulare.setOrder("ORDER BY art, bezeichnung");
 
     formularList = new TablePart(formulare, new FormularAction());
-    formularList.addColumn("Bezeichnung", "bezeichnung");
-    formularList.addColumn("Art", "art", new FormularartFormatter(), false,
-        Column.ALIGN_LEFT);
+    formularList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
+    formularList.addColumn(JVereinPlugin.getI18n().tr("Art"), "art",
+        new FormularartFormatter(), false, Column.ALIGN_LEFT);
     formularList.setRememberColWidths(true);
     formularList.setContextMenu(new FormularMenu());
     formularList.setRememberOrder(true);

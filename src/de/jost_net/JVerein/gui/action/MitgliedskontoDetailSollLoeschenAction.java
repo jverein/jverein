@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -40,8 +41,9 @@ public class MitgliedskontoDetailSollLoeschenAction implements Action
   public void handleAction(Object context) throws ApplicationException
   {
     YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-    d.setTitle("Sollbuchung löschen");
-    d.setText("Wollen Sie die Sollbuchung wirklich löschen?");
+    d.setTitle(JVereinPlugin.getI18n().tr("Sollbuchung löschen"));
+    d.setText(JVereinPlugin.getI18n().tr(
+        "Wollen Sie die Sollbuchung wirklich löschen?"));
 
     try
     {
@@ -53,7 +55,7 @@ public class MitgliedskontoDetailSollLoeschenAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error("Fehler beim löschen einer Sollbuchung", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       return;
     }
     MitgliedskontoNode mkn = null;
@@ -68,14 +70,15 @@ public class MitgliedskontoDetailSollLoeschenAction implements Action
             Mitgliedskonto.class, mkn.getID());
         Mitglied mitglied = mk.getMitglied();
         mk.delete();
-        GUI.getStatusBar().setSuccessText("Sollbuchung gelöscht.");
+        GUI.getStatusBar().setSuccessText(
+            JVereinPlugin.getI18n().tr("Sollbuchung gelöscht."));
         Application.getMessagingFactory().sendMessage(
             new MitgliedskontoMessage(mitglied));
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung einer Mitgliedskonto-Buchung");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung einer Mitgliedskonto-Buchung"));
       }
     }
   }

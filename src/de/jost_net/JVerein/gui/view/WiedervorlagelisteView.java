@@ -48,9 +48,11 @@ public class WiedervorlagelisteView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Wiedervorlage</span></p>"
-        + "<p>In dieser Liste werden die Wiedervorlagen aller Mitglieder angezeigt. "
-        + "Durch einen Rechtsklick kann entweder ein Erledigungsvermerk gesetzt werden "
-        + "oder der Wiedervorlagetermin wird gelöscht.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Wiedervorlage</span></p>"
+            + "<p>In dieser Liste werden die Wiedervorlagen aller Mitglieder angezeigt. "
+            + "Durch einen Rechtsklick kann entweder ein Erledigungsvermerk gesetzt werden "
+            + "oder der Wiedervorlagetermin wird gelöscht.</p></form>");
   }
 }

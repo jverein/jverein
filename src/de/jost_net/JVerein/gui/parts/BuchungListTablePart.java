@@ -26,6 +26,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.jameica.gui.Action;
@@ -68,7 +69,7 @@ public class BuchungListTablePart extends TablePart
         Buchung b = (Buchung) l.get(i);
         sumBetrag += b.getBetrag();
       }
-      summary += " / Gesamtbetrag: "
+      summary += " / " + JVereinPlugin.getI18n().tr("Gesamtbetrag:") + " "
           + Einstellungen.DECIMALFORMAT.format(sumBetrag) + " "
           + Einstellungen.CURRENCY;
     }

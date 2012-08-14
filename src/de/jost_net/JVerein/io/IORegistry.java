@@ -112,25 +112,3 @@ public class IORegistry
   }
 
 }
-
-/**********************************************************************
- * $Log$ Revision 1.8 2012/04/15 08:30:24 jverein Generics
- * Revision 1.7 2012/02/27 21:11:10 jverein Import-Logik überarbeitet. Revision
- * 1.3 2010/06/01 21:55:40 willuhn
- * 
- * @N uebersichtlichere Log-Ausgabe
- * 
- *    Revision 1.2 2006/01/17 00:22:36 willuhn
- * @N erster Code fuer Swift MT940-Import
- * 
- *    Revision 1.1 2005/06/08 16:48:54 web0
- * @N new Import/Export-System
- * 
- *    Revision 1.2 2005/06/02 22:57:34 web0
- * @N Export von Konto-Umsaetzen
- * 
- *    Revision 1.1 2005/06/02 21:48:44 web0
- * @N Exporter-Package
- * @N CSV-Exporter
- * 
- **********************************************************************/

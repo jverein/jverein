@@ -21,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
+import de.jost_net.JVerein.gui.view.KursteilnehmerSucheView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 
@@ -29,9 +30,7 @@ public class KursteilnehmerSucheAction implements Action
 
   public void handleAction(Object context)
   {
-    GUI.startView(
-        de.jost_net.JVerein.gui.view.KursteilnehmerSucheView.class.getName(),
-        null);
+    GUI.startView(KursteilnehmerSucheView.class.getName(), null);
   }
 
 }

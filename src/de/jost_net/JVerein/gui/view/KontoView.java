@@ -70,10 +70,12 @@ public class KontoView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Konto</span></p>"
-        + "<p>Kontonummer, Bezeichnung und Datum der Auflösung des Kontos können gespeichert "
-        + "werden.</p>"
-        + "<p>Für Hibiscus-Konten wird zusätzlich die Hibiscus-ID des Kontos gespeichert.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Konto</span></p>"
+            + "<p>Kontonummer, Bezeichnung und Datum der Auflösung des Kontos können gespeichert "
+            + "werden.</p>"
+            + "<p>Für Hibiscus-Konten wird zusätzlich die Hibiscus-ID des Kontos gespeichert.</p>"
+            + "</form>");
   }
 }

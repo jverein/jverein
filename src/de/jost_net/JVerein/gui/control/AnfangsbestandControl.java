@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AnfangsbestandDetailAction;
 import de.jost_net.JVerein.gui.menu.AnfangsbestandMenu;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
@@ -126,23 +127,26 @@ public class AnfangsbestandControl extends AbstractControl
           .getValue() });
       if (konten.size() == 0)
       {
-        throw new RemoteException("Konto nicht gefunden");
+        throw new RemoteException(JVereinPlugin.getI18n().tr(
+            "Konto nicht gefunden"));
       }
       if (konten.size() > 1)
       {
-        throw new RemoteException(
-            "Mehrere Konten mit gleicher Nummer sind nicht zulässig!");
+        throw new RemoteException(JVereinPlugin.getI18n().tr(
+            "Mehrere Konten mit gleicher Nummer sind nicht zulässig!"));
       }
       Konto k = (Konto) konten.next();
       a.setKonto(k);
       a.setDatum((Date) getDatum(false).getValue());
       a.setBetrag((Double) getBetrag().getValue());
       a.store();
-      GUI.getStatusBar().setSuccessText("Anfangsbestand gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Anfangsbestand gespeichert"));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Anfangsbestandes";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Anfangsbestandes");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -160,11 +164,12 @@ public class AnfangsbestandControl extends AbstractControl
 
     anfangsbestandList = new TablePart(anfangsbestaende,
         new AnfangsbestandDetailAction());
-    anfangsbestandList.addColumn("Konto", "kontotext");
-    anfangsbestandList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    anfangsbestandList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    anfangsbestandList.addColumn(JVereinPlugin.getI18n().tr("Konto"),
+        "kontotext");
+    anfangsbestandList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    anfangsbestandList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
+        "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     anfangsbestandList.setRememberColWidths(true);
     anfangsbestandList.setContextMenu(new AnfangsbestandMenu());
     anfangsbestandList.setRememberOrder(true);
@@ -183,5 +188,4 @@ public class AnfangsbestandControl extends AbstractControl
       anfangsbestandList.addItem(anfangsbestaende.next());
     }
   }
-
 }

@@ -46,7 +46,7 @@ public class AdressenSucheView extends AbstractAdresseSucheView
 
   public String getTitle()
   {
-    return "Adressen suchen";
+    return JVereinPlugin.getI18n().tr("Adressen suchen");
   }
 
   public void getFilter() throws RemoteException
@@ -62,7 +62,7 @@ public class AdressenSucheView extends AbstractAdresseSucheView
         Adresstyp.class, "2");
     control.getSuchAdresstyp(2).setValue(at);
     adrtyp.addListener(new FilterListener());
-    group.addLabelPair("Adresstyp", adrtyp);
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Adresstyp"), adrtyp);
   }
 
   public Action getDetailAction()

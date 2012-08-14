@@ -59,8 +59,8 @@ public class AuswertungKursteilnehmerView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Auswertung Kursteilnehmer</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Auswertung Kursteilnehmer</span></p>"
         + "<p>Die Kursteilnehmer eines vorgegebenen Zeitraums können im PDF-Format ausgegeben werden.</p>"
-        + "</form>";
+        + "</form>");
   }
 }

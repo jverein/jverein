@@ -49,8 +49,8 @@ public class MitgliedskontoDetailAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung eines Mitgliedskontos");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung eines Mitgliedskontos"));
       }
     }
     else

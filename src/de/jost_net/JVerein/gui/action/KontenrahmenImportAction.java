@@ -56,7 +56,7 @@ public class KontenrahmenImportAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error("Fehler beim Importieren von Kontenrahmen", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       GUI.getStatusBar().setErrorText(
           JVereinPlugin.getI18n()
               .tr("Fehler beim Importieren von Kontenrahmen"));

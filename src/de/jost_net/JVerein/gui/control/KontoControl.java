@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.KontoAction;
 import de.jost_net.JVerein.gui.input.KontoInput;
 import de.jost_net.JVerein.gui.menu.KontoMenu;
@@ -182,17 +183,20 @@ public class KontoControl extends AbstractControl
         k.setHibiscusId(Integer.parseInt(hkto.getID()));
       }
       k.store();
-      GUI.getStatusBar().setSuccessText("Konto gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Konto gespeichert"));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Kontos";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Kontos");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
     catch (ApplicationException e)
     {
-      String fehler = "Fehler bei speichern des Kontos";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Kontos");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -205,32 +209,33 @@ public class KontoControl extends AbstractControl
     konten.setOrder("ORDER BY nummer");
 
     kontenList = new TablePart(konten, new KontoAction());
-    kontenList.addColumn("Nummer", "nummer");
-    kontenList.addColumn("Bezeichnung", "bezeichnung");
-    kontenList.addColumn("Hibiscus-Konto", "hibiscusid", new Formatter()
-    {
-
-      public String format(Object o)
-      {
-        if (o == null)
+    kontenList.addColumn(JVereinPlugin.getI18n().tr("Nummer"), "nummer");
+    kontenList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
+    kontenList.addColumn(JVereinPlugin.getI18n().tr("Hibiscus-Konto"),
+        "hibiscusid", new Formatter()
         {
-          return "nein";
-        }
-        if (o instanceof Integer)
-        {
-          Integer hibid = (Integer) o;
-          if (hibid.intValue() >= 0)
+          public String format(Object o)
           {
-            return "ja";
+            if (o == null)
+            {
+              return "nein";
+            }
+            if (o instanceof Integer)
+            {
+              Integer hibid = (Integer) o;
+              if (hibid.intValue() >= 0)
+              {
+                return JVereinPlugin.getI18n().tr("ja");
+              }
+            }
+            return JVereinPlugin.getI18n().tr("nein");
           }
-        }
-        return "nein";
-      }
-    }, false, Column.ALIGN_LEFT);
-    kontenList.addColumn("Konto-Eröffnung", "eroeffnung", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    kontenList.addColumn("Konto-Auflösung", "aufloesung", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+        }, false, Column.ALIGN_LEFT);
+    kontenList.addColumn(JVereinPlugin.getI18n().tr("Konto-Eröffnung"),
+        "eroeffnung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    kontenList.addColumn(JVereinPlugin.getI18n().tr("Konto-Auflösung"),
+        "aufloesung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
     kontenList.setRememberColWidths(true);
     kontenList.setContextMenu(new KontoMenu());
     kontenList.setRememberOrder(true);

@@ -76,7 +76,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       }
       catch (Exception e)
       {
-        Logger.error("Fehler", e);
+        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       }
     }
   }
@@ -92,14 +92,14 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       list.add(new Var(entry));
     }
     TablePart tab = new TablePart(list, doubleClickAction);
-    tab.addColumn("Name", "name");
-    tab.addColumn("Wert", "wert");
+    tab.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    tab.addColumn(JVereinPlugin.getI18n().tr("Wert"), "wert");
     tab.setRememberOrder(true);
     tab.setContextMenu(contextMenu);
     tab.paint(parent);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("OK"), new Action()
+    buttons.addButton(JVereinPlugin.getI18n().tr(JVereinPlugin.getI18n().tr("OK")), new Action()
     {
 
       public void handleAction(Object context)

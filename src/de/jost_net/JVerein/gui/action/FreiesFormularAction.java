@@ -80,8 +80,8 @@ public class FreiesFormularAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error("Fehler", e);
-        throw new ApplicationException("Fehler bei der Aufbereitung", e);
+        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler bei der Aufbereitung"), e);
       }
     }
     else
@@ -94,14 +94,14 @@ public class FreiesFormularAction implements Action
   private void generiereFreiesFormular(Mitglied[] m) throws Exception
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
+    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("freiesformular", "", Einstellungen
+    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("freiesformular"), "", Einstellungen
         .getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 

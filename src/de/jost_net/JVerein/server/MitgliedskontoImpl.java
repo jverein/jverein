@@ -80,7 +80,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
       }
       if (getBetrag() == null)
       {
-        String fehler = "Betrag fehlt";
+        String fehler = JVereinPlugin.getI18n().tr("Betrag fehlt");
         Logger.error(fehler);
         throw new ApplicationException(fehler);
       }

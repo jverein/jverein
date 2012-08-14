@@ -59,7 +59,9 @@ public class LehrgaengeListeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Lehrgänge</span></p>"
-        + "<p>Mit einem Rechtsklick kann ein Eintrag gelöscht werden.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Liste der Lehrgänge</span></p>"
+            + "<p>Mit einem Rechtsklick kann ein Eintrag gelöscht werden.</p></form>");
   }
 }

@@ -82,7 +82,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
     catch (RemoteException e)
     {
-      Logger.error("insert check of buchung failed", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Buchung kann nicht gespeichert werden. Siehe system log"));
     }
@@ -178,7 +178,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     if (konto == null)
     {
-      throw new RemoteException("Konto fehlt!");
+      throw new RemoteException(JVereinPlugin.getI18n().tr("Konto fehlt!"));
     }
     setAttribute("konto", new Integer(konto.getID()));
   }

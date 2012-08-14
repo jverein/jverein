@@ -31,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.parts.JahressaldoList;
 import de.jost_net.JVerein.io.JahressaldoPDF;
 import de.jost_net.JVerein.io.SaldoZeile;
@@ -86,7 +87,8 @@ public class JahressaldoControl extends AbstractControl
     }
     else
     {
-      throw new ApplicationException("Abbruch! Es existiert noch keine Buchung");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Abbruch! Es existiert noch keine Buchung"));
     }
     Calendar bis = Calendar.getInstance();
     ArrayList<Integer> jahre = new ArrayList<Integer>();
@@ -104,9 +106,8 @@ public class JahressaldoControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("PDF", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr("PDF"), new Action()
     {
-
       public void handleAction(Object context) throws ApplicationException
       {
         starteAuswertung();
@@ -146,11 +147,13 @@ public class JahressaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler aufgetreten {0}", e.getMessage()));
     }
     catch (ParseException e)
     {
-      throw new ApplicationException("Fehler aufgetreten " + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler aufgetreten {0}", e.getMessage()));
     }
     return saldoList.getSaldoList();
   }
@@ -162,7 +165,7 @@ public class JahressaldoControl extends AbstractControl
       ArrayList<SaldoZeile> zeile = saldoList.getInfo();
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText("Ausgabedatei wählen.");
+      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
       //
       Settings settings = new Settings(this.getClass());
       //
@@ -172,8 +175,9 @@ public class JahressaldoControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("jahressaldo", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("jahressaldo"),
+          "", Einstellungen.getEinstellung().getDateinamenmuster(), "PDF")
+          .get());
 
       final String s = fd.open();
 
@@ -192,13 +196,13 @@ public class JahressaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Fehler beim Aufbau des Reports: "
-          + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim Aufbau des Reports: {0}", e.getMessage()));
     }
     catch (ParseException e)
     {
-      throw new ApplicationException("Fehler beim Aufbau des Reports: "
-          + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim Aufbau des Reports: {0}", e.getMessage()));
     }
   }
 
@@ -217,7 +221,7 @@ public class JahressaldoControl extends AbstractControl
         }
         catch (ApplicationException ae)
         {
-          Logger.error("Fehler", ae);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }

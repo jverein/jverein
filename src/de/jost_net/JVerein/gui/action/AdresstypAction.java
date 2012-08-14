@@ -50,7 +50,7 @@ public class AdresstypAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException("Fehler aufgetreten", e);
+        throw new ApplicationException("Fehler", e);
       }
     }
     else

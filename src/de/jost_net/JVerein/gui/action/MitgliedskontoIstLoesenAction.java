@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -39,8 +40,10 @@ public class MitgliedskontoIstLoesenAction implements Action
   public void handleAction(Object context) throws ApplicationException
   {
     YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-    d.setTitle("Istbuchung vom Mitgliedskonto lösen");
-    d.setText("Wollen Sie die Istbuchung wirklich vom Mitgliedskonto lösen?");
+    d.setTitle(JVereinPlugin.getI18n()
+        .tr("Istbuchung vom Mitgliedskonto lösen"));
+    d.setText(JVereinPlugin.getI18n().tr(
+        "Wollen Sie die Istbuchung wirklich vom Mitgliedskonto lösen?"));
 
     try
     {
@@ -52,7 +55,7 @@ public class MitgliedskontoIstLoesenAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error("Fehler beim lösen der Istbuchung vom Mitgliedskonto", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       return;
     }
     MitgliedskontoNode mkn = null;
@@ -67,15 +70,17 @@ public class MitgliedskontoIstLoesenAction implements Action
             mkn.getID());
         bu.setMitgliedskonto(null);
         bu.store();
-        GUI.getStatusBar().setSuccessText(
-            "Istbuchung vom Mitgliedskonto gelöst.");
+        GUI.getStatusBar()
+            .setSuccessText(
+                JVereinPlugin.getI18n().tr(
+                    "Istbuchung vom Mitgliedskonto gelöst."));
         Application.getMessagingFactory().sendMessage(
             new MitgliedskontoMessage(mkn.getMitglied()));
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler beim lösen der Istbuchung vom Mitgliedskonto");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler beim lösen der Istbuchung vom Mitgliedskonto"));
       }
     }
   }

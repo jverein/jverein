@@ -23,14 +23,12 @@ package de.jost_net.JVerein.io;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -53,22 +51,22 @@ public class JahressaldoPDF
       Reporter reporter = new Reporter(fos, "Jahressaldo", subtitle,
           zeile.size());
 
-      reporter.addHeaderColumn("Konto-\nnummer", Element.ALIGN_CENTER, 50,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Kontobezeichnung", Element.ALIGN_CENTER, 90,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Anfangs-\nbestand", Element.ALIGN_CENTER, 45,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Einnahmen", Element.ALIGN_CENTER, 45,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Ausgaben", Element.ALIGN_CENTER, 45,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Um-\nbuchungen", Element.ALIGN_CENTER, 45,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Endbestand", Element.ALIGN_CENTER, 45,
-          Color.LIGHT_GRAY);
-      reporter.addHeaderColumn("Bemerkung", Element.ALIGN_CENTER, 100,
-          Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Konto-\nnummer"),
+          Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Kontobezeichnung"),
+          Element.ALIGN_CENTER, 90, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anfangs-\nbestand"),
+          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Einnahmen"),
+          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Ausgaben"),
+          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Um-\nbuchungen"),
+          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Endbestand"),
+          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Bemerkung"),
+          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
       reporter.createHeader();
 
       for (SaldoZeile sz : zeile)
@@ -86,13 +84,13 @@ public class JahressaldoPDF
             Element.ALIGN_LEFT);
       }
       reporter.closeTable();
-      GUI.getStatusBar().setSuccessText("Auswertung fertig.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Auswertung fertig."));
 
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
-
         public void run()
         {
           try
@@ -108,23 +106,13 @@ public class JahressaldoPDF
         }
       });
     }
-    catch (DocumentException e)
+    catch (Exception e)
     {
       e.printStackTrace();
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim Erzeugen des Reports"), e);
     }
-    catch (FileNotFoundException e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
-    }
-    catch (IOException e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
-    }
-
   }
 
 }

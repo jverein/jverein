@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 
@@ -74,8 +75,8 @@ public class MitgliedskontoMap
     }
     if (buda.size() > 1)
     {
-      zg1.add("Summe");
-      zg.add("Summe");
+      zg1.add(JVereinPlugin.getI18n().tr("Summe"));
+      zg.add(JVereinPlugin.getI18n().tr("Summe"));
       betrag.add(summe);
       differenz.add(saldo);
       ist.add(suist);

@@ -23,6 +23,7 @@ package de.jost_net.JVerein.util;
 
 import java.math.BigInteger;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.logging.Logger;
 
 /**
@@ -121,8 +122,9 @@ public class IbanBicCalc
     }
     catch (NumberFormatException e)
     {
-      Logger.error("Ungültige Bankverbindung: " + blz + sb.toString()
-          + laenderKennung);
+      Logger.error(JVereinPlugin.getI18n().tr(
+          "Ungültige Bankverbindung: {0} {1} {2}", blz, sb.toString(),
+          laenderKennung));
       return "Ungültige Bankverbindung";
     }
     BigInteger modulo = bi.mod(BigInteger.valueOf(97));

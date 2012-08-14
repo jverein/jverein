@@ -30,6 +30,7 @@ import java.rmi.RemoteException;
 import net.n3.nanoxml.IXMLElement;
 import net.n3.nanoxml.XMLElement;
 import net.n3.nanoxml.XMLWriter;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 
@@ -49,7 +50,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
 
   public String getName()
   {
-    return "Kontenrahmen XML-Export";
+    return JVereinPlugin.getI18n().tr("Kontenrahmen XML-Export");
   }
 
   public IOFormat[] getIOFormats(Class<?> objectType)
@@ -78,7 +79,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
 
   public String getDateiname()
   {
-    return "kontenrahmen";
+    return JVereinPlugin.getI18n().tr("kontenrahmen");
   }
 
   protected void open() throws IOException

@@ -62,14 +62,14 @@ public class ZusatzbetragView extends AbstractView
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.ZUSATZBETRAEGE, false,
         "help-browser.png");
-    buttons.addButton("Mitglied", new MitgliedDetailAction(), control
-        .getZusatzbetrag().getMitglied(), false, "system-users.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Mitglied"),
+        new MitgliedDetailAction(), control.getZusatzbetrag().getMitglied(),
+        false, "system-users.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
         new ZusatzbetraegeDeleteAction(), control.getZusatzbetrag(), false,
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();

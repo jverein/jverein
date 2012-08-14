@@ -50,8 +50,10 @@ public class AbrechnungslaufListView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
-        + "<p>Mit einem Rechtsklick kann ein Abrechnungslauf gelöscht werden.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
+            + "<p>Mit einem Rechtsklick kann ein Abrechnungslauf gelöscht werden.</p>"
+            + "</form>");
   }
 }

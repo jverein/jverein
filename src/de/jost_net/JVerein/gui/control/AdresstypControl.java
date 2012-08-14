@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresstypAction;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -87,7 +88,8 @@ public class AdresstypControl extends AbstractControl
       try
       {
         at.store();
-        GUI.getStatusBar().setSuccessText("Adresstyp gespeichert");
+        GUI.getStatusBar().setSuccessText(
+            JVereinPlugin.getI18n().tr("Adresstyp gespeichert"));
       }
       catch (ApplicationException e)
       {
@@ -96,7 +98,8 @@ public class AdresstypControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Adresstypen";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Adresstypen");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -109,8 +112,9 @@ public class AdresstypControl extends AbstractControl
     adresstypen.setOrder("ORDER BY bezeichnung");
 
     adresstypList = new TablePart(adresstypen, new AdresstypAction());
-    adresstypList.addColumn("Bezeichnung", "bezeichnung");
-    adresstypList.addColumn("ID", "id");
+    adresstypList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
+    adresstypList.addColumn(JVereinPlugin.getI18n().tr("ID"), "id");
     // buchungsartList.setContextMenu(new BuchungsartMenu());
     adresstypList.setRememberColWidths(true);
     adresstypList.setRememberOrder(true);

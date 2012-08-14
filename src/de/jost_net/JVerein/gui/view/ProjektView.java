@@ -62,6 +62,8 @@ public class ProjektView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Projekt</span></p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Projekt</span></p></form>");
   }
 }

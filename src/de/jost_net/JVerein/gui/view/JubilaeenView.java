@@ -58,7 +58,9 @@ public class JubilaeenView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Jubiläen</span></p>"
-        + "<p>Ausgabe der Mitgliedsjubilare und der Altersjubilare.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Jubiläen</span></p>"
+            + "<p>Ausgabe der Mitgliedsjubilare und der Altersjubilare.</p></form>");
   }
 }

@@ -58,7 +58,6 @@ public class EigenschaftGruppeDetailView extends AbstractView
         new EigenschaftGruppeListeAction(), null, false, "system-search.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();
@@ -70,7 +69,9 @@ public class EigenschaftGruppeDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppen</span></p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppen</span></p>"
+            + "</form>");
   }
 }

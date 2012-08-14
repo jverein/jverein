@@ -110,7 +110,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     });
     if (keinkonto)
     {
-      b.addButton(i18n.tr("kein Konto"), new Action()
+      b.addButton(JVereinPlugin.getI18n().tr("kein Konto"), new Action()
       {
         public void handleAction(Object context)
         {
@@ -119,7 +119,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
         }
       });
     }
-    b.addButton(i18n.tr("abbrechen"), new Action()
+    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
       public void handleAction(Object context)
       {

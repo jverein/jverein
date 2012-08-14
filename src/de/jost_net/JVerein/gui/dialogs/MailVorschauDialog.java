@@ -141,11 +141,11 @@ public class MailVorschauDialog extends AbstractDialog<Object>
       comp4.setLayout(gl4);
 
       TablePart anhang = new TablePart(anhang2, null);
-      anhang.addColumn("Dateiname", "dateiname");
+      anhang.addColumn(JVereinPlugin.getI18n().tr("Dateiname"), "dateiname");
       anhang.setRememberColWidths(true);
       anhang.setRememberOrder(true);
       anhang.setSummary(false);
-      anhang.addColumn("Dateigröße", "dateigroesse",
+      anhang.addColumn(JVereinPlugin.getI18n().tr("Dateigröße"), "dateigroesse",
           new DateiGroesseFormatter());
       anhang.paint(comp4);
     }

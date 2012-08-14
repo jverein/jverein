@@ -58,11 +58,13 @@ public class FormularfelderListeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Formularfelder</span></p>"
-        + "<p>Jedem Formular müssen Formularfelder zugeordnet werden. Mit <i>neu</i> "
-        + "wird ein neues Formularfeld aufgenommen. Mit einem Doppelklick öffnet "
-        + "sich das Bearbeitungsfenster für ein Formularfeld. Durch einen Rechtsklick "
-        + "erscheint ein Kontextmenü. Damit können Formularfelder gelöscht werden.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Formularfelder</span></p>"
+            + "<p>Jedem Formular müssen Formularfelder zugeordnet werden. Mit <i>neu</i> "
+            + "wird ein neues Formularfeld aufgenommen. Mit einem Doppelklick öffnet "
+            + "sich das Bearbeitungsfenster für ein Formularfeld. Durch einen Rechtsklick "
+            + "erscheint ein Kontextmenü. Damit können Formularfelder gelöscht werden.</p>"
+            + "</form>");
   }
 }

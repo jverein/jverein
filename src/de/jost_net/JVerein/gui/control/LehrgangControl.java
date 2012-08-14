@@ -106,7 +106,7 @@ public class LehrgangControl extends AbstractControl
     DBIterator it = Einstellungen.getDBService().createList(Lehrgangsart.class);
     it.setOrder("order by bezeichnung");
     lehrgangsart = new SelectInput(it, getLehrgang().getLehrgangsart());
-    lehrgangsart.setPleaseChoose("Bitte auswählen");
+    lehrgangsart.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
     lehrgangsart.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -141,8 +141,8 @@ public class LehrgangControl extends AbstractControl
     Date d = getLehrgang().getVon();
 
     this.von = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.von.setTitle("Datum");
-    this.von.setText("Bitte (Beginn-)Datum wählen");
+    this.von.setTitle(JVereinPlugin.getI18n().tr("Datum"));
+    this.von.setText(JVereinPlugin.getI18n().tr("Bitte (Beginn-)Datum wählen"));
     this.von.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -167,8 +167,8 @@ public class LehrgangControl extends AbstractControl
     Date d = getLehrgang().getBis();
 
     this.bis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.bis.setTitle("Datum");
-    this.bis.setText("Bitte Ende-Datum wählen");
+    this.bis.setTitle(JVereinPlugin.getI18n().tr("Datum"));
+    this.bis.setText(JVereinPlugin.getI18n().tr("Bitte Ende-Datum wählen"));
     this.bis.addListener(new Listener()
     {
       public void handleEvent(Event event)
@@ -222,7 +222,8 @@ public class LehrgangControl extends AbstractControl
       //
     }
     suchlehrgangsart = new SelectInput(it, letztesuche);
-    suchlehrgangsart.setPleaseChoose("Bitte auswählen");
+    suchlehrgangsart.setPleaseChoose(JVereinPlugin.getI18n().tr(
+        "Bitte auswählen"));
     suchlehrgangsart.addListener(new FilterListener());
     return suchlehrgangsart;
   }
@@ -247,11 +248,10 @@ public class LehrgangControl extends AbstractControl
       }
     }
     this.datumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datumvon.setTitle("Datum von");
-    this.datumvon.setText("Datum von");
+    this.datumvon.setTitle(JVereinPlugin.getI18n().tr("Datum von"));
+    this.datumvon.setText(JVereinPlugin.getI18n().tr("Datum von"));
     this.datumvon.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) datumvon.getValue();
@@ -285,11 +285,10 @@ public class LehrgangControl extends AbstractControl
       }
     }
     this.datumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datumbis.setTitle("Datum bis");
-    this.datumbis.setText("Datum bis");
+    this.datumbis.setTitle(JVereinPlugin.getI18n().tr("Datum bis"));
+    this.datumbis.setText(JVereinPlugin.getI18n().tr("Datum bis"));
     this.datumbis.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) datumbis.getValue();
@@ -315,7 +314,8 @@ public class LehrgangControl extends AbstractControl
       l.setVeranstalter((String) getVeranstalter().getValue());
       l.setErgebnis((String) getErgebnis().getValue());
       l.store();
-      GUI.getStatusBar().setSuccessText("Lehrgang gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Lehrgang gespeichert"));
     }
     catch (ApplicationException e)
     {
@@ -323,7 +323,8 @@ public class LehrgangControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Lehrgangs";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Lehrgangs");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -450,7 +451,8 @@ public class LehrgangControl extends AbstractControl
               return name;
             }
           });
-      lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
+      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Lehrgangsart"),
+          "lehrgangsart");
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("von/am"), "von",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",

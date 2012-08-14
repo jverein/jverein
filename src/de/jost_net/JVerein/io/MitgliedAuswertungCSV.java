@@ -22,9 +22,7 @@
 package de.jost_net.JVerein.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -36,6 +34,7 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
@@ -93,7 +92,6 @@ public class MitgliedAuswertungCSV implements IAuswertung
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
-
         public void run()
         {
           try
@@ -108,19 +106,13 @@ public class MitgliedAuswertungCSV implements IAuswertung
           }
         }
       });
-
     }
-    catch (FileNotFoundException e)
+    catch (Exception e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim Erzeugen des Reports"), e);
     }
-    catch (IOException e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
-    }
-
   }
 
   private String[] createHeader(Mitglied m)
@@ -131,7 +123,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     return null;
   }
@@ -150,14 +142,14 @@ public class MitgliedAuswertungCSV implements IAuswertung
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     return null;
   }
 
   public String getDateiname()
   {
-    return "mitglied";
+    return JVereinPlugin.getI18n().tr("mitglied");
   }
 
   public String getDateiendung()
@@ -167,7 +159,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
 
   public String toString()
   {
-    return "Mitgliederliste CSV";
+    return JVereinPlugin.getI18n().tr("Mitgliederliste CSV");
   }
 
   public boolean openFile()

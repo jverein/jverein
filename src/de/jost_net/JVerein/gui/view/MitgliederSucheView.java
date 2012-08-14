@@ -52,7 +52,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
 
   public String getTitle()
   {
-    return "Mitglieder suchen";
+    return JVereinPlugin.getI18n().tr("Mitglieder suchen");
   }
 
   public void getFilter() throws RemoteException

@@ -61,7 +61,6 @@ public class SpendenView extends AbstractView
   public void bind() throws Exception
   {
     GUI.getView().setTitle(i18n.tr("Spenden für JVerein"));
-
     {
       Composite comp = new Composite(this.getParent(), SWT.NONE);
       comp.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -93,42 +92,45 @@ public class SpendenView extends AbstractView
       final String name = "Heiner Jostkleigrewe";
 
       ButtonArea buttons = new ButtonArea();
-      buttons.addButton(i18n.tr("Dauerauftrag erstellen"), new Action()
-      {
-        public void handleAction(Object context) throws ApplicationException
-        {
-          try
+      buttons.addButton(JVereinPlugin.getI18n().tr("Dauerauftrag erstellen"),
+          new Action()
           {
-            Dauerauftrag d = (Dauerauftrag) Settings.getDBService()
-                .createObject(Dauerauftrag.class, null);
-            d.setGegenkontoBLZ(new String(blz));
-            d.setGegenkontoNummer(new String(kto));
-            d.setGegenkontoName(name);
-            d.setZweck("Beitrag Weitereintwicklung");
-            d.setZweck2("JVerein");
-            // Wir lassen 7 Tage Vorlauf
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, 7);
-            d.setErsteZahlung(cal.getTime());
-            Turnus turnus = (Turnus) Settings.getDBService().createObject(
-                Turnus.class, null);
-            turnus.setIntervall(1);
-            turnus.setTag(cal.get(Calendar.DAY_OF_MONTH));
-            turnus.setZeiteinheit(Turnus.ZEITEINHEIT_MONATLICH);
-            d.setTurnus(turnus);
-            new de.willuhn.jameica.hbci.gui.action.DauerauftragNew()
-                .handleAction(d);
-          }
-          catch (Exception e)
-          {
-            Logger.error("unable to create dauerauftrag", e);
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(i18n.tr(
-                    "Fehler beim Anlegen des Dauerauftrages: {0}",
-                    e.getMessage()), StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      }, null, false, "emblem-special.png");
+            public void handleAction(Object context)
+                throws ApplicationException
+            {
+              try
+              {
+                Dauerauftrag d = (Dauerauftrag) Settings.getDBService()
+                    .createObject(Dauerauftrag.class, null);
+                d.setGegenkontoBLZ(new String(blz));
+                d.setGegenkontoNummer(new String(kto));
+                d.setGegenkontoName(name);
+                d.setZweck(JVereinPlugin.getI18n().tr(
+                    "Beitrag Weitereintwicklung"));
+                d.setZweck2("JVerein");
+                // Wir lassen 7 Tage Vorlauf
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, 7);
+                d.setErsteZahlung(cal.getTime());
+                Turnus turnus = (Turnus) Settings.getDBService().createObject(
+                    Turnus.class, null);
+                turnus.setIntervall(1);
+                turnus.setTag(cal.get(Calendar.DAY_OF_MONTH));
+                turnus.setZeiteinheit(Turnus.ZEITEINHEIT_MONATLICH);
+                d.setTurnus(turnus);
+                new de.willuhn.jameica.hbci.gui.action.DauerauftragNew()
+                    .handleAction(d);
+              }
+              catch (Exception e)
+              {
+                Logger.error("unable to create dauerauftrag", e);
+                Application.getMessagingFactory().sendMessage(
+                    new StatusBarMessage(JVereinPlugin.getI18n().tr(
+                        "Fehler beim Anlegen des Dauerauftrages: {0}",
+                        e.getMessage()), StatusBarMessage.TYPE_ERROR));
+              }
+            }
+          }, null, false, "emblem-special.png");
       buttons.addButton(i18n.tr("...oder Einzelspende"), new Action()
       {
         public void handleAction(Object context) throws ApplicationException
@@ -140,7 +142,7 @@ public class SpendenView extends AbstractView
             u.setGegenkontoBLZ(new String(blz));
             u.setGegenkontoNummer(new String(kto));
             u.setGegenkontoName(name);
-            u.setZweck("Beitrag Weitereintwicklung");
+            u.setZweck(JVereinPlugin.getI18n().tr("Beitrag Weitereintwicklung"));
             u.setZweck2("JVerein");
             new de.willuhn.jameica.hbci.gui.action.UeberweisungNew()
                 .handleAction(u);

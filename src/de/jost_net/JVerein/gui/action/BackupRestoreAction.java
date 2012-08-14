@@ -134,8 +134,7 @@ public class BackupRestoreAction implements Action
         }
         catch (RemoteException e1)
         {
-          Logger.error("EigenschaftGruppe mit id=1 kann nicht gelöscht werden",
-              e1);
+          Logger.error(JVereinPlugin.getI18n().tr("EigenschaftGruppe mit id=1 kann nicht gelöscht werden"));
         }
 
         Reader reader = null;

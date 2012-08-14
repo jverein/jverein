@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -81,91 +82,96 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
   public Button getSuchButton()
   {
-    Button button = new Button("Suchen", new Action()
-    {
+    Button button = new Button(JVereinPlugin.getI18n().tr("Suchen"),
+        new Action()
+        {
 
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
-        {
-          getBuchungsList();
-          Konto k = (Konto) getKonto().getValue();
-          settings.setAttribute("kontoid", k.getID());
-        }
-        catch (RemoteException e)
-        {
-          e.printStackTrace();
-          throw new ApplicationException("Fehler beim Aufbau der Buchungsliste");
-        }
-      }
-    }, null, false, "system-search.png");
+          public void handleAction(Object context) throws ApplicationException
+          {
+            try
+            {
+              getBuchungsList();
+              Konto k = (Konto) getKonto().getValue();
+              settings.setAttribute("kontoid", k.getID());
+            }
+            catch (RemoteException e)
+            {
+              e.printStackTrace();
+              throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                  "Fehler beim Aufbau der Buchungsliste"));
+            }
+          }
+        }, null, false, "system-search.png");
     return button;
   }
 
   public Button getUebernahmeButton()
   {
-    Button button = new Button("Übernahme", new Action()
-    {
-
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
+    Button button = new Button(JVereinPlugin.getI18n().tr("Übernahme"),
+        new Action()
         {
-          List<?> buchungen = buchungsList.getItems();
-          for (int i = 0; i < buchungen.size(); i++)
+
+          public void handleAction(Object context) throws ApplicationException
           {
-            Umsatz u = (Umsatz) buchungen.get(i);
-            if ((u.getFlags() & Umsatz.FLAG_NOTBOOKED) == 0)
+            try
             {
-              Buchung b = (Buchung) Einstellungen.getDBService().createObject(
-                  Buchung.class, null);
-              b.setUmsatzid(new Integer(u.getID()));
-              b.setKonto((Konto) getKonto().getValue());
-              b.setName(u.getGegenkontoName());
-              b.setBetrag(u.getBetrag());
-              b.setZweck(u.getZweck());
-              String[] moreLines = u.getWeitereVerwendungszwecke();
-              String zweck = u.getZweck();
-              String line2 = u.getZweck2();
-              if (line2 != null && line2.trim().length() > 0)
+              List<?> buchungen = buchungsList.getItems();
+              for (int i = 0; i < buchungen.size(); i++)
               {
-                zweck += "\r\n" + line2.trim();
-              }
-              if (moreLines != null && moreLines.length > 0)
-              {
-                for (String s : moreLines)
+                Umsatz u = (Umsatz) buchungen.get(i);
+                if ((u.getFlags() & Umsatz.FLAG_NOTBOOKED) == 0)
                 {
-                  if (s == null || s.trim().length() == 0)
-                    continue;
-                  zweck += "\r\n" + s.trim();
+                  Buchung b = (Buchung) Einstellungen.getDBService()
+                      .createObject(Buchung.class, null);
+                  b.setUmsatzid(new Integer(u.getID()));
+                  b.setKonto((Konto) getKonto().getValue());
+                  b.setName(u.getGegenkontoName());
+                  b.setBetrag(u.getBetrag());
+                  b.setZweck(u.getZweck());
+                  String[] moreLines = u.getWeitereVerwendungszwecke();
+                  String zweck = u.getZweck();
+                  String line2 = u.getZweck2();
+                  if (line2 != null && line2.trim().length() > 0)
+                  {
+                    zweck += "\r\n" + line2.trim();
+                  }
+                  if (moreLines != null && moreLines.length > 0)
+                  {
+                    for (String s : moreLines)
+                    {
+                      if (s == null || s.trim().length() == 0)
+                        continue;
+                      zweck += "\r\n" + s.trim();
+                    }
+                  }
+                  b.setZweck(zweck);
+                  b.setDatum(u.getDatum());
+                  b.setArt(u.getArt());
+                  b.setKommentar(u.getKommentar());
+                  b.store();
+                  buchungsList.removeItem(u);
                 }
               }
-              b.setZweck(zweck);
-              b.setDatum(u.getDatum());
-              b.setArt(u.getArt());
-              b.setKommentar(u.getKommentar());
-              b.store();
-              buchungsList.removeItem(u);
+              GUI.getStatusBar().setSuccessText(
+                  JVereinPlugin.getI18n().tr("Daten übernommen"));
+              GUI.getCurrentView().reload();
+            }
+            catch (ApplicationException ae)
+            {
+              GUI.getStatusBar().setErrorText(ae.getMessage());
+              throw ae;
+            }
+            catch (Exception e)
+            {
+              Logger.error("error while reading objects from ", e);
+              ApplicationException ae = new ApplicationException(JVereinPlugin
+                  .getI18n().tr("Fehler beim der Übernahme: {0}",
+                      e.getMessage()), e);
+              GUI.getStatusBar().setErrorText(ae.getMessage());
+              throw ae;
             }
           }
-          GUI.getStatusBar().setSuccessText("Daten übernommen");
-          GUI.getCurrentView().reload();
-        }
-        catch (ApplicationException ae)
-        {
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
-        catch (Exception e)
-        {
-          Logger.error("error while reading objects from ", e);
-          ApplicationException ae = new ApplicationException(
-              "Fehler beim der Übernahme: " + e.getMessage(), e);
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
-      }
-    }, null, true, "go.png");
+        }, null, true, "go.png");
     return button;
   }
 
@@ -241,13 +247,14 @@ public class BuchungsuebernahmeControl extends AbstractControl
       if (buchungsList == null)
       {
         buchungsList = new TablePart(hibbuchungen, null);
-        buchungsList.addColumn("Nr", "id-int");
-        buchungsList.addColumn("Datum", "datum", new DateFormatter(
-            new JVDateFormatTTMMJJJJ()));
-        buchungsList.addColumn("Name", "name");
-        buchungsList.addColumn("Verwendungszweck", "zweck");
-        buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT));
+        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "id-int");
+        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
+            new DateFormatter(new JVDateFormatTTMMJJJJ()));
+        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
+            "zweck");
+        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
         buchungsList.setContextMenu(new BuchungMenu());
         buchungsList.setRememberColWidths(true);
         buchungsList.setRememberOrder(true);

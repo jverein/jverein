@@ -53,12 +53,14 @@ public class AnfangsbestandListView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Anfangsbestände</span></p>"
-        + "<p>Für jedes Konto ist zu Beginn des Geschäftsjahres der Anfangsbestand zu "
-        + "speichern. Die Buchungen sind in chronologisch korrekter Reihenfolge vorzunehmen.</p> "
-        + "<p>Durch einen Doppelklick kann ein Anfangsbestand korrigiert werden. Mit einem "
-        + "Klick auf neu wird ein neuer Anfangsbestand aufgenommen. Durch einen Rechtsklick "
-        + "öffnet sich ein Kontextmenü, mit dem ein Anfangsbestand gelöscht werden kann.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Anfangsbestände</span></p>"
+            + "<p>Für jedes Konto ist zu Beginn des Geschäftsjahres der Anfangsbestand zu "
+            + "speichern. Die Buchungen sind in chronologisch korrekter Reihenfolge vorzunehmen.</p> "
+            + "<p>Durch einen Doppelklick kann ein Anfangsbestand korrigiert werden. Mit einem "
+            + "Klick auf neu wird ein neuer Anfangsbestand aufgenommen. Durch einen Rechtsklick "
+            + "öffnet sich ein Kontextmenü, mit dem ein Anfangsbestand gelöscht werden kann.</p>"
+            + "</form>");
   }
 }

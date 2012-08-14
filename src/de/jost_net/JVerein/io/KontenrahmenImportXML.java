@@ -30,6 +30,7 @@ import net.n3.nanoxml.IXMLParser;
 import net.n3.nanoxml.StdXMLReader;
 import net.n3.nanoxml.XMLParserFactory;
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -45,15 +46,15 @@ public class KontenrahmenImportXML implements Importer
         Buchungsklasse.class);
     if (it.size() > 0)
     {
-      throw new ApplicationException(
-          "Import abgebrochen! Es sind bereits Buchungsklassen vorhanden.");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Import abgebrochen! Es sind bereits Buchungsklassen vorhanden."));
     }
 
     it = Einstellungen.getDBService().createList(Buchungsart.class);
     if (it.size() > 0)
     {
-      throw new ApplicationException(
-          "Import abgebrochen! Es sind bereits Buchungsarten vorhanden.");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Import abgebrochen! Es sind bereits Buchungsarten vorhanden."));
     }
     // Parser erzeugen
     IXMLParser parser = XMLParserFactory.createDefaultXMLParser();
@@ -97,7 +98,7 @@ public class KontenrahmenImportXML implements Importer
 
   public String getName()
   {
-    return "Kontenrahmen-Import XML";
+    return JVereinPlugin.getI18n().tr("Kontenrahmen-Import XML");
   }
 
   public boolean hasFileDialog()

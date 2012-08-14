@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Eigenschaften;
@@ -195,7 +196,7 @@ public class EigenschaftenNode implements GenericObjectNode
     {
       case ROOT:
       {
-        return "Eigenschaften";
+        return JVereinPlugin.getI18n().tr("Eigenschaften");
       }
       case EIGENSCHAFTGRUPPE:
       {
@@ -206,7 +207,7 @@ public class EigenschaftenNode implements GenericObjectNode
         return eigenschaft.getBezeichnung();
       }
     }
-    return "bla";
+    return null;
   }
 
   public String[] getAttributeNames()

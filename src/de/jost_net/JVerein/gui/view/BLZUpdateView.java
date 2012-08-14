@@ -56,9 +56,11 @@ public class BLZUpdateView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">BLZ-Update</span></p>"
-        + "<p>Bankleitzahlendatei unter http://www.bundesbank.de/zahlungsverkehr/zahlungsverkehr_bankleitzahlen_download.php "
-        + "im Format PC-Text ZIP gepackt herunterladen und hier ausw‰hlen. Anschlieﬂend auf speichern klicken."
-        + "</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">BLZ-Update</span></p>"
+            + "<p>Bankleitzahlendatei unter http://www.bundesbank.de/zahlungsverkehr/zahlungsverkehr_bankleitzahlen_download.php "
+            + "im Format PC-Text ZIP gepackt herunterladen und hier ausw‰hlen. Anschlieﬂend auf speichern klicken."
+            + "</p></form>");
   }
 }

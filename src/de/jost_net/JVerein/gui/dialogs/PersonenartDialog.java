@@ -68,7 +68,6 @@ public class PersonenartDialog extends AbstractDialog<String>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
-
       public void handleAction(Object context)
       {
         String s = (String) personenart.getValue();
@@ -78,7 +77,6 @@ public class PersonenartDialog extends AbstractDialog<String>
     });
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();
@@ -104,7 +102,6 @@ public class PersonenartDialog extends AbstractDialog<String>
     this.personenart.setName(JVereinPlugin.getI18n().tr("Personenart"));
     this.personenart.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         String s = (String) personenart.getValue();

@@ -36,7 +36,8 @@ public class MitgliedDuplizierenAction implements Action
   {
     if (context == null || !(context instanceof Mitglied))
     {
-      throw new ApplicationException("kein Mitglied ausgewählt");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "kein Mitglied ausgewählt"));
     }
     Mitglied m = null;
     try

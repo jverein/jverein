@@ -55,9 +55,9 @@ public class StatistikMitgliedView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Statistik</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Statistik</span></p>"
         + "<p>Durch eine Klick auf Start wird eine Statistik nach Altergruppen und nach "
         + "Beitragsgruppen im PDF-Format erzeugt. Die Altersgruppen sind "
-        + "bei den Stammdaten vorzugeben.</p></form>";
+        + "bei den Stammdaten vorzugeben.</p></form>");
   }
 }

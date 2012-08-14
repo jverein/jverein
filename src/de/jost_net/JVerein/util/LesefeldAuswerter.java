@@ -30,6 +30,7 @@ import java.util.Map;
 import bsh.EvalError;
 import bsh.Interpreter;
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lesefeld;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -190,14 +191,15 @@ public class LesefeldAuswerter
     {
 
       lesefeld = evalLesefeld(lesefeld);
-      if(lesefeld == null)
+      if (lesefeld == null)
       {
         continue;
       }
       map.put(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung(),
           lesefeld.getEvaluatedContent());
     }
-    Logger.debug("Lesefeld-Variablen für Mitglied " + vornamename + ":");
+    Logger.debug(JVereinPlugin.getI18n().tr(
+        "Lesefeld-Variablen für Mitglied {0}:", vornamename));
     for (String key : map.keySet())
     {
       Logger.debug(key + "=" + map.get(key));

@@ -36,6 +36,7 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -67,11 +68,11 @@ public class BuchungAuswertungCSV
         writer.write(b.getMap(null), header, processors);
       }
       GUI.getStatusBar().setSuccessText(
-          "Auswertung fertig. " + list.size() + " Sätze.");
+          JVereinPlugin.getI18n().tr("Auswertung fertig. {0} Sätze.",
+              list.size() + ""));
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
-
         public void run()
         {
           try
@@ -86,17 +87,16 @@ public class BuchungAuswertungCSV
           }
         }
       });
-
     }
     catch (FileNotFoundException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen der Datei", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     catch (IOException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen der Datei", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
 
   }
@@ -111,7 +111,7 @@ public class BuchungAuswertungCSV
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     return null;
   }
@@ -132,7 +132,7 @@ public class BuchungAuswertungCSV
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     return null;
   }

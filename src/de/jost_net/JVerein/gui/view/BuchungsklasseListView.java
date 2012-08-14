@@ -53,9 +53,9 @@ public class BuchungsklasseListView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsklasse</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Buchungsklasse</span></p>"
         + "<p>Buchungsklassen dienen der Gruppierung von Buchungsarten. Z. B. können die "
         + "Buchungsarten nach Ideeller Betrieb, Wirtschaftlicher Betrieb und Vermögen gruppiert werden.</p>"
-        + "<p>Die Buchungsklassen sind den Buchungsarten zuzuordnen.</p></form>";
+        + "<p>Die Buchungsklassen sind den Buchungsarten zuzuordnen.</p></form>");
   }
 }

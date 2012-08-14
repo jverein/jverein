@@ -88,7 +88,8 @@ public class DokumentControl extends AbstractControl
     doc = (AbstractDokument) getCurrentObject();
     if (doc == null)
     {
-      throw new RemoteException("Programmfehler! Dokument fehlt");
+      throw new RemoteException(JVereinPlugin.getI18n().tr(
+          "Programmfehler! Dokument fehlt"));
     }
     return doc;
   }
@@ -105,11 +106,10 @@ public class DokumentControl extends AbstractControl
       d = new Date();
     }
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle("Datum");
-    this.datum.setText("Bitte Datum wählen");
+    this.datum.setTitle(JVereinPlugin.getI18n().tr("Datum"));
+    this.datum.setText(JVereinPlugin.getI18n().tr("Bitte Datum wählen"));
     this.datum.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) datum.getValue();
@@ -146,7 +146,6 @@ public class DokumentControl extends AbstractControl
   {
     neuButton = new Button("neu", new Action()
     {
-
       public void handleAction(Object context)
       {
         GUI.startView(new DokumentView(verzeichnis), doc);
@@ -158,20 +157,21 @@ public class DokumentControl extends AbstractControl
 
   public Button getSpeichernButton(final String verzeichnis)
   {
-    speichernButton = new Button("Speichern", new Action()
-    {
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
+    speichernButton = new Button(JVereinPlugin.getI18n().tr("Speichern"),
+        new Action()
         {
-          speichern(verzeichnis);
-        }
-        catch (RemoteException e)
-        {
-          throw new ApplicationException(e);
-        }
-      }
-    }, null, true, "document-save.png");
+          public void handleAction(Object context) throws ApplicationException
+          {
+            try
+            {
+              speichern(verzeichnis);
+            }
+            catch (RemoteException e)
+            {
+              throw new ApplicationException(e);
+            }
+          }
+        }, null, true, "document-save.png");
     return speichernButton;
   }
 
@@ -190,17 +190,19 @@ public class DokumentControl extends AbstractControl
       File file = new File((String) datei.getValue());
       if (file.isDirectory())
       {
-        throw new ApplicationException(
-            "Verzeichnisse können nicht gespeichert werden.");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Verzeichnisse können nicht gespeichert werden."));
       }
       if (!file.exists())
       {
-        throw new ApplicationException("Datei existiert nicht");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Datei existiert nicht"));
       }
       FileInputStream fis = new FileInputStream(file);
       if (fis.available() <= 0)
       {
-        throw new ApplicationException("Datei ist leer");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Datei ist leer"));
       }
       // Dokument speichern
       String locverz = verzeichnis + doc.getReferenz();
@@ -225,11 +227,13 @@ public class DokumentControl extends AbstractControl
     }
     catch (FileNotFoundException e)
     {
-      throw new ApplicationException("Datei existiert nicht");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Datei existiert nicht"));
     }
     catch (IOException e)
     {
-      throw new ApplicationException("Allgemeiner Ein-/Ausgabe-Fehler");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Allgemeiner Ein-/Ausgabe-Fehler"));
     }
   }
 
@@ -241,9 +245,9 @@ public class DokumentControl extends AbstractControl
     docs.setOrder("ORDER BY datum desc");
 
     docsList = new TablePart(docs, null /* new KontoAction() */);
-    docsList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    docsList.addColumn("Bemerkung", "bemerkung");
+    docsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    docsList.addColumn(JVereinPlugin.getI18n().tr("Bemerkung"), "bemerkung");
     docsList.setRememberColWidths(true);
     docsList.setContextMenu(new DokumentMenu(enabled));
     docsList.setRememberOrder(true);

@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.ProjektAction;
 import de.jost_net.JVerein.gui.menu.ProjektMenu;
 import de.jost_net.JVerein.rmi.Projekt;
@@ -88,7 +89,8 @@ public class ProjektControl extends AbstractControl
       try
       {
         p.store();
-        GUI.getStatusBar().setSuccessText("Projekt gespeichert");
+        GUI.getStatusBar().setSuccessText(
+            JVereinPlugin.getI18n().tr("Projekt gespeichert"));
       }
       catch (ApplicationException e)
       {
@@ -97,7 +99,8 @@ public class ProjektControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Projektes";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern des Projektes");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -110,7 +113,8 @@ public class ProjektControl extends AbstractControl
     projekte.setOrder("ORDER BY bezeichnung");
 
     projektList = new TablePart(projekte, new ProjektAction());
-    projektList.addColumn("Bezeichnung", "bezeichnung");
+    projektList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
     projektList.setContextMenu(new ProjektMenu());
     projektList.setRememberColWidths(true);
     projektList.setRememberOrder(true);

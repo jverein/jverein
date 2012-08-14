@@ -45,7 +45,7 @@ public class DtausTextschluesselInput extends SelectInput
       throws RemoteException
   {
     super(init(), new DtausTextschluesselObject(dtaustextschluessel));
-    setName("DTAUS-Textschlüssel");
+    setName(JVereinPlugin.getI18n().tr("DTAUS-Textschlüssel"));
   }
 
   /**
@@ -113,7 +113,7 @@ public class DtausTextschluesselInput extends SelectInput
       }
       else
       {
-        this.label = "Programmfehler";
+        this.label = JVereinPlugin.getI18n().tr("Programmfehler");
       }
     }
 

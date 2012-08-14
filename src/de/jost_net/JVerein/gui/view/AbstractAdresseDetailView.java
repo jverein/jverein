@@ -157,19 +157,23 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     {
       MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
       mkcontrol.getStartKontoauszugButton(control.getMitglied(), null, null);
-      buttons.addButton(new Button("Kontoauszug", new KontoauszugAction(),
-          control.getMitglied(), false, "rechnung.png"));
+      buttons
+          .addButton(new Button(JVereinPlugin.getI18n().tr("Kontoauszug"),
+              new KontoauszugAction(), control.getMitglied(), false,
+              "rechnung.png"));
     }
     if (isMitgliedDetail())
     {
-      buttons.addButton(new Button("Personalbogen", new PersonalbogenAction(),
-          control.getCurrentObject(), false, "rechnung.png"));
+      buttons.addButton(new Button(JVereinPlugin.getI18n().tr("Personalbogen"),
+          new PersonalbogenAction(), control.getCurrentObject(), false,
+          "rechnung.png"));
     }
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIED, false,
         "help-browser.png");
-    buttons.addButton("Mail", new MitgliedMailSendenAction(),
-        getCurrentObject(), false, "mail-message-new.png");
+    buttons.addButton(JVereinPlugin.getI18n().tr("Mail"),
+        new MitgliedMailSendenAction(), getCurrentObject(), false,
+        "mail-message-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
         isMitgliedDetail() ? new MitgliedDetailAction()
             : new AdresseDetailAction(), null, false, "document-new.png");
@@ -179,7 +183,6 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();
@@ -242,7 +245,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         {
           if (inp == null)
           {
-            String errorText = "Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!";
+            String errorText = JVereinPlugin
+                .getI18n()
+                .tr("Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!");
             Input errorInput = new TextInput(errorText);
             errorInput.setEnabled(false);
             svc.addInput(errorInput);
@@ -268,7 +273,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     {
       Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
           .getI18n().tr("Foto"));
-      cont.addLabelPair("Foto", control.getFoto());
+      cont.addLabelPair(JVereinPlugin.getI18n().tr("Foto"), control.getFoto());
     }
   }
 
@@ -565,16 +570,18 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
-        + "<li>Anrede: Herrn, Frau ...</li>"
-        + "<li>Titel: Dr., Prof. Dr., ...</li>"
-        + "<li>Sofern Auslandsadressen erfasst werden sollen, ist das unter Einstellungen anzuhaken. Dann kann auch der Wohnungsstaat eingegeben werden.</li>"
-        + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
-        + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
-        + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"
-        + "<li>Kündigung: Eingangsdatum der Kündigung.</li>"
-        + "<li>Zusatzabbuchung: Sind für das Mitglied zusätzlich zum Jahresbeitrag weitere Beträge abzubuchen, können die entsprechenden Eingaben gemacht werden.</li>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
+            + "<li>Anrede: Herrn, Frau ...</li>"
+            + "<li>Titel: Dr., Prof. Dr., ...</li>"
+            + "<li>Sofern Auslandsadressen erfasst werden sollen, ist das unter Einstellungen anzuhaken. Dann kann auch der Wohnungsstaat eingegeben werden.</li>"
+            + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
+            + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
+            + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"
+            + "<li>Kündigung: Eingangsdatum der Kündigung.</li>"
+            + "<li>Zusatzabbuchung: Sind für das Mitglied zusätzlich zum Jahresbeitrag weitere Beträge abzubuchen, können die entsprechenden Eingaben gemacht werden.</li>"
+            + "</form>");
   }
 
   public abstract String getTitle();

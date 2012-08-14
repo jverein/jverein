@@ -32,6 +32,7 @@ import java.util.Date;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -93,7 +94,7 @@ public abstract class AltersjubilaeumsExport implements Exporter
 
   public String getDateiname()
   {
-    return "altersjubilare";
+    return JVereinPlugin.getI18n().tr("altersjubilare");
   }
 
   protected abstract void startJahrgang(int jahr) throws DocumentException;

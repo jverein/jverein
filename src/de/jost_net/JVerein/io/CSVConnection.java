@@ -36,6 +36,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.util.ProgressMonitor;
 
 /**
@@ -68,7 +69,6 @@ public class CSVConnection
    */
   public boolean checkCSVIntegrity(final ProgressMonitor monitor)
   {
-
     if (monitor == null)
       throw new NullPointerException("monitor may not be null");
 
@@ -88,7 +88,6 @@ public class CSVConnection
       /* read header and identify amount of columns */
       while (!headerComplete)
       {
-
         numberOfChars = bis.read(rCache, 0, 1024);
         if (numberOfChars == -1)
           break;
@@ -119,7 +118,9 @@ public class CSVConnection
       if (!headerComplete)
       {
         monitor
-            .setStatusText("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php");
+            .setStatusText(JVereinPlugin
+                .getI18n()
+                .tr("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php"));
         valid = false;
       }
 
@@ -141,15 +142,20 @@ public class CSVConnection
             if (lastPosition - 1 >= 0 && rCache[lastPosition - 1] == seperator)
             {
               monitor
-                  .setStatusText("Leerzeichen nach einem Semikolon in Zeile:"
-                      + lineNo + " und Spalte:" + columnsPerLine);
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Leerzeichen nach einem Semikolon in Zeile: {0} und Spalte: {1}",
+                          lineNo + "", columnsPerLine + ""));
               valid = false;
             }
             if (lastPosition + 1 < numberOfChars
                 && rCache[lastPosition + 1] == seperator)
             {
-              monitor.setStatusText("Leerzeichen vor einem Semikolon in Zeile:"
-                  + lineNo + " und Spalte:" + columnsPerLine);
+              monitor
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Leerzeichen vor einem Semikolon in Zeile: {0} und Spalte: {1}",
+                          lineNo + "", columnsPerLine + ""));
               valid = false;
             }
           }
@@ -160,9 +166,10 @@ public class CSVConnection
             if (columnsPerLine != numColumns)
             {
               monitor
-                  .setStatusText("Anzahl der Spalten in Zeile:"
-                      + lineNo
-                      + " passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.");
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Anzahl der Spalten in Zeile: {0} passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
+                          lineNo + ""));
               valid = false;
             }
             columnsPerLine = 0;
@@ -175,16 +182,13 @@ public class CSVConnection
              */
           }
         }
-
         lastPosition = 0;
         numberOfChars = bis.read(rCache, 0, 1024);
-
       }
       while (numberOfChars != -1);
 
       bis.close();
       fis.close();
-
     }
     catch (FileNotFoundException e)
     {
@@ -196,7 +200,6 @@ public class CSVConnection
       e.printStackTrace();
       valid = false;
     }
-
     return valid;
   }
 
@@ -207,7 +210,6 @@ public class CSVConnection
    */
   public void closeCsvDB() throws SQLException
   {
-
     if (results != null)
     {
       try
@@ -217,7 +219,8 @@ public class CSVConnection
       }
       catch (SQLException e)
       {
-        throw new SQLException("Konnte Result nicht ordentlich schliessen.");
+        throw new SQLException(JVereinPlugin.getI18n().tr(
+            "Konnte Result nicht ordentlich schliessen."));
       }
     }
 
@@ -230,7 +233,8 @@ public class CSVConnection
       }
       catch (SQLException e)
       {
-        throw new SQLException("Konnte Statement nicht ordentlich schliessen.");
+        throw new SQLException(JVereinPlugin.getI18n().tr(
+            "Konnte Statement nicht ordentlich schliessen."));
       }
     }
 
@@ -243,8 +247,8 @@ public class CSVConnection
       }
       catch (SQLException e)
       {
-        throw new SQLException(
-            "Konnte Verbindung zur DB nicht ordentlich schliessen.");
+        throw new SQLException(JVereinPlugin.getI18n().tr(
+            "Konnte Verbindung zur DB nicht ordentlich schliessen."));
       }
     }
   }
@@ -257,7 +261,6 @@ public class CSVConnection
    */
   public List<String> getColumnHeaders() throws SQLException
   {
-
     List<String> importColumnList = new LinkedList<String>();
 
     try
@@ -275,10 +278,9 @@ public class CSVConnection
     }
     catch (SQLException e)
     {
-
-      throw new SQLException("Fehler beim lesen der Import Datei");
+      throw new SQLException(JVereinPlugin.getI18n().tr(
+          "Fehler beim lesen der Import Datei"));
     }
-
     return importColumnList;
   }
 
@@ -291,24 +293,20 @@ public class CSVConnection
    */
   public ResultSet getData() throws SQLException
   {
-
     if (stmt == null)
       throw new NullPointerException("Statement wasn't created before");
 
     if (results == null || results.isClosed())
     {
-
       try
       {
         results = stmt.executeQuery("SELECT * FROM " + tableName);
       }
       catch (SQLException e)
       {
-
         throw new SQLException("Konnte Daten nicht aus der Datei lesen");
       }
     }
-
     return results;
   }
 
@@ -320,7 +318,6 @@ public class CSVConnection
    */
   public String getFileName()
   {
-
     if (tableName == null)
       return "";
 
@@ -336,12 +333,10 @@ public class CSVConnection
    */
   public int getNumberOfRows() throws SQLException
   {
-
     int result = 0;
 
     try
     {
-
       if (results == null || results.isClosed())
         this.getData();
 
@@ -352,18 +347,16 @@ public class CSVConnection
       results.beforeFirst();
       results.last();
       result = results.getRow();
-
     }
     catch (SQLException e)
     {
       e.printStackTrace();
       throw new SQLException(
-          "Konnte Anzahl Daten nicht ermitteln - "
-              + "Haeufiger Grund eine Leerstelle vor/nach einen Semikolon, siehe Stacktrace wegen der Zeile");
+          JVereinPlugin
+              .getI18n()
+              .tr("Konnte Anzahl Daten nicht ermitteln - Häufiger Grund eine Leerstelle vor/nach einen Semikolon, siehe Stacktrace wegen der Zeile"));
     }
-
     return result;
-
   }
 
   /**
@@ -374,7 +367,6 @@ public class CSVConnection
    */
   public void openCsvDB() throws SQLException
   {
-
     Properties props = new java.util.Properties();
     props.put("separator", (new Character(seperator)).toString()); // separator
                                                                    // is a bar
@@ -415,7 +407,6 @@ public class CSVConnection
    */
   public boolean setCSVFile(final File csvFile)
   {
-
     if (csvFile == null)
       throw new NullPointerException("csvFile may not be Null");
 

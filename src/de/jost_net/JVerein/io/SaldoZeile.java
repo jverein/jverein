@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
@@ -82,7 +83,8 @@ public class SaldoZeile implements GenericObject
     else
     {
       anfangsbestand = 0d;
-      bemerkung += "kein Anfangsbestand vorhanden  ";
+      bemerkung += JVereinPlugin.getI18n().tr("kein Anfangsbestand vorhanden")
+          + "  ";
     }
     String sql = "select sum(betrag) from buchung, buchungsart "
         + "where datum >= ? and datum <= ? AND konto = ? "
@@ -150,7 +152,8 @@ public class SaldoZeile implements GenericObject
     {
       return bemerkung;
     }
-    throw new RemoteException("Ungültige Spaltenbezeichung: " + arg0);
+    throw new RemoteException(JVereinPlugin.getI18n().tr(
+        "Ungültige Spaltenbezeichung: {0}", arg0));
   }
 
   public String[] getAttributeNames()

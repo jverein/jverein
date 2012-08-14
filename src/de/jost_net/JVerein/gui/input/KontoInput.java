@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.kapott.hbci.manager.HBCIUtils;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -66,10 +67,6 @@ public class KontoInput extends SelectInput
     DBIterator it = Settings.getDBService().createList(Konto.class);
     it.setOrder("ORDER BY blz, kontonummer");
     List<Konto> l = new ArrayList<Konto>();
-    // Konto keinHibiscus = (Konto) Settings.getDBService().createObject(
-    // Konto.class, null);
-    // keinHibiscus.setBezeichnung("kein Hibiscuskonto");
-    // l.add(keinHibiscus);
     while (it.hasNext())
     {
       l.add((Konto) it.next());
@@ -107,7 +104,7 @@ public class KontoInput extends SelectInput
       }
       else
       {
-        sb.append("BLZ ");
+        sb.append(JVereinPlugin.getI18n().tr("BLZ")+" ");
         sb.append(blz);
       }
       sb.append("] ");

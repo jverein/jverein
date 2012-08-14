@@ -88,12 +88,14 @@ public class BeitragsgruppeDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
-        + "<p>Die Bezeichung und die Höhe des Beitrages sind zu erfassen.</p>"
-        + "<p>Durch die Kennzeichnung als Familientarif können einem Mitglied Familienmitglieder "
-        + "zugeordnet werden. Dabei ist zubeachten, dass nur dem zahlenden Mitglied ein "
-        + "Beitrag berechnet wird, die Angehörigen sind beitragsbefreit.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
+            + "<p>Die Bezeichung und die Höhe des Beitrages sind zu erfassen.</p>"
+            + "<p>Durch die Kennzeichnung als Familientarif können einem Mitglied Familienmitglieder "
+            + "zugeordnet werden. Dabei ist zubeachten, dass nur dem zahlenden Mitglied ein "
+            + "Beitrag berechnet wird, die Angehörigen sind beitragsbefreit.</p>"
+            + "</form>");
   }
 
   public void unbind() throws ApplicationException

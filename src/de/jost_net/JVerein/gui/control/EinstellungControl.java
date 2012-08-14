@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.DtausTextschluesselInput;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
@@ -107,7 +108,7 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput mitgliedskonto;
 
   private CheckboxInput mitgliedfoto;
-  
+
   private CheckboxInput uselesefelder;
 
   private CheckboxInput zusatzadressen;
@@ -334,7 +335,7 @@ public class EinstellungControl extends AbstractControl
     }
     konto = new TextInput(Einstellungen.getEinstellung().getKonto(), 10);
     konto.setMandatory(true);
-    konto.setComment("für die Abbuchung");
+    konto.setComment(JVereinPlugin.getI18n().tr("für die Abbuchung"));
     return konto;
   }
 
@@ -468,13 +469,13 @@ public class EinstellungControl extends AbstractControl
         .getMitgliedfoto());
     return mitgliedfoto;
   }
-  
+
   public CheckboxInput getUseLesefelder() throws RemoteException
   {
     if (uselesefelder == null)
     {
       uselesefelder = new CheckboxInput(Einstellungen.getEinstellung()
-        .getUseLesefelder());
+          .getUseLesefelder());
     }
     return uselesefelder;
   }
@@ -597,8 +598,8 @@ public class EinstellungControl extends AbstractControl
     }
     dateinamenmuster = new TextInput(Einstellungen.getEinstellung()
         .getDateinamenmuster(), 30);
-    dateinamenmuster
-        .setComment("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit");
+    dateinamenmuster.setComment(JVereinPlugin.getI18n().tr(
+        "a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit"));
     return dateinamenmuster;
   }
 
@@ -610,8 +611,8 @@ public class EinstellungControl extends AbstractControl
     }
     dateinamenmusterspende = new TextInput(Einstellungen.getEinstellung()
         .getDateinamenmusterSpende(), 30);
-    dateinamenmusterspende
-        .setComment("n$ = Name, v$ = Vorname, d$ = Datum, z$ = Zeit");
+    dateinamenmusterspende.setComment(JVereinPlugin.getI18n().tr(
+        "n$ = Name, v$ = Vorname, d$ = Datum, z$ = Zeit"));
     return dateinamenmusterspende;
   }
 
@@ -759,7 +760,8 @@ public class EinstellungControl extends AbstractControl
     zahlungsrhytmus = new SelectInput(
         Zahlungsrhytmus.getArray(),
         new Zahlungsrhytmus(Einstellungen.getEinstellung().getZahlungsrhytmus()));
-    zahlungsrhytmus.setName("Standard-Zahlungsrhytmus f. neue Mitglieder");
+    zahlungsrhytmus.setName(JVereinPlugin.getI18n().tr(
+        "Standard-Zahlungsrhytmus f. neue Mitglieder"));
     return zahlungsrhytmus;
   }
 
@@ -913,7 +915,8 @@ public class EinstellungControl extends AbstractControl
       e.store();
       spalten.save();
       Einstellungen.setEinstellung(e);
-      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Einstellungen gespeichert"));
     }
     catch (RemoteException e)
     {

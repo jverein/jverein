@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.BuchungVar;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -106,8 +107,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException("Spalte "
-                + BuchungVar.BETRAG.getName() + " fehlt!");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "Spalte {0} fehlt!", BuchungVar.BETRAG.getName()));
           }
           try
           {
@@ -125,8 +126,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException("Spalte "
-                + BuchungVar.DATUM.getName() + " fehlt!");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "Spalte {0} fehlt!", BuchungVar.DATUM.getName()));
           }
           try
           {
@@ -144,16 +145,16 @@ public class CSVBuchungsImport implements Importer
             kit.addFilter("nummer = ?", knr);
             if (kit.size() == 0)
             {
-              throw new ApplicationException("Konto " + knr
-                  + " existiert nicht in JVerein!");
+              throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                  "Konto {0} existiert nicht in JVerein!", knr + ""));
             }
             Konto k1 = (Konto) kit.next();
             bu.setKonto(k1);
           }
           catch (SQLException e)
           {
-            throw new ApplicationException("Spalte "
-                + BuchungVar.KONTONUMMER.getName() + " fehlt!");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "Spalte {0} fehlt!", BuchungVar.KONTONUMMER.getName()));
           }
           try
           {
@@ -165,8 +166,8 @@ public class CSVBuchungsImport implements Importer
             Buchungsart b1 = (Buchungsart) bit.next();
             if (bit.size() == 0)
             {
-              throw new ApplicationException("Buchungsart " + bart
-                  + " existiert nicht in JVerein!");
+              throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                  "Buchungsart {0} existiert nicht in JVerein!", bart + ""));
             }
             bu.setBuchungsart(Integer.parseInt(b1.getID()));
           }
@@ -180,8 +181,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException("Spalte "
-                + BuchungVar.NAME.getName() + " fehlt!");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "Spalte {0} fehlt!", BuchungVar.NAME.getName()));
           }
           try
           {
@@ -189,8 +190,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException("Spalte "
-                + BuchungVar.ZWECK1.getName() + " fehlt!");
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "Spalte {0} fehlt!", BuchungVar.ZWECK1.getName()));
           }
           bu.store();
         }
@@ -205,8 +206,9 @@ public class CSVBuchungsImport implements Importer
     }
     catch (Exception e)
     {
-      monitor.log(" nicht importiert: " + e.getMessage());
-      Logger.error("Fehler", e);
+      monitor.log(JVereinPlugin.getI18n().tr(" nicht importiert: ")
+          + e.getMessage());
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     finally
     {
@@ -216,7 +218,7 @@ public class CSVBuchungsImport implements Importer
 
   public String getName()
   {
-    return "CSV-Buchungsimport";
+    return JVereinPlugin.getI18n().tr("CSV-Buchungsimport");
   }
 
   public boolean hasFileDialog()

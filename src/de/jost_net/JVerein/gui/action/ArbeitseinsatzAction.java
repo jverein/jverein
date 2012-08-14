@@ -61,9 +61,10 @@ public class ArbeitseinsatzAction implements Action
           if (m.getID() == null)
           {
             throw new ApplicationException(
-                "Neues Mitglied bitte erst speichern. Dann können Arbeitseinsätze aufgenommen werden.");
+                JVereinPlugin
+                    .getI18n()
+                    .tr("Neues Mitglied bitte erst speichern. Dann können Arbeitseinsätze aufgenommen werden."));
           }
-
           aeins.setMitglied(new Integer(m.getID()).intValue());
         }
       }

@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.LehrgangsartAction;
 import de.jost_net.JVerein.gui.menu.LehrgangsartMenu;
 import de.jost_net.JVerein.rmi.Lehrgangsart;
@@ -105,11 +106,11 @@ public class LehrgangsartControl extends AbstractControl
       d = null;
     }
     this.von = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.von.setTitle("von/am");
-    this.von.setText("Bitte Beginn oder Tag der Veranstaltung wählen");
+    this.von.setTitle(JVereinPlugin.getI18n().tr("von/am"));
+    this.von.setText(JVereinPlugin.getI18n().tr(
+        "Bitte Beginn oder Tag der Veranstaltung wählen"));
     this.von.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) von.getValue();
@@ -134,11 +135,11 @@ public class LehrgangsartControl extends AbstractControl
       d = null;
     }
     this.bis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.bis.setTitle("bis");
-    this.bis.setText("Bitte Ende der Veranstaltung wählen");
+    this.bis.setTitle(JVereinPlugin.getI18n().tr("bis"));
+    this.bis.setText(JVereinPlugin.getI18n().tr(
+        "Bitte Ende der Veranstaltung wählen"));
     this.bis.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) bis.getValue();
@@ -174,17 +175,19 @@ public class LehrgangsartControl extends AbstractControl
       l.setBis((Date) getBis().getValue());
       l.setVeranstalter((String) getVeranstalter().getValue());
       l.store();
-      GUI.getStatusBar().setSuccessText("Lehrgangsart gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Lehrgangsart gespeichert"));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Speichern der Lehrgangsart";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Speichern der Lehrgangsart");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
     catch (ApplicationException e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
@@ -196,12 +199,14 @@ public class LehrgangsartControl extends AbstractControl
     formulare.setOrder("ORDER BY bezeichnung");
 
     lehrgangsartList = new TablePart(formulare, new LehrgangsartAction());
-    lehrgangsartList.addColumn("Bezeichnung", "bezeichnung");
-    lehrgangsartList.addColumn("von/am", "von", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    lehrgangsartList.addColumn("bis", "bis", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    lehrgangsartList.addColumn("Veranstalter", "veranstalter");
+    lehrgangsartList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
+    lehrgangsartList.addColumn(JVereinPlugin.getI18n().tr("von/am"), "von",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    lehrgangsartList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    lehrgangsartList.addColumn(JVereinPlugin.getI18n().tr("Veranstalter"),
+        "veranstalter");
     lehrgangsartList.setRememberColWidths(true);
     lehrgangsartList.setContextMenu(new LehrgangsartMenu());
     lehrgangsartList.setRememberOrder(true);

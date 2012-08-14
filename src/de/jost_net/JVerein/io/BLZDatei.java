@@ -27,6 +27,8 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import de.jost_net.JVerein.JVereinPlugin;
+
 public class BLZDatei
 {
   private BufferedInputStream bin;
@@ -37,8 +39,8 @@ public class BLZDatei
 
     if (zip.size() > 1)
     {
-      throw new IOException(
-          "Fehler: Die ZIP-Datei enthält mehr als eine Datei.");
+      throw new IOException(JVereinPlugin.getI18n().tr(
+          "Fehler: Die ZIP-Datei enthält mehr als eine Datei."));
     }
     for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements();)
     {
@@ -51,22 +53,4 @@ public class BLZDatei
   {
     return new BLZSatz(bin);
   }
-
-  public static void main(String[] args) throws IOException
-  {
-    BLZDatei blz = new BLZDatei("C:/Users/heiner/Desktop/blz_20110905txt.zip");
-    BLZSatz satz = blz.getNext();
-    while (satz.hasNext())
-    {
-      if (satz.getZahlungsdienstleister().equals("1")
-      // && satz.getAenderungskennzeichen().equals("U")
-          && !satz.getNachfolgeblz().equals("00000000"))
-      {
-        System.out.println(satz.getBlz() + ";" + satz.getBezeichnung() + ";"
-            + satz.getNachfolgeblz() + satz.getAenderungskennzeichen());
-      }
-      satz = blz.getNext();
-    }
-  }
-
 }

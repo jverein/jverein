@@ -21,27 +21,33 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
+import de.jost_net.JVerein.JVereinPlugin;
+
 public enum BuchungVar
 {
-  ABRECHNUNGSLAUF("buchung_abrechnungslauf"), //
-  ART("buchung_art"), //
-  AUSZUGSNUMMER("buchung_auszugsnummer"), //
-  BETRAG("buchung_betrag"), //
-  BLATTNUMMER("buchung_blattnummer"), //
-  BUCHUNGSARBEZEICHNUNG("buchung_buchungsart_bezeichnung"), //
-  BUCHUNGSARTNUMMER("buchung_buchungsart_nummer"), //
-  BUCHUNGSKLASSEBEZEICHNUNG("buchung_buchungsklasse_bezeichnung"), //
-  BUCHUNGSKLASSENUMMER("buchung_buchungsklasse_nummer"), //
-  DATUM("buchung_datum"), //
-  JAHRESABSCHLUSS("buchung_jahresabschluss"), //
-  KOMMENTAR("buchung_kommentar"), //
-  KONTONUMMER("buchung_kontonummer"), //
-  MITGLIEDSKONTO("buchung_mitgliedskonto"), //
-  NAME("buchung_name"), //
-  PROJEKTNUMMER("buchung_projektnummer"), //
-  PROJEKTBEZEICHNUNG("buchung_projektbezeichnung"), //
-  SPENDENBESCHEINIGUNG("buchung_spendenbescheinigung"), // ;
-  ZWECK1("buchung_zweck1");
+  ABRECHNUNGSLAUF(JVereinPlugin.getI18n().tr("buchung_abrechnungslauf")), //
+  ART(JVereinPlugin.getI18n().tr("buchung_art")), //
+  AUSZUGSNUMMER(JVereinPlugin.getI18n().tr("buchung_auszugsnummer")), //
+  BETRAG(JVereinPlugin.getI18n().tr("buchung_betrag")), //
+  BLATTNUMMER(JVereinPlugin.getI18n().tr("buchung_blattnummer")), //
+  BUCHUNGSARBEZEICHNUNG(JVereinPlugin.getI18n().tr(
+      "buchung_buchungsart_bezeichnung")), //
+  BUCHUNGSARTNUMMER(JVereinPlugin.getI18n().tr("buchung_buchungsart_nummer")), //
+  BUCHUNGSKLASSEBEZEICHNUNG(JVereinPlugin.getI18n().tr(
+      "buchung_buchungsklasse_bezeichnung")), //
+  BUCHUNGSKLASSENUMMER(JVereinPlugin.getI18n().tr(
+      "buchung_buchungsklasse_nummer")), //
+  DATUM(JVereinPlugin.getI18n().tr("buchung_datum")), //
+  JAHRESABSCHLUSS(JVereinPlugin.getI18n().tr("buchung_jahresabschluss")), //
+  KOMMENTAR(JVereinPlugin.getI18n().tr("buchung_kommentar")), //
+  KONTONUMMER(JVereinPlugin.getI18n().tr("buchung_kontonummer")), //
+  MITGLIEDSKONTO(JVereinPlugin.getI18n().tr("buchung_mitgliedskonto")), //
+  NAME(JVereinPlugin.getI18n().tr("buchung_name")), //
+  PROJEKTNUMMER(JVereinPlugin.getI18n().tr("buchung_projektnummer")), //
+  PROJEKTBEZEICHNUNG(JVereinPlugin.getI18n().tr("buchung_projektbezeichnung")), //
+  SPENDENBESCHEINIGUNG(JVereinPlugin.getI18n().tr(
+      "buchung_spendenbescheinigung")), // ;
+  ZWECK1(JVereinPlugin.getI18n().tr("buchung_zweck1"));
 
   private String name;
 

@@ -91,8 +91,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       }
       catch (NumberFormatException e)
       {
-        throw new ApplicationException(
-            "Bankleitzahl enthält unzulässige Zeichen!");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Bankleitzahl enthält unzulässige Zeichen!"));
       }
       if (getKonto() == null || getKonto().length() == 0)
       {
@@ -105,8 +105,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       }
       catch (NumberFormatException e)
       {
-        throw new ApplicationException(
-            "Kontonummer enthält unzulässige Zeichen!");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Kontonummer enthält unzulässige Zeichen!"));
       }
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
@@ -127,7 +127,9 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         if (!JVereinPlugin.isArchiveServiceActive())
         {
           throw new ApplicationException(
-              "Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!");
+              JVereinPlugin
+                  .getI18n()
+                  .tr("Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!"));
         }
       }
       try
@@ -512,7 +514,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextabbuchung");
     if (text == null)
     {
-      text = "Der Betrag wird vom Konto ${Konto} (BLZ ${BLZ}) abgebucht.";
+      text = JVereinPlugin.getI18n().tr(
+          "Der Betrag wird vom Konto ${Konto} (BLZ ${BLZ}) abgebucht.");
     }
     return text;
   }
@@ -528,7 +531,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextueberweisung");
     if (text == null)
     {
-      text = "Bitte überweisen Sie den Betrag auf das angegebene Konto.";
+      text = JVereinPlugin.getI18n().tr(
+          "Bitte überweisen Sie den Betrag auf das angegebene Konto.");
     }
     return text;
   }
@@ -544,7 +548,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextbar");
     if (text == null)
     {
-      text = "Bitte zahlen Sie den Betrag auf das angegebene Konto ein.";
+      text = JVereinPlugin.getI18n().tr(
+          "Bitte zahlen Sie den Betrag auf das angegebene Konto ein.");
     }
     return text;
   }

@@ -21,17 +21,23 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
+import de.jost_net.JVerein.JVereinPlugin;
+
 public enum SpendenbescheinigungVar
 {
-  EMPFAENGER("spendenbescheinigung_empfaenger"), //
-  BETRAG("spendenbescheinigung_betrag"), //
-  BETRAGINWORTEN("spendenbescheinigung_betraginworten"), //
-  BESCHEINIGUNGDATUM("spendenbescheinigung_datum"), //
-  SPENDEART("spendenbescheinigung_spendenart"), //
-  SPENDEDATUM("spendenbescheinigung_spendedatum"), //
-  SPENDENZEITRAUM("spendenbescheinigung_spendenzeitraum"), //
-  ERSATZAUFWENDUNGEN("spendenbescheinigung_ersatzaufwendungen"), //
-  BUCHUNGSLISTE("spendenbescheinigung_buchungsliste"); //
+  EMPFAENGER(JVereinPlugin.getI18n().tr("spendenbescheinigung_empfaenger")), //
+  BETRAG(JVereinPlugin.getI18n().tr("spendenbescheinigung_betrag")), //
+  BETRAGINWORTEN(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_betraginworten")), //
+  BESCHEINIGUNGDATUM(JVereinPlugin.getI18n().tr("spendenbescheinigung_datum")), //
+  SPENDEART(JVereinPlugin.getI18n().tr("spendenbescheinigung_spendenart")), //
+  SPENDEDATUM(JVereinPlugin.getI18n().tr("spendenbescheinigung_spendedatum")), //
+  SPENDENZEITRAUM(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_spendenzeitraum")), //
+  ERSATZAUFWENDUNGEN(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_ersatzaufwendungen")), //
+  BUCHUNGSLISTE(JVereinPlugin.getI18n()
+      .tr("spendenbescheinigung_buchungsliste")); //
 
   private String name;
 

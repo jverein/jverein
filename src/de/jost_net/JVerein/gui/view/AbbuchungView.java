@@ -107,7 +107,7 @@ public class AbbuchungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Abbuchung</span> </p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Abbuchung</span> </p>"
         + "<p>Zunächst ist der Modus auszuwählen. Die Auswahlmöglichkeiten "
         + "richten sich nach dem ausgewählten Beitragsmodell (siehe Einstellungen).</p>"
         + "<p>Der Stichtag wird  zur Prüfung herangezogen, ob die Mitgliedschaft schon/noch besteht "
@@ -116,6 +116,6 @@ public class AbbuchungView extends AbstractView
         + "<p>Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen "
         + "eingetragen. </p>"
         + "<p>  Es kann angegeben werden, ob Zusatzabbuchungen und Kursteilnehmer berücksichtigt "
-        + " werden sollen.</p></form>";
+        + " werden sollen.</p></form>");
   }
 }

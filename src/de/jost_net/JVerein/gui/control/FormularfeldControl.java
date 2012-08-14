@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import com.lowagie.text.pdf.BaseFont;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineVar;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
@@ -217,7 +218,7 @@ public class FormularfeldControl extends AbstractControl
       }
 
     }
-    
+
     DBIterator itlesefelder = Einstellungen.getDBService().createList(
         Lesefeld.class);
     while (itlesefelder.hasNext())
@@ -225,7 +226,7 @@ public class FormularfeldControl extends AbstractControl
       Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
       namen.add(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung());
     }
-    
+
     DBIterator zusatzfelder = Einstellungen.getDBService().createList(
         Felddefinition.class);
     while (zusatzfelder.hasNext())
@@ -233,7 +234,7 @@ public class FormularfeldControl extends AbstractControl
       Felddefinition zusatzfeld = (Felddefinition) zusatzfelder.next();
       namen.add(Einstellungen.ZUSATZFELD_PRE + zusatzfeld.getName());
     }
-    
+
     name = new SelectInput(namen, getFormularfeld().getName());
     return name;
   }
@@ -245,7 +246,7 @@ public class FormularfeldControl extends AbstractControl
       return seite;
     }
     seite = new IntegerInput(getFormularfeld().getSeite());
-    seite.setComment("Seite");
+    seite.setComment(JVereinPlugin.getI18n().tr("Seite"));
     return seite;
   }
 
@@ -256,7 +257,7 @@ public class FormularfeldControl extends AbstractControl
       return x;
     }
     x = new DecimalInput(getFormularfeld().getX(), Einstellungen.DECIMALFORMAT);
-    x.setComment("Millimeter");
+    x.setComment(JVereinPlugin.getI18n().tr("Millimeter"));
     return x;
   }
 
@@ -267,7 +268,7 @@ public class FormularfeldControl extends AbstractControl
       return y;
     }
     y = new DecimalInput(getFormularfeld().getY(), Einstellungen.DECIMALFORMAT);
-    y.setComment("Millimeter");
+    y.setComment(JVereinPlugin.getI18n().tr("Millimeter"));
     return y;
   }
 
@@ -321,11 +322,13 @@ public class FormularfeldControl extends AbstractControl
       f.setFontsize((Integer) getFontsize().getValue());
       f.store();
 
-      GUI.getStatusBar().setSuccessText("Formularfeld gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Formularfeld gespeichert"));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Speichern des Formularfeldes";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim Speichern des Formularfeldes");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -343,12 +346,13 @@ public class FormularfeldControl extends AbstractControl
     formularfelder.setOrder("ORDER BY seite, x, y");
 
     formularfelderList = new TablePart(formularfelder, new FormularfeldAction());
-    formularfelderList.addColumn("Name", "name");
-    formularfelderList.addColumn("Seite", "seite");
-    formularfelderList.addColumn("von links", "x");
-    formularfelderList.addColumn("von unten", "y");
-    formularfelderList.addColumn("Font", "font");
-    formularfelderList.addColumn("Fonthöhe", "fontsize");
+    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Seite"), "seite");
+    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("von links"), "x");
+    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("von unten"), "y");
+    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Font"), "font");
+    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Fonthöhe"),
+        "fontsize");
 
     formularfelderList.setRememberColWidths(true);
     formularfelderList.setContextMenu(new FormularfeldMenu());

@@ -90,8 +90,9 @@ public class AltersgruppenParser
     }
     catch (NumberFormatException e)
     {
-      throw new ApplicationException("Fehler in den Altergruppen "
-          + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler in den Altergruppen")
+          + " " + e.getMessage());
     }
   }
 }

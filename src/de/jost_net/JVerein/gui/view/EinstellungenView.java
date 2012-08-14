@@ -248,7 +248,7 @@ public class EinstellungenView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
         + "<p>Anzeige: In diesem Bereich kann gesteuert werden, welche Datenfelder "
         + "angezeigt werden.</p>"
         + "Beitragsmodell:"
@@ -257,6 +257,6 @@ public class EinstellungenView extends AbstractView
         + "<li>vierteljährlich fester Beitrag</li>"
         + "<li>monatlich fester Beitrag</li>"
         + "<li>Monatlicher Beitrag mit jährlicher, halbjährlicher, vierteljährlicher oder monatlicher Zahlungsweise.</li>"
-        + "</form>";
+        + "</form>");
   }
 }

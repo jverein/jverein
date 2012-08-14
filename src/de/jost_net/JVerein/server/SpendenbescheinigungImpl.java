@@ -104,8 +104,9 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      Logger.error("Fehler", e);
-      throw new ApplicationException("Fehler bei der Plausi");
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler bei der Plausi"));
     }
   }
 
@@ -560,8 +561,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     catch (Exception e)
     {
       Logger.error("Fehler", e);
-      throw new RemoteException(
-          "Fehler bei der Aufbereitung des Betrages in Worten");
+      throw new RemoteException(JVereinPlugin.getI18n().tr(
+          "Fehler bei der Aufbereitung des Betrages in Worten"));
     }
     String bescheinigungsdatum = new JVDateFormatTTMMJJJJ()
         .format(getBescheinigungsdatum());
@@ -570,15 +571,16 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     switch (getSpendenart())
     {
       case Spendenart.GELDSPENDE:
-        String art = "Geldzuwendungen";
+        String art = JVereinPlugin.getI18n().tr("Geldzuwendungen");
         if (Einstellungen.getEinstellung().getMitgliedsbetraege())
         {
-          art += "/Mitgliedsbeitrag";
+          art += JVereinPlugin.getI18n().tr("/Mitgliedsbeitrag");
         }
         map.put(SpendenbescheinigungVar.SPENDEART.getName(), art);
         break;
       case Spendenart.SACHSPENDE:
-        map.put(SpendenbescheinigungVar.SPENDEART.getName(), "Sachzuwendungen");
+        map.put(SpendenbescheinigungVar.SPENDEART.getName(), JVereinPlugin
+            .getI18n().tr("Sachzuwendungen"));
         break;
     }
     String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
@@ -589,15 +591,17 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     if (getBuchungen() != null && getBuchungen().size() > 1)
     {
       String zeitraumende = new JVDateFormatTTMMJJJJ().format(getZeitraumBis());
-      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "s. Anlage");
-      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), spendedatum
-          + " bis " + zeitraumende);
+      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), JVereinPlugin
+          .getI18n().tr("s. Anlage"));
+      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), JVereinPlugin
+          .getI18n().tr("{0} bis {1}", spendedatum, zeitraumende));
       StringBuilder bl = new StringBuilder();
-      bl.append(StringTool.rpad("Datum", 10));
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Datum"), 10));
       bl.append("  ");
-      bl.append(StringTool.rpad(StringTool.lpad("Betrag", 8), 11));
+      bl.append(StringTool.rpad(
+          StringTool.lpad(JVereinPlugin.getI18n().tr("Betrag"), 8), 11));
       bl.append("  ");
-      bl.append("Verwendung");
+      bl.append(JVereinPlugin.getI18n().tr("Verwendung"));
       bl.append(newLineStr);
 
       bl.append("----------");
@@ -632,7 +636,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       bl.append("  ");
       bl.append("-----------------------------------------");
       bl.append(newLineStr);
-      bl.append(StringTool.rpad("Summe:", 10));
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Summe:"), 10));
       bl.append("  ");
       String str = Einstellungen.DECIMALFORMAT.format(getBetrag());
       bl.append(StringTool.lpad(str, 11));
@@ -641,9 +645,13 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       bl.append(newLineStr);
       bl.append("Legende:");
       bl.append(newLineStr);
-      bl.append("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen");
+      bl.append(JVereinPlugin
+          .getI18n()
+          .tr("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen"));
       bl.append(newLineStr);
-      bl.append("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
+      bl.append(JVereinPlugin
+          .getI18n()
+          .tr("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen"));
       bl.append(newLineStr);
       map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), bl.toString());
     }

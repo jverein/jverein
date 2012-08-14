@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Listener;
 import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.menu.KursteilnehmerMenu;
@@ -201,8 +202,8 @@ public class KursteilnehmerControl extends AbstractControl
     }
     Date d = getKursteilnehmer().getGeburtsdatum();
     this.geburtsdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.geburtsdatum.setTitle("Geburtsdatum");
-    this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
+    this.geburtsdatum.setTitle(JVereinPlugin.getI18n().tr("Geburtsdatum"));
+    this.geburtsdatum.setText(("Bitte Geburtsdatum wählen"));
     this.geburtsdatum.addListener(new Listener()
     {
 
@@ -226,7 +227,7 @@ public class KursteilnehmerControl extends AbstractControl
       return geschlecht;
     }
     geschlecht = new GeschlechtInput(getKursteilnehmer().getGeschlecht());
-    geschlecht.setPleaseChoose("Bitte auswählen");
+    geschlecht.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
     geschlecht.setMandatory(true);
     return geschlecht;
   }
@@ -263,11 +264,11 @@ public class KursteilnehmerControl extends AbstractControl
       }
     }
     this.eingabedatumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.eingabedatumvon.setTitle("Eingabedatum");
-    this.eingabedatumvon.setText("Beginn des Eingabe-Zeitraumes");
+    this.eingabedatumvon.setTitle(JVereinPlugin.getI18n().tr("Eingabedatum"));
+    this.eingabedatumvon.setText(JVereinPlugin.getI18n().tr(
+        "Beginn des Eingabe-Zeitraumes"));
     this.eingabedatumvon.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) eingabedatumvon.getValue();
@@ -301,11 +302,11 @@ public class KursteilnehmerControl extends AbstractControl
       }
     }
     this.eingabedatumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.eingabedatumbis.setTitle("Eingabedatum");
-    this.eingabedatumbis.setText("Ende des Eingabe-Zeitraumes");
+    this.eingabedatumbis.setTitle(JVereinPlugin.getI18n().tr("Eingabedatum"));
+    this.eingabedatumbis.setText(JVereinPlugin.getI18n().tr(
+        "Ende des Eingabe-Zeitraumes"));
     this.eingabedatumbis.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) eingabedatumbis.getValue();
@@ -339,11 +340,12 @@ public class KursteilnehmerControl extends AbstractControl
       }
     }
     this.abbuchungsdatumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.abbuchungsdatumvon.setTitle("Abbuchungsdatum");
-    this.abbuchungsdatumvon.setText("Beginn des Abbuchungszeitraumes");
+    this.abbuchungsdatumvon.setTitle(JVereinPlugin.getI18n().tr(
+        "Abbuchungsdatum"));
+    this.abbuchungsdatumvon.setText(JVereinPlugin.getI18n().tr(
+        "Beginn des Abbuchungszeitraumes"));
     this.abbuchungsdatumvon.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) abbuchungsdatumvon.getValue();
@@ -376,11 +378,12 @@ public class KursteilnehmerControl extends AbstractControl
       }
     }
     this.abbuchungsdatumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.abbuchungsdatumbis.setTitle("Abbuchungsdatum");
-    this.abbuchungsdatumbis.setText("Ende des Abbuchungszeitraumes");
+    this.abbuchungsdatumbis.setTitle(JVereinPlugin.getI18n().tr(
+        "Abbuchungsdatum"));
+    this.abbuchungsdatumbis.setText(JVereinPlugin.getI18n().tr(
+        "Ende des Abbuchungszeitraumes"));
     this.abbuchungsdatumbis.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         Date date = (Date) abbuchungsdatumbis.getValue();
@@ -400,17 +403,17 @@ public class KursteilnehmerControl extends AbstractControl
     DBIterator kursteilnehmer = getIterator();
     part = new TablePart(kursteilnehmer, new KursteilnehmerDetailAction());
 
-    part.addColumn("Name", "name");
-    part.addColumn("VZweck 1", "vzweck1");
-    part.addColumn("VZweck 2", "vzweck2");
-    part.addColumn("BLZ", "blz");
-    part.addColumn("Konto", "konto");
-    part.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
-    part.addColumn("Eingabedatum", "eingabedatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    part.addColumn("Abbuchungsdatum", "abbudatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    part.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    part.addColumn(JVereinPlugin.getI18n().tr("VZweck 1"), "vzweck1");
+    part.addColumn(JVereinPlugin.getI18n().tr("VZweck 2"), "vzweck2");
+    part.addColumn(JVereinPlugin.getI18n().tr("BLZ"), "blz");
+    part.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto");
+    part.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+    part.addColumn(JVereinPlugin.getI18n().tr("Eingabedatum"), "eingabedatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    part.addColumn(JVereinPlugin.getI18n().tr("Abbuchungsdatum"), "abbudatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     part.setContextMenu(new KursteilnehmerMenu(part));
 
     return part;
@@ -442,9 +445,8 @@ public class KursteilnehmerControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button("starten", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
     {
-
       public void handleAction(Object context)
       {
         starteAuswertung();
@@ -541,7 +543,8 @@ public class KursteilnehmerControl extends AbstractControl
         k.setEingabedatum();
       }
       k.store();
-      GUI.getStatusBar().setSuccessText("Kursteilnehmer gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Kursteilnehmer gespeichert"));
     }
     catch (ApplicationException e)
     {
@@ -549,7 +552,8 @@ public class KursteilnehmerControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei Speichern des Kursteilnehmers";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei Speichern des Kursteilnehmers");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -561,7 +565,6 @@ public class KursteilnehmerControl extends AbstractControl
    */
   private class BLZListener implements Listener
   {
-
     public void handleEvent(Event event)
     {
       try
@@ -588,7 +591,7 @@ public class KursteilnehmerControl extends AbstractControl
       if (abbuchungsdatumvon.getValue() != null)
       {
         Date d = (Date) abbuchungsdatumvon.getValue();
-        subtitle += "Abbuchungsdatum von "
+        subtitle += JVereinPlugin.getI18n().tr("Abbuchungsdatum von") + " "
             + new JVDateFormatTTMMJJJJ().format(d) + "  ";
         list.addFilter("abbudatum >= ?",
             new Object[] { new java.sql.Date(d.getTime()) });
@@ -596,12 +599,13 @@ public class KursteilnehmerControl extends AbstractControl
       if (abbuchungsdatumbis.getValue() != null)
       {
         Date d = (Date) abbuchungsdatumbis.getValue();
-        subtitle += " bis " + new JVDateFormatTTMMJJJJ().format(d) + "  ";
+        subtitle += " " + JVereinPlugin.getI18n().tr("bis") + " "
+            + new JVDateFormatTTMMJJJJ().format(d) + "  ";
         list.addFilter("abbudatum <= ?",
             new Object[] { new java.sql.Date(d.getTime()) });
       }
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText("Ausgabedatei wählen.");
+      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
 
       Settings settings = new Settings(this.getClass());
 
@@ -611,8 +615,9 @@ public class KursteilnehmerControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("kursteilnehmer", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname(
+          JVereinPlugin.getI18n().tr("kursteilnehmer"), "", Einstellungen
+              .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -628,24 +633,24 @@ public class KursteilnehmerControl extends AbstractControl
 
       BackgroundTask t = new BackgroundTask()
       {
-
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
           try
           {
             Reporter rpt = new Reporter(new FileOutputStream(file),
-                "Kursteilnehmer", subtitle2, list.size());
+                JVereinPlugin.getI18n().tr("Kursteilnehmer"), subtitle2,
+                list.size());
 
             GUI.getCurrentView().reload();
 
-            rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 50,
-                Color.LIGHT_GRAY);
-            rpt.addHeaderColumn("Name", Element.ALIGN_LEFT, 80,
-                Color.LIGHT_GRAY);
-            rpt.addHeaderColumn("Verwendungszweck", Element.ALIGN_LEFT, 80,
-                Color.LIGHT_GRAY);
-            rpt.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 40,
-                Color.LIGHT_GRAY);
+            rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
+                Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+            rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
+                Element.ALIGN_LEFT, 80, Color.LIGHT_GRAY);
+            rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
+                Element.ALIGN_LEFT, 80, Color.LIGHT_GRAY);
+            rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
+                Element.ALIGN_CENTER, 40, Color.LIGHT_GRAY);
             rpt.createHeader();
             while (list.hasNext())
             {
@@ -659,7 +664,6 @@ public class KursteilnehmerControl extends AbstractControl
             rpt.close();
             GUI.getDisplay().asyncExec(new Runnable()
             {
-
               public void run()
               {
                 try
@@ -678,13 +682,13 @@ public class KursteilnehmerControl extends AbstractControl
           }
           catch (ApplicationException ae)
           {
-            Logger.error("Fehler", ae);
+            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw ae;
           }
           catch (Exception re)
           {
-            Logger.error("Fehler", re);
+            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), re);
             GUI.getStatusBar().setErrorText(re.getMessage());
             throw new ApplicationException(re);
           }

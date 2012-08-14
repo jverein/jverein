@@ -53,6 +53,8 @@ public class MailUebersichtView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Übersicht über die Mails</span></p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Übersicht über die Mails</span></p></form>");
   }
 }

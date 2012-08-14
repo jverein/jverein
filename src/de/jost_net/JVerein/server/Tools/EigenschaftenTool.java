@@ -56,5 +56,4 @@ public class EigenschaftenTool
     return (ArrayList<String>) Einstellungen.getDBService().execute(sql,
         new Object[] { mitgliedid }, rs);
   }
-
 }

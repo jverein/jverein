@@ -100,7 +100,6 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
     }, null, true);
     buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();
@@ -108,7 +107,6 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
     });
     buttons.paint(parent);
     getShell().setMinimumSize(getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT));
-
   }
 
   /**
@@ -143,7 +141,6 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
         "Bitte Buchungsart auswählen"));
     buchungsarten.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         status.setValue("");

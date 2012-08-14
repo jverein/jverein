@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import com.lowagie.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
@@ -157,7 +158,8 @@ public class BuchungsartControl extends AbstractControl
     buchungsklasse = new SelectInput(list, getBuchungsart().getBuchungsklasse());
     buchungsklasse.setValue(getBuchungsart().getBuchungsklasse());
     buchungsklasse.setAttribute("bezeichnung");
-    buchungsklasse.setPleaseChoose("Bitte auswählen");
+    buchungsklasse.setPleaseChoose(JVereinPlugin.getI18n()
+        .tr("Bitte auswählen"));
     return buchungsklasse;
   }
 
@@ -175,7 +177,8 @@ public class BuchungsartControl extends AbstractControl
       }
       catch (NullPointerException e)
       {
-        GUI.getStatusBar().setErrorText("Nummer fehlt");
+        GUI.getStatusBar().setErrorText(
+            JVereinPlugin.getI18n().tr("Nummer fehlt"));
         return;
       }
       b.setBezeichnung((String) getBezeichnung().getValue());
@@ -195,7 +198,8 @@ public class BuchungsartControl extends AbstractControl
       try
       {
         b.store();
-        GUI.getStatusBar().setSuccessText("Buchungsart gespeichert");
+        GUI.getStatusBar().setSuccessText(
+            JVereinPlugin.getI18n().tr("Buchungsart gespeichert"));
       }
       catch (ApplicationException e)
       {
@@ -204,7 +208,8 @@ public class BuchungsartControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern der Buchungsart";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern der Buchungsart");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -218,34 +223,38 @@ public class BuchungsartControl extends AbstractControl
     buchungsarten.setOrder("ORDER BY nummer");
 
     buchungsartList = new TablePart(buchungsarten, new BuchungsartAction());
-    buchungsartList.addColumn("Nummer", "nummer");
-    buchungsartList.addColumn("Bezeichnung", "bezeichnung");
-    buchungsartList.addColumn("Art", "art", new Formatter()
-    {
-      public String format(Object o)
-      {
-        if (o == null)
+    buchungsartList.addColumn(JVereinPlugin.getI18n().tr("Nummer"), "nummer");
+    buchungsartList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
+    buchungsartList.addColumn(JVereinPlugin.getI18n().tr("Art"), "art",
+        new Formatter()
         {
-          return "";
-        }
-        if (o instanceof Integer)
-        {
-          Integer art = (Integer) o;
-          switch (art.intValue())
+          public String format(Object o)
           {
-            case 0:
-              return "Einnahme";
-            case 1:
-              return "Ausgabe";
-            case 2:
-              return "Umbuchung";
+            if (o == null)
+            {
+              return "";
+            }
+            if (o instanceof Integer)
+            {
+              Integer art = (Integer) o;
+              switch (art.intValue())
+              {
+                case 0:
+                  return JVereinPlugin.getI18n().tr("Einnahme");
+                case 1:
+                  return JVereinPlugin.getI18n().tr("Ausgabe");
+                case 2:
+                  return JVereinPlugin.getI18n().tr("Umbuchung");
+              }
+            }
+            return JVereinPlugin.getI18n().tr("ungültig");
           }
-        }
-        return "ungültig";
-      }
-    }, false, Column.ALIGN_LEFT);
-    buchungsartList.addColumn("Buchungsklasse", "buchungsklasse");
-    buchungsartList.addColumn("Spende", "spende", new JaNeinFormatter());
+        }, false, Column.ALIGN_LEFT);
+    buchungsartList.addColumn(JVereinPlugin.getI18n().tr("Buchungsklasse"),
+        "buchungsklasse");
+    buchungsartList.addColumn(JVereinPlugin.getI18n().tr("Spende"), "spende",
+        new JaNeinFormatter());
     buchungsartList.setContextMenu(new BuchungsartMenu());
     buchungsartList.setRememberColWidths(true);
     buchungsartList.setRememberOrder(true);
@@ -255,38 +264,39 @@ public class BuchungsartControl extends AbstractControl
 
   public Button getPDFAusgabeButton()
   {
-    Button b = new Button("PDF-Ausgabe", new Action()
-    {
+    Button b = new Button(JVereinPlugin.getI18n().tr("PDF-Ausgabe"),
+        new Action()
+        {
 
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
-        {
-          starteAuswertung();
-        }
-        catch (RemoteException e)
-        {
-          Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler beim Start der PDF-Ausgabe der Buchungsarten");
-        }
-      }
-    }, null, true, "acroread.png");
+          public void handleAction(Object context) throws ApplicationException
+          {
+            try
+            {
+              starteAuswertung();
+            }
+            catch (RemoteException e)
+            {
+              Logger.error(e.getMessage());
+              throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                  "Fehler beim Start der PDF-Ausgabe der Buchungsarten"));
+            }
+          }
+        }, null, true, "acroread.png");
     return b;
   }
 
   private void starteAuswertung() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
+    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("buchungsarten", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("buchungsarten"),
+        "", Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
@@ -305,23 +315,24 @@ public class BuchungsartControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, "Buchungsarten", "", it.size());
-          reporter.addHeaderColumn("Nummer", Element.ALIGN_LEFT, 15,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Bezeichnung", Element.ALIGN_LEFT, 80,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Art", Element.ALIGN_LEFT, 25,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Buchungsklasse", Element.ALIGN_LEFT, 80,
-              Color.LIGHT_GRAY);
-          reporter.addHeaderColumn("Spende", Element.ALIGN_CENTER, 10,
-              Color.LIGHT_GRAY);
+          Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
+              "Buchungsarten"), "", it.size());
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Nummer"),
+              Element.ALIGN_LEFT, 15, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+              Element.ALIGN_LEFT, 80, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Art"),
+              Element.ALIGN_LEFT, 25, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(
+              JVereinPlugin.getI18n().tr("Buchungsklasse"), Element.ALIGN_LEFT,
+              80, Color.LIGHT_GRAY);
+          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Spende"),
+              Element.ALIGN_CENTER, 10, Color.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
           {
@@ -332,13 +343,13 @@ public class BuchungsartControl extends AbstractControl
             switch (b.getArt())
             {
               case 0:
-                arttxt = "Einnahme";
+                arttxt = JVereinPlugin.getI18n().tr("Einnahme");
                 break;
               case 1:
-                arttxt = "Ausgabe";
+                arttxt = JVereinPlugin.getI18n().tr("Ausgabe");
                 break;
               case 2:
-                arttxt = "Umbuchung";
+                arttxt = JVereinPlugin.getI18n().tr("Umbuchung");
                 break;
             }
             reporter.addColumn(arttxt, Element.ALIGN_LEFT);
@@ -356,18 +367,18 @@ public class BuchungsartControl extends AbstractControl
           reporter.closeTable();
           reporter.close();
           fos.close();
-          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          GUI.getStatusBar().setSuccessText(
+              JVereinPlugin.getI18n().tr("Auswertung gestartet"));
           GUI.getCurrentView().reload();
         }
         catch (Exception e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
-
           public void run()
           {
             try
@@ -382,7 +393,6 @@ public class BuchungsartControl extends AbstractControl
             }
           }
         });
-
       }
 
       public void interrupt()
@@ -398,5 +408,4 @@ public class BuchungsartControl extends AbstractControl
     Application.getController().start(t);
 
   }
-
 }

@@ -71,10 +71,12 @@ public class FormularfeldView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Formularfeld</span></p>"
-        + "<p>Je nach Formulartyp können unterschiedliche Formularfelder ausgewählt werden. "
-        + "Jedem Formulartyp ist eine Koordinate mitzugeben. Dabei handelt es sich um die "
-        + "Position von links und von unten in Millimetern. Zusätzlich sind der Zeichensatz "
-        + "und die Höhe des Zeichens anzugeben.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Formularfeld</span></p>"
+            + "<p>Je nach Formulartyp können unterschiedliche Formularfelder ausgewählt werden. "
+            + "Jedem Formulartyp ist eine Koordinate mitzugeben. Dabei handelt es sich um die "
+            + "Position von links und von unten in Millimetern. Zusätzlich sind der Zeichensatz "
+            + "und die Höhe des Zeichens anzugeben.</p></form>");
   }
 }

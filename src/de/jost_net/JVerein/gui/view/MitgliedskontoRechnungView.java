@@ -66,8 +66,8 @@ public class MitgliedskontoRechnungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Rechnungen ausgeben</span></p>"
+    return JVereinPlugin.getI18n().tr( "<form><p><span color=\"header\" font=\"header\">Rechnungen ausgeben</span></p>"
         + "<p>Für den vorgegebenen Zeitraum werden die Rechnungen ausgegeben.</p>"
-        + "</form>";
+        + "</form>");
   }
 }

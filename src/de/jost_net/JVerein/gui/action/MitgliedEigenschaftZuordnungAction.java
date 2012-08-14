@@ -102,7 +102,7 @@ public class MitgliedEigenschaftZuordnungAction implements Action
     }
     GUI.getStatusBar().setSuccessText(
         JVereinPlugin.getI18n().tr(
-            anzErfolgreich + " Eigenschaft(en) angelegt. "
-                + anzBereitsVorhanden + " waren bereits vorhanden."));
+            "{0} Eigenschaft(en) angelegt. waren bereits vorhanden.",
+            anzErfolgreich + "", anzBereitsVorhanden + ""));
   }
 }

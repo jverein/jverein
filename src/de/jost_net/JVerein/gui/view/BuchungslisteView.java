@@ -76,9 +76,11 @@ public class BuchungslisteView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungen</span></p>"
-        + "<p>Alle Buchungen aus dem vorgegebenen Zeitraum werden angezeigt. Durch einen "
-        + "Doppelklick auf eine Buchung kann die Buchungsart zugeordnet werden.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Buchungen</span></p>"
+            + "<p>Alle Buchungen aus dem vorgegebenen Zeitraum werden angezeigt. Durch einen "
+            + "Doppelklick auf eine Buchung kann die Buchungsart zugeordnet werden.</p>"
+            + "</form>");
   }
 }

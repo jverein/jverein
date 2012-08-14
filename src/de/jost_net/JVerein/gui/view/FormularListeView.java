@@ -53,12 +53,14 @@ public class FormularListeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Formulare</span></p>"
-        + "<p> Alle verfügbaren Formulare werden aufgelistet.</p>"
-        + "<p>Durch einen Doppelklick auf ein Formular wird die Detailansicht zur "
-        + "Bearbeitung geöffnet.</p>"
-        + "<p> Mit einem rechten Mausklick öffnet sich ein Kontext-Menü. Damit können "
-        + "die Formularfelder bearbeitet werden. Das Formular kann angezeigt und "
-        + "gelöscht werden.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Formulare</span></p>"
+            + "<p> Alle verfügbaren Formulare werden aufgelistet.</p>"
+            + "<p>Durch einen Doppelklick auf ein Formular wird die Detailansicht zur "
+            + "Bearbeitung geöffnet.</p>"
+            + "<p> Mit einem rechten Mausklick öffnet sich ein Kontext-Menü. Damit können "
+            + "die Formularfelder bearbeitet werden. Das Formular kann angezeigt und "
+            + "gelöscht werden.</p></form>");
   }
 }

@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -122,8 +123,9 @@ public class Import
     }
     catch (NumberFormatException e)
     {
-      throw new ApplicationException("In Zeile: " + results.getRow()
-          + " besteht folgende ungueltige Formatierung: " + e.getMessage());
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "In Zeile: {0} besteht folgende ungueltige Formatierung: {1}",
+          results.getRow() + "", e.getMessage()));
     }
 
     /* add them to the db and return a string map */
@@ -154,7 +156,6 @@ public class Import
   private int createBeitragsgruppeAndID(Double beitrag, String beitragsgruppe)
       throws RemoteException, ApplicationException
   {
-
     Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
         .createObject(Beitragsgruppe.class, null);
 
@@ -187,25 +188,28 @@ public class Import
       // Zeige Benutzer genauen Fehler.
       if (ba == null || ba.length() == 0)
       {
-        progMonitor.log(this.getResultFrom(results, InternalColumns.NACHNAME)
-            + ", " + this.getResultFrom(results, InternalColumns.VORNAME)
-            + " keine Angaben zur Beitragsart_1");
+        progMonitor.log(JVereinPlugin.getI18n().tr(
+            "{0}, {1}: keine Angaben zur Beitragsart_1",
+            this.getResultFrom(results, InternalColumns.NACHNAME),
+            this.getResultFrom(results, InternalColumns.VORNAME)));
         groupsAreValid = false;
       }
       else if (ba.length() > 30)
       {
         progMonitor
-            .log(this.getResultFrom(results, InternalColumns.NACHNAME)
-                + ", "
-                + this.getResultFrom(results, InternalColumns.VORNAME)
-                + " maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt");
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("{0}, {1}: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
+                    this.getResultFrom(results, InternalColumns.NACHNAME),
+                    this.getResultFrom(results, InternalColumns.VORNAME)));
       }
 
       if (btr == null || btr.length() == 0)
       {
-        progMonitor.log(this.getResultFrom(results, InternalColumns.NACHNAME)
-            + ", " + this.getResultFrom(results, InternalColumns.VORNAME)
-            + " keine Angaben zum Beitrag_1");
+        progMonitor.log(JVereinPlugin.getI18n().tr(
+            "{0}, {1}: keine Angaben zum Beitrag_1",
+            this.getResultFrom(results, InternalColumns.NACHNAME),
+            this.getResultFrom(results, InternalColumns.VORNAME)));
         groupsAreValid = false;
       }
     }
@@ -224,7 +228,6 @@ public class Import
    */
   private String formatDate(final String date) throws ParseException
   {
-
     if (date == null)
       throw new NullPointerException("Date may not be null");
 
@@ -267,8 +270,8 @@ public class Import
         else
         {
           parts[2] = "20" + parts[2];
-          progMonitor.log("Fuer " + dotDate
-              + " wurde das 21 Jahrhundert angenommen");
+          progMonitor.log(JVereinPlugin.getI18n().tr(
+              "Fuer {0} wurde das 21 Jahrhundert angenommen", dotDate + ""));
         }
       }
 
@@ -316,7 +319,7 @@ public class Import
     }
     catch (Exception e)
     {
-      Logger.error("Fehler", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     return null;
   }
@@ -381,9 +384,9 @@ public class Import
       }
       catch (NullPointerException e)
       {
-        progMonitor
-            .log("Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: "
-                + column.getColumnName());
+        progMonitor.log(JVereinPlugin.getI18n().tr(
+            "Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: {0}",
+            column.getColumnName()));
 
         /*
          * unhandled Exception because it shouldn't happen if the maps are used
@@ -393,8 +396,9 @@ public class Import
       }
       catch (SQLException e)
       {
-        progMonitor.log("Fehler beim lesen der Importdatei in der Spalte: "
-            + colMap.get(column.getColumnName()));
+        progMonitor.log(JVereinPlugin.getI18n().tr(
+            "Fehler beim lesen der Importdatei in der Spalte: {0}",
+            colMap.get(column.getColumnName())));
         throw new SQLException();
       }
     }
@@ -431,7 +435,7 @@ public class Import
       results.beforeFirst();
       if (!checkeBeitragsgruppen(results))
       {
-        progMonitor.log("Abbruch");
+        progMonitor.log(JVereinPlugin.getI18n().tr("Abbruch"));
         return false;
       }
 
@@ -462,7 +466,8 @@ public class Import
       /* create a default property group */
       eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
           .createObject(EigenschaftGruppe.class, null);
-      eigenschaftgruppe.setBezeichnung("Noch nicht zugeordnet");
+      eigenschaftgruppe.setBezeichnung(JVereinPlugin.getI18n().tr(
+          "Noch nicht zugeordnet"));
       eigenschaftgruppe.store();
 
       results.beforeFirst();
@@ -533,30 +538,30 @@ public class Import
         catch (Exception e)
         {
           progMonitor
-              .log(" Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= "
-                  + getResultFrom(results, InternalColumns.MITGLIEDSNR)
-                  + " NAME= "
-                  + getResultFrom(results, InternalColumns.NACHNAME)
-                  + " "
-                  + e.getMessage());
+              .log(JVereinPlugin
+                  .getI18n()
+                  .tr("Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= {0}, NAME= {1}: {2}",
+                      getResultFrom(results, InternalColumns.MITGLIEDSNR),
+                      getResultFrom(results, InternalColumns.NACHNAME),
+                      e.getMessage()));
           return false;
         }
 
       }
 
-      progMonitor.setStatusText("Import vollstaendig - Es wurden " + anz
-          + " Datensaetze importiert");
+      progMonitor.setStatusText(JVereinPlugin.getI18n().tr(
+          "Import vollstaendig - Es wurden {0} Datensaetze importiert",
+          anz + ""));
 
     }
     catch (SQLException e)
     {
       e.printStackTrace();
-      progMonitor.log("Fehler beim lesen der zu importierenden Datei");
-      throw new ApplicationException("Datei Fehler");
+      progMonitor.log(JVereinPlugin.getI18n().tr(
+          "Fehler beim lesen der zu importierenden Datei"));
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Datei Fehler"));
     }
-
     return true;
-
   }
 
   /**
@@ -578,7 +583,6 @@ public class Import
       final Map<String, Integer> beitragsGruppen) throws RemoteException,
       SQLException, ApplicationException, ParseException
   {
-
     m.setAdresstyp(1);
 
     /*
@@ -606,9 +610,9 @@ public class Import
        * Wenn Anrede gesetzt ist koennte auch damit das Geschlecht ermittelt
        * werden
        */
-      if (m.getAnrede().equalsIgnoreCase("Frau"))
+      if (m.getAnrede().equalsIgnoreCase(JVereinPlugin.getI18n().tr("Frau")))
         geschlecht = "w";
-      else if (m.getAnrede().startsWith("Herr"))
+      else if (m.getAnrede().startsWith(JVereinPlugin.getI18n().tr("Herr")))
         geschlecht = "m";
       else
         geschlecht = "";
@@ -623,8 +627,8 @@ public class Import
 
       if (Einstellungen.getEinstellung().getGeburtsdatumPflicht())
       {
-        throw new ApplicationException(m.getNameVorname()
-            + ": Geburtsdatum fehlt!");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "{0}: Geburtsdatum fehlt!", m.getNameVorname()));
       }
     }
     m.setGeburtsdatum(gebDatum);
@@ -653,10 +657,10 @@ public class Import
       if (blz.length() == 0 || ktnr.length() == 0)
       {
         progMonitor
-            .log("Bei "
-                + m.getNameVorname()
-                + " "
-                + "ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen");
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("Bei {0} ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen",
+                    m.getNameVorname()));
         throw new ApplicationException();
       }
     }
@@ -672,8 +676,8 @@ public class Import
     }
     else
     {
-      progMonitor.log(m.getNameVorname()
-          + " ungueltige Zahlungsart. Bar wird angenommen.");
+      progMonitor.log(JVereinPlugin.getI18n().tr(
+          "{0}: ungueltige Zahlungsart. Bar wird angenommen."));
     }
 
     m.setBlz(blz);
@@ -694,8 +698,8 @@ public class Import
 
       if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
       {
-        throw new ApplicationException(m.getNameVorname()
-            + ": Eintrittsdatum fehlt!");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "{0}: Eintrittsdatum fehlt!", m.getNameVorname()));
       }
     }
     m.setEintritt(eintritt);
@@ -719,9 +723,10 @@ public class Import
       if (austritt == null)
       {
         progMonitor
-            .log(m.getVornameName()
-                + ": beim einem definierten Sterbedatum muss es auch ein "
-                + "Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum");
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("{0}: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
+                    m.getNameVorname()));
         m.setAustritt(sterbeTag);
       }
     }
@@ -758,8 +763,11 @@ public class Import
       }
       else
       {
-        progMonitor.log("Individueller Beitrag fuer " + m.getVornameName()
-            + " enthaelt keine gueltige Formatierung und wird verworfen.");
+        progMonitor
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("Individueller Beitrag fuer {0} enthält keine gültige Formatierung und wird verworfen.",
+                    m.getNameVorname()));
       }
     }
 
@@ -777,11 +785,10 @@ public class Import
       else
       {
         progMonitor
-            .log("Personenart fuer "
-                + m.getVornameName()
-                + "enthaelt keine gueltige Formatierung. Es duerfen nur Woerter verwendet werden"
-                + "die mit einem j fuer juristische Personen oder n fuer natuerliche Personen beginnen."
-                + "Bei leerem Inhalt wird der Standardwert n verwendet");
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("Personenart für {0} enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
+                    m.getNameVorname()));
         throw new ApplicationException();
       }
 
@@ -806,9 +813,10 @@ public class Import
       else
       {
         progMonitor
-            .log("Zahlungsrythmus bei: "
-                + m.getVornameName()
-                + " ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate");
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
+                    m.getNameVorname()));
         m.setZahlungsrhytmus(new Integer(12));
       }
     }
@@ -827,9 +835,10 @@ public class Import
       else
       {
         progMonitor
-            .log("Adresstyp bei: "
-                + m.getVornameName()
-                + " ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)");
+            .log(JVereinPlugin
+                .getI18n()
+                .tr("Adresstyp bei: {0} ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
+                    m.getNameVorname()));
         m.setAdresstyp(new Integer(1));
       }
     }
@@ -876,7 +885,6 @@ public class Import
       final Felddefinition f) throws RemoteException, SQLException,
       ApplicationException
   {
-
     zusatzfeld.setMitglied(new Integer(curMitglied.getID()));
     zusatzfeld.setFelddefinition(new Integer(f.getID()));
     String inhalt = results.getString(colMap.get(f.getName()));
@@ -892,8 +900,9 @@ public class Import
           }
           catch (ParseException e)
           {
-            throw new ApplicationException(curMitglied.getNameVorname()
-                + ": ungueltiges Datumsformat " + f.getName() + ": " + inhalt);
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "{0} : ungültiges Datumsformat {1}: {2}",
+                curMitglied.getNameVorname(), f.getName(), inhalt));
           }
         }
         else
@@ -910,8 +919,9 @@ public class Import
           }
           catch (NumberFormatException e)
           {
-            throw new ApplicationException(curMitglied.getNameVorname()
-                + ": ungueltiges Datenformat " + f.getName() + ": " + inhalt);
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "{0}: ungültiges Datenformat {1}: {2}",
+                curMitglied.getNameVorname(), f.getName(), inhalt));
           }
         }
         else
@@ -931,8 +941,9 @@ public class Import
         }
         else
         {
-          throw new ApplicationException(curMitglied.getNameVorname()
-              + ": ungueltiges Datenformat " + f.getName() + ": " + inhalt);
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "{0}: ungültiges Datenformat {1}: {2}",
+              curMitglied.getNameVorname(), f.getName(), inhalt));
         }
         break;
       case Datentyp.WAEHRUNG:
@@ -945,8 +956,9 @@ public class Import
           }
           catch (NumberFormatException e)
           {
-            throw new ApplicationException(curMitglied.getNameVorname()
-                + ": ungueltiges Datenformat " + f.getName() + ": " + inhalt);
+            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                "{0}: ungültiges Datenformat {1}: {2}",
+                curMitglied.getNameVorname(), f.getName(), inhalt));
           }
         }
         else
@@ -1019,7 +1031,6 @@ public class Import
       {
         Mitglied m = (Mitglied) list.next();
         m.delete();
-
       }
       // Beitragsgruppe
       list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
@@ -1028,7 +1039,6 @@ public class Import
         Beitragsgruppe b = (Beitragsgruppe) list.next();
         b.delete();
       }
-
     }
     catch (RemoteException e)
     {

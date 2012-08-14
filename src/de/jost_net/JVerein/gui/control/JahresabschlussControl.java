@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.menu.JahresabschlussMenu;
 import de.jost_net.JVerein.gui.parts.JahressaldoList;
 import de.jost_net.JVerein.io.SaldoZeile;
@@ -229,18 +230,21 @@ public class JahresabschlussControl extends AbstractControl
           }
         }
       }
-      GUI.getStatusBar().setSuccessText("Jahresabschluss gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Jahresabschluss gespeichert"));
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern des Jahresabschlusses";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim speichern des Jahresabschlusses");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
     catch (ParseException e)
     {
 
-      String fehler = "Fehler bei speichern des Jahresabschlusses";
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler beim speichern des Jahresabschlusses");
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -257,13 +261,13 @@ public class JahresabschlussControl extends AbstractControl
     jahresabschluesse.setOrder("ORDER BY von desc");
 
     jahresabschlussList = new TablePart(jahresabschluesse, null);
-    jahresabschlussList.addColumn("von", "von", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    jahresabschlussList.addColumn("bis", "bis", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    jahresabschlussList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    jahresabschlussList.addColumn("Name", "name");
+    jahresabschlussList.addColumn(JVereinPlugin.getI18n().tr("von"), "von",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    jahresabschlussList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    jahresabschlussList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    jahresabschlussList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
     jahresabschlussList.setRememberColWidths(true);
     jahresabschlussList.setContextMenu(new JahresabschlussMenu());
     jahresabschlussList.setRememberOrder(true);

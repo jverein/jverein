@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailVorlageDetailAction;
 import de.jost_net.JVerein.gui.menu.MailVorlageMenu;
 import de.jost_net.JVerein.rmi.MailVorlage;
@@ -70,7 +71,7 @@ public class MailVorlageControl extends AbstractControl
       return betreff;
     }
     betreff = new TextInput(getMailVorlage().getBetreff(), 100);
-    betreff.setName("Betreff");
+    betreff.setName(JVereinPlugin.getI18n().tr("Betreff"));
     betreff.setMandatory(true);
     if (withFocus)
     {
@@ -86,7 +87,7 @@ public class MailVorlageControl extends AbstractControl
       return txt;
     }
     txt = new TextAreaInput(getMailVorlage().getTxt(), 10000);
-    txt.setName("Text");
+    txt.setName(JVereinPlugin.getI18n().tr("Text"));
     txt.setMandatory(true);
     return txt;
   }
@@ -99,7 +100,8 @@ public class MailVorlageControl extends AbstractControl
       mv.setBetreff((String) getBetreff(false).getValue());
       mv.setTxt((String) getTxt().getValue());
       mv.store();
-      GUI.getStatusBar().setSuccessText("MailVorlage gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("MailVorlage gespeichert"));
     }
     catch (ApplicationException e)
     {
@@ -107,8 +109,8 @@ public class MailVorlageControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern der MailVorlage: "
-          + e.getLocalizedMessage();
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern der MailVorlage: {0}", e.getLocalizedMessage());
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -123,7 +125,7 @@ public class MailVorlageControl extends AbstractControl
     DBService service = Einstellungen.getDBService();
     DBIterator fdef = service.createList(MailVorlage.class);
     mailvorlageList = new TablePart(fdef, new MailVorlageDetailAction());
-    mailvorlageList.addColumn("Betreff", "betreff");
+    mailvorlageList.addColumn(JVereinPlugin.getI18n().tr("Betreff"), "betreff");
     mailvorlageList.setContextMenu(new MailVorlageMenu());
     return mailvorlageList;
   }

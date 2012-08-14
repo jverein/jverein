@@ -53,7 +53,8 @@ public class LehrgangsartListeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Lehrgangsarten</span></p>"
-        + "</form>";
+    return JVereinPlugin.getI18n().tr(
+        "<form><p><span color=\"header\" font=\"header\">Lehrgangsarten</span></p>"
+            + "</form>");
   }
 }

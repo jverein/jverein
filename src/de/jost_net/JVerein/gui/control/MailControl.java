@@ -137,10 +137,11 @@ public class MailControl extends AbstractControl
       empf2.add(me);
     }
     empfaenger = new TablePart(empf2, null);
-    empfaenger.addColumn("Mail-Adresse", "mailadresse");
-    empfaenger.addColumn("Name", "name");
-    empfaenger.addColumn("Versand", "versand", new DateFormatter(
-        Einstellungen.DATETIMEFORMAT));
+    empfaenger.addColumn(JVereinPlugin.getI18n().tr("Mail-Adresse"),
+        "mailadresse");
+    empfaenger.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    empfaenger.addColumn(JVereinPlugin.getI18n().tr("Versand"), "versand",
+        new DateFormatter(Einstellungen.DATETIMEFORMAT));
     empfaenger.setContextMenu(new MailAuswahlMenu(this));
     empfaenger.setRememberOrder(true);
     empfaenger.setSummary(false);
@@ -188,9 +189,9 @@ public class MailControl extends AbstractControl
     MitgliedUtils.setMitglied(it);
     it.addFilter("email is not null and length(email)  > 0");
     mitgliedmitmail = new TablePart(it, null);
-    mitgliedmitmail.addColumn("EMail", "email");
-    mitgliedmitmail.addColumn("Name", "name");
-    mitgliedmitmail.addColumn("Vorname", "vorname");
+    mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("EMail"), "email");
+    mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("Vorname"), "vorname");
     mitgliedmitmail.setRememberOrder(true);
     mitgliedmitmail.setCheckable(true);
     mitgliedmitmail.setSummary(false);
@@ -204,7 +205,7 @@ public class MailControl extends AbstractControl
       return betreff;
     }
     betreff = new TextInput(getMail().getBetreff(), 100);
-    betreff.setName("Betreff");
+    betreff.setName(JVereinPlugin.getI18n().tr("Betreff"));
     return betreff;
   }
 
@@ -215,7 +216,7 @@ public class MailControl extends AbstractControl
       return txt;
     }
     txt = new TextAreaInput(getMail().getTxt(), 10000);
-    txt.setName("Text");
+    txt.setName(JVereinPlugin.getI18n().tr("Text"));
     return txt;
   }
 
@@ -248,7 +249,7 @@ public class MailControl extends AbstractControl
       anhang2.add(ma);
     }
     anhang = new TablePart(anhang2, null);
-    anhang.addColumn("Dateiname", "dateiname");
+    anhang.addColumn(JVereinPlugin.getI18n().tr("Dateiname"), "dateiname");
     anhang.setRememberColWidths(true);
     anhang.setContextMenu(new MailAnhangMenu(this));
     anhang.setRememberOrder(true);
@@ -258,80 +259,84 @@ public class MailControl extends AbstractControl
 
   public Button getMailSendButton()
   {
-    Button b = new Button("speichern + senden", new Action()
-    {
-
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
+    Button b = new Button(JVereinPlugin.getI18n().tr("speichern + senden"),
+        new Action()
         {
-          int toBeSentCount = 0;
-          for (final MailEmpfaenger empf : getMail().getEmpfaenger())
+          public void handleAction(Object context) throws ApplicationException
           {
-            if (empf.getVersand() == null)
-            {
-              toBeSentCount++;
-            }
-          }
-          if (toBeSentCount == 0)
-          {
-            SimpleDialog d = new SimpleDialog(SimpleDialog.POSITION_CENTER);
-            d.setTitle(JVereinPlugin.getI18n().tr("Mail bereits versendet"));
-            d.setText(JVereinPlugin.getI18n().tr(
-                "Mail wurde bereits an alle Empfänger versendet!"));
             try
             {
-              d.open();
-            }
-            catch (Exception e)
-            {
-              Logger.error(
-                  JVereinPlugin.getI18n().tr(
-                      "Fehler beim Nicht-Senden der Mail"), e);
-            }
-            return;
-          }
-          if (toBeSentCount != getMail().getEmpfaenger().size())
-          {
-            YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-            d.setTitle(JVereinPlugin.getI18n().tr("Mail senden?"));
-            d.setText(JVereinPlugin
-                .getI18n()
-                .tr("Diese Mail wurde bereits an "
-                    + (getMail().getEmpfaenger().size() - toBeSentCount)
-                    + " der gewählten Empfänger versendet. Wollen Sie diese Mail an alle weiteren "
-                    + toBeSentCount + " Empfänger senden?"));
-            try
-            {
-              Boolean choice = (Boolean) d.open();
-              if (!choice.booleanValue())
+              int toBeSentCount = 0;
+              for (final MailEmpfaenger empf : getMail().getEmpfaenger())
+              {
+                if (empf.getVersand() == null)
+                {
+                  toBeSentCount++;
+                }
+              }
+              if (toBeSentCount == 0)
+              {
+                SimpleDialog d = new SimpleDialog(SimpleDialog.POSITION_CENTER);
+                d.setTitle(JVereinPlugin.getI18n().tr(
+                    JVereinPlugin.getI18n().tr("Mail bereits versendet")));
+                d.setText(JVereinPlugin.getI18n().tr(
+                    "Mail wurde bereits an alle Empfänger versendet!"));
+                try
+                {
+                  d.open();
+                }
+                catch (Exception e)
+                {
+                  Logger.error(
+                      JVereinPlugin.getI18n().tr(
+                          "Fehler beim Nicht-Senden der Mail"), e);
+                }
                 return;
+              }
+              if (toBeSentCount != getMail().getEmpfaenger().size())
+              {
+                YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+                d.setTitle(JVereinPlugin.getI18n().tr("Mail senden?"));
+                d.setText(JVereinPlugin
+                    .getI18n()
+                    .tr("Diese Mail wurde bereits an "
+                        + (getMail().getEmpfaenger().size() - toBeSentCount)
+                        + " der gewählten Empfänger versendet. Wollen Sie diese Mail an alle weiteren "
+                        + toBeSentCount + " Empfänger senden?"));
+                try
+                {
+                  Boolean choice = (Boolean) d.open();
+                  if (!choice.booleanValue())
+                    return;
+                }
+                catch (Exception e)
+                {
+                  Logger
+                      .error(
+                          JVereinPlugin.getI18n().tr(
+                              "Fehler beim Senden der Mail"), e);
+                  return;
+                }
+              }
+              sendeMail(false);
+              handleStore(true);
             }
-            catch (Exception e)
+            catch (RemoteException e)
             {
-              Logger.error(
-                  JVereinPlugin.getI18n().tr("Fehler beim Senden der Mail"), e);
-              return;
+              Logger.error(e.getMessage());
+              throw new ApplicationException(JVereinPlugin.getI18n().tr(
+                  "Fehler beim Senden der Mail"));
             }
           }
-          sendeMail(false);
-          handleStore(true);
-        }
-        catch (RemoteException e)
-        {
-          Logger.error(e.getMessage());
-          throw new ApplicationException("Fehler beim Senden der Mail");
-        }
-      }
-    }, null, true, "mail-message-new.png");
+        }, null, true, "mail-message-new.png");
     return b;
   }
 
   public Button getMailReSendButton()
   {
-    Button b = new Button("speichern + erneut senden", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr(
+        "speichern + erneut senden"), new Action()
     {
-
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -371,7 +376,8 @@ public class MailControl extends AbstractControl
         catch (RemoteException e)
         {
           Logger.error(e.getMessage());
-          throw new ApplicationException("Fehler beim Senden der Mail");
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Fehler beim Senden der Mail"));
         }
       }
     }, null, false, "mail-message-new.png");
@@ -380,9 +386,8 @@ public class MailControl extends AbstractControl
 
   public Button getMailSpeichernButton()
   {
-    Button b = new Button("speichern", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         handleStore(false);
@@ -412,7 +417,6 @@ public class MailControl extends AbstractControl
     final String txt = getTxtString();
     BackgroundTask t = new BackgroundTask()
     {
-
       public void run(ProgressMonitor monitor)
       {
         try
@@ -461,9 +465,11 @@ public class MailControl extends AbstractControl
           }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor.setStatusText("Anzahl verschickter Mails: " + sentCount);
+          monitor.setStatusText(JVereinPlugin.getI18n().tr(
+              "Anzahl verschickter Mails: {0}", sentCount + ""));
           GUI.getStatusBar().setSuccessText(
-              "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
+              JVereinPlugin.getI18n().tr("Mail") + (sentCount > 1 ? "s" : "")
+                  + JVereinPlugin.getI18n().tr(" verschickt"));
           getMail().store();
           GUI.getCurrentView().reload();
         }
@@ -549,7 +555,8 @@ public class MailControl extends AbstractControl
           ma.delete();
         }
       }
-      GUI.getStatusBar().setSuccessText("Mail gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Mail gespeichert"));
     }
     catch (ApplicationException e)
     {
@@ -557,8 +564,8 @@ public class MailControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern der Mail: "
-          + e.getLocalizedMessage();
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern der Mail: {0}", e.getLocalizedMessage());
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -572,11 +579,11 @@ public class MailControl extends AbstractControl
     mails.setOrder("ORDER BY betreff");
 
     mailsList = new TablePart(mails, new MailDetailAction());
-    mailsList.addColumn("Betreff", "betreff");
-    mailsList.addColumn("Bearbeitung", "bearbeitung", new DateFormatter(
-        Einstellungen.DATETIMEFORMAT));
-    mailsList.addColumn("Versand", "versand", new DateFormatter(
-        Einstellungen.DATETIMEFORMAT));
+    mailsList.addColumn(JVereinPlugin.getI18n().tr("Betreff"), "betreff");
+    mailsList.addColumn(JVereinPlugin.getI18n().tr("Bearbeitung"),
+        "bearbeitung", new DateFormatter(Einstellungen.DATETIMEFORMAT));
+    mailsList.addColumn(JVereinPlugin.getI18n().tr("Versand"), "versand",
+        new DateFormatter(Einstellungen.DATETIMEFORMAT));
     mailsList.setRememberColWidths(true);
     mailsList.setContextMenu(new MailMenu());
     mailsList.setRememberOrder(true);

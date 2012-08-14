@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.gui.view.MitgliedskontoDetailView;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -52,8 +53,8 @@ public class MitgliedskontoDetailSollNeuAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung eines Mitgliedskontos");
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler bei der Erzeugung eines Mitgliedskontos"));
       }
     }
     GUI.startView(new MitgliedskontoDetailView(MitgliedskontoNode.SOLL), mk);

@@ -109,7 +109,7 @@ public class MailAuswertungInput extends SelectInput
       }
       else
       {
-        this.label = "Programmfehler";
+        this.label = JVereinPlugin.getI18n().tr("Programmfehler");
       }
     }
 

@@ -53,8 +53,8 @@ public class ProjektListView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Projekt</span></p>"
+    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Projekt</span></p>"
         + "<p>Über Projekte können die Buchungen verschiedener Buchungsarten gruppiert werden.</p>"
-        + "</form>";
+        + "</form>");
   }
 }

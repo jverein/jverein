@@ -31,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.BLZDatei;
 import de.jost_net.JVerein.io.BLZSatz;
 import de.jost_net.JVerein.io.BLZUpdate;
@@ -73,13 +74,14 @@ public class BLZUpdateControl extends AbstractControl
       return blzdatei;
     }
     blzdatei = new TextInput("", 100);
-    blzdatei.setName("BLZ-Datei");
+    blzdatei.setName(JVereinPlugin.getI18n().tr("BLZ-Datei"));
     return blzdatei;
   }
 
   public Button getDateiauswahlButton()
   {
-    Button b = new Button("Bundesbankdatei auswählen", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr(
+        "Bundesbankdatei auswählen"), new Action()
     {
 
       public void handleAction(Object context) throws ApplicationException
@@ -95,9 +97,10 @@ public class BLZUpdateControl extends AbstractControl
           fd.setFilterPath(path);
         }
 
-        fd.setText("BLZ-Datei der Bundesdruckerei.");
+        fd.setText(JVereinPlugin.getI18n().tr("BLZ-Datei der Bundesdruckerei."));
         fd.setFilterExtensions(new String[] { "*.ZIP" });
-        fd.setFilterNames(new String[] { "ZIP-Datei der Bundesbank" });
+        fd.setFilterNames(new String[] { JVereinPlugin.getI18n().tr(
+            "ZIP-Datei der Bundesbank") });
 
         String f = fd.open();
         try
@@ -109,16 +112,17 @@ public class BLZUpdateControl extends AbstractControl
           if (blzupdateList.getItems().isEmpty())
           {
             GUI.getStatusBar().setSuccessText(
-                "Alle Bankleitzahlen sind auf dem aktuellen Stand");
+                JVereinPlugin.getI18n().tr(
+                    "Alle Bankleitzahlen sind auf dem aktuellen Stand"));
           }
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler:", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
         catch (IOException e)
         {
-          Logger.error("Fehler:", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
       }
     }, null, true, "adler.png"); // "true" defines this button as the default
@@ -128,7 +132,7 @@ public class BLZUpdateControl extends AbstractControl
 
   public Button getSpeichernButton()
   {
-    Button b = new Button("speichern", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
       public void handleAction(Object context) throws ApplicationException
       {
@@ -142,7 +146,8 @@ public class BLZUpdateControl extends AbstractControl
             m.setBlz((String) blzu.getAttribute("newblz"));
             m.store();
           }
-          GUI.getStatusBar().setSuccessText("Bankleitzahlen aktualisiert");
+          GUI.getStatusBar().setSuccessText(
+              JVereinPlugin.getI18n().tr("Bankleitzahlen aktualisiert"));
         }
         catch (RemoteException e)
         {
@@ -156,9 +161,10 @@ public class BLZUpdateControl extends AbstractControl
   public Part getList() throws RemoteException
   {
     blzupdateList = new TablePart(getIterator(), null);
-    blzupdateList.addColumn("Name, Vorname", "namevorname");
-    blzupdateList.addColumn("alte BLZ", "oldblz");
-    blzupdateList.addColumn("neue BLZ", "newblz");
+    blzupdateList.addColumn(JVereinPlugin.getI18n().tr("Name, Vorname"),
+        "namevorname");
+    blzupdateList.addColumn(JVereinPlugin.getI18n().tr("alte BLZ"), "oldblz");
+    blzupdateList.addColumn(("neue BLZ"), "newblz");
     blzupdateList.setRememberColWidths(true);
     blzupdateList.setRememberOrder(true);
     blzupdateList.setSummary(true);

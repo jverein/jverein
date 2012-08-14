@@ -21,13 +21,16 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
-public enum AllgemeineVar {
-  AKTUELLERMONAT("aktuellermonat"), //
-  AKTUELLESJAHR("aktuellesjahr"), //
-  FOLGEJAHR("folgejahr"), //
-  FOLGEMONAT("folgemonat"), //
-  TAGESDATUM("tagesdatum"), //
-  VORMONAT("vormonat"); //
+import de.jost_net.JVerein.JVereinPlugin;
+
+public enum AllgemeineVar
+{
+  AKTUELLERMONAT(JVereinPlugin.getI18n().tr("aktuellermonat")), //
+  AKTUELLESJAHR(JVereinPlugin.getI18n().tr("aktuellesjahr")), //
+  FOLGEJAHR(JVereinPlugin.getI18n().tr("folgejahr")), //
+  FOLGEMONAT(JVereinPlugin.getI18n().tr("folgemonat")), //
+  TAGESDATUM(JVereinPlugin.getI18n().tr("tagesdatum")), //
+  VORMONAT(JVereinPlugin.getI18n().tr("vormonat")); //
 
   private String name;
 

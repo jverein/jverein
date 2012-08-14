@@ -44,10 +44,11 @@ public class SpendenbescheinigungAutoNeuView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Jahr"));
-    group.addLabelPair("Jahr", control.getJahr());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"), control.getJahr());
     // TODO Unterscheidung Einzel/Sammel-Bestätigung: zwei Felder
-    group.addLabelPair("Formular-Einzelbest.", control.getFormular());
-    group.addLabelPair("Formular-Sammelbest.",
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular-Einzelbest."),
+        control.getFormular());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular-Sammelbest."),
         control.getFormularSammelbestaetigung());
 
     control.getSpendenbescheinigungTree().paint(this.getParent());
@@ -63,7 +64,9 @@ public class SpendenbescheinigungAutoNeuView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigungen</span></p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Spendenbescheinigungen</span></p>"
+            + "</form>");
   }
 }

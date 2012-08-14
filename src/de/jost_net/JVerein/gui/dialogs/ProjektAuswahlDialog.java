@@ -66,7 +66,6 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
-
       public void handleAction(Object context)
       {
         selected = (Projekt) projekte.getValue();
@@ -75,7 +74,6 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     });
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();
@@ -102,7 +100,6 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     this.projekte.setName(JVereinPlugin.getI18n().tr("Projekt"));
     this.projekte.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         selected = (Projekt) projekte.getValue();

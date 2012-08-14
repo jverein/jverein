@@ -37,6 +37,7 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfWriter;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -85,11 +86,11 @@ public class FormularAufbereitung
     }
     catch (IOException e)
     {
-      throw new RemoteException("Fehler", e);
+      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     catch (DocumentException e)
     {
-      throw new RemoteException("Fehler", e);
+      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
   }
 
@@ -120,11 +121,11 @@ public class FormularAufbereitung
     }
     catch (IOException e)
     {
-      throw new RemoteException("Fehler", e);
+      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     catch (DocumentException e)
     {
-      throw new RemoteException("Fehler", e);
+      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
   }
 
@@ -151,7 +152,6 @@ public class FormularAufbereitung
     closeFormular();
     GUI.getDisplay().asyncExec(new Runnable()
     {
-
       public void run()
       {
         try
@@ -171,7 +171,6 @@ public class FormularAufbereitung
   private void goFormularfeld(PdfContentByte contentByte, Formularfeld feld,
       Object val) throws DocumentException, IOException
   {
-
     BaseFont bf = BaseFont.createFont(feld.getFont(), BaseFont.CP1250, false);
 
     float x = mm2point(feld.getX().floatValue());

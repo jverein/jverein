@@ -23,15 +23,14 @@ package de.jost_net.JVerein.io;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -52,8 +51,8 @@ public class BuchungsklassesaldoPDF
       FileOutputStream fos = new FileOutputStream(file);
       String subtitle = new JVDateFormatTTMMJJJJ().format(datumvon) + " - "
           + new JVDateFormatTTMMJJJJ().format(datumbis);
-      Reporter reporter = new Reporter(fos, "Buchungsklassen-Saldo", subtitle,
-          zeile.size());
+      Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
+          "Buchungsklassen-Saldo"), subtitle, zeile.size());
       makeHeader(reporter);
 
       for (BuchungsklasseSaldoZeile bkz : zeile)
@@ -89,7 +88,8 @@ public class BuchungsklassesaldoPDF
           }
           case BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER:
           {
-            reporter.addColumn("Gesamt", Element.ALIGN_LEFT, 4);
+            reporter.addColumn(JVereinPlugin.getI18n().tr("Gesamt"),
+                Element.ALIGN_LEFT, 4);
             reporter.addColumn(
                 (String) bkz.getAttribute("buchungsklassenbezeichnung"),
                 Element.ALIGN_RIGHT);
@@ -119,13 +119,13 @@ public class BuchungsklassesaldoPDF
           }
         }
       }
-      GUI.getStatusBar().setSuccessText("Auswertung fertig.");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Auswertung fertig."));
       reporter.closeTable();
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
-
         public void run()
         {
           try
@@ -141,37 +141,24 @@ public class BuchungsklassesaldoPDF
         }
       });
     }
-    catch (DocumentException e)
+    catch (Exception e)
     {
       e.printStackTrace();
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
-    catch (FileNotFoundException e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
-    }
-    catch (IOException e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
-    }
-
   }
 
   private void makeHeader(Reporter reporter) throws DocumentException
   {
-    reporter.addHeaderColumn("Buchungsart", Element.ALIGN_CENTER, 90,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Einnahmen", Element.ALIGN_CENTER, 45,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Ausgaben", Element.ALIGN_CENTER, 45,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Umbuchungen", Element.ALIGN_CENTER, 45,
-        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
+        Element.ALIGN_CENTER, 90, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Einnahmen"),
+        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Ausgaben"),
+        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Umbuchungen"),
+        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
     reporter.createHeader();
-
   }
-
 }

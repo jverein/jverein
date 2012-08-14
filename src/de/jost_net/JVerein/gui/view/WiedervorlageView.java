@@ -57,7 +57,6 @@ public class WiedervorlageView extends AbstractView
         .getWiedervorlage().getMitglied(), false, "system-users.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();

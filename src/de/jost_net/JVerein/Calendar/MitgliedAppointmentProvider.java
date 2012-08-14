@@ -40,15 +40,12 @@ import de.willuhn.jameica.gui.calendar.AppointmentProvider;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.I18N;
 
 /**
  * Implementierung eines Termin-Providers fuer Geburtstage der Mitglieder.
  */
 public class MitgliedAppointmentProvider implements AppointmentProvider
 {
-
-  private final static I18N i18n = JVereinPlugin.getI18n();
 
   /**
    * @see de.willuhn.jameica.gui.calendar.AppointmentProvider#getAppointments(java.util.Date,
@@ -79,13 +76,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
 
         if (calf.getTime().after(from) && calf.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calf.getTime(),
-              calf.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calf.getTime(), calf
+              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
         else if (calt.getTime().after(from) && calt.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calt.getTime(),
-              calt.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calt.getTime(), calt
+              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
       }
       return result;
@@ -102,7 +99,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
    */
   public String getName()
   {
-    return i18n.tr("Geburtstage");
+    return JVereinPlugin.getI18n().tr("Geburtstage");
   }
 
   /**
@@ -151,8 +148,8 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return i18n.tr("{0}. Geburtstag von {1}", alter + "",
-            m.getNameVorname());
+        return JVereinPlugin.getI18n().tr("{0}. Geburtstag von {1}",
+            alter + "", m.getNameVorname());
       }
       catch (RemoteException re)
       {
@@ -168,13 +165,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return i18n.tr("{0}. Geburtstag von {1}", alter + "",
-            m.getNameVorname());
+        return JVereinPlugin.getI18n().tr("{0}. Geburtstag von {1}",
+            alter + "", m.getNameVorname());
       }
       catch (RemoteException re)
       {
         Logger.error("unable to build name", re);
-        return i18n.tr("Mitgliedergeburtstag");
+        return JVereinPlugin.getI18n().tr("Mitgliedergeburtstag");
       }
     }
 

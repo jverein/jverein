@@ -51,7 +51,7 @@ public class MitgliedskontoMahnungView extends AbstractView
     }
     group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
         control.getFormular(Formularart.MAHNUNG));
-    control.getDifferenz("Fehlbetrag");
+    control.getDifferenz(JVereinPlugin.getI18n().tr("Fehlbetrag"));
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
@@ -64,8 +64,10 @@ public class MitgliedskontoMahnungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Mahnungen ausgeben</span></p>"
-        + "<p>Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Mahnungen ausgeben</span></p>"
+            + "<p>Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.</p>"
+            + "</form>");
   }
 }

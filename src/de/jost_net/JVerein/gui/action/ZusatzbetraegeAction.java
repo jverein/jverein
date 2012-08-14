@@ -59,7 +59,9 @@ public class ZusatzbetraegeAction implements Action
         if (m.getID() == null)
         {
           throw new ApplicationException(
-              "Neues Mitglied bitte erst speichern. Dann können Zusatzbeträge aufgenommen werden.");
+              JVereinPlugin
+                  .getI18n()
+                  .tr("Neues Mitglied bitte erst speichern. Dann können Zusatzbeträge aufgenommen werden."));
         }
 
         if (m != null)

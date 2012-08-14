@@ -24,7 +24,6 @@ package de.jost_net.JVerein.io;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -38,6 +37,7 @@ import org.supercsv.prefs.CsvPreference;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -55,7 +55,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
 
   public String getName()
   {
-    return "Mitgliedskonten CSV-Export";
+    return JVereinPlugin.getI18n().tr("Mitgliedskonten CSV-Export");
   }
 
   public IOFormat[] getIOFormats(Class<?> objectType)
@@ -84,7 +84,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
 
   public String getDateiname()
   {
-    return "mitgliedskonten";
+    return JVereinPlugin.getI18n().tr("mitgliedskonten");
   }
 
   protected void open() throws DocumentException, FileNotFoundException
@@ -146,12 +146,12 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
         Map<String, Object> mp = mkto.getMitglied().getMap(null);
         map = new MitgliedskontoMap().getMap(mkto, mp);
         writer.write(map, header, processors);
-        monitor.log("Export: " + mkto.getMitglied().getNameVorname());
+        monitor.log(JVereinPlugin.getI18n().tr("Export: {0}",
+            mkto.getMitglied().getNameVorname()));
       }
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
-
         public void run()
         {
           try
@@ -166,19 +166,11 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
           }
         }
       });
-
     }
-    catch (FileNotFoundException e)
+    catch (Exception e)
     {
-      Logger.error("error while creating report", e);
-      // throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
-    catch (IOException e)
-    {
-      Logger.error("error while creating report", e);
-      // throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
-    }
-
   }
 
   private String[] createHeader(Map<String, Object> map)
@@ -195,5 +187,4 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
     }
     return ret;
   }
-
 }

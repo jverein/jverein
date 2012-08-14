@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Formular;
@@ -79,7 +80,6 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
         cal.get(Calendar.YEAR) - 1 }, cal.get(Calendar.YEAR));
     jahr.addListener(new Listener()
     {
-
       public void handleEvent(Event event)
       {
         try
@@ -89,7 +89,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
       }
 
@@ -132,14 +132,12 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   public Button getSpendenbescheinigungErstellenButton()
   {
-    Button b = new Button("erstellen", new Action()
+    Button b = new Button(JVereinPlugin.getI18n().tr("erstellen"), new Action()
     {
-
       public void handleAction(Object context) throws ApplicationException
       {
         try
         {
-
           List items = spbTree.getItems();
           SpendenbescheinigungNode spn = (SpendenbescheinigungNode) items
               .get(0);
@@ -184,15 +182,15 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             }
             spbescheinigung.store();
           }
-          GUI.getStatusBar()
-              .setSuccessText("Spendenbescheinigung(en) erstellt");
+          GUI.getStatusBar().setSuccessText(
+              JVereinPlugin.getI18n().tr("Spendenbescheinigung(en) erstellt"));
           spbTree.removeAll();
         }
         catch (RemoteException e)
         {
           Logger.error(e.getMessage());
-          throw new ApplicationException(
-              "Fehler bei der Aufbereitung der Spendenbescheinigung");
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Fehler bei der Aufbereitung der Spendenbescheinigung"));
         }
       }
     }, null, false, "document-save.png");

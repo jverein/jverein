@@ -38,15 +38,12 @@ import de.willuhn.jameica.gui.calendar.Appointment;
 import de.willuhn.jameica.gui.calendar.AppointmentProvider;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.I18N;
 
 /**
  * Implementierung eines Termin-Providers fuer Wiedervorlagen
  */
 public class WiedervorlageAppointmentProvider implements AppointmentProvider
 {
-
-  private final static I18N i18n = JVereinPlugin.getI18n();
 
   /**
    * @see de.willuhn.jameica.gui.calendar.AppointmentProvider#getAppointments(java.util.Date,
@@ -62,9 +59,9 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       cal.setTime(from);
       if (from != null)
         list.addFilter("datum >= ?",
-            new Object[] { new java.sql.Date(from.getTime())});
+            new Object[] { new java.sql.Date(from.getTime()) });
       list.addFilter("datum <= ?",
-          new Object[] { new java.sql.Date(to.getTime())});
+          new Object[] { new java.sql.Date(to.getTime()) });
       list.setOrder("ORDER BY day(datum)");
 
       List<Appointment> result = new LinkedList<Appointment>();
@@ -86,7 +83,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
    */
   public String getName()
   {
-    return i18n.tr("Wiedervorlagen");
+    return JVereinPlugin.getI18n().tr("Wiedervorlagen");
   }
 
   /**
@@ -94,7 +91,6 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
    */
   private static class MyAppointment implements Appointment
   {
-
     private Wiedervorlage w = null;
 
     private Settings settings;
@@ -104,7 +100,6 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       this.w = w;
       settings = new Settings(this.getClass());
       settings.setStoreWhenRead(true);
-
     }
 
     /**
@@ -118,7 +113,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       }
       catch (Exception e)
       {
-        Logger.error("Fehler", e);
+        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
       }
     }
 
@@ -145,8 +140,9 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return i18n.tr("Wiedervorlage:" + w.getMitglied().getNameVorname()
-            + ": " + w.getVermerk());
+        return JVereinPlugin.getI18n().tr(
+            "Wiedervorlage:" + w.getMitglied().getNameVorname() + ": "
+                + w.getVermerk());
       }
       catch (RemoteException re)
       {
@@ -167,7 +163,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       catch (RemoteException re)
       {
         Logger.error("unable to build name", re);
-        return i18n.tr("Wiedervorlage");
+        return JVereinPlugin.getI18n().tr("Wiedervorlage");
       }
     }
 

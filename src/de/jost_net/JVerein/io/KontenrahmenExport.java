@@ -29,6 +29,7 @@ import java.rmi.RemoteException;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -57,7 +58,8 @@ public abstract class KontenrahmenExport implements Exporter
     klassen.setOrder("order by nummer");
     if (klassen.size() == 0)
     {
-      throw new ApplicationException("Es existieren keine Buchungsklassen");
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Es existieren keine Buchungsklassen"));
     }
     while (klassen.hasNext())
     {
@@ -78,7 +80,7 @@ public abstract class KontenrahmenExport implements Exporter
 
   public String getDateiname()
   {
-    return "kontenrahmen";
+    return JVereinPlugin.getI18n().tr("kontenrahmen");
   }
 
   protected abstract void open() throws IOException;

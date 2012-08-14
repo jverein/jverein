@@ -54,7 +54,6 @@ public class BuchungsklasseSaldoView extends AbstractView
     Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
         new Action()
         {
-
           public void handleAction(Object context) throws ApplicationException
           {
             control.getSaldoList();
@@ -78,7 +77,9 @@ public class BuchungsklasseSaldoView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsklassen-Saldo</span></p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Buchungsklassen-Saldo</span></p>"
+            + "</form>");
   }
 }

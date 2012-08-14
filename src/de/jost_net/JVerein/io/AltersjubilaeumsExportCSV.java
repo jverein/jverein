@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import com.lowagie.text.DocumentException;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.util.ApplicationException;
 
@@ -39,7 +40,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
 
   public String getName()
   {
-    return "Altersjubilare CSV-Export";
+    return JVereinPlugin.getI18n().tr("Altersjubilare CSV-Export");
   }
 
   public IOFormat[] getIOFormats(Class<?> objectType)
@@ -68,7 +69,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
 
   public String getDateiname()
   {
-    return "altersjubilare";
+    return JVereinPlugin.getI18n().tr("altersjubilare");
   }
 
   protected void open() throws DocumentException, FileNotFoundException

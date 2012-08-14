@@ -54,11 +54,14 @@ public class BuchungsartListView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsart</span></p>"
-        + "<p>Die Nummer und die Bezeichung der Buchungsart sind zu erfassen.</p>"
-        + "<p>Bei der Vergabe der Nummern sollten Nummernkreise für Eingaben "
-        + "und Ausgaben gebildet werden. Beispielsweise die 1000er Nummern "
-        + "für Einnahmen und die 2000er Nummern für Ausgaben. Die Sortierung "
-        + "der Buchungsauswertung erfolgt nach diesen Nummern.</p>" + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Buchungsart</span></p>"
+            + "<p>Die Nummer und die Bezeichung der Buchungsart sind zu erfassen.</p>"
+            + "<p>Bei der Vergabe der Nummern sollten Nummernkreise für Eingaben "
+            + "und Ausgaben gebildet werden. Beispielsweise die 1000er Nummern "
+            + "für Einnahmen und die 2000er Nummern für Ausgaben. Die Sortierung "
+            + "der Buchungsauswertung erfolgt nach diesen Nummern.</p>"
+            + "</form>");
   }
 }

@@ -96,7 +96,8 @@ public class BuchungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
-        + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>";
+    return JVereinPlugin.getI18n().tr(
+        "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
+            + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>");
   }
 }

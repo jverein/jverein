@@ -82,7 +82,8 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     TabFolder folder = new TabFolder(parent, SWT.NONE);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-    TabGroup tabNurIst = new TabGroup(folder, "nur Ist", false, 1);
+    TabGroup tabNurIst = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "nur Ist"), false, 1);
     Container grNurIst = new SimpleContainer(tabNurIst.getComposite());
     grNurIst.addHeadline(JVereinPlugin.getI18n().tr(
         "Auswahl des Mitgliedskontos"));
@@ -94,11 +95,11 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     grNurIst.addText(text, true);
     TextInput suNa = control.getSuchName();
     suNa.setValue(buchung.getName());
-    grNurIst.addLabelPair("Name", suNa);
-    grNurIst.addLabelPair("Differenz", control.getDifferenz("Fehlbetrag"));
+    grNurIst.addLabelPair(JVereinPlugin.getI18n().tr("Name"), suNa);
+    grNurIst.addLabelPair(JVereinPlugin.getI18n().tr("Differenz"),
+        control.getDifferenz("Fehlbetrag"));
     Action action = new Action()
     {
-
       public void handleAction(Object context)
       {
         if (context == null || !(context instanceof Mitgliedskonto))
@@ -113,7 +114,8 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     mitgliedskontolist.paint(tabNurIst.getComposite());
 
     //
-    TabGroup tabSollIst = new TabGroup(folder, "Soll u. Ist", true, 1);
+    TabGroup tabSollIst = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Soll u. Ist"), true, 1);
     Container grSollIst = new SimpleContainer(tabSollIst.getComposite());
     grSollIst.addHeadline(JVereinPlugin.getI18n().tr(
         "Auswahl des Mitgliedskontos"));
@@ -125,7 +127,8 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     }
     grSollIst.addText(text, true);
     control.getSuchName2(true).setValue(buchung.getName());
-    grSollIst.addLabelPair("Name", control.getSuchName2(false));
+    grSollIst.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
+        control.getSuchName2(false));
     grSollIst.addInput(control.getSpezialSuche());
 
     final Action action2 = new Action()
@@ -172,7 +175,6 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("entfernen")), new Action()
     {
-
       public void handleAction(Object context)
       {
         choosen = null;
@@ -184,7 +186,6 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     b.addButton(i18n.tr("abbrechen"), new Action()
     {
-
       public void handleAction(Object context)
       {
         close();

@@ -158,11 +158,13 @@ public abstract class AbstractAdresseSucheView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
-        + "<p>Durch einen Klick auf einen Karteireiter werden die Mitglieder "
-        + "angezeigt, deren Familienname mit dem entsprechenden Buchstaben beginnt.</p>"
-        + "<p>Anschließend kann das Mitglied durch einen Doppelklick ausgewählt werden.</p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
+            + "<p>Durch einen Klick auf einen Karteireiter werden die Mitglieder "
+            + "angezeigt, deren Familienname mit dem entsprechenden Buchstaben beginnt.</p>"
+            + "<p>Anschließend kann das Mitglied durch einen Doppelklick ausgewählt werden.</p>"
+            + "</form>");
   }
 
   public abstract String getTitle();

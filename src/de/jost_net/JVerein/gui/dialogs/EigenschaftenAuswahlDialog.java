@@ -91,7 +91,6 @@ public class EigenschaftenAuswahlDialog extends
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
     {
-
       public void handleAction(Object context)
       {
         try
@@ -109,7 +108,7 @@ public class EigenschaftenAuswahlDialog extends
         }
         catch (RemoteException e)
         {
-          Logger.error("Fehler", e);
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
         }
         close();
       }

@@ -45,18 +45,19 @@ public class MitgliedskontoListeView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Filter"));
     group.addInput(control.getSuchName());
-    group.addLabelPair("von",
+    group.addLabelPair(JVereinPlugin.getI18n().tr("von"),
         control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair("bis",
+    group.addLabelPair(JVereinPlugin.getI18n().tr("bis"),
         control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair("Differenz", control.getDifferenz());
+    group.addLabelPair(JVereinPlugin.getI18n().tr("Differenz"),
+        control.getDifferenz());
 
     control.getMitgliedskontoList(new MitgliedDetailAction(),
         new Mitgliedskonto2Menu()).paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(),
-        new Object[] {
+    buttons.addButton(new Button(JVereinPlugin.getI18n().tr("Export"),
+        new MitgliedskontoExportAction(), new Object[] {
             control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
                 .getValue(),
             control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
@@ -71,8 +72,10 @@ public class MitgliedskontoListeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Mitgliedskonto-Soll-Buchungen</span></p>"
-        + "<p>Auflistung aller Mitgliedskonto-Soll-Buchungen. Die Daten können nach Datum und "
-        + "Namen (auch Namensfragmente) gefiltert werden.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Liste der Mitgliedskonto-Soll-Buchungen</span></p>"
+            + "<p>Auflistung aller Mitgliedskonto-Soll-Buchungen. Die Daten können nach Datum und "
+            + "Namen (auch Namensfragmente) gefiltert werden.</p></form>");
   }
 }

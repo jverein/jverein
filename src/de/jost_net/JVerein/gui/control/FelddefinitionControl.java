@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FelddefinitionDetailAction;
 import de.jost_net.JVerein.gui.formatter.DatentypFormatter;
 import de.jost_net.JVerein.gui.menu.FelddefinitionMenu;
@@ -141,7 +142,8 @@ public class FelddefinitionControl extends AbstractControl
       Integer i = (Integer) getLaenge().getValue();
       f.setLaenge(i.intValue());
       f.store();
-      GUI.getStatusBar().setSuccessText("Felddefinition gespeichert");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Felddefinition gespeichert"));
     }
     catch (ApplicationException e)
     {
@@ -149,8 +151,9 @@ public class FelddefinitionControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler bei speichern der Felddefinition: "
-          + e.getLocalizedMessage();
+      String fehler = JVereinPlugin.getI18n().tr(
+          "Fehler bei speichern der Felddefinition: {0}",
+          e.getLocalizedMessage());
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -165,11 +168,11 @@ public class FelddefinitionControl extends AbstractControl
     DBService service = Einstellungen.getDBService();
     DBIterator fdef = service.createList(Felddefinition.class);
     felddefinitionList = new TablePart(fdef, new FelddefinitionDetailAction());
-    felddefinitionList.addColumn("Name", "name");
-    felddefinitionList.addColumn("Label", "label");
-    felddefinitionList.addColumn("Datentyp", "datentyp",
-        new DatentypFormatter(), false, Column.ALIGN_LEFT);
-    felddefinitionList.addColumn("Länge", "laenge");
+    felddefinitionList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    felddefinitionList.addColumn(JVereinPlugin.getI18n().tr("Label"), "label");
+    felddefinitionList.addColumn(JVereinPlugin.getI18n().tr("Datentyp"),
+        "datentyp", new DatentypFormatter(), false, Column.ALIGN_LEFT);
+    felddefinitionList.addColumn(JVereinPlugin.getI18n().tr("Länge"), "laenge");
     felddefinitionList.setContextMenu(new FelddefinitionMenu());
     return felddefinitionList;
   }
@@ -414,12 +417,14 @@ public class FelddefinitionControl extends AbstractControl
     switch (fehlertyp)
     {
       case 1:
-        throw new RemoteException(
-            "Typkonvertierung kann nicht durchgeführt werden. Inhalt: " + wert);
+        throw new RemoteException(JVereinPlugin.getI18n().tr(
+            "Typkonvertierung kann nicht durchgeführt werden. Inhalt: {0}",
+            wert));
       case 2:
         throw new RemoteException(
-            "Die Konvertierung der Datentypen ist nicht vorgesehen. Ggfls. zunächst in "
-                + "Zeichenfolge umwandeln.");
+            JVereinPlugin
+                .getI18n()
+                .tr("Die Konvertierung der Datentypen ist nicht vorgesehen. Ggfls. zunächst in Zeichenfolge umwandeln."));
     }
   }
 

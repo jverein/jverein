@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.formatter.AbrechnungsmodusFormatter;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.AbrechnungslaufMenu;
@@ -78,20 +79,22 @@ public class AbrechnungslaufControl extends AbstractControl
     if (abrechnungslaufList == null)
     {
       abrechnungslaufList = new TablePart(abrechnungslaeufe, null);
-      abrechnungslaufList.addColumn("Nr", "nr");
-      abrechnungslaufList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
-      abrechnungslaufList.addColumn("Modus", "modus",
-          new AbrechnungsmodusFormatter(), false, Column.ALIGN_LEFT);
-      abrechnungslaufList.addColumn("Stichtag", "stichtag", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
-      abrechnungslaufList.addColumn("Eingabedatum", "eingabedatum",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      abrechnungslaufList.addColumn("Zahlungsgrund", "zahlungsgrund");
-      abrechnungslaufList.addColumn("Zusatzbeträge", "zusatzbetraege",
+      abrechnungslaufList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "nr");
+      abrechnungslaufList.addColumn(JVereinPlugin.getI18n().tr("Datum"),
+          "datum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn(JVereinPlugin.getI18n().tr("Modus"),
+          "modus", new AbrechnungsmodusFormatter(), false, Column.ALIGN_LEFT);
+      abrechnungslaufList.addColumn(JVereinPlugin.getI18n().tr("Stichtag"),
+          "stichtag", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn(JVereinPlugin.getI18n().tr("Eingabedatum"),
+          "eingabedatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn(
+          JVereinPlugin.getI18n().tr("Zahlungsgrund"), "zahlungsgrund");
+      abrechnungslaufList.addColumn(
+          JVereinPlugin.getI18n().tr("Zusatzbeträge"), "zusatzbetraege",
           new JaNeinFormatter());
-      abrechnungslaufList.addColumn("Kursteilnehmer", "kursteilnehmer",
-          new JaNeinFormatter());
+      abrechnungslaufList.addColumn(JVereinPlugin.getI18n()
+          .tr("Kursteilnehmer"), "kursteilnehmer", new JaNeinFormatter());
       abrechnungslaufList.setContextMenu(new AbrechnungslaufMenu());
       abrechnungslaufList.setRememberColWidths(true);
       abrechnungslaufList.setRememberOrder(true);

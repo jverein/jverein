@@ -46,7 +46,7 @@ public class BuchungsUebernahmeView extends AbstractView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
     ButtonArea suchButton = new ButtonArea();
     suchButton.addButton(control.getSuchButton());
-   suchButton.paint(group.getComposite());
+    suchButton.paint(group.getComposite());
     control.getBuchungsList().paint(this.getParent());
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
@@ -59,7 +59,9 @@ public class BuchungsUebernahmeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungen aus Hibiscus übernehmen</span></p>"
-        + "<p>Neue Buchungen (Umsätze) aus Hibiscus können übernommen werden.</p></form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Buchungen aus Hibiscus übernehmen</span></p>"
+            + "<p>Neue Buchungen (Umsätze) aus Hibiscus können übernommen werden.</p></form>");
   }
 }

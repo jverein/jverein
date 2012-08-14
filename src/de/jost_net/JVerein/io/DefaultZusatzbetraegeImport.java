@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -95,7 +96,9 @@ public class DefaultZusatzbetraegeImport implements Importer
       {
         monitor.setStatus(ProgressMonitor.STATUS_ERROR);
         monitor
-            .setStatusText("Entweder Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds angeben. Abbruch!");
+            .setStatusText(JVereinPlugin
+                .getI18n()
+                .tr("Entweder Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds angeben. Abbruch!"));
         return;
       }
 
@@ -121,15 +124,19 @@ public class DefaultZusatzbetraegeImport implements Importer
         if (list.size() == 0)
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          monitor.setStatusText("Für die Importzeile " + anz
-              + " kein Mitglied gefunden. Abbruch!");
+          monitor.setStatusText(JVereinPlugin.getI18n().tr(
+              "Für die Importzeile {0} kein Mitglied gefunden. Abbruch!",
+              anz + ""));
           return;
         }
         if (list.size() > 1)
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          monitor.setStatusText("Für die Importzeile " + anz
-              + " mehr als ein Mitglied gefunden. Abbruch!");
+          monitor
+              .setStatusText(JVereinPlugin
+                  .getI18n()
+                  .tr("Für die Importzeile {0} mehr als ein Mitglied gefunden. Abbruch!",
+                      anz + ""));
           return;
         }
 
@@ -169,8 +176,9 @@ public class DefaultZusatzbetraegeImport implements Importer
     }
     catch (Exception e)
     {
-      monitor.log(" nicht importiert: " + e.getMessage());
-      Logger.error("Fehler", e);
+      monitor.log(JVereinPlugin.getI18n().tr("nicht importiert:")
+          + e.getMessage());
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     finally
     {
@@ -180,7 +188,7 @@ public class DefaultZusatzbetraegeImport implements Importer
 
   public String getName()
   {
-    return "Default-Zusatzbeträge";
+    return JVereinPlugin.getI18n().tr("Default-Zusatzbeträge");
   }
 
   public boolean hasFileDialog()

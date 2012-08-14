@@ -21,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.util;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.messaging.Message;
@@ -37,7 +38,8 @@ public class HelpConsumer implements MessageConsumer
     AbstractView view = (AbstractView) msg.getData();
     Logger.error("help missing for view " + view.getClass());
     GUI.getStatusBar().setErrorText(
-        "Hilfe für Ansicht " + view.getClass() + " fehlt");
+        JVereinPlugin.getI18n().tr("Hilfe für Ansicht {0} fehlt",
+            view.getClass().getName()));
   }
 
   public boolean autoRegister()

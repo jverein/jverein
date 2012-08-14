@@ -49,7 +49,7 @@ public class SpendenbescheinigungView extends AbstractView
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
-    left.addHeadline("Spendenart");
+    left.addHeadline(JVereinPlugin.getI18n().tr("Spendenart"));
     left.addLabelPair(JVereinPlugin.getI18n().tr("Spendenart"),
         control.getSpendenart());
 
@@ -123,7 +123,6 @@ public class SpendenbescheinigungView extends AbstractView
         new SpendenbescheinigungAction(), null, false, "document-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
       public void handleAction(Object context)
       {
         control.handleStore();
@@ -135,7 +134,9 @@ public class SpendenbescheinigungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigung</span></p>"
-        + "</form>";
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Spendenbescheinigung</span></p>"
+            + "</form>");
   }
 }

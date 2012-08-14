@@ -95,7 +95,6 @@ public class MitgliedQuery
             String cond = settings.getString("zusatzfeld." + i + ".cond", null);
             if (value != null && value.length() > 0)
             {
-
               sql += "join zusatzfelder " + synonym + " on " + synonym
                   + ".mitglied = mitglied.id  and lower(" + synonym + ".FELD) "
                   + cond + " lower( ? ) and " + synonym
@@ -187,7 +186,6 @@ public class MitgliedQuery
             }
             break;
           }
-
         }
       }
     }
@@ -262,7 +260,8 @@ public class MitgliedQuery
       addCondition("sterbetag <= ?");
     }
     if (control.getGeschlecht().getText() != null
-        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
+        && !control.getGeschlecht().getText()
+            .equals(JVereinPlugin.getI18n().tr("Bitte auswählen")))
     {
       addCondition("geschlecht = ?");
     }
@@ -316,15 +315,18 @@ public class MitgliedQuery
     {
       sql += " ORDER BY ucase(name), ucase(vorname)";
     }
-    else if (sort.equals(JVereinPlugin.getI18n().tr("Eintrittsdatum")))
+    else if (sort.equals(JVereinPlugin.getI18n().tr(
+        JVereinPlugin.getI18n().tr("Eintrittsdatum"))))
     {
       sql += " ORDER BY eintritt";
     }
-    else if (sort.equals(JVereinPlugin.getI18n().tr("Geburtsdatum")))
+    else if (sort.equals(JVereinPlugin.getI18n().tr(
+        JVereinPlugin.getI18n().tr("Geburtsdatum"))))
     {
       sql += " ORDER BY geburtsdatum";
     }
-    else if (sort.equals(JVereinPlugin.getI18n().tr("Geburtstagsliste")))
+    else if (sort.equals(JVereinPlugin.getI18n().tr(
+        JVereinPlugin.getI18n().tr("Geburtstagsliste"))))
     {
       sql += " ORDER BY month(geburtsdatum), day(geburtsdatum)";
     }
@@ -336,7 +338,6 @@ public class MitgliedQuery
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
         ArrayList<Mitglied> list = new ArrayList<Mitglied>();
@@ -378,7 +379,8 @@ public class MitgliedQuery
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (control.getGeschlecht().getText() != null
-        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
+        && !control.getGeschlecht().getText()
+            .equals(JVereinPlugin.getI18n().tr("Bitte auswählen")))
     {
       String g = (String) control.getGeschlecht().getValue();
       bedingungen.add(g);
@@ -436,5 +438,4 @@ public class MitgliedQuery
     and = true;
     sql += condition;
   }
-
 }

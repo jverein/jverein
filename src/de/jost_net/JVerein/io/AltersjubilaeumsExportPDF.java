@@ -33,6 +33,7 @@ import com.lowagie.text.Element;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 
 public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
@@ -45,7 +46,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
 
   public String getName()
   {
-    return "Altersjubilare PDF-Export";
+    return JVereinPlugin.getI18n().tr("Altersjubilare PDF-Export");
   }
 
   public IOFormat[] getIOFormats(Class<?> objectType)
@@ -74,29 +75,31 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
 
   public String getDateiname()
   {
-    return "altersjubilare";
+    return JVereinPlugin.getI18n().tr("altersjubilare");
   }
 
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    reporter = new Reporter(fos, "Altersjubilare " + jahr, "", 3);
+    reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
+        "Altersjubilare {0}", jahr + ""), "", 3);
   }
 
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
-    Paragraph pHeader = new Paragraph("\n" + jahrgang + ". Geburtstag",
+    Paragraph pHeader = new Paragraph("\n"
+        + JVereinPlugin.getI18n().tr("{0}. Geburtstag", jahrgang + ""),
         FontFactory.getFont(FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
-    reporter.addHeaderColumn("Geburtsdatum", Element.ALIGN_CENTER, 50,
-        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Geburtsdatum"),
+        Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
 
-    reporter.addHeaderColumn("Name, Vorname", Element.ALIGN_CENTER, 100,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Anschrift", Element.ALIGN_CENTER, 120,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Kommunikation", Element.ALIGN_CENTER, 80,
-        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name, Vorname"),
+        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anschrift"),
+        Element.ALIGN_CENTER, 120, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Kommunikation"),
+        Element.ALIGN_CENTER, 80, Color.LIGHT_GRAY);
     reporter.createHeader();
     anz = 0;
   }
@@ -106,7 +109,8 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
     if (anz == 0)
     {
       reporter.addColumn("", Element.ALIGN_LEFT);
-      reporter.addColumn("kein Mitglied", Element.ALIGN_LEFT);
+      reporter.addColumn(JVereinPlugin.getI18n().tr("kein Mitglied"),
+          Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
     }

@@ -144,7 +144,7 @@ public class BeitragsgruppeControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
     buchungsart = new SelectInput(it, getBeitragsgruppe().getBuchungsart());
-    buchungsart.setPleaseChoose("bitte auswählen");
+    buchungsart.setPleaseChoose(JVereinPlugin.getI18n().tr("bitte auswählen"));
     return buchungsart;
   }
 
@@ -201,19 +201,23 @@ public class BeitragsgruppeControl extends AbstractControl
     DBIterator beitragsgruppen = service.createList(Beitragsgruppe.class);
     beitragsgruppeList = new TablePart(beitragsgruppen,
         new BeitragsgruppeDetailAction());
-    beitragsgruppeList.addColumn("Bezeichnung", "bezeichnung");
-    beitragsgruppeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    beitragsgruppeList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
+        "bezeichnung");
+    beitragsgruppeList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
+        "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
-      beitragsgruppeList.addColumn("Arbeitseinsatz-Stunden",
+      beitragsgruppeList.addColumn(
+          JVereinPlugin.getI18n().tr("Arbeitseinsatz-Stunden"),
           "arbeitseinsatzstunden", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
-      beitragsgruppeList.addColumn("Arbeitseinsatz-Betrag",
+      beitragsgruppeList.addColumn(
+          JVereinPlugin.getI18n().tr("Arbeitseinsatz-Betrag"),
           "arbeitseinsatzbetrag", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
     }
-    beitragsgruppeList.addColumn("Buchungsart", "buchungsart");
+    beitragsgruppeList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
+        "buchungsart");
     beitragsgruppeList.setContextMenu(new BeitragsgruppeMenu());
     return beitragsgruppeList;
   }

@@ -21,15 +21,17 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
+import de.jost_net.JVerein.JVereinPlugin;
+
 public enum MitgliedskontoVar
 {
-  ZAHLUNGSGRUND("mitgliedskonto_zahlungsgrund"), //
-  ZAHLUNGSGRUND1("mitgliedskonto_zahlungsgrund1"), //
-  ZAHLUNGSGRUND2("mitgliedskonto_zahlungsgrund2"), //
-  BUCHUNGSDATUM("mitgliedskonto_buchungsdatum"), //
-  BETRAG("mitgliedskonto_betrag"), //
-  IST("mitgliedskonto_ist"), //
-  DIFFERENZ("mitgliedskonto_differenz");
+  ZAHLUNGSGRUND(JVereinPlugin.getI18n().tr("mitgliedskonto_zahlungsgrund")), //
+  ZAHLUNGSGRUND1(JVereinPlugin.getI18n().tr("mitgliedskonto_zahlungsgrund1")), //
+  ZAHLUNGSGRUND2(JVereinPlugin.getI18n().tr("mitgliedskonto_zahlungsgrund2")), //
+  BUCHUNGSDATUM(JVereinPlugin.getI18n().tr("mitgliedskonto_buchungsdatum")), //
+  BETRAG(JVereinPlugin.getI18n().tr("mitgliedskonto_betrag")), //
+  IST(JVereinPlugin.getI18n().tr("mitgliedskonto_ist")), //
+  DIFFERENZ(JVereinPlugin.getI18n().tr("mitgliedskonto_differenz"));
 
   private String name;
 

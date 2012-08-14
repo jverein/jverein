@@ -21,54 +21,63 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
+import de.jost_net.JVerein.JVereinPlugin;
+
 public enum MitgliedVar
 {
-  ADRESSIERUNGSZUSATZ("mitglied_adressierungszusatz"), //
-  ADRESSTYP("mitglied_adresstyp"), //
-  ANREDE("mitglied_anrede"), //
-  ANREDE_DU("mitglied_anrede_du"), //
-  ANREDE_FOERMLICH("mitglied_anrede_foermlich"), //
-  AUSTRITT("mitglied_austritt"), //
-  BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG("mitglied_arbeitseinsatz_betrag"), //
-  BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN("mitglied_arbeitseinsatz_stunden"), //
-  BEITRAGSGRUPPE_BEZEICHNUNG("mitglied_beitragsgruppe_bezeichnung"), //
-  BEITRAGSGRUPPE_BETRAG("mitglied_beitragsgruppe_betrag"), //
-  BEITRAGSGRUPPE_ID("mitglied_beitragsgruppe.id"), //
-  BLZ("mitglied_blz"), //
-  EINTRITT("mitglied_eintritt"), //
-  EINGABEDATUM("mitglied_eingabedatum"), //
-  EMPFAENGER("mitglied_empfaenger"), //
-  EMAIL("mitglied_email"), //
-  EXTERNE_MITGLIEDSNUMMER("mitglied_externe_mitgliedsnummer"), //
-  GEBURTSDATUM("mitglied_geburtsdatum"), //
-  GESCHLECHT("mitglied_geschlecht"), //
-  HANDY("mitglied_handy"), //
-  IBAN("mitglied_iban"), //
-  ID("mitglied_id"), //
-  INDIVIDUELLERBEITRAG("mitglied_individuellerbeitrag"), //
-  KONTO("mitglied_konto"), //
-  KONTOINHABER("mitglied_kontoinhaber"), //
-  KUENDIGUNG("mitglied_kuendigung"), //
-  LETZTEAENDERUNG("mitglied_letzte.aenderung"), //
-  NAME("mitglied_name"), //
-  NAMEVORNAME("mitglied_namevorname"), //
-  ORT("mitglied_ort"), //
-  PERSONENART("mitglied_personenart"), //
-  PLZ("mitglied_plz"), //
-  STAAT("mitglied_staat"), //
-  STERBETAG("mitglied_sterbetag"), //
-  STRASSE("mitglied_strasse"), //
-  TELEFONDIENSTLICH("mitglied_telefon.dienstlich"), //
-  TELEFONPRIVAT("mitglied_telefon.privat"), //
-  TITEL("mitglied_titel"), //
-  VERMERK1("mitglied_vermerk1"), //
-  VERMERK2("mitglied_vermerk2"), //
-  VORNAME("mitglied_vorname"), //
-  VORNAMENAME("mitglied_vornamename"), //
-  ZAHLUNGSRHYTMUS("mitglied_zahlungsrhytmus"), //
-  ZAHLUNGSWEG("mitglied_zahlungsweg"), //
-  ZAHLUNGSWEGTEXT("mitglied_zahlungsweg_text"), //
-  ZAHLERID("mitglied_zahlerid");
+  ADRESSIERUNGSZUSATZ(JVereinPlugin.getI18n()
+      .tr("mitglied_adressierungszusatz")), //
+  ADRESSTYP(JVereinPlugin.getI18n().tr("mitglied_adresstyp")), //
+  ANREDE(JVereinPlugin.getI18n().tr("mitglied_anrede")), //
+  ANREDE_DU(JVereinPlugin.getI18n().tr("mitglied_anrede_du")), //
+  ANREDE_FOERMLICH(JVereinPlugin.getI18n().tr("mitglied_anrede_foermlich")), //
+  AUSTRITT(JVereinPlugin.getI18n().tr("mitglied_austritt")), //
+  BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG(JVereinPlugin.getI18n().tr(
+      "mitglied_arbeitseinsatz_betrag")), //
+  BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN(JVereinPlugin.getI18n().tr(
+      "mitglied_arbeitseinsatz_stunden")), //
+  BEITRAGSGRUPPE_BEZEICHNUNG(JVereinPlugin.getI18n().tr(
+      "mitglied_beitragsgruppe_bezeichnung")), //
+  BEITRAGSGRUPPE_BETRAG(JVereinPlugin.getI18n().tr(
+      "mitglied_beitragsgruppe_betrag")), //
+  BEITRAGSGRUPPE_ID(JVereinPlugin.getI18n().tr("mitglied_beitragsgruppe.id")), //
+  BLZ(JVereinPlugin.getI18n().tr("mitglied_blz")), //
+  EINTRITT(JVereinPlugin.getI18n().tr("mitglied_eintritt")), //
+  EINGABEDATUM(JVereinPlugin.getI18n().tr("mitglied_eingabedatum")), //
+  EMPFAENGER(JVereinPlugin.getI18n().tr("mitglied_empfaenger")), //
+  EMAIL(JVereinPlugin.getI18n().tr("mitglied_email")), //
+  EXTERNE_MITGLIEDSNUMMER(JVereinPlugin.getI18n().tr(
+      "mitglied_externe_mitgliedsnummer")), //
+  GEBURTSDATUM(JVereinPlugin.getI18n().tr("mitglied_geburtsdatum")), //
+  GESCHLECHT(JVereinPlugin.getI18n().tr("mitglied_geschlecht")), //
+  HANDY(JVereinPlugin.getI18n().tr("mitglied_handy")), //
+  IBAN(JVereinPlugin.getI18n().tr("mitglied_iban")), //
+  ID(JVereinPlugin.getI18n().tr("mitglied_id")), //
+  INDIVIDUELLERBEITRAG(JVereinPlugin.getI18n().tr(
+      "mitglied_individuellerbeitrag")), //
+  KONTO(JVereinPlugin.getI18n().tr("mitglied_konto")), //
+  KONTOINHABER(JVereinPlugin.getI18n().tr("mitglied_kontoinhaber")), //
+  KUENDIGUNG(JVereinPlugin.getI18n().tr("mitglied_kuendigung")), //
+  LETZTEAENDERUNG(JVereinPlugin.getI18n().tr("mitglied_letzte.aenderung")), //
+  NAME(JVereinPlugin.getI18n().tr("mitglied_name")), //
+  NAMEVORNAME(JVereinPlugin.getI18n().tr("mitglied_namevorname")), //
+  ORT(JVereinPlugin.getI18n().tr("mitglied_ort")), //
+  PERSONENART(JVereinPlugin.getI18n().tr("mitglied_personenart")), //
+  PLZ(JVereinPlugin.getI18n().tr("mitglied_plz")), //
+  STAAT(JVereinPlugin.getI18n().tr("mitglied_staat")), //
+  STERBETAG(JVereinPlugin.getI18n().tr("mitglied_sterbetag")), //
+  STRASSE(JVereinPlugin.getI18n().tr("mitglied_strasse")), //
+  TELEFONDIENSTLICH(JVereinPlugin.getI18n().tr("mitglied_telefon.dienstlich")), //
+  TELEFONPRIVAT(JVereinPlugin.getI18n().tr("mitglied_telefon.privat")), //
+  TITEL(JVereinPlugin.getI18n().tr("mitglied_titel")), //
+  VERMERK1(JVereinPlugin.getI18n().tr("mitglied_vermerk1")), //
+  VERMERK2(JVereinPlugin.getI18n().tr("mitglied_vermerk2")), //
+  VORNAME(JVereinPlugin.getI18n().tr("mitglied_vorname")), //
+  VORNAMENAME(JVereinPlugin.getI18n().tr("mitglied_vornamename")), //
+  ZAHLUNGSRHYTMUS(JVereinPlugin.getI18n().tr("mitglied_zahlungsrhytmus")), //
+  ZAHLUNGSWEG(JVereinPlugin.getI18n().tr("mitglied_zahlungsweg")), //
+  ZAHLUNGSWEGTEXT(JVereinPlugin.getI18n().tr("mitglied_zahlungsweg_text")), //
+  ZAHLERID(JVereinPlugin.getI18n().tr("mitglied_zahlerid"));
 
   private String name;
 

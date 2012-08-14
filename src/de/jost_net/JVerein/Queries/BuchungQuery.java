@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
@@ -225,22 +226,25 @@ public class BuchungQuery
 
   public String getSubtitle() throws RemoteException
   {
-    String subtitle = "vom " + new JVDateFormatTTMMJJJJ().format(getDatumvon())
-        + " bis " + new JVDateFormatTTMMJJJJ().format(getDatumbis());
+    String subtitle = JVereinPlugin.getI18n().tr("vom {0} bis {1}",
+        new JVDateFormatTTMMJJJJ().format(getDatumvon()),
+        new JVDateFormatTTMMJJJJ().format(getDatumbis()));
     if (getKonto() != null)
     {
-      subtitle += " für Konto " + getKonto().getNummer() + " - "
-          + getKonto().getBezeichnung();
+      subtitle += " "
+          + JVereinPlugin.getI18n().tr("für Konto {0} - {1}",
+              getKonto().getNummer() + " - ", getKonto().getBezeichnung());
     }
     if (getProjekt() != null)
     {
-      subtitle += ", Projekt " + getProjekt().getBezeichnung();
+      subtitle += ", "
+          + JVereinPlugin.getI18n().tr("Projekt {0}",
+              getProjekt().getBezeichnung());
     }
     if (getText() != null && getText().length() > 0)
     {
-      subtitle += ", Text=" + getText();
+      subtitle += ", " + JVereinPlugin.getI18n().tr("Text={0}", getText());
     }
-
     return subtitle;
   }
 

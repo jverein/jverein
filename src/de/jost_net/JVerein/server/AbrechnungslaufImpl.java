@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -194,7 +195,8 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
    */
   public String getIDText() throws RemoteException
   {
-    return getID() + " vom " + new JVDateFormatTTMMJJJJ().format(getDatum());
+    return getID() + " " + JVereinPlugin.getI18n().tr("vom") + " "
+        + new JVDateFormatTTMMJJJJ().format(getDatum());
   }
 
   @Override

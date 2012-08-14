@@ -103,7 +103,6 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
     }, null, true);
     buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
-
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();

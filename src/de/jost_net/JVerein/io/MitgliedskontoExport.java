@@ -31,6 +31,7 @@ import java.util.Date;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.MitgliedskontoQuery;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -75,7 +76,8 @@ public abstract class MitgliedskontoExport implements Exporter
       for (Mitgliedskonto mk : mkq.get())
       {
         add(mk);
-        monitor.log("Vorbereitung: " + m.getNameVorname());
+        monitor.log(JVereinPlugin.getI18n().tr("Vorbereitung: {0}",
+            m.getNameVorname()));
       }
       endeMitglied();
     }
@@ -84,7 +86,7 @@ public abstract class MitgliedskontoExport implements Exporter
 
   public String getDateiname()
   {
-    return "mitgliedskonten";
+    return JVereinPlugin.getI18n().tr("mitgliedskonten");
   }
 
   protected abstract void startMitglied(Mitglied m) throws DocumentException;

@@ -30,6 +30,7 @@ import java.io.IOException;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 
+import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -50,8 +51,8 @@ public class BuchungsjournalPDF
     try
     {
       FileOutputStream fos = new FileOutputStream(file);
-      Reporter reporter = new Reporter(fos, "Buchungsjournal",
-          query.getSubtitle(), 1);
+      Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
+          "Buchungsjournal"), query.getSubtitle(), 1);
 
       double einnahmen = 0;
       double ausgaben = 0;
@@ -106,14 +107,14 @@ public class BuchungsjournalPDF
         {
           nichtzugeordnet += b.getBetrag();
         }
-
       }
 
       for (int i = 0; i < 5; i++)
       {
         reporter.addColumn("", Element.ALIGN_LEFT);
       }
-      reporter.addColumn("Summe Einnahmen", Element.ALIGN_LEFT);
+      reporter.addColumn(JVereinPlugin.getI18n().tr("Summe Einnahmen"),
+          Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
       reporter.addColumn(einnahmen);
 
@@ -121,7 +122,8 @@ public class BuchungsjournalPDF
       {
         reporter.addColumn("", Element.ALIGN_LEFT);
       }
-      reporter.addColumn("Summe Ausgaben", Element.ALIGN_LEFT);
+      reporter.addColumn(JVereinPlugin.getI18n().tr("Summe Ausgaben"),
+          Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
       reporter.addColumn(ausgaben);
 
@@ -129,7 +131,8 @@ public class BuchungsjournalPDF
       {
         reporter.addColumn("", Element.ALIGN_LEFT);
       }
-      reporter.addColumn("Summe Umbuchungen", Element.ALIGN_LEFT);
+      reporter.addColumn(JVereinPlugin.getI18n().tr("Summe Umbuchungen"),
+          Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
       reporter.addColumn(umbuchungen);
 
@@ -139,19 +142,21 @@ public class BuchungsjournalPDF
         {
           reporter.addColumn("", Element.ALIGN_LEFT);
         }
-        reporter.addColumn("Summe nicht zugeordnet", Element.ALIGN_LEFT);
+        reporter.addColumn(
+            JVereinPlugin.getI18n().tr("Summe nicht zugeordnet"),
+            Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn(nichtzugeordnet);
       }
 
       reporter.closeTable();
-      GUI.getStatusBar().setSuccessText("Auswertung fertig. ");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("Auswertung fertig."));
 
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
-
         public void run()
         {
           try
@@ -171,38 +176,39 @@ public class BuchungsjournalPDF
     {
       e.printStackTrace();
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     catch (FileNotFoundException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
     catch (IOException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
     }
 
   }
 
   private void createTableHeader(Reporter reporter) throws DocumentException
   {
-    reporter.addHeaderColumn("Nr", Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Datum", Element.ALIGN_CENTER, 45,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Konto", Element.ALIGN_CENTER, 40,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Auszug", Element.ALIGN_CENTER, 20,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Zahlungsgrund", Element.ALIGN_CENTER, 100,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Buchungsart", Element.ALIGN_CENTER, 60,
-        Color.LIGHT_GRAY);
-    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 50,
-        Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Nr"),
+        Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
+        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Konto"),
+        Element.ALIGN_CENTER, 40, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Auszug"),
+        Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
+        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsgrund"),
+        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
+        Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
+    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
+        Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
     reporter.createHeader();
   }
 }

@@ -111,9 +111,14 @@ public class Reporter
         + plugin.getManifest().getVersion());
     rpt.addTitle(subtitle);
 
-    Chunk fuss = new Chunk(title + " | " + subtitle + " | erstellt am "
-        + new JVDateFormatTTMMJJJJ().format(new Date()) + "     Seite: ",
-        FontFactory.getFont(FontFactory.HELVETICA, 8, Font.BOLD));
+    Chunk fuss = new Chunk(title
+        + " | "
+        + subtitle
+        + " | "
+        + JVereinPlugin.getI18n().tr("erstellt am {0}",
+            new JVDateFormatTTMMJJJJ().format(new Date())) + "     "
+        + JVereinPlugin.getI18n().tr("Seite: "), FontFactory.getFont(
+        FontFactory.HELVETICA, 8, Font.BOLD));
     HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
     hf.setAlignment(Element.ALIGN_CENTER);
     rpt.setFooter(hf);
@@ -153,7 +158,6 @@ public class Reporter
         FontFactory.HELVETICA_BOLD, size));
     p.setAlignment(Element.ALIGN_LEFT);
     rpt.add(p);
-
   }
 
   /**
@@ -378,7 +382,8 @@ public class Reporter
   {
     try
     {
-      GUI.getStatusBar().setSuccessText("PDF-Export beendet");
+      GUI.getStatusBar().setSuccessText(
+          JVereinPlugin.getI18n().tr("PDF-Export beendet"));
       if (table != null)
       {
         rpt.add(table);
@@ -407,7 +412,6 @@ public class Reporter
   private PdfPCell getDetailCell(String text, int align, Color backgroundcolor,
       boolean silbentrennung)
   {
-
     PdfPCell cell = null;
     if (silbentrennung)
     {
@@ -433,7 +437,6 @@ public class Reporter
     cell.setBackgroundColor(backgroundcolor);
     cell.setColspan(colspan);
     return cell;
-
   }
 
   /**

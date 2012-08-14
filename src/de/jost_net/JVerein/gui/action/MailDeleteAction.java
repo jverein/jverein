@@ -58,7 +58,8 @@ public class MailDeleteAction implements Action
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(JVereinPlugin.getI18n().tr("Mail löschen"));
-      d.setText("Wollen Sie diese Mail wirklich löschen?");
+      d.setText(JVereinPlugin.getI18n().tr(
+          "Wollen Sie diese Mail wirklich löschen?"));
 
       try
       {
