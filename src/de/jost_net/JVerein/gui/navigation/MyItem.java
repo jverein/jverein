@@ -148,15 +148,15 @@ public class MyItem implements NavigationItem
    */
   public GenericIterator getChildren() throws RemoteException
   {
-    if (children.size() == 0)
-    {
-      return null;
-    }
-    else
-    {
-      return PseudoIterator.fromArray(children.toArray(new MyItem[children
-          .size()]));
-    }
+    // if (children.size() == 0)
+    // {
+    // return null;
+    // }
+    // else
+    // {
+    return PseudoIterator
+        .fromArray(children.toArray(new MyItem[children.size()]));
+    // }
   }
 
   /**
@@ -248,11 +248,13 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$
- * Revision 1.8  2011/10/01 21:44:40  jost
- * Log-Eintr‰ge entfernt. Zeigt Eclipse-History-View viel besser an. Macht den Quelltext schlanker.
- * Revision 1.7 2010-10-15 09:58:29 jost Code aufger‰umt
- * Revision 1.6 2008-12-28 07:55:27 jost Icons an Jameica angepasst
+ * $Log$ Revision 1.9 2011/10/23 20:58:26 jverein Hinweis auf
+ * die GPL in den Quelltext aufgenommen
+ * 
+ * Revision 1.8 2011/10/01 21:44:40 jost Log-Eintr‰ge entfernt. Zeigt
+ * Eclipse-History-View viel besser an. Macht den Quelltext schlanker. Revision
+ * 1.7 2010-10-15 09:58:29 jost Code aufger‰umt Revision 1.6 2008-12-28 07:55:27
+ * jost Icons an Jameica angepasst
  * 
  * Revision 1.5 2008/12/22 21:16:52 jost Icons ins Men√º aufgenommen. Revision
  * 1.4 2008/11/29 13:11:27 jost Refactoring: Warnungen beseitigt.
