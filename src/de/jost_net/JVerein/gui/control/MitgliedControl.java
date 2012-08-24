@@ -49,6 +49,7 @@ import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzAction;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
+import de.jost_net.JVerein.gui.action.MailDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
@@ -81,6 +82,7 @@ import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Lehrgang;
+import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
@@ -90,6 +92,7 @@ import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.IbanBicCalc;
+import de.jost_net.JVerein.util.JVDateFormatTIMESTAMP;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
@@ -268,6 +271,9 @@ public class MitgliedControl extends AbstractControl
 
   // Liste der Wiedervorlagen
   private TablePart wiedervorlageList;
+
+  // Liste der Mails
+  private TablePart mailList;
 
   // Liste der Arbeitseinsätze
   private TablePart arbeitseinsatzList;
@@ -1537,6 +1543,29 @@ public class MitgliedControl extends AbstractControl
         "erledigung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
     wiedervorlageList.setContextMenu(new WiedervorlageMenu(wiedervorlageList));
     return wiedervorlageList;
+  }
+
+  public Part getMailTable() throws RemoteException
+  {
+    if (mailList != null)
+    {
+      return mailList;
+    }
+    DBService service = Einstellungen.getDBService();
+    DBIterator me = service.createList(Mail.class);
+    me.join("mailempfaenger");
+    me.addFilter("mailempfaenger.mail = mail.id");
+    me.addFilter("mailempfaenger.mitglied = ?", getMitglied().getID());
+    mailList = new TablePart(me, new MailDetailAction());
+    mailList.setRememberColWidths(true);
+    mailList.setRememberOrder(true);
+
+    mailList.addColumn(JVereinPlugin.getI18n().tr("Bearbeitung"),
+        "bearbeitung", new DateFormatter(new JVDateFormatTIMESTAMP()));
+    mailList.addColumn(JVereinPlugin.getI18n().tr("Versand"), "versand",
+        new DateFormatter(new JVDateFormatTIMESTAMP()));
+    mailList.addColumn(JVereinPlugin.getI18n().tr("Betreff"), "betreff");
+    return mailList;
   }
 
   public Part getArbeitseinsatzTable() throws RemoteException

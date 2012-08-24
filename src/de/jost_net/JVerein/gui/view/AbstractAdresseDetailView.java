@@ -104,13 +104,15 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     showInTab = true;
     zeichneZahlung(showInTab ? folder : oben.getComposite(), 1);
 
-    zeichneZustzbeitraege(showInTab ? folder : oben.getComposite());
+    zeichneZusatzbeitraege(showInTab ? folder : oben.getComposite());
 
     zeichneMitgliedkonto(controlMk, showInTab ? folder : oben.getComposite());
 
     zeichneVermerke(showInTab ? folder : oben.getComposite(), 1);
 
     zeichneWiedervorlage(showInTab ? folder : oben.getComposite());
+
+    zeichneMails(showInTab ? folder : oben.getComposite());
 
     zeichneEigenschaften(showInTab ? folder : oben.getComposite());
 
@@ -337,6 +339,17 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     }
   }
 
+  private void zeichneMails(Composite parentComposite) throws RemoteException
+  {
+    if (Einstellungen.getEinstellung().getSmtpServer().length() > 0)
+    {
+      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
+          .getI18n().tr("Mails"));
+
+      control.getMailTable().paint(cont.getComposite());
+    }
+  }
+
   private void zeichneVermerke(Composite parentComposite, int spaltenanzahl)
       throws RemoteException
   {
@@ -379,10 +392,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
           cont.getComposite());
     }
-
   }
 
-  private void zeichneZustzbeitraege(Composite parentComposite)
+  private void zeichneZusatzbeitraege(Composite parentComposite)
       throws RemoteException
   {
     if (isMitgliedDetail() && Einstellungen.getEinstellung().getZusatzbetrag())
