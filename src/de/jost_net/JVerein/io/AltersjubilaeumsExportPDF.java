@@ -35,6 +35,7 @@ import com.lowagie.text.Paragraph;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.willuhn.logging.Logger;
 
 public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
 {
@@ -81,12 +82,16 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
+    Logger.debug(JVereinPlugin.getI18n().tr("Altersjubilare, Jahr={0}",
+        jahr + ""));
     reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
         "Altersjubilare {0}", jahr + ""), "", 3);
   }
 
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
+    Logger.debug(JVereinPlugin.getI18n().tr("Altersjubiläum, Jahrgang={0}",
+        jahrgang + ""));
     Paragraph pHeader = new Paragraph("\n"
         + JVereinPlugin.getI18n().tr("{0}. Geburtstag", jahrgang + ""),
         FontFactory.getFont(FontFactory.HELVETICA, 11));

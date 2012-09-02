@@ -50,8 +50,7 @@ public class JubilaeenView extends AbstractView
         new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("Start"),
-        new JubilaeumsExportAction(), control.getJubeljahr().getValue(), true,
-        "go.png");
+        new JubilaeumsExportAction(), control, true, "go.png");
     buttons.paint(getParent());
   }
 

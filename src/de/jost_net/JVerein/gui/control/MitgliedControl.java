@@ -289,6 +289,8 @@ public class MitgliedControl extends AbstractControl
 
   private LesefeldAuswerter lesefeldAuswerter = null;
 
+  private int jjahr = 0;
+
   public MitgliedControl(AbstractView view)
   {
     super(view);
@@ -1990,7 +1992,19 @@ public class MitgliedControl extends AbstractControl
       cal.add(Calendar.YEAR, 1);
     }
     jubeljahr = new SelectInput(jubeljahre, jubeljahre[2]);
+    jubeljahr.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        jjahr = (Integer) jubeljahr.getValue();
+      }
+    });
     return jubeljahr;
+  }
+
+  public int getJJahr()
+  {
+    return jjahr;
   }
 
   public DialogInput getEigenschaftenAuswahl() throws RemoteException

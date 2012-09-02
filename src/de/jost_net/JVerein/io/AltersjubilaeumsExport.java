@@ -33,9 +33,11 @@ import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -55,7 +57,10 @@ public abstract class AltersjubilaeumsExport implements Exporter
       IOException
   {
     this.file = file;
-    jahr = (Integer) objects[0];
+    MitgliedControl control = (MitgliedControl) objects[0];
+    jahr = control.getJJahr();
+    Logger.debug(JVereinPlugin.getI18n().tr("Altersjubiläumexport, Jahr={0}",
+        jahr + ""));
     open();
     JubilaeenParser jp = new JubilaeenParser(Einstellungen.getEinstellung()
         .getAltersjubilaeen());

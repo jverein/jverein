@@ -30,6 +30,7 @@ import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
@@ -95,8 +96,9 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
 
   protected void close() throws ApplicationException
   {
+    Logger.debug(JVereinPlugin.getI18n().tr(
+        "Alterjubiläum-CSV-Export, Jahr={0}", jahr + ""));
     MitgliedAuswertungCSV mcsv = new MitgliedAuswertungCSV();
     mcsv.go(mitglieder, file);
   }
-
 }

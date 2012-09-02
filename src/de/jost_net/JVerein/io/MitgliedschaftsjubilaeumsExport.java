@@ -32,9 +32,12 @@ import java.util.Date;
 import com.lowagie.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -49,12 +52,15 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
 
   protected Integer jahr;
 
-  public void doExport(Object[] objects, IOFormat format, File file,
+  public void doExport(final Object[] objects, IOFormat format, File file,
       ProgressMonitor monitor) throws ApplicationException, DocumentException,
       IOException
   {
     this.file = file;
-    jahr = (Integer) objects[0];
+    MitgliedControl control = (MitgliedControl) objects[0];
+    jahr = control.getJJahr();
+    Logger.debug(JVereinPlugin.getI18n().tr(
+        "Mitgliedschaftsjubiläum, Jahr={0}", jahr + ""));
     open();
     JubilaeenParser jp = new JubilaeenParser(Einstellungen.getEinstellung()
         .getJubilaeen());
@@ -65,9 +71,13 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
 
       DBIterator mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
-      MitgliedUtils.setNurAktive(mitgl);
-      MitgliedUtils.setMitglied(mitgl);
       Calendar cal = Calendar.getInstance();
+      cal.set(Calendar.MONTH, Calendar.DECEMBER);
+      cal.set(Calendar.DAY_OF_MONTH, 31);
+
+      MitgliedUtils.setNurAktive(mitgl, cal.getTime());
+      MitgliedUtils.setMitglied(mitgl);
+
       cal.set(Calendar.YEAR, jahr);
       cal.add(Calendar.YEAR, jubi * -1);
       cal.set(Calendar.MONTH, Calendar.JANUARY);
