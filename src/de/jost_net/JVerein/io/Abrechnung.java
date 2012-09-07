@@ -407,6 +407,13 @@ public class Abrechnung
             }
             lastschrift.addVerwendungszweck(getVerwendungszweck2(m));
             lastschriften.add(lastschrift);
+            if (Einstellungen.getEinstellung().getMitgliedskonto())
+            {
+              writeMitgliedskonto(m, new Date(), z.getBuchungstext(),
+                  z.getBuchungstext2(), z.getBetrag(), abrl,
+                  m.getZahlungsweg() == Zahlungsweg.DTAUS, konto, null);
+            }
+
           }
           catch (Exception e)
           {
