@@ -957,6 +957,10 @@ public class JVereinUpdateProvider
     {
       update0239(conn);
     }
+    if (cv < 240)
+    {
+      update0240(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5799,6 +5803,20 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte zweck2 aus Tabelle mitgliedskonto entfernt", 239);
+  }
+
+  private void update0240(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "update formularfeld set name = replace(name, '.','_');\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "update formularfeld set name = replace(name, '.','_');\n");
+
+    execute(conn, statements, "Formularfeld-Namen angepasst", 240);
   }
 
 }

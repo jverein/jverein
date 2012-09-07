@@ -40,7 +40,7 @@ public enum MitgliedVar
       "mitglied_beitragsgruppe_bezeichnung")), //
   BEITRAGSGRUPPE_BETRAG(JVereinPlugin.getI18n().tr(
       "mitglied_beitragsgruppe_betrag")), //
-  BEITRAGSGRUPPE_ID(JVereinPlugin.getI18n().tr("mitglied_beitragsgruppe.id")), //
+  BEITRAGSGRUPPE_ID(JVereinPlugin.getI18n().tr("mitglied_beitragsgruppe_id")), //
   BLZ(JVereinPlugin.getI18n().tr("mitglied_blz")), //
   EINTRITT(JVereinPlugin.getI18n().tr("mitglied_eintritt")), //
   EINGABEDATUM(JVereinPlugin.getI18n().tr("mitglied_eingabedatum")), //
@@ -67,8 +67,8 @@ public enum MitgliedVar
   STAAT(JVereinPlugin.getI18n().tr("mitglied_staat")), //
   STERBETAG(JVereinPlugin.getI18n().tr("mitglied_sterbetag")), //
   STRASSE(JVereinPlugin.getI18n().tr("mitglied_strasse")), //
-  TELEFONDIENSTLICH(JVereinPlugin.getI18n().tr("mitglied_telefon.dienstlich")), //
-  TELEFONPRIVAT(JVereinPlugin.getI18n().tr("mitglied_telefon.privat")), //
+  TELEFONDIENSTLICH(JVereinPlugin.getI18n().tr("mitglied_telefon_dienstlich")), //
+  TELEFONPRIVAT(JVereinPlugin.getI18n().tr("mitglied_telefon_privat")), //
   TITEL(JVereinPlugin.getI18n().tr("mitglied_titel")), //
   VERMERK1(JVereinPlugin.getI18n().tr("mitglied_vermerk1")), //
   VERMERK2(JVereinPlugin.getI18n().tr("mitglied_vermerk2")), //
