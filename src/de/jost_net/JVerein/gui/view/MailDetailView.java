@@ -29,7 +29,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -171,10 +171,10 @@ public class MailDetailView extends AbstractView
 
   private void addLabel(String name, Composite parent, int align)
   {
-    Text text = new Text(parent, SWT.NONE);
-    text.setBackground(Color.BACKGROUND.getSWTColor());
-    text.setText(name);
-    text.setLayoutData(new GridData(align));
+    Label lb = new Label(parent, SWT.NONE);
+    lb.setBackground(Color.BACKGROUND.getSWTColor());
+    lb.setText(name);
+    lb.setLayoutData(new GridData(align));
   }
 
   @Override
