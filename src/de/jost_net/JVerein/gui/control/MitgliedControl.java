@@ -354,9 +354,18 @@ public class MitgliedControl extends AbstractControl
     at.addFilter("jvereinid != 1 or jvereinid is null");
     at.setOrder("order by bezeichnung");
 
-    Adresstyp def = (Adresstyp) Einstellungen.getDBService().createObject(
-        Adresstyp.class, settings.getString("suchadresstyp", "2"));
-    suchadresstyp = new SelectInput(at, def);
+    if (typ == 1)
+    {
+      Adresstyp def = (Adresstyp) Einstellungen.getDBService().createObject(
+          Adresstyp.class, "1");
+      suchadresstyp = new SelectInput(at, def);
+    }
+    else
+    {
+      Adresstyp def = (Adresstyp) Einstellungen.getDBService().createObject(
+          Adresstyp.class, settings.getString("suchadresstyp", "2"));
+      suchadresstyp = new SelectInput(at, def);
+    }
     suchadresstyp.setName(JVereinPlugin.getI18n().tr("Adresstyp"));
     suchadresstyp.addListener(new Listener()
     {
