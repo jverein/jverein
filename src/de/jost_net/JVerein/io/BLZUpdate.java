@@ -86,6 +86,7 @@ public class BLZUpdate implements GenericObject
     return mitglied.getNameVorname();
   }
 
+  @Override
   public String toString()
   {
     return newBLZ;

@@ -324,6 +324,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     return checked;
   }
 
+  @Override
   public String toString()
   {
     String ret = "";

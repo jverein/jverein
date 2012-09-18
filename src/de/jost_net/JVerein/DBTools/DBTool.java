@@ -166,6 +166,7 @@ public class DBTool
       return ausgegeben;
     }
 
+    @Override
     public String toString()
     {
       String ret = name;

@@ -45,11 +45,13 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
 
   private int anz;
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Altersjubilare PDF-Export");
   }
 
+  @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Mitglied.class)
@@ -74,11 +76,13 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
     return new IOFormat[] { f };
   }
 
+  @Override
   public String getDateiname()
   {
     return JVereinPlugin.getI18n().tr("altersjubilare");
   }
 
+  @Override
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
@@ -88,6 +92,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
         "Altersjubilare {0}", jahr + ""), "", 3);
   }
 
+  @Override
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
     Logger.debug(JVereinPlugin.getI18n().tr("Altersjubiläum, Jahrgang={0}",
@@ -109,6 +114,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
     anz = 0;
   }
 
+  @Override
   protected void endeJahrgang() throws DocumentException
   {
     if (anz == 0)
@@ -122,6 +128,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
     reporter.closeTable();
   }
 
+  @Override
   protected void add(Mitglied m) throws RemoteException
   {
     reporter.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
@@ -143,6 +150,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
     anz++;
   }
 
+  @Override
   protected void close() throws IOException, DocumentException
   {
     reporter.close();

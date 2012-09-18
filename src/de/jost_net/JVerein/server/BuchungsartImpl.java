@@ -163,12 +163,14 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     setAttribute("spende", Boolean.valueOf(spende));
   }
 
+  @Override
   public void delete() throws RemoteException, ApplicationException
   {
     super.delete();
     Cache.get(Buchungsart.class, false).remove(this); // Aus Cache loeschen
   }
 
+  @Override
   public void store() throws RemoteException, ApplicationException
   {
     super.store();

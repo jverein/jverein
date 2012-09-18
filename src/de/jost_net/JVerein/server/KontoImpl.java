@@ -185,12 +185,14 @@ public class KontoImpl extends AbstractDBObject implements Konto
     return konten;
   }
 
+  @Override
   public void delete() throws RemoteException, ApplicationException
   {
     super.delete();
     Cache.get(Konto.class, false).remove(this); // Aus Cache loeschen
   }
 
+  @Override
   public void store() throws RemoteException, ApplicationException
   {
     super.store();

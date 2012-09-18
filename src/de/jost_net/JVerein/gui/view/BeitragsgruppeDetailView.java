@@ -98,6 +98,7 @@ public class BeitragsgruppeDetailView extends AbstractView
             + "</form>");
   }
 
+  @Override
   public void unbind() throws ApplicationException
   {
     try

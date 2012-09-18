@@ -50,11 +50,13 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     control.getSuchAdresstyp(1).setValue(at);
   }
 
+  @Override
   public String getTitle()
   {
     return JVereinPlugin.getI18n().tr("Mitglieder suchen");
   }
 
+  @Override
   public void getFilter() throws RemoteException
   {
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
@@ -129,11 +131,13 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     }
   }
 
+  @Override
   public Action getDetailAction()
   {
     return new MitgliedDetailAction();
   }
 
+  @Override
   public Button getHilfeButton()
   {
     return new Button(JVereinPlugin.getI18n().tr("Hilfe"),

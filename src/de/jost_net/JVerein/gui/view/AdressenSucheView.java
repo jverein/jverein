@@ -44,11 +44,13 @@ public class AdressenSucheView extends AbstractAdresseSucheView
     control.getSuchAdresstyp(2).setValue(at);
   }
 
+  @Override
   public String getTitle()
   {
     return JVereinPlugin.getI18n().tr("Adressen suchen");
   }
 
+  @Override
   public void getFilter() throws RemoteException
   {
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
@@ -65,11 +67,13 @@ public class AdressenSucheView extends AbstractAdresseSucheView
     group.addLabelPair(JVereinPlugin.getI18n().tr("Adresstyp"), adrtyp);
   }
 
+  @Override
   public Action getDetailAction()
   {
     return new AdresseDetailAction();
   }
 
+  @Override
   public Button getHilfeButton()
   {
     return new Button(JVereinPlugin.getI18n().tr("Hilfe"),

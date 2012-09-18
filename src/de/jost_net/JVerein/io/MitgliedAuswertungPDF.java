@@ -285,6 +285,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
     return "PDF";
   }
 
+  @Override
   public String toString()
   {
     return JVereinPlugin.getI18n().tr("Mitgliederliste PDF");

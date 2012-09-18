@@ -89,6 +89,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     }
   }
   
+  @Override
   protected void onEscape()
   {
     close();
@@ -190,11 +191,13 @@ public class MailVorschauDialog extends AbstractDialog<Object>
       return "vorschauanhang";
     }
 
+    @Override
     public Object getAttribute(String key)
     {
       return properties.get(key);
     };
 
+    @Override
     public Object setAttribute(String key, Object o)
     {
       properties.put(key, o);

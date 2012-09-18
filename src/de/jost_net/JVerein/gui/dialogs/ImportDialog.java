@@ -108,6 +108,7 @@ public class ImportDialog extends AbstractDialog<Object>
   /**
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#paint(org.eclipse.swt.widgets.Composite)
    */
+  @Override
   protected void paint(Composite parent) throws Exception
   {
     Container group = new SimpleContainer(parent);
@@ -314,6 +315,7 @@ public class ImportDialog extends AbstractDialog<Object>
   /**
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
+  @Override
   protected Object getData() throws Exception
   {
     return null;

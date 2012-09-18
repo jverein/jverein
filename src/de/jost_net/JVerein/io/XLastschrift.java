@@ -137,6 +137,7 @@ public class XLastschrift
     }
   }
 
+  @Override
   public String toString()
   {
     StringBuilder zpfl = new StringBuilder();

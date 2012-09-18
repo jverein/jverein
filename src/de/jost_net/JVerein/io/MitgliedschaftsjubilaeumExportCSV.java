@@ -40,11 +40,13 @@ public class MitgliedschaftsjubilaeumExportCSV extends
 
   private int jahrgang;
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Mitgliedschaftsjubilare CSV-Export");
   }
 
+  @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Mitglied.class)
@@ -69,32 +71,38 @@ public class MitgliedschaftsjubilaeumExportCSV extends
     return new IOFormat[] { f };
   }
 
+  @Override
   public String getDateiname()
   {
     return JVereinPlugin.getI18n().tr("mitgliedschaftsjubilare");
   }
 
+  @Override
   protected void open() throws DocumentException, FileNotFoundException
   {
     //
   }
 
+  @Override
   protected void startJahrgang(int jahrgang)
   {
     this.jahrgang = jahrgang;
   }
 
+  @Override
   protected void endeJahrgang()
   {
     //
   }
 
+  @Override
   protected void add(Mitglied m) throws RemoteException
   {
     m.addVariable("mitgliedsschaftsjubilaeum", jahrgang + "");
     mitglieder.add(m);
   }
 
+  @Override
   protected void close()
   {
     MitgliedAuswertungCSV mcsv = new MitgliedAuswertungCSV();

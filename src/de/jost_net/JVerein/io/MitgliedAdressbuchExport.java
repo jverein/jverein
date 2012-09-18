@@ -81,6 +81,7 @@ public class MitgliedAdressbuchExport implements IAuswertung
     return true;
   }
 
+  @Override
   public String toString()
   {
     return JVereinPlugin.getI18n().tr("Adressbuchexport CSV");

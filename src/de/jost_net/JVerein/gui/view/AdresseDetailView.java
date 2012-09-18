@@ -26,11 +26,13 @@ import de.jost_net.JVerein.JVereinPlugin;
 public class AdresseDetailView extends AbstractAdresseDetailView
 {
 
+  @Override
   public String getTitle()
   {
     return JVereinPlugin.getI18n().tr("Adressdaten");
   }
 
+  @Override
   public boolean isMitgliedDetail()
   {
     return false;

@@ -77,6 +77,7 @@ public class KontoInput extends SelectInput
   /**
    * @see de.willuhn.jameica.gui.input.SelectInput#format(java.lang.Object)
    */
+  @Override
   protected String format(Object bean)
   {
     if (bean == null)

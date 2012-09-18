@@ -48,11 +48,13 @@ public class KontenrahmenExportXML extends KontenrahmenExport
 
   private IXMLElement xmlklbarten;
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Kontenrahmen XML-Export");
   }
 
+  @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Buchungsklasse.class)
@@ -77,11 +79,13 @@ public class KontenrahmenExportXML extends KontenrahmenExport
     return new IOFormat[] { f };
   }
 
+  @Override
   public String getDateiname()
   {
     return JVereinPlugin.getI18n().tr("kontenrahmen");
   }
 
+  @Override
   protected void open() throws IOException
   {
     output = new FileWriter(file);
@@ -91,6 +95,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
     xmlwriter = new XMLWriter(output);
   }
 
+  @Override
   protected void addKlasse(Buchungsklasse klasse) throws RemoteException
   {
     xmlkl = new XMLElement("buchungsklasse");
@@ -101,6 +106,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
     xmlkl.addChild(xmlklbarten);
   }
 
+  @Override
   protected void addBuchungsart(Buchungsart buchungsart) throws RemoteException
   {
     IXMLElement xmlba = new XMLElement("buchungsart");
@@ -111,6 +117,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
     xmlklbarten.addChild(xmlba);
   }
 
+  @Override
   protected void close() throws IOException
   {
     xmlwriter.write(xmltree);

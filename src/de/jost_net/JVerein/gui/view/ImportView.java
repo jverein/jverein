@@ -267,6 +267,7 @@ public class ImportView extends AbstractView
     importbt.setLayoutData(importData);
     importbt.addSelectionListener(new SelectionAdapter()
     {
+      @Override
       public void widgetSelected(SelectionEvent event)
       {
         doImport();
@@ -295,6 +296,7 @@ public class ImportView extends AbstractView
     ds.setTransfer(new Transfer[] { TextTransfer.getInstance() });
     ds.addDragListener(new DragSourceAdapter()
     {
+      @Override
       public void dragSetData(DragSourceEvent event)
       {
         // Set the data to be the first selected item's text
@@ -307,6 +309,7 @@ public class ImportView extends AbstractView
     dt.setTransfer(new Transfer[] { TextTransfer.getInstance() });
     dt.addDropListener(new DropTargetAdapter()
     {
+      @Override
       public void drop(DropTargetEvent event)
       {
         TableItem curItem = (TableItem) event.item;

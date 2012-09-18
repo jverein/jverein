@@ -103,6 +103,7 @@ public class SimpleVerticalContainer extends Container
   /**
    * @see de.willuhn.jameica.gui.util.Container#getComposite()
    */
+  @Override
   public Composite getComposite()
   {
     return this.comp;

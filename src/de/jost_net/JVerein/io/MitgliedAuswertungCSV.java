@@ -157,6 +157,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
     return "CSV";
   }
 
+  @Override
   public String toString()
   {
     return JVereinPlugin.getI18n().tr("Mitgliederliste CSV");

@@ -58,6 +58,7 @@ public class SpendenView extends AbstractView
   /**
    * @see de.willuhn.jameica.gui.AbstractView#bind()
    */
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle(i18n.tr("Spenden für JVerein"));
