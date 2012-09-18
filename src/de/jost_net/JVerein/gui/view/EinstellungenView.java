@@ -25,6 +25,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EinstellungControl;
@@ -229,6 +230,86 @@ public class EinstellungenView extends AbstractView
         control.getJubilaeen());
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"),
         control.getAltersjubilaeen());
+    
+    TabGroup mitgliedAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
+        "Mitglied"));
+
+    LabelGroup groupSpaltenAnzahl = new LabelGroup(mitgliedAnzeige.getComposite(), JVereinPlugin
+        .getI18n().tr("Spaltenanzahl"));
+    ColumnLayout colsMitglied = new ColumnLayout(groupSpaltenAnzahl.getComposite(), 2);
+    SimpleContainer leftMitglied = new SimpleContainer(colsMitglied.getComposite());
+
+    leftMitglied.addLabelPair(JVereinPlugin.getI18n().tr("Anzahl Spalten Stammdaten"),
+        control.getAnzahlSpaltenStammdatenInput());
+    
+    leftMitglied.addLabelPair(JVereinPlugin.getI18n().tr("Anzahl Spalten Mitgliedschaft"),
+        control.getAnzahlSpaltenMitgliedschaftInput());
+    
+    leftMitglied.addLabelPair(JVereinPlugin.getI18n().tr("Anzahl Spalten Zahlung"),
+        control.getAnzahlSpaltenZahlungInput());
+    
+    leftMitglied.addLabelPair(JVereinPlugin.getI18n().tr("Anzahl Spalten Zusatzfelder"),
+        control.getAnzahlSpaltenZusatzfelderInput());
+    
+    if (Einstellungen.getEinstellung().getUseLesefelder())
+      leftMitglied.addLabelPair(JVereinPlugin.getI18n().tr("Anzahl Spalten Lesefelder"),
+        control.getAnzahlSpaltenLesefelderInput());
+    
+    
+    LabelGroup groupShowInTab = new LabelGroup(mitgliedAnzeige.getComposite(), JVereinPlugin
+        .getI18n().tr("In Tab anzeigen"));
+    ColumnLayout colsTab = new ColumnLayout(groupShowInTab.getComposite(), 2);
+    SimpleContainer leftTab = new SimpleContainer(colsTab.getComposite());
+    
+    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Stammdaten in Tab"),
+        control.getZeigeStammdatenInTabCheckbox());
+    
+    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Mitgliedschaft in Tab"),
+        control.getZeigeMitgliedschaftInTabCheckbox());
+    
+    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Zahlung in Tab"),
+        control.getZeigeZahlungInTabCheckbox());
+    
+    if(Einstellungen.getEinstellung().getZusatzbetrag())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Zusatzbeträge in Tab"),
+          control.getZeigeZusatzbetrageInTabCheckbox());
+
+    if(Einstellungen.getEinstellung().getMitgliedskonto())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Mitgliedskonto in Tab"),
+          control.getZeigeMitgliedskontoInTabCheckbox());
+    
+    if (Einstellungen.getEinstellung().getVermerke())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Vermerke in Tab"),
+          control.getZeigeVermerkeInTabCheckbox());
+    
+    if (Einstellungen.getEinstellung().getWiedervorlage())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Wiedervorlage in Tab"),
+          control.getZeigeWiedervorlageInTabCheckbox());
+    
+    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Mails in Tab"),
+        control.getZeigeMailsInTabCheckbox());
+    
+    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Eigenschaften in Tab"),
+        control.getZeigeEigenschaftenInTabCheckbox());
+    
+    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Zusatzfelder in Tab"),
+        control.getZeigeZusatzfelderInTabCheckbox());
+    
+    if(Einstellungen.getEinstellung().getLehrgaenge())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Lehrgänge in Tab"),
+          control.getZeigeLehrgaengeInTabCheckbox());
+    
+    if(Einstellungen.getEinstellung().getMitgliedfoto())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Foto in Tab"),
+          control.getZeigeFotoInTabCheckbox());
+    
+    if (Einstellungen.getEinstellung().getUseLesefelder())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Lesefelder in Tab"),
+        control.getZeigeLesefelderInTabCheckbox());
+    
+    if (Einstellungen.getEinstellung().getArbeitseinsatz())
+      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Arbeitseinsatz in Tab"),
+        control.getZeigeArbeitseinsatzInTabCheckbox());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),

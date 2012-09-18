@@ -32,6 +32,7 @@ import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -46,9 +47,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
    */
   private Boolean hasZus = null;
 
+  /**
+   * settings speichert Benutzer-Präferenzen in einer config-Datei. Sie
+   * unterscheiden sich also auf jedem System und hängen nicht an der DB.
+   */
+  private Settings settings;
+
   public EinstellungImpl() throws RemoteException
   {
     super();
+    settings = new Settings(this.getClass());
   }
 
   @Override
@@ -860,4 +868,207 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     return super.getAttribute(fieldName);
   }
+
+  public boolean getZeigeStammdatenInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeStammdatenInTab", false);
+  }
+
+  public void setZeigeStammdatenInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeStammdatenInTab", showInTab);
+  }
+
+  public boolean getZeigeMitgliedschaftInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeMitgliedschaftInTab", true);
+  }
+
+  public void setZeigeMitgliedschaftInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeMitgliedschaftInTab", showInTab);
+
+  }
+
+  public boolean getZeigeZahlungInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeZahlungInTab", true);
+  }
+
+  public void setZeigeZahlungInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeZahlungInTab", showInTab);
+  }
+
+  public boolean getZeigeZusatzbetraegeInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeZusatzbetrageInTab", true);
+  }
+
+  public void setZeigeZusatzbetrageInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeZusatzbetrageInTab", showInTab);
+  }
+
+  public boolean getZeigeMitgliedskontoInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeMitgliedskontoInTab", true);
+  }
+
+  public void setZeigeMitgliedskontoInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeMitgliedskontoInTab", showInTab);
+  }
+
+  public boolean getZeigeVermerkeInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeVermerkeInTab", true);
+  }
+
+  public void setZeigeVermerkeInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeVermerkeInTab", showInTab);
+  }
+
+  public boolean getZeigeWiedervorlageInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeWiedervorlageInTab", true);
+  }
+
+  public void setZeigeWiedervorlageInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeWiedervorlageInTab", showInTab);
+  }
+
+  public boolean getZeigeEigenschaftenInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeEigenschaftenInTab", true);
+  }
+
+  public void setZeigeEigentschaftenInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeEigenschaftenInTab", showInTab);
+  }
+
+  public boolean getZeigeMailsInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeMailsInTab", true);
+  }
+
+  public void setZeigeMailsInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeMailsInTab", showInTab);
+  }
+
+  public boolean getZeigeZusatzfelderInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeZusatzfelderInTab", true);
+  }
+
+  public void setZeigeZusatzfelderInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeZusatzfelderInTab", showInTab);
+  }
+
+  public boolean getZeigeLehrgaengeInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeLehrgaengeInTab", true);
+  }
+
+  public void setZeigeLehrgaengeInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeLehrgaengeInTab", showInTab);
+  }
+
+  public boolean getZeigeFotoInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeFotoInTab", true);
+  }
+
+  public void setZeigeFotoInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeFotoInTab", showInTab);
+  }
+
+  public boolean getZeigeLesefelderInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeLesefelderInTab", true);
+  }
+
+  public void setZeigeLesefelderInTab(boolean showInTab) throws RemoteException
+  {
+    settings.setAttribute("ZeigeLesefelderInTab", showInTab);
+  }
+
+  public boolean getZeigeArbeitseinsatzInTab() throws RemoteException
+  {
+    return settings.getBoolean("ZeigeArbeitseinsatzInTab", true);
+  }
+
+  public void setZeigeArbeitseinsatzInTab(boolean showInTab)
+      throws RemoteException
+  {
+    settings.setAttribute("ZeigeArbeitseinsatzInTab", showInTab);
+  }
+
+  public int getAnzahlSpaltenStammdaten() throws RemoteException
+  {
+    return settings.getInt("AnzahlSpaltenStammdaten", 2);
+  }
+
+  public void setAnzahlSpaltenStammdaten(int anzahlSpalten)
+      throws RemoteException
+  {
+    settings.setAttribute("AnzahlSpaltenStammdaten", anzahlSpalten);
+  }
+
+  public int getAnzahlSpaltenZusatzfelder() throws RemoteException
+  {
+    return settings.getInt("AnzahlSpaltenZusatzfelder", 1);
+  }
+
+  public void setAnzahlSpaltenZusatzfelder(int anzahlSpalten)
+      throws RemoteException
+  {
+    settings.setAttribute("AnzahlSpaltenZusatzfelder", anzahlSpalten);
+  }
+
+  public int getAnzahlSpaltenLesefelder() throws RemoteException
+  {
+    return settings.getInt("AnzahlSpaltenLesefelder", 1);
+  }
+
+  public void setAnzahlSpaltenLesefelder(int anzahlSpalten)
+      throws RemoteException
+  {
+    settings.setAttribute("AnzahlSpaltenLesefelder", anzahlSpalten);
+  }
+
+  public int getAnzahlSpaltenMitgliedschaft() throws RemoteException
+  {
+    return settings.getInt("AnzahlSpaltenMitgliedschaft", 1);
+  }
+
+  public void setAnzahlSpaltenMitgliedschaft(int anzahlSpalten)
+      throws RemoteException
+  {
+    settings.setAttribute("AnzahlSpaltenMitgliedschaft", anzahlSpalten);
+  }
+
+  public int getAnzahlSpaltenZahlung() throws RemoteException
+  {
+    return settings.getInt("AnzahlSpaltenZahlung", 1);
+  }
+
+  public void setAnzahlSpaltenZahlung(int anzahlSpalten) throws RemoteException
+  {
+    settings.setAttribute("AnzahlSpaltenZahlung", anzahlSpalten);
+  }
+
 }

@@ -282,4 +282,61 @@ public interface Einstellung extends DBObject
   public boolean getUseLesefelder() throws RemoteException;
   
   public void setUseLesefelder(boolean use) throws RemoteException;
+  
+  public boolean getZeigeStammdatenInTab() throws RemoteException;
+  public void setZeigeStammdatenInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeMitgliedschaftInTab() throws RemoteException;
+  public void setZeigeMitgliedschaftInTab(boolean showInTab) throws RemoteException;
+  
+  public boolean getZeigeZahlungInTab() throws RemoteException;
+  public void setZeigeZahlungInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeZusatzbetraegeInTab() throws RemoteException;
+  public void setZeigeZusatzbetrageInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeMitgliedskontoInTab() throws RemoteException;
+  public void setZeigeMitgliedskontoInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeVermerkeInTab() throws RemoteException;
+  public void setZeigeVermerkeInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeWiedervorlageInTab() throws RemoteException;
+  public void setZeigeWiedervorlageInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeEigenschaftenInTab() throws RemoteException;
+  public void setZeigeEigentschaftenInTab(boolean showInTab) throws RemoteException;
+  
+  public boolean getZeigeMailsInTab() throws RemoteException;
+  public void setZeigeMailsInTab(boolean showInTab) throws RemoteException;
+  
+  public boolean getZeigeZusatzfelderInTab() throws RemoteException;
+  public void setZeigeZusatzfelderInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeLehrgaengeInTab() throws RemoteException;
+  public void setZeigeLehrgaengeInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeFotoInTab() throws RemoteException;
+  public void setZeigeFotoInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeLesefelderInTab() throws RemoteException;
+  public void setZeigeLesefelderInTab(boolean showInTab) throws RemoteException;
+
+  public boolean getZeigeArbeitseinsatzInTab() throws RemoteException;
+  public void setZeigeArbeitseinsatzInTab(boolean showInTab) throws RemoteException;
+  
+  public int getAnzahlSpaltenStammdaten() throws RemoteException;
+  public void setAnzahlSpaltenStammdaten(int anzahlSpalten) throws RemoteException;
+
+  public int getAnzahlSpaltenZusatzfelder() throws RemoteException;
+  public void setAnzahlSpaltenZusatzfelder(int anzahlSpalten) throws RemoteException;
+
+  public int getAnzahlSpaltenLesefelder() throws RemoteException;
+  public void setAnzahlSpaltenLesefelder(int anzahlSpalten) throws RemoteException;
+  
+  public int getAnzahlSpaltenMitgliedschaft() throws RemoteException;
+  public void setAnzahlSpaltenMitgliedschaft(int anzahlSpalten) throws RemoteException;
+  
+  public int getAnzahlSpaltenZahlung() throws RemoteException;
+  public void setAnzahlSpaltenZahlung(int anzahlSpalten) throws RemoteException;
 }

@@ -96,33 +96,49 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     MitgliedUtils.setMitglied(zhl);
     zhl.setOrder("ORDER BY name, vorname");
 
-    zeicheStammdaten(oben.getComposite(), 2);
+    int anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenStammdaten();
+    boolean showInTab = Einstellungen.getEinstellung().getZeigeStammdatenInTab();
+    zeicheStammdaten(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
-    boolean showInTab = true;
-    zeichneMitgliedschaft(showInTab ? folder : oben.getComposite(), 1);
+    anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenMitgliedschaft();
+    showInTab = Einstellungen.getEinstellung().getZeigeMitgliedschaftInTab();
+    zeichneMitgliedschaft(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
-    showInTab = true;
-    zeichneZahlung(showInTab ? folder : oben.getComposite(), 1);
+    anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenZahlung();
+    showInTab = Einstellungen.getEinstellung().getZeigeZahlungInTab();
+    zeichneZahlung(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
+    showInTab = Einstellungen.getEinstellung().getZeigeZusatzbetraegeInTab();
     zeichneZusatzbeitraege(showInTab ? folder : oben.getComposite());
 
+    showInTab = Einstellungen.getEinstellung().getZeigeMitgliedskontoInTab();
     zeichneMitgliedkonto(controlMk, showInTab ? folder : oben.getComposite());
 
+    showInTab = Einstellungen.getEinstellung().getZeigeVermerkeInTab();
     zeichneVermerke(showInTab ? folder : oben.getComposite(), 1);
 
+    showInTab = Einstellungen.getEinstellung().getZeigeWiedervorlageInTab();
     zeichneWiedervorlage(showInTab ? folder : oben.getComposite());
 
+    showInTab = Einstellungen.getEinstellung().getZeigeMailsInTab();
     zeichneMails(showInTab ? folder : oben.getComposite());
 
+    showInTab = Einstellungen.getEinstellung().getZeigeEigenschaftenInTab();
     zeichneEigenschaften(showInTab ? folder : oben.getComposite());
 
-    zeichneZusatzfelder(showInTab ? folder : oben.getComposite(), 1);
+    anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenZusatzfelder();
+    showInTab = Einstellungen.getEinstellung().getZeigeZusatzfelderInTab();
+    zeichneZusatzfelder(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
+    showInTab = Einstellungen.getEinstellung().getZeigeLehrgaengeInTab();
     zeichneLehrgaenge(showInTab ? folder : oben.getComposite());
 
+    showInTab = Einstellungen.getEinstellung().getZeigeFotoInTab();
     zeichneMitgliedfoto(showInTab ? folder : oben.getComposite());
 
-    zeichneLesefelder(showInTab ? folder : oben.getComposite(), 1);
+    anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenLesefelder();
+    showInTab = Einstellungen.getEinstellung().getZeigeLesefelderInTab();
+    zeichneLesefelder(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
     zeichneMitgliedDetail(showInTab ? folder : oben.getComposite());
 
