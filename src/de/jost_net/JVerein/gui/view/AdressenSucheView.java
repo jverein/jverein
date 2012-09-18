@@ -39,9 +39,6 @@ public class AdressenSucheView extends AbstractAdresseSucheView
   public AdressenSucheView() throws RemoteException
   {
     control.getSuchAdresstyp(2).getValue();
-    Adresstyp at = (Adresstyp) Einstellungen.getDBService().createObject(
-        Adresstyp.class, "2");
-    control.getSuchAdresstyp(2).setValue(at);
   }
 
   @Override
@@ -60,9 +57,6 @@ public class AdressenSucheView extends AbstractAdresseSucheView
     group.addInput(suchName);
 
     Input adrtyp = control.getSuchAdresstyp(2);
-    Adresstyp at = (Adresstyp) Einstellungen.getDBService().createObject(
-        Adresstyp.class, "2");
-    control.getSuchAdresstyp(2).setValue(at);
     adrtyp.addListener(new FilterListener());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Adresstyp"), adrtyp);
   }

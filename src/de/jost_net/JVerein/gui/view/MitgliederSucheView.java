@@ -45,9 +45,6 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
   public MitgliederSucheView() throws RemoteException
   {
     control.getSuchAdresstyp(1).getValue();
-    Adresstyp at = (Adresstyp) Einstellungen.getDBService().createObject(
-        Adresstyp.class, "1");
-    control.getSuchAdresstyp(1).setValue(at);
   }
 
   @Override
@@ -89,7 +86,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     TextInput suchName = control.getSuchname();
     suchName.addListener(new FilterListener());
     middle.addInput(suchName);
-    
+
     DateInput mitglgebdatvon = control.getGeburtsdatumvon();
     mitglgebdatvon.addListener(new FilterListener());
     middle.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"),

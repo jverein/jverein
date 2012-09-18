@@ -353,8 +353,26 @@ public class MitgliedControl extends AbstractControl
     }
     at.addFilter("jvereinid != 1 or jvereinid is null");
     at.setOrder("order by bezeichnung");
-    suchadresstyp = new SelectInput(at, null);
+
+    Adresstyp def = (Adresstyp) Einstellungen.getDBService().createObject(
+        Adresstyp.class, settings.getString("suchadresstyp", "2"));
+    suchadresstyp = new SelectInput(at, def);
     suchadresstyp.setName(JVereinPlugin.getI18n().tr("Adresstyp"));
+    suchadresstyp.addListener(new Listener()
+    {
+      public void handleEvent(Event event)
+      {
+        Adresstyp sel = (Adresstyp) suchadresstyp.getValue();
+        try
+        {
+          settings.setAttribute("suchadresstyp", sel.getID());
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+        }
+      }
+    });
     return suchadresstyp;
   }
 
