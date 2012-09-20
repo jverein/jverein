@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
@@ -43,6 +45,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularAnzeigeAction implements Action
 {
+
   public void handleAction(Object context) throws ApplicationException
   {
     Formular formular = null;
@@ -101,16 +104,59 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.TAGESDATUM,
           new JVDateFormatTTMMJJJJ().format(new Date()));
 
-      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
-          .getDBService().createObject(Spendenbescheinigung.class, null);
+      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
+          Spendenbescheinigung.class, null);
       map = spb.getMap(map);
       map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "15.12.2008");
       map.put("Buchungsdatum", new Date());
-      map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(), "17.12.2008");
+      map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
+          "17.12.2008");
       map.put("Tagesdatum", new JVDateFormatTTMMJJJJ().format(new Date()));
-      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), "13.02.2008 - 12.11.2008");
-      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), "Datum         Betrag     Verwendung\n----------  -----------  ----------------------------------\n13.02.2008        15,00  Beitrag (a)\n12.11.2008      1234,96  Spende (b)\n----------  -----------  ----------------------------------\nSumme:          1249,96\n\n\nLegende:\n(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen\n(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
+      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(),
+          "13.02.2008 - 12.11.2008");
+      map.put(
+          SpendenbescheinigungVar.BUCHUNGSLISTE.getName(),
+          "Datum         Betrag     Verwendung\n----------  -----------  ----------------------------------\n13.02.2008        15,00  Beitrag (a)\n12.11.2008      1234,96  Spende (b)\n----------  -----------  ----------------------------------\nSumme:          1249,96\n\n\nLegende:\n(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen\n(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
+      // Mitgliedskonto
+
+      ArrayList<Date> buda = new ArrayList<Date>();
+      ArrayList<String> zg = new ArrayList<String>();
+      ArrayList<String> zg1 = new ArrayList<String>();
+      ArrayList<Double> betrag = new ArrayList<Double>();
+      ArrayList<Double> ist = new ArrayList<Double>();
+      ArrayList<Double> differenz = new ArrayList<Double>();
+      // Buchung 1
+      buda.add(new Date());
+      zg.add("Testverwendungszweck");
+      zg1.add("Testverwendungszweck");
+      betrag.add(150.10d);
+      ist.add(0d);
+      differenz.add(-150.10d);
+      // Buchung 2
+      buda.add(new Date());
+      zg.add("2. Verwendungszweck");
+      zg1.add("2. Verwendungszweck");
+      betrag.add(10d);
+      ist.add(5d);
+      differenz.add(-5d);
+      // Summe
+      zg1.add(JVereinPlugin.getI18n().tr("Summe"));
+      zg.add(JVereinPlugin.getI18n().tr("Summe"));
+      betrag.add(160.1d);
+      differenz.add(155.1d);
+      ist.add(5d);
+      map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
+      map.put(FormularfeldControl.ZAHLUNGSGRUND, zg.toArray());
+      map.put(FormularfeldControl.ZAHLUNGSGRUND1, zg1.toArray());
+      map.put(FormularfeldControl.BETRAG, betrag.toArray());
+      map.put(MitgliedskontoVar.BUCHUNGSDATUM.getName(), buda.toArray());
+      map.put(MitgliedskontoVar.ZAHLUNGSGRUND.getName(), zg.toArray());
+      map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), zg1.toArray());
+      map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
+      map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
+      map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
+
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);
       fab.showFormular();
