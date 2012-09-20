@@ -36,7 +36,7 @@ public class MitgliedskontoMap
 
   public MitgliedskontoMap()
   {
-
+    //
   }
 
   public Map<String, Object> getMap(ArrayList<Mitgliedskonto> mk,
