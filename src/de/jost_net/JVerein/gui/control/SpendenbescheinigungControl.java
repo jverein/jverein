@@ -548,7 +548,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
 
-    /* Check ob auch ein Forumular ausgewaehlt ist */
+    /* Check ob auch ein Formular ausgewaehlt ist */
     Formular spendeformular = getSpendenbescheinigung().getFormular();
     if (spendeformular == null)
     {
