@@ -36,6 +36,7 @@ import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
+import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -104,8 +105,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.TAGESDATUM,
           new JVDateFormatTTMMJJJJ().format(new Date()));
 
-      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
-          Spendenbescheinigung.class, null);
+      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
+          .getDBService().createObject(Spendenbescheinigung.class, null);
       map = spb.getMap(map);
       map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "15.12.2008");
       map.put("Buchungsdatum", new Date());
@@ -117,6 +118,14 @@ public class FormularAnzeigeAction implements Action
       map.put(
           SpendenbescheinigungVar.BUCHUNGSLISTE.getName(),
           "Datum         Betrag     Verwendung\n----------  -----------  ----------------------------------\n13.02.2008        15,00  Beitrag (a)\n12.11.2008      1234,96  Spende (b)\n----------  -----------  ----------------------------------\nSumme:          1249,96\n\n\nLegende:\n(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen\n(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
+      map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
+          "gebrauchter Tisch");
+      map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
+          HerkunftSpende.get(1));
+      map.put(
+          SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
+          "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor.");
+
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
       // Mitgliedskonto
 

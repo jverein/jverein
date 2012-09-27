@@ -586,6 +586,14 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
     boolean printBuchungsart = Einstellungen.getEinstellung()
         .getSpendenbescheinigungPrintBuchungsart();
+    map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
+        getBezeichnungSachzuwendung());
+    map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
+        HerkunftSpende.get(getHerkunftSpende()));
+    map.put(
+        SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
+        getUnterlagenWertermittlung() ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
+            : "");
 
     // bei Sammelbestätigungen ein Zeitraum und "siehe Anlage"
     if (getBuchungen() != null && getBuchungen().size() > 1)

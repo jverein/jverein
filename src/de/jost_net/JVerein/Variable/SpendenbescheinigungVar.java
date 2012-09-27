@@ -37,7 +37,13 @@ public enum SpendenbescheinigungVar
   ERSATZAUFWENDUNGEN(JVereinPlugin.getI18n().tr(
       "spendenbescheinigung_ersatzaufwendungen")), //
   BUCHUNGSLISTE(JVereinPlugin.getI18n()
-      .tr("spendenbescheinigung_buchungsliste")); //
+      .tr("spendenbescheinigung_buchungsliste")), //
+  BEZEICHNUNGSACHZUWENDUNG(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_bezeichnungsachzuwendung")), //
+  HERKUNFTSACHZUWENDUNG(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_herkunftsachzuwendung")), //
+  UNTERLAGENWERTERMITTUNG(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_unterlagenwertermittlung"));//
 
   private String name;
 
