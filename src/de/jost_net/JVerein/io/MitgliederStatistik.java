@@ -191,12 +191,10 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getAltersgruppe(von, bis, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(
-        getAltersgruppe(von, bis, JVereinPlugin.getI18n().tr("männlich"),
-            stichtag) + "", Element.ALIGN_RIGHT);
-    reporter.addColumn(
-        getAltersgruppe(von, bis, JVereinPlugin.getI18n().tr("weiblich"),
-            stichtag) + "", Element.ALIGN_RIGHT);
+    reporter.addColumn(getAltersgruppe(von, bis, "M", stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(getAltersgruppe(von, bis, "W", stichtag) + "",
+        Element.ALIGN_RIGHT);
   }
 
   private void addBeitragsgruppe(Reporter reporter, Beitragsgruppe bg,
@@ -213,12 +211,10 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getBeitragsgruppe(bg, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(
-        getBeitragsgruppe(bg, JVereinPlugin.getI18n().tr("männlich"), stichtag)
-            + "", Element.ALIGN_RIGHT);
-    reporter.addColumn(
-        getBeitragsgruppe(bg, JVereinPlugin.getI18n().tr("weiblich"), stichtag)
-            + "", Element.ALIGN_RIGHT);
+    reporter.addColumn(getBeitragsgruppe(bg, "M", stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(getBeitragsgruppe(bg, "W", stichtag) + "",
+        Element.ALIGN_RIGHT);
   }
 
   /**
