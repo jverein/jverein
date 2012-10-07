@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -40,7 +39,8 @@ import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -345,17 +345,17 @@ public class ArbeitseinsatzControl extends AbstractControl
           Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
               "Arbeitseinsätze {0}", jahr + ""), sub, it.size());
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-              Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Sollstunden"),
-              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Iststunden"),
-              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Differenz"),
-              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(("Stundensatz"), Element.ALIGN_RIGHT, 30,
-              Color.LIGHT_GRAY);
+              BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Gesamtbetrag"),
-              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
           {

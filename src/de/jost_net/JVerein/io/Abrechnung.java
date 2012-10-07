@@ -29,7 +29,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Hashtable;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;

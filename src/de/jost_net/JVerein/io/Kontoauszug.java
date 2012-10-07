@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,8 +30,9 @@ import java.util.Date;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -121,19 +121,19 @@ public class Kontoauszug
     JVDateFormatTTMMJJJJ jv = new JVDateFormatTTMMJJJJ();
     rpt.add(JVereinPlugin.getI18n().tr("Stand: {0}", jv.format(new Date())), 16);
 
-    rpt.addHeaderColumn(" ", Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
+    rpt.addHeaderColumn(" ", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-        Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zweck"),
-        Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+        Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"),
-        Element.ALIGN_LEFT, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_LEFT, 20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Soll"),
-        Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Ist"), Element.ALIGN_RIGHT,
-        20, Color.LIGHT_GRAY);
+        20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Differenz"),
-        Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
 
     MitgliedskontoNode node = new MitgliedskontoNode(m, von, bis);

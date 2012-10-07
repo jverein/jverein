@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
@@ -29,7 +28,8 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -323,16 +323,16 @@ public class BuchungsartControl extends AbstractControl
           Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
               "Buchungsarten"), "", it.size());
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Nummer"),
-              Element.ALIGN_LEFT, 15, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 15, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
-              Element.ALIGN_LEFT, 80, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 80, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Art"),
-              Element.ALIGN_LEFT, 25, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 25, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(
               JVereinPlugin.getI18n().tr("Buchungsklasse"), Element.ALIGN_LEFT,
-              80, Color.LIGHT_GRAY);
+              80, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Spende"),
-              Element.ALIGN_CENTER, 10, Color.LIGHT_GRAY);
+              Element.ALIGN_CENTER, 10, BaseColor.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
           {

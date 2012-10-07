@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,9 +34,10 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Paragraph;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -242,9 +242,9 @@ public class PersonalbogenAction implements Action
       throws DocumentException, MalformedURLException, IOException
   {
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Feld"), Element.ALIGN_LEFT,
-        50, Color.LIGHT_GRAY);
+        50, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Inhalt"),
-        Element.ALIGN_LEFT, 140, Color.LIGHT_GRAY);
+        Element.ALIGN_LEFT, 140, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     DBIterator it = Einstellungen.getDBService().createList(Mitgliedfoto.class);
     it.addFilter("mitglied = ?", new Object[] { m.getID() });
@@ -393,19 +393,19 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Zusatzbetrag")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Start"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("nächste Fäll."),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("letzte Ausf."),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Intervall"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Ende"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungstext"),
-          Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -437,15 +437,15 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Mitgliedskonto")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Text"),
-          Element.ALIGN_LEFT, 12, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 12, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zweck"),
-          Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -478,7 +478,7 @@ public class PersonalbogenAction implements Action
   {
     rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Vermerke")));
     rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Text"), Element.ALIGN_LEFT,
-        100, Color.LIGHT_GRAY);
+        100, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     if (m.getVermerk1() != null && m.getVermerk1().length() > 0)
     {
@@ -503,11 +503,11 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Wiedervorlage")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-          Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Vermerk"),
-          Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Erledigung"),
-          Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -531,15 +531,15 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Lehrgänge")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Lehrgangsart"),
-          Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("am/vom"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("bis"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Veranstalter"),
-          Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Ergebnis"),
-          Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -565,9 +565,9 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Zusatzfelder")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Feld"),
-          Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Inhalt"),
-          Element.ALIGN_LEFT, 130, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 130, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -615,9 +615,9 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Eigenschaften")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Eigenschaftengruppe"),
-          Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Eigenschaft"),
-          Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       for (String id : idliste)
       {
@@ -648,11 +648,11 @@ public class PersonalbogenAction implements Action
     {
       rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Arbeitseinsätze")));
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Stunden"),
-          Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Bemerkung"),
-          Element.ALIGN_LEFT, 90, Color.LIGHT_GRAY);
+          Element.ALIGN_LEFT, 90, BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {

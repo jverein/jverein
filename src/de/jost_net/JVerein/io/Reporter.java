@@ -22,7 +22,6 @@
 
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -30,21 +29,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.HeaderFooter;
-import com.lowagie.text.Image;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.HyphenationAuto;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.HyphenationAuto;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -103,7 +102,7 @@ public class Reporter
     this.out = out;
     rpt = new Document();
     hyph = new HyphenationAuto("de", "DE", 2, 2);
-    PdfWriter.getInstance(rpt, out);
+    PdfWriter writer = PdfWriter.getInstance(rpt, out);
     rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
     AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
         JVereinPlugin.class);
@@ -111,17 +110,16 @@ public class Reporter
         + plugin.getManifest().getVersion());
     rpt.addTitle(subtitle);
 
-    Chunk fuss = new Chunk(title
+    String fuss = title
         + " | "
         + subtitle
         + " | "
         + JVereinPlugin.getI18n().tr("erstellt am {0}",
             new JVDateFormatTTMMJJJJ().format(new Date())) + "     "
-        + JVereinPlugin.getI18n().tr("Seite: "), FontFactory.getFont(
-        FontFactory.HELVETICA, 8, Font.BOLD));
-    HeaderFooter hf = new HeaderFooter(new Phrase(fuss), true);
-    hf.setAlignment(Element.ALIGN_CENTER);
-    rpt.setFooter(hf);
+        + JVereinPlugin.getI18n().tr("Seite: ");
+    HeaderFooter hf = new HeaderFooter();
+    hf.setFooter(fuss);
+    writer.setPageEvent(hf);
 
     rpt.open();
 
@@ -168,7 +166,7 @@ public class Reporter
    * @param width
    * @param color
    */
-  public void addHeaderColumn(String text, int align, int width, Color color)
+  public void addHeaderColumn(String text, int align, int width, BaseColor color)
   {
     headers.add(getDetailCell(text, align, color, true));
     widths.add(Integer.valueOf(width));
@@ -182,8 +180,8 @@ public class Reporter
    * @param width
    * @param color
    */
-  public void addHeaderColumn(String text, int align, int width, Color color,
-      boolean silbentrennung)
+  public void addHeaderColumn(String text, int align, int width,
+      BaseColor color, boolean silbentrennung)
   {
     headers.add(getDetailCell(text, align, color, silbentrennung));
     widths.add(Integer.valueOf(width));
@@ -204,16 +202,16 @@ public class Reporter
       MalformedURLException, IOException
   {
     Image i = Image.getInstance(image);
-    float w = i.width() / width;
-    float h = i.height() / height;
+    float w = i.getWidth() / width;
+    float h = i.getHeight() / height;
     if (w > h)
     {
-      h = i.height() / w;
+      h = i.getHeight() / w;
       w = width;
     }
     else
     {
-      w = i.width() / h;
+      w = i.getHeight() / h;
       h = height;
     }
     i.scaleToFit(w, h);
@@ -226,7 +224,7 @@ public class Reporter
   /**
    * Fuegt eine neue Zelle zur Tabelle hinzu.
    */
-  public void addColumn(String text, int align, Color backgroundcolor)
+  public void addColumn(String text, int align, BaseColor backgroundcolor)
   {
     addColumn(getDetailCell(text, align, backgroundcolor, true));
   }
@@ -234,7 +232,7 @@ public class Reporter
   /**
    * Fuegt eine neue Zelle zur Tabelle hinzu.
    */
-  public void addColumn(String text, int align, Color backgroundcolor,
+  public void addColumn(String text, int align, BaseColor backgroundcolor,
       boolean silbentrennung)
   {
     addColumn(getDetailCell(text, align, backgroundcolor, silbentrennung));
@@ -245,7 +243,7 @@ public class Reporter
    */
   public void addColumn(boolean value)
   {
-    addColumn(value ? "X" : "", Element.ALIGN_CENTER, Color.WHITE, true);
+    addColumn(value ? "X" : "", Element.ALIGN_CENTER, BaseColor.WHITE, true);
   }
 
   /**
@@ -253,7 +251,7 @@ public class Reporter
    */
   public void addColumn(String text, int align)
   {
-    addColumn(getDetailCell(text, align, Color.WHITE, true));
+    addColumn(getDetailCell(text, align, BaseColor.WHITE, true));
   }
 
   /**
@@ -261,15 +259,15 @@ public class Reporter
    */
   public void addColumn(String text, int align, boolean silbentrennung)
   {
-    addColumn(getDetailCell(text, align, Color.WHITE, silbentrennung));
+    addColumn(getDetailCell(text, align, BaseColor.WHITE, silbentrennung));
   }
 
   public void addColumn(String text, int align, int colspan)
   {
-    addColumn(getDetailCell(text, align, Color.WHITE, colspan));
+    addColumn(getDetailCell(text, align, BaseColor.WHITE, colspan));
   }
 
-  public void addColumn(String text, int align, Color backgroundcolor,
+  public void addColumn(String text, int align, BaseColor backgroundcolor,
       int colspan)
   {
     addColumn(getDetailCell(text, align, backgroundcolor, colspan));
@@ -409,8 +407,8 @@ public class Reporter
    *          die Hintergundfarbe.
    * @return die erzeugte Zelle.
    */
-  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor,
-      boolean silbentrennung)
+  private PdfPCell getDetailCell(String text, int align,
+      BaseColor backgroundcolor, boolean silbentrennung)
   {
     PdfPCell cell = null;
     if (silbentrennung)
@@ -428,8 +426,8 @@ public class Reporter
     return cell;
   }
 
-  private PdfPCell getDetailCell(String text, int align, Color backgroundcolor,
-      int colspan)
+  private PdfPCell getDetailCell(String text, int align,
+      BaseColor backgroundcolor, int colspan)
   {
     PdfPCell cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
         FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
@@ -450,7 +448,7 @@ public class Reporter
    */
   private PdfPCell getDetailCell(String text, int align, boolean silbentrennung)
   {
-    return getDetailCell(text, align, Color.WHITE, silbentrennung);
+    return getDetailCell(text, align, BaseColor.WHITE, silbentrennung);
   }
 
   /**
@@ -466,11 +464,12 @@ public class Reporter
     if (value >= 0)
     {
       f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL,
-          Color.BLACK);
+          BaseColor.BLACK);
     }
     else
     {
-      f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, Color.RED);
+      f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL,
+          BaseColor.RED);
     }
     PdfPCell cell = new PdfPCell(new Phrase(
         Einstellungen.DECIMALFORMAT.format(value), f));

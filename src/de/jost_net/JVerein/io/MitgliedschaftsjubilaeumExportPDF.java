@@ -22,16 +22,16 @@
 
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -98,14 +98,14 @@ public class MitgliedschaftsjubilaeumExportPDF extends
         FontFactory.getFont(FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Eintrittsdatum"),
-        Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
 
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name, Vorname"),
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anschrift"),
-        Element.ALIGN_CENTER, 120, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 120, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Kommunikation"),
-        Element.ALIGN_CENTER, 80, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 80, BaseColor.LIGHT_GRAY);
     reporter.createHeader();
     anz = 0;
   }

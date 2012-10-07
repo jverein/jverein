@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
@@ -38,7 +37,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -551,23 +551,23 @@ public class ZusatzbetragControl extends AbstractControl
           Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
               "Zusatzbeträge"), "", it.size());
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-              Element.ALIGN_LEFT, 60, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Startdatum"),
-              Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(
               JVereinPlugin.getI18n().tr("nächste Fälligkeit"),
-              Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(
               JVereinPlugin.getI18n().tr("letzte Ausführung"),
-              Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Intervall"),
-              Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Endedatum"),
-              Element.ALIGN_LEFT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungstext"),
-              Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+              Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-              Element.ALIGN_RIGHT, 30, Color.LIGHT_GRAY);
+              Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
           {

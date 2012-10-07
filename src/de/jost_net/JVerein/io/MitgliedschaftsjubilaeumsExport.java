@@ -29,7 +29,7 @@ import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;

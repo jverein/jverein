@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,9 +29,10 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Paragraph;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -273,7 +273,7 @@ public class SpendenbescheinigungPrintAction implements Action
     Reporter rpt = new Reporter(fos, 80, 50, 50, 50);
     rpt.addHeaderColumn(
         "Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)",
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
 
     rpt.createHeader();
 
@@ -299,7 +299,7 @@ public class SpendenbescheinigungPrintAction implements Action
         10);
 
     rpt.addHeaderColumn("Name und Anschrift des Zuwendenden",
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     rpt.addColumn(
         (String) map.get(SpendenbescheinigungVar.EMPFAENGER.getName()),
@@ -310,17 +310,17 @@ public class SpendenbescheinigungPrintAction implements Action
     {
       case Spendenart.GELDSPENDE:
         rpt.addHeaderColumn("Betrag der Zuwendung -in Ziffern-",
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
         break;
       case Spendenart.SACHSPENDE:
         rpt.addHeaderColumn("Wert der Zuwendung -in Ziffern-",
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
         break;
     }
     rpt.addHeaderColumn("-in Buchstaben-", Element.ALIGN_CENTER, 250,
-        Color.LIGHT_GRAY);
+        BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn("Tag der Zuwendung", Element.ALIGN_CENTER, 50,
-        Color.LIGHT_GRAY);
+        BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     rpt.addColumn(
         "*"
@@ -340,7 +340,7 @@ public class SpendenbescheinigungPrintAction implements Action
       case Spendenart.SACHSPENDE:
         rpt.addHeaderColumn(
             "Genaue Bezeichnung der Sachzuwendung mit Alter, Zustand, Kaufpreis usw.",
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
         rpt.createHeader();
         rpt.addColumn(spb.getBezeichnungSachzuwendung(), Element.ALIGN_LEFT);
         rpt.closeTable();
@@ -502,11 +502,12 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.add(new Paragraph(" "));
 
-      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 100, Color.LIGHT_GRAY);
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 100,
+          BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Betrag in EUR", Element.ALIGN_RIGHT, 100,
-          Color.LIGHT_GRAY);
+          BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Verwendung", Element.ALIGN_LEFT, 500,
-          Color.LIGHT_GRAY);
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
 
       boolean printBuchungsart = Einstellungen.getEinstellung()
@@ -545,9 +546,9 @@ public class SpendenbescheinigungPrintAction implements Action
 
       /* Summenzeile */
       String sumString = Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
-      rpt.addColumn("Summe", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
-      rpt.addColumn(sumString, Element.ALIGN_RIGHT, Color.LIGHT_GRAY);
-      rpt.addColumn("", Element.ALIGN_LEFT, Color.LIGHT_GRAY);
+      rpt.addColumn("Summe", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
+      rpt.addColumn(sumString, Element.ALIGN_RIGHT, BaseColor.LIGHT_GRAY);
+      rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
 
       rpt.closeTable();
       // Etwas Abstand

@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,10 +28,11 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.BuchungQuery;
@@ -161,15 +161,15 @@ public class BuchungAuswertungPDF
       throws DocumentException
   {
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-        Element.ALIGN_CENTER, 40, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 40, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Auszug"),
-        Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsgrund"),
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
     reporter.createHeader();
 
   }
@@ -178,9 +178,9 @@ public class BuchungAuswertungPDF
       throws DocumentException
   {
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-        Element.ALIGN_CENTER, 200, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 200, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
     reporter.createHeader();
   }
 

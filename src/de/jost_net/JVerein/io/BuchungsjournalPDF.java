@@ -21,14 +21,14 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.BuchungQuery;
@@ -194,21 +194,21 @@ public class BuchungsjournalPDF
   private void createTableHeader(Reporter reporter) throws DocumentException
   {
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Nr"),
-        Element.ALIGN_RIGHT, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Konto"),
-        Element.ALIGN_CENTER, 40, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 40, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Auszug"),
-        Element.ALIGN_CENTER, 20, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsgrund"),
-        Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-        Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
     reporter.createHeader();
   }
 }

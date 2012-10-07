@@ -26,7 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;

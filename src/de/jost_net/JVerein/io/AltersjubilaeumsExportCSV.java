@@ -26,7 +26,7 @@ import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;

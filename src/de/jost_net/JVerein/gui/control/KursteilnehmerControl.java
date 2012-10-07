@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
@@ -33,7 +32,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -645,13 +645,13 @@ public class KursteilnehmerControl extends AbstractControl
             GUI.getCurrentView().reload();
 
             rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-                Element.ALIGN_LEFT, 50, Color.LIGHT_GRAY);
+                Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
             rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
-                Element.ALIGN_LEFT, 80, Color.LIGHT_GRAY);
+                Element.ALIGN_LEFT, 80, BaseColor.LIGHT_GRAY);
             rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
-                Element.ALIGN_LEFT, 80, Color.LIGHT_GRAY);
+                Element.ALIGN_LEFT, 80, BaseColor.LIGHT_GRAY);
             rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-                Element.ALIGN_CENTER, 40, Color.LIGHT_GRAY);
+                Element.ALIGN_CENTER, 40, BaseColor.LIGHT_GRAY);
             rpt.createHeader();
             while (list.hasNext())
             {

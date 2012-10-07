@@ -21,12 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
@@ -52,21 +52,21 @@ public class JahressaldoPDF
           zeile.size());
 
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Konto-\nnummer"),
-          Element.ALIGN_CENTER, 50, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Kontobezeichnung"),
-          Element.ALIGN_CENTER, 90, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 90, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anfangs-\nbestand"),
-          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Einnahmen"),
-          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Ausgaben"),
-          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Um-\nbuchungen"),
-          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Endbestand"),
-          Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Bemerkung"),
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
       reporter.createHeader();
 
       for (SaldoZeile sz : zeile)

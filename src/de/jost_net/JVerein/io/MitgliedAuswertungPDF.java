@@ -21,16 +21,16 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.lowagie.text.Element;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -57,6 +57,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
 
   public void beforeGo() throws RemoteException
   {
+    subtitle="";
     if (control
         .getMitgliedStatus()
         .getValue()
@@ -162,21 +163,21 @@ public class MitgliedAuswertungPDF implements IAuswertung
           "Mitglieder"), subtitle, list.size(), 50, 10, 20, 15);
 
       report.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
       report.addHeaderColumn(
           JVereinPlugin.getI18n().tr("Anschrift\nKommunikation"),
-          Element.ALIGN_CENTER, 130, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 130, BaseColor.LIGHT_GRAY);
       report.addHeaderColumn(JVereinPlugin.getI18n().tr("Geburts- datum"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       report
           .addHeaderColumn(
               JVereinPlugin.getI18n().tr("Eintritt / \nAustritt / \nKündigung")
                   + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n" + JVereinPlugin
                       .getI18n().tr(JVereinPlugin.getI18n().tr("Sterbedatum")))
-                      : ""), Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+                      : ""), Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       report.addHeaderColumn(
           JVereinPlugin.getI18n().tr("Beitragsgruppe /\nEigenschaften"),
-          Element.ALIGN_CENTER, 60, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
       for (int i = 0; i < list.size(); i++)

@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
@@ -31,9 +30,10 @@ import java.util.Date;
 
 import org.eclipse.swt.graphics.Point;
 
-import com.lowagie.text.Element;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
@@ -75,13 +75,13 @@ public class MitgliederStatistik
       reporter.add(pAltersgruppen);
 
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Altersgruppe"),
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Insgesamt"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("männlich"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("weiblich"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
       AltersgruppenParser ap = new AltersgruppenParser(Einstellungen
@@ -100,13 +100,13 @@ public class MitgliederStatistik
       reporter.add(pBeitragsgruppen);
 
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Beitragsgruppe"),
-          Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Insgesamt"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("männlich"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("weiblich"),
-          Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
       DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
@@ -130,9 +130,9 @@ public class MitgliederStatistik
             FontFactory.getFont(FontFactory.HELVETICA, 11));
         reporter.add(pGuV);
         reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Text"),
-            Element.ALIGN_CENTER, 100, Color.LIGHT_GRAY);
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
         reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anzahl"),
-            Element.ALIGN_CENTER, 30, Color.LIGHT_GRAY);
+            Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
         reporter.createHeader(60f, Element.ALIGN_LEFT);
         reporter.addColumn(JVereinPlugin.getI18n().tr("Anmeldungen"),
             Element.ALIGN_LEFT);

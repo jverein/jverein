@@ -21,14 +21,14 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -63,7 +63,7 @@ public class BuchungsklassesaldoPDF
           {
             reporter.addColumn(
                 (String) bkz.getAttribute("buchungsklassenbezeichnung"),
-                Element.ALIGN_LEFT, new Color(220, 220, 220), 4);
+                Element.ALIGN_LEFT, new BaseColor(220, 220, 220), 4);
             break;
           }
           case BuchungsklasseSaldoZeile.DETAIL:
@@ -152,13 +152,13 @@ public class BuchungsklassesaldoPDF
   private void makeHeader(Reporter reporter) throws DocumentException
   {
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-        Element.ALIGN_CENTER, 90, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 90, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Einnahmen"),
-        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Ausgaben"),
-        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Umbuchungen"),
-        Element.ALIGN_CENTER, 45, Color.LIGHT_GRAY);
+        Element.ALIGN_CENTER, 45, BaseColor.LIGHT_GRAY);
     reporter.createHeader();
   }
 }
