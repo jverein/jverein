@@ -131,6 +131,7 @@ public class ImportDialog extends AbstractDialog<Object>
     Button button = new Button(JVereinPlugin.getI18n().tr("Import starten"),
         new Action()
         {
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             doImport();
@@ -140,6 +141,7 @@ public class ImportDialog extends AbstractDialog<Object>
     buttons.addButton(button);
     buttons.addButton(JVereinPlugin.getI18n().tr("Abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         throw new OperationCanceledException();
@@ -214,6 +216,7 @@ public class ImportDialog extends AbstractDialog<Object>
 
     BackgroundTask t = new BackgroundTask()
     {
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -244,10 +247,12 @@ public class ImportDialog extends AbstractDialog<Object>
         }
       }
 
+      @Override
       public void interrupt()
       {
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;
@@ -302,7 +307,8 @@ public class ImportDialog extends AbstractDialog<Object>
 
     if (size == 0)
     {
-      importerListe = new LabelInput(JVereinPlugin.getI18n().tr("Keine Import-Filter verfügbar"));
+      importerListe = new LabelInput(JVereinPlugin.getI18n().tr(
+          "Keine Import-Filter verfügbar"));
       return importerListe;
     }
 
@@ -339,6 +345,7 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
      */
+    @Override
     public Object getAttribute(String arg0) throws RemoteException
     {
       return this.format.getName();
@@ -347,6 +354,7 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see de.willuhn.datasource.GenericObject#getAttributeNames()
      */
+    @Override
     public String[] getAttributeNames() throws RemoteException
     {
       return new String[] { "name" };
@@ -355,6 +363,7 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see de.willuhn.datasource.GenericObject#getID()
      */
+    @Override
     public String getID() throws RemoteException
     {
       return this.importer.getClass().getName() + "#"
@@ -364,6 +373,7 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see de.willuhn.datasource.GenericObject#getPrimaryAttribute()
      */
+    @Override
     public String getPrimaryAttribute() throws RemoteException
     {
       return "name";
@@ -372,6 +382,7 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see de.willuhn.datasource.GenericObject#equals(de.willuhn.datasource.GenericObject)
      */
+    @Override
     public boolean equals(GenericObject arg0) throws RemoteException
     {
       if (arg0 == null)
@@ -382,6 +393,7 @@ public class ImportDialog extends AbstractDialog<Object>
     /**
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
+    @Override
     public int compareTo(Object o)
     {
       if (o == null || !(o instanceof Imp))

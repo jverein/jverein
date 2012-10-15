@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class AbrechnunslaufListAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(AbrechnungslaufListView.class.getName(), null);

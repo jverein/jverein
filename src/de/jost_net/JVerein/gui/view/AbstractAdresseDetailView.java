@@ -153,11 +153,13 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     {
       // Wenn Tab angeklickt, speicher diesen um ihn später automatisch
       // wieder auszuwählen.
+      @Override
       public void widgetSelected(SelectionEvent arg0)
       {
         tabindex = folder.getSelectionIndex();
       }
 
+      @Override
       public void widgetDefaultSelected(SelectionEvent arg0)
       {
       }
@@ -201,6 +203,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         control.handleStore();

@@ -117,6 +117,7 @@ public class DtausTextschluesselInput extends SelectInput
       }
     }
 
+    @Override
     public Object getAttribute(String arg0)
     {
       if (arg0.equals("label"))
@@ -130,21 +131,25 @@ public class DtausTextschluesselInput extends SelectInput
       return null;
     }
 
+    @Override
     public String[] getAttributeNames()
     {
       return new String[] { "label", "textschluessel" };
     }
 
+    @Override
     public String getID()
     {
       return textschluessel;
     }
 
+    @Override
     public String getPrimaryAttribute()
     {
       return "label";
     }
 
+    @Override
     public boolean equals(GenericObject arg0) throws RemoteException
     {
       if (arg0 == null || !(arg0 instanceof DtausTextschluesselObject))

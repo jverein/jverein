@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class BuchungsuebernahmeAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(BuchungsUebernahmeView.class.getName(), null);

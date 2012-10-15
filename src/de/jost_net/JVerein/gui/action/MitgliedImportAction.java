@@ -28,7 +28,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedImportAction implements Action
 {
-
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     GUI.startView(ImportView.class.getName(), null);

@@ -89,31 +89,37 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public Boolean getPflicht() throws RemoteException
   {
     return Util.getBoolean(getAttribute("pflicht"));
   }
 
+  @Override
   public void setPflicht(Boolean pflicht) throws RemoteException
   {
     setAttribute("pflicht", pflicht);
   }
 
+  @Override
   public Boolean getMax1() throws RemoteException
   {
     return Util.getBoolean(getAttribute("max1"));
   }
 
+  @Override
   public void setMax1(Boolean max1) throws RemoteException
   {
     setAttribute("max1", max1);

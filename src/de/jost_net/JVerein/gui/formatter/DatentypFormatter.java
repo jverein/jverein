@@ -26,6 +26,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class DatentypFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     Integer art = (Integer) o;

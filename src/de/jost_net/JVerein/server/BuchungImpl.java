@@ -153,17 +153,20 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     return null;
   }
 
+  @Override
   public Integer getUmsatzid() throws RemoteException
   {
 
     return (Integer) getAttribute("umsatzid");
   }
 
+  @Override
   public void setUmsatzid(Integer umsatzid) throws RemoteException
   {
     setAttribute("umsatzid", umsatzid);
   }
 
+  @Override
   public Konto getKonto() throws RemoteException
   {
     Integer i = (Integer) super.getAttribute("konto");
@@ -174,6 +177,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     return (Konto) cache.get(i);
   }
 
+  @Override
   public void setKonto(Konto konto) throws RemoteException
   {
     if (konto == null)
@@ -183,36 +187,43 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     setAttribute("konto", new Integer(konto.getID()));
   }
 
+  @Override
   public Integer getAuszugsnummer() throws RemoteException
   {
     return (Integer) getAttribute("auszugsnummer");
   }
 
+  @Override
   public void setAuszugsnummer(Integer auszugsnummer) throws RemoteException
   {
     setAttribute("auszugsnummer", auszugsnummer);
   }
 
+  @Override
   public Integer getBlattnummer() throws RemoteException
   {
     return (Integer) getAttribute("blattnummer");
   }
 
+  @Override
   public void setBlattnummer(Integer blattnummer) throws RemoteException
   {
     setAttribute("blattnummer", blattnummer);
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
   }
 
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");
@@ -221,26 +232,31 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     return d.doubleValue();
   }
 
+  @Override
   public void setBetrag(double d) throws RemoteException
   {
     setAttribute("betrag", new Double(d));
   }
 
+  @Override
   public String getZweck() throws RemoteException
   {
     return (String) getAttribute("zweck");
   }
 
+  @Override
   public void setZweck(String zweck) throws RemoteException
   {
     setAttribute("zweck", zweck);
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
@@ -251,26 +267,31 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     setAttribute("datum", toDate(datum));
   }
 
+  @Override
   public String getArt() throws RemoteException
   {
     return (String) getAttribute("art");
   }
 
+  @Override
   public void setArt(String art) throws RemoteException
   {
     setAttribute("art", art);
   }
 
+  @Override
   public String getKommentar() throws RemoteException
   {
     return (String) getAttribute("kommentar");
   }
 
+  @Override
   public void setKommentar(String kommentar) throws RemoteException
   {
     setAttribute("kommentar", kommentar);
   }
 
+  @Override
   public Buchungsart getBuchungsart() throws RemoteException
   {
     Integer i = (Integer) super.getAttribute("buchungsart");
@@ -281,54 +302,64 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     return (Buchungsart) cache.get(i);
   }
 
+  @Override
   public int getBuchungsartId() throws RemoteException
   {
     return Integer.parseInt(getBuchungsart().getID());
   }
 
+  @Override
   public void setBuchungsart(Integer buchungsart) throws RemoteException
   {
     setAttribute("buchungsart", buchungsart);
   }
 
+  @Override
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException
   {
     return (Abrechnungslauf) getAttribute("abrechnungslauf");
   }
 
+  @Override
   public int getAbrechnungslaufID() throws RemoteException
   {
     return Integer.parseInt(getAbrechnungslauf().getID());
   }
 
+  @Override
   public void setAbrechnungslauf(Integer abrechnungslauf)
       throws RemoteException
   {
     setAttribute("abrechnungslauf", abrechnungslauf);
   }
 
+  @Override
   public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
       throws RemoteException
   {
     setAttribute("abrechnungslauf", new Integer(abrechnungslauf.getID()));
   }
 
+  @Override
   public Mitgliedskonto getMitgliedskonto() throws RemoteException
   {
     return (Mitgliedskonto) getAttribute("mitgliedskonto");
   }
 
+  @Override
   public int getMitgliedskontoID() throws RemoteException
   {
     return Integer.parseInt(getMitgliedskonto().getID());
   }
 
+  @Override
   public void setMitgliedskontoID(Integer mitgliedskontoID)
       throws RemoteException
   {
     setAttribute("mitgliedskonto", mitgliedskontoID);
   }
 
+  @Override
   public void setMitgliedskonto(Mitgliedskonto mitgliedskonto)
       throws RemoteException
   {
@@ -342,21 +373,25 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
   }
 
+  @Override
   public Projekt getProjekt() throws RemoteException
   {
     return (Projekt) getAttribute("projekt");
   }
 
+  @Override
   public int getProjektID() throws RemoteException
   {
     return Integer.parseInt(getProjekt().getID());
   }
 
+  @Override
   public void setProjektID(Integer projektID) throws RemoteException
   {
     setAttribute("projekt", projektID);
   }
 
+  @Override
   public void setProjekt(Projekt projekt) throws RemoteException
   {
     if (projekt != null)
@@ -369,17 +404,20 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
   }
 
+  @Override
   public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException
   {
     return (Spendenbescheinigung) getAttribute("spendenbescheinigung");
   }
 
+  @Override
   public void setSpendenbescheinigungId(Integer spendenbescheinigung)
       throws RemoteException
   {
     setAttribute("spendenbescheinigung", spendenbescheinigung);
   }
 
+  @Override
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException
   {
@@ -498,6 +536,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     return d;
   }
 
+  @Override
   public Jahresabschluss getJahresabschluss() throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(
@@ -512,21 +551,25 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     return null;
   }
 
+  @Override
   public Integer getSplitId() throws RemoteException
   {
     return (Integer) getAttribute("splitid");
   }
 
+  @Override
   public void setSplitId(Integer splitid) throws RemoteException
   {
     setAttribute("splitid", splitid);
   }
 
+  @Override
   public Boolean getVerzicht() throws RemoteException
   {
     return Util.getBoolean(getAttribute("verzicht"));
   }
 
+  @Override
   public void setVerzicht(Boolean verzicht) throws RemoteException
   {
     setAttribute("verzicht", verzicht);

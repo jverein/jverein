@@ -32,6 +32,7 @@ import de.willuhn.logging.Logger;
 public class HelpConsumer implements MessageConsumer
 {
 
+  @Override
   public void handleMessage(Message m)
   {
     QueryMessage msg = (QueryMessage) m;
@@ -42,11 +43,13 @@ public class HelpConsumer implements MessageConsumer
             view.getClass().getName()));
   }
 
+  @Override
   public boolean autoRegister()
   {
     return true;
   }
 
+  @Override
   public Class<?>[] getExpectedMessageTypes()
   {
     return new Class[] { QueryMessage.class };

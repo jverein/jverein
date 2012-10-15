@@ -49,16 +49,19 @@ public class FirstStart extends AbstractBox
     return Einstellungen.isFirstStart();
   }
 
+  @Override
   public boolean getDefaultEnabled()
   {
     return Einstellungen.isFirstStart();
   }
 
+  @Override
   public int getDefaultIndex()
   {
     return 0;
   }
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("JVerein: Erste Schritte");
@@ -73,6 +76,7 @@ public class FirstStart extends AbstractBox
     return mf.isInstalled() && Einstellungen.isFirstStart();
   }
 
+  @Override
   public void paint(Composite parent) throws RemoteException
   {
     FormTextPart text = new FormTextPart();

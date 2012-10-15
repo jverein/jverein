@@ -39,6 +39,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class KontenrahmenImportXML implements Importer
 {
+  @Override
   public void doImport(Object context, IOFormat format, File file,
       String encoding, ProgressMonitor monitor) throws Exception
   {
@@ -96,6 +97,7 @@ public class KontenrahmenImportXML implements Importer
     }
   }
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Kontenrahmen-Import XML");
@@ -106,6 +108,7 @@ public class KontenrahmenImportXML implements Importer
     return true;
   }
 
+  @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Buchungsklasse.class)
@@ -114,6 +117,7 @@ public class KontenrahmenImportXML implements Importer
     }
     IOFormat f = new IOFormat()
     {
+      @Override
       public String getName()
       {
         return KontenrahmenImportXML.this.getName();
@@ -122,6 +126,7 @@ public class KontenrahmenImportXML implements Importer
       /**
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
+      @Override
       public String[] getFileExtensions()
       {
         return new String[] { "*.xml" };

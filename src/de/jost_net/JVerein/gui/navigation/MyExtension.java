@@ -85,6 +85,7 @@ public class MyExtension implements Extension
   /**
    * @see de.willuhn.jameica.gui.extension.Extension#extend(de.willuhn.jameica.gui.extension.Extendable)
    */
+  @Override
   public void extend(Extendable extendable)
   {
     try

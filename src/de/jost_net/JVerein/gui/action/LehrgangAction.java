@@ -42,6 +42,7 @@ public class LehrgangAction implements Action
     this.m = m;
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Lehrgang l = null;

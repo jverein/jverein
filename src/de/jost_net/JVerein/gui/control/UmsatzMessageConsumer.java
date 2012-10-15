@@ -14,11 +14,13 @@ import de.willuhn.jameica.messaging.MessageConsumer;
 public class UmsatzMessageConsumer implements MessageConsumer
 {
 
+  @Override
   public Class<?>[] getExpectedMessageTypes()
   {
     return new Class<?>[] { ImportMessage.class };
   }
 
+  @Override
   public void handleMessage(Message message) throws Exception
   {
     if (message == null)
@@ -42,6 +44,7 @@ public class UmsatzMessageConsumer implements MessageConsumer
     // { return;}
   }
 
+  @Override
   public boolean autoRegister()
   {
     return false;

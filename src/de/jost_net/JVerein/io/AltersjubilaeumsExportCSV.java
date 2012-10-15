@@ -54,6 +54,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
     }
     IOFormat f = new IOFormat()
     {
+      @Override
       public String getName()
       {
         return AltersjubilaeumsExportCSV.this.getName();
@@ -62,7 +63,8 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
       /**
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
-      public String[] getFileExtensions()
+      @Override
+     public String[] getFileExtensions()
       {
         return new String[] { "*.csv" };
       }

@@ -73,16 +73,19 @@ public class MitgliedfotoImpl extends AbstractDBObject implements Mitgliedfoto
     return null;
   }
 
+  @Override
   public void setMitglied(Mitglied mitglied) throws RemoteException
   {
     setAttribute("mitglied", mitglied.getID());
   }
 
+  @Override
   public byte[] getFoto() throws RemoteException
   {
     return (byte[]) this.getAttribute("foto");
   }
 
+  @Override
   public void setFoto(byte[] foto) throws RemoteException
   {
     setAttribute("foto", foto);

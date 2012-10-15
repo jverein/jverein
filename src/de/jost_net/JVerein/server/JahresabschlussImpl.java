@@ -156,41 +156,49 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Date getVon() throws RemoteException
   {
     return (Date) getAttribute("von");
   }
 
+  @Override
   public void setVon(Date von) throws RemoteException
   {
     setAttribute("von", von);
   }
 
+  @Override
   public Date getBis() throws RemoteException
   {
     return (Date) getAttribute("bis");
   }
 
+  @Override
   public void setBis(Date bis) throws RemoteException
   {
     setAttribute("bis", bis);
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);

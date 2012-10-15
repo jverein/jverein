@@ -31,7 +31,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class BuchungNeuAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     Buchung buch;

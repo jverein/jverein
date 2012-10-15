@@ -99,14 +99,16 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
     tab.paint(parent);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr(JVereinPlugin.getI18n().tr("OK")), new Action()
-    {
-
-      public void handleAction(Object context)
-      {
-        close();
-      }
-    });
+    buttons.addButton(
+        JVereinPlugin.getI18n().tr(JVereinPlugin.getI18n().tr("OK")),
+        new Action()
+        {
+          @Override
+          public void handleAction(Object context)
+          {
+            close();
+          }
+        });
     buttons.paint(parent);
   }
 
@@ -152,21 +154,25 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       this.wert = entry.getValue();
     }
 
+    @Override
     public String[] getAttributeNames() throws RemoteException
     {
       return new String[] { "name", "wert" };
     }
 
+    @Override
     public String getID() throws RemoteException
     {
       return "name";
     }
 
+    @Override
     public boolean equals(GenericObject arg0) throws RemoteException
     {
       return false;
     }
 
+    @Override
     public Object getAttribute(String arg0) throws RemoteException
     {
       if (arg0.equals("name"))
@@ -180,6 +186,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       return null;
     }
 
+    @Override
     public String getPrimaryAttribute() throws RemoteException
     {
       return "name";

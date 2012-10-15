@@ -37,6 +37,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class LehrgangsartDeleteAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context instanceof TablePart)

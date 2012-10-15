@@ -40,11 +40,13 @@ public class MitgliedAdressbuchExport implements IAuswertung
   {
   }
 
+  @Override
   public void beforeGo()
   {
     // Nothing to do
   }
 
+  @Override
   public void go(ArrayList<Mitglied> list, File file)
       throws ApplicationException
   {
@@ -66,16 +68,19 @@ public class MitgliedAdressbuchExport implements IAuswertung
     }
   }
 
+  @Override
   public String getDateiname()
   {
     return JVereinPlugin.getI18n().tr("adressbuchexport");
   }
 
+  @Override
   public String getDateiendung()
   {
     return "CSV";
   }
 
+  @Override
   public boolean openFile()
   {
     return true;

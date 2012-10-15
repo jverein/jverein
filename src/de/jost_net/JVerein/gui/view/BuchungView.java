@@ -82,7 +82,7 @@ public class BuchungView extends AbstractView
     Button savButton = new Button(JVereinPlugin.getI18n().tr("speichern"),
         new Action()
         {
-
+          @Override
           public void handleAction(Object context)
           {
             control.handleStore();

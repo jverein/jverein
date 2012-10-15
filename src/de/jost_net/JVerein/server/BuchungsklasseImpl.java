@@ -94,16 +94,19 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public int getNummer() throws RemoteException
   {
     Integer i = (Integer) getAttribute("nummer");
@@ -112,6 +115,7 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     return i.intValue();
   }
 
+  @Override
   public void setNummer(int i) throws RemoteException
   {
     setAttribute("nummer", Integer.valueOf(i));

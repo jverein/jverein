@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class EigenschaftListeAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(EigenschaftListeView.class.getName(), null);

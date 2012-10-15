@@ -51,11 +51,13 @@ public class MitgliedAuswertungCSV implements IAuswertung
   {
   }
 
+  @Override
   public void beforeGo() throws RemoteException
   {
     // Nothing to do
   }
 
+  @Override
   public void go(ArrayList<Mitglied> list, final File file)
       throws ApplicationException
   {
@@ -92,6 +94,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+        @Override
         public void run()
         {
           try
@@ -147,11 +150,13 @@ public class MitgliedAuswertungCSV implements IAuswertung
     return null;
   }
 
+  @Override
   public String getDateiname()
   {
     return JVereinPlugin.getI18n().tr("mitglied");
   }
 
+  @Override
   public String getDateiendung()
   {
     return "CSV";
@@ -163,6 +168,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
     return JVereinPlugin.getI18n().tr("Mitgliederliste CSV");
   }
 
+  @Override
   public boolean openFile()
   {
     return true;

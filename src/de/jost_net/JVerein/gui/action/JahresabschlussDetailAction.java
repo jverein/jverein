@@ -33,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class JahresabschlussDetailAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Jahresabschluss ja = null;

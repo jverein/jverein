@@ -76,7 +76,7 @@ public class BeitragsgruppeDetailView extends AbstractView
         new BeitragsgruppeSucheAction(), null, false, "system-search.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
+      @Override
       public void handleAction(Object context)
       {
         control.handleStore();

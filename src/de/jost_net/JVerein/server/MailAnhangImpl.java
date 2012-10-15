@@ -118,31 +118,37 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
     return null;
   }
 
+  @Override
   public Mail getMail() throws RemoteException
   {
     return (Mail) getAttribute("mail");
   }
 
+  @Override
   public void setMail(Mail mail) throws RemoteException
   {
     setAttribute("mail", mail);
   }
 
+  @Override
   public String getDateiname() throws RemoteException
   {
     return (String) getAttribute("dateiname");
   }
 
+  @Override
   public void setDateiname(String dateiname) throws RemoteException
   {
     setAttribute("dateiname", dateiname);
   }
 
+  @Override
   public byte[] getAnhang() throws RemoteException
   {
     return (byte[]) this.getAttribute("anhang");
   }
 
+  @Override
   public void setAnhang(byte[] anhang) throws RemoteException
   {
     setAttribute("anhang", anhang);
@@ -154,6 +160,7 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
     return super.getAttribute(fieldName);
   }
 
+  @Override
   public int compareTo(MailAnhang o)
   {
     try

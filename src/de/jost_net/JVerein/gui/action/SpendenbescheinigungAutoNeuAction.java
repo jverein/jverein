@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class SpendenbescheinigungAutoNeuAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(SpendenbescheinigungAutoNeuView.class.getName(), null);

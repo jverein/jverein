@@ -44,6 +44,7 @@ public class ZusatzbetraegeNaechsteFaelligkeitAction implements Action
     this.table = table;
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Zusatzbetrag))

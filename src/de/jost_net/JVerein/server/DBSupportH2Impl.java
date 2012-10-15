@@ -73,11 +73,13 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
 
   }
 
+  @Override
   public String getJdbcDriver()
   {
     return "org.h2.Driver";
   }
 
+  @Override
   public String getJdbcPassword()
   {
     // Zunächst "schlichte" Version: Passwort wird hart codiert
@@ -134,6 +136,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
     // }
   }
 
+  @Override
   public String getJdbcUrl()
   {
     String url = "jdbc:h2:"
@@ -148,6 +151,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
     return url;
   }
 
+  @Override
   public String getJdbcUsername()
   {
     return "jverein";
@@ -203,6 +207,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getSQLTimestamp(java.lang.String)
    */
+  @Override
   public String getSQLTimestamp(String content)
   {
     // Nicht noetig
@@ -214,6 +219,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getInsertWithID()
    */
+  @Override
   public boolean getInsertWithID()
   {
     return false;
@@ -222,6 +228,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#checkConnection(java.sql.Connection)
    */
+  @Override
   public void checkConnection(Connection conn)
   {
     // brauchen wir bei nicht, da Embedded

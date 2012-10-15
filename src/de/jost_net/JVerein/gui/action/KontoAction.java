@@ -33,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class KontoAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Konto k = null;

@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class ZusatzbetraegeListeAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(ZusatzbetraegelisteView.class.getName(), null);

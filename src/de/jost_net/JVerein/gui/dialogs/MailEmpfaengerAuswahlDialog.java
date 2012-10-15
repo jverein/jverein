@@ -69,6 +69,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("Eigenschaften"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -98,6 +99,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     });
     b.addButton(JVereinPlugin.getI18n().tr("alle"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         try
@@ -115,6 +117,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     });
     b.addButton(JVereinPlugin.getI18n().tr("keinen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         try
@@ -132,6 +135,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     });
     b.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         try
@@ -154,6 +158,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     });
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();

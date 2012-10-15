@@ -28,6 +28,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class BuchungsartFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     Buchungsart ba = (Buchungsart) o;

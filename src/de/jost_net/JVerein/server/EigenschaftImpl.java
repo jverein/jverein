@@ -97,26 +97,31 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public EigenschaftGruppe getEigenschaftGruppe() throws RemoteException
   {
     return (EigenschaftGruppe) getAttribute("eigenschaftgruppe");
   }
 
+  @Override
   public int getEigenschaftGruppeId() throws RemoteException
   {
     return Integer.parseInt(getEigenschaftGruppe().getID());
   }
 
+  @Override
   public void setEigenschaftGruppe(Integer eigenschaftgruppe)
       throws RemoteException
   {

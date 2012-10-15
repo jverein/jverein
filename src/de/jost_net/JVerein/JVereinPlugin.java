@@ -87,7 +87,7 @@ public class JVereinPlugin extends AbstractPlugin
 
     call(new ServiceCall()
     {
-
+      @Override
       public void call(JVereinDBService service) throws ApplicationException,
           RemoteException
       {
@@ -116,7 +116,7 @@ public class JVereinPlugin extends AbstractPlugin
   {
     call(new ServiceCall()
     {
-
+      @Override
       public void call(JVereinDBService service) throws RemoteException
       {
         service.install();
@@ -132,7 +132,7 @@ public class JVereinPlugin extends AbstractPlugin
   {
     call(new ServiceCall()
     {
-
+      @Override
       public void call(JVereinDBService service) throws RemoteException
       {
         service.update(oldVersion, getManifest().getVersion());

@@ -102,31 +102,37 @@ public class ArbeitseinsatzImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(int mitglied) throws RemoteException
   {
     setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public void setStunden(Double stunden) throws RemoteException
   {
     setAttribute("stunden", stunden);
   }
 
+  @Override
   public Double getStunden() throws RemoteException
   {
     Double d = (Double) getAttribute("stunden");
@@ -137,11 +143,13 @@ public class ArbeitseinsatzImpl extends AbstractDBObject implements
     return d.doubleValue();
   }
 
+  @Override
   public String getBemerkung() throws RemoteException
   {
     return (String) getAttribute("bemerkung");
   }
 
+  @Override
   public void setBemerkung(String bemerkung) throws RemoteException
   {
     setAttribute("bemerkung", bemerkung);

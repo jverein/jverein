@@ -99,82 +99,98 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
     return null;
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(int mitglied) throws RemoteException
   {
     setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
+  @Override
   public Felddefinition getFelddefinition() throws RemoteException
   {
     return (Felddefinition) getAttribute("felddefinition");
   }
 
+  @Override
   public void setFelddefinition(int felddefinition) throws RemoteException
   {
     setAttribute("felddefinition", Integer.valueOf(felddefinition));
   }
 
+  @Override
   public String getFeld() throws RemoteException
   {
     return (String) getAttribute("feld");
   }
 
+  @Override
   public void setFeld(String feld) throws RemoteException
   {
     setAttribute("feld", feld);
   }
 
+  @Override
   public Date getFeldDatum() throws RemoteException
   {
     return (Date) getAttribute("felddatum");
   }
 
+  @Override
   public void setFeldDatum(Date datum) throws RemoteException
   {
     setAttribute("felddatum", datum);
   }
 
+  @Override
   public Integer getFeldGanzzahl() throws RemoteException
   {
     return (Integer) getAttribute("feldganzzahl");
   }
 
+  @Override
   public void setFeldGanzzahl(Integer ganzzahl) throws RemoteException
   {
     setAttribute("feldganzzahl", ganzzahl);
   }
 
+  @Override
   public double getFeldGleitkommazahl() throws RemoteException
   {
     return (Double) getAttribute("feldgleitkommazahl");
   }
 
+  @Override
   public void setFeldGleitkommazahl(double gleitkommazahl)
       throws RemoteException
   {
     setAttribute("feldgleitkommazahl", gleitkommazahl);
   }
 
+  @Override
   public BigDecimal getFeldWaehrung() throws RemoteException
   {
     return (BigDecimal) getAttribute("feldwaehrung");
   }
 
+  @Override
   public void setFeldWaehrung(BigDecimal waehrung) throws RemoteException
   {
     setAttribute("feldwaehrung", waehrung);
   }
 
+  @Override
   public Boolean getFeldJaNein() throws RemoteException
   {
     return Util.getBoolean(getAttribute("feldjanein"));
   }
 
+  @Override
   public void setFeldJaNein(Boolean janein) throws RemoteException
   {
     setAttribute("feldjanein", janein);
@@ -186,6 +202,7 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
     return super.getAttribute(fieldName);
   }
 
+  @Override
   public String getString()
   {
     try

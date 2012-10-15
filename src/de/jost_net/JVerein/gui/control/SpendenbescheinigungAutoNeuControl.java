@@ -80,6 +80,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
         cal.get(Calendar.YEAR) - 1 }, cal.get(Calendar.YEAR));
     jahr.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         try
@@ -134,6 +135,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("erstellen"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try

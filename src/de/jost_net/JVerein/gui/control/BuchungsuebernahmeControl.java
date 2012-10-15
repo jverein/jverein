@@ -85,7 +85,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
     Button button = new Button(JVereinPlugin.getI18n().tr("Suchen"),
         new Action()
         {
-
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -110,7 +110,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
     Button button = new Button(JVereinPlugin.getI18n().tr("Übernahme"),
         new Action()
         {
-
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -191,7 +191,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())

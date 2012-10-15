@@ -286,122 +286,146 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return null;
   }
 
+  @Override
   public void setAdresstyp(Integer adresstyp) throws RemoteException
   {
     setAttribute("adresstyp", adresstyp);
   }
 
+  @Override
   public Adresstyp getAdresstyp() throws RemoteException
   {
     return (Adresstyp) getAttribute("adresstyp");
   }
 
+  @Override
   public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException
   {
     setAttribute("externemitgliedsnummer", extnr);
   }
 
+  @Override
   public Integer getExterneMitgliedsnummer() throws RemoteException
   {
     return (Integer) getAttribute("externemitgliedsnummer");
   }
 
+  @Override
   public String getPersonenart() throws RemoteException
   {
     return (String) getAttribute("personenart");
   }
 
+  @Override
   public void setPersonenart(String personenart) throws RemoteException
   {
     setAttribute("personenart", personenart);
   }
 
+  @Override
   public String getAnrede() throws RemoteException
   {
     return (String) getAttribute("anrede");
   }
 
+  @Override
   public void setAnrede(String anrede) throws RemoteException
   {
     setAttribute("anrede", anrede);
   }
 
+  @Override
   public String getTitel() throws RemoteException
   {
     return (String) getAttribute("titel");
   }
 
+  @Override
   public void setTitel(String titel) throws RemoteException
   {
     setAttribute("titel", titel);
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
   }
 
+  @Override
   public String getVorname() throws RemoteException
   {
     return (String) getAttribute("vorname");
   }
 
+  @Override
   public void setVorname(String vorname) throws RemoteException
   {
     setAttribute("vorname", vorname);
   }
 
+  @Override
   public String getAdressierungszusatz() throws RemoteException
   {
     return (String) getAttribute("adressierungszusatz");
   }
 
+  @Override
   public void setAdressierungszusatz(String adressierungszusatz)
       throws RemoteException
   {
     setAttribute("adressierungszusatz", adressierungszusatz);
   }
 
+  @Override
   public String getStrasse() throws RemoteException
   {
     return (String) getAttribute("strasse");
   }
 
+  @Override
   public void setStrasse(String strasse) throws RemoteException
   {
     setAttribute("strasse", strasse);
   }
 
+  @Override
   public String getPlz() throws RemoteException
   {
     return (String) getAttribute("plz");
   }
 
+  @Override
   public void setPlz(String plz) throws RemoteException
   {
     setAttribute("plz", plz);
   }
 
+  @Override
   public String getOrt() throws RemoteException
   {
     return (String) getAttribute("ort");
   }
 
+  @Override
   public void setOrt(String ort) throws RemoteException
   {
     setAttribute("ort", ort);
   }
 
+  @Override
   public String getStaat() throws RemoteException
   {
     return (String) getAttribute("staat");
   }
 
+  @Override
   public void setStaat(String staat) throws RemoteException
   {
     if (staat != null)
@@ -411,62 +435,74 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     setAttribute("staat", staat);
   }
 
+  @Override
   public Integer getZahlungsweg() throws RemoteException
   {
     return (Integer) getAttribute("zahlungsweg");
   }
 
+  @Override
   public void setZahlungsweg(Integer zahlungsweg) throws RemoteException
   {
     setAttribute("zahlungsweg", zahlungsweg);
   }
 
+  @Override
   public Integer getZahlungsrhytmus() throws RemoteException
   {
     return (Integer) getAttribute("zahlungsrhytmus");
   }
 
+  @Override
   public void setZahlungsrhytmus(Integer zahlungsrhytmus)
       throws RemoteException
   {
     setAttribute("zahlungsrhytmus", zahlungsrhytmus);
   }
 
+  @Override
   public String getBlz() throws RemoteException
   {
     return (String) getAttribute("blz");
   }
 
+  @Override
   public void setBlz(String blz) throws RemoteException
   {
     setAttribute("blz", blz);
   }
 
+  @Override
   public String getKonto() throws RemoteException
   {
     return (String) getAttribute("konto");
   }
 
+  @Override
   public void setKonto(String konto) throws RemoteException
   {
     setAttribute("konto", konto);
   }
 
+  @Override
   public String getIban() throws RemoteException
   {
     return IbanBicCalc.createIban(getKonto(), getBlz(), "DE");
   }
 
+  @Override
   public String getKontoinhaber() throws RemoteException
   {
     return (String) getAttribute("kontoinhaber");
   }
 
+  @Override
   public void setKontoinhaber(String kontoinhaber) throws RemoteException
   {
     setAttribute("kontoinhaber", kontoinhaber);
   }
 
+  @Override
   public Date getGeburtsdatum() throws RemoteException
   {
     Date d = (Date) getAttribute("geburtsdatum");
@@ -477,26 +513,31 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return d;
   }
 
+  @Override
   public void setGeburtsdatum(Date geburtsdatum) throws RemoteException
   {
     setAttribute("geburtsdatum", geburtsdatum);
   }
 
+  @Override
   public void setGeburtsdatum(String geburtsdatum) throws RemoteException
   {
     setAttribute("geburtsdatum", toDate(geburtsdatum));
   }
 
+  @Override
   public String getGeschlecht() throws RemoteException
   {
     return (String) getAttribute("geschlecht");
   }
 
+  @Override
   public void setGeschlecht(String geschlecht) throws RemoteException
   {
     setAttribute("geschlecht", geschlecht);
   }
 
+  @Override
   public String getTelefonprivat() throws RemoteException
   {
     String telefon = (String) getAttribute("telefonprivat");
@@ -507,11 +548,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return telefon;
   }
 
+  @Override
   public void setTelefonprivat(String telefonprivat) throws RemoteException
   {
     setAttribute("telefonprivat", telefonprivat);
   }
 
+  @Override
   public String getTelefondienstlich() throws RemoteException
   {
     String telefon = (String) getAttribute("telefondienstlich");
@@ -522,12 +565,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return telefon;
   }
 
+  @Override
   public void setTelefondienstlich(String telefondienstlich)
       throws RemoteException
   {
     setAttribute("telefondienstlich", telefondienstlich);
   }
 
+  @Override
   public String getHandy() throws RemoteException
   {
     String telefon = (String) getAttribute("handy");
@@ -538,11 +583,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return telefon;
   }
 
+  @Override
   public void setHandy(String handy) throws RemoteException
   {
     setAttribute("handy", handy);
   }
 
+  @Override
   public String getEmail() throws RemoteException
   {
     String email = (String) getAttribute("email");
@@ -553,11 +600,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return email;
   }
 
+  @Override
   public void setEmail(String email) throws RemoteException
   {
     setAttribute("email", email);
   }
 
+  @Override
   public Date getEintritt() throws RemoteException
   {
     Date d = (Date) getAttribute("eintritt");
@@ -568,31 +617,37 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return d;
   }
 
+  @Override
   public void setEintritt(Date eintritt) throws RemoteException
   {
     setAttribute("eintritt", eintritt);
   }
 
+  @Override
   public void setEintritt(String eintritt) throws RemoteException
   {
     setAttribute("eintritt", toDate(eintritt));
   }
 
+  @Override
   public Beitragsgruppe getBeitragsgruppe() throws RemoteException
   {
     return (Beitragsgruppe) getAttribute("beitragsgruppe");
   }
 
+  @Override
   public int getBeitragsgruppeId() throws RemoteException
   {
     return Integer.parseInt(getBeitragsgruppe().getID());
   }
 
+  @Override
   public void setBeitragsgruppe(Integer beitragsgruppe) throws RemoteException
   {
     setAttribute("beitragsgruppe", beitragsgruppe);
   }
 
+  @Override
   public Double getIndividuellerBeitrag() throws RemoteException
   {
     Double d = (Double) getAttribute("individuellerbeitrag");
@@ -603,112 +658,134 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return d;
   }
 
+  @Override
   public void setIndividuellerBeitrag(double d) throws RemoteException
   {
     setAttribute("individuellerbeitrag", new Double(d));
   }
 
+  @Override
   public Mitgliedfoto getFoto() throws RemoteException
   {
     return (Mitgliedfoto) getAttribute("foto");
   }
 
+  @Override
   public void setFoto(Mitgliedfoto foto) throws RemoteException
   {
     setAttribute("foto", foto);
   }
 
+  @Override
   public Integer getZahlerID() throws RemoteException
   {
     Integer zahlerid = (Integer) getAttribute("zahlerid");
     return zahlerid;
   }
 
+  @Override
   public void setZahlerID(Integer id) throws RemoteException
   {
     setAttribute("zahlerid", id);
   }
 
+  @Override
   public Date getAustritt() throws RemoteException
   {
     return (Date) getAttribute("austritt");
   }
 
+  @Override
   public void setAustritt(Date austritt) throws RemoteException
   {
     setAttribute("austritt", austritt);
   }
 
+  @Override
   public void setAustritt(String austritt) throws RemoteException
   {
     setAttribute("austritt", toDate(austritt));
   }
 
+  @Override
   public Date getKuendigung() throws RemoteException
   {
     return (Date) getAttribute("kuendigung");
   }
 
+  @Override
   public void setKuendigung(Date kuendigung) throws RemoteException
   {
     setAttribute("kuendigung", kuendigung);
   }
 
+  @Override
   public void setKuendigung(String kuendigung) throws RemoteException
   {
     setAttribute("kuendigung", toDate(kuendigung));
   }
 
+  @Override
   public Date getSterbetag() throws RemoteException
   {
     return (Date) getAttribute("sterbetag");
   }
 
+  @Override
   public void setSterbetag(Date sterbetag) throws RemoteException
   {
     setAttribute("sterbetag", sterbetag);
   }
 
+  @Override
   public void setSterbetag(String sterbetag) throws RemoteException
   {
     setAttribute("sterbetag", toDate(sterbetag));
   }
 
+  @Override
   public String getVermerk1() throws RemoteException
   {
     return (String) getAttribute("vermerk1");
   }
 
+  @Override
   public void setVermerk1(String vermerk1) throws RemoteException
   {
     setAttribute("vermerk1", vermerk1);
   }
 
+  @Override
   public String getVermerk2() throws RemoteException
   {
     return (String) getAttribute("vermerk2");
   }
 
+  @Override
   public void setVermerk2(String vermerk2) throws RemoteException
   {
     setAttribute("vermerk2", vermerk2);
   }
 
+  @Override
   public void setEingabedatum() throws RemoteException
   {
     setAttribute("eingabedatum", new Date());
   }
 
+  @Override
   public Date getEingabedatum() throws RemoteException
   {
     return (Date) getAttribute("eingabedatum");
   }
 
+  @Override
   public void setLetzteAenderung() throws RemoteException
   {
     setAttribute("letzteaenderung", new Date());
   }
 
+  @Override
   public Date getLetzteAenderung() throws RemoteException
   {
     return (Date) getAttribute("letzteaenderung");
@@ -717,6 +794,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   /**
    * Gibt den Namen aufbereitet zurück, Meier, Dr. Willi
    */
+  @Override
   public String getNameVorname() throws RemoteException
   {
     String ret = getName() + ", ";
@@ -731,6 +809,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   /**
    * Gibt den Namen aufbereitet zurück: Dr. Willi Meier
    */
+  @Override
   public String getVornameName() throws RemoteException
   {
     String ret = "";
@@ -758,6 +837,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   /**
    * Gibt die Anschrift aufbereitet zurück
    */
+  @Override
   public String getAnschrift() throws RemoteException
   {
     return (getAdressierungszusatz() != null
@@ -771,6 +851,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         + (getStaat() != null ? ", " + getStaat() : "");
   }
 
+  @Override
   public String getEmpfaenger() throws RemoteException
   {
     String empfaenger = getAnrede()
@@ -786,12 +867,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return empfaenger;
   }
 
+  @Override
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException
   {
     return getMap(inma, false);
   }
 
+  @Override
   public Map<String, Object> getMap(Map<String, Object> inma,
       boolean ohneLesefelder) throws RemoteException
   {
@@ -1060,6 +1143,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return map;
   }
 
+  @Override
   public boolean isAngemeldet(Date stichtag) throws RemoteException
   {
     return ((getEintritt() != null || getEintritt().before(stichtag))
@@ -1140,6 +1224,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return d;
   }
 
+  @Override
   public void addVariable(String name, String wert) throws RemoteException
   {
     variable.put(name, wert);

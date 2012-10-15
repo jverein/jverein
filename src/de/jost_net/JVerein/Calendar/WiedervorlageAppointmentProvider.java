@@ -49,6 +49,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
    * @see de.willuhn.jameica.gui.calendar.AppointmentProvider#getAppointments(java.util.Date,
    *      java.util.Date)
    */
+  @Override
   public List<Appointment> getAppointments(Date from, Date to)
   {
     try
@@ -81,6 +82,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
   /**
    * @see de.willuhn.jameica.gui.calendar.AppointmentProvider#getName()
    */
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Wiedervorlagen");
@@ -105,6 +107,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.Appointment#execute()
      */
+    @Override
     public void execute()
     {
       try
@@ -120,6 +123,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.Appointment#getDate()
      */
+    @Override
     public Date getDate()
     {
       try
@@ -136,6 +140,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.Appointment#getDescription()
      */
+    @Override
     public String getDescription()
     {
       try
@@ -154,6 +159,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.Appointment#getName()
      */
+    @Override
     public String getName()
     {
       try
@@ -170,6 +176,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.Appointment#getColor()
      */
+    @Override
     public RGB getColor()
     {
       return settings.getRGB("color", new RGB(31, 32, 255));
@@ -178,6 +185,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.AbstractAppointment#getUid()
      */
+    @Override
     public String getUid()
     {
       try
@@ -194,6 +202,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     /**
      * @see de.willuhn.jameica.gui.calendar.AbstractAppointment#hasAlarm()
      */
+    @Override
     public boolean hasAlarm()
     {
       return false;

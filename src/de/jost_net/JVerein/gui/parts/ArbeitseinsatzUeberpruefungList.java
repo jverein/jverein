@@ -147,7 +147,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         ArrayList<ArbeitseinsatzZeile> ergebnis = new ArrayList<ArbeitseinsatzZeile>();

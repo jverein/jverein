@@ -93,61 +93,73 @@ public class LehrgangImpl extends AbstractDBObject implements Lehrgang
     return null;
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(int mitglied) throws RemoteException
   {
     setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
+  @Override
   public Lehrgangsart getLehrgangsart() throws RemoteException
   {
     return (Lehrgangsart) getAttribute("lehrgangsart");
   }
 
+  @Override
   public void setLehrgangsart(int lehrgangsart) throws RemoteException
   {
     setAttribute("lehrgangsart", Integer.valueOf(lehrgangsart));
   }
 
+  @Override
   public Date getVon() throws RemoteException
   {
     return (Date) getAttribute("von");
   }
 
+  @Override
   public void setVon(Date von) throws RemoteException
   {
     setAttribute("von", von);
   }
 
+  @Override
   public Date getBis() throws RemoteException
   {
     return (Date) getAttribute("bis");
   }
 
+  @Override
   public void setBis(Date bis) throws RemoteException
   {
     setAttribute("bis", bis);
   }
 
+  @Override
   public String getVeranstalter() throws RemoteException
   {
     return (String) getAttribute("veranstalter");
   }
 
+  @Override
   public void setVeranstalter(String veranstalter) throws RemoteException
   {
     setAttribute("veranstalter", veranstalter);
   }
 
+  @Override
   public String getErgebnis() throws RemoteException
   {
     return (String) getAttribute("ergebnis");
   }
 
+  @Override
   public void setErgebnis(String ergebnis) throws RemoteException
   {
     setAttribute("ergebnis", ergebnis);

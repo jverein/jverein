@@ -28,6 +28,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class BeitragsgruppeFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     Beitragsgruppe beitragsgruppe = (Beitragsgruppe) o;

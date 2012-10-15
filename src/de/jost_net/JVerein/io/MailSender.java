@@ -140,8 +140,10 @@ public class MailSender
       session.setDebug(false);
     }
     Message msg = new MimeMessage(session);
-    /*msg.addHeader("Disposition-Notification-To", smtp_from_address);
-    msg.addHeader("Return-Receipt-To", smtp_from_address);*/
+    /*
+     * msg.addHeader("Disposition-Notification-To", smtp_from_address);
+     * msg.addHeader("Return-Receipt-To", smtp_from_address);
+     */
     InternetAddress addressFrom = new InternetAddress(smtp_from_address);
     msg.setFrom(addressFrom);
 
@@ -201,6 +203,7 @@ public class MailSender
       this.ma = ma;
     }
 
+    @Override
     public String getContentType()
     {
       try
@@ -215,11 +218,13 @@ public class MailSender
       return null;
     }
 
+    @Override
     public InputStream getInputStream() throws IOException
     {
       return new ByteArrayInputStream(ma.getAnhang());
     }
 
+    @Override
     public String getName()
     {
       String name = null;
@@ -234,6 +239,7 @@ public class MailSender
       return name;
     }
 
+    @Override
     public OutputStream getOutputStream()
     {
       return new ByteArrayOutputStream();

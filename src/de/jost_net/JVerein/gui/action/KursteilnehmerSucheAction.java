@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class KursteilnehmerSucheAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(KursteilnehmerSucheView.class.getName(), null);

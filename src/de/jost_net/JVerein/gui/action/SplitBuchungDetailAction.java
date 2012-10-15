@@ -40,6 +40,7 @@ public class SplitBuchungDetailAction implements Action
     this.view = view;
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     BuchungsControl bc = new BuchungsControl(view);

@@ -33,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FelddefinitionDetailAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Felddefinition f = null;

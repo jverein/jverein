@@ -41,11 +41,13 @@ import de.willuhn.util.ApplicationException;
 public class MailSearchProvider implements SearchProvider
 {
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Mails");
   }
 
+  @Override
   public List<MyResult> search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
@@ -80,11 +82,13 @@ public class MailSearchProvider implements SearchProvider
       this.m = m;
     }
 
+    @Override
     public void execute() throws ApplicationException
     {
       new MailDetailAction().handleAction(this.m);
     }
 
+    @Override
     public String getName()
     {
       try

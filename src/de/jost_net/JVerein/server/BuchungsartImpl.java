@@ -100,16 +100,19 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public int getNummer() throws RemoteException
   {
     Integer i = (Integer) getAttribute("nummer");
@@ -118,11 +121,13 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     return i.intValue();
   }
 
+  @Override
   public void setNummer(int i) throws RemoteException
   {
     setAttribute("nummer", Integer.valueOf(i));
   }
 
+  @Override
   public int getArt() throws RemoteException
   {
     Integer i = (Integer) getAttribute("art");
@@ -133,31 +138,37 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     return i.intValue();
   }
 
+  @Override
   public void setArt(int art) throws RemoteException
   {
     setAttribute("art", art);
   }
 
+  @Override
   public Buchungsklasse getBuchungsklasse() throws RemoteException
   {
     return (Buchungsklasse) getAttribute("buchungsklasse");
   }
 
+  @Override
   public int getBuchungsklasseId() throws RemoteException
   {
     return Integer.parseInt(getBuchungsklasse().getID());
   }
 
+  @Override
   public void setBuchungsklasse(Integer buchungsklasse) throws RemoteException
   {
     setAttribute("buchungsklasse", buchungsklasse);
   }
 
+  @Override
   public Boolean getSpende() throws RemoteException
   {
     return Util.getBoolean(getAttribute("spende"));
   }
 
+  @Override
   public void setSpende(Boolean spende) throws RemoteException
   {
     setAttribute("spende", Boolean.valueOf(spende));

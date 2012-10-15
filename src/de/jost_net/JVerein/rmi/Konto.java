@@ -30,8 +30,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Konto extends DBObject
 {
-  public String getID() throws RemoteException;
-
   public String getNummer() throws RemoteException;
 
   public void setNummer(String nummer) throws RemoteException;

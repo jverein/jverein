@@ -369,6 +369,7 @@ public class MitgliedControl extends AbstractControl
     suchadresstyp.setName(JVereinPlugin.getI18n().tr("Adresstyp"));
     suchadresstyp.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Adresstyp sel = (Adresstyp) suchadresstyp.getValue();
@@ -470,6 +471,7 @@ public class MitgliedControl extends AbstractControl
           }
           ResultSetExtractor rs = new ResultSetExtractor()
           {
+            @Override
             public Object extract(ResultSet rs) throws SQLException
             {
               List<String> namen = new ArrayList<String>();
@@ -526,6 +528,7 @@ public class MitgliedControl extends AbstractControl
           }
           ResultSetExtractor rs = new ResultSetExtractor()
           {
+            @Override
             public Object extract(ResultSet rs) throws SQLException
             {
               List<String> vornamen = new ArrayList<String>();
@@ -594,6 +597,7 @@ public class MitgliedControl extends AbstractControl
           }
           ResultSetExtractor rs = new ResultSetExtractor()
           {
+            @Override
             public Object extract(ResultSet rs) throws SQLException
             {
               List<String> strassen = new ArrayList<String>();
@@ -637,6 +641,7 @@ public class MitgliedControl extends AbstractControl
     plz.setName(JVereinPlugin.getI18n().tr("PLZ"));
     plz.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         if (event.type == SWT.FocusOut)
@@ -704,6 +709,7 @@ public class MitgliedControl extends AbstractControl
         .getGeburtsdatumPflicht());
     this.geburtsdatum.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) geburtsdatum.getValue();
@@ -749,6 +755,7 @@ public class MitgliedControl extends AbstractControl
     zahlungsweg.setName(JVereinPlugin.getI18n().tr("Zahlungsweg"));
     zahlungsweg.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Zahlungsweg z = (Zahlungsweg) zahlungsweg.getValue();
@@ -795,6 +802,7 @@ public class MitgliedControl extends AbstractControl
     l.handleEvent(null); // Einmal initial ausfuehren
     blz.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event arg0)
       {
         try
@@ -808,7 +816,6 @@ public class MitgliedControl extends AbstractControl
           //
         }
       }
-
     });
     return blz;
   }
@@ -825,6 +832,7 @@ public class MitgliedControl extends AbstractControl
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     konto.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event arg0)
       {
         try
@@ -932,6 +940,7 @@ public class MitgliedControl extends AbstractControl
         .getEintrittsdatumPflicht());
     this.eintritt.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) eintritt.getValue();
@@ -970,6 +979,7 @@ public class MitgliedControl extends AbstractControl
         .tr("Bitte auswählen"));
     beitragsgruppe.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         if (event.type != SWT.Selection)
@@ -1160,6 +1170,7 @@ public class MitgliedControl extends AbstractControl
     zahler.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
     zahler.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         if (event.type != SWT.Selection)
@@ -1218,6 +1229,7 @@ public class MitgliedControl extends AbstractControl
         "Bitte Austrittsdatum wählen"));
     this.austritt.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) austritt.getValue();
@@ -1245,6 +1257,7 @@ public class MitgliedControl extends AbstractControl
         "Bitte Kündigungsdatum wählen"));
     this.kuendigung.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) kuendigung.getValue();
@@ -1272,6 +1285,7 @@ public class MitgliedControl extends AbstractControl
         .setText(JVereinPlugin.getI18n().tr("Bitte Sterbetag wählen"));
     this.sterbetag.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) sterbetag.getValue();
@@ -1494,6 +1508,7 @@ public class MitgliedControl extends AbstractControl
         "vorname");
     familienangehoerige.addColumn("", "zahlerid", new Formatter()
     {
+      @Override
       public String format(Object o)
       {
         // Alle Familienmitglieder, die eine Zahler-ID eingetragen haben, sind
@@ -1677,6 +1692,7 @@ public class MitgliedControl extends AbstractControl
         "Beginn des Geburtszeitraumes"));
     this.geburtsdatumvon.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) geburtsdatumvon.getValue();
@@ -1715,6 +1731,7 @@ public class MitgliedControl extends AbstractControl
         "Ende des Geburtszeitraumes"));
     this.geburtsdatumbis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) geburtsdatumbis.getValue();
@@ -1753,6 +1770,7 @@ public class MitgliedControl extends AbstractControl
         "Beginn des Sterbezeitraumes"));
     this.sterbedatumvon.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) sterbedatumvon.getValue();
@@ -1791,6 +1809,7 @@ public class MitgliedControl extends AbstractControl
         "Ende des Sterbezeitraumes"));
     this.sterbedatumbis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) sterbedatumbis.getValue();
@@ -1829,6 +1848,7 @@ public class MitgliedControl extends AbstractControl
         "Beginn des Eintrittszeitraumes"));
     this.eintrittvon.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) eintrittvon.getValue();
@@ -1872,6 +1892,7 @@ public class MitgliedControl extends AbstractControl
         "Ende des Eintrittszeitraumes"));
     this.eintrittbis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) eintrittbis.getValue();
@@ -1910,6 +1931,7 @@ public class MitgliedControl extends AbstractControl
         "Beginn des Austrittszeitraumes"));
     this.austrittvon.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) austrittvon.getValue();
@@ -1953,6 +1975,7 @@ public class MitgliedControl extends AbstractControl
         "Ende des Austrittszeitraumes"));
     this.austrittbis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) austrittbis.getValue();
@@ -1992,6 +2015,7 @@ public class MitgliedControl extends AbstractControl
     this.stichtag.setTitle(JVereinPlugin.getI18n().tr("Stichtag"));
     this.stichtag.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) stichtag.getValue();
@@ -2021,6 +2045,7 @@ public class MitgliedControl extends AbstractControl
     jubeljahr = new SelectInput(jubeljahre, jubeljahre[2]);
     jubeljahr.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         jjahr = (Integer) jubeljahr.getValue();
@@ -2064,6 +2089,7 @@ public class MitgliedControl extends AbstractControl
     eigenschaftenabfrage.setName(JVereinPlugin.getI18n().tr("Eigenschaften"));
     eigenschaftenabfrage.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         d.setDefaults(settings.getString("mitglied.eigenschaften", "xxx"));
@@ -2161,6 +2187,7 @@ public class MitgliedControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -2183,6 +2210,7 @@ public class MitgliedControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -2843,6 +2871,7 @@ public class MitgliedControl extends AbstractControl
       ausw.beforeGo();
       BackgroundTask t = new BackgroundTask()
       {
+        @Override
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
           try
@@ -2853,6 +2882,7 @@ public class MitgliedControl extends AbstractControl
             {
               GUI.getDisplay().asyncExec(new Runnable()
               {
+                @Override
                 public void run()
                 {
                   try
@@ -2883,11 +2913,13 @@ public class MitgliedControl extends AbstractControl
           }
         }
 
+        @Override
         public void interrupt()
         {
           //
         }
 
+        @Override
         public boolean isInterrupted()
         {
           return false;
@@ -2938,16 +2970,19 @@ public class MitgliedControl extends AbstractControl
 
     BackgroundTask t = new BackgroundTask()
     {
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         new MitgliederStatistik(file, monitor, sticht);
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;
@@ -2983,7 +3018,7 @@ public class MitgliedControl extends AbstractControl
    */
   private class BLZListener implements Listener
   {
-
+    @Override
     public void handleEvent(Event event)
     {
       try
@@ -3003,7 +3038,7 @@ public class MitgliedControl extends AbstractControl
    */
   private class EigenschaftenListener implements Listener
   {
-    @SuppressWarnings("unchecked")
+    @Override
     public void handleEvent(Event event)
     {
       if (event == null || event.data == null)
@@ -3041,6 +3076,7 @@ public class MitgliedControl extends AbstractControl
    */
   private class ZusatzfelderListener implements Listener
   {
+    @Override
     public void handleEvent(Event event)
     {
       if (event == null || event.data == null)
@@ -3055,7 +3091,7 @@ public class MitgliedControl extends AbstractControl
 
   public static class EigenschaftTreeFormatter implements TreeFormatter
   {
-
+    @Override
     public void format(TreeItem item)
     {
       EigenschaftenNode eigenschaftitem = (EigenschaftenNode) item.getData();
@@ -3089,6 +3125,7 @@ public class MitgliedControl extends AbstractControl
       this.tree = tree;
     }
 
+    @Override
     public void handleEvent(Event event)
     {
       // "o" ist das Objekt, welches gerade markiert
@@ -3137,6 +3174,7 @@ public class MitgliedControl extends AbstractControl
     /**
      * @see de.willuhn.jameica.messaging.MessageConsumer#autoRegister()
      */
+    @Override
     public boolean autoRegister()
     {
       return false;
@@ -3145,6 +3183,7 @@ public class MitgliedControl extends AbstractControl
     /**
      * @see de.willuhn.jameica.messaging.MessageConsumer#getExpectedMessageTypes()
      */
+    @Override
     public Class<?>[] getExpectedMessageTypes()
     {
       return new Class[] { FamilienbeitragMessage.class };
@@ -3153,11 +3192,12 @@ public class MitgliedControl extends AbstractControl
     /**
      * @see de.willuhn.jameica.messaging.MessageConsumer#handleMessage(de.willuhn.jameica.messaging.Message)
      */
+    @Override
     public void handleMessage(final Message message) throws Exception
     {
       GUI.getDisplay().syncExec(new Runnable()
       {
-
+        @Override
         public void run()
         {
           try
@@ -3179,9 +3219,7 @@ public class MitgliedControl extends AbstractControl
                 FamilienbeitragMessageConsumer.this);
           }
         }
-
       });
     }
   }
-
 }

@@ -43,6 +43,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class DefaultZusatzbetraegeImport implements Importer
 {
+  @Override
   public void doImport(Object context, IOFormat format, File file,
       String encoding, ProgressMonitor monitor) throws RemoteException,
       ApplicationException
@@ -186,6 +187,7 @@ public class DefaultZusatzbetraegeImport implements Importer
     }
   }
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Default-Zusatzbeträge");
@@ -196,6 +198,7 @@ public class DefaultZusatzbetraegeImport implements Importer
     return true;
   }
 
+  @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Zusatzbetrag.class)
@@ -204,6 +207,7 @@ public class DefaultZusatzbetraegeImport implements Importer
     }
     IOFormat f = new IOFormat()
     {
+      @Override
       public String getName()
       {
         return DefaultZusatzbetraegeImport.this.getName();
@@ -212,6 +216,7 @@ public class DefaultZusatzbetraegeImport implements Importer
       /**
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
+      @Override
       public String[] getFileExtensions()
       {
         return new String[] { "*.csv" };

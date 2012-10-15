@@ -97,36 +97,43 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Mail getMail() throws RemoteException
   {
     return (Mail) getAttribute("mail");
   }
 
+  @Override
   public void setMail(Mail mail) throws RemoteException
   {
     setAttribute("mail", mail);
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(Mitglied mitglied) throws RemoteException
   {
     setAttribute("mitglied", mitglied);
   }
 
+  @Override
   public String getMailAdresse() throws RemoteException
   {
     return getMitglied().getEmail();
   }
-  
+
+  @Override
   public Timestamp getVersand() throws RemoteException
   {
     return (Timestamp) getAttribute("versand");
   }
 
+  @Override
   public void setVersand(Timestamp versand) throws RemoteException
   {
     setAttribute("versand", versand);
@@ -153,6 +160,7 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
     return super.getAttribute(fieldName);
   }
 
+  @Override
   public int compareTo(MailEmpfaenger o)
   {
     try

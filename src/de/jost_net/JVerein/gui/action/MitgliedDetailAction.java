@@ -36,6 +36,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedDetailAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Mitglied m = null;

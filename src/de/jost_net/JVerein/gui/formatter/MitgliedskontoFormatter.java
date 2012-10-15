@@ -28,6 +28,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class MitgliedskontoFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     if (o instanceof Mitgliedskonto)

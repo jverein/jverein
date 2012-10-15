@@ -109,6 +109,7 @@ public class LehrgangControl extends AbstractControl
     lehrgangsart.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
     lehrgangsart.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Lehrgangsart la = (Lehrgangsart) lehrgangsart.getValue();
@@ -127,7 +128,6 @@ public class LehrgangControl extends AbstractControl
         }
       }
     });
-
     return lehrgangsart;
   }
 
@@ -145,6 +145,7 @@ public class LehrgangControl extends AbstractControl
     this.von.setText(JVereinPlugin.getI18n().tr("Bitte (Beginn-)Datum wählen"));
     this.von.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) von.getValue();
@@ -171,6 +172,7 @@ public class LehrgangControl extends AbstractControl
     this.bis.setText(JVereinPlugin.getI18n().tr("Bitte Ende-Datum wählen"));
     this.bis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) bis.getValue();
@@ -252,6 +254,7 @@ public class LehrgangControl extends AbstractControl
     this.datumvon.setText(JVereinPlugin.getI18n().tr("Datum von"));
     this.datumvon.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) datumvon.getValue();
@@ -289,6 +292,7 @@ public class LehrgangControl extends AbstractControl
     this.datumbis.setText(JVereinPlugin.getI18n().tr("Datum bis"));
     this.datumbis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) datumbis.getValue();
@@ -434,6 +438,7 @@ public class LehrgangControl extends AbstractControl
       lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Name"), "mitglied",
           new Formatter()
           {
+            @Override
             public String format(Object o)
             {
               Mitglied m = (Mitglied) o;
@@ -479,7 +484,7 @@ public class LehrgangControl extends AbstractControl
 
   private class FilterListener implements Listener
   {
-
+    @Override
     public void handleEvent(Event event)
     {
       if (event.type != SWT.Selection && event.type != SWT.FocusOut)

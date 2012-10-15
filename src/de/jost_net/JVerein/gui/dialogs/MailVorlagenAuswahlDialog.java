@@ -60,6 +60,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("verwenden"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -75,6 +76,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
     });
     b.addButton(JVereinPlugin.getI18n().tr("ohne Mail-Vorlage"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         close();

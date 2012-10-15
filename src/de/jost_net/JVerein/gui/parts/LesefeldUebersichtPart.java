@@ -65,6 +65,7 @@ public class LesefeldUebersichtPart implements Part
     this.selectedMitglied = selectedMitglied;
   }
 
+  @Override
   public void paint(final Composite parent) throws RemoteException
   {
     ScrolledContainer scrolled = new ScrolledContainer(parent, 1);
@@ -101,6 +102,7 @@ public class LesefeldUebersichtPart implements Part
 
     mitgliederSelectInput.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Mitglied selected = (Mitglied) mitgliederSelectInput.getValue();
@@ -307,6 +309,7 @@ public class LesefeldUebersichtPart implements Part
 
   class NewLesefeldAction implements Action
   {
+    @Override
     public void handleAction(Object context) throws ApplicationException
     {
       openEditLesefeldDialog(null);
@@ -322,6 +325,7 @@ public class LesefeldUebersichtPart implements Part
       this.lesefeld = lesefeld;
     }
 
+    @Override
     public void handleAction(Object context) throws ApplicationException
     {
       openEditLesefeldDialog(lesefeld);
@@ -352,6 +356,7 @@ public class LesefeldUebersichtPart implements Part
       this.lesefeld = lesefeld;
     }
 
+    @Override
     public void handleAction(Object context) throws ApplicationException
     {
       /* Sicherheitsnachfrage */

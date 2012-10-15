@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class BuchungsklasseSaldoAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(BuchungsklasseSaldoView.class.getName(), null);

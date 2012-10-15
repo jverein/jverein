@@ -111,26 +111,31 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
       }
     }
 
+    @Override
     public Object getAttribute(String arg0)
     {
       return label;
     }
 
+    @Override
     public String[] getAttributeNames()
     {
       return new String[] { "name" };
     }
 
+    @Override
     public String getID()
     {
       return schluessel + "";
     }
 
+    @Override
     public String getPrimaryAttribute()
     {
       return "name";
     }
 
+    @Override
     public boolean equals(GenericObject arg0) throws RemoteException
     {
       if (arg0 == null || !(arg0 instanceof ArbeitseinsatzUeberpruefungObject))

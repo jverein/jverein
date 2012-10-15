@@ -81,7 +81,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
-
+      @Override
       public void handleAction(Object context)
       {
         if (buchungsarten.getValue() == null)
@@ -100,6 +100,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
     }, null, true);
     buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();
@@ -141,6 +142,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
         "Bitte Buchungsart auswählen"));
     buchungsarten.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         status.setValue("");

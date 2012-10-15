@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class BeitragsgruppeSucheAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(BeitragsgruppeSucheView.class.getName(), null);

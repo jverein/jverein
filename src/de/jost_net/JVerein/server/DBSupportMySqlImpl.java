@@ -45,6 +45,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getJdbcDriver()
    */
+  @Override
   public String getJdbcDriver()
   {
     return JVereinDBService.SETTINGS.getString(
@@ -54,6 +55,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getJdbcPassword()
    */
+  @Override
   public String getJdbcPassword()
   {
     String key = "database.driver.mysql.password";
@@ -64,6 +66,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getJdbcUrl()
    */
+  @Override
   public String getJdbcUrl()
   {
     return JVereinDBService.SETTINGS
@@ -75,6 +78,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getJdbcUsername()
    */
+  @Override
   public String getJdbcUsername()
   {
     return JVereinDBService.SETTINGS.getString(
@@ -122,6 +126,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getSQLTimestamp(java.lang.String)
    */
+  @Override
   public String getSQLTimestamp(String content)
   {
     return MessageFormat.format("(UNIX_TIMESTAMP({0})*1000)",
@@ -131,6 +136,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#getInsertWithID()
    */
+  @Override
   public boolean getInsertWithID()
   {
     return false;
@@ -141,6 +147,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   /**
    * @see de.willuhn.jameica.hbci.rmi.DBSupport#checkConnection(java.sql.Connection)
    */
+  @Override
   public void checkConnection(Connection conn) throws RemoteException
   {
     long newCheck = System.currentTimeMillis();

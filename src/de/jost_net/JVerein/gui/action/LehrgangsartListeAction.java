@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class LehrgangsartListeAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(LehrgangsartListeView.class.getName(), null);

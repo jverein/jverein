@@ -66,7 +66,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     String sql = "select count(*) from beitragsgruppe";
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
@@ -83,7 +83,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     }
     rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();
@@ -136,6 +136,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     {
     }
 
+    @Override
     public void handleEvent(Event event)
     {
       if (event.type != SWT.Selection && event.type != SWT.FocusOut)

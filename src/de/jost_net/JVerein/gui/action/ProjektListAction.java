@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class ProjektListAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(ProjektListView.class.getName(), null);

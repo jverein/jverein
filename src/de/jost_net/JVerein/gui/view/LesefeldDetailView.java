@@ -72,14 +72,17 @@ public class LesefeldDetailView extends AbstractView implements Listener
     // updateLesefeldFromGUI() und updateScriptResult() zugegriffen werden.
     textInputScriptName = new TextInput(
         lesefeld != null ? lesefeld.getBezeichnung() : "");
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Skript-Name"), textInputScriptName);
+    container.addLabelPair(JVereinPlugin.getI18n().tr("Skript-Name"),
+        textInputScriptName);
 
     textAreaInputScriptCode = new TextAreaInput(
         lesefeld != null ? lesefeld.getScript() : "");
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Skript"), textAreaInputScriptCode);
+    container.addLabelPair(JVereinPlugin.getI18n().tr("Skript"),
+        textAreaInputScriptCode);
 
     textAreaInputScriptResult = new TextAreaInput("");
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Ausgabe"), textAreaInputScriptResult);
+    container.addLabelPair(JVereinPlugin.getI18n().tr("Ausgabe"),
+        textAreaInputScriptResult);
 
     if (lesefeld != null)
       updateScriptResult();
@@ -88,6 +91,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
     Button button = new Button(
         JVereinPlugin.getI18n().tr("Aktualisieren (F5)"), new Action()
         {
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             updateScriptResult();
@@ -215,6 +219,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
     return success;
   }
 
+  @Override
   public void handleEvent(Event event)
   {
     // aktualisiere Script-Ausgabe, wenn F5 gedrückt wird.
@@ -230,6 +235,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
   private final class AbortEditLesefeldAction implements Action
   {
+    @Override
     public void handleAction(Object context) throws ApplicationException
     {
       GUI.startPreviousView();
@@ -238,6 +244,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
   private final class SaveLesefeldAction implements Action
   {
+    @Override
     public void handleAction(Object context) throws ApplicationException
     {
       if (updateScriptResult())
@@ -248,7 +255,8 @@ public class LesefeldDetailView extends AbstractView implements Listener
         try
         {
           lesefeld.store();
-          GUI.getStatusBar().setSuccessText(JVereinPlugin.getI18n().tr("Skript gespeichert."));
+          GUI.getStatusBar().setSuccessText(
+              JVereinPlugin.getI18n().tr("Skript gespeichert."));
           GUI.startPreviousView();
         }
         catch (RemoteException e)
@@ -273,6 +281,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
   private final class OpenInsertVariableDialogAction implements Action
   {
+    @Override
     public void handleAction(Object context)
     {
       try

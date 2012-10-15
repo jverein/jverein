@@ -89,16 +89,19 @@ public class AdresstypImpl extends AbstractDBObject implements Adresstyp
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public int getJVereinid() throws RemoteException
   {
     Integer i = (Integer) getAttribute("jvereinid");
@@ -107,6 +110,7 @@ public class AdresstypImpl extends AbstractDBObject implements Adresstyp
     return i.intValue();
   }
 
+  @Override
   public void setJVereinid(int jvereinid) throws RemoteException
   {
     setAttribute("jvereinid", Integer.valueOf(jvereinid));

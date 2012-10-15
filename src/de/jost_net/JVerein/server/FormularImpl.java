@@ -100,26 +100,31 @@ public class FormularImpl extends AbstractDBObject implements Formular
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public byte[] getInhalt() throws RemoteException
   {
     return (byte[]) this.getAttribute("inhalt");
   }
 
+  @Override
   public void setInhalt(byte[] inhalt) throws RemoteException
   {
     setAttribute("inhalt", inhalt);
   }
 
+  @Override
   public int getArt() throws RemoteException
   {
     Integer i = (Integer) getAttribute("art");
@@ -130,6 +135,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
     return i.intValue();
   }
 
+  @Override
   public void setArt(int art) throws RemoteException
   {
     setAttribute("art", art);

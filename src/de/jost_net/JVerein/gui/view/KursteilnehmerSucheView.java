@@ -50,7 +50,7 @@ public class KursteilnehmerSucheView extends AbstractView
     DBService service = Einstellungen.getDBService();
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         rs.next();

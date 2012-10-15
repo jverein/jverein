@@ -28,7 +28,7 @@ import de.willuhn.util.ApplicationException;
 
 public class StatistikMitgliedAction implements Action
 {
-
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     GUI.startView(StatistikMitgliedView.class.getName(), null);

@@ -68,6 +68,7 @@ public class Familienverband implements Part
    * Zeichnet den Familienverband Part. Die Ausgabe hängt von Feld visible
    * ab, das über die Funktion setVisible(boolean) gesetzt wird.
    */
+  @Override
   public void paint(Composite parent) throws RemoteException
   {
     if(this.parent == null)

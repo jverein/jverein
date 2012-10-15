@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class KontoListAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(KontoListView.class.getName(), null);

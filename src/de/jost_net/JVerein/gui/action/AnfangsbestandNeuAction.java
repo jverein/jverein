@@ -37,6 +37,7 @@ import de.willuhn.util.ApplicationException;
 
 public class AnfangsbestandNeuAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Anfangsbestand anf;

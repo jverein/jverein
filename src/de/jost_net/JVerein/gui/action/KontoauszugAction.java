@@ -28,7 +28,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class KontoauszugAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     if (context != null

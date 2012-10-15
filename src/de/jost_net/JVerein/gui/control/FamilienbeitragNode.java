@@ -116,21 +116,25 @@ public class FamilienbeitragNode implements GenericObjectNode
     return mitglied;
   }
 
+  @Override
   public String getPrimaryAttribute()
   {
     return null;
   }
 
+  @Override
   public String getID()
   {
     return id;
   }
 
+  @Override
   public String[] getAttributeNames()
   {
     return new String[] { "name", "vorname", "blz", "konto" };
   }
 
+  @Override
   public Object getAttribute(String name)
   {
     try
@@ -153,31 +157,37 @@ public class FamilienbeitragNode implements GenericObjectNode
     return null;
   }
 
+  @Override
   public boolean equals(GenericObject other)
   {
     return false;
   }
 
+  @Override
   public boolean hasChild(GenericObjectNode object)
   {
     return children.size() > 0;
   }
 
+  @Override
   public GenericIterator getPossibleParents()
   {
     return null;
   }
 
+  @Override
   public GenericIterator getPath()
   {
     return null;
   }
 
+  @Override
   public GenericObjectNode getParent()
   {
     return parent;
   }
 
+  @Override
   public GenericIterator getChildren() throws RemoteException
   {
     if (children != null)

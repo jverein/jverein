@@ -207,7 +207,7 @@ public class BuchungQuery
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
         ArrayList<Buchung> list = new ArrayList<Buchung>();

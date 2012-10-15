@@ -77,11 +77,13 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Integer getNr() throws RemoteException
   {
     return new Integer(getID());
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     Date d = (Date) getAttribute("datum");
@@ -92,22 +94,26 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     return d;
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public Integer getModus() throws RemoteException
   {
     Integer modus = (Integer) getAttribute("modus");
     return modus;
   }
 
+  @Override
   public void setModus(Integer modus) throws RemoteException
   {
     setAttribute("modus", modus);
   }
 
+  @Override
   public Date getStichtag() throws RemoteException
   {
     Date d = (Date) getAttribute("stichtag");
@@ -118,11 +124,13 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     return d;
   }
 
+  @Override
   public void setStichtag(Date stichtag) throws RemoteException
   {
     setAttribute("stichtag", stichtag);
   }
 
+  @Override
   public Date getEingabedatum() throws RemoteException
   {
     Date d = (Date) getAttribute("eingabedatum");
@@ -133,57 +141,68 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     return d;
   }
 
+  @Override
   public void setEingabedatum(Date eingabedatum) throws RemoteException
   {
     setAttribute("eingabedatum", eingabedatum);
   }
 
+  @Override
   public String getZahlungsgrund() throws RemoteException
   {
     return (String) getAttribute("zahlungsgrund");
   }
 
+  @Override
   public void setZahlungsgrund(String zahlungsgrund) throws RemoteException
   {
     setAttribute("zahlungsgrund", zahlungsgrund);
   }
 
+  @Override
   public Boolean getZusatzbetraege() throws RemoteException
   {
     return Util.getBoolean(getAttribute("zusatzbetraege"));
   }
 
+  @Override
   public void setZusatzbetraege(Boolean zusatzbetraege) throws RemoteException
   {
     setAttribute("zusatzbetraege", zusatzbetraege);
   }
 
+  @Override
   public Boolean getKursteilnehmer() throws RemoteException
   {
     return Util.getBoolean(getAttribute("kursteilnehmer"));
   }
 
+  @Override
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException
   {
     setAttribute("kursteilnehmer", kursteilnehmer);
   }
 
+  @Override
   public Boolean getDtausdruck() throws RemoteException
   {
     return Util.getBoolean(getAttribute("dtausdruck"));
   }
 
+  @Override
   public void setDtausdruck(Boolean dtausdruck) throws RemoteException
   {
     setAttribute("dtausdruck", dtausdruck);
   }
 
+  @Override
   public Integer getAbbuchungsausgabe() throws RemoteException
   {
     Integer modus = (Integer) getAttribute("abbuchungsausgabe");
     return modus;
   }
 
+  @Override
   public void setAbbuchungsausgabe(Integer abbuchungsausgabe)
       throws RemoteException
   {

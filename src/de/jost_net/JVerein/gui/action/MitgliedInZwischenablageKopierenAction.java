@@ -54,6 +54,7 @@ public class MitgliedInZwischenablageKopierenAction implements Action
    * Kopiert sichtbare Informationen der markierten Mitglieder nach
    * Zwischenablage (mit Tabs getrennt)
    */
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context != null

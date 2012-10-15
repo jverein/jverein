@@ -119,6 +119,7 @@ public class SpendenbescheinigungPrintAction implements Action
    * @param context
    *          Die Spendenbescheinigung(en)
    */
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Spendenbescheinigung[] spbArr = null;

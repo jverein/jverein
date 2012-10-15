@@ -84,6 +84,7 @@ public class BLZUpdateControl extends AbstractControl
         "Bundesbankdatei auswählen"), new Action()
     {
 
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         settings = new Settings(this.getClass());
@@ -134,6 +135,7 @@ public class BLZUpdateControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try

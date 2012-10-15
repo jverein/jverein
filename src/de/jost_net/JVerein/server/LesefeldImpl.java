@@ -85,21 +85,25 @@ public class LesefeldImpl extends AbstractDBObject implements Lesefeld
     return null;
   }
 
+  @Override
   public String getScript() throws RemoteException
   {
     return (String) getAttribute("script");
   }
 
+  @Override
   public void setScript(String script) throws RemoteException
   {
     setAttribute("script", script);
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
@@ -111,11 +115,13 @@ public class LesefeldImpl extends AbstractDBObject implements Lesefeld
     return super.getAttribute(fieldName);
   }
 
+  @Override
   public String getEvaluatedContent()
   {
     return sampleContent;
   }
 
+  @Override
   public void setEvaluatedContent(String content)
   {
     sampleContent = content;

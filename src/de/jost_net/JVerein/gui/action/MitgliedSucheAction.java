@@ -33,6 +33,7 @@ public class MitgliedSucheAction implements Action
   {
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     GUI.startView(MitgliederSucheView.class.getName(), null);

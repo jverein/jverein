@@ -182,6 +182,7 @@ public class Kontoauszug
         JVereinPlugin.getI18n().tr("Kontoauszug erstellt"));
     GUI.getDisplay().asyncExec(new Runnable()
     {
+      @Override
       public void run()
       {
         try

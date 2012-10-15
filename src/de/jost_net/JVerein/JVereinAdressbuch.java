@@ -33,12 +33,13 @@ import de.willuhn.jameica.hbci.rmi.Addressbook;
 
 public class JVereinAdressbuch implements Addressbook
 {
-
+  @Override
   public String getName() throws RemoteException
   {
     return "JVerein-Adressbuch";
   }
 
+  @Override
   public List<MitgliedAddress> findAddresses(String text)
       throws RemoteException
   {
@@ -63,6 +64,7 @@ public class JVereinAdressbuch implements Addressbook
     return list;
   }
 
+  @Override
   public Address contains(Address address) throws RemoteException
   {
     System.out.println(address.getName());

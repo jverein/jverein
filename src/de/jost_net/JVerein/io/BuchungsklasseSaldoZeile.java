@@ -130,6 +130,7 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     return status;
   }
 
+  @Override
   public Object getAttribute(String arg0) throws RemoteException
   {
     if (arg0.equals("buchungsklassenbezeichnung"))
@@ -164,6 +165,7 @@ public class BuchungsklasseSaldoZeile implements GenericObject
         "Ungültige Spaltenbezeichung: {0}", arg0));
   }
 
+  @Override
   public String[] getAttributeNames()
   {
     return new String[] { "buchungsklassenbezeichnung",
@@ -171,16 +173,19 @@ public class BuchungsklasseSaldoZeile implements GenericObject
         "umbuchungen", "anzahlbuchungen" };
   }
 
+  @Override
   public String getID() throws RemoteException
   {
     return buchungsklasse.getID();
   }
 
+  @Override
   public String getPrimaryAttribute()
   {
     return "buchungsklasse";
   }
 
+  @Override
   public boolean equals(GenericObject arg0) throws RemoteException
   {
     if (arg0 == null || !(arg0 instanceof BuchungsklasseSaldoZeile))

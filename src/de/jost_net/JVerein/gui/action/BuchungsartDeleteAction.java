@@ -36,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class BuchungsartDeleteAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Buchungsart))

@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class MailVorlagenAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(MailVorlagenUebersichtView.class.getName(), null);

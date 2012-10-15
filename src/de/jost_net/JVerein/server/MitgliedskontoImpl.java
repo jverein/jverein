@@ -115,67 +115,80 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException
   {
     return (Abrechnungslauf) getAttribute("abrechnungslauf");
   }
 
+  @Override
   public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
       throws RemoteException
   {
     setAttribute("abrechnungslauf", new Integer(abrechnungslauf.getID()));
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(Mitglied mitglied) throws RemoteException
   {
     setAttribute("mitglied", new Integer(mitglied.getID()));
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public String getZweck1() throws RemoteException
   {
     return (String) getAttribute("zweck1");
   }
 
+  @Override
   public void setZweck1(String zweck1) throws RemoteException
   {
     setAttribute("zweck1", zweck1);
   }
 
+  @Override
   public Integer getZahlungsweg() throws RemoteException
   {
     return (Integer) getAttribute("zahlungsweg");
   }
 
+  @Override
   public void setZahlungsweg(Integer zahlungsweg) throws RemoteException
   {
     setAttribute("zahlungsweg", zahlungsweg);
   }
 
+  @Override
   public Double getBetrag() throws RemoteException
   {
     return (Double) getAttribute("betrag");
   }
 
+  @Override
   public void setBetrag(Double d) throws RemoteException
   {
     setAttribute("betrag", d);
   }
 
+  @Override
   public Double getIstSumme() throws RemoteException
   {
     if (ist != null)
@@ -189,6 +202,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())

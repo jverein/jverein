@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class FelddefinitionenAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(FelddefinitionenUebersichtView.class.getName(), null);

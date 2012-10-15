@@ -79,6 +79,7 @@ public class WiedervorlageControl extends AbstractControl
         "Bitte Wiedervorlagedatum wählen"));
     this.datum.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) datum.getValue();
@@ -121,6 +122,7 @@ public class WiedervorlageControl extends AbstractControl
         "Bitte Erledigungsdatum wählen"));
     this.erledigung.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) erledigung.getValue();

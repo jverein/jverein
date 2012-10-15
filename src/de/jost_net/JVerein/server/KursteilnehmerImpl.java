@@ -138,106 +138,127 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
   }
 
+  @Override
   public String getBlz() throws RemoteException
   {
     return (String) getAttribute("blz");
   }
 
+  @Override
   public void setBlz(String blz) throws RemoteException
   {
     setAttribute("blz", blz);
   }
 
+  @Override
   public String getKonto() throws RemoteException
   {
     return (String) getAttribute("konto");
   }
 
+  @Override
   public void setKonto(String konto) throws RemoteException
   {
     setAttribute("konto", konto);
   }
 
+  @Override
   public Date getGeburtsdatum() throws RemoteException
   {
     return (Date) getAttribute("geburtsdatum");
   }
 
+  @Override
   public void setGeburtsdatum(Date geburtsdatum) throws RemoteException
   {
     setAttribute("geburtsdatum", geburtsdatum);
   }
 
+  @Override
   public void setGeburtsdatum(String geburtsdatum) throws RemoteException
   {
     setAttribute("geburtsdatum", toDate(geburtsdatum));
   }
 
+  @Override
   public String getGeschlecht() throws RemoteException
   {
     return (String) getAttribute("geschlecht");
   }
 
+  @Override
   public void setGeschlecht(String geschlecht) throws RemoteException
   {
     setAttribute("geschlecht", geschlecht);
   }
 
+  @Override
   public String getVZweck1() throws RemoteException
   {
     return (String) getAttribute("vzweck1");
   }
 
+  @Override
   public void setVZweck1(String vzweck1) throws RemoteException
   {
     setAttribute("vzweck1", vzweck1);
   }
 
+  @Override
   public String getVZweck2() throws RemoteException
   {
     return (String) getAttribute("vzweck2");
   }
 
+  @Override
   public void setVZweck2(String vzweck2) throws RemoteException
   {
     setAttribute("vzweck2", vzweck2);
   }
 
+  @Override
   public void setEingabedatum() throws RemoteException
   {
     setAttribute("eingabedatum", new Date());
   }
 
+  @Override
   public Date getEingabedatum() throws RemoteException
   {
     return (Date) getAttribute("eingabedatum");
   }
 
+  @Override
   public void setAbbudatum() throws RemoteException
   {
     setAttribute("abbudatum", new Date());
   }
 
+  @Override
   public void resetAbbudatum() throws RemoteException
   {
     setAttribute("abbudatum", null);
   }
 
+  @Override
   public Date getAbbudatum() throws RemoteException
   {
     return (Date) getAttribute("abbudatum");
   }
 
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");
@@ -246,6 +267,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     return d.doubleValue();
   }
 
+  @Override
   public void setBetrag(double d) throws RemoteException
   {
     setAttribute("betrag", new Double(d));

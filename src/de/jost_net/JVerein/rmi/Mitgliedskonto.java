@@ -28,9 +28,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Mitgliedskonto extends DBObject
 {
-
-  public String getID() throws RemoteException;
-
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException;
 
   public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)

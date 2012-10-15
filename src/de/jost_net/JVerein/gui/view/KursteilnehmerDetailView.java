@@ -76,6 +76,7 @@ public class KursteilnehmerDetailView extends AbstractView
         "user-trash.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         control.handleStore();

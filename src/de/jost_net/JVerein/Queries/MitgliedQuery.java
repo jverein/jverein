@@ -338,6 +338,7 @@ public class MitgliedQuery
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
         ArrayList<Mitglied> list = new ArrayList<Mitglied>();

@@ -25,15 +25,17 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class DateiGroesseFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
-    Integer i = (Integer)o;
-    if(i==null) return null;
-    if(i<1023)
+    Integer i = (Integer) o;
+    if (i == null)
+      return null;
+    if (i < 1023)
       return i + " B";
-    else if(i<1024*1024-1)
-      return (i/1024) + " kb";
+    else if (i < 1024 * 1024 - 1)
+      return (i / 1024) + " kb";
     else
-      return (i/1024/1024) + " Mb";
+      return (i / 1024 / 1024) + " Mb";
   }
 }

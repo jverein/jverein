@@ -111,6 +111,7 @@ public class LehrgangsartControl extends AbstractControl
         "Bitte Beginn oder Tag der Veranstaltung wählen"));
     this.von.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) von.getValue();
@@ -140,6 +141,7 @@ public class LehrgangsartControl extends AbstractControl
         "Bitte Ende der Veranstaltung wählen"));
     this.bis.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) bis.getValue();

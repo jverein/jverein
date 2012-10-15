@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class FormularListeAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(FormularListeView.class.getName(), null);

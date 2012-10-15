@@ -84,32 +84,38 @@ public class ZusatzbetragAbrechnungslaufImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException
   {
     return (Abrechnungslauf) getAttribute("abrechnungslauf");
   }
 
+  @Override
   public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
       throws RemoteException
   {
     setAttribute("abrechnungslauf", new Integer(abrechnungslauf.getID()));
   }
 
+  @Override
   public Zusatzbetrag getZusatzbetrag() throws RemoteException
   {
     return (Zusatzbetrag) getAttribute("zusatzbetrag");
   }
 
+  @Override
   public void setZusatzbetrag(Zusatzbetrag zusatzbetrag) throws RemoteException
   {
     setAttribute("zusatzbetrag", new Integer(zusatzbetrag.getID()));
   }
 
+  @Override
   public Date getLetzteAusfuehrung() throws RemoteException
   {
     return (Date) getAttribute("letzteausfuehrung");
   }
 
+  @Override
   public void setLetzteAusfuehrung(Date letzteausfuehrung)
       throws RemoteException
   {

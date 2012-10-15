@@ -107,61 +107,73 @@ public class MailImpl extends AbstractDBObject implements Mail
     return null;
   }
 
+  @Override
   public TreeSet<MailEmpfaenger> getEmpfaenger()
   {
     return empfaenger;
   }
 
+  @Override
   public void setEmpfaenger(TreeSet<MailEmpfaenger> empfaenger)
   {
     this.empfaenger = empfaenger;
   }
 
+  @Override
   public TreeSet<MailAnhang> getAnhang()
   {
     return anhang;
   }
 
+  @Override
   public void setAnhang(TreeSet<MailAnhang> anhang)
   {
     this.anhang = anhang;
   }
 
+  @Override
   public String getBetreff() throws RemoteException
   {
     return (String) getAttribute("betreff");
   }
 
+  @Override
   public void setBetreff(String betreff) throws RemoteException
   {
     setAttribute("betreff", betreff);
   }
 
+  @Override
   public String getTxt() throws RemoteException
   {
     return (String) getAttribute("txt");
   }
 
+  @Override
   public void setTxt(String txt) throws RemoteException
   {
     setAttribute("txt", txt);
   }
 
+  @Override
   public Timestamp getBearbeitung() throws RemoteException
   {
     return (Timestamp) getAttribute("bearbeitung");
   }
 
+  @Override
   public void setBearbeitung(Timestamp bearbeitung) throws RemoteException
   {
     setAttribute("bearbeitung", bearbeitung);
   }
 
+  @Override
   public Timestamp getVersand() throws RemoteException
   {
     return (Timestamp) getAttribute("versand");
   }
 
+  @Override
   public void setVersand(Timestamp versand) throws RemoteException
   {
     setAttribute("versand", versand);

@@ -100,41 +100,49 @@ public class WiedervorlageImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(int mitglied) throws RemoteException
   {
     setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public String getVermerk() throws RemoteException
   {
     return (String) getAttribute("vermerk");
   }
 
+  @Override
   public void setVermerk(String vermerk) throws RemoteException
   {
     setAttribute("vermerk", vermerk);
   }
 
+  @Override
   public Date getErledigung() throws RemoteException
   {
     return (Date) getAttribute("erledigung");
   }
 
+  @Override
   public void setErledigung(Date erledigung) throws RemoteException
   {
     setAttribute("erledigung", erledigung);

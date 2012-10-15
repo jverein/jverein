@@ -99,21 +99,25 @@ public class EigenschaftenImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(String mitglied) throws RemoteException
   {
     setAttribute("mitglied", new Integer(mitglied));
   }
 
+  @Override
   public Eigenschaft getEigenschaft() throws RemoteException
   {
     return (Eigenschaft) getAttribute("eigenschaft");
   }
 
+  @Override
   public void setEigenschaft(String eigenschaft) throws RemoteException
   {
     setAttribute("eigenschaft", eigenschaft);

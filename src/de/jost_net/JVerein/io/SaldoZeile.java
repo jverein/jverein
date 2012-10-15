@@ -92,7 +92,7 @@ public class SaldoZeile implements GenericObject
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())
@@ -114,6 +114,7 @@ public class SaldoZeile implements GenericObject
     endbestand = anfangsbestand + einnahmen + ausgaben + umbuchungen;
   }
 
+  @Override
   public Object getAttribute(String arg0) throws RemoteException
   {
     if (arg0.equals("konto"))
@@ -156,22 +157,26 @@ public class SaldoZeile implements GenericObject
         "Ungültige Spaltenbezeichung: {0}", arg0));
   }
 
+  @Override
   public String[] getAttributeNames()
   {
     return new String[] { "kontonummer", "kontobezeichnung", "anfangsbestand",
         "einnahmen", "ausgaben", "umbuchungen", "endbestand", "bemerkung" };
   }
 
+  @Override
   public String getID() throws RemoteException
   {
     return konto.getNummer();
   }
 
+  @Override
   public String getPrimaryAttribute()
   {
     return "kontonummer";
   }
 
+  @Override
   public boolean equals(GenericObject arg0) throws RemoteException
   {
     if (arg0 == null || !(arg0 instanceof SaldoZeile))

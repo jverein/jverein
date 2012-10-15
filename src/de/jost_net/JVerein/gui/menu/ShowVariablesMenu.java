@@ -95,6 +95,7 @@ public class ShowVariablesMenu extends ContextMenu
     copy = new Action()
     {
 
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try

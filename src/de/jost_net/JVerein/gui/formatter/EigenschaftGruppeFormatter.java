@@ -28,6 +28,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class EigenschaftGruppeFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     EigenschaftGruppe eg = (EigenschaftGruppe) o;

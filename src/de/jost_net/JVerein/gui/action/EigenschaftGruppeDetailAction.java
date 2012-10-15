@@ -40,6 +40,7 @@ public class EigenschaftGruppeDetailAction implements Action
     this.neu = neu;
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     EigenschaftGruppe eg = null;

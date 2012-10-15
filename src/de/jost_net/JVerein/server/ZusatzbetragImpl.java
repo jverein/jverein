@@ -136,46 +136,55 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     return null;
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public void setMitglied(int mitglied) throws RemoteException
   {
     setAttribute("mitglied", Integer.valueOf(mitglied));
   }
 
+  @Override
   public Date getFaelligkeit() throws RemoteException
   {
     return (Date) getAttribute("faelligkeit");
   }
 
+  @Override
   public void setFaelligkeit(Date faelligkeit) throws RemoteException
   {
     setAttribute("faelligkeit", faelligkeit);
   }
 
+  @Override
   public String getBuchungstext() throws RemoteException
   {
     return (String) getAttribute("buchungstext");
   }
 
+  @Override
   public void setBuchungstext(String buchungstext) throws RemoteException
   {
     setAttribute("buchungstext", buchungstext);
   }
 
+  @Override
   public String getBuchungstext2() throws RemoteException
   {
     return (String) getAttribute("buchungstext2");
   }
 
+  @Override
   public void setBuchungstext2(String buchungstext2) throws RemoteException
   {
     setAttribute("buchungstext2", buchungstext2);
   }
 
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");
@@ -184,51 +193,61 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     return d.doubleValue();
   }
 
+  @Override
   public void setBetrag(double d) throws RemoteException
   {
     setAttribute("betrag", new Double(d));
   }
 
+  @Override
   public Date getAusfuehrung() throws RemoteException
   {
     return (Date) getAttribute("ausfuehrung");
   }
 
+  @Override
   public Date getStartdatum() throws RemoteException
   {
     return (Date) getAttribute("startdatum");
   }
 
+  @Override
   public void setStartdatum(Date value) throws RemoteException
   {
     setAttribute("startdatum", value);
   }
 
+  @Override
   public Integer getIntervall() throws RemoteException
   {
     return (Integer) getAttribute("intervall");
   }
 
+  @Override
   public String getIntervallText() throws RemoteException
   {
     return IntervallZusatzzahlung.get(getIntervall());
   }
 
+  @Override
   public void setIntervall(Integer value) throws RemoteException
   {
     setAttribute("intervall", value);
   }
 
+  @Override
   public Date getEndedatum() throws RemoteException
   {
     return (Date) getAttribute("endedatum");
   }
 
+  @Override
   public void setEndedatum(Date value) throws RemoteException
   {
     setAttribute("endedatum", value);
   }
 
+  @Override
   public void setAusfuehrung(Date ausfuehrung) throws RemoteException
   {
     setAttribute("ausfuehrung", ausfuehrung);
@@ -248,6 +267,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     return super.getAttribute(fieldName);
   }
 
+  @Override
   public boolean isAktiv() throws RemoteException
   {
     if (!getMitglied().isAngemeldet(new Date()))
@@ -296,6 +316,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     return false;
   }
 
+  @Override
   public void naechsteFaelligkeit() throws RemoteException
   {
     Date vorh = Datum.addInterval(getFaelligkeit(), getIntervall());
@@ -311,6 +332,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 
   }
 
+  @Override
   public void vorherigeFaelligkeit() throws RemoteException
   {
     Date vorh = Datum.subtractInterval(getFaelligkeit(), getIntervall(),

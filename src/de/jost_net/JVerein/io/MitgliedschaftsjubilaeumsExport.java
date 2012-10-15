@@ -44,14 +44,17 @@ import de.willuhn.util.ProgressMonitor;
 public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
 {
 
+  @Override
   public abstract String getName();
 
+  @Override
   public abstract IOFormat[] getIOFormats(Class<?> objectType);
 
   protected File file;
 
   protected Integer jahr;
 
+  @Override
   public void doExport(final Object[] objects, IOFormat format, File file,
       ProgressMonitor monitor) throws ApplicationException, DocumentException,
       IOException
@@ -102,6 +105,7 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
     close();
   }
 
+  @Override
   public String getDateiname()
   {
     return "mitgliedschaftsjubilare";

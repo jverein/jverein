@@ -118,6 +118,7 @@ public class KontoauswahlInput
     /**
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
+    @Override
     public void handleEvent(Event event)
     {
 

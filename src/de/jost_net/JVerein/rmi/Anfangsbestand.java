@@ -28,8 +28,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Anfangsbestand extends DBObject
 {
-  public String getID() throws RemoteException;
-
   public Konto getKonto() throws RemoteException;
 
   public String getKontoText() throws RemoteException;

@@ -46,6 +46,7 @@ public class BuchungBuchungsartZuordnungAction implements Action
     this.control = control;
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null

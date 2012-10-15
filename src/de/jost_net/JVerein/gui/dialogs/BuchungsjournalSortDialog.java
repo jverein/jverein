@@ -70,6 +70,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         close();
@@ -77,6 +78,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     });
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();
@@ -102,6 +104,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     this.sortierung.setName(JVereinPlugin.getI18n().tr("Sortierung"));
     this.sortierung.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         selected = (String) sortierung.getValue();

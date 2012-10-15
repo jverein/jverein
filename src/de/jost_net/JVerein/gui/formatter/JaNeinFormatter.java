@@ -25,6 +25,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class JaNeinFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     if (o == null)

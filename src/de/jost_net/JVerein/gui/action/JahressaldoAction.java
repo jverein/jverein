@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class JahressaldoAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(JahressaldoView.class.getName(), null);

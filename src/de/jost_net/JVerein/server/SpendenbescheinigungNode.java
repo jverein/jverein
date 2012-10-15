@@ -82,6 +82,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
 
     ResultSetExtractor rse = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         List<String> ids = new ArrayList<String>();
@@ -153,6 +154,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         List<String> ids = new ArrayList<String>();
@@ -193,6 +195,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     nodetype = BUCHUNG;
   }
 
+  @Override
   public GenericIterator getChildren() throws RemoteException
   {
     if (childrens == null)
@@ -208,31 +211,37 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     return childrens.remove(child);
   }
 
+  @Override
   public SpendenbescheinigungNode getParent()
   {
     return parent;
   }
 
+  @Override
   public GenericIterator getPath()
   {
     return null;
   }
 
+  @Override
   public GenericIterator getPossibleParents()
   {
     return null;
   }
 
+  @Override
   public boolean hasChild(GenericObjectNode object)
   {
     return childrens.size() > 0;
   }
 
+  @Override
   public boolean equals(GenericObject other)
   {
     return false;
   }
 
+  @Override
   public Object getAttribute(String name) throws RemoteException
   {
     switch (nodetype)
@@ -268,16 +277,19 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     return "bla";
   }
 
+  @Override
   public String[] getAttributeNames()
   {
     return null;
   }
 
+  @Override
   public String getID()
   {
     return null;
   }
 
+  @Override
   public String getPrimaryAttribute()
   {
     return null;

@@ -100,6 +100,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
         control.getDifferenz("Fehlbetrag"));
     Action action = new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         if (context == null || !(context instanceof Mitgliedskonto))
@@ -133,6 +134,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     final Action action2 = new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         if (context == null || !(context instanceof Mitglied))
@@ -150,6 +152,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         Object o = mitgliedskontolist.getSelection();
@@ -175,6 +178,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("entfernen")), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         choosen = null;
@@ -186,6 +190,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     b.addButton(i18n.tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         close();

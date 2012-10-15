@@ -150,6 +150,7 @@ public class EigenschaftenNode implements GenericObjectNode
     }
   }
 
+  @Override
   public GenericIterator getChildren() throws RemoteException
   {
     if (childrens == null)
@@ -165,31 +166,37 @@ public class EigenschaftenNode implements GenericObjectNode
     return childrens.remove(child);
   }
 
+  @Override
   public EigenschaftenNode getParent()
   {
     return parent;
   }
 
+  @Override
   public GenericIterator getPath()
   {
     return null;
   }
 
+  @Override
   public GenericIterator getPossibleParents()
   {
     return null;
   }
 
+  @Override
   public boolean hasChild(GenericObjectNode object)
   {
     return childrens.size() > 0;
   }
 
+  @Override
   public boolean equals(GenericObject other)
   {
     return false;
   }
 
+  @Override
   public Object getAttribute(String name) throws RemoteException
   {
     switch (nodetype)
@@ -210,16 +217,19 @@ public class EigenschaftenNode implements GenericObjectNode
     return null;
   }
 
+  @Override
   public String[] getAttributeNames()
   {
     return null;
   }
 
+  @Override
   public String getID()
   {
     return null;
   }
 
+  @Override
   public String getPrimaryAttribute()
   {
     return null;

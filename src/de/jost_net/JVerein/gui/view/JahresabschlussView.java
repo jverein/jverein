@@ -56,7 +56,7 @@ public class JahresabschlussView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
+      @Override
       public void handleAction(Object context)
       {
         control.handleStore();

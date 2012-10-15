@@ -110,6 +110,7 @@ public class DokumentControl extends AbstractControl
     this.datum.setText(JVereinPlugin.getI18n().tr("Bitte Datum wählen"));
     this.datum.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) datum.getValue();
@@ -146,6 +147,7 @@ public class DokumentControl extends AbstractControl
   {
     neuButton = new Button("neu", new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         GUI.startView(new DokumentView(verzeichnis), doc);
@@ -160,6 +162,7 @@ public class DokumentControl extends AbstractControl
     speichernButton = new Button(JVereinPlugin.getI18n().tr("Speichern"),
         new Action()
         {
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try

@@ -72,6 +72,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
 
     Action a = new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         // wenn kein Konto ausgewählt sein darf, wird null zurückgegeben.
@@ -98,6 +99,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     ButtonArea b = new ButtonArea();
     b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         Object o = konten.getSelection();
@@ -112,6 +114,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     {
       b.addButton(JVereinPlugin.getI18n().tr("kein Konto"), new Action()
       {
+        @Override
         public void handleAction(Object context)
         {
           choosen = null;
@@ -121,6 +124,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     }
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();

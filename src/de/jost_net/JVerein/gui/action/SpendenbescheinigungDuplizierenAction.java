@@ -42,6 +42,7 @@ public class SpendenbescheinigungDuplizierenAction implements Action
    * erstellt werden, wenn genau ein Eintrag selektiert ist. Es wird zusätzlich
    * auch das Mitglied in die neue Spendenbescheinugung übernommen.
    */
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Spendenbescheinigung))

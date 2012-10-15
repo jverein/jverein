@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class EigenschaftGruppeListeAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(EigenschaftGruppeListeView.class.getName(), null);

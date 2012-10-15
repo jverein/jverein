@@ -58,36 +58,43 @@ public class MitgliedAddress implements Address
     this.kategorie = kategorie;
   }
 
+  @Override
   public String getKontonummer() throws RemoteException
   {
     return kontonummer;
   }
 
+  @Override
   public String getBlz() throws RemoteException
   {
     return blz;
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return name;
   }
 
+  @Override
   public String getKommentar() throws RemoteException
   {
     return kommentar;
   }
 
+  @Override
   public String getBic() throws RemoteException
   {
     return bic;
   }
 
+  @Override
   public String getIban() throws RemoteException
   {
     return iban;
   }
 
+  @Override
   public String getKategorie() throws RemoteException
   {
     return kategorie;

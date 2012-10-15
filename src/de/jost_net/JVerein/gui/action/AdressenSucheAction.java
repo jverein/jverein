@@ -33,6 +33,7 @@ public class AdressenSucheAction implements Action
   {
   }
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     GUI.startView(AdressenSucheView.class.getName(), null);

@@ -44,6 +44,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class CSVBuchungsImport implements Importer
 {
+  @Override
   public void doImport(Object context, IOFormat format, File file,
       String encoding, ProgressMonitor monitor) throws RemoteException,
       ApplicationException
@@ -216,6 +217,7 @@ public class CSVBuchungsImport implements Importer
     }
   }
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("CSV-Buchungsimport");
@@ -226,6 +228,7 @@ public class CSVBuchungsImport implements Importer
     return true;
   }
 
+  @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
     if (objectType != Buchung.class)
@@ -234,6 +237,7 @@ public class CSVBuchungsImport implements Importer
     }
     IOFormat f = new IOFormat()
     {
+      @Override
       public String getName()
       {
         return CSVBuchungsImport.this.getName();
@@ -242,6 +246,7 @@ public class CSVBuchungsImport implements Importer
       /**
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
+      @Override
       public String[] getFileExtensions()
       {
         return new String[] { "*.csv" };

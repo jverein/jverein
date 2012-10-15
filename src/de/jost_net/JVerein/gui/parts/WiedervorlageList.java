@@ -62,6 +62,7 @@ public class WiedervorlageList extends TablePart implements Part
       wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Name"),
           "mitglied", new Formatter()
           {
+            @Override
             public String format(Object o)
             {
               Mitglied m = (Mitglied) o;

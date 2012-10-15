@@ -99,21 +99,25 @@ public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
     return null;
   }
 
+  @Override
   public String getBetreff() throws RemoteException
   {
     return (String) getAttribute("betreff");
   }
 
+  @Override
   public void setBetreff(String betreff) throws RemoteException
   {
     setAttribute("betreff", betreff);
   }
 
+  @Override
   public String getTxt() throws RemoteException
   {
     return (String) getAttribute("txt");
   }
 
+  @Override
   public void setTxt(String txt) throws RemoteException
   {
     setAttribute("txt", txt);

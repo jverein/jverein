@@ -37,6 +37,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoIstLoesenAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);

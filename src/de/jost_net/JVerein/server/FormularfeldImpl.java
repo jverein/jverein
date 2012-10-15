@@ -95,26 +95,31 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     return null;
   }
 
+  @Override
   public Formular getFormular() throws RemoteException
   {
     return (Formular) getAttribute("formular");
   }
 
+  @Override
   public void setFormular(Formular formular) throws RemoteException
   {
     setAttribute("formular", formular);
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
   }
 
+  @Override
   public int getSeite() throws RemoteException
   {
     Integer ret = (Integer) getAttribute("seite");
@@ -125,11 +130,13 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     return ret;
   }
 
+  @Override
   public void setSeite(int seite) throws RemoteException
   {
     setAttribute("seite", seite);
   }
 
+  @Override
   public Double getX() throws RemoteException
   {
     Double ret = (Double) getAttribute("x");
@@ -140,11 +147,13 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     return ret;
   }
 
+  @Override
   public void setX(Double x) throws RemoteException
   {
     setAttribute("x", x);
   }
 
+  @Override
   public Double getY() throws RemoteException
   {
     Double ret = (Double) getAttribute("y");
@@ -156,21 +165,25 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     return ret;
   }
 
+  @Override
   public void setY(Double y) throws RemoteException
   {
     setAttribute("y", y);
   }
 
+  @Override
   public String getFont() throws RemoteException
   {
     return (String) getAttribute("font");
   }
 
+  @Override
   public void setFont(String font) throws RemoteException
   {
     setAttribute("font", font);
   }
 
+  @Override
   public Integer getFontsize() throws RemoteException
   {
     Integer ret = (Integer) getAttribute("fontsize");
@@ -181,11 +194,13 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     return ret;
   }
 
+  @Override
   public void setFontsize(Integer fontsize) throws RemoteException
   {
     setAttribute("fontsize", fontsize);
   }
 
+  @Override
   public Integer getFontstyle() throws RemoteException
   {
     Integer ret = (Integer) getAttribute("fontstyle");
@@ -196,6 +211,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     return ret;
   }
 
+  @Override
   public void setFontstyle(Integer fontstyle) throws RemoteException
   {
     setAttribute("fontstyle", fontstyle);

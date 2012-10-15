@@ -170,81 +170,97 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return null;
   }
 
+  @Override
   public void setID() throws RemoteException
   {
     setAttribute("id", "1");
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
   }
 
+  @Override
   public String getNameLang() throws RemoteException
   {
     return (String) getAttribute("namelang");
   }
 
+  @Override
   public void setNameLang(String name) throws RemoteException
   {
     setAttribute("namelang", name);
   }
 
+  @Override
   public String getStrasse() throws RemoteException
   {
     return (String) getAttribute("strasse");
   }
 
+  @Override
   public void setStrasse(String strasse) throws RemoteException
   {
     setAttribute("strasse", strasse);
   }
 
+  @Override
   public String getPlz() throws RemoteException
   {
     return (String) getAttribute("plz");
   }
 
+  @Override
   public void setPlz(String plz) throws RemoteException
   {
     setAttribute("plz", plz);
   }
 
+  @Override
   public String getOrt() throws RemoteException
   {
     return (String) getAttribute("ort");
   }
 
+  @Override
   public void setOrt(String ort) throws RemoteException
   {
     setAttribute("ort", ort);
   }
 
+  @Override
   public String getFinanzamt() throws RemoteException
   {
     return (String) getAttribute("finanzamt");
   }
 
+  @Override
   public void setFinanzamt(String finanzamt) throws RemoteException
   {
     setAttribute("finanzamt", finanzamt);
   }
 
+  @Override
   public String getSteuernummer() throws RemoteException
   {
     return (String) getAttribute("steuernummer");
   }
 
+  @Override
   public void setSteuernummer(String steuernummer) throws RemoteException
   {
     setAttribute("steuernummer", steuernummer);
   }
 
+  @Override
   public Date getBescheiddatum() throws RemoteException
   {
     Date d = (Date) getAttribute("bescheiddatum");
@@ -255,21 +271,25 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return d;
   }
 
+  @Override
   public void setBescheiddatum(Date bescheiddatum) throws RemoteException
   {
     setAttribute("bescheiddatum", bescheiddatum);
   }
 
+  @Override
   public Boolean getVorlaeufig() throws RemoteException
   {
     return Util.getBoolean(getAttribute("vorlaeufig"));
   }
 
+  @Override
   public void setVorlaeufig(Boolean vorlaeufig) throws RemoteException
   {
     setAttribute("vorlaeufig", Boolean.valueOf(vorlaeufig));
   }
 
+  @Override
   public Date getVorlaeufigab() throws RemoteException
   {
     Date d = (Date) getAttribute("vorlaeufigab");
@@ -280,69 +300,82 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return d;
   }
 
+  @Override
   public void setVorlaeufigab(Date vorlaeufigab) throws RemoteException
   {
     setAttribute("vorlaeufigab", vorlaeufigab);
   }
 
+  @Override
   public String getBeguenstigterzweck() throws RemoteException
   {
     return (String) getAttribute("beguenstigterzweck");
   }
 
+  @Override
   public void setBeguenstigterzweck(String beguenstigterzweck)
       throws RemoteException
   {
     setAttribute("beguenstigterzweck", beguenstigterzweck);
   }
 
+  @Override
   public Boolean getMitgliedsbetraege() throws RemoteException
   {
     return Util.getBoolean(getAttribute("mitgliedsbeitraege"));
   }
 
+  @Override
   public void setMitgliedsbeitraege(Boolean mitgliedsbeitraege)
       throws RemoteException
   {
     setAttribute("mitgliedsbeitraege", Boolean.valueOf(mitgliedsbeitraege));
   }
 
+  @Override
   public String getBlz() throws RemoteException
   {
     return (String) getAttribute("blz");
   }
 
+  @Override
   public void setBlz(String blz) throws RemoteException
   {
     setAttribute("blz", blz);
   }
 
+  @Override
   public String getKonto() throws RemoteException
   {
     return (String) getAttribute("konto");
   }
 
+  @Override
   public void setKonto(String konto) throws RemoteException
   {
     setAttribute("konto", konto);
   }
 
+  @Override
   public Boolean getGeburtsdatumPflicht() throws RemoteException
   {
     return Util.getBoolean(getAttribute("geburtsdatumpflicht"));
   }
 
+  @Override
   public void setGeburtsdatumPflicht(Boolean geburtsdatumpflicht)
       throws RemoteException
   {
     setAttribute("geburtsdatumpflicht", Boolean.valueOf(geburtsdatumpflicht));
   }
 
+  @Override
   public Boolean getEintrittsdatumPflicht() throws RemoteException
   {
     return Util.getBoolean(getAttribute("eintrittsdatumpflicht"));
   }
 
+  @Override
   public void setEintrittsdatumPflicht(Boolean eintrittsdatumpflicht)
       throws RemoteException
   {
@@ -350,154 +383,184 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         Boolean.valueOf(eintrittsdatumpflicht));
   }
 
+  @Override
   public Boolean getSterbedatum() throws RemoteException
   {
     return Util.getBoolean(getAttribute("sterbedatum"));
   }
 
+  @Override
   public void setSterbedatum(Boolean sterbedatum) throws RemoteException
   {
     setAttribute("sterbedatum", Boolean.valueOf(sterbedatum));
   }
 
+  @Override
   public Boolean getKommunikationsdaten() throws RemoteException
   {
     return Util.getBoolean(getAttribute("kommunikationsdaten"));
   }
 
+  @Override
   public void setKommunikationsdaten(Boolean kommunikationsdaten)
       throws RemoteException
   {
     setAttribute("kommunikationsdaten", Boolean.valueOf(kommunikationsdaten));
   }
 
+  @Override
   public Boolean getZusatzbetrag() throws RemoteException
   {
     return Util.getBoolean(getAttribute("zusatzabbuchung"));
   }
 
+  @Override
   public void setZusatzbetrag(Boolean zusatzabbuchung) throws RemoteException
   {
     setAttribute("zusatzabbuchung", Boolean.valueOf(zusatzabbuchung));
   }
 
+  @Override
   public Boolean getVermerke() throws RemoteException
   {
     return Util.getBoolean(getAttribute("vermerke"));
   }
 
+  @Override
   public void setVermerke(Boolean vermerke) throws RemoteException
   {
     setAttribute("vermerke", Boolean.valueOf(vermerke));
   }
 
+  @Override
   public Boolean getWiedervorlage() throws RemoteException
   {
     return Util.getBoolean(getAttribute("wiedervorlage"));
   }
 
+  @Override
   public void setWiedervorlage(Boolean wiedervorlage) throws RemoteException
   {
     setAttribute("wiedervorlage", Boolean.valueOf(wiedervorlage));
   }
 
+  @Override
   public Boolean getKursteilnehmer() throws RemoteException
   {
     return Util.getBoolean(getAttribute("kursteilnehmer"));
   }
 
+  @Override
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException
   {
     setAttribute("kursteilnehmer", Boolean.valueOf(kursteilnehmer));
   }
 
+  @Override
   public Boolean getLehrgaenge() throws RemoteException
   {
     return Util.getBoolean(getAttribute("lehrgaenge"));
   }
 
+  @Override
   public void setLehrgaenge(Boolean lehrgaenge) throws RemoteException
   {
     setAttribute("lehrgaenge", Boolean.valueOf(lehrgaenge));
   }
 
+  @Override
   public Boolean getJuristischePersonen() throws RemoteException
   {
     return Util.getBoolean(getAttribute("juristischepersonen"));
   }
 
+  @Override
   public void setJuristischePersonen(Boolean juristischepersonen)
       throws RemoteException
   {
     setAttribute("juristischepersonen", Boolean.valueOf(juristischepersonen));
   }
 
+  @Override
   public Boolean getMitgliedskonto() throws RemoteException
   {
     return Util.getBoolean(getAttribute("mitgliedskonto"));
   }
 
+  @Override
   public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException
   {
     setAttribute("mitgliedskonto", Boolean.valueOf(mitgliedskonto));
   }
 
+  @Override
   public Boolean getMitgliedfoto() throws RemoteException
   {
     return Util.getBoolean(getAttribute("mitgliedfoto"));
   }
 
+  @Override
   public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException
   {
     setAttribute("mitgliedfoto", Boolean.valueOf(mitgliedfoto));
   }
 
+  @Override
   public boolean getUseLesefelder() throws RemoteException
   {
     return Util.getBoolean(getAttribute("uselesefelder"));
   }
 
+  @Override
   public void setUseLesefelder(boolean use) throws RemoteException
   {
     setAttribute("uselesefelder", Boolean.valueOf(use));
   }
 
+  @Override
   public Boolean getZusatzadressen() throws RemoteException
   {
     return Util.getBoolean(getAttribute("zusatzadressen"));
   }
 
+  @Override
   public void setZusatzadressen(Boolean zusatzadressen) throws RemoteException
   {
     setAttribute("zusatzadressen", Boolean.valueOf(zusatzadressen));
   }
 
+  @Override
   public Boolean getAuslandsadressen() throws RemoteException
   {
     return Util.getBoolean(getAttribute("auslandsadressen"));
   }
 
+  @Override
   public void setAuslandsadressen(Boolean auslandsadressen)
       throws RemoteException
   {
     setAttribute("auslandsadressen", Boolean.valueOf(auslandsadressen));
   }
 
+  @Override
   public Boolean getArbeitseinsatz() throws RemoteException
   {
     return Util.getBoolean(getAttribute("arbeitseinsatz"));
   }
 
+  @Override
   public void setArbeitseinsatz(Boolean arbeitseinsatz) throws RemoteException
   {
     setAttribute("arbeitseinsatz", Boolean.valueOf(arbeitseinsatz));
   }
 
+  @Override
   public Boolean getDokumentenspeicherung() throws RemoteException
   {
     return Util.getBoolean(getAttribute("dokumentenspeicherung"));
   }
 
+  @Override
   public void setDokumentenspeicherung(Boolean dokumentenspeicherung)
       throws RemoteException
   {
@@ -505,11 +568,13 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         Boolean.valueOf(dokumentenspeicherung));
   }
 
+  @Override
   public Boolean getIndividuelleBeitraege() throws RemoteException
   {
     return Util.getBoolean(getAttribute("individuellebeitraege"));
   }
 
+  @Override
   public void setIndividuelleBeitraege(Boolean individuellebeitraege)
       throws RemoteException
   {
@@ -517,6 +582,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         Boolean.valueOf(individuellebeitraege));
   }
 
+  @Override
   public String getRechnungTextAbbuchung() throws RemoteException
   {
     String text = (String) getAttribute("rechnungtextabbuchung");
@@ -528,12 +594,14 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return text;
   }
 
+  @Override
   public void setRechnungTextAbbuchung(String rechnungtextabbuchung)
       throws RemoteException
   {
     setAttribute("rechnungtextabbuchung", rechnungtextabbuchung);
   }
 
+  @Override
   public String getRechnungTextUeberweisung() throws RemoteException
   {
     String text = (String) getAttribute("rechnungtextueberweisung");
@@ -545,12 +613,14 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return text;
   }
 
+  @Override
   public void setRechnungTextUeberweisung(String rechnungtextueberweisung)
       throws RemoteException
   {
     setAttribute("rechnungtextueberweisung", rechnungtextueberweisung);
   }
 
+  @Override
   public String getRechnungTextBar() throws RemoteException
   {
     String text = (String) getAttribute("rechnungtextbar");
@@ -562,16 +632,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return text;
   }
 
+  @Override
   public void setRechnungTextBar(String rechnungtextbar) throws RemoteException
   {
     setAttribute("rechnungtextbar", rechnungtextbar);
   }
 
+  @Override
   public Boolean getExterneMitgliedsnummer() throws RemoteException
   {
     return Util.getBoolean(getAttribute("externemitgliedsnummer"));
   }
 
+  @Override
   public void setExterneMitgliedsnummer(Boolean externemitgliedsnummer)
       throws RemoteException
   {
@@ -579,16 +652,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         Boolean.valueOf(externemitgliedsnummer));
   }
 
+  @Override
   public int getBeitragsmodel() throws RemoteException
   {
     return (Integer) getAttribute("beitragsmodel");
   }
 
+  @Override
   public void setBeitragsmodel(int beitragsmodel) throws RemoteException
   {
     setAttribute("beitragsmodel", beitragsmodel);
   }
 
+  @Override
   public String getDateinamenmuster() throws RemoteException
   {
     String muster = (String) getAttribute("dateinamenmuster");
@@ -599,12 +675,14 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return muster;
   }
 
+  @Override
   public void setDateinamenmuster(String dateinamenmuster)
       throws RemoteException
   {
     setAttribute("dateinamenmuster", dateinamenmuster);
   }
 
+  @Override
   public String getDateinamenmusterSpende() throws RemoteException
   {
     String muster = (String) getAttribute("dateinamenmusterspende");
@@ -615,12 +693,14 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return muster;
   }
 
+  @Override
   public void setDateinamenmusterSpende(String dateinamenmusterspende)
       throws RemoteException
   {
     setAttribute("dateinamenmusterspende", dateinamenmusterspende);
   }
 
+  @Override
   public double getSpendenbescheinigungminbetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("spendenbescheinigungminbetrag");
@@ -631,17 +711,20 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return (d);
   }
 
+  @Override
   public void setSpendenbescheinigungminbetrag(double minbetrag)
       throws RemoteException
   {
     setAttribute("spendenbescheinigungminbetrag", minbetrag);
   }
 
+  @Override
   public String getSpendenbescheinigungverzeichnis() throws RemoteException
   {
     return (String) getAttribute("spendenbescheinigungverzeichnis");
   }
 
+  @Override
   public void setSpendenbescheinigungverzeichnis(
       String spendenbescheinigungverzeichnis) throws RemoteException
   {
@@ -649,6 +732,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         spendenbescheinigungverzeichnis);
   }
 
+  @Override
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
@@ -656,6 +740,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
+  @Override
   public void setSpendenbescheinigungPrintBuchungsart(Boolean printbuchungsart)
       throws RemoteException
   {
@@ -663,27 +748,32 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         Boolean.valueOf(printbuchungsart));
   }
 
+  @Override
   public String getBeginnGeschaeftsjahr() throws RemoteException
   {
     return (String) getAttribute("beginngeschaeftsjahr");
   }
 
+  @Override
   public void setBeginnGeschaeftsjahr(String beginngeschaeftsjahr)
       throws RemoteException
   {
     setAttribute("beginngeschaeftsjahr", beginngeschaeftsjahr);
   }
 
+  @Override
   public String getSmtpServer() throws RemoteException
   {
     return (String) getAttribute("smtp_server");
   }
 
+  @Override
   public void setSmtpServer(String smtp_server) throws RemoteException
   {
     setAttribute("smtp_server", smtp_server);
   }
 
+  @Override
   public String getSmtpPort() throws RemoteException
   {
     String ret = (String) getAttribute("smtp_port");
@@ -694,62 +784,74 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return ret;
   }
 
+  @Override
   public void setSmtpPort(String smtp_port) throws RemoteException
   {
     setAttribute("smtp_port", smtp_port);
   }
 
+  @Override
   public String getSmtpAuthUser() throws RemoteException
   {
     return (String) getAttribute("smtp_auth_user");
   }
 
+  @Override
   public void setSmtpAuthUser(String smtp_auth_user) throws RemoteException
   {
     setAttribute("smtp_auth_user", smtp_auth_user);
   }
 
+  @Override
   public String getSmtpAuthPwd() throws RemoteException
   {
     return (String) getAttribute("smtp_auth_pwd");
   }
 
+  @Override
   public void setSmtpAuthPwd(String smtp_auth_pwd) throws RemoteException
   {
     setAttribute("smtp_auth_pwd", smtp_auth_pwd);
   }
 
+  @Override
   public String getSmtpFromAddress() throws RemoteException
   {
     return (String) getAttribute("smtp_from_address");
   }
 
+  @Override
   public void setSmtpFromAddress(String smtp_from_address)
       throws RemoteException
   {
     setAttribute("smtp_from_address", smtp_from_address);
   }
 
+  @Override
   public Boolean getSmtpSsl() throws RemoteException
   {
     return Util.getBoolean(getAttribute("smtp_ssl"));
   }
 
+  @Override
   public void setSmtpSsl(Boolean smtp_ssl) throws RemoteException
   {
     setAttribute("smtp_ssl", smtp_ssl);
   }
 
+  @Override
   public Boolean getSmtpStarttls() throws RemoteException
   {
     return Util.getBoolean(getAttribute("smtp_starttls"));
   }
 
+  @Override
   public void setSmtpStarttls(Boolean smtp_starttls) throws RemoteException
   {
     setAttribute("smtp_starttls", smtp_starttls);
   }
 
+  @Override
   public int getZahlungsrhytmus() throws RemoteException
   {
     try
@@ -762,11 +864,13 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     }
   }
 
+  @Override
   public void setZahlungsrhytmus(int zahlungsrhytmus) throws RemoteException
   {
     setAttribute("zahlungsrhytmus", zahlungsrhytmus);
   }
 
+  @Override
   public int getZahlungsweg() throws RemoteException
   {
     try
@@ -779,32 +883,38 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     }
   }
 
+  @Override
   public void setZahlungsweg(int zahlungsweg) throws RemoteException
   {
     setAttribute("zahlungsweg", zahlungsweg);
   }
 
+  @Override
   public String getDtausTextschluessel() throws RemoteException
   {
     return (String) getAttribute("dtaustextschluessel");
   }
 
+  @Override
   public void setDtausTextschluessel(String dtaustextschluessel)
       throws RemoteException
   {
     setAttribute("dtaustextschluessel", dtaustextschluessel);
   }
 
+  @Override
   public String getAltersgruppen() throws RemoteException
   {
     return (String) getAttribute("altersgruppen");
   }
 
+  @Override
   public void setAltersgruppen(String altersgruppen) throws RemoteException
   {
     setAttribute("altersgruppen", altersgruppen);
   }
 
+  @Override
   public String getJubilaeen() throws RemoteException
   {
     String ag = (String) getAttribute("jubilaeen");
@@ -815,11 +925,13 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return ag;
   }
 
+  @Override
   public void setJubilaeen(String jubilaeen) throws RemoteException
   {
     setAttribute("jubilaeen", jubilaeen);
   }
 
+  @Override
   public String getAltersjubilaeen() throws RemoteException
   {
     String aj = (String) getAttribute("altersjubilaeen");
@@ -830,11 +942,13 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return aj;
   }
 
+  @Override
   public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException
   {
     setAttribute("altersjubilaeen", altersjubilaeen);
   }
 
+  @Override
   public int getDelaytime() throws RemoteException
   {
     try
@@ -847,11 +961,13 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     }
   }
 
+  @Override
   public void setDelaytime(int delaytime) throws RemoteException
   {
     setAttribute("delaytime", delaytime);
   }
 
+  @Override
   public boolean hasZusatzfelder() throws RemoteException
   {
     if (hasZus == null)
@@ -869,21 +985,25 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     return super.getAttribute(fieldName);
   }
 
+  @Override
   public boolean getZeigeStammdatenInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeStammdatenInTab", false);
   }
 
+  @Override
   public void setZeigeStammdatenInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeStammdatenInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeMitgliedschaftInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeMitgliedschaftInTab", true);
   }
 
+  @Override
   public void setZeigeMitgliedschaftInTab(boolean showInTab)
       throws RemoteException
   {
@@ -891,181 +1011,215 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 
   }
 
+  @Override
   public boolean getZeigeZahlungInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeZahlungInTab", true);
   }
 
+  @Override
   public void setZeigeZahlungInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeZahlungInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeZusatzbetraegeInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeZusatzbetrageInTab", true);
   }
 
+  @Override
   public void setZeigeZusatzbetrageInTab(boolean showInTab)
       throws RemoteException
   {
     settings.setAttribute("ZeigeZusatzbetrageInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeMitgliedskontoInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeMitgliedskontoInTab", true);
   }
 
+  @Override
   public void setZeigeMitgliedskontoInTab(boolean showInTab)
       throws RemoteException
   {
     settings.setAttribute("ZeigeMitgliedskontoInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeVermerkeInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeVermerkeInTab", true);
   }
 
+  @Override
   public void setZeigeVermerkeInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeVermerkeInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeWiedervorlageInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeWiedervorlageInTab", true);
   }
 
+  @Override
   public void setZeigeWiedervorlageInTab(boolean showInTab)
       throws RemoteException
   {
     settings.setAttribute("ZeigeWiedervorlageInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeEigenschaftenInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeEigenschaftenInTab", true);
   }
 
+  @Override
   public void setZeigeEigentschaftenInTab(boolean showInTab)
       throws RemoteException
   {
     settings.setAttribute("ZeigeEigenschaftenInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeMailsInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeMailsInTab", true);
   }
 
+  @Override
   public void setZeigeMailsInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeMailsInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeZusatzfelderInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeZusatzfelderInTab", true);
   }
 
+  @Override
   public void setZeigeZusatzfelderInTab(boolean showInTab)
       throws RemoteException
   {
     settings.setAttribute("ZeigeZusatzfelderInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeLehrgaengeInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeLehrgaengeInTab", true);
   }
 
+  @Override
   public void setZeigeLehrgaengeInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeLehrgaengeInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeFotoInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeFotoInTab", true);
   }
 
+  @Override
   public void setZeigeFotoInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeFotoInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeLesefelderInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeLesefelderInTab", true);
   }
 
+  @Override
   public void setZeigeLesefelderInTab(boolean showInTab) throws RemoteException
   {
     settings.setAttribute("ZeigeLesefelderInTab", showInTab);
   }
 
+  @Override
   public boolean getZeigeArbeitseinsatzInTab() throws RemoteException
   {
     return settings.getBoolean("ZeigeArbeitseinsatzInTab", true);
   }
 
+  @Override
   public void setZeigeArbeitseinsatzInTab(boolean showInTab)
       throws RemoteException
   {
     settings.setAttribute("ZeigeArbeitseinsatzInTab", showInTab);
   }
 
+  @Override
   public int getAnzahlSpaltenStammdaten() throws RemoteException
   {
     return settings.getInt("AnzahlSpaltenStammdaten", 2);
   }
 
+  @Override
   public void setAnzahlSpaltenStammdaten(int anzahlSpalten)
       throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenStammdaten", anzahlSpalten);
   }
 
+  @Override
   public int getAnzahlSpaltenZusatzfelder() throws RemoteException
   {
     return settings.getInt("AnzahlSpaltenZusatzfelder", 1);
   }
 
+  @Override
   public void setAnzahlSpaltenZusatzfelder(int anzahlSpalten)
       throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenZusatzfelder", anzahlSpalten);
   }
 
+  @Override
   public int getAnzahlSpaltenLesefelder() throws RemoteException
   {
     return settings.getInt("AnzahlSpaltenLesefelder", 1);
   }
 
+  @Override
   public void setAnzahlSpaltenLesefelder(int anzahlSpalten)
       throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenLesefelder", anzahlSpalten);
   }
 
+  @Override
   public int getAnzahlSpaltenMitgliedschaft() throws RemoteException
   {
     return settings.getInt("AnzahlSpaltenMitgliedschaft", 1);
   }
 
+  @Override
   public void setAnzahlSpaltenMitgliedschaft(int anzahlSpalten)
       throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenMitgliedschaft", anzahlSpalten);
   }
 
+  @Override
   public int getAnzahlSpaltenZahlung() throws RemoteException
   {
     return settings.getInt("AnzahlSpaltenZahlung", 1);
   }
 
+  @Override
   public void setAnzahlSpaltenZahlung(int anzahlSpalten) throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenZahlung", anzahlSpalten);

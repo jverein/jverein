@@ -41,11 +41,13 @@ public class BLZUpdate implements GenericObject
     this.newBLZ = newBLZ;
   }
 
+  @Override
   public boolean equals(GenericObject arg0) throws RemoteException
   {
     return id.equals(arg0.getID());
   }
 
+  @Override
   public Object getAttribute(String arg0) throws RemoteException
   {
     if (arg0.equals("id"))
@@ -71,16 +73,19 @@ public class BLZUpdate implements GenericObject
     return null;
   }
 
+  @Override
   public String[] getAttributeNames() throws RemoteException
   {
     return new String[] { "id", "mitglied", "namevorname", "newblz", "oldblz" };
   }
 
+  @Override
   public String getID() throws RemoteException
   {
     return id;
   }
 
+  @Override
   public String getPrimaryAttribute() throws RemoteException
   {
     return mitglied.getNameVorname();

@@ -121,26 +121,31 @@ public class FelddefinitionImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
   }
 
+  @Override
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
   }
 
+  @Override
   public String getLabel() throws RemoteException
   {
     return (String) getAttribute("label");
   }
 
+  @Override
   public void setLabel(String label) throws RemoteException
   {
     setAttribute("label", label);
   }
 
+  @Override
   public int getDatentyp() throws RemoteException
   {
     Integer i = (Integer) getAttribute("datentyp");
@@ -154,11 +159,13 @@ public class FelddefinitionImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   public void setDatentyp(int datentyp) throws RemoteException
   {
     setAttribute("datentyp", datentyp);
   }
 
+  @Override
   public int getLaenge() throws RemoteException
   {
     Integer i = (Integer) getAttribute("laenge");
@@ -172,6 +179,7 @@ public class FelddefinitionImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   public void setLaenge(int laenge) throws RemoteException
   {
     setAttribute("laenge", laenge);

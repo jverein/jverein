@@ -82,6 +82,7 @@ public class MailDetailView extends AbstractView
     Button add = new Button(JVereinPlugin.getI18n().tr("Hinzufügen"),
         new Action()
         {
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             MailEmpfaengerAuswahlDialog mead = new MailEmpfaengerAuswahlDialog(
@@ -126,6 +127,7 @@ public class MailDetailView extends AbstractView
     Button addAttachment = new Button("    "
         + JVereinPlugin.getI18n().tr("Anlage") + "    ", new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);

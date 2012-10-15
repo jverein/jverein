@@ -31,12 +31,14 @@ import de.willuhn.util.ApplicationException;
 public class DokumentationAction implements Action
 {
 
+  @Override
   public void handleAction(Object context)
   {
     final Object cont = context;
     GUI.getDisplay().asyncExec(new Runnable()
     {
 
+      @Override
       public void run()
       {
         try

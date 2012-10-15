@@ -99,16 +99,19 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");
@@ -119,11 +122,13 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     return d.doubleValue();
   }
 
+  @Override
   public void setBetrag(double d) throws RemoteException
   {
     setAttribute("betrag", new Double(d));
   }
 
+  @Override
   public int getBeitragsArt() throws RemoteException
   {
     Integer i = (Integer) getAttribute("beitragsart");
@@ -134,11 +139,13 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     return i.intValue();
   }
 
+  @Override
   public void setBeitragsArt(int art) throws RemoteException
   {
     setAttribute("beitragsart", art);
   }
 
+  @Override
   public double getArbeitseinsatzStunden() throws RemoteException
   {
     Double d = (Double) getAttribute("arbeitseinsatzstunden");
@@ -149,12 +156,14 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     return d.doubleValue();
   }
 
+  @Override
   public void setArbeitseinsatzStunden(double arbeitseinsatzStunden)
       throws RemoteException
   {
     setAttribute("arbeitseinsatzstunden", new Double(arbeitseinsatzStunden));
   }
 
+  @Override
   public double getArbeitseinsatzBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("arbeitseinsatzbetrag");
@@ -165,16 +174,19 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     return d.doubleValue();
   }
 
+  @Override
   public void setBuchungsart(Buchungsart buchungsart) throws RemoteException
   {
     setAttribute("buchungsart", buchungsart);
   }
 
+  @Override
   public Buchungsart getBuchungsart() throws RemoteException
   {
     return (Buchungsart) getAttribute("buchungsart");
   }
 
+  @Override
   public void setArbeitseinsatzBetrag(double arbeitseinsatzBetrag)
       throws RemoteException
   {

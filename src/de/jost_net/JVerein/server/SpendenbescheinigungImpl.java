@@ -131,6 +131,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public int getSpendenart() throws RemoteException
   {
     Integer ret = (Integer) getAttribute("spendenart");
@@ -141,88 +142,104 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return ret;
   }
 
+  @Override
   public void setSpendenart(int spendenart) throws RemoteException
   {
     setAttribute("spendenart", spendenart);
   }
 
+  @Override
   public String getZeile1() throws RemoteException
   {
     return getAttribute("zeile1") == null ? ""
         : (String) getAttribute("zeile1");
   }
 
+  @Override
   public void setZeile1(String zeile1) throws RemoteException
   {
     setAttribute("zeile1", zeile1);
   }
 
+  @Override
   public String getZeile2() throws RemoteException
   {
     return getAttribute("zeile2") == null ? ""
         : (String) getAttribute("zeile2");
   }
 
+  @Override
   public void setZeile2(String zeile2) throws RemoteException
   {
     setAttribute("zeile2", zeile2);
   }
 
+  @Override
   public String getZeile3() throws RemoteException
   {
     return getAttribute("zeile3") == null ? ""
         : (String) getAttribute("zeile3");
   }
 
+  @Override
   public void setZeile3(String zeile3) throws RemoteException
   {
     setAttribute("zeile3", zeile3);
   }
 
+  @Override
   public String getZeile4() throws RemoteException
   {
     return getAttribute("zeile4") == null ? ""
         : (String) getAttribute("zeile4");
   }
 
+  @Override
   public void setZeile4(String zeile4) throws RemoteException
   {
     setAttribute("zeile4", zeile4);
   }
 
+  @Override
   public String getZeile5() throws RemoteException
   {
     return getAttribute("zeile5") == null ? ""
         : (String) getAttribute("zeile5");
   }
 
+  @Override
   public void setZeile5(String zeile5) throws RemoteException
   {
     setAttribute("zeile5", zeile5);
   }
 
+  @Override
   public String getZeile6() throws RemoteException
   {
     return getAttribute("zeile6") == null ? ""
         : (String) getAttribute("zeile6");
   }
 
+  @Override
   public void setZeile6(String zeile6) throws RemoteException
   {
     setAttribute("zeile6", zeile6);
   }
 
+  @Override
   public String getZeile7() throws RemoteException
   {
     return getAttribute("zeile7") == null ? ""
         : (String) getAttribute("zeile7");
   }
 
+  @Override
   public void setZeile7(String zeile7) throws RemoteException
   {
     setAttribute("zeile7", zeile7);
   }
 
+  @Override
   public Double getBetrag() throws RemoteException
   {
     Double ret = (Double) getAttribute("betrag");
@@ -233,11 +250,13 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return ret;
   }
 
+  @Override
   public void setSpendedatum(Date datum) throws RemoteException
   {
     setAttribute("spendedatum", datum);
   }
 
+  @Override
   public Date getSpendedatum() throws RemoteException
   {
     return (Date) getAttribute("spendedatum");
@@ -265,53 +284,63 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return maxDate;
   }
 
+  @Override
   public void setBescheinigungsdatum(Date datum) throws RemoteException
   {
     setAttribute("bescheinigungsdatum", datum);
   }
 
+  @Override
   public Date getBescheinigungsdatum() throws RemoteException
   {
     return (Date) getAttribute("bescheinigungsdatum");
   }
 
+  @Override
   public void setBetrag(Double betrag) throws RemoteException
   {
     setAttribute("betrag", betrag);
   }
 
+  @Override
   public Formular getFormular() throws RemoteException
   {
     return (Formular) getAttribute("formular");
   }
 
+  @Override
   public void setFormular(Formular formular) throws RemoteException
   {
     setAttribute("formular", formular);
   }
 
+  @Override
   public Boolean getErsatzAufwendungen() throws RemoteException
   {
     return Util.getBoolean(getAttribute("ersatzaufwendungen"));
   }
 
+  @Override
   public void setErsatzAufwendungen(Boolean ersatzaufwendungen)
       throws RemoteException
   {
     setAttribute("ersatzaufwendungen", Boolean.valueOf(ersatzaufwendungen));
   }
 
+  @Override
   public String getBezeichnungSachzuwendung() throws RemoteException
   {
     return (String) getAttribute("bezeichnungsachzuwendung");
   }
 
+  @Override
   public void setBezeichnungSachzuwendung(String bezeichnungsachzuwendung)
       throws RemoteException
   {
     setAttribute("bezeichnungsachzuwendung", bezeichnungsachzuwendung);
   }
 
+  @Override
   public int getHerkunftSpende() throws RemoteException
   {
     Integer ret = (Integer) getAttribute("herkunftspende");
@@ -322,6 +351,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return ret;
   }
 
+  @Override
   public void setHerkunftSpende(int herkunftspende) throws RemoteException
   {
     setAttribute("herkunftspende", herkunftspende);
@@ -356,21 +386,25 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     super.delete();
   }
 
+  @Override
   public Mitglied getMitglied() throws RemoteException
   {
     return (Mitglied) getAttribute("mitglied");
   }
 
+  @Override
   public int getMitgliedID() throws RemoteException
   {
     return Integer.parseInt(getMitglied().getID());
   }
 
+  @Override
   public void setMitgliedID(Integer mitgliedID) throws RemoteException
   {
     setAttribute("mitglied", mitgliedID);
   }
 
+  @Override
   public void setMitglied(Mitglied mitglied) throws RemoteException
   {
     if (mitglied != null)
@@ -392,6 +426,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * @return Flag, ob Sammelbestätigung
    * @throws RemoteException
    */
+  @Override
   public boolean isSammelbestaetigung() throws RemoteException
   {
     if (getBuchungen() == null)
@@ -408,6 +443,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * @param buchung
    *          Die Buchung zum Hinzufügen
    */
+  @Override
   public void addBuchung(Buchung buchung) throws RemoteException
   {
     if (buchung != null)
@@ -444,6 +480,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * @param buchung
    *          Die Buchung, die der Spendenbescheinigung zugeordnet wird
    */
+  @Override
   public void setBuchung(Buchung buchung) throws RemoteException
   {
     if (buchungen != null)
@@ -467,6 +504,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * 
    * @return Liste der der Spendenbescheinigung zugeordneten Buchungen
    */
+  @Override
   public List<Buchung> getBuchungen() throws RemoteException
   {
     if (getSpendenart() == Spendenart.GELDSPENDE && buchungen == null)
@@ -487,11 +525,13 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     return buchungen;
   }
 
+  @Override
   public Boolean getUnterlagenWertermittlung() throws RemoteException
   {
     return Util.getBoolean(getAttribute("unterlagenwertermittlung"));
   }
 
+  @Override
   public void setUnterlagenWertermittlung(Boolean unterlagenwertermittlung)
       throws RemoteException
   {
@@ -499,16 +539,19 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         Boolean.valueOf(unterlagenwertermittlung));
   }
 
+  @Override
   public Boolean getAutocreate() throws RemoteException
   {
     return Util.getBoolean(getAttribute("autocreate"));
   }
 
+  @Override
   public void setAutocreate(Boolean autocreate) throws RemoteException
   {
     setAttribute("autocreate", Boolean.valueOf(autocreate));
   }
 
+  @Override
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException
   {

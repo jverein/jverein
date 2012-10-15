@@ -114,11 +114,13 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     return this.driver.getJdbcUsername();
   }
 
+  @Override
   public void checkConsistency() throws RemoteException, ApplicationException
   {
     this.driver.checkConsistency(getConnection());
   }
 
+  @Override
   public void install() throws RemoteException
   {
     ProgressMonitor monitor = Application.getCallback().getStartupMonitor();
@@ -144,6 +146,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
     // this.driver.execute(getConnection(), file);
   }
 
+  @Override
   public void update(Version oldVersion, Version newVersion)
       throws RemoteException
   {
@@ -200,6 +203,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
   // }
   // }
 
+  @Override
   public String getSQLTimestamp(String content) throws RemoteException
   {
     return this.driver.getSQLTimestamp(content);

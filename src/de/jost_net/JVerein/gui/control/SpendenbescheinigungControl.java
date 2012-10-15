@@ -137,6 +137,7 @@ public class SpendenbescheinigungControl extends AbstractControl
         getSpendenbescheinigung().getSpendenart()));
     spendenart.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         enableSachspende();
@@ -395,6 +396,7 @@ public class SpendenbescheinigungControl extends AbstractControl
            * Dateiauswahl und die Anzeige des Dokumentes um die Generierung
            * gesetzt.
            */
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -449,6 +451,7 @@ public class SpendenbescheinigungControl extends AbstractControl
                   JVereinPlugin.getI18n().tr("Spendenbescheinigung erstellt"));
               GUI.getDisplay().asyncExec(new Runnable()
               {
+                @Override
                 public void run()
                 {
                   try
@@ -480,6 +483,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF (Individuell)"),
         new Action()
         {
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -552,7 +556,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     Formular spendeformular = getSpendenbescheinigung().getFormular();
     if (spendeformular == null)
     {
-      GUI.getStatusBar().setErrorText(JVereinPlugin.getI18n().tr("Bitte Formular auswaehlen"));
+      GUI.getStatusBar().setErrorText(
+          JVereinPlugin.getI18n().tr("Bitte Formular auswaehlen"));
       return;
     }
 
@@ -575,12 +580,12 @@ public class SpendenbescheinigungControl extends AbstractControl
 
     spbList = new TablePart(spendenbescheinigungen,
         new SpendenbescheinigungAction());
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Bescheinigungsdatum"), "bescheinigungsdatum",
+    spbList.addColumn(JVereinPlugin.getI18n().tr("Bescheinigungsdatum"),
+        "bescheinigungsdatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    spbList.addColumn(JVereinPlugin.getI18n().tr("Spendedatum"), "spendedatum",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Spendedatum"), "spendedatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    spbList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 1"), "zeile1");
     spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 2"), "zeile2");
     spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 3"), "zeile3");

@@ -249,6 +249,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
     buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
     {
 
+      @Override
       public void handleAction(Object context)
       {
         int counter = 0;

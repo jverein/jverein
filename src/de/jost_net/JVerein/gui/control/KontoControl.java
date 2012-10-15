@@ -215,6 +215,7 @@ public class KontoControl extends AbstractControl
     kontenList.addColumn(JVereinPlugin.getI18n().tr("Hibiscus-Konto"),
         "hibiscusid", new Formatter()
         {
+          @Override
           public String format(Object o)
           {
             if (o == null)

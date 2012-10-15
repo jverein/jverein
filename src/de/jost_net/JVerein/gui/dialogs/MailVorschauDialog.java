@@ -72,6 +72,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     setSize(settings.getInt("width", 550), settings.getInt("height", 450));
     addCloseListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         settings.setAttribute("width", getShell().getSize().x);
@@ -154,6 +155,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("Schlieﬂen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         close();

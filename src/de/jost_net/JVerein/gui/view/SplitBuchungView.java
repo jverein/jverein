@@ -54,7 +54,7 @@ public class SplitBuchungView extends AbstractView
         new BuchungNeuAction(), null, false, "document-new.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
-
+      @Override
       public void handleAction(Object context)
       {
         control.handleStore();

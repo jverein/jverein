@@ -122,56 +122,67 @@ public class KontoImpl extends AbstractDBObject implements Konto
     return null;
   }
 
+  @Override
   public String getNummer() throws RemoteException
   {
     return (String) getAttribute("nummer");
   }
 
+  @Override
   public void setNummer(String nummer) throws RemoteException
   {
     setAttribute("nummer", nummer);
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public Date getEroeffnung() throws RemoteException
   {
     return (Date) getAttribute("eroeffnung");
   }
 
+  @Override
   public void setEroeffnung(Date eroeffnungdatum) throws RemoteException
   {
     setAttribute("eroeffnung", eroeffnungdatum);
   }
 
+  @Override
   public Date getAufloesung() throws RemoteException
   {
     return (Date) getAttribute("aufloesung");
   }
 
+  @Override
   public void setAufloesung(Date aufloesungsdatum) throws RemoteException
   {
     setAttribute("aufloesung", aufloesungsdatum);
   }
 
+  @Override
   public Integer getHibiscusId() throws RemoteException
   {
     return (Integer) getAttribute("hibiscusid");
   }
 
+  @Override
   public void setHibiscusId(Integer id) throws RemoteException
   {
     setAttribute("hibiscusid", id);
   }
 
+  @Override
   public DBIterator getKontenEinesJahres(Geschaeftsjahr gj)
       throws RemoteException
   {

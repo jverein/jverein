@@ -28,8 +28,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Lehrgangsart extends DBObject
 {
-  public String getID() throws RemoteException;
-
   public String getBezeichnung() throws RemoteException;
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;

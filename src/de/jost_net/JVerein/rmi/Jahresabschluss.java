@@ -28,8 +28,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Jahresabschluss extends DBObject
 {
-  public String getID() throws RemoteException;
-
   public Date getVon() throws RemoteException;
 
   public void setVon(Date von) throws RemoteException;

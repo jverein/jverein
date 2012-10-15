@@ -26,6 +26,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class ZahlungswegFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     Integer zw = (Integer) o;

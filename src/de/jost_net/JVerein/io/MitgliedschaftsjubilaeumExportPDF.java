@@ -60,6 +60,7 @@ public class MitgliedschaftsjubilaeumExportPDF extends
     }
     IOFormat f = new IOFormat()
     {
+      @Override
       public String getName()
       {
         return MitgliedschaftsjubilaeumExportPDF.this.getName();
@@ -68,6 +69,7 @@ public class MitgliedschaftsjubilaeumExportPDF extends
       /**
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
+      @Override
       public String[] getFileExtensions()
       {
         return new String[] { "*.pdf" };

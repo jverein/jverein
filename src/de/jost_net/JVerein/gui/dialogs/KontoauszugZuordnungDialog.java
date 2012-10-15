@@ -78,7 +78,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
     {
-
+      @Override
       public void handleAction(Object context)
       {
         intAuszug = (Integer) auszug.getValue();
@@ -103,6 +103,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
     }, null, true);
     buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();

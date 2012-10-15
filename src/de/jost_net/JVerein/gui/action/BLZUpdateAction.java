@@ -31,6 +31,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class BLZUpdateAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     GUI.startView(BLZUpdateView.class.getName(), null);

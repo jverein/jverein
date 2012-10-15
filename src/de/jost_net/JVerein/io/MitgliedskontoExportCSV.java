@@ -68,6 +68,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
     }
     IOFormat f = new IOFormat()
     {
+      @Override
       public String getName()
       {
         return MitgliedskontoExportCSV.this.getName();
@@ -76,6 +77,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       /**
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
+      @Override
       public String[] getFileExtensions()
       {
         return new String[] { "*.csv" };
@@ -160,6 +162,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+        @Override
         public void run()
         {
           try

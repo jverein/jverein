@@ -56,6 +56,7 @@ public class BuchungPart implements Part
     this.buchungabgeschlossen = buchungabgeschlossen;
   }
 
+  @Override
   public void paint(Composite parent) throws RemoteException
   {
     GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchung"));

@@ -68,6 +68,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.NavigationItem#getIconClose()
    */
+  @Override
   public Image getIconClose()
   {
     if (action == null)
@@ -83,6 +84,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.NavigationItem#getIconOpen()
    */
+  @Override
   public Image getIconOpen()
   {
     if (action == null)
@@ -98,6 +100,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.NavigationItem#isExpanded()
    */
+  @Override
   public boolean isExpanded()
   {
     return false;
@@ -106,6 +109,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#addChild(de.willuhn.jameica.gui.Item)
    */
+  @Override
   public void addChild(Item i)
   {
     children.add(i);
@@ -114,6 +118,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#getAction()
    */
+  @Override
   public Action getAction()
   {
     return action;
@@ -122,6 +127,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#getName()
    */
+  @Override
   public String getName()
   {
     return navitext;
@@ -130,6 +136,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#isEnabled()
    */
+  @Override
   public boolean isEnabled()
   {
     return true;
@@ -138,6 +145,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.Item#setEnabled(boolean, boolean)
    */
+  @Override
   public void setEnabled(boolean enabled, boolean recursive)
   {
     // ignore
@@ -146,6 +154,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getChildren()
    */
+  @Override
   public GenericIterator getChildren() throws RemoteException
   {
     // if (children.size() == 0)
@@ -162,6 +171,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getParent()
    */
+  @Override
   public GenericObjectNode getParent()
   {
     return this.parent;
@@ -170,7 +180,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getPath()
    */
-  @SuppressWarnings("unchecked")
+  @Override
   public GenericIterator getPath() throws RemoteException
   {
     List list = PseudoIterator.asList(this.parent.getPath());
@@ -182,7 +192,8 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getPossibleParents()
    */
-  public GenericIterator getPossibleParents() throws RemoteException
+  @Override
+public GenericIterator getPossibleParents() throws RemoteException
   {
     throw new RemoteException("not implemented");
   }
@@ -190,6 +201,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#hasChild(de.willuhn.datasource.GenericObjectNode)
    */
+  @Override
   public boolean hasChild(GenericObjectNode arg0)
   {
     return false;
@@ -198,6 +210,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#equals(de.willuhn.datasource.GenericObject)
    */
+  @Override
   public boolean equals(GenericObject arg0) throws RemoteException
   {
     if (arg0 == null || !(arg0 instanceof MyItem))
@@ -208,6 +221,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
    */
+  @Override
   public Object getAttribute(String arg0)
   {
     return getName();
@@ -216,6 +230,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getAttributeNames()
    */
+  @Override
   public String[] getAttributeNames()
   {
     return new String[] { "name" };
@@ -224,6 +239,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getID()
    */
+  @Override
   public String getID()
   {
     return getClass().getName() + "." + getName();
@@ -232,6 +248,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObject#getPrimaryAttribute()
    */
+  @Override
   public String getPrimaryAttribute()
   {
     return "name";
@@ -240,6 +257,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.jameica.gui.extension.Extendable#getExtendableID()
    */
+  @Override
   public String getExtendableID()
   {
     return getID();
@@ -248,7 +266,10 @@ public class MyItem implements NavigationItem
 }
 
 /*******************************************************************************
- * $Log$ Revision 1.9 2011/10/23 20:58:26 jverein Hinweis auf
+ * $Log$
+ * Revision 1.10  2012/08/14 19:03:42  jverein
+ * Anpassung an Jameica
+ * Revision 1.9 2011/10/23 20:58:26 jverein Hinweis auf
  * die GPL in den Quelltext aufgenommen
  * 
  * Revision 1.8 2011/10/01 21:44:40 jost Log-Einträge entfernt. Zeigt

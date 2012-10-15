@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class AbbuchungAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(AbbuchungView.class.getName(), null);

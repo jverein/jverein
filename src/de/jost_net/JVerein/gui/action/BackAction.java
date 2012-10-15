@@ -26,7 +26,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class BackAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startPreviousView();

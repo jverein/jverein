@@ -175,31 +175,37 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Konto getKonto() throws RemoteException
   {
     return (Konto) getAttribute("konto");
   }
 
+  @Override
   public String getKontoText() throws RemoteException
   {
     return (String) getAttribute("kontotext");
   }
 
+  @Override
   public void setKonto(Konto konto) throws RemoteException
   {
     setAttribute("konto", konto);
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");
@@ -210,6 +216,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     return d.doubleValue();
   }
 
+  @Override
   public void setBetrag(double d) throws RemoteException
   {
     setAttribute("betrag", new Double(d));
@@ -228,6 +235,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     }
   }
 
+  @Override
   public Jahresabschluss getJahresabschluss() throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(

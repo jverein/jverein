@@ -27,8 +27,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Felddefinition extends DBObject
 {
-  public String getID() throws RemoteException;
-
   public String getName() throws RemoteException;
 
   public void setName(String name) throws RemoteException;

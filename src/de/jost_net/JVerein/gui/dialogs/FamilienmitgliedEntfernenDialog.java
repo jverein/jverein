@@ -92,6 +92,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     ButtonArea b = new ButtonArea();
     b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         Mitglied m = control.getMitglied();
@@ -141,6 +142,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     });
     b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();

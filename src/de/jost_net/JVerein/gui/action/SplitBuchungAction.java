@@ -34,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class SplitBuchungAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Buchung b = null;

@@ -96,6 +96,7 @@ public class SpendenView extends AbstractView
       buttons.addButton(JVereinPlugin.getI18n().tr("Dauerauftrag erstellen"),
           new Action()
           {
+            @Override
             public void handleAction(Object context)
                 throws ApplicationException
             {
@@ -134,6 +135,7 @@ public class SpendenView extends AbstractView
           }, null, false, "emblem-special.png");
       buttons.addButton(i18n.tr("...oder Einzelspende"), new Action()
       {
+        @Override
         public void handleAction(Object context) throws ApplicationException
         {
           try

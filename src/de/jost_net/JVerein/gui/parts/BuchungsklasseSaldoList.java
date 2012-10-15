@@ -130,7 +130,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
     ResultSetExtractor rsd = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())
@@ -142,7 +142,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     };
     ResultSetExtractor rsi = new ResultSetExtractor()
     {
-
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         if (!rs.next())

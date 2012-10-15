@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class AnfangsbestandListAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(AnfangsbestandListView.class.getName(), null);

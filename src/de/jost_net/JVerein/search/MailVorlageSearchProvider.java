@@ -41,11 +41,13 @@ import de.willuhn.util.ApplicationException;
 public class MailVorlageSearchProvider implements SearchProvider
 {
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("MailVorlagen");
   }
 
+  @Override
   public List<MyResult> search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
@@ -81,11 +83,13 @@ public class MailVorlageSearchProvider implements SearchProvider
       this.m = m;
     }
 
+    @Override
     public void execute() throws ApplicationException
     {
       new MailVorlageDetailAction().handleAction(this.m);
     }
 
+    @Override
     public String getName()
     {
       try

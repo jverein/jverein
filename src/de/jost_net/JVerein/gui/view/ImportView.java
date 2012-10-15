@@ -394,6 +394,7 @@ public class ImportView extends AbstractView
     /* Wenn diese bestaetigt wurde dann wird der Import gestartet */
     BackgroundTask t = new BackgroundTask()
     {
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         String s = csvConn.getFileName();
@@ -457,11 +458,13 @@ public class ImportView extends AbstractView
         }
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;

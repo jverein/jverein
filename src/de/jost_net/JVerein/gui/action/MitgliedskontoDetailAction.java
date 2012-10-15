@@ -34,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoDetailAction implements Action
 {
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     MitgliedskontoNode mkn = null;

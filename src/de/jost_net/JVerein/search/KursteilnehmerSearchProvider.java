@@ -41,11 +41,13 @@ import de.willuhn.util.ApplicationException;
 public class KursteilnehmerSearchProvider implements SearchProvider
 {
 
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Kursteilnehmer");
   }
 
+  @Override
   public List<MyResult> search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
@@ -83,11 +85,13 @@ public class KursteilnehmerSearchProvider implements SearchProvider
       this.k = k;
     }
 
+    @Override
     public void execute() throws ApplicationException
     {
       new KursteilnehmerDetailAction().handleAction(this.k);
     }
 
+    @Override
     public String getName()
     {
       try

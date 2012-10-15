@@ -57,7 +57,7 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
     aui = control.getAuswertungSchluessel();
     aui.addListener(new Listener()
     {
-
+      @Override
       public void handleEvent(Event event)
       {
         int i = (Integer) aui.getValue();
@@ -72,7 +72,7 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
     Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
         new Action()
         {
-
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             control.getArbeitseinsatzUeberpruefungList();
@@ -95,7 +95,8 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
-        + "</form>");
+    return JVereinPlugin.getI18n().tr(
+        "<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
+            + "</form>");
   }
 }

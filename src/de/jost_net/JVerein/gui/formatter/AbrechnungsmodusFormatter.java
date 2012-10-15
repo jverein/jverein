@@ -26,6 +26,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class AbrechnungsmodusFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     Integer art = (Integer) o;

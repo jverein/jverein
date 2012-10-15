@@ -262,6 +262,7 @@ public class MailControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("speichern + senden"),
         new Action()
         {
+      @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -337,6 +338,7 @@ public class MailControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr(
         "speichern + erneut senden"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
@@ -388,6 +390,7 @@ public class MailControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("speichern"), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         handleStore(false);
@@ -417,7 +420,8 @@ public class MailControl extends AbstractControl
     final String txt = getTxtString();
     BackgroundTask t = new BackgroundTask()
     {
-      public void run(ProgressMonitor monitor)
+      @Override
+     public void run(ProgressMonitor monitor)
       {
         try
         {
@@ -485,11 +489,13 @@ public class MailControl extends AbstractControl
         }
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;

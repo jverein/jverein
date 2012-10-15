@@ -174,26 +174,43 @@ public class EinstellungControl extends AbstractControl
   private Settings settings;
 
   private MitgliedSpaltenauswahl spalten;
-  
+
   private IntegerInput AnzahlSpaltenStammdatenInput;
+
   private IntegerInput AnzahlSpaltenZusatzfelderInput;
+
   private IntegerInput AnzahlSpaltenLesefelderInput;
+
   private IntegerInput AnzahlSpaltenMitgliedschaftInput;
+
   private IntegerInput AnzahlSpaltenZahlungInput;
 
   private CheckboxInput ZeigeStammdatenInTabInput;
+
   private CheckboxInput ZeigeMitgliedschaftInTabInput;
+
   private CheckboxInput ZeigeZahlungInTabInput;
+
   private CheckboxInput ZeigeZusatzbeitraegeInTabInput;
+
   private CheckboxInput ZeigeMitgliedskontoInTabInput;
+
   private CheckboxInput ZeigeVermerkeInTabInput;
+
   private CheckboxInput ZeigeWiedervorlageInTabInput;
+
   private CheckboxInput ZeigeMailsInTabInput;
+
   private CheckboxInput ZeigeEigenschaftenInTabInput;
+
   private CheckboxInput ZeigeZusatzfelderInTabInput;
+
   private CheckboxInput ZeigeLehrgaengeInTabInput;
+
   private CheckboxInput ZeigeFotoInTabInput;
+
   private CheckboxInput ZeigeLesefelderInTabInput;
+
   private CheckboxInput ZeigeArbeitseinsatzInTabInput;
 
   public EinstellungControl(AbstractView view)
@@ -859,7 +876,7 @@ public class EinstellungControl extends AbstractControl
   // .isChecked());
   // }
   // }
-  
+
   public IntegerInput getAnzahlSpaltenStammdatenInput() throws RemoteException
   {
     {
@@ -867,83 +884,86 @@ public class EinstellungControl extends AbstractControl
       {
         return AnzahlSpaltenStammdatenInput;
       }
-      AnzahlSpaltenStammdatenInput = new IntegerInput(Einstellungen.getEinstellung()
-          .getAnzahlSpaltenStammdaten());
+      AnzahlSpaltenStammdatenInput = new IntegerInput(Einstellungen
+          .getEinstellung().getAnzahlSpaltenStammdaten());
       return AnzahlSpaltenStammdatenInput;
     }
   }
-  
+
   public IntegerInput getAnzahlSpaltenLesefelderInput() throws RemoteException
   {
     {
-      if (AnzahlSpaltenLesefelderInput!= null)
+      if (AnzahlSpaltenLesefelderInput != null)
       {
         return AnzahlSpaltenLesefelderInput;
       }
-      AnzahlSpaltenLesefelderInput = new IntegerInput(Einstellungen.getEinstellung()
-          .getAnzahlSpaltenLesefelder());
+      AnzahlSpaltenLesefelderInput = new IntegerInput(Einstellungen
+          .getEinstellung().getAnzahlSpaltenLesefelder());
       return AnzahlSpaltenLesefelderInput;
     }
   }
-  
-  public IntegerInput getAnzahlSpaltenMitgliedschaftInput() throws RemoteException
+
+  public IntegerInput getAnzahlSpaltenMitgliedschaftInput()
+      throws RemoteException
   {
     {
-      if (AnzahlSpaltenMitgliedschaftInput!= null)
+      if (AnzahlSpaltenMitgliedschaftInput != null)
       {
         return AnzahlSpaltenMitgliedschaftInput;
       }
-      AnzahlSpaltenMitgliedschaftInput = new IntegerInput(Einstellungen.getEinstellung()
-          .getAnzahlSpaltenMitgliedschaft());
+      AnzahlSpaltenMitgliedschaftInput = new IntegerInput(Einstellungen
+          .getEinstellung().getAnzahlSpaltenMitgliedschaft());
       return AnzahlSpaltenMitgliedschaftInput;
     }
   }
-  
+
   public IntegerInput getAnzahlSpaltenZahlungInput() throws RemoteException
   {
     {
-      if (AnzahlSpaltenZahlungInput!= null)
+      if (AnzahlSpaltenZahlungInput != null)
       {
         return AnzahlSpaltenZahlungInput;
       }
-      AnzahlSpaltenZahlungInput = new IntegerInput(Einstellungen.getEinstellung()
-          .getAnzahlSpaltenZahlung());
+      AnzahlSpaltenZahlungInput = new IntegerInput(Einstellungen
+          .getEinstellung().getAnzahlSpaltenZahlung());
       return AnzahlSpaltenZahlungInput;
     }
   }
-  
-  public IntegerInput getAnzahlSpaltenZusatzfelderInput() throws RemoteException
+
+  public IntegerInput getAnzahlSpaltenZusatzfelderInput()
+      throws RemoteException
   {
     {
-      if (AnzahlSpaltenZusatzfelderInput!= null)
+      if (AnzahlSpaltenZusatzfelderInput != null)
       {
         return AnzahlSpaltenZusatzfelderInput;
       }
-      AnzahlSpaltenZusatzfelderInput = new IntegerInput(Einstellungen.getEinstellung()
-          .getAnzahlSpaltenZusatzfelder());
+      AnzahlSpaltenZusatzfelderInput = new IntegerInput(Einstellungen
+          .getEinstellung().getAnzahlSpaltenZusatzfelder());
       return AnzahlSpaltenZusatzfelderInput;
     }
   }
-  
+
   public CheckboxInput getZeigeStammdatenInTabCheckbox() throws RemoteException
   {
     if (ZeigeStammdatenInTabInput != null)
     {
       return ZeigeStammdatenInTabInput;
     }
-    ZeigeStammdatenInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeStammdatenInTab());
+    ZeigeStammdatenInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeStammdatenInTab());
     return ZeigeStammdatenInTabInput;
   }
-  
-  public CheckboxInput getZeigeMitgliedschaftInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeMitgliedschaftInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeMitgliedschaftInTabInput != null)
     {
       return ZeigeMitgliedschaftInTabInput;
     }
-    ZeigeMitgliedschaftInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeMitgliedschaftInTab());
+    ZeigeMitgliedschaftInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeMitgliedschaftInTab());
     return ZeigeMitgliedschaftInTabInput;
   }
 
@@ -957,30 +977,31 @@ public class EinstellungControl extends AbstractControl
         .getZeigeZahlungInTab());
     return ZeigeZahlungInTabInput;
   }
-  
-  public CheckboxInput getZeigeZusatzbetrageInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeZusatzbetrageInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeZusatzbeitraegeInTabInput != null)
     {
       return ZeigeZusatzbeitraegeInTabInput;
     }
-    ZeigeZusatzbeitraegeInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeZusatzbetraegeInTab());
+    ZeigeZusatzbeitraegeInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeZusatzbetraegeInTab());
     return ZeigeZusatzbeitraegeInTabInput;
   }
-  
-  
-  public CheckboxInput getZeigeMitgliedskontoInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeMitgliedskontoInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeMitgliedskontoInTabInput != null)
     {
       return ZeigeMitgliedskontoInTabInput;
     }
-    ZeigeMitgliedskontoInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeMitgliedskontoInTab());
+    ZeigeMitgliedskontoInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeMitgliedskontoInTab());
     return ZeigeMitgliedskontoInTabInput;
   }
-  
+
   public CheckboxInput getZeigeVermerkeInTabCheckbox() throws RemoteException
   {
     if (ZeigeVermerkeInTabInput != null)
@@ -991,18 +1012,19 @@ public class EinstellungControl extends AbstractControl
         .getZeigeVermerkeInTab());
     return ZeigeVermerkeInTabInput;
   }
-  
-  public CheckboxInput getZeigeWiedervorlageInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeWiedervorlageInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeWiedervorlageInTabInput != null)
     {
       return ZeigeWiedervorlageInTabInput;
     }
-    ZeigeWiedervorlageInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeWiedervorlageInTab());
+    ZeigeWiedervorlageInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeWiedervorlageInTab());
     return ZeigeWiedervorlageInTabInput;
   }
-  
+
   public CheckboxInput getZeigeMailsInTabCheckbox() throws RemoteException
   {
     if (ZeigeMailsInTabInput != null)
@@ -1013,70 +1035,73 @@ public class EinstellungControl extends AbstractControl
         .getZeigeMailsInTab());
     return ZeigeMailsInTabInput;
   }
-  
-  public CheckboxInput getZeigeEigenschaftenInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeEigenschaftenInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeEigenschaftenInTabInput != null)
     {
       return ZeigeEigenschaftenInTabInput;
     }
-    ZeigeEigenschaftenInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeEigenschaftenInTab());
+    ZeigeEigenschaftenInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeEigenschaftenInTab());
     return ZeigeEigenschaftenInTabInput;
   }
-  
-  public CheckboxInput getZeigeZusatzfelderInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeZusatzfelderInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeZusatzfelderInTabInput != null)
     {
       return ZeigeZusatzfelderInTabInput;
     }
-    ZeigeZusatzfelderInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeZusatzfelderInTab());
+    ZeigeZusatzfelderInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeZusatzfelderInTab());
     return ZeigeZusatzfelderInTabInput;
   }
-  
+
   public CheckboxInput getZeigeLehrgaengeInTabCheckbox() throws RemoteException
   {
     if (ZeigeLehrgaengeInTabInput != null)
     {
       return ZeigeLehrgaengeInTabInput;
     }
-    ZeigeLehrgaengeInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeLehrgaengeInTab());
+    ZeigeLehrgaengeInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeLehrgaengeInTab());
     return ZeigeLehrgaengeInTabInput;
   }
-  
+
   public CheckboxInput getZeigeFotoInTabCheckbox() throws RemoteException
   {
     if (ZeigeFotoInTabInput != null)
     {
-      return ZeigeFotoInTabInput ;
+      return ZeigeFotoInTabInput;
     }
-    ZeigeFotoInTabInput  = new CheckboxInput(Einstellungen.getEinstellung()
+    ZeigeFotoInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
         .getZeigeFotoInTab());
-    return ZeigeFotoInTabInput ;
+    return ZeigeFotoInTabInput;
   }
-  
+
   public CheckboxInput getZeigeLesefelderInTabCheckbox() throws RemoteException
   {
     if (ZeigeLesefelderInTabInput != null)
     {
       return ZeigeLesefelderInTabInput;
     }
-    ZeigeLesefelderInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeLesefelderInTab());
+    ZeigeLesefelderInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeLesefelderInTab());
     return ZeigeLesefelderInTabInput;
   }
-  
-  public CheckboxInput getZeigeArbeitseinsatzInTabCheckbox() throws RemoteException
+
+  public CheckboxInput getZeigeArbeitseinsatzInTabCheckbox()
+      throws RemoteException
   {
     if (ZeigeArbeitseinsatzInTabInput != null)
     {
       return ZeigeArbeitseinsatzInTabInput;
     }
-    ZeigeArbeitseinsatzInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeArbeitseinsatzInTab());
+    ZeigeArbeitseinsatzInTabInput = new CheckboxInput(Einstellungen
+        .getEinstellung().getZeigeArbeitseinsatzInTab());
     return ZeigeArbeitseinsatzInTabInput;
   }
 
@@ -1156,27 +1181,44 @@ public class EinstellungControl extends AbstractControl
       e.store();
       spalten.save();
       Einstellungen.setEinstellung(e);
-      
-      e.setAnzahlSpaltenStammdaten((Integer)getAnzahlSpaltenStammdatenInput().getValue());
-      e.setAnzahlSpaltenLesefelder((Integer)getAnzahlSpaltenLesefelderInput().getValue());
-      e.setAnzahlSpaltenZusatzfelder((Integer)getAnzahlSpaltenZusatzfelderInput().getValue());
-      e.setAnzahlSpaltenMitgliedschaft((Integer)getAnzahlSpaltenMitgliedschaftInput().getValue());
-      e.setAnzahlSpaltenZahlung((Integer)getAnzahlSpaltenZahlungInput().getValue());
-      e.setZeigeStammdatenInTab((Boolean)getZeigeStammdatenInTabCheckbox().getValue());
-      e.setZeigeMitgliedschaftInTab((Boolean)getZeigeMitgliedschaftInTabCheckbox().getValue());
-      e.setZeigeZahlungInTab((Boolean)getZeigeZahlungInTabCheckbox().getValue());
-      e.setZeigeZusatzbetrageInTab((Boolean)getZeigeZusatzbetrageInTabCheckbox().getValue());
-      e.setZeigeMitgliedskontoInTab((Boolean)getZeigeMitgliedskontoInTabCheckbox().getValue());
-      e.setZeigeVermerkeInTab((Boolean)getZeigeVermerkeInTabCheckbox().getValue());
-      e.setZeigeWiedervorlageInTab((Boolean)getZeigeWiedervorlageInTabCheckbox().getValue());
-      e.setZeigeMailsInTab((Boolean)getZeigeMailsInTabCheckbox().getValue());
-      e.setZeigeEigentschaftenInTab((Boolean)getZeigeEigenschaftenInTabCheckbox().getValue());
-      e.setZeigeZusatzfelderInTab((Boolean)getZeigeZusatzfelderInTabCheckbox().getValue());
-      e.setZeigeLehrgaengeInTab((Boolean)getZeigeLehrgaengeInTabCheckbox().getValue());
-      e.setZeigeFotoInTab((Boolean)getZeigeFotoInTabCheckbox().getValue());
-      e.setZeigeLesefelderInTab((Boolean)getZeigeLesefelderInTabCheckbox().getValue());
-      e.setZeigeArbeitseinsatzInTab((Boolean)getZeigeArbeitseinsatzInTabCheckbox().getValue());
-      
+
+      e.setAnzahlSpaltenStammdaten((Integer) getAnzahlSpaltenStammdatenInput()
+          .getValue());
+      e.setAnzahlSpaltenLesefelder((Integer) getAnzahlSpaltenLesefelderInput()
+          .getValue());
+      e.setAnzahlSpaltenZusatzfelder((Integer) getAnzahlSpaltenZusatzfelderInput()
+          .getValue());
+      e.setAnzahlSpaltenMitgliedschaft((Integer) getAnzahlSpaltenMitgliedschaftInput()
+          .getValue());
+      e.setAnzahlSpaltenZahlung((Integer) getAnzahlSpaltenZahlungInput()
+          .getValue());
+      e.setZeigeStammdatenInTab((Boolean) getZeigeStammdatenInTabCheckbox()
+          .getValue());
+      e.setZeigeMitgliedschaftInTab((Boolean) getZeigeMitgliedschaftInTabCheckbox()
+          .getValue());
+      e.setZeigeZahlungInTab((Boolean) getZeigeZahlungInTabCheckbox()
+          .getValue());
+      e.setZeigeZusatzbetrageInTab((Boolean) getZeigeZusatzbetrageInTabCheckbox()
+          .getValue());
+      e.setZeigeMitgliedskontoInTab((Boolean) getZeigeMitgliedskontoInTabCheckbox()
+          .getValue());
+      e.setZeigeVermerkeInTab((Boolean) getZeigeVermerkeInTabCheckbox()
+          .getValue());
+      e.setZeigeWiedervorlageInTab((Boolean) getZeigeWiedervorlageInTabCheckbox()
+          .getValue());
+      e.setZeigeMailsInTab((Boolean) getZeigeMailsInTabCheckbox().getValue());
+      e.setZeigeEigentschaftenInTab((Boolean) getZeigeEigenschaftenInTabCheckbox()
+          .getValue());
+      e.setZeigeZusatzfelderInTab((Boolean) getZeigeZusatzfelderInTabCheckbox()
+          .getValue());
+      e.setZeigeLehrgaengeInTab((Boolean) getZeigeLehrgaengeInTabCheckbox()
+          .getValue());
+      e.setZeigeFotoInTab((Boolean) getZeigeFotoInTabCheckbox().getValue());
+      e.setZeigeLesefelderInTab((Boolean) getZeigeLesefelderInTabCheckbox()
+          .getValue());
+      e.setZeigeArbeitseinsatzInTab((Boolean) getZeigeArbeitseinsatzInTabCheckbox()
+          .getValue());
+
       GUI.getStatusBar().setSuccessText(
           JVereinPlugin.getI18n().tr("Einstellungen gespeichert"));
     }
@@ -1196,7 +1238,7 @@ public class EinstellungControl extends AbstractControl
    */
   private class BLZListener implements Listener
   {
-
+    @Override
     public void handleEvent(Event event)
     {
       try

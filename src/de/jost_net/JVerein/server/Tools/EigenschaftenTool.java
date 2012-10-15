@@ -36,6 +36,7 @@ public class EigenschaftenTool
   {
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         ArrayList<String> ei = new ArrayList<String>();

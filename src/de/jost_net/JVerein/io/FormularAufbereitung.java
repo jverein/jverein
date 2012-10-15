@@ -152,6 +152,7 @@ public class FormularAufbereitung
     closeFormular();
     GUI.getDisplay().asyncExec(new Runnable()
     {
+      @Override
       public void run()
       {
         try

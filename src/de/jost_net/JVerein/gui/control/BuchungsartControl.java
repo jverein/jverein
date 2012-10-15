@@ -229,6 +229,7 @@ public class BuchungsartControl extends AbstractControl
     buchungsartList.addColumn(JVereinPlugin.getI18n().tr("Art"), "art",
         new Formatter()
         {
+          @Override
           public String format(Object o)
           {
             if (o == null)
@@ -267,7 +268,7 @@ public class BuchungsartControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF-Ausgabe"),
         new Action()
         {
-
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -315,6 +316,7 @@ public class BuchungsartControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -379,6 +381,7 @@ public class BuchungsartControl extends AbstractControl
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
+          @Override
           public void run()
           {
             try
@@ -395,11 +398,13 @@ public class BuchungsartControl extends AbstractControl
         });
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;

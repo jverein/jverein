@@ -45,11 +45,13 @@ public class MitgliedSearchProvider implements SearchProvider
   /**
    * @see de.willuhn.jameica.search.SearchProvider#getName()
    */
+  @Override
   public String getName()
   {
     return JVereinPlugin.getI18n().tr("Mitglieder");
   }
 
+  @Override
   public List<MyResult> search(String search) throws RemoteException
   {
     if (search == null || search.length() == 0)
@@ -84,11 +86,13 @@ public class MitgliedSearchProvider implements SearchProvider
       this.m = m;
     }
 
+    @Override
     public void execute() throws ApplicationException
     {
       new MitgliedDetailAction().handleAction(this.m);
     }
 
+    @Override
     public String getName()
     {
       try

@@ -41,6 +41,7 @@ public class SpendenbescheinigungDeleteAction implements Action
    * Löschen von einer oder mehreren Spendenbescheinigungen, die in der View
    * markiert sind.
    */
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Spendenbescheinigung[] spbArr = null;

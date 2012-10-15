@@ -91,6 +91,7 @@ public class EigenschaftenAuswahlDialog extends
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
     {
+      @Override
       public void handleAction(Object context)
       {
         try

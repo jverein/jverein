@@ -69,41 +69,49 @@ public abstract class AbstractDokumentImpl extends AbstractDBObject implements
     return null;
   }
 
+  @Override
   public Integer getReferenz() throws RemoteException
   {
     return (Integer) getAttribute("referenz");
   }
 
+  @Override
   public void setReferenz(Integer referenz) throws RemoteException
   {
     setAttribute("referenz", referenz);
   }
 
+  @Override
   public Date getDatum() throws RemoteException
   {
     return (Date) getAttribute("datum");
   }
 
+  @Override
   public void setDatum(Date datum) throws RemoteException
   {
     setAttribute("datum", datum);
   }
 
+  @Override
   public String getBemerkung() throws RemoteException
   {
     return (String) getAttribute("bemerkung");
   }
 
+  @Override
   public void setBemerkung(String bemerkung) throws RemoteException
   {
     setAttribute("bemerkung", bemerkung);
   }
 
+  @Override
   public String getUUID() throws RemoteException
   {
     return (String) getAttribute("uuid");
   }
 
+  @Override
   public void setUUID(String uuid) throws RemoteException
   {
     setAttribute("uuid", uuid);

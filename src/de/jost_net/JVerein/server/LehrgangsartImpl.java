@@ -89,41 +89,49 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
     return null;
   }
 
+  @Override
   public String getBezeichnung() throws RemoteException
   {
     return (String) getAttribute("bezeichnung");
   }
 
+  @Override
   public void setBezeichnung(String bezeichnung) throws RemoteException
   {
     setAttribute("bezeichnung", bezeichnung);
   }
 
+  @Override
   public Date getVon() throws RemoteException
   {
     return (Date) getAttribute("von");
   }
 
+  @Override
   public void setVon(Date von) throws RemoteException
   {
     setAttribute("von", von);
   }
 
+  @Override
   public Date getBis() throws RemoteException
   {
     return (Date) getAttribute("bis");
   }
 
+  @Override
   public void setBis(Date bis) throws RemoteException
   {
     setAttribute("bis", bis);
   }
 
+  @Override
   public String getVeranstalter() throws RemoteException
   {
     return (String) getAttribute("veranstalter");
   }
 
+  @Override
   public void setVeranstalter(String veranstalter) throws RemoteException
   {
     setAttribute("veranstalter", veranstalter);

@@ -55,9 +55,10 @@ public class MitgliedAuswertungPDF implements IAuswertung
     this.control = control;
   }
 
+  @Override
   public void beforeGo() throws RemoteException
   {
-    subtitle="";
+    subtitle = "";
     if (control
         .getMitgliedStatus()
         .getValue()
@@ -152,6 +153,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
 
   }
 
+  @Override
   public void go(ArrayList<Mitglied> list, final File file)
       throws ApplicationException
   {
@@ -276,11 +278,13 @@ public class MitgliedAuswertungPDF implements IAuswertung
     }
   }
 
+  @Override
   public String getDateiname()
   {
     return JVereinPlugin.getI18n().tr("auswertung");
   }
 
+  @Override
   public String getDateiendung()
   {
     return "PDF";
@@ -292,6 +296,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
     return JVereinPlugin.getI18n().tr("Mitgliederliste PDF");
   }
 
+  @Override
   public boolean openFile()
   {
     return true;

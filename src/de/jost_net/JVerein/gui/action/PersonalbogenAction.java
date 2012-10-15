@@ -73,6 +73,7 @@ public class PersonalbogenAction implements Action
 
   private de.willuhn.jameica.system.Settings settings;
 
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     Mitglied[] m = null;
@@ -135,6 +136,7 @@ public class PersonalbogenAction implements Action
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -194,6 +196,7 @@ public class PersonalbogenAction implements Action
           rpt.close();
           GUI.getDisplay().asyncExec(new Runnable()
           {
+            @Override
             public void run()
             {
               try
@@ -224,11 +227,13 @@ public class PersonalbogenAction implements Action
         }
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;
@@ -596,6 +601,7 @@ public class PersonalbogenAction implements Action
   {
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         List<String> ids = new ArrayList<String>();

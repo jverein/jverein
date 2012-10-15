@@ -108,6 +108,7 @@ public class JahressaldoControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         starteAuswertung();
@@ -211,7 +212,7 @@ public class JahressaldoControl extends AbstractControl
   {
     BackgroundTask t = new BackgroundTask()
     {
-
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -227,11 +228,13 @@ public class JahressaldoControl extends AbstractControl
         }
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;

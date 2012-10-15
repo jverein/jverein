@@ -26,6 +26,7 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class ZahlungsrhytmusFormatter implements Formatter
 {
+  @Override
   public String format(Object o)
   {
     Integer zr = (Integer) o;

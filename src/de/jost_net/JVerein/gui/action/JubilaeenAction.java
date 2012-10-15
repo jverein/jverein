@@ -27,7 +27,7 @@ import de.willuhn.jameica.gui.GUI;
 
 public class JubilaeenAction implements Action
 {
-
+  @Override
   public void handleAction(Object context)
   {
     GUI.startView(JubilaeenView.class.getName(), null);

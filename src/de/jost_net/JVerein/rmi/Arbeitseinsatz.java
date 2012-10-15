@@ -28,8 +28,6 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Arbeitseinsatz extends DBObject
 {
-  public String getID() throws RemoteException;
-
   public Mitglied getMitglied() throws RemoteException;
 
   public void setMitglied(int mitglied) throws RemoteException;

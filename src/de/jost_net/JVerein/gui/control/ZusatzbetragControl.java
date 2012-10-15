@@ -136,6 +136,7 @@ public class ZusatzbetragControl extends AbstractControl
         "Bitte Fälligkeitsdatum wählen"));
     this.faelligkeit.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) faelligkeit.getValue();
@@ -197,6 +198,7 @@ public class ZusatzbetragControl extends AbstractControl
         "Bitte Startdatum wählen"));
     this.startdatum.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) startdatum.getValue();
@@ -248,6 +250,7 @@ public class ZusatzbetragControl extends AbstractControl
         .setText(JVereinPlugin.getI18n().tr("Bitte Endedatum wählen"));
     this.endedatum.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) endedatum.getValue();
@@ -275,6 +278,7 @@ public class ZusatzbetragControl extends AbstractControl
         "Bitte Ausführungsdatum wählen"));
     this.ausfuehrung.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         Date date = (Date) ausfuehrung.getValue();
@@ -306,6 +310,7 @@ public class ZusatzbetragControl extends AbstractControl
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+      @Override
       public Object extract(ResultSet rs) throws SQLException
       {
         while (rs.next())
@@ -320,6 +325,7 @@ public class ZusatzbetragControl extends AbstractControl
     ausfuehrungSuch = new SelectInput(werte, werte.elementAt(0));
     ausfuehrungSuch.addListener(new Listener()
     {
+      @Override
       public void handleEvent(Event event)
       {
         try
@@ -379,6 +385,7 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Name"),
           "mitglied", new Formatter()
           {
+        @Override
             public String format(Object o)
             {
               Mitglied m = (Mitglied) o;
@@ -498,6 +505,7 @@ public class ZusatzbetragControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF-Ausgabe"),
         new Action()
         {
+      @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -543,6 +551,7 @@ public class ZusatzbetragControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -599,6 +608,7 @@ public class ZusatzbetragControl extends AbstractControl
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
+          @Override
           public void run()
           {
             try
@@ -616,11 +626,13 @@ public class ZusatzbetragControl extends AbstractControl
 
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;

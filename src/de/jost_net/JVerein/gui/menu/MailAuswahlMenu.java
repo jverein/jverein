@@ -49,6 +49,7 @@ public class MailAuswahlMenu extends ContextMenu
         new Action()
         {
 
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             if (context instanceof MailEmpfaenger)
@@ -76,13 +77,14 @@ public class MailAuswahlMenu extends ContextMenu
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("Vorschau"),
         new Action()
         {
-
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             if (context instanceof MailEmpfaenger)
             {
               MailEmpfaenger m = (MailEmpfaenger) context;
-              new MailVorschauDialog(contr, m, MailEmpfaengerAuswahlDialog.POSITION_CENTER);
+              new MailVorschauDialog(contr, m,
+                  MailEmpfaengerAuswahlDialog.POSITION_CENTER);
             }
             else
             {
@@ -92,7 +94,7 @@ public class MailAuswahlMenu extends ContextMenu
 
           }
 
-        }, "edit.png" /*"mail-message-new.png"*/));
+        }, "edit.png" /* "mail-message-new.png" */));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("entfernen"),
         new MailAuswahlDeleteAction(control), "user-trash.png"));
   }

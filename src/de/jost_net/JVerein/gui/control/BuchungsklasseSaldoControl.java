@@ -115,6 +115,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF"), new Action()
     {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         starteAuswertung();
@@ -218,7 +219,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
   {
     BackgroundTask t = new BackgroundTask()
     {
-
+      @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
@@ -233,11 +234,13 @@ public class BuchungsklasseSaldoControl extends AbstractControl
         }
       }
 
+      @Override
       public void interrupt()
       {
         //
       }
 
+      @Override
       public boolean isInterrupted()
       {
         return false;

@@ -103,26 +103,31 @@ public class AbbuchungsmodusInput extends SelectInput
       this.label = Abrechnungsmodi.get(abbuchungsmodus);
     }
 
+    @Override
     public Object getAttribute(String arg0)
     {
       return label;
     }
 
+    @Override
     public String[] getAttributeNames()
     {
       return new String[] { "name" };
     }
 
+    @Override
     public String getID()
     {
       return "" + abbuchungsmodus;
     }
 
+    @Override
     public String getPrimaryAttribute()
     {
       return "name";
     }
 
+    @Override
     public boolean equals(GenericObject arg0) throws RemoteException
     {
       if (arg0 == null || !(arg0 instanceof AbbuchungsmodusObject))
