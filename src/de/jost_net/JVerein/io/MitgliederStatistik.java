@@ -151,6 +151,7 @@ public class MitgliederStatistik
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+        @Override
         public void run()
         {
           try
@@ -191,9 +192,9 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getAltersgruppe(von, bis, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getAltersgruppe(von, bis, "M", stichtag) + "",
+    reporter.addColumn(getAltersgruppe(von, bis, "m", stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getAltersgruppe(von, bis, "W", stichtag) + "",
+    reporter.addColumn(getAltersgruppe(von, bis, "w", stichtag) + "",
         Element.ALIGN_RIGHT);
   }
 
@@ -211,9 +212,9 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getBeitragsgruppe(bg, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getBeitragsgruppe(bg, "M", stichtag) + "",
+    reporter.addColumn(getBeitragsgruppe(bg, "m", stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getBeitragsgruppe(bg, "W", stichtag) + "",
+    reporter.addColumn(getBeitragsgruppe(bg, "w", stichtag) + "",
         Element.ALIGN_RIGHT);
   }
 
