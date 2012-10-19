@@ -162,7 +162,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
       FileOutputStream fos = new FileOutputStream(file);
 
       Reporter report = new Reporter(fos, JVereinPlugin.getI18n().tr(
-          "Mitglieder"), subtitle, list.size(), 50, 10, 20, 15);
+          "Mitglieder"), subtitle, list.size(), 50, 10, 20, 25);
 
       report.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
           Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
