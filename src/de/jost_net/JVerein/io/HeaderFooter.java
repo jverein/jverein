@@ -84,8 +84,6 @@ class HeaderFooter extends PdfPageEventHelper
   public void onEndPage(PdfWriter writer, Document document)
   {
     Rectangle rect = document.getPageSize();
-    System.out.println(rect.getLeft() + "/" + rect.getRight() + "/"
-        + rect.getTop() + "/" + rect.getBottom());
     switch (writer.getPageNumber() % 2)
     {
     case 0:

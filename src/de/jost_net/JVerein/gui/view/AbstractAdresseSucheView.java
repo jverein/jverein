@@ -146,7 +146,6 @@ public abstract class AbstractAdresseSucheView extends AbstractView
 
       try
       {
-        System.out.println("refresh");
         TabRefresh();
       }
       catch (NullPointerException e)
