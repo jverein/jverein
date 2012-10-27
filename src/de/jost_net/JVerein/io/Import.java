@@ -289,10 +289,10 @@ public class Import
    * return the id of a specified property field
    * 
    * @param eigenschaft
-   * @param feld
+   * @param groupName
    * @return
    */
-  private String getEigenschaftID(String eigenschaft, String feld)
+  private String getEigenschaftID(String eigenschaft, String groupName)
   {
     try
     {
@@ -309,10 +309,11 @@ public class Import
         Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService()
             .createObject(Eigenschaft.class, null);
         eigenschaftneu.setBezeichnung(eigenschaft);
-        eigenschaftneu.setEigenschaftGruppe(new Integer(eigenschaftgruppe
-            .getID()));
-        eigenschaftneu.setEigenschaftGruppe(new Integer(HM_eigenschaftsgruppen
-            .get(feld)));
+        String id = HM_eigenschaftsgruppen.get(groupName);
+        if (id != null) // no entry for this groupName
+        {
+          eigenschaftneu.setEigenschaftGruppe(Integer.parseInt(id));
+        }
         eigenschaftneu.store();
         return eigenschaftneu.getID();
       }
@@ -339,7 +340,6 @@ public class Import
     for (int i = 1; i <= anzspalten; i++)
     {
       String colname = rsm.getColumnName(i);
-      Logger.info(colname);
       if (colname.startsWith(EIGENSCHAFT))
       {
         ret.add(colname);
@@ -447,7 +447,7 @@ public class Import
       loescheBestand();
 
       /*
-       * Step 2 - build up the inital propeties, groups etc
+       * Step 2 - build up the inital properties, groups etc
        */
 
       /* create groups in the db save them locally for the import process */
@@ -474,11 +474,27 @@ public class Import
       ArrayList<String> eigenschaftenspalten = getEigenschaftspalten(results);
       for (String feld : eigenschaftenspalten)
       {
-        eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
-            .createObject(EigenschaftGruppe.class, null);
-        eigenschaftgruppe.setBezeichnung(feld);
-        eigenschaftgruppe.store();
-        HM_eigenschaftsgruppen.put(feld, eigenschaftgruppe.getID());
+        String groupName = new String(feld); // working copy
+
+        /*
+         * ignore all group containing a #Number and Number larger than two at
+         * the end, because, only one group will be created with same suffix
+         * e.g. Eigenschaft_001#1 Eigenschaft_001#2, the group Eigenschaft_001
+         * is only necessary once.
+         */
+        if (!groupName.matches(EIGENSCHAFT + ".*#([2-9]|[1-9][0-9]+)"))
+        {
+          if (groupName.matches(EIGENSCHAFT + ".*#1"))
+          {
+            groupName = groupName.substring(0, groupName.length() - 2);
+          }
+
+          eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
+              .createObject(EigenschaftGruppe.class, null);
+          eigenschaftgruppe.setBezeichnung(groupName);
+          eigenschaftgruppe.store();
+          HM_eigenschaftsgruppen.put(groupName, eigenschaftgruppe.getID());
+        }
       }
 
       /*
@@ -524,15 +540,20 @@ public class Import
           for (String feld : eigenschaftenspalten)
           {
             String eig = results.getString(feld);
-            if (eig.length() == 0)
+            String groupName = feld; // working copy
+            if (groupName.matches(EIGENSCHAFT + ".*#[0-9]+"))
             {
-              continue;
+              groupName = groupName.substring(0, groupName.lastIndexOf("#"));
             }
-            Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
-                .getDBService().createObject(Eigenschaften.class, null);
-            eigenschaften.setMitglied(m.getID());
-            eigenschaften.setEigenschaft(getEigenschaftID(eig, feld));
-            eigenschaften.store();
+
+            if (eig.length() > 0) // only if not empty add not empty
+            {
+              Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
+                  .getDBService().createObject(Eigenschaften.class, null);
+              eigenschaften.setMitglied(m.getID());
+              eigenschaften.setEigenschaft(getEigenschaftID(eig, groupName));
+              eigenschaften.store();
+            }
           }
         }
         catch (Exception e)

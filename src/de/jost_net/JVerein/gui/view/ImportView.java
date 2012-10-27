@@ -60,6 +60,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.AssignedColumnsIO;
 import de.jost_net.JVerein.io.CSVConnection;
+import de.jost_net.JVerein.io.CSVFileHelper;
 import de.jost_net.JVerein.io.Import;
 import de.jost_net.JVerein.io.InternalColumns;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -399,6 +400,9 @@ public class ImportView extends AbstractView
       {
         String s = csvConn.getFileName();
 
+        CSVFileHelper cvsHelper = new CSVFileHelper();
+        
+        
         try
         {
           HashMap<String, String> colMap = new HashMap<String, String>();
@@ -407,7 +411,7 @@ public class ImportView extends AbstractView
 
           csvConn.openCsvDB();
 
-          if (csvConn.checkCSVIntegrity(monitor))
+          if (cvsHelper.checkCSVIntegrity(monitor, csvConn.getCSVFile()))
           {
 
             Import imp = new Import(monitor);
@@ -531,6 +535,15 @@ public class ImportView extends AbstractView
       {
         showPathFile.setText(importFile.getAbsolutePath());
         showPathFile.pack();
+        
+        /* 
+         * in the rare case, that a import File does have columns with the same name it is necessary
+         * to ensure that they are unique bevor they will be opened via the CSVConnection class.
+         * The helper class is checking exactly this condition and if they aren't unique a temp file
+         * with unique columns will be created.
+         */
+        CSVFileHelper csvHelper = new CSVFileHelper();
+        importFile = csvHelper.replaceDuplicateColumn( importFile );
 
         /* set import file */
         if (csvConn.setCSVFile(importFile))

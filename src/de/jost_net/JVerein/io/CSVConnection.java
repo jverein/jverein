@@ -21,11 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,7 +33,6 @@ import java.util.List;
 import java.util.Properties;
 
 import de.jost_net.JVerein.JVereinPlugin;
-import de.willuhn.util.ProgressMonitor;
 
 /**
  * This class handles the connection to a csv db file.
@@ -60,148 +55,6 @@ public class CSVConnection
   private String tableName;
 
   private final char seperator = ';';
-
-  /**
-   * Currently, this integrity checks only if in each line, the same number of
-   * columns are available if not it won't pass
-   * 
-   * @return
-   */
-  public boolean checkCSVIntegrity(final ProgressMonitor monitor)
-  {
-    if (monitor == null)
-      throw new NullPointerException("monitor may not be null");
-
-    boolean valid = true;
-
-    try
-    {
-      FileInputStream fis = new FileInputStream(csvFile);
-      BufferedInputStream bis = new BufferedInputStream(fis);
-
-      byte[] rCache = new byte[1024];
-      int numberOfChars = 0;
-      int numColumns = 0;
-      int lastPosition = 0;
-      boolean headerComplete = false;
-
-      /* read header and identify amount of columns */
-      while (!headerComplete)
-      {
-        numberOfChars = bis.read(rCache, 0, 1024);
-        if (numberOfChars == -1)
-          break;
-
-        for (lastPosition = 0; lastPosition < numberOfChars; lastPosition++)
-        {
-          if (rCache[lastPosition] == seperator)
-          {
-            numColumns++;
-          }
-          else if (rCache[lastPosition] == '\n')
-          {
-            numColumns++;
-            headerComplete = true;
-            break;
-          }
-          else
-          {
-            /*
-             * for each other character nothing has to be done, this part will
-             * be removed by the compiler so just leave for information
-             */
-          }
-        }
-      }
-
-      /* not ending header */
-      if (!headerComplete)
-      {
-        monitor
-            .setStatusText(JVereinPlugin
-                .getI18n()
-                .tr("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php"));
-        valid = false;
-      }
-
-      /* the position needs to increased because of the break in the for loop */
-      lastPosition++;
-
-      int columnsPerLine = 0;
-      int lineNo = 1;
-      /* count columns in each line */
-      do
-      {
-
-        for (; lastPosition < numberOfChars; lastPosition++)
-        {
-          if (rCache[lastPosition] == seperator)
-            columnsPerLine++;
-          else if (rCache[lastPosition] == ' ')
-          {
-            if (lastPosition - 1 >= 0 && rCache[lastPosition - 1] == seperator)
-            {
-              monitor
-                  .setStatusText(JVereinPlugin
-                      .getI18n()
-                      .tr("Leerzeichen nach einem Semikolon in Zeile: {0} und Spalte: {1}",
-                          lineNo + "", columnsPerLine + ""));
-              valid = false;
-            }
-            if (lastPosition + 1 < numberOfChars
-                && rCache[lastPosition + 1] == seperator)
-            {
-              monitor
-                  .setStatusText(JVereinPlugin
-                      .getI18n()
-                      .tr("Leerzeichen vor einem Semikolon in Zeile: {0} und Spalte: {1}",
-                          lineNo + "", columnsPerLine + ""));
-              valid = false;
-            }
-          }
-          else if (rCache[lastPosition] == '\n')
-          {
-            columnsPerLine++;
-            lineNo++;
-            if (columnsPerLine != numColumns)
-            {
-              monitor
-                  .setStatusText(JVereinPlugin
-                      .getI18n()
-                      .tr("Anzahl der Spalten in Zeile: {0} passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
-                          lineNo + ""));
-              valid = false;
-            }
-            columnsPerLine = 0;
-          }
-          else
-          {
-            /*
-             * for each other character nothing has to be done, this part will
-             * be removed by the compiler so just leave it for information
-             */
-          }
-        }
-        lastPosition = 0;
-        numberOfChars = bis.read(rCache, 0, 1024);
-      }
-      while (numberOfChars != -1);
-
-      bis.close();
-      fis.close();
-    }
-    catch (FileNotFoundException e)
-    {
-      e.printStackTrace();
-      valid = false;
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-      valid = false;
-    }
-    return valid;
-  }
 
   /**
    * Close all relevant connection etc if they are open
@@ -435,5 +288,10 @@ public class CSVConnection
       return false;
 
     return true;
+  }
+
+  public File getCSVFile()
+  {
+    return csvFile;
   }
 }
