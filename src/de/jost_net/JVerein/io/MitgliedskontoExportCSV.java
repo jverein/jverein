@@ -26,12 +26,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
-import org.supercsv.cellprocessor.ConvertNullTo;
-import org.supercsv.cellprocessor.FmtDate;
-import org.supercsv.cellprocessor.FmtNumber;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
@@ -150,7 +146,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       {
         Logger.debug(s);
       }
-      CellProcessor[] processors = createCellProcessors(map);
+      CellProcessor[] processors = CellProcessors.createCellProcessors(map);
 
       writer.writeHeader(header);
 
@@ -190,29 +186,5 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
   private String[] createHeader(Map<String, Object> map)
   {
     return map.keySet().toArray(new String[0]);
-  }
-
-  private CellProcessor[] createCellProcessors(Map<String, Object> map)
-  {
-    CellProcessor[] ret = new CellProcessor[map.size()];
-    int i = 0;
-    for (String elem : map.keySet())
-    {
-      Object o = map.get(elem);
-      if (o instanceof Double)
-      {
-        ret[i] = new FmtNumber(Einstellungen.DECIMALFORMAT);
-      }
-      else if (o instanceof Date)
-      {
-        ret[i] = new FmtDate("dd.MM.yyyy");
-      }
-      else
-      {
-        ret[i] = new ConvertNullTo("");
-      }
-      i++;
-    }
-    return ret;
   }
 }

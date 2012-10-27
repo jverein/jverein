@@ -29,7 +29,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.supercsv.cellprocessor.ConvertNullTo;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
@@ -59,7 +58,11 @@ public class BuchungAuswertungCSV
           CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
       String[] header = createHeader();
-      CellProcessor[] processors = createCellProcessors();
+
+      Buchung bu = (Buchung) Einstellungen.getDBService().createObject(
+          Buchung.class, null);
+      Map<String, Object> map = bu.getMap(null);
+      CellProcessor[] processors = CellProcessors.createCellProcessors(map);
 
       writer.writeHeader(header);
 
@@ -116,26 +119,4 @@ public class BuchungAuswertungCSV
     }
     return null;
   }
-
-  private CellProcessor[] createCellProcessors()
-  {
-    try
-    {
-      Buchung b = (Buchung) Einstellungen.getDBService().createObject(
-          Buchung.class, null);
-      Map<String, Object> map = b.getMap(null);
-      CellProcessor[] ret = new CellProcessor[map.size()];
-      for (int i = 0; i < map.size(); i++)
-      {
-        ret[i] = new ConvertNullTo("");
-      }
-      return ret;
-    }
-    catch (RemoteException e)
-    {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-    }
-    return null;
-  }
-
 }

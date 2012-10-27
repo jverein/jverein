@@ -27,7 +27,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.supercsv.cellprocessor.ConvertNullTo;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
@@ -83,7 +82,8 @@ public class MitgliedAuswertungCSV implements IAuswertung
       {
         Logger.debug(s);
       }
-      CellProcessor[] processors = createCellProcessors(m);
+      Map<String, Object> map = m.getMap(null);
+      CellProcessor[] processors = CellProcessors.createCellProcessors(map);
 
       writer.writeHeader(header);
 
@@ -123,25 +123,6 @@ public class MitgliedAuswertungCSV implements IAuswertung
     try
     {
       return m.getMap(null).keySet().toArray(new String[0]);
-    }
-    catch (RemoteException e)
-    {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-    }
-    return null;
-  }
-
-  private CellProcessor[] createCellProcessors(Mitglied m)
-  {
-    try
-    {
-      Map<String, Object> map = m.getMap(null);
-      CellProcessor[] ret = new CellProcessor[map.size()];
-      for (int i = 0; i < map.size(); i++)
-      {
-        ret[i] = new ConvertNullTo("");
-      }
-      return ret;
     }
     catch (RemoteException e)
     {
