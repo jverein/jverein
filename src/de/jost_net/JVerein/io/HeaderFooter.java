@@ -86,15 +86,15 @@ class HeaderFooter extends PdfPageEventHelper
     Rectangle rect = document.getPageSize();
     switch (writer.getPageNumber() % 2)
     {
-    case 0:
-      // ColumnText.showTextAligned(writer.getDirectContent(),
-      // Element.ALIGN_RIGHT, header[0], rect.getRight(), rect.getTop(), 0);
-      break;
-    case 1:
-      // ColumnText.showTextAligned(writer.getDirectContent(),
-      // Element.ALIGN_LEFT,
-      // header[1], rect.getLeft(), rect.getTop(), 0);
-      break;
+      case 0:
+        // ColumnText.showTextAligned(writer.getDirectContent(),
+        // Element.ALIGN_RIGHT, header[0], rect.getRight(), rect.getTop(), 0);
+        break;
+      case 1:
+        // ColumnText.showTextAligned(writer.getDirectContent(),
+        // Element.ALIGN_LEFT,
+        // header[1], rect.getLeft(), rect.getTop(), 0);
+        break;
     }
     float left = rect.getLeft() + document.leftMargin();
     float right = rect.getRight() - document.rightMargin();
@@ -113,7 +113,7 @@ class HeaderFooter extends PdfPageEventHelper
         pc,
         Element.ALIGN_CENTER,
         new Phrase(footer + " " + pagenumber, FontFactory.getFont(
-            FontFactory.HELVETICA, 8, Font.NORMAL)), (left + right) / 2,
+            FontFactory.HELVETICA, 7, Font.NORMAL)), (left + right) / 2,
         bottom - 18, 0);
   }
 }
