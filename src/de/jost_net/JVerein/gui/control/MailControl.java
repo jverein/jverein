@@ -186,12 +186,14 @@ public class MailControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setNurAktive(it);
-    MitgliedUtils.setMitglied(it);
+    // MitgliedUtils.setMitglied(it);
     it.addFilter("email is not null and length(email)  > 0");
     mitgliedmitmail = new TablePart(it, null);
     mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("EMail"), "email");
     mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
     mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("Vorname"), "vorname");
+    mitgliedmitmail.addColumn(JVereinPlugin.getI18n().tr("Adresstyp"),
+        "adresstyp");
     mitgliedmitmail.setRememberOrder(true);
     mitgliedmitmail.setCheckable(true);
     mitgliedmitmail.setSummary(false);
@@ -262,7 +264,7 @@ public class MailControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("speichern + senden"),
         new Action()
         {
-      @Override
+          @Override
           public void handleAction(Object context) throws ApplicationException
           {
             try
@@ -421,7 +423,7 @@ public class MailControl extends AbstractControl
     BackgroundTask t = new BackgroundTask()
     {
       @Override
-     public void run(ProgressMonitor monitor)
+      public void run(ProgressMonitor monitor)
       {
         try
         {
