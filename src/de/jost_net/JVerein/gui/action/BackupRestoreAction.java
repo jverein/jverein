@@ -121,12 +121,12 @@ public class BackupRestoreAction implements Action
        * @see de.willuhn.jameica.system.BackgroundTask#run(de.willuhn.util.ProgressMonitor)
        */
       @Override
-     public void run(ProgressMonitor monitor) throws ApplicationException
+      public void run(ProgressMonitor monitor) throws ApplicationException
       {
         monitor.setStatusText(JVereinPlugin.getI18n().tr("Importiere Backup"));
         Logger.info("importing backup " + file.getAbsolutePath());
         final ClassLoader loader = Application.getPluginLoader()
-            .getPlugin(JVereinPlugin.class).getResources().getClassLoader();
+            .getPlugin(JVereinPlugin.class).getManifest().getClassLoader();
 
         try
         {
@@ -136,7 +136,8 @@ public class BackupRestoreAction implements Action
         }
         catch (RemoteException e1)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("EigenschaftGruppe mit id=1 kann nicht gelöscht werden"));
+          Logger.error(JVereinPlugin.getI18n().tr(
+              "EigenschaftGruppe mit id=1 kann nicht gelöscht werden"));
         }
 
         Reader reader = null;
