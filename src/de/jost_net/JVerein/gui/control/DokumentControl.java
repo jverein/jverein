@@ -204,6 +204,7 @@ public class DokumentControl extends AbstractControl
       FileInputStream fis = new FileInputStream(file);
       if (fis.available() <= 0)
       {
+        fis.close();
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Datei ist leer"));
       }
