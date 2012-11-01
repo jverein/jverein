@@ -23,6 +23,7 @@ package de.jost_net.JVerein.gui.view;
 
 public class DokumentationUtil
 {
+
   private static final String PRE = "http://www.jverein.de/wiki/index.php?title=";
 
   public static final String ADRESSEN = PRE + "Adressen";
@@ -72,7 +73,7 @@ public class DokumentationUtil
   public static final String LEHRGANG = PRE + "Lehrgänge";
 
   public static final String KONTENRAHMEN = PRE + "Kontenrahmen_Export_Import";
-  
+
   public static final String KONTOAUSZUG = PRE + "Kontoauszug";
 
   public static final String MAIL = PRE + "Mail";
@@ -90,6 +91,8 @@ public class DokumentationUtil
   public static final String PROJEKTE = PRE + "Projekte";
 
   public static final String STATISTIKMITGLIEDER = PRE + "Statistik";
+
+  public static final String STATISTIKDSB = PRE + "StatistikDSB";
 
   public static final String WIEDERVORLAGE = PRE + "Wiedervorlage";
 

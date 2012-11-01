@@ -28,10 +28,12 @@ import de.willuhn.datasource.rmi.DBIterator;
 
 public class MitgliedUtils
 {
+
   public static void setNurAktive(DBIterator it, Date datum)
       throws RemoteException
   {
-    it.addFilter("(austritt is null or austritt > ?)", new Object[] { datum });
+    it.addFilter("(eintritt is null or eintritt <= ?)", new Object[] { datum});
+    it.addFilter("(austritt is null or austritt > ?)", new Object[] { datum});
   }
 
   public static void setNurAktive(DBIterator it) throws RemoteException
@@ -48,6 +50,18 @@ public class MitgliedUtils
       throws RemoteException
   {
     it.addFilter("(adresstyp = 1 or adresstyp = 2)");
+  }
+
+  public static void setMitgliedNatuerlichePerson(DBIterator it)
+      throws RemoteException
+  {
+    it.addFilter("personenart = 'n'");
+  }
+
+  public static void setMitgliedJuristischePerson(DBIterator it)
+      throws RemoteException
+  {
+    it.addFilter("personenart = 'j'");
   }
 
 }

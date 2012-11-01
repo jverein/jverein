@@ -63,14 +63,19 @@ public class Einstellungen
       "###,###.##");
 
   /**
+   * Int formatter.
+   */
+  public final static DecimalFormat INTFORMAT = new DecimalFormat("###,###,###");
+
+  /**
    * Our currency name.
    */
   public final static String CURRENCY = "EUR";
 
   public static Date NODATE = new Date();
-  
+
   public final static String ZUSATZFELD_PRE = "mitglied_zusatzfeld_";
-  
+
   public final static String LESEFELD_PRE = "mitglied_lesefelder_";
 
   static
@@ -110,8 +115,7 @@ public class Einstellungen
             "kommunikationsdaten.einblenden", true));
         einstellung.setZusatzbetrag(settings.getBoolean(
             "zusatzabbuchung.einblenden", true));
-        einstellung.setVermerke(settings
-            .getBoolean("vermerke.einblenden", true));
+        einstellung.setVermerke(settings.getBoolean("vermerke.einblenden", true));
         einstellung.setWiedervorlage(settings.getBoolean(
             "wiedervorlage.einblenden", true));
         einstellung.setKursteilnehmer(settings.getBoolean(
@@ -171,8 +175,8 @@ public class Einstellungen
   public final static boolean checkAccountCRC(String blz, String kontonummer)
   {
     QueryMessage q = new QueryMessage(blz + ":" + kontonummer);
-    Application.getMessagingFactory()
-        .getMessagingQueue("hibiscus.query.accountcrc").sendSyncMessage(q);
+    Application.getMessagingFactory().getMessagingQueue(
+        "hibiscus.query.accountcrc").sendSyncMessage(q);
     Object data = q.getData();
 
     // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
@@ -187,14 +191,14 @@ public class Einstellungen
    * Liefert den Namen der Bank zu einer BLZ.
    * 
    * @param blz
-   *          BLZ.
+   *        BLZ.
    * @return Name der Bank oder Leerstring.
    */
   public final static String getNameForBLZ(String blz)
   {
     QueryMessage q = new QueryMessage(blz);
-    Application.getMessagingFactory()
-        .getMessagingQueue("hibiscus.query.bankname").sendSyncMessage(q);
+    Application.getMessagingFactory().getMessagingQueue(
+        "hibiscus.query.bankname").sendSyncMessage(q);
     Object data = q.getData();
 
     // wenn wir nicht zurueckerhalten haben oder die Nachricht
