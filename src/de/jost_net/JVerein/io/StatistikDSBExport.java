@@ -95,11 +95,11 @@ public abstract class StatistikDSBExport implements Exporter
     /*
      * Teil 2: Juristische Personen
      */
-    mitgl = Einstellungen.getDBService().createList(Mitglied.class);
-    MitgliedUtils.setNurAktive(mitgl, stichtag);
-    MitgliedUtils.setMitglied(mitgl);
-    MitgliedUtils.setMitgliedJuristischePerson(mitgl);
-    while (mitgl.hasNext())
+    DBIterator mitglj = Einstellungen.getDBService().createList(Mitglied.class);
+    MitgliedUtils.setNurAktive(mitglj, stichtag);
+    MitgliedUtils.setMitglied(mitglj);
+    MitgliedUtils.setMitgliedJuristischePerson(mitglj);
+    while (mitglj.hasNext())
     {
       String jg = "juristische Personen";
       StatistikDSBJahrgang dsbj = statistik.get(jg);
@@ -109,6 +109,7 @@ public abstract class StatistikDSBExport implements Exporter
         statistik.put(jg, dsbj);
       }
       dsbj.incrementGesamt();
+      mitglj.next();
     }
 
     open();
