@@ -73,7 +73,7 @@ public class StatistikDSBView extends AbstractView
   public String getHelp()
   {
     return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Jubiläen</span></p>"
-            + "<p>Ausgabe der DSB-Statistik.</p></form>");
+        "<form><p><span color=\"header\" font=\"header\">Statistik DSB</span></p>"
+            + "<p>Ausgabe der Jahrgangszahlen für die DSB-Statistik.</p></form>");
   }
 }
