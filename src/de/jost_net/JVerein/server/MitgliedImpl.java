@@ -373,7 +373,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getAdressierungszusatz() throws RemoteException
   {
-    return (String) getAttribute("adressierungszusatz");
+    if (getAttribute("adressierungszusatz") != null)
+    {
+      return (String) getAttribute("adressierungszusatz");
+    }
+    else
+    {
+      return "";
+    }
   }
 
   @Override
@@ -386,7 +393,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getStrasse() throws RemoteException
   {
-    return (String) getAttribute("strasse");
+    if (getAttribute("strasse") != null)
+    {
+      return (String) getAttribute("strasse");
+    }
+    else
+    {
+      return "";
+    }
   }
 
   @Override
@@ -398,7 +412,15 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getPlz() throws RemoteException
   {
-    return (String) getAttribute("plz");
+    if (getAttribute("plz") != null)
+    {
+
+      return (String) getAttribute("plz");
+    }
+    else
+    {
+      return "";
+    }
   }
 
   @Override
@@ -410,7 +432,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getOrt() throws RemoteException
   {
-    return (String) getAttribute("ort");
+    if (getAttribute("ort") != null)
+    {
+      return (String) getAttribute("ort");
+    }
+    else
+    {
+      return "";
+    }
   }
 
   @Override
@@ -422,7 +451,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getStaat() throws RemoteException
   {
-    return (String) getAttribute("staat");
+    if (getAttribute("staat") != null)
+    {
+      return (String) getAttribute("staat");
+    }
+    else
+    {
+      return "";
+    }
   }
 
   @Override
