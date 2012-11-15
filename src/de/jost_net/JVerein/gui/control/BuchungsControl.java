@@ -800,6 +800,7 @@ public class BuchungsControl extends AbstractControl
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
       buchungsList.setRememberOrder(true);
+      buchungsList.setRememberState(true);
       buchungsList.setSummary(true);
     }
     else
