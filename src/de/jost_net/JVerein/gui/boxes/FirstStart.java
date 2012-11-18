@@ -23,18 +23,25 @@ package de.jost_net.JVerein.gui.boxes;
 
 import java.rmi.RemoteException;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.EinstellungenAction;
+import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.boxes.AbstractBox;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.parts.FormTextPart;
+import de.willuhn.jameica.gui.util.Font;
+import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.plugin.Manifest;
 import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.Platform;
 
 /**
  * Hilfe-Seite fuer den ersten Start.
@@ -79,19 +86,59 @@ public class FirstStart extends AbstractBox
   @Override
   public void paint(Composite parent) throws RemoteException
   {
-    FormTextPart text = new FormTextPart();
-    text.setText("<form><p><span color=\"header\" font=\"header\">"
-        + JVereinPlugin.getI18n().tr("Herzlich willkommen")
-        + "</span></p>"
-        + "<p>"
-        + JVereinPlugin
-            .getI18n()
-            .tr("JVerein wird zum ersten Mal gestartet. Die allgemeinen Daten des Vereins "
-                + "(Name, eigene Bankverbindung) sowie Parameter zur Steuerung des Verhaltens von JVerein "
-                + "sind in den Einstellung zu erfassen. Außerdem sind Beitragsgruppen zur erfassen. ")
-        + "</p></form>");
+    // Wir unterscheiden hier beim Layout nach Windows/OSX und Rest.
+    // Unter Windows und OSX sieht es ohne Rahmen und ohne Hintergrund besser
+    // aus
+    org.eclipse.swt.graphics.Color bg = null;
+    int border = SWT.NONE;
 
-    text.paint(parent);
+    int os = Application.getPlatform().getOS();
+    if (os != Platform.OS_WINDOWS && os != Platform.OS_WINDOWS_64
+        && os != Platform.OS_MAC)
+    {
+      bg = GUI.getDisplay().getSystemColor(SWT.COLOR_WHITE);
+      border = SWT.BORDER;
+    }
+
+    // 2-spaltige Anzeige. Links das Icon, rechts Text und Buttons
+    Composite comp = new Composite(parent, border);
+    comp.setBackground(bg);
+    comp.setBackgroundMode(SWT.INHERIT_FORCE);
+    comp.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    comp.setLayout(new GridLayout(2, false));
+
+    // Linke Spalte mit dem Icon
+    {
+      GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING
+          | GridData.VERTICAL_ALIGN_BEGINNING);
+      gd.verticalSpan = 3;
+      Label icon = new Label(comp, SWT.NONE);
+      icon.setBackground(bg);
+      icon.setLayoutData(gd);
+      icon.setImage(SWTUtil.getImage("jverein-icon-64x64.png"));
+    }
+
+    // Ueberschrift
+    {
+      Label title = new Label(comp, SWT.NONE);
+      title.setBackground(bg);
+      title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+      title.setFont(Font.H2.getSWTFont());
+      title.setText(JVereinPlugin.getI18n().tr(
+          "JVerein wird zum ersten Mal gestartet."));
+    }
+
+    // Text
+    {
+      Label desc = new Label(comp, SWT.WRAP);
+      desc.setBackground(bg);
+      desc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+      desc.setText(JVereinPlugin
+          .getI18n()
+          .tr("Die allgemeinen Daten des Vereins "
+              + "(Name, eigene Bankverbindung) sowie Parameter zur Steuerung des Verhaltens von JVerein "
+              + "sind in den Einstellungen zu erfassen. Außerdem müssen Beitragsgruppen erfasst werden. "));
+    }
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Einstellungen"),
