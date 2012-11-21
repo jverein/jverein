@@ -43,6 +43,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -130,8 +131,11 @@ public class MailDetailView extends AbstractView
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
+        Settings settings = new Settings(this.getClass());
+        settings.setStoreWhenRead(true);
         FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-        fd.setFilterPath(System.getProperty("user.home"));
+        fd.setFilterPath(settings.getString("lastdir",
+            System.getProperty("user.home")));
         fd.setText(JVereinPlugin.getI18n().tr(
             "Bitte wählen Sie einen Anhang aus."));
         String f = fd.open();
@@ -150,6 +154,7 @@ public class MailDetailView extends AbstractView
             anh.setAnhang(buffer);
             control.addAnhang(anh);
             fis.close();
+            settings.setAttribute("lastdir", file.getParent());
           }
           catch (Exception e)
           {
