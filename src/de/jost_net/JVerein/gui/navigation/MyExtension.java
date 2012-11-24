@@ -162,28 +162,28 @@ public class MyExtension implements Extension
       auswertung = new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Auswertungen"), null);
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Mitglieder"), new AuswertungMitgliedAction(), "document-open.png"));
+          "Mitglieder"), new AuswertungMitgliedAction(), "list_users.gif"));
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Jubiläen"), new JubilaeenAction(), "document-open.png"));
       if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
             "Kursteilnehmer"), new AuswertungKursteilnehmerAction(),
-            "document-open.png"));
+            "list_users.gif"));
       }
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Statistik"), new StatistikMitgliedAction(), "document-open.png"));
+          "Statistik"), new StatistikMitgliedAction(), "chart16.png"));
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Statistik DSB"), new StatistikDSBAction(), "document-open.png"));
+          "Statistik DSB"), new StatistikDSBAction(), "chart16.png"));
 
       jverein.addChild(auswertung);
 
       NavigationItem mail = null;
       mail = new MyItem(mail, JVereinPlugin.getI18n().tr("Mail"), null);
       mail.addChild(new MyItem(mail, JVereinPlugin.getI18n().tr("Mails"),
-          new MailListeAction()));
+          new MailListeAction(), "email.png"));
       mail.addChild(new MyItem(mail, JVereinPlugin.getI18n()
-          .tr("Mail-Vorlagen"), new MailVorlagenAction()));
+          .tr("Mail-Vorlagen"), new MailVorlagenAction(), "email.png"));
       jverein.addChild(mail);
 
       NavigationItem buchfuehrung = null;
@@ -250,9 +250,9 @@ public class MyExtension implements Extension
           "category_obj.gif"));
       if (Einstellungen.getEinstellung().getUseLesefelder())
       {
-      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
-          .tr("Lesefelder"), new LesefelddefinitionenAction(null),
-          "category_obj.gif"));
+        einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin
+            .getI18n().tr("Lesefelder"), new LesefelddefinitionenAction(null),
+            "category_obj.gif"));
       }
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("Formulare"), new FormularListeAction(), "layout_co.gif"));
