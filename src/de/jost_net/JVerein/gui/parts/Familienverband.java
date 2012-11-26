@@ -209,20 +209,10 @@ public class Familienverband implements Part
   
   private void updateGUI()
   {
-    Composite c = parent.getParent();
-    Composite c2 = parent.getParent().getParent();
-    if(c instanceof Group) //Group Mitgliedschaft
-    {                                                 
-      //ist Familienverband-Tabelle im LabelRahmen, muss
-      // größe des rahmens neuberechnet werden ( --> parent.getParent().getParent().pack(true);)
-      // und auch Größe und Positionen der Geschwister des Rahmens! -->
-      parent.getParent().getParent().getParent().pack(true); 
-    }
-    else if(c2 instanceof TabFolder)
-    {
-      //ist parent ein Tab, reicht der Neuberechnung dessen Inhalte -->
-      parent.pack(true); 
-    }
+    // Beim Ein- und Ausblenden der Familienverband-Tabelle muss 
+    // die Größe des Rahmens neuberechnet werden 
+    // und auch die Größe und Positionen der Geschwister des Rahmens! -->
+    parent.getParent().getParent().getParent().pack(true);
   }
 
 }
