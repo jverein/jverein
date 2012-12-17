@@ -29,7 +29,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -48,10 +51,13 @@ public class DefaultZusatzbetraegeImport implements Importer
       String encoding, ProgressMonitor monitor) throws RemoteException,
       ApplicationException
   {
-    ResultSet results;
+    monitor.setStatus(ProgressMonitor.STATUS_RUNNING);
+    ResultSet results = null;
+    Statement stmt = null;
+    Connection conn = null;
     try
     {
-      int anz = 0;
+      boolean fehlerInUeberschrift = false;
 
       Properties props = new java.util.Properties();
       props.put("separator", ";"); // separator is a bar
@@ -67,28 +73,46 @@ public class DefaultZusatzbetraegeImport implements Importer
 
       // create a connection. The first command line parameter is assumed to
       // be the directory in which the .csv files are held
-      Connection conn = DriverManager.getConnection("jdbc:relique:csv:" + path,
-          props);
+      conn = DriverManager.getConnection("jdbc:relique:csv:" + path, props);
 
       // create a Statement object to execute the query with
-      Statement stmt = conn.createStatement();
+      stmt = conn.createStatement();
 
       results = stmt.executeQuery("SELECT * FROM " + fil.substring(0, pos));
+      String columnMitgliedsnummer = "Mitglieds_Nr";
+      String colNachname = "Nachname";
+      String colVorname = "Vorname";
       boolean b_mitgliedsnummer = false;
       boolean b_nachname = false;
       boolean b_vorname = false;
       ResultSetMetaData meta = results.getMetaData();
       for (int i = 1; i < meta.getColumnCount(); i++)
       {
-        if (meta.getColumnName(i).equals("Mitglieds_Nr"))
+        String columnTitle = meta.getColumnName(i);
+        // Breche ab, wenn UTF-8 BOM vorhanden->
+        // http://de.wikipedia.org/wiki/UTF-8#Byte_Order_Mark
+        if (i == 1 && encoding.equals("UTF-8") && columnTitle.length() > 1)
+        {
+          if (Character.getNumericValue(meta.getColumnName(1).charAt(0)) == -1)
+          {
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            monitor
+                .setStatusText(JVereinPlugin
+                    .getI18n()
+                    .tr("Eingelesene Datei beginnt mit UTF-8 BOM. Bitte entfernen. Abbruch!"));
+            fehlerInUeberschrift = true;
+          }
+
+        }
+        if (columnTitle.equals(columnMitgliedsnummer))
         {
           b_mitgliedsnummer = true;
         }
-        if (meta.getColumnName(i).equals("Nachname"))
+        else if (columnTitle.equals(colNachname))
         {
           b_nachname = true;
         }
-        if (meta.getColumnName(i).equals("Vorname"))
+        else if (columnTitle.equals(colVorname))
         {
           b_vorname = true;
         }
@@ -99,92 +123,284 @@ public class DefaultZusatzbetraegeImport implements Importer
         monitor
             .setStatusText(JVereinPlugin
                 .getI18n()
-                .tr("Entweder Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds angeben. Abbruch!"));
-        return;
+                .tr("Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Nachname und Vorname zur Zuordnung des Mitglieds enhalten. Es ist beides vorhanden. Abbruch!"));
+        fehlerInUeberschrift = true;
+      }
+      if (b_mitgliedsnummer == false
+          && (b_nachname == false || b_vorname == false))
+      {
+        monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+        monitor
+            .setStatusText(JVereinPlugin
+                .getI18n()
+                .tr("Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds enhalten. Es ist weder noch vorhanden. Abbruch!"));
+        fehlerInUeberschrift = true;
+      }
+      if (fehlerInUeberschrift)
+      {
+        monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            "Fehler in Spaltenüberschriften"));
       }
 
-      while (results.next())
+      List<Zusatzbetrag> zusatzbetraegeList = new ArrayList<Zusatzbetrag>();
+      if (fehlerInUeberschrift == false)
       {
-        anz++;
-        monitor.setStatus(anz);
+        monitor.setStatusText(JVereinPlugin.getI18n().tr(
+            "Überprüfung der Spaltenüberschriften erfolgreich abgeschlossen."));
 
-        DBIterator list = Einstellungen.getDBService().createList(
-            Mitglied.class);
-        if (b_mitgliedsnummer)
+        int anz = 0;
+        boolean fehlerInDaten = false;
+        while (results.next())
         {
-          list.addFilter("id = ? ", results.getString("Mitglieds_Nr"));
+          anz++;
+          monitor.setPercentComplete(10);
+
+          DBIterator list = Einstellungen.getDBService().createList(
+              Mitglied.class);
+          if (b_mitgliedsnummer)
+          {
+            list.addFilter("id = ? ", results.getString(columnMitgliedsnummer));
+          }
+          if (b_nachname)
+          {
+            list.addFilter("name = ? ", results.getString(colNachname));
+          }
+          if (b_vorname)
+          {
+            list.addFilter("vorname = ? ", results.getString(colVorname));
+          }
+
+          String mitgliedIdString = "";
+          if (b_mitgliedsnummer)
+            mitgliedIdString = columnMitgliedsnummer + "="
+                + results.getString(columnMitgliedsnummer);
+          else
+            mitgliedIdString = colNachname + "="
+                + results.getString(colNachname) + ", " + colVorname + "="
+                + results.getString(colVorname);
+
+          if (list.size() == 0)
+          {
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            monitor
+                .setStatusText(JVereinPlugin
+                    .getI18n()
+                    .tr("Für die Importzeile {0} ({1}) kein Mitglied in JVerein-Datenbank gefunden. Abbruch!",
+                        anz + "", mitgliedIdString));
+            fehlerInDaten = true;
+          }
+          else if (list.size() > 1)
+          {
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            monitor
+                .setStatusText(JVereinPlugin
+                    .getI18n()
+                    .tr("Für die Importzeile {0} ({1}) mehr als ein Mitglied gefunden. Abbruch!",
+                        anz + "", mitgliedIdString));
+            fehlerInDaten = true;
+          }
+          else
+          // list.size() == 1
+          {
+            Mitglied m = (Mitglied) list.next();
+            Zusatzbetrag zus = (Zusatzbetrag) Einstellungen.getDBService()
+                .createObject(Zusatzbetrag.class, null);
+            zus.setMitglied(new Integer(m.getID()));
+            double betrag = results.getDouble("Betrag");
+            if (betrag == 0)
+            {
+              monitor
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Für die Importzeile {0} ({1}) konnte die Fließkommazahl in der Spalte Betrag nicht verarbeitet werden. Zahl muss größer 0 sein. Abbruch!",
+                          anz + "", mitgliedIdString));
+              fehlerInDaten = true;
+            }
+            zus.setBetrag(betrag);
+            String buchungstext = results.getString("Buchungstext");
+            if (buchungstext.length() > 27)
+            {
+              monitor
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 27 Buchstaben begrenzt. Abbruch!",
+                          anz + "", mitgliedIdString));
+              fehlerInDaten = true;
+            }
+            zus.setBuchungstext(buchungstext);
+            try
+            {
+              buchungstext = results.getString("Buchungstext2");
+              if (buchungstext.length() > 27)
+              {
+                monitor
+                    .setStatusText(JVereinPlugin
+                        .getI18n()
+                        .tr("Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 27 Buchstaben begrenzt. Abbruch!",
+                            anz + "", mitgliedIdString));
+                fehlerInDaten = true;
+              }
+              zus.setBuchungstext2(buchungstext);
+            }
+            catch (SQLException e)
+            {
+              Logger.error("Fehler", e);
+            }
+            try
+            {
+              Date d = de.jost_net.JVerein.util.Datum.toDate(results
+                  .getString("Fälligkeit"));
+              zus.setFaelligkeit(d);
+              zus.setStartdatum(d);
+            }
+            catch (ParseException e)
+            {
+              monitor
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Für die Importzeile {0} ({1}) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
+                          anz + "", mitgliedIdString));
+              fehlerInDaten = true;
+            }
+
+            int intervall = results.getInt("Intervall");
+            if (intervall < 0)
+            {
+              monitor
+                  .setStatusText(JVereinPlugin
+                      .getI18n()
+                      .tr("Für die Importzeile {0} ({1}) konnte die Zahl in der Spalte Intervall nicht verarbeitet werden. Zahl muss größer oder gleich 0 sein. Abbruch!",
+                          anz + "", mitgliedIdString));
+              fehlerInDaten = true;
+            }
+            zus.setIntervall(intervall);
+
+            zusatzbetraegeList.add(zus);
+          }
+
         }
-        if (b_nachname)
+        // überprüfen und parsen der Daten beendet.
+        if (fehlerInDaten == false)
         {
-          list.addFilter("name = ? ", results.getString("Nachname"));
-        }
-        if (b_vorname)
-        {
-          list.addFilter("vorname = ? ", results.getString("Vorname"));
-        }
-        if (list.size() == 0)
-        {
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          monitor.setStatusText(JVereinPlugin.getI18n().tr(
-              "Für die Importzeile {0} kein Mitglied gefunden. Abbruch!",
-              anz + ""));
-          return;
-        }
-        if (list.size() > 1)
-        {
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           monitor
               .setStatusText(JVereinPlugin
                   .getI18n()
-                  .tr("Für die Importzeile {0} mehr als ein Mitglied gefunden. Abbruch!",
+                  .tr("Überprüfen aller Zusatzbeiträge erfolgreich abschlossen. {0} Zusatzbeiträge werden importiert...",
                       anz + ""));
-          return;
-        }
-
-        Mitglied m = (Mitglied) list.next();
-        try
-        {
-          Zusatzbetrag zus = (Zusatzbetrag) Einstellungen.getDBService()
-              .createObject(Zusatzbetrag.class, null);
-          zus.setMitglied(new Integer(m.getID()));
-          zus.setBetrag(results.getDouble("Betrag"));
-          zus.setBuchungstext(results.getString("Buchungstext"));
-          try
+          int count = 0;
+          for (Zusatzbetrag zusatzbetrag : zusatzbetraegeList)
           {
-            zus.setBuchungstext2(results.getString("Buchungstext2"));
+            anz++;
+            monitor.setPercentComplete(10 + (count * 90 / zusatzbetraegeList
+                .size()));
+            zusatzbetrag.store();
+            monitor.setStatusText(JVereinPlugin.getI18n().tr(
+                "Zusatzbeitrag für Mitglied {0} erfolgreich importiert. ",
+                zusatzbetrag.getMitglied().getNameVorname()));
           }
-          catch (SQLException e)
-          {
-            Logger.error("Fehler", e);
-          }
-          Date d = de.jost_net.JVerein.util.Datum.toDate(results
-              .getString("Fälligkeit"));
-          zus.setFaelligkeit(d);
-          zus.setStartdatum(d);
-          zus.setIntervall(results.getInt("Intervall"));
-
-          zus.store();
+          monitor.setStatusText(JVereinPlugin.getI18n().tr(
+              "Import komplett abgeschlossen."));
         }
-        catch (Exception e)
+        else
         {
-          throw new ApplicationException(e.getMessage() + ", "
-              + m.getNameVorname());
+          // if(fehlerInDaten)
+          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Fehler in Daten. Import abgebrochen."));
         }
       }
-      results.close();
-      stmt.close();
-      conn.close();
+
     }
-    catch (Exception e)
+    catch (RemoteException e)
     {
-      monitor.log(JVereinPlugin.getI18n().tr("nicht importiert:")
-          + e.getMessage());
       Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim Importieren:")
+          + e.getMessage());
+    }
+    catch (SQLException e)
+    {
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Fehler beim Importieren:")
+          + e.getMessage());
+    }
+    catch (ClassNotFoundException e)
+    {
+      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          "Treiber zum Parsen der CSV-Datei nicht gefunden."));
     }
     finally
     {
-
+      try
+      {
+        results.close();
+      }
+      catch (SQLException e)
+      {
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Schließen von ResultSet results"), e);
+        e.printStackTrace();
+      }
+      try
+      {
+        stmt.close();
+      }
+      catch (SQLException e)
+      {
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Schließen von Statement stmt"), e);
+        e.printStackTrace();
+      }
+      try
+      {
+        conn.close();
+      }
+      catch (SQLException e)
+      {
+        Logger.error(
+            JVereinPlugin.getI18n().tr(
+                "Fehler beim Schließen von Connection conn"), e);
+        e.printStackTrace();
+      }
     }
+  }
+
+  /**
+   * Überprüft alle Datenzeilen und importiert sie nach und nach, wenn kein
+   * Fehler festgestellt und doImport == true.
+   * {@link #checkAndImportRows(boolean, ProgressMonitor, ResultSet, String, String, String, boolean, boolean, boolean)}
+   * sollte zunächst mit doImport == false aufgerufen werden. Wenn Funktion true
+   * zurückliefert, kann sie erneut mit doImport == true aufgerufen werden.
+   * Dieses Vorgehen stellt sicher, dass entweder alle oder keine Daten
+   * importiert werden.
+   * 
+   * @param doImport
+   * @param monitor
+   * @param results
+   * @param columnMitgliedsnummer
+   * @param colNachname
+   * @param colVorname
+   * @param b_mitgliedsnummer
+   * @param b_nachname
+   * @param b_vorname
+   * @return
+   * @throws SQLException
+   * @throws RemoteException
+   * @throws ApplicationException
+   */
+  private boolean checkAndImportRows(boolean doImport, ProgressMonitor monitor,
+      ResultSet results, String columnMitgliedsnummer, String colNachname,
+      String colVorname, boolean b_mitgliedsnummer, boolean b_nachname,
+      boolean b_vorname) throws SQLException, RemoteException,
+      ApplicationException
+  {
+
+    return true;
   }
 
   @Override
