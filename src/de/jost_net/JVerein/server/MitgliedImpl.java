@@ -337,7 +337,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getTitel() throws RemoteException
   {
-    return (String) getAttribute("titel");
+    String t = (String) getAttribute("titel");
+    if (t == null)
+    {
+      t = "";
+    }
+    return t;
   }
 
   @Override
