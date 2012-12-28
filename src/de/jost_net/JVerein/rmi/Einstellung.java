@@ -259,6 +259,10 @@ public interface Einstellung extends DBObject
   public void setDtausTextschluessel(String dtaustextschluessel)
       throws RemoteException;
 
+  public String getDefaultLand() throws RemoteException;
+
+  public void setDefaultLand(String defaultland) throws RemoteException;
+
   public String getAltersgruppen() throws RemoteException;
 
   public void setAltersgruppen(String altersgruppen) throws RemoteException;

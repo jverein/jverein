@@ -961,6 +961,10 @@ public class JVereinUpdateProvider
     {
       update0240(conn);
     }
+    if (cv < 241)
+    {
+      update0241(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5817,6 +5821,23 @@ public class JVereinUpdateProvider
         "update formularfeld set name = replace(name, '.','_');\n");
 
     execute(conn, statements, "Formularfeld-Namen angepasst", 240);
+  }
+
+  private void update0241(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD defaultland char(2) before altersgruppen;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD defaultland char(2) after dtaustextschluessel;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte defaultland in die Tabelle einstellung aufgenommen", 241);
   }
 
 }

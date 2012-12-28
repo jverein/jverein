@@ -523,7 +523,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getIban() throws RemoteException
   {
-    return IbanBicCalc.createIban(getKonto(), getBlz(), "DE");
+    return IbanBicCalc.createIban(getKonto(), getBlz(), Einstellungen
+        .getEinstellung().getDefaultLand());
   }
 
   @Override

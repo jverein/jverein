@@ -809,7 +809,8 @@ public class MitgliedControl extends AbstractControl
         {
           getIban().setValue(
               IbanBicCalc.createIban((String) getKonto().getValue(),
-                  (String) getBlz().getValue(), "DE"));
+                  (String) getBlz().getValue(), Einstellungen.getEinstellung()
+                      .getDefaultLand()));
         }
         catch (RemoteException e)
         {
@@ -839,7 +840,8 @@ public class MitgliedControl extends AbstractControl
         {
           getIban().setValue(
               IbanBicCalc.createIban((String) getKonto().getValue(),
-                  (String) getBlz().getValue(), "DE"));
+                  (String) getBlz().getValue(), Einstellungen.getEinstellung()
+                      .getDefaultLand()));
         }
         catch (RemoteException e)
         {

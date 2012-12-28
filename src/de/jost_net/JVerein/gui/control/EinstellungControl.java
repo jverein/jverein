@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Listener;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.DtausTextschluesselInput;
+import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -162,6 +163,8 @@ public class EinstellungControl extends AbstractControl
   private SelectInput zahlungsrhytmus;
 
   private SelectInput dtaustextschluessel;
+
+  private SelectInput sepaland;
 
   private Input altersgruppen;
 
@@ -803,6 +806,17 @@ public class EinstellungControl extends AbstractControl
     return zahlungsrhytmus;
   }
 
+  public SelectInput getDefaultSEPALand() throws RemoteException
+  {
+    if (sepaland != null)
+    {
+      return sepaland;
+    }
+    sepaland = new SEPALandInput(Einstellungen.getEinstellung()
+        .getDefaultLand());
+    return sepaland;
+  }
+
   public Input getAltersgruppen() throws RemoteException
   {
     if (altersgruppen != null)
@@ -1173,6 +1187,7 @@ public class EinstellungControl extends AbstractControl
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
       e.setZahlungsweg(zw.getKey());
       e.setDtausTextschluessel((String) getDtausTextschluessel().getValue());
+      e.setDefaultLand((String) getDefaultSEPALand().getValue());
       e.setAltersgruppen((String) getAltersgruppen().getValue());
       e.setJubilaeen((String) getJubilaeen().getValue());
       e.setAltersjubilaeen((String) getAltersjubilaeen().getValue());

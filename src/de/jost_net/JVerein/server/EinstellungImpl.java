@@ -903,6 +903,23 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public String getDefaultLand() throws RemoteException
+  {
+    String dl = (String) getAttribute("defaultland");
+    if (dl == null)
+    {
+      dl = "DE";
+    }
+    return dl;
+  }
+
+  @Override
+  public void setDefaultLand(String defaultland) throws RemoteException
+  {
+    setAttribute("defaultland", defaultland);
+  }
+
+  @Override
   public String getAltersgruppen() throws RemoteException
   {
     return (String) getAttribute("altersgruppen");
