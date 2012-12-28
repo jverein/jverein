@@ -26,12 +26,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -213,7 +216,16 @@ public class SpendenbescheinigungPrintAction implements Action
         // Aufbereitung des Dokumentes
         if (standardPdf)
         {
-          generiereSpendenbescheinigungStandard(spb, fileName);
+          GregorianCalendar gc = new GregorianCalendar();
+          gc.setTime(spb.getBescheinigungsdatum());
+          if (gc.get(GregorianCalendar.YEAR) <= 2012)
+          {
+            generiereSpendenbescheinigungStandard(spb, fileName);
+          }
+          else
+          {
+            generiereSpendenbescheinigungStandardAb2013(spb, fileName);
+          }
         }
         else
         {
@@ -251,7 +263,8 @@ public class SpendenbescheinigungPrintAction implements Action
   }
 
   /**
-   * Generierung des Standard-Dokumentes
+   * Generierung des Standard-Dokumentes zu verwenden für Spendenbescheinigungen
+   * bis 31.12.2012
    * 
    * @param spb
    *          Die Spendenbescheinigung aus der Datenbank
@@ -562,6 +575,345 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.add(
           "(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen",
           8);
+    }
+
+    rpt.close();
+    fos.close();
+  }
+
+  /**
+   * Generierung des Standard-Dokumentes zu verwenden für Spendenbescheinigungen
+   * ab 01.01.2013
+   * 
+   * @param spb
+   *          Die Spendenbescheinigung aus der Datenbank
+   * @param fileName
+   *          Der Dateiname, wohin das Dokument geschrieben werden soll
+   * @throws IOException
+   * @throws DocumentException
+   */
+  private void generiereSpendenbescheinigungStandardAb2013(
+      Spendenbescheinigung spb, String fileName) throws IOException,
+      DocumentException
+  {
+    final File file = new File(fileName);
+    FileOutputStream fos = new FileOutputStream(file);
+
+    Map<String, Object> map = spb.getMap(null);
+    map = new AllgemeineMap().getMap(map);
+
+    boolean isSammelbestaetigung = spb.isSammelbestaetigung();
+
+    Reporter rpt = new Reporter(fos, 80, 50, 50, 50);
+    rpt.addHeaderColumn(
+        "Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)",
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
+
+    rpt.createHeader();
+
+    rpt.addColumn("\n" + getAussteller() + "\n ", Element.ALIGN_LEFT);
+    rpt.closeTable();
+
+    if (isSammelbestaetigung)
+    {
+      rpt.add(
+          "Sammelbestätigung über "
+              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+    }
+    else
+    {
+      rpt.add(
+          "Bestätigung über "
+              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+    }
+
+    rpt.add(
+        "im Sinne des § 10b des Einkommenssteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftssteuergesetzes "
+            + "bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen\n",
+        10);
+
+    rpt.addHeaderColumn("Name und Anschrift des Zuwendenden",
+        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
+    rpt.createHeader();
+    rpt.addColumn(
+        (String) map.get(SpendenbescheinigungVar.EMPFAENGER.getName()),
+        Element.ALIGN_LEFT);
+    rpt.closeTable();
+
+    switch (spb.getSpendenart())
+    {
+      case Spendenart.GELDSPENDE:
+        rpt.addHeaderColumn("Betrag der Zuwendung -in Ziffern-",
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
+        break;
+      case Spendenart.SACHSPENDE:
+        rpt.addHeaderColumn("Wert der Zuwendung -in Ziffern-",
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
+        break;
+    }
+    rpt.addHeaderColumn("-in Buchstaben-", Element.ALIGN_CENTER, 250,
+        BaseColor.LIGHT_GRAY);
+    if (!isSammelbestaetigung)
+    {
+      rpt.addHeaderColumn("Tag der Zuwendung", Element.ALIGN_CENTER, 50,
+          BaseColor.LIGHT_GRAY);
+    }
+    else
+    {
+      rpt.addHeaderColumn("Zeitraum der Sammelbestätigung",
+          Element.ALIGN_CENTER, 75, BaseColor.LIGHT_GRAY);
+    }
+    rpt.createHeader();
+    rpt.addColumn(
+        "*"
+            + Einstellungen.DECIMALFORMAT.format((Double) map
+                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        Element.ALIGN_CENTER);
+    rpt.addColumn(
+        (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
+        Element.ALIGN_CENTER);
+    if (!isSammelbestaetigung)
+    {
+      rpt.addColumn(
+          (String) map.get(SpendenbescheinigungVar.SPENDEDATUM.getName()),
+          Element.ALIGN_CENTER);
+    }
+    else
+    {
+      rpt.addColumn(
+          (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
+          Element.ALIGN_CENTER);
+    }
+    rpt.closeTable();
+
+    switch (spb.getSpendenart())
+    {
+      case Spendenart.SACHSPENDE:
+        rpt.addHeaderColumn(
+            "Genaue Bezeichnung der Sachzuwendung mit Alter, Zustand, Kaufpreis usw.",
+            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
+        rpt.createHeader();
+        rpt.addColumn(spb.getBezeichnungSachzuwendung(), Element.ALIGN_LEFT);
+        rpt.closeTable();
+        switch (spb.getHerkunftSpende())
+        {
+          case HerkunftSpende.BETRIEBSVERMOEGEN:
+            rpt.add(
+                "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Betriebsvermögen und ist "
+                    + "mit dem Entnahmewert (ggf. mit dem niedrigeren gemeinen Wert) bewertet.\n\n",
+                9);
+            break;
+          case HerkunftSpende.PRIVATVERMOEGEN:
+            rpt.add(
+                "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Privatvermögen.\n\n",
+                9);
+            break;
+          case HerkunftSpende.KEINEANGABEN:
+            rpt.add(
+                "Der Zuwendende hat trotz Aufforderung keine Angaben zur Herkunft der Sachzuwendung gemacht.\n\n",
+                9);
+            break;
+        }
+        if (spb.getUnterlagenWertermittlung())
+        {
+          rpt.add(
+              "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor.\n\n",
+              9);
+        }
+    }
+
+    /*
+     * Bei Sammelbestätigungen ist der Verweis auf Verzicht in der Anlage
+     * vermerkt
+     */
+    String verzicht = "";
+    char verzichtJa = (char) 113; // box leer
+    char verzichtNein = (char) 53; // X
+
+    if (spb.getAutocreate())
+    {
+      if (!isSammelbestaetigung)
+      {
+        if (spb.getBuchungen().get(0).getVerzicht().booleanValue())
+        {
+          verzichtJa = (char) 53; // X
+          verzichtNein = (char) 113; // box leer
+        }
+      }
+    }
+    else
+    {
+      if (spb.getErsatzAufwendungen())
+      {
+        verzichtJa = (char) 53; // X
+        verzichtNein = (char) 113; // box leer
+      }
+    }
+
+    if (!isSammelbestaetigung)
+    {
+      Paragraph p = new Paragraph();
+      p.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9));
+      p.setAlignment(Element.ALIGN_LEFT);
+      p.add(new Chunk(
+          "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen:  Ja "));
+      p.add(new Chunk(verzichtJa, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
+          10)));
+      p.add(new Chunk("   Nein "));
+      p.add(new Chunk(verzichtNein, FontFactory.getFont(
+          FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk("\n\n"));
+      rpt.add(p);
+    }
+    if (!Einstellungen.getEinstellung().getVorlaeufig())
+    {
+      String txt = "Wir sind wegen "
+          + Einstellungen.getEinstellung().getBeguenstigterzweck()
+          + " nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamtes "
+          + Einstellungen.getEinstellung().getFinanzamt()
+          + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer()
+          + ", vom "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
+          + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
+      rpt.add(txt, 9);
+    }
+    else
+    {
+      String txt = "Wir sind wegen "
+          + Einstellungen.getEinstellung().getBeguenstigterzweck()
+          + " durch vorläufige Bescheinigung des Finanzamtes "
+          + Einstellungen.getEinstellung().getFinanzamt()
+          + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer()
+          + ", vom "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
+          + " ab "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getVorlaeufigab())
+          + " als begünstigten Zwecken dienend anerkannt.";
+      rpt.add(txt, 9);
+    }
+    rpt.add("\n\nEs wird bestätigt, dass die Zuwendung nur zur "
+        + Einstellungen.getEinstellung().getBeguenstigterzweck()
+        + " verwendet wird.\n", 9);
+    if (!Einstellungen.getEinstellung().getMitgliedsbetraege()
+        && spb.getSpendenart() == Spendenart.GELDSPENDE)
+    {
+      rpt.add(
+          "Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag i.S.v § 10b Abs. 1 Satz 2 Einkommensteuergesetzes handelt.",
+          9);
+    }
+
+    if (isSammelbestaetigung)
+    {
+      rpt.add(new Paragraph(" "));
+      rpt.add(
+          "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.\n",
+          9);
+      rpt.add(
+          "Ob es sich um den Verzicht auf Erstattung von Aufwendungen handelt, ist der Anlage zur Sammelbestätigung zu entnehmen.",
+          9);
+    }
+
+    rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
+        + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()), 9);
+
+    rpt.add(
+        "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
+        9);
+
+    rpt.add("\n\nHinweis:", 9);
+    rpt.add(
+        "\nWer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder wer veranlasst, dass "
+            + "Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet "
+            + "werden, haftet für die entgangene Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG).\n\n"
+            + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das "
+            + "Datum des Freistellungsbescheides länger als 5 Jahre bzw. das Datum der vorläufigen Bescheinigung länger als 3 Jahre "
+            + "seit Ausstellung der Bestätigung zurückliegt (BMF vom 15.12.1994 - BStBl I S. 884).",
+        8);
+
+    /* Es sind mehrere Spenden für diese Spendenbescheinigung vorhanden */
+    if (isSammelbestaetigung)
+    {
+      List<Buchung> buchungen = spb.getBuchungen();
+
+      rpt.newPage();
+      rpt.add(getAussteller(), 13);
+      rpt.add(new Paragraph(" "));
+      rpt.add(
+          "Anlage zur Sammelbestätigung vom "
+              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
+                  .getName()), 11);
+      rpt.add(
+          "für den Zeitraum vom "
+              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
+                  .getName()), 11);
+
+      rpt.add(new Paragraph(" "));
+
+      /* Kopfzeile */
+      rpt.addHeaderColumn("Datum der\nZuwendung", Element.ALIGN_LEFT, 150,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Art der\nZuwendung", Element.ALIGN_LEFT, 400,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Verzicht auf die\nErstattung von Aufwendungen",
+          Element.ALIGN_LEFT, 300, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Betrag", Element.ALIGN_RIGHT, 150,
+          BaseColor.LIGHT_GRAY);
+      rpt.createHeader();
+
+      boolean printBuchungsart = Einstellungen.getEinstellung()
+          .getSpendenbescheinigungPrintBuchungsart();
+
+      /* Buchungszeilen */
+      for (Buchung buchung : buchungen)
+      {
+        rpt.addColumn(buchung.getDatum(), Element.ALIGN_RIGHT);
+        String verwendung = "";
+        if (printBuchungsart)
+        {
+          verwendung = buchung.getBuchungsart().getBezeichnung();
+        }
+        else
+        {
+          verwendung = buchung.getZweck();
+        }
+        rpt.addColumn(verwendung, Element.ALIGN_LEFT);
+        if (buchung.getVerzicht().booleanValue())
+        {
+          verzicht = "ja";
+        }
+        else
+        {
+          verzicht = "nein";
+        }
+        rpt.addColumn(verzicht, Element.ALIGN_CENTER);
+        rpt.addColumn(Double.valueOf(buchung.getBetrag()));
+      }
+
+      /* Summenzeile */
+      // String sumString = Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
+      rpt.addColumn("Gesamtsumme", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
+      rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
+      rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
+      rpt.addColumn(Double.valueOf(spb.getBetrag()));
+      // rpt.addColumn(sumString, Element.ALIGN_RIGHT, BaseColor.LIGHT_GRAY);
+
+      rpt.closeTable();
+
+      // // Etwas Abstand
+      // rpt.add(new Paragraph(" "));
+      // // Nun noch die Legende
+      // rpt.add("Legende:", 8);
+      // rpt.add(
+      // "(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen",
+      // 8);
+      // rpt.add(
+      // "(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen",
+      // 8);
     }
 
     rpt.close();
