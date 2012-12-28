@@ -217,6 +217,10 @@ public class BuchungsartControl extends AbstractControl
 
   public Part getBuchungsartList() throws RemoteException
   {
+    if (buchungsartList != null)
+    {
+      return buchungsartList;
+    }
     DBService service = Einstellungen.getDBService();
     DBIterator buchungsarten = service.createList(Buchungsart.class);
     buchungsarten.addFilter("nummer >= 0");
@@ -259,6 +263,7 @@ public class BuchungsartControl extends AbstractControl
     buchungsartList.setContextMenu(new BuchungsartMenu());
     buchungsartList.setRememberColWidths(true);
     buchungsartList.setRememberOrder(true);
+    buchungsartList.setRememberState(true);
     buchungsartList.setSummary(true);
     return buchungsartList;
   }
