@@ -973,6 +973,14 @@ public class JVereinUpdateProvider
     {
       update0243(conn);
     }
+    if (cv < 244)
+    {
+      update0244(conn);
+    }
+    if (cv < 245)
+    {
+      update0245(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5880,6 +5888,40 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Foreign Key 2 für mailempfaenger neu erstellt",
         243);
+  }
+
+  private void update0244(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("DROP INDEX IXEIGENSCHAFT1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE eigenschaft DROP INDEX ixEigenschaft1;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Index aus Tabelle eigenschaft entfernt", 244);
+  }
+
+  private void update0245(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
+
+    execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 245);
   }
 
 }
