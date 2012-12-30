@@ -965,6 +965,14 @@ public class JVereinUpdateProvider
     {
       update0241(conn);
     }
+    if (cv < 242)
+    {
+      update0242(conn);
+    }
+    if (cv < 243)
+    {
+      update0243(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5838,6 +5846,40 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte defaultland in die Tabelle einstellung aufgenommen", 241);
+  }
+
+  private void update0242(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mailempfaenger DROP CONSTRAINT FKMAILEMPFAENGER2;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mailempfaenger DROP FOREIGN KEY fkMailEmpfaenger2;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Foreign Key aus Tabelle mailempfaenger entfernt", 242);
+  }
+
+  private void update0243(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailempfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id)  ON DELETE CASCADE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailempfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 2 für mailempfaenger neu erstellt",
+        243);
   }
 
 }
