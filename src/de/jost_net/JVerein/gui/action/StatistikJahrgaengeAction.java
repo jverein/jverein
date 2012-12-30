@@ -21,15 +21,15 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.gui.view.StatistikDSBView;
+import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 
-public class StatistikDSBAction implements Action
+public class StatistikJahrgaengeAction implements Action
 {
   @Override
   public void handleAction(Object context)
   {
-    GUI.startView(StatistikDSBView.class.getName(), null);
+    GUI.startView(StatistikJahrgaengeView.class.getName(), null);
   }
 }

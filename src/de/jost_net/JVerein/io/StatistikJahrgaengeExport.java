@@ -38,7 +38,7 @@ import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.util.ProgressMonitor;
 
-public abstract class StatistikDSBExport implements Exporter
+public abstract class StatistikJahrgaengeExport implements Exporter
 {
 
   @Override
@@ -51,14 +51,14 @@ public abstract class StatistikDSBExport implements Exporter
 
   protected Date stichtag;
 
-  protected TreeMap<String, StatistikDSBJahrgang> statistik;
+  protected TreeMap<String, StatistikJahrgang> statistik;
 
   @Override
   public void doExport(final Object[] objects, IOFormat format, File file,
       ProgressMonitor monitor) throws DocumentException, IOException
   {
     this.file = file;
-    statistik = new TreeMap<String, StatistikDSBJahrgang>();
+    statistik = new TreeMap<String, StatistikJahrgang>();
     MitgliedControl control = (MitgliedControl) objects[0];
     stichtag = (Date) control.getStichtag().getValue();
     /*
@@ -76,10 +76,10 @@ public abstract class StatistikDSBExport implements Exporter
       Mitglied m = (Mitglied) mitgl.next();
       cal.setTime(m.getGeburtsdatum());
       String jg = cal.get(Calendar.YEAR) + "";
-      StatistikDSBJahrgang dsbj = statistik.get(jg);
+      StatistikJahrgang dsbj = statistik.get(jg);
       if (dsbj == null)
       {
-        dsbj = new StatistikDSBJahrgang();
+        dsbj = new StatistikJahrgang();
         statistik.put(jg, dsbj);
       }
       dsbj.incrementGesamt();
@@ -102,10 +102,10 @@ public abstract class StatistikDSBExport implements Exporter
     while (mitglj.hasNext())
     {
       String jg = "juristische Personen";
-      StatistikDSBJahrgang dsbj = statistik.get(jg);
+      StatistikJahrgang dsbj = statistik.get(jg);
       if (dsbj == null)
       {
-        dsbj = new StatistikDSBJahrgang();
+        dsbj = new StatistikJahrgang();
         statistik.put(jg, dsbj);
       }
       dsbj.incrementGesamt();
@@ -119,7 +119,7 @@ public abstract class StatistikDSBExport implements Exporter
   @Override
   public String getDateiname()
   {
-    return "statistikdsb";
+    return "statistikjahrgaenge";
   }
 
   protected abstract void open() throws DocumentException,
@@ -127,7 +127,7 @@ public abstract class StatistikDSBExport implements Exporter
 
   protected abstract void close() throws IOException, DocumentException;
 
-  public class StatistikDSBJahrgang
+  public class StatistikJahrgang
   {
 
     private int anzahlgesamt = 0;

@@ -67,7 +67,7 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.ProjektListAction;
 import de.jost_net.JVerein.gui.action.SpendenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
-import de.jost_net.JVerein.gui.action.StatistikDSBAction;
+import de.jost_net.JVerein.gui.action.StatistikJahrgaengeAction;
 import de.jost_net.JVerein.gui.action.StatistikMitgliedAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeImportAction;
@@ -174,7 +174,7 @@ public class MyExtension implements Extension
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Statistik"), new StatistikMitgliedAction(), "chart16.png"));
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Statistik DSB"), new StatistikDSBAction(), "chart16.png"));
+          "Statistik Jahrgänge"), new StatistikJahrgaengeAction(), "chart16.png"));
 
       jverein.addChild(auswertung);
 

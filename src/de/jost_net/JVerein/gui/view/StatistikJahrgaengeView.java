@@ -24,7 +24,7 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.action.StatistikDSBExportAction;
+import de.jost_net.JVerein.gui.action.StatistikJahrgaengeExportAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -34,13 +34,13 @@ import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 
-public class StatistikDSBView extends AbstractView
+public class StatistikJahrgaengeView extends AbstractView
 {
 
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Statistik DSB"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Statistik Jahrgänge"));
 
     final MitgliedControl control = new MitgliedControl(this);
 
@@ -54,7 +54,7 @@ public class StatistikDSBView extends AbstractView
         new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
         "help-browser.png");
     Button btnStart = new Button(JVereinPlugin.getI18n().tr("Start"),
-        new StatistikDSBExportAction(), control, true, "go.png");
+        new StatistikJahrgaengeExportAction(), control, true, "go.png");
     if (!Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
       btnStart.setEnabled(false);
@@ -73,7 +73,7 @@ public class StatistikDSBView extends AbstractView
   public String getHelp()
   {
     return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Statistik DSB</span></p>"
-            + "<p>Ausgabe der Jahrgangszahlen für die DSB-Statistik.</p></form>");
+        "<form><p><span color=\"header\" font=\"header\">Statistik Jahrgänge</span></p>"
+            + "<p>Ausgabe von Jahrgangszahlen z. B. für die DOSB-Statistik.</p></form>");
   }
 }

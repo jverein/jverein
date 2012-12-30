@@ -35,11 +35,11 @@ import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.gui.view.StatistikDSBView;
+import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 
-public class StatistikDSBExportPDF extends StatistikDSBExport
+public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
 {
 
   private FileOutputStream fos;
@@ -51,13 +51,13 @@ public class StatistikDSBExportPDF extends StatistikDSBExport
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Statistik DSB PDF-Export");
+    return JVereinPlugin.getI18n().tr("Statistik Jahrgänge PDF-Export");
   }
 
   @Override
   public IOFormat[] getIOFormats(Class<?> objectType)
   {
-    if (objectType != StatistikDSBView.class)
+    if (objectType != StatistikJahrgaengeView.class)
     {
       return null;
     }
@@ -67,7 +67,7 @@ public class StatistikDSBExportPDF extends StatistikDSBExport
       @Override
       public String getName()
       {
-        return StatistikDSBExportPDF.this.getName();
+        return StatistikJahrgaengeExportPDF.this.getName();
       }
 
       /**
@@ -85,7 +85,7 @@ public class StatistikDSBExportPDF extends StatistikDSBExport
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("statistikdsb");
+    return JVereinPlugin.getI18n().tr("statistikjahrgaenge");
   }
 
   @Override
@@ -93,7 +93,7 @@ public class StatistikDSBExportPDF extends StatistikDSBExport
   {
     fos = new FileOutputStream(file);
     reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
-        "Statistik DSB, Stichtag: {0}",
+        "Statistik Jahrgänge, Stichtag: {0}",
         new JVDateFormatTTMMJJJJ().format(stichtag) + ""), "", 3);
     reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Jahrgang"),
         Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
@@ -110,7 +110,7 @@ public class StatistikDSBExportPDF extends StatistikDSBExport
     for (String key : statistik.keySet())
     {
       reporter.addColumn(key, Element.ALIGN_CENTER);
-      StatistikDSBJahrgang dsbj = statistik.get(key);
+      StatistikJahrgang dsbj = statistik.get(key);
       reporter.addColumn(
           Einstellungen.INTFORMAT.format(dsbj.getAnzahlgesamt()),
           Element.ALIGN_RIGHT);

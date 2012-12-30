@@ -24,7 +24,7 @@ package de.jost_net.JVerein.gui.action;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ExportDialog;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
-import de.jost_net.JVerein.gui.view.StatistikDSBView;
+import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -32,7 +32,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class StatistikDSBExportAction implements Action
+public class StatistikJahrgaengeExportAction implements Action
 {
 
   /**
@@ -44,7 +44,7 @@ public class StatistikDSBExportAction implements Action
     try
     {
       ExportDialog d = new ExportDialog(new Object[] { context},
-          StatistikDSBView.class, DokumentationUtil.STATISTIKDSB);
+          StatistikJahrgaengeView.class, DokumentationUtil.STATISTIKJAHRGAENGE);
       d.open();
     }
     catch (OperationCanceledException oce)

@@ -92,7 +92,7 @@ public class DokumentationUtil
 
   public static final String STATISTIKMITGLIEDER = PRE + "Statistik";
 
-  public static final String STATISTIKDSB = PRE + "StatistikDSB";
+  public static final String STATISTIKJAHRGAENGE = PRE + "StatistikJahrgaenge";
 
   public static final String WIEDERVORLAGE = PRE + "Wiedervorlage";
 
