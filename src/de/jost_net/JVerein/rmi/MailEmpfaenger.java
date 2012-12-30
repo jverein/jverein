@@ -28,6 +28,9 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface MailEmpfaenger extends DBObject
 {
+  @Override
+  public String getID() throws RemoteException;
+
   /**
    * ID der zugehörigen Mail
    */
@@ -59,10 +62,10 @@ public interface MailEmpfaenger extends DBObject
    * Gibt das Datum des letzten Versand der Mail zurück.
    */
   public Timestamp getVersand() throws RemoteException;
-  
+
   /**
    * Setzt das Datum des letzten Versand der Mail.
    */
   public void setVersand(Timestamp versand) throws RemoteException;
-  
+
 }

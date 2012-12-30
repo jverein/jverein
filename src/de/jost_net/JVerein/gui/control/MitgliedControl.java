@@ -61,6 +61,7 @@ import de.jost_net.JVerein.gui.input.MailAuswertungInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
 import de.jost_net.JVerein.gui.menu.FamilienbeitragMenu;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
+import de.jost_net.JVerein.gui.menu.MitgliedMailMenu;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
@@ -1591,7 +1592,7 @@ public class MitgliedControl extends AbstractControl
     return wiedervorlageList;
   }
 
-  public Part getMailTable() throws RemoteException
+  public TablePart getMailTable() throws RemoteException
   {
     if (mailList != null)
     {
@@ -1611,6 +1612,7 @@ public class MitgliedControl extends AbstractControl
     mailList.addColumn(JVereinPlugin.getI18n().tr("Versand"), "versand",
         new DateFormatter(new JVDateFormatTIMESTAMP()));
     mailList.addColumn(JVereinPlugin.getI18n().tr("Betreff"), "betreff");
+    mailList.setContextMenu(new MitgliedMailMenu(this));
     return mailList;
   }
 
