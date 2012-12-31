@@ -68,6 +68,12 @@ public class EinstellungenView extends AbstractView
         control.getPlz());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Ort"),
         control.getOrt());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("BIC"),
+        control.getBic());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("IBAN"),
+        control.getIban());
+    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Gläubiger-ID"),
+        control.getGlaeubigerID());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
         control.getBlz());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
@@ -218,6 +224,7 @@ public class EinstellungenView extends AbstractView
     groupMail.addLabelPair("Benutzer", control.getSmtpAuthUser());
     groupMail.addLabelPair("Passwort", control.getSmtpAuthPwd());
     groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
+    groupMail.addLabelPair("Anzeigename", control.getSmtpFromAnzeigename());
     groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
     groupMail.addLabelPair("Starttls verwenden", control.getSmtpStarttls());
 

@@ -981,6 +981,22 @@ public class JVereinUpdateProvider
     {
       update0245(conn);
     }
+    if (cv < 246)
+    {
+      update0246(conn);
+    }
+    if (cv < 247)
+    {
+      update0247(conn);
+    }
+    if (cv < 248)
+    {
+      update0248(conn);
+    }
+    if (cv < 249)
+    {
+      update0249(conn);
+    }
   }
 
   public Connection getConnection()
@@ -5922,6 +5938,75 @@ public class JVereinUpdateProvider
             "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
 
     execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 245);
+  }
+
+  private void update0246(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD bic varchar(11) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD bic varchar(11) after mitgliedsbeitraege;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte bic in die Tabelle einstellung aufgenommen", 246);
+  }
+
+  private void update0247(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD iban varchar(22) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD iban varchar(22) after bic;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte iban in die Tabelle einstellung aufgenommen", 247);
+  }
+
+  private void update0248(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD glaeubigerid varchar(35) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD glaeubigerid varchar(35) after iban;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte glaeubigerid in die Tabelle einstellung aufgenommen", 248);
+  }
+
+  private void update0249(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD smtp_from_anzeigename varchar(50) before smtp_ssl;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD smtp_from_anzeigename varchar(50) after smtp_from_address;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte smtp_from_anzeigename in die Tabelle einstellung aufgenommen",
+        249);
   }
 
 }

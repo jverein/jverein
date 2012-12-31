@@ -345,6 +345,42 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public String getBic() throws RemoteException
+  {
+    return (String) getAttribute("bic");
+  }
+
+  @Override
+  public void setBic(String bic) throws RemoteException
+  {
+    setAttribute("bic", bic);
+  }
+
+  @Override
+  public String getIban() throws RemoteException
+  {
+    return (String) getAttribute("iban");
+  }
+
+  @Override
+  public void setIban(String iban) throws RemoteException
+  {
+    setAttribute("iban", iban);
+  }
+
+  @Override
+  public String getGlaeubigerID() throws RemoteException
+  {
+    return (String) getAttribute("glaeubigerid");
+  }
+
+  @Override
+  public void setGlaeubigerID(String glaeubigerid) throws RemoteException
+  {
+    setAttribute("glaeubigerid", glaeubigerid);
+  }
+
+  @Override
   public String getKonto() throws RemoteException
   {
     return (String) getAttribute("konto");
@@ -825,6 +861,24 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute("smtp_from_address", smtp_from_address);
+  }
+
+  @Override
+  public String getSmtpFromAnzeigename() throws RemoteException
+  {
+    String ret = (String) getAttribute("smtp_from_anzeigename");
+    if (ret == null || ret.length() == 0)
+    {
+      ret = (String) getSmtpFromAddress();
+    }
+    return ret;
+  }
+
+  @Override
+  public void setSmtpFromAnzeigename(String smtp_from_anzeigename)
+      throws RemoteException
+  {
+    setAttribute("smtp_from_anzeigename", smtp_from_anzeigename);
   }
 
   @Override

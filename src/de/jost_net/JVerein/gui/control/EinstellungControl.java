@@ -82,6 +82,12 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput mitgliedsbetraege;
 
+  private TextInput bic;
+
+  private TextInput iban;
+
+  private TextInput glaeubigerid;
+
   private Input blz;
 
   private Input konto;
@@ -153,6 +159,8 @@ public class EinstellungControl extends AbstractControl
   private PasswordInput smtp_auth_pwd;
 
   private TextInput smtp_from_address;
+
+  private TextInput smtp_from_anzeigename;
 
   private CheckboxInput smtp_ssl;
 
@@ -352,6 +360,37 @@ public class EinstellungControl extends AbstractControl
     mitgliedsbetraege = new CheckboxInput(Einstellungen.getEinstellung()
         .getMitgliedsbetraege());
     return mitgliedsbetraege;
+  }
+
+  public TextInput getBic() throws RemoteException
+  {
+    if (bic != null)
+    {
+      return bic;
+    }
+    bic = new TextInput(Einstellungen.getEinstellung().getBic(), 11);
+    return bic;
+  }
+
+  public TextInput getIban() throws RemoteException
+  {
+    if (iban != null)
+    {
+      return iban;
+    }
+    iban = new TextInput(Einstellungen.getEinstellung().getIban(), 22);
+    return iban;
+  }
+
+  public TextInput getGlaeubigerID() throws RemoteException
+  {
+    if (glaeubigerid != null)
+    {
+      return glaeubigerid;
+    }
+    glaeubigerid = new TextInput(Einstellungen.getEinstellung()
+        .getGlaeubigerID(), 35);
+    return glaeubigerid;
   }
 
   public Input getBlz() throws RemoteException
@@ -759,6 +798,17 @@ public class EinstellungControl extends AbstractControl
     return smtp_from_address;
   }
 
+  public TextInput getSmtpFromAnzeigename() throws RemoteException
+  {
+    if (smtp_from_anzeigename != null)
+    {
+      return smtp_from_anzeigename;
+    }
+    smtp_from_anzeigename = new TextInput(Einstellungen.getEinstellung()
+        .getSmtpFromAnzeigename(), 50);
+    return smtp_from_anzeigename;
+  }
+
   public CheckboxInput getSmtpSsl() throws RemoteException
   {
     if (smtp_ssl != null)
@@ -1137,6 +1187,9 @@ public class EinstellungControl extends AbstractControl
       e.setVorlaeufigab((Date) getVorlaeufigab().getValue());
       e.setBeguenstigterzweck((String) getBeguenstigterzweck().getValue());
       e.setMitgliedsbeitraege((Boolean) getMitgliedsbetraege().getValue());
+      e.setBic((String) getBic().getValue());
+      e.setIban((String) getIban().getValue());
+      e.setGlaeubigerID((String) getGlaeubigerID().getValue());
       e.setBlz((String) getBlz().getValue());
       e.setKonto((String) getKonto().getValue());
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
@@ -1180,7 +1233,9 @@ public class EinstellungControl extends AbstractControl
       e.setSmtpAuthUser((String) smtp_auth_user.getValue());
       e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
       e.setSmtpFromAddress((String) smtp_from_address.getValue());
+      e.setSmtpFromAnzeigename((String) smtp_from_anzeigename.getValue());
       e.setSmtpSsl((Boolean) smtp_ssl.getValue());
+
       e.setSmtpStarttls((Boolean) smtp_starttls.getValue());
       Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());

@@ -80,6 +80,18 @@ public interface Einstellung extends DBObject
   public void setMitgliedsbeitraege(Boolean mitgliedsbeitraege)
       throws RemoteException;
 
+  public void setBic(String bic) throws RemoteException;
+
+  public String getBic() throws RemoteException;
+
+  public void setIban(String iban) throws RemoteException;
+
+  public String getIban() throws RemoteException;
+
+  public void setGlaeubigerID(String glaeubigerid) throws RemoteException;
+
+  public String getGlaeubigerID() throws RemoteException;
+
   public String getBlz() throws RemoteException;
 
   public void setBlz(String blz) throws RemoteException;
@@ -236,6 +248,11 @@ public interface Einstellung extends DBObject
   public String getSmtpFromAddress() throws RemoteException;
 
   public void setSmtpFromAddress(String smtp_from_address)
+      throws RemoteException;
+
+  public String getSmtpFromAnzeigename() throws RemoteException;
+
+  public void setSmtpFromAnzeigename(String smtp_from_anzeigename)
       throws RemoteException;
 
   public Boolean getSmtpSsl() throws RemoteException;
