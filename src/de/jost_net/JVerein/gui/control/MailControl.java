@@ -432,6 +432,7 @@ public class MailControl extends AbstractControl
               Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
                   .getEinstellung().getSmtpAuthPwd(), Einstellungen
                   .getEinstellung().getSmtpFromAddress(), Einstellungen
+                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
                   .getEinstellung().getSmtpSsl(), Einstellungen
                   .getEinstellung().getSmtpStarttls());
 

@@ -63,13 +63,15 @@ public class MailSender
   private String smtp_auth_pwd;
 
   private String smtp_from_address;
+  
+  private String smtp_from_anzeigename;
 
   private boolean smtp_ssl;
 
   private boolean smtp_starttls;
 
   public MailSender(String smtp_host_name, String smtp_port,
-      String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,
+      String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,String smtp_from_anzeigename,
       boolean smtp_ssl, boolean smtp_starttls)
   {
     this.smtp_host_name = smtp_host_name;
@@ -77,6 +79,7 @@ public class MailSender
     this.smtp_auth_user = smtp_auth_user;
     this.smtp_auth_pwd = smtp_auth_pwd;
     this.smtp_from_address = smtp_from_address;
+    this.smtp_from_anzeigename = smtp_from_anzeigename;
     this.smtp_ssl = smtp_ssl;
     this.smtp_starttls = smtp_starttls;
   }
@@ -144,7 +147,7 @@ public class MailSender
      * msg.addHeader("Disposition-Notification-To", smtp_from_address);
      * msg.addHeader("Return-Receipt-To", smtp_from_address);
      */
-    InternetAddress addressFrom = new InternetAddress(smtp_from_address);
+    InternetAddress addressFrom = new InternetAddress(smtp_from_address, smtp_from_anzeigename);
     msg.setFrom(addressFrom);
 
     InternetAddress[] addressTo = new InternetAddress[emailadresses.length];
