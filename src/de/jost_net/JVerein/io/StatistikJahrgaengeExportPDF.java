@@ -25,18 +25,14 @@ package de.jost_net.JVerein.io;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
-import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 
 public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
@@ -45,8 +41,6 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
   private FileOutputStream fos;
 
   private Reporter reporter;
-
-  private int anz;
 
   @Override
   public String getName()
@@ -76,10 +70,10 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.pdf"};
+        return new String[] { "*.pdf" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 
   @Override

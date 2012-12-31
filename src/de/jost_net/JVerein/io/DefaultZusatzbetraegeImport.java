@@ -370,39 +370,6 @@ public class DefaultZusatzbetraegeImport implements Importer
     }
   }
 
-  /**
-   * Überprüft alle Datenzeilen und importiert sie nach und nach, wenn kein
-   * Fehler festgestellt und doImport == true.
-   * {@link #checkAndImportRows(boolean, ProgressMonitor, ResultSet, String, String, String, boolean, boolean, boolean)}
-   * sollte zunächst mit doImport == false aufgerufen werden. Wenn Funktion true
-   * zurückliefert, kann sie erneut mit doImport == true aufgerufen werden.
-   * Dieses Vorgehen stellt sicher, dass entweder alle oder keine Daten
-   * importiert werden.
-   * 
-   * @param doImport
-   * @param monitor
-   * @param results
-   * @param columnMitgliedsnummer
-   * @param colNachname
-   * @param colVorname
-   * @param b_mitgliedsnummer
-   * @param b_nachname
-   * @param b_vorname
-   * @return
-   * @throws SQLException
-   * @throws RemoteException
-   * @throws ApplicationException
-   */
-  private boolean checkAndImportRows(boolean doImport, ProgressMonitor monitor,
-      ResultSet results, String columnMitgliedsnummer, String colNachname,
-      String colVorname, boolean b_mitgliedsnummer, boolean b_nachname,
-      boolean b_vorname) throws SQLException, RemoteException,
-      ApplicationException
-  {
-
-    return true;
-  }
-
   @Override
   public String getName()
   {
