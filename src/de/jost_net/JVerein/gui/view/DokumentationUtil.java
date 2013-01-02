@@ -62,7 +62,7 @@ public class DokumentationUtil
 
   public static final String LESEFELDER = PRE + "Lesefelder";
 
-  public static final String FORMULARE = PRE + "administration_formulare.php";
+  public static final String FORMULARE = PRE + "Formulare";
 
   public static final String EINSTELLUNGEN = PRE + "Einstellungen";
 
