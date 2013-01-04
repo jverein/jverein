@@ -103,6 +103,7 @@ public class FormularAufbereitung
       int numOfPages = reader.getNumberOfPages();
       for (int i = 1; i <= numOfPages; i++)
       {
+        doc.setPageSize(reader.getPageSize(i));
         doc.newPage();
         PdfImportedPage page = writer.getImportedPage(reader, i);
         PdfContentByte contentByte = writer.getDirectContent();
