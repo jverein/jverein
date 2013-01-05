@@ -257,7 +257,7 @@ public class BuchungsControl extends AbstractControl
       return betrag;
     }
 
-    if (getBuchung().isNewObject())
+    if (getBuchung().isNewObject() && getBuchung().getBetrag() == 0d)
     {
       betrag = new DecimalInput(Einstellungen.DECIMALFORMAT);
     }

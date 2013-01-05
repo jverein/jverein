@@ -29,6 +29,8 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Buchung extends DBObject
 {
+  public void setID(String id) throws RemoteException;
+
   public Integer getUmsatzid() throws RemoteException;
 
   public void setUmsatzid(Integer umsatzid) throws RemoteException;

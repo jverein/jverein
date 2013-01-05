@@ -25,6 +25,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.BuchungBuchungsartZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
+import de.jost_net.JVerein.gui.action.BuchungDuplizierenAction;
 import de.jost_net.JVerein.gui.action.BuchungKontoauszugZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungMitgliedskontoZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
@@ -55,6 +56,8 @@ public class BuchungMenu extends ContextMenu
         new BuchungNeuAction(), "document-new.png"));
     addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
         "bearbeiten"), new BuchungAction(), "edit.png"));
+    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
+        "duplizieren"), new BuchungDuplizierenAction(), "copy_v2.png"));
     // Einführung der Splitbuchungen auf Version 2.2 verschoben
     // addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
     // "Splitbuchung"), new SplitBuchungAction(), "edit.png"));
@@ -65,8 +68,8 @@ public class BuchungMenu extends ContextMenu
         "Mitgliedskonto zuordnen"), new BuchungMitgliedskontoZuordnungAction(
         control), "human_folder_public.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Projekt zuordnen"), new BuchungProjektZuordnungAction(
-        control), "projects.png"));
+        "Projekt zuordnen"), new BuchungProjektZuordnungAction(control),
+        "projects.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Kontoauszug zuordnen"),
         new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));
