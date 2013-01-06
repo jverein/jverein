@@ -2039,6 +2039,7 @@ public class MitgliedControl extends AbstractControl
       return jubeljahr;
     }
     Calendar cal = Calendar.getInstance();
+    jjahr = cal.get(Calendar.YEAR);
     cal.add(Calendar.YEAR, -2);
     Integer[] jubeljahre = new Integer[5];
     for (int i = 0; i < 5; i++)
