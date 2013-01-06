@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -61,15 +62,7 @@ public class SpendenbescheinigungAction implements Action
         if (context != null && (context instanceof Mitglied))
         {
           Mitglied m = (Mitglied) context;
-          spb.setMitglied(m);
-          spb.setZeile1(m.getAnrede());
-          spb.setZeile2(m.getVornameName());
-          spb.setZeile3(m.getStrasse());
-          spb.setZeile4(m.getPlz() + " " + m.getOrt());
-          if (m.getStaat() != null && m.getStaat().length() > 0)
-          {
-            spb.setZeile5(m.getStaat());
-          }
+          adressaufbereitung(m, spb);
         }
         else if (context != null && (context instanceof MitgliedskontoNode))
         {
@@ -82,14 +75,7 @@ public class SpendenbescheinigungAction implements Action
             // Mitglied aus Mitgliedskonto lesen
             Mitglied m = mkn.getMitglied();
             spb.setMitglied(m);
-            spb.setZeile1(m.getAnrede());
-            spb.setZeile2(m.getVornameName());
-            spb.setZeile3(m.getStrasse());
-            spb.setZeile4(m.getPlz() + " " + m.getOrt());
-            if (m.getStaat() != null && m.getStaat().length() > 0)
-            {
-              spb.setZeile5(m.getStaat());
-            }
+            adressaufbereitung(m, spb);
           }
           if (mkn.getType() == MitgliedskontoNode.IST)
           {
@@ -164,5 +150,46 @@ public class SpendenbescheinigungAction implements Action
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
           "Fehler bei der Erstellung der Spendenbescheinigung"));
     }
+  }
+
+  private void adressaufbereitung(Mitglied m, Spendenbescheinigung spb)
+      throws RemoteException
+  {
+    ArrayList<String> adresse = new ArrayList<String>();
+    spb.setMitglied(m);
+    if (m.getAnrede() != null && m.getAnrede().length() > 0)
+    {
+      adresse.add(m.getAnrede());
+    }
+    adresse.add(m.getVornameName());
+    if (m.getAdressierungszusatz() != null
+        && m.getAdressierungszusatz().length() > 0)
+    {
+      adresse.add(m.getAdressierungszusatz());
+    }
+    adresse.add(m.getStrasse());
+    adresse.add(m.getPlz() + " " + m.getOrt());
+    if (m.getStaat() != null && m.getStaat().length() > 0)
+    {
+      adresse.add(m.getStaat());
+    }
+    switch (adresse.size())
+    {
+      case 7:
+        spb.setZeile7(adresse.get(6));
+      case 6:
+        spb.setZeile6(adresse.get(5));
+      case 5:
+        spb.setZeile5(adresse.get(4));
+      case 4:
+        spb.setZeile4(adresse.get(3));
+      case 3:
+        spb.setZeile3(adresse.get(2));
+      case 2:
+        spb.setZeile2(adresse.get(1));
+      case 1:
+        spb.setZeile1(adresse.get(0));
+    }
+
   }
 }
