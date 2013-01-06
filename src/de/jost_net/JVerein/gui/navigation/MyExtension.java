@@ -65,6 +65,7 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoMahnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.ProjektListAction;
+import de.jost_net.JVerein.gui.action.SEPAKonvertierungAction;
 import de.jost_net.JVerein.gui.action.SpendenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikJahrgaengeAction;
@@ -174,7 +175,8 @@ public class MyExtension implements Extension
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Statistik"), new StatistikMitgliedAction(), "chart16.png"));
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
-          "Statistik Jahrgänge"), new StatistikJahrgaengeAction(), "chart16.png"));
+          "Statistik Jahrgänge"), new StatistikJahrgaengeAction(),
+          "chart16.png"));
 
       jverein.addChild(auswertung);
 
@@ -269,6 +271,8 @@ public class MyExtension implements Extension
       }
       einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
           .tr("BLZ-Update"), new BLZUpdateAction(), "adler.png"));
+      einstellungen.addChild(new MyItem(einstellungen, JVereinPlugin.getI18n()
+          .tr("SEPA-Konvertierung"), new SEPAKonvertierungAction()));
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, JVereinPlugin
           .getI18n().tr("Erweitert"), null);

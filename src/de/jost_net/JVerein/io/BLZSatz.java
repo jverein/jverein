@@ -220,4 +220,10 @@ public class BLZSatz
   {
     return bi.available() > 0;
   }
+
+  @Override
+  public String toString()
+  {
+    return blz + ", " + bezeichnung + ", " + bic + ", " + zahlungsdienstleister;
+  }
 }

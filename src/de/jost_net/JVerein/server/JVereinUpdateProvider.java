@@ -6008,5 +6008,4 @@ public class JVereinUpdateProvider
         "Spalte smtp_from_anzeigename in die Tabelle einstellung aufgenommen",
         249);
   }
-
 }

@@ -184,7 +184,7 @@ public class BLZUpdateControl extends AbstractControl
 
   private void ermittleUpdates(String file) throws IOException
   {
-    BLZDatei blz = new BLZDatei(file);
+    BLZDatei blz = new BLZDatei(new File(file));
     BLZSatz satz = blz.getNext();
     while (satz.hasNext())
     {

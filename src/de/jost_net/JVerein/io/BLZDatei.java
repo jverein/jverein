@@ -22,8 +22,11 @@
 package de.jost_net.JVerein.io;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -33,7 +36,11 @@ public class BLZDatei
 {
   private BufferedInputStream bin;
 
-  public BLZDatei(String file) throws IOException
+  private HashMap<String, BLZSatz> datenbank;
+
+  private Iterator<String> it;
+
+  public BLZDatei(File file) throws IOException
   {
     ZipFile zip = new ZipFile(file);
 
@@ -46,11 +53,32 @@ public class BLZDatei
     {
       ZipEntry entry = e.nextElement();
       bin = new BufferedInputStream(zip.getInputStream(entry));
+      datenbank = new HashMap<String, BLZSatz>();
+      BLZSatz blzs = new BLZSatz(bin);
+      while (blzs.hasNext())
+      {
+        if (blzs.getZahlungsdienstleister().equals("1"))
+        {
+          datenbank.put(blzs.getBlz(), blzs);
+        }
+        blzs = new BLZSatz(bin);
+      }
+      it = datenbank.keySet().iterator();
     }
   }
 
   public BLZSatz getNext() throws IOException
   {
-    return new BLZSatz(bin);
+    return datenbank.get(it.next());
+  }
+
+  public boolean hasNext()
+  {
+    return it.hasNext();
+  }
+
+  public BLZSatz get(String key)
+  {
+    return datenbank.get(key);
   }
 }
