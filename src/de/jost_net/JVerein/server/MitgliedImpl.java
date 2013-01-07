@@ -43,7 +43,6 @@ import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
-import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.StringTool;
@@ -502,6 +501,30 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
+  public String getBic() throws RemoteException
+  {
+    return (String) getAttribute("bic");
+  }
+
+  @Override
+  public void setBic(String bic) throws RemoteException
+  {
+    setAttribute("bic", bic);
+  }
+
+  @Override
+  public String getIban() throws RemoteException
+  {
+    return (String) getAttribute("iban");
+  }
+
+  @Override
+  public void setIban(String iban) throws RemoteException
+  {
+    setAttribute("iban", iban);
+  }
+
+  @Override
   public String getBlz() throws RemoteException
   {
     return (String) getAttribute("blz");
@@ -523,13 +546,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setKonto(String konto) throws RemoteException
   {
     setAttribute("konto", konto);
-  }
-
-  @Override
-  public String getIban() throws RemoteException
-  {
-    return IbanBicCalc.createIban(getKonto(), getBlz(), Einstellungen
-        .getEinstellung().getDefaultLand());
   }
 
   @Override

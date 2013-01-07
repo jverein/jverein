@@ -997,6 +997,14 @@ public class JVereinUpdateProvider
     {
       update0249(conn);
     }
+    if (cv < 250)
+    {
+      update0250(conn);
+    }
+    if (cv < 251)
+    {
+      update0251(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6008,4 +6016,39 @@ public class JVereinUpdateProvider
         "Spalte smtp_from_anzeigename in die Tabelle einstellung aufgenommen",
         249);
   }
+
+  private void update0250(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD bic varchar(11) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD bic varchar(11) after zahlungsrhytmus;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Spalte bic in die Tabelle mitglied aufgenommen",
+        250);
+  }
+
+  private void update0251(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD iban varchar(22) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied ADD iban varchar(22) after bic;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte iban in die Tabelle mitglied aufgenommen", 251);
+  }
+
 }

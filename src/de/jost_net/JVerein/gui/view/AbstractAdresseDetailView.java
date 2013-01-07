@@ -454,9 +454,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     }
     cols.addInput(control.getKontoinhaber());
+    cols.addInput(control.getBic());
+    cols.addInput(control.getIban());
     cols.addInput(control.getBlz());
     cols.addInput(control.getKonto());
-    cols.addInput(control.getIban());
 
     cols.arrangeVertically();
   }

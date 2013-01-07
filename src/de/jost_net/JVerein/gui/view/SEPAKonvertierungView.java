@@ -28,6 +28,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.BLZDatei;
 import de.jost_net.JVerein.rmi.Einstellung;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.IbanBicCalc;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
@@ -106,6 +107,7 @@ public class SEPAKonvertierungView extends AbstractView
       File f = new File(u.toURI());
       BLZDatei blz = new BLZDatei(f);
 
+      // Einstellungen
       DBIterator it = Einstellungen.getDBService()
           .createList(Einstellung.class);
       while (it.hasNext())
@@ -122,6 +124,22 @@ public class SEPAKonvertierungView extends AbstractView
           monitor.log("Einstellung: BIC und IBAN gesetzt");
         }
       }
+      // Mitglieder
+      it = Einstellungen.getDBService().createList(Mitglied.class);
+      while (it.hasNext())
+      {
+        Mitglied m = (Mitglied) it.next();
+        Mitglied m2 = (Mitglied) Einstellungen.getDBService().createObject(
+            Mitglied.class, m.getID());
+        if (m2.getBlz() != null && m2.getBlz().length() > 0)
+        {
+          m2.setBic(blz.get(m2.getBlz()).getBic());
+          m2.setIban(IbanBicCalc.createIban(m2.getKonto(), m2.getBlz(),
+              Einstellungen.getEinstellung().getDefaultLand()));
+          m2.store();
+        }
+      }
+      monitor.log("Mitglieder: BIC und IBAN gesetzt");
     }
     catch (Exception e)
     {

@@ -174,11 +174,13 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput zahlungsrhytmus;
 
+  private Input bic;
+
+  private Input iban;
+
   private Input blz;
 
   private Input konto;
-
-  private Input iban;
 
   private Input kontoinhaber;
 
@@ -853,17 +855,29 @@ public class MitgliedControl extends AbstractControl
     return konto;
   }
 
+  public Input getBic() throws RemoteException
+  {
+    if (bic != null)
+    {
+      return bic;
+    }
+    bic = new TextInput(getMitglied().getBic(), 11);
+    bic.setName(JVereinPlugin.getI18n().tr("BIC"));
+    bic.setMandatory(getMitglied().getZahlungsweg() == null
+        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
+    return bic;
+  }
+
   public Input getIban() throws RemoteException
   {
     if (iban != null)
     {
       return iban;
     }
-    iban = new TextInput(getMitglied().getIban(), 30);
+    iban = new TextInput(getMitglied().getIban(), 22);
     iban.setName(JVereinPlugin.getI18n().tr("IBAN"));
     iban.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
-    iban.setEnabled(false);
     return iban;
   }
 

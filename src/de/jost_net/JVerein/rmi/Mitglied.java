@@ -90,6 +90,14 @@ public interface Mitglied extends DBObject
   public void setZahlungsrhytmus(Integer zahlungsrhytmus)
       throws RemoteException;
 
+  public String getBic() throws RemoteException;
+
+  public void setBic(String bic) throws RemoteException;
+
+  public String getIban() throws RemoteException;
+
+  public void setIban(String iban) throws RemoteException;
+
   public String getBlz() throws RemoteException;
 
   public void setBlz(String blz) throws RemoteException;
@@ -97,8 +105,6 @@ public interface Mitglied extends DBObject
   public String getKonto() throws RemoteException;
 
   public void setKonto(String konto) throws RemoteException;
-
-  public String getIban() throws RemoteException;
 
   public String getKontoinhaber() throws RemoteException;
 
