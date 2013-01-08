@@ -673,6 +673,10 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       }
       map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN.getName(),
           (getErsatzAufwendungen() ? "Ja" : "Nein"));
+      map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN_JA.getName(),
+          (getErsatzAufwendungen() ? "X" : " "));
+      map.put(SpendenbescheinigungVar.ERSATZAUFWENDUNGEN_NEIN.getName(),
+          (getErsatzAufwendungen() ? " " : "X"));
     }
 
     // bei Sammelbestätigungen ein Zeitraum und "siehe Anlage"
@@ -747,9 +751,22 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       else
       {
         final int colDatumLen = 10;
-        final int colArtLen = 17;
-        final int colVerzichtLen = 27;
+        final int colArtLen = 27;
+        final int colVerzichtLen = 17;
         final int colBetragLen = 11;
+        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
+            colDatumLen));
+        bl.append("  ");
+        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
+            colArtLen));
+        bl.append("  ");
+        bl.append(StringTool.rpad(
+            JVereinPlugin.getI18n().tr("Verzicht auf"),
+            colVerzichtLen));
+        bl.append("  ");
+        bl.append(StringTool.rpad(" ", colBetragLen));
+        bl.append(newLineStr);
+
         bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Datum der "),
             colDatumLen));
         bl.append("  ");
@@ -757,7 +774,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
             colArtLen));
         bl.append("  ");
         bl.append(StringTool.rpad(
-            JVereinPlugin.getI18n().tr("Verzicht auf die Erstattung"),
+            JVereinPlugin.getI18n().tr("die Erstattung"),
             colVerzichtLen));
         bl.append("  ");
         bl.append(StringTool.rpad(" ", colBetragLen));

@@ -36,6 +36,10 @@ public enum SpendenbescheinigungVar
       "spendenbescheinigung_spendenzeitraum")), //
   ERSATZAUFWENDUNGEN(JVereinPlugin.getI18n().tr(
       "spendenbescheinigung_ersatzaufwendungen")), //
+  ERSATZAUFWENDUNGEN_JA(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_ersatzaufwendungen_ja")), //
+  ERSATZAUFWENDUNGEN_NEIN(JVereinPlugin.getI18n().tr(
+      "spendenbescheinigung_ersatzaufwendungen_nein")), //
   BUCHUNGSLISTE(JVereinPlugin.getI18n()
       .tr("spendenbescheinigung_buchungsliste")), //
   BEZEICHNUNGSACHZUWENDUNG(JVereinPlugin.getI18n().tr(

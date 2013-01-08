@@ -37,10 +37,12 @@ import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.HerkunftSpende;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.util.ApplicationException;
 
@@ -75,8 +77,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.ZAHLUNGSGRUND,
           "Zahlungsgrund1 Zahlungsgrund2");
       map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
-      map.put(FormularfeldControl.BETRAG, new Double(1234));
-      map.put("Betrag in Worten", GermanNumber.toString(1234));
+      map.put(FormularfeldControl.BETRAG, new Double(1234.96 + 15.0));
+      map.put("Betrag in Worten", GermanNumber.toString(1234+15));
       map.put(FormularfeldControl.ID, "444");
       map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, "9999");
       map.put(FormularfeldControl.ANREDE, "Herrn");
@@ -115,10 +117,102 @@ public class FormularAnzeigeAction implements Action
           "17.12.2008");
       map.put("Tagesdatum", new JVDateFormatTTMMJJJJ().format(new Date()));
       map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(),
-          "13.02.2008 - 12.11.2008");
-      map.put(
-          SpendenbescheinigungVar.BUCHUNGSLISTE.getName(),
-          "Datum         Betrag     Verwendung\n----------  -----------  ----------------------------------\n13.02.2008        15,00  Beitrag (a)\n12.11.2008      1234,96  Spende (b)\n----------  -----------  ----------------------------------\nSumme:          1249,96\n\n\nLegende:\n(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen\n(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
+          "13.02.2008 bis 12.11.2008");
+
+      StringBuilder bl = new StringBuilder();
+      final String newLineStr = "\n";
+      final int colDatumLen = 10;
+      final int colArtLen = 27;
+      final int colVerzichtLen = 17;
+      final int colBetragLen = 11;
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
+          colDatumLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
+          colArtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(
+          JVereinPlugin.getI18n().tr("Verzicht auf"),
+          colVerzichtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(" ", colBetragLen));
+      bl.append(newLineStr);
+
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Datum der "),
+          colDatumLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Art der"),
+          colArtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(
+          JVereinPlugin.getI18n().tr("die Erstattung"),
+          colVerzichtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(" ", colBetragLen));
+      bl.append(newLineStr);
+
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
+          colDatumLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
+          colArtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n()
+          .tr("von Aufwendungen"), colVerzichtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(
+          StringTool.lpad(JVereinPlugin.getI18n().tr("Betrag"), 8),
+          colBetragLen));
+      bl.append(newLineStr);
+
+      bl.append(StringTool.rpad("-", colDatumLen, "-"));
+      bl.append("  ");
+      bl.append(StringTool.rpad("-", colArtLen, "-"));
+      bl.append("  ");
+      bl.append(StringTool.rpad("-", colVerzichtLen, "-"));
+      bl.append("  ");
+      bl.append(StringTool.rpad("-", colBetragLen, "-"));
+      bl.append(newLineStr);
+
+      // Buchung 1
+      bl.append(StringTool.rpad("13.02.2008", colDatumLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad("Beitrag", colArtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(
+          StringTool.lpad("nein", colVerzichtLen / 2 - 2), colVerzichtLen));
+      bl.append("  ");
+      String str = Einstellungen.DECIMALFORMAT.format(15.0);
+      bl.append(StringTool.lpad(str, colBetragLen));
+      bl.append(newLineStr);
+      // Buchung 2
+      bl.append(StringTool.rpad("12.11.2008", colDatumLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad("Spende", colArtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(
+          StringTool.lpad("ja", colVerzichtLen / 2 - 2), colVerzichtLen));
+      bl.append("  ");
+      str = Einstellungen.DECIMALFORMAT.format(1234.96);
+      bl.append(StringTool.lpad(str, colBetragLen));
+      bl.append(newLineStr);
+
+      bl.append(StringTool.rpad("-", colDatumLen, "-"));
+      bl.append("  ");
+      bl.append(StringTool.rpad("-", colArtLen, "-"));
+      bl.append("  ");
+      bl.append(StringTool.rpad("-", colVerzichtLen, "-"));
+      bl.append("  ");
+      bl.append(StringTool.rpad("-", colBetragLen, "-"));
+      bl.append(newLineStr);
+
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Gesamtsumme:"),
+          colDatumLen + 2 + colArtLen + 2 + colVerzichtLen));
+      bl.append("  ");
+      str = Einstellungen.DECIMALFORMAT.format(15.0 + 1234.96);
+      bl.append(StringTool.lpad(str, colBetragLen));
+      bl.append(newLineStr);
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), bl.toString());
       map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
           "gebrauchter Tisch");
       map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
