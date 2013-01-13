@@ -815,7 +815,7 @@ public class MitgliedControl extends AbstractControl
                   (String) getBlz().getValue(), Einstellungen.getEinstellung()
                       .getDefaultLand()));
         }
-        catch (RemoteException e)
+        catch (Exception e)
         {
           //
         }
@@ -846,7 +846,7 @@ public class MitgliedControl extends AbstractControl
                   (String) getBlz().getValue(), Einstellungen.getEinstellung()
                       .getDefaultLand()));
         }
-        catch (RemoteException e)
+        catch (Exception e)
         {
           //
         }

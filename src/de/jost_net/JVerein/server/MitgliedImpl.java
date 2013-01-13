@@ -211,6 +211,19 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
                     new String[] { getBlz(), getKonto() }));
       }
     }
+    if (getIban().length() != 0)
+    {
+      // int rc = BankingNumberValidation.isIBAN(getIban());
+      // switch (rc)
+      // {
+      // case BankingNumberValidation.BAD_IBAN_CHECKNUM:
+      // throw new ApplicationException(JVereinPlugin.getI18n().tr(
+      // "IBAN: ungültige Prüfziffer"));
+      // case BankingNumberValidation.NOT_AN_IBAN:
+      // throw new ApplicationException(JVereinPlugin.getI18n().tr(
+      // "ungültige IBAN"));
+      // }
+    }
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
         && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
     {

@@ -22,20 +22,37 @@
 package de.jost_net.JVerein.util;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.SEPA.Countries.AT;
+import de.jost_net.JVerein.SEPA.Countries.CH;
+import de.jost_net.JVerein.SEPA.Countries.DE;
+import de.jost_net.JVerein.SEPA.Countries.ISEPACountry;
 import de.willuhn.logging.Logger;
 
 /**
  * 
- * @author rn
+ * @author rn und Heiner Jostkleigrewe
  * 
  */
 public class IbanBicCalc
 {
-  public static final String[] ALPHABET = new String[] { "a", "b", "c", "d",
-      "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
-      "s", "t", "u", "v", "w", "x", "v", "z" };
+  private static final String[] ALPHABET = new String[] { "A", "B", "C", "D",
+      "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+      "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+  private static HashMap<String, ISEPACountry> countries = new HashMap<String, ISEPACountry>();
+
+  static
+  {
+    ISEPACountry de = new DE();
+    countries.put(de.getCountry(), de);
+    ISEPACountry at = new AT();
+    countries.put(at.getCountry(), at);
+    ISEPACountry ch = new CH();
+    countries.put(ch.getCountry(), ch);
+  }
 
   /**
    * 
@@ -93,6 +110,7 @@ public class IbanBicCalc
    * 
    */
   public static String createIban(String kontoNr, String blz, String landKuerzel)
+      throws IBANException
   {
     if (kontoNr == null || kontoNr.trim().length() == 0 || blz == null
         || blz.trim().length() == 0)
@@ -100,32 +118,61 @@ public class IbanBicCalc
       return "";
     }
 
-    if (landKuerzel == null || landKuerzel.length() != 2)
-    {
-      return "Fehler ! Länderkürzel fehlt";
-    }
-
+    ISEPACountry country = getSEPACountry(landKuerzel);
     String laenderKennung = getLandKennung(landKuerzel);
-    StringBuilder sb = new StringBuilder();
 
-    for (int i = 0; i < 10 - kontoNr.length(); i++)
+    if (blz.length() != country.getBankIdentifierLength())
     {
-      sb.append("0");
+      throw new IBANException("Bankleitzahl hat falsche Länge für "
+          + country.getBezeichnung());
     }
 
-    sb.append(kontoNr);
-    BigInteger bi = null;
+    if (kontoNr.length() > country.getAccountLength())
+    {
+      throw new IBANException("Kontonummer zu lang für "
+          + country.getBezeichnung());
+    }
+    StringBuilder accountString = new StringBuilder();
+    for (int i = 0; i < country.getAccountLength() - kontoNr.length(); i++)
+    {
+      accountString.append("0");
+    }
+    accountString.append(kontoNr);
 
+    return landKuerzel
+        + getPruefziffer(blz, accountString.toString(), laenderKennung) + blz
+        + accountString.toString();
+  }
+
+  private static ISEPACountry getSEPACountry(String landkuerzel)
+      throws IBANException
+  {
+    if (landkuerzel == null || landkuerzel.length() != 2)
+    {
+      throw new IBANException("Fehler ! Länderkürzel fehlt");
+    }
+    ISEPACountry country = countries.get(landkuerzel);
+    if (country == null)
+    {
+      throw new IBANException("Ungültiges Land: " + landkuerzel);
+    }
+    return country;
+  }
+
+  private static String getPruefziffer(String blz, String konto,
+      String laenderkennung) throws IBANException
+  {
+    BigInteger bi = null;
     try
     {
-      bi = new BigInteger(blz + sb.toString() + laenderKennung);
+      bi = new BigInteger(blz + konto + laenderkennung);
     }
     catch (NumberFormatException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr(
-          "Ungültige Bankverbindung: {0} {1} {2}", blz, sb.toString(),
-          laenderKennung));
-      return "Ungültige Bankverbindung";
+      String error = JVereinPlugin.getI18n().tr(
+          "Ungültige Bankverbindung: {0} {1} {2}", blz, konto, laenderkennung);
+      Logger.error(error);
+      throw new IBANException(error);
     }
     BigInteger modulo = bi.mod(BigInteger.valueOf(97));
     String pruefZiffer = String.valueOf(98 - modulo.longValue());
@@ -134,8 +181,7 @@ public class IbanBicCalc
     {
       pruefZiffer = "0" + pruefZiffer;
     }
-
-    return landKuerzel + pruefZiffer + blz + sb.toString();
+    return pruefZiffer;
   }
 
   private static final String getLandKennung(String landKuerzel)
@@ -157,5 +203,30 @@ public class IbanBicCalc
 
     return String.valueOf(landKnzAsNumber[0])
         + String.valueOf(landKnzAsNumber[1]) + "00";
+  }
+
+  public static boolean isValidIBAN(String iban) throws IBANException
+  {
+    if (iban == null)
+    {
+      throw new IBANException("IBAN ist leer");
+    }
+    if (iban.length() < 4)
+    {
+      throw new IBANException(
+          "Ungültige IBAN. Landeskennung und/oder Prüfziffer fehlen");
+    }
+    String landkuerzel = iban.substring(0, 2);
+    ISEPACountry country = getSEPACountry(landkuerzel);
+    // String pruefziffer = iban.substring(3, 4);
+    int laebankid = country.getBankIdentifierLength();
+    int laeaccount = country.getAccountLength();
+    int laeiban = 4 + laebankid + laeaccount;
+    if (iban.length() != laeiban)
+    {
+      throw new IBANException("Ungültige IBAN. Vorgeschrieben sind " + laeiban
+          + " für " + country.getBezeichnung());
+    }
+    return true;
   }
 }
