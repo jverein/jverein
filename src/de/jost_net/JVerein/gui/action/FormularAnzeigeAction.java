@@ -37,7 +37,6 @@ import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.HerkunftSpende;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -78,7 +77,7 @@ public class FormularAnzeigeAction implements Action
           "Zahlungsgrund1 Zahlungsgrund2");
       map.put(FormularfeldControl.ZAHLUNGSGRUND1, "Zahlungsgrund 1");
       map.put(FormularfeldControl.BETRAG, new Double(1234.96 + 15.0));
-      map.put("Betrag in Worten", GermanNumber.toString(1234+15));
+      map.put("Betrag in Worten", GermanNumber.toString(1234 + 15));
       map.put(FormularfeldControl.ID, "444");
       map.put(FormularfeldControl.EXTERNEMITGLIEDSNUMMER, "9999");
       map.put(FormularfeldControl.ANREDE, "Herrn");
@@ -125,14 +124,11 @@ public class FormularAnzeigeAction implements Action
       final int colArtLen = 27;
       final int colVerzichtLen = 17;
       final int colBetragLen = 11;
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
-          colDatumLen));
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "), colDatumLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
-          colArtLen));
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "), colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(
-          JVereinPlugin.getI18n().tr("Verzicht auf"),
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Verzicht auf"),
           colVerzichtLen));
       bl.append("  ");
       bl.append(StringTool.rpad(" ", colBetragLen));
@@ -144,8 +140,7 @@ public class FormularAnzeigeAction implements Action
       bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Art der"),
           colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(
-          JVereinPlugin.getI18n().tr("die Erstattung"),
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("die Erstattung"),
           colVerzichtLen));
       bl.append("  ");
       bl.append(StringTool.rpad(" ", colBetragLen));
@@ -157,8 +152,8 @@ public class FormularAnzeigeAction implements Action
       bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
           colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n()
-          .tr("von Aufwendungen"), colVerzichtLen));
+      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("von Aufwendungen"),
+          colVerzichtLen));
       bl.append("  ");
       bl.append(StringTool.rpad(
           StringTool.lpad(JVereinPlugin.getI18n().tr("Betrag"), 8),
@@ -190,8 +185,8 @@ public class FormularAnzeigeAction implements Action
       bl.append("  ");
       bl.append(StringTool.rpad("Spende", colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(
-          StringTool.lpad("ja", colVerzichtLen / 2 - 2), colVerzichtLen));
+      bl.append(StringTool.rpad(StringTool.lpad("ja", colVerzichtLen / 2 - 2),
+          colVerzichtLen));
       bl.append("  ");
       str = Einstellungen.DECIMALFORMAT.format(1234.96);
       bl.append(StringTool.lpad(str, colBetragLen));
