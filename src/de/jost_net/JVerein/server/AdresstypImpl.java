@@ -52,9 +52,21 @@ public class AdresstypImpl extends AbstractDBObject implements Adresstyp
   }
 
   @Override
-  protected void deleteCheck()
+  protected void deleteCheck() throws ApplicationException
   {
-    //
+    try
+    {
+      if (getJVereinid() > 0)
+      {
+        throw new ApplicationException(
+            "Dieser Datensatz darf nicht gelöscht werden!");
+      }
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+      throw new ApplicationException(e);
+    }
   }
 
   @Override
