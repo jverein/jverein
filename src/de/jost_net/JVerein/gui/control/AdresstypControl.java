@@ -26,6 +26,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresstypAction;
+import de.jost_net.JVerein.gui.menu.AdresstypMenu;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -115,7 +116,7 @@ public class AdresstypControl extends AbstractControl
     adresstypList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
         "bezeichnung");
     adresstypList.addColumn(JVereinPlugin.getI18n().tr("ID"), "id");
-    // buchungsartList.setContextMenu(new BuchungsartMenu());
+    adresstypList.setContextMenu(new AdresstypMenu());
     adresstypList.setRememberColWidths(true);
     adresstypList.setRememberOrder(true);
     adresstypList.setSummary(true);

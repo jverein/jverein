@@ -21,10 +21,14 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresstypAction;
+import de.jost_net.JVerein.gui.action.AdresstypDefaultAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AdresstypControl;
+import de.jost_net.JVerein.rmi.Adresstyp;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
@@ -47,15 +51,26 @@ public class AdresstypListView extends AbstractView
         "help-browser.png");
     buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new AdresstypAction(),
         null, false, "document-new.png");
+
+    DBIterator it = Einstellungen.getDBService().createList(Adresstyp.class);
+    it.addFilter("jvereinid >= 1 and jvereinid <= 2");
+    if (it.size() == 0)
+    {
+      buttons.addButton(
+          JVereinPlugin.getI18n().tr("Default-Adresstypen einrichten"),
+          new AdresstypDefaultAction());
+    }
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
-        + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
-        + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
-        + "</form>");
+    return JVereinPlugin
+        .getI18n()
+        .tr("<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
+            + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
+            + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
+            + "</form>");
   }
 }
