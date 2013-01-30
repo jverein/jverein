@@ -115,7 +115,7 @@ public class SEPAKonvertierungView extends AbstractView
         Einstellung einstellung = (Einstellung) it.next();
         if (einstellung != null)
         {
-          einstellung.setBic(blz.get(einstellung.getBlz()).getBic());
+          einstellung.setBic(blz.getBLZ(einstellung.getBlz()).getBic());
           einstellung.setIban(IbanBicCalc.createIban(einstellung.getKonto(),
               einstellung.getBlz(), Einstellungen.getEinstellung()
                   .getDefaultLand()));
@@ -133,7 +133,7 @@ public class SEPAKonvertierungView extends AbstractView
             Mitglied.class, m.getID());
         if (m2.getBlz() != null && m2.getBlz().length() > 0)
         {
-          m2.setBic(blz.get(m2.getBlz()).getBic());
+          m2.setBic(blz.getBLZ(m2.getBlz()).getBic());
           m2.setIban(IbanBicCalc.createIban(m2.getKonto(), m2.getBlz(),
               Einstellungen.getEinstellung().getDefaultLand()));
           m2.store();

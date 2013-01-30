@@ -36,7 +36,9 @@ public class BLZDatei
 {
   private BufferedInputStream bin;
 
-  private HashMap<String, BLZSatz> datenbank;
+  private HashMap<String, BLZSatz> blzdatenbank;
+
+  private HashMap<String, BLZSatz> bicdatenbank;
 
   private Iterator<String> it;
 
@@ -53,23 +55,24 @@ public class BLZDatei
     {
       ZipEntry entry = e.nextElement();
       bin = new BufferedInputStream(zip.getInputStream(entry));
-      datenbank = new HashMap<String, BLZSatz>();
+      blzdatenbank = new HashMap<String, BLZSatz>();
       BLZSatz blzs = new BLZSatz(bin);
       while (blzs.hasNext())
       {
         if (blzs.getZahlungsdienstleister().equals("1"))
         {
-          datenbank.put(blzs.getBlz(), blzs);
+          blzdatenbank.put(blzs.getBlz(), blzs);
+          bicdatenbank.put(blzs.getBic(), blzs);
         }
         blzs = new BLZSatz(bin);
       }
-      it = datenbank.keySet().iterator();
+      it = blzdatenbank.keySet().iterator();
     }
   }
 
   public BLZSatz getNext() throws IOException
   {
-    return datenbank.get(it.next());
+    return blzdatenbank.get(it.next());
   }
 
   public boolean hasNext()
@@ -77,8 +80,13 @@ public class BLZDatei
     return it.hasNext();
   }
 
-  public BLZSatz get(String key)
+  public BLZSatz getBLZ(String key)
   {
-    return datenbank.get(key);
+    return blzdatenbank.get(key);
+  }
+
+  public BLZSatz getBIC(String key)
+  {
+    return bicdatenbank.get(key);
   }
 }
