@@ -211,7 +211,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
                     new String[] { getBlz(), getKonto() }));
       }
     }
-    if (getIban().length() != 0)
+    if (getIban() != null && getIban().length() != 0)
     {
       // int rc = BankingNumberValidation.isIBAN(getIban());
       // switch (rc)
