@@ -224,6 +224,8 @@ public class BLZSatz
   @Override
   public String toString()
   {
-    return blz + ", " + bezeichnung + ", " + bic + ", " + zahlungsdienstleister;
+    return blz + ", "+bic + ", " + bezeichnung + ", Änderungskennzeichen="
+        + aenderungskennzeichen + ", Hinweis Löschung=" + hinweisloeschung
+        + ", Zahlungsdienstleister=" + zahlungsdienstleister;
   }
 }
