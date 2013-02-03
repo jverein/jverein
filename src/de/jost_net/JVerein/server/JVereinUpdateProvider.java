@@ -21,7 +21,9 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
+import java.io.File;
 import java.io.StringReader;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +37,8 @@ import java.util.Map;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
+import de.jost_net.JVerein.io.BLZDatei;
+import de.jost_net.JVerein.io.BLZSatz;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.ScriptExecutor;
@@ -1004,6 +1008,18 @@ public class JVereinUpdateProvider
     if (cv < 251)
     {
       update0251(conn);
+    }
+    if (cv < 252)
+    {
+      update0252(conn);
+    }
+    if (cv < 253)
+    {
+      update0253(conn);
+    }
+    if (cv < 254)
+    {
+      update0254(conn);
     }
   }
 
@@ -6051,4 +6067,77 @@ public class JVereinUpdateProvider
         "Spalte iban in die Tabelle mitglied aufgenommen", 251);
   }
 
+  private void update0252(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE bank(");
+    sb.append(" id IDENTITY(1),");
+    sb.append(" bezeichnung varchar(27) not null,");
+    sb.append(" blz varchar(8) not null,");
+    sb.append(" bic varchar(11) not null, ");
+    sb.append(" UNIQUE (id),");
+    sb.append(" UNIQUE (blz),");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE bank(");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" bezeichnung varchar(27) not null,");
+    sb.append(" blz varchar(8) not null,");
+    sb.append(" bic varchar(11) not null, ");
+    sb.append(" UNIQUE (id),");
+    sb.append(" UNIQUE (blz),");
+    sb.append(" PRIMARY KEY (id)");
+    sb.append(")  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle bank erstellt", 252);
+  }
+
+  private void update0253(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE INDEX IXBANK1 ON bank (bic)");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, "Index in Tabelle bank erstellt", 253);
+  }
+
+  private void update0254(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+
+    URL u = BLZDatei.class.getClassLoader().getResource("blz.zip");
+    try
+    {
+      File f = new File(u.toURI());
+      BLZDatei blz = new BLZDatei(f);
+      while (blz.hasNext())
+      {
+        BLZSatz satz = blz.getNext();
+        sb.append("INSERT INTO bank (bezeichnung, blz, bic) values ('");
+        sb.append(satz.getKurzbezeichnung());
+        sb.append("', '");
+        sb.append(satz.getBlz());
+        sb.append("', '");
+        sb.append(satz.getBic());
+        sb.append("');");
+        statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+        statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+      }
+      execute(conn, statements, "Tabelle bank gefüllt", 254);
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
 }
