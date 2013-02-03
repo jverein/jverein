@@ -38,8 +38,6 @@ public class BLZDatei
 
   private HashMap<String, BLZSatz> blzdatenbank;
 
-  private HashMap<String, BLZSatz> bicdatenbank;
-
   private Iterator<String> it;
 
   public BLZDatei(File file) throws IOException
@@ -62,7 +60,6 @@ public class BLZDatei
         if (blzs.getZahlungsdienstleister().equals("1"))
         {
           blzdatenbank.put(blzs.getBlz(), blzs);
-          bicdatenbank.put(blzs.getBic(), blzs);
         }
         blzs = new BLZSatz(bin);
       }
@@ -83,10 +80,5 @@ public class BLZDatei
   public BLZSatz getBLZ(String key)
   {
     return blzdatenbank.get(key);
-  }
-
-  public BLZSatz getBIC(String key)
-  {
-    return bicdatenbank.get(key);
   }
 }
