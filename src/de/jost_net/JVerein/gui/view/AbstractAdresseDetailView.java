@@ -27,6 +27,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 
@@ -249,10 +250,14 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
           .getI18n().tr("Arbeitseinsatz"));
 
-      control.getArbeitseinsatzTable().paint(cont.getComposite());
       ButtonArea buttonsarbeins = new ButtonArea();
       buttonsarbeins.addButton(control.getArbeitseinsatzNeu());
       buttonsarbeins.paint(cont.getComposite());
+
+      cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
+      cont.getComposite().setLayout(new GridLayout(1, false));
+
+      control.getArbeitseinsatzTable().paint(cont.getComposite());
     }
   }
 
@@ -314,10 +319,13 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
           .getI18n().tr("Lehrgänge"));
 
-      control.getLehrgaengeTable().paint(cont.getComposite());
+      cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
+      cont.getComposite().setLayout(new GridLayout(1, false));
+
       ButtonArea buttonslehrg = new ButtonArea();
       buttonslehrg.addButton(control.getLehrgangNeu());
       buttonslehrg.paint(cont.getComposite());
+      control.getLehrgaengeTable().paint(cont.getComposite());
     }
   }
 
@@ -359,10 +367,13 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
           .getI18n().tr("Wiedervorlage"));
 
-      control.getWiedervorlageTable().paint(cont.getComposite());
+      cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
+      cont.getComposite().setLayout(new GridLayout(1, false));
+
       ButtonArea buttonswvl = new ButtonArea();
       buttonswvl.addButton(control.getWiedervorlageNeu());
       buttonswvl.paint(cont.getComposite());
+      control.getWiedervorlageTable().paint(cont.getComposite());
     }
   }
 
@@ -430,10 +441,13 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
           .getI18n().tr("Zusatzbeträge"));
 
-      control.getZusatzbetraegeTable().paint(cont.getComposite());
+      cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
+      cont.getComposite().setLayout(new GridLayout(1, false));
+
       ButtonArea buttonszus = new ButtonArea();
       buttonszus.addButton(control.getZusatzbetragNeu());
       buttonszus.paint(cont.getComposite());
+      control.getZusatzbetraegeTable().paint(cont.getComposite());
     }
   }
 
