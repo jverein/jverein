@@ -67,7 +67,6 @@ public class JVereinAdressbuch implements Addressbook
   @Override
   public Address contains(Address address) throws RemoteException
   {
-    System.out.println(address.getName());
     return null;
   }
 
