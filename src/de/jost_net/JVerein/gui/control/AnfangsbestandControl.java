@@ -84,7 +84,7 @@ public class AnfangsbestandControl extends AbstractControl
     {
       return konto;
     }
-    konto = new TextInput(getAnfangsbestand().getKonto().getNummer(), 10);
+    konto = new TextInput(getAnfangsbestand().getKonto().getNummer(), 12);
     konto.setEnabled(false);
     return konto;
   }
