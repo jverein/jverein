@@ -72,12 +72,13 @@ public class EinstellungenView extends AbstractView
         control.getBic());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("IBAN"),
         control.getIban());
+    tabAllgemein.addPart(control.getButton());
     tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Gläubiger-ID"),
         control.getGlaeubigerID());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
-        control.getBlz());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
-        control.getKonto());
+    // tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
+    // control.getBlz());
+    // tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+    // control.getKonto());
 
     TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
         "Anzeige"));
@@ -234,6 +235,9 @@ public class EinstellungenView extends AbstractView
         JVereinPlugin.getI18n().tr("Statistik"));
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersgruppen"),
         control.getAltersgruppen());
+    grStatistik.addLabelPair(
+        JVereinPlugin.getI18n().tr("Mindestalter f. Mitgliedschaftsjubliäum"),
+        control.getJubilarStartAlter());
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Jubiläen"),
         control.getJubilaeen());
     grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"),
