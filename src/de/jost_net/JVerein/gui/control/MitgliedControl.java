@@ -56,7 +56,9 @@ import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
 import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
+import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
+import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.MailAuswertungInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
 import de.jost_net.JVerein.gui.menu.FamilienbeitragMenu;
@@ -92,7 +94,6 @@ import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
-import de.jost_net.JVerein.util.IbanBicCalc;
 import de.jost_net.JVerein.util.JVDateFormatTIMESTAMP;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
@@ -174,13 +175,13 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput zahlungsrhytmus;
 
-  private Input bic;
+  private TextInput bic;
 
-  private Input iban;
+  private TextInput iban;
 
-  private Input blz;
+  private TextInput blz;
 
-  private Input konto;
+  private TextInput konto;
 
   private Input kontoinhaber;
 
@@ -790,7 +791,7 @@ public class MitgliedControl extends AbstractControl
     return zahlungsrhytmus;
   }
 
-  public Input getBlz() throws RemoteException
+  public TextInput getBlz() throws RemoteException
   {
     if (blz != null)
     {
@@ -803,79 +804,41 @@ public class MitgliedControl extends AbstractControl
     BLZListener l = new BLZListener();
     blz.addListener(l);
     l.handleEvent(null); // Einmal initial ausfuehren
-    blz.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event arg0)
-      {
-        try
-        {
-          getIban().setValue(
-              IbanBicCalc.createIban((String) getKonto().getValue(),
-                  (String) getBlz().getValue(), Einstellungen.getEinstellung()
-                      .getDefaultLand()));
-        }
-        catch (Exception e)
-        {
-          //
-        }
-      }
-    });
     return blz;
   }
 
-  public Input getKonto() throws RemoteException
+  public TextInput getKonto() throws RemoteException
   {
     if (konto != null)
     {
       return konto;
     }
-    konto = new TextInput(getMitglied().getKonto(), 10);
+    konto = new TextInput(getMitglied().getKonto(), 12);
     konto.setName(JVereinPlugin.getI18n().tr("Konto"));
     konto.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
-    konto.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event arg0)
-      {
-        try
-        {
-          getIban().setValue(
-              IbanBicCalc.createIban((String) getKonto().getValue(),
-                  (String) getBlz().getValue(), Einstellungen.getEinstellung()
-                      .getDefaultLand()));
-        }
-        catch (Exception e)
-        {
-          //
-        }
-      }
-    });
     return konto;
   }
 
-  public Input getBic() throws RemoteException
+  public TextInput getBic() throws RemoteException
   {
     if (bic != null)
     {
       return bic;
     }
-    bic = new TextInput(getMitglied().getBic(), 11);
-    bic.setName(JVereinPlugin.getI18n().tr("BIC"));
+    bic = new BICInput(getMitglied().getBic());
     bic.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     return bic;
   }
 
-  public Input getIban() throws RemoteException
+  public TextInput getIban() throws RemoteException
   {
     if (iban != null)
     {
       return iban;
     }
-    iban = new TextInput(getMitglied().getIban(), 22);
-    iban.setName(JVereinPlugin.getI18n().tr("IBAN"));
+    iban = new IBANInput(getMitglied().getIban());
     iban.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     return iban;
