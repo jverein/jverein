@@ -39,11 +39,13 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KontoauszugAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.action.MitgliedDuplizierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.control.DokumentControl;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
+import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.jost_net.JVerein.gui.util.SimpleVerticalContainer;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
@@ -195,6 +197,11 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       buttons.addButton(new Button(JVereinPlugin.getI18n().tr("Personalbogen"),
           new PersonalbogenAction(), control.getCurrentObject(), false,
           "rechnung.png"));
+      // R.M. 27.01.2013 Mitglieder sollten aus dem Dialog raus kopiert werden
+      // können
+      buttons.addButton(new Button(JVereinPlugin.getI18n().tr("duplizieren"),
+          new MitgliedDuplizierenAction(), control.getCurrentObject(), false,
+          "copy_v2.png"));
     }
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIED, false,
@@ -470,8 +477,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     cols.addInput(control.getKontoinhaber());
     cols.addInput(control.getBic());
     cols.addInput(control.getIban());
-    cols.addInput(control.getBlz());
-    cols.addInput(control.getKonto());
+    cols.addPart(new BankverbindungDialogButton(control.getMitglied(), control
+        .getBlz(), control.getKonto(), control.getBic(), control.getIban()));
+    // cols.addInput(control.getBlz());
+    // cols.addInput(control.getKonto());
 
     cols.arrangeVertically();
   }
