@@ -106,5 +106,4 @@ public class BankImpl extends AbstractDBObject implements Bank
   {
     setAttribute("bic", bic);
   }
-
 }
