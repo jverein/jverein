@@ -52,7 +52,9 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
 
   protected File file;
 
-  protected Integer jahr;
+  protected int jahr;
+
+  protected int jubilarStartAlter;
 
   @Override
   public void doExport(final Object[] objects, IOFormat format, File file,
@@ -60,49 +62,86 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
       IOException
   {
     this.file = file;
-    MitgliedControl control = (MitgliedControl) objects[0];
-    jahr = control.getJJahr();
-    Logger.debug(JVereinPlugin.getI18n().tr(
-        "Mitgliedschaftsjubiläum, Jahr={0}", jahr + ""));
+    setzeParameterDerListe(objects);
+    DBIterator mitgliederListe = ladeMitgliederAktivImGewaehltenJahr();
+
+    JubilaeenParser jp = holeJubelJahreAusEinstellungen();
+
     open();
-    JubilaeenParser jp = new JubilaeenParser(Einstellungen.getEinstellung()
-        .getJubilaeen());
     while (jp.hasNext())
     {
       int jubi = jp.getNext();
+
       startJahrgang(jubi);
-
-      DBIterator mitgl = Einstellungen.getDBService()
-          .createList(Mitglied.class);
-      Calendar cal = Calendar.getInstance();
-      cal.set(Calendar.MONTH, Calendar.DECEMBER);
-      cal.set(Calendar.DAY_OF_MONTH, 31);
-
-      MitgliedUtils.setNurAktive(mitgl, cal.getTime());
-      MitgliedUtils.setMitglied(mitgl);
-
-      cal.set(Calendar.YEAR, jahr);
-      cal.add(Calendar.YEAR, jubi * -1);
-      cal.set(Calendar.MONTH, Calendar.JANUARY);
-      cal.set(Calendar.DAY_OF_MONTH, 1);
-      Date von = cal.getTime();
-      mitgl.addFilter("eintritt >= ?",
-          new Object[] { new java.sql.Date(von.getTime()) });
-
-      cal.set(Calendar.MONTH, Calendar.DECEMBER);
-      cal.set(Calendar.DAY_OF_MONTH, 31);
-      Date bis = cal.getTime();
-      mitgl.addFilter("eintritt <= ?",
-          new Object[] { new java.sql.Date(bis.getTime()) });
-      mitgl.setOrder("order by eintritt");
-
-      while (mitgl.hasNext())
-      {
-        add((Mitglied) mitgl.next());
-      }
+      sucheMitgliederFuerJahrgang(jubi, mitgliederListe);
       endeJahrgang();
+
     }
     close();
+  }
+
+  private void sucheMitgliederFuerJahrgang(int jubi, DBIterator mitgliederListe)
+      throws RemoteException
+  {
+    mitgliederListe.begin();
+    while (mitgliederListe.hasNext())
+    {
+      Mitglied mitglied = (Mitglied) mitgliederListe.next();
+      if (hatMitgliedJubileum(jubi, mitglied))
+      {
+        add(mitglied);
+      }
+    }
+  }
+
+  private boolean hatMitgliedJubileum(final int jubi, Mitglied mitglied)
+      throws RemoteException
+  {
+    JubelHelfer jubelHelfer = new JubelHelfer(mitglied);
+    return jubelHelfer.hatMitgliedJubileum(jubi);
+  }
+
+  private DBIterator ladeMitgliederAktivImGewaehltenJahr()
+      throws RemoteException
+  {
+    Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.YEAR, jahr);
+    cal.set(Calendar.MONTH, Calendar.DECEMBER);
+    cal.set(Calendar.DAY_OF_MONTH, 31);
+
+    DBIterator mitgliederListe = Einstellungen.getDBService().createList(
+        Mitglied.class);
+    MitgliedUtils.setNurAktive(mitgliederListe, cal.getTime());
+    MitgliedUtils.setMitglied(mitgliederListe);
+    mitgliederListe.setOrder("order by eintritt");
+    return mitgliederListe;
+  }
+
+  private JubilaeenParser holeJubelJahreAusEinstellungen()
+      throws RemoteException
+  {
+    String jubilarListe = Einstellungen.getEinstellung().getJubilaeen();
+    JubilaeenParser jp = new JubilaeenParser(jubilarListe);
+    return jp;
+  }
+
+  /**
+   * Ermittle die Kenndaten die für die Ermittlung der Liste wichtig sind. 1.
+   * jahr - für welches Jahr soll die Liste erstellt werden 2. jubilarStartAlter
+   * - ab welchem Alter beginnt die Zählung der Jubeljahre
+   * 
+   * @param objects
+   * @throws RemoteException
+   */
+  private void setzeParameterDerListe(final Object[] objects)
+      throws RemoteException
+  {
+    MitgliedControl control = (MitgliedControl) objects[0];
+    jahr = control.getJJahr();
+    jubilarStartAlter = Einstellungen.getEinstellung().getJubilarStartAlter();
+    Logger.debug(JVereinPlugin.getI18n().tr(
+        "Mitgliedschaftsjubiläum, Jahr=" + Integer.toString(jahr)
+            + " StartAlter= " + Integer.toString(jubilarStartAlter)));
   }
 
   @Override
@@ -121,4 +160,79 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
   protected abstract void add(Mitglied m) throws RemoteException;
 
   protected abstract void close() throws IOException, DocumentException;
+
+  /**
+   * Innerclass hilft beim Ermitteln ob das Mitglied das geforderte Jubilaeum im
+   * Jahr imJahr hat. In den Einstellungen kann ein Mindestalter festgelegt
+   * werden ab dem die Mitgliedschaft zu Jubilaeum zählt. Dieses wird hier
+   * berücksichtigt.
+   * 
+   * @author Rolf
+   */
+  private class JubelHelfer
+  {
+    private Mitglied mitglied;
+
+    private int eintrittsJahr;
+
+    private int geburtsJahr;
+
+    private int alterBeiEintritt;
+
+    private int jahreImVerein;
+
+    private JubelHelfer(Mitglied mitglied)
+    {
+      this.mitglied = mitglied;
+    }
+
+    public boolean hatMitgliedJubileum(final int jubilaeum)
+        throws RemoteException
+    {
+      ermittlenEintrittsJahr();
+      ermittlenGeburtsJahr();
+      ermittlenAlterBeiEintritt();
+      passeEintrittsJahrAnWennZuJung();
+      ermittlenZaehlbareJahreImVerein();
+      return (jahreImVerein == jubilaeum);
+    }
+
+    private void passeEintrittsJahrAnWennZuJung()
+    {
+      if (jubilarStartAlter < 1)
+        return;
+      if (alterBeiEintritt >= jubilarStartAlter)
+        return;
+      int jahreDieNichtZaehlen = jubilarStartAlter - alterBeiEintritt;
+      eintrittsJahr += jahreDieNichtZaehlen;
+    }
+
+    private void ermittlenZaehlbareJahreImVerein()
+    {
+      jahreImVerein = jahr - eintrittsJahr;
+    }
+
+    private void ermittlenEintrittsJahr() throws RemoteException
+    {
+      eintrittsJahr = gibJahrVonDatum(mitglied.getEintritt());
+    }
+
+    private void ermittlenGeburtsJahr() throws RemoteException
+    {
+      geburtsJahr = gibJahrVonDatum(mitglied.getGeburtsdatum());
+    }
+
+    private void ermittlenAlterBeiEintritt()
+    {
+      alterBeiEintritt = eintrittsJahr - geburtsJahr;
+    }
+
+    private int gibJahrVonDatum(Date datum)
+    {
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(datum);
+      return calendar.get(Calendar.YEAR);
+    }
+
+  }
 }

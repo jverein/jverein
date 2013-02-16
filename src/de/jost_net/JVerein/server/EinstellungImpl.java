@@ -30,6 +30,8 @@ import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
+import de.jost_net.JVerein.util.IBANException;
+import de.jost_net.JVerein.util.SEPA;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.system.Settings;
@@ -120,6 +122,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
             "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben."));
+      }
+
+      try
+      {
+        if (!SEPA.isValid(getBic(), getIban()))
+        {
+          throw new ApplicationException("Ungültige Kombination BIC und IBAN");
+        }
+      }
+      catch (IBANException e1)
+      {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
       }
       try
       {
@@ -1000,6 +1015,25 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setJubilaeen(String jubilaeen) throws RemoteException
   {
     setAttribute("jubilaeen", jubilaeen);
+  }
+
+  @Override
+  public int getJubilarStartAlter() throws RemoteException
+  {
+    try
+    {
+      return (Integer) getAttribute("jubilarstartalter");
+    }
+    catch (NullPointerException e)
+    {
+      return 0;
+    }
+  }
+
+  @Override
+  public void setJubilarStartAlter(int alter) throws RemoteException
+  {
+    setAttribute("jubilarstartalter", alter);
   }
 
   @Override
