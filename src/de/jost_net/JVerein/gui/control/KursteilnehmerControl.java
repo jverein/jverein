@@ -38,7 +38,9 @@ import com.itextpdf.text.Element;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
+import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
+import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.menu.KursteilnehmerMenu;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
@@ -78,9 +80,13 @@ public class KursteilnehmerControl extends AbstractControl
 
   private Input vzweck2;
 
-  private Input blz;
+  private BICInput bic;
 
-  private Input konto;
+  private IBANInput iban;
+
+  private TextInput blz;
+
+  private TextInput konto;
 
   private DateInput geburtsdatum = null;
 
@@ -111,7 +117,7 @@ public class KursteilnehmerControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  private Kursteilnehmer getKursteilnehmer()
+  public Kursteilnehmer getKursteilnehmer()
   {
     if (ktn != null)
     {
@@ -157,7 +163,29 @@ public class KursteilnehmerControl extends AbstractControl
     return vzweck2;
   }
 
-  public Input getBlz() throws RemoteException
+  public BICInput getBIC() throws RemoteException
+  {
+    if (bic != null)
+    {
+      return bic;
+    }
+    bic = new BICInput(getKursteilnehmer().getBic());
+    bic.setMandatory(true);
+    return bic;
+  }
+
+  public IBANInput getIBAN() throws RemoteException
+  {
+    if (iban != null)
+    {
+      return iban;
+    }
+    iban = new IBANInput(getKursteilnehmer().getIban());
+    iban.setMandatory(true);
+    return iban;
+  }
+
+  public TextInput getBlz() throws RemoteException
   {
     if (blz != null)
     {
@@ -171,13 +199,13 @@ public class KursteilnehmerControl extends AbstractControl
     return blz;
   }
 
-  public Input getKonto() throws RemoteException
+  public TextInput getKonto() throws RemoteException
   {
     if (konto != null)
     {
       return konto;
     }
-    konto = new TextInput(getKursteilnehmer().getKonto(), 10);
+    konto = new TextInput(getKursteilnehmer().getKonto(), 12);
     konto.setMandatory(true);
     return konto;
   }

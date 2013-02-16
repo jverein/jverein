@@ -25,10 +25,11 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Map;
 
+import de.jost_net.JVerein.io.IBankverbindung;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
-public interface Mitglied extends DBObject
+public interface Mitglied extends DBObject, IBankverbindung
 {
   public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException;
 
@@ -90,20 +91,28 @@ public interface Mitglied extends DBObject
   public void setZahlungsrhytmus(Integer zahlungsrhytmus)
       throws RemoteException;
 
+  @Override
   public String getBic() throws RemoteException;
 
+  @Override
   public void setBic(String bic) throws RemoteException;
 
+  @Override
   public String getIban() throws RemoteException;
 
+  @Override
   public void setIban(String iban) throws RemoteException;
 
+  @Override
   public String getBlz() throws RemoteException;
 
+  @Override
   public void setBlz(String blz) throws RemoteException;
 
+  @Override
   public String getKonto() throws RemoteException;
 
+  @Override
   public void setKonto(String konto) throws RemoteException;
 
   public String getKontoinhaber() throws RemoteException;

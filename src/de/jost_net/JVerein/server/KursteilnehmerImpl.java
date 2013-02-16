@@ -151,6 +151,30 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
+  public String getBic() throws RemoteException
+  {
+    return (String) getAttribute("bic");
+  }
+
+  @Override
+  public void setBic(String bic) throws RemoteException
+  {
+    setAttribute("bic", bic);
+  }
+
+  @Override
+  public String getIban() throws RemoteException
+  {
+    return (String) getAttribute("iban");
+  }
+
+  @Override
+  public void setIban(String iban) throws RemoteException
+  {
+    setAttribute("iban", iban);
+  }
+
+  @Override
   public String getBlz() throws RemoteException
   {
     return (String) getAttribute("blz");

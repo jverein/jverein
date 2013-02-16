@@ -24,9 +24,10 @@ package de.jost_net.JVerein.rmi;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.io.IBankverbindung;
 import de.willuhn.datasource.rmi.DBObject;
 
-public interface Einstellung extends DBObject
+public interface Einstellung extends DBObject, IBankverbindung
 {
   public void setID() throws RemoteException;
 
@@ -80,24 +81,32 @@ public interface Einstellung extends DBObject
   public void setMitgliedsbeitraege(Boolean mitgliedsbeitraege)
       throws RemoteException;
 
+  @Override
   public void setBic(String bic) throws RemoteException;
 
+  @Override
   public String getBic() throws RemoteException;
 
+  @Override
   public void setIban(String iban) throws RemoteException;
 
+  @Override
   public String getIban() throws RemoteException;
 
   public void setGlaeubigerID(String glaeubigerid) throws RemoteException;
 
   public String getGlaeubigerID() throws RemoteException;
 
+  @Override
   public String getBlz() throws RemoteException;
 
+  @Override
   public void setBlz(String blz) throws RemoteException;
 
+  @Override
   public String getKonto() throws RemoteException;
 
+  @Override
   public void setKonto(String konto) throws RemoteException;
 
   public Boolean getGeburtsdatumPflicht() throws RemoteException;
@@ -291,6 +300,10 @@ public interface Einstellung extends DBObject
   public String getAltersjubilaeen() throws RemoteException;
 
   public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException;
+
+  public int getJubilarStartAlter() throws RemoteException;
+
+  public void setJubilarStartAlter(int alter) throws RemoteException;
 
   public int getDelaytime() throws RemoteException;
 

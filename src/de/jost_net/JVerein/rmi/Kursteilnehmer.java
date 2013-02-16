@@ -24,10 +24,11 @@ package de.jost_net.JVerein.rmi;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.io.IBankverbindung;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
-public interface Kursteilnehmer extends DBObject
+public interface Kursteilnehmer extends DBObject, IBankverbindung
 {
   public void setID(String id) throws RemoteException;
 
@@ -43,12 +44,28 @@ public interface Kursteilnehmer extends DBObject
 
   public void setVZweck2(String vzweck2) throws RemoteException;
 
+  @Override
+  public String getBic() throws RemoteException;
+
+  @Override
+  public void setBic(String bic) throws RemoteException;
+
+  @Override
+  public String getIban() throws RemoteException;
+
+  @Override
+  public void setIban(String iban) throws RemoteException;
+
+  @Override
   public String getBlz() throws RemoteException;
 
+  @Override
   public void setBlz(String blz) throws RemoteException;
 
+  @Override
   public String getKonto() throws RemoteException;
 
+  @Override
   public void setKonto(String konto) throws RemoteException;
 
   public double getBetrag() throws RemoteException;

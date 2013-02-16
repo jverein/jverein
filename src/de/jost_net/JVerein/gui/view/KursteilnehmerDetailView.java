@@ -26,6 +26,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
+import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -51,9 +52,13 @@ public class KursteilnehmerDetailView extends AbstractView
         control.getVZweck1());
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 2"),
         control.getVZweck2());
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("BLZ"), control.getBlz());
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
-        control.getKonto());
+    grGrund.addInput(control.getBIC());
+    grGrund.addInput(control.getIBAN());
+    grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),control.getBlz(),control.getKonto(),control.getBIC(),control.getIBAN()));
+    // grGrund.addLabelPair(JVereinPlugin.getI18n().tr("BLZ"),
+    // control.getBlz());
+    // grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+    // control.getKonto());
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
         control.getBetrag());
 
@@ -84,7 +89,6 @@ public class KursteilnehmerDetailView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
   // TODO getHelp()
 
 }

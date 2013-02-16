@@ -31,12 +31,18 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.gui.control.listener.IBANListener;
+import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
+import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.DtausTextschluesselInput;
+import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
+import de.jost_net.JVerein.rmi.SEPAParam;
+import de.jost_net.JVerein.util.IBANException;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -50,6 +56,7 @@ import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
@@ -82,15 +89,17 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput mitgliedsbetraege;
 
+  // private DialogInput bankverbindung;
+
   private TextInput bic;
 
   private TextInput iban;
 
   private TextInput glaeubigerid;
 
-  private Input blz;
+  private TextInput blz;
 
-  private Input konto;
+  private TextInput konto;
 
   private CheckboxInput geburtsdatumpflicht;
 
@@ -180,6 +189,8 @@ public class EinstellungControl extends AbstractControl
 
   private Input altersjubilaeen;
 
+  private IntegerInput jubilarStartAlter;
+
   private IntegerInput delaytime;
 
   private Settings settings;
@@ -229,6 +240,11 @@ public class EinstellungControl extends AbstractControl
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+  }
+
+  public Einstellung getEinstellung()
+  {
+    return Einstellungen.getEinstellung();
   }
 
   public Input getName(boolean withFocus) throws RemoteException
@@ -364,11 +380,11 @@ public class EinstellungControl extends AbstractControl
 
   public TextInput getBic() throws RemoteException
   {
-    if (bic != null)
+    if (bic != null && !bic.getControl().isDisposed())
     {
       return bic;
     }
-    bic = new TextInput(Einstellungen.getEinstellung().getBic(), 11);
+    bic = new BICInput(Einstellungen.getEinstellung().getBic());
     return bic;
   }
 
@@ -378,7 +394,10 @@ public class EinstellungControl extends AbstractControl
     {
       return iban;
     }
-    iban = new TextInput(Einstellungen.getEinstellung().getIban(), 22);
+    iban = new IBANInput(Einstellungen.getEinstellung().getIban());
+    IBANListener l = new IBANListener(iban);
+    iban.addListener(l);
+    l.handleEvent(null);
     return iban;
   }
 
@@ -393,7 +412,7 @@ public class EinstellungControl extends AbstractControl
     return glaeubigerid;
   }
 
-  public Input getBlz() throws RemoteException
+  public TextInput getBlz() throws RemoteException
   {
     if (blz != null)
     {
@@ -402,18 +421,19 @@ public class EinstellungControl extends AbstractControl
     blz = new TextInput(Einstellungen.getEinstellung().getBlz(), 8);
     blz.setMandatory(true);
     BLZListener l = new BLZListener();
+
     blz.addListener(l);
     l.handleEvent(null);
     return blz;
   }
 
-  public Input getKonto() throws RemoteException
+  public TextInput getKonto() throws RemoteException
   {
     if (konto != null)
     {
       return konto;
     }
-    konto = new TextInput(Einstellungen.getEinstellung().getKonto(), 10);
+    konto = new TextInput(Einstellungen.getEinstellung().getKonto(), 12);
     konto.setMandatory(true);
     konto.setComment(JVereinPlugin.getI18n().tr("für die Abbuchung"));
     return konto;
@@ -862,8 +882,14 @@ public class EinstellungControl extends AbstractControl
     {
       return sepaland;
     }
-    sepaland = new SEPALandInput(Einstellungen.getEinstellung()
-        .getDefaultLand());
+    try
+    {
+      sepaland = new SEPALandInput();
+    }
+    catch (IBANException e)
+    {
+      throw new RemoteException(e.getMessage());
+    }
     return sepaland;
   }
 
@@ -909,6 +935,16 @@ public class EinstellungControl extends AbstractControl
     altersjubilaeen = new TextInput(Einstellungen.getEinstellung()
         .getAltersjubilaeen(), 50);
     return altersjubilaeen;
+  }
+
+  public IntegerInput getJubilarStartAlter() throws RemoteException
+  {
+    if (null == jubilarStartAlter)
+    {
+      jubilarStartAlter = new IntegerInput(Einstellungen.getEinstellung()
+          .getJubilarStartAlter());
+    }
+    return jubilarStartAlter;
   }
 
   public IntegerInput getDelaytime() throws RemoteException
@@ -1169,6 +1205,12 @@ public class EinstellungControl extends AbstractControl
     return ZeigeArbeitseinsatzInTabInput;
   }
 
+  public ButtonArea getButton() throws RemoteException
+  {
+    return new BankverbindungDialogButton(getEinstellung(), getBlz(),
+        getKonto(), getBic(), getIban());
+  }
+
   public void handleStore()
   {
     try
@@ -1242,10 +1284,13 @@ public class EinstellungControl extends AbstractControl
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
       e.setZahlungsweg(zw.getKey());
       e.setDtausTextschluessel((String) getDtausTextschluessel().getValue());
-      e.setDefaultLand((String) getDefaultSEPALand().getValue());
+      SEPAParam land = (SEPAParam) getDefaultSEPALand().getValue();
+      e.setDefaultLand(land.getID());
       e.setAltersgruppen((String) getAltersgruppen().getValue());
       e.setJubilaeen((String) getJubilaeen().getValue());
       e.setAltersjubilaeen((String) getAltersjubilaeen().getValue());
+      Integer jubilaeumStartAlter = (Integer) jubilarStartAlter.getValue();
+      e.setJubilarStartAlter(jubilaeumStartAlter);
       Integer delay = (Integer) delaytime.getValue();
       e.setDelaytime(delay);
       e.store();
@@ -1313,6 +1358,7 @@ public class EinstellungControl extends AbstractControl
     {
       try
       {
+        System.out.println(event);
         String blz = (String) getBlz().getValue();
         getBlz().setComment(Einstellungen.getNameForBLZ(blz));
       }
