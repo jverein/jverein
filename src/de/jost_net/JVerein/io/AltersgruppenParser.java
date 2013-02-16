@@ -53,9 +53,11 @@ public class AltersgruppenParser
       stt = new StringTokenizer(gruppen.elementAt(i), "-");
       if (stt.countTokens() != 2)
       {
-        throw new RuntimeException(JVereinPlugin.getI18n().tr(
-            "Ungültige Altersgruppe: {0}}",
-            new String[] { gruppen.elementAt(i) }));
+        throw new RuntimeException(
+            JVereinPlugin
+                .getI18n()
+                .tr("Ungültige Altersgruppe: {0} \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
+                    new String[] { gruppen.elementAt(i) }));
       }
       elemente.addElement(stt.nextToken().trim());
       elemente.addElement(stt.nextToken());
