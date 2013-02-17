@@ -531,9 +531,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       {
         cols.addInput(control.getMitgliedsnummer());
       }
+      cols.addInput(control.getBeitragsgruppe(true));
       cols.addInput(control.getEintritt());
       cols.addInput(control.getAustritt());
-      cols.addInput(control.getBeitragsgruppe(true));
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
       {
         cols.addInput(control.getIndividuellerBeitrag());
