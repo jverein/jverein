@@ -24,8 +24,6 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -104,7 +102,6 @@ import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.datasource.rmi.ObjectNotFoundException;
-import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -121,7 +118,6 @@ import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.ImageInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
-import de.willuhn.jameica.gui.input.SearchInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -153,13 +149,13 @@ public class MitgliedControl extends AbstractControl
 
   private Input titel;
 
-  private SearchInput name;
+  private TextInput name;
 
-  private SearchInput vorname;
+  private TextInput vorname;
 
   private Input adressierungszusatz;
 
-  private SearchInput strasse;
+  private TextInput strasse;
 
   private Input plz;
 
@@ -455,56 +451,16 @@ public class MitgliedControl extends AbstractControl
     return titel;
   }
 
-  public SearchInput getName(boolean withFocus) throws RemoteException
+  public TextInput getName(boolean withFocus) throws RemoteException
   {
     if (name != null)
     {
       return name;
     }
 
-    name = new SearchInput()
-    {
-      @Override
-      public List<?> startSearch(String text)
-      {
-        try
-        {
-          if (text != null)
-          {
-            text = text + "%";
-          }
-          ResultSetExtractor rs = new ResultSetExtractor()
-          {
-            @Override
-            public Object extract(ResultSet rs) throws SQLException
-            {
-              List<String> namen = new ArrayList<String>();
-              while (rs.next())
-              {
-                namen.add(rs.getString(1));
-              }
-              return namen;
-            }
-          };
-          String sql = "select name from mitglied where name like ? "
-              + "group by name order by name";
-          return (List<?>) Einstellungen.getDBService().execute(sql,
-              new Object[] { text }, rs);
-        }
-        catch (Exception e)
-        {
-          Logger.error(
-              JVereinPlugin.getI18n().tr("kann Namenliste nicht aufbauen"), e);
-          return null;
-        }
-      }
-    };
-    name.setValue(getMitglied().getName());
+    name = new TextInput(getMitglied().getName(), 40);
     name.setName(JVereinPlugin.getI18n().tr("Name"));
-    name.setMaxLength(40);
-    name.setDelay(Einstellungen.getEinstellung().getDelaytime());
     name.setMandatory(true);
-    name.setSearchString("");
     if (withFocus)
     {
       name.focus();
@@ -512,57 +468,16 @@ public class MitgliedControl extends AbstractControl
     return name;
   }
 
-  public SearchInput getVorname() throws RemoteException
+  public TextInput getVorname() throws RemoteException
   {
     if (vorname != null)
     {
       return vorname;
     }
 
-    vorname = new SearchInput()
-    {
-      @Override
-      public List<?> startSearch(String text)
-      {
-        try
-        {
-          if (text != null)
-          {
-            text = text + "%";
-          }
-          ResultSetExtractor rs = new ResultSetExtractor()
-          {
-            @Override
-            public Object extract(ResultSet rs) throws SQLException
-            {
-              List<String> vornamen = new ArrayList<String>();
-              while (rs.next())
-              {
-                vornamen.add(rs.getString(1));
-              }
-              return vornamen;
-            }
-          };
-          String sql = "select vorname from mitglied where vorname like ? "
-              + "group by vorname order by vorname";
-          return (List<?>) Einstellungen.getDBService().execute(sql,
-              new Object[] { text }, rs);
-        }
-        catch (Exception e)
-        {
-          Logger.error(
-              JVereinPlugin.getI18n().tr("kann Vornamenliste nicht aufbauen"),
-              e);
-          return null;
-        }
-      }
-    };
-    vorname.setValue(getMitglied().getVorname());
+    vorname = new TextInput(getMitglied().getVorname(), 40);
     vorname.setName(JVereinPlugin.getI18n().tr(
         JVereinPlugin.getI18n().tr("Vorname")));
-    vorname.setMaxLength(40);
-    vorname.setDelay(Einstellungen.getEinstellung().getDelaytime());
-    vorname.setSearchString("");
     vorname.setMandatory(true);
     return vorname;
   }
@@ -580,58 +495,15 @@ public class MitgliedControl extends AbstractControl
     return adressierungszusatz;
   }
 
-  public SearchInput getStrasse() throws RemoteException
+  public TextInput getStrasse() throws RemoteException
   {
     if (strasse != null)
     {
       return strasse;
     }
-    // strasse = new TextInput(getMitglied().getStrasse(), 40);
+    strasse = new TextInput(getMitglied().getStrasse(), 40);
 
-    strasse = new SearchInput()
-    {
-      @Override
-      public List<?> startSearch(String text)
-      {
-        try
-        {
-          if (text != null)
-          {
-            text = text + "%";
-          }
-          ResultSetExtractor rs = new ResultSetExtractor()
-          {
-            @Override
-            public Object extract(ResultSet rs) throws SQLException
-            {
-              List<String> strassen = new ArrayList<String>();
-              while (rs.next())
-              {
-                strassen.add(rs.getString(1));
-              }
-              return strassen;
-            }
-          };
-          String sql = "select strasse from mitglied where strasse like ? "
-              + "group by strasse order by strasse";
-          return (List<?>) Einstellungen.getDBService().execute(sql,
-              new Object[] { text }, rs);
-        }
-        catch (Exception e)
-        {
-          Logger
-              .error(
-                  JVereinPlugin.getI18n()
-                      .tr("kann Straﬂenliste nicht aufbauen"), e);
-          return null;
-        }
-      }
-    };
-    strasse.setValue(getMitglied().getStrasse());
     strasse.setName(JVereinPlugin.getI18n().tr("Straﬂe"));
-    strasse.setMaxLength(40);
-    strasse.setDelay(Einstellungen.getEinstellung().getDelaytime());
-    strasse.setSearchString("");
     return strasse;
   }
 
@@ -2613,18 +2485,18 @@ public class MitgliedControl extends AbstractControl
       m.setKontoinhaber((String) getKontoinhaber().getValue());
       m.setKuendigung((Date) getKuendigung().getValue());
       m.setSterbetag((Date) getSterbetag().getValue());
-      m.setName(getName(false).getText());
+      m.setName((String) getName(false).getValue());
       m.setOrt((String) getOrt().getValue());
       m.setPlz((String) getPlz().getValue());
       m.setStaat((String) getStaat().getValue());
-      m.setStrasse(getStrasse().getText());
+      m.setStrasse((String) getStrasse().getValue());
       m.setTelefondienstlich((String) getTelefondienstlich().getValue());
       m.setTelefonprivat((String) getTelefonprivat().getValue());
       m.setHandy((String) getHandy().getValue());
       m.setTitel((String) getTitel().getValue());
       m.setVermerk1((String) getVermerk1().getValue());
       m.setVermerk2((String) getVermerk2().getValue());
-      m.setVorname(getVorname().getText());
+      m.setVorname((String) getVorname().getValue());
       if (m.getID() == null)
       {
         m.setEingabedatum();
