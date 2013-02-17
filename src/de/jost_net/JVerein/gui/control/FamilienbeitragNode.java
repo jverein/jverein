@@ -147,8 +147,8 @@ public class FamilienbeitragNode implements GenericObjectNode
       return mitglied.getNameVorname()
           + (mitglied.getGeburtsdatum() != null ? ", "
               + jvttmmjjjj.format(mitglied.getGeburtsdatum()) : "")
-          + (mitglied.getBlz().length() > 0 ? ", " + mitglied.getBlz() + ", "
-              + mitglied.getKonto() : "");
+          + (mitglied.getIban().length() > 0 ? ", " + mitglied.getBic() + ", "
+              + mitglied.getIban() : "");
     }
     catch (RemoteException e)
     {

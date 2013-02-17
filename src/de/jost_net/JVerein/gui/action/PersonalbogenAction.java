@@ -370,12 +370,12 @@ public class PersonalbogenAction implements Action
     }
     rpt.addColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"), Element.ALIGN_LEFT);
     rpt.addColumn(Zahlungsweg.get(m.getZahlungsweg()), Element.ALIGN_LEFT);
-    if (m.getBlz().length() > 0 && m.getKonto().length() > 0)
+    if (m.getBic().length() > 0 && m.getIban().length() > 0)
     {
       rpt.addColumn(JVereinPlugin.getI18n().tr("Bankverbindung"),
           Element.ALIGN_LEFT);
       rpt.addColumn(
-          m.getBlz() + "/" + m.getKonto() + " ("
+          m.getBic() + "/" + m.getIban() + " ("
               + Einstellungen.getNameForBLZ(m.getBlz()) + ")",
           Element.ALIGN_LEFT);
     }
