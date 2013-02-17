@@ -40,11 +40,14 @@ import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
+import de.jost_net.JVerein.rmi.SEPAParam;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
+import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
+import de.jost_net.JVerein.util.SEPA;
 import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -180,17 +183,29 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         && getZahlungsweg() == Zahlungsweg.DTAUS
         && getBeitragsgruppe().getBetrag() > 0)
     {
-      if (getBlz() == null || getBlz().length() == 0 || getKonto() == null
-          || getKonto().length() == 0)
+      if (getBic() == null || getBic().length() == 0 || getIban() == null
+          || getIban().length() == 0)
       {
         throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bankverbindung eingeben"));
+            "Bitte BIC und IBAN eingeben"));
       }
     }
-    if (getBlz() != null && getBlz().length() != 0 && getBlz().length() != 8)
+    SEPAParam sepaparam = null;
+    try
+    {
+      sepaparam = SEPA.getSEPAParam(Einstellungen.getEinstellung()
+          .getDefaultLand());
+    }
+    catch (SEPAException e1)
+    {
+      Logger.error(e1.getMessage());
+    }
+    if (getBlz() != null && getBlz().length() != 0
+        && getBlz().length() != sepaparam.getBankIdentifierLength())
     {
       throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Die Bankleitzahl muss 8stellig sein"));
+          "Die Bankleitzahl muss {0}stellig sein",
+          sepaparam.getBankIdentifierLength() + ""));
     }
     if (getBlz().length() != 0 || getKonto().length() != 0l)
     {
@@ -210,19 +225,52 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
                 .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
                     new String[] { getBlz(), getKonto() }));
       }
+      try
+      {
+        if (!Einstellungen.checkAccountCRC(SEPA.getBLZFromIban(getIban()),
+            SEPA.getKontoFromIban(getIban())))
+        {
+          throw new ApplicationException(
+              JVereinPlugin
+                  .getI18n()
+                  .tr("BLZ/Kontonummer-Kombination in IBAN ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                      new String[] { getBlz(), getKonto() }));
+
+        }
+      }
+      catch (SEPAException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
     }
+
     if (getIban() != null && getIban().length() != 0)
     {
-      // int rc = BankingNumberValidation.isIBAN(getIban());
-      // switch (rc)
-      // {
-      // case BankingNumberValidation.BAD_IBAN_CHECKNUM:
-      // throw new ApplicationException(JVereinPlugin.getI18n().tr(
-      // "IBAN: ungültige Prüfziffer"));
-      // case BankingNumberValidation.NOT_AN_IBAN:
-      // throw new ApplicationException(JVereinPlugin.getI18n().tr(
-      // "ungültige IBAN"));
-      // }
+      try
+      {
+        if (SEPA.isValidIBAN(getIban()))
+        {
+          throw new ApplicationException();
+        }
+      }
+      catch (SEPAException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
+    }
+    if (getBic() != null && getBic().length() != 0)
+    {
+      try
+      {
+        if (SEPA.isValidBIC(getBic()))
+        {
+          throw new ApplicationException();
+        }
+      }
+      catch (SEPAException e)
+      {
+        throw new ApplicationException(e.getMessage());
+      }
     }
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
         && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
@@ -1055,6 +1103,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
+    map.put(MitgliedVar.BIC.getName(), this.getBic());
     map.put(MitgliedVar.BLZ.getName(), this.getBlz());
     map.put(MitgliedVar.EINGABEDATUM.getName(),
         Datum.formatDate(this.getEingabedatum()));
