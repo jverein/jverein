@@ -290,7 +290,6 @@ public class Import
    * 
    * @param eigenschaft
    * @param groupName
-   * @return
    */
   private String getEigenschaftID(String eigenschaft, String groupName)
   {
@@ -328,7 +327,6 @@ public class Import
   /**
    * 
    * @param results
-   * @return
    * @throws SQLException
    */
   private ArrayList<String> getEigenschaftspalten(ResultSet results)
@@ -357,7 +355,6 @@ public class Import
    * 
    * @param results
    * @param column
-   * @return
    * @throws SQLException
    */
   private String getResultFrom(final ResultSet results,
@@ -408,8 +405,6 @@ public class Import
   /**
    * This method starts the import
    * 
-   * @param csvFile
-   *          with the all the data
    * @throws SQLException
    * @throws ApplicationException
    * @throws RemoteException
@@ -591,14 +586,6 @@ public class Import
    * move the cursor of the results by your own. All information will be saved
    * into the defined member m
    * 
-   * @param results
-   * @param m
-   * @param necColMap
-   * @param optColMap
-   * @throws SQLException
-   * @throws RemoteException
-   * @throws ApplicationException
-   * @throws ParseException
    */
   private void importMitglied(final ResultSet results, final Mitglied m,
       final Map<String, Integer> beitragsGruppen) throws RemoteException,

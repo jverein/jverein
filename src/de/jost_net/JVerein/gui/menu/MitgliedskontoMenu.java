@@ -75,8 +75,6 @@ public class MitgliedskontoMenu extends ContextMenu
     /**
      * @param text
      * @param action
-     * @param optionale
-     *          Angabe eines Icons.
      */
     private MitgliedItem(String text, Action action, String icon)
     {
@@ -108,8 +106,6 @@ public class MitgliedskontoMenu extends ContextMenu
     /**
      * @param text
      * @param action
-     * @param optionale
-     *          Angabe eines Icons.
      */
     private SollItem(String text, Action action, String icon)
     {
@@ -137,13 +133,6 @@ public class MitgliedskontoMenu extends ContextMenu
 
   private static class SollOhneIstItem extends CheckedContextMenuItem
   {
-
-    /**
-     * @param text
-     * @param action
-     * @param optionale
-     *          Angabe eines Icons.
-     */
     private SollOhneIstItem(String text, Action action, String icon)
     {
       super(text, action, icon);
@@ -188,8 +177,6 @@ public class MitgliedskontoMenu extends ContextMenu
     /**
      * @param text
      * @param action
-     * @param optionale
-     *          Angabe eines Icons.
      */
     private SollMitIstItem(String text, Action action, String icon)
     {
@@ -218,12 +205,6 @@ public class MitgliedskontoMenu extends ContextMenu
   private static class SpendenbescheinigungItem extends CheckedContextMenuItem
   {
 
-    /**
-     * @param text
-     * @param action
-     * @param optionale
-     *          Angabe eines Icons.
-     */
     private SpendenbescheinigungItem(String text, Action action, String icon)
     {
       super(text, action, icon);

@@ -43,8 +43,6 @@ public class KontoInput extends SelectInput
    * 
    * @param konto
    *          ausgewaehltes Konto.
-   * @param filter
-   *          optionaler Konto-Filter.
    * @throws RemoteException
    */
   public KontoInput(Konto konto) throws RemoteException
@@ -57,8 +55,6 @@ public class KontoInput extends SelectInput
   /**
    * Initialisiert die Liste der Konten.
    * 
-   * @param filter
-   *          Konto-Filter.
    * @return Liste der Konten.
    * @throws RemoteException
    */

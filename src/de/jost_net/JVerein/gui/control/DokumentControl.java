@@ -181,7 +181,6 @@ public class DokumentControl extends AbstractControl
   /**
    * Speichern des Dokuments
    * 
-   * @return UUID des Dokuments
    * @throws RemoteException
    * @throws ApplicationException
    */

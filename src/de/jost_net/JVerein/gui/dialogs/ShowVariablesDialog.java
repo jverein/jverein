@@ -52,9 +52,6 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
 
   private Action doubleClickAction = null;
 
-  /**
-   * @param position
-   */
   public ShowVariablesDialog(Map<String, Object> vars)
   {
     this(vars, true);

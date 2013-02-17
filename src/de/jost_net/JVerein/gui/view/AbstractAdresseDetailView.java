@@ -76,9 +76,6 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
   final MitgliedControl control = new MitgliedControl(this);
 
-  /**
-   * @wbp.parser.entryPoint
-   */
   @Override
   public void bind() throws Exception
   {
@@ -423,9 +420,6 @@ public abstract class AbstractAdresseDetailView extends AbstractView
    * ein neues Mitglied handelt (für dieses macht ein Mitgliedskonto noch kein
    * Sinn!)
    * 
-   * @param parentComposite
-   * @param spaltenanzahl
-   * @throws RemoteException
    */
   private void zeichneMitgliedkonto(MitgliedskontoControl controlMk,
       Composite parentComposite) throws RemoteException

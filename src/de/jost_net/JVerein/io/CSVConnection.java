@@ -166,8 +166,6 @@ public class CSVConnection
   /**
    * Get only the Filename of the defined csv file. The string is empty if the
    * file isn't defined.
-   * 
-   * @return
    */
   public String getFileName()
   {
@@ -180,8 +178,6 @@ public class CSVConnection
   /**
    * To get the number of records in the file
    * 
-   * @param table
-   * @return
    * @throws SQLException
    */
   public int getNumberOfRows() throws SQLException
@@ -256,7 +252,6 @@ public class CSVConnection
    * false and you can't open the DB file.
    * 
    * @param csvFile
-   * @return
    */
   public boolean setCSVFile(final File csvFile)
   {

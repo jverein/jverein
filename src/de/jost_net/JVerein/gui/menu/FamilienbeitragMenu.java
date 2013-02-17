@@ -49,8 +49,6 @@ public class FamilienbeitragMenu extends ContextMenu
     /**
      * @param text
      * @param action
-     * @param optionale
-     *          Angabe eines Icons.
      */
     private AngehoerigerItem(String text, Action action, String icon)
     {

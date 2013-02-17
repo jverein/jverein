@@ -653,7 +653,6 @@ public class ImportView extends AbstractView
    *          this text appears in the dialog itself
    * @param settingsVariable
    *          to define where the last path will be saved for the next time.
-   * @return
    */
   private File selectFile(final Shell parent, final int tagOpenClose,
       final String dialogText, final String settingsVariable)

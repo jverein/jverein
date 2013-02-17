@@ -317,7 +317,6 @@ public class MitgliedControl extends AbstractControl
    * 
    * @param typ
    *          1=Mitglieder 2= alle ohne Mitglieder
-   * @return
    * @throws RemoteException
    */
   public SelectInput getSuchAdresstyp(int typ) throws RemoteException

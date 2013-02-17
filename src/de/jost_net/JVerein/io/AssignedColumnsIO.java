@@ -44,8 +44,6 @@ public class AssignedColumnsIO
 
   /**
    * Constructor
-   * 
-   * @param monitor
    */
   public AssignedColumnsIO()
   {
@@ -57,14 +55,6 @@ public class AssignedColumnsIO
   /**
    * Read column assignments from file
    * 
-   * @param file
-   *          where the assignments are saved
-   * @param availableColumns
-   *          columns from the import file
-   * @param tcr
-   *          current assignments
-   * @return if an error occurred the same tcr will be returned than provided,
-   *         else a new one with all assignments saved
    */
   public TableColumnReplacer readAssignments(
       final List<String> availableColumns, final TableColumnReplacer tcr)
@@ -123,11 +113,6 @@ public class AssignedColumnsIO
 
   /**
    * create a list with all columns assigned in one line.
-   * 
-   * @param columns
-   * @param bos
-   * @param cNec
-   * @throws IOException
    */
   private List<String> writeSpecifiedMap(final Map<String, String> columns,
       final boolean nNec)

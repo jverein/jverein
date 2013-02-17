@@ -942,7 +942,6 @@ public class MitgliedskontoControl extends AbstractControl
    * Liefert ein Array pro Mitglied mit Arrays der einzelnen Rechnungspositionen
    * 
    * @param currentObject
-   * @return
    */
   private ArrayList<ArrayList<Mitgliedskonto>> getRechnungsempfaenger(
       Object currentObject)

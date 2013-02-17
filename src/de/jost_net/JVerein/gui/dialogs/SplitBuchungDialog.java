@@ -40,9 +40,6 @@ public class SplitBuchungDialog extends AbstractDialog<Buchung>
 
   private AbstractView view;
 
-  /**
-   * @param position
-   */
   public SplitBuchungDialog(BuchungsControl control, AbstractView view)
   {
     super(AbstractDialog.POSITION_CENTER);

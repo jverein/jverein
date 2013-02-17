@@ -55,8 +55,6 @@ public class CSVFileHelper
   /**
    * Currently, this integrity checks only if in each line, the same number of
    * columns are available if not it won't pass
-   * 
-   * @return
    */
   public boolean checkCSVIntegrity(final ProgressMonitor monitor,
       final File csvFile)
@@ -218,7 +216,6 @@ public class CSVFileHelper
   /**
    * 
    * @param headerString
-   * @return
    */
   private List<String> parseHeader(final String headerString)
   {
@@ -244,7 +241,6 @@ public class CSVFileHelper
    * added like #1 and so on.
    * 
    * @param columns
-   * @return
    */
   public List<String> replaceDuplicates(final List<String> columns)
   {
@@ -337,7 +333,6 @@ public class CSVFileHelper
    * columns and add a delimiter
    * 
    * @param columns
-   * @return
    */
   private String createNewHeader(List<String> columns)
   {
@@ -359,7 +354,6 @@ public class CSVFileHelper
    * already.
    * 
    * @param csvFile
-   * @return
    */
   public File replaceDuplicateColumn(final File csvFile)
   {

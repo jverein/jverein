@@ -115,7 +115,6 @@ public class LesefeldDetailView extends AbstractView implements Listener
    * aus der GUI. Dabei wird ggf. lesefeld initialisiert und die Eindeutigkeit
    * des Namens des Skriptes sichergestellt.
    * 
-   * @return
    */
   private boolean updateLesefeldFromGUI()
   {
