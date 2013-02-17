@@ -102,10 +102,9 @@ public class MitgliedSearchProvider implements SearchProvider
             + m.getAnschrift()
             + (m.getGeburtsdatum() != null ? ", "
                 + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum()) : "")
-            + (m.getKonto() != null ? ", "
-                + JVereinPlugin.getI18n().tr("Konto") + ": " + m.getKonto()
-                + ", " + JVereinPlugin.getI18n().tr("BLZ") + ": " + m.getBlz()
-                : "");
+            + (m.getKonto() != null ? ", " + JVereinPlugin.getI18n().tr("IBAN")
+                + ": " + m.getIban() + ", " + JVereinPlugin.getI18n().tr("BIC")
+                + ": " + m.getBic() : "");
       }
       catch (RemoteException re)
       {

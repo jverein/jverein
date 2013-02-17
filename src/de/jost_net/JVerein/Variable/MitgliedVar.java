@@ -41,6 +41,7 @@ public enum MitgliedVar
   BEITRAGSGRUPPE_BETRAG(JVereinPlugin.getI18n().tr(
       "mitglied_beitragsgruppe_betrag")), //
   BEITRAGSGRUPPE_ID(JVereinPlugin.getI18n().tr("mitglied_beitragsgruppe_id")), //
+  BIC(JVereinPlugin.getI18n().tr("BIC")), //
   BLZ(JVereinPlugin.getI18n().tr("mitglied_blz")), //
   EINTRITT(JVereinPlugin.getI18n().tr("mitglied_eintritt")), //
   EINGABEDATUM(JVereinPlugin.getI18n().tr("mitglied_eingabedatum")), //
