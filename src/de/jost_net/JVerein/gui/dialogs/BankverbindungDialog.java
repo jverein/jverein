@@ -11,7 +11,7 @@ import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.io.IBankverbindung;
 import de.jost_net.JVerein.rmi.Bank;
 import de.jost_net.JVerein.rmi.SEPAParam;
-import de.jost_net.JVerein.util.IBANException;
+import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.SEPA;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
@@ -115,7 +115,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     {
       land = new SEPALandInput();
     }
-    catch (IBANException e)
+    catch (SEPAException e)
     {
       throw new RemoteException(e.getMessage());
     }
@@ -124,7 +124,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
 
   private TextInput getKonto() throws RemoteException
   {
-    if (konto != null) // && !konto.getControl().isDisposed())
+    if (konto != null)
     {
       return konto;
     }
@@ -135,7 +135,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
 
   private TextInput getBLZ() throws RemoteException
   {
-    if (blz != null) // && !blz.getControl().isDisposed())
+    if (blz != null)
     {
       return blz;
     }

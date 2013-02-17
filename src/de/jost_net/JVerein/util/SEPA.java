@@ -121,7 +121,7 @@ public class SEPA
    * 
    */
   public static String createIban(String kontoNr, String blz, String landKuerzel)
-      throws IBANException, RemoteException
+      throws SEPAException, RemoteException
   {
     if (kontoNr == null || kontoNr.trim().length() == 0 || blz == null
         || blz.trim().length() == 0)
@@ -134,13 +134,13 @@ public class SEPA
 
     if (blz.length() != country.getBankIdentifierLength().intValue())
     {
-      throw new IBANException("Bankleitzahl hat falsche Länge für "
+      throw new SEPAException("Bankleitzahl hat falsche Länge für "
           + country.getBezeichnung());
     }
 
     if (kontoNr.length() > country.getAccountLength().intValue())
     {
-      throw new IBANException("Kontonummer zu lang für "
+      throw new SEPAException("Kontonummer zu lang für "
           + country.getBezeichnung());
     }
     StringBuilder accountString = new StringBuilder();
@@ -155,22 +155,67 @@ public class SEPA
         + accountString.toString();
   }
 
-  public static SEPAParam getSEPAParam(String landkuerzel) throws IBANException
+  public static String getBLZFromIban(String iban) throws SEPAException
+  {
+    if (iban.length() == 0)
+    {
+      return "";
+    }
+    String ret = "";
+    if (isValidIBAN(iban))
+    {
+      SEPAParam param = getSEPAParam(iban.substring(0, 2));
+      try
+      {
+        ret = iban.substring(4, param.getBankIdentifierLength() + 4);
+      }
+      catch (RemoteException e)
+      {
+        throw new SEPAException(e.getMessage());
+      }
+    }
+    return ret;
+  }
+
+  public static String getKontoFromIban(String iban) throws SEPAException
+  {
+    if (iban.length() == 0)
+    {
+      return "";
+    }
+    String ret = "";
+    if (isValidIBAN(iban))
+    {
+      SEPAParam param = getSEPAParam(iban.substring(0, 2));
+      try
+      {
+        ret = iban.substring(4 + param.getBankIdentifierLength(),
+            param.getAccountLength() + param.getBankIdentifierLength() + 4);
+      }
+      catch (RemoteException e)
+      {
+        throw new SEPAException(e.getMessage());
+      }
+    }
+    return ret;
+  }
+
+  public static SEPAParam getSEPAParam(String landkuerzel) throws SEPAException
   {
     if (landkuerzel == null || landkuerzel.length() != 2)
     {
-      throw new IBANException("Fehler ! Länderkürzel fehlt");
+      throw new SEPAException("Fehler ! Länderkürzel fehlt");
     }
     SEPAParam sepapa = countries.get(landkuerzel);
     if (sepapa == null)
     {
-      throw new IBANException("Ungültiges Land: " + landkuerzel);
+      throw new SEPAException("Ungültiges Land: " + landkuerzel);
     }
     return sepapa;
   }
 
   private static String getPruefziffer(String blz, String konto,
-      String laenderkennung) throws IBANException
+      String laenderkennung) throws SEPAException
   {
     BigInteger bi = null;
     try
@@ -182,7 +227,7 @@ public class SEPA
       String error = JVereinPlugin.getI18n().tr(
           "Ungültige Bankverbindung: {0} {1} {2}", blz, konto, laenderkennung);
       Logger.error(error);
-      throw new IBANException(error);
+      throw new SEPAException(error);
     }
     BigInteger modulo = bi.mod(BigInteger.valueOf(97));
     String pruefZiffer = String.valueOf(98 - modulo.longValue());
@@ -215,41 +260,47 @@ public class SEPA
         + String.valueOf(landKnzAsNumber[1]) + "00";
   }
 
-  public static boolean isValidIBAN(String iban) throws IBANException,
-      RemoteException
+  public static boolean isValidIBAN(String iban) throws SEPAException
   {
     if (iban == null)
     {
-      throw new IBANException("IBAN ist leer");
+      throw new SEPAException("IBAN ist leer");
     }
     if (iban.length() < 4)
     {
-      throw new IBANException(
+      throw new SEPAException(
           "Ungültige IBAN. Landeskennung und/oder Prüfziffer fehlen");
     }
     String landkuerzel = iban.substring(0, 2);
     SEPAParam country = getSEPAParam(landkuerzel);
     // String pruefziffer = iban.substring(3, 4);
-    int laebankid = country.getBankIdentifierLength();
-    int laeaccount = country.getAccountLength();
-    int laeiban = 4 + laebankid + laeaccount;
-    if (iban.length() != laeiban)
+    try
     {
-      throw new IBANException("Ungültige IBAN-Länge. Vorgeschrieben sind "
-          + laeiban + " Stellen für " + country.getBezeichnung());
+      int laebankid = country.getBankIdentifierLength();
+      int laeaccount = country.getAccountLength();
+      int laeiban = 4 + laebankid + laeaccount;
+      if (iban.length() != laeiban)
+      {
+        throw new SEPAException("Ungültige IBAN-Länge. Vorgeschrieben sind "
+            + laeiban + " Stellen für " + country.getBezeichnung());
+      }
+    }
+    catch (RemoteException e)
+    {
+      throw new SEPAException(e.getMessage());
     }
     return true;
   }
 
-  public static boolean isValidBIC(String bic) throws IBANException
+  public static boolean isValidBIC(String bic) throws SEPAException
   {
     if (bic == null)
     {
-      throw new IBANException("BIC ist leer");
+      throw new SEPAException("BIC ist leer");
     }
     if (bic.length() != 8 && bic.length() != 11)
     {
-      throw new IBANException(
+      throw new SEPAException(
           "Ungültige Länge der BIC. Die BIC muss entweder 8 oder 11 Stellen lang sein.");
     }
     String landkuerzel = bic.substring(4, 6);
@@ -261,7 +312,7 @@ public class SEPA
         Bank b = SEPA.getBankByBIC(bic);
         if (b == null)
         {
-          throw new IBANException(
+          throw new SEPAException(
               "BIC nicht in der Datenbank der Bundesbank enthalten");
         }
       }
@@ -273,7 +324,7 @@ public class SEPA
     return true;
   }
 
-  public static boolean isValid(String bic, String iban) throws IBANException,
+  public static boolean isValid(String bic, String iban) throws SEPAException,
       RemoteException
   {
     if (bic.length() == 0 && iban.length() == 0)

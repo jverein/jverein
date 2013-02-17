@@ -27,7 +27,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.SEPAParam;
-import de.jost_net.JVerein.util.IBANException;
+import de.jost_net.JVerein.util.SEPAException;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -37,7 +37,7 @@ import de.willuhn.jameica.gui.input.SelectInput;
  */
 public class SEPALandInput extends SelectInput
 {
-  public SEPALandInput() throws RemoteException, IBANException
+  public SEPALandInput() throws RemoteException, SEPAException
   {
     super(init(), null);
     setName(JVereinPlugin.getI18n().tr("SEPA-Land"));

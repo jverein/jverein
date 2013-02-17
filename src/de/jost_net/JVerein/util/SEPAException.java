@@ -1,15 +1,15 @@
 package de.jost_net.JVerein.util;
 
-public class IBANException extends Exception
+public class SEPAException extends Exception
 {
   private static final long serialVersionUID = 3303826666784401237L;
 
-  public IBANException()
+  public SEPAException()
   {
     super();
   }
 
-  public IBANException(String msg)
+  public SEPAException(String msg)
   {
     super(msg);
   }

@@ -30,7 +30,7 @@ import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
-import de.jost_net.JVerein.util.IBANException;
+import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.SEPA;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -131,7 +131,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
           throw new ApplicationException("Ungültige Kombination BIC und IBAN");
         }
       }
-      catch (IBANException e1)
+      catch (SEPAException e1)
       {
         // TODO Auto-generated catch block
         e1.printStackTrace();
