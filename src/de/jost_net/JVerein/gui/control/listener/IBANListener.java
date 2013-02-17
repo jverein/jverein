@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.rmi.Bank;
 import de.jost_net.JVerein.rmi.SEPAParam;
-import de.jost_net.JVerein.util.IBANException;
+import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.SEPA;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.logging.Logger;
@@ -53,6 +53,10 @@ public class IBANListener implements Listener
     try
     {
       String ib = (String) iban.getValue();
+      if (ib == null)
+      {
+        return;
+      }
       if (ib.length() == 0)
       {
         iban.setComment("");
@@ -66,10 +70,13 @@ public class IBANListener implements Listener
           String bankcode = ib.substring(4,
               country.getBankIdentifierLength() + 4);
           Bank b = SEPA.getBankByBLZ(bankcode);
-          iban.setComment(b.getBezeichnung());
+          if (b != null)
+          {
+            iban.setComment(b.getBezeichnung());
+          }
           return;
         }
-        catch (IBANException e)
+        catch (SEPAException e)
         {
           iban.setComment(e.getMessage());
           return;
