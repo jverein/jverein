@@ -21,9 +21,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
-import java.io.File;
+import java.io.InputStream;
 import java.io.StringReader;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6159,11 +6158,11 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
 
-    URL u = BLZDatei.class.getClassLoader().getResource("blz.zip");
     try
     {
-      File f = new File(u.toURI());
-      BLZDatei blz = new BLZDatei(f);
+      InputStream is = JVereinUpdateProvider.class.getClassLoader()
+          .getResourceAsStream("BLZ.txt");
+      BLZDatei blz = new BLZDatei(is);
       while (blz.hasNext())
       {
         BLZSatz satz = blz.getNext();
