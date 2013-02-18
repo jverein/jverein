@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -184,7 +185,7 @@ public class BLZUpdateControl extends AbstractControl
 
   private void ermittleUpdates(String file) throws IOException
   {
-    BLZDatei blz = new BLZDatei(new File(file));
+    BLZDatei blz = new BLZDatei(new FileInputStream(file));
     BLZSatz satz = blz.getNext();
     while (satz.hasNext())
     {

@@ -22,15 +22,10 @@
 package de.jost_net.JVerein.io;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-import de.jost_net.JVerein.JVereinPlugin;
 
 public class BLZDatei
 {
@@ -40,31 +35,20 @@ public class BLZDatei
 
   private Iterator<String> it;
 
-  public BLZDatei(File file) throws IOException
+  public BLZDatei(InputStream is) throws IOException
   {
-    ZipFile zip = new ZipFile(file);
-
-    if (zip.size() > 1)
+    bin = new BufferedInputStream(is);
+    blzdatenbank = new HashMap<String, BLZSatz>();
+    BLZSatz blzs = new BLZSatz(bin);
+    while (blzs.hasNext())
     {
-      throw new IOException(JVereinPlugin.getI18n().tr(
-          "Fehler: Die ZIP-Datei enthält mehr als eine Datei."));
-    }
-    for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements();)
-    {
-      ZipEntry entry = e.nextElement();
-      bin = new BufferedInputStream(zip.getInputStream(entry));
-      blzdatenbank = new HashMap<String, BLZSatz>();
-      BLZSatz blzs = new BLZSatz(bin);
-      while (blzs.hasNext())
+      if (blzs.getZahlungsdienstleister().equals("1"))
       {
-        if (blzs.getZahlungsdienstleister().equals("1"))
-        {
-          blzdatenbank.put(blzs.getBlz(), blzs);
-        }
-        blzs = new BLZSatz(bin);
+        blzdatenbank.put(blzs.getBlz(), blzs);
       }
-      it = blzdatenbank.keySet().iterator();
+      blzs = new BLZSatz(bin);
     }
+    it = blzdatenbank.keySet().iterator();
   }
 
   public BLZSatz getNext() throws IOException
