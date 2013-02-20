@@ -248,9 +248,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       try
       {
-        if (SEPA.isValidIBAN(getIban()))
+        if (!SEPA.isValidIBAN(getIban()))
         {
-          throw new ApplicationException();
+          throw new ApplicationException("IBAN ist ungültig");
         }
       }
       catch (SEPAException e)
@@ -262,9 +262,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       try
       {
-        if (SEPA.isValidBIC(getBic()))
+        if(!SEPA.isValidBIC(getBic()))
         {
-          throw new ApplicationException();
+          throw new ApplicationException("BIC ist ungültig");
         }
       }
       catch (SEPAException e)
