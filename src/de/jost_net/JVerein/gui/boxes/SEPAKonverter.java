@@ -47,6 +47,7 @@ import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Platform;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -281,6 +282,8 @@ public class SEPAKonverter extends AbstractBox
     }
     catch (Exception e)
     {
+      monitor.log(e.getMessage());
+      Logger.error("Fehler", e);
       throw new ApplicationException(e);
     }
   }
