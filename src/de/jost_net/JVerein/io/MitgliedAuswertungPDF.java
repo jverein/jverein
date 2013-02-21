@@ -177,9 +177,14 @@ public class MitgliedAuswertungPDF implements IAuswertung
                   + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n" + JVereinPlugin
                       .getI18n().tr(JVereinPlugin.getI18n().tr("Sterbedatum")))
                       : ""), Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
-      report.addHeaderColumn(
-          JVereinPlugin.getI18n().tr("Beitragsgruppe /\nEigenschaften"),
-          Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
+      report
+          .addHeaderColumn(
+              JVereinPlugin.getI18n().tr(
+                  "Beitragsgruppe /\nEigenschaften"
+                      + (Einstellungen.getEinstellung()
+                          .getExterneMitgliedsnummer() ? "\nMitgliedsnummer"
+                          : "")), Element.ALIGN_CENTER, 60,
+              BaseColor.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
       for (int i = 0; i < list.size(); i++)
@@ -236,6 +241,12 @@ public class MitgliedAuswertungPDF implements IAuswertung
         {
           zelle += "\n" + new JVDateFormatTTMMJJJJ().format(m.getSterbetag());
         }
+        if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+        {
+          zelle += "\n"
+              + (m.getExterneMitgliedsnummer() != null ? m
+                  .getExterneMitgliedsnummer() : "");
+        }
         report.addColumn(zelle, Element.ALIGN_LEFT);
         StringBuilder beitragsgruppebemerkung = new StringBuilder(m
             .getBeitragsgruppe().getBezeichnung());
@@ -255,9 +266,16 @@ public class MitgliedAuswertungPDF implements IAuswertung
           eigenschaften.append("\n");
         }
 
+        zelle = "";
+        if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+        {
+          zelle += (m.getExterneMitgliedsnummer() != null ? m
+              .getExterneMitgliedsnummer() : "");
+        }
+
         report.addColumn(
-            beitragsgruppebemerkung.toString() + eigenschaften.toString(),
-            Element.ALIGN_LEFT);
+            beitragsgruppebemerkung.toString() + eigenschaften.toString()
+                + zelle, Element.ALIGN_LEFT);
       }
       report.closeTable();
 
