@@ -212,7 +212,7 @@ public class BeitragsgruppeControl extends AbstractControl
           "arbeitseinsatzstunden", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
       beitragsgruppeList.addColumn(
-          JVereinPlugin.getI18n().tr("Arbeitseinsatz-Betrag"),
+          JVereinPlugin.getI18n().tr("Arbeitseinsatz-Stundensatz"),
           "arbeitseinsatzbetrag", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
     }

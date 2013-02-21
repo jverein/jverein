@@ -218,11 +218,6 @@ public class ArbeitseinsatzControl extends AbstractControl
       ae = (Arbeitseinsatz) list.next();
       von.setTime(ae.getDatum());
     }
-    else
-    {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Abbruch! Es existiert noch kein Arbeitseinsatz"));
-    }
     Calendar bis = Calendar.getInstance();
     ArrayList<Integer> jahre = new ArrayList<Integer>();
 
