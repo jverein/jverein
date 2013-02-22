@@ -218,23 +218,26 @@ public class FormularfeldControl extends AbstractControl
       }
 
     }
-
-    DBIterator itlesefelder = Einstellungen.getDBService().createList(
-        Lesefeld.class);
-    while (itlesefelder.hasNext())
+    if (formular.getArt() == Formularart.FREIESFORMULAR
+        || formular.getArt() == Formularart.RECHNUNG
+        || formular.getArt() == Formularart.MAHNUNG)
     {
-      Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
-      namen.add(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung());
-    }
+      DBIterator itlesefelder = Einstellungen.getDBService().createList(
+          Lesefeld.class);
+      while (itlesefelder.hasNext())
+      {
+        Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
+        namen.add(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung());
+      }
 
-    DBIterator zusatzfelder = Einstellungen.getDBService().createList(
-        Felddefinition.class);
-    while (zusatzfelder.hasNext())
-    {
-      Felddefinition zusatzfeld = (Felddefinition) zusatzfelder.next();
-      namen.add(Einstellungen.ZUSATZFELD_PRE + zusatzfeld.getName());
+      DBIterator zusatzfelder = Einstellungen.getDBService().createList(
+          Felddefinition.class);
+      while (zusatzfelder.hasNext())
+      {
+        Felddefinition zusatzfeld = (Felddefinition) zusatzfelder.next();
+        namen.add(Einstellungen.ZUSATZFELD_PRE + zusatzfeld.getName());
+      }
     }
-
     name = new SelectInput(namen, getFormularfeld().getName());
     return name;
   }
