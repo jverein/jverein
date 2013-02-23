@@ -305,7 +305,7 @@ public class SEPA
     }
     String landkuerzel = bic.substring(4, 6);
     getSEPAParam(landkuerzel); // Wirft eine Exception bei ungültigem Kürzel
-    if (landkuerzel.equals("DE"))
+    if (landkuerzel.equals("DE") || landkuerzel.equals("AT"))
     {
       try
       {
@@ -313,7 +313,7 @@ public class SEPA
         if (b == null)
         {
           throw new SEPAException(
-              "BIC nicht in der Datenbank der Bundesbank enthalten");
+              "BIC nicht in der Banken-Datenbank enthalten");
         }
       }
       catch (RemoteException e)

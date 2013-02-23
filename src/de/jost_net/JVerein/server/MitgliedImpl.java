@@ -40,14 +40,13 @@ import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
-import de.jost_net.JVerein.rmi.SEPAParam;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
-import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.SEPA;
+import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -190,23 +189,23 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
             "Bitte BIC und IBAN eingeben"));
       }
     }
-    SEPAParam sepaparam = null;
-    try
-    {
-      sepaparam = SEPA.getSEPAParam(Einstellungen.getEinstellung()
-          .getDefaultLand());
-    }
-    catch (SEPAException e1)
-    {
-      Logger.error(e1.getMessage());
-    }
-    if (getBlz() != null && getBlz().length() != 0
-        && getBlz().length() != sepaparam.getBankIdentifierLength())
-    {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Die Bankleitzahl muss {0}stellig sein",
-          sepaparam.getBankIdentifierLength() + ""));
-    }
+    // SEPAParam sepaparam = null;
+    // try
+    // {
+    // sepaparam = SEPA.getSEPAParam(Einstellungen.getEinstellung()
+    // .getDefaultLand());
+    // }
+    // catch (SEPAException e1)
+    // {
+    // Logger.error(e1.getMessage());
+    // }
+    // if (getBlz() != null && getBlz().length() != 0
+    // && getBlz().length() != sepaparam.getBankIdentifierLength())
+    // {
+    // throw new ApplicationException(JVereinPlugin.getI18n().tr(
+    // "Die Bankleitzahl muss {0}stellig sein",
+    // sepaparam.getBankIdentifierLength() + ""));
+    // }
     if (getBlz().length() != 0 || getKonto().length() != 0l)
     {
       try
@@ -262,7 +261,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       try
       {
-        if(!SEPA.isValidBIC(getBic()))
+        if (!SEPA.isValidBIC(getBic()))
         {
           throw new ApplicationException("BIC ist ungültig");
         }

@@ -36,6 +36,8 @@ import java.util.Map;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
+import de.jost_net.JVerein.io.ATBank;
+import de.jost_net.JVerein.io.ATBankdatei;
 import de.jost_net.JVerein.io.BLZDatei;
 import de.jost_net.JVerein.io.BLZSatz;
 import de.jost_net.JVerein.rmi.JVereinDBService;
@@ -1063,6 +1065,18 @@ public class JVereinUpdateProvider
     if (cv < 265)
     {
       update0265(conn);
+    }
+    if (cv < 266)
+    {
+      update0266(conn);
+    }
+    if (cv < 267)
+    {
+      update0267(conn);
+    }
+    if (cv < 268)
+    {
+      update0268(conn);
     }
   }
 
@@ -6380,6 +6394,79 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte anfangsbestand der Tabelle kursteilnehmer verlängert", 265);
+  }
+
+  private void update0266(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE bank ADD land varchar(2) before blz;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE bank ADD land varchar(2) after bezeichnung;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Spalte land in die Tabelle bank aufgenommen",
+        266);
+  }
+
+  private void update0267(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("UPDATE BANK SET land = 'DE';\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte land  in der Tabelle bank initial gefüllt", 267);
+  }
+
+  private void update0268(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    sb = new StringBuilder();
+
+    try
+    {
+      InputStream is = JVereinUpdateProvider.class.getClassLoader()
+          .getResourceAsStream("oesterreich.csv");
+      ATBankdatei atbd = new ATBankdatei(is);
+      boolean eof = false;
+      while (!eof)
+      {
+        ATBank atb = atbd.next();
+        if (atb == null)
+        {
+          eof = true;
+          continue;
+        }
+        System.out.println(atb);
+        if (!atb.getKennzeichen().equals("Hauptanstalt"))
+        {
+          continue;
+        }
+        sb.append("INSERT INTO bank (bezeichnung, land, blz, bic) values ('");
+        sb.append(atb.getName());
+        sb.append("', 'AT', '");
+        sb.append(atb.getBlz());
+        sb.append("', '");
+        sb.append(atb.getBic());
+        sb.append("');");
+        statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+        statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+      }
+      execute(conn, statements,
+          "Tabelle bank mit Banken aus Österreich gefüllt", 268);
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
   }
 
 }
