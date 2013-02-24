@@ -26,6 +26,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.rmi.Bank;
 import de.jost_net.JVerein.rmi.SEPAParam;
 import de.jost_net.JVerein.util.SEPAException;
@@ -42,7 +43,7 @@ public class IBANListener implements Listener
 {
   private TextInput iban;
 
-  public IBANListener(TextInput iban)
+  public IBANListener(IBANInput iban)
   {
     this.iban = iban;
   }
