@@ -214,6 +214,15 @@ public class SEPA
     return sepapa;
   }
 
+  public static String getLandFromIBAN(String iban) throws SEPAException
+  {
+    if (iban == null || iban.length() <= 2)
+    {
+      throw new SEPAException("Fehler ! IBAN fehlt");
+    }
+    return iban.substring(0, 2);
+  }
+
   private static String getPruefziffer(String blz, String konto,
       String laenderkennung) throws SEPAException
   {
@@ -312,8 +321,7 @@ public class SEPA
         Bank b = SEPA.getBankByBIC(bic);
         if (b == null)
         {
-          throw new SEPAException(
-              "BIC nicht in der Banken-Datenbank enthalten");
+          throw new SEPAException("BIC nicht in der Banken-Datenbank enthalten");
         }
       }
       catch (RemoteException e)

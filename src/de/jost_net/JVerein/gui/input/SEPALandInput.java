@@ -39,7 +39,12 @@ public class SEPALandInput extends SelectInput
 {
   public SEPALandInput() throws RemoteException, SEPAException
   {
-    super(init(), null);
+    this(null);
+  }
+
+  public SEPALandInput(SEPAParam land) throws RemoteException, SEPAException
+  {
+    super(init(), land);
     setName(JVereinPlugin.getI18n().tr("SEPA-Land"));
   }
 

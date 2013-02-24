@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.io.IBankverbindung;
@@ -113,7 +114,12 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     }
     try
     {
-      land = new SEPALandInput();
+      String la = Einstellungen.getEinstellung().getDefaultLand();
+      if (bankverbindung.getIban().length() > 0)
+      {
+        la = SEPA.getLandFromIBAN(bankverbindung.getIban());
+      }
+      land = new SEPALandInput(SEPA.getSEPAParam(la));
     }
     catch (SEPAException e)
     {
