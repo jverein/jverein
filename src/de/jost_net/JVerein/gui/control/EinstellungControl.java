@@ -89,11 +89,9 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput mitgliedsbetraege;
 
-  // private DialogInput bankverbindung;
-
   private TextInput bic;
 
-  private TextInput iban;
+  private IBANInput iban;
 
   private TextInput glaeubigerid;
 
@@ -388,7 +386,7 @@ public class EinstellungControl extends AbstractControl
     return bic;
   }
 
-  public TextInput getIban() throws RemoteException
+  public IBANInput getIban() throws RemoteException
   {
     if (iban != null)
     {
