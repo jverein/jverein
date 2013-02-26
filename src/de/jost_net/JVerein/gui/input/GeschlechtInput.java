@@ -75,6 +75,11 @@ public class GeschlechtInput extends SelectInput
   @Override
   public void setValue(Object obj)
   {
+    if (obj == null)
+    {
+      super.setValue(null);
+      return;
+    }
     if (obj instanceof String)
     {
       super.setValue(new GeschlechtObject((String) obj));

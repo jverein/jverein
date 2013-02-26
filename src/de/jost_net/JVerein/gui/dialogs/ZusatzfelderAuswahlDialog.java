@@ -341,4 +341,40 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
   {
     return null;
   }
+
+  public void reset()
+  {
+    int counter = 0;
+    for (Input f : felder)
+    {
+      counter++;
+      if (f instanceof CheckboxInput)
+      {
+        settings.setAttribute("zusatzfeld." + counter + ".value", "false");
+        f.setValue(false);
+      }
+      if (f instanceof IntegerInput)
+      {
+        settings.setAttribute("zusatzfeld." + counter + ".value", -1);
+        f.setValue(-1);
+      }
+      else if (f instanceof DecimalInput)
+      {
+        settings.setAttribute("zusatzfeld." + counter + ".value", "");
+        f.setValue(null);
+      }
+      else if (f instanceof DateInput)
+      {
+        settings.setAttribute("zusatzfeld." + counter + ".value", "");
+        f.setValue(null);
+      }
+      else
+      {
+        settings.setAttribute("zusatzfeld." + counter + ".value", "");
+        f.setValue("");
+      }
+    }
+    settings.setAttribute("zusatzfelder.selected", 0);
+
+  }
 }

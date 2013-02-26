@@ -38,6 +38,7 @@ import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.SimpleContainer;
+import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractAdresseSucheView
 {
@@ -125,6 +126,37 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
       left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzfelder"),
           mitglzusatzfelder);
     }
+    right.addPart(new Button("Filter-Reset", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          control.getMitgliedStatus().setValue(
+              JVereinPlugin.getI18n().tr("An- und Abgemeldete"));
+          control.getSuchExterneMitgliedsnummer().setValue("");
+          control.resetEigenschaftenAuswahl();
+          control.getBeitragsgruppeAusw().setValue(null);
+          control.getSuchname().setValue("");
+          control.getGeburtsdatumvon().setValue(null);
+          control.getGeburtsdatumbis().setValue(null);
+          control.getGeschlecht().setValue(null);
+          control.getEintrittvon().setValue(null);
+          control.getEintrittbis().setValue(null);
+          control.getAustrittvon().setValue(null);
+          control.getAustrittbis().setValue(null);
+          control.resetZusatzfelderAuswahl();
+          TabRefresh();
+        }
+        catch (RemoteException e)
+        {
+          throw new ApplicationException(e);
+        }
+
+      }
+    }, null, false, "clear.gif"));
   }
 
   @Override

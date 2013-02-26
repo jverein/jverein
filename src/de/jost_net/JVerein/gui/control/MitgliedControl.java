@@ -209,6 +209,8 @@ public class MitgliedControl extends AbstractControl
 
   private Input[] zusatzfelder;
 
+  private ZusatzfelderAuswahlDialog zad;
+
   private Input[] lesefelder;
 
   private TreePart eigenschaftenTree;
@@ -1951,19 +1953,33 @@ public class MitgliedControl extends AbstractControl
     return eigenschaftenabfrage;
   }
 
+  public void resetEigenschaftenAuswahl()
+  {
+    settings.setAttribute("mitglied.eigenschaften", "");
+    eigenschaftenabfrage.setText("");
+    eigenschaftenabfrage.getControl().redraw();
+  }
+
   public DialogInput getZusatzfelderAuswahl()
   {
     if (zusatzfelderabfrage != null)
     {
       return zusatzfelderabfrage;
     }
-    final ZusatzfelderAuswahlDialog d = new ZusatzfelderAuswahlDialog(settings);
-    d.addCloseListener(new ZusatzfelderListener());
+    zad = new ZusatzfelderAuswahlDialog(settings);
+    zad.addCloseListener(new ZusatzfelderListener());
 
-    zusatzfelderabfrage = new DialogInput("", d);
+    zusatzfelderabfrage = new DialogInput("", zad);
     setZusatzfelderAuswahl();
     zusatzfelderabfrage.setName(JVereinPlugin.getI18n().tr("Zusatzfelder"));
     return zusatzfelderabfrage;
+  }
+
+  public void resetZusatzfelderAuswahl()
+  {
+    zad.reset();
+    setZusatzfelderAuswahl();
+    zusatzfelderabfrage.getControl().redraw();
   }
 
   public Input getAusgabe()
@@ -2932,13 +2948,7 @@ public class MitgliedControl extends AbstractControl
     @Override
     public void handleEvent(Event event)
     {
-      if (event == null || event.data == null)
-      {
-        return;
-      }
-      int selected = settings.getInt("zusatzfelder.selected", 0);
-      zusatzfelderabfrage.setText(selected > 0 ? selected
-          + " Felder ausgewählt" : "kein Feld ausgewählt");
+      setZusatzfelderAuswahl();
     }
   }
 

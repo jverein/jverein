@@ -115,7 +115,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     buttons.paint(this.getParent());
   }
 
-  private void TabRefresh()
+  public void TabRefresh()
   {
     try
     {
