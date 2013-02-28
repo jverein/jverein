@@ -57,16 +57,21 @@ public class MitgliedskontoListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(new Button(JVereinPlugin.getI18n().tr("Export"),
-        new MitgliedskontoExportAction(), new Object[] {
-            control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
-                .getValue(),
-            control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
-                .getValue(), control.getDifferenz().getValue() }, false,
+        new MitgliedskontoExportAction(), getObject(control), false,
         "document-save.png"));
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
         new DokumentationAction(), DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT,
         false, "help-browser.png");
     buttons.paint(this.getParent());
+  }
+
+  private Object[] getObject(MitgliedskontoControl control)
+  {
+    return new Object[] {
+        control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
+            .getValue(),
+        control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
+            .getValue(), control.getDifferenz().getText() };
   }
 
   @Override
