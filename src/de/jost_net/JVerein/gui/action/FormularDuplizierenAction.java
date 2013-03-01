@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import java.awt.image.DataBufferInt;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
