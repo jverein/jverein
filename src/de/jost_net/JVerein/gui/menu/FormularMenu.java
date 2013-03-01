@@ -24,8 +24,11 @@ package de.jost_net.JVerein.gui.menu;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FormularAnzeigeAction;
 import de.jost_net.JVerein.gui.action.FormularDeleteAction;
+import de.jost_net.JVerein.gui.action.FormularDuplizierenAction;
 import de.jost_net.JVerein.gui.action.FormularfelderListeAction;
+import de.jost_net.JVerein.gui.control.FormularControl;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
+import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 
@@ -38,12 +41,14 @@ public class FormularMenu extends ContextMenu
   /**
    * Erzeugt ein Kontext-Menu fuer die Liste der Formulare.
    */
-  public FormularMenu()
+  public FormularMenu(FormularControl control)
   {
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
         "Formularfelder"), new FormularfelderListeAction(), "rechnung.png"));
     addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("anzeigen"),
         new FormularAnzeigeAction(), "edit.png"));
+    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
+        "duplizieren"), new FormularDuplizierenAction(control), "copy_v2.png"));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem(
         JVereinPlugin.getI18n().tr("löschen..."), new FormularDeleteAction(),

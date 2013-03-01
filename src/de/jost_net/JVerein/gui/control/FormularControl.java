@@ -177,7 +177,7 @@ public class FormularControl extends AbstractControl
     formularList.addColumn(JVereinPlugin.getI18n().tr("Art"), "art",
         new FormularartFormatter(), false, Column.ALIGN_LEFT);
     formularList.setRememberColWidths(true);
-    formularList.setContextMenu(new FormularMenu());
+    formularList.setContextMenu(new FormularMenu(this));
     formularList.setRememberOrder(true);
     formularList.setSummary(false);
     return formularList;

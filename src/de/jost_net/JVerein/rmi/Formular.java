@@ -27,6 +27,8 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Formular extends DBObject
 {
+  public void setID(String id) throws RemoteException;
+
   public byte[] getInhalt() throws RemoteException;
 
   public void setInhalt(byte[] inhalt) throws RemoteException;
