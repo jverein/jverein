@@ -31,6 +31,11 @@ public interface Adresstyp extends DBObject
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;
 
+  public String getBezeichnungPlural() throws RemoteException;
+
+  public void setBezeichnungPlural(String bezeichnungplural)
+      throws RemoteException;
+
   /**
    * JVerein-ID <br>
    * Mit der JVerein-ID werden Adresstypen mit festen Funktionen in JVerein

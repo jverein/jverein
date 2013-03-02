@@ -36,10 +36,12 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
+import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.Tools.EigenschaftenTool;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -47,6 +49,8 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedAuswertungPDF implements IAuswertung
 {
   private MitgliedControl control;
+
+  private Adresstyp adresstyp;
 
   private String subtitle = "";
 
@@ -58,92 +62,101 @@ public class MitgliedAuswertungPDF implements IAuswertung
   @Override
   public void beforeGo() throws RemoteException
   {
+    this.adresstyp = (Adresstyp) control.getAdresstyp().getValue();
+    if (adresstyp == null)
+    {
+      DBIterator it = Einstellungen.getDBService().createList(Adresstyp.class);
+      it.addFilter("jvereinid=1");
+      adresstyp = (Adresstyp) it.next();
+    }
     subtitle = "";
-    if (control
-        .getMitgliedStatus()
-        .getValue()
-        .equals(
-            JVereinPlugin.getI18n()
-                .tr(JVereinPlugin.getI18n().tr("Abgemeldet"))))
+    if (adresstyp.getJVereinid() == 1)
     {
-      subtitle += JVereinPlugin.getI18n().tr("Abgemeldet") + "";
+      if (control
+          .getMitgliedStatus()
+          .getValue()
+          .equals(
+              JVereinPlugin.getI18n().tr(
+                  JVereinPlugin.getI18n().tr("Abgemeldet"))))
+      {
+        subtitle += JVereinPlugin.getI18n().tr("Abgemeldet") + "";
+      }
+      if (control.getGeburtsdatumvon().getValue() != null)
+      {
+        Date d = (Date) control.getGeburtsdatumvon().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Geburtsdatum von {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getGeburtsdatumbis().getValue() != null)
+      {
+        Date d = (Date) control.getGeburtsdatumbis().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Geburtsdatum bis {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getEintrittvon().getValue() != null)
+      {
+        Date d = (Date) control.getEintrittvon().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Eintritt von {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getEintrittbis().getValue() != null)
+      {
+        Date d = (Date) control.getEintrittbis().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Eintritt bis {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getAustrittvon().getValue() != null)
+      {
+        Date d = (Date) control.getAustrittvon().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Austritt von  {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getAustrittbis().getValue() != null)
+      {
+        Date d = (Date) control.getAustrittbis().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Austritt bis {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getSterbedatumvon().getValue() != null)
+      {
+        Date d = (Date) control.getSterbedatumvon().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Sterbetag von {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getSterbedatumbis().getValue() != null)
+      {
+        Date d = (Date) control.getSterbedatumbis().getValue();
+        subtitle += JVereinPlugin.getI18n().tr("Sterbedatum bis {0}",
+            new JVDateFormatTTMMJJJJ().format(d))
+            + "  ";
+      }
+      if (control.getMitgliedStatus().getValue()
+          .equals(JVereinPlugin.getI18n().tr("Angemeldet"))
+          && control.getAustrittvon().getValue() == null
+          && control.getAustrittbis().getValue() == null
+          && control.getSterbedatumvon().getValue() == null
+          && control.getSterbedatumbis().getValue() == null)
+      {
+        subtitle += JVereinPlugin.getI18n().tr(
+            "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)")
+            + "  ";
+      }
+      if (control.getBeitragsgruppeAusw().getValue() != null)
+      {
+        Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
+            .getValue();
+        subtitle += JVereinPlugin.getI18n().tr("nur Beitragsgruppe {0}",
+            bg.getBezeichnung())
+            + "  ";
+      }
     }
-    if (control.getGeburtsdatumvon().getValue() != null)
-    {
-      Date d = (Date) control.getGeburtsdatumvon().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Geburtsdatum von {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getGeburtsdatumbis().getValue() != null)
-    {
-      Date d = (Date) control.getGeburtsdatumbis().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Geburtsdatum bis {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getEintrittvon().getValue() != null)
-    {
-      Date d = (Date) control.getEintrittvon().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Eintritt von {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getEintrittbis().getValue() != null)
-    {
-      Date d = (Date) control.getEintrittbis().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Eintritt bis {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getAustrittvon().getValue() != null)
-    {
-      Date d = (Date) control.getAustrittvon().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Austritt von  {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getAustrittbis().getValue() != null)
-    {
-      Date d = (Date) control.getAustrittbis().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Austritt bis {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getSterbedatumvon().getValue() != null)
-    {
-      Date d = (Date) control.getSterbedatumvon().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Sterbetag von {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getSterbedatumbis().getValue() != null)
-    {
-      Date d = (Date) control.getSterbedatumbis().getValue();
-      subtitle += JVereinPlugin.getI18n().tr("Sterbedatum bis {0}",
-          new JVDateFormatTTMMJJJJ().format(d))
-          + "  ";
-    }
-    if (control.getMitgliedStatus().getValue()
-        .equals(JVereinPlugin.getI18n().tr("Angemeldet"))
-        && control.getAustrittvon().getValue() == null
-        && control.getAustrittbis().getValue() == null
-        && control.getSterbedatumvon().getValue() == null
-        && control.getSterbedatumbis().getValue() == null)
-    {
-      subtitle += JVereinPlugin.getI18n().tr(
-          "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)")
-          + "  ";
-    }
-    if (control.getBeitragsgruppeAusw().getValue() != null)
-    {
-      Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
-          .getValue();
-      subtitle += JVereinPlugin.getI18n().tr("nur Beitragsgruppe {0}",
-          bg.getBezeichnung())
-          + "  ";
-    }
-
     String ueberschrift = (String) control.getAuswertungUeberschrift()
         .getValue();
     if (ueberschrift.length() > 0)
@@ -162,7 +175,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
       FileOutputStream fos = new FileOutputStream(file);
 
       Reporter report = new Reporter(fos, JVereinPlugin.getI18n().tr(
-          "Mitglieder"), subtitle, list.size(), 50, 10, 20, 25);
+          adresstyp.getBezeichnungPlural()), subtitle, list.size(), 50, 10, 20,
+          25);
 
       report.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
           Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
@@ -171,12 +185,17 @@ public class MitgliedAuswertungPDF implements IAuswertung
           Element.ALIGN_CENTER, 130, BaseColor.LIGHT_GRAY);
       report.addHeaderColumn(JVereinPlugin.getI18n().tr("Geburts- datum"),
           Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
-      report
-          .addHeaderColumn(
-              JVereinPlugin.getI18n().tr("Eintritt / \nAustritt / \nKündigung")
-                  + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n" + JVereinPlugin
-                      .getI18n().tr(JVereinPlugin.getI18n().tr("Sterbedatum")))
-                      : ""), Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+      if (adresstyp.getJVereinid() == 1)
+      {
+        report
+            .addHeaderColumn(
+                JVereinPlugin.getI18n().tr(
+                    "Eintritt / \nAustritt / \nKündigung")
+                    + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n" + JVereinPlugin
+                        .getI18n()
+                        .tr(JVereinPlugin.getI18n().tr("Sterbedatum"))) : ""),
+                Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+      }
       report
           .addHeaderColumn(
               JVereinPlugin.getI18n().tr(
@@ -247,10 +266,16 @@ public class MitgliedAuswertungPDF implements IAuswertung
               + (m.getExterneMitgliedsnummer() != null ? m
                   .getExterneMitgliedsnummer() : "");
         }
-        report.addColumn(zelle, Element.ALIGN_LEFT);
-        StringBuilder beitragsgruppebemerkung = new StringBuilder(m
-            .getBeitragsgruppe().getBezeichnung());
-
+        if (adresstyp.getJVereinid() == 1)
+        {
+          report.addColumn(zelle, Element.ALIGN_LEFT);
+        }
+        StringBuilder beitragsgruppebemerkung = new StringBuilder();
+        if (m.getBeitragsgruppe() != null)
+        {
+          beitragsgruppebemerkung
+              .append(m.getBeitragsgruppe().getBezeichnung());
+        }
         StringBuilder eigenschaften = new StringBuilder();
         ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m
             .getID());
@@ -279,9 +304,9 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       report.closeTable();
 
-      report.add(new Paragraph(JVereinPlugin.getI18n().tr(
-          "Anzahl Mitglieder: {0}", list.size() + ""), FontFactory.getFont(
-          FontFactory.HELVETICA, 8)));
+      report.add(new Paragraph(JVereinPlugin.getI18n().tr("Anzahl {0}: {1}",
+          adresstyp.getBezeichnungPlural(), list.size() + ""), FontFactory
+          .getFont(FontFactory.HELVETICA, 8)));
 
       report.close();
       GUI.getStatusBar().setSuccessText(

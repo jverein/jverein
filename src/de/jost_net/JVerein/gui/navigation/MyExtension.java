@@ -29,6 +29,7 @@ import de.jost_net.JVerein.gui.action.AdressenSucheAction;
 import de.jost_net.JVerein.gui.action.AdresstypListAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzUeberpruefungAction;
+import de.jost_net.JVerein.gui.action.AuswertungAdressenAction;
 import de.jost_net.JVerein.gui.action.AuswertungKursteilnehmerAction;
 import de.jost_net.JVerein.gui.action.AuswertungMitgliedAction;
 import de.jost_net.JVerein.gui.action.BLZUpdateAction;
@@ -163,6 +164,8 @@ public class MyExtension implements Extension
           "Auswertungen"), null);
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Mitglieder"), new AuswertungMitgliedAction(), "list_users.gif"));
+      auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
+          "Adressen"), new AuswertungAdressenAction(), "list_users.gif"));
       auswertung.addChild(new MyItem(auswertung, JVereinPlugin.getI18n().tr(
           "Jubiläen"), new JubilaeenAction(), "document-open.png"));
       if (Einstellungen.getEinstellung().getKursteilnehmer())

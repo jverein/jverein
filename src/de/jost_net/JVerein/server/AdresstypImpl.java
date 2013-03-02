@@ -114,6 +114,19 @@ public class AdresstypImpl extends AbstractDBObject implements Adresstyp
   }
 
   @Override
+  public String getBezeichnungPlural() throws RemoteException
+  {
+    return (String) getAttribute("bezeichnungplural");
+  }
+
+  @Override
+  public void setBezeichnungPlural(String bezeichnungplural)
+      throws RemoteException
+  {
+    setAttribute("bezeichnungplural", bezeichnungplural);
+  }
+
+  @Override
   public int getJVereinid() throws RemoteException
   {
     Integer i = (Integer) getAttribute("jvereinid");

@@ -21,45 +21,56 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.control.AdresstypControl;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
-import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 
-public class AdresstypView extends AbstractView
+public class AuswertungAdresseView extends AbstractView
 {
 
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Adresstyp"));
+    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Auswertung Adressen"));
 
-    final AdresstypControl control = new AdresstypControl(this);
+    final MitgliedControl control = new MitgliedControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Adresstyp"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung Plural"),
-        control.getBezeichnungPlural());
+        "Filter"));
+
+    ColumnLayout cl = new ColumnLayout(group.getComposite(), 2);
+    SimpleContainer left = new SimpleContainer(cl.getComposite());
+
+    left.addInput(control.getAdresstyp());
+    left.addInput(control.getEigenschaftenAuswahl());
+
+    if (Einstellungen.getEinstellung().hasZusatzfelder())
+    {
+      left.addInput(control.getZusatzfelderAuswahl());
+    }
+    left.addInput(control.getGeburtsdatumvon());
+    left.addInput(control.getGeburtsdatumbis());
+
+    left.addInput(control.getMailauswahl());
+
+    SimpleContainer right = new SimpleContainer(cl.getComposite());
+
+    right.addInput(control.getAusgabe());
+    right.addInput(control.getAuswertungUeberschrift());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ADRESSTYPEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
-    {
-      @Override
-      public void handleAction(Object context)
-      {
-        control.handleStore();
-      }
-    }, null, true, "document-save.png");
-    buttons.paint(this.getParent());
+        new DokumentationAction(), DokumentationUtil.AUSWERTUNGMITGLIEDER,
+        false, "help-browser.png");
+    buttons.addButton(control.getStartAdressAuswertungButton());
+    buttons.paint(getParent());
   }
 
   @Override
@@ -67,9 +78,9 @@ public class AdresstypView extends AbstractView
   {
     return JVereinPlugin
         .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
-            + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
-            + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
+        .tr("<form><p><span color=\"header\" font=\"header\">Auswertung Adressen</span></p>"
+            + "<p>Der Adressbestand kann nach verschiedenen Kriterien ausgewertet werden. </p>"
+            + "<p>Als Ausgabeformate stehen PDF und CSV zur Verfügung.</p>"
             + "</form>");
   }
 }

@@ -48,6 +48,8 @@ public class AdresstypControl extends AbstractControl
 
   private Input bezeichnung;
 
+  private Input bezeichnungplural;
+
   private Adresstyp adresstyp;
 
   public AdresstypControl(AbstractView view)
@@ -77,6 +79,16 @@ public class AdresstypControl extends AbstractControl
     return bezeichnung;
   }
 
+  public Input getBezeichnungPlural() throws RemoteException
+  {
+    if (bezeichnungplural != null)
+    {
+      return bezeichnungplural;
+    }
+    bezeichnungplural = new TextInput(getAdresstyp().getBezeichnungPlural(), 30);
+    return bezeichnungplural;
+  }
+
   /**
    * This method stores the project using the current values.
    */
@@ -86,6 +98,7 @@ public class AdresstypControl extends AbstractControl
     {
       Adresstyp at = getAdresstyp();
       at.setBezeichnung((String) getBezeichnung().getValue());
+      at.setBezeichnungPlural((String) getBezeichnungPlural().getValue());
       try
       {
         at.store();
@@ -115,6 +128,8 @@ public class AdresstypControl extends AbstractControl
     adresstypList = new TablePart(adresstypen, new AdresstypAction());
     adresstypList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
         "bezeichnung");
+    adresstypList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung Plural"),
+        "bezeichnungplural");
     adresstypList.addColumn(JVereinPlugin.getI18n().tr("ID"), "id");
     adresstypList.setContextMenu(new AdresstypMenu());
     adresstypList.setRememberColWidths(true);

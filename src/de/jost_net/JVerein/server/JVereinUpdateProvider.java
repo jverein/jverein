@@ -1078,6 +1078,22 @@ public class JVereinUpdateProvider
     {
       update0268(conn);
     }
+    if (cv < 269)
+    {
+      update0269(conn);
+    }
+    if (cv < 270)
+    {
+      update0270(conn);
+    }
+    if (cv < 271)
+    {
+      update0271(conn);
+    }
+    if (cv < 272)
+    {
+      update0272(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6467,6 +6483,59 @@ public class JVereinUpdateProvider
     {
       throw new ApplicationException(e);
     }
+  }
+
+  private void update0269(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE adresstyp ADD bezeichnungplural varchar(30) before jvereinid;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE adresstyp ADD bezeichnungplural varchar(30) after bezeichnung;\n");
+
+    execute(conn, statements,
+        "Spalte bezeichnungplural in die Tabelle adresstyp eingefügt", 269);
+  }
+
+  private void update0270(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE adresstyp SET bezeichnungplural = bezeichnung;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte bezeichnungplural gefüllt", 270);
+  }
+
+  private void update0271(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE adresstyp SET bezeichnungplural = 'Mitglieder' WHERE jvereinid=1;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte bezeichnungplural gefüllt", 271);
+  }
+
+  private void update0272(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE adresstyp SET bezeichnungplural = 'Spender/innen' WHERE jvereinid=2;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte bezeichnungplural gefüllt", 272);
   }
 
 }

@@ -2075,6 +2075,29 @@ public class MitgliedControl extends AbstractControl
     return b;
   }
 
+  public Button getStartAdressAuswertungButton()
+  {
+    Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          starteAdressAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+              "Fehler beim Start der Adressauswertung"));
+        }
+      }
+    }, null, true, "go.png"); // "true" defines this button as the default
+    // button
+    return b;
+  }
+
   public Button getStartStatistikButton()
   {
     Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
@@ -2722,6 +2745,106 @@ public class MitgliedControl extends AbstractControl
       }
       fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("auswertung"),
           dateinamensort, Einstellungen.getEinstellung().getDateinamenmuster(),
+          ausw.getDateiendung()).get());
+      fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
+
+      String s = fd.open();
+      if (s == null || s.length() == 0)
+      {
+        return;
+      }
+      if (!s.endsWith(ausw.getDateiendung()))
+      {
+        s = s + "." + ausw.getDateiendung();
+      }
+      final File file = new File(s);
+
+      final ArrayList<Mitglied> flist = list;
+      ausw.beforeGo();
+      BackgroundTask t = new BackgroundTask()
+      {
+        @Override
+        public void run(ProgressMonitor monitor) throws ApplicationException
+        {
+          try
+          {
+            ausw.go(flist, file);
+            GUI.getCurrentView().reload();
+            if (ausw.openFile())
+            {
+              GUI.getDisplay().asyncExec(new Runnable()
+              {
+                @Override
+                public void run()
+                {
+                  try
+                  {
+                    new Program().handleAction(file);
+                  }
+                  catch (ApplicationException ae)
+                  {
+                    Application.getMessagingFactory().sendMessage(
+                        new StatusBarMessage(ae.getLocalizedMessage(),
+                            StatusBarMessage.TYPE_ERROR));
+                  }
+                }
+              });
+            }
+          }
+          catch (ApplicationException ae)
+          {
+            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
+            GUI.getStatusBar().setErrorText(ae.getMessage());
+            throw ae;
+          }
+          catch (Exception re)
+          {
+            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), re);
+            GUI.getStatusBar().setErrorText(re.getMessage());
+            throw new ApplicationException(re);
+          }
+        }
+
+        @Override
+        public void interrupt()
+        {
+          //
+        }
+
+        @Override
+        public boolean isInterrupted()
+        {
+          return false;
+        }
+      };
+      Application.getController().start(t);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  private void starteAdressAuswertung() throws RemoteException
+  {
+    final IAuswertung ausw = (IAuswertung) getAusgabe().getValue();
+    saveDefaults();
+    ArrayList<Mitglied> list = null;
+    Adresstyp atyp = (Adresstyp) getAdresstyp().getValue();
+    list = new MitgliedQuery(this, true).get(Integer.parseInt(atyp.getID()));
+    try
+    {
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+
+      String path = settings.getString("lastdir",
+          System.getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("adressauswertung"),
+          "", Einstellungen.getEinstellung().getDateinamenmuster(),
           ausw.getDateiendung()).get());
       fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
 
