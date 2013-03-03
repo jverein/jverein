@@ -42,6 +42,7 @@ import com.itextpdf.text.Paragraph;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.Reporter;
+import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -351,6 +352,32 @@ public class PersonalbogenAction implements Action
           rpt.addColumn("", Element.ALIGN_LEFT);
         }
       }
+      if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
+      {
+        DBIterator itbg = Einstellungen.getDBService().createList(
+            Mitglied.class);
+        itbg.addFilter("zahlerid = ?", m.getID());
+        rpt.addColumn(JVereinPlugin.getI18n().tr("Zahler für"),
+            Element.ALIGN_LEFT);
+        String zahltfuer = "";
+        while (itbg.hasNext())
+        {
+          Mitglied mz = (Mitglied) itbg.next();
+          if (zahltfuer.length() > 0)
+          {
+            zahltfuer += "\n";
+          }
+          zahltfuer += mz.getNameVorname();
+        }
+        rpt.addColumn(zahltfuer, Element.ALIGN_LEFT);
+      }
+      else if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+      {
+        Mitglied mfa = (Mitglied) Einstellungen.getDBService().createObject(
+            Mitglied.class, m.getZahlerID() + "");
+        rpt.addColumn(JVereinPlugin.getI18n().tr("Zahler"), Element.ALIGN_LEFT);
+        rpt.addColumn(mfa.getNameVorname(), Element.ALIGN_LEFT);
+      }
       rpt.addColumn(JVereinPlugin.getI18n().tr("Austritts-/Kündigungsdatum"),
           Element.ALIGN_LEFT);
       String akdatum = "";
@@ -370,7 +397,8 @@ public class PersonalbogenAction implements Action
     }
     rpt.addColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"), Element.ALIGN_LEFT);
     rpt.addColumn(Zahlungsweg.get(m.getZahlungsweg()), Element.ALIGN_LEFT);
-    if (m.getBic().length() > 0 && m.getIban().length() > 0)
+    if (m.getBic() != null && m.getBic().length() > 0
+        && m.getIban().length() > 0)
     {
       rpt.addColumn(JVereinPlugin.getI18n().tr("Bankverbindung"),
           Element.ALIGN_LEFT);
