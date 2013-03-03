@@ -65,10 +65,10 @@ public class SEPAKonverter extends AbstractBox
       DBIterator it0 = Einstellungen.getDBService().createList(Mitglied.class);
 
       DBIterator it1 = Einstellungen.getDBService().createList(Mitglied.class);
-      it1.addFilter("iban is not null");
+      it1.addFilter("iban is not null and blz is not null");
       DBIterator it2 = Einstellungen.getDBService().createList(
           Kursteilnehmer.class);
-      it2.addFilter("iban is not null");
+      it2.addFilter("iban is not null and blz is not null");
       if (it0.size() > 0 && (it1.size() == 0 || it2.size() == 0))
       {
         aktiv = true;
