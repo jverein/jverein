@@ -1094,6 +1094,18 @@ public class JVereinUpdateProvider
     {
       update0272(conn);
     }
+    if (cv < 273)
+    {
+      update0273(conn);
+    }
+    if (cv < 274)
+    {
+      update0274(conn);
+    }
+    if (cv < 275)
+    {
+      update0275(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6536,6 +6548,61 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
     execute(conn, statements, "Spalte bezeichnungplural gefüllt", 272);
+  }
+
+  private void update0273(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2 + MySQL
+    sb = new StringBuilder();
+    sb.append("INSERT INTO sepaparam(");
+    sb.append(" id,");
+    sb.append(" bezeichnung,");
+    sb.append(" bankidentifierlength,");
+    sb.append(" accountlength,");
+    sb.append(" bankidentifiersample,");
+    sb.append(" accountsample,");
+    sb.append(" ibansample)");
+    sb.append(" VALUES ('NL', 'Niederlande', 4, 10, 'ABNA', '0417164300', 'NL91ABNA0417164300');\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Zeile in sepaparam erstellt", 274);
+  }
+
+  private void update0274(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2 + MySQL
+    sb = new StringBuilder();
+    sb.append("INSERT INTO sepaparam(");
+    sb.append(" id,");
+    sb.append(" bezeichnung,");
+    sb.append(" bankidentifierlength,");
+    sb.append(" accountlength,");
+    sb.append(" bankidentifiersample,");
+    sb.append(" accountsample,");
+    sb.append(" ibansample)");
+    sb.append(" VALUES ('PL', 'Polen', 8, 16, '10901014', '0000071219812874', 'PL61109010140000071219812874');\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Zeile in sepaparam erstellt", 274);
+  }
+
+  private void update0275(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table mitglied alter column konto varchar(16);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mitglied modify column  konto varchar(16);\n");
+
+    execute(conn, statements, "Spalte konto der Tabelle mitglied verlängert",
+        275);
   }
 
 }
