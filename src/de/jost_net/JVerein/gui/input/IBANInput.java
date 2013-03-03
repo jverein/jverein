@@ -29,7 +29,7 @@ public class IBANInput extends TextInput
 {
   public IBANInput(String value)
   {
-    super(value, 23);
+    super(value, 34);
     setName(JVereinPlugin.getI18n().tr("IBAN"));
     IBANListener l = new IBANListener(this);
     addListener(l);

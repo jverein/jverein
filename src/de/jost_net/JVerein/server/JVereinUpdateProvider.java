@@ -1106,6 +1106,18 @@ public class JVereinUpdateProvider
     {
       update0275(conn);
     }
+    if (cv < 276)
+    {
+      update0276(conn);
+    }
+    if (cv < 277)
+    {
+      update0277(conn);
+    }
+    if (cv < 278)
+    {
+      update0278(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6603,6 +6615,51 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Spalte konto der Tabelle mitglied verlängert",
         275);
+  }
+
+  private void update0276(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table einstellung alter column iban varchar(34);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table einstellung modify column  iban varchar(34);\n");
+
+    execute(conn, statements, "Spalte iban der Tabelle einstellung verlängert",
+        276);
+  }
+
+  private void update0277(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table mitglied alter column iban varchar(34);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mitglied modify column  iban varchar(34);\n");
+
+    execute(conn, statements, "Spalte iban der Tabelle mitglied verlängert",
+        277);
+  }
+
+  private void update0278(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table kursteilnehmer alter column iban varchar(34);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table kursteilnehmer modify column  iban varchar(34);\n");
+
+    execute(conn, statements,
+        "Spalte iban der Tabelle kursteilnehmer verlängert", 278);
   }
 
 }
