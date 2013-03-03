@@ -120,6 +120,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
         la = SEPA.getLandFromIBAN(bankverbindung.getIban());
       }
       land = new SEPALandInput(SEPA.getSEPAParam(la));
+      land.addListener(new AltBankListener());
     }
     catch (SEPAException e)
     {
@@ -169,7 +170,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     {
       return iban;
     }
-    iban = new TextInput(bankverbindung.getIban(), 23);
+    iban = new TextInput(bankverbindung.getIban(), 34);
     iban.setName("IBAN");
     iban.setEnabled(false);
     return iban;
