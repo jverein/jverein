@@ -2499,6 +2499,8 @@ public class MitgliedControl extends AbstractControl
       Zahlungsrhytmus zr = (Zahlungsrhytmus) getZahlungsrhytmus().getValue();
       m.setZahlungsrhytmus(zr.getKey());
       m.setBlz((String) getBlz().getValue());
+      m.setBic((String)getBic().getValue());
+      m.setIban((String)getIban().getValue());
       m.setEintritt((Date) getEintritt().getValue());
       m.setEmail((String) getEmail().getValue());
       if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())

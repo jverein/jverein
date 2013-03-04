@@ -115,7 +115,8 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     try
     {
       String la = Einstellungen.getEinstellung().getDefaultLand();
-      if (bankverbindung.getIban().length() > 0)
+      if (bankverbindung.getIban() != null
+          && bankverbindung.getIban().length() > 0)
       {
         la = SEPA.getLandFromIBAN(bankverbindung.getIban());
       }
