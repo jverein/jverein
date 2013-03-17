@@ -125,9 +125,11 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
     String sql = "select mitglied.id as id, arbeitseinsatzstunden  sollstunden, beitragsgruppe.arbeitseinsatzbetrag as betrag, sum(stunden)  iststunden from mitglied "
         + "  join beitragsgruppe on mitglied.beitragsgruppe = beitragsgruppe.id "
         + "  left join arbeitseinsatz on mitglied.id = arbeitseinsatz.mitglied and year(arbeitseinsatz.datum) = ? "
-        + "where  (mitglied.eintritt is null or year(mitglied.eintritt) <= ?) and (mitglied.austritt is null or year(mitglied.austritt) > ?) and beitragsgruppe.arbeitseinsatzstunden is not null and beitragsgruppe.arbeitseinsatzstunden > 0 ";
-
-    sql += "  group by mitglied.id ";
+        + "where  (mitglied.eintritt is null or year(mitglied.eintritt) <= ?) and "
+        + "       (mitglied.austritt is null or year(mitglied.austritt) >= ?) and "
+        + "        beitragsgruppe.arbeitseinsatzstunden is not null and "
+        + "        beitragsgruppe.arbeitseinsatzstunden > 0 "
+        + "group by mitglied.id ";
     if (schluessel == ArbeitseinsatzUeberpruefungInput.MINDERLEISTUNG)
     {
       sql += "    having iststunden < arbeitseinsatzstunden or iststunden is null  ";
