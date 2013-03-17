@@ -21,15 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control.listener;
 
-import java.rmi.RemoteException;
-
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.jost_net.JVerein.rmi.Bank;
-import de.jost_net.JVerein.util.SEPA;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.logging.Logger;
 
 /**
  * Sucht das Geldinstitut zum eingegebenen BIC und zeigt es als Kommentar hinter
@@ -48,17 +45,10 @@ public class BICListener implements Listener
   @Override
   public void handleEvent(Event event)
   {
-    try
+    Bank b = Banken.getBankByBIC((String) bic.getValue());
+    if (b != null)
     {
-      Bank b = SEPA.getBankByBIC((String) bic.getValue());
-      if (b != null)
-      {
-        bic.setComment(b.getBezeichnung());
-      }
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler beim setzen des Banknamen-Kommentars", e);
+      bic.setComment(b.getBezeichnung());
     }
   }
 }

@@ -31,11 +31,12 @@ import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.rmi.Bank;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.util.SEPA;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -235,11 +236,11 @@ public class SEPAKonverter extends AbstractBox
         Einstellung einstellung = (Einstellung) it.next();
         if (einstellung != null)
         {
-          Bank bank = SEPA.getBankByBLZ(einstellung.getBlz());
+          Bank bank = Banken.getBankByBLZ(einstellung.getBlz());
           einstellung.setBic(bank.getBIC());
-          einstellung.setIban(SEPA.createIban(einstellung.getKonto(),
-              einstellung.getBlz(), Einstellungen.getEinstellung()
-                  .getDefaultLand()));
+          IBAN i = new IBAN(einstellung.getKonto(), einstellung.getBlz(),
+              Einstellungen.getEinstellung().getDefaultLand());
+          einstellung.setIban(i.getIBAN());
           einstellung.store();
           Einstellungen.setEinstellung(einstellung);
           monitor.log("Einstellung: BIC und IBAN gesetzt");
@@ -254,10 +255,11 @@ public class SEPAKonverter extends AbstractBox
             Mitglied.class, m.getID());
         if (m2.getBlz() != null && m2.getBlz().length() > 0)
         {
-          Bank bank = SEPA.getBankByBLZ(m2.getBlz());
+          Bank bank = Banken.getBankByBLZ(m2.getBlz());
           m2.setBic(bank.getBIC());
-          m2.setIban(SEPA.createIban(m2.getKonto(), m2.getBlz(), Einstellungen
-              .getEinstellung().getDefaultLand()));
+          IBAN i = new IBAN(m2.getKonto(), m2.getBlz(), Einstellungen
+              .getEinstellung().getDefaultLand());
+          m2.setIban(i.getIBAN());
           m2.store();
         }
       }
@@ -271,10 +273,11 @@ public class SEPAKonverter extends AbstractBox
             .createObject(Kursteilnehmer.class, k.getID());
         if (k2.getBlz() != null && k2.getBlz().length() > 0)
         {
-          Bank bank = SEPA.getBankByBLZ(k2.getBlz());
+          Bank bank = Banken.getBankByBLZ(k2.getBlz());
           k2.setBic(bank.getBIC());
-          k2.setIban(SEPA.createIban(k2.getKonto(), k2.getBlz(), Einstellungen
-              .getEinstellung().getDefaultLand()));
+          IBAN i = new IBAN(k2.getKonto(), k2.getBlz(), Einstellungen
+              .getEinstellung().getDefaultLand());
+          k2.setIban(i.getIBAN());
           k2.store();
         }
       }

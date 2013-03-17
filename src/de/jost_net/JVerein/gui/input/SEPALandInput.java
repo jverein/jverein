@@ -23,13 +23,14 @@
 package de.jost_net.JVerein.gui.input;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.JVerein.rmi.SEPAParam;
-import de.jost_net.JVerein.util.SEPAException;
+import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.Land.SEPALaender;
+import de.jost_net.OBanToo.SEPA.Land.SEPALand;
 import de.willuhn.datasource.GenericIterator;
-import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.jameica.gui.input.SelectInput;
 
 /**
@@ -42,9 +43,9 @@ public class SEPALandInput extends SelectInput
     this(null);
   }
 
-  public SEPALandInput(SEPAParam land) throws RemoteException, SEPAException
+  public SEPALandInput(SEPALand land) throws RemoteException, SEPAException
   {
-    super(init(), land);
+    super(init(), new SEPALandObject(land));
     setName(JVereinPlugin.getI18n().tr("SEPA-Land"));
   }
 
@@ -54,106 +55,13 @@ public class SEPALandInput extends SelectInput
    */
   private static GenericIterator init() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(SEPAParam.class);
-    return it;
+    ArrayList<SEPALand> l = SEPALaender.getLaender();
+    ArrayList<SEPALandObject> lo = new ArrayList<SEPALandObject>();
+    for (SEPALand land : l)
+    {
+      lo.add(new SEPALandObject(land));
+    }
+    return PseudoIterator.fromArray(lo.toArray(new SEPALandObject[lo.size()]));
   }
 
-  // /**
-  // * @see de.willuhn.jameica.gui.input.Input#getValue()
-  // */
-  // @Override
-  // public Object getValue()
-  // {
-  // SEPALandObject o = (SEPALandObject) super.getValue();
-  // if (o == null)
-  // {
-  // return DEUTSCHLAND;
-  // }
-  // return o.sepaland;
-  // }
-
-  // @Override
-  // public void setValue(Object obj)
-  // {
-  // if (obj instanceof String)
-  // {
-  // super.setValue(new SEPALandObject((String) obj));
-  // }
-  // }
-
-  /**
-   * Hilfs-Objekt zur Anzeige der Labels.
-   */
-  // private static class SEPALandObject implements GenericObject
-  // {
-  //
-  // public String sepaland;
-  //
-  // private String label = null;
-  //
-  // private SEPALandObject(String sepaland)
-  // {
-  // this.sepaland = sepaland;
-  // if (sepaland == null)
-  // {
-  // label = "";
-  // return;
-  // }
-  //
-  // if (sepaland.equals(DEUTSCHLAND))
-  // {
-  // this.label = JVereinPlugin.getI18n().tr("Deutschland");
-  // }
-  // else if (sepaland.equals(OESTERREICH))
-  // {
-  // this.label = JVereinPlugin.getI18n().tr("Österreich");
-  // }
-  // else
-  // {
-  // this.label = JVereinPlugin.getI18n().tr("Programmfehler");
-  // }
-  // }
-  //
-  // @Override
-  // public Object getAttribute(String arg0)
-  // {
-  // if (arg0.equals("label"))
-  // {
-  // return label;
-  // }
-  // else if (arg0.equals("sepaland"))
-  // {
-  // return sepaland;
-  // }
-  // return null;
-  // }
-  //
-  // @Override
-  // public String[] getAttributeNames()
-  // {
-  // return new String[] { "label", "sepaland" };
-  // }
-  //
-  // @Override
-  // public String getID()
-  // {
-  // return sepaland;
-  // }
-  //
-  // @Override
-  // public String getPrimaryAttribute()
-  // {
-  // return "label";
-  // }
-  //
-  // @Override
-  // public boolean equals(GenericObject arg0) throws RemoteException
-  // {
-  // if (arg0 == null || !(arg0 instanceof SEPALandObject))
-  // {
-  // return false;
-  // }
-  // return this.getID().equals(arg0.getID());
-  // }
-  // }
 }

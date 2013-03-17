@@ -9,11 +9,14 @@ import org.eclipse.swt.widgets.Listener;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.SEPALandInput;
+import de.jost_net.JVerein.gui.input.SEPALandObject;
 import de.jost_net.JVerein.io.IBankverbindung;
-import de.jost_net.JVerein.rmi.Bank;
-import de.jost_net.JVerein.rmi.SEPAParam;
-import de.jost_net.JVerein.util.SEPAException;
-import de.jost_net.JVerein.util.SEPA;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
+import de.jost_net.OBanToo.SEPA.Land.SEPALaender;
+import de.jost_net.OBanToo.SEPA.Land.SEPALand;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -39,6 +42,8 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
 
   private TextInput iban = null;
 
+  private TextInput status = null;
+
   /**
    * @param position
    * @throws RemoteException
@@ -49,7 +54,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     super(position);
     setTitle("Bankverbindung");
     this.bankverbindung = bankverbindung;
-    setSize(400, 300);
+    setSize(400, 400);
   }
 
   @Override
@@ -63,6 +68,8 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     LabelGroup groupNEU = new LabelGroup(parent, "Bankverbindung -neu-");
     groupNEU.addLabelPair("BIC", getBIC());
     groupNEU.addLabelPair("IBAN", getIBAN());
+
+    getStatus().paint(parent);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
@@ -79,7 +86,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
         }
         catch (RemoteException e)
         {
-          e.printStackTrace();
+          status.setValue(e.getMessage());
         }
         close();
       }
@@ -114,17 +121,20 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     }
     try
     {
-      String la = Einstellungen.getEinstellung().getDefaultLand();
+      SEPALand la = SEPALaender.getLand(Einstellungen.getEinstellung()
+          .getDefaultLand());
       if (bankverbindung.getIban() != null
           && bankverbindung.getIban().length() > 0)
       {
-        la = SEPA.getLandFromIBAN(bankverbindung.getIban());
+        IBAN i = new IBAN(bankverbindung.getIban());
+        la = i.getLand();
       }
-      land = new SEPALandInput(SEPA.getSEPAParam(la));
+      land = new SEPALandInput(la);
       land.addListener(new AltBankListener());
     }
     catch (SEPAException e)
     {
+      setStatus(e.getMessage());
       throw new RemoteException(e.getMessage());
     }
     return land;
@@ -177,6 +187,30 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     return iban;
   }
 
+  private TextInput getStatus() throws RemoteException
+  {
+    if (status != null)
+    {
+      return status;
+    }
+    status = new TextInput("", 80);
+    status.setName("Status");
+    status.setEnabled(false);
+    return status;
+  }
+
+  private void setStatus(String status)
+  {
+    try
+    {
+      getStatus().setValue(status);
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
+  }
+
   private class AltBankListener implements Listener
   {
 
@@ -185,31 +219,43 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     {
       String blzs = null;
       String kontos = null;
-      SEPAParam param = null;
+      SEPALand land = null;
       try
       {
-        param = (SEPAParam) getSEPALand().getValue();
+        SEPALandObject slo = (SEPALandObject) getSEPALand().getValue();
+        land = (SEPALand) slo.getAttribute("land");
+        getBLZ().setMaxLength(land.getBankIdentifierLength());
+        getKonto().setMaxLength(land.getAccountLength());
         blzs = (String) getBLZ().getValue();
         if (blzs.length() > 0)
         {
-          Bank b = SEPA.getBankByBLZ(blzs);
+          Bank b = Banken.getBankByBLZ(blzs);
+          if (b == null)
+          {
+            setStatus("Ungültige Bankleitzahl");
+          }
           getBIC().setValue(b.getBIC());
         }
       }
       catch (Exception e)
       {
-        Logger.error(e.getMessage());
+        setStatus(e.getMessage());
+        Logger.error("Fehler", e);
+        return;
       }
       try
       {
         kontos = (String) getKonto().getValue();
-        getIBAN().setValue(SEPA.createIban(kontos, blzs, param.getID()));
+        IBAN i = new IBAN(kontos, blzs, land.getKennzeichen());
+        getIBAN().setValue(i.getIBAN());
       }
       catch (Exception e)
       {
+        setStatus(e.getMessage());
         Logger.error(e.getMessage());
+        return;
       }
-
+      setStatus("");
     }
   }
 

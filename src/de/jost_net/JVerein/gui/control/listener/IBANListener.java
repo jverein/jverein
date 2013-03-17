@@ -21,18 +21,15 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control.listener;
 
-import java.rmi.RemoteException;
-
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.gui.input.IBANInput;
-import de.jost_net.JVerein.rmi.Bank;
-import de.jost_net.JVerein.rmi.SEPAParam;
-import de.jost_net.JVerein.util.SEPAException;
-import de.jost_net.JVerein.util.SEPA;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.logging.Logger;
 
 /**
  * Sucht das Geldinstitut zur eingegebenen IBAN und zeigt es als Kommentar
@@ -51,44 +48,34 @@ public class IBANListener implements Listener
   @Override
   public void handleEvent(Event event)
   {
-    try
+    String ib = (String) iban.getValue();
+    if (ib == null)
     {
-      String ib = (String) iban.getValue();
-      if (ib == null)
+      return;
+    }
+    if (ib.length() == 0)
+    {
+      iban.setComment("");
+    }
+    if (ib.length() > 4)
+    {
+      try
       {
+        IBAN i = new IBAN(ib);
+        Bank b = Banken.getBankByBLZ(i.getBLZ());
+        if (b != null)
+        {
+          iban.setComment(b.getBezeichnung());
+        }
         return;
       }
-      if (ib.length() == 0)
+      catch (SEPAException e)
       {
-        iban.setComment("");
+        iban.setComment(e.getMessage());
+        return;
       }
-      if (ib.length() > 4)
-      {
-        String laendercode = ib.substring(0, 2);
-        try
-        {
-          SEPAParam country = SEPA.getSEPAParam(laendercode);
-          String bankcode = ib.substring(4,
-              country.getBankIdentifierLength() + 4);
-          Bank b = SEPA.getBankByBLZ(bankcode);
-          if (b != null)
-          {
-            iban.setComment(b.getBezeichnung());
-          }
-          return;
-        }
-        catch (SEPAException e)
-        {
-          iban.setComment(e.getMessage());
-          return;
-        }
-      }
-      Bank b = SEPA.getBankByBIC((String) iban.getValue());
-      iban.setComment(b.getBezeichnung());
     }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler beim setzen des Banknamen-Kommentars", e);
-    }
+    Bank b = Banken.getBankByBIC((String) iban.getValue());
+    iban.setComment(b.getBezeichnung());
   }
 }

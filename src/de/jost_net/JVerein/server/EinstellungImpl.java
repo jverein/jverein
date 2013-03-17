@@ -30,8 +30,6 @@ import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
-import de.jost_net.JVerein.util.SEPAException;
-import de.jost_net.JVerein.util.SEPA;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.system.Settings;
@@ -124,18 +122,18 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
             "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben."));
       }
 
-      try
-      {
-        if (!SEPA.isValid(getBic(), getIban()))
-        {
-          throw new ApplicationException("Ungültige Kombination BIC und IBAN");
-        }
-      }
-      catch (SEPAException e1)
-      {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-      }
+      // TODO muss noch sauber implementiert werden
+      // try
+      // {
+      // if (!SEPA.isValid(getBic(), getIban()))
+      // {
+      // throw new ApplicationException("Ungültige Kombination BIC und IBAN");
+      // }
+      // }
+      // catch (SEPAException e1)
+      // {
+      // e1.printStackTrace();
+      // }
       try
       {
         new AltersgruppenParser(getAltersgruppen());
