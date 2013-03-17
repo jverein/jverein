@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
-import java.io.InputStream;
 import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,10 +35,6 @@ import java.util.Map;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
-import de.jost_net.JVerein.io.ATBank;
-import de.jost_net.JVerein.io.ATBankdatei;
-import de.jost_net.JVerein.io.BLZDatei;
-import de.jost_net.JVerein.io.BLZSatz;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.ScriptExecutor;
@@ -6212,30 +6207,10 @@ public class JVereinUpdateProvider
     // Update fuer H2
     sb = new StringBuilder();
 
-    try
-    {
-      InputStream is = JVereinUpdateProvider.class.getClassLoader()
-          .getResourceAsStream("BLZ.txt");
-      BLZDatei blz = new BLZDatei(is);
-      while (blz.hasNext())
-      {
-        BLZSatz satz = blz.getNext();
-        sb.append("INSERT INTO bank (bezeichnung, blz, bic) values ('");
-        sb.append(satz.getKurzbezeichnung());
-        sb.append("', '");
-        sb.append(satz.getBlz());
-        sb.append("', '");
-        sb.append(satz.getBic());
-        sb.append("');");
-        statements.put(DBSupportH2Impl.class.getName(), sb.toString());
-        statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-      }
-      execute(conn, statements, "Tabelle bank gefüllt", 254);
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException(e);
-    }
+    sb.append("-- Nothing to do");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, " ", 254);
   }
 
   private void update0255(Connection conn) throws ApplicationException
@@ -6277,19 +6252,10 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2 + MySQL
     sb = new StringBuilder();
-    sb.append("INSERT INTO sepaparam(");
-    sb.append(" id,");
-    sb.append(" bezeichnung,");
-    sb.append(" bankidentifierlength,");
-    sb.append(" accountlength,");
-    sb.append(" bankidentifiersample,");
-    sb.append(" accountsample,");
-    sb.append(" ibansample)");
-    sb.append(" VALUES ('DE', 'Deutschland', 8, 10, '37040044', '532013000', 'DE89370400440532013000');\n");
+    sb.append("-- Nothing to do");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-
-    execute(conn, statements, "Zeile in sepaparam erstellt", 256);
+    execute(conn, statements, " ", 256);
   }
 
   private void update0257(Connection conn) throws ApplicationException
@@ -6297,18 +6263,10 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2 + MySQL
     sb = new StringBuilder();
-    sb.append("INSERT INTO sepaparam(");
-    sb.append(" id,");
-    sb.append(" bezeichnung,");
-    sb.append(" bankidentifierlength,");
-    sb.append(" accountlength,");
-    sb.append(" bankidentifiersample,");
-    sb.append(" accountsample,");
-    sb.append(" ibansample)");
-    sb.append(" VALUES ('CH', 'Schweiz', 5, 12, '19043', '234573201', 'AT611904300234573201');\n");
+    sb.append("-- Nothing to do");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-    execute(conn, statements, "Zeile in sepaparam erstellt", 257);
+    execute(conn, statements, " ", 257);
   }
 
   private void update0258(Connection conn) throws ApplicationException
@@ -6316,18 +6274,10 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2 + MySQL
     sb = new StringBuilder();
-    sb.append("INSERT INTO sepaparam(");
-    sb.append(" id,");
-    sb.append(" bezeichnung,");
-    sb.append(" bankidentifierlength,");
-    sb.append(" accountlength,");
-    sb.append(" bankidentifiersample,");
-    sb.append(" accountsample,");
-    sb.append(" ibansample)");
-    sb.append(" VALUES ('AT', 'Österreich', 5, 11, '00762', '011623852957', 'CH9300762011623852957');\n");
+    sb.append("-- Nothing to do");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-    execute(conn, statements, "Zeile in sepaparam erstellt", 258);
+    execute(conn, statements, " ", 258);
   }
 
   private void update0259(Connection conn) throws ApplicationException
@@ -6456,57 +6406,23 @@ public class JVereinUpdateProvider
   private void update0267(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    // Update fuer H2
+    // Update fuer H2 + MySQL
     sb = new StringBuilder();
-    sb.append("UPDATE BANK SET land = 'DE';\n");
+    sb.append("-- Nothing to do");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-
-    execute(conn, statements,
-        "Spalte land  in der Tabelle bank initial gefüllt", 267);
+    execute(conn, statements, " ", 267);
   }
 
   private void update0268(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2 + MySQL
     sb = new StringBuilder();
-
-    try
-    {
-      InputStream is = JVereinUpdateProvider.class.getClassLoader()
-          .getResourceAsStream("oesterreich.csv");
-      ATBankdatei atbd = new ATBankdatei(is);
-      boolean eof = false;
-      while (!eof)
-      {
-        ATBank atb = atbd.next();
-        if (atb == null)
-        {
-          eof = true;
-          continue;
-        }
-        System.out.println(atb);
-        if (!atb.getKennzeichen().equals("Hauptanstalt"))
-        {
-          continue;
-        }
-        sb.append("INSERT INTO bank (bezeichnung, land, blz, bic) values ('");
-        sb.append(atb.getName());
-        sb.append("', 'AT', '");
-        sb.append(atb.getBlz());
-        sb.append("', '");
-        sb.append(atb.getBic());
-        sb.append("');");
-        statements.put(DBSupportH2Impl.class.getName(), sb.toString());
-        statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-      }
-      execute(conn, statements,
-          "Tabelle bank mit Banken aus Österreich gefüllt", 268);
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException(e);
-    }
+    sb.append("-- Nothing to do");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements, " ", 268);
   }
 
   private void update0269(Connection conn) throws ApplicationException
@@ -6567,19 +6483,10 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2 + MySQL
     sb = new StringBuilder();
-    sb.append("INSERT INTO sepaparam(");
-    sb.append(" id,");
-    sb.append(" bezeichnung,");
-    sb.append(" bankidentifierlength,");
-    sb.append(" accountlength,");
-    sb.append(" bankidentifiersample,");
-    sb.append(" accountsample,");
-    sb.append(" ibansample)");
-    sb.append(" VALUES ('NL', 'Niederlande', 4, 10, 'ABNA', '0417164300', 'NL91ABNA0417164300');\n");
+    sb.append("-- Nothing to do");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-
-    execute(conn, statements, "Zeile in sepaparam erstellt", 274);
+    execute(conn, statements, " ", 274);
   }
 
   private void update0274(Connection conn) throws ApplicationException
@@ -6587,19 +6494,10 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2 + MySQL
     sb = new StringBuilder();
-    sb.append("INSERT INTO sepaparam(");
-    sb.append(" id,");
-    sb.append(" bezeichnung,");
-    sb.append(" bankidentifierlength,");
-    sb.append(" accountlength,");
-    sb.append(" bankidentifiersample,");
-    sb.append(" accountsample,");
-    sb.append(" ibansample)");
-    sb.append(" VALUES ('PL', 'Polen', 8, 16, '10901014', '0000071219812874', 'PL61109010140000071219812874');\n");
+    sb.append("-- Nothing to do");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
-
-    execute(conn, statements, "Zeile in sepaparam erstellt", 274);
+    execute(conn, statements, " ", 274);
   }
 
   private void update0275(Connection conn) throws ApplicationException
@@ -6638,11 +6536,9 @@ public class JVereinUpdateProvider
     // Update fuer H2
     statements.put(DBSupportH2Impl.class.getName(),
         "alter table mitglied alter column iban varchar(34);\n");
-
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
         "alter table mitglied modify column  iban varchar(34);\n");
-
     execute(conn, statements, "Spalte iban der Tabelle mitglied verlängert",
         277);
   }
@@ -6653,11 +6549,9 @@ public class JVereinUpdateProvider
     // Update fuer H2
     statements.put(DBSupportH2Impl.class.getName(),
         "alter table kursteilnehmer alter column iban varchar(34);\n");
-
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
         "alter table kursteilnehmer modify column  iban varchar(34);\n");
-
     execute(conn, statements,
         "Spalte iban der Tabelle kursteilnehmer verlängert", 278);
   }

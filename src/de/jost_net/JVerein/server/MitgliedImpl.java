@@ -45,9 +45,10 @@ import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
-import de.jost_net.JVerein.util.SEPA;
-import de.jost_net.JVerein.util.SEPAException;
 import de.jost_net.JVerein.util.StringTool;
+import de.jost_net.OBanToo.SEPA.BIC;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -226,8 +227,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       try
       {
-        if (!Einstellungen.checkAccountCRC(SEPA.getBLZFromIban(getIban()),
-            SEPA.getKontoFromIban(getIban())))
+        IBAN i = new IBAN(getIban());
+        if (!Einstellungen.checkAccountCRC(i.getBLZ(), i.getKonto()))
         {
           throw new ApplicationException(
               JVereinPlugin
@@ -247,10 +248,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       try
       {
-        if (!SEPA.isValidIBAN(getIban()))
-        {
-          throw new ApplicationException("IBAN ist ungültig");
-        }
+        new IBAN(getIban());
       }
       catch (SEPAException e)
       {
@@ -261,10 +259,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       try
       {
-        if (!SEPA.isValidBIC(getBic()))
-        {
-          throw new ApplicationException("BIC ist ungültig");
-        }
+        new BIC(getBic());
       }
       catch (SEPAException e)
       {
