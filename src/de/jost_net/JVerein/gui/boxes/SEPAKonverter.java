@@ -237,13 +237,20 @@ public class SEPAKonverter extends AbstractBox
         if (einstellung != null)
         {
           Bank bank = Banken.getBankByBLZ(einstellung.getBlz());
-          einstellung.setBic(bank.getBIC());
-          IBAN i = new IBAN(einstellung.getKonto(), einstellung.getBlz(),
-              Einstellungen.getEinstellung().getDefaultLand());
-          einstellung.setIban(i.getIBAN());
-          einstellung.store();
-          Einstellungen.setEinstellung(einstellung);
-          monitor.log("Einstellung: BIC und IBAN gesetzt");
+          if (bank != null)
+          {
+            einstellung.setBic(bank.getBIC());
+            IBAN i = new IBAN(einstellung.getKonto(), einstellung.getBlz(),
+                Einstellungen.getEinstellung().getDefaultLand());
+            einstellung.setIban(i.getIBAN());
+            einstellung.store();
+            Einstellungen.setEinstellung(einstellung);
+            monitor.log("Einstellung: BIC und IBAN gesetzt");
+          }
+          else
+          {
+            monitor.log("Einstellung: Ungültige BLZ " + einstellung.getBlz());
+          }
         }
       }
       // Mitglieder
@@ -256,14 +263,23 @@ public class SEPAKonverter extends AbstractBox
         if (m2.getBlz() != null && m2.getBlz().length() > 0)
         {
           Bank bank = Banken.getBankByBLZ(m2.getBlz());
-          m2.setBic(bank.getBIC());
-          IBAN i = new IBAN(m2.getKonto(), m2.getBlz(), Einstellungen
-              .getEinstellung().getDefaultLand());
-          m2.setIban(i.getIBAN());
-          m2.store();
+          if (bank != null)
+          {
+            m2.setBic(bank.getBIC());
+            IBAN i = new IBAN(m2.getKonto(), m2.getBlz(), Einstellungen
+                .getEinstellung().getDefaultLand());
+            m2.setIban(i.getIBAN());
+            monitor.log("Mitglied: " + m.getNameVorname()
+                + ", neue Bankverbindung " + m.getBic() + ", " + m.getIban());
+            m2.store();
+          }
+          else
+          {
+            monitor.log("Mitglied: " + m.getNameVorname() + ", ungültige BLZ "
+                + m.getBlz());
+          }
         }
       }
-      monitor.log("Mitglieder: BIC und IBAN gesetzt");
       // Kursteilnehmer
       it = Einstellungen.getDBService().createList(Kursteilnehmer.class);
       while (it.hasNext())
@@ -274,12 +290,23 @@ public class SEPAKonverter extends AbstractBox
         if (k2.getBlz() != null && k2.getBlz().length() > 0)
         {
           Bank bank = Banken.getBankByBLZ(k2.getBlz());
-          k2.setBic(bank.getBIC());
-          IBAN i = new IBAN(k2.getKonto(), k2.getBlz(), Einstellungen
-              .getEinstellung().getDefaultLand());
-          k2.setIban(i.getIBAN());
-          k2.store();
+          if (bank != null)
+          {
+            k2.setBic(bank.getBIC());
+            IBAN i = new IBAN(k2.getKonto(), k2.getBlz(), Einstellungen
+                .getEinstellung().getDefaultLand());
+            k2.setIban(i.getIBAN());
+            monitor.log("Kursteilnehmer: " + k2.getName()
+                + ", neue Bankverbindung " + k2.getBic() + ", " + k2.getIban());
+            k2.store();
+          }
+          else
+          {
+            monitor.log("Kursteilnehmer: " + k.getName() + ", ungültige BLZ "
+                + k.getBlz());
+          }
         }
+
       }
       monitor.log("Kursteilnehmer: BIC und IBAN gesetzt");
     }
@@ -290,5 +317,4 @@ public class SEPAKonverter extends AbstractBox
       throw new ApplicationException(e);
     }
   }
-
 }
