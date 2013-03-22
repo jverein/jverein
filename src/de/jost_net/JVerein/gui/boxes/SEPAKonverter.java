@@ -57,6 +57,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class SEPAKonverter extends AbstractBox
 {
+
   private boolean aktiv = false;
 
   public SEPAKonverter()
@@ -66,11 +67,11 @@ public class SEPAKonverter extends AbstractBox
       DBIterator it0 = Einstellungen.getDBService().createList(Mitglied.class);
 
       DBIterator it1 = Einstellungen.getDBService().createList(Mitglied.class);
-      it1.addFilter("iban is not null and blz is not null");
+      it1.addFilter("iban is null and length(blz) > 0");
       DBIterator it2 = Einstellungen.getDBService().createList(
           Kursteilnehmer.class);
-      it2.addFilter("iban is not null and blz is not null");
-      if (it0.size() > 0 && (it1.size() == 0 || it2.size() == 0))
+      it2.addFilter("iban is null and length(blz) > 0");
+      if (it0.size() > 0 && (it1.size() > 0 || it2.size() > 0))
       {
         aktiv = true;
       }
@@ -78,7 +79,6 @@ public class SEPAKonverter extends AbstractBox
     }
     catch (RemoteException e)
     {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -163,9 +163,8 @@ public class SEPAKonverter extends AbstractBox
       Label desc = new Label(comp, SWT.WRAP);
       desc.setBackground(bg);
       desc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-      desc.setText(JVereinPlugin
-          .getI18n()
-          .tr("Konvertierung der Bankverbindung bei den Einstellungen, Mitgliedern und Kursteilnehmern "
+      desc.setText(JVereinPlugin.getI18n().tr(
+          "Konvertierung der Bankverbindung bei den Einstellungen, Mitgliedern und Kursteilnehmern "
               + "von BLZ und Konto zu BIC und IBAN"));
     }
 
@@ -178,13 +177,15 @@ public class SEPAKonverter extends AbstractBox
   {
     Button b = new Button("starten", new Action()
     {
+
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         BackgroundTask t = new BackgroundTask()
         {
+
           @Override
-          public void run(ProgressMonitor monitor) throws ApplicationException
+          public void run(ProgressMonitor monitor)
           {
             try
             {
@@ -216,7 +217,7 @@ public class SEPAKonverter extends AbstractBox
       }
     }, null, true, "document-save.png");
     return b;
-  };
+  }
 
   @Override
   public int getHeight()
@@ -229,8 +230,7 @@ public class SEPAKonverter extends AbstractBox
     try
     {
       // Einstellungen
-      DBIterator it = Einstellungen.getDBService()
-          .createList(Einstellung.class);
+      DBIterator it = Einstellungen.getDBService().createList(Einstellung.class);
       while (it.hasNext())
       {
         Einstellung einstellung = (Einstellung) it.next();
@@ -245,7 +245,8 @@ public class SEPAKonverter extends AbstractBox
             einstellung.setIban(i.getIBAN());
             einstellung.store();
             Einstellungen.setEinstellung(einstellung);
-            monitor.log("Einstellung: BIC und IBAN gesetzt");
+            monitor.log("Einstellung: " + einstellung.getName() + ", "
+                + einstellung.getBic() + ", " + einstellung.getIban());
           }
           else
           {
@@ -266,11 +267,11 @@ public class SEPAKonverter extends AbstractBox
           if (bank != null)
           {
             m2.setBic(bank.getBIC());
-            IBAN i = new IBAN(m2.getKonto(), m2.getBlz(), Einstellungen
-                .getEinstellung().getDefaultLand());
+            IBAN i = new IBAN(m2.getKonto(), m2.getBlz(),
+                Einstellungen.getEinstellung().getDefaultLand());
             m2.setIban(i.getIBAN());
-            monitor.log("Mitglied: " + m.getNameVorname()
-                + ", neue Bankverbindung " + m.getBic() + ", " + m.getIban());
+            monitor.log("Mitglied: " + m.getNameVorname() + ", " + m2.getBic()
+                + ", " + m2.getIban());
             m2.store();
           }
           else
@@ -285,19 +286,19 @@ public class SEPAKonverter extends AbstractBox
       while (it.hasNext())
       {
         Kursteilnehmer k = (Kursteilnehmer) it.next();
-        Kursteilnehmer k2 = (Kursteilnehmer) Einstellungen.getDBService()
-            .createObject(Kursteilnehmer.class, k.getID());
+        Kursteilnehmer k2 = (Kursteilnehmer) Einstellungen.getDBService().createObject(
+            Kursteilnehmer.class, k.getID());
         if (k2.getBlz() != null && k2.getBlz().length() > 0)
         {
           Bank bank = Banken.getBankByBLZ(k2.getBlz());
           if (bank != null)
           {
             k2.setBic(bank.getBIC());
-            IBAN i = new IBAN(k2.getKonto(), k2.getBlz(), Einstellungen
-                .getEinstellung().getDefaultLand());
+            IBAN i = new IBAN(k2.getKonto(), k2.getBlz(),
+                Einstellungen.getEinstellung().getDefaultLand());
             k2.setIban(i.getIBAN());
-            monitor.log("Kursteilnehmer: " + k2.getName()
-                + ", neue Bankverbindung " + k2.getBic() + ", " + k2.getIban());
+            monitor.log("Kursteilnehmer: " + k2.getName() + ", " + k2.getBic()
+                + ", " + k2.getIban());
             k2.store();
           }
           else
@@ -308,7 +309,6 @@ public class SEPAKonverter extends AbstractBox
         }
 
       }
-      monitor.log("Kursteilnehmer: BIC und IBAN gesetzt");
     }
     catch (Exception e)
     {
