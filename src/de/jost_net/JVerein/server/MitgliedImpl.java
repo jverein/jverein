@@ -207,6 +207,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     // "Die Bankleitzahl muss {0}stellig sein",
     // sepaparam.getBankIdentifierLength() + ""));
     // }
+    if (getBlz()!= null && getBlz().length()>0 && getKonto()==null)
+    {
+      throw new ApplicationException("Kontonummer fehlt");
+    }
+    if (getKonto()!= null && getKonto().length()>0 && getBlz()==null)
+    {
+      throw new ApplicationException("BLZ fehlt");
+    }
     if (getBlz().length() != 0 || getKonto().length() != 0l)
     {
       try
