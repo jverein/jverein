@@ -469,6 +469,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     }
     cols.addInput(control.getKontoinhaber());
+    cols.addInput(control.getMandatDatum());
     cols.addInput(control.getBic());
     cols.addInput(control.getIban());
     cols.addPart(new BankverbindungDialogButton(control.getMitglied(), control

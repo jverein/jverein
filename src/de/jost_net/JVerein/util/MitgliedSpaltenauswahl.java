@@ -68,6 +68,9 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add(JVereinPlugin.getI18n().tr(
         JVereinPlugin.getI18n().tr("Zahlungsrhytmus")), "zahlungsrhytmus",
         false, new ZahlungsrhytmusFormatter(), Column.ALIGN_LEFT, false);
+    add(JVereinPlugin.getI18n().tr(
+        JVereinPlugin.getI18n().tr("Datum des Mandats")), "mandatdatum", false,
+        false);
     add(JVereinPlugin.getI18n().tr(JVereinPlugin.getI18n().tr("BIC")), "bic",
         false, true);
     add(JVereinPlugin.getI18n().tr(JVereinPlugin.getI18n().tr("IBAN")), "iban",

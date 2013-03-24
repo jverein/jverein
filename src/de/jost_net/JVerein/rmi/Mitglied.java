@@ -91,6 +91,10 @@ public interface Mitglied extends DBObject, IBankverbindung
   public void setZahlungsrhytmus(Integer zahlungsrhytmus)
       throws RemoteException;
 
+  public Date getMandatDatum() throws RemoteException;
+
+  public void setMandatDatum(Date mandatdatum) throws RemoteException;
+
   @Override
   public String getBic() throws RemoteException;
 

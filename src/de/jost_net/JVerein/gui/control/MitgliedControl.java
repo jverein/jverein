@@ -171,6 +171,8 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput zahlungsrhytmus;
 
+  private DateInput mandatdatum = null;
+
   private TextInput bic;
 
   private TextInput iban;
@@ -703,6 +705,38 @@ public class MitgliedControl extends AbstractControl
     bic.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     return bic;
+  }
+
+  public DateInput getMandatDatum() throws RemoteException
+  {
+    if (mandatdatum != null)
+    {
+      return mandatdatum;
+    }
+
+    Date d = getMitglied().getMandatDatum();
+    if (d.equals(Einstellungen.NODATE))
+    {
+      d = null;
+    }
+    this.mandatdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.mandatdatum.setTitle(JVereinPlugin.getI18n().tr("Datum des Mandats"));
+    this.mandatdatum.setName(JVereinPlugin.getI18n().tr("Datum des Mandats"));
+    this.mandatdatum.setText(JVereinPlugin.getI18n().tr(
+        "Bitte Datum des Mandats wählen"));
+    this.mandatdatum.addListener(new Listener()
+    {
+      @Override
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) mandatdatum.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return mandatdatum;
   }
 
   public TextInput getIban() throws RemoteException
@@ -2498,9 +2532,10 @@ public class MitgliedControl extends AbstractControl
       m.setZahlungsweg(zw.getKey());
       Zahlungsrhytmus zr = (Zahlungsrhytmus) getZahlungsrhytmus().getValue();
       m.setZahlungsrhytmus(zr.getKey());
+      m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setBlz((String) getBlz().getValue());
-      m.setBic((String)getBic().getValue());
-      m.setIban((String)getIban().getValue());
+      m.setBic((String) getBic().getValue());
+      m.setIban((String) getIban().getValue());
       m.setEintritt((Date) getEintritt().getValue());
       m.setEmail((String) getEmail().getValue());
       if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
@@ -2845,9 +2880,9 @@ public class MitgliedControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("adressauswertung"),
-          "", Einstellungen.getEinstellung().getDateinamenmuster(),
-          ausw.getDateiendung()).get());
+      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr(
+          "adressauswertung"), "", Einstellungen.getEinstellung()
+          .getDateinamenmuster(), ausw.getDateiendung()).get());
       fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
 
       String s = fd.open();

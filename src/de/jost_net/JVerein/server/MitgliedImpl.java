@@ -207,11 +207,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     // "Die Bankleitzahl muss {0}stellig sein",
     // sepaparam.getBankIdentifierLength() + ""));
     // }
-    if (getBlz()!= null && getBlz().length()>0 && getKonto()==null)
+    if (getBlz() != null && getBlz().length() > 0 && getKonto() == null)
     {
       throw new ApplicationException("Kontonummer fehlt");
     }
-    if (getKonto()!= null && getKonto().length()>0 && getBlz()==null)
+    if (getKonto() != null && getKonto().length() > 0 && getBlz() == null)
     {
       throw new ApplicationException("BLZ fehlt");
     }
@@ -561,6 +561,23 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throws RemoteException
   {
     setAttribute("zahlungsrhytmus", zahlungsrhytmus);
+  }
+
+  @Override
+  public Date getMandatDatum() throws RemoteException
+  {
+    Date d = (Date) getAttribute("mandatdatum");
+    if (d == null)
+    {
+      return Einstellungen.NODATE;
+    }
+    return d;
+  }
+
+  @Override
+  public void setMandatDatum(Date mandatdatum) throws RemoteException
+  {
+    setAttribute("mandatdatum", mandatdatum);
   }
 
   @Override
@@ -1105,6 +1122,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
+    map.put(MitgliedVar.MANDATDATUM.getName(), this.getMandatDatum());
     map.put(MitgliedVar.BIC.getName(), this.getBic());
     map.put(MitgliedVar.BLZ.getName(), this.getBlz());
     map.put(MitgliedVar.EINGABEDATUM.getName(),

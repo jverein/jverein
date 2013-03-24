@@ -1117,6 +1117,14 @@ public class JVereinUpdateProvider
     {
       update0279(conn);
     }
+    if (cv < 280)
+    {
+      update0280(conn);
+    }
+    if (cv < 281)
+    {
+      update0281(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6560,7 +6568,7 @@ public class JVereinUpdateProvider
         "Spalte iban der Tabelle kursteilnehmer verlängert", 278);
   }
 
-  // 
+  //
 
   private void update0279(Connection conn) throws ApplicationException
   {
@@ -6588,5 +6596,34 @@ public class JVereinUpdateProvider
     execute(conn, statements,
         "Spalte ZeileX der Tabelle spendenbescheinigung verlängert", 279);
   }
-  
+
+  private void update0280(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table mitglied add mandatdatum date before bic;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mitglied add mandatdatum date after zahlungsrhytmus;\n");
+
+    execute(conn, statements,
+        "Spalte mandatdatum zur Tabelle mitglied hinzugefügt", 280);
+  }
+
+  private void update0281(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    String sql = "UPDATE mitglied set mandatdatum = eintritt;\n";
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte mandatdatum mit eintrittsdatum belegt",
+        281);
+  }
+
 }
