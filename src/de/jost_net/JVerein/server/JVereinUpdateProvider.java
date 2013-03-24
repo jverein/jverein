@@ -1113,6 +1113,10 @@ public class JVereinUpdateProvider
     {
       update0278(conn);
     }
+    if (cv < 279)
+    {
+      update0279(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6556,4 +6560,33 @@ public class JVereinUpdateProvider
         "Spalte iban der Tabelle kursteilnehmer verlängert", 278);
   }
 
+  // 
+
+  private void update0279(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("alter table spendenbescheinigung alter column zeile1 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung alter column zeile2 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung alter column zeile3 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung alter column zeile4 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung alter column zeile5 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung alter column zeile6 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung alter column zeile7 varchar(80);\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("alter table spendenbescheinigung modify column zeile1 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung modify column zeile2 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung modify column zeile3 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung modify column zeile4 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung modify column zeile5 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung modify column zeile6 varchar(80);\n");
+    sb.append("alter table spendenbescheinigung modify column zeile7 varchar(80);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    execute(conn, statements,
+        "Spalte ZeileX der Tabelle spendenbescheinigung verlängert", 279);
+  }
+  
 }
