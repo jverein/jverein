@@ -34,16 +34,22 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
+import de.jost_net.JVerein.Queries.SpendenbescheinigungBuchungQuery;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungPrintAction;
+import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
+import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
+import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
+import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -56,6 +62,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
+import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
@@ -107,6 +114,10 @@ public class SpendenbescheinigungControl extends AbstractControl
   private SelectInput herkunftspende;
 
   private CheckboxInput unterlagenwertermittlung;
+
+  private TablePart buchungsList;
+
+  private SpendenbescheinigungBuchungQuery query;
 
   private Spendenbescheinigung spendenbescheinigung;
 
@@ -337,6 +348,88 @@ public class SpendenbescheinigungControl extends AbstractControl
         .getUnterlagenWertermittlung());
     enableSachspende();
     return unterlagenwertermittlung;
+  }
+
+  public Part getBuchungsList() throws RemoteException
+  {
+    query = new SpendenbescheinigungBuchungQuery(spendenbescheinigung);
+    if (buchungsList == null)
+    {
+      //buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
+      buchungsList = new BuchungListTablePart(query.get(), null);
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "id-int");
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
+          new Formatter()
+          {
+            @Override
+            public String format(Object o)
+            {
+              Konto k = (Konto) o;
+              if (k != null)
+              {
+                try
+                {
+                  return k.getBezeichnung();
+                }
+                catch (RemoteException e)
+                {
+                  e.printStackTrace();
+                }
+              }
+              return "";
+            }
+          });
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Auszug"),
+          "auszugsnummer");
+      buchungsList
+          .addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
+          "zweck", new Formatter()
+          {
+            @Override
+            public String format(Object value)
+            {
+              if (value == null)
+              {
+                return null;
+              }
+              String s = value.toString();
+              s = s.replaceAll("\r\n", " ");
+              s = s.replaceAll("\r", " ");
+              s = s.replaceAll("\n", " ");
+              return s;
+            }
+          });
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
+          "buchungsart", new BuchungsartFormatter());
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+      if (Einstellungen.getEinstellung().getMitgliedskonto())
+      {
+        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
+            "mitgliedskonto", new MitgliedskontoFormatter());
+      }
+      buchungsList.setMulti(true);
+      //buchungsList.setContextMenu(new BuchungMenu(this));
+      buchungsList.setRememberColWidths(true);
+      buchungsList.setRememberOrder(true);
+      buchungsList.setRememberState(true);
+      buchungsList.setSummary(true);
+    }
+    else
+    {
+      buchungsList.removeAll();
+
+      for (Buchung bu : query.get())
+      {
+        buchungsList.addItem(bu);
+      }
+      buchungsList.sort();
+    }
+    return buchungsList;
   }
 
   /**

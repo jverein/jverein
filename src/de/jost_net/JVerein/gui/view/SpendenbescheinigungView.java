@@ -30,6 +30,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.ColumnLayout;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 
@@ -112,6 +113,9 @@ public class SpendenbescheinigungView extends AbstractView
       control.getSpendenart().setEnabled(true);
       control.getBetrag().setEnabled(true);
     }
+    LabelGroup grBuchungen = new LabelGroup(scrolled.getComposite(),
+        JVereinPlugin.getI18n().tr("Buchungen"));
+    grBuchungen.addPart(control.getBuchungsList());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
