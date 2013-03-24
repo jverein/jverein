@@ -19,6 +19,7 @@
 		  <pathelement location="../jameica/lib/swt/linux/swt.jar"/>
 		  <pathelement location="../jameica/bin/"/>
 		  <pathelement location="../hibiscus/bin/"/>
+    	  <pathelement location="../obantoo/bin/"/>
 		  <fileset dir="../jameica/lib/de_willuhn_ds/">
         <include name="*.jar"/>
       </fileset>
