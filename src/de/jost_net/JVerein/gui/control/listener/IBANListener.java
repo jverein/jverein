@@ -76,6 +76,6 @@ public class IBANListener implements Listener
       }
     }
     Bank b = Banken.getBankByBIC((String) iban.getValue());
-    iban.setComment(b.getBezeichnung());
+    iban.setComment(b != null ? b.getBezeichnung() : "");
   }
 }

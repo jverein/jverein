@@ -215,42 +215,42 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("BLZ fehlt");
     }
-    if (getBlz().length() != 0 || getKonto().length() != 0l)
-    {
-      try
-      {
-        Long.parseLong(getKonto());
-      }
-      catch (NumberFormatException e)
-      {
-        throw new ApplicationException("Kontonummer ist nicht numerisch");
-      }
-      if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
-      {
-        throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                    new String[] { getBlz(), getKonto() }));
-      }
-      try
-      {
-        IBAN i = new IBAN(getIban());
-        if (!Einstellungen.checkAccountCRC(i.getBLZ(), i.getKonto()))
-        {
-          throw new ApplicationException(
-              JVereinPlugin
-                  .getI18n()
-                  .tr("BLZ/Kontonummer-Kombination in IBAN ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                      new String[] { getBlz(), getKonto() }));
-
-        }
-      }
-      catch (SEPAException e)
-      {
-        throw new ApplicationException(e.getMessage());
-      }
-    }
+    // if (getBlz().length() != 0 || getKonto().length() != 0l)
+    // {
+    // try
+    // {
+    // Long.parseLong(getKonto());
+    // }
+    // catch (NumberFormatException e)
+    // {
+    // throw new ApplicationException("Kontonummer ist nicht numerisch");
+    // }
+    // if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
+    // {
+    // throw new ApplicationException(
+    // JVereinPlugin
+    // .getI18n()
+    // .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+    // new String[] { getBlz(), getKonto() }));
+    // }
+    // try
+    // {
+    // IBAN i = new IBAN(getIban());
+    // if (!Einstellungen.checkAccountCRC(i.getBLZ(), i.getKonto()))
+    // {
+    // throw new ApplicationException(
+    // JVereinPlugin
+    // .getI18n()
+    // .tr("BLZ/Kontonummer-Kombination in IBAN ungültig. Bitte prüfen Sie Ihre Eingaben.",
+    // new String[] { getBlz(), getKonto() }));
+    //
+    // }
+    // }
+    // catch (SEPAException e)
+    // {
+    // throw new ApplicationException(e.getMessage());
+    // }
+    // }
 
     if (getIban() != null && getIban().length() != 0)
     {
@@ -273,6 +273,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       {
         throw new ApplicationException(e.getMessage());
       }
+    }
+    if (getBic() == null || getBic().length() == 0)
+    {
+      setKonto(null);
+      setBlz(null);
     }
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
         && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
@@ -583,7 +588,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getBic() throws RemoteException
   {
-    return (String) getAttribute("bic");
+    String ret = (String) getAttribute("bic");
+    if (ret == null)
+    {
+      return "";
+    }
+    return ret;
   }
 
   @Override
@@ -595,7 +605,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getIban() throws RemoteException
   {
-    return (String) getAttribute("iban");
+    String ret = (String) getAttribute("iban");
+    if (ret == null)
+    {
+      return "";
+    }
+    return ret;
   }
 
   @Override
@@ -1267,7 +1282,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
     for (String varname : variable.keySet())
     {
-      System.out.println(varname + "=" + variable.get(varname));
       map.put(varname, variable.get(varname));
     }
 
