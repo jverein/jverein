@@ -1356,7 +1356,6 @@ public class EinstellungControl extends AbstractControl
     {
       try
       {
-        System.out.println(event);
         String blz = (String) getBlz().getValue();
         getBlz().setComment(Einstellungen.getNameForBLZ(blz));
       }
