@@ -56,7 +56,7 @@ public class AdresseDetailAction implements Action
         {
           PersonenartDialog pad = new PersonenartDialog(
               PersonenartDialog.POSITION_CENTER);
-          String pa = (String) pad.open();
+          String pa = pad.open();
           m.setPersonenart(pa);
         }
         else

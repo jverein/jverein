@@ -292,6 +292,7 @@ public class BuchungsControl extends AbstractControl
     this.datum.setText(JVereinPlugin.getI18n().tr("Bitte Datum wählen"));
     this.datum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -334,10 +335,10 @@ public class BuchungsControl extends AbstractControl
 
   public DialogInput getMitgliedskonto() throws RemoteException
   {
-    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
-        .getMitgliedskontoAuswahl();
+    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung()).getMitgliedskontoAuswahl();
     mitgliedskonto.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -399,8 +400,7 @@ public class BuchungsControl extends AbstractControl
     {
       return buchungsart;
     }
-    DBIterator list = Einstellungen.getDBService()
-        .createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
     list.setOrder("ORDER BY bezeichnung");
     buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
     buchungsart.setValue(getBuchung().getBuchungsart());
@@ -458,8 +458,7 @@ public class BuchungsControl extends AbstractControl
     {
       return suchbuchungsart;
     }
-    DBIterator list = Einstellungen.getDBService()
-        .createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
     list.setOrder("ORDER BY nummer");
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
@@ -550,6 +549,7 @@ public class BuchungsControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF Einzelbuchungen"),
         new Action()
         {
+
           @Override
           public void handleAction(Object context)
           {
@@ -564,6 +564,7 @@ public class BuchungsControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("CSV-Export"),
         new Action()
         {
+
           @Override
           public void handleAction(Object context)
           {
@@ -578,6 +579,7 @@ public class BuchungsControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF Summen"),
         new Action()
         {
+
           @Override
           public void handleAction(Object context)
           {
@@ -592,6 +594,7 @@ public class BuchungsControl extends AbstractControl
     Button b = new Button(JVereinPlugin.getI18n().tr("PDF Buchungsjournal"),
         new Action()
         {
+
           @Override
           public void handleAction(Object context)
           {
@@ -661,8 +664,8 @@ public class BuchungsControl extends AbstractControl
             else if (mitgliedskonto.getValue() instanceof Mitglied)
             {
               Mitglied mitglied = (Mitglied) mitgliedskonto.getValue();
-              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
-                  .createObject(Mitgliedskonto.class, null);
+              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
+                  Mitgliedskonto.class, null);
               mk.setBetrag(b.getBetrag());
               mk.setDatum(b.getDatum());
               mk.setMitglied(mitglied);
@@ -753,6 +756,7 @@ public class BuchungsControl extends AbstractControl
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
           new Formatter()
           {
+
             @Override
             public String format(Object o)
             {
@@ -775,12 +779,12 @@ public class BuchungsControl extends AbstractControl
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Auszug"),
           "auszugsnummer");
-      buchungsList
-          .addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
           "zweck", new Formatter()
           {
+
             @Override
             public String format(Object value)
             {
@@ -872,6 +876,7 @@ public class BuchungsControl extends AbstractControl
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
           new Formatter()
           {
+
             @Override
             public String format(Object o)
             {
@@ -897,8 +902,8 @@ public class BuchungsControl extends AbstractControl
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Blatt"),
           "blattnummer");
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n()
-          .tr("Verwendungszweck"), "zweck");
+      splitbuchungsList.addColumn(
+          JVereinPlugin.getI18n().tr("Verwendungszweck"), "zweck");
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
           "buchungsart", new BuchungsartFormatter());
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
@@ -955,8 +960,7 @@ public class BuchungsControl extends AbstractControl
       if (query.getBuchungsart() != null
           && query.getBuchungsart().getArt() != -2)
       {
-        list.addFilter("id = ?",
-            new Object[] { query.getBuchungsart().getID() });
+        list.addFilter("id = ?", new Object[] { query.getBuchungsart().getID()});
       }
       if (query.getBuchungsart() != null
           && query.getBuchungsart().getArt() == -1)
@@ -971,8 +975,8 @@ public class BuchungsControl extends AbstractControl
       }
       if (buchungsarten.size() > 1)
       {
-        Buchungsart ohnezuordnung = (Buchungsart) Einstellungen.getDBService()
-            .createObject(Buchungsart.class, null);
+        Buchungsart ohnezuordnung = (Buchungsart) Einstellungen.getDBService().createObject(
+            Buchungsart.class, null);
         ohnezuordnung.setBezeichnung(JVereinPlugin.getI18n().tr(
             "Ohne Zuordnung"));
         ohnezuordnung.setArt(-1);
@@ -1040,6 +1044,7 @@ public class BuchungsControl extends AbstractControl
 
       BackgroundTask t = new BackgroundTask()
       {
+
         @Override
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
@@ -1084,7 +1089,7 @@ public class BuchungsControl extends AbstractControl
 
       BuchungsjournalSortDialog djs = new BuchungsjournalSortDialog(
           BuchungsjournalSortDialog.POSITION_CENTER);
-      String sort = (String) djs.open();
+      String sort = djs.open();
       if (sort.equals(BuchungsjournalSortDialog.DATUM))
       {
         query.setOrderDatumAuszugsnummerBlattnummer();
@@ -1106,9 +1111,9 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n()
-          .tr("buchungsjournal"), "", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname(
+          JVereinPlugin.getI18n().tr("buchungsjournal"), "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -1133,6 +1138,7 @@ public class BuchungsControl extends AbstractControl
   {
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -1175,6 +1181,7 @@ public class BuchungsControl extends AbstractControl
   {
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {

@@ -148,9 +148,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         if (!JVereinPlugin.isArchiveServiceActive())
         {
           throw new ApplicationException(
-              JVereinPlugin
-                  .getI18n()
-                  .tr("Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!"));
+              JVereinPlugin.getI18n().tr(
+                  "Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!"));
         }
       }
       try
@@ -785,8 +784,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util
-        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override
@@ -882,7 +880,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String ret = (String) getAttribute("smtp_from_anzeigename");
     if (ret == null || ret.length() == 0)
     {
-      ret = (String) getSmtpFromAddress();
+      ret = getSmtpFromAddress();
     }
     return ret;
   }
@@ -1121,33 +1119,31 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public void setZeigeZahlungInTab(boolean showInTab) throws RemoteException
+  public void setZeigeZahlungInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeZahlungInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeZusatzbetraegeInTab() throws RemoteException
+  public boolean getZeigeZusatzbetraegeInTab()
   {
     return settings.getBoolean("ZeigeZusatzbetrageInTab", true);
   }
 
   @Override
   public void setZeigeZusatzbetrageInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeZusatzbetrageInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeMitgliedskontoInTab() throws RemoteException
+  public boolean getZeigeMitgliedskontoInTab()
   {
     return settings.getBoolean("ZeigeMitgliedskontoInTab", true);
   }
 
   @Override
   public void setZeigeMitgliedskontoInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeMitgliedskontoInTab", showInTab);
   }
