@@ -36,7 +36,7 @@ import de.willuhn.jameica.gui.input.SelectInput;
 public class EncodingInput extends SelectInput
 {
 
-  public EncodingInput(String encoding) throws RemoteException
+  public EncodingInput(String encoding)
   {
     super(init(), encoding);
   }
@@ -45,14 +45,14 @@ public class EncodingInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static ArrayList<String> init() throws RemoteException
+  private static ArrayList<String> init()
   {
     ArrayList<String> ret = new ArrayList<String>();
     Map<String, Charset> map = Charset.availableCharsets();
     Iterator<String> it = map.keySet().iterator();
     while (it.hasNext())
     {
-      String charsetName = (String) it.next();
+      String charsetName = it.next();
       ret.add(charsetName);
     }
     return ret;
