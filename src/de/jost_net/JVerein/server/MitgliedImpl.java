@@ -622,7 +622,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getBlz() throws RemoteException
   {
-    return (String) getAttribute("blz");
+    String ret = (String) getAttribute("blz");
+    if (ret == null)
+    {
+      return "";
+    }
+    return ret;
   }
 
   @Override
@@ -634,7 +639,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getKonto() throws RemoteException
   {
-    return (String) getAttribute("konto");
+    String ret = (String) getAttribute("konto");
+    if (ret == null)
+    {
+      return "";
+    }
+    return ret;
   }
 
   @Override
@@ -1192,6 +1202,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", this.getKonto());
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{BLZ\\}", this.getBlz());
+        zahlungsweg = zahlungsweg.replaceAll("\\$\\{BIC\\}", this.getBic());
+        zahlungsweg = zahlungsweg.replaceAll("\\$\\{IBAN\\}", this.getIban());
         break;
       }
       case Zahlungsweg.BARZAHLUNG:
