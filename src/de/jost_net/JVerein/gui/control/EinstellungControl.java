@@ -546,17 +546,6 @@ public class EinstellungControl extends AbstractControl
     return juristischepersonen;
   }
 
-  public CheckboxInput getMitgliedskonto() throws RemoteException
-  {
-    if (mitgliedskonto != null)
-    {
-      return mitgliedskonto;
-    }
-    mitgliedskonto = new CheckboxInput(Einstellungen.getEinstellung()
-        .getMitgliedskonto());
-    return mitgliedskonto;
-  }
-
   public CheckboxInput getMitgliedfoto() throws RemoteException
   {
     if (mitgliedfoto != null)
@@ -1242,7 +1231,6 @@ public class EinstellungControl extends AbstractControl
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
-      e.setMitgliedskonto((Boolean) mitgliedskonto.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
       e.setUseLesefelder((Boolean) uselesefelder.getValue());
       e.setZusatzadressen((Boolean) zusatzadressen.getValue());

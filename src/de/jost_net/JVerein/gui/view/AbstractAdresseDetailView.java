@@ -179,8 +179,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   private void zeichneButtonArea(Composite parent) throws RemoteException
   {
     ButtonArea buttons = new ButtonArea();
-    if (!control.getMitglied().isNewObject()
-        && Einstellungen.getEinstellung().getMitgliedskonto())
+    if (!control.getMitglied().isNewObject())
     {
       MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
       mkcontrol.getStartKontoauszugButton(control.getMitglied(), null, null);
@@ -424,8 +423,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   private void zeichneMitgliedkonto(MitgliedskontoControl controlMk,
       Composite parentComposite) throws RemoteException
   {
-    if (!control.getMitglied().isNewObject()
-        && Einstellungen.getEinstellung().getMitgliedskonto())
+    if (!control.getMitglied().isNewObject())
     {
       Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
           .getI18n().tr("Mitgliedskonto"));

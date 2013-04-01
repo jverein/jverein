@@ -19,42 +19,17 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.io;
+package de.jost_net.JVerein.gui.action;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import de.jost_net.JVerein.gui.view.AbrechnungSEPAView;
+import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
 
-public class SEPALastschriften
+public class AbrechnungSEPAAction implements Action
 {
-  private ArrayList<SEPALastschrift> lastschriften = new ArrayList<SEPALastschrift>();
-
-  public SEPALastschriften()
+  @Override
+  public void handleAction(Object context)
   {
-
-  }
-
-  public void add(SEPALastschrift lastschrift)
-  {
-    lastschriften.add(lastschrift);
-  }
-
-  public ArrayList<SEPALastschrift> getLastschriften()
-  {
-    return lastschriften;
-  }
-
-  public int getAnzahlLastschriften()
-  {
-    return lastschriften.size();
-  }
-
-  public BigDecimal getSummeLastschriften()
-  {
-    BigDecimal sum = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP);
-    for (SEPALastschrift l : lastschriften)
-    {
-      sum = sum.add(l.getBetrag());
-    }
-    return sum;
+    GUI.startView(AbrechnungSEPAView.class.getName(), null);
   }
 }

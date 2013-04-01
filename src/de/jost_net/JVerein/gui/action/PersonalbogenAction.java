@@ -169,10 +169,7 @@ public class PersonalbogenAction implements Action
             {
               generiereZusatzbetrag(rpt, m);
             }
-            if (Einstellungen.getEinstellung().getMitgliedskonto())
-            {
-              generiereMitgliedskonto(rpt, m);
-            }
+            generiereMitgliedskonto(rpt, m);
             if (Einstellungen.getEinstellung().getVermerke()
                 && ((m.getVermerk1() != null && m.getVermerk1().length() > 0) || (m
                     .getVermerk2() != null && m.getVermerk2().length() > 0)))

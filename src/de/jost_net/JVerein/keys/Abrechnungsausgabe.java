@@ -58,7 +58,7 @@ public class Abrechnungsausgabe
     switch (key)
     {
       case DTAUS:
-        return "DTAUS-Datei";
+        return "Datei";
       case HIBISCUS_EINZELBUCHUNGEN:
         return JVereinPlugin.getI18n().tr("Hibiscus (Einzelbuchungen)");
       case HIBISCUS_SAMMELBUCHUNG:

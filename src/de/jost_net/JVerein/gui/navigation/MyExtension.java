@@ -25,6 +25,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbbuchungAction;
 import de.jost_net.JVerein.gui.action.AboutAction;
+import de.jost_net.JVerein.gui.action.AbrechnungSEPAAction;
 import de.jost_net.JVerein.gui.action.AdressenSucheAction;
 import de.jost_net.JVerein.gui.action.AdresstypListAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
@@ -116,17 +117,18 @@ public class MyExtension implements Extension
             new FamilienbeitragAction(), "family-icon.png"));
       }
       jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-          "Abrechnung"), new AbbuchungAction(), "accessories-calculator.png"));
-      if (Einstellungen.getEinstellung().getMitgliedskonto())
-      {
-        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Mitgliedskonten"), new MitgliedskontoListeAction(),
-            "human_folder_public.png"));
-        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Rechnungen"), new MitgliedskontoRechnungAction(), "invoice.png"));
-        jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
-            "Mahnungen"), new MitgliedskontoMahnungAction(), "rechnung.png"));
-      }
+          "Abrechnung (SEPA)"), new AbrechnungSEPAAction(),
+          "accessories-calculator.png"));
+      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+          "Abrechnung (DTAUS)"), new AbbuchungAction(),
+          "accessories-calculator.png"));
+      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+          "Mitgliedskonten"), new MitgliedskontoListeAction(),
+          "human_folder_public.png"));
+      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+          "Rechnungen"), new MitgliedskontoRechnungAction(), "invoice.png"));
+      jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(
+          "Mahnungen"), new MitgliedskontoMahnungAction(), "rechnung.png"));
       if (Einstellungen.getEinstellung().getArbeitseinsatz())
       {
         jverein.addChild(new MyItem(jverein, JVereinPlugin.getI18n().tr(

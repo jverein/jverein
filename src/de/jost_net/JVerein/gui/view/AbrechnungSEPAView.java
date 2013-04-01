@@ -25,14 +25,16 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbrechnunslaufListAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
-import de.jost_net.JVerein.gui.control.AbbuchungControl;
+import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
+import de.jost_net.JVerein.rmi.Konto;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.util.ApplicationException;
 
-public class AbbuchungView extends AbstractView
+public class AbrechnungSEPAView extends AbstractView
 {
 
   @Override
@@ -40,18 +42,34 @@ public class AbbuchungView extends AbstractView
   {
     if (Einstellungen.getEinstellung().getName() == null
         || Einstellungen.getEinstellung().getName().length() == 0
-        || Einstellungen.getEinstellung().getKonto() == null
-        || Einstellungen.getEinstellung().getKonto().length() == 0)
+        || Einstellungen.getEinstellung().getIban() == null
+        || Einstellungen.getEinstellung().getIban().length() == 0)
+    {
+      throw new ApplicationException(
+          "Name des Vereins oder Bankverbindung fehlt.Bitte unter Administration|Einstellungen erfassen.");
+    }
+    if (Einstellungen.getEinstellung().getGlaeubigerID() == null
+        || Einstellungen.getEinstellung().getGlaeubigerID().length() == 0)
+    {
+      throw new ApplicationException(
+          "Gläubiger-ID fehlt. Gfls. unter https://extranet.bundesbank.de/scp/ oder http://www.oenb.at/idakilz/cid?lang=de beantragen und unter Administration|Einstellungen|Allgemein eintragen.\n"
+              + "Zu Testzwecken kann DE98ZZZ09999999999 eingesetzt werden.");
+    }
+
+    DBIterator it = Einstellungen.getDBService().createList(Konto.class);
+    it.addFilter("nummer = ?", Einstellungen.getEinstellung().getKonto());
+    if (it.size() != 1)
     {
       throw new ApplicationException(
           JVereinPlugin
               .getI18n()
-              .tr("Name des Vereins oder Bankverbindung fehlt.Bitte unter Administration|Einstellungen erfassen."));
+              .tr("Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+                  Einstellungen.getEinstellung().getKonto()));
     }
 
-    GUI.getView().setTitle("Abrechnung");
+    GUI.getView().setTitle("Abrechnung SEPA");
 
-    final AbbuchungControl control = new AbbuchungControl(this);
+    final AbrechnungSEPAControl control = new AbrechnungSEPAControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
         "Parameter"));
@@ -74,8 +92,8 @@ public class AbbuchungView extends AbstractView
         control.getKursteilnehmer());
     group.addLabelPair(JVereinPlugin.getI18n().tr("Kompakte Abbuchung"),
         control.getKompakteAbbuchung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Dtaus-Datei drucken"),
-        control.getDtausPrint());
+    // group.addLabelPair(JVereinPlugin.getI18n().tr("Dtaus-Datei drucken"),
+    // control.getDtausPrint());
 
     if (!Einstellungen.getEinstellung().getKursteilnehmer())
     {
@@ -88,8 +106,8 @@ public class AbbuchungView extends AbstractView
         .addText(
             JVereinPlugin
                 .getI18n()
-                .tr("*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "
-                    + "Üblicherweise 1.1. des Jahres."), true);
+                .tr("*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "),
+            true);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,

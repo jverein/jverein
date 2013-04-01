@@ -52,6 +52,7 @@ public class KursteilnehmerDetailView extends AbstractView
         control.getVZweck1());
     grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 2"),
         control.getVZweck2());
+    grGrund.addInput(control.getMandatDatum());
     grGrund.addInput(control.getBIC());
     grGrund.addInput(control.getIBAN());
     grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),control.getBlz(),control.getKonto(),control.getBIC(),control.getIBAN()));

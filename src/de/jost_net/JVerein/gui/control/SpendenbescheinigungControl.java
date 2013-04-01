@@ -355,7 +355,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     query = new SpendenbescheinigungBuchungQuery(spendenbescheinigung);
     if (buchungsList == null)
     {
-      //buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
+      // buchungsList = new BuchungListTablePart(query.get(), new
+      // BuchungAction());
       buchungsList = new BuchungListTablePart(query.get(), null);
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "id-int");
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
@@ -407,13 +408,10 @@ public class SpendenbescheinigungControl extends AbstractControl
           "buchungsart", new BuchungsartFormatter());
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
           new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      if (Einstellungen.getEinstellung().getMitgliedskonto())
-      {
-        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-            "mitgliedskonto", new MitgliedskontoFormatter());
-      }
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
+          "mitgliedskonto", new MitgliedskontoFormatter());
       buchungsList.setMulti(true);
-      //buchungsList.setContextMenu(new BuchungMenu(this));
+      // buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
       buchungsList.setRememberOrder(true);
       buchungsList.setRememberState(true);

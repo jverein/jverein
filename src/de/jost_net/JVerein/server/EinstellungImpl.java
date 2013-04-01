@@ -148,8 +148,9 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         if (!JVereinPlugin.isArchiveServiceActive())
         {
           throw new ApplicationException(
-              JVereinPlugin.getI18n().tr(
-                  "Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!"));
+              JVereinPlugin
+                  .getI18n()
+                  .tr("Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!"));
         }
       }
       try
@@ -530,18 +531,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public Boolean getMitgliedskonto() throws RemoteException
-  {
-    return Util.getBoolean(getAttribute("mitgliedskonto"));
-  }
-
-  @Override
-  public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException
-  {
-    setAttribute("mitgliedskonto", Boolean.valueOf(mitgliedskonto));
-  }
-
-  @Override
   public Boolean getMitgliedfoto() throws RemoteException
   {
     return Util.getBoolean(getAttribute("mitgliedfoto"));
@@ -784,7 +773,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util
+        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override

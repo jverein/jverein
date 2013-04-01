@@ -151,10 +151,6 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public Boolean getJuristischePersonen() throws RemoteException;
 
-  public void setMitgliedskonto(Boolean mitgliedskonto) throws RemoteException;
-
-  public Boolean getMitgliedskonto() throws RemoteException;
-
   public void setMitgliedfoto(Boolean mitgliedfoto) throws RemoteException;
 
   public Boolean getMitgliedfoto() throws RemoteException;

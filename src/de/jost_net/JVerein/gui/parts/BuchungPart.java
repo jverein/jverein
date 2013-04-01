@@ -84,11 +84,8 @@ public class BuchungPart implements Part
         control.getDatum());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"),
         control.getArt());
-    if (Einstellungen.getEinstellung().getMitgliedskonto())
-    {
-      grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
-          control.getMitgliedskonto());
-    }
+    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
+        control.getMitgliedskonto());
     grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"),
         control.getKommentar());
 

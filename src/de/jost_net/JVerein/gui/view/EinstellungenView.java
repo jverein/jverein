@@ -108,8 +108,6 @@ public class EinstellungenView extends AbstractView
         control.getLehrgaenge());
     left.addLabelPair(JVereinPlugin.getI18n()
         .tr("Juristische Personen erlaubt"), control.getJuristischePersonen());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonten *"),
-        control.getMitgliedskonto());
     left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"),
         control.getMitgliedfoto());
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
@@ -295,10 +293,9 @@ public class EinstellungenView extends AbstractView
           JVereinPlugin.getI18n().tr("Zeige Zusatzbeträge in Tab"),
           control.getZeigeZusatzbetrageInTabCheckbox());
 
-    if (Einstellungen.getEinstellung().getMitgliedskonto())
-      leftTab.addLabelPair(
-          JVereinPlugin.getI18n().tr("Zeige Mitgliedskonto in Tab"),
-          control.getZeigeMitgliedskontoInTabCheckbox());
+    leftTab.addLabelPair(
+        JVereinPlugin.getI18n().tr("Zeige Mitgliedskonto in Tab"),
+        control.getZeigeMitgliedskontoInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getVermerke())
       leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Vermerke in Tab"),

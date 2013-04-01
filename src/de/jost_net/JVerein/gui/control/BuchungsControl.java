@@ -335,7 +335,8 @@ public class BuchungsControl extends AbstractControl
 
   public DialogInput getMitgliedskonto() throws RemoteException
   {
-    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung()).getMitgliedskontoAuswahl();
+    mitgliedskonto = new MitgliedskontoauswahlInput(getBuchung())
+        .getMitgliedskontoAuswahl();
     mitgliedskonto.addListener(new Listener()
     {
 
@@ -400,7 +401,8 @@ public class BuchungsControl extends AbstractControl
     {
       return buchungsart;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     list.setOrder("ORDER BY bezeichnung");
     buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
     buchungsart.setValue(getBuchung().getBuchungsart());
@@ -458,7 +460,8 @@ public class BuchungsControl extends AbstractControl
     {
       return suchbuchungsart;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     list.setOrder("ORDER BY nummer");
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
@@ -653,32 +656,25 @@ public class BuchungsControl extends AbstractControl
         b.setArt((String) getArt().getValue());
         b.setVerzicht((Boolean) getVerzicht().getValue());
 
-        if (Einstellungen.getEinstellung().getMitgliedskonto())
+        if (mitgliedskonto.getValue() != null)
         {
-          if (mitgliedskonto.getValue() != null)
+          if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
           {
-            if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
-            {
-              b.setMitgliedskonto((Mitgliedskonto) mitgliedskonto.getValue());
-            }
-            else if (mitgliedskonto.getValue() instanceof Mitglied)
-            {
-              Mitglied mitglied = (Mitglied) mitgliedskonto.getValue();
-              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
-                  Mitgliedskonto.class, null);
-              mk.setBetrag(b.getBetrag());
-              mk.setDatum(b.getDatum());
-              mk.setMitglied(mitglied);
-              mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
-              mk.setZweck1(b.getZweck());
-              mk.store();
-              b.setMitgliedskonto(mk);
-              mitgliedskonto.setValue(mk);
-            }
+            b.setMitgliedskonto((Mitgliedskonto) mitgliedskonto.getValue());
           }
-          else
+          else if (mitgliedskonto.getValue() instanceof Mitglied)
           {
-            b.setMitgliedskonto(null);
+            Mitglied mitglied = (Mitglied) mitgliedskonto.getValue();
+            Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
+                .createObject(Mitgliedskonto.class, null);
+            mk.setBetrag(b.getBetrag());
+            mk.setDatum(b.getDatum());
+            mk.setMitglied(mitglied);
+            mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
+            mk.setZweck1(b.getZweck());
+            mk.store();
+            b.setMitgliedskonto(mk);
+            mitgliedskonto.setValue(mk);
           }
         }
         b.setKommentar((String) getKommentar().getValue());
@@ -779,7 +775,8 @@ public class BuchungsControl extends AbstractControl
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Auszug"),
           "auszugsnummer");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
+      buchungsList
+          .addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
           "zweck", new Formatter()
@@ -803,11 +800,8 @@ public class BuchungsControl extends AbstractControl
           "buchungsart", new BuchungsartFormatter());
       buchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
           new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      if (Einstellungen.getEinstellung().getMitgliedskonto())
-      {
-        buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-            "mitgliedskonto", new MitgliedskontoFormatter());
-      }
+      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
+          "mitgliedskonto", new MitgliedskontoFormatter());
       buchungsList.setMulti(true);
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
@@ -902,17 +896,14 @@ public class BuchungsControl extends AbstractControl
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Blatt"),
           "blattnummer");
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-      splitbuchungsList.addColumn(
-          JVereinPlugin.getI18n().tr("Verwendungszweck"), "zweck");
+      splitbuchungsList.addColumn(JVereinPlugin.getI18n()
+          .tr("Verwendungszweck"), "zweck");
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
           "buchungsart", new BuchungsartFormatter());
       splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
           "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      if (Einstellungen.getEinstellung().getMitgliedskonto())
-      {
-        splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-            "mitgliedskonto", new MitgliedskontoFormatter());
-      }
+      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
+          "mitgliedskonto", new MitgliedskontoFormatter());
       splitbuchungsList.setRememberColWidths(true);
       splitbuchungsList.setSummary(true);
     }
@@ -960,7 +951,8 @@ public class BuchungsControl extends AbstractControl
       if (query.getBuchungsart() != null
           && query.getBuchungsart().getArt() != -2)
       {
-        list.addFilter("id = ?", new Object[] { query.getBuchungsart().getID()});
+        list.addFilter("id = ?",
+            new Object[] { query.getBuchungsart().getID() });
       }
       if (query.getBuchungsart() != null
           && query.getBuchungsart().getArt() == -1)
@@ -975,8 +967,8 @@ public class BuchungsControl extends AbstractControl
       }
       if (buchungsarten.size() > 1)
       {
-        Buchungsart ohnezuordnung = (Buchungsart) Einstellungen.getDBService().createObject(
-            Buchungsart.class, null);
+        Buchungsart ohnezuordnung = (Buchungsart) Einstellungen.getDBService()
+            .createObject(Buchungsart.class, null);
         ohnezuordnung.setBezeichnung(JVereinPlugin.getI18n().tr(
             "Ohne Zuordnung"));
         ohnezuordnung.setArt(-1);
@@ -1111,9 +1103,9 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(
-          JVereinPlugin.getI18n().tr("buchungsjournal"), "",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname(JVereinPlugin.getI18n()
+          .tr("buchungsjournal"), "", Einstellungen.getEinstellung()
+          .getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 

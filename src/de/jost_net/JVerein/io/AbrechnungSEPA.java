@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.io;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
@@ -54,8 +53,11 @@ import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.Dtaus.CSatz;
 import de.jost_net.OBanToo.Dtaus.Dtaus2Pdf;
 import de.jost_net.OBanToo.Dtaus.DtausDateiParser;
-import de.jost_net.OBanToo.Dtaus.DtausDateiWriter;
 import de.jost_net.OBanToo.Dtaus.DtausException;
+import de.jost_net.OBanToo.SEPA.BIC;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.Basislastschrift;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.Zahler;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -68,81 +70,68 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class Abrechnung
+public class AbrechnungSEPA
 {
 
-  AbbuchungParam param;
+  private AbrechnungSEPAParam param;
 
-  public Abrechnung(AbbuchungParam param, ProgressMonitor monitor)
+  public AbrechnungSEPA(AbrechnungSEPAParam param, ProgressMonitor monitor)
       throws Exception
   {
-
-    XLastschriften lastschriften = new XLastschriften();
     this.param = param;
-
     Abrechnungslauf abrl = getAbrechnungslauf();
+
+    Basislastschrift lastschrift = new Basislastschrift();
+    // Vorbereitung: Allgemeine Informationen einstellen
+    lastschrift.setBIC(Einstellungen.getEinstellung().getBic());
+    lastschrift.setFaelligskeitsdatum(new Date()); // In parameter übernehmen
+    lastschrift.setGlaeubigerID(Einstellungen.getEinstellung()
+        .getGlaeubigerID());
+    lastschrift.setIBAN(Einstellungen.getEinstellung().getIban());
+    lastschrift.setKomprimiert(param.kompakteabbuchung.booleanValue());
+    lastschrift.setName(Einstellungen.getEinstellung().getNameLang());
+
     Konto konto = getKonto();
-    abrechnenMitglieder(lastschriften, monitor, abrl, konto);
+    abrechnenMitglieder(lastschrift, monitor, abrl, konto);
     if (param.zusatzbetraege)
     {
-      abbuchenZusatzbetraege(lastschriften, abrl, konto, monitor);
+      abbuchenZusatzbetraege(lastschrift, abrl, konto, monitor);
     }
     if (param.kursteilnehmer)
     {
-      abbuchenKursteilnehmer(lastschriften);
+      abbuchenKursteilnehmer(lastschrift);
     }
 
-    FileOutputStream out = new FileOutputStream(param.dtausfile);
-
-    // Vorbereitung: A-Satz bestücken und schreiben
-    DtausDateiWriter dtaus = new DtausDateiWriter(out);
-    dtaus.setABLZBank(Long.parseLong(Einstellungen.getEinstellung().getBlz()));
-    dtaus.setADatum(new Date());
-    dtaus.setAGutschriftLastschrift("LK");
-    dtaus.setAKonto(Long.parseLong(Einstellungen.getEinstellung().getKonto()));
-    dtaus.setAKundenname(Einstellungen.getEinstellung().getName());
-    dtaus.writeASatz();
-
-    if (param.kompakteabbuchung)
-    {
-      lastschriften.compact();
-    }
-    for (XLastschrift lastschrift : lastschriften.getLastschriften())
-    {
-      writeCSatz(dtaus, lastschrift);
-    }
-
-    // Ende der Abbuchung. Jetzt wird noch der E-Satz geschrieben. Die Werte
-    // wurden beim Schreiben der C-Sätze ermittelt.
-    dtaus.writeESatz();
-    dtaus.close();
+    lastschrift.setMessageID(abrl.getID());
+    lastschrift.create(param.dtausfile);
 
     // Gegenbuchung für das Mitgliedskonto schreiben
     writeMitgliedskonto(null, new Date(),
-        JVereinPlugin.getI18n().tr("Gegenbuchung"), "", dtaus
-            .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true,
-        getKonto(), null);
+        JVereinPlugin.getI18n().tr("Gegenbuchung"), "", lastschrift
+            .getKontrollsumme().doubleValue() * -1, abrl, true, getKonto(),
+        null);
 
-    if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
-        || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
-    {
-      buchenHibiscus();
-    }
-    monitor.log(JVereinPlugin.getI18n().tr(
-        "Anzahl Abbuchungen/Lastschrift: {0}",
-        new String[] { dtaus.getAnzahlSaetze() + "" }));
-    monitor.log(JVereinPlugin.getI18n().tr(
-        "Gesamtsumme Abbuchung/Lastschrift: {0} EUR",
-        Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
-    dtaus.close();
+    // if (param.abbuchungsausgabe ==
+    // Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
+    // || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
+    // {
+    // buchenHibiscus();
+    // }
+    // monitor.log(JVereinPlugin.getI18n().tr(
+    // "Anzahl Abbuchungen/Lastschrift: {0}",
+    // new String[] { dtaus.getAnzahlSaetze() + "" }));
+    // monitor.log(JVereinPlugin.getI18n().tr(
+    // "Gesamtsumme Abbuchung/Lastschrift: {0} EUR",
+    // Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
+    // dtaus.close();
     monitor.setPercentComplete(100);
-    if (param.dtausprint)
-    {
-      ausdruckenDTAUS(param.dtausfile.getAbsolutePath(), param.pdffile);
-    }
+    // if (param.dtausprint)
+    // {
+    // ausdruckenDTAUS(param.dtausfile.getAbsolutePath(), param.pdffile);
+    // }
   }
 
-  private void abrechnenMitglieder(XLastschriften lastschriften,
+  private void abrechnenMitglieder(Basislastschrift lastschrift,
       ProgressMonitor monitor, Abrechnungslauf abrl, Konto konto)
       throws Exception
   {
@@ -304,21 +293,16 @@ public class Abrechnung
         {
           try
           {
-            XLastschrift lastschrift = new XLastschrift();
-            lastschrift.setBetrag(new BigDecimal(betr).setScale(2,
+            Zahler zahler = new Zahler();
+            zahler.setBetrag(new BigDecimal(betr).setScale(2,
                 BigDecimal.ROUND_HALF_UP));
-            if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
-            {
-              throw new DtausException(
-                  JVereinPlugin
-                      .getI18n()
-                      .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                          new String[] { m.getBlz(), m.getKonto() }));
-            }
-            lastschrift.setBlz(Integer.parseInt(m.getBlz()));
-            lastschrift.setKonto(Long.parseLong(m.getKonto()));
-            lastschrift.addVerwendungszweck(param.verwendungszweck);
-            lastschrift.addVerwendungszweck(getVerwendungszweck2(m));
+            new BIC(m.getBic()); // Prüfung des BIC
+            zahler.setBic(m.getBic());
+            new IBAN(m.getIban()); // Prüfung der IBAN
+            zahler.setIban(m.getIban());
+            zahler.setMandatid(m.getID());
+            zahler.setMandatdatum(m.getMandatDatum());
+            zahler.setVerwendungszweck(param.verwendungszweck);
             if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
             {
               DBIterator angeh = Einstellungen.getDBService().createList(
@@ -340,10 +324,11 @@ public class Abrechnung
               {
                 an = an.substring(0, 24) + "...";
               }
-              lastschrift.addVerwendungszweck(an);
+              zahler.setVerwendungszweck(zahler.getVerwendungszweck() + " "
+                  + an);
             }
-            lastschrift.addZahlungspflichtigen(getZahlungspflichtigen(m));
-            lastschriften.add(lastschrift);
+            zahler.setName(getZahlungspflichtigen(m));
+            lastschrift.add(zahler);
           }
           catch (Exception e)
           {
@@ -355,7 +340,7 @@ public class Abrechnung
     }
   }
 
-  private void abbuchenZusatzbetraege(XLastschriften lastschriften,
+  private void abbuchenZusatzbetraege(Basislastschrift lastschrift,
       Abrechnungslauf abrl, Konto konto, ProgressMonitor monitor)
       throws NumberFormatException, IOException, ApplicationException
   {
@@ -379,28 +364,24 @@ public class Abrechnung
         {
           try
           {
-            XLastschrift lastschrift = new XLastschrift();
-            lastschrift.setBetrag(new BigDecimal(z.getBetrag()).setScale(2,
+            Zahler zahler = new Zahler();
+            zahler.setBetrag(new BigDecimal(z.getBetrag()).setScale(2,
                 BigDecimal.ROUND_HALF_UP));
-            if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
-            {
-              throw new DtausException(
-                  JVereinPlugin
-                      .getI18n()
-                      .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                          new String[] { m.getBlz(), m.getKonto() }));
-            }
-            lastschrift.setBlz(Integer.parseInt(m.getBlz()));
-            lastschrift.setKonto(Long.parseLong(m.getKonto()));
-            lastschrift.addZahlungspflichtigen(getZahlungspflichtigen(m));
-            lastschrift.addVerwendungszweck(z.getBuchungstext());
+            new BIC(m.getBic());
+            new IBAN(m.getIban());
+            zahler.setBic(m.getBic());
+            zahler.setIban(m.getIban());
+            zahler.setMandatid(m.getID());
+            zahler.setMandatdatum(m.getMandatDatum());
+            zahler.setName(getZahlungspflichtigen(m));
+            String verwendungszweck = z.getBuchungstext();
             if (z.getBuchungstext2() != null
                 && z.getBuchungstext2().length() > 0)
             {
-              lastschrift.addVerwendungszweck(z.getBuchungstext2());
+              verwendungszweck += z.getBuchungstext2();
             }
-            lastschrift.addVerwendungszweck(getVerwendungszweck2(m));
-            lastschriften.add(lastschrift);
+            zahler.setVerwendungszweck(verwendungszweck);
+            lastschrift.add(zahler);
           }
           catch (Exception e)
           {
@@ -447,7 +428,7 @@ public class Abrechnung
     }
   }
 
-  private void abbuchenKursteilnehmer(XLastschriften lastschriften)
+  private void abbuchenKursteilnehmer(Basislastschrift lastschrift)
       throws ApplicationException, DtausException, IOException
   {
     DBIterator list = Einstellungen.getDBService().createList(
@@ -456,27 +437,27 @@ public class Abrechnung
     while (list.hasNext())
     {
       Kursteilnehmer kt = (Kursteilnehmer) list.next();
-      kt.setAbbudatum();
-      kt.store();
-
-      XLastschrift lastschrift = new XLastschrift();
-      lastschrift.setBetrag(new BigDecimal(kt.getBetrag()).setScale(2,
-          BigDecimal.ROUND_HALF_UP));
-      if (!Einstellungen.checkAccountCRC(kt.getBlz(), kt.getKonto()))
+      try
       {
-        throw new DtausException(
-            JVereinPlugin
-                .getI18n()
-                .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                    new String[] { kt.getBlz(), kt.getKonto() }));
+        Zahler zahler = new Zahler();
+        zahler.setBetrag(new BigDecimal(kt.getBetrag()).setScale(2,
+            BigDecimal.ROUND_HALF_UP));
+        new BIC(kt.getBic());
+        new IBAN(kt.getIban());
+        zahler.setBic(kt.getBic());
+        zahler.setIban(kt.getIban());
+        zahler.setMandatid("K" + kt.getID());
+        zahler.setMandatdatum(new Date()); // TODO korrektes Datum setzen.
+        zahler.setName(kt.getName());
+        zahler.setVerwendungszweck(kt.getVZweck1() + " " + kt.getVZweck2());
+        lastschrift.add(zahler);
+        kt.setAbbudatum();
+        kt.store();
       }
-
-      lastschrift.setBlz(Integer.parseInt(kt.getBlz()));
-      lastschrift.setKonto(Long.parseLong(kt.getKonto()));
-      lastschrift.addZahlungspflichtigen(kt.getName());
-      lastschrift.addVerwendungszweck(kt.getVZweck1());
-      lastschrift.addVerwendungszweck(kt.getVZweck2());
-      lastschriften.add(lastschrift);
+      catch (Exception e)
+      {
+        throw new ApplicationException(kt.getName() + ": " + e.getMessage());
+      }
     }
   }
 
@@ -586,27 +567,6 @@ public class Abrechnung
           "Fehler beim parsen der DTAUS-Datei:")
           + " " + e.getMessage());
     }
-  }
-
-  private void writeCSatz(DtausDateiWriter dtaus, XLastschrift lastschrift)
-      throws DtausException, NumberFormatException, IOException
-  {
-    dtaus.setCBetragInEuro(lastschrift.getBetrag().doubleValue());
-    dtaus.setCBLZEndbeguenstigt(lastschrift.getBlz());
-    dtaus.setCKonto(lastschrift.getKonto());
-    dtaus.setCName(lastschrift.getZahlungspflichtigen(0));
-    dtaus.setCInterneKundennummer(0L);
-    if (lastschrift.getAnzahlZahlungspflichtige() >= 2)
-    {
-      dtaus.setCName2(lastschrift.getZahlungspflichtigen(1));
-    }
-    for (int i = 0; i < lastschrift.getAnzahlVerwendungszwecke(); i++)
-    {
-      dtaus.addCVerwendungszweck(lastschrift.getVerwendungszweck(i));
-    }
-    dtaus.setCTextschluessel(Integer.parseInt(Einstellungen.getEinstellung()
-        .getDtausTextschluessel()) * 1000);
-    dtaus.writeCSatz();
   }
 
   private Abrechnungslauf getAbrechnungslauf() throws RemoteException,
