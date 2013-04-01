@@ -44,6 +44,10 @@ public interface Kursteilnehmer extends DBObject, IBankverbindung
 
   public void setVZweck2(String vzweck2) throws RemoteException;
 
+  public Date getMandatdatum() throws RemoteException;
+
+  public void setMandatdatum(Date mandatdatum) throws RemoteException;
+
   @Override
   public String getBic() throws RemoteException;
 

@@ -81,38 +81,36 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   {
     if (getName() == null || getName().length() == 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Namen eingeben"));
+      throw new ApplicationException("Bitte Namen eingeben");
     }
     if (getVZweck1() == null || getVZweck1().length() == 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Verwendungszweck 1 eingeben"));
+      throw new ApplicationException("Bitte Verwendungszweck 1 eingeben");
+    }
+    if (getMandatdatum() == Einstellungen.NODATE)
+    {
+      throw new ApplicationException("Bitte Datum des Mandats eingeben");
     }
     if (getGeburtsdatum() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Geburtsdatum eingeben"));
+      throw new ApplicationException("Bitte Geburtsdatum eingeben");
     }
     if (getBlz() == null || getBlz().length() != 8)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Bankleitzahl eingeben"));
+      throw new ApplicationException("Bitte Bankleitzahl eingeben");
     }
     if (getKonto() == null || getKonto().length() == 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Konto eingeben"));
+      throw new ApplicationException("Bitte Konto eingeben");
     }
     if (getBetrag() <= 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Betrag größer als 0 eingeben"));
+      throw new ApplicationException("Bitte Betrag größer als 0 eingeben");
     }
     if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben."));
+      throw new ApplicationException(
+          "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
     }
   }
 
@@ -148,6 +146,23 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   public void setName(String name) throws RemoteException
   {
     setAttribute("name", name);
+  }
+
+  @Override
+  public Date getMandatdatum() throws RemoteException
+  {
+    Date d = (Date) getAttribute("mandatdatum");
+    if (d == null)
+    {
+      return Einstellungen.NODATE;
+    }
+    return d;
+  }
+
+  @Override
+  public void setMandatdatum(Date mandatdatum) throws RemoteException
+  {
+    setAttribute("mandatdatum", mandatdatum);
   }
 
   @Override

@@ -1125,6 +1125,14 @@ public class JVereinUpdateProvider
     {
       update0281(conn);
     }
+    if (cv < 282)
+    {
+      update0282(conn);
+    }
+    if (cv < 283)
+    {
+      update0283(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6624,6 +6632,35 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Spalte mandatdatum mit eintrittsdatum belegt",
         281);
+  }
+
+  private void update0282(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table kursteilnehmer add mandatdatum date before bic;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table kursteilnehmer add mandatdatum date after vzweck2;\n");
+
+    execute(conn, statements,
+        "Spalte mandatdatum zur Tabelle kursteilnehmer hinzugefügt", 282);
+  }
+
+  private void update0283(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN mitgliedskonto;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN mitgliedskonto;\n");
+
+    execute(conn, statements, "Spalten aus Tabelle einstellung entfernt", 283);
   }
 
 }

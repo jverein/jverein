@@ -80,6 +80,8 @@ public class KursteilnehmerControl extends AbstractControl
 
   private Input vzweck2;
 
+  private DateInput mandatdatum;
+
   private BICInput bic;
 
   private IBANInput iban;
@@ -161,6 +163,38 @@ public class KursteilnehmerControl extends AbstractControl
     }
     vzweck2 = new TextInput(getKursteilnehmer().getVZweck2(), 27);
     return vzweck2;
+  }
+
+  public DateInput getMandatDatum() throws RemoteException
+  {
+    if (mandatdatum != null)
+    {
+      return mandatdatum;
+    }
+
+    Date d = getKursteilnehmer().getMandatdatum();
+    if (d.equals(Einstellungen.NODATE))
+    {
+      d = null;
+    }
+    this.mandatdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.mandatdatum.setTitle(JVereinPlugin.getI18n().tr("Datum des Mandats"));
+    this.mandatdatum.setName(JVereinPlugin.getI18n().tr("Datum des Mandats"));
+    this.mandatdatum.setText(JVereinPlugin.getI18n().tr(
+        "Bitte Datum des Mandats wählen"));
+    this.mandatdatum.addListener(new Listener()
+    {
+      @Override
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) mandatdatum.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return mandatdatum;
   }
 
   public BICInput getBIC() throws RemoteException
@@ -567,6 +601,7 @@ public class KursteilnehmerControl extends AbstractControl
       k.setName((String) getName(false).getValue());
       k.setVZweck1((String) getVZweck1().getValue());
       k.setVZweck2((String) getVZweck2().getValue());
+      k.setMandatdatum((Date) getMandatDatum().getValue());
       k.setBlz((String) getBlz().getValue());
       k.setKonto((String) getKonto().getValue());
       k.setBetrag((Double) getBetrag().getValue());
