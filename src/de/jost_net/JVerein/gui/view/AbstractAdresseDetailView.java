@@ -79,7 +79,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr(getTitle()));
+    GUI.getView().setTitle(getTitle());
 
     final MitgliedskontoControl controlMk = new MitgliedskontoControl(this);
 
@@ -183,36 +183,30 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     {
       MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
       mkcontrol.getStartKontoauszugButton(control.getMitglied(), null, null);
-      buttons
-          .addButton(new Button(JVereinPlugin.getI18n().tr("Kontoauszug"),
-              new KontoauszugAction(), control.getMitglied(), false,
-              "rechnung.png"));
+      buttons.addButton(new Button("Kontoauszug", new KontoauszugAction(),
+          control.getMitglied(), false, "rechnung.png"));
     }
     if (isMitgliedDetail())
     {
-      buttons.addButton(new Button(JVereinPlugin.getI18n().tr("Personalbogen"),
-          new PersonalbogenAction(), control.getCurrentObject(), false,
-          "rechnung.png"));
+      buttons.addButton(new Button("Personalbogen", new PersonalbogenAction(),
+          control.getCurrentObject(), false, "rechnung.png"));
       // R.M. 27.01.2013 Mitglieder sollten aus dem Dialog raus kopiert werden
       // können
-      buttons.addButton(new Button(JVereinPlugin.getI18n().tr("duplizieren"),
+      buttons.addButton(new Button("duplizieren",
           new MitgliedDuplizierenAction(), control.getCurrentObject(), false,
           "copy_v2.png"));
     }
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MITGLIED, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("Mail"),
-        new MitgliedMailSendenAction(), getCurrentObject(), false,
-        "mail-message-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        isMitgliedDetail() ? new MitgliedDetailAction()
-            : new AdresseDetailAction(), null, false, "document-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MITGLIED, false, "help-browser.png");
+    buttons.addButton("Mail", new MitgliedMailSendenAction(),
+        getCurrentObject(), false, "mail-message-new.png");
+    buttons.addButton("neu", isMitgliedDetail() ? new MitgliedDetailAction()
+        : new AdresseDetailAction(), null, false, "document-new.png");
+    buttons.addButton("löschen",
         (isMitgliedDetail() ? new MitgliedDeleteAction()
             : new AdresseDeleteAction()), control.getCurrentObject(), false,
         "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("speichern", new Action()
     {
 
       @Override
@@ -230,8 +224,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     if (JVereinPlugin.isArchiveServiceActive()
         && !control.getMitglied().isNewObject())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Dokumente"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Dokumente");
 
       MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService()
           .createObject(MitgliedDokument.class, null);
@@ -250,8 +243,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     if (isMitgliedDetail()
         && Einstellungen.getEinstellung().getArbeitseinsatz())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Arbeitseinsatz"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Arbeitseinsatz");
 
       ButtonArea buttonsarbeins = new ButtonArea();
       buttonsarbeins.addButton(control.getArbeitseinsatzNeu());
@@ -274,17 +266,14 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       Input[] lesefelder = control.getLesefelder();
       if (lesefelder != null)
       {
-        Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-            .getI18n().tr("Lesefelder"));
+        Container cont = getTabOrLabelContainer(parentComposite, "Lesefelder");
         SimpleVerticalContainer svc = new SimpleVerticalContainer(
             cont.getComposite(), false, spaltenanzahl);
         for (Input inp : lesefelder)
         {
           if (inp == null)
           {
-            String errorText = JVereinPlugin
-                .getI18n()
-                .tr("Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!");
+            String errorText = "Achtung! Ungültiges Lesefeld-Skript gefunden. Diesen Fehler bitte unter www.jverein.de/forum melden!";
             Input errorInput = new TextInput(errorText);
             errorInput.setEnabled(false);
             svc.addInput(errorInput);
@@ -308,9 +297,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (isMitgliedDetail() && Einstellungen.getEinstellung().getMitgliedfoto())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Foto"));
-      cont.addLabelPair(JVereinPlugin.getI18n().tr("Foto"), control.getFoto());
+      Container cont = getTabOrLabelContainer(parentComposite, "Foto");
+      cont.addLabelPair("Foto", control.getFoto());
     }
   }
 
@@ -319,8 +307,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (isMitgliedDetail() && Einstellungen.getEinstellung().getLehrgaenge())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Lehrgänge"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Lehrgänge");
 
       cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
       cont.getComposite().setLayout(new GridLayout(1, false));
@@ -338,8 +325,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     Input[] zusatzfelder = control.getZusatzfelder();
     if (zusatzfelder != null)
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Zusatzfelder"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Zusatzfelder");
       SimpleVerticalContainer svc = new SimpleVerticalContainer(
           cont.getComposite(), true, spaltenanzahl);
       for (Input inp : zusatzfelder)
@@ -355,8 +341,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     // if (isMitgliedDetail())
     // {
-    Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-        .getI18n().tr("Eigenschaften"));
+    Container cont = getTabOrLabelContainer(parentComposite, "Eigenschaften");
 
     control.getEigenschaftenTree().paint(cont.getComposite());
     // }
@@ -367,8 +352,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (Einstellungen.getEinstellung().getWiedervorlage())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Wiedervorlage"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Wiedervorlage");
 
       cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
       cont.getComposite().setLayout(new GridLayout(1, false));
@@ -385,8 +369,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     if (Einstellungen.getEinstellung().getSmtpServer() != null
         && Einstellungen.getEinstellung().getSmtpServer().length() > 0)
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Mails"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Mails");
 
       control.getMailTable().paint(cont.getComposite());
     }
@@ -397,8 +380,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (Einstellungen.getEinstellung().getVermerke())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Vermerke"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Vermerke");
       SimpleContainer cols = new SimpleContainer(cont.getComposite(), true,
           spaltenanzahl * 2);
 
@@ -407,10 +389,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       gridData.minimumHeight = 80;
       cols.getComposite().setLayoutData(gridData);
 
-      cols.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 1"),
-          control.getVermerk1());
-      cols.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk 2"),
-          control.getVermerk2());
+      cols.addLabelPair("Vermerk 1", control.getVermerk1());
+      cols.addLabelPair("Vermerk 2", control.getVermerk2());
     }
   }
 
@@ -425,8 +405,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (!control.getMitglied().isNewObject())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Mitgliedskonto"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Mitgliedskonto");
       controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
           cont.getComposite());
     }
@@ -437,8 +416,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (isMitgliedDetail() && Einstellungen.getEinstellung().getZusatzbetrag())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, JVereinPlugin
-          .getI18n().tr("Zusatzbeträge"));
+      Container cont = getTabOrLabelContainer(parentComposite, "Zusatzbeträge");
 
       cont.getComposite().setLayoutData(new GridData(GridData.FILL_VERTICAL));
       cont.getComposite().setLayout(new GridLayout(1, false));
@@ -453,8 +431,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   private void zeichneZahlung(Composite parentComposite, int spaltenanzahl)
       throws RemoteException
   {
-    Container container = getTabOrLabelContainer(parentComposite, JVereinPlugin
-        .getI18n().tr("Zahlung"));
+    Container container = getTabOrLabelContainer(parentComposite, "Zahlung");
     SimpleVerticalContainer cols = new SimpleVerticalContainer(
         container.getComposite(), true, spaltenanzahl);
 
@@ -511,7 +488,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     if (isMitgliedDetail())
     {
       Container container = getTabOrLabelContainer(parentComposite,
-          JVereinPlugin.getI18n().tr("Mitgliedschaft"));
+          "Mitgliedschaft");
 
       SimpleVerticalContainer cols = new SimpleVerticalContainer(
           container.getComposite(), false, spaltenanzahl);
@@ -577,8 +554,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   private void zeicheStammdaten(Composite parentComposite, int spaltenanzahl)
       throws RemoteException
   {
-    Container container = getTabOrLabelContainer(parentComposite, JVereinPlugin
-        .getI18n().tr("Stammdaten"));
+    Container container = getTabOrLabelContainer(parentComposite, "Stammdaten");
     SimpleVerticalContainer cols = new SimpleVerticalContainer(
         container.getComposite(), true, spaltenanzahl);
 
@@ -593,8 +569,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     }
     if (control.getMitglied().getPersonenart().equals("j"))
     {
-      control.getName(true).setName(JVereinPlugin.getI18n().tr("Name Zeile 1"));
-      control.getVorname().setName(JVereinPlugin.getI18n().tr("Name Zeile 2"));
+      control.getName(true).setName("Name Zeile 1");
+      control.getVorname().setName("Name Zeile 2");
       control.getVorname().setMandatory(false);
     }
     cols.addInput(control.getName(true));
@@ -627,18 +603,16 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
-            + "<li>Anrede: Herrn, Frau ...</li>"
-            + "<li>Titel: Dr., Prof. Dr., ...</li>"
-            + "<li>Sofern Auslandsadressen erfasst werden sollen, ist das unter Einstellungen anzuhaken. Dann kann auch der Wohnungsstaat eingegeben werden.</li>"
-            + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
-            + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
-            + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"
-            + "<li>Kündigung: Eingangsdatum der Kündigung.</li>"
-            + "<li>Zusatzabbuchung: Sind für das Mitglied zusätzlich zum Jahresbeitrag weitere Beträge abzubuchen, können die entsprechenden Eingaben gemacht werden.</li>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
+        + "<li>Anrede: Herrn, Frau ...</li>"
+        + "<li>Titel: Dr., Prof. Dr., ...</li>"
+        + "<li>Sofern Auslandsadressen erfasst werden sollen, ist das unter Einstellungen anzuhaken. Dann kann auch der Wohnungsstaat eingegeben werden.</li>"
+        + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
+        + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
+        + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"
+        + "<li>Kündigung: Eingangsdatum der Kündigung.</li>"
+        + "<li>Zusatzabbuchung: Sind für das Mitglied zusätzlich zum Jahresbeitrag weitere Beträge abzubuchen, können die entsprechenden Eingaben gemacht werden.</li>"
+        + "</form>";
   }
 
   public abstract String getTitle();

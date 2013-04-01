@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresstypDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -37,8 +36,7 @@ public class AdresstypMenu extends ContextMenu
    */
   public AdresstypMenu()
   {
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new AdresstypDeleteAction(),
-        "user-trash.png"));
+    addItem(new CheckedContextMenuItem("löschen...",
+        new AdresstypDeleteAction(), "user-trash.png"));
   }
 }

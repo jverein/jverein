@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbrechnungslaufControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -34,26 +33,23 @@ public class AbrechnungslaufListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Abrechnungsläufe"));
+    GUI.getView().setTitle("Abrechnungsläufe");
 
     AbrechnungslaufControl control = new AbrechnungslaufControl(this);
 
     control.getAbrechungslaeufeList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.BUCHUNGSARTEN, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.BUCHUNGSARTEN, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
-            + "<p>Mit einem Rechtsklick kann ein Abrechnungslauf gelöscht werden.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
+        + "<p>Mit einem Rechtsklick kann ein Abrechnungslauf gelöscht werden.</p>"
+        + "</form>";
   }
 }

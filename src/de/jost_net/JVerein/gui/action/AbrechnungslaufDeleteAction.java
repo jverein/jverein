@@ -22,9 +22,9 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
@@ -49,8 +49,7 @@ public class AbrechnungslaufDeleteAction implements Action
   {
     if (context == null || !(context instanceof Abrechnungslauf))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen Abrechnungslauf ausgewählt"));
+      throw new ApplicationException("Keinen Abrechnungslauf ausgewählt");
     }
     try
     {
@@ -61,10 +60,9 @@ public class AbrechnungslaufDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Abrechnungslauf {0} löschen",
+      d.setTitle(MessageFormat.format("Abrechnungslauf {0} löschen",
           abrl.getID()));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Abrechnungslauf wirklich löschen?"));
+      d.setText("Wollen Sie diesen Abrechnungslauf wirklich löschen?");
 
       try
       {
@@ -76,9 +74,7 @@ public class AbrechnungslaufDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Fehler beim Löschen eines Abrechnungslaufes"), e);
+        Logger.error("Fehler beim Löschen eines Abrechnungslaufes", e);
         return;
       }
       DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
@@ -91,9 +87,9 @@ public class AbrechnungslaufDeleteAction implements Action
         Jahresabschluss ja = b.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          throw new ApplicationException(MessageFormat.format(
               "Buchung wurde bereits am {0} von {1} abgeschlossen.",
-              new String[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
+              new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
                   ja.getName() }));
         }
         b.setMitgliedskontoID(null);
@@ -133,13 +129,11 @@ public class AbrechnungslaufDeleteAction implements Action
         z.store();
       }
       abrl.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Abrechnungslauf gelöscht."));
+      GUI.getStatusBar().setSuccessText("Abrechnungslauf gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen eines Abrechnungslaufes");
+      String fehler = "Fehler beim Löschen eines Abrechnungslaufes";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

@@ -23,8 +23,6 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Art der Buchungsart
  */
@@ -58,11 +56,11 @@ public class ArtBuchungsart
     switch (key)
     {
       case EINNAHME:
-        return JVereinPlugin.getI18n().tr("Einnahme");
+        return "Einnahme";
       case AUSGABE:
-        return JVereinPlugin.getI18n().tr("Ausgabe");
+        return "Ausgabe";
       case UMBUCHUNG:
-        return JVereinPlugin.getI18n().tr("Umbuchung");
+        return "Umbuchung";
       default:
         return null;
     }

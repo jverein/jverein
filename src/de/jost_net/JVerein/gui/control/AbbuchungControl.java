@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -32,7 +33,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.AbbuchungParam;
 import de.jost_net.JVerein.io.Abrechnung;
@@ -122,10 +122,8 @@ public class AbbuchungControl extends AbstractControl
     }
     Date d = null;
     this.stichtag = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.stichtag.setTitle(JVereinPlugin.getI18n().tr(
-        "Stichtag für die Abrechnung"));
-    this.stichtag.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Stichtag für die Abrechnung wählen"));
+    this.stichtag.setTitle("Stichtag für die Abrechnung");
+    this.stichtag.setText("Bitte Stichtag für die Abrechnung wählen");
     this.stichtag.addListener(new Listener()
     {
       @Override
@@ -150,10 +148,8 @@ public class AbbuchungControl extends AbstractControl
     }
     Date d = null;
     this.vondatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.vondatum
-        .setTitle(JVereinPlugin.getI18n().tr("Anfangsdatum Abrechung"));
-    this.vondatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Anfangsdatum der Abrechnung wählen"));
+    this.vondatum.setTitle("Anfangsdatum Abrechung");
+    this.vondatum.setText("Bitte Anfangsdatum der Abrechnung wählen");
     this.vondatum.setEnabled(false);
     this.vondatum.addListener(new Listener()
     {
@@ -176,8 +172,7 @@ public class AbbuchungControl extends AbstractControl
     {
       return zahlungsgrund;
     }
-    String zgrund = settings.getString("zahlungsgrund", JVereinPlugin.getI18n()
-        .tr("bitte eingeben"));
+    String zgrund = settings.getString("zahlungsgrund", "bitte eingeben");
 
     zahlungsgrund = new TextInput(zgrund, 27);
     return zahlungsgrund;
@@ -240,26 +235,25 @@ public class AbbuchungControl extends AbstractControl
 
   public Button getStartButton()
   {
-    Button button = new Button(JVereinPlugin.getI18n().tr("starten"),
-        new Action()
+    Button button = new Button("starten", new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        try
         {
-          @Override
-          public void handleAction(Object context)
-          {
-            try
-            {
-              doAbrechnung();
-            }
-            catch (ApplicationException e)
-            {
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-            catch (RemoteException e)
-            {
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-          }
-        }, null, true, "go.png");
+          doAbrechnung();
+        }
+        catch (ApplicationException e)
+        {
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+        catch (RemoteException e)
+        {
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true, "go.png");
     return button;
   }
 
@@ -283,22 +277,20 @@ public class AbbuchungControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Interner Fehler - kann Abrechnungsmodus nicht auslesen"));
+      throw new ApplicationException(
+          "Interner Fehler - kann Abrechnungsmodus nicht auslesen");
     }
     Date vondatum = null;
     if (stichtag.getValue() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Stichtag fehlt"));
+      throw new ApplicationException("Stichtag fehlt");
     }
     if (modus != Abrechnungsmodi.KEINBEITRAG)
     {
       vondatum = (Date) getVondatum().getValue();
       if (modus == Abrechnungsmodi.EINGETRETENEMITGLIEDER && vondatum == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "von-Datum fehlt"));
+        throw new ApplicationException("von-Datum fehlt");
       }
     }
     Integer ausgabe;
@@ -308,7 +300,7 @@ public class AbbuchungControl extends AbstractControl
     if (ausgabe == Abrechnungsausgabe.DTAUS)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("DTAUS-Ausgabedatei wählen."));
+      fd.setText("DTAUS-Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -322,8 +314,7 @@ public class AbbuchungControl extends AbstractControl
 
       if (file == null || file.length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "keine Datei ausgewählt!"));
+        throw new ApplicationException("keine Datei ausgewählt!");
       }
       dtausfile = new File(file);
     }
@@ -335,8 +326,8 @@ public class AbbuchungControl extends AbstractControl
       }
       catch (IOException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Temporäre Datei für die Abbuchung kann nicht erstellt werden."));
+        throw new ApplicationException(
+            "Temporäre Datei für die Abbuchung kann nicht erstellt werden.");
       }
     }
 
@@ -346,7 +337,7 @@ public class AbbuchungControl extends AbstractControl
     if (pdfprintb)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("PDF-Ausgabedatei wählen"));
+      fd.setText("PDF-Ausgabedatei wählen");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -381,7 +372,7 @@ public class AbbuchungControl extends AbstractControl
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr(
+              MessageFormat.format(
                   "Abrechung durchgeführt., Abbuchungsdatei {0} geschrieben.",
                   abupar.dtausfile.getAbsolutePath()));
           GUI.getCurrentView().reload();
@@ -396,12 +387,12 @@ public class AbbuchungControl extends AbstractControl
         catch (Exception e)
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          Logger.error(
-              JVereinPlugin.getI18n().tr(
-                  "error while reading objects from {0}",
-                  abupar.dtausfile.getAbsolutePath()), e);
-          ApplicationException ae = new ApplicationException(JVereinPlugin
-              .getI18n().tr("Fehler beim erstellen der Abbuchungsdatei: {0}",
+          Logger.error(MessageFormat.format(
+              "error while reading objects from {0}",
+              abupar.dtausfile.getAbsolutePath()), e);
+          ApplicationException ae = new ApplicationException(
+              MessageFormat.format(
+                  "Fehler beim erstellen der Abbuchungsdatei: {0}",
                   abupar.dtausfile.getAbsolutePath()), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());

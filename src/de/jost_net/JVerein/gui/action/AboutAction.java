@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.AboutView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
@@ -39,8 +38,7 @@ public class AboutAction implements Action
     }
     catch (Exception e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim öffnen des AboutView-Dialoges");
+      String fehler = "Fehler beim öffnen des AboutView-Dialoges";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

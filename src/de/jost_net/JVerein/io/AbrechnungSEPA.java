@@ -25,13 +25,13 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Hashtable;
 
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
@@ -106,10 +106,8 @@ public class AbrechnungSEPA
     lastschrift.create(param.dtausfile);
 
     // Gegenbuchung für das Mitgliedskonto schreiben
-    writeMitgliedskonto(null, new Date(),
-        JVereinPlugin.getI18n().tr("Gegenbuchung"), "", lastschrift
-            .getKontrollsumme().doubleValue() * -1, abrl, true, getKonto(),
-        null);
+    writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", lastschrift
+        .getKontrollsumme().doubleValue() * -1, abrl, true, getKonto(), null);
 
     // if (param.abbuchungsausgabe ==
     // Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
@@ -235,8 +233,7 @@ public class AbrechnungSEPA
       }
       list.setOrder("ORDER BY name, vorname");
       // Sätze im Resultset
-      monitor.log(JVereinPlugin.getI18n().tr("Anzahl Sätze: {0}",
-          list.size() + ""));
+      monitor.log(MessageFormat.format("Anzahl Sätze: {0}", list.size() + ""));
 
       int count = 0;
       while (list.hasNext())
@@ -279,9 +276,9 @@ public class AbrechnungSEPA
             while (li.hasNext())
             {
               Beitragsgruppe bg = (Beitragsgruppe) li.next();
-              Logger.error(JVereinPlugin.getI18n().tr("Beitragsgruppe:") + " "
-                  + bg.getID() + ", " + bg.getBezeichnung() + ", "
-                  + bg.getBetrag() + ", " + bg.getBeitragsArt());
+              Logger.error("Beitragsgruppe: " + bg.getID() + ", "
+                  + bg.getBezeichnung() + ", " + bg.getBetrag() + ", "
+                  + bg.getBeitragsArt());
             }
             throw e;
           }
@@ -558,14 +555,12 @@ public class AbrechnungSEPA
     }
     catch (IOException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim öffnen der DTAUS-Datei"));
+      throw new ApplicationException("Fehler beim öffnen der DTAUS-Datei");
     }
     catch (DtausException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim parsen der DTAUS-Datei:")
-          + " " + e.getMessage());
+      throw new ApplicationException("Fehler beim parsen der DTAUS-Datei: "
+          + e.getMessage());
     }
   }
 
@@ -641,9 +636,9 @@ public class AbrechnungSEPA
     if (it.size() != 1)
     {
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+          MessageFormat
+              .format(
+                  "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
                   Einstellungen.getEinstellung().getKonto()));
     }
     Konto k = (Konto) it.next();

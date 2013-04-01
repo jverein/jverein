@@ -44,7 +44,7 @@ public class AboutView extends AbstractDialog<Object>
   {
     super(position);
     this.setSize(335, 500);
-    this.setTitle(JVereinPlugin.getI18n().tr("Über..."));
+    this.setTitle("Über...");
   }
 
   @Override
@@ -55,8 +55,7 @@ public class AboutView extends AbstractDialog<Object>
 
     FormTextPart text = new FormTextPart();
     text.setText("<form><p><b>"
-        + JVereinPlugin.getI18n().tr(
-            "Plugin für die Vereinsverwaltung unter Jameica") + "</b></p>"
+        + "Plugin für die Vereinsverwaltung unter Jameica" + "</b></p>"
         + "<br/>Lizenz: GPL [ http://www.gnu.org/copyleft/gpl.html ]"
         + "<br/><p>Copyright by Heiner Jostkleigrewe [ heiner@jverein.de ]</p>"
         + "<p>web: http://www.jverein.de</p>"
@@ -64,27 +63,26 @@ public class AboutView extends AbstractDialog<Object>
 
     text.paint(parent);
 
-    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Information"));
+    LabelGroup group = new LabelGroup(parent, "Information");
 
     AbstractPlugin p = Application.getPluginLoader().getPlugin(
         JVereinPlugin.class);
 
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Version"), new LabelInput(""
+    group.addLabelPair("Version", new LabelInput(""
         + p.getManifest().getVersion()));
 
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Build-Date"),
-        new LabelInput("" + p.getManifest().getBuildDate()));
+    group.addLabelPair("Build-Date", new LabelInput(""
+        + p.getManifest().getBuildDate()));
 
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Build-Nr"), new LabelInput(
-        "" + p.getManifest().getBuildnumber()));
+    group.addLabelPair("Build-Nr", new LabelInput(""
+        + p.getManifest().getBuildnumber()));
 
     Version v = (Version) Einstellungen.getDBService().createObject(
         Version.class, "1");
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datenbank-Version"),
-        new LabelInput("" + v.getVersion()));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Arbeitsverzeichnis"),
-        new LabelInput("" + p.getResources().getWorkPath()));
+    group
+        .addLabelPair("Datenbank-Version", new LabelInput("" + v.getVersion()));
+    group.addLabelPair("Arbeitsverzeichnis", new LabelInput(""
+        + p.getResources().getWorkPath()));
 
   }
 
@@ -96,8 +94,6 @@ public class AboutView extends AbstractDialog<Object>
 
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Über</span></p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Über</span></p></form>";
   }
 }

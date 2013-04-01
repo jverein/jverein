@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,8 +40,7 @@ public class AdresseDeleteAction implements Action
   {
     if (context == null || !(context instanceof Mitglied))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Adresse ausgewählt"));
+      throw new ApplicationException("Keine Adresse ausgewählt");
     }
     try
     {
@@ -52,9 +50,8 @@ public class AdresseDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Adresse löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Adresse wirklich löschen?"));
+      d.setTitle("Adresse löschen");
+      d.setText("Wollen Sie diese Adresse wirklich löschen?");
 
       try
       {
@@ -64,18 +61,15 @@ public class AdresseDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen der Adresse"), e);
+        Logger.error("Fehler beim Löschen der Adresse", e);
         return;
       }
       m.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Adresse gelöscht."));
+      GUI.getStatusBar().setSuccessText("Adresse gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Adresse");
+      String fehler = "Fehler beim Löschen der Adresse";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

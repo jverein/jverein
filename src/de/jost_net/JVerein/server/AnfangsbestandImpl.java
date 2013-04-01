@@ -22,12 +22,12 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
@@ -76,8 +76,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String msg = JVereinPlugin.getI18n().tr(
-          "Anfangsbestand kann nicht gespeichert werden. Siehe system log");
+      String msg = "Anfangsbestand kann nicht gespeichert werden. Siehe system log";
       Logger.error(msg, e);
       throw new ApplicationException(msg);
     }
@@ -92,8 +91,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String msg = JVereinPlugin.getI18n().tr(
-          "Anfangsbestand kann nicht gespeichert werden. Siehe system log");
+      String msg = "Anfangsbestand kann nicht gespeichert werden. Siehe system log";
       Logger.error(msg, e);
       throw new ApplicationException(msg);
     }
@@ -103,19 +101,16 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
   {
     if (getDatum() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Datum eingeben"));
+      throw new ApplicationException("Bitte Datum eingeben");
     }
     if (getDatum().after(new Date()))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Anfangsbestände in der Zukunft"));
+      throw new ApplicationException("Keine Anfangsbestände in der Zukunft");
     }
     Jahresabschluss ja = getJahresabschluss();
     if (ja != null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Der Zeitraum ist bereits abgeschlossen."));
+      throw new ApplicationException("Der Zeitraum ist bereits abgeschlossen.");
     }
   }
 
@@ -134,7 +129,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
       if (it.size() > 0)
       {
         Anfangsbestand anf = (Anfangsbestand) it.next();
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
+        throw new ApplicationException(MessageFormat.format(
             "Datum muss nach dem {0} liegen",
             new JVDateFormatTTMMJJJJ().format(anf.getDatum())));
       }
@@ -154,14 +149,12 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
         return;
       }
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Tag und Monat müssen mit dem Beginn des Geschäftsjahres übereinstimmen."));
+          "Tag und Monat müssen mit dem Beginn des Geschäftsjahres übereinstimmen.");
     }
     catch (ParseException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Beginn des Geschäftsjahres ist in den Einstellungen nicht gesetzt."));
+      throw new ApplicationException(
+          "Beginn des Geschäftsjahres ist in den Einstellungen nicht gesetzt.");
     }
   }
 

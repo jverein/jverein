@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -37,8 +36,7 @@ public class ArbeitseinsatzMenu extends ContextMenu
    */
   public ArbeitseinsatzMenu()
   {
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."),
+    addItem(new CheckedContextMenuItem("löschen...",
         new ArbeitseinsatzDeleteAction(), "user-trash.png"));
   }
 }

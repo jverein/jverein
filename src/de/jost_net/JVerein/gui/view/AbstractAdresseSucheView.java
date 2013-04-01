@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -58,7 +57,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr(getTitle()));
+    GUI.getView().setTitle(getTitle());
     this.setCurrentObject(Einstellungen.getDBService().createObject(
         Mitglied.class, null)); // leeres Object erzeugen
 
@@ -77,9 +76,8 @@ public abstract class AbstractAdresseSucheView extends AbstractView
         .execute(sql, new Object[] {}, rs);
     if (anzahlbeitragsgruppe.longValue() == 0)
     {
-      new LabelInput(JVereinPlugin.getI18n().tr(
-          "Noch keine Beitragsgruppe erfaﬂt. Bitte unter "
-              + "Administration|Beitragsgruppen erfassen.")).paint(getParent());
+      new LabelInput("Noch keine Beitragsgruppe erfaﬂt. Bitte unter "
+          + "Administration|Beitragsgruppen erfassen.").paint(getParent());
     }
     rs = new ResultSetExtractor()
     {
@@ -109,8 +107,8 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     buttons.addButton(getHilfeButton());
     if (anzahlbeitragsgruppe > 0)
     {
-      buttons.addButton(JVereinPlugin.getI18n().tr("neu"), getDetailAction(),
-          null, false, "document-new.png");
+      buttons.addButton("neu", getDetailAction(), null, false,
+          "document-new.png");
     }
     buttons.paint(this.getParent());
   }
@@ -158,13 +156,11 @@ public abstract class AbstractAdresseSucheView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
-            + "<p>Durch einen Klick auf einen Karteireiter werden die Mitglieder "
-            + "angezeigt, deren Familienname mit dem entsprechenden Buchstaben beginnt.</p>"
-            + "<p>Anschlieﬂend kann das Mitglied durch einen Doppelklick ausgew‰hlt werden.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
+        + "<p>Durch einen Klick auf einen Karteireiter werden die Mitglieder "
+        + "angezeigt, deren Familienname mit dem entsprechenden Buchstaben beginnt.</p>"
+        + "<p>Anschlieﬂend kann das Mitglied durch einen Doppelklick ausgew‰hlt werden.</p>"
+        + "</form>";
   }
 
   public abstract String getTitle();

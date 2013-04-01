@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -52,13 +51,11 @@ public class AdresstypDefaultAction implements Action
       at.setJVereinid(2);
       at.store();
 
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Adresstypen eingefügt."));
+      GUI.getStatusBar().setSuccessText("Adresstypen eingefügt.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Einfügen von Adresstypen.");
+      String fehler = "Fehler beim Einfügen von Adresstypen.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

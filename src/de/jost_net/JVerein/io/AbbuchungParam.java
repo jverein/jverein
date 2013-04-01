@@ -26,7 +26,6 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.AbbuchungControl;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -115,21 +114,19 @@ public class AbbuchungParam
           konto = (Konto) d.open();
           if (konto == null)
           {
-            throw new ApplicationException(JVereinPlugin.getI18n().tr(
-                "Bitte wählen Sie ein Konto aus"));
+            throw new ApplicationException("Bitte wählen Sie ein Konto aus");
           }
         }
       }
       catch (OperationCanceledException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte wählen Sie ein Konto aus"));
+        throw new ApplicationException("Bitte wählen Sie ein Konto aus");
       }
       catch (Exception e)
       {
         e.printStackTrace();
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Hibiscus-Datenbank kann nicht geöffnet werden."));
+        throw new ApplicationException(
+            "Hibiscus-Datenbank kann nicht geöffnet werden.");
       }
     }
     else

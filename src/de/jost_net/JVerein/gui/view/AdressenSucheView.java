@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.view;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresseDetailAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.willuhn.jameica.gui.Action;
@@ -42,21 +41,20 @@ public class AdressenSucheView extends AbstractAdresseSucheView
   @Override
   public String getTitle()
   {
-    return JVereinPlugin.getI18n().tr("Adressen suchen");
+    return "Adressen suchen";
   }
 
   @Override
   public void getFilter() throws RemoteException
   {
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Filter"));
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
     TextInput suchName = control.getSuchname();
     suchName.addListener(new FilterListener());
     group.addInput(suchName);
 
     Input adrtyp = control.getSuchAdresstyp(2);
     adrtyp.addListener(new FilterListener());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Adresstyp"), adrtyp);
+    group.addLabelPair("Adresstyp", adrtyp);
   }
 
   @Override
@@ -68,8 +66,7 @@ public class AdressenSucheView extends AbstractAdresseSucheView
   @Override
   public Button getHilfeButton()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ADRESSEN, false,
-        "help-browser.png");
+    return new Button("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ADRESSEN, false, "help-browser.png");
   }
 }

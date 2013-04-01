@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AnfangsbestandControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,27 +35,23 @@ public class AnfangsbestandView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Anfangsbestand"));
+    GUI.getView().setTitle("Anfangsbestand");
 
     final AnfangsbestandControl control = new AnfangsbestandControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Anfangsbestand"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Konto"), control.getKonto());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
-        control.getDatum(true));
+    LabelGroup group = new LabelGroup(getParent(), "Anfangsbestand");
+    group.addLabelPair("Konto", control.getKonto());
+    group.addLabelPair("Datum", control.getDatum(true));
     if (control.getAnfangsbestand().getID() != null)
     {
       control.getDatum(false).setEnabled(false);
     }
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
+    group.addLabelPair("Betrag", control.getBetrag());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
       @Override
       public void handleAction(Object context)
@@ -70,7 +65,7 @@ public class AnfangsbestandView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Anfangsbestand</span></p>"
-        + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Anfangsbestand</span></p>"
+        + "</form>";
   }
 }

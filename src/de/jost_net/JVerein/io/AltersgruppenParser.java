@@ -21,12 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
+import java.text.MessageFormat;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.eclipse.swt.graphics.Point;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.util.ApplicationException;
 
 public class AltersgruppenParser
@@ -54,10 +54,10 @@ public class AltersgruppenParser
       if (stt.countTokens() != 2)
       {
         throw new RuntimeException(
-            JVereinPlugin
-                .getI18n()
-                .tr("Ungültige Altersgruppe: {0} \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
-                    new String[] { gruppen.elementAt(i) }));
+            MessageFormat
+                .format(
+                    "Ungültige Altersgruppe: {0} \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
+                    new Object[] { gruppen.elementAt(i) }));
       }
       elemente.addElement(stt.nextToken().trim());
       elemente.addElement(stt.nextToken());
@@ -92,9 +92,8 @@ public class AltersgruppenParser
     }
     catch (NumberFormatException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler in den Altergruppen")
-          + " " + e.getMessage());
+      throw new ApplicationException("Fehler in den Altergruppen" + " "
+          + e.getMessage());
     }
   }
 }

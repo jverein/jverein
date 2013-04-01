@@ -24,11 +24,11 @@ package de.jost_net.JVerein.io;
 
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import com.itextpdf.text.DocumentException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -42,7 +42,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Altersjubilare CSV-Export");
+    return "Altersjubilare CSV-Export";
   }
 
   @Override
@@ -64,7 +64,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
        * @see de.willuhn.jameica.hbci.io.IOFormat#getFileExtensions()
        */
       @Override
-     public String[] getFileExtensions()
+      public String[] getFileExtensions()
       {
         return new String[] { "*.csv" };
       }
@@ -75,7 +75,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("altersjubilare");
+    return "altersjubilare";
   }
 
   @Override
@@ -106,8 +106,8 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   @Override
   protected void close() throws ApplicationException
   {
-    Logger.debug(JVereinPlugin.getI18n().tr(
-        "Alterjubiläum-CSV-Export, Jahr={0}", jahr + ""));
+    Logger.debug(MessageFormat.format("Alterjubiläum-CSV-Export, Jahr={0}",
+        jahr + ""));
     MitgliedAuswertungCSV mcsv = new MitgliedAuswertungCSV();
     mcsv.go(mitglieder, file);
   }

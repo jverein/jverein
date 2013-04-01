@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbrechnungslaufDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -37,8 +36,7 @@ public class AbrechnungslaufMenu extends ContextMenu
    */
   public AbrechnungslaufMenu()
   {
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."),
+    addItem(new CheckedContextMenuItem("löschen...",
         new AbrechnungslaufDeleteAction(), "user-trash.png"));
   }
 }

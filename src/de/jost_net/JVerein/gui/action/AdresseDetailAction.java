@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.PersonenartDialog;
 import de.jost_net.JVerein.gui.view.AdresseDetailView;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -67,8 +66,8 @@ public class AdresseDetailAction implements Action
     }
     catch (Exception e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler bei der Erzeugung einer neuen Adresse"), e);
+      throw new ApplicationException(
+          "Fehler bei der Erzeugung einer neuen Adresse", e);
     }
     GUI.startView(new AdresseDetailView(), m);
   }

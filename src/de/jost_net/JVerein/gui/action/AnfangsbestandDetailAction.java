@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.AnfangsbestandView;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
@@ -47,8 +46,8 @@ public class AnfangsbestandDetailAction implements Action
         Jahresabschluss ja = a.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Anfangsbestand ist bereits abgeschlossen."));
+          throw new ApplicationException(
+              "Anfangsbestand ist bereits abgeschlossen.");
         }
       }
       catch (RemoteException e)
@@ -65,9 +64,8 @@ public class AnfangsbestandDetailAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Anfangsbestandes: {0}",
-            new String[] { e.getMessage() }));
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Anfangsbestandes: ", e);
       }
     }
     GUI.startView(AnfangsbestandView.class.getName(), a);

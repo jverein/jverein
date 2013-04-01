@@ -26,13 +26,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Hashtable;
 
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
@@ -118,20 +118,18 @@ public class Abrechnung
     dtaus.close();
 
     // Gegenbuchung für das Mitgliedskonto schreiben
-    writeMitgliedskonto(null, new Date(),
-        JVereinPlugin.getI18n().tr("Gegenbuchung"), "", dtaus
-            .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true,
-        getKonto(), null);
+    writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", dtaus
+        .getSummeBetraegeDecimal().doubleValue() * -1, abrl, true, getKonto(),
+        null);
 
     if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
         || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
     {
       buchenHibiscus();
     }
-    monitor.log(JVereinPlugin.getI18n().tr(
-        "Anzahl Abbuchungen/Lastschrift: {0}",
-        new String[] { dtaus.getAnzahlSaetze() + "" }));
-    monitor.log(JVereinPlugin.getI18n().tr(
+    monitor.log(MessageFormat.format("Anzahl Abbuchungen/Lastschrift: {0}",
+        new Object[] { dtaus.getAnzahlSaetze() + "" }));
+    monitor.log(MessageFormat.format(
         "Gesamtsumme Abbuchung/Lastschrift: {0} EUR",
         Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
     dtaus.close();
@@ -246,8 +244,7 @@ public class Abrechnung
       }
       list.setOrder("ORDER BY name, vorname");
       // Sätze im Resultset
-      monitor.log(JVereinPlugin.getI18n().tr("Anzahl Sätze: {0}",
-          list.size() + ""));
+      monitor.log(MessageFormat.format("Anzahl Sätze: {0}", list.size() + ""));
 
       int count = 0;
       while (list.hasNext())
@@ -290,9 +287,9 @@ public class Abrechnung
             while (li.hasNext())
             {
               Beitragsgruppe bg = (Beitragsgruppe) li.next();
-              Logger.error(JVereinPlugin.getI18n().tr("Beitragsgruppe:") + " "
-                  + bg.getID() + ", " + bg.getBezeichnung() + ", "
-                  + bg.getBetrag() + ", " + bg.getBeitragsArt());
+              Logger.error("Beitragsgruppe:" + " " + bg.getID() + ", "
+                  + bg.getBezeichnung() + ", " + bg.getBetrag() + ", "
+                  + bg.getBeitragsArt());
             }
             throw e;
           }
@@ -310,10 +307,10 @@ public class Abrechnung
             if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
             {
               throw new DtausException(
-                  JVereinPlugin
-                      .getI18n()
-                      .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                          new String[] { m.getBlz(), m.getKonto() }));
+                  MessageFormat
+                      .format(
+                          "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                          new Object[] { m.getBlz(), m.getKonto() }));
             }
             lastschrift.setBlz(Integer.parseInt(m.getBlz()));
             lastschrift.setKonto(Long.parseLong(m.getKonto()));
@@ -385,10 +382,10 @@ public class Abrechnung
             if (!Einstellungen.checkAccountCRC(m.getBlz(), m.getKonto()))
             {
               throw new DtausException(
-                  JVereinPlugin
-                      .getI18n()
-                      .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                          new String[] { m.getBlz(), m.getKonto() }));
+                  MessageFormat
+                      .format(
+                          "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                          new Object[] { m.getBlz(), m.getKonto() }));
             }
             lastschrift.setBlz(Integer.parseInt(m.getBlz()));
             lastschrift.setKonto(Long.parseLong(m.getKonto()));
@@ -465,10 +462,10 @@ public class Abrechnung
       if (!Einstellungen.checkAccountCRC(kt.getBlz(), kt.getKonto()))
       {
         throw new DtausException(
-            JVereinPlugin
-                .getI18n()
-                .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-                    new String[] { kt.getBlz(), kt.getKonto() }));
+            MessageFormat
+                .format(
+                    "BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
+                    new Object[] { kt.getBlz(), kt.getKonto() }));
       }
 
       lastschrift.setBlz(Integer.parseInt(kt.getBlz()));
@@ -577,13 +574,11 @@ public class Abrechnung
     }
     catch (IOException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim öffnen der DTAUS-Datei"));
+      throw new ApplicationException("Fehler beim öffnen der DTAUS-Datei");
     }
     catch (DtausException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim parsen der DTAUS-Datei:")
+      throw new ApplicationException("Fehler beim parsen der DTAUS-Datei:"
           + " " + e.getMessage());
     }
   }
@@ -681,9 +676,9 @@ public class Abrechnung
     if (it.size() != 1)
     {
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+          MessageFormat
+              .format(
+                  "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
                   Einstellungen.getEinstellung().getKonto()));
     }
     Konto k = (Konto) it.next();

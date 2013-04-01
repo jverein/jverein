@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.AuswertungMitgliedView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
@@ -53,9 +52,9 @@ public class AuswertungMitgliedAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler beim erzeugen eines neuen Mitglied-Objektes: {0}",
-            new String[] { e.getMessage() }));
+        throw new ApplicationException(
+            "Fehler beim erzeugen eines neuen Mitglied-Objektes: "
+                + e.getMessage());
       }
     }
 

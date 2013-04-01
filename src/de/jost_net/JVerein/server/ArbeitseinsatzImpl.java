@@ -24,7 +24,6 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -72,18 +71,15 @@ public class ArbeitseinsatzImpl extends AbstractDBObject implements
     {
       if (getStunden() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Keine Stunden angegeben"));
+        throw new ApplicationException("Keine Stunden angegeben");
       }
       if (getStunden() <= 0d)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte mehr als 0 Stunden eingeben"));
+        throw new ApplicationException("Bitte mehr als 0 Stunden eingeben");
       }
       if (getDatum() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Datum erfassen"));
+        throw new ApplicationException("Bitte Datum erfassen");
       }
     }
     catch (RemoteException e)

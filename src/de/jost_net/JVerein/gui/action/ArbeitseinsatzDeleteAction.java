@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,8 +40,7 @@ public class ArbeitseinsatzDeleteAction implements Action
   {
     if (context == null || !(context instanceof Arbeitseinsatz))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen Arbeitseinsatz ausgewählt"));
+      throw new ApplicationException("Keinen Arbeitseinsatz ausgewählt");
     }
     try
     {
@@ -52,9 +50,8 @@ public class ArbeitseinsatzDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Arbeitseinsatz löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Arbeitseinsatz wirklich löschen?"));
+      d.setTitle("Arbeitseinsatz löschen");
+      d.setText("Wollen Sie diesen Arbeitseinsatz wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -65,20 +62,16 @@ public class ArbeitseinsatzDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Fehler beim Löschen des Arbeitseinsatzes"), e);
+        Logger.error("Fehler beim Löschen des Arbeitseinsatzes", e);
         return;
       }
 
       aeins.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Arbeitseinsatz gelöscht."));
+      GUI.getStatusBar().setSuccessText("Arbeitseinsatz gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Arbeitseinsatzes.");
+      String fehler = "Fehler beim Löschen des Arbeitseinsatzes.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

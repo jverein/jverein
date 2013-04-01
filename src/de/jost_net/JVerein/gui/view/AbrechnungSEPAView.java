@@ -21,8 +21,9 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import java.text.MessageFormat;
+
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AbrechnunslaufListAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
@@ -61,9 +62,9 @@ public class AbrechnungSEPAView extends AbstractView
     if (it.size() != 1)
     {
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+          MessageFormat
+              .format(
+                  "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
                   Einstellungen.getEinstellung().getKonto()));
     }
 
@@ -71,27 +72,19 @@ public class AbrechnungSEPAView extends AbstractView
 
     final AbrechnungSEPAControl control = new AbrechnungSEPAControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Parameter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Modus"),
-        control.getAbbuchungsmodus());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"),
-        control.getStichtag());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Von Eingabedatum"),
-        control.getVondatum());
-    group.addLabelPair(
-        JVereinPlugin.getI18n().tr("Zahlungsgrund für Beiträge"),
-        control.getZahlungsgrund());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge"),
-        control.getZusatzbetrag());
+    LabelGroup group = new LabelGroup(getParent(), "Parameter");
+    group.addLabelPair("Modus", control.getAbbuchungsmodus());
+    group.addLabelPair("Stichtag", control.getStichtag());
+    group.addLabelPair("Von Eingabedatum", control.getVondatum());
+    group
+        .addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
+    group.addLabelPair("Zusatzbeträge", control.getZusatzbetrag());
     if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
       control.getZusatzbetrag().setEnabled(false);
     }
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Kursteilnehmer"),
-        control.getKursteilnehmer());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Kompakte Abbuchung"),
-        control.getKompakteAbbuchung());
+    group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
+    group.addLabelPair("Kompakte Abbuchung", control.getKompakteAbbuchung());
     // group.addLabelPair(JVereinPlugin.getI18n().tr("Dtaus-Datei drucken"),
     // control.getDtausPrint());
 
@@ -99,22 +92,18 @@ public class AbrechnungSEPAView extends AbstractView
     {
       control.getKursteilnehmer().setEnabled(false);
     }
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Abbuchungsausgabe"),
-        control.getAbbuchungsausgabe());
+    group.addLabelPair("Abbuchungsausgabe", control.getAbbuchungsausgabe());
     group.addSeparator();
     group
         .addText(
-            JVereinPlugin
-                .getI18n()
-                .tr("*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. "),
+            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
             true);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
         false, "edit-undo.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ABRECHNUNG, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
     buttons.addButton(control.getStartButton());
     buttons.paint(this.getParent());
   }
@@ -122,17 +111,15 @@ public class AbrechnungSEPAView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Abbuchung</span> </p>"
-            + "<p>Zunächst ist der Modus auszuwählen. Die Auswahlmöglichkeiten "
-            + "richten sich nach dem ausgewählten Beitragsmodell (siehe Einstellungen).</p>"
-            + "<p>Der Stichtag wird  zur Prüfung herangezogen, ob die Mitgliedschaft schon/noch besteht "
-            + "und damit eine Abrechnung generiert muss. Liegt das Eintrittsdatum vor dem Stichtag und "
-            + "das Austrittsdatum nach dem Stichtag, wird das Mitglied berücksichtigt.</p>"
-            + "<p>Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen "
-            + "eingetragen. </p>"
-            + "<p>  Es kann angegeben werden, ob Zusatzabbuchungen und Kursteilnehmer berücksichtigt "
-            + " werden sollen.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Abbuchung</span> </p>"
+        + "<p>Zunächst ist der Modus auszuwählen. Die Auswahlmöglichkeiten "
+        + "richten sich nach dem ausgewählten Beitragsmodell (siehe Einstellungen).</p>"
+        + "<p>Der Stichtag wird  zur Prüfung herangezogen, ob die Mitgliedschaft schon/noch besteht "
+        + "und damit eine Abrechnung generiert muss. Liegt das Eintrittsdatum vor dem Stichtag und "
+        + "das Austrittsdatum nach dem Stichtag, wird das Mitglied berücksichtigt.</p>"
+        + "<p>Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen "
+        + "eingetragen. </p>"
+        + "<p>  Es kann angegeben werden, ob Zusatzabbuchungen und Kursteilnehmer berücksichtigt "
+        + " werden sollen.</p></form>";
   }
 }

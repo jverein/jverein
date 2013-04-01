@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AdresstypAction;
 import de.jost_net.JVerein.gui.action.AdresstypDefaultAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
@@ -39,25 +38,23 @@ public class AdresstypListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Adresstypen"));
+    GUI.getView().setTitle("Adresstypen");
 
     AdresstypControl control = new AdresstypControl(this);
 
     control.getAdresstypList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ADRESSTYPEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new AdresstypAction(),
-        null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ADRESSTYPEN, false, "help-browser.png");
+    buttons.addButton("neu", new AdresstypAction(), null, false,
+        "document-new.png");
 
     DBIterator it = Einstellungen.getDBService().createList(Adresstyp.class);
     it.addFilter("jvereinid >= 1 and jvereinid <= 2");
     if (it.size() == 0)
     {
-      buttons.addButton(
-          JVereinPlugin.getI18n().tr("Default-Adresstypen einrichten"),
+      buttons.addButton("Default-Adresstypen einrichten",
           new AdresstypDefaultAction());
     }
     buttons.paint(this.getParent());
@@ -66,11 +63,9 @@ public class AdresstypListView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
-            + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
-            + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
+        + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
+        + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
+        + "</form>";
   }
 }

@@ -21,8 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Abrechnungsmodi
  */
@@ -72,30 +70,27 @@ public class Abrechnungsmodi
     switch (key)
     {
       case KEINBEITRAG:
-        return JVereinPlugin.getI18n().tr("keine Beitragsabrechnung");
+        return "keine Beitragsabrechnung";
       case ALLE:
-        return JVereinPlugin.getI18n().tr("Alle");
+        return "Alle";
       case MO:
-        return JVereinPlugin.getI18n().tr("Monatsbeiträge");
+        return "Monatsbeiträge";
       case VI:
-        return JVereinPlugin.getI18n().tr("Vierteljährlich");
+        return "Vierteljährlich";
       case HA:
-        return JVereinPlugin.getI18n().tr("Halbjährlich");
+        return "Halbjährlich";
       case JA:
-        return JVereinPlugin.getI18n().tr("Jährlich");
+        return "Jährlich";
       case JAHAVIMO:
-        return JVereinPlugin.getI18n().tr(
-            "Jahres-, Halbjahres-, Vierteljahres- und Monatsbeiträge");
+        return "Jahres-, Halbjahres-, Vierteljahres- und Monatsbeiträge";
       case JAVIMO:
-        return JVereinPlugin.getI18n().tr(
-            "Jahres-, Vierteljahres- und Monatsbeiträge");
+        return "Jahres-, Vierteljahres- und Monatsbeiträge";
       case HAVIMO:
-        return JVereinPlugin.getI18n().tr(
-            "Halbjahres-, Vierteljahres- und Monatsbeiträge");
+        return "Halbjahres-, Vierteljahres- und Monatsbeiträge";
       case VIMO:
-        return JVereinPlugin.getI18n().tr("Vierteljahres- und Monatsbeiträge");
+        return "Vierteljahres- und Monatsbeiträge";
       case EINGETRETENEMITGLIEDER:
-        return JVereinPlugin.getI18n().tr("eingetretene Mitglieder");
+        return "eingetretene Mitglieder";
       default:
         return null;
     }

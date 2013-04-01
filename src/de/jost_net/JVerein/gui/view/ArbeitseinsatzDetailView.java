@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.ArbeitseinsatzControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,22 +35,19 @@ public class ArbeitseinsatzDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Arbeitseinsatz"));
+    GUI.getView().setTitle("Arbeitseinsatz");
 
     final ArbeitseinsatzControl control = new ArbeitseinsatzControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Arbeitseinsatz"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"), control.getDatum());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Stunden"),
-        control.getStunden());
+    LabelGroup group = new LabelGroup(getParent(), "Arbeitseinsatz");
+    group.addLabelPair("Datum", control.getDatum());
+    group.addLabelPair("Stunden", control.getStunden());
     group.addInput(control.getBemerkung());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ARBEITSEINSATZ, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ARBEITSEINSATZ, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
       @Override
       public void handleAction(Object context)

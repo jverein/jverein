@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.AdresstypView;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.jameica.gui.Action;
@@ -63,8 +62,8 @@ public class AdresstypAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Adresstypen"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Adresstypen", e);
       }
     }
     GUI.startView(AdresstypView.class.getName(), at);

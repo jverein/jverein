@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -76,14 +75,12 @@ public class AdresstypImpl extends AbstractDBObject implements Adresstyp
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Adresstyp kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Adresstyp kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

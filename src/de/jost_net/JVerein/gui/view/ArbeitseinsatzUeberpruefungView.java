@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.view;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.ArbeitseinsatzControl;
 import de.jost_net.JVerein.gui.input.ArbeitseinsatzUeberpruefungInput;
@@ -45,15 +44,12 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(
-        JVereinPlugin.getI18n().tr("Arbeitsdienst-Überprüfung"));
+    GUI.getView().setTitle("Arbeitsdienst-Überprüfung");
 
     final ArbeitseinsatzControl control = new ArbeitseinsatzControl(this);
     butArbeitseinsaetze = control.getArbeitseinsatzAusgabeButton();
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Filter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
-        control.getSuchJahr());
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
+    group.addLabelPair("Jahr", control.getSuchJahr());
     aui = control.getAuswertungSchluessel();
     aui.addListener(new Listener()
     {
@@ -66,18 +62,17 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
       }
 
     });
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Auswertung"), aui);
+    group.addLabelPair("Auswertung", aui);
 
     ButtonArea buttons = new ButtonArea();
-    Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
-        new Action()
-        {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            control.getArbeitseinsatzUeberpruefungList();
-          }
-        }, null, true, "system-search.png");
+    Button button = new Button("suchen", new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        control.getArbeitseinsatzUeberpruefungList();
+      }
+    }, null, true, "system-search.png");
     buttons.addButton(button);
     buttons.paint(this.getParent());
 
@@ -86,17 +81,15 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
     buttons2.addButton(control.getPDFAusgabeButton());
     buttons2.addButton(control.getCSVAusgabeButton());
     buttons2.addButton(control.getArbeitseinsatzAusgabeButton());
-    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ARBEITSEINSATZ, false,
-        "help-browser.png");
+    buttons2.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ARBEITSEINSATZ, false, "help-browser.png");
     buttons2.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
+        + "</form>";
   }
 }

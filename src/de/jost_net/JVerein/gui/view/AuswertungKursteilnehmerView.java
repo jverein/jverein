@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -35,22 +34,17 @@ public class AuswertungKursteilnehmerView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(
-        JVereinPlugin.getI18n().tr("Auswertung Kursteilnehmer"));
+    GUI.getView().setTitle("Auswertung Kursteilnehmer");
 
     final KursteilnehmerControl control = new KursteilnehmerControl(this);
 
-    LabelGroup grAbu = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Abbuchungsdatum"));
-    grAbu.addLabelPair(JVereinPlugin.getI18n().tr("von"),
-        control.getAbbuchungsdatumvon());
-    grAbu.addLabelPair(JVereinPlugin.getI18n().tr("bis"),
-        control.getAbbuchungsdatumbis());
+    LabelGroup grAbu = new LabelGroup(getParent(), "Abbuchungsdatum");
+    grAbu.addLabelPair("von", control.getAbbuchungsdatumvon());
+    grAbu.addLabelPair("bis", control.getAbbuchungsdatumbis());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.AUSWERTUNGKURSTEILNEHMER,
-        false, "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.AUSWERTUNGKURSTEILNEHMER, false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
     buttons.paint(this.getParent());
 
@@ -59,8 +53,8 @@ public class AuswertungKursteilnehmerView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Auswertung Kursteilnehmer</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Auswertung Kursteilnehmer</span></p>"
         + "<p>Die Kursteilnehmer eines vorgegebenen Zeitraums können im PDF-Format ausgegeben werden.</p>"
-        + "</form>");
+        + "</form>";
   }
 }

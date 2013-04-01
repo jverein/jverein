@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.input;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -91,19 +90,19 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
 
       if (schluessel == ALLE)
       {
-        this.label = JVereinPlugin.getI18n().tr("alle");
+        this.label = "alle";
       }
       else if (schluessel == MINDERLEISTUNG)
       {
-        this.label = JVereinPlugin.getI18n().tr("Minderleistung");
+        this.label = "Minderleistung";
       }
       else if (schluessel == PASSENDELEISTUNG)
       {
-        this.label = JVereinPlugin.getI18n().tr("passende Leistung");
+        this.label = "passende Leistung";
       }
       else if (schluessel == MEHRLEISTUNG)
       {
-        this.label = JVereinPlugin.getI18n().tr("Mehrleistung");
+        this.label = "Mehrleistung";
       }
       else
       {

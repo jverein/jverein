@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.input.ArbeitseinsatzUeberpruefungInput;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
@@ -75,28 +74,23 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
         arbeitseinsatzueberpruefungList = new TablePart(gi,
             new MitgliedDetailAction());
-        arbeitseinsatzueberpruefungList.addColumn(
-            JVereinPlugin.getI18n().tr("Name, Vorname"), "namevorname");
-        arbeitseinsatzueberpruefungList.addColumn(
-            JVereinPlugin.getI18n().tr("Sollstunden"), "soll",
+        arbeitseinsatzueberpruefungList.addColumn("Name, Vorname",
+            "namevorname");
+        arbeitseinsatzueberpruefungList.addColumn("Sollstunden", "soll",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        arbeitseinsatzueberpruefungList.addColumn(
-            JVereinPlugin.getI18n().tr("Iststunden"), "ist",
+        arbeitseinsatzueberpruefungList.addColumn("Iststunden", "ist",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        arbeitseinsatzueberpruefungList.addColumn(
-            JVereinPlugin.getI18n().tr("Differenz"), "differenz",
+        arbeitseinsatzueberpruefungList.addColumn("Differenz", "differenz",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        arbeitseinsatzueberpruefungList.addColumn(
-            JVereinPlugin.getI18n().tr("Stundensatz"), "stundensatz",
+        arbeitseinsatzueberpruefungList.addColumn("Stundensatz", "stundensatz",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        arbeitseinsatzueberpruefungList.addColumn(
-            JVereinPlugin.getI18n().tr("Gesamtbetrag"), "gesamtbetrag",
-            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
-            Column.ALIGN_RIGHT);
+        arbeitseinsatzueberpruefungList.addColumn("Gesamtbetrag",
+            "gesamtbetrag", new CurrencyFormatter("",
+                Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
         arbeitseinsatzueberpruefungList.setRememberColWidths(true);
         arbeitseinsatzueberpruefungList.setSummary(true);
       }
@@ -111,9 +105,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler aufgetreten")
-          + e.getMessage());
+      throw new ApplicationException("Fehler aufgetreten" + e.getMessage());
     }
     return arbeitseinsatzueberpruefungList;
   }

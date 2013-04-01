@@ -26,13 +26,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
@@ -62,8 +62,8 @@ public abstract class AltersjubilaeumsExport implements Exporter
     this.file = file;
     MitgliedControl control = (MitgliedControl) objects[0];
     jahr = control.getJJahr();
-    Logger.debug(JVereinPlugin.getI18n().tr("Altersjubiläumexport, Jahr={0}",
-        jahr + ""));
+    Logger.debug(MessageFormat.format("Altersjubiläumexport, Jahr={0}", jahr
+        + ""));
     open();
     JubilaeenParser jp = new JubilaeenParser(Einstellungen.getEinstellung()
         .getAltersjubilaeen());
@@ -103,7 +103,7 @@ public abstract class AltersjubilaeumsExport implements Exporter
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("altersjubilare");
+    return "altersjubilare";
   }
 
   protected abstract void startJahrgang(int jahr) throws DocumentException;

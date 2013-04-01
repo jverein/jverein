@@ -23,8 +23,6 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Art der Beitragsart
  */
@@ -58,11 +56,11 @@ public class ArtBeitragsart
     switch (key)
     {
       case NORMAL:
-        return JVereinPlugin.getI18n().tr("Normal");
+        return "Normal";
       case FAMILIE_ZAHLER:
-        return JVereinPlugin.getI18n().tr("Familie: Zahler");
+        return "Familie: Zahler";
       case FAMILIE_ANGEHOERIGER:
-        return JVereinPlugin.getI18n().tr("Familie: Angehöriger");
+        return "Familie: Angehöriger";
       default:
         return null;
     }

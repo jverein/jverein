@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,8 +40,7 @@ public class AdresstypDeleteAction implements Action
   {
     if (context == null || !(context instanceof Adresstyp))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Adresstyp ausgewählt"));
+      throw new ApplicationException("Kein Adresstyp ausgewählt");
     }
     try
     {
@@ -57,9 +55,8 @@ public class AdresstypDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Adresstyp löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Adresstyp wirklich löschen?"));
+      d.setTitle("Adresstyp löschen");
+      d.setText("Wollen Sie diesen Adresstyp wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -68,21 +65,16 @@ public class AdresstypDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger
-            .error(
-                JVereinPlugin.getI18n().tr(
-                    "Fehler beim Löschen eines Adresstypen"), e);
+        Logger.error("Fehler beim Löschen eines Adresstypen", e);
         return;
       }
 
       at.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Adresstyp gelöscht."));
+      GUI.getStatusBar().setSuccessText("Adresstyp gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Buchungsart.");
+      String fehler = "Fehler beim Löschen der Buchungsart.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

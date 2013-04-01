@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
@@ -33,7 +34,6 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
 
@@ -48,7 +48,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Altersjubilare PDF-Export");
+    return "Altersjubilare PDF-Export";
   }
 
   @Override
@@ -81,37 +81,36 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("altersjubilare");
+    return "altersjubilare";
   }
 
   @Override
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    Logger.debug(JVereinPlugin.getI18n().tr("Altersjubilare, Jahr={0}",
-        jahr + ""));
-    reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
-        "Altersjubilare {0}", jahr + ""), "", 3);
+    Logger.debug(MessageFormat.format("Altersjubilare, Jahr={0}", jahr + ""));
+    reporter = new Reporter(fos, MessageFormat.format("Altersjubilare {0}",
+        jahr + ""), "", 3);
   }
 
   @Override
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
-    Logger.debug(JVereinPlugin.getI18n().tr("Altersjubiläum, Jahrgang={0}",
-        jahrgang + ""));
+    Logger.debug(MessageFormat.format("Altersjubiläum, Jahrgang={0}", jahrgang
+        + ""));
     Paragraph pHeader = new Paragraph("\n"
-        + JVereinPlugin.getI18n().tr("{0}. Geburtstag", jahrgang + ""),
+        + MessageFormat.format("{0}. Geburtstag", jahrgang + ""),
         FontFactory.getFont(FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Geburtsdatum"),
-        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Geburtsdatum", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
 
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name, Vorname"),
-        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anschrift"),
-        Element.ALIGN_CENTER, 120, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Kommunikation"),
-        Element.ALIGN_CENTER, 80, BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Name, Vorname", Element.ALIGN_CENTER, 100,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Anschrift", Element.ALIGN_CENTER, 120,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Kommunikation", Element.ALIGN_CENTER, 80,
+        BaseColor.LIGHT_GRAY);
     reporter.createHeader();
     anz = 0;
   }
@@ -122,8 +121,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
     if (anz == 0)
     {
       reporter.addColumn("", Element.ALIGN_LEFT);
-      reporter.addColumn(JVereinPlugin.getI18n().tr("kein Mitglied"),
-          Element.ALIGN_LEFT);
+      reporter.addColumn("kein Mitglied", Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
       reporter.addColumn("", Element.ALIGN_LEFT);
     }

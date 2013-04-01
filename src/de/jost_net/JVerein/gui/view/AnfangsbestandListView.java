@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AnfangsbestandNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AnfangsbestandControl;
@@ -35,32 +34,29 @@ public class AnfangsbestandListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Anfangsbestände"));
+    GUI.getView().setTitle("Anfangsbestände");
 
     AnfangsbestandControl control = new AnfangsbestandControl(this);
 
     control.getAnfangsbestandList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new AnfangsbestandNeuAction(), null, true, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
+    buttons.addButton("neu", new AnfangsbestandNeuAction(), null, true,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Anfangsbestände</span></p>"
-            + "<p>Für jedes Konto ist zu Beginn des Geschäftsjahres der Anfangsbestand zu "
-            + "speichern. Die Buchungen sind in chronologisch korrekter Reihenfolge vorzunehmen.</p> "
-            + "<p>Durch einen Doppelklick kann ein Anfangsbestand korrigiert werden. Mit einem "
-            + "Klick auf neu wird ein neuer Anfangsbestand aufgenommen. Durch einen Rechtsklick "
-            + "öffnet sich ein Kontextmenü, mit dem ein Anfangsbestand gelöscht werden kann.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Anfangsbestände</span></p>"
+        + "<p>Für jedes Konto ist zu Beginn des Geschäftsjahres der Anfangsbestand zu "
+        + "speichern. Die Buchungen sind in chronologisch korrekter Reihenfolge vorzunehmen.</p> "
+        + "<p>Durch einen Doppelklick kann ein Anfangsbestand korrigiert werden. Mit einem "
+        + "Klick auf neu wird ein neuer Anfangsbestand aufgenommen. Durch einen Rechtsklick "
+        + "öffnet sich ein Kontextmenü, mit dem ein Anfangsbestand gelöscht werden kann.</p>"
+        + "</form>";
   }
 }

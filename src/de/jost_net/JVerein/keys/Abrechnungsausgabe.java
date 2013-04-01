@@ -23,8 +23,6 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Abrechnungsausgabe
  */
@@ -60,9 +58,9 @@ public class Abrechnungsausgabe
       case DTAUS:
         return "Datei";
       case HIBISCUS_EINZELBUCHUNGEN:
-        return JVereinPlugin.getI18n().tr("Hibiscus (Einzelbuchungen)");
+        return "Hibiscus (Einzelbuchungen)";
       case HIBISCUS_SAMMELBUCHUNG:
-        return JVereinPlugin.getI18n().tr("Hibiscus (Sammelbuchungen)");
+        return "Hibiscus (Sammelbuchungen)";
       default:
         return null;
     }
