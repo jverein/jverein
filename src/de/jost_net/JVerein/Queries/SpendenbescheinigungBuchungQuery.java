@@ -171,12 +171,12 @@ public class SpendenbescheinigungBuchungQuery
     bedingungen.add(obj);
   }
 
-  private void addCondition(String condition, Object[] obj)
-  {
-    addCondition(condition);
-    for (Object o : obj)
-    {
-      bedingungen.add(o);
-    }
-  }
+  // private void addCondition(String condition, Object[] obj)
+  // {
+  // addCondition(condition);
+  // for (Object o : obj)
+  // {
+  // bedingungen.add(o);
+  // }
+  // }
 }
