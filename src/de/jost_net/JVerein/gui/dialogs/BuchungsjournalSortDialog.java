@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -41,13 +40,11 @@ import de.willuhn.jameica.system.OperationCanceledException;
 public class BuchungsjournalSortDialog extends AbstractDialog<String>
 {
 
-  public final static String DATUM = JVereinPlugin.getI18n().tr("Datum");
+  public final static String DATUM = "Datum";
 
-  public final static String DATUM_NAME = JVereinPlugin.getI18n().tr(
-      "Datum, Name, Buchungsnummer");
+  public final static String DATUM_NAME = "Datum, Name, Buchungsnummer";
 
-  public final static String BUCHUNGSNUMMER = JVereinPlugin.getI18n().tr(
-      "Buchungsnummer");
+  public final static String BUCHUNGSNUMMER = "Buchungsnummer";
 
   private String selected = null;
 
@@ -57,18 +54,17 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
   {
     super(position);
 
-    setTitle(JVereinPlugin.getI18n().tr("Buchungsjournal-Sortierung"));
+    setTitle("Buchungsjournal-Sortierung");
     setSize(300, 180);
   }
 
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Buchungsjournal-Sortierung"));
+    LabelGroup options = new LabelGroup(parent, "Buchungsjournal-Sortierung");
     options.addInput(this.getSortierung());
     ButtonArea b = new ButtonArea();
-    b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
+    b.addButton("weiter", new Action()
     {
       @Override
       public void handleAction(Object context)
@@ -76,7 +72,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
         close();
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    b.addButton("abbrechen", new Action()
     {
       @Override
       public void handleAction(Object context)
@@ -101,7 +97,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     }
     this.sortierung = new SelectInput(new Object[] { DATUM, DATUM_NAME,
         BUCHUNGSNUMMER }, null);
-    this.sortierung.setName(JVereinPlugin.getI18n().tr("Sortierung"));
+    this.sortierung.setName("Sortierung");
     this.sortierung.addListener(new Listener()
     {
       @Override

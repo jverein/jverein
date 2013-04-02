@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.BuchungsartView;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.jameica.gui.Action;
@@ -51,8 +50,8 @@ public class BuchungsartAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung einer neuen Buchungsart"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung einer neuen Buchungsart", e);
       }
     }
     GUI.startView(BuchungsartView.class.getName(), b);

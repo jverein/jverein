@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,23 +35,19 @@ public class BuchungsklasseView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsklasse"));
+    GUI.getView().setTitle("Buchungsklasse");
 
     final BuchungsklasseControl control = new BuchungsklasseControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Buchungsklasse"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Nummer"),
-        control.getNummer(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung());
+    LabelGroup group = new LabelGroup(getParent(), "Buchungsklasse");
+    group.addLabelPair("Nummer", control.getNummer(true));
+    group.addLabelPair("Bezeichnung", control.getBezeichnung());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.BUCHUNGSKLASSEN, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.BUCHUNGSKLASSEN, false, "help-browser.png");
 
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("speichern", new Action()
     {
       @Override
       public void handleAction(Object context)

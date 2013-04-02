@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -44,7 +43,7 @@ public class BuchungSearchProvider implements SearchProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Buchung");
+    return "Buchung";
   }
 
   @Override
@@ -57,10 +56,9 @@ public class BuchungSearchProvider implements SearchProvider
 
     String text = "%" + search.toLowerCase() + "%";
     DBIterator list = Einstellungen.getDBService().createList(Buchung.class);
-    list.addFilter(
-        "LOWER(name) LIKE ? OR betrag like ? OR "
-            + "LOWER(zweck) LIKE ? OR LOWER(kommentar) LIKE ?",
-        text, text, text, text);
+    list.addFilter("LOWER(name) LIKE ? OR betrag like ? OR "
+        + "LOWER(zweck) LIKE ? OR LOWER(kommentar) LIKE ?", text, text, text,
+        text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -97,8 +95,7 @@ public class BuchungSearchProvider implements SearchProvider
       try
       {
         return b.getName() + ", " + b.getZweck() + ", " + b.getKommentar()
-            + ", " + JVereinPlugin.getI18n().tr("Konto") + ": "
-            + b.getKonto().getNummer();
+            + ", " + "Konto" + ": " + b.getKonto().getNummer();
       }
       catch (RemoteException re)
       {

@@ -30,7 +30,6 @@ import java.util.Date;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.BuchungsklasseSaldoZeile;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
@@ -76,22 +75,17 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
             .toArray(new GenericObject[zeile.size()]));
 
         saldoList = new TablePart(gi, null);
-        saldoList.addColumn(JVereinPlugin.getI18n().tr("Buchungsklasse"),
-            "buchungsklassenbezeichnung", null, false);
-        saldoList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-            "buchungsartbezeichnung");
-        saldoList.addColumn(JVereinPlugin.getI18n().tr("Einnahmen"),
-            "einnahmen",
+        saldoList.addColumn("Buchungsklasse", "buchungsklassenbezeichnung",
+            null, false);
+        saldoList.addColumn("Buchungsart", "buchungsartbezeichnung");
+        saldoList.addColumn("Einnahmen", "einnahmen", new CurrencyFormatter("",
+            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn("Ausgaben", "ausgaben", new CurrencyFormatter("",
+            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn("Umbuchungen", "umbuchungen",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        saldoList.addColumn(JVereinPlugin.getI18n().tr("Ausgaben"), "ausgaben",
-            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
-            Column.ALIGN_RIGHT);
-        saldoList.addColumn(JVereinPlugin.getI18n().tr("Umbuchungen"),
-            "umbuchungen", new CurrencyFormatter("",
-                Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn(JVereinPlugin.getI18n().tr("Anzahl"),
-            "anzahlbuchungen");
+        saldoList.addColumn("Anzahl", "anzahlbuchungen");
         saldoList.setRememberColWidths(true);
         saldoList.setSummary(false);
       }
@@ -106,9 +100,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler aufgetreten")
-          + e.getMessage());
+      throw new ApplicationException("Fehler aufgetreten" + e.getMessage());
     }
     return saldoList;
   }
@@ -191,11 +183,11 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       suAusgaben += suBukAusgaben;
       suUmbuchungen += suBukUmbuchungen;
       zeile.add(new BuchungsklasseSaldoZeile(
-          BuchungsklasseSaldoZeile.SALDOFOOTER, JVereinPlugin.getI18n().tr("Saldo") + " "
+          BuchungsklasseSaldoZeile.SALDOFOOTER, "Saldo" + " "
               + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
           suBukUmbuchungen));
       zeile.add(new BuchungsklasseSaldoZeile(
-          BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST, JVereinPlugin.getI18n().tr("Gewinn/Verlust") + " "
+          BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST, "Gewinn/Verlust" + " "
               + buchungsklasse.getBezeichnung(), suBukEinnahmen + suBukAusgaben
               + suBukUmbuchungen));
     }
@@ -219,17 +211,17 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     {
       Buchungsklasse b = (Buchungsklasse) service.createObject(
           Buchungsklasse.class, null);
-      b.setBezeichnung(JVereinPlugin.getI18n().tr("Nicht zugeordnet"));
+      b.setBezeichnung("Nicht zugeordnet");
       zeile
           .add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER, b));
       zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.DETAIL,
-          JVereinPlugin.getI18n().tr("Nicht zugeordnet"), einnahmen, ausgaben, umbuchungen));
+          "Nicht zugeordnet", einnahmen, ausgaben, umbuchungen));
     }
     zeile.add(new BuchungsklasseSaldoZeile(
-        BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER, JVereinPlugin.getI18n().tr("Gesamtsaldo") + " ",
+        BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER, "Gesamtsaldo" + " ",
         suEinnahmen, suAusgaben, suUmbuchungen));
     zeile.add(new BuchungsklasseSaldoZeile(
-        BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST, JVereinPlugin.getI18n().tr("Gesamt Gewinn/Verlust")+" ",
+        BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST, "Gesamt Gewinn/Verlust ",
         suEinnahmen + suAusgaben + suUmbuchungen));
 
     sql = "select count(*) from buchung " + "where datum >= ? and datum <= ?  "
@@ -240,7 +232,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
     {
       zeile.add(new BuchungsklasseSaldoZeile(
           BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN,
-          JVereinPlugin.getI18n().tr( "Anzahl Buchungen ohne Buchungsart"), anzahl));
+          "Anzahl Buchungen ohne Buchungsart", anzahl));
     }
     return zeile;
   }

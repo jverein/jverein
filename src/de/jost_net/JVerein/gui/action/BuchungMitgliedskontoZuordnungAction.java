@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -55,8 +54,7 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
     if (context == null || !(context instanceof Buchung)
         && !(context instanceof Buchung[]))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Buchung(en) ausgewählt"));
+      throw new ApplicationException("Keine Buchung(en) ausgewählt");
     }
     try
     {
@@ -107,8 +105,7 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
         if (mk == null)
         {
           GUI.getStatusBar().setErrorText(
-              JVereinPlugin.getI18n().tr(
-                  "Fehler bei der Ermittlung des Mitgliedskontos"));
+              "Fehler bei der Ermittlung des Mitgliedskontos");
         }
 
         for (Buchung buchung : b)
@@ -117,21 +114,19 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
           buchung.store();
         }
         control.getBuchungsList();
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Mitgliedskonto zugeordnet"));
+        GUI.getStatusBar().setSuccessText("Mitgliedskonto zugeordnet");
       }
       catch (Exception e)
       {
         Logger.error("Fehler", e);
         GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr(
-                "Fehler bei der Zuordnung des Mitgliedskontos"));
+            "Fehler bei der Zuordnung des Mitgliedskontos");
         return;
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr("Fehler beim Speichern.");
+      String fehler = "Fehler beim Speichern.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseSaldoControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -38,39 +37,33 @@ public class BuchungsklasseSaldoView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsklassen-Saldo"));
+    GUI.getView().setTitle("Buchungsklassen-Saldo");
 
     final BuchungsklasseSaldoControl control = new BuchungsklasseSaldoControl(
         this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Zeitraum"));
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("von"), control.getDatumvon());
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getDatumbis());
+    LabelGroup group = new LabelGroup(getParent(), "Zeitraum");
+    group.addLabelPair("von", control.getDatumvon());
+    group.addLabelPair("bis", control.getDatumbis());
 
     ButtonArea buttons = new ButtonArea();
-    Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
-        new Action()
-        {
+    Button button = new Button("suchen", new Action()
+    {
       @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            control.getSaldoList();
-          }
-        }, null, true, "system-search.png");
+      public void handleAction(Object context) throws ApplicationException
+      {
+        control.getSaldoList();
+      }
+    }, null, true, "system-search.png");
     buttons.addButton(button);
     buttons.paint(this.getParent());
 
-    LabelGroup group2 = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Saldo"), true);
+    LabelGroup group2 = new LabelGroup(getParent(), "Saldo", true);
     group2.addPart(control.getSaldoList());
 
     ButtonArea buttons2 = new ButtonArea();
-    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.JAHRESSALDO, false,
-        "help-browser.png");
+    buttons2.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.JAHRESSALDO, false, "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());
     buttons2.paint(this.getParent());
   }
@@ -78,9 +71,7 @@ public class BuchungsklasseSaldoView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Buchungsklassen-Saldo</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Buchungsklassen-Saldo</span></p>"
+        + "</form>";
   }
 }

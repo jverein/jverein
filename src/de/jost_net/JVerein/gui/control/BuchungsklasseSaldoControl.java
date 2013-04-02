@@ -23,6 +23,7 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +33,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.parts.BuchungsklasseSaldoList;
 import de.jost_net.JVerein.io.BuchungsklasseSaldoZeile;
 import de.jost_net.JVerein.io.BuchungsklassesaldoPDF;
@@ -113,7 +113,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF"), new Action()
+    Button b = new Button("PDF", new Action()
     {
       @Override
       public void handleAction(Object context) throws ApplicationException
@@ -167,7 +167,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+      throw new ApplicationException(MessageFormat.format(
           "Fehler aufgetreten {0}", e.getMessage()));
     }
     return saldoList.getSaldoList();
@@ -180,7 +180,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       ArrayList<BuchungsklasseSaldoZeile> zeile = saldoList.getInfo();
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+      fd.setText("Ausgabedatei wählen.");
       //
       Settings settings = new Settings(this.getClass());
       //
@@ -190,9 +190,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr(
-          "buchungsklassensaldo"), "", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungsklassensaldo", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -208,7 +207,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
+      throw new ApplicationException(MessageFormat.format(
           "Fehler beim Aufbau des Reports: {0}", e.getMessage()));
     }
   }

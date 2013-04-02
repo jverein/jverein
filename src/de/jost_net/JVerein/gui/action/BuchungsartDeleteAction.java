@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,8 +40,7 @@ public class BuchungsartDeleteAction implements Action
   {
     if (context == null || !(context instanceof Buchungsart))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Buchungsart ausgewählt"));
+      throw new ApplicationException("Keine Buchungsart ausgewählt");
     }
     try
     {
@@ -52,9 +50,8 @@ public class BuchungsartDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Buchungsart löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Buchungsart wirklich löschen?"));
+      d.setTitle("Buchungsart löschen");
+      d.setText("Wollen Sie diese Buchungsart wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -63,20 +60,16 @@ public class BuchungsartDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen der Buchungsart"),
-            e);
+        Logger.error("Fehler beim Löschen der Buchungsart", e);
         return;
       }
 
       b.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Buchungsart gelöscht."));
+      GUI.getStatusBar().setSuccessText("Buchungsart gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Buchungsart.");
+      String fehler = "Fehler beim Löschen der Buchungsart.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

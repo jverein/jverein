@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungsklasseAction;
 import de.jost_net.JVerein.gui.menu.BuchungsklasseMenu;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
@@ -107,8 +106,7 @@ public class BuchungsklasseControl extends AbstractControl
       try
       {
         b.store();
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Buchungsklasse gespeichert"));
+        GUI.getStatusBar().setSuccessText("Buchungsklasse gespeichert");
       }
       catch (ApplicationException e)
       {
@@ -117,8 +115,7 @@ public class BuchungsklasseControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern der Buchungsklasse");
+      String fehler = "Fehler bei speichern der Buchungsklasse";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -133,10 +130,8 @@ public class BuchungsklasseControl extends AbstractControl
 
     buchungsklassenList = new TablePart(buchungsklassen,
         new BuchungsklasseAction());
-    buchungsklassenList.addColumn(JVereinPlugin.getI18n().tr("Nummer"),
-        "nummer");
-    buchungsklassenList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        "bezeichnung");
+    buchungsklassenList.addColumn("Nummer", "nummer");
+    buchungsklassenList.addColumn("Bezeichnung", "bezeichnung");
     buchungsklassenList.setContextMenu(new BuchungsklasseMenu());
     buchungsklassenList.setRememberColWidths(true);
     buchungsklassenList.setRememberOrder(true);

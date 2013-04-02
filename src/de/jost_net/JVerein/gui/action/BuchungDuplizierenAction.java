@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.BuchungView;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
@@ -36,8 +35,7 @@ public class BuchungDuplizierenAction implements Action
   {
     if (context == null || !(context instanceof Buchung))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "keine Buchung ausgewählt"));
+      throw new ApplicationException("keine Buchung ausgewählt");
     }
     Buchung b = null;
     try
@@ -48,8 +46,7 @@ public class BuchungDuplizierenAction implements Action
     }
     catch (Exception e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim duplizieren einer Buchung"), e);
+      throw new ApplicationException("Fehler beim duplizieren einer Buchung", e);
     }
   }
 }

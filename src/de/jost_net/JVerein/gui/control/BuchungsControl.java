@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.SplitBuchungDetailAction;
@@ -288,8 +287,8 @@ public class BuchungsControl extends AbstractControl
     }
     Date d = getBuchung().getDatum();
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle(JVereinPlugin.getI18n().tr("Datum"));
-    this.datum.setText(JVereinPlugin.getI18n().tr("Bitte Datum wählen"));
+    this.datum.setTitle("Datum");
+    this.datum.setText("Bitte Datum wählen");
     this.datum.addListener(new Listener()
     {
 
@@ -368,7 +367,7 @@ public class BuchungsControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
     });
@@ -407,7 +406,7 @@ public class BuchungsControl extends AbstractControl
     buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
     buchungsart.setValue(getBuchung().getBuchungsart());
     buchungsart.setAttribute("bezeichnung");
-    buchungsart.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
+    buchungsart.setPleaseChoose("Bitte auswählen");
     return buchungsart;
   }
 
@@ -422,7 +421,7 @@ public class BuchungsControl extends AbstractControl
     projekt = new SelectInput(list, getBuchung().getProjekt());
     projekt.setValue(getBuchung().getProjekt());
     projekt.setAttribute("bezeichnung");
-    projekt.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
+    projekt.setPleaseChoose("Bitte auswählen");
     return projekt;
   }
 
@@ -449,8 +448,7 @@ public class BuchungsControl extends AbstractControl
     suchprojekt = new SelectInput(list, null);
     suchprojekt.addListener(new FilterListener());
     suchprojekt.setAttribute("bezeichnung");
-    suchprojekt.setPleaseChoose(JVereinPlugin.getI18n().tr(
-        "keine Einschränkung"));
+    suchprojekt.setPleaseChoose("keine Einschränkung");
     return suchprojekt;
   }
 
@@ -467,13 +465,13 @@ public class BuchungsControl extends AbstractControl
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
     b1.setNummer(-2);
-    b1.setBezeichnung(JVereinPlugin.getI18n().tr("Alle Buchungsarten"));
+    b1.setBezeichnung("Alle Buchungsarten");
     b1.setArt(-2);
     liste.add(b1);
     Buchungsart b2 = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
     b2.setNummer(-1);
-    b2.setBezeichnung(JVereinPlugin.getI18n().tr("Ohne Buchungsart"));
+    b2.setBezeichnung("Ohne Buchungsart");
     b2.setArt(-1);
     liste.add(b2);
     while (list.hasNext())
@@ -514,9 +512,8 @@ public class BuchungsControl extends AbstractControl
       //
     }
     this.vondatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.vondatum.setTitle(JVereinPlugin.getI18n().tr("Anfangsdatum"));
-    this.vondatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Anfangsdatum wählen"));
+    this.vondatum.setTitle("Anfangsdatum");
+    this.vondatum.setText("Bitte Anfangsdatum wählen");
     this.vondatum.addListener(new FilterListener());
     this.vondatum.setMandatory(true);
     return vondatum;
@@ -539,9 +536,8 @@ public class BuchungsControl extends AbstractControl
       //
     }
     this.bisdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.bisdatum.setTitle(JVereinPlugin.getI18n().tr("Anfangsdatum"));
-    this.bisdatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Anfangsdatum wählen"));
+    this.bisdatum.setTitle("Anfangsdatum");
+    this.bisdatum.setText("Bitte Anfangsdatum wählen");
     this.bisdatum.addListener(new FilterListener());
     this.bisdatum.setMandatory(true);
     return bisdatum;
@@ -549,61 +545,57 @@ public class BuchungsControl extends AbstractControl
 
   public Button getStartAuswertungEinzelbuchungenButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF Einzelbuchungen"),
-        new Action()
-        {
+    Button b = new Button("PDF Einzelbuchungen", new Action()
+    {
 
-          @Override
-          public void handleAction(Object context)
-          {
-            starteAuswertung(true);
-          }
-        }, null, true, "pdf.png"); // "true" defines this button as the default
+      @Override
+      public void handleAction(Object context)
+      {
+        starteAuswertung(true);
+      }
+    }, null, true, "pdf.png"); // "true" defines this button as the default
     return b;
   }
 
   public Button getStartCSVAuswertungButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("CSV-Export"),
-        new Action()
-        {
+    Button b = new Button("CSV-Export", new Action()
+    {
 
-          @Override
-          public void handleAction(Object context)
-          {
-            starteCSVExport();
-          }
-        }, null, true, "csv.jpg"); // "true" defines this button as the default
+      @Override
+      public void handleAction(Object context)
+      {
+        starteCSVExport();
+      }
+    }, null, true, "csv.jpg"); // "true" defines this button as the default
     return b;
   }
 
   public Button getStartAuswertungSummenButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF Summen"),
-        new Action()
-        {
+    Button b = new Button("PDF Summen", new Action()
+    {
 
-          @Override
-          public void handleAction(Object context)
-          {
-            starteAuswertung(false);
-          }
-        }, null, true, "pdf.png"); // "true" defines this button as the default
+      @Override
+      public void handleAction(Object context)
+      {
+        starteAuswertung(false);
+      }
+    }, null, true, "pdf.png"); // "true" defines this button as the default
     return b;
   }
 
   public Button getStartAuswertungBuchungsjournalButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF Buchungsjournal"),
-        new Action()
-        {
+    Button b = new Button("PDF Buchungsjournal", new Action()
+    {
 
-          @Override
-          public void handleAction(Object context)
-          {
-            starteAuswertungBuchungsjournal();
-          }
-        }, null, true, "pdf.png"); // "true" defines this button as the default
+      @Override
+      public void handleAction(Object context)
+      {
+        starteAuswertungBuchungsjournal();
+      }
+    }, null, true, "pdf.png"); // "true" defines this button as the default
     return b;
   }
 
@@ -680,8 +672,7 @@ public class BuchungsControl extends AbstractControl
         b.setKommentar((String) getKommentar().getValue());
         b.store();
         getID().setValue(b.getID());
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Buchung gespeichert"));
+        GUI.getStatusBar().setSuccessText("Buchung gespeichert");
       }
       catch (ApplicationException e)
       {
@@ -690,8 +681,7 @@ public class BuchungsControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern der Buchung");
+      String fehler = "Fehler bei speichern der Buchung";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -703,13 +693,13 @@ public class BuchungsControl extends AbstractControl
     Date dv = (Date) getVondatum().getValue();
     if (dv == null)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("von-Datum fehlt!"));
+      throw new RemoteException("von-Datum fehlt!");
     }
     settings.setAttribute("vondatum", new JVDateFormatTTMMJJJJ().format(dv));
     Date db = (Date) getBisdatum().getValue();
     if (db == null)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("bis-Datum fehlt!"));
+      throw new RemoteException("bis-Datum fehlt!");
     }
     settings.setAttribute("bisdatum", new JVDateFormatTTMMJJJJ().format(db));
     Konto k = null;
@@ -748,60 +738,56 @@ public class BuchungsControl extends AbstractControl
     if (buchungsList == null)
     {
       buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "id-int");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
-          new Formatter()
-          {
+      buchungsList.addColumn("Nr", "id-int");
+      buchungsList.addColumn("Konto", "konto", new Formatter()
+      {
 
-            @Override
-            public String format(Object o)
-            {
-              Konto k = (Konto) o;
-              if (k != null)
-              {
-                try
-                {
-                  return k.getBezeichnung();
-                }
-                catch (RemoteException e)
-                {
-                  e.printStackTrace();
-                }
-              }
-              return "";
-            }
-          });
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Auszug"),
-          "auszugsnummer");
-      buchungsList
-          .addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
-          "zweck", new Formatter()
+        @Override
+        public String format(Object o)
+        {
+          Konto k = (Konto) o;
+          if (k != null)
           {
-
-            @Override
-            public String format(Object value)
+            try
             {
-              if (value == null)
-              {
-                return null;
-              }
-              String s = value.toString();
-              s = s.replaceAll("\r\n", " ");
-              s = s.replaceAll("\r", " ");
-              s = s.replaceAll("\n", " ");
-              return s;
+              return k.getBezeichnung();
             }
-          });
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-          "buchungsart", new BuchungsartFormatter());
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
-          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-          "mitgliedskonto", new MitgliedskontoFormatter());
+            catch (RemoteException e)
+            {
+              e.printStackTrace();
+            }
+          }
+          return "";
+        }
+      });
+      buchungsList.addColumn("Datum", "datum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      buchungsList.addColumn("Auszug", "auszugsnummer");
+      buchungsList.addColumn("Blatt", "blattnummer");
+      buchungsList.addColumn("Name", "name");
+      buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
+      {
+
+        @Override
+        public String format(Object value)
+        {
+          if (value == null)
+          {
+            return null;
+          }
+          String s = value.toString();
+          s = s.replaceAll("\r\n", " ");
+          s = s.replaceAll("\r", " ");
+          s = s.replaceAll("\n", " ");
+          return s;
+        }
+      });
+      buchungsList.addColumn("Buchungsart", "buchungsart",
+          new BuchungsartFormatter());
+      buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+          Einstellungen.DECIMALFORMAT));
+      buchungsList.addColumn("Mitglied", "mitgliedskonto",
+          new MitgliedskontoFormatter());
       buchungsList.setMulti(true);
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
@@ -866,44 +852,40 @@ public class BuchungsControl extends AbstractControl
       }
       splitbuchungsList = new TablePart(splitbuchungen,
           new SplitBuchungDetailAction(this, this.view));
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "id-int");
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
-          new Formatter()
-          {
+      splitbuchungsList.addColumn("Nr", "id-int");
+      splitbuchungsList.addColumn("Konto", "konto", new Formatter()
+      {
 
-            @Override
-            public String format(Object o)
+        @Override
+        public String format(Object o)
+        {
+          Konto k = (Konto) o;
+          if (k != null)
+          {
+            try
             {
-              Konto k = (Konto) o;
-              if (k != null)
-              {
-                try
-                {
-                  return k.getBezeichnung();
-                }
-                catch (RemoteException e)
-                {
-                  e.printStackTrace();
-                }
-              }
-              return "";
+              return k.getBezeichnung();
             }
-          });
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Auszug"),
-          "auszugsnummer");
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Blatt"),
-          "blattnummer");
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n()
-          .tr("Verwendungszweck"), "zweck");
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-          "buchungsart", new BuchungsartFormatter());
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      splitbuchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-          "mitgliedskonto", new MitgliedskontoFormatter());
+            catch (RemoteException e)
+            {
+              e.printStackTrace();
+            }
+          }
+          return "";
+        }
+      });
+      splitbuchungsList.addColumn("Datum", "datum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      splitbuchungsList.addColumn("Auszug", "auszugsnummer");
+      splitbuchungsList.addColumn("Blatt", "blattnummer");
+      splitbuchungsList.addColumn("Name", "name");
+      splitbuchungsList.addColumn("Verwendungszweck", "zweck");
+      splitbuchungsList.addColumn("Buchungsart", "buchungsart",
+          new BuchungsartFormatter());
+      splitbuchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+          Einstellungen.DECIMALFORMAT));
+      splitbuchungsList.addColumn("Mitglied", "mitgliedskonto",
+          new MitgliedskontoFormatter());
       splitbuchungsList.setRememberColWidths(true);
       splitbuchungsList.setSummary(true);
     }
@@ -969,14 +951,13 @@ public class BuchungsControl extends AbstractControl
       {
         Buchungsart ohnezuordnung = (Buchungsart) Einstellungen.getDBService()
             .createObject(Buchungsart.class, null);
-        ohnezuordnung.setBezeichnung(JVereinPlugin.getI18n().tr(
-            "Ohne Zuordnung"));
+        ohnezuordnung.setBezeichnung("Ohne Zuordnung");
         ohnezuordnung.setArt(-1);
         buchungsarten.add(ohnezuordnung);
       }
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+      fd.setText("Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -984,8 +965,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("buchungen"), "",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungen", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -1013,7 +994,7 @@ public class BuchungsControl extends AbstractControl
       final ArrayList<Buchung> buchungen = query.get();
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+      fd.setText("Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -1021,8 +1002,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("buchungen"), "",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "CSV").get());
+      fd.setFileName(new Dateiname("buchungen", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "CSV").get());
 
       final String s = fd.open();
 
@@ -1047,7 +1028,7 @@ public class BuchungsControl extends AbstractControl
           }
           catch (Exception ae)
           {
-            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
+            Logger.error("Fehler", ae);
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw new ApplicationException(ae);
           }
@@ -1095,7 +1076,7 @@ public class BuchungsControl extends AbstractControl
         query.setOrderID();
       }
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+      fd.setText("Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -1103,9 +1084,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n()
-          .tr("buchungsjournal"), "", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungsjournal", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -1121,7 +1101,7 @@ public class BuchungsControl extends AbstractControl
     }
     catch (Exception e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
   }
 
@@ -1136,13 +1116,12 @@ public class BuchungsControl extends AbstractControl
       {
         try
         {
-          GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr("Auswertung gestartet"));
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           new BuchungAuswertungPDF(buchungsarten, file, query, einzelbuchungen);
         }
         catch (ApplicationException ae)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
+          Logger.error("Fehler", ae);
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
         }

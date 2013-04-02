@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungsklasseAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsklasseControl;
@@ -35,27 +34,26 @@ public class BuchungsklasseListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchungsklassen"));
+    GUI.getView().setTitle("Buchungsklassen");
 
     BuchungsklasseControl control = new BuchungsklasseControl(this);
 
     control.getBuchungsklasseList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.BUCHUNGSKLASSEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new BuchungsklasseAction(), null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.BUCHUNGSKLASSEN, false, "help-browser.png");
+    buttons.addButton("neu", new BuchungsklasseAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Buchungsklasse</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Buchungsklasse</span></p>"
         + "<p>Buchungsklassen dienen der Gruppierung von Buchungsarten. Z. B. können die "
         + "Buchungsarten nach Ideeller Betrieb, Wirtschaftlicher Betrieb und Vermögen gruppiert werden.</p>"
-        + "<p>Die Buchungsklassen sind den Buchungsarten zuzuordnen.</p></form>");
+        + "<p>Die Buchungsklassen sind den Buchungsarten zuzuordnen.</p></form>";
   }
 }

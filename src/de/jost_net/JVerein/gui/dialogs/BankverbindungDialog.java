@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.gui.input.SEPALandObject;
 import de.jost_net.JVerein.io.IBankverbindung;
@@ -72,7 +71,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     getStatus().paint(parent);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
+    buttons.addButton("übernehmen", new Action()
     {
       @Override
       public void handleAction(Object context)
@@ -91,7 +90,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
         close();
       }
     }, null, true);
-    buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    buttons.addButton("abbrechen", new Action()
     {
       @Override
       public void handleAction(Object context)

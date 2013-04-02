@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.BuchungVar;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -82,9 +81,9 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Buchung kann nicht gespeichert werden. Siehe system log"));
+      Logger.error("Fehler", e);
+      throw new ApplicationException(
+          "Buchung kann nicht gespeichert werden. Siehe system log");
     }
   }
 
@@ -92,36 +91,30 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     if (getKonto() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Konto eingeben"));
+      throw new ApplicationException("Bitte Konto eingeben");
     }
     if (getDatum() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Datum eingeben"));
+      throw new ApplicationException("Bitte Datum eingeben");
     }
     Calendar cal1 = Calendar.getInstance();
     cal1.setTime(getDatum());
     Calendar cal2 = Calendar.getInstance();
     if (cal1.after(cal2))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Buchungsdatum liegt in der Zukunft"));
+      throw new ApplicationException("Buchungsdatum liegt in der Zukunft");
     }
     cal2.add(Calendar.YEAR, -10);
     if (cal1.before(cal2))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Buchung liegt mehr als 10 Jahre zurück"));
+      throw new ApplicationException("Buchung liegt mehr als 10 Jahre zurück");
     }
 
     Jahresabschluss ja = getJahresabschluss();
     if (ja != null)
     {
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!"));
+          "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!");
     }
   }
 
@@ -182,7 +175,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     if (konto == null)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("Konto fehlt!"));
+      throw new RemoteException("Konto fehlt!");
     }
     setAttribute("konto", new Integer(konto.getID()));
   }

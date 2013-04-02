@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.ArbeitseinsatzDetailView;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -62,17 +61,15 @@ public class ArbeitseinsatzAction implements Action
           if (m.getID() == null)
           {
             throw new ApplicationException(
-                JVereinPlugin
-                    .getI18n()
-                    .tr("Neues Mitglied bitte erst speichern. Dann können Arbeitseinsätze aufgenommen werden."));
+                "Neues Mitglied bitte erst speichern. Dann können Arbeitseinsätze aufgenommen werden.");
           }
           aeins.setMitglied(new Integer(m.getID()).intValue());
         }
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Arbeitseinsatzes"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Arbeitseinsatzes", e);
       }
     }
     GUI.startView(ArbeitseinsatzDetailView.class.getName(), aeins);

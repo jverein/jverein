@@ -23,8 +23,8 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.BuchungsartZuordnungDialog;
 import de.jost_net.JVerein.gui.dialogs.KontoauszugZuordnungDialog;
@@ -53,8 +53,7 @@ public class BuchungKontoauszugZuordnungAction implements Action
     if (context == null
         || (!(context instanceof Buchung) && !(context instanceof Buchung[])))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Buchung(en) ausgewählt"));
+      throw new ApplicationException("Keine Buchung(en) ausgewählt");
     }
     try
     {
@@ -102,26 +101,24 @@ public class BuchungKontoauszugZuordnungAction implements Action
         String protecttext = "";
         if (counter > 0)
         {
-          protecttext = JVereinPlugin.getI18n().tr(
+          protecttext = MessageFormat.format(
               ", {0} Buchungen wurden nicht überschrieben. ",
-              new String[] { counter + "" });
+              new Object[] { counter + "" });
         }
         GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Kontoauszugsinformationen zugeordnet")
-                + protecttext);
+            "Kontoauszugsinformationen zugeordnet" + protecttext);
       }
       catch (Exception e)
       {
         Logger.error("Fehler", e);
         GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr(
-                "Fehler bei der Zuordnung der Kontoauszugsinformationen"));
+            "Fehler bei der Zuordnung der Kontoauszugsinformationen");
         return;
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr("Fehler beim Speichern.");
+      String fehler = "Fehler beim Speichern.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

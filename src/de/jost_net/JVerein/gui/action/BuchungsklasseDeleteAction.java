@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,8 +40,7 @@ public class BuchungsklasseDeleteAction implements Action
   {
     if (context == null || !(context instanceof Buchungsklasse))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Buchungsklasse ausgewählt"));
+      throw new ApplicationException("Keine Buchungsklasse ausgewählt");
     }
     try
     {
@@ -52,9 +50,8 @@ public class BuchungsklasseDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Buchungsklasse löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Buchungsklasse wirklich löschen?"));
+      d.setTitle("Buchungsklasse löschen");
+      d.setText("Wollen Sie diese Buchungsklasse wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -63,20 +60,16 @@ public class BuchungsklasseDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n()
-                .tr("Fehler beim Löschen der Buchungsklasse"), e);
+        Logger.error("Fehler beim Löschen der Buchungsklasse", e);
         return;
       }
 
       b.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Buchungsklasse gelöscht."));
+      GUI.getStatusBar().setSuccessText("Buchungsklasse gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Buchungsklasse.");
+      String fehler = "Fehler beim Löschen der Buchungsklasse.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.BuchungBuchungsartZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
@@ -52,29 +51,25 @@ public class BuchungMenu extends ContextMenu
 
   public BuchungMenu(BuchungsControl control)
   {
-    addItem(new ContextMenuItem(JVereinPlugin.getI18n().tr("neu"),
-        new BuchungNeuAction(), "document-new.png"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "bearbeiten"), new BuchungAction(), "edit.png"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "duplizieren"), new BuchungDuplizierenAction(), "copy_v2.png"));
+    addItem(new ContextMenuItem("neu", new BuchungNeuAction(),
+        "document-new.png"));
+    addItem(new CheckedSingleContextMenuItem("bearbeiten", new BuchungAction(),
+        "edit.png"));
+    addItem(new CheckedSingleContextMenuItem("duplizieren",
+        new BuchungDuplizierenAction(), "copy_v2.png"));
     // Einführung der Splitbuchungen auf Version 2.2 verschoben
     // addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
     // "Splitbuchung"), new SplitBuchungAction(), "edit.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Buchungsart zuordnen"),
+    addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Mitgliedskonto zuordnen"), new BuchungMitgliedskontoZuordnungAction(
-        control), "human_folder_public.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Projekt zuordnen"), new BuchungProjektZuordnungAction(control),
-        "projects.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Kontoauszug zuordnen"),
+    addItem(new CheckedContextMenuItem("Mitgliedskonto zuordnen",
+        new BuchungMitgliedskontoZuordnungAction(control),
+        "human_folder_public.png"));
+    addItem(new CheckedContextMenuItem("Projekt zuordnen",
+        new BuchungProjektZuordnungAction(control), "projects.png"));
+    addItem(new CheckedContextMenuItem("Kontoauszug zuordnen",
         new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new BuchungDeleteAction(),
+    addItem(new CheckedContextMenuItem("löschen...", new BuchungDeleteAction(),
         "user-trash.png"));
   }
 }

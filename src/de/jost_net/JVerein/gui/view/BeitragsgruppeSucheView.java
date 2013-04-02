@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDeleteAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
@@ -36,29 +35,27 @@ public class BeitragsgruppeSucheView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppen"));
+    GUI.getView().setTitle("Beitragsgruppen");
 
     BeitragsgruppeControl control = new BeitragsgruppeControl(this);
 
     control.getBeitragsgruppeTable().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
-        new BeitragsgruppeDeleteAction(), control.getBeitragsgruppeTable(),
-        false, "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new BeitragsgruppeDetailAction(), null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
+    buttons.addButton("löschen", new BeitragsgruppeDeleteAction(),
+        control.getBeitragsgruppeTable(), false, "user-trash.png");
+    buttons.addButton("neu", new BeitragsgruppeDetailAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
         + "<p>Alle Beitragsgruppen werden angezeigt. Durch einen Doppelklick kann eine "
-        + "Beitragsgruppe zur Bearbeitung ausgewählt werden.</p></form>");
+        + "Beitragsgruppe zur Bearbeitung ausgewählt werden.</p></form>";
   }
 }

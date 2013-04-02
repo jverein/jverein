@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.input;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.listener.BICListener;
 import de.willuhn.jameica.gui.input.TextInput;
 
@@ -30,7 +29,7 @@ public class BICInput extends TextInput
   public BICInput(String value)
   {
     super(value, 11);
-    setName(JVereinPlugin.getI18n().tr("BIC"));
+    setName("BIC");
     BICListener l = new BICListener(this);
     addListener(l);
     l.handleEvent(null);

@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -35,7 +36,6 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -71,8 +71,8 @@ public class BuchungAuswertungCSV
         writer.write(b.getMap(null), header, processors);
       }
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Auswertung fertig. {0} Sätze.",
-              list.size() + ""));
+          MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()
+              + ""));
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
@@ -95,12 +95,12 @@ public class BuchungAuswertungCSV
     catch (FileNotFoundException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException("Fehler", e);
     }
     catch (IOException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException("Fehler", e);
     }
 
   }
@@ -115,7 +115,7 @@ public class BuchungAuswertungCSV
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
     return null;
   }

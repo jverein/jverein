@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.ProjektAuswahlDialog;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -53,8 +52,7 @@ public class BuchungProjektZuordnungAction implements Action
     if (context == null || !(context instanceof Buchung)
         && !(context instanceof Buchung[]))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Buchung(en) ausgewählt"));
+      throw new ApplicationException("Keine Buchung(en) ausgewählt");
     }
     try
     {
@@ -80,8 +78,7 @@ public class BuchungProjektZuordnungAction implements Action
 
         if (open == null)
         {
-          GUI.getStatusBar().setErrorText(
-              JVereinPlugin.getI18n().tr("Kein Projekt ausgewählt"));
+          GUI.getStatusBar().setErrorText("Kein Projekt ausgewählt");
           return;
         }
 
@@ -91,21 +88,19 @@ public class BuchungProjektZuordnungAction implements Action
           buchung.store();
         }
         control.getBuchungsList();
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Projekt zugeordnet"));
+        GUI.getStatusBar().setSuccessText("Projekt zugeordnet");
       }
       catch (Exception e)
       {
         Logger.error("Fehler", e);
         GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n()
-                .tr("Fehler bei der Zuordnung des Projektes"));
+            "Fehler bei der Zuordnung des Projektes");
         return;
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr("Fehler beim Speichern.");
+      String fehler = "Fehler beim Speichern.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

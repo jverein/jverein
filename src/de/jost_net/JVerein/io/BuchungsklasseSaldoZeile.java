@@ -22,8 +22,8 @@
 package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.GenericObject;
@@ -161,7 +161,7 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     {
       return anzahlbuchungen;
     }
-    throw new RemoteException(JVereinPlugin.getI18n().tr(
+    throw new RemoteException(MessageFormat.format(
         "Ungültige Spaltenbezeichung: {0}", arg0));
   }
 

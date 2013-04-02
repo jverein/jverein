@@ -59,7 +59,7 @@ public class BuchungPart implements Part
   @Override
   public void paint(Composite parent) throws RemoteException
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Buchung"));
+    GUI.getView().setTitle("Buchung");
 
     ScrolledContainer scrolled = new ScrolledContainer(parent, 1);
 
@@ -67,45 +67,29 @@ public class BuchungPart implements Part
 
     SimpleContainer grKontoauszug = new SimpleContainer(cols1.getComposite());
 
-    grKontoauszug.addHeadline(JVereinPlugin.getI18n().tr("Buchung"));
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsnummer"),
-        control.getID());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Umsatz-ID"),
-        control.getUmsatzid());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
-        control.getKonto(true));
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
-        control.getName());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck"),
-        control.getZweck());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
-        control.getDatum());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Art"),
-        control.getArt());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedskonto"),
-        control.getMitgliedskonto());
-    grKontoauszug.addLabelPair(JVereinPlugin.getI18n().tr("Kommentar"),
-        control.getKommentar());
+    grKontoauszug.addHeadline("Buchung");
+    grKontoauszug.addLabelPair("Buchungsnummer", control.getID());
+    grKontoauszug.addLabelPair("Umsatz-ID", control.getUmsatzid());
+    grKontoauszug.addLabelPair("Konto", control.getKonto(true));
+    grKontoauszug.addLabelPair("Name", control.getName());
+    grKontoauszug.addLabelPair("Betrag", control.getBetrag());
+    grKontoauszug.addLabelPair("Verwendungszweck", control.getZweck());
+    grKontoauszug.addLabelPair("Datum", control.getDatum());
+    grKontoauszug.addLabelPair("Art", control.getArt());
+    grKontoauszug.addLabelPair("Mitgliedskonto", control.getMitgliedskonto());
+    grKontoauszug.addLabelPair("Kommentar", control.getKommentar());
 
     SimpleContainer grBuchungsinfos = new SimpleContainer(cols1.getComposite());
 
-    grBuchungsinfos.addHeadline(JVereinPlugin.getI18n().tr("Buchungsinfos"));
-    grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
-        control.getBuchungsart());
-    grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Projekt"),
-        control.getProjekt());
-    grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Auszugsnummer"),
-        control.getAuszugsnummer());
-    grBuchungsinfos.addLabelPair(JVereinPlugin.getI18n().tr("Blattnummer"),
-        control.getBlattnummer());
+    grBuchungsinfos.addHeadline("Buchungsinfos");
+    grBuchungsinfos.addLabelPair("Buchungsart", control.getBuchungsart());
+    grBuchungsinfos.addLabelPair("Projekt", control.getProjekt());
+    grBuchungsinfos.addLabelPair("Auszugsnummer", control.getAuszugsnummer());
+    grBuchungsinfos.addLabelPair("Blattnummer", control.getBlattnummer());
 
     SimpleContainer grSpendeninfos = grBuchungsinfos;
-    grSpendeninfos.addHeadline(JVereinPlugin.getI18n().tr("Spendendetails"));
-    grSpendeninfos.addLabelPair(
-        JVereinPlugin.getI18n().tr("Erstattungsverzicht"),
-        control.getVerzicht());
+    grSpendeninfos.addHeadline("Spendendetails");
+    grSpendeninfos.addLabelPair("Erstattungsverzicht", control.getVerzicht());
 
     if (JVereinPlugin.isArchiveServiceActive())
     {

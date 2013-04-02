@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
@@ -64,7 +63,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
   public BuchungsartZuordnungDialog(int position)
   {
     super(position);
-    setTitle(JVereinPlugin.getI18n().tr("Zuordnung Buchungsart"));
+    setTitle("Zuordnung Buchungsart");
     setSize(400, 200);
   }
 
@@ -72,21 +71,19 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup group = new LabelGroup(parent, "");
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
-        getBuchungsartAuswahl());
-    group.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Buchungsarten überschreiben"), getUeberschreiben());
+    group.addLabelPair("Buchungsart", getBuchungsartAuswahl());
+    group.addLabelPair("Buchungsarten überschreiben", getUeberschreiben());
     group.addLabelPair("", getStatus());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
+    buttons.addButton("übernehmen", new Action()
     {
       @Override
       public void handleAction(Object context)
       {
         if (buchungsarten.getValue() == null)
         {
-          status.setValue(JVereinPlugin.getI18n().tr("Bitte auswählen"));
+          status.setValue("Bitte auswählen");
           status.setColor(Color.ERROR);
           return;
         }
@@ -98,7 +95,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
         close();
       }
     }, null, true);
-    buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    buttons.addButton("abbrechen", new Action()
     {
       @Override
       public void handleAction(Object context)
@@ -138,8 +135,7 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
     DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
     it.setOrder("ORDER BY nummer");
     buchungsarten = new SelectInput(it, null);
-    buchungsarten.setPleaseChoose(JVereinPlugin.getI18n().tr(
-        "Bitte Buchungsart auswählen"));
+    buchungsarten.setPleaseChoose("Bitte Buchungsart auswählen");
     buchungsarten.addListener(new Listener()
     {
       @Override

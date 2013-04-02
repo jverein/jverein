@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -66,20 +65,18 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
       if (getBetrag() < 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Betrag nicht gültig"));
+        throw new ApplicationException("Betrag nicht gültig");
       }
     }
     catch (RemoteException e)
     {
       Logger.error("insert check of mitglied failed", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Mitglied kann nicht gespeichert werden. Siehe system log"));
+      throw new ApplicationException(
+          "Mitglied kann nicht gespeichert werden. Siehe system log");
     }
   }
 

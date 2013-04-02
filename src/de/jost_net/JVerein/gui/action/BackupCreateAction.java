@@ -25,13 +25,13 @@ package de.jost_net.JVerein.gui.action;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.MessageFormat;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.server.AbrechnungslaufImpl;
 import de.jost_net.JVerein.server.AdresstypImpl;
 import de.jost_net.JVerein.server.AnfangsbestandImpl;
@@ -136,8 +136,7 @@ public class BackupCreateAction implements Action
     fd.setFileName("jverein-backup-"
         + new JVDateFormatJJJJMMTT().format(new Date()) + ".xml");
     fd.setFilterExtensions(new String[] { "*.xml" });
-    fd.setText(JVereinPlugin.getI18n().tr(
-        "Bitte wählen Sie die Datei, in der das Backup gespeichert wird"));
+    fd.setText("Bitte wählen Sie die Datei, in der das Backup gespeichert wird");
     String f = fd.open();
     if (f == null || f.length() == 0)
       return;
@@ -147,8 +146,7 @@ public class BackupCreateAction implements Action
     {
       if (file.exists()
           && !Application.getCallback().askUser(
-              JVereinPlugin.getI18n().tr(
-                  "Datei existiert bereits. Überschreiben?")))
+              "Datei existiert bereits. Überschreiben?"))
         return;
     }
     catch (ApplicationException ae)
@@ -159,8 +157,7 @@ public class BackupCreateAction implements Action
     {
       Logger.error("error while asking user", e);
       Application.getMessagingFactory().sendMessage(
-          new StatusBarMessage(JVereinPlugin.getI18n().tr(
-              "Fehler beim Erstellen der Backup-Datei"),
+          new StatusBarMessage("Fehler beim Erstellen der Backup-Datei",
               StatusBarMessage.TYPE_ERROR));
       return;
     }
@@ -190,7 +187,7 @@ public class BackupCreateAction implements Action
             monitor.addPercentComplete(100 / tab.length);
           }
 
-          monitor.setStatusText(JVereinPlugin.getI18n().tr("Backup erstellt"));
+          monitor.setStatusText("Backup erstellt");
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
         }
@@ -263,9 +260,8 @@ public class BackupCreateAction implements Action
       {
         Logger.error("error while writing object " + BeanUtil.toString(o)
             + " - skipping", e);
-        monitor.log(JVereinPlugin.getI18n().tr(
-            "  {0} fehlerhaft: {1}, überspringe",
-            new String[] { BeanUtil.toString(o), e.getMessage() }));
+        monitor.log(MessageFormat.format("  {0} fehlerhaft: {1}, überspringe",
+            new Object[] { BeanUtil.toString(o), e.getMessage() }));
       }
     }
   }

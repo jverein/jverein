@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -98,8 +99,7 @@ public class BackupRestoreAction implements Action
     fd.setFileName("jverein-" + new JVDateFormatJJJJMMTT().format(new Date())
         + ".xml");
     fd.setFilterExtensions(new String[] { "*.xml" });
-    fd.setText(JVereinPlugin.getI18n().tr(
-        "Bitte wählen Sie die Backup-Datei aus"));
+    fd.setText("Bitte wählen Sie die Backup-Datei aus");
     String f = fd.open();
     if (f == null || f.length() == 0)
     {
@@ -123,7 +123,7 @@ public class BackupRestoreAction implements Action
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
-        monitor.setStatusText(JVereinPlugin.getI18n().tr("Importiere Backup"));
+        monitor.setStatusText("Importiere Backup");
         Logger.info("importing backup " + file.getAbsolutePath());
         final ClassLoader loader = Application.getPluginLoader()
             .getPlugin(JVereinPlugin.class).getManifest().getClassLoader();
@@ -136,8 +136,7 @@ public class BackupRestoreAction implements Action
         }
         catch (RemoteException e1)
         {
-          Logger.error(JVereinPlugin.getI18n().tr(
-              "EigenschaftGruppe mit id=1 kann nicht gelöscht werden"));
+          Logger.error("EigenschaftGruppe mit id=1 kann nicht gelöscht werden");
         }
 
         Reader reader = null;
@@ -176,9 +175,9 @@ public class BackupRestoreAction implements Action
             {
               Logger.error("unable to import " + o.getClass().getName() + ":"
                   + o.getID() + ", skipping", e);
-              monitor.log(JVereinPlugin.getI18n().tr(
+              monitor.log(MessageFormat.format(
                   " {0} fehlerhaft: {1}, überspringe ",
-                  new String[] { BeanUtil.toString(o), e.getMessage() }));
+                  new Object[] { BeanUtil.toString(o), e.getMessage() }));
             }
             if (count++ % 100 == 0)
             {
@@ -186,8 +185,7 @@ public class BackupRestoreAction implements Action
             }
           }
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor
-              .setStatusText(JVereinPlugin.getI18n().tr("Backup importiert"));
+          monitor.setStatusText("Backup importiert");
           monitor.setPercentComplete(100);
         }
         catch (Exception e)

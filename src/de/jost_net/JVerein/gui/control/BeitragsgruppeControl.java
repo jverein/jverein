@@ -25,7 +25,6 @@ import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
@@ -144,7 +143,7 @@ public class BeitragsgruppeControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
     buchungsart = new SelectInput(it, getBeitragsgruppe().getBuchungsart());
-    buchungsart.setPleaseChoose(JVereinPlugin.getI18n().tr("bitte auswählen"));
+    buchungsart.setPleaseChoose("bitte auswählen");
     return buchungsart;
   }
 
@@ -160,9 +159,7 @@ public class BeitragsgruppeControl extends AbstractControl
       if (ba.getKey() == ArtBeitragsart.FAMILIE_ANGEHOERIGER && d != 0)
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr("Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben."));
+            "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben.");
       }
       b.setBeitragsArt(ba.getKey());
       Buchungsart bua = (Buchungsart) getBuchungsart().getValue();
@@ -175,8 +172,7 @@ public class BeitragsgruppeControl extends AbstractControl
       d = (Double) getArbeitseinsatzBetrag().getValue();
       b.setArbeitseinsatzBetrag(d.doubleValue());
       b.store();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Beitragsgruppe gespeichert"));
+      GUI.getStatusBar().setSuccessText("Beitragsgruppe gespeichert");
     }
     catch (ApplicationException e)
     {
@@ -184,8 +180,7 @@ public class BeitragsgruppeControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern der Beitragsgruppe");
+      String fehler = "Fehler bei speichern der Beitragsgruppe";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -201,23 +196,19 @@ public class BeitragsgruppeControl extends AbstractControl
     DBIterator beitragsgruppen = service.createList(Beitragsgruppe.class);
     beitragsgruppeList = new TablePart(beitragsgruppen,
         new BeitragsgruppeDetailAction());
-    beitragsgruppeList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        "bezeichnung");
-    beitragsgruppeList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+    beitragsgruppeList.addColumn("Bezeichnung", "bezeichnung");
+    beitragsgruppeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+        Einstellungen.DECIMALFORMAT));
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
-      beitragsgruppeList.addColumn(
-          JVereinPlugin.getI18n().tr("Arbeitseinsatz-Stunden"),
+      beitragsgruppeList.addColumn("Arbeitseinsatz-Stunden",
           "arbeitseinsatzstunden", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
-      beitragsgruppeList.addColumn(
-          JVereinPlugin.getI18n().tr("Arbeitseinsatz-Stundensatz"),
+      beitragsgruppeList.addColumn("Arbeitseinsatz-Stundensatz",
           "arbeitseinsatzbetrag", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
     }
-    beitragsgruppeList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-        "buchungsart");
+    beitragsgruppeList.addColumn("Buchungsart", "buchungsart");
     beitragsgruppeList.setContextMenu(new BeitragsgruppeMenu());
     return beitragsgruppeList;
   }

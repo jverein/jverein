@@ -23,10 +23,8 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
-import de.jost_net.JVerein.server.Cache;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -66,19 +64,16 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
       if (getNummer() < 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Nummer nicht gültig"));
+        throw new ApplicationException("Nummer nicht gültig");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Buchungsart kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Buchungsart kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

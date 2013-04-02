@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import com.itextpdf.text.BaseColor;
@@ -34,7 +35,6 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -68,11 +68,11 @@ public class BuchungAuswertungPDF
       String title = null;
       if (einzel)
       {
-        title = JVereinPlugin.getI18n().tr("Buchungsliste");
+        title = "Buchungsliste";
       }
       else
       {
-        title = JVereinPlugin.getI18n().tr("Summenliste");
+        title = "Summenliste";
       }
       Reporter reporter = new Reporter(fos, title, query.getSubtitle(),
           buchungsarten.size());
@@ -95,30 +95,24 @@ public class BuchungAuswertungPDF
           reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("", Element.ALIGN_LEFT);
-          reporter.addColumn(JVereinPlugin.getI18n().tr("Gesamtsumme"),
-              Element.ALIGN_LEFT);
+          reporter.addColumn("Gesamtsumme", Element.ALIGN_LEFT);
           reporter.addColumn(summe);
           reporter.closeTable();
         }
         else
         {
-          reporter.addColumn(JVereinPlugin.getI18n().tr("Summe Einnahmen"),
-              Element.ALIGN_LEFT);
+          reporter.addColumn("Summe Einnahmen", Element.ALIGN_LEFT);
           reporter.addColumn(summeeinnahmen);
-          reporter.addColumn(JVereinPlugin.getI18n().tr("Summe Ausgaben"),
-              Element.ALIGN_LEFT);
+          reporter.addColumn("Summe Ausgaben", Element.ALIGN_LEFT);
           reporter.addColumn(summeausgaben);
-          reporter.addColumn(JVereinPlugin.getI18n().tr("Summe Umbuchungen"),
-              Element.ALIGN_LEFT);
+          reporter.addColumn("Summe Umbuchungen", Element.ALIGN_LEFT);
           reporter.addColumn(summeumbuchungen);
-          reporter.addColumn(JVereinPlugin.getI18n().tr("Saldo"),
-              Element.ALIGN_LEFT);
+          reporter.addColumn("Saldo", Element.ALIGN_LEFT);
           reporter.addColumn(summeeinnahmen + summeausgaben + summeumbuchungen);
         }
 
       }
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Auswertung fertig."));
+      GUI.getStatusBar().setSuccessText("Auswertung fertig.");
 
       reporter.close();
       fos.close();
@@ -144,33 +138,33 @@ public class BuchungAuswertungPDF
     {
       e.printStackTrace();
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException("Fehler", e);
     }
     catch (FileNotFoundException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException("Fehler", e);
     }
     catch (IOException e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException("Fehler", e);
     }
   }
 
   private void createTableHeaderEinzel(Reporter reporter)
       throws DocumentException
   {
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-        Element.ALIGN_CENTER, 40, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Auszug"),
-        Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
-        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsgrund"),
-        Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Datum", Element.ALIGN_CENTER, 40,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Auszug", Element.ALIGN_CENTER, 20,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Zahlungsgrund", Element.ALIGN_CENTER, 100,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
     reporter.createHeader();
 
   }
@@ -178,10 +172,10 @@ public class BuchungAuswertungPDF
   private void createTableHeaderSumme(Reporter reporter)
       throws DocumentException
   {
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-        Element.ALIGN_CENTER, 200, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Buchungsart", Element.ALIGN_CENTER, 200,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 60,
+        BaseColor.LIGHT_GRAY);
     reporter.createHeader();
   }
 
@@ -255,8 +249,7 @@ public class BuchungAuswertungPDF
       {
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn(JVereinPlugin.getI18n().tr("keine Buchung"),
-            Element.ALIGN_LEFT);
+        reporter.addColumn("keine Buchung", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
       }
@@ -266,7 +259,7 @@ public class BuchungAuswertungPDF
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn(
-            JVereinPlugin.getI18n().tr("Summe {0}", bua.getBezeichnung()),
+            MessageFormat.format("Summe {0}", bua.getBezeichnung()),
             Element.ALIGN_LEFT);
         summe += buchungsartSumme;
         reporter.addColumn(buchungsartSumme);

@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.view;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BeitragsgruppeControl;
@@ -45,36 +44,27 @@ public class BeitragsgruppeDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppe"));
+    GUI.getView().setTitle("Beitragsgruppe");
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Beitrag"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsart"),
-        control.getBeitragsArt());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Buchungsart"),
-        control.getBuchungsart());
+    LabelGroup group = new LabelGroup(getParent(), "Beitrag");
+    group.addLabelPair("Bezeichnung", control.getBezeichnung(true));
+    group.addLabelPair("Betrag", control.getBetrag());
+    group.addLabelPair("Beitragsart", control.getBeitragsArt());
+    group.addLabelPair("Buchungsart", control.getBuchungsart());
 
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
-      LabelGroup groupAe = new LabelGroup(getParent(), JVereinPlugin.getI18n()
-          .tr("Arbeitseinsatz"));
-      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Stunden"),
-          control.getArbeitseinsatzStunden());
-      groupAe.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-          control.getArbeitseinsatzBetrag());
+      LabelGroup groupAe = new LabelGroup(getParent(), "Arbeitseinsatz");
+      groupAe.addLabelPair("Stunden", control.getArbeitseinsatzStunden());
+      groupAe.addLabelPair("Betrag", control.getArbeitseinsatzBetrag());
     }
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.BEITRAGSGRUPPEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
-        new BeitragsgruppeSucheAction(), null, false, "system-search.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
+    buttons.addButton("suche", new BeitragsgruppeSucheAction(), null, false,
+        "system-search.png");
+    buttons.addButton("speichern", new Action()
     {
       @Override
       public void handleAction(Object context)
@@ -88,14 +78,12 @@ public class BeitragsgruppeDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
-            + "<p>Die Bezeichung und die Höhe des Beitrages sind zu erfassen.</p>"
-            + "<p>Durch die Kennzeichnung als Familientarif können einem Mitglied Familienmitglieder "
-            + "zugeordnet werden. Dabei ist zubeachten, dass nur dem zahlenden Mitglied ein "
-            + "Beitrag berechnet wird, die Angehörigen sind beitragsbefreit.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
+        + "<p>Die Bezeichung und die Höhe des Beitrages sind zu erfassen.</p>"
+        + "<p>Durch die Kennzeichnung als Familientarif können einem Mitglied Familienmitglieder "
+        + "zugeordnet werden. Dabei ist zubeachten, dass nur dem zahlenden Mitglied ein "
+        + "Beitrag berechnet wird, die Angehörigen sind beitragsbefreit.</p>"
+        + "</form>";
   }
 
   @Override

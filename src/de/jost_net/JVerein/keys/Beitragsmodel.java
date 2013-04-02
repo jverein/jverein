@@ -23,8 +23,6 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Abrechnungsausgabe
  */
@@ -56,11 +54,9 @@ public class Beitragsmodel
     switch (key)
     {
       case GLEICHERTERMINFUERALLE:
-        return JVereinPlugin.getI18n().tr("Gleicher Termin für alle");
+        return "Gleicher Termin für alle";
       case MONATLICH12631:
-        return JVereinPlugin
-            .getI18n()
-            .tr("monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise");
+        return "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise";
       default:
         return null;
     }

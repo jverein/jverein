@@ -22,9 +22,9 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -50,8 +50,7 @@ public class BeitragsgruppeDeleteAction implements Action
     }
     if (context == null || !(context instanceof Beitragsgruppe))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Beitragsgruppe ausgewählt"));
+      throw new ApplicationException("Keine Beitragsgruppe ausgewählt");
     }
     try
     {
@@ -66,15 +65,14 @@ public class BeitragsgruppeDeleteAction implements Action
       if (mitgl.size() > 0)
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr("Beitragsgruppe \"{0}\" kann nicht gelöscht werden. {1} Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
-                    new String[] { bg.getBezeichnung(), mitgl.size() + "" }));
+            MessageFormat
+                .format(
+                    "Beitragsgruppe \"{0}\" kann nicht gelöscht werden. {1} Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
+                    new Object[] { bg.getBezeichnung(), mitgl.size() + "" }));
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Beitragsgruppe löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Beitragsgruppe wirklich löschen?"));
+      d.setTitle("Beitragsgruppe löschen");
+      d.setText("Wollen Sie diese Beitragsgruppe wirklich löschen?");
 
       try
       {
@@ -86,19 +84,17 @@ public class BeitragsgruppeDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr(
+        Logger.error(MessageFormat.format(
             "Fehler beim Löschen der Beitragsgruppe: [0}",
-            new String[] { e.getMessage() }));
+            new Object[] { e.getMessage() }));
         return;
       }
       bg.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Beitragsgruppe gelöscht."));
+      GUI.getStatusBar().setSuccessText("Beitragsgruppe gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Beitragsgruppe");
+      String fehler = "Fehler beim Löschen der Beitragsgruppe";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }
