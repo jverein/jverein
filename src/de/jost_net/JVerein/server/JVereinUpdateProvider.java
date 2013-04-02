@@ -6217,7 +6217,7 @@ public class JVereinUpdateProvider
     sb = new StringBuilder();
     sb.append("CREATE INDEX IXBANK1 ON bank (bic)");
     statements.put(DBSupportH2Impl.class.getName(), sb.toString());
-    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+    // statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
     execute(conn, statements, "Index in Tabelle bank erstellt", 253);
   }
 
@@ -6253,7 +6253,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     sb = new StringBuilder();
     sb.append("CREATE TABLE sepaparam(");
-    sb.append(" id INTEGER CHAR(3), ");
+    sb.append(" id CHAR(3), ");
     sb.append(" bezeichnung varchar(20) not null,");
     sb.append(" bankidentifierlength integer not null,");
     sb.append(" accountlength integer not null,");
