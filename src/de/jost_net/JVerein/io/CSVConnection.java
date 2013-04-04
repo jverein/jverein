@@ -32,8 +32,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * This class handles the connection to a csv db file.
  * 
@@ -72,8 +70,7 @@ public class CSVConnection
       }
       catch (SQLException e)
       {
-        throw new SQLException(JVereinPlugin.getI18n().tr(
-            "Konnte Result nicht ordentlich schliessen."));
+        throw new SQLException("Konnte Result nicht ordentlich schliessen.");
       }
     }
 
@@ -86,8 +83,7 @@ public class CSVConnection
       }
       catch (SQLException e)
       {
-        throw new SQLException(JVereinPlugin.getI18n().tr(
-            "Konnte Statement nicht ordentlich schliessen."));
+        throw new SQLException("Konnte Statement nicht ordentlich schliessen.");
       }
     }
 
@@ -100,8 +96,8 @@ public class CSVConnection
       }
       catch (SQLException e)
       {
-        throw new SQLException(JVereinPlugin.getI18n().tr(
-            "Konnte Verbindung zur DB nicht ordentlich schliessen."));
+        throw new SQLException(
+            "Konnte Verbindung zur DB nicht ordentlich schliessen.");
       }
     }
   }
@@ -131,8 +127,7 @@ public class CSVConnection
     }
     catch (SQLException e)
     {
-      throw new SQLException(JVereinPlugin.getI18n().tr(
-          "Fehler beim lesen der Import Datei"));
+      throw new SQLException("Fehler beim lesen der Import Datei");
     }
     return importColumnList;
   }
@@ -201,9 +196,7 @@ public class CSVConnection
     {
       e.printStackTrace();
       throw new SQLException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Konnte Anzahl Daten nicht ermitteln - Häufiger Grund eine Leerstelle vor/nach einen Semikolon, siehe Stacktrace wegen der Zeile"));
+          "Konnte Anzahl Daten nicht ermitteln - Häufiger Grund eine Leerstelle vor/nach einen Semikolon, siehe Stacktrace wegen der Zeile");
     }
     return result;
   }

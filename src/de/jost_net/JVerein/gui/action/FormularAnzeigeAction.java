@@ -30,7 +30,6 @@ import java.util.Map;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
@@ -59,8 +58,7 @@ public class FormularAnzeigeAction implements Action
     }
     else
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Formular zur Anzeige ausgewählt"));
+      throw new ApplicationException("Kein Formular zur Anzeige ausgewählt");
     }
     try
     {
@@ -107,8 +105,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.TAGESDATUM,
           new JVDateFormatTTMMJJJJ().format(new Date()));
 
-      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
-          .getDBService().createObject(Spendenbescheinigung.class, null);
+      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
+          Spendenbescheinigung.class, null);
       map = spb.getMap(map);
       map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "15.12.2008");
       map.put("Buchungsdatum", new Date());
@@ -124,40 +122,31 @@ public class FormularAnzeigeAction implements Action
       final int colArtLen = 27;
       final int colVerzichtLen = 17;
       final int colBetragLen = 11;
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "), colDatumLen));
+      bl.append(StringTool.rpad(" ", colDatumLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "), colArtLen));
+      bl.append(StringTool.rpad(" ", colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Verzicht auf"),
-          colVerzichtLen));
-      bl.append("  ");
-      bl.append(StringTool.rpad(" ", colBetragLen));
-      bl.append(newLineStr);
-
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Datum der "),
-          colDatumLen));
-      bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Art der"),
-          colArtLen));
-      bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("die Erstattung"),
-          colVerzichtLen));
+      bl.append(StringTool.rpad("Verzicht auf", colVerzichtLen));
       bl.append("  ");
       bl.append(StringTool.rpad(" ", colBetragLen));
       bl.append(newLineStr);
 
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
-          colDatumLen));
+      bl.append(StringTool.rpad("Datum der ", colDatumLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
-          colArtLen));
+      bl.append(StringTool.rpad("Art der", colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("von Aufwendungen"),
-          colVerzichtLen));
+      bl.append(StringTool.rpad("die Erstattung", colVerzichtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(
-          StringTool.lpad(JVereinPlugin.getI18n().tr("Betrag"), 8),
-          colBetragLen));
+      bl.append(StringTool.rpad(" ", colBetragLen));
+      bl.append(newLineStr);
+
+      bl.append(StringTool.rpad("Zuwendung", colDatumLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad("Zuwendung", colArtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad("von Aufwendungen", colVerzichtLen));
+      bl.append("  ");
+      bl.append(StringTool.rpad(StringTool.lpad("Betrag", 8), colBetragLen));
       bl.append(newLineStr);
 
       bl.append(StringTool.rpad("-", colDatumLen, "-"));
@@ -201,8 +190,8 @@ public class FormularAnzeigeAction implements Action
       bl.append(StringTool.rpad("-", colBetragLen, "-"));
       bl.append(newLineStr);
 
-      bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Gesamtsumme:"),
-          colDatumLen + 2 + colArtLen + 2 + colVerzichtLen));
+      bl.append(StringTool.rpad("Gesamtsumme:", colDatumLen + 2 + colArtLen + 2
+          + colVerzichtLen));
       bl.append("  ");
       str = Einstellungen.DECIMALFORMAT.format(15.0 + 1234.96);
       bl.append(StringTool.lpad(str, colBetragLen));
@@ -240,8 +229,8 @@ public class FormularAnzeigeAction implements Action
       ist.add(5d);
       differenz.add(-5d);
       // Summe
-      zg1.add(JVereinPlugin.getI18n().tr("Summe"));
-      zg.add(JVereinPlugin.getI18n().tr("Summe"));
+      zg1.add("Summe");
+      zg.add("Summe");
       betrag.add(160.1d);
       differenz.add(155.1d);
       ist.add(5d);

@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
 import de.jost_net.JVerein.gui.action.EinstellungenAction;
 import de.willuhn.jameica.gui.GUI;
@@ -71,7 +70,7 @@ public class FirstStart extends AbstractBox
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("JVerein: Erste Schritte");
+    return "JVerein: Erste Schritte";
   }
 
   @Override
@@ -124,8 +123,7 @@ public class FirstStart extends AbstractBox
       title.setBackground(bg);
       title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
       title.setFont(Font.H2.getSWTFont());
-      title.setText(JVereinPlugin.getI18n().tr(
-          "JVerein wird zum ersten Mal gestartet."));
+      title.setText("JVerein wird zum ersten Mal gestartet.");
     }
 
     // Text
@@ -133,18 +131,14 @@ public class FirstStart extends AbstractBox
       Label desc = new Label(comp, SWT.WRAP);
       desc.setBackground(bg);
       desc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-      desc.setText(JVereinPlugin
-          .getI18n()
-          .tr("Die allgemeinen Daten des Vereins "
-              + "(Name, eigene Bankverbindung) sowie Parameter zur Steuerung des Verhaltens von JVerein "
-              + "sind in den Einstellungen zu erfassen. Außerdem müssen Beitragsgruppen erfasst werden. "));
+      desc.setText("Die allgemeinen Daten des Vereins "
+          + "(Name, eigene Bankverbindung) sowie Parameter zur Steuerung des Verhaltens von JVerein "
+          + "sind in den Einstellungen zu erfassen. Außerdem müssen Beitragsgruppen erfasst werden. ");
     }
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Einstellungen"),
-        new EinstellungenAction(), null);
-    buttons.addButton(JVereinPlugin.getI18n().tr("Beitragsgruppen"),
-        new BeitragsgruppeSucheAction(), null);
+    buttons.addButton("Einstellungen", new EinstellungenAction(), null);
+    buttons.addButton("Beitragsgruppen", new BeitragsgruppeSucheAction(), null);
     buttons.paint(parent);
   }
 

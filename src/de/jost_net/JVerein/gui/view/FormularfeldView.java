@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.rmi.Formularfeld;
@@ -37,28 +36,26 @@ public class FormularfeldView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Formularfeld"));
+    GUI.getView().setTitle("Formularfeld");
     Formularfeld ff = (Formularfeld) getCurrentObject();
 
     final FormularfeldControl control = new FormularfeldControl(this,
         ff.getFormular());
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Formularfeld"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"), control.getName());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Seite"), control.getSeite());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("von links"), control.getX());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("von unten"), control.getY());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Font"), control.getFont());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Font-Höhe"),
-        control.getFontsize());
+    LabelGroup group = new LabelGroup(getParent(), "Formularfeld");
+    group.addLabelPair("Name", control.getName());
+    group.addLabelPair("Seite", control.getSeite());
+    group.addLabelPair("von links", control.getX());
+    group.addLabelPair("von unten", control.getY());
+    group.addLabelPair("Font", control.getFont());
+    group.addLabelPair("Font-Höhe", control.getFontsize());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.FORMULARE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.FORMULARE, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -71,12 +68,10 @@ public class FormularfeldView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Formularfeld</span></p>"
-            + "<p>Je nach Formulartyp können unterschiedliche Formularfelder ausgewählt werden. "
-            + "Jedem Formulartyp ist eine Koordinate mitzugeben. Dabei handelt es sich um die "
-            + "Position von links und von unten in Millimetern. Zusätzlich sind der Zeichensatz "
-            + "und die Höhe des Zeichens anzugeben.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Formularfeld</span></p>"
+        + "<p>Je nach Formulartyp können unterschiedliche Formularfelder ausgewählt werden. "
+        + "Jedem Formulartyp ist eine Koordinate mitzugeben. Dabei handelt es sich um die "
+        + "Position von links und von unten in Millimetern. Zusätzlich sind der Zeichensatz "
+        + "und die Höhe des Zeichens anzugeben.</p></form>";
   }
 }

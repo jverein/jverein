@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Formularart
  */
 public class Formularart
 {
+
   public static final int SPENDENBESCHEINIGUNG = 1;
 
   public static final int RECHNUNG = 2;
@@ -62,15 +61,15 @@ public class Formularart
     switch (key)
     {
       case SPENDENBESCHEINIGUNG:
-        return JVereinPlugin.getI18n().tr("Spendenbescheinigung");
+        return "Spendenbescheinigung";
       case RECHNUNG:
-        return JVereinPlugin.getI18n().tr("Rechnung");
+        return "Rechnung";
       case MAHNUNG:
-        return JVereinPlugin.getI18n().tr("Mahnung");
+        return "Mahnung";
       case FREIESFORMULAR:
-        return JVereinPlugin.getI18n().tr("Freies Formular");
+        return "Freies Formular";
       case SAMMELSPENDENBESCHEINIGUNG:
-        return JVereinPlugin.getI18n().tr("Sammelbestätigung");
+        return "Sammelbestätigung";
       default:
         return null;
     }

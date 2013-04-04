@@ -37,7 +37,6 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -69,7 +68,7 @@ public class FormularAufbereitung
    * Öffnet die Datei und startet die PDF-Generierung
    * 
    * @param f
-   *          Die Datei, in die geschrieben werden soll
+   *        Die Datei, in die geschrieben werden soll
    * @throws RemoteException
    */
   public FormularAufbereitung(final File f) throws RemoteException
@@ -86,11 +85,11 @@ public class FormularAufbereitung
     }
     catch (IOException e)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new RemoteException("Fehler", e);
     }
     catch (DocumentException e)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new RemoteException("Fehler", e);
     }
   }
 
@@ -112,7 +111,7 @@ public class FormularAufbereitung
         DBIterator it = Einstellungen.getDBService().createList(
             Formularfeld.class);
         it.addFilter("formular = ? and seite = ?",
-            new Object[] { formular.getID(), i });
+            new Object[] { formular.getID(), i});
         while (it.hasNext())
         {
           Formularfeld f = (Formularfeld) it.next();
@@ -122,11 +121,11 @@ public class FormularAufbereitung
     }
     catch (IOException e)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new RemoteException("Fehler", e);
     }
     catch (DocumentException e)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new RemoteException("Fehler", e);
     }
   }
 
@@ -153,6 +152,7 @@ public class FormularAufbereitung
     closeFormular();
     GUI.getDisplay().asyncExec(new Runnable()
     {
+
       @Override
       public void run()
       {

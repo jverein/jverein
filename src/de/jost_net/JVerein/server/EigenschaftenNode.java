@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Eigenschaften;
@@ -113,7 +112,7 @@ public class EigenschaftenNode implements GenericObjectNode
     nodetype = EIGENSCHAFTGRUPPE;
     DBIterator it = Einstellungen.getDBService().createList(Eigenschaft.class);
     it.addFilter("eigenschaftgruppe = ?",
-        new Object[] { eigenschaftgruppe.getID() });
+        new Object[] { eigenschaftgruppe.getID()});
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
@@ -124,7 +123,7 @@ public class EigenschaftenNode implements GenericObjectNode
         DBIterator it2 = Einstellungen.getDBService().createList(
             Eigenschaften.class);
         it2.addFilter("mitglied = ? AND eigenschaft = ?", new Object[] {
-            mitglied.getID(), eigenschaft.getID() });
+            mitglied.getID(), eigenschaft.getID()});
         if (it2.hasNext())
         {
           eigenschaften = (Eigenschaften) it2.next();
@@ -157,8 +156,7 @@ public class EigenschaftenNode implements GenericObjectNode
     {
       return null;
     }
-    return PseudoIterator.fromArray(childrens
-        .toArray(new GenericObject[childrens.size()]));
+    return PseudoIterator.fromArray(childrens.toArray(new GenericObject[childrens.size()]));
   }
 
   public boolean removeChild(GenericObjectNode child)
@@ -203,7 +201,7 @@ public class EigenschaftenNode implements GenericObjectNode
     {
       case ROOT:
       {
-        return JVereinPlugin.getI18n().tr("Eigenschaften");
+        return "Eigenschaften";
       }
       case EIGENSCHAFTGRUPPE:
       {

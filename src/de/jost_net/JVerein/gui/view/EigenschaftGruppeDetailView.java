@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeListeAction;
 import de.jost_net.JVerein.gui.control.EigenschaftGruppeControl;
@@ -37,27 +36,23 @@ public class EigenschaftGruppeDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften-Gruppe"));
+    GUI.getView().setTitle("Eigenschaften-Gruppe");
 
     final EigenschaftGruppeControl control = new EigenschaftGruppeControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Eigenschaften-Gruppe"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Pflicht"),
-        control.getPflicht());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Maximal 1 Eigenschaft"),
-        control.getMax1());
+    LabelGroup group = new LabelGroup(getParent(), "Eigenschaften-Gruppe");
+    group.addLabelPair("Bezeichnung", control.getBezeichnung());
+    group.addLabelPair("Pflicht", control.getPflicht());
+    group.addLabelPair("Maximal 1 Eigenschaft", control.getMax1());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.EIGENSCHAFTGRUPPE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("suche"),
-        new EigenschaftGruppeListeAction(), null, false, "system-search.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.EIGENSCHAFTGRUPPE, false, "help-browser.png");
+    buttons.addButton("suche", new EigenschaftGruppeListeAction(), null, false,
+        "system-search.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -70,9 +65,7 @@ public class EigenschaftGruppeDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppen</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften Gruppen</span></p>"
+        + "</form>";
   }
 }

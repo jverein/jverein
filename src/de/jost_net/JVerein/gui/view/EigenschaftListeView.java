@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftDeleteAction;
 import de.jost_net.JVerein.gui.action.EigenschaftDetailAction;
@@ -36,29 +35,26 @@ public class EigenschaftListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften"));
+    GUI.getView().setTitle("Eigenschaften");
 
     EigenschaftControl control = new EigenschaftControl(this);
 
     control.getEigenschaftList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.EIGENSCHAFT, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
-        new EigenschaftDeleteAction(), control.getEigenschaftList(), false,
-        "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new EigenschaftDetailAction(true), null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.EIGENSCHAFT, false, "help-browser.png");
+    buttons.addButton("löschen", new EigenschaftDeleteAction(),
+        control.getEigenschaftList(), false, "user-trash.png");
+    buttons.addButton("neu", new EigenschaftDetailAction(true), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Eigenschaften</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Eigenschaften</span></p>"
+        + "</form>";
   }
 }

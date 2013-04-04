@@ -25,7 +25,6 @@ import java.rmi.RemoteException;
 
 import org.eclipse.swt.SWT;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
 {
+
   private static final long serialVersionUID = -5754574029501014426L;
 
   public FormularfeldImpl() throws RemoteException
@@ -66,14 +66,12 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     {
       if (getName() == null || getName().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Namen eingeben"));
+        throw new ApplicationException("Bitte Namen eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Formularfeld kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Formularfeld kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

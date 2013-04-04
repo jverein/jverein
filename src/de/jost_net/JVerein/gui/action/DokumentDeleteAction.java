@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.AbstractDokument;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -39,6 +38,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class DokumentDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -49,8 +49,7 @@ public class DokumentDeleteAction implements Action
     }
     if (context == null || !(context instanceof AbstractDokument))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Dokument ausgewählt"));
+      throw new ApplicationException("Kein Dokument ausgewählt");
     }
     try
     {
@@ -60,7 +59,7 @@ public class DokumentDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Dokument löschen"));
+      d.setTitle("Dokument löschen");
       d.setText("Wollen Sie dieses Dokument wirklich löschen?");
 
       try
@@ -71,23 +70,20 @@ public class DokumentDeleteAction implements Action
           return;
         }
         QueryMessage qm = new QueryMessage(ad.getUUID(), null);
-        Application.getMessagingFactory()
-            .getMessagingQueue("jameica.messaging.del").sendSyncMessage(qm);
+        Application.getMessagingFactory().getMessagingQueue(
+            "jameica.messaging.del").sendSyncMessage(qm);
         ad.delete();
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen des Dokuments"), e);
+        Logger.error("Fehler beim Löschen des Dokuments", e);
         return;
       }
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Dokument gelöscht."));
+      GUI.getStatusBar().setSuccessText("Dokument gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Dokuments");
+      String fehler = "Fehler beim Löschen des Dokuments";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

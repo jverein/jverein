@@ -21,13 +21,11 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FamilienmitgliedEntfernenAction;
 import de.jost_net.JVerein.gui.control.FamilienbeitragNode;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
-import de.willuhn.util.I18N;
 
 /**
  * Kontext-Menu zu den Famlienbeiträgen.
@@ -35,11 +33,9 @@ import de.willuhn.util.I18N;
 public class FamilienbeitragMenu extends ContextMenu
 {
 
-  private final static I18N i18n = JVereinPlugin.getI18n();
-
   public FamilienbeitragMenu()
   {
-    addItem(new AngehoerigerItem(i18n.tr("Aus Familienverband entfernen"),
+    addItem(new AngehoerigerItem("Aus Familienverband entfernen",
         new FamilienmitgliedEntfernenAction(), "accessories-calculator.png"));
   }
 

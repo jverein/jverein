@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 public class EigenschaftenImpl extends AbstractDBObject implements
     Eigenschaften
 {
+
   private static final long serialVersionUID = -5906609226109964967L;
 
   public EigenschaftenImpl() throws RemoteException
@@ -66,14 +66,12 @@ public class EigenschaftenImpl extends AbstractDBObject implements
     {
       if (getEigenschaft() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Eigenschaft eingeben"));
+        throw new ApplicationException("Bitte Eigenschaft eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Eigenschaft kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Eigenschaft kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

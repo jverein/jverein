@@ -26,7 +26,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EinstellungControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -46,7 +45,7 @@ public class EinstellungenView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Einstellungen"));
+    GUI.getView().setTitle("Einstellungen");
 
     final EinstellungControl control = new EinstellungControl(this);
 
@@ -55,169 +54,123 @@ public class EinstellungenView extends AbstractView
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-    TabGroup tabAllgemein = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Allgemein"));
+    TabGroup tabAllgemein = new TabGroup(folder, "Allgemein");
     tabAllgemein.addHeadline("Allgemein");
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
-        control.getName(true));
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Langer Name"),
-        control.getNameLang());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Straße"),
-        control.getStrasse());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("PLZ"),
-        control.getPlz());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Ort"),
-        control.getOrt());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("BIC"),
-        control.getBic());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("IBAN"),
-        control.getIban());
+    tabAllgemein.addLabelPair("Name", control.getName(true));
+    tabAllgemein.addLabelPair("Langer Name", control.getNameLang());
+    tabAllgemein.addLabelPair("Straße", control.getStrasse());
+    tabAllgemein.addLabelPair("PLZ", control.getPlz());
+    tabAllgemein.addLabelPair("Ort", control.getOrt());
+    tabAllgemein.addLabelPair("BIC", control.getBic());
+    tabAllgemein.addLabelPair("IBAN", control.getIban());
     tabAllgemein.addPart(control.getButton());
-    tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Gläubiger-ID"),
-        control.getGlaeubigerID());
+    tabAllgemein.addLabelPair("Gläubiger-ID", control.getGlaeubigerID());
     // tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),
     // control.getBlz());
     // tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
     // control.getKonto());
 
-    TabGroup tabAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Anzeige"));
+    TabGroup tabAnzeige = new TabGroup(folder, "Anzeige");
 
-    LabelGroup group = new LabelGroup(tabAnzeige.getComposite(), JVereinPlugin
-        .getI18n().tr("Anzeige"));
+    LabelGroup group = new LabelGroup(tabAnzeige.getComposite(), "Anzeige");
     ColumnLayout cols1 = new ColumnLayout(group.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum Pflichtfeld"),
+    left.addLabelPair("Geburtsdatum Pflichtfeld",
         control.getGeburtsdatumPflicht());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum Pflichtfeld"),
+    left.addLabelPair("Eintrittsdatum Pflichtfeld",
         control.getEintrittsdatumPflicht());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Sterbedatum"),
-        control.getSterbedatum());
-    left.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Kommunikationsdaten anzeigen"), control.getKommunikationsdaten());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzbeträge anzeigen")
-        + "*", control.getZusatzbetrag());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Vermerke anzeigen"),
-        control.getVermerke());
-    left.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Wiedervorlage anzeigen" + "*"), control.getWiedervorlage());
-    left.addLabelPair(JVereinPlugin.getI18n().tr(
-        "Kursteilnehmer anzeigen" + "*"), control.getKursteilnehmer());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Lehrgänge anzeigen" + "*"),
-        control.getLehrgaenge());
-    left.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Juristische Personen erlaubt"), control.getJuristischePersonen());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedsfoto *"),
-        control.getMitgliedfoto());
+    left.addLabelPair("Sterbedatum", control.getSterbedatum());
+    left.addLabelPair("Kommunikationsdaten anzeigen",
+        control.getKommunikationsdaten());
+    left.addLabelPair("Zusatzbeträge anzeigen" + "*", control.getZusatzbetrag());
+    left.addLabelPair("Vermerke anzeigen", control.getVermerke());
+    left.addLabelPair("Wiedervorlage anzeigen" + "*",
+        control.getWiedervorlage());
+    left.addLabelPair("Kursteilnehmer anzeigen" + "*",
+        control.getKursteilnehmer());
+    left.addLabelPair("Lehrgänge anzeigen" + "*", control.getLehrgaenge());
+    left.addLabelPair("Juristische Personen erlaubt",
+        control.getJuristischePersonen());
+    left.addLabelPair("Mitgliedsfoto *", control.getMitgliedfoto());
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Lesefelder anzeigen *"),
-        control.getUseLesefelder());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("zusätzliche Adressen *"),
-        control.getZusatzadressen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Auslandsadressen *"),
-        control.getAuslandsadressen());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Arbeitseinsatz *"),
-        control.getArbeitseinsatz());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Dokumentenspeicherung *"),
+    right.addLabelPair("Lesefelder anzeigen *", control.getUseLesefelder());
+    right.addLabelPair("zusätzliche Adressen *", control.getZusatzadressen());
+    right.addLabelPair("Auslandsadressen *", control.getAuslandsadressen());
+    right.addLabelPair("Arbeitseinsatz *", control.getArbeitseinsatz());
+    right.addLabelPair("Dokumentenspeicherung *",
         control.getDokumentenspeicherung());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("individuelle Beiträge *"),
+    right.addLabelPair("individuelle Beiträge *",
         control.getIndividuelleBeitraege());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("externe Mitgliedsnummer"),
+    right.addLabelPair("externe Mitgliedsnummer",
         control.getExterneMitgliedsnummer());
-    right
-        .addLabelPair(
-            JVereinPlugin.getI18n().tr(
-                "Verzögerungszeit Suche (in Millisekunden)"),
-            control.getDelaytime());
-    right.addHeadline("* "
-        + JVereinPlugin.getI18n().tr("Änderung erfordert Neustart"));
+    right.addLabelPair("Verzögerungszeit Suche (in Millisekunden)",
+        control.getDelaytime());
+    right.addHeadline("* " + "Änderung erfordert Neustart");
 
-    TabGroup tabBeitraege = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Beiträge"));
+    TabGroup tabBeitraege = new TabGroup(folder, "Beiträge");
     LabelGroup groupAbu = new LabelGroup(tabBeitraege.getComposite(),
-        JVereinPlugin.getI18n().tr("Beiträge"));
-    groupAbu.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsmodel"),
-        control.getBeitragsmodel());
+        "Beiträge");
+    groupAbu.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
     groupAbu.addInput(control.getDtausTextschluessel());
     groupAbu.addInput(control.getDefaultSEPALand());
 
-    TabGroup tabDateinamen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Dateinamen"));
+    TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen");
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
-        JVereinPlugin.getI18n().tr("Dateinamenmuster"));
-    groupDatei.addLabelPair(JVereinPlugin.getI18n().tr("Auswertung"),
-        control.getDateinamenmuster());
-    groupDatei.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Spendenbescheinigungen"), control.getDateinamenmusterSpende());
+        "Dateinamenmuster");
+    groupDatei.addLabelPair("Auswertung", control.getDateinamenmuster());
+    groupDatei.addLabelPair("Spendenbescheinigungen",
+        control.getDateinamenmusterSpende());
 
-    TabGroup tabSpendenbescheinigung = new TabGroup(folder, JVereinPlugin
-        .getI18n().tr("Spendenbescheinigungen"));
+    TabGroup tabSpendenbescheinigung = new TabGroup(folder,
+        "Spendenbescheinigungen");
     LabelGroup groupSpenden = new LabelGroup(
-        tabSpendenbescheinigung.getComposite(), JVereinPlugin.getI18n().tr(
-            "Spendenbescheinigungen"));
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Finanzamt"),
-        control.getFinanzamt());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Steuernummer"),
-        control.getSteuernummer());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Bescheiddatum"),
-        control.getBescheiddatum());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n()
-        .tr("vorläufiger Bescheid"), control.getVorlaeufig());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Vorläufig ab"),
-        control.getVorlaeufigab());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("begünstigter Zweck"),
+        tabSpendenbescheinigung.getComposite(), "Spendenbescheinigungen");
+    groupSpenden.addLabelPair("Finanzamt", control.getFinanzamt());
+    groupSpenden.addLabelPair("Steuernummer", control.getSteuernummer());
+    groupSpenden.addLabelPair("Bescheiddatum", control.getBescheiddatum());
+    groupSpenden.addLabelPair("vorläufiger Bescheid", control.getVorlaeufig());
+    groupSpenden.addLabelPair("Vorläufig ab", control.getVorlaeufigab());
+    groupSpenden.addLabelPair("begünstigter Zweck",
         control.getBeguenstigterzweck());
-    groupSpenden.addLabelPair(
-        JVereinPlugin.getI18n().tr(
-            "Mitgliedsbeiträge dürfen bescheinigt werden"),
+    groupSpenden.addLabelPair("Mitgliedsbeiträge dürfen bescheinigt werden",
         control.getMitgliedsbetraege());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Mindestbetrag"),
+    groupSpenden.addLabelPair("Mindestbetrag",
         control.getSpendenbescheinigungminbetrag());
-    groupSpenden.addLabelPair(JVereinPlugin.getI18n().tr("Verzeichnis"),
+    groupSpenden.addLabelPair("Verzeichnis",
         control.getSpendenbescheinigungverzeichnis());
-    groupSpenden.addLabelPair(
-        JVereinPlugin.getI18n().tr("Buchungsart drucken"),
+    groupSpenden.addLabelPair("Buchungsart drucken",
         control.getSpendenbescheinigungPrintBuchungsart());
 
-    TabGroup tabBuchfuehrung = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Buchführung"));
+    TabGroup tabBuchfuehrung = new TabGroup(folder, "Buchführung");
     LabelGroup groupBuchfuehrung = new LabelGroup(
-        tabBuchfuehrung.getComposite(), JVereinPlugin.getI18n().tr(
-            "Buchführung"));
-    groupBuchfuehrung.addLabelPair(
-        JVereinPlugin.getI18n().tr("Beginn Geschäftsjahr (TT.MM.)"),
+        tabBuchfuehrung.getComposite(), "Buchführung");
+    groupBuchfuehrung.addLabelPair("Beginn Geschäftsjahr (TT.MM.)",
         control.getBeginnGeschaeftsjahr());
 
-    TabGroup tabRechnungen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Rechnungen"));
+    TabGroup tabRechnungen = new TabGroup(folder, "Rechnungen");
     LabelGroup groupRechnungen = new LabelGroup(tabRechnungen.getComposite(),
-        JVereinPlugin.getI18n().tr("Rechnungen"));
-    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Abbuchung"),
+        "Rechnungen");
+    groupRechnungen.addLabelPair("Text Abbuchung",
         control.getRechnungTextAbbuchung());
-    groupRechnungen.addLabelPair(
-        JVereinPlugin.getI18n().tr("Text Überweisung"),
+    groupRechnungen.addLabelPair("Text Überweisung",
         control.getRechnungTextUeberweisung());
-    groupRechnungen.addLabelPair(JVereinPlugin.getI18n().tr("Text Bar"),
-        control.getRechnungTextBar());
+    groupRechnungen.addLabelPair("Text Bar", control.getRechnungTextBar());
 
-    TabGroup tabTabellen = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Tabellen"));
+    TabGroup tabTabellen = new TabGroup(folder, "Tabellen");
 
     TabFolder folderTabellen = new TabFolder(tabTabellen.getComposite(),
         SWT.NONE);
 
-    TabGroup tabMitglieder = new TabGroup(folderTabellen, JVereinPlugin
-        .getI18n().tr("Mitglieder"));
+    TabGroup tabMitglieder = new TabGroup(folderTabellen, "Mitglieder");
     LabelGroup groupMitglieder = new LabelGroup(tabMitglieder.getComposite(),
-        JVereinPlugin.getI18n().tr("Trefferliste Mitglieder"));
+        "Trefferliste Mitglieder");
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
 
-    TabGroup tabMail = new TabGroup(folder, JVereinPlugin.getI18n().tr("Mail"));
-    LabelGroup groupMail = new LabelGroup(tabMail.getComposite(), JVereinPlugin
-        .getI18n().tr("Mail"));
+    TabGroup tabMail = new TabGroup(folder, "Mail");
+    LabelGroup groupMail = new LabelGroup(tabMail.getComposite(), "Mail");
     groupMail.addLabelPair("Server", control.getSmtpServer());
     groupMail.addLabelPair("Port", control.getSmtpPort());
     groupMail.addLabelPair("Benutzer", control.getSmtpAuthUser());
@@ -227,121 +180,100 @@ public class EinstellungenView extends AbstractView
     groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
     groupMail.addLabelPair("Starttls verwenden", control.getSmtpStarttls());
 
-    TabGroup tabStatistik = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Statistik"));
+    TabGroup tabStatistik = new TabGroup(folder, "Statistik");
     LabelGroup grStatistik = new LabelGroup(tabStatistik.getComposite(),
-        JVereinPlugin.getI18n().tr("Statistik"));
-    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersgruppen"),
-        control.getAltersgruppen());
-    grStatistik.addLabelPair(
-        JVereinPlugin.getI18n().tr("Mindestalter f. Mitgliedschaftsjubliäum"),
+        "Statistik");
+    grStatistik.addLabelPair("Altersgruppen", control.getAltersgruppen());
+    grStatistik.addLabelPair("Mindestalter f. Mitgliedschaftsjubliäum",
         control.getJubilarStartAlter());
-    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Jubiläen"),
-        control.getJubilaeen());
-    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Altersjubiläen"),
-        control.getAltersjubilaeen());
+    grStatistik.addLabelPair("Jubiläen", control.getJubilaeen());
+    grStatistik.addLabelPair("Altersjubiläen", control.getAltersjubilaeen());
 
-    TabGroup mitgliedAnzeige = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Mitglied"));
+    TabGroup mitgliedAnzeige = new TabGroup(folder, "Mitglied");
 
     LabelGroup groupSpaltenAnzahl = new LabelGroup(
-        mitgliedAnzeige.getComposite(), JVereinPlugin.getI18n().tr(
-            "Spaltenanzahl"));
+        mitgliedAnzeige.getComposite(), "Spaltenanzahl");
     ColumnLayout colsMitglied = new ColumnLayout(
         groupSpaltenAnzahl.getComposite(), 2);
     SimpleContainer leftMitglied = new SimpleContainer(
         colsMitglied.getComposite());
 
-    leftMitglied.addLabelPair(
-        JVereinPlugin.getI18n().tr("Anzahl Spalten Stammdaten"),
+    leftMitglied.addLabelPair("Anzahl Spalten Stammdaten",
         control.getAnzahlSpaltenStammdatenInput());
 
-    leftMitglied.addLabelPair(
-        JVereinPlugin.getI18n().tr("Anzahl Spalten Mitgliedschaft"),
+    leftMitglied.addLabelPair("Anzahl Spalten Mitgliedschaft",
         control.getAnzahlSpaltenMitgliedschaftInput());
 
-    leftMitglied.addLabelPair(
-        JVereinPlugin.getI18n().tr("Anzahl Spalten Zahlung"),
+    leftMitglied.addLabelPair("Anzahl Spalten Zahlung",
         control.getAnzahlSpaltenZahlungInput());
 
-    leftMitglied.addLabelPair(
-        JVereinPlugin.getI18n().tr("Anzahl Spalten Zusatzfelder"),
+    leftMitglied.addLabelPair("Anzahl Spalten Zusatzfelder",
         control.getAnzahlSpaltenZusatzfelderInput());
 
     if (Einstellungen.getEinstellung().getUseLesefelder())
-      leftMitglied.addLabelPair(
-          JVereinPlugin.getI18n().tr("Anzahl Spalten Lesefelder"),
+      leftMitglied.addLabelPair("Anzahl Spalten Lesefelder",
           control.getAnzahlSpaltenLesefelderInput());
 
     LabelGroup groupShowInTab = new LabelGroup(mitgliedAnzeige.getComposite(),
-        JVereinPlugin.getI18n().tr("In Tab anzeigen"));
+        "In Tab anzeigen");
     ColumnLayout colsTab = new ColumnLayout(groupShowInTab.getComposite(), 2);
     SimpleContainer leftTab = new SimpleContainer(colsTab.getComposite());
 
-    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Stammdaten in Tab"),
+    leftTab.addLabelPair("Zeige Stammdaten in Tab",
         control.getZeigeStammdatenInTabCheckbox());
 
-    leftTab.addLabelPair(
-        JVereinPlugin.getI18n().tr("Zeige Mitgliedschaft in Tab"),
+    leftTab.addLabelPair("Zeige Mitgliedschaft in Tab",
         control.getZeigeMitgliedschaftInTabCheckbox());
 
-    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Zahlung in Tab"),
+    leftTab.addLabelPair("Zeige Zahlung in Tab",
         control.getZeigeZahlungInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getZusatzbetrag())
-      leftTab.addLabelPair(
-          JVereinPlugin.getI18n().tr("Zeige Zusatzbeträge in Tab"),
+      leftTab.addLabelPair("Zeige Zusatzbeträge in Tab",
           control.getZeigeZusatzbetrageInTabCheckbox());
 
-    leftTab.addLabelPair(
-        JVereinPlugin.getI18n().tr("Zeige Mitgliedskonto in Tab"),
+    leftTab.addLabelPair("Zeige Mitgliedskonto in Tab",
         control.getZeigeMitgliedskontoInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getVermerke())
-      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Vermerke in Tab"),
+      leftTab.addLabelPair("Zeige Vermerke in Tab",
           control.getZeigeVermerkeInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getWiedervorlage())
-      leftTab.addLabelPair(
-          JVereinPlugin.getI18n().tr("Zeige Wiedervorlage in Tab"),
+      leftTab.addLabelPair("Zeige Wiedervorlage in Tab",
           control.getZeigeWiedervorlageInTabCheckbox());
 
-    leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Mails in Tab"),
+    leftTab.addLabelPair("Zeige Mails in Tab",
         control.getZeigeMailsInTabCheckbox());
 
-    leftTab.addLabelPair(
-        JVereinPlugin.getI18n().tr("Zeige Eigenschaften in Tab"),
+    leftTab.addLabelPair("Zeige Eigenschaften in Tab",
         control.getZeigeEigenschaftenInTabCheckbox());
 
-    leftTab.addLabelPair(JVereinPlugin.getI18n()
-        .tr("Zeige Zusatzfelder in Tab"), control
-        .getZeigeZusatzfelderInTabCheckbox());
+    leftTab.addLabelPair("Zeige Zusatzfelder in Tab",
+        control.getZeigeZusatzfelderInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getLehrgaenge())
-      leftTab.addLabelPair(
-          JVereinPlugin.getI18n().tr("Zeige Lehrgänge in Tab"),
+      leftTab.addLabelPair("Zeige Lehrgänge in Tab",
           control.getZeigeLehrgaengeInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getMitgliedfoto())
-      leftTab.addLabelPair(JVereinPlugin.getI18n().tr("Zeige Foto in Tab"),
+      leftTab.addLabelPair("Zeige Foto in Tab",
           control.getZeigeFotoInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getUseLesefelder())
-      leftTab.addLabelPair(JVereinPlugin.getI18n()
-          .tr("Zeige Lesefelder in Tab"), control
-          .getZeigeLesefelderInTabCheckbox());
+      leftTab.addLabelPair("Zeige Lesefelder in Tab",
+          control.getZeigeLesefelderInTabCheckbox());
 
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
-      leftTab.addLabelPair(
-          JVereinPlugin.getI18n().tr("Zeige Arbeitseinsatz in Tab"),
+      leftTab.addLabelPair("Zeige Arbeitseinsatz in Tab",
           control.getZeigeArbeitseinsatzInTabCheckbox());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.EINSTELLUNGEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -354,17 +286,15 @@ public class EinstellungenView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
-            + "<p>Anzeige: In diesem Bereich kann gesteuert werden, welche Datenfelder "
-            + "angezeigt werden.</p>"
-            + "Beitragsmodell:"
-            + "<li>jährlich fester Beitrag</li>"
-            + "<li>halbjährlich fester Beitrag</li>"
-            + "<li>vierteljährlich fester Beitrag</li>"
-            + "<li>monatlich fester Beitrag</li>"
-            + "<li>Monatlicher Beitrag mit jährlicher, halbjährlicher, vierteljährlicher oder monatlicher Zahlungsweise.</li>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
+        + "<p>Anzeige: In diesem Bereich kann gesteuert werden, welche Datenfelder "
+        + "angezeigt werden.</p>"
+        + "Beitragsmodell:"
+        + "<li>jährlich fester Beitrag</li>"
+        + "<li>halbjährlich fester Beitrag</li>"
+        + "<li>vierteljährlich fester Beitrag</li>"
+        + "<li>monatlich fester Beitrag</li>"
+        + "<li>Monatlicher Beitrag mit jährlicher, halbjährlicher, vierteljährlicher oder monatlicher Zahlungsweise.</li>"
+        + "</form>";
   }
 }

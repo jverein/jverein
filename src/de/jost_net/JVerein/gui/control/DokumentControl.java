@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.menu.DokumentMenu;
 import de.jost_net.JVerein.gui.view.DokumentView;
 import de.jost_net.JVerein.rmi.AbstractDokument;
@@ -58,6 +57,7 @@ import de.willuhn.util.ApplicationException;
 
 public class DokumentControl extends AbstractControl
 {
+
   private AbstractDokument doc;
 
   private DateInput datum = null;
@@ -88,8 +88,7 @@ public class DokumentControl extends AbstractControl
     doc = (AbstractDokument) getCurrentObject();
     if (doc == null)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr(
-          "Programmfehler! Dokument fehlt"));
+      throw new RemoteException("Programmfehler! Dokument fehlt");
     }
     return doc;
   }
@@ -106,10 +105,11 @@ public class DokumentControl extends AbstractControl
       d = new Date();
     }
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle(JVereinPlugin.getI18n().tr("Datum"));
-    this.datum.setText(JVereinPlugin.getI18n().tr("Bitte Datum wählen"));
+    this.datum.setTitle("Datum");
+    this.datum.setText("Bitte Datum wählen");
     this.datum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -133,7 +133,7 @@ public class DokumentControl extends AbstractControl
     return bemerkung;
   }
 
-  public FileInput getDatei() throws RemoteException
+  public FileInput getDatei()
   {
     if (datei != null)
     {
@@ -147,6 +147,7 @@ public class DokumentControl extends AbstractControl
   {
     neuButton = new Button("neu", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -159,22 +160,15 @@ public class DokumentControl extends AbstractControl
 
   public Button getSpeichernButton(final String verzeichnis)
   {
-    speichernButton = new Button(JVereinPlugin.getI18n().tr("Speichern"),
-        new Action()
-        {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            try
-            {
-              speichern(verzeichnis);
-            }
-            catch (RemoteException e)
-            {
-              throw new ApplicationException(e);
-            }
-          }
-        }, null, true, "document-save.png");
+    speichernButton = new Button("Speichern", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        speichern(verzeichnis);
+      }
+    }, null, true, "document-save.png");
     return speichernButton;
   }
 
@@ -184,34 +178,31 @@ public class DokumentControl extends AbstractControl
    * @throws RemoteException
    * @throws ApplicationException
    */
-  private void speichern(String verzeichnis) throws RemoteException,
-      ApplicationException
+  private void speichern(String verzeichnis) throws ApplicationException
   {
     try
     {
       File file = new File((String) datei.getValue());
       if (file.isDirectory())
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Verzeichnisse können nicht gespeichert werden."));
+        throw new ApplicationException(
+            "Verzeichnisse können nicht gespeichert werden.");
       }
       if (!file.exists())
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Datei existiert nicht"));
+        throw new ApplicationException("Datei existiert nicht");
       }
       FileInputStream fis = new FileInputStream(file);
       if (fis.available() <= 0)
       {
         fis.close();
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Datei ist leer"));
+        throw new ApplicationException("Datei ist leer");
       }
       // Dokument speichern
       String locverz = verzeichnis + doc.getReferenz();
       QueryMessage qm = new QueryMessage(locverz, fis);
-      Application.getMessagingFactory()
-          .getMessagingQueue("jameica.messaging.put").sendSyncMessage(qm);
+      Application.getMessagingFactory().getMessagingQueue(
+          "jameica.messaging.put").sendSyncMessage(qm);
       // Satz in die DB schreiben
       doc.setBemerkung((String) getBemerkung().getValue());
       String uuid = qm.getData().toString();
@@ -222,21 +213,18 @@ public class DokumentControl extends AbstractControl
       Map<String, String> map = new HashMap<String, String>();
       map.put("filename", file.getName());
       qm = new QueryMessage(uuid, map);
-      Application.getMessagingFactory()
-          .getMessagingQueue("jameica.messaging.putmeta").sendMessage(qm);
+      Application.getMessagingFactory().getMessagingQueue(
+          "jameica.messaging.putmeta").sendMessage(qm);
       speichernButton.setEnabled(false);
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Dokument gespeichert"));
+      GUI.getStatusBar().setSuccessText("Dokument gespeichert");
     }
     catch (FileNotFoundException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Datei existiert nicht"));
+      throw new ApplicationException("Datei existiert nicht");
     }
     catch (IOException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Allgemeiner Ein-/Ausgabe-Fehler"));
+      throw new ApplicationException("Allgemeiner Ein-/Ausgabe-Fehler");
     }
   }
 
@@ -244,13 +232,13 @@ public class DokumentControl extends AbstractControl
   {
     DBService service = Einstellungen.getDBService();
     DBIterator docs = service.createList(doc.getClass());
-    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz() });
+    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz()});
     docs.setOrder("ORDER BY datum desc");
 
     docsList = new TablePart(docs, null /* new KontoAction() */);
-    docsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    docsList.addColumn(JVereinPlugin.getI18n().tr("Bemerkung"), "bemerkung");
+    docsList.addColumn("Datum", "datum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    docsList.addColumn("Bemerkung", "bemerkung");
     docsList.setRememberColWidths(true);
     docsList.setContextMenu(new DokumentMenu(enabled));
     docsList.setRememberOrder(true);
@@ -262,7 +250,7 @@ public class DokumentControl extends AbstractControl
   {
     docsList.removeAll();
     DBIterator docs = Einstellungen.getDBService().createList(doc.getClass());
-    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz() });
+    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz()});
     docs.setOrder("ORDER BY datum desc");
     while (docs.hasNext())
     {

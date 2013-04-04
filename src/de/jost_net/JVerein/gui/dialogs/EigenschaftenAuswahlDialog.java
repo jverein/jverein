@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.willuhn.jameica.gui.Action;
@@ -55,14 +54,14 @@ public class EigenschaftenAuswahlDialog extends
    * Eigenschaften oder Eigenschaftengruppen auswählen
    * 
    * @param defaults
-   *          Liste der Eigenschaften-IDs durch Komma separiert.
+   *        Liste der Eigenschaften-IDs durch Komma separiert.
    */
   public EigenschaftenAuswahlDialog(String defaults, boolean ohnePflicht)
   {
     super(EigenschaftenAuswahlDialog.POSITION_CENTER);
     this.setSize(400, 400);
     this.ohnePflicht = ohnePflicht;
-    setTitle(JVereinPlugin.getI18n().tr("Eigenschaften auswählen "));
+    setTitle("Eigenschaften auswählen ");
     control = new MitgliedControl(null);
     this.setDefaults(defaults);
   }
@@ -83,14 +82,14 @@ public class EigenschaftenAuswahlDialog extends
     final TreePart tree = control.getEigenschaftenAuswahlTree(this.defaults,
         ohnePflicht);
 
-    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Eigenschaften"), true);
+    LabelGroup group = new LabelGroup(parent, "Eigenschaften", true);
 
     group.addPart(tree);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
+    buttons.addButton(i18n.tr("OK"), new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -109,7 +108,7 @@ public class EigenschaftenAuswahlDialog extends
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
         close();
       }

@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -31,6 +30,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularImpl extends AbstractDBObject implements Formular
 {
+
   private static final long serialVersionUID = 1603994510932244220L;
 
   public FormularImpl() throws RemoteException
@@ -63,13 +63,12 @@ public class FormularImpl extends AbstractDBObject implements Formular
     {
       if (getInhalt() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte gültigen Dateinamen angeben!"));
+        throw new ApplicationException("Bitte gültigen Dateinamen angeben!");
       }
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
     updateCheck();
   }
@@ -81,14 +80,12 @@ public class FormularImpl extends AbstractDBObject implements Formular
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Formularfeld kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Formularfeld kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

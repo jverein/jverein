@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.FormularfeldView;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
@@ -35,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularfeldAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -60,8 +60,8 @@ public class FormularfeldAction implements Action
       catch (RemoteException e)
       {
         Logger.error("Fehler", e);
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Formularfeldes"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Formularfeldes", e);
       }
     }
     GUI.startView(FormularfeldView.class.getName(), ff);

@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Datentyp
  */
 public class Datentyp
 {
+
   public static final int ZEICHENFOLGE = 1;
 
   public static final int DATUM = 2;
@@ -62,15 +61,15 @@ public class Datentyp
     switch (key)
     {
       case ZEICHENFOLGE:
-        return JVereinPlugin.getI18n().tr("Zeichenfolge");
+        return "Zeichenfolge";
       case DATUM:
-        return JVereinPlugin.getI18n().tr("Datum");
+        return "Datum";
       case GANZZAHL:
-        return JVereinPlugin.getI18n().tr("Ganzzahl");
+        return "Ganzzahl";
       case WAEHRUNG:
-        return JVereinPlugin.getI18n().tr("Währung");
+        return "Währung";
       case JANEIN:
-        return JVereinPlugin.getI18n().tr("Ja/Nein");
+        return "Ja/Nein";
       default:
         return null;
     }

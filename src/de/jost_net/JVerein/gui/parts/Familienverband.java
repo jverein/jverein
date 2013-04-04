@@ -28,7 +28,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -39,6 +38,7 @@ import de.willuhn.jameica.gui.util.TabGroup;
 
 public class Familienverband implements Part
 {
+
   private TabFolder tab;
 
   private Beitragsgruppe gruppe;
@@ -109,15 +109,13 @@ public class Familienverband implements Part
 
       tab = new TabFolder(cont.getComposite(), SWT.NONE);
       tab.setLayoutData(g);
-      TabGroup tg1 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
-          "Familienverband"));
+      TabGroup tg1 = new TabGroup(tab, "Familienverband");
       control.getFamilienangehoerigenTable().paint(tg1.getComposite());
-      TabGroup tg2 = new TabGroup(tab, JVereinPlugin.getI18n().tr(
-          "Zahlendes Familienmitglied"));
+      TabGroup tg2 = new TabGroup(tab, "Zahlendes Familienmitglied");
       // erstelle neuen zahler: (force == true)
       control.getZahler(true).setComment(
-          JVereinPlugin.getI18n().tr(
-              "Nur für Beitragsgruppenart: \"Familie: Angehörige\""));
+
+      "Nur für Beitragsgruppenart: \"Familie: Angehörige\"");
       tg2.addLabelPair("Zahler", control.getZahler());
 
       if (gruppe != null)
@@ -129,8 +127,7 @@ public class Familienverband implements Part
     {
       tab = null;
       // erstelle neuen zahler: (force == true)
-      cont.addLabelPair(JVereinPlugin.getI18n().tr("Zahler"),
-          control.getZahler(true));
+      cont.addLabelPair("Zahler", control.getZahler(true));
       control.getZahler().setMandatory(true);
       cont.addPart(control.getFamilienangehoerigenTable());
     }

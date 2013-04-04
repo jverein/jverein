@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -34,24 +33,23 @@ public class FamilienbeitragView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Familienbeitrag"));
+    GUI.getView().setTitle("Familienbeitrag");
 
     final MitgliedControl control = new MitgliedControl(this);
 
     control.getFamilienbeitraegeTree().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Familienbeiträge</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Familienbeiträge</span></p>"
         + "<p>Doppelklick öffnet das Mitglied. Rechtsklick bietet die Möglichkeit, das Mitglied aus dem Famlilienverband zu entfernen.</p>"
-        + "</form>");
+        + "</form>";
   }
 }

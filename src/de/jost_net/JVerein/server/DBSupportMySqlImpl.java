@@ -28,7 +28,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
@@ -69,10 +68,9 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   @Override
   public String getJdbcUrl()
   {
-    return JVereinDBService.SETTINGS
-        .getString(
-            "database.driver.mysql.jdbcurl",
-            "jdbc:mysql://localhost:3306/jverein?useUnicode=Yes&characterEncoding=ISO8859_1");
+    return JVereinDBService.SETTINGS.getString(
+        "database.driver.mysql.jdbcurl",
+        "jdbc:mysql://localhost:3306/jverein?useUnicode=Yes&characterEncoding=ISO8859_1");
   }
 
   /**
@@ -92,14 +90,12 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
     {
       try
       {
-        new JVereinUpdateProvider(conn, Application.getCallback()
-            .getStartupMonitor());
+        new JVereinUpdateProvider(conn,
+            Application.getCallback().getStartupMonitor());
       }
       catch (Exception e2)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Datenbankupdate kann nicht ausgeführt werden."), e2);
+        Logger.error("Datenbankupdate kann nicht ausgeführt werden.", e2);
         throw new ApplicationException(e2);
       }
     }
@@ -130,7 +126,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   public String getSQLTimestamp(String content)
   {
     return MessageFormat.format("(UNIX_TIMESTAMP({0})*1000)",
-        new Object[] { content });
+        new Object[] { content});
   }
 
   /**

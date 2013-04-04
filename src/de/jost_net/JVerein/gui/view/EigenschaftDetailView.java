@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.EigenschaftControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,23 +35,20 @@ public class EigenschaftDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaft"));
+    GUI.getView().setTitle("Eigenschaft");
 
     final EigenschaftControl control = new EigenschaftControl(this);
 
-    LabelGroup grEigenschaft = new LabelGroup(getParent(), JVereinPlugin
-        .getI18n().tr("Eigenschaft"));
-    grEigenschaft.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung());
-    grEigenschaft.addLabelPair(JVereinPlugin.getI18n().tr("Gruppe"),
-        control.getEigenschaftGruppe());
+    LabelGroup grEigenschaft = new LabelGroup(getParent(), "Eigenschaft");
+    grEigenschaft.addLabelPair("Bezeichnung", control.getBezeichnung());
+    grEigenschaft.addLabelPair("Gruppe", control.getEigenschaftGruppe());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.EIGENSCHAFT, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.EIGENSCHAFT, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.input;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -45,7 +44,7 @@ public class DtausTextschluesselInput extends SelectInput
       throws RemoteException
   {
     super(init(), new DtausTextschluesselObject(dtaustextschluessel));
-    setName(JVereinPlugin.getI18n().tr("DTAUS-Textschlüssel"));
+    setName("DTAUS-Textschlüssel");
   }
 
   /**
@@ -57,8 +56,7 @@ public class DtausTextschluesselInput extends SelectInput
     ArrayList<DtausTextschluesselObject> l = new ArrayList<DtausTextschluesselObject>();
     l.add(new DtausTextschluesselObject(LASTSCHRIFT));
     l.add(new DtausTextschluesselObject(ABBUCHUNG));
-    return PseudoIterator.fromArray(l.toArray(new DtausTextschluesselObject[l
-        .size()]));
+    return PseudoIterator.fromArray(l.toArray(new DtausTextschluesselObject[l.size()]));
   }
 
   /**
@@ -105,15 +103,15 @@ public class DtausTextschluesselInput extends SelectInput
 
       if (textschluessel.equals(ABBUCHUNG))
       {
-        this.label = JVereinPlugin.getI18n().tr("Abbuchung");
+        this.label = "Abbuchung";
       }
       else if (textschluessel.equals(LASTSCHRIFT))
       {
-        this.label = JVereinPlugin.getI18n().tr("Lastschrift");
+        this.label = "Lastschrift";
       }
       else
       {
-        this.label = JVereinPlugin.getI18n().tr("Programmfehler");
+        this.label = "Programmfehler";
       }
     }
 
@@ -134,7 +132,7 @@ public class DtausTextschluesselInput extends SelectInput
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "label", "textschluessel" };
+      return new String[] { "label", "textschluessel"};
     }
 
     @Override

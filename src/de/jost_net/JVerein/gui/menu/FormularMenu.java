@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FormularAnzeigeAction;
 import de.jost_net.JVerein.gui.action.FormularDeleteAction;
 import de.jost_net.JVerein.gui.action.FormularDuplizierenAction;
@@ -43,15 +42,14 @@ public class FormularMenu extends ContextMenu
    */
   public FormularMenu(FormularControl control)
   {
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Formularfelder"), new FormularfelderListeAction(), "rechnung.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("anzeigen"),
-        new FormularAnzeigeAction(), "edit.png"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "duplizieren"), new FormularDuplizierenAction(control), "copy_v2.png"));
+    addItem(new CheckedContextMenuItem("Formularfelder",
+        new FormularfelderListeAction(), "rechnung.png"));
+    addItem(new CheckedContextMenuItem("anzeigen", new FormularAnzeigeAction(),
+        "edit.png"));
+    addItem(new CheckedSingleContextMenuItem("duplizieren",
+        new FormularDuplizierenAction(control), "copy_v2.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new FormularDeleteAction(),
-        "user-trash.png"));
+    addItem(new CheckedContextMenuItem("löschen...",
+        new FormularDeleteAction(), "user-trash.png"));
   }
 }

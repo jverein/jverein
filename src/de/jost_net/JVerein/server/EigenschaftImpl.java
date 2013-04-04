@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -32,6 +31,7 @@ import de.willuhn.util.ApplicationException;
 
 public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
 {
+
   private static final long serialVersionUID = 1L;
 
   public EigenschaftImpl() throws RemoteException
@@ -67,8 +67,8 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
     catch (RemoteException e)
     {
       Logger.error("insert check of eigenschaft failed", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Eigenschaft kann nicht gespeichert werden. Siehe system log"));
+      throw new ApplicationException(
+          "Eigenschaft kann nicht gespeichert werden. Siehe system log");
     }
   }
 
@@ -76,8 +76,7 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
   {
     if (getBezeichnung() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Bezeichnung eingeben"));
+      throw new ApplicationException("Bitte Bezeichnung eingeben");
     }
   }
 

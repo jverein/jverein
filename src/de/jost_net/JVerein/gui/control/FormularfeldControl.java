@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import com.itextpdf.text.pdf.BaseFont;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineVar;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
@@ -249,7 +248,7 @@ public class FormularfeldControl extends AbstractControl
       return seite;
     }
     seite = new IntegerInput(getFormularfeld().getSeite());
-    seite.setComment(JVereinPlugin.getI18n().tr("Seite"));
+    seite.setComment("Seite");
     return seite;
   }
 
@@ -260,7 +259,7 @@ public class FormularfeldControl extends AbstractControl
       return x;
     }
     x = new DecimalInput(getFormularfeld().getX(), Einstellungen.DECIMALFORMAT);
-    x.setComment(JVereinPlugin.getI18n().tr("Millimeter"));
+    x.setComment("Millimeter");
     return x;
   }
 
@@ -271,7 +270,7 @@ public class FormularfeldControl extends AbstractControl
       return y;
     }
     y = new DecimalInput(getFormularfeld().getY(), Einstellungen.DECIMALFORMAT);
-    y.setComment(JVereinPlugin.getI18n().tr("Millimeter"));
+    y.setComment("Millimeter");
     return y;
   }
 
@@ -325,13 +324,11 @@ public class FormularfeldControl extends AbstractControl
       f.setFontsize((Integer) getFontsize().getValue());
       f.store();
 
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Formularfeld gespeichert"));
+      GUI.getStatusBar().setSuccessText("Formularfeld gespeichert");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Speichern des Formularfeldes");
+      String fehler = "Fehler beim Speichern des Formularfeldes";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -345,17 +342,16 @@ public class FormularfeldControl extends AbstractControl
   {
     DBService service = Einstellungen.getDBService();
     DBIterator formularfelder = service.createList(Formularfeld.class);
-    formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
+    formularfelder.addFilter("formular = ?", new Object[] { formular.getID()});
     formularfelder.setOrder("ORDER BY seite, x, y");
 
     formularfelderList = new TablePart(formularfelder, new FormularfeldAction());
-    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Seite"), "seite");
-    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("von links"), "x");
-    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("von unten"), "y");
-    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Font"), "font");
-    formularfelderList.addColumn(JVereinPlugin.getI18n().tr("Fonthöhe"),
-        "fontsize");
+    formularfelderList.addColumn("Name", "name");
+    formularfelderList.addColumn("Seite", "seite");
+    formularfelderList.addColumn("von links", "x");
+    formularfelderList.addColumn("von unten", "y");
+    formularfelderList.addColumn("Font", "font");
+    formularfelderList.addColumn("Fonthöhe", "fontsize");
 
     formularfelderList.setRememberColWidths(true);
     formularfelderList.setContextMenu(new FormularfeldMenu());
@@ -369,7 +365,7 @@ public class FormularfeldControl extends AbstractControl
     formularfelderList.removeAll();
     DBIterator formularfelder = Einstellungen.getDBService().createList(
         Formularfeld.class);
-    formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
+    formularfelder.addFilter("formular = ?", new Object[] { formular.getID()});
     formularfelder.setOrder("ORDER BY x, y");
     while (formularfelder.hasNext())
     {

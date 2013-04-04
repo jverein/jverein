@@ -31,13 +31,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.util.ProgressMonitor;
 
 /**
@@ -107,10 +107,7 @@ public class CSVFileHelper
       /* not ending header */
       if (!headerComplete)
       {
-        monitor
-            .setStatusText(JVereinPlugin
-                .getI18n()
-                .tr("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php"));
+        monitor.setStatusText("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php");
         valid = false;
       }
 
@@ -131,21 +128,17 @@ public class CSVFileHelper
           {
             if (lastPosition - 1 >= 0 && rCache[lastPosition - 1] == SEPARATOR)
             {
-              monitor
-                  .setStatusText(JVereinPlugin
-                      .getI18n()
-                      .tr("Leerzeichen nach einem Semikolon in Zeile: {0} und Spalte: {1}",
-                          lineNo + "", columnsPerLine + ""));
+              monitor.setStatusText(MessageFormat.format(
+                  "Leerzeichen nach einem Semikolon in Zeile: {0} und Spalte: {1}",
+                  new Object[] { lineNo + "", columnsPerLine + ""}));
               valid = false;
             }
             if (lastPosition + 1 < numberOfChars
                 && rCache[lastPosition + 1] == SEPARATOR)
             {
-              monitor
-                  .setStatusText(JVereinPlugin
-                      .getI18n()
-                      .tr("Leerzeichen vor einem Semikolon in Zeile: {0} und Spalte: {1}",
-                          lineNo + "", columnsPerLine + ""));
+              monitor.setStatusText(MessageFormat.format(
+                  "Leerzeichen vor einem Semikolon in Zeile: {0} und Spalte: {1}",
+                  new Object[] { lineNo + "", columnsPerLine + ""}));
               valid = false;
             }
           }
@@ -155,11 +148,9 @@ public class CSVFileHelper
             lineNo++;
             if (columnsPerLine != numColumns)
             {
-              monitor
-                  .setStatusText(JVereinPlugin
-                      .getI18n()
-                      .tr("Anzahl der Spalten in Zeile: {0} passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
-                          lineNo + ""));
+              monitor.setStatusText(MessageFormat.format(
+                  "Anzahl der Spalten in Zeile: {0} passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
+                  lineNo + ""));
               valid = false;
             }
             columnsPerLine = 0;
@@ -200,7 +191,7 @@ public class CSVFileHelper
    * 
    * 
    * @param csvFile
-   *          supplied csv file
+   *        supplied csv file
    * @return List of columns
    * @throws IOException
    */

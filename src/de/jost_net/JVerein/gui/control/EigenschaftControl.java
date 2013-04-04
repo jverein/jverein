@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.EigenschaftDetailAction;
 import de.jost_net.JVerein.gui.formatter.EigenschaftGruppeFormatter;
 import de.jost_net.JVerein.gui.menu.EigenschaftMenu;
@@ -98,12 +97,11 @@ public class EigenschaftControl extends AbstractControl
     DBIterator list = Einstellungen.getDBService().createList(
         EigenschaftGruppe.class);
     list.setOrder("ORDER BY bezeichnung");
-    eigenschaftgruppe = new SelectInput(list, getEigenschaft()
-        .getEigenschaftGruppe());
+    eigenschaftgruppe = new SelectInput(list,
+        getEigenschaft().getEigenschaftGruppe());
     eigenschaftgruppe.setValue(getEigenschaft().getEigenschaftGruppe());
     eigenschaftgruppe.setAttribute("bezeichnung");
-    eigenschaftgruppe.setPleaseChoose(JVereinPlugin.getI18n().tr(
-        "Bitte auswählen"));
+    eigenschaftgruppe.setPleaseChoose("Bitte auswählen");
     return eigenschaftgruppe;
   }
 
@@ -126,8 +124,7 @@ public class EigenschaftControl extends AbstractControl
         }
         ei.setBezeichnung((String) getBezeichnung().getValue());
         ei.store();
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Eigenschaft gespeichert"));
+        GUI.getStatusBar().setSuccessText("Eigenschaft gespeichert");
       }
       catch (ApplicationException e)
       {
@@ -136,8 +133,7 @@ public class EigenschaftControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern der Eigenschaft");
+      String fehler = "Fehler bei speichern der Eigenschaft";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -153,10 +149,9 @@ public class EigenschaftControl extends AbstractControl
     {
       eigenschaftList = new TablePart(eigenschaften,
           new EigenschaftDetailAction(false));
-      eigenschaftList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
-          "bezeichnung");
-      eigenschaftList.addColumn(JVereinPlugin.getI18n().tr("Gruppe"),
-          "eigenschaftgruppe", new EigenschaftGruppeFormatter());
+      eigenschaftList.addColumn("Bezeichnung", "bezeichnung");
+      eigenschaftList.addColumn("Gruppe", "eigenschaftgruppe",
+          new EigenschaftGruppeFormatter());
       eigenschaftList.setContextMenu(new EigenschaftMenu());
       eigenschaftList.setRememberColWidths(true);
       eigenschaftList.setRememberOrder(true);

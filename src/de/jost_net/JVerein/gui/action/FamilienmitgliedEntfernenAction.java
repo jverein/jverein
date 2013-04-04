@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FamilienbeitragNode;
 import de.jost_net.JVerein.gui.dialogs.FamilienmitgliedEntfernenDialog;
 import de.willuhn.jameica.gui.Action;
@@ -30,12 +29,13 @@ import de.willuhn.util.ApplicationException;
 
 public class FamilienmitgliedEntfernenAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof FamilienbeitragNode))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("kein Familienmitglied ausgewählt"));
+      throw new ApplicationException("kein Familienmitglied ausgewählt");
     }
     FamilienbeitragNode fbn = (FamilienbeitragNode) context;
     FamilienmitgliedEntfernenDialog fed = new FamilienmitgliedEntfernenDialog(

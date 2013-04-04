@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Herkunft Spende
  */
 public class HerkunftSpende
 {
+
   public static final int BETRIEBSVERMOEGEN = 1;
 
   public static final int PRIVATVERMOEGEN = 2;
@@ -58,11 +57,11 @@ public class HerkunftSpende
     switch (key)
     {
       case BETRIEBSVERMOEGEN:
-        return JVereinPlugin.getI18n().tr("Betriebsvermögen");
+        return "Betriebsvermögen";
       case PRIVATVERMOEGEN:
-        return JVereinPlugin.getI18n().tr("Privatvermögen");
+        return "Privatvermögen";
       case KEINEANGABEN:
-        return JVereinPlugin.getI18n().tr("keine Angaben");
+        return "keine Angaben";
       default:
         return null;
     }

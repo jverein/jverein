@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.FormularAction;
 import de.jost_net.JVerein.gui.control.FormularControl;
@@ -35,32 +34,29 @@ public class FormularListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Formulare"));
+    GUI.getView().setTitle("Formulare");
 
     FormularControl control = new FormularControl(this);
 
     control.getFormularList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.FORMULARE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new FormularAction(),
-        null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.FORMULARE, false, "help-browser.png");
+    buttons.addButton("neu", new FormularAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Formulare</span></p>"
-            + "<p> Alle verfügbaren Formulare werden aufgelistet.</p>"
-            + "<p>Durch einen Doppelklick auf ein Formular wird die Detailansicht zur "
-            + "Bearbeitung geöffnet.</p>"
-            + "<p> Mit einem rechten Mausklick öffnet sich ein Kontext-Menü. Damit können "
-            + "die Formularfelder bearbeitet werden. Das Formular kann angezeigt und "
-            + "gelöscht werden.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Formulare</span></p>"
+        + "<p> Alle verfügbaren Formulare werden aufgelistet.</p>"
+        + "<p>Durch einen Doppelklick auf ein Formular wird die Detailansicht zur "
+        + "Bearbeitung geöffnet.</p>"
+        + "<p> Mit einem rechten Mausklick öffnet sich ein Kontext-Menü. Damit können "
+        + "die Formularfelder bearbeitet werden. Das Formular kann angezeigt und "
+        + "gelöscht werden.</p></form>";
   }
 }

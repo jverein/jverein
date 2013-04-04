@@ -28,7 +28,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
@@ -50,7 +49,7 @@ public class FreiesFormularAction implements Action
   /**
    * 
    * @param id
-   *          ID des Formulars
+   *        ID des Formulars
    */
   public FreiesFormularAction(String id)
   {
@@ -69,7 +68,7 @@ public class FreiesFormularAction implements Action
     {
       if (context instanceof Mitglied)
       {
-        m = new Mitglied[] { (Mitglied) context };
+        m = new Mitglied[] { (Mitglied) context};
       }
       else if (context instanceof Mitglied[])
       {
@@ -81,30 +80,28 @@ public class FreiesFormularAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-        throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler bei der Aufbereitung"), e);
+        Logger.error("Fehler", e);
+        throw new ApplicationException("Fehler bei der Aufbereitung", e);
       }
     }
     else
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Mitglied ausgewählt"));
+      throw new ApplicationException("Kein Mitglied ausgewählt");
     }
   }
 
   private void generiereFreiesFormular(Mitglied[] m) throws Exception
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("freiesformular"), "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("freiesformular", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)

@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Map;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.AbstractDokument;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,13 +40,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class DokumentShowAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof AbstractDokument))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Dokument ausgewählt"));
+      throw new ApplicationException("Kein Dokument ausgewählt");
     }
     try
     {
@@ -57,13 +56,13 @@ public class DokumentShowAction implements Action
         return;
       }
       QueryMessage qm = new QueryMessage(ad.getUUID(), null);
-      Application.getMessagingFactory()
-          .getMessagingQueue("jameica.messaging.getmeta").sendSyncMessage(qm);
+      Application.getMessagingFactory().getMessagingQueue(
+          "jameica.messaging.getmeta").sendSyncMessage(qm);
       Map map = (Map) qm.getData();
 
       qm = new QueryMessage(ad.getUUID(), null);
-      Application.getMessagingFactory()
-          .getMessagingQueue("jameica.messaging.get").sendSyncMessage(qm);
+      Application.getMessagingFactory().getMessagingQueue(
+          "jameica.messaging.get").sendSyncMessage(qm);
       byte[] data = (byte[]) qm.getData();
       final File file = new File(System.getProperty("java.io.tmpdir") + "/"
           + map.get("filename"));
@@ -73,6 +72,7 @@ public class DokumentShowAction implements Action
       file.deleteOnExit();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         @Override
         public void run()
         {
@@ -91,8 +91,7 @@ public class DokumentShowAction implements Action
     }
     catch (Exception e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Dokuments");
+      String fehler = "Fehler beim Löschen des Dokuments";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

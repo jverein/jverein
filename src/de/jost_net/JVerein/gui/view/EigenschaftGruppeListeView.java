@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeDeleteAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeDetailAction;
@@ -36,22 +35,19 @@ public class EigenschaftGruppeListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Eigenschaften Gruppen"));
+    GUI.getView().setTitle("Eigenschaften Gruppen");
 
     EigenschaftGruppeControl control = new EigenschaftGruppeControl(this);
 
     control.getEigenschaftGruppeList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.EIGENSCHAFTGRUPPE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
-        new EigenschaftGruppeDeleteAction(),
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.EIGENSCHAFTGRUPPE, false, "help-browser.png");
+    buttons.addButton("löschen", new EigenschaftGruppeDeleteAction(),
         control.getEigenschaftGruppeList(), false, "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new EigenschaftGruppeDetailAction(true), null, false,
-        "document-new.png");
+    buttons.addButton("neu", new EigenschaftGruppeDetailAction(true), null,
+        false, "document-new.png");
     buttons.paint(this.getParent());
   }
 

@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class EigenschaftGruppeDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -47,8 +47,7 @@ public class EigenschaftGruppeDeleteAction implements Action
     }
     if (context == null || !(context instanceof EigenschaftGruppe))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Eigenschaften-Gruppe ausgewählt"));
+      throw new ApplicationException("Keine Eigenschaften-Gruppe ausgewählt");
     }
     try
     {
@@ -58,9 +57,8 @@ public class EigenschaftGruppeDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Eigenschaften-Gruppe löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Eigenschaften-Gruppe wirklich löschen?"));
+      d.setTitle("Eigenschaften-Gruppe löschen");
+      d.setText("Wollen Sie diese Eigenschaften-Gruppe wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -69,20 +67,16 @@ public class EigenschaftGruppeDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Fehler beim Löschen der Eigenschaften-Gruppe"), e);
+        Logger.error("Fehler beim Löschen der Eigenschaften-Gruppe", e);
         return;
       }
 
       eg.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Eigenschaften-Gruppe gelöscht."));
+      GUI.getStatusBar().setSuccessText("Eigenschaften-Gruppe gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Eigenschaften-Gruppe.");
+      String fehler = "Fehler beim Löschen der Eigenschaften-Gruppe.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

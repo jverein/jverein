@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -32,6 +31,7 @@ import de.willuhn.util.ApplicationException;
 public class EigenschaftGruppeImpl extends AbstractDBObject implements
     EigenschaftGruppe
 {
+
   private static final long serialVersionUID = -5906609226109964967L;
 
   public EigenschaftGruppeImpl() throws RemoteException
@@ -64,14 +64,12 @@ public class EigenschaftGruppeImpl extends AbstractDBObject implements
     {
       if (getBezeichnung() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "EigenschaftGruppe kann nicht gespeichert werden. Siehe system log");
+      String fehler = "EigenschaftGruppe kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.FormularAnzeigeAction;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
@@ -37,34 +36,30 @@ public class FormularfelderListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Formularfelder"));
+    GUI.getView().setTitle("Formularfelder");
 
     FormularfeldControl control = new FormularfeldControl(this,
         (Formular) getCurrentObject());
     control.getFormularfeldList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.FORMULARE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("anzeigen"),
-        new FormularAnzeigeAction(), getCurrentObject(), false, "edit.png");
-    buttons
-        .addButton(JVereinPlugin.getI18n().tr("neu"), new FormularfeldAction(),
-            getCurrentObject(), false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.FORMULARE, false, "help-browser.png");
+    buttons.addButton("anzeigen", new FormularAnzeigeAction(),
+        getCurrentObject(), false, "edit.png");
+    buttons.addButton("neu", new FormularfeldAction(), getCurrentObject(),
+        false, "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Formularfelder</span></p>"
-            + "<p>Jedem Formular müssen Formularfelder zugeordnet werden. Mit <i>neu</i> "
-            + "wird ein neues Formularfeld aufgenommen. Mit einem Doppelklick öffnet "
-            + "sich das Bearbeitungsfenster für ein Formularfeld. Durch einen Rechtsklick "
-            + "erscheint ein Kontextmenü. Damit können Formularfelder gelöscht werden.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Formularfelder</span></p>"
+        + "<p>Jedem Formular müssen Formularfelder zugeordnet werden. Mit <i>neu</i> "
+        + "wird ein neues Formularfeld aufgenommen. Mit einem Doppelklick öffnet "
+        + "sich das Bearbeitungsfenster für ein Formularfeld. Durch einen Rechtsklick "
+        + "erscheint ein Kontextmenü. Damit können Formularfelder gelöscht werden.</p>"
+        + "</form>";
   }
 }

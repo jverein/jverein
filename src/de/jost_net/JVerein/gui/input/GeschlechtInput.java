@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.input;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -107,11 +106,11 @@ public class GeschlechtInput extends SelectInput
 
       if (geschlecht.equals(MAENNLICH))
       {
-        this.label = JVereinPlugin.getI18n().tr("männlich");
+        this.label = "männlich";
       }
       else if (geschlecht.equals(WEIBLICH))
       {
-        this.label = JVereinPlugin.getI18n().tr("weiblich");
+        this.label = "weiblich";
       }
       else
       {
@@ -136,7 +135,7 @@ public class GeschlechtInput extends SelectInput
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "label", "geschlecht" };
+      return new String[] { "label", "geschlecht"};
     }
 
     @Override

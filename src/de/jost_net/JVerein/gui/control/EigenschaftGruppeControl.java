@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.control;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeDetailAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.EigenschaftGruppeMenu;
@@ -44,6 +43,7 @@ import de.willuhn.util.ApplicationException;
 
 public class EigenschaftGruppeControl extends AbstractControl
 {
+
   private de.willuhn.jameica.system.Settings settings;
 
   private TablePart eigenschaftgruppeList;
@@ -117,8 +117,7 @@ public class EigenschaftGruppeControl extends AbstractControl
       try
       {
         eg.store();
-        GUI.getStatusBar().setSuccessText(
-            JVereinPlugin.getI18n().tr("Eigenschaften Gruppe gespeichert"));
+        GUI.getStatusBar().setSuccessText("Eigenschaften Gruppe gespeichert");
       }
       catch (ApplicationException e)
       {
@@ -127,8 +126,7 @@ public class EigenschaftGruppeControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern der Eigenschaft Gruppe");
+      String fehler = "Fehler bei speichern der Eigenschaft Gruppe";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -147,12 +145,9 @@ public class EigenschaftGruppeControl extends AbstractControl
 
     eigenschaftgruppeList = new TablePart(eigenschaftgruppe,
         new EigenschaftGruppeDetailAction(false));
-    eigenschaftgruppeList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        "bezeichnung");
-    eigenschaftgruppeList.addColumn(JVereinPlugin.getI18n().tr("Pflicht"),
-        "pflicht", new JaNeinFormatter());
-    eigenschaftgruppeList.addColumn(
-        JVereinPlugin.getI18n().tr("max. 1 Eigenschaft"), "max1",
+    eigenschaftgruppeList.addColumn("Bezeichnung", "bezeichnung");
+    eigenschaftgruppeList.addColumn("Pflicht", "pflicht", new JaNeinFormatter());
+    eigenschaftgruppeList.addColumn("max. 1 Eigenschaft", "max1",
         new JaNeinFormatter());
     eigenschaftgruppeList.setContextMenu(new EigenschaftGruppeMenu());
     eigenschaftgruppeList.setRememberColWidths(true);

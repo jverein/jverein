@@ -21,16 +21,16 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.input;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.listener.IBANListener;
 import de.willuhn.jameica.gui.input.TextInput;
 
 public class IBANInput extends TextInput
 {
+
   public IBANInput(String value)
   {
     super(value, 34);
-    setName(JVereinPlugin.getI18n().tr("IBAN"));
+    setName("IBAN");
     IBANListener l = new IBANListener(this);
     addListener(l);
     l.handleEvent(null);

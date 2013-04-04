@@ -74,8 +74,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   protected void deleteCheck() throws ApplicationException
   {
-    throw new ApplicationException(JVereinPlugin.getI18n().tr(
-        "Einstellung darf nicht gelöscht werden"));
+    throw new ApplicationException("Einstellung darf nicht gelöscht werden");
   }
 
   @Override
@@ -85,13 +84,11 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     {
       if (getName() == null || getName().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Namen eingeben"));
+        throw new ApplicationException("Bitte Namen eingeben");
       }
       if (getBlz() == null || getBlz().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bankleitzahl eingeben"));
+        throw new ApplicationException("Bitte Bankleitzahl eingeben");
       }
       try
       {
@@ -99,13 +96,12 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       }
       catch (NumberFormatException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bankleitzahl enthält unzulässige Zeichen!"));
+        throw new ApplicationException(
+            "Bankleitzahl enthält unzulässige Zeichen!");
       }
       if (getKonto() == null || getKonto().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Kontonummer eingeben"));
+        throw new ApplicationException("Bitte Kontonummer eingeben");
       }
       try
       {
@@ -113,13 +109,13 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       }
       catch (NumberFormatException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Kontonummer enthält unzulässige Zeichen!"));
+        throw new ApplicationException(
+            "Kontonummer enthält unzulässige Zeichen!");
       }
       if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben."));
+        throw new ApplicationException(
+            "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
       }
 
       // TODO muss noch sauber implementiert werden
@@ -148,9 +144,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         if (!JVereinPlugin.isArchiveServiceActive())
         {
           throw new ApplicationException(
-              JVereinPlugin
-                  .getI18n()
-                  .tr("Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!"));
+              "Plugin jameica.messaging ist nicht installiert oder im LAN verfügbar! Wird zur Dokumentenspeicherung benötigt!");
         }
       }
       try
@@ -164,8 +158,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Einstellung kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Einstellung kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -625,8 +618,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextabbuchung");
     if (text == null)
     {
-      text = JVereinPlugin.getI18n().tr(
-          "Der Betrag wird vom Konto ${Konto} (BLZ ${BLZ}) abgebucht.");
+      text = "Der Betrag wird vom Konto ${Konto} (BLZ ${BLZ}) abgebucht.";
     }
     return text;
   }
@@ -644,8 +636,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextueberweisung");
     if (text == null)
     {
-      text = JVereinPlugin.getI18n().tr(
-          "Bitte überweisen Sie den Betrag auf das angegebene Konto.");
+      text = "Bitte überweisen Sie den Betrag auf das angegebene Konto.";
     }
     return text;
   }
@@ -663,8 +654,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextbar");
     if (text == null)
     {
-      text = JVereinPlugin.getI18n().tr(
-          "Bitte zahlen Sie den Betrag auf das angegebene Konto ein.");
+      text = "Bitte zahlen Sie den Betrag auf das angegebene Konto ein.";
     }
     return text;
   }
@@ -773,8 +763,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util
-        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override
@@ -1077,33 +1066,32 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public boolean getZeigeStammdatenInTab() throws RemoteException
+  public boolean getZeigeStammdatenInTab()
   {
     return settings.getBoolean("ZeigeStammdatenInTab", false);
   }
 
   @Override
-  public void setZeigeStammdatenInTab(boolean showInTab) throws RemoteException
+  public void setZeigeStammdatenInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeStammdatenInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeMitgliedschaftInTab() throws RemoteException
+  public boolean getZeigeMitgliedschaftInTab()
   {
     return settings.getBoolean("ZeigeMitgliedschaftInTab", true);
   }
 
   @Override
   public void setZeigeMitgliedschaftInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeMitgliedschaftInTab", showInTab);
 
   }
 
   @Override
-  public boolean getZeigeZahlungInTab() throws RemoteException
+  public boolean getZeigeZahlungInTab()
   {
     return settings.getBoolean("ZeigeZahlungInTab", true);
   }
@@ -1139,177 +1127,169 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public boolean getZeigeVermerkeInTab() throws RemoteException
+  public boolean getZeigeVermerkeInTab()
   {
     return settings.getBoolean("ZeigeVermerkeInTab", true);
   }
 
   @Override
-  public void setZeigeVermerkeInTab(boolean showInTab) throws RemoteException
+  public void setZeigeVermerkeInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeVermerkeInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeWiedervorlageInTab() throws RemoteException
+  public boolean getZeigeWiedervorlageInTab()
   {
     return settings.getBoolean("ZeigeWiedervorlageInTab", true);
   }
 
   @Override
   public void setZeigeWiedervorlageInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeWiedervorlageInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeEigenschaftenInTab() throws RemoteException
+  public boolean getZeigeEigenschaftenInTab()
   {
     return settings.getBoolean("ZeigeEigenschaftenInTab", true);
   }
 
   @Override
   public void setZeigeEigentschaftenInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeEigenschaftenInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeMailsInTab() throws RemoteException
+  public boolean getZeigeMailsInTab()
   {
     return settings.getBoolean("ZeigeMailsInTab", true);
   }
 
   @Override
-  public void setZeigeMailsInTab(boolean showInTab) throws RemoteException
+  public void setZeigeMailsInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeMailsInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeZusatzfelderInTab() throws RemoteException
+  public boolean getZeigeZusatzfelderInTab()
   {
     return settings.getBoolean("ZeigeZusatzfelderInTab", true);
   }
 
   @Override
   public void setZeigeZusatzfelderInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeZusatzfelderInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeLehrgaengeInTab() throws RemoteException
+  public boolean getZeigeLehrgaengeInTab()
   {
     return settings.getBoolean("ZeigeLehrgaengeInTab", true);
   }
 
   @Override
-  public void setZeigeLehrgaengeInTab(boolean showInTab) throws RemoteException
+  public void setZeigeLehrgaengeInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeLehrgaengeInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeFotoInTab() throws RemoteException
+  public boolean getZeigeFotoInTab()
   {
     return settings.getBoolean("ZeigeFotoInTab", true);
   }
 
   @Override
-  public void setZeigeFotoInTab(boolean showInTab) throws RemoteException
+  public void setZeigeFotoInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeFotoInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeLesefelderInTab() throws RemoteException
+  public boolean getZeigeLesefelderInTab()
   {
     return settings.getBoolean("ZeigeLesefelderInTab", true);
   }
 
   @Override
-  public void setZeigeLesefelderInTab(boolean showInTab) throws RemoteException
+  public void setZeigeLesefelderInTab(boolean showInTab)
   {
     settings.setAttribute("ZeigeLesefelderInTab", showInTab);
   }
 
   @Override
-  public boolean getZeigeArbeitseinsatzInTab() throws RemoteException
+  public boolean getZeigeArbeitseinsatzInTab()
   {
     return settings.getBoolean("ZeigeArbeitseinsatzInTab", true);
   }
 
   @Override
   public void setZeigeArbeitseinsatzInTab(boolean showInTab)
-      throws RemoteException
   {
     settings.setAttribute("ZeigeArbeitseinsatzInTab", showInTab);
   }
 
   @Override
-  public int getAnzahlSpaltenStammdaten() throws RemoteException
+  public int getAnzahlSpaltenStammdaten()
   {
     return settings.getInt("AnzahlSpaltenStammdaten", 2);
   }
 
   @Override
   public void setAnzahlSpaltenStammdaten(int anzahlSpalten)
-      throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenStammdaten", anzahlSpalten);
   }
 
   @Override
-  public int getAnzahlSpaltenZusatzfelder() throws RemoteException
+  public int getAnzahlSpaltenZusatzfelder()
   {
     return settings.getInt("AnzahlSpaltenZusatzfelder", 1);
   }
 
   @Override
   public void setAnzahlSpaltenZusatzfelder(int anzahlSpalten)
-      throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenZusatzfelder", anzahlSpalten);
   }
 
   @Override
-  public int getAnzahlSpaltenLesefelder() throws RemoteException
+  public int getAnzahlSpaltenLesefelder()
   {
     return settings.getInt("AnzahlSpaltenLesefelder", 1);
   }
 
   @Override
   public void setAnzahlSpaltenLesefelder(int anzahlSpalten)
-      throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenLesefelder", anzahlSpalten);
   }
 
   @Override
-  public int getAnzahlSpaltenMitgliedschaft() throws RemoteException
+  public int getAnzahlSpaltenMitgliedschaft()
   {
     return settings.getInt("AnzahlSpaltenMitgliedschaft", 1);
   }
 
   @Override
   public void setAnzahlSpaltenMitgliedschaft(int anzahlSpalten)
-      throws RemoteException
   {
     settings.setAttribute("AnzahlSpaltenMitgliedschaft", anzahlSpalten);
   }
 
   @Override
-  public int getAnzahlSpaltenZahlung() throws RemoteException
+  public int getAnzahlSpaltenZahlung()
   {
     return settings.getInt("AnzahlSpaltenZahlung", 1);
   }
 
   @Override
-  public void setAnzahlSpaltenZahlung(int anzahlSpalten) throws RemoteException
+  public void setAnzahlSpaltenZahlung(int anzahlSpalten)
   {
     settings.setAttribute("AnzahlSpaltenZahlung", anzahlSpalten);
   }

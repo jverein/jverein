@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentDeleteAction;
 import de.jost_net.JVerein.gui.action.DokumentShowAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -37,13 +36,13 @@ public class DokumentMenu extends ContextMenu
   public DokumentMenu(boolean enabled)
   {
     new ContextMenuItem();
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("anzeigen"),
-        new DokumentShowAction(), "show.png"));
+    addItem(new CheckedContextMenuItem("anzeigen", new DokumentShowAction(),
+        "show.png"));
     if (enabled)
     {
       addItem(ContextMenuItem.SEPARATOR);
-      addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-          "löschen..."), new DokumentDeleteAction(), "user-trash.png"));
+      addItem(new CheckedContextMenuItem("löschen...",
+          new DokumentDeleteAction(), "user-trash.png"));
     }
   }
 }

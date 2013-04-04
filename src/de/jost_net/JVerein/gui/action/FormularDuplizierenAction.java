@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FormularControl;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
@@ -35,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularDuplizierenAction implements Action
 {
+
   FormularControl control;
 
   public FormularDuplizierenAction(FormularControl control)
@@ -47,8 +47,7 @@ public class FormularDuplizierenAction implements Action
   {
     if (context == null || !(context instanceof Formular))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "kein Formular ausgewählt"));
+      throw new ApplicationException("kein Formular ausgewählt");
     }
     try
     {
@@ -64,8 +63,8 @@ public class FormularDuplizierenAction implements Action
       while (it.hasNext())
       {
         Formularfeld ff1 = (Formularfeld) it.next();
-        Formularfeld ff2 = (Formularfeld) Einstellungen.getDBService()
-            .createObject(Formularfeld.class, ff1.getID());
+        Formularfeld ff2 = (Formularfeld) Einstellungen.getDBService().createObject(
+            Formularfeld.class, ff1.getID());
         ff2.setFormular(f2);
         ff2.store();
       }
@@ -74,8 +73,8 @@ public class FormularDuplizierenAction implements Action
     catch (Exception e)
     {
       Logger.error("Fehler: ", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim duplizieren eines Formulars"), e);
+      throw new ApplicationException("Fehler beim duplizieren eines Formulars",
+          e);
     }
   }
 

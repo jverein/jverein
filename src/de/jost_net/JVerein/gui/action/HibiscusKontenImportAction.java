@@ -22,9 +22,9 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.KontoControl;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -39,6 +39,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class HibiscusKontenImportAction implements Action
 {
+
   private KontoControl control;
 
   public HibiscusKontenImportAction(KontoControl control)
@@ -60,36 +61,31 @@ public class HibiscusKontenImportAction implements Action
       }
       catch (OperationCanceledException oce)
       {
-        GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr("Vorgang abgebrochen"));
+        GUI.getStatusBar().setErrorText("Vorgang abgebrochen");
         return;
       }
       catch (Exception e)
       {
         Logger.error("error while choosing konto", e);
-        GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr("Fehler bei der Auswahl des Kontos."));
+        GUI.getStatusBar().setErrorText("Fehler bei der Auswahl des Kontos.");
       }
     }
 
     if (context == null || !(context instanceof Konto))
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Konto ausgewählt"));
+      throw new ApplicationException("Kein Konto ausgewählt");
 
     final Konto k = (Konto) context;
     try
     {
-      de.jost_net.JVerein.rmi.Konto jvereinkonto = (de.jost_net.JVerein.rmi.Konto) Einstellungen
-          .getDBService().createObject(de.jost_net.JVerein.rmi.Konto.class,
-              null);
+      de.jost_net.JVerein.rmi.Konto jvereinkonto = (de.jost_net.JVerein.rmi.Konto) Einstellungen.getDBService().createObject(
+          de.jost_net.JVerein.rmi.Konto.class, null);
       jvereinkonto.setNummer(k.getKontonummer());
       jvereinkonto.setBezeichnung(k.getBezeichnung());
       jvereinkonto.setHibiscusId(new Integer(k.getID()));
       jvereinkonto.store();
       control.refreshTable();
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Konto {0} importiert.",
-              new String[] { k.getKontonummer() }));
+          MessageFormat.format("Konto {0} importiert.", k.getKontonummer()));
     }
     catch (RemoteException e)
     {

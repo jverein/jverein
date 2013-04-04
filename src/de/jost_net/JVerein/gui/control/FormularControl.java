@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FormularAction;
 import de.jost_net.JVerein.gui.formatter.FormularartFormatter;
 import de.jost_net.JVerein.gui.menu.FormularMenu;
@@ -99,8 +98,8 @@ public class FormularControl extends AbstractControl
     {
       return art;
     }
-    art = new SelectInput(Formularart.getArray(), new Formularart(getFormular()
-        .getArt()));
+    art = new SelectInput(Formularart.getArray(), new Formularart(
+        getFormular().getArt()));
     return art;
   }
 
@@ -110,7 +109,7 @@ public class FormularControl extends AbstractControl
     {
       return datei;
     }
-    datei = new FileInput("", false, new String[] { "*.pdf", "*.PDF" });
+    datei = new FileInput("", false, new String[] { "*.pdf", "*.PDF"});
     return datei;
   }
 
@@ -136,32 +135,28 @@ public class FormularControl extends AbstractControl
         f.setInhalt(b);
       }
       f.store();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Formular gespeichert"));
+      GUI.getStatusBar().setSuccessText("Formular gespeichert");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Speichern des Formulares");
+      String fehler = "Fehler beim Speichern des Formulares";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
     catch (ApplicationException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
     catch (FileNotFoundException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-      GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr("Datei nicht gefunden"));
+      Logger.error("Fehler", e);
+      GUI.getStatusBar().setErrorText("Datei nicht gefunden");
     }
     catch (IOException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-      GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr("Ein-/Ausgabe-Fehler"));
+      Logger.error("Fehler", e);
+      GUI.getStatusBar().setErrorText("Ein-/Ausgabe-Fehler");
     }
   }
 
@@ -172,10 +167,9 @@ public class FormularControl extends AbstractControl
     formulare.setOrder("ORDER BY art, bezeichnung");
 
     formularList = new TablePart(formulare, new FormularAction());
-    formularList.addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        "bezeichnung");
-    formularList.addColumn(JVereinPlugin.getI18n().tr("Art"), "art",
-        new FormularartFormatter(), false, Column.ALIGN_LEFT);
+    formularList.addColumn("Bezeichnung", "bezeichnung");
+    formularList.addColumn("Art", "art", new FormularartFormatter(), false,
+        Column.ALIGN_LEFT);
     formularList.setRememberColWidths(true);
     formularList.setContextMenu(new FormularMenu(this));
     formularList.setRememberOrder(true);

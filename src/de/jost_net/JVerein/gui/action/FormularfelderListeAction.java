@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.FormularfelderListeView;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.Action;
@@ -30,6 +29,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularfelderListeAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -41,8 +41,7 @@ public class FormularfelderListeAction implements Action
     }
     else
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Formular zur Anzeige ausgewählt"));
+      throw new ApplicationException("Kein Formular zur Anzeige ausgewählt");
     }
     GUI.startView(FormularfelderListeView.class.getName(), f);
   }

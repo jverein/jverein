@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.FelddefinitionenAction;
 import de.jost_net.JVerein.gui.control.FelddefinitionControl;
@@ -37,28 +36,23 @@ public class FelddefinitionDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Felddefinition"));
+    GUI.getView().setTitle("Felddefinition");
 
     final FelddefinitionControl control = new FelddefinitionControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Felddefinition"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
-        control.getName(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Label"), control.getLabel());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datentyp"),
-        control.getDatentyp());
-    group
-        .addLabelPair(JVereinPlugin.getI18n().tr("Länge"), control.getLaenge());
+    LabelGroup group = new LabelGroup(getParent(), "Felddefinition");
+    group.addLabelPair("Name", control.getName(true));
+    group.addLabelPair("Label", control.getLabel());
+    group.addLabelPair("Datentyp", control.getDatentyp());
+    group.addLabelPair("Länge", control.getLaenge());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.FELDDEFINITIONEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("Übersicht"),
-        new FelddefinitionenAction());
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.FELDDEFINITIONEN, false, "help-browser.png");
+    buttons.addButton("Übersicht", new FelddefinitionenAction());
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
