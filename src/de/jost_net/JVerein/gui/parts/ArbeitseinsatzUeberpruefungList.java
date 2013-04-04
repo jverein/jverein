@@ -53,7 +53,6 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
   private int schluessel;
 
   public ArbeitseinsatzUeberpruefungList(Action action, int jahr, int schluessel)
-      throws RemoteException
   {
     super(action);
     this.jahr = jahr;
@@ -69,8 +68,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
       if (arbeitseinsatzueberpruefungList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile
-            .toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 
         arbeitseinsatzueberpruefungList = new TablePart(gi,
             new MitgliedDetailAction());
@@ -141,6 +139,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
@@ -155,8 +154,8 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
         return ergebnis;
       }
     };
-    return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService()
-        .execute(sql, new Object[] { jahr, jahr, jahr }, rs);
+    return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService().execute(
+        sql, new Object[] { jahr, jahr, jahr}, rs);
   }
 
   @Override

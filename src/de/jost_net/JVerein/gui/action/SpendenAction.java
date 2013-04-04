@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.action;
 import de.jost_net.JVerein.gui.view.SpendenView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Action zum Starten der Spenden-View.
@@ -37,7 +36,7 @@ public class SpendenAction implements Action
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
    */
   @Override
-  public void handleAction(Object context) throws ApplicationException
+  public void handleAction(Object context)
   {
     GUI.startView(SpendenView.class, null);
   }

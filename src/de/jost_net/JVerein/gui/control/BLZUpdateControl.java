@@ -54,6 +54,7 @@ import de.willuhn.util.ApplicationException;
 
 public class BLZUpdateControl extends AbstractControl
 {
+
   private Settings settings;
 
   private TextInput blzdatei;
@@ -67,7 +68,7 @@ public class BLZUpdateControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public final TextInput getBlzdatei() throws RemoteException
+  public final TextInput getBlzdatei()
   {
     if (blzdatei != null)
     {
@@ -84,7 +85,7 @@ public class BLZUpdateControl extends AbstractControl
     {
 
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         settings = new Settings(this.getClass());
         settings.setStoreWhenRead(true);
@@ -98,8 +99,8 @@ public class BLZUpdateControl extends AbstractControl
         }
 
         fd.setText("BLZ-Datei der Bundesdruckerei.");
-        fd.setFilterExtensions(new String[] { "*.ZIP" });
-        fd.setFilterNames(new String[] { "ZIP-Datei der Bundesbank" });
+        fd.setFilterExtensions(new String[] { "*.ZIP"});
+        fd.setFilterNames(new String[] { "ZIP-Datei der Bundesbank"});
 
         String f = fd.open();
         try
@@ -132,6 +133,7 @@ public class BLZUpdateControl extends AbstractControl
   {
     Button b = new Button("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -172,8 +174,7 @@ public class BLZUpdateControl extends AbstractControl
   {
     ArrayList<BLZUpdate> zeile = new ArrayList<BLZUpdate>();
 
-    GenericIterator gi = PseudoIterator.fromArray(zeile
-        .toArray(new GenericObject[zeile.size()]));
+    GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
     return gi;
   }
 

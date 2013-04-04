@@ -22,11 +22,11 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
@@ -66,19 +66,16 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Jahresabschluss.class);
-      it.addFilter("von > ?", new Object[] { getVon() });
+      it.addFilter("von > ?", new Object[] { getVon()});
       if (it.hasNext())
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr("Jahresabschluss kann nicht gelöscht werden. Es existieren neuere Abschlüsse!"));
+            "Jahresabschluss kann nicht gelöscht werden. Es existieren neuere Abschlüsse!");
       }
     }
     catch (RemoteException e)
     {
-      String msg = JVereinPlugin.getI18n().tr(
-          "Jahresabschluss kann nicht gelöscht werden. Siehe system log");
+      String msg = "Jahresabschluss kann nicht gelöscht werden. Siehe system log";
       throw new ApplicationException(msg);
     }
 
@@ -92,14 +89,12 @@ public class JahresabschlussImpl extends AbstractDBObject implements
       if (hasBuchungenOhneBuchungsart())
       {
         throw new ApplicationException(
-            JVereinPlugin
-                .getI18n()
-                .tr("Achtung! Es existieren noch Buchungen ohne Buchungsart. Kein Abschluss möglich!"));
+            "Achtung! Es existieren noch Buchungen ohne Buchungsart. Kein Abschluss möglich!");
       }
       if (getName() == null || getName().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Name des Verantwortlichen für den Abschluss fehlt"));
+        throw new ApplicationException(
+            "Name des Verantwortlichen für den Abschluss fehlt");
       }
       Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
           null);
@@ -110,27 +105,25 @@ public class JahresabschlussImpl extends AbstractDBObject implements
         Konto k1 = (Konto) it.next();
         DBIterator anfangsbestaende = Einstellungen.getDBService().createList(
             Anfangsbestand.class);
-        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID() });
+        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID()});
         anfangsbestaende.addFilter("datum >= ?",
-            new Object[] { gj.getBeginnGeschaeftsjahr() });
+            new Object[] { gj.getBeginnGeschaeftsjahr()});
         if (!anfangsbestaende.hasNext())
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Für Konto {0} {1} fehlt der Anfangsbestand.",
-              new String[] { k1.getNummer(), k1.getBezeichnung() }));
+          throw new ApplicationException(MessageFormat.format(
+              "Für Konto {0} {1} fehlt der Anfangsbestand.", k1.getNummer(),
+              k1.getBezeichnung()));
         }
       }
     }
     catch (ParseException e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Ungültiges von-Datum"));
+      throw new ApplicationException("Ungültiges von-Datum");
     }
     catch (RemoteException e)
     {
       e.printStackTrace();
-      String msg = JVereinPlugin.getI18n().tr(
-          "Jahresabschluss kann nicht gespeichert werden. Siehe system log");
+      String msg = "Jahresabschluss kann nicht gespeichert werden. Siehe system log";
       throw new ApplicationException(msg);
     }
   }
@@ -144,8 +137,8 @@ public class JahresabschlussImpl extends AbstractDBObject implements
   private boolean hasBuchungenOhneBuchungsart() throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-    it.addFilter("datum >= ?", new Object[] { getVon() });
-    it.addFilter("datum <= ?", new Object[] { getBis() });
+    it.addFilter("datum >= ?", new Object[] { getVon()});
+    it.addFilter("datum <= ?", new Object[] { getBis()});
     it.addFilter("buchungsart is null");
     return it.hasNext();
   }

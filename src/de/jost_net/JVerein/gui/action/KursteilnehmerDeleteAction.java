@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,13 +35,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class KursteilnehmerDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Kursteilnehmer))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen Kursteilnehmer ausgewählt"));
+      throw new ApplicationException("Keinen Kursteilnehmer ausgewählt");
     }
     try
     {
@@ -52,9 +51,8 @@ public class KursteilnehmerDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Kursteilnehmer löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Kursteilnehmer wirklich löschen?"));
+      d.setTitle("Kursteilnehmer löschen");
+      d.setText("Wollen Sie diesen Kursteilnehmer wirklich löschen?");
 
       try
       {
@@ -64,19 +62,15 @@ public class KursteilnehmerDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Fehler beim Löschen des Kursteilnehmers"), e);
+        Logger.error("Fehler beim Löschen des Kursteilnehmers", e);
         return;
       }
       kt.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Kursteilnehmer gelöscht."));
+      GUI.getStatusBar().setSuccessText("Kursteilnehmer gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Kursteilnehmers");
+      String fehler = "Fehler beim Löschen des Kursteilnehmers";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

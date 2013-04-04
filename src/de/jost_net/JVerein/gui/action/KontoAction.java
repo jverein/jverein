@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.KontoView;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
@@ -33,6 +32,7 @@ import de.willuhn.util.ApplicationException;
 
 public class KontoAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -46,13 +46,12 @@ public class KontoAction implements Action
     {
       try
       {
-        k = (Konto) Einstellungen.getDBService()
-            .createObject(Konto.class, null);
+        k = (Konto) Einstellungen.getDBService().createObject(Konto.class, null);
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Speicherung eines neuen Kontos"), e);
+        throw new ApplicationException(
+            "Fehler bei der Speicherung eines neuen Kontos", e);
       }
     }
     GUI.startView(KontoView.class.getName(), k);

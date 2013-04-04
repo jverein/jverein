@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.jameica.gui.Action;
@@ -36,6 +35,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class MailAnhangDeleteAction implements Action
 {
+
   private MailControl control = null;
 
   public MailAnhangDeleteAction(MailControl control)
@@ -48,8 +48,7 @@ public class MailAnhangDeleteAction implements Action
   {
     if (context == null || !(context instanceof MailAnhang))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen Mail-Anhang ausgewählt"));
+      throw new ApplicationException("Keinen Mail-Anhang ausgewählt");
     }
     try
     {
@@ -58,8 +57,7 @@ public class MailAnhangDeleteAction implements Action
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim entfernen eines Mailanhanges");
+      String fehler = "Fehler beim entfernen eines Mailanhanges";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

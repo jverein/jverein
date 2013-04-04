@@ -30,7 +30,6 @@ import net.n3.nanoxml.IXMLParser;
 import net.n3.nanoxml.StdXMLReader;
 import net.n3.nanoxml.XMLParserFactory;
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -39,6 +38,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class KontenrahmenImportXML implements Importer
 {
+
   @Override
   public void doImport(Object context, IOFormat format, File file,
       String encoding, ProgressMonitor monitor) throws Exception
@@ -47,15 +47,15 @@ public class KontenrahmenImportXML implements Importer
         Buchungsklasse.class);
     if (it.size() > 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Import abgebrochen! Es sind bereits Buchungsklassen vorhanden."));
+      throw new ApplicationException(
+          "Import abgebrochen! Es sind bereits Buchungsklassen vorhanden.");
     }
 
     it = Einstellungen.getDBService().createList(Buchungsart.class);
     if (it.size() > 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Import abgebrochen! Es sind bereits Buchungsarten vorhanden."));
+      throw new ApplicationException(
+          "Import abgebrochen! Es sind bereits Buchungsarten vorhanden.");
     }
     // Parser erzeugen
     IXMLParser parser = XMLParserFactory.createDefaultXMLParser();
@@ -70,8 +70,8 @@ public class KontenrahmenImportXML implements Importer
     while (enubu.hasMoreElements())
     {
       IXMLElement element = (IXMLElement) enubu.nextElement();
-      Buchungsklasse bukl = (Buchungsklasse) Einstellungen.getDBService()
-          .createObject(Buchungsklasse.class, null);
+      Buchungsklasse bukl = (Buchungsklasse) Einstellungen.getDBService().createObject(
+          Buchungsklasse.class, null);
       bukl.setBezeichnung(element.getAttribute("bezeichnung", ""));
       bukl.setNummer(element.getAttribute("nummer", 0));
       bukl.store();
@@ -80,8 +80,8 @@ public class KontenrahmenImportXML implements Importer
       while (enubua.hasMoreElements())
       {
         IXMLElement buaelement = (IXMLElement) enubua.nextElement();
-        Buchungsart buchungsart = (Buchungsart) Einstellungen.getDBService()
-            .createObject(Buchungsart.class, null);
+        Buchungsart buchungsart = (Buchungsart) Einstellungen.getDBService().createObject(
+            Buchungsart.class, null);
         buchungsart.setArt(buaelement.getAttribute("art", 0));
         buchungsart.setBezeichnung(buaelement.getAttribute("bezeichnung", ""));
         buchungsart.setBuchungsklasse(new Integer(bukl.getID()));
@@ -100,7 +100,7 @@ public class KontenrahmenImportXML implements Importer
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Kontenrahmen-Import XML");
+    return "Kontenrahmen-Import XML";
   }
 
   public boolean hasFileDialog()
@@ -117,6 +117,7 @@ public class KontenrahmenImportXML implements Importer
     }
     IOFormat f = new IOFormat()
     {
+
       @Override
       public String getName()
       {
@@ -129,9 +130,9 @@ public class KontenrahmenImportXML implements Importer
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.xml" };
+        return new String[] { "*.xml"};
       }
     };
-    return new IOFormat[] { f };
+    return new IOFormat[] { f};
   }
 }

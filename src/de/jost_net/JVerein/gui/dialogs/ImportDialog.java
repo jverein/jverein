@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.dialogs;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,7 +32,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.input.EncodingInput;
 import de.jost_net.JVerein.io.IOFormat;
@@ -62,6 +62,7 @@ import de.willuhn.util.ProgressMonitor;
  */
 public class ImportDialog extends AbstractDialog<Object>
 {
+
   private final static int WINDOW_WIDTH = 420;
 
   private Input importerListe = null;
@@ -80,20 +81,20 @@ public class ImportDialog extends AbstractDialog<Object>
    * ct.
    * 
    * @param context
-   *          Context.
+   *        Context.
    * @param type
-   *          die Art der zu importierenden Objekte.
+   *        die Art der zu importierenden Objekte.
    * @throws RemoteException
    */
   public ImportDialog(GenericObject context, Class<?> type, boolean enc,
-      String helplink) throws RemoteException
+      String helplink)
   {
     super(POSITION_CENTER);
 
     this.context = context;
     this.type = type;
 
-    this.setTitle(JVereinPlugin.getI18n().tr("Daten-Import"));
+    this.setTitle("Daten-Import");
     this.setSize(WINDOW_WIDTH, SWT.DEFAULT);
 
     settings = new Settings(this.getClass());
@@ -113,43 +114,40 @@ public class ImportDialog extends AbstractDialog<Object>
   {
     Container group = new SimpleContainer(parent);
     group.addText(
-        JVereinPlugin.getI18n().tr(
-            "Bitte wählen Sie das gewünschte Dateiformat für den Import aus"),
-        true);
+        "Bitte wählen Sie das gewünschte Dateiformat für den Import aus", true);
 
     Input formats = getImporterList();
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Verfügbare Formate:"),
-        formats);
+    group.addLabelPair("Verfügbare Formate:", formats);
     if (this.encoding != null)
     {
-      group.addLabelPair(JVereinPlugin.getI18n().tr("Encoding"), encoding);
+      group.addLabelPair("Encoding", encoding);
     }
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), helplink, false, "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(), helplink, false,
+        "help-browser.png");
 
-    Button button = new Button(JVereinPlugin.getI18n().tr("Import starten"),
-        new Action()
-        {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            doImport();
-          }
-        }, null, true, "import_obj.gif");
-    button.setEnabled(!(formats instanceof LabelInput));
-    buttons.addButton(button);
-    buttons.addButton(JVereinPlugin.getI18n().tr("Abbrechen"), new Action()
+    Button button = new Button("Import starten", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
+      {
+        doImport();
+      }
+    }, null, true, "import_obj.gif");
+    button.setEnabled(!(formats instanceof LabelInput));
+    buttons.addButton(button);
+    buttons.addButton("Abbrechen", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
       {
         throw new OperationCanceledException();
       }
     }, null, false, "process-stop.png");
     group.addButtonArea(buttons);
-    getShell()
-        .setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
+    getShell().setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
   }
 
   /**
@@ -168,23 +166,19 @@ public class ImportDialog extends AbstractDialog<Object>
     catch (Exception e)
     {
       Logger.error("error while saving import file", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim Starten des Imports"), e);
+      throw new ApplicationException("Fehler beim Starten des Imports", e);
     }
 
     if (imp == null || imp.importer == null)
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte wählen Sie ein Import-Format aus"));
+      throw new ApplicationException("Bitte wählen Sie ein Import-Format aus");
 
     settings.setAttribute("lastformat", imp.format.getName());
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-    fd.setText(i18n
-        .tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
+    fd.setText(i18n.tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
     fd.setFilterNames(imp.format.getFileExtensions());
 
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
       fd.setFilterPath(path);
 
@@ -198,8 +192,8 @@ public class ImportDialog extends AbstractDialog<Object>
 
     final File file = new File(s);
     if (!file.exists() || !file.isFile())
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Datei existiert nicht oder ist nicht lesbar"));
+      throw new ApplicationException(
+          "Datei existiert nicht oder ist nicht lesbar");
 
     // Wir merken uns noch das Verzeichnis vom letzten mal
     settings.setAttribute("lastdir", file.getParent());
@@ -216,6 +210,7 @@ public class ImportDialog extends AbstractDialog<Object>
 
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -225,7 +220,7 @@ public class ImportDialog extends AbstractDialog<Object>
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr("Daten importiert aus {0}", s));
+              MessageFormat.format("Daten importiert aus {0}", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -239,8 +234,9 @@ public class ImportDialog extends AbstractDialog<Object>
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while reading objects from " + s, e);
-          ApplicationException ae = new ApplicationException(JVereinPlugin
-              .getI18n().tr("Fehler beim Importieren der Daten aus {0}", s), e);
+          ApplicationException ae = new ApplicationException(
+              MessageFormat.format("Fehler beim Importieren der Daten aus {0}",
+                  s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
@@ -250,6 +246,7 @@ public class ImportDialog extends AbstractDialog<Object>
       @Override
       public void interrupt()
       {
+        //
       }
 
       @Override
@@ -307,8 +304,7 @@ public class ImportDialog extends AbstractDialog<Object>
 
     if (size == 0)
     {
-      importerListe = new LabelInput(JVereinPlugin.getI18n().tr(
-          "Keine Import-Filter verfügbar"));
+      importerListe = new LabelInput("Keine Import-Filter verfügbar");
       return importerListe;
     }
 
@@ -332,6 +328,7 @@ public class ImportDialog extends AbstractDialog<Object>
    */
   private class Imp implements GenericObject, Comparable
   {
+
     private Importer importer = null;
 
     private IOFormat format = null;
@@ -346,7 +343,7 @@ public class ImportDialog extends AbstractDialog<Object>
      * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
      */
     @Override
-    public Object getAttribute(String arg0) throws RemoteException
+    public Object getAttribute(String arg0)
     {
       return this.format.getName();
     }
@@ -355,16 +352,16 @@ public class ImportDialog extends AbstractDialog<Object>
      * @see de.willuhn.datasource.GenericObject#getAttributeNames()
      */
     @Override
-    public String[] getAttributeNames() throws RemoteException
+    public String[] getAttributeNames()
     {
-      return new String[] { "name" };
+      return new String[] { "name"};
     }
 
     /**
      * @see de.willuhn.datasource.GenericObject#getID()
      */
     @Override
-    public String getID() throws RemoteException
+    public String getID()
     {
       return this.importer.getClass().getName() + "#"
           + this.format.getClass().getName();
@@ -374,7 +371,7 @@ public class ImportDialog extends AbstractDialog<Object>
      * @see de.willuhn.datasource.GenericObject#getPrimaryAttribute()
      */
     @Override
-    public String getPrimaryAttribute() throws RemoteException
+    public String getPrimaryAttribute()
     {
       return "name";
     }

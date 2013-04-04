@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class LehrgangDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -47,8 +47,7 @@ public class LehrgangDeleteAction implements Action
     }
     if (context == null || !(context instanceof Lehrgang))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Lehrgang ausgewählt"));
+      throw new ApplicationException("Kein Lehrgang ausgewählt");
     }
     try
     {
@@ -59,9 +58,8 @@ public class LehrgangDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Lehrgang löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Lehrgang wirklich löschen?"));
+      d.setTitle("Lehrgang löschen");
+      d.setText("Wollen Sie diesen Lehrgang wirklich löschen?");
 
       try
       {
@@ -73,19 +71,15 @@ public class LehrgangDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen eines Lehrgangs"),
-            e);
+        Logger.error("Fehler beim Löschen eines Lehrgangs", e);
         return;
       }
       l.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Lehrgang gelöscht."));
+      GUI.getStatusBar().setSuccessText("Lehrgang gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen eines Lehrgangs");
+      String fehler = "Fehler beim Löschen eines Lehrgangs";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

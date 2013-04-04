@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -44,7 +43,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Kursteilnehmer");
+    return "Kursteilnehmer";
   }
 
   @Override
@@ -97,8 +96,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
       try
       {
         return k.getName() + ", " + k.getVZweck1() + ", " + k.getVZweck2()
-            + ", " + JVereinPlugin.getI18n().tr("IBAN") + ": " + k.getIban()
-            + ", " + JVereinPlugin.getI18n().tr("BIC") + ": " + k.getBic();
+            + ", " + "IBAN: " + k.getIban() + ", " + "BIC: " + k.getBic();
       }
       catch (RemoteException re)
       {

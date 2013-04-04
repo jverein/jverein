@@ -29,6 +29,7 @@ import de.willuhn.logging.Logger;
  */
 public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
 {
+
   private IBankverbindung bankverbindung;
 
   private SEPALandInput land = null;
@@ -48,7 +49,6 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
    * @throws RemoteException
    */
   public BankverbindungDialog(int position, IBankverbindung bankverbindung)
-      throws RemoteException
   {
     super(position);
     setTitle("Bankverbindung");
@@ -73,6 +73,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("übernehmen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -92,6 +93,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     }, null, true);
     buttons.addButton("abbrechen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -120,8 +122,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     }
     try
     {
-      SEPALand la = SEPALaender.getLand(Einstellungen.getEinstellung()
-          .getDefaultLand());
+      SEPALand la = SEPALaender.getLand(Einstellungen.getEinstellung().getDefaultLand());
       if (bankverbindung.getIban() != null
           && bankverbindung.getIban().length() > 0)
       {
@@ -186,7 +187,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     return iban;
   }
 
-  private TextInput getStatus() throws RemoteException
+  private TextInput getStatus()
   {
     if (status != null)
     {
@@ -200,14 +201,7 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
 
   private void setStatus(String status)
   {
-    try
-    {
-      getStatus().setValue(status);
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler", e);
-    }
+    getStatus().setValue(status);
   }
 
   private class AltBankListener implements Listener

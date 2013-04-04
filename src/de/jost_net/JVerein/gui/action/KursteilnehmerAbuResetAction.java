@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class KursteilnehmerAbuResetAction implements Action
 {
+
   private TablePart table;
 
   public KursteilnehmerAbuResetAction(TablePart table)
@@ -49,8 +49,7 @@ public class KursteilnehmerAbuResetAction implements Action
   {
     if (context == null || !(context instanceof Kursteilnehmer))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Kursteilnehmer ausgewählt"));
+      throw new ApplicationException("Kein Kursteilnehmer ausgewählt");
     }
     try
     {
@@ -60,10 +59,8 @@ public class KursteilnehmerAbuResetAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Abbuchungsdatum zurücksetzen"));
-      d.setText(JVereinPlugin
-          .getI18n()
-          .tr("Wollen Sie das Ausführungsdatum der Abbuchung wirklich zurücksetzen?"));
+      d.setTitle("Abbuchungsdatum zurücksetzen");
+      d.setText("Wollen Sie das Ausführungsdatum der Abbuchung wirklich zurücksetzen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -73,9 +70,7 @@ public class KursteilnehmerAbuResetAction implements Action
       catch (Exception e)
       {
         Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Fehler beim Reset des Abbuchungsdatums des Kursteilnehmers"),
-            e);
+            "Fehler beim Reset des Abbuchungsdatums des Kursteilnehmers", e);
         return;
       }
       int ind = table.removeItem(kt);
@@ -83,13 +78,11 @@ public class KursteilnehmerAbuResetAction implements Action
       kt.store();
       table.addItem(kt, ind);
 
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Abbuchungsdatum zurückgesetzt."));
+      GUI.getStatusBar().setSuccessText("Abbuchungsdatum zurückgesetzt.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Zurücksetzen des Abbuchungsdatum des Kursteilnehmers.");
+      String fehler = "Fehler beim Zurücksetzen des Abbuchungsdatum des Kursteilnehmers.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

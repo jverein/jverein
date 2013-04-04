@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.dialogs;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.parts.KontoList;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
@@ -39,6 +38,7 @@ import de.willuhn.jameica.system.OperationCanceledException;
  */
 public class KontoAuswahlDialog extends AbstractDialog<Konto>
 {
+
   private String text = null;
 
   private Konto choosen = null;
@@ -52,7 +52,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
   {
     super(position);
     super.setSize(400, 300);
-    this.setTitle(JVereinPlugin.getI18n().tr("Konto-Auswahl"));
+    this.setTitle("Konto-Auswahl");
     this.keinkonto = keinkonto;
     this.onlyHibiscus = onlyHibiscus;
   }
@@ -60,18 +60,17 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Verfügbare Konten"));
+    LabelGroup group = new LabelGroup(parent, "Verfügbare Konten");
 
     if (text == null || text.length() == 0)
     {
-      text = JVereinPlugin.getI18n().tr(
-          "Bitte wählen Sie das gewünschte Konto aus.");
+      text = "Bitte wählen Sie das gewünschte Konto aus.";
     }
     group.addText(text, true);
 
     Action a = new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -97,8 +96,9 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     konten.paint(parent);
 
     ButtonArea b = new ButtonArea();
-    b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
+    b.addButton(i18n.tr("übernehmen"), new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -112,8 +112,9 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
     });
     if (keinkonto)
     {
-      b.addButton(JVereinPlugin.getI18n().tr("kein Konto"), new Action()
+      b.addButton("kein Konto", new Action()
       {
+
         @Override
         public void handleAction(Object context)
         {
@@ -122,8 +123,9 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
         }
       });
     }
-    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    b.addButton("abbrechen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

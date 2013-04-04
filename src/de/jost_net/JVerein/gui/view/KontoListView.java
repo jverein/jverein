@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.HibiscusKontenImportAction;
 import de.jost_net.JVerein.gui.action.KontoAction;
@@ -36,33 +35,29 @@ public class KontoListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Konten"));
+    GUI.getView().setTitle("Konten");
 
     KontoControl control = new KontoControl(this);
 
     control.getKontenList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.KONTEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hibiscus-Konten-Import"),
-        new HibiscusKontenImportAction(control), null, false, "go.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new KontoAction(),
-        null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.KONTEN, false, "help-browser.png");
+    buttons.addButton("Hibiscus-Konten-Import", new HibiscusKontenImportAction(
+        control), null, false, "go.png");
+    buttons.addButton("neu", new KontoAction(), null, false, "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Konten</span></p>"
-            + "<p>Konten können entweder von Hibuscus übernommen werden oder durch einen "
-            + "Klick auf neu aufgenommen werden.</p>"
-            + "<p>Durch einen Rechtsklick auf ein Konto kann entweder der Anfangsbestand des "
-            + "Kontos zu einem Zeitpunkt eingegeben werden oder das Konto kann gelöscht werden, "
-            + "sofern keine Buchungen für das Konto existieren.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Konten</span></p>"
+        + "<p>Konten können entweder von Hibuscus übernommen werden oder durch einen "
+        + "Klick auf neu aufgenommen werden.</p>"
+        + "<p>Durch einen Rechtsklick auf ein Konto kann entweder der Anfangsbestand des "
+        + "Kontos zu einem Zeitpunkt eingegeben werden oder das Konto kann gelöscht werden, "
+        + "sofern keine Buchungen für das Konto existieren.</p></form>";
   }
 }

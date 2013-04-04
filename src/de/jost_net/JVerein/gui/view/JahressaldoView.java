@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.JahressaldoControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -38,36 +37,32 @@ public class JahressaldoView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Jahressaldo"));
+    GUI.getView().setTitle("Jahressaldo");
 
     final JahressaldoControl control = new JahressaldoControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Jahr"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
-        control.getSuchJahr());
+    LabelGroup group = new LabelGroup(getParent(), "Jahr");
+    group.addLabelPair("Jahr", control.getSuchJahr());
 
     ButtonArea buttons = new ButtonArea();
-    Button button = new Button(JVereinPlugin.getI18n().tr("suchen"),
-        new Action()
-        {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            control.getSaldoList();
-          }
-        }, null, true, "system-search.png");
+    Button button = new Button("suchen", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        control.getSaldoList();
+      }
+    }, null, true, "system-search.png");
     buttons.addButton(button);
     buttons.paint(this.getParent());
 
-    LabelGroup group2 = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Saldo"));
+    LabelGroup group2 = new LabelGroup(getParent(), "Saldo");
     group2.addPart(control.getSaldoList());
 
     ButtonArea buttons2 = new ButtonArea();
-    buttons2.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.JAHRESSALDO, false,
-        "help-browser.png");
+    buttons2.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.JAHRESSALDO, false, "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());
     buttons2.paint(this.getParent());
   }
@@ -75,8 +70,7 @@ public class JahressaldoView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
+        + "</form>";
   }
 }

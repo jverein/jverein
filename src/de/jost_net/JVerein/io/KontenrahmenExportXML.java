@@ -30,12 +30,12 @@ import java.rmi.RemoteException;
 import net.n3.nanoxml.IXMLElement;
 import net.n3.nanoxml.XMLElement;
 import net.n3.nanoxml.XMLWriter;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 
 public class KontenrahmenExportXML extends KontenrahmenExport
 {
+
   private Writer output;
 
   private XMLWriter xmlwriter;
@@ -51,7 +51,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Kontenrahmen XML-Export");
+    return "Kontenrahmen XML-Export";
   }
 
   @Override
@@ -63,6 +63,7 @@ public class KontenrahmenExportXML extends KontenrahmenExport
     }
     IOFormat f = new IOFormat()
     {
+
       @Override
       public String getName()
       {
@@ -75,16 +76,16 @@ public class KontenrahmenExportXML extends KontenrahmenExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.xml" };
+        return new String[] { "*.xml"};
       }
     };
-    return new IOFormat[] { f };
+    return new IOFormat[] { f};
   }
 
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("kontenrahmen");
+    return "kontenrahmen";
   }
 
   @Override

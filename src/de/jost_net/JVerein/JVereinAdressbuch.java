@@ -33,8 +33,9 @@ import de.willuhn.jameica.hbci.rmi.Addressbook;
 
 public class JVereinAdressbuch implements Addressbook
 {
+
   @Override
-  public String getName() throws RemoteException
+  public String getName()
   {
     return "JVerein-Adressbuch";
   }
@@ -46,7 +47,7 @@ public class JVereinAdressbuch implements Addressbook
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
     String su = "%" + text.toLowerCase() + "%";
     it.addFilter("(lower(name) like ? or lower(vorname) like ?)", new Object[] {
-        su, su });
+        su, su});
     it.addFilter("konto is not null and length(konto)>0 and blz is not null and length(blz) > 0");
     ArrayList<MitgliedAddress> list = new ArrayList<MitgliedAddress>();
     while (it.hasNext())
@@ -65,7 +66,7 @@ public class JVereinAdressbuch implements Addressbook
   }
 
   @Override
-  public Address contains(Address address) throws RemoteException
+  public Address contains(Address address)
   {
     return null;
   }

@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Anfangsbestand;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.util.Datum;
@@ -41,6 +40,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class JahresabschlussDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -51,8 +51,7 @@ public class JahresabschlussDeleteAction implements Action
     }
     if (context == null || !(context instanceof Jahresabschluss))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keinen Jahresabschluss ausgewählt"));
+      throw new ApplicationException("Keinen Jahresabschluss ausgewählt");
     }
     try
     {
@@ -62,9 +61,8 @@ public class JahresabschlussDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Jahresabschluss löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diesen Jahresabschluss wirklich löschen?"));
+      d.setTitle("Jahresabschluss löschen");
+      d.setText("Wollen Sie diesen Jahresabschluss wirklich löschen?");
 
       try
       {
@@ -77,28 +75,26 @@ public class JahresabschlussDeleteAction implements Action
       catch (Exception e)
       {
         Logger.error(
-            JVereinPlugin.getI18n().tr(
-                "Fehler beim Löschen des Jahresabschlusses"), e);
+
+        "Fehler beim Löschen des Jahresabschlusses", e);
         return;
       }
       a.delete();
       DBIterator it = Einstellungen.getDBService().createList(
           Anfangsbestand.class);
-      it.addFilter("datum = ?", new Object[] { Datum.addTage(a.getBis(), 1) });
+      it.addFilter("datum = ?", new Object[] { Datum.addTage(a.getBis(), 1)});
       while (it.hasNext())
       {
         Anfangsbestand a1 = (Anfangsbestand) it.next();
-        Anfangsbestand a2 = (Anfangsbestand) Einstellungen.getDBService()
-            .createObject(Anfangsbestand.class, a1.getID());
+        Anfangsbestand a2 = (Anfangsbestand) Einstellungen.getDBService().createObject(
+            Anfangsbestand.class, a1.getID());
         a2.delete();
       }
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Jahresabschluss gelöscht."));
+      GUI.getStatusBar().setSuccessText("Jahresabschluss gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Jahresabschlusses");
+      String fehler = "Fehler beim Löschen des Jahresabschlusses";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

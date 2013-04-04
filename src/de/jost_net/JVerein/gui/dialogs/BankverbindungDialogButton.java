@@ -26,10 +26,10 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.util.ApplicationException;
 
 public class BankverbindungDialogButton extends ButtonArea
 {
+
   public BankverbindungDialogButton(final IBankverbindung bankverbindung,
       final TextInput blz, final TextInput konto, final TextInput bic,
       final TextInput iban)
@@ -37,8 +37,9 @@ public class BankverbindungDialogButton extends ButtonArea
     super();
     final Button b = new Button("", new Action()
     {
+
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         try
         {

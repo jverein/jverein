@@ -25,7 +25,6 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -35,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class KontoImpl extends AbstractDBObject implements Konto
 {
+
   private static final long serialVersionUID = 1L;
 
   public KontoImpl() throws RemoteException
@@ -67,18 +67,17 @@ public class KontoImpl extends AbstractDBObject implements Konto
     {
       plausi();
       DBIterator it = Einstellungen.getDBService().createList(Konto.class);
-      it.addFilter("nummer = ?", new Object[] { getNummer() });
+      it.addFilter("nummer = ?", new Object[] { getNummer()});
       if (it.size() > 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Konto existiert bereits"));
+        throw new ApplicationException("Konto existiert bereits");
       }
     }
     catch (RemoteException e)
     {
       Logger.error("insert check of konto failed", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Konto kann nicht gespeichert werden. Siehe system log"));
+      throw new ApplicationException(
+          "Konto kann nicht gespeichert werden. Siehe system log");
     }
   }
 
@@ -94,25 +93,23 @@ public class KontoImpl extends AbstractDBObject implements Konto
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
       if (getBezeichnung().length() > 255)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Maximale Länge der Bezeichnung: 255 Zeichen"));
+        throw new ApplicationException(
+            "Maximale Länge der Bezeichnung: 255 Zeichen");
       }
       if (getNummer() == null || getNummer().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Nummer eingeben"));
+        throw new ApplicationException("Bitte Nummer eingeben");
       }
     }
     catch (RemoteException e)
     {
       Logger.error("insert check of konto failed", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Konto kann nicht gespeichert werden. Siehe system log"));
+      throw new ApplicationException(
+          "Konto kann nicht gespeichert werden. Siehe system log");
     }
   }
 
@@ -188,10 +185,10 @@ public class KontoImpl extends AbstractDBObject implements Konto
   {
     DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
     konten.addFilter("(eroeffnung is null or eroeffnung <= ?)",
-        new Object[] { gj.getEndeGeschaeftsjahr() });
+        new Object[] { gj.getEndeGeschaeftsjahr()});
     konten.addFilter("(aufloesung is null or year(aufloesung) = ? or "
         + "aufloesung >= ? )", new Object[] { gj.getBeginnGeschaeftsjahrjahr(),
-        gj.getEndeGeschaeftsjahr() });
+        gj.getEndeGeschaeftsjahr()});
     konten.setOrder("order by bezeichnung");
     return konten;
   }

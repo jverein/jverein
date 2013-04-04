@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ImportDialog;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
@@ -57,10 +56,9 @@ public class KontenrahmenImportAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
       GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n()
-              .tr("Fehler beim Importieren von Kontenrahmen"));
+          "Fehler beim Importieren von Kontenrahmen");
     }
   }
 

@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.dialogs;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.CheckboxInput;
@@ -60,7 +59,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
   public KontoauszugZuordnungDialog(int position)
   {
     super(position);
-    setTitle(JVereinPlugin.getI18n().tr("Zuordnung Kontoauszugsinformationen"));
+    setTitle("Zuordnung Kontoauszugsinformationen");
     setSize(400, 225);
   }
 
@@ -68,30 +67,30 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup group = new LabelGroup(parent, "");
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Auszug"), getAuszug());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Blatt"), getBlatt());
-    group.addLabelPair(
-        JVereinPlugin.getI18n().tr("Kontoauszugsinformationen überschreiben"),
+    group.addLabelPair("Auszug", getAuszug());
+    group.addLabelPair("Blatt", getBlatt());
+    group.addLabelPair("Kontoauszugsinformationen überschreiben",
         getUeberschreiben());
     group.addLabelPair("", getStatus());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
+    buttons.addButton("übernehmen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
         intAuszug = (Integer) auszug.getValue();
         if (intAuszug.intValue() <= 0)
         {
-          status.setValue(JVereinPlugin.getI18n().tr("Auszugsnummer fehlt"));
+          status.setValue("Auszugsnummer fehlt");
           status.setColor(Color.ERROR);
           return;
         }
         intBlatt = (Integer) blatt.getValue();
         if (intBlatt <= 0)
         {
-          status.setValue(JVereinPlugin.getI18n().tr("Blattnummer fehlt"));
+          status.setValue("Blattnummer fehlt");
           status.setColor(Color.ERROR);
           return;
         }
@@ -101,8 +100,9 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
         close();
       }
     }, null, true);
-    buttons.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    buttons.addButton("abbrechen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

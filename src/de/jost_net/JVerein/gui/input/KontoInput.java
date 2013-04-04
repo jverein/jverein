@@ -35,14 +35,15 @@ import de.willuhn.util.I18N;
  */
 public class KontoInput extends SelectInput
 {
-  private final static I18N i18n = Application.getPluginLoader()
-      .getPlugin(HBCI.class).getResources().getI18N();
+
+  private final static I18N i18n = Application.getPluginLoader().getPlugin(
+      HBCI.class).getResources().getI18N();
 
   /**
    * ct.
    * 
    * @param konto
-   *          ausgewaehltes Konto.
+   *        ausgewaehltes Konto.
    * @throws RemoteException
    */
   public KontoInput(Konto konto) throws RemoteException
@@ -101,7 +102,7 @@ public class KontoInput extends SelectInput
       }
       else
       {
-        sb.append(JVereinPlugin.getI18n().tr("BLZ")+" ");
+        sb.append("BLZ" + " ");
         sb.append(blz);
       }
       sb.append("] ");

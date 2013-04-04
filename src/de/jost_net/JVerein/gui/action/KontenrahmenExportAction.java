@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ExportDialog;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
@@ -42,7 +41,7 @@ public class KontenrahmenExportAction implements Action
   {
     try
     {
-      ExportDialog d = new ExportDialog(new Object[] { context },
+      ExportDialog d = new ExportDialog(new Object[] { context},
           Buchungsklasse.class, DokumentationUtil.KONTENRAHMEN);
       d.open();
     }
@@ -57,10 +56,9 @@ public class KontenrahmenExportAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
       GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr(
-              "Fehler beim exportieren des Kontenrahmens"));
+          "Fehler beim exportieren des Kontenrahmens");
     }
   }
 }

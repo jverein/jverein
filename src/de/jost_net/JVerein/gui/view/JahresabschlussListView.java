@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.JahresabschlussDetailAction;
 import de.jost_net.JVerein.gui.control.JahresabschlussControl;
@@ -35,26 +34,24 @@ public class JahresabschlussListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Jahresabschlüsse"));
+    GUI.getView().setTitle("Jahresabschlüsse");
 
     JahresabschlussControl control = new JahresabschlussControl(this);
 
     control.getJahresabschlussList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.ANFANGSBESTAENDE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new JahresabschlussDetailAction(), null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
+    buttons.addButton("neu", new JahresabschlussDetailAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Jahresabschlüsse</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Jahresabschlüsse</span></p>"
+        + "</form>";
   }
 }

@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
@@ -39,49 +38,42 @@ public class KursteilnehmerDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Kursteilnehmer"));
+    GUI.getView().setTitle("Kursteilnehmer");
 
     final KursteilnehmerControl control = new KursteilnehmerControl(this);
 
-    LabelGroup grGrund = new LabelGroup(getParent(), JVereinPlugin.getI18n()
-        .tr("Daten für die Abbuchung"));
+    LabelGroup grGrund = new LabelGroup(getParent(), "Daten für die Abbuchung");
     grGrund.getComposite().setSize(290, 190);
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
-        control.getName(true));
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 1"),
-        control.getVZweck1());
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 2"),
-        control.getVZweck2());
+    grGrund.addLabelPair("Name", control.getName(true));
+    grGrund.addLabelPair("Verwendungszweck 1", control.getVZweck1());
+    grGrund.addLabelPair("Verwendungszweck 2", control.getVZweck2());
     grGrund.addInput(control.getMandatDatum());
     grGrund.addInput(control.getBIC());
     grGrund.addInput(control.getIBAN());
-    grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),control.getBlz(),control.getKonto(),control.getBIC(),control.getIBAN()));
-    // grGrund.addLabelPair(JVereinPlugin.getI18n().tr("BLZ"),
+    grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),
+        control.getBlz(), control.getKonto(), control.getBIC(),
+        control.getIBAN()));
+    // grGrund.addLabelPair("BLZ"),
     // control.getBlz());
-    // grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Konto"),
+    // grGrund.addLabelPair("Konto"),
     // control.getKonto());
-    grGrund.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
+    grGrund.addLabelPair("Betrag", control.getBetrag());
 
-    LabelGroup grStatistik = new LabelGroup(getParent(), JVereinPlugin
-        .getI18n().tr("Statistik"));
+    LabelGroup grStatistik = new LabelGroup(getParent(), "Statistik");
     grStatistik.getComposite().setSize(290, 190);
-    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum"),
-        control.getGeburtsdatum());
-    grStatistik.addLabelPair(JVereinPlugin.getI18n().tr("Geschlecht"),
-        control.getGeschlecht());
+    grStatistik.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
+    grStatistik.addLabelPair("Geschlecht", control.getGeschlecht());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new KursteilnehmerDetailAction(), null, false, "document-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("löschen"),
-        new KursteilnehmerDeleteAction(), control.getCurrentObject(), false,
-        "user-trash.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.KURSTEILNEHMER, false, "help-browser.png");
+    buttons.addButton("neu", new KursteilnehmerDetailAction(), null, false,
+        "document-new.png");
+    buttons.addButton("löschen", new KursteilnehmerDeleteAction(),
+        control.getCurrentObject(), false, "user-trash.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

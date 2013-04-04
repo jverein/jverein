@@ -25,7 +25,6 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -70,8 +69,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Kursteilnehmer kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Kursteilnehmer kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -123,8 +121,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Kursteilnehmer kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Kursteilnehmer kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

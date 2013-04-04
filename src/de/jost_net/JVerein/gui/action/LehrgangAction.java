@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.LehrgangView;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class LehrgangAction implements Action
 {
+
   private Mitglied m;
 
   public LehrgangAction(Mitglied m)
@@ -62,9 +62,7 @@ public class LehrgangAction implements Action
           if (m.getID() == null)
           {
             throw new ApplicationException(
-                JVereinPlugin
-                    .getI18n()
-                    .tr("Neues Mitglied bitte erst speichern. Dann können Lehrgänge aufgenommen werden."));
+                "Neues Mitglied bitte erst speichern. Dann können Lehrgänge aufgenommen werden.");
           }
 
           l.setMitglied(new Integer(m.getID()).intValue());
@@ -72,8 +70,8 @@ public class LehrgangAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Lehrgangs"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Lehrgangs", e);
       }
     }
     GUI.startView(LehrgangView.class.getName(), l);

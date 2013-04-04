@@ -23,6 +23,7 @@ package de.jost_net.JVerein.Calendar;
  **********************************************************************/
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -31,7 +32,6 @@ import java.util.List;
 import org.eclipse.swt.graphics.RGB;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -77,13 +77,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
 
         if (calf.getTime().after(from) && calf.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calf.getTime(), calf
-              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calf.getTime(),
+              calf.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
         else if (calt.getTime().after(from) && calt.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calt.getTime(), calt
-              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calt.getTime(),
+              calt.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
       }
       return result;
@@ -101,7 +101,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Geburtstage");
+    return "Geburtstage";
   }
 
   /**
@@ -153,8 +153,8 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return JVereinPlugin.getI18n().tr("{0}. Geburtstag von {1}",
-            alter + "", m.getNameVorname());
+        return MessageFormat.format("{0}. Geburtstag von {1}", alter + "",
+            m.getNameVorname());
       }
       catch (RemoteException re)
       {
@@ -171,13 +171,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return JVereinPlugin.getI18n().tr("{0}. Geburtstag von {1}",
-            alter + "", m.getNameVorname());
+        return MessageFormat.format("{0}. Geburtstag von {1}", alter + "",
+            m.getNameVorname());
       }
       catch (RemoteException re)
       {
         Logger.error("unable to build name", re);
-        return JVereinPlugin.getI18n().tr("Mitgliedergeburtstag");
+        return "Mitgliedergeburtstag";
       }
     }
 

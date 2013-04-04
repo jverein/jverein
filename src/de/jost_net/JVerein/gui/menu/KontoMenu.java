@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.AnfangsbestandNeuAction;
 import de.jost_net.JVerein.gui.action.KontoDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -38,10 +37,9 @@ public class KontoMenu extends ContextMenu
    */
   public KontoMenu()
   {
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Anfangsbestand"), new AnfangsbestandNeuAction(), "document-new.png"));
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new KontoDeleteAction(),
+    addItem(new CheckedContextMenuItem("Anfangsbestand",
+        new AnfangsbestandNeuAction(), "document-new.png"));
+    addItem(new CheckedContextMenuItem("löschen...", new KontoDeleteAction(),
         "user-trash.png"));
   }
 }

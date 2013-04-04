@@ -28,7 +28,6 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -41,6 +40,7 @@ import de.willuhn.jameica.gui.parts.TablePart;
  */
 public class KontoList extends TablePart implements Part
 {
+
   public KontoList(Action action, boolean onlyHibiscus) throws RemoteException
   {
     this(init(onlyHibiscus), action);
@@ -50,8 +50,8 @@ public class KontoList extends TablePart implements Part
   {
     super(konten, action);
 
-    addColumn(JVereinPlugin.getI18n().tr("Kontonummer"), "nummer");
-    addColumn(JVereinPlugin.getI18n().tr("Bezeichnung"), "bezeichnung");
+    addColumn("Kontonummer", "nummer");
+    addColumn("Bezeichnung", "bezeichnung");
     setRememberOrder(true);
     setRememberColWidths(true);
 

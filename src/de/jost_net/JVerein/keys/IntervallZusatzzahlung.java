@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Intervall Zusatzzahlungen
  */
 public class IntervallZusatzzahlung
 {
+
   public static final int KEIN = 0;
 
   public static final int MONATLICH = 1;
@@ -64,17 +63,17 @@ public class IntervallZusatzzahlung
     switch (key)
     {
       case KEIN:
-        return JVereinPlugin.getI18n().tr("kein");
+        return "kein";
       case MONATLICH:
-        return JVereinPlugin.getI18n().tr("monatlich");
+        return "monatlich";
       case ZWEIMONATLICH:
-        return JVereinPlugin.getI18n().tr("zweimonatlich");
+        return "zweimonatlich";
       case VIERTELJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("vierteljährlich");
+        return "vierteljährlich";
       case HALBJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("halbjährlich");
+        return "halbjährlich";
       case JAEHRLICH:
-        return JVereinPlugin.getI18n().tr("jährlich");
+        return "jährlich";
       default:
         return null;
     }

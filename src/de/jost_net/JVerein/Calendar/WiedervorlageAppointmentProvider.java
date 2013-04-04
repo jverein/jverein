@@ -30,7 +30,6 @@ import java.util.List;
 import org.eclipse.swt.graphics.RGB;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -60,9 +59,9 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       cal.setTime(from);
       if (from != null)
         list.addFilter("datum >= ?",
-            new Object[] { new java.sql.Date(from.getTime()) });
+            new Object[] { new java.sql.Date(from.getTime())});
       list.addFilter("datum <= ?",
-          new Object[] { new java.sql.Date(to.getTime()) });
+          new Object[] { new java.sql.Date(to.getTime())});
       list.setOrder("ORDER BY day(datum)");
 
       List<Appointment> result = new LinkedList<Appointment>();
@@ -85,7 +84,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Wiedervorlagen");
+    return "Wiedervorlagen";
   }
 
   /**
@@ -93,6 +92,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
    */
   private static class MyAppointment implements Appointment
   {
+
     private Wiedervorlage w = null;
 
     private Settings settings;
@@ -116,7 +116,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+        Logger.error("Fehler", e);
       }
     }
 
@@ -145,9 +145,8 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return JVereinPlugin.getI18n().tr(
-            "Wiedervorlage:" + w.getMitglied().getNameVorname() + ": "
-                + w.getVermerk());
+        return "Wiedervorlage:" + w.getMitglied().getNameVorname() + ": "
+            + w.getVermerk();
       }
       catch (RemoteException re)
       {
@@ -169,7 +168,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       catch (RemoteException re)
       {
         Logger.error("unable to build name", re);
-        return JVereinPlugin.getI18n().tr("Wiedervorlage");
+        return "Wiedervorlage";
       }
     }
 
@@ -207,6 +206,5 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       return false;
     }
-
   }
 }

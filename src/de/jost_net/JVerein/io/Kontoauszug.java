@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -35,7 +36,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -87,16 +87,15 @@ public class Kontoauszug
   private void init() throws IOException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("kontoauszug"), "",
+    fd.setFileName(new Dateiname("kontoauszug", "",
         Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -116,24 +115,19 @@ public class Kontoauszug
   {
     rpt.newPage();
     rpt.add(Einstellungen.getEinstellung().getName(), 20);
-    rpt.add(JVereinPlugin.getI18n().tr("Kontoauszug {0}", m.getVornameName()),
-        18);
+    rpt.add(MessageFormat.format("Kontoauszug {0}", m.getVornameName()), 18);
     JVDateFormatTTMMJJJJ jv = new JVDateFormatTTMMJJJJ();
-    rpt.add(JVereinPlugin.getI18n().tr("Stand: {0}", jv.format(new Date())), 16);
+    rpt.add(MessageFormat.format("Stand: {0}", jv.format(new Date())), 16);
 
     rpt.addHeaderColumn(" ", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-        Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zweck"),
-        Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"),
-        Element.ALIGN_LEFT, 20, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Soll"),
-        Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Ist"), Element.ALIGN_RIGHT,
-        20, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Differenz"),
-        Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Datum", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Zweck", Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Zahlungsweg", Element.ALIGN_LEFT, 20,
+        BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Soll", Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Ist", Element.ALIGN_RIGHT, 20, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Differenz", Element.ALIGN_RIGHT, 20,
+        BaseColor.LIGHT_GRAY);
     rpt.createHeader();
 
     MitgliedskontoNode node = new MitgliedskontoNode(m, von, bis);
@@ -158,13 +152,13 @@ public class Kontoauszug
     switch (node.getType())
     {
       case MitgliedskontoNode.MITGLIED:
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Gesamt"), Element.ALIGN_LEFT);
+        rpt.addColumn("Gesamt", Element.ALIGN_LEFT);
         break;
       case MitgliedskontoNode.SOLL:
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Soll"), Element.ALIGN_CENTER);
+        rpt.addColumn("Soll", Element.ALIGN_CENTER);
         break;
       case MitgliedskontoNode.IST:
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Ist"), Element.ALIGN_RIGHT);
+        rpt.addColumn("Ist", Element.ALIGN_RIGHT);
         break;
     }
     rpt.addColumn((Date) node.getAttribute("datum"), Element.ALIGN_CENTER);
@@ -178,10 +172,10 @@ public class Kontoauszug
 
   private void zeigeDokument()
   {
-    GUI.getStatusBar().setSuccessText(
-        JVereinPlugin.getI18n().tr("Kontoauszug erstellt"));
+    GUI.getStatusBar().setSuccessText("Kontoauszug erstellt");
     GUI.getDisplay().asyncExec(new Runnable()
     {
+
       @Override
       public void run()
       {

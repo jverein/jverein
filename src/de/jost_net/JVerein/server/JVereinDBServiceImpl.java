@@ -25,7 +25,6 @@ import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.DBSupport;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.datasource.db.DBServiceImpl;
@@ -55,7 +54,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    * Konstruktor mit expliziter Angabe des Treibers.
    * 
    * @param driverClass
-   *          der zu verwendende Treiber.
+   *        der zu verwendende Treiber.
    * @throws RemoteException
    */
   protected JVereinDBServiceImpl(String driverClass) throws RemoteException
@@ -81,7 +80,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Datenbank-Service für JVerein");
+    return "Datenbank-Service für JVerein";
   }
 
   @Override
@@ -124,7 +123,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
   public void install() throws RemoteException
   {
     ProgressMonitor monitor = Application.getCallback().getStartupMonitor();
-    monitor.setStatusText(JVereinPlugin.getI18n().tr("Installiere JVerein"));
+    monitor.setStatusText("Installiere JVerein");
     try
     {
       new JVereinUpdateProvider(getConnection(), monitor);

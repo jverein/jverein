@@ -130,6 +130,7 @@ public class ArbeitseinsatzControl extends AbstractControl
     this.datum.setText("Datum Arbeitseinsatz wählen");
     this.datum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -199,7 +200,7 @@ public class ArbeitseinsatzControl extends AbstractControl
     }
   }
 
-  public SelectInput getSuchJahr() throws RemoteException, ApplicationException
+  public SelectInput getSuchJahr() throws RemoteException
   {
     if (suchjahr != null)
     {
@@ -233,6 +234,7 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     Button b = new Button("PDF-Ausgabe", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -255,6 +257,7 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     Button b = new Button("CSV-Ausgabe", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -277,6 +280,7 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     Button b = new Button("Zusatzbeträge generieren", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -295,20 +299,18 @@ public class ArbeitseinsatzControl extends AbstractControl
     return b;
   }
 
-  private void startePDFAuswertung() throws RemoteException,
-      ApplicationException
+  private void startePDFAuswertung() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -326,6 +328,7 @@ public class ArbeitseinsatzControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -372,6 +375,7 @@ public class ArbeitseinsatzControl extends AbstractControl
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
+
           @Override
           public void run()
           {
@@ -408,15 +412,14 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "CSV").get());
-    fd.setFilterExtensions(new String[] { "*.CSV" });
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "CSV").get());
+    fd.setFilterExtensions(new String[] { "*.CSV"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -432,6 +435,7 @@ public class ArbeitseinsatzControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -443,7 +447,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
           final String[] header = new String[] { "name", "vorname", "strasse",
               "adressierungszusatz", "plz", "ort", "anrede", "soll", "ist",
-              "differenz", "stundensatz", "gesamtbetrag" };
+              "differenz", "stundensatz", "gesamtbetrag"};
           writer.writeHeader(header);
           // set up some data to write
           while (it.hasNext())
@@ -458,11 +462,11 @@ public class ArbeitseinsatzControl extends AbstractControl
             data1.put(header[4], m.getPlz());
             data1.put(header[5], m.getOrt());
             data1.put(header[6], m.getAnrede());
-            data1.put(header[7], (Double) z.getAttribute("soll"));
-            data1.put(header[8], (Double) z.getAttribute("ist"));
-            data1.put(header[9], (Double) z.getAttribute("differenz"));
-            data1.put(header[10], (Double) z.getAttribute("stundensatz"));
-            data1.put(header[11], (Double) z.getAttribute("gesamtbetrag"));
+            data1.put(header[7], z.getAttribute("soll"));
+            data1.put(header[8], z.getAttribute("ist"));
+            data1.put(header[9], z.getAttribute("differenz"));
+            data1.put(header[10], z.getAttribute("stundensatz"));
+            data1.put(header[11], z.getAttribute("gesamtbetrag"));
             writer.write(data1, header);
           }
           writer.close();
@@ -477,6 +481,7 @@ public class ArbeitseinsatzControl extends AbstractControl
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
+
           @Override
           public void run()
           {
@@ -511,14 +516,14 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   }
 
-  private void starteArbeitseinsatzGenerierung() throws RemoteException,
-      ApplicationException
+  private void starteArbeitseinsatzGenerierung() throws RemoteException
   {
     final GenericIterator it = getIterator();
     final int jahr = (Integer) getSuchJahr().getValue();
 
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -527,8 +532,8 @@ public class ArbeitseinsatzControl extends AbstractControl
           while (it.hasNext())
           {
             ArbeitseinsatzZeile z = (ArbeitseinsatzZeile) it.next();
-            Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService()
-                .createObject(Zusatzbetrag.class, null);
+            Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService().createObject(
+                Zusatzbetrag.class, null);
             Double betrag = (Double) z.getAttribute("gesamtbetrag");
             betrag = betrag * -1;
             zb.setBetrag(betrag);
@@ -570,11 +575,9 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   private GenericIterator getIterator() throws RemoteException
   {
-    ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
-        .getInfo();
+    ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList.getInfo();
 
-    GenericIterator gi = PseudoIterator.fromArray(zeile
-        .toArray(new GenericObject[zeile.size()]));
+    GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
     return gi;
   }
 
@@ -583,8 +586,8 @@ public class ArbeitseinsatzControl extends AbstractControl
     try
     {
       settings.setAttribute("jahr", (Integer) getSuchJahr().getValue());
-      settings.setAttribute("schluessel", (Integer) getAuswertungSchluessel()
-          .getValue());
+      settings.setAttribute("schluessel",
+          (Integer) getAuswertungSchluessel().getValue());
 
       if (arbeitseinsatzueberpruefungList == null)
       {
@@ -594,12 +597,9 @@ public class ArbeitseinsatzControl extends AbstractControl
       }
       else
       {
-        arbeitseinsatzueberpruefungList.setJahr((Integer) getSuchJahr()
-            .getValue());
-        arbeitseinsatzueberpruefungList
-            .setSchluessel((Integer) getAuswertungSchluessel().getValue());
-        ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
-            .getInfo();
+        arbeitseinsatzueberpruefungList.setJahr((Integer) getSuchJahr().getValue());
+        arbeitseinsatzueberpruefungList.setSchluessel((Integer) getAuswertungSchluessel().getValue());
+        ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList.getInfo();
         arbeitseinsatzueberpruefungList.removeAll();
         for (ArbeitseinsatzZeile az : zeile)
         {

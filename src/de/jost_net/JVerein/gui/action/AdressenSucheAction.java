@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import de.jost_net.JVerein.gui.view.AdressenSucheView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class AdressenSucheAction implements Action
 {
@@ -34,7 +33,7 @@ public class AdressenSucheAction implements Action
   }
 
   @Override
-  public void handleAction(Object context) throws ApplicationException
+  public void handleAction(Object context)
   {
     GUI.startView(AdressenSucheView.class.getName(), null);
   }
