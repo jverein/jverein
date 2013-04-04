@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -48,7 +47,7 @@ public class MitgliedSearchProvider implements SearchProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Mitglieder");
+    return "Mitglieder";
   }
 
   @Override
@@ -102,9 +101,8 @@ public class MitgliedSearchProvider implements SearchProvider
             + m.getAnschrift()
             + (m.getGeburtsdatum() != null ? ", "
                 + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum()) : "")
-            + (m.getKonto() != null ? ", " + JVereinPlugin.getI18n().tr("IBAN")
-                + ": " + m.getIban() + ", " + JVereinPlugin.getI18n().tr("BIC")
-                + ": " + m.getBic() : "");
+            + (m.getKonto() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "
+                + "BIC" + ": " + m.getBic() : "");
       }
       catch (RemoteException re)
       {

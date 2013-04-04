@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.SpendenbescheinigungView;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.willuhn.jameica.gui.Action;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class SpendenbescheinigungDuplizierenAction implements Action
 {
+
   /**
    * Duplizieren einer Spendenbescheinigung. Es kann nur dann eine Kopie
    * erstellt werden, wenn genau ein Eintrag selektiert ist. Es wird zusätzlich
@@ -47,14 +47,13 @@ public class SpendenbescheinigungDuplizierenAction implements Action
   {
     if (context == null || !(context instanceof Spendenbescheinigung))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Spendenbescheinigung ausgewählt"));
+      throw new ApplicationException("Keine Spendenbescheinigung ausgewählt");
     }
     try
     {
       Spendenbescheinigung spb = (Spendenbescheinigung) context;
-      Spendenbescheinigung spb2 = (Spendenbescheinigung) Einstellungen
-          .getDBService().createObject(Spendenbescheinigung.class, null);
+      Spendenbescheinigung spb2 = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
+          Spendenbescheinigung.class, null);
       spb2.setBetrag(spb.getBetrag());
       spb2.setErsatzAufwendungen(spb.getErsatzAufwendungen());
       spb2.setFormular(spb.getFormular());
@@ -70,8 +69,7 @@ public class SpendenbescheinigungDuplizierenAction implements Action
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Duplizieren der Spendenbescheinigung");
+      String fehler = "Fehler beim Duplizieren der Spendenbescheinigung";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

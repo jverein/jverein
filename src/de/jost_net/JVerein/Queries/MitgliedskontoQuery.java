@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.rmi.DBService;
@@ -37,6 +36,7 @@ import de.willuhn.logging.Logger;
 
 public class MitgliedskontoQuery
 {
+
   private Mitglied mitglied;
 
   protected Date vonDatum;
@@ -79,7 +79,7 @@ public class MitgliedskontoQuery
     }
     catch (NullPointerException e)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("von-Datum fehlt"));
+      throw new RemoteException("von-Datum fehlt");
     }
 
     java.sql.Date bd = null;
@@ -89,7 +89,7 @@ public class MitgliedskontoQuery
     }
     catch (NullPointerException e)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr("bis-Datum fehlt"));
+      throw new RemoteException("bis-Datum fehlt");
     }
 
     addCondition("mitgliedskonto.datum >= ? ", vd);
@@ -97,11 +97,11 @@ public class MitgliedskontoQuery
 
     sql += "group by mitgliedskonto.id ";
 
-    if (differenz.equals(JVereinPlugin.getI18n().tr("Fehlbetrag")))
+    if (differenz.equals("Fehlbetrag"))
     {
       sql += "having sum(buchung.betrag) < mitgliedskonto.betrag or sum(buchung.betrag) is null";
     }
-    if (differenz.equals(JVereinPlugin.getI18n().tr("Überzahlung")))
+    if (differenz.equals("Überzahlung"))
     {
       sql += "having sum(buchung.betrag) > mitgliedskonto.betrag ";
     }
@@ -112,6 +112,7 @@ public class MitgliedskontoQuery
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {

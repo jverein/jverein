@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.menu;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailAuswahlDeleteAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.gui.dialogs.MailEmpfaengerAuswahlDialog;
@@ -45,57 +44,56 @@ public class MailAuswahlMenu extends ContextMenu
   public MailAuswahlMenu(MailControl control)
   {
     final MailControl contr = control;
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("Variable"),
-        new Action()
+    addItem(new CheckedContextMenuItem("Variable", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        if (context instanceof MailEmpfaenger)
         {
-
-          @Override
-          public void handleAction(Object context) throws ApplicationException
+          MailEmpfaenger m = (MailEmpfaenger) context;
+          try
           {
-            if (context instanceof MailEmpfaenger)
-            {
-              MailEmpfaenger m = (MailEmpfaenger) context;
-              try
-              {
-                new ShowVariablesDialog(contr.getVariables(m.getMitglied()));
-              }
-              catch (RemoteException e)
-              {
-                Logger.error("Fehler", e);
-                throw new ApplicationException(e);
-              }
-            }
-            else
-            {
-              Logger.error("ShowVariablesDiaglog: Ungültige Klasse: "
-                  + context.getClass().getCanonicalName());
-            }
-
+            new ShowVariablesDialog(contr.getVariables(m.getMitglied()));
           }
-
-        }, "variable_view.gif"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("Vorschau"),
-        new Action()
+          catch (RemoteException e)
+          {
+            Logger.error("Fehler", e);
+            throw new ApplicationException(e);
+          }
+        }
+        else
         {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            if (context instanceof MailEmpfaenger)
-            {
-              MailEmpfaenger m = (MailEmpfaenger) context;
-              new MailVorschauDialog(contr, m,
-                  MailEmpfaengerAuswahlDialog.POSITION_CENTER);
-            }
-            else
-            {
-              Logger.error("ShowVariablesDiaglog: Ungültige Klasse: "
-                  + context.getClass().getCanonicalName());
-            }
+          Logger.error("ShowVariablesDiaglog: Ungültige Klasse: "
+              + context.getClass().getCanonicalName());
+        }
 
-          }
+      }
 
-        }, "edit.png" /* "mail-message-new.png" */));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("entfernen"),
+    }, "variable_view.gif"));
+    addItem(new CheckedContextMenuItem("Vorschau", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        if (context instanceof MailEmpfaenger)
+        {
+          MailEmpfaenger m = (MailEmpfaenger) context;
+          new MailVorschauDialog(contr, m,
+              MailEmpfaengerAuswahlDialog.POSITION_CENTER);
+        }
+        else
+        {
+          Logger.error("ShowVariablesDiaglog: Ungültige Klasse: "
+              + context.getClass().getCanonicalName());
+        }
+
+      }
+
+    }, "edit.png" /* "mail-message-new.png" */));
+    addItem(new CheckedContextMenuItem("entfernen",
         new MailAuswahlDeleteAction(control), "user-trash.png"));
   }
 }

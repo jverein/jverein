@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.StatistikJahrgaengeExportAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
@@ -40,20 +39,17 @@ public class StatistikJahrgaengeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Statistik Jahrgänge"));
+    GUI.getView().setTitle("Statistik Jahrgänge");
 
     final MitgliedControl control = new MitgliedControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Parameter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"),
-        control.getJubeljahr());
+    LabelGroup group = new LabelGroup(getParent(), "Parameter");
+    group.addLabelPair("Jahr", control.getJubeljahr());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.JUBILAEEN, false,
-        "help-browser.png");
-    Button btnStart = new Button(JVereinPlugin.getI18n().tr("Start"),
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.JUBILAEEN, false, "help-browser.png");
+    Button btnStart = new Button("Start",
         new StatistikJahrgaengeExportAction(), control, true, "go.png");
     if (!Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
@@ -72,8 +68,7 @@ public class StatistikJahrgaengeView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Statistik Jahrgänge</span></p>"
-            + "<p>Ausgabe von Jahrgangszahlen z. B. für die DOSB-Statistik.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Statistik Jahrgänge</span></p>"
+        + "<p>Ausgabe von Jahrgangszahlen z. B. für die DOSB-Statistik.</p></form>";
   }
 }

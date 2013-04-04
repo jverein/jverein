@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -35,19 +34,16 @@ public class StatistikMitgliedView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Mitgliederstatistik"));
+    GUI.getView().setTitle("Mitgliederstatistik");
 
     final MitgliedControl control = new MitgliedControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Parameter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Stichtag"),
-        control.getStichtag());
+    LabelGroup group = new LabelGroup(getParent(), "Parameter");
+    group.addLabelPair("Stichtag", control.getStichtag());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.STATISTIKMITGLIEDER,
-        false, "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.STATISTIKMITGLIEDER, false, "help-browser.png");
     buttons.addButton(control.getStartStatistikButton());
     buttons.paint(this.getParent());
   }
@@ -55,9 +51,9 @@ public class StatistikMitgliedView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Statistik</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Statistik</span></p>"
         + "<p>Durch eine Klick auf Start wird eine Statistik nach Altergruppen und nach "
         + "Beitragsgruppen im PDF-Format erzeugt. Die Altersgruppen sind "
-        + "bei den Stammdaten vorzugeben.</p></form>");
+        + "bei den Stammdaten vorzugeben.</p></form>";
   }
 }

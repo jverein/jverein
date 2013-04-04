@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -40,6 +39,7 @@ import de.willuhn.datasource.rmi.ResultSetExtractor;
 
 public class SpendenbescheinigungNode implements GenericObjectNode
 {
+
   private SpendenbescheinigungNode parent = null;
 
   private Mitglied mitglied = null;
@@ -70,18 +70,18 @@ public class SpendenbescheinigungNode implements GenericObjectNode
    * Einstellungen hinterlegten Mindestbetrag für Spendenbescheinigungen sein.
    * 
    * @param jahr
-   *          Das Jahr der Buchung
+   *        Das Jahr der Buchung
    * @throws RemoteException
    */
   public SpendenbescheinigungNode(final int jahr) throws RemoteException
   {
     childrens = new ArrayList<GenericObjectNode>();
     nodetype = ROOT;
-    double minBetrag = Einstellungen.getEinstellung()
-        .getSpendenbescheinigungminbetrag();
+    double minBetrag = Einstellungen.getEinstellung().getSpendenbescheinigungminbetrag();
 
     ResultSetExtractor rse = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
@@ -110,8 +110,8 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         // rdc: Nur Spendenbescheinigungen, deren Betrag >= Mindestbetrag
         + "HAVING sum(buchung.betrag) >= ? "
         + "ORDER BY mitglied.name, mitglied.vorname, mitglied.id";
-    ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-        .getDBService().execute(sql, new Object[] { jahr, minBetrag }, rse);
+    ArrayList<String> idliste = (ArrayList<String>) Einstellungen.getDBService().execute(
+        sql, new Object[] { jahr, minBetrag}, rse);
 
     for (String id : idliste)
     {
@@ -139,9 +139,9 @@ public class SpendenbescheinigungNode implements GenericObjectNode
    * Spendenbescheinigung eingetragen sein.
    * 
    * @param mitglied
-   *          Das Mitglied des Kontos, zu dem die Buchungen selektiert werden
+   *        Das Mitglied des Kontos, zu dem die Buchungen selektiert werden
    * @param jahr
-   *          Das Jahr der Buchung
+   *        Das Jahr der Buchung
    * @throws RemoteException
    */
   private SpendenbescheinigungNode(Mitglied mitglied, final int jahr)
@@ -154,6 +154,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
@@ -173,9 +174,8 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         + "  AND buchung.spendenbescheinigung IS NULL "
         + "  AND buchung.mitgliedskonto IS NOT NULL "
         + "ORDER BY buchung.datum";
-    ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-        .getDBService().execute(sql, new Object[] { jahr, mitglied.getID() },
-            rs);
+    ArrayList<String> idliste = (ArrayList<String>) Einstellungen.getDBService().execute(
+        sql, new Object[] { jahr, mitglied.getID()}, rs);
 
     for (String id : idliste)
     {
@@ -186,7 +186,6 @@ public class SpendenbescheinigungNode implements GenericObjectNode
   }
 
   private SpendenbescheinigungNode(Mitglied mitglied, Buchung buchung)
-      throws RemoteException
   {
     this.mitglied = mitglied;
     this.buchung = buchung;
@@ -202,8 +201,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     {
       return null;
     }
-    return PseudoIterator.fromArray(childrens
-        .toArray(new GenericObject[childrens.size()]));
+    return PseudoIterator.fromArray(childrens.toArray(new GenericObject[childrens.size()]));
   }
 
   public boolean removeChild(GenericObjectNode child)
@@ -248,7 +246,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     {
       case ROOT:
       {
-        return JVereinPlugin.getI18n().tr("Spendenbescheinigungen");
+        return "Spendenbescheinigungen";
       }
       case MITGLIED:
       {
@@ -269,8 +267,8 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       {
         return new JVDateFormatTTMMJJJJ().format(buchung.getDatum())
             + ", "
-            + (buchung.getZweck() != null && buchung.getZweck().length() > 0 ? buchung
-                .getZweck() : "")
+            + (buchung.getZweck() != null && buchung.getZweck().length() > 0
+                ? buchung.getZweck() : "")
             + Einstellungen.DECIMALFORMAT.format(buchung.getBetrag());
       }
     }

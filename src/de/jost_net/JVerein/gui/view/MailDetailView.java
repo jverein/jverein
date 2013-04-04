@@ -32,7 +32,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.gui.dialogs.MailEmpfaengerAuswahlDialog;
@@ -53,7 +52,7 @@ public class MailDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("JVerein-Mail"));
+    GUI.getView().setTitle("JVerein-Mail");
 
     final MailControl control = new MailControl(this);
 
@@ -80,35 +79,32 @@ public class MailDetailView extends AbstractView
     GridLayout gl3 = new GridLayout();
     gl3.marginWidth = 0;
     comp3.setLayout(gl3);
-    Button add = new Button(JVereinPlugin.getI18n().tr("Hinzufügen"),
-        new Action()
+    Button add = new Button("Hinzufügen", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        MailEmpfaengerAuswahlDialog mead = new MailEmpfaengerAuswahlDialog(
+            control, MailEmpfaengerAuswahlDialog.POSITION_CENTER);
+        try
         {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            MailEmpfaengerAuswahlDialog mead = new MailEmpfaengerAuswahlDialog(
-                control, MailEmpfaengerAuswahlDialog.POSITION_CENTER);
-            try
-            {
-              mead.open();
-            }
-            catch (Exception e)
-            {
-              throw new ApplicationException(e.getMessage());
-            }
-          }
-        });
+          mead.open();
+        }
+        catch (Exception e)
+        {
+          throw new ApplicationException(e.getMessage());
+        }
+      }
+    });
     add.paint(comp3);
 
-    addLabel(JVereinPlugin.getI18n().tr("Betreff"), comp,
-        GridData.VERTICAL_ALIGN_CENTER);
+    addLabel("Betreff", comp, GridData.VERTICAL_ALIGN_CENTER);
     control.getBetreff().paint(comp);
-    addLabel(JVereinPlugin.getI18n().tr("Text"), comp,
-        GridData.VERTICAL_ALIGN_BEGINNING);
+    addLabel("Text", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     control.getTxt().paint(comp);
 
-    addLabel(JVereinPlugin.getI18n().tr("Anhang"), comp,
-        GridData.VERTICAL_ALIGN_BEGINNING);
+    addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     Composite comp4 = new Composite(comp, SWT.NONE);
     GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
     gd4.heightHint = 90;
@@ -125,9 +121,9 @@ public class MailDetailView extends AbstractView
     GridLayout gl5 = new GridLayout();
     gl5.marginWidth = 0;
     comp5.setLayout(gl5);
-    Button addAttachment = new Button("    "
-        + JVereinPlugin.getI18n().tr("Anlage") + "    ", new Action()
+    Button addAttachment = new Button("    " + "Anlage" + "    ", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -136,17 +132,15 @@ public class MailDetailView extends AbstractView
         FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
         fd.setFilterPath(settings.getString("lastdir",
             System.getProperty("user.home")));
-        fd.setText(JVereinPlugin.getI18n().tr(
-            "Bitte wählen Sie einen Anhang aus."));
+        fd.setText("Bitte wählen Sie einen Anhang aus.");
         String f = fd.open();
         if (f != null)
         {
           try
           {
-            MailAnhang anh = (MailAnhang) Einstellungen.getDBService()
-                .createObject(MailAnhang.class, null);
-            anh.setDateiname(f.substring(f.lastIndexOf(System
-                .getProperty("file.separator")) + 1));
+            MailAnhang anh = (MailAnhang) Einstellungen.getDBService().createObject(
+                MailAnhang.class, null);
+            anh.setDateiname(f.substring(f.lastIndexOf(System.getProperty("file.separator")) + 1));
             File file = new File(f);
             FileInputStream fis = new FileInputStream(file);
             byte[] buffer = new byte[(int) file.length()];
@@ -167,9 +161,8 @@ public class MailDetailView extends AbstractView
     addAttachment.paint(comp5);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MAIL, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MAIL, false, "help-browser.png");
     buttons.addButton(control.getMailSpeichernButton());
     buttons.addButton(control.getMailReSendButton());
     buttons.addButton(control.getMailSendButton());
@@ -187,12 +180,10 @@ public class MailDetailView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
-            + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
-            + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse kann eine Vorschau angezeigt werden.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Mails</span></p>"
+        + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse können alle Variable angezeigt werden.</p>"
+        + "<p><b>TIPP! </b>Mit einem Rechtsklick auf eine Mail-Adresse kann eine Vorschau angezeigt werden.</p>"
+        + "</form>";
   }
 
 }

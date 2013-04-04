@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MailVorlageControl;
 import de.jost_net.JVerein.gui.dialogs.MailVorlagenAuswahlDialog;
 import de.jost_net.JVerein.gui.view.MailDetailView;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MailDetailAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -51,7 +51,7 @@ public class MailDetailAction implements Action
             new MailVorlageControl(null),
             MailVorlagenAuswahlDialog.POSITION_CENTER);
         m = (Mail) Einstellungen.getDBService().createObject(Mail.class, null);
-        MailVorlage mv = (MailVorlage) mvad.open();
+        MailVorlage mv = mvad.open();
         if (mv != null)
         {
           m.setBetreff(mv.getBetreff());
@@ -60,8 +60,8 @@ public class MailDetailAction implements Action
       }
       catch (Exception e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung der neuen Mail"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung der neuen Mail", e);
       }
     }
     GUI.startView(MailDetailView.class.getName(), m);

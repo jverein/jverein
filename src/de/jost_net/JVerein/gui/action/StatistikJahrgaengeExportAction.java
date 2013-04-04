@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ExportDialog;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
@@ -42,7 +41,7 @@ public class StatistikJahrgaengeExportAction implements Action
   {
     try
     {
-      ExportDialog d = new ExportDialog(new Object[] { context },
+      ExportDialog d = new ExportDialog(new Object[] { context},
           StatistikJahrgaengeView.class, DokumentationUtil.STATISTIKJAHRGAENGE);
       d.open();
     }
@@ -57,10 +56,9 @@ public class StatistikJahrgaengeExportAction implements Action
     }
     catch (Exception e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
       GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr(
-              "Fehler beim exportieren der Mitglieder-Jubiläen"));
+          "Fehler beim exportieren der Mitglieder-Jubiläen");
     }
   }
 

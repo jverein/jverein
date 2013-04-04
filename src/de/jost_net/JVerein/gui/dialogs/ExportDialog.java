@@ -137,7 +137,7 @@ public class ExportDialog extends AbstractDialog<Object>
     {
 
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         close();
       }
@@ -351,7 +351,7 @@ public class ExportDialog extends AbstractDialog<Object>
     }
 
     Collections.sort(l);
-    Exp[] exp = (Exp[]) l.toArray(new Exp[size]);
+    Exp[] exp = l.toArray(new Exp[size]);
     exporterListe = new SelectInput(PseudoIterator.fromArray(exp), selected);
     return exporterListe;
   }
@@ -385,7 +385,7 @@ public class ExportDialog extends AbstractDialog<Object>
      * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
      */
     @Override
-    public Object getAttribute(String arg0) 
+    public Object getAttribute(String arg0)
     {
       return this.format.getName();
     }
@@ -403,7 +403,7 @@ public class ExportDialog extends AbstractDialog<Object>
      * @see de.willuhn.datasource.GenericObject#getID()
      */
     @Override
-    public String getID() 
+    public String getID()
 
     {
       return this.exporter.getClass().getName() + "#" + this.format.getName();

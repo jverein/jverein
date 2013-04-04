@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction;
@@ -42,45 +41,38 @@ public class MitgliedskontoListeView extends AbstractView
     GUI.getView().setTitle("Mitgliedskonten");
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Filter"));
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
     group.addInput(control.getSuchName());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("von"),
+    group.addLabelPair("von",
         control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("bis"),
+    group.addLabelPair("bis",
         control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Differenz"),
-        control.getDifferenz());
+    group.addLabelPair("Differenz", control.getDifferenz());
 
     control.getMitgliedskontoList(new MitgliedDetailAction(),
         new Mitgliedskonto2Menu()).paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(new Button(JVereinPlugin.getI18n().tr("Export"),
-        new MitgliedskontoExportAction(), getObject(control), false,
-        "document-save.png"));
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT,
-        false, "help-browser.png");
+    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(),
+        getObject(control), false, "document-save.png"));
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
 
   private Object[] getObject(MitgliedskontoControl control)
   {
     return new Object[] {
-        control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
-            .getValue(),
-        control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO)
-            .getValue(), control.getDifferenz().getText() };
+        control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
+        control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
+        control.getDifferenz().getText()};
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Liste der Mitgliedskonto-Soll-Buchungen</span></p>"
-            + "<p>Auflistung aller Mitgliedskonto-Soll-Buchungen. Die Daten können nach Datum und "
-            + "Namen (auch Namensfragmente) gefiltert werden.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Liste der Mitgliedskonto-Soll-Buchungen</span></p>"
+        + "<p>Auflistung aller Mitgliedskonto-Soll-Buchungen. Die Daten können nach Datum und "
+        + "Namen (auch Namensfragmente) gefiltert werden.</p></form>";
   }
 }

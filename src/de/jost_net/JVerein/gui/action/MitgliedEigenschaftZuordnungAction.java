@@ -23,10 +23,10 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -41,19 +41,19 @@ import de.willuhn.util.ApplicationException;
  */
 public class MitgliedEigenschaftZuordnungAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null
         || (!(context instanceof Mitglied) && !(context instanceof Mitglied[])))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Mitglied ausgewählt"));
+      throw new ApplicationException("Kein Mitglied ausgewählt");
     }
     Mitglied[] m = null;
     if (context instanceof Mitglied)
     {
-      m = new Mitglied[] { (Mitglied) context };
+      m = new Mitglied[] { (Mitglied) context};
     }
     else if (context instanceof Mitglied[])
     {
@@ -64,14 +64,13 @@ public class MitgliedEigenschaftZuordnungAction implements Action
     try
     {
       EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog("", true);
-      ArrayList<EigenschaftenNode> eigenschaft = (ArrayList<EigenschaftenNode>) ead
-          .open();
+      ArrayList<EigenschaftenNode> eigenschaft = ead.open();
       for (EigenschaftenNode en : eigenschaft)
       {
         for (Mitglied mit : m)
         {
-          Eigenschaften eig = (Eigenschaften) Einstellungen.getDBService()
-              .createObject(Eigenschaften.class, null);
+          Eigenschaften eig = (Eigenschaften) Einstellungen.getDBService().createObject(
+              Eigenschaften.class, null);
           eig.setEigenschaft(en.getEigenschaft().getID());
           eig.setMitglied(mit.getID());
           try
@@ -95,14 +94,13 @@ public class MitgliedEigenschaftZuordnungAction implements Action
     }
     catch (Exception e)
     {
-      Logger
-          .error(
-              JVereinPlugin.getI18n().tr(
-                  "Fehler beim Anlegen neuer Eigenschaften"), e);
+      Logger.error(
+
+      "Fehler beim Anlegen neuer Eigenschaften", e);
       return;
     }
     GUI.getStatusBar().setSuccessText(
-        JVereinPlugin.getI18n().tr(
+        MessageFormat.format(
             "{0} Eigenschaft(en) angelegt. waren bereits vorhanden.",
             anzErfolgreich + "", anzBereitsVorhanden + ""));
   }

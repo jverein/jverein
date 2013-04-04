@@ -32,13 +32,11 @@ import java.util.Date;
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
 public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
@@ -58,8 +56,7 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
 
   @Override
   public void doExport(final Object[] objects, IOFormat format, File file,
-      ProgressMonitor monitor) throws ApplicationException, DocumentException,
-      IOException
+      ProgressMonitor monitor) throws DocumentException, IOException
   {
     this.file = file;
     setzeParameterDerListe(objects);
@@ -139,9 +136,8 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
     MitgliedControl control = (MitgliedControl) objects[0];
     jahr = control.getJJahr();
     jubilarStartAlter = Einstellungen.getEinstellung().getJubilarStartAlter();
-    Logger.debug(JVereinPlugin.getI18n().tr(
-        "Mitgliedschaftsjubiläum, Jahr=" + Integer.toString(jahr)
-            + " StartAlter= " + Integer.toString(jubilarStartAlter)));
+    Logger.debug("Mitgliedschaftsjubiläum, Jahr=" + Integer.toString(jahr)
+        + " StartAlter= " + Integer.toString(jubilarStartAlter));
   }
 
   @Override
@@ -171,6 +167,7 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
    */
   private class JubelHelfer
   {
+
     private Mitglied mitglied;
 
     private int eintrittsJahr;

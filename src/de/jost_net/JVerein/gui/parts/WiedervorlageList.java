@@ -26,7 +26,6 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -42,6 +41,7 @@ import de.willuhn.jameica.gui.parts.TablePart;
 
 public class WiedervorlageList extends TablePart implements Part
 {
+
   private TablePart wiedervorlageList;
 
   public WiedervorlageList(Action action)
@@ -59,35 +59,33 @@ public class WiedervorlageList extends TablePart implements Part
     {
       wiedervorlageList = new TablePart(wiedervorlagen,
           new WiedervorlageAction(null));
-      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Name"),
-          "mitglied", new Formatter()
+      wiedervorlageList.addColumn("Name", "mitglied", new Formatter()
+      {
+
+        @Override
+        public String format(Object o)
+        {
+          Mitglied m = (Mitglied) o;
+          if (m == null)
+            return null;
+          String name = null;
+          try
           {
-            @Override
-            public String format(Object o)
-            {
-              Mitglied m = (Mitglied) o;
-              if (m == null)
-                return null;
-              String name = null;
-              try
-              {
-                name = m.getNameVorname();
-              }
-              catch (RemoteException e)
-              {
-                e.printStackTrace();
-              }
-              return name;
-            }
-          });
-      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
+            name = m.getNameVorname();
+          }
+          catch (RemoteException e)
+          {
+            e.printStackTrace();
+          }
+          return name;
+        }
+      });
+      wiedervorlageList.addColumn("Datum", "datum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      wiedervorlageList.addColumn("Vermerk", "vermerk");
+      wiedervorlageList.addColumn("Erledigung", "erledigung",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Vermerk"),
-          "vermerk");
-      wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Erledigung"),
-          "erledigung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      wiedervorlageList
-          .setContextMenu(new WiedervorlageMenu(wiedervorlageList));
+      wiedervorlageList.setContextMenu(new WiedervorlageMenu(wiedervorlageList));
       wiedervorlageList.setRememberColWidths(true);
       wiedervorlageList.setRememberOrder(true);
       wiedervorlageList.setSummary(true);

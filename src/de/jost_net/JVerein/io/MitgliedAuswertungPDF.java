@@ -24,6 +24,7 @@ package de.jost_net.JVerein.io;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,7 +34,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Adresstyp;
@@ -48,6 +48,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedAuswertungPDF implements IAuswertung
 {
+
   private MitgliedControl control;
 
   private Adresstyp adresstyp;
@@ -72,93 +73,75 @@ public class MitgliedAuswertungPDF implements IAuswertung
     subtitle = "";
     if (adresstyp.getJVereinid() == 1)
     {
-      if (control
-          .getMitgliedStatus()
-          .getValue()
-          .equals(
-              JVereinPlugin.getI18n().tr(
-                  JVereinPlugin.getI18n().tr("Abgemeldet"))))
+      if (control.getMitgliedStatus().getValue().equals(
+
+      "Abgemeldet"))
       {
-        subtitle += JVereinPlugin.getI18n().tr("Abgemeldet") + "";
+        subtitle += "Abgemeldet" + "";
       }
       if (control.getGeburtsdatumvon().getValue() != null)
       {
         Date d = (Date) control.getGeburtsdatumvon().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Geburtsdatum von {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Geburtsdatum von " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getGeburtsdatumbis().getValue() != null)
       {
         Date d = (Date) control.getGeburtsdatumbis().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Geburtsdatum bis {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Geburtsdatum bis " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getEintrittvon().getValue() != null)
       {
         Date d = (Date) control.getEintrittvon().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Eintritt von {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Eintritt von " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getEintrittbis().getValue() != null)
       {
         Date d = (Date) control.getEintrittbis().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Eintritt bis {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Eintritt bis " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getAustrittvon().getValue() != null)
       {
         Date d = (Date) control.getAustrittvon().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Austritt von  {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Austritt von " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getAustrittbis().getValue() != null)
       {
         Date d = (Date) control.getAustrittbis().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Austritt bis {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Austritt bis " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getSterbedatumvon().getValue() != null)
       {
         Date d = (Date) control.getSterbedatumvon().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Sterbetag von {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Sterbetag von " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
       if (control.getSterbedatumbis().getValue() != null)
       {
         Date d = (Date) control.getSterbedatumbis().getValue();
-        subtitle += JVereinPlugin.getI18n().tr("Sterbedatum bis {0}",
-            new JVDateFormatTTMMJJJJ().format(d))
+        subtitle += "Sterbedatum bis " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
       }
-      if (control.getMitgliedStatus().getValue()
-          .equals(JVereinPlugin.getI18n().tr("Angemeldet"))
+      if (control.getMitgliedStatus().getValue().equals("Angemeldet")
           && control.getAustrittvon().getValue() == null
           && control.getAustrittbis().getValue() == null
           && control.getSterbedatumvon().getValue() == null
           && control.getSterbedatumbis().getValue() == null)
       {
-        subtitle += JVereinPlugin.getI18n().tr(
-            "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)")
-            + "  ";
+        subtitle += "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)  ";
       }
       if (control.getBeitragsgruppeAusw().getValue() != null)
       {
-        Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
-            .getValue();
-        subtitle += JVereinPlugin.getI18n().tr("nur Beitragsgruppe {0}",
-            bg.getBezeichnung())
-            + "  ";
+        Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw().getValue();
+        subtitle += "nur Beitragsgruppe " + bg.getBezeichnung() + "  ";
       }
     }
-    String ueberschrift = (String) control.getAuswertungUeberschrift()
-        .getValue();
+    String ueberschrift = (String) control.getAuswertungUeberschrift().getValue();
     if (ueberschrift.length() > 0)
     {
       subtitle = ueberschrift;
@@ -174,36 +157,28 @@ public class MitgliedAuswertungPDF implements IAuswertung
     {
       FileOutputStream fos = new FileOutputStream(file);
 
-      Reporter report = new Reporter(fos, JVereinPlugin.getI18n().tr(
-          adresstyp.getBezeichnungPlural()), subtitle, list.size(), 50, 10, 20,
-          25);
+      Reporter report = new Reporter(fos, adresstyp.getBezeichnungPlural(),
+          subtitle, list.size(), 50, 10, 20, 25);
 
-      report.addHeaderColumn(JVereinPlugin.getI18n().tr("Name"),
-          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-      report.addHeaderColumn(
-          JVereinPlugin.getI18n().tr("Anschrift\nKommunikation"),
-          Element.ALIGN_CENTER, 130, BaseColor.LIGHT_GRAY);
-      report.addHeaderColumn(JVereinPlugin.getI18n().tr("Geburts- datum"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+      report.addHeaderColumn("Name", Element.ALIGN_CENTER, 100,
+          BaseColor.LIGHT_GRAY);
+      report.addHeaderColumn("Anschrift\nKommunikation", Element.ALIGN_CENTER,
+          130, BaseColor.LIGHT_GRAY);
+      report.addHeaderColumn("Geburts- datum", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
       if (adresstyp.getJVereinid() == 1)
       {
-        report
-            .addHeaderColumn(
-                JVereinPlugin.getI18n().tr(
-                    "Eintritt / \nAustritt / \nKündigung")
-                    + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n" + JVereinPlugin
-                        .getI18n()
-                        .tr(JVereinPlugin.getI18n().tr("Sterbedatum"))) : ""),
-                Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+        report.addHeaderColumn("Eintritt / \nAustritt / \nKündigung"
+            + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n"
+                + "Sterbedatum") : ""), Element.ALIGN_CENTER, 30,
+            BaseColor.LIGHT_GRAY);
       }
-      report
-          .addHeaderColumn(
-              JVereinPlugin.getI18n().tr(
-                  "Beitragsgruppe /\nEigenschaften"
-                      + (Einstellungen.getEinstellung()
-                          .getExterneMitgliedsnummer() ? "\nMitgliedsnummer"
-                          : "")), Element.ALIGN_CENTER, 60,
-              BaseColor.LIGHT_GRAY);
+      report.addHeaderColumn(
+
+      "Beitragsgruppe /\nEigenschaften"
+          + (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
+              ? "\nMitgliedsnummer" : ""), Element.ALIGN_CENTER, 60,
+          BaseColor.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
       for (int i = 0; i < list.size(); i++)
@@ -213,26 +188,21 @@ public class MitgliedAuswertungPDF implements IAuswertung
         String anschriftkommunikation = m.getAnschrift();
         if (m.getTelefonprivat() != null && m.getTelefonprivat().length() > 0)
         {
-          anschriftkommunikation += "\n"
-              + JVereinPlugin.getI18n().tr("Tel. priv: {0}",
-                  m.getTelefonprivat());
+          anschriftkommunikation += "\n" + "Tel. priv: " + m.getTelefonprivat();
         }
         if (m.getTelefondienstlich() != null
             && m.getTelefondienstlich().length() > 0)
         {
-          anschriftkommunikation += "\n"
-              + JVereinPlugin.getI18n().tr("Tel. dienstl: {0}",
-                  m.getTelefondienstlich());
+          anschriftkommunikation += "\n" + "Tel. dienstl: "
+              + m.getTelefondienstlich();
         }
         if (m.getHandy() != null && m.getHandy().length() > 0)
         {
-          anschriftkommunikation += "\n"
-              + JVereinPlugin.getI18n().tr("Handy: {0}", m.getHandy());
+          anschriftkommunikation += "\n" + "Handy: " + m.getHandy();
         }
         if (m.getEmail() != null && m.getEmail().length() > 0)
         {
-          anschriftkommunikation += "\n"
-              + JVereinPlugin.getI18n().tr("EMail: {0}", m.getEmail());
+          anschriftkommunikation += "\n" + "EMail: " + m.getEmail();
         }
         report.addColumn(anschriftkommunikation, Element.ALIGN_LEFT);
         report.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
@@ -263,8 +233,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
           zelle += "\n"
-              + (m.getExterneMitgliedsnummer() != null ? m
-                  .getExterneMitgliedsnummer() : "");
+              + (m.getExterneMitgliedsnummer() != null
+                  ? m.getExterneMitgliedsnummer() : "");
         }
         if (adresstyp.getJVereinid() == 1)
         {
@@ -273,12 +243,10 @@ public class MitgliedAuswertungPDF implements IAuswertung
         StringBuilder beitragsgruppebemerkung = new StringBuilder();
         if (m.getBeitragsgruppe() != null)
         {
-          beitragsgruppebemerkung
-              .append(m.getBeitragsgruppe().getBezeichnung());
+          beitragsgruppebemerkung.append(m.getBeitragsgruppe().getBezeichnung());
         }
         StringBuilder eigenschaften = new StringBuilder();
-        ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m
-            .getID());
+        ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m.getID());
         for (int i2 = 0; i2 < eig.size(); i2 = i2 + 2)
         {
           if (i2 == 0)
@@ -294,8 +262,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
         zelle = "";
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
-          zelle += (m.getExterneMitgliedsnummer() != null ? m
-              .getExterneMitgliedsnummer() : "");
+          zelle += (m.getExterneMitgliedsnummer() != null
+              ? m.getExterneMitgliedsnummer() : "");
         }
 
         report.addColumn(
@@ -304,27 +272,26 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       report.closeTable();
 
-      report.add(new Paragraph(JVereinPlugin.getI18n().tr("Anzahl {0}: {1}",
-          adresstyp.getBezeichnungPlural(), list.size() + ""), FontFactory
-          .getFont(FontFactory.HELVETICA, 8)));
+      report.add(new Paragraph(MessageFormat.format("Anzahl {0}: {1}",
+          adresstyp.getBezeichnungPlural(), list.size() + ""),
+          FontFactory.getFont(FontFactory.HELVETICA, 8)));
 
       report.close();
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Auswertung fertig. {0} Sätze.",
-              list.size() + ""));
+          MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()));
     }
     catch (Exception e)
     {
       e.printStackTrace();
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      throw new ApplicationException("Fehler", e);
     }
   }
 
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("auswertung");
+    return "auswertung";
   }
 
   @Override
@@ -336,7 +303,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
   @Override
   public String toString()
   {
-    return JVereinPlugin.getI18n().tr("Mitgliederliste PDF");
+    return "Mitgliederliste PDF";
   }
 
   @Override

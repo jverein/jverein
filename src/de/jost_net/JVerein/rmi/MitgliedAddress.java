@@ -21,12 +21,11 @@
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
-import java.rmi.RemoteException;
-
 import de.willuhn.jameica.hbci.rmi.Address;
 
 public class MitgliedAddress implements Address
 {
+
   private String kontonummer = null;
 
   private String blz = null;
@@ -59,43 +58,43 @@ public class MitgliedAddress implements Address
   }
 
   @Override
-  public String getKontonummer() throws RemoteException
+  public String getKontonummer()
   {
     return kontonummer;
   }
 
   @Override
-  public String getBlz() throws RemoteException
+  public String getBlz()
   {
     return blz;
   }
 
   @Override
-  public String getName() throws RemoteException
+  public String getName()
   {
     return name;
   }
 
   @Override
-  public String getKommentar() throws RemoteException
+  public String getKommentar()
   {
     return kommentar;
   }
 
   @Override
-  public String getBic() throws RemoteException
+  public String getBic()
   {
     return bic;
   }
 
   @Override
-  public String getIban() throws RemoteException
+  public String getIban()
   {
     return iban;
   }
 
   @Override
-  public String getKategorie() throws RemoteException
+  public String getKategorie()
   {
     return kategorie;
   }

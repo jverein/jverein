@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.LehrgangsartControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,25 +35,22 @@ public class LehrgangsartDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Lehrgangsart"));
+    GUI.getView().setTitle("Lehrgangsart");
 
     final LehrgangsartControl control = new LehrgangsartControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Lehrgangsart"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung"),
-        control.getBezeichnung(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("von/am"), control.getVon());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getBis());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Veranstalter"),
-        control.getVeranstalter());
+    LabelGroup group = new LabelGroup(getParent(), "Lehrgangsart");
+    group.addLabelPair("Bezeichnung", control.getBezeichnung(true));
+    group.addLabelPair("von/am", control.getVon());
+    group.addLabelPair("bis", control.getBis());
+    group.addLabelPair("Veranstalter", control.getVeranstalter());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.LEHRGANG, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.LEHRGANG, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

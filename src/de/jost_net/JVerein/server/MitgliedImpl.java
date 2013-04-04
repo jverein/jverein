@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -94,8 +93,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Mitglied kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Mitglied kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -108,33 +106,28 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       if (getExterneMitgliedsnummer() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Externe Mitgliedsnummer fehlt"));
+        throw new ApplicationException("Externe Mitgliedsnummer fehlt");
       }
     }
     if (getPersonenart() == null
         || (!getPersonenart().equals("n") && !getPersonenart().equals("j")))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Personenstatus ist nicht 'n' oder 'j'"));
+      throw new ApplicationException("Personenstatus ist nicht 'n' oder 'j'");
     }
     if (getName() == null || getName().length() == 0)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Namen eingeben"));
+      throw new ApplicationException("Bitte Namen eingeben");
     }
     if (getPersonenart().equals("n")
         && (getVorname() == null || getVorname().length() == 0))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Vornamen eingeben"));
+      throw new ApplicationException("Bitte Vornamen eingeben");
     }
     if (getAdresstyp().getJVereinid() == 1 && getPersonenart().equals("n")
         && getGeburtsdatum().getTime() == Einstellungen.NODATE.getTime()
         && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Geburtsdatum eingeben"));
+      throw new ApplicationException("Bitte Geburtsdatum eingeben");
     }
     if (getAdresstyp().getJVereinid() == 1 && getPersonenart().equals("n")
         && Einstellungen.getEinstellung().getGeburtsdatumPflicht())
@@ -144,8 +137,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       Calendar cal2 = Calendar.getInstance();
       if (cal1.after(cal2))
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Geburtsdatum liegt in der Zukunft"));
+        throw new ApplicationException("Geburtsdatum liegt in der Zukunft");
       }
       if (getSterbetag() != null)
       {
@@ -154,21 +146,19 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       cal2.add(Calendar.YEAR, -150);
       if (cal1.before(cal2))
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Ist das Mitglied wirklich älter als 150 Jahre?"));
+        throw new ApplicationException(
+            "Ist das Mitglied wirklich älter als 150 Jahre?");
       }
     }
     if (getPersonenart().equals("n") && getGeschlecht() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Geschlecht auswählen"));
+      throw new ApplicationException("Bitte Geschlecht auswählen");
     }
     if (getEmail() != null && getEmail().length() > 0)
     {
       if (!Checker.isValidEmailAddress(getEmail()))
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Ungültige Email-Adresse."));
+        throw new ApplicationException("Ungültige Email-Adresse.");
       }
     }
 
@@ -176,8 +166,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         && getEintritt().getTime() == Einstellungen.NODATE.getTime()
         && Einstellungen.getEinstellung().getEintrittsdatumPflicht())
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Eintrittsdatum eingeben"));
+      throw new ApplicationException("Bitte Eintrittsdatum eingeben");
     }
     if (getAdresstyp().getJVereinid() == 1
         && getZahlungsweg() == Zahlungsweg.DTAUS
@@ -186,8 +175,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte BIC und IBAN eingeben"));
+        throw new ApplicationException("Bitte BIC und IBAN eingeben");
       }
     }
     // SEPAParam sepaparam = null;
@@ -203,7 +191,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     // if (getBlz() != null && getBlz().length() != 0
     // && getBlz().length() != sepaparam.getBankIdentifierLength())
     // {
-    // throw new ApplicationException(JVereinPlugin.getI18n().tr(
+    // throw new ApplicationException(
     // "Die Bankleitzahl muss {0}stellig sein",
     // sepaparam.getBankIdentifierLength() + ""));
     // }
@@ -282,13 +270,13 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
         && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Ungültiger Zahlungsrhytmus:{0} ", getZahlungsrhytmus() + ""));
+      throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
+          + getZahlungsrhytmus());
     }
     if (getSterbetag() != null && getAustritt() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bei verstorbenem Mitglied muss das Austrittsdatum gefüllt sein!"));
+      throw new ApplicationException(
+          "Bei verstorbenem Mitglied muss das Austrittsdatum gefüllt sein!");
     }
     if (getAustritt() != null || getKuendigung() != null)
     {
@@ -304,9 +292,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         if (famang.hasNext())
         {
           throw new ApplicationException(
-              JVereinPlugin
-                  .getI18n()
-                  .tr("Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!"));
+              "Dieses Mitglied zahlt noch für andere Mitglieder. Zunächst Beitragsart der Angehörigen ändern!");
         }
       }
     }
@@ -314,8 +300,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         && getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER
         && getZahlerID() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Zahler auswählen!"));
+      throw new ApplicationException("Bitte Zahler auswählen!");
     }
   }
 
@@ -328,8 +313,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Mitglied kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Mitglied kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -1131,19 +1115,22 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         Datum.formatDate(this.getAustritt()));
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
-        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(this.getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
+        this.getBeitragsgruppe() != null
+            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getArbeitseinsatzBetrag())
+            : "");
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
-        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(this.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
+        this.getBeitragsgruppe() != null
+            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getArbeitseinsatzStunden())
+            : "");
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
-        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(this.getBeitragsgruppe().getBetrag()) : "");
-    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
-        .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
-        .getBezeichnung() : "");
+        this.getBeitragsgruppe() != null
+            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getBetrag())
+            : "");
+    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(),
+        this.getBeitragsgruppe() != null
+            ? this.getBeitragsgruppe().getBezeichnung() : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
@@ -1213,8 +1200,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       case Zahlungsweg.ÜBERWEISUNG:
       {
-        zahlungsweg = Einstellungen.getEinstellung()
-            .getRechnungTextUeberweisung();
+        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextUeberweisung();
         break;
       }
     }
@@ -1229,7 +1215,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       DBIterator itzus = Einstellungen.getDBService().createList(
           Zusatzfelder.class);
       itzus.addFilter("mitglied = ? and felddefinition = ? ", new Object[] {
-          getID(), fd.getID() });
+          getID(), fd.getID()});
       Zusatzfelder z = null;
       if (itzus.hasNext())
       {
@@ -1283,7 +1269,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       DBIterator iteigm = Einstellungen.getDBService().createList(
           Eigenschaften.class);
       iteigm.addFilter("mitglied = ? and eigenschaft = ?",
-          new Object[] { this.getID(), eig.getID() });
+          new Object[] { this.getID(), eig.getID()});
       String val = "";
       if (iteigm.size() > 0)
       {
@@ -1339,11 +1325,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
-      it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
+      it.addFilter("name = ?", new Object[] { fieldName.substring(13)});
       Felddefinition fd = (Felddefinition) it.next();
       it = Einstellungen.getDBService().createList(Zusatzfelder.class);
       it.addFilter("felddefinition = ? AND mitglied = ?",
-          new Object[] { fd.getID(), getID() });
+          new Object[] { fd.getID(), getID()});
       if (it.hasNext())
       {
         Zusatzfelder zf = (Zusatzfelder) it.next();
@@ -1391,7 +1377,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public void addVariable(String name, String wert) throws RemoteException
+  public void addVariable(String name, String wert)
   {
     variable.put(name, wert);
   }

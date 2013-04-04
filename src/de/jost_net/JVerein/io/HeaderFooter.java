@@ -41,6 +41,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 class HeaderFooter extends PdfPageEventHelper
 {
+
   String footer = null;
 
   int pagenumber;
@@ -53,6 +54,7 @@ class HeaderFooter extends PdfPageEventHelper
   @Override
   public void onOpenDocument(PdfWriter writer, Document document)
   {
+    //
   }
 
   @Override

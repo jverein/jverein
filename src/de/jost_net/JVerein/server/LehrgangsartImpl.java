@@ -24,7 +24,6 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lehrgangsart;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -32,6 +31,7 @@ import de.willuhn.util.ApplicationException;
 
 public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
 {
+
   private static final long serialVersionUID = 380278347818535726L;
 
   public LehrgangsartImpl() throws RemoteException
@@ -70,14 +70,12 @@ public class LehrgangsartImpl extends AbstractDBObject implements Lehrgangsart
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Bezeichnung eingeben"));
+        throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Lehrgangsart kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Lehrgangsart kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

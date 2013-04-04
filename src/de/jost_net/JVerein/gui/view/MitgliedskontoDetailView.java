@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
@@ -44,28 +43,23 @@ public class MitgliedskontoDetailView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView()
-        .setTitle(JVereinPlugin.getI18n().tr("Mitgliedskonto-Buchung"));
+    GUI.getView().setTitle("Mitgliedskonto-Buchung");
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
-    LabelGroup grBuchung = new LabelGroup(getParent(), JVereinPlugin.getI18n()
-        .tr((typ == MitgliedskontoNode.SOLL ? "Soll" : "Ist") + "-Buchung"));
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
-        control.getDatum());
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Verwendungszweck 1"),
-        control.getZweck1());
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Zahlungsweg"),
-        control.getZahlungsweg());
+    LabelGroup grBuchung = new LabelGroup(getParent(),
+        (typ == MitgliedskontoNode.SOLL ? "Soll" : "Ist") + "-Buchung");
+    grBuchung.addLabelPair("Datum", control.getDatum());
+    grBuchung.addLabelPair("Verwendungszweck 1", control.getZweck1());
+    grBuchung.addLabelPair("Zahlungsweg", control.getZahlungsweg());
     control.getBetrag().setMandatory(true);
-    grBuchung.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
+    grBuchung.addLabelPair("Betrag", control.getBetrag());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.KURSTEILNEHMER, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.KURSTEILNEHMER, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

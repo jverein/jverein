@@ -22,7 +22,6 @@
 
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedskontoMahnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -39,10 +38,9 @@ public class Mitgliedskonto2Menu extends ContextMenu
    */
   public Mitgliedskonto2Menu()
   {
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n()
-        .tr("Rechnung..."), new MitgliedskontoRechnungAction(), "rechnung.png"));
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("Mahnung..."),
+    addItem(new CheckedContextMenuItem("Rechnung...",
+        new MitgliedskontoRechnungAction(), "rechnung.png"));
+    addItem(new CheckedContextMenuItem("Mahnung...",
         new MitgliedskontoMahnungAction(), "rechnung.png"));
   }
 }

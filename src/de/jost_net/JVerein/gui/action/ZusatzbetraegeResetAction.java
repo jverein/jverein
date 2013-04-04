@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class ZusatzbetraegeResetAction implements Action
 {
+
   private TablePart table;
 
   public ZusatzbetraegeResetAction(TablePart table)
@@ -49,8 +49,7 @@ public class ZusatzbetraegeResetAction implements Action
   {
     if (context == null || !(context instanceof Zusatzbetrag))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Zusatzbetrag ausgewählt"));
+      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
     }
     try
     {
@@ -60,10 +59,8 @@ public class ZusatzbetraegeResetAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Ausführungsdatum zurücksetzen"));
-      d.setText(JVereinPlugin
-          .getI18n()
-          .tr("Wollen Sie das Ausführungsdatum dieses Zusatzbetrages wirklich zurücksetzen?"));
+      d.setTitle("Ausführungsdatum zurücksetzen");
+      d.setText("Wollen Sie das Ausführungsdatum dieses Zusatzbetrages wirklich zurücksetzen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -72,22 +69,18 @@ public class ZusatzbetraegeResetAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Reset des Zusatzbetrages"),
-            e);
+        Logger.error("Fehler beim Reset des Zusatzbetrages", e);
         return;
       }
       int ind = table.removeItem(z);
       z.setAusfuehrung(null);
       z.store();
       table.addItem(z, ind);
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Ausführungsdatum zurückgesetzt."));
+      GUI.getStatusBar().setSuccessText("Ausführungsdatum zurückgesetzt.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.");
+      String fehler = "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -41,11 +40,9 @@ import de.willuhn.jameica.system.OperationCanceledException;
 public class PersonenartDialog extends AbstractDialog<String>
 {
 
-  private final static String NATUERLICHE_PERSON = JVereinPlugin.getI18n().tr(
-      "natürliche Person");
+  private final static String NATUERLICHE_PERSON = "natürliche Person";
 
-  private final static String JURISTISCHE_PERSON = JVereinPlugin.getI18n().tr(
-      "juristische Person (Firma, Organisation, Behörde)");
+  private final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
 
   private String selected = null;
 
@@ -55,19 +52,19 @@ public class PersonenartDialog extends AbstractDialog<String>
   {
     super(position);
 
-    setTitle(JVereinPlugin.getI18n().tr("Personenart"));
+    setTitle("Personenart");
     setSize(450, 150);
   }
 
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Personenart"));
+    LabelGroup options = new LabelGroup(parent, "Personenart");
     options.addInput(this.getPersonenart());
     ButtonArea b = new ButtonArea();
-    b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
+    b.addButton("weiter", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -76,8 +73,9 @@ public class PersonenartDialog extends AbstractDialog<String>
         close();
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    b.addButton("abbrechen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -100,10 +98,11 @@ public class PersonenartDialog extends AbstractDialog<String>
       return this.personenart;
     }
     this.personenart = new SelectInput(new Object[] { NATUERLICHE_PERSON,
-        JURISTISCHE_PERSON }, NATUERLICHE_PERSON);
-    this.personenart.setName(JVereinPlugin.getI18n().tr("Personenart"));
+        JURISTISCHE_PERSON}, NATUERLICHE_PERSON);
+    this.personenart.setName("Personenart");
     this.personenart.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {

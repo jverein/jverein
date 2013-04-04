@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
@@ -41,6 +40,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class MailemfaengerDeleteAction implements Action
 {
+
   private MitgliedControl mc;
 
   public MailemfaengerDeleteAction(MitgliedControl mc)
@@ -54,8 +54,7 @@ public class MailemfaengerDeleteAction implements Action
     if (context == null
         || (!(context instanceof Mail) && !(context instanceof Mail[])))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Mail ausgewählt"));
+      throw new ApplicationException("Keine Mail ausgewählt");
     }
     try
     {
@@ -76,12 +75,10 @@ public class MailemfaengerDeleteAction implements Action
       Mitglied mitglied = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, mc.getMitglied().getID());
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr(
-          "Mail" + (mail.length > 1 ? "s" : "") + " von "
-              + mitglied.getVornameName() + " löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Mail" + (mail.length > 1 ? "s" : "") + " von "
-              + mitglied.getVornameName() + " wirklich löschen?"));
+      d.setTitle("Mail" + (mail.length > 1 ? "s" : "") + " von "
+          + mitglied.getVornameName() + " löschen");
+      d.setText("Wollen Sie diese Mail" + (mail.length > 1 ? "s" : "")
+          + " von " + mitglied.getVornameName() + " wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -92,8 +89,7 @@ public class MailemfaengerDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen der Mail"), e);
+        Logger.error("Fehler beim Löschen der Mail", e);
         return;
       }
       for (Mail ma : mail)
@@ -105,20 +101,19 @@ public class MailemfaengerDeleteAction implements Action
         while (me.hasNext())
         {
           MailEmpfaenger me2 = (MailEmpfaenger) me.next();
-          MailEmpfaenger me3 = (MailEmpfaenger) Einstellungen.getDBService()
-              .createObject(MailEmpfaenger.class, me2.getID());
+          MailEmpfaenger me3 = (MailEmpfaenger) Einstellungen.getDBService().createObject(
+              MailEmpfaenger.class, me2.getID());
           me3.delete();
         }
         mc.getMailTable().removeItem(ma);
       }
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr(
-              "Mail" + (mail.length > 1 ? "s" : "") + " gelöscht."));
+
+      "Mail" + (mail.length > 1 ? "s" : "") + " gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen der Mail.");
+      String fehler = "Fehler beim Löschen der Mail.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

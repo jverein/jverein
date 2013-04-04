@@ -26,7 +26,6 @@ import java.util.Date;
 
 import de.jost_net.JVerein.rmi.AbstractDokument;
 import de.willuhn.datasource.db.AbstractDBObject;
-import de.willuhn.util.ApplicationException;
 
 public abstract class AbstractDokumentImpl extends AbstractDBObject implements
     AbstractDokument
@@ -46,19 +45,19 @@ public abstract class AbstractDokumentImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected void deleteCheck() throws ApplicationException
+  protected void deleteCheck()
   {
     insertCheck();
   }
 
   @Override
-  protected void insertCheck() throws ApplicationException
+  protected void insertCheck()
   {
     //
   }
 
   @Override
-  protected void updateCheck() throws ApplicationException
+  protected void updateCheck()
   {
     insertCheck();
   }

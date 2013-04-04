@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
@@ -47,13 +46,14 @@ import de.willuhn.util.ApplicationException;
  */
 public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
 {
+
   private MailControl control;
 
   public MailEmpfaengerAuswahlDialog(MailControl control, int position)
   {
     super(position);
     this.control = control;
-    setTitle(JVereinPlugin.getI18n().tr("Mail-Empfänger"));
+    setTitle("Mail-Empfänger");
     setSize(550, 450);
   }
 
@@ -67,8 +67,9 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     }
 
     ButtonArea b = new ButtonArea();
-    b.addButton(JVereinPlugin.getI18n().tr("Eigenschaften"), new Action()
+    b.addButton("Eigenschaften", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -81,8 +82,8 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
           {
             DBIterator it = Einstellungen.getDBService().createList(
                 Eigenschaften.class);
-            it.addFilter("eigenschaft = ?", new Object[] { node
-                .getEigenschaft().getID() });
+            it.addFilter("eigenschaft = ?",
+                new Object[] { node.getEigenschaft().getID()});
             while (it.hasNext())
             {
               Eigenschaften ei = (Eigenschaften) it.next();
@@ -92,13 +93,13 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (Exception e)
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler")
-              + e);
+          throw new ApplicationException("Fehler" + e);
         }
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("alle"), new Action()
+    b.addButton("alle", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -111,12 +112,13 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("keinen"), new Action()
+    b.addButton("keinen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -129,12 +131,13 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("übernehmen"), new Action()
+    b.addButton("übernehmen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -143,21 +146,22 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
           for (Object o : control.getMitgliedMitMail().getItems())
           {
             Mitglied m = (Mitglied) o;
-            MailEmpfaenger me = (MailEmpfaenger) Einstellungen.getDBService()
-                .createObject(MailEmpfaenger.class, null);
+            MailEmpfaenger me = (MailEmpfaenger) Einstellungen.getDBService().createObject(
+                MailEmpfaenger.class, null);
             me.setMitglied(m);
             control.addEmpfaenger(me);
           }
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
         close();
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    b.addButton("abbrechen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

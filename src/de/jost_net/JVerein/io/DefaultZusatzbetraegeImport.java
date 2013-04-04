@@ -49,8 +49,7 @@ public class DefaultZusatzbetraegeImport implements Importer
 
   @Override
   public void doImport(Object context, IOFormat format, File file,
-      String encoding, ProgressMonitor monitor) throws RemoteException,
-      ApplicationException
+      String encoding, ProgressMonitor monitor) throws ApplicationException
   {
     monitor.setStatus(ProgressMonitor.STATUS_RUNNING);
     ResultSet results = null;

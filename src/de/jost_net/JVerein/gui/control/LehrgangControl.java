@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
 import de.jost_net.JVerein.rmi.Lehrgang;
@@ -56,6 +55,7 @@ import de.willuhn.util.ApplicationException;
 
 public class LehrgangControl extends AbstractControl
 {
+
   private TablePart lehrgaengeList;
 
   private SelectInput lehrgangsart;
@@ -106,9 +106,10 @@ public class LehrgangControl extends AbstractControl
     DBIterator it = Einstellungen.getDBService().createList(Lehrgangsart.class);
     it.setOrder("order by bezeichnung");
     lehrgangsart = new SelectInput(it, getLehrgang().getLehrgangsart());
-    lehrgangsart.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
+    lehrgangsart.setPleaseChoose("Bitte auswählen");
     lehrgangsart.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -141,10 +142,11 @@ public class LehrgangControl extends AbstractControl
     Date d = getLehrgang().getVon();
 
     this.von = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.von.setTitle(JVereinPlugin.getI18n().tr("Datum"));
-    this.von.setText(JVereinPlugin.getI18n().tr("Bitte (Beginn-)Datum wählen"));
+    this.von.setTitle("Datum");
+    this.von.setText("Bitte (Beginn-)Datum wählen");
     this.von.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -168,10 +170,11 @@ public class LehrgangControl extends AbstractControl
     Date d = getLehrgang().getBis();
 
     this.bis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.bis.setTitle(JVereinPlugin.getI18n().tr("Datum"));
-    this.bis.setText(JVereinPlugin.getI18n().tr("Bitte Ende-Datum wählen"));
+    this.bis.setTitle("Datum");
+    this.bis.setText("Bitte Ende-Datum wählen");
     this.bis.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -224,8 +227,7 @@ public class LehrgangControl extends AbstractControl
       //
     }
     suchlehrgangsart = new SelectInput(it, letztesuche);
-    suchlehrgangsart.setPleaseChoose(JVereinPlugin.getI18n().tr(
-        "Bitte auswählen"));
+    suchlehrgangsart.setPleaseChoose("Bitte auswählen");
     suchlehrgangsart.addListener(new FilterListener());
     return suchlehrgangsart;
   }
@@ -250,10 +252,11 @@ public class LehrgangControl extends AbstractControl
       }
     }
     this.datumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datumvon.setTitle(JVereinPlugin.getI18n().tr("Datum von"));
-    this.datumvon.setText(JVereinPlugin.getI18n().tr("Datum von"));
+    this.datumvon.setTitle("Datum von");
+    this.datumvon.setText("Datum von");
     this.datumvon.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -288,10 +291,11 @@ public class LehrgangControl extends AbstractControl
       }
     }
     this.datumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datumbis.setTitle(JVereinPlugin.getI18n().tr("Datum bis"));
-    this.datumbis.setText(JVereinPlugin.getI18n().tr("Datum bis"));
+    this.datumbis.setTitle("Datum bis");
+    this.datumbis.setText("Datum bis");
     this.datumbis.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -318,8 +322,7 @@ public class LehrgangControl extends AbstractControl
       l.setVeranstalter((String) getVeranstalter().getValue());
       l.setErgebnis((String) getErgebnis().getValue());
       l.store();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Lehrgang gespeichert"));
+      GUI.getStatusBar().setSuccessText("Lehrgang gespeichert");
     }
     catch (ApplicationException e)
     {
@@ -327,8 +330,7 @@ public class LehrgangControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern des Lehrgangs");
+      String fehler = "Fehler bei speichern des Lehrgangs";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -336,7 +338,6 @@ public class LehrgangControl extends AbstractControl
 
   private void refresh()
   {
-
     try
     {
       saveDefaults();
@@ -365,17 +366,17 @@ public class LehrgangControl extends AbstractControl
     if (getSuchLehrgangsart().getValue() != null)
     {
       Lehrgangsart la = (Lehrgangsart) getSuchLehrgangsart().getValue();
-      lehrgaenge.addFilter("lehrgangsart = ?", new Object[] { la.getID() });
+      lehrgaenge.addFilter("lehrgangsart = ?", new Object[] { la.getID()});
     }
     if (getDatumvon().getValue() != null)
     {
-      lehrgaenge.addFilter("von >= ?", new Object[] { (Date) getDatumvon()
-          .getValue() });
+      lehrgaenge.addFilter("von >= ?",
+          new Object[] { (Date) getDatumvon().getValue()});
     }
     if (getDatumbis().getValue() != null)
     {
-      lehrgaenge.addFilter("bis <= ?", new Object[] { (Date) getDatumbis()
-          .getValue() });
+      lehrgaenge.addFilter("bis <= ?",
+          new Object[] { (Date) getDatumbis().getValue()});
     }
     return lehrgaenge;
   }
@@ -435,37 +436,34 @@ public class LehrgangControl extends AbstractControl
     if (lehrgaengeList == null)
     {
       lehrgaengeList = new TablePart(lehrgaenge, new LehrgangAction(null));
-      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Name"), "mitglied",
-          new Formatter()
+      lehrgaengeList.addColumn("Name", "mitglied", new Formatter()
+      {
+
+        @Override
+        public String format(Object o)
+        {
+          Mitglied m = (Mitglied) o;
+          if (m == null)
+            return null;
+          String name = null;
+          try
           {
-            @Override
-            public String format(Object o)
-            {
-              Mitglied m = (Mitglied) o;
-              if (m == null)
-                return null;
-              String name = null;
-              try
-              {
-                name = m.getNameVorname();
-              }
-              catch (RemoteException e)
-              {
-                e.printStackTrace();
-              }
-              return name;
-            }
-          });
-      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Lehrgangsart"),
-          "lehrgangsart");
-      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("von/am"), "von",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Veranstalter"),
-          "veranstalter");
-      lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Ergebnis"),
-          "ergebnis");
+            name = m.getNameVorname();
+          }
+          catch (RemoteException e)
+          {
+            e.printStackTrace();
+          }
+          return name;
+        }
+      });
+      lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
+      lehrgaengeList.addColumn("von/am", "von", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      lehrgaengeList.addColumn("bis", "bis", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      lehrgaengeList.addColumn("Veranstalter", "veranstalter");
+      lehrgaengeList.addColumn("Ergebnis", "ergebnis");
       lehrgaengeList.setContextMenu(new LehrgangMenu());
       lehrgaengeList.setRememberColWidths(true);
       lehrgaengeList.setRememberOrder(true);
@@ -484,6 +482,7 @@ public class LehrgangControl extends AbstractControl
 
   private class FilterListener implements Listener
   {
+
     @Override
     public void handleEvent(Event event)
     {

@@ -29,7 +29,6 @@ import java.util.Date;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -57,15 +56,14 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
   {
     super(EigenschaftenAuswahlDialog.POSITION_CENTER);
     this.setSize(400, 700);
-    setTitle(JVereinPlugin.getI18n().tr("Zusatzfelder-Bedingungen "));
+    setTitle("Zusatzfelder-Bedingungen ");
     this.settings = settings;
   }
 
   @Override
   protected void paint(Composite parent) throws RemoteException
   {
-    LabelGroup group = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Bedingungen"), false);
+    LabelGroup group = new LabelGroup(parent, "Bedingungen", false);
     felder = new ArrayList<Input>();
 
     DBIterator it = Einstellungen.getDBService().createList(
@@ -83,8 +81,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(input);
           group.addInput(input);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", "LIKE");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -101,8 +98,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(inputvon);
           group.addInput(inputvon);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -118,6 +114,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
             }
             catch (ParseException e)
             {
+              //
             }
           }
           DateInput inputbis = new DateInput();
@@ -125,8 +122,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(inputbis);
           group.addInput(inputbis);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -141,6 +137,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
             }
             catch (ParseException e)
             {
+              //
             }
           }
           break;
@@ -152,8 +149,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(inputvon);
           group.addInput(inputvon);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -167,8 +163,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(inputbis);
           group.addInput(inputbis);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -185,8 +180,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(input);
           group.addInput(input);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", "=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -203,8 +197,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(inputvon);
           group.addInput(inputvon);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -223,6 +216,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           }
           catch (ParseException e)
           {
+            //
           }
 
           DecimalInput inputbis = new DecimalInput(Einstellungen.DECIMALFORMAT);
@@ -230,8 +224,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           felder.add(inputbis);
           group.addInput(inputbis);
           counter++;
-          settings
-              .setAttribute("zusatzfeld." + counter + ".name", fd.getName());
+          settings.setAttribute("zusatzfeld." + counter + ".name", fd.getName());
           settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
           settings.setAttribute("zusatzfeld." + counter + ".datentyp",
               fd.getDatentyp());
@@ -246,7 +239,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
     }
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(i18n.tr(JVereinPlugin.getI18n().tr("OK")), new Action()
+    buttons.addButton("OK", new Action()
     {
 
       @Override
@@ -302,8 +295,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
             case Datentyp.JANEIN:
             {
               Boolean b = (Boolean) inp.getValue();
-              settings.setAttribute("zusatzfeld." + counter + ".value",
-                  (Boolean) b);
+              settings.setAttribute("zusatzfeld." + counter + ".value", b);
               if (b)
               {
                 selcounter++;
@@ -314,10 +306,8 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
             {
               if (inp.getValue() != null)
               {
-                settings
-                    .setAttribute("zusatzfeld." + counter + ".value",
-                        Einstellungen.DECIMALFORMAT.format((Double) inp
-                            .getValue()));
+                settings.setAttribute("zusatzfeld." + counter + ".value",
+                    Einstellungen.DECIMALFORMAT.format(inp.getValue()));
                 selcounter++;
               }
               else

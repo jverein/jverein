@@ -23,5 +23,5 @@ package de.jost_net.JVerein.rmi;
 
 public interface BuchungDokument extends AbstractDokument
 {
-
+  //
 }

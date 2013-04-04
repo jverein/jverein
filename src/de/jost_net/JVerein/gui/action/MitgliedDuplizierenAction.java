@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.AdresseDetailView;
 import de.jost_net.JVerein.gui.view.MitgliedDetailView;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -37,8 +36,7 @@ public class MitgliedDuplizierenAction implements Action
   {
     if (context == null || !(context instanceof Mitglied))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "kein Mitglied ausgewählt"));
+      throw new ApplicationException("kein Mitglied ausgewählt");
     }
     Mitglied m = null;
     try
@@ -56,8 +54,8 @@ public class MitgliedDuplizierenAction implements Action
     }
     catch (Exception e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim duplizieren eines Mitgliedes"), e);
+      throw new ApplicationException(
+          "Fehler beim duplizieren eines Mitgliedes", e);
     }
   }
 }

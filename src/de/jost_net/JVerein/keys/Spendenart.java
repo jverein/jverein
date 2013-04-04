@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Abrechnungsausgabe
  */
 public class Spendenart
 {
+
   public static final int GELDSPENDE = 1;
 
   public static final int SACHSPENDE = 2;
@@ -56,9 +55,9 @@ public class Spendenart
     switch (key)
     {
       case GELDSPENDE:
-        return JVereinPlugin.getI18n().tr("Geldspende");
+        return "Geldspende";
       case SACHSPENDE:
-        return JVereinPlugin.getI18n().tr("Sachspende");
+        return "Sachspende";
       default:
         return null;
     }

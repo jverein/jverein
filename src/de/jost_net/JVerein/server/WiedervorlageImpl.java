@@ -24,7 +24,6 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 public class WiedervorlageImpl extends AbstractDBObject implements
     Wiedervorlage
 {
+
   private static final long serialVersionUID = 1L;
 
   public WiedervorlageImpl() throws RemoteException
@@ -66,19 +66,16 @@ public class WiedervorlageImpl extends AbstractDBObject implements
     {
       if (getDatum() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Datum eingeben"));
+        throw new ApplicationException("Bitte Datum eingeben");
       }
       if (getVermerk() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Vermerk eingeben"));
+        throw new ApplicationException("Bitte Vermerk eingeben");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Wiedervorlage kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Wiedervorlage kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

@@ -31,12 +31,10 @@ import java.util.Date;
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.MitgliedskontoQuery;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
 public abstract class MitgliedskontoExport implements Exporter
@@ -58,8 +56,7 @@ public abstract class MitgliedskontoExport implements Exporter
 
   @Override
   public void doExport(Object[] objects, IOFormat format, File file,
-      ProgressMonitor monitor) throws ApplicationException, DocumentException,
-      IOException
+      ProgressMonitor monitor) throws DocumentException, IOException
   {
     this.file = file;
     vonDatum = (Date) objects[0];
@@ -79,8 +76,7 @@ public abstract class MitgliedskontoExport implements Exporter
       for (Mitgliedskonto mk : mkq.get())
       {
         add(mk);
-        monitor.log(JVereinPlugin.getI18n().tr("Vorbereitung: {0}",
-            m.getNameVorname()));
+        monitor.log("Vorbereitung: " + m.getNameVorname());
       }
       endeMitglied();
     }
@@ -90,7 +86,7 @@ public abstract class MitgliedskontoExport implements Exporter
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("mitgliedskonten");
+    return "mitgliedskonten";
   }
 
   protected abstract void startMitglied(Mitglied m) throws DocumentException;

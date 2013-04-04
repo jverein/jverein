@@ -21,15 +21,13 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 public class MitgliedDetailView extends AbstractAdresseDetailView
 {
 
   @Override
   public String getTitle()
   {
-    return JVereinPlugin.getI18n().tr("Daten des Mitgliedes");
+    return "Daten des Mitgliedes";
   }
 
   @Override

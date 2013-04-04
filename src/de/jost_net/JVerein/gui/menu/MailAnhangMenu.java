@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailAnhangDeleteAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -35,7 +34,7 @@ public class MailAnhangMenu extends ContextMenu
 
   public MailAnhangMenu(MailControl control)
   {
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("entfernen"),
-        new MailAnhangDeleteAction(control), "user-trash.png"));
+    addItem(new CheckedContextMenuItem("entfernen", new MailAnhangDeleteAction(
+        control), "user-trash.png"));
   }
 }

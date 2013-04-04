@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
@@ -53,19 +52,19 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
   {
     super(position);
 
-    setTitle(JVereinPlugin.getI18n().tr("Projekt auswählen"));
+    setTitle("Projekt auswählen");
     setSize(450, 150);
   }
 
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    LabelGroup options = new LabelGroup(parent, JVereinPlugin.getI18n().tr(
-        "Projekte"));
+    LabelGroup options = new LabelGroup(parent, "Projekte");
     options.addInput(this.getProjekte());
     ButtonArea b = new ButtonArea();
-    b.addButton(JVereinPlugin.getI18n().tr("weiter"), new Action()
+    b.addButton("weiter", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -73,8 +72,9 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
         close();
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("abbrechen"), new Action()
+    b.addButton("abbrechen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -99,9 +99,10 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     DBIterator pj = Einstellungen.getDBService().createList(Projekt.class);
     pj.setOrder("ORDER BY bezeichnung");
     this.projekte = new SelectInput(pj, null);
-    this.projekte.setName(JVereinPlugin.getI18n().tr("Projekt"));
+    this.projekte.setName("Projekt");
     this.projekte.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {

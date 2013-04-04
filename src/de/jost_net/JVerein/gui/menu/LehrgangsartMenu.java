@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.LehrgangsartDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -37,8 +36,7 @@ public class LehrgangsartMenu extends ContextMenu
    */
   public LehrgangsartMenu()
   {
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."),
+    addItem(new CheckedContextMenuItem("löschen...",
         new LehrgangsartDeleteAction(), "user-trash.png"));
   }
 }

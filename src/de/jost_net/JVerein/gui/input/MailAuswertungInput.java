@@ -25,7 +25,6 @@ package de.jost_net.JVerein.gui.input;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -59,8 +58,7 @@ public class MailAuswertungInput extends SelectInput
     l.add(new MailAuswertungObject(MailAuswertungInput.ALLE));
     l.add(new MailAuswertungObject(MailAuswertungInput.OHNE));
     l.add(new MailAuswertungObject(MailAuswertungInput.MIT));
-    return PseudoIterator
-        .fromArray(l.toArray(new MailAuswertungObject[l.size()]));
+    return PseudoIterator.fromArray(l.toArray(new MailAuswertungObject[l.size()]));
   }
 
   /**
@@ -97,19 +95,19 @@ public class MailAuswertungInput extends SelectInput
 
       if (mail == ALLE)
       {
-        this.label = JVereinPlugin.getI18n().tr("Alle");
+        this.label = "Alle";
       }
       else if (mail == MIT)
       {
-        this.label = JVereinPlugin.getI18n().tr("nur mit Mailadresse");
+        this.label = "nur mit Mailadresse";
       }
       else if (mail == OHNE)
       {
-        this.label = JVereinPlugin.getI18n().tr("nur ohne Mailadresse");
+        this.label = "nur ohne Mailadresse";
       }
       else
       {
-        this.label = JVereinPlugin.getI18n().tr("Programmfehler");
+        this.label = "Programmfehler";
       }
     }
 
@@ -122,7 +120,7 @@ public class MailAuswertungInput extends SelectInput
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "name" };
+      return new String[] { "name"};
     }
 
     @Override

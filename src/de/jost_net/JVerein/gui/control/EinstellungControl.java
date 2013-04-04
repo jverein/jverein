@@ -42,7 +42,6 @@ import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
-import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -863,14 +862,7 @@ public class EinstellungControl extends AbstractControl
     {
       return sepaland;
     }
-    try
-    {
-      sepaland = new SEPALandInput();
-    }
-    catch (SEPAException e)
-    {
-      throw new RemoteException(e.getMessage());
-    }
+    sepaland = new SEPALandInput();
     return sepaland;
   }
 

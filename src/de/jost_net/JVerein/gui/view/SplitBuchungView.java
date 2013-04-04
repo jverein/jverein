@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
@@ -38,7 +37,7 @@ public class SplitBuchungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Splitbuchung"));
+    GUI.getView().setTitle("Splitbuchung");
 
     final BuchungsControl control = new BuchungsControl(this);
 
@@ -47,13 +46,13 @@ public class SplitBuchungView extends AbstractView
     lg.addText(control.getDifference((Buchung) control.getCurrentObject()),
         false);
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.BUCHUNGEN, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new BuchungNeuAction(), null, false, "document-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
+    buttons.addButton("neu", new BuchungNeuAction(), null, false,
+        "document-new.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -66,8 +65,7 @@ public class SplitBuchungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
-            + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
+        + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>";
   }
 }

@@ -114,9 +114,9 @@ public class Reporter
         + " | "
         + subtitle
         + " | "
-        + JVereinPlugin.getI18n().tr("erstellt am {0}",
-            new JVDateFormatTTMMJJJJ().format(new Date())) + "     "
-        + JVereinPlugin.getI18n().tr("Seite: ");
+        + "erstellt am "+
+            new JVDateFormatTTMMJJJJ().format(new Date()) + "     "
+        + "Seite: ";
     HeaderFooter hf = new HeaderFooter();
     hf.setFooter(fuss);
     writer.setPageEvent(hf);
@@ -381,7 +381,7 @@ public class Reporter
     try
     {
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("PDF-Export beendet"));
+          "PDF-Export beendet");
       if (table != null)
       {
         rpt.add(table);

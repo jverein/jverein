@@ -22,16 +22,16 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
@@ -84,30 +84,25 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     {
       if (getBetrag().doubleValue() <= 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Betrag größer als 0 eingeben."));
+        throw new ApplicationException("Betrag größer als 0 eingeben.");
       }
       if (getSpendedatum() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Spendedatum fehlt."));
+        throw new ApplicationException("Spendedatum fehlt.");
       }
       if (getBescheinigungsdatum() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Datum der Bescheinigung fehlt."));
+        throw new ApplicationException("Datum der Bescheinigung fehlt.");
       }
       if (getZeile1() == null && getZeile2() == null && getZeile3() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Spenderadresse fehlt"));
+        throw new ApplicationException("Spenderadresse fehlt");
       }
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler bei der Plausi"));
+      Logger.error("Fehler", e);
+      throw new ApplicationException("Fehler bei der Plausi");
     }
   }
 
@@ -442,7 +437,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * kleinste Datum der Buchungen gesetzt.
    * 
    * @param buchung
-   *          Die Buchung zum Hinzufügen
+   *        Die Buchung zum Hinzufügen
    */
   @Override
   public void addBuchung(Buchung buchung) throws RemoteException
@@ -479,7 +474,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * worden sein, wird die Liste der Buchungen vorher gelöscht.
    * 
    * @param buchung
-   *          Die Buchung, die der Spendenbescheinigung zugeordnet wird
+   *        Die Buchung, die der Spendenbescheinigung zugeordnet wird
    */
   @Override
   public void setBuchung(Buchung buchung) throws RemoteException
@@ -605,40 +600,38 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     catch (Exception e)
     {
       Logger.error("Fehler", e);
-      throw new RemoteException(JVereinPlugin.getI18n().tr(
-          "Fehler bei der Aufbereitung des Betrages in Worten"));
+      throw new RemoteException(
+          "Fehler bei der Aufbereitung des Betrages in Worten");
     }
     // Calendar für Alt/Neu
     GregorianCalendar gc = new GregorianCalendar();
     gc.setTime(getBescheinigungsdatum());
 
-    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ()
-        .format(getBescheinigungsdatum());
+    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ().format(getBescheinigungsdatum());
     map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
         bescheinigungsdatum);
     switch (getSpendenart())
     {
       case Spendenart.GELDSPENDE:
-        String art = JVereinPlugin.getI18n().tr("Geldzuwendungen");
+        String art = "Geldzuwendungen";
         if (Einstellungen.getEinstellung().getMitgliedsbetraege())
         {
-          art += JVereinPlugin.getI18n().tr("/Mitgliedsbeitrag");
+          art += "/Mitgliedsbeitrag";
         }
         map.put(SpendenbescheinigungVar.SPENDEART.getName(), art);
         break;
       case Spendenart.SACHSPENDE:
-        map.put(SpendenbescheinigungVar.SPENDEART.getName(), JVereinPlugin
-            .getI18n().tr("Sachzuwendungen"));
+        map.put(SpendenbescheinigungVar.SPENDEART.getName(), "Sachzuwendungen");
         break;
     }
     String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
-    boolean printBuchungsart = Einstellungen.getEinstellung()
-        .getSpendenbescheinigungPrintBuchungsart();
+    boolean printBuchungsart = Einstellungen.getEinstellung().getSpendenbescheinigungPrintBuchungsart();
     map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
         getBezeichnungSachzuwendung());
     map.put(
         SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
-        getUnterlagenWertermittlung() ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
+        getUnterlagenWertermittlung()
+            ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
             : "");
     // Unterscheidung bis 2012 / ab 2013
     if (gc.get(GregorianCalendar.YEAR) <= 2012)
@@ -683,19 +676,17 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     if (getBuchungen() != null && getBuchungen().size() > 1)
     {
       String zeitraumende = new JVDateFormatTTMMJJJJ().format(getZeitraumBis());
-      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), JVereinPlugin
-          .getI18n().tr("s. Anlage"));
-      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(), JVereinPlugin
-          .getI18n().tr("{0} bis {1}", spendedatum, zeitraumende));
+      map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "s. Anlage");
+      map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(),
+          MessageFormat.format("{0} bis {1}", spendedatum, zeitraumende));
       StringBuilder bl = new StringBuilder();
       if (gc.get(GregorianCalendar.YEAR) <= 2012)
       {
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Datum"), 10));
+        bl.append(StringTool.rpad("Datum", 10));
         bl.append("  ");
-        bl.append(StringTool.rpad(
-            StringTool.lpad(JVereinPlugin.getI18n().tr("Betrag"), 8), 11));
+        bl.append(StringTool.rpad(StringTool.lpad("Betrag", 8), 11));
         bl.append("  ");
-        bl.append(JVereinPlugin.getI18n().tr("Verwendung"));
+        bl.append("Verwendung");
         bl.append(newLineStr);
 
         bl.append("----------");
@@ -730,7 +721,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         bl.append("  ");
         bl.append("-----------------------------------------");
         bl.append(newLineStr);
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Summe:"), 10));
+        bl.append(StringTool.rpad("Summe:", 10));
         bl.append("  ");
         String str = Einstellungen.DECIMALFORMAT.format(getBetrag());
         bl.append(StringTool.lpad(str, 11));
@@ -739,13 +730,9 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         bl.append(newLineStr);
         bl.append("Legende:");
         bl.append(newLineStr);
-        bl.append(JVereinPlugin
-            .getI18n()
-            .tr("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen"));
+        bl.append("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen");
         bl.append(newLineStr);
-        bl.append(JVereinPlugin
-            .getI18n()
-            .tr("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen"));
+        bl.append("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
         bl.append(newLineStr);
       }
       else
@@ -754,44 +741,31 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         final int colArtLen = 27;
         final int colVerzichtLen = 17;
         final int colBetragLen = 11;
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
-            colDatumLen));
+        bl.append(StringTool.rpad(" ", colDatumLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr(" "),
-            colArtLen));
+        bl.append(StringTool.rpad(" ", colArtLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(
-            JVereinPlugin.getI18n().tr("Verzicht auf"),
-            colVerzichtLen));
+        bl.append(StringTool.rpad("Verzicht auf", colVerzichtLen));
         bl.append("  ");
         bl.append(StringTool.rpad(" ", colBetragLen));
         bl.append(newLineStr);
 
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Datum der "),
-            colDatumLen));
+        bl.append(StringTool.rpad("Datum der ", colDatumLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Art der"),
-            colArtLen));
+        bl.append(StringTool.rpad("Art der", colArtLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(
-            JVereinPlugin.getI18n().tr("die Erstattung"),
-            colVerzichtLen));
+        bl.append(StringTool.rpad("die Erstattung", colVerzichtLen));
         bl.append("  ");
         bl.append(StringTool.rpad(" ", colBetragLen));
         bl.append(newLineStr);
 
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
-            colDatumLen));
+        bl.append(StringTool.rpad("Zuwendung", colDatumLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Zuwendung"),
-            colArtLen));
+        bl.append(StringTool.rpad("Zuwendung", colArtLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n()
-            .tr("von Aufwendungen"), colVerzichtLen));
+        bl.append(StringTool.rpad("von Aufwendungen", colVerzichtLen));
         bl.append("  ");
-        bl.append(StringTool.rpad(
-            StringTool.lpad(JVereinPlugin.getI18n().tr("Betrag"), 8),
-            colBetragLen));
+        bl.append(StringTool.rpad(StringTool.lpad("Betrag", 8), colBetragLen));
         bl.append(newLineStr);
 
         bl.append(StringTool.rpad("-", colDatumLen, "-"));
@@ -848,8 +822,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         // bl.append(StringTool.rpad("-", colBetragLen, "-"));
         // bl.append(newLineStr);
 
-        bl.append(StringTool.rpad(JVereinPlugin.getI18n().tr("Gesamtsumme:"),
-            colDatumLen + 2 + colArtLen + 2 + colVerzichtLen));
+        bl.append(StringTool.rpad("Gesamtsumme:", colDatumLen + 2 + colArtLen
+            + 2 + colVerzichtLen));
         bl.append("  ");
         String str = Einstellungen.DECIMALFORMAT.format(getBetrag());
         bl.append(StringTool.lpad(str, colBetragLen));

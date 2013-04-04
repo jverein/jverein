@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.menu;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MitgliedskontoDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoDetailSollLoeschenAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoDetailSollNeuAction;
@@ -38,7 +37,6 @@ import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.I18N;
 
 /**
  * Kontext-Menu, welches an MitgliedskontenListen gehangen werden kann.
@@ -46,26 +44,23 @@ import de.willuhn.util.I18N;
 public class MitgliedskontoMenu extends ContextMenu
 {
 
-  private final static I18N i18n = JVereinPlugin.getI18n();
-
   /**
    * Erzeugt ein Kontext-Menu fuer eine Liste von Mitgliedskonten.
    */
   public MitgliedskontoMenu()
   {
-    addItem(new MitgliedItem(i18n.tr("neue Sollbuchung"),
+    addItem(new MitgliedItem("neue Sollbuchung",
         new MitgliedskontoDetailSollNeuAction(), "accessories-calculator.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new SollItem(i18n.tr("Sollbuchung bearbeiten"),
+    addItem(new SollItem("Sollbuchung bearbeiten",
         new MitgliedskontoDetailAction(), "accessories-calculator.png"));
-    addItem(new SollOhneIstItem(i18n.tr("Sollbuchung löschen"),
+    addItem(new SollOhneIstItem("Sollbuchung löschen",
         new MitgliedskontoDetailSollLoeschenAction(),
         "accessories-calculator.png"));
-    addItem(new SollMitIstItem(i18n.tr("Istbuchung vom Mitgliedskonto lösen"),
+    addItem(new SollMitIstItem("Istbuchung vom Mitgliedskonto lösen",
         new MitgliedskontoIstLoesenAction(), "accessories-calculator.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new SpendenbescheinigungItem(
-        i18n.tr("Spendenbescheinigung erstellen"),
+    addItem(new SpendenbescheinigungItem("Spendenbescheinigung erstellen",
         new SpendenbescheinigungAction(), "accessories-calculator.png"));
   }
 
@@ -133,6 +128,7 @@ public class MitgliedskontoMenu extends ContextMenu
 
   private static class SollOhneIstItem extends CheckedContextMenuItem
   {
+
     private SollOhneIstItem(String text, Action action, String icon)
     {
       super(text, action, icon);
@@ -150,7 +146,7 @@ public class MitgliedskontoMenu extends ContextMenu
           try
           {
             it = Einstellungen.getDBService().createList(Buchung.class);
-            it.addFilter("mitgliedskonto = ?", new Object[] { mkn.getID() });
+            it.addFilter("mitgliedskonto = ?", new Object[] { mkn.getID()});
             if (it.size() == 0)
             {
               return true;

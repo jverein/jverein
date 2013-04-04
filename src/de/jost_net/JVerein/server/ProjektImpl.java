@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -31,6 +30,7 @@ import de.willuhn.util.ApplicationException;
 
 public class ProjektImpl extends AbstractDBObject implements Projekt
 {
+
   private static final long serialVersionUID = 1L;
 
   public ProjektImpl() throws RemoteException
@@ -66,8 +66,8 @@ public class ProjektImpl extends AbstractDBObject implements Projekt
     catch (RemoteException e)
     {
       Logger.error("insert check of projekt failed", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Projekt kann nicht gespeichert werden. Siehe system log"));
+      throw new ApplicationException(
+          "Projekt kann nicht gespeichert werden. Siehe system log");
     }
   }
 
@@ -75,8 +75,7 @@ public class ProjektImpl extends AbstractDBObject implements Projekt
   {
     if (getBezeichnung() == null)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Bitte Bezeichnung eingeben"));
+      throw new ApplicationException("Bitte Bezeichnung eingeben");
     }
   }
 

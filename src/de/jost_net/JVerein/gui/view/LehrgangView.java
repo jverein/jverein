@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.LehrgangControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -36,26 +35,22 @@ public class LehrgangView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Lehrgang"));
+    GUI.getView().setTitle("Lehrgang");
     final LehrgangControl control = new LehrgangControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Lehrgang"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Lehrgangsart"),
-        control.getLehrgangsart());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("am/von"), control.getVon());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("bis"), control.getBis());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Veranstalter"),
-        control.getVeranstalter());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Ergebnis"),
-        control.getErgebnis());
+    LabelGroup group = new LabelGroup(getParent(), "Lehrgang");
+    group.addLabelPair("Lehrgangsart", control.getLehrgangsart());
+    group.addLabelPair("am/von", control.getVon());
+    group.addLabelPair("bis", control.getBis());
+    group.addLabelPair("Veranstalter", control.getVeranstalter());
+    group.addLabelPair("Ergebnis", control.getErgebnis());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.LEHRGANG, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.LEHRGANG, false, "help-browser.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -68,8 +63,7 @@ public class LehrgangView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr(
-        "<form><p><span color=\"header\" font=\"header\">Lehrgang</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Lehrgang</span></p>"
+        + "</form>";
   }
 }

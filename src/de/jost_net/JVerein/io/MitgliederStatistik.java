@@ -24,6 +24,7 @@ package de.jost_net.JVerein.io;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +37,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
@@ -63,29 +63,26 @@ public class MitgliederStatistik
       String subtitle = "";
       if (stichtag != null)
       {
-        subtitle = JVereinPlugin.getI18n().tr("Stichtag: {0}",
-            new JVDateFormatTTMMJJJJ().format(stichtag));
+        subtitle = "Stichtag: }" + new JVDateFormatTTMMJJJJ().format(stichtag);
       }
-      Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
-          "Mitgliederstatistik"), subtitle, 3);
+      Reporter reporter = new Reporter(fos, "Mitgliederstatistik", subtitle, 3);
 
-      Paragraph pAltersgruppen = new Paragraph("\n"
-          + JVereinPlugin.getI18n().tr("Altersgruppen"), FontFactory.getFont(
-          FontFactory.HELVETICA, 11));
+      Paragraph pAltersgruppen = new Paragraph("\n" + "Altersgruppen",
+          FontFactory.getFont(FontFactory.HELVETICA, 11));
       reporter.add(pAltersgruppen);
 
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Altersgruppe"),
-          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Insgesamt"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("männlich"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("weiblich"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("Altersgruppe", Element.ALIGN_CENTER, 100,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("Insgesamt", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
-      AltersgruppenParser ap = new AltersgruppenParser(Einstellungen
-          .getEinstellung().getAltersgruppen());
+      AltersgruppenParser ap = new AltersgruppenParser(
+          Einstellungen.getEinstellung().getAltersgruppen());
       while (ap.hasNext())
       {
         Point p = ap.getNext();
@@ -94,19 +91,18 @@ public class MitgliederStatistik
       addAltersgruppe(reporter, 0, 199, stichtag);
       reporter.closeTable();
 
-      Paragraph pBeitragsgruppen = new Paragraph("\n"
-          + JVereinPlugin.getI18n().tr("Beitragsgruppen"), FontFactory.getFont(
-          FontFactory.HELVETICA, 11));
+      Paragraph pBeitragsgruppen = new Paragraph("\n" + "Beitragsgruppen",
+          FontFactory.getFont(FontFactory.HELVETICA, 11));
       reporter.add(pBeitragsgruppen);
 
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Beitragsgruppe"),
-          Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Insgesamt"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("männlich"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
-      reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("weiblich"),
-          Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("Beitragsgruppe", Element.ALIGN_CENTER, 100,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("Insgesamt", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
       DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
@@ -124,33 +120,32 @@ public class MitgliederStatistik
         JVDateFormatTTMMJJJJ ttmmjj = new JVDateFormatTTMMJJJJ();
         Geschaeftsjahr gj = new Geschaeftsjahr(stichtag);
         Paragraph pGuV = new Paragraph("\n"
-            + JVereinPlugin.getI18n().tr("Anmeldungen/Abmeldungen ({0} - {1})",
+            + MessageFormat.format("Anmeldungen/Abmeldungen ({0} - {1})",
                 ttmmjj.format(gj.getBeginnGeschaeftsjahr()),
                 ttmmjj.format(gj.getEndeGeschaeftsjahr())),
             FontFactory.getFont(FontFactory.HELVETICA, 11));
         reporter.add(pGuV);
-        reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Text"),
-            Element.ALIGN_CENTER, 100, BaseColor.LIGHT_GRAY);
-        reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Anzahl"),
-            Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
+        reporter.addHeaderColumn("Text", Element.ALIGN_CENTER, 100,
+            BaseColor.LIGHT_GRAY);
+        reporter.addHeaderColumn("Anzahl", Element.ALIGN_CENTER, 30,
+            BaseColor.LIGHT_GRAY);
         reporter.createHeader(60f, Element.ALIGN_LEFT);
-        reporter.addColumn(JVereinPlugin.getI18n().tr("Anmeldungen"),
-            Element.ALIGN_LEFT);
+        reporter.addColumn("Anmeldungen", Element.ALIGN_LEFT);
         reporter.addColumn(getAnmeldungen(gj) + "", Element.ALIGN_RIGHT);
-        reporter.addColumn(JVereinPlugin.getI18n().tr("Abmeldungen"),
-            Element.ALIGN_LEFT);
+        reporter.addColumn("Abmeldungen", Element.ALIGN_LEFT);
         reporter.addColumn(getAbmeldungen(gj) + "", Element.ALIGN_RIGHT);
         reporter.closeTable();
       }
       catch (ParseException e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+        Logger.error("Fehler", e);
         throw new ApplicationException(e);
       }
       reporter.close();
       fos.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         @Override
         public void run()
         {
@@ -171,8 +166,8 @@ public class MitgliederStatistik
     catch (Exception e)
     {
       e.printStackTrace();
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
+      throw new ApplicationException("Fehler", e);
     }
   }
 
@@ -181,14 +176,13 @@ public class MitgliederStatistik
   {
     if (von == 0 && bis == 199)
     {
-      reporter.addColumn(JVereinPlugin.getI18n().tr("Insgesamt"),
-          Element.ALIGN_LEFT);
+      reporter.addColumn("Insgesamt", Element.ALIGN_LEFT);
     }
     else
     {
       reporter.addColumn(
-          JVereinPlugin.getI18n().tr("Altersgruppe {0} - {1}", von + "",
-              bis + ""), Element.ALIGN_LEFT);
+          MessageFormat.format("Altersgruppe {0} - {1}", von + "", bis + ""),
+          Element.ALIGN_LEFT);
     }
     reporter.addColumn(getAltersgruppe(von, bis, null, stichtag) + "",
         Element.ALIGN_RIGHT);
@@ -203,8 +197,7 @@ public class MitgliederStatistik
   {
     if (bg == null)
     {
-      reporter.addColumn(JVereinPlugin.getI18n().tr("Insgesamt"),
-          Element.ALIGN_LEFT);
+      reporter.addColumn("Insgesamt", Element.ALIGN_LEFT);
     }
     else
     {
@@ -222,11 +215,11 @@ public class MitgliederStatistik
    * Anzahl der Mitglieder in einer Altersgruppe ermitteln
    * 
    * @param von
-   *          Alter in Jahren
+   *        Alter in Jahren
    * @param bis
-   *          Alter in Jahren
+   *        Alter in Jahren
    * @param geschlecht
-   *          m, w oder null
+   *        m, w oder null
    * @return Anzahl der Mitglieder
    */
   private int getAltersgruppe(int von, int bis, String geschlecht, Date stichtag)
@@ -250,17 +243,17 @@ public class MitgliederStatistik
     calBis.set(Calendar.DAY_OF_MONTH, 31);
 
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
-    list.addFilter("geburtsdatum >= ?", new Object[] { vd });
+    list.addFilter("geburtsdatum >= ?", new Object[] { vd});
     list.addFilter("geburtsdatum <= ?",
-        new Object[] { new java.sql.Date(calBis.getTimeInMillis()) });
+        new Object[] { new java.sql.Date(calBis.getTimeInMillis())});
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
     list.addFilter("(eintritt is null or eintritt <= ?)",
-        new Object[] { stichtag });
+        new Object[] { stichtag});
 
     if (geschlecht != null)
     {
-      list.addFilter("geschlecht = ?", new Object[] { geschlecht });
+      list.addFilter("geschlecht = ?", new Object[] { geschlecht});
     }
 
     return list.size();
@@ -273,15 +266,15 @@ public class MitgliederStatistik
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
     list.addFilter("(eintritt is null or eintritt <= ?)",
-        new Object[] { stichtag });
+        new Object[] { stichtag});
     if (bg != null)
     {
       list.addFilter("beitragsgruppe = ?",
-          new Object[] { new Integer(bg.getID()) });
+          new Object[] { new Integer(bg.getID())});
     }
     if (geschlecht != null)
     {
-      list.addFilter("geschlecht = ?", new Object[] { geschlecht });
+      list.addFilter("geschlecht = ?", new Object[] { geschlecht});
     }
 
     return list.size();
@@ -292,9 +285,8 @@ public class MitgliederStatistik
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setMitglied(list);
     list.addFilter("eintritt >= ? ",
-        new Object[] { gj.getBeginnGeschaeftsjahr() });
-    list.addFilter("eintritt <= ? ",
-        new Object[] { gj.getEndeGeschaeftsjahr() });
+        new Object[] { gj.getBeginnGeschaeftsjahr()});
+    list.addFilter("eintritt <= ? ", new Object[] { gj.getEndeGeschaeftsjahr()});
     return list.size();
   }
 
@@ -303,9 +295,8 @@ public class MitgliederStatistik
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setMitglied(list);
     list.addFilter("austritt >= ? ",
-        new Object[] { gj.getBeginnGeschaeftsjahr() });
-    list.addFilter("austritt <= ? ",
-        new Object[] { gj.getEndeGeschaeftsjahr() });
+        new Object[] { gj.getBeginnGeschaeftsjahr()});
+    list.addFilter("austritt <= ? ", new Object[] { gj.getEndeGeschaeftsjahr()});
     return list.size();
   }
 }

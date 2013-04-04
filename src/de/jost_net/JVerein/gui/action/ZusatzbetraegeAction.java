@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.ZusatzbetragView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class ZusatzbetraegeAction implements Action
 {
+
   private Mitglied m;
 
   public ZusatzbetraegeAction(Mitglied m)
@@ -60,9 +60,7 @@ public class ZusatzbetraegeAction implements Action
         if (m.getID() == null)
         {
           throw new ApplicationException(
-              JVereinPlugin
-                  .getI18n()
-                  .tr("Neues Mitglied bitte erst speichern. Dann können Zusatzbeträge aufgenommen werden."));
+              "Neues Mitglied bitte erst speichern. Dann können Zusatzbeträge aufgenommen werden.");
         }
 
         if (m != null)
@@ -72,8 +70,8 @@ public class ZusatzbetraegeAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Zusatzbetrages"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Zusatzbetrages", e);
       }
     }
     GUI.startView(ZusatzbetragView.class.getName(), z);

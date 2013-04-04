@@ -309,7 +309,7 @@ public class ImportDialog extends AbstractDialog<Object>
     }
 
     Collections.sort(l);
-    Imp[] imp = (Imp[]) l.toArray(new Imp[size]);
+    Imp[] imp = l.toArray(new Imp[size]);
     importerListe = new SelectInput(PseudoIterator.fromArray(imp), selected);
     return importerListe;
   }

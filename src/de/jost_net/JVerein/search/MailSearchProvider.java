@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailDetailAction;
 import de.jost_net.JVerein.rmi.Mail;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -44,7 +43,7 @@ public class MailSearchProvider implements SearchProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Mails");
+    return "Mails";
   }
 
   @Override

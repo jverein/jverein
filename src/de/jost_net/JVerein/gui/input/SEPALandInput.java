@@ -25,8 +25,6 @@ package de.jost_net.JVerein.gui.input;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Land.SEPALaender;
 import de.jost_net.OBanToo.SEPA.Land.SEPALand;
 import de.willuhn.datasource.GenericIterator;
@@ -38,15 +36,16 @@ import de.willuhn.jameica.gui.input.SelectInput;
  */
 public class SEPALandInput extends SelectInput
 {
-  public SEPALandInput() throws RemoteException, SEPAException
+
+  public SEPALandInput() throws RemoteException
   {
     this(null);
   }
 
-  public SEPALandInput(SEPALand land) throws RemoteException, SEPAException
+  public SEPALandInput(SEPALand land) throws RemoteException
   {
     super(init(), new SEPALandObject(land));
-    setName(JVereinPlugin.getI18n().tr("SEPA-Land"));
+    setName("SEPA-Land");
   }
 
   /**

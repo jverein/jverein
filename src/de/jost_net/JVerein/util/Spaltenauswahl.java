@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Settings;
@@ -53,16 +52,17 @@ public abstract class Spaltenauswahl
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, boolean nurMitglied)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
-        .getBoolean(tabelle + "." + spaltenname, defaultvalue), nurMitglied));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
+        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
+        nurMitglied));
   }
 
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, Formatter formatter, int align, boolean nurMitglied)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
-        .getBoolean(tabelle + "." + spaltenname, defaultvalue), formatter,
-        align, nurMitglied));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
+        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
+        formatter, align, nurMitglied));
   }
 
   public void setColumns(TablePart part, int adresstyp)
@@ -93,16 +93,15 @@ public abstract class Spaltenauswahl
       return spaltendefinitionList;
     }
     spaltendefinitionList = new TablePart(spalten, null);
-    spaltendefinitionList.addColumn(JVereinPlugin.getI18n().tr("Spalte"),
-        "spaltenbezeichnung");
+    spaltendefinitionList.addColumn("Spalte", "spaltenbezeichnung");
     spaltendefinitionList.setCheckable(true);
     spaltendefinitionList.setMulti(true);
     spaltendefinitionList.setSummary(false);
     spaltendefinitionList.paint(parent);
     for (int i = 0; i < spalten.size(); ++i)
     {
-      spaltendefinitionList.setChecked(spalten.get(i), spalten.get(i)
-          .isChecked());
+      spaltendefinitionList.setChecked(spalten.get(i),
+          spalten.get(i).isChecked());
     }
 
     return spaltendefinitionList;

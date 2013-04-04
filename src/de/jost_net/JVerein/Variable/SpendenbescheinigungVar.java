@@ -21,33 +21,21 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
-public enum SpendenbescheinigungVar
-{
-  EMPFAENGER(JVereinPlugin.getI18n().tr("spendenbescheinigung_empfaenger")), //
-  BETRAG(JVereinPlugin.getI18n().tr("spendenbescheinigung_betrag")), //
-  BETRAGINWORTEN(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_betraginworten")), //
-  BESCHEINIGUNGDATUM(JVereinPlugin.getI18n().tr("spendenbescheinigung_datum")), //
-  SPENDEART(JVereinPlugin.getI18n().tr("spendenbescheinigung_spendenart")), //
-  SPENDEDATUM(JVereinPlugin.getI18n().tr("spendenbescheinigung_spendedatum")), //
-  SPENDENZEITRAUM(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_spendenzeitraum")), //
-  ERSATZAUFWENDUNGEN(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_ersatzaufwendungen")), //
-  ERSATZAUFWENDUNGEN_JA(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_ersatzaufwendungen_ja")), //
-  ERSATZAUFWENDUNGEN_NEIN(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_ersatzaufwendungen_nein")), //
-  BUCHUNGSLISTE(JVereinPlugin.getI18n()
-      .tr("spendenbescheinigung_buchungsliste")), //
-  BEZEICHNUNGSACHZUWENDUNG(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_bezeichnungsachzuwendung")), //
-  HERKUNFTSACHZUWENDUNG(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_herkunftsachzuwendung")), //
-  UNTERLAGENWERTERMITTUNG(JVereinPlugin.getI18n().tr(
-      "spendenbescheinigung_unterlagenwertermittlung"));//
+public enum SpendenbescheinigungVar {
+  EMPFAENGER("spendenbescheinigung_empfaenger"), //
+  BETRAG("spendenbescheinigung_betrag"), //
+  BETRAGINWORTEN("spendenbescheinigung_betraginworten"), //
+  BESCHEINIGUNGDATUM("spendenbescheinigung_datum"), //
+  SPENDEART("spendenbescheinigung_spendenart"), //
+  SPENDEDATUM("spendenbescheinigung_spendedatum"), //
+  SPENDENZEITRAUM("spendenbescheinigung_spendenzeitraum"), //
+  ERSATZAUFWENDUNGEN("spendenbescheinigung_ersatzaufwendungen"), //
+  ERSATZAUFWENDUNGEN_JA("spendenbescheinigung_ersatzaufwendungen_ja"), //
+  ERSATZAUFWENDUNGEN_NEIN("spendenbescheinigung_ersatzaufwendungen_nein"), //
+  BUCHUNGSLISTE("spendenbescheinigung_buchungsliste"), //
+  BEZEICHNUNGSACHZUWENDUNG("spendenbescheinigung_bezeichnungsachzuwendung"), //
+  HERKUNFTSACHZUWENDUNG("spendenbescheinigung_herkunftsachzuwendung"), //
+  UNTERLAGENWERTERMITTUNG("spendenbescheinigung_unterlagenwertermittlung");//
 
   private String name;
 

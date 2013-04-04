@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class ZusatzbetraegeVorherigeFaelligkeitAction implements Action
 {
+
   private TablePart table;
 
   public ZusatzbetraegeVorherigeFaelligkeitAction(TablePart table)
@@ -49,8 +49,7 @@ public class ZusatzbetraegeVorherigeFaelligkeitAction implements Action
   {
     if (context == null || !(context instanceof Zusatzbetrag))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Zusatzbetrag ausgewählt"));
+      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
     }
     try
     {
@@ -60,9 +59,8 @@ public class ZusatzbetraegeVorherigeFaelligkeitAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Vorherige Fälligkeit setzen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie das vorherige Fälligkeitsdatum setzen?"));
+      d.setTitle("Vorherige Fälligkeit setzen");
+      d.setText("Wollen Sie das vorherige Fälligkeitsdatum setzen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -71,25 +69,20 @@ public class ZusatzbetraegeVorherigeFaelligkeitAction implements Action
       }
       catch (Exception e)
       {
-        Logger
-            .error(
-                JVereinPlugin
-                    .getI18n()
-                    .tr("Fehler beim Setzen des vorherigen Fälligkeitsdatums des Zusatzbetrages"),
-                e);
+        Logger.error(
+            "Fehler beim Setzen des vorherigen Fälligkeitsdatums des Zusatzbetrages",
+            e);
         return;
       }
       int ind = table.removeItem(z);
       z.vorherigeFaelligkeit();
       z.store();
       table.addItem(z, ind);
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Fälligkeitsdatum gesetzt."));
+      GUI.getStatusBar().setSuccessText("Fälligkeitsdatum gesetzt.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.");
+      String fehler = "Fehler beim Zurücksetzen des Ausführungsdatums des Zusatzbetrages.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

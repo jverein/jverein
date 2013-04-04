@@ -22,9 +22,7 @@
 
 package de.jost_net.JVerein.io;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -33,10 +31,7 @@ import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.itextpdf.text.DocumentException;
-
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -50,12 +45,13 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedskontoExportCSV extends MitgliedskontoExport
 {
+
   private ArrayList<Mitgliedskonto> mkonten = null;
 
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Mitgliedskonten CSV-Export");
+    return "Mitgliedskonten CSV-Export";
   }
 
   @Override
@@ -67,6 +63,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
     }
     IOFormat f = new IOFormat()
     {
+
       @Override
       public String getName()
       {
@@ -79,20 +76,20 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv" };
+        return new String[] { "*.csv"};
       }
     };
-    return new IOFormat[] { f };
+    return new IOFormat[] { f};
   }
 
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("mitgliedskonten");
+    return "mitgliedskonten";
   }
 
   @Override
-  protected void open() throws DocumentException, FileNotFoundException
+  protected void open()
   {
     mkonten = new ArrayList<Mitgliedskonto>();
   }
@@ -110,7 +107,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
   }
 
   @Override
-  protected void add(Mitgliedskonto mk) throws RemoteException
+  protected void add(Mitgliedskonto mk)
   {
     mkonten.add(mk);
   }
@@ -155,12 +152,12 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
         Map<String, Object> mp = mkto.getMitglied().getMap(null);
         map = new MitgliedskontoMap().getMap(mkto, mp);
         writer.write(map, header, processors);
-        monitor.log(JVereinPlugin.getI18n().tr("Export: {0}",
-            mkto.getMitglied().getNameVorname()));
+        monitor.log("Export: " + mkto.getMitglied().getNameVorname());
       }
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         @Override
         public void run()
         {
@@ -179,7 +176,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
     }
     catch (Exception e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
   }
 

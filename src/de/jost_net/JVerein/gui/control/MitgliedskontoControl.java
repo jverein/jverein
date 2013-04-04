@@ -43,7 +43,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
@@ -176,10 +175,11 @@ public class MitgliedskontoControl extends AbstractControl
     Date d = getMitgliedskonto().getDatum();
 
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle(JVereinPlugin.getI18n().tr("Datum"));
-    this.datum.setText(JVereinPlugin.getI18n().tr("Bitte Datum wählen"));
+    this.datum.setTitle("Datum");
+    this.datum.setText("Bitte Datum wählen");
     this.datum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -212,11 +212,11 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return zahlungsweg;
     }
-    zahlungsweg = new SelectInput(Zahlungsweg.getArray(), getMitgliedskonto()
-        .getZahlungsweg() == null ? new Zahlungsweg(Einstellungen
-        .getEinstellung().getZahlungsweg()) : new Zahlungsweg(
-        getMitgliedskonto().getZahlungsweg()));
-    zahlungsweg.setName(JVereinPlugin.getI18n().tr("Zahlungsweg"));
+    zahlungsweg = new SelectInput(Zahlungsweg.getArray(),
+        getMitgliedskonto().getZahlungsweg() == null ? new Zahlungsweg(
+            Einstellungen.getEinstellung().getZahlungsweg()) : new Zahlungsweg(
+            getMitgliedskonto().getZahlungsweg()));
+    zahlungsweg.setName("Zahlungsweg");
     return zahlungsweg;
   }
 
@@ -264,9 +264,8 @@ public class MitgliedskontoControl extends AbstractControl
     }
 
     this.vondatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.vondatum.setTitle(JVereinPlugin.getI18n().tr("Anfangsdatum"));
-    this.vondatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Anfangsdatum wählen"));
+    this.vondatum.setTitle("Anfangsdatum");
+    this.vondatum.setText("Bitte Anfangsdatum wählen");
     vondatum.addListener(new FilterListener());
     return vondatum;
   }
@@ -292,8 +291,8 @@ public class MitgliedskontoControl extends AbstractControl
       }
     }
     this.bisdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.bisdatum.setTitle(JVereinPlugin.getI18n().tr("Endedatum"));
-    this.bisdatum.setText(JVereinPlugin.getI18n().tr("Bitte Endedatum wählen"));
+    this.bisdatum.setTitle("Endedatum");
+    this.bisdatum.setText("Bitte Endedatum wählen");
     bisdatum.addListener(new FilterListener());
     return bisdatum;
   }
@@ -318,6 +317,7 @@ public class MitgliedskontoControl extends AbstractControl
     spezialsuche.setName("Spezial-Suche");
     spezialsuche.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -327,7 +327,7 @@ public class MitgliedskontoControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
     });
@@ -341,12 +341,9 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return differenz;
     }
-    differenz = new SelectInput(new Object[] {
-        JVereinPlugin.getI18n().tr("egal"),
-        JVereinPlugin.getI18n().tr("Fehlbetrag"),
-        JVereinPlugin.getI18n().tr("Überzahlung") }, settings.getString(
-        "differenz", JVereinPlugin.getI18n().tr("egal")));
-    differenz.setName(JVereinPlugin.getI18n().tr("Differenz"));
+    differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
+        "Überzahlung"}, settings.getString("differenz", "egal"));
+    differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
   }
@@ -357,11 +354,9 @@ public class MitgliedskontoControl extends AbstractControl
     // {
     // return differenz;
     // }
-    differenz = new SelectInput(new Object[] {
-        JVereinPlugin.getI18n().tr("egal"),
-        JVereinPlugin.getI18n().tr("Fehlbetrag"),
-        JVereinPlugin.getI18n().tr("Überzahlung") }, defaultvalue);
-    differenz.setName(JVereinPlugin.getI18n().tr("Differenz"));
+    differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
+        "Überzahlung"}, defaultvalue);
+    differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
   }
@@ -373,7 +368,7 @@ public class MitgliedskontoControl extends AbstractControl
       return suchname;
     }
     suchname = new TextInput("", 30);
-    suchname.setName(JVereinPlugin.getI18n().tr("Name"));
+    suchname.setName("Name");
     suchname.addListener(new FilterListener());
     return suchname;
   }
@@ -385,7 +380,7 @@ public class MitgliedskontoControl extends AbstractControl
       return suchname2;
     }
     suchname2 = new TextInput("", 30);
-    suchname2.setName(JVereinPlugin.getI18n().tr("Name"));
+    suchname2.setName("Name");
     suchname2.addListener(new FilterListener());
     return suchname2;
   }
@@ -401,8 +396,7 @@ public class MitgliedskontoControl extends AbstractControl
       mkto.setZahlungsweg(zw.getKey());
       mkto.setZweck1((String) getZweck1().getValue());
       mkto.store();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Mitgliedskonto gespeichert"));
+      GUI.getStatusBar().setSuccessText("Mitgliedskonto gespeichert");
     }
     catch (ApplicationException e)
     {
@@ -410,7 +404,7 @@ public class MitgliedskontoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr("Fehler beim speichern");
+      String fehler = "Fehler beim speichern";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -420,6 +414,7 @@ public class MitgliedskontoControl extends AbstractControl
   {
     mitgliedskontoTree = new TreePart(new MitgliedskontoNode(mitglied), null)
     {
+
       @SuppressWarnings("unchecked")
       @Override
       public void paint(Composite composite) throws RemoteException
@@ -437,20 +432,18 @@ public class MitgliedskontoControl extends AbstractControl
         }
       }
     };
-    mitgliedskontoTree.addColumn(JVereinPlugin.getI18n().tr("Name, Vorname"),
-        "name");
-    mitgliedskontoTree.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    mitgliedskontoTree
-        .addColumn(JVereinPlugin.getI18n().tr("Zweck1"), "zweck1");
-    mitgliedskontoTree.addColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"),
-        "zahlungsweg", new ZahlungswegFormatter());
-    mitgliedskontoTree.addColumn(JVereinPlugin.getI18n().tr("Soll"), "soll",
+    mitgliedskontoTree.addColumn("Name, Vorname", "name");
+    mitgliedskontoTree.addColumn("Datum", "datum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    mitgliedskontoTree.addColumn("Zweck1", "zweck1");
+    mitgliedskontoTree.addColumn("Zahlungsweg", "zahlungsweg",
+        new ZahlungswegFormatter());
+    mitgliedskontoTree.addColumn("Soll", "soll", new CurrencyFormatter("",
+        Einstellungen.DECIMALFORMAT));
+    mitgliedskontoTree.addColumn("Ist", "ist", new CurrencyFormatter("",
+        Einstellungen.DECIMALFORMAT));
+    mitgliedskontoTree.addColumn("Differenz", "differenz",
         new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-    mitgliedskontoTree.addColumn(JVereinPlugin.getI18n().tr("Ist"), "ist",
-        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-    mitgliedskontoTree.addColumn(JVereinPlugin.getI18n().tr("Differenz"),
-        "differenz", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     mitgliedskontoTree.setContextMenu(new MitgliedskontoMenu());
     mitgliedskontoTree.setRememberColWidths(true);
     mitgliedskontoTree.setRememberOrder(true);
@@ -470,19 +463,15 @@ public class MitgliedskontoControl extends AbstractControl
     if (mitgliedskontoList == null)
     {
       mitgliedskontoList = new TablePart(mitgliedskonten, action);
-      mitgliedskontoList.addColumn(JVereinPlugin.getI18n().tr("Datum"),
-          "datum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      mitgliedskontoList.addColumn(JVereinPlugin.getI18n()
-          .tr("Abrechnungslauf"), "abrechnungslauf");
-      mitgliedskontoList.addColumn(JVereinPlugin.getI18n().tr("Name"),
-          "mitglied");
-      mitgliedskontoList.addColumn(JVereinPlugin.getI18n().tr("Zweck"),
-          "zweck1");
-      mitgliedskontoList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      mitgliedskontoList.addColumn(JVereinPlugin.getI18n()
-          .tr("Zahlungseingang"), "istsumme", new CurrencyFormatter("",
-          Einstellungen.DECIMALFORMAT));
+      mitgliedskontoList.addColumn("Datum", "datum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      mitgliedskontoList.addColumn("Abrechnungslauf", "abrechnungslauf");
+      mitgliedskontoList.addColumn("Name", "mitglied");
+      mitgliedskontoList.addColumn("Zweck", "zweck1");
+      mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
+          "", Einstellungen.DECIMALFORMAT));
+      mitgliedskontoList.addColumn("Zahlungseingang", "istsumme",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       mitgliedskontoList.setContextMenu(menu);
       mitgliedskontoList.setRememberColWidths(true);
       mitgliedskontoList.setRememberOrder(true);
@@ -508,9 +497,8 @@ public class MitgliedskontoControl extends AbstractControl
     if (mitgliedskontoList2 == null)
     {
       mitgliedskontoList2 = new TablePart(mitglieder, action);
-      mitgliedskontoList2.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-      mitgliedskontoList2.addColumn(JVereinPlugin.getI18n().tr("Vorname"),
-          "vorname");
+      mitgliedskontoList2.addColumn("Name", "name");
+      mitgliedskontoList2.addColumn("Vorname", "vorname");
       mitgliedskontoList2.setContextMenu(menu);
       mitgliedskontoList2.setRememberColWidths(true);
       mitgliedskontoList2.setRememberOrder(true);
@@ -558,8 +546,7 @@ public class MitgliedskontoControl extends AbstractControl
           where.append("or ");
         }
         first = false;
-        where
-            .append("upper(name) like upper(?) or upper(vorname) like upper(?) ");
+        where.append("upper(name) like upper(?) or upper(vorname) like upper(?) ");
         String o = tok.nextToken();
         if ((Boolean) getSpezialSuche().getValue())
         {
@@ -668,6 +655,7 @@ public class MitgliedskontoControl extends AbstractControl
     PseudoIterator mitgliedskonten = (PseudoIterator) service.execute(sql,
         param.toArray(), new ResultSetExtractor()
         {
+
           @Override
           public Object extract(ResultSet rs) throws RemoteException,
               SQLException
@@ -675,8 +663,8 @@ public class MitgliedskontoControl extends AbstractControl
             ArrayList<Mitgliedskonto> ergebnis = new ArrayList<Mitgliedskonto>();
             while (rs.next())
             {
-              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
-                  .createObject(Mitgliedskonto.class, rs.getString(1));
+              Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
+                  Mitgliedskonto.class, rs.getString(1));
               String diff = "";
               if (differenz != null)
               {
@@ -694,8 +682,7 @@ public class MitgliedskontoControl extends AbstractControl
               }
               ergebnis.add(mk);
             }
-            return PseudoIterator.fromArray(ergebnis
-                .toArray(new GenericObject[ergebnis.size()]));
+            return PseudoIterator.fromArray(ergebnis.toArray(new GenericObject[ergebnis.size()]));
           }
         });
 
@@ -704,67 +691,66 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Button getStartRechnungButton(final Object currentObject)
   {
-    Button button = new Button(JVereinPlugin.getI18n().tr("starten"),
-        new Action()
+    Button button = new Button("starten", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        try
         {
-          @Override
-          public void handleAction(Object context)
-          {
-            try
-            {
-              generiereRechnung(currentObject);
-            }
-            catch (RemoteException e)
-            {
-              Logger.error("", e);
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-            catch (IOException e)
-            {
-              Logger.error("", e);
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-          }
-        }, null, true, "go.png");
+          generiereRechnung(currentObject);
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+        catch (IOException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true, "go.png");
     return button;
   }
 
   public Button getStartKontoauszugButton(final Object currentObject,
       final Date von, final Date bis)
   {
-    Button button = new Button(JVereinPlugin.getI18n().tr("starten"),
-        new Action()
+    Button button = new Button("starten", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        try
         {
-          @Override
-          public void handleAction(Object context)
-          {
-            try
-            {
-              new Kontoauszug(currentObject, von, bis);
-            }
-            catch (Exception e)
-            {
-              Logger.error("", e);
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-          }
-        }, null, true, "go.png");
+          new Kontoauszug(currentObject, von, bis);
+        }
+        catch (Exception e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true, "go.png");
     return button;
   }
 
   private void generiereRechnung(Object currentObject) throws IOException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("rechnung"), "",
+    fd.setFileName(new Dateiname("rechnung", "",
         Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -780,8 +766,7 @@ public class MitgliedskontoControl extends AbstractControl
     Formular form = (Formular) getFormular(Formularart.RECHNUNG).getValue();
     if (form == null)
     {
-      throw new IOException(JVereinPlugin.getI18n().tr(
-          "kein Rechnungsformular ausgewählt"));
+      throw new IOException("kein Rechnungsformular ausgewählt");
     }
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
@@ -805,7 +790,7 @@ public class MitgliedskontoControl extends AbstractControl
               new JVDateFormatTTMMJJJJ().format(d));
         }
 
-        it.addFilter("datum >= ?", new Object[] { d });
+        it.addFilter("datum >= ?", new Object[] { d});
       }
       else
       {
@@ -819,7 +804,7 @@ public class MitgliedskontoControl extends AbstractControl
           settings.setAttribute(datumverwendung + "datumbis",
               new JVDateFormatTTMMJJJJ().format(d));
         }
-        it.addFilter("datum <= ?", new Object[] { d });
+        it.addFilter("datum <= ?", new Object[] { d});
       }
       else
       {
@@ -827,7 +812,7 @@ public class MitgliedskontoControl extends AbstractControl
       }
       if ((Boolean) getOhneAbbucher().getValue())
       {
-        it.addFilter("zahlungsweg <> ?", new Object[] { Zahlungsweg.DTAUS });
+        it.addFilter("zahlungsweg <> ?", new Object[] { Zahlungsweg.DTAUS});
       }
 
       Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
@@ -849,44 +834,43 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Button getStartMahnungButton(final Object currentObject)
   {
-    Button button = new Button(JVereinPlugin.getI18n().tr("starten"),
-        new Action()
+    Button button = new Button("starten", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        try
         {
-          @Override
-          public void handleAction(Object context)
-          {
-            try
-            {
-              generiereMahnung(currentObject);
-            }
-            catch (RemoteException e)
-            {
-              Logger.error("", e);
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-            catch (IOException e)
-            {
-              Logger.error("", e);
-              GUI.getStatusBar().setErrorText(e.getMessage());
-            }
-          }
-        }, null, true, "go.png");
+          generiereMahnung(currentObject);
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+        catch (IOException e)
+        {
+          Logger.error("", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true, "go.png");
     return button;
   }
 
   private void generiereMahnung(Object currentObject) throws IOException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("mahnung"), "",
+    fd.setFileName(new Dateiname("mahnung", "",
         Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -960,25 +944,26 @@ public class MitgliedskontoControl extends AbstractControl
       Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
       Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
       {
+
         @Override
         public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
         {
           try
           {
-            int c = mk1.getMitglied().getName()
-                .compareTo(mk2.getMitglied().getName());
+            int c = mk1.getMitglied().getName().compareTo(
+                mk2.getMitglied().getName());
             if (c != 0)
             {
               return c;
             }
-            c = mk1.getMitglied().getVorname()
-                .compareTo(mk2.getMitglied().getVorname());
+            c = mk1.getMitglied().getVorname().compareTo(
+                mk2.getMitglied().getVorname());
             if (c != 0)
             {
               return c;
             }
-            return mk1.getMitglied().getID()
-                .compareTo(mk2.getMitglied().getID());
+            return mk1.getMitglied().getID().compareTo(
+                mk2.getMitglied().getID());
           }
           catch (RemoteException e)
           {
@@ -993,8 +978,7 @@ public class MitgliedskontoControl extends AbstractControl
         for (Mitgliedskonto mk : mkn)
         {
           if (r.size() == 0
-              || r.get(0).getMitglied().getID()
-                  .equals(mk.getMitglied().getID()))
+              || r.get(0).getMitglied().getID().equals(mk.getMitglied().getID()))
           {
             r.add(mk);
           }
@@ -1020,6 +1004,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   private class FilterListener implements Listener
   {
+
     @Override
     public void handleEvent(Event event)
     {
@@ -1031,7 +1016,7 @@ public class MitgliedskontoControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
     }
@@ -1039,6 +1024,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   public static class MitgliedskontoTreeFormatter implements TreeFormatter
   {
+
     @Override
     public void format(TreeItem item)
     {
@@ -1080,7 +1066,7 @@ public class MitgliedskontoControl extends AbstractControl
     @Override
     public Class<?>[] getExpectedMessageTypes()
     {
-      return new Class[] { MitgliedskontoMessage.class };
+      return new Class[] { MitgliedskontoMessage.class};
     }
 
     /**
@@ -1091,6 +1077,7 @@ public class MitgliedskontoControl extends AbstractControl
     {
       GUI.getDisplay().syncExec(new Runnable()
       {
+
         @Override
         public void run()
         {

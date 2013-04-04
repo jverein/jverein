@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class WiedervorlageErledigungAction implements Action
 {
+
   private TablePart table;
 
   public WiedervorlageErledigungAction(TablePart table)
@@ -49,8 +49,7 @@ public class WiedervorlageErledigungAction implements Action
   {
     if (context == null || !(context instanceof Wiedervorlage))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Wiedervorlage ausgewählt"));
+      throw new ApplicationException("Keine Wiedervorlage ausgewählt");
     }
     try
     {
@@ -70,13 +69,11 @@ public class WiedervorlageErledigungAction implements Action
       int ind = table.removeItem(w);
       w.store();
       table.addItem(w, ind);
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Erledigungsdatum bearbeitet."));
+      GUI.getStatusBar().setSuccessText("Erledigungsdatum bearbeitet.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Verändern des Erledigungsdatums.");
+      String fehler = "Fehler beim Verändern des Erledigungsdatums.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

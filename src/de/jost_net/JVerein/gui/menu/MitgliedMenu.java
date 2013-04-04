@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.menu;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.FreiesFormularAction;
 import de.jost_net.JVerein.gui.action.KontoauszugAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
@@ -56,37 +55,32 @@ public class MitgliedMenu extends ContextMenu
    */
   public MitgliedMenu(Action detailaction) throws RemoteException
   {
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "bearbeiten"), detailaction, "edit.png"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "duplizieren"), new MitgliedDuplizierenAction(), "copy_v2.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "in Zwischenablage kopieren"),
+    addItem(new CheckedSingleContextMenuItem("bearbeiten", detailaction,
+        "edit.png"));
+    addItem(new CheckedSingleContextMenuItem("duplizieren",
+        new MitgliedDuplizierenAction(), "copy_v2.png"));
+    addItem(new CheckedContextMenuItem("in Zwischenablage kopieren",
         new MitgliedInZwischenablageKopierenAction(), "copy_edit.gif"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "löschen..."), new MitgliedDeleteAction(), "user-trash.png"));
+    addItem(new CheckedSingleContextMenuItem("löschen...",
+        new MitgliedDeleteAction(), "user-trash.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Mail senden ..."), new MitgliedMailSendenAction(),
-        "mail-message-new.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Eigenschaften"), new MitgliedEigenschaftZuordnungAction(),
-        "settings.gif"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n()
-        .tr("Kontoauszug"), new KontoauszugAction(), "rechnung.png"));
-    addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Spendenbescheinigung"), new SpendenbescheinigungAction(),
+    addItem(new CheckedContextMenuItem("Mail senden ...",
+        new MitgliedMailSendenAction(), "mail-message-new.png"));
+    addItem(new CheckedContextMenuItem("Eigenschaften",
+        new MitgliedEigenschaftZuordnungAction(), "settings.gif"));
+    addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
         "rechnung.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Personalbogen"), new PersonalbogenAction(), "rechnung.png"));
+    addItem(new CheckedSingleContextMenuItem("Spendenbescheinigung",
+        new SpendenbescheinigungAction(), "rechnung.png"));
+    addItem(new CheckedContextMenuItem("Personalbogen",
+        new PersonalbogenAction(), "rechnung.png"));
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
-    it.addFilter("art = ?", new Object[] { Formularart.FREIESFORMULAR });
+    it.addFilter("art = ?", new Object[] { Formularart.FREIESFORMULAR});
     while (it.hasNext())
     {
       Formular f = (Formular) it.next();
-      addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-          f.getBezeichnung()), new FreiesFormularAction(f.getID()),
-          "rechnung.png"));
+      addItem(new CheckedContextMenuItem(f.getBezeichnung(),
+          new FreiesFormularAction(f.getID()), "rechnung.png"));
     }
   }
 }

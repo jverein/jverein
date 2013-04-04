@@ -22,8 +22,8 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.SplitBuchungView;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
@@ -34,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class SplitBuchungAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -47,10 +48,9 @@ public class SplitBuchungAction implements Action
         Jahresabschluss ja = b.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
+          throw new ApplicationException(MessageFormat.format(
               "Buchung wurde bereits am {0} von {1} abgeschlossen.",
-              new String[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                  ja.getName() }));
+              new JVDateFormatTTMMJJJJ().format(ja.getDatum()), ja.getName()));
         }
         if (b.getBuchungsart() == null)
         {
@@ -67,9 +67,7 @@ public class SplitBuchungAction implements Action
     else
     {
       throw new ApplicationException(
-          JVereinPlugin
-              .getI18n()
-              .tr("Programmfehler! Splitbuchung muss mit einer existierenden Buchung aufgerufen werden"));
+          "Programmfehler! Splitbuchung muss mit einer existierenden Buchung aufgerufen werden");
     }
     GUI.startView(SplitBuchungView.class.getName(), b);
   }

@@ -24,7 +24,6 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -35,6 +34,7 @@ import de.willuhn.util.ApplicationException;
 
 public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 {
+
   private static final long serialVersionUID = 1L;
 
   public ZusatzbetragImpl() throws RemoteException
@@ -67,54 +67,45 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     {
       if (getStartdatum() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Startdatum eingeben"));
+        throw new ApplicationException("Bitte Startdatum eingeben");
       }
       if (getFaelligkeit() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte nächste Fälligkeit eingeben"));
+        throw new ApplicationException("Bitte nächste Fälligkeit eingeben");
       }
       if (getIntervall() == null)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Intervall eingeben"));
+        throw new ApplicationException("Bitte Intervall eingeben");
       }
       if (getBuchungstext() == null || getBuchungstext().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Buchungstext eingeben"));
+        throw new ApplicationException("Bitte Buchungstext eingeben");
       }
       if (getEndedatum() != null)
       {
-        if (!Datum
-            .isImInterval(getStartdatum(), getEndedatum(), getIntervall()))
+        if (!Datum.isImInterval(getStartdatum(), getEndedatum(), getIntervall()))
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Endedatum liegt nicht im Intervall"));
+          throw new ApplicationException("Endedatum liegt nicht im Intervall");
         }
       }
       if (getFaelligkeit().getTime() < getStartdatum().getTime())
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Das Fälligkeitsdatum darf nicht vor dem Startdatum liegen"));
+        throw new ApplicationException(
+            "Das Fälligkeitsdatum darf nicht vor dem Startdatum liegen");
       }
-      if (!Datum
-          .isImInterval(getStartdatum(), getFaelligkeit(), getIntervall()))
+      if (!Datum.isImInterval(getStartdatum(), getFaelligkeit(), getIntervall()))
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Nächste Fälligkeit liegt nicht im Intervall"));
+        throw new ApplicationException(
+            "Nächste Fälligkeit liegt nicht im Intervall");
       }
       if (getBetrag() <= 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Betrag nicht gültig"));
+        throw new ApplicationException("Betrag nicht gültig");
       }
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Zusatzbetrag kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Zusatzbetrag kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -322,8 +313,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     Date vorh = Datum.addInterval(getFaelligkeit(), getIntervall());
     if (vorh == null)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr(
-          "Datum kann nicht weiter vorgesetzt werden"));
+      throw new RemoteException("Datum kann nicht weiter vorgesetzt werden");
     }
     else
     {
@@ -339,8 +329,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
         getStartdatum());
     if (vorh == null)
     {
-      throw new RemoteException(JVereinPlugin.getI18n().tr(
-          "Datum kann nicht weiter zurückgesetzt werden"));
+      throw new RemoteException("Datum kann nicht weiter zurückgesetzt werden");
     }
     else
     {

@@ -40,7 +40,6 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -83,7 +82,7 @@ public class PersonalbogenAction implements Action
     {
       if (context instanceof Mitglied)
       {
-        m = new Mitglied[] { (Mitglied) context };
+        m = new Mitglied[] { (Mitglied) context};
       }
       else if (context instanceof Mitglied[])
       {
@@ -95,15 +94,13 @@ public class PersonalbogenAction implements Action
       }
       catch (IOException e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Aufbereitung"), e);
+        Logger.error("Fehler", e);
+        throw new ApplicationException("Fehler bei der Aufbereitung", e);
       }
     }
     else
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Mitglied ausgewählt"));
+      throw new ApplicationException("Kein Mitglied ausgewählt");
     }
   }
 
@@ -111,18 +108,17 @@ public class PersonalbogenAction implements Action
   {
     final Mitglied[] mitglied = m;
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+    fd.setText("Ausgabedatei wählen.");
 
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("personalbogen"),
-        "", Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("personalbogen", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -137,16 +133,16 @@ public class PersonalbogenAction implements Action
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
           Reporter rpt = new Reporter(new FileOutputStream(file), "",
-              JVereinPlugin.getI18n().tr("Personalbogen"), mitglied.length);
+              "Personalbogen", mitglied.length);
 
-          GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr("Auswertung gestartet"));
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
           GUI.getCurrentView().reload();
 
           boolean first = true;
@@ -159,9 +155,7 @@ public class PersonalbogenAction implements Action
             }
             first = false;
 
-            rpt.add(
-                JVereinPlugin.getI18n().tr("Personalbogen") + " "
-                    + m.getVornameName(), 14);
+            rpt.add("Personalbogen" + " " + m.getVornameName(), 14);
 
             generiereMitglied(rpt, m);
 
@@ -171,8 +165,7 @@ public class PersonalbogenAction implements Action
             }
             generiereMitgliedskonto(rpt, m);
             if (Einstellungen.getEinstellung().getVermerke()
-                && ((m.getVermerk1() != null && m.getVermerk1().length() > 0) || (m
-                    .getVermerk2() != null && m.getVermerk2().length() > 0)))
+                && ((m.getVermerk1() != null && m.getVermerk1().length() > 0) || (m.getVermerk2() != null && m.getVermerk2().length() > 0)))
             {
               generiereVermerke(rpt, m);
             }
@@ -194,6 +187,7 @@ public class PersonalbogenAction implements Action
           rpt.close();
           GUI.getDisplay().asyncExec(new Runnable()
           {
+
             @Override
             public void run()
             {
@@ -211,15 +205,9 @@ public class PersonalbogenAction implements Action
           });
 
         }
-        catch (ApplicationException ae)
-        {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
         catch (Exception re)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), re);
+          Logger.error("Fehler", re);
           GUI.getStatusBar().setErrorText(re.getMessage());
           throw new ApplicationException(re);
         }
@@ -244,58 +232,50 @@ public class PersonalbogenAction implements Action
   private void generiereMitglied(Reporter rpt, Mitglied m)
       throws DocumentException, MalformedURLException, IOException
   {
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Feld"), Element.ALIGN_LEFT,
-        50, BaseColor.LIGHT_GRAY);
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Inhalt"),
-        Element.ALIGN_LEFT, 140, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
+    rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 140, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     DBIterator it = Einstellungen.getDBService().createList(Mitgliedfoto.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     if (it.size() > 0)
     {
       Mitgliedfoto foto = (Mitgliedfoto) it.next();
       if (foto.getFoto() != null)
       {
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Foto"), Element.ALIGN_LEFT);
+        rpt.addColumn("Foto", Element.ALIGN_LEFT);
         rpt.addColumn(foto.getFoto(), 100, 100, Element.ALIGN_RIGHT);
       }
     }
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Ext. Mitgliedsnummer"),
-          Element.ALIGN_LEFT);
+      rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
       rpt.addColumn(
           m.getExterneMitgliedsnummer() != null ? m.getExterneMitgliedsnummer()
               + "" : "", Element.ALIGN_LEFT);
     }
     else
     {
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Mitgliedsnummer"),
-          Element.ALIGN_LEFT);
+      rpt.addColumn("Mitgliedsnummer", Element.ALIGN_LEFT);
       rpt.addColumn(m.getID(), Element.ALIGN_LEFT);
     }
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Name, Vorname"),
-        Element.ALIGN_LEFT);
+    rpt.addColumn("Name, Vorname", Element.ALIGN_LEFT);
     rpt.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Anschrift"), Element.ALIGN_LEFT);
+    rpt.addColumn("Anschrift", Element.ALIGN_LEFT);
     rpt.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Geburtsdatum"),
-        Element.ALIGN_LEFT);
+    rpt.addColumn("Geburtsdatum", Element.ALIGN_LEFT);
     rpt.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
     if (m.getSterbetag() != null)
     {
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Sterbetag"), Element.ALIGN_LEFT);
+      rpt.addColumn("Sterbetag", Element.ALIGN_LEFT);
       rpt.addColumn(m.getSterbetag(), Element.ALIGN_LEFT);
     }
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Geschlecht"), Element.ALIGN_LEFT);
+    rpt.addColumn("Geschlecht", Element.ALIGN_LEFT);
     rpt.addColumn(m.getGeschlecht(), Element.ALIGN_LEFT);
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Kommunikation"),
-        Element.ALIGN_LEFT);
+    rpt.addColumn("Kommunikation", Element.ALIGN_LEFT);
     String kommunikation = "";
     if (m.getTelefonprivat().length() != 0)
     {
-      kommunikation += JVereinPlugin.getI18n().tr("privat:") + " "
-          + m.getTelefonprivat();
+      kommunikation += "privat: " + m.getTelefonprivat();
     }
     if (m.getTelefondienstlich().length() != 0)
     {
@@ -303,8 +283,7 @@ public class PersonalbogenAction implements Action
       {
         kommunikation += "\n";
       }
-      kommunikation += JVereinPlugin.getI18n().tr("dienstlich:") + " "
-          + m.getTelefondienstlich();
+      kommunikation += "dienstlich: " + m.getTelefondienstlich();
     }
     if (m.getHandy().length() != 0)
     {
@@ -312,8 +291,7 @@ public class PersonalbogenAction implements Action
       {
         kommunikation += "\n";
       }
-      kommunikation += JVereinPlugin.getI18n().tr("Handy:") + " "
-          + m.getHandy();
+      kommunikation += "Handy: " + m.getHandy();
     }
     if (m.getEmail().length() != 0)
     {
@@ -321,25 +299,22 @@ public class PersonalbogenAction implements Action
       {
         kommunikation += "\n";
       }
-      kommunikation += JVereinPlugin.getI18n().tr("Email:") + " "
-          + m.getEmail();
+      kommunikation += "Email: " + m.getEmail();
     }
     rpt.addColumn(kommunikation, Element.ALIGN_LEFT);
     if (m.getAdresstyp().getID().equals("1"))
     {
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Eintritt"), Element.ALIGN_LEFT);
+      rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
       rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Beitragsgruppe"),
-          Element.ALIGN_LEFT);
+      rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
       rpt.addColumn(
           m.getBeitragsgruppe().getBezeichnung()
               + " - "
-              + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe()
-                  .getBetrag()) + " EUR", Element.ALIGN_LEFT);
+              + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe().getBetrag())
+              + " EUR", Element.ALIGN_LEFT);
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
       {
-        rpt.addColumn(JVereinPlugin.getI18n().tr("individueller Beitrag"),
-            Element.ALIGN_LEFT);
+        rpt.addColumn("individueller Beitrag", Element.ALIGN_LEFT);
         if (m.getIndividuellerBeitrag() > 0)
         {
           rpt.addColumn(m.getIndividuellerBeitrag());
@@ -354,8 +329,7 @@ public class PersonalbogenAction implements Action
         DBIterator itbg = Einstellungen.getDBService().createList(
             Mitglied.class);
         itbg.addFilter("zahlerid = ?", m.getID());
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Zahler für"),
-            Element.ALIGN_LEFT);
+        rpt.addColumn("Zahler für", Element.ALIGN_LEFT);
         String zahltfuer = "";
         while (itbg.hasNext())
         {
@@ -372,11 +346,10 @@ public class PersonalbogenAction implements Action
       {
         Mitglied mfa = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, m.getZahlerID() + "");
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Zahler"), Element.ALIGN_LEFT);
+        rpt.addColumn("Zahler", Element.ALIGN_LEFT);
         rpt.addColumn(mfa.getNameVorname(), Element.ALIGN_LEFT);
       }
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Austritts-/Kündigungsdatum"),
-          Element.ALIGN_LEFT);
+      rpt.addColumn("Austritts-/Kündigungsdatum", Element.ALIGN_LEFT);
       String akdatum = "";
       if (m.getAustritt() != null)
       {
@@ -392,23 +365,20 @@ public class PersonalbogenAction implements Action
       }
       rpt.addColumn(akdatum, Element.ALIGN_LEFT);
     }
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"), Element.ALIGN_LEFT);
+    rpt.addColumn("Zahlungsweg", Element.ALIGN_LEFT);
     rpt.addColumn(Zahlungsweg.get(m.getZahlungsweg()), Element.ALIGN_LEFT);
     if (m.getBic() != null && m.getBic().length() > 0
         && m.getIban().length() > 0)
     {
-      rpt.addColumn(JVereinPlugin.getI18n().tr("Bankverbindung"),
-          Element.ALIGN_LEFT);
+      rpt.addColumn("Bankverbindung", Element.ALIGN_LEFT);
       rpt.addColumn(
           m.getBic() + "/" + m.getIban() + " ("
               + Einstellungen.getNameForBLZ(m.getBlz()) + ")",
           Element.ALIGN_LEFT);
     }
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Datum Erstspeicherung"),
-        Element.ALIGN_LEFT);
+    rpt.addColumn("Datum Erstspeicherung", Element.ALIGN_LEFT);
     rpt.addColumn(m.getEingabedatum(), Element.ALIGN_LEFT);
-    rpt.addColumn(JVereinPlugin.getI18n().tr("Datum letzte Änderung"),
-        Element.ALIGN_LEFT);
+    rpt.addColumn("Datum letzte Änderung", Element.ALIGN_LEFT);
     rpt.addColumn(m.getLetzteAenderung(), Element.ALIGN_LEFT);
     rpt.closeTable();
   }
@@ -417,25 +387,23 @@ public class PersonalbogenAction implements Action
       throws RemoteException, DocumentException
   {
     DBIterator it = Einstellungen.getDBService().createList(Zusatzbetrag.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     it.setOrder("ORDER BY faelligkeit DESC");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Zusatzbetrag")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Start"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("nächste Fäll."),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("letzte Ausf."),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Intervall"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Ende"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungstext"),
-          Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Zusatzbetrag"));
+      rpt.addHeaderColumn("Start", Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("nächste Fäll.", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("letzte Ausf.", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Ende", Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Buchungstext", Element.ALIGN_LEFT, 60,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Betrag", Element.ALIGN_RIGHT, 30,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -461,37 +429,34 @@ public class PersonalbogenAction implements Action
   {
     DBIterator it = Einstellungen.getDBService().createList(
         Mitgliedskonto.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     it.setOrder("order by datum desc");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Mitgliedskonto")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Text"),
-          Element.ALIGN_LEFT, 12, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zweck"),
-          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Zahlungsweg"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Mitgliedskonto"));
+      rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 12, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Zweck", Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Zahlungsweg", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Betrag", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
         Mitgliedskonto mk = (Mitgliedskonto) it.next();
-        rpt.addColumn(JVereinPlugin.getI18n().tr("Soll"), Element.ALIGN_LEFT);
+        rpt.addColumn("Soll", Element.ALIGN_LEFT);
         rpt.addColumn(mk.getDatum(), Element.ALIGN_LEFT);
         rpt.addColumn(mk.getZweck1(), Element.ALIGN_LEFT);
         rpt.addColumn(Zahlungsweg.get(mk.getZahlungsweg()), Element.ALIGN_LEFT);
         rpt.addColumn(mk.getBetrag());
         DBIterator it2 = Einstellungen.getDBService().createList(Buchung.class);
-        it2.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
+        it2.addFilter("mitgliedskonto = ?", new Object[] { mk.getID()});
         it2.setOrder("order by datum desc");
         while (it2.hasNext())
         {
           Buchung bu = (Buchung) it2.next();
-          rpt.addColumn(JVereinPlugin.getI18n().tr("Ist"), Element.ALIGN_RIGHT);
+          rpt.addColumn("Ist", Element.ALIGN_RIGHT);
           rpt.addColumn(bu.getDatum(), Element.ALIGN_LEFT);
           rpt.addColumn(bu.getZweck(), Element.ALIGN_LEFT);
           rpt.addColumn("", Element.ALIGN_LEFT);
@@ -506,9 +471,8 @@ public class PersonalbogenAction implements Action
   private void generiereVermerke(Reporter rpt, Mitglied m)
       throws DocumentException, RemoteException
   {
-    rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Vermerke")));
-    rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Text"), Element.ALIGN_LEFT,
-        100, BaseColor.LIGHT_GRAY);
+    rpt.add(new Paragraph("Vermerke"));
+    rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     if (m.getVermerk1() != null && m.getVermerk1().length() > 0)
     {
@@ -525,19 +489,17 @@ public class PersonalbogenAction implements Action
   private void generiereWiedervorlagen(Reporter rpt, Mitglied m)
       throws RemoteException, DocumentException
   {
-    DBIterator it = Einstellungen.getDBService()
-        .createList(Wiedervorlage.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    DBIterator it = Einstellungen.getDBService().createList(Wiedervorlage.class);
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     it.setOrder("order by datum desc");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Wiedervorlage")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Vermerk"),
-          Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Erledigung"),
-          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Wiedervorlage"));
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Vermerk", Element.ALIGN_LEFT, 100,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Erledigung", Element.ALIGN_LEFT, 50,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -555,21 +517,20 @@ public class PersonalbogenAction implements Action
       throws RemoteException, DocumentException
   {
     DBIterator it = Einstellungen.getDBService().createList(Lehrgang.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     it.setOrder("order by von");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Lehrgänge")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Lehrgangsart"),
-          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("am/vom"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("bis"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Veranstalter"),
-          Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Ergebnis"),
-          Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Lehrgänge"));
+      rpt.addHeaderColumn("Lehrgangsart", Element.ALIGN_LEFT, 50,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("am/vom", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("bis", Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Veranstalter", Element.ALIGN_LEFT, 60,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Ergebnis", Element.ALIGN_LEFT, 60,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -582,7 +543,6 @@ public class PersonalbogenAction implements Action
       }
     }
     rpt.closeTable();
-
   }
 
   private void generiereZusatzfelder(Reporter rpt, Mitglied m)
@@ -593,11 +553,10 @@ public class PersonalbogenAction implements Action
     it.setOrder("order by label");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Zusatzfelder")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Feld"),
-          Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Inhalt"),
-          Element.ALIGN_LEFT, 130, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Zusatzfelder"));
+      rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 130,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -606,7 +565,7 @@ public class PersonalbogenAction implements Action
         DBIterator it2 = Einstellungen.getDBService().createList(
             Zusatzfelder.class);
         it2.addFilter("mitglied = ? and felddefinition = ?",
-            new Object[] { m.getID(), fd.getID() });
+            new Object[] { m.getID(), fd.getID()});
         if (it2.size() > 0)
         {
           Zusatzfelder zf = (Zusatzfelder) it2.next();
@@ -626,6 +585,7 @@ public class PersonalbogenAction implements Action
   {
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
@@ -640,26 +600,27 @@ public class PersonalbogenAction implements Action
     String sql = "select eigenschaften.id from eigenschaften, eigenschaft "
         + "where eigenschaften.eigenschaft = eigenschaft.id and mitglied = ? "
         + "order by eigenschaft.bezeichnung";
-    ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-        .getDBService().execute(sql, new Object[] { m.getID() }, rs);
+    ArrayList<String> idliste = (ArrayList<String>) Einstellungen.getDBService().execute(
+        sql, new Object[] { m.getID()}, rs);
     if (idliste.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Eigenschaften")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Eigenschaftengruppe"),
-          Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Eigenschaft"),
-          Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Eigenschaften"));
+      rpt.addHeaderColumn("Eigenschaftengruppe", Element.ALIGN_LEFT, 100,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Eigenschaft", Element.ALIGN_LEFT, 100,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       for (String id : idliste)
       {
         DBIterator it = Einstellungen.getDBService().createList(
             Eigenschaften.class);
-        it.addFilter("id = ?", new Object[] { id });
+        it.addFilter("id = ?", new Object[] { id});
         while (it.hasNext())
         {
           Eigenschaften ei = (Eigenschaften) it.next();
-          rpt.addColumn(ei.getEigenschaft().getEigenschaftGruppe()
-              .getBezeichnung(), Element.ALIGN_LEFT);
+          rpt.addColumn(
+              ei.getEigenschaft().getEigenschaftGruppe().getBezeichnung(),
+              Element.ALIGN_LEFT);
           rpt.addColumn(ei.getEigenschaft().getBezeichnung(),
               Element.ALIGN_LEFT);
         }
@@ -673,17 +634,16 @@ public class PersonalbogenAction implements Action
   {
     DBIterator it = Einstellungen.getDBService().createList(
         Arbeitseinsatz.class);
-    it.addFilter("mitglied = ?", new Object[] { m.getID() });
+    it.addFilter("mitglied = ?", new Object[] { m.getID()});
     it.setOrder("ORDER BY datum");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph(JVereinPlugin.getI18n().tr("Arbeitseinsätze")));
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Datum"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Stunden"),
-          Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-      rpt.addHeaderColumn(JVereinPlugin.getI18n().tr("Bemerkung"),
-          Element.ALIGN_LEFT, 90, BaseColor.LIGHT_GRAY);
+      rpt.add(new Paragraph("Arbeitseinsätze"));
+      rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Stunden", Element.ALIGN_LEFT, 30,
+          BaseColor.LIGHT_GRAY);
+      rpt.addHeaderColumn("Bemerkung", Element.ALIGN_LEFT, 90,
+          BaseColor.LIGHT_GRAY);
       rpt.createHeader();
       while (it.hasNext())
       {
@@ -695,5 +655,4 @@ public class PersonalbogenAction implements Action
     }
     rpt.closeTable();
   }
-
 }

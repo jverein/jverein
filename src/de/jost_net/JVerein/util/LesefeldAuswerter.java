@@ -22,6 +22,7 @@
 package de.jost_net.JVerein.util;
 
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,6 @@ import java.util.Map;
 import bsh.EvalError;
 import bsh.Interpreter;
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lesefeld;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
@@ -101,7 +101,7 @@ public class LesefeldAuswerter
    * true) erhalten werden.
    * 
    * @param map
-   *          map mit Mitgliedsdaten
+   *        map mit Mitgliedsdaten
    */
   public void setMap(Map<String, Object> map)
   {
@@ -113,8 +113,8 @@ public class LesefeldAuswerter
     {
 
       // TODO: gibt es noch mehr Zeichen, die ersetzt werden müssen?
-      String keyNormalized = key.replace("-", "_").replace(".", "_")
-          .replace(" ", "_");
+      String keyNormalized = key.replace("-", "_").replace(".", "_").replace(
+          " ", "_");
 
       try
       {
@@ -198,8 +198,8 @@ public class LesefeldAuswerter
       map.put(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung(),
           lesefeld.getEvaluatedContent());
     }
-    Logger.debug(JVereinPlugin.getI18n().tr(
-        "Lesefeld-Variablen für Mitglied {0}:", vornamename));
+    Logger.debug(MessageFormat.format("Lesefeld-Variablen für Mitglied {0}:",
+        vornamename));
     for (String key : map.keySet())
     {
       Logger.debug(key + "=" + map.get(key));
@@ -224,7 +224,7 @@ public class LesefeldAuswerter
    * berücksichtig, die vorher mit setMap() gesetzt wurden.
    * 
    * @param script
-   *          Auszuwertendes Skript.
+   *        Auszuwertendes Skript.
    * @return Ergebnis der Skript-Ausführung
    * @throws EvalError
    */
@@ -239,7 +239,7 @@ public class LesefeldAuswerter
    * berücksichtig, die vorher mit setMap() gesetzt wurden.
    * 
    * @param lesefeld
-   *          Auszuwertendes Lesefeld
+   *        Auszuwertendes Lesefeld
    * @return Lesefeld in das der ausgewertete Inhalt des Skriptes geschrieben
    *         wurde.
    * @throws RemoteException

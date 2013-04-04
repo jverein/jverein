@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Lesefeld;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -31,6 +30,7 @@ import de.willuhn.util.ApplicationException;
 
 public class LesefeldImpl extends AbstractDBObject implements Lesefeld
 {
+
   private static final long serialVersionUID = 1610434197155984031L;
 
   private String sampleContent;
@@ -59,15 +59,13 @@ public class LesefeldImpl extends AbstractDBObject implements Lesefeld
     {
       if (getScript() == null || getScript().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte gültiges Script eingeben"));
+        throw new ApplicationException("Bitte gültiges Script eingeben");
       }
 
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Lesefeld kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Lesefeld kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }

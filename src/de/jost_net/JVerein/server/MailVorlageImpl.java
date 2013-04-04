@@ -23,7 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.MailVorlage;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -64,26 +63,24 @@ public class MailVorlageImpl extends AbstractDBObject implements MailVorlage
     {
       if (getBetreff() == null || getBetreff().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Betreff eingeben"));
+        throw new ApplicationException("Bitte Betreff eingeben");
       }
       if (getTxt() == null || getTxt().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Bitte Text eingeben"));
+        throw new ApplicationException("Bitte Text eingeben");
       }
       if (getTxt().length() > 10000)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Maximale Länge des Textes 10.000 Zeichen"));
+        throw new ApplicationException(
+            "Maximale Länge des Textes 10.000 Zeichen");
       }
 
     }
     catch (RemoteException e)
     {
       Logger.error("insert check of mailvorlage failed", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "MailVorlage kann nicht gespeichert werden. Siehe system log"));
+      throw new ApplicationException(
+          "MailVorlage kann nicht gespeichert werden. Siehe system log");
     }
   }
 

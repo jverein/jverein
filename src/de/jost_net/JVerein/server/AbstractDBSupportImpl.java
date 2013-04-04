@@ -42,8 +42,7 @@ public abstract class AbstractDBSupportImpl implements DBSupport
   private static final long serialVersionUID = 8344265686929785808L;
 
   @Override
-  public void checkConsistency(Connection conn) throws RemoteException,
-      ApplicationException
+  public void checkConsistency(Connection conn) throws ApplicationException
   {
     // Leere Dummy-Implementierung
   }
@@ -90,7 +89,7 @@ public abstract class AbstractDBSupportImpl implements DBSupport
   }
 
   @Override
-  public void install() throws RemoteException
+  public void install()
   {
     // Leere Dummy-Implementierung
   }

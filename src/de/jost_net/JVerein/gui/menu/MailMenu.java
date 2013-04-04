@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -34,8 +33,7 @@ public class MailMenu extends ContextMenu
 
   public MailMenu()
   {
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new MailDeleteAction(),
+    addItem(new CheckedContextMenuItem("löschen...", new MailDeleteAction(),
         "user-trash.png"));
   }
 }

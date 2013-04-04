@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.gui.view.MitgliedskontoDetailView;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoDetailAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -50,8 +50,8 @@ public class MitgliedskontoDetailAction implements Action
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines Mitgliedskontos"));
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines Mitgliedskontos");
       }
     }
     else
@@ -63,8 +63,8 @@ public class MitgliedskontoDetailAction implements Action
       }
       catch (Exception e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung eines neuen Mitgliedskontos"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung eines neuen Mitgliedskontos", e);
       }
     }
     GUI.startView(new MitgliedskontoDetailView(MitgliedskontoNode.SOLL), mk);

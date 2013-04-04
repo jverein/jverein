@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.control.WiedervorlageControl;
@@ -37,26 +36,22 @@ public class WiedervorlageView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Wiedervorlage"));
+    GUI.getView().setTitle("Wiedervorlage");
     final WiedervorlageControl control = new WiedervorlageControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Wiedervorlage"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum"),
-        control.getDatum(true));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Vermerk"),
-        control.getVermerk());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Erledigung"),
-        control.getErledigung());
+    LabelGroup group = new LabelGroup(getParent(), "Wiedervorlage");
+    group.addLabelPair("Datum", control.getDatum(true));
+    group.addLabelPair("Vermerk", control.getVermerk());
+    group.addLabelPair("Erledigung", control.getErledigung());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.WIEDERVORLAGE, false,
-        "help-browser.png");
-    buttons.addButton("Mitglied", new MitgliedDetailAction(), control
-        .getWiedervorlage().getMitglied(), false, "system-users.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.WIEDERVORLAGE, false, "help-browser.png");
+    buttons.addButton("Mitglied", new MitgliedDetailAction(),
+        control.getWiedervorlage().getMitglied(), false, "system-users.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

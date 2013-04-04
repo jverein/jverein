@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.keys.Formularart;
@@ -36,27 +35,24 @@ public class MitgliedskontoMahnungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Mahnung"));
+    GUI.getView().setTitle("Mahnung");
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Parameter"));
+    LabelGroup group = new LabelGroup(getParent(), "Parameter");
     if (this.getCurrentObject() == null)
     {
-      group.addLabelPair(JVereinPlugin.getI18n().tr("von Datum"),
+      group.addLabelPair("von Datum",
           control.getVondatum(MitgliedskontoControl.DATUM_MAHNUNG));
-      group.addLabelPair(JVereinPlugin.getI18n().tr("bis Datum"),
+      group.addLabelPair("bis Datum",
           control.getBisdatum(MitgliedskontoControl.DATUM_MAHNUNG));
     }
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
-        control.getFormular(Formularart.MAHNUNG));
-    control.getDifferenz(JVereinPlugin.getI18n().tr("Fehlbetrag"));
+    group.addLabelPair("Formular", control.getFormular(Formularart.MAHNUNG));
+    control.getDifferenz("Fehlbetrag");
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MAHNUNG, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MAHNUNG, false, "help-browser.png");
     buttons.addButton(control.getStartMahnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }
@@ -64,10 +60,8 @@ public class MitgliedskontoMahnungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Mahnungen ausgeben</span></p>"
-            + "<p>Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.</p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Mahnungen ausgeben</span></p>"
+        + "<p>Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.</p>"
+        + "</form>";
   }
 }

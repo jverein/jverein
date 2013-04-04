@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageListeAction;
 import de.jost_net.JVerein.gui.parts.WiedervorlageList;
@@ -35,24 +34,21 @@ public class WiedervorlagelisteView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Wiedervorlagen"));
-    new WiedervorlageList(new WiedervorlageListeAction())
-        .getWiedervorlageList().paint(this.getParent());
+    GUI.getView().setTitle("Wiedervorlagen");
+    new WiedervorlageList(new WiedervorlageListeAction()).getWiedervorlageList().paint(
+        this.getParent());
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.WIEDERVORLAGE, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.WIEDERVORLAGE, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Wiedervorlage</span></p>"
-            + "<p>In dieser Liste werden die Wiedervorlagen aller Mitglieder angezeigt. "
-            + "Durch einen Rechtsklick kann entweder ein Erledigungsvermerk gesetzt werden "
-            + "oder der Wiedervorlagetermin wird gelöscht.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Wiedervorlage</span></p>"
+        + "<p>In dieser Liste werden die Wiedervorlagen aller Mitglieder angezeigt. "
+        + "Durch einen Rechtsklick kann entweder ein Erledigungsvermerk gesetzt werden "
+        + "oder der Wiedervorlagetermin wird gelöscht.</p></form>";
   }
 }

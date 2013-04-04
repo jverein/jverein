@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.FamilienbeitragNode;
 import de.jost_net.JVerein.gui.dialogs.PersonenartDialog;
 import de.jost_net.JVerein.gui.view.AdresseDetailView;
@@ -36,6 +35,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedDetailAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -45,7 +45,7 @@ public class MitgliedDetailAction implements Action
       if (context != null && context instanceof FamilienbeitragNode)
       {
         FamilienbeitragNode fbn = (FamilienbeitragNode) context;
-        m = (Mitglied) fbn.getMitglied();
+        m = fbn.getMitglied();
       }
       else if (context != null && context instanceof ArbeitseinsatzZeile)
       {
@@ -69,7 +69,7 @@ public class MitgliedDetailAction implements Action
         {
           PersonenartDialog pad = new PersonenartDialog(
               PersonenartDialog.POSITION_CENTER);
-          String pa = (String) pad.open();
+          String pa = pad.open();
           m.setPersonenart(pa);
         }
         else
@@ -88,8 +88,8 @@ public class MitgliedDetailAction implements Action
     }
     catch (Exception e)
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler bei der Erzeugung eines neuen Mitgliedes"), e);
+      throw new ApplicationException(
+          "Fehler bei der Erzeugung eines neuen Mitgliedes", e);
     }
   }
 }

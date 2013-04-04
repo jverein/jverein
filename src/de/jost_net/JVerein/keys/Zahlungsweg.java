@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Schlüssel Zahlungsweg
  */
 public class Zahlungsweg
 {
+
   public static final int DTAUS = 1;
 
   public static final int ÜBERWEISUNG = 2;
@@ -58,11 +57,11 @@ public class Zahlungsweg
     switch (key)
     {
       case DTAUS:
-        return JVereinPlugin.getI18n().tr("Datenaustausch Bank");
+        return "Datenaustausch Bank";
       case ÜBERWEISUNG:
-        return JVereinPlugin.getI18n().tr("Überweisung");
+        return "Überweisung";
       case BARZAHLUNG:
-        return JVereinPlugin.getI18n().tr("Barzahlung");
+        return "Barzahlung";
       default:
         return null;
     }

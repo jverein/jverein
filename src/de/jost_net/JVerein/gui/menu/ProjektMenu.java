@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.ProjektDeleteAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -37,8 +36,7 @@ public class ProjektMenu extends ContextMenu
    */
   public ProjektMenu()
   {
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."), new ProjektDeleteAction(),
+    addItem(new CheckedContextMenuItem("löschen...", new ProjektDeleteAction(),
         "user-trash.png"));
   }
 }

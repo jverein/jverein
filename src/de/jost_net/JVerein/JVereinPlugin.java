@@ -21,11 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Locale;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.rmi.JVereinDBService;
@@ -41,7 +37,6 @@ import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.I18N;
 
 /**
  * You need to have at least one class wich inherits from
@@ -52,8 +47,6 @@ public class JVereinPlugin extends AbstractPlugin
 {
 
   private Settings settings;
-
-  private static I18N i18n;
 
   /**
    * MessageConsumer, mit dem JVerein über neu eingetroffene Umsätze aus
@@ -69,8 +62,6 @@ public class JVereinPlugin extends AbstractPlugin
     super();
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
-    i18n = new I18N("lang/jverein_messages", Locale.getDefault(),
-        JVereinPlugin.class.getClassLoader());
   }
 
   /**
@@ -87,6 +78,7 @@ public class JVereinPlugin extends AbstractPlugin
 
     call(new ServiceCall()
     {
+
       @Override
       public void call(JVereinDBService service) throws ApplicationException,
           RemoteException
@@ -100,8 +92,8 @@ public class JVereinPlugin extends AbstractPlugin
     // this.umc = new UmsatzMessageConsumer();
     // Application.getMessagingFactory().registerMessageConsumer(this.umc);
     MessageConsumer mc = new HelpConsumer();
-    Application.getMessagingFactory().getMessagingQueue("jameica.help.missing")
-        .registerMessageConsumer(mc);
+    Application.getMessagingFactory().getMessagingQueue("jameica.help.missing").registerMessageConsumer(
+        mc);
 
     Application.getBootLoader().getBootable(ArchiveService.class);
   }
@@ -116,6 +108,7 @@ public class JVereinPlugin extends AbstractPlugin
   {
     call(new ServiceCall()
     {
+
       @Override
       public void call(JVereinDBService service) throws RemoteException
       {
@@ -132,6 +125,7 @@ public class JVereinPlugin extends AbstractPlugin
   {
     call(new ServiceCall()
     {
+
       @Override
       public void call(JVereinDBService service) throws RemoteException
       {
@@ -147,19 +141,7 @@ public class JVereinPlugin extends AbstractPlugin
   @Override
   public void shutDown()
   {
-    try
-    {
-      getI18n()
-          .storeUntranslated(new FileOutputStream("/tmp/untranslated.txt"));
-    }
-    catch (FileNotFoundException e)
-    {
-      e.printStackTrace();
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
+    //
   }
 
   /**
@@ -191,7 +173,7 @@ public class JVereinPlugin extends AbstractPlugin
    * Hilfsmethode zum bequemen Ausfuehren von Methoden auf dem Service.
    * 
    * @param call
-   *          der Call.
+   *        der Call.
    * @throws ApplicationException
    */
   private void call(ServiceCall call) throws ApplicationException
@@ -214,8 +196,8 @@ public class JVereinPlugin extends AbstractPlugin
     }
     catch (Exception e)
     {
-      throw new ApplicationException(getI18n().tr(
-          "Fehler beim Initialisieren der Datenbank"), e);
+      throw new ApplicationException(
+          "Fehler beim Initialisieren der Datenbank", e);
     }
     finally
     {
@@ -233,11 +215,6 @@ public class JVereinPlugin extends AbstractPlugin
     }
   }
 
-  public static I18N getI18n()
-  {
-    return i18n;
-  }
-
   public static boolean isArchiveServiceActive() throws RemoteException
   {
     if (!Einstellungen.getEinstellung().getDokumentenspeicherung())
@@ -250,8 +227,7 @@ public class JVereinPlugin extends AbstractPlugin
       Logger.info("Archiv-Plugin ist lokal installiert");
       return true;
     }
-    String uri = LookupService
-        .lookup("tcp:de.willuhn.jameica.messaging.Plugin.connector.tcp");
+    String uri = LookupService.lookup("tcp:de.willuhn.jameica.messaging.Plugin.connector.tcp");
     if (uri != null)
     {
       Logger.info("Archiv-Plugin im LAN gefunden: " + uri);

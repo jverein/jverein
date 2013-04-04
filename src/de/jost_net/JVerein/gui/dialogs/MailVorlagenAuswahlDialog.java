@@ -26,7 +26,6 @@ import java.rmi.RemoteException;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MailVorlageControl;
 import de.jost_net.JVerein.rmi.MailVorlage;
 import de.willuhn.jameica.gui.Action;
@@ -39,6 +38,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
 {
+
   private MailVorlageControl control;
 
   private MailVorlage retval;
@@ -47,7 +47,7 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
   {
     super(position);
     this.control = control;
-    setTitle(JVereinPlugin.getI18n().tr("Mail-Vorlage"));
+    setTitle("Mail-Vorlage");
     setSize(550, 450);
   }
 
@@ -58,8 +58,9 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
     control.getMailVorlageTable().paint(parent);
 
     ButtonArea b = new ButtonArea();
-    b.addButton(JVereinPlugin.getI18n().tr("verwenden"), new Action()
+    b.addButton("verwenden", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -74,8 +75,9 @@ public class MailVorlagenAuswahlDialog extends AbstractDialog<MailVorlage>
         close();
       }
     });
-    b.addButton(JVereinPlugin.getI18n().tr("ohne Mail-Vorlage"), new Action()
+    b.addButton("ohne Mail-Vorlage", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

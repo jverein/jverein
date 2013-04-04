@@ -24,9 +24,9 @@ package de.jost_net.JVerein.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.Adressbuch.Txt;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -59,8 +59,7 @@ public class MitgliedAdressbuchExport implements IAuswertung
       }
       txt.close();
       GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Auswertung fertig. {0} Sätze.",
-              list.size() + ""));
+          MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()));
     }
     catch (IOException e)
     {
@@ -71,7 +70,7 @@ public class MitgliedAdressbuchExport implements IAuswertung
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("adressbuchexport");
+    return "adressbuchexport";
   }
 
   @Override
@@ -89,6 +88,6 @@ public class MitgliedAdressbuchExport implements IAuswertung
   @Override
   public String toString()
   {
-    return JVereinPlugin.getI18n().tr("Adressbuchexport CSV");
+    return "Adressbuchexport CSV";
   }
 }

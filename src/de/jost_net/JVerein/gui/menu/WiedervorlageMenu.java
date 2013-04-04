@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.WiedervorlageDeleteAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageErledigungAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
@@ -39,10 +38,9 @@ public class WiedervorlageMenu extends ContextMenu
    */
   public WiedervorlageMenu(TablePart table)
   {
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("erledigt"),
+    addItem(new CheckedContextMenuItem("erledigt",
         new WiedervorlageErledigungAction(table), "emblem-default.png"));
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."),
+    addItem(new CheckedContextMenuItem("löschen...",
         new WiedervorlageDeleteAction(), "user-trash.png"));
   }
 }

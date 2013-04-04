@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Queries.SpendenbescheinigungBuchungQuery;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -148,6 +147,7 @@ public class SpendenbescheinigungControl extends AbstractControl
         getSpendenbescheinigung().getSpendenart()));
     spendenart.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -170,7 +170,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
   }
 
@@ -264,8 +264,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return bescheinigungsdatum;
     }
-    bescheinigungsdatum = new DateInput(getSpendenbescheinigung()
-        .getBescheinigungsdatum());
+    bescheinigungsdatum = new DateInput(
+        getSpendenbescheinigung().getBescheinigungsdatum());
     return bescheinigungsdatum;
   }
 
@@ -309,8 +309,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return ersatzaufwendungen;
     }
-    ersatzaufwendungen = new CheckboxInput(getSpendenbescheinigung()
-        .getErsatzAufwendungen());
+    ersatzaufwendungen = new CheckboxInput(
+        getSpendenbescheinigung().getErsatzAufwendungen());
     return ersatzaufwendungen;
   }
 
@@ -320,8 +320,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return bezeichnungsachzuwendung;
     }
-    bezeichnungsachzuwendung = new TextInput(getSpendenbescheinigung()
-        .getBezeichnungSachzuwendung(), 100);
+    bezeichnungsachzuwendung = new TextInput(
+        getSpendenbescheinigung().getBezeichnungSachzuwendung(), 100);
     enableSachspende();
     return bezeichnungsachzuwendung;
   }
@@ -344,8 +344,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return unterlagenwertermittlung;
     }
-    unterlagenwertermittlung = new CheckboxInput(getSpendenbescheinigung()
-        .getUnterlagenWertermittlung());
+    unterlagenwertermittlung = new CheckboxInput(
+        getSpendenbescheinigung().getUnterlagenWertermittlung());
     enableSachspende();
     return unterlagenwertermittlung;
   }
@@ -358,58 +358,56 @@ public class SpendenbescheinigungControl extends AbstractControl
       // buchungsList = new BuchungListTablePart(query.get(), new
       // BuchungAction());
       buchungsList = new BuchungListTablePart(query.get(), null);
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Nr"), "id-int");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Konto"), "konto",
-          new Formatter()
+      buchungsList.addColumn("Nr", "id-int");
+      buchungsList.addColumn("Konto", "konto", new Formatter()
+      {
+
+        @Override
+        public String format(Object o)
+        {
+          Konto k = (Konto) o;
+          if (k != null)
           {
-            @Override
-            public String format(Object o)
+            try
             {
-              Konto k = (Konto) o;
-              if (k != null)
-              {
-                try
-                {
-                  return k.getBezeichnung();
-                }
-                catch (RemoteException e)
-                {
-                  e.printStackTrace();
-                }
-              }
-              return "";
+              return k.getBezeichnung();
             }
-          });
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Auszug"),
-          "auszugsnummer");
-      buchungsList
-          .addColumn(JVereinPlugin.getI18n().tr("Blatt"), "blattnummer");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Verwendungszweck"),
-          "zweck", new Formatter()
+            catch (RemoteException e)
+            {
+              e.printStackTrace();
+            }
+          }
+          return "";
+        }
+      });
+      buchungsList.addColumn("Datum", "datum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      buchungsList.addColumn("Auszug", "auszugsnummer");
+      buchungsList.addColumn("Blatt", "blattnummer");
+      buchungsList.addColumn("Name", "name");
+      buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
+      {
+
+        @Override
+        public String format(Object value)
+        {
+          if (value == null)
           {
-            @Override
-            public String format(Object value)
-            {
-              if (value == null)
-              {
-                return null;
-              }
-              String s = value.toString();
-              s = s.replaceAll("\r\n", " ");
-              s = s.replaceAll("\r", " ");
-              s = s.replaceAll("\n", " ");
-              return s;
-            }
-          });
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Buchungsart"),
-          "buchungsart", new BuchungsartFormatter());
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
-          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      buchungsList.addColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-          "mitgliedskonto", new MitgliedskontoFormatter());
+            return null;
+          }
+          String s = value.toString();
+          s = s.replaceAll("\r\n", " ");
+          s = s.replaceAll("\r", " ");
+          s = s.replaceAll("\n", " ");
+          return s;
+        }
+      });
+      buchungsList.addColumn("Buchungsart", "buchungsart",
+          new BuchungsartFormatter());
+      buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+          Einstellungen.DECIMALFORMAT));
+      buchungsList.addColumn("Mitglied", "mitgliedskonto",
+          new MitgliedskontoFormatter());
       buchungsList.setMulti(true);
       // buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
@@ -451,17 +449,14 @@ public class SpendenbescheinigungControl extends AbstractControl
       spb.setBescheinigungsdatum((Date) getBescheinigungsdatum().getValue());
       spb.setBetrag((Double) getBetrag().getValue());
       spb.setErsatzAufwendungen((Boolean) getErsatzAufwendungen().getValue());
-      spb.setBezeichnungSachzuwendung((String) getBezeichnungSachzuwendung()
-          .getValue());
+      spb.setBezeichnungSachzuwendung((String) getBezeichnungSachzuwendung().getValue());
       spb.setFormular((Formular) getFormular().getValue());
       HerkunftSpende hsp = (HerkunftSpende) getHerkunftSpende().getValue();
       spb.setHerkunftSpende(hsp.getKey());
-      spb.setUnterlagenWertermittlung((Boolean) getUnterlagenWertermittlung()
-          .getValue());
+      spb.setUnterlagenWertermittlung((Boolean) getUnterlagenWertermittlung().getValue());
       spb.store();
 
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Spendenbescheinigung gespeichert"));
+      GUI.getStatusBar().setSuccessText("Spendenbescheinigung gespeichert");
     }
     catch (ApplicationException e)
     {
@@ -469,8 +464,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei Speichern der Spendenbescheinigung");
+      String fehler = "Fehler bei Speichern der Spendenbescheinigung";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -478,123 +472,120 @@ public class SpendenbescheinigungControl extends AbstractControl
 
   public Button getPDFStandardButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF (Standard)"),
-        new Action()
-        {
-          /**
-           * Diese Action verwendet die "SpendenbescheinigungPrintAction" für
-           * die Aufbereitung des Dokumentes. Als Rahmen ist der Dialog zur
-           * Dateiauswahl und die Anzeige des Dokumentes um die Generierung
-           * gesetzt.
-           */
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            try
-            {
-              Spendenbescheinigung spb = getSpendenbescheinigung();
-              if (spb.isNewObject())
-              {
-                GUI.getStatusBar().setErrorText(
-                    JVereinPlugin.getI18n().tr(
-                        "Spendenbescheinigung bitte erst speichern!"));
-                return;
-              }
-              FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-              fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-              String path = Einstellungen.getEinstellung()
-                  .getSpendenbescheinigungverzeichnis();
-              if (path != null && path.length() > 0)
-              {
-                fd.setFilterPath(path);
-              }
-              if (spb.getMitglied() != null)
-              {
-                fd.setFileName(new Dateiname(spb.getMitglied(), spb
-                    .getBescheinigungsdatum(), JVereinPlugin.getI18n().tr(
-                    "Spendenbescheinigung"), Einstellungen.getEinstellung()
-                    .getDateinamenmusterSpende(), "pdf").get());
-              }
-              else
-              {
-                fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(),
-                    spb.getBescheinigungsdatum(), JVereinPlugin.getI18n().tr(
-                        "Spendenbescheinigung"), Einstellungen.getEinstellung()
-                        .getDateinamenmusterSpende(), "pdf").get());
-              }
-              fd.setFilterExtensions(new String[] { "*.pdf" });
+    Button b = new Button("PDF (Standard)", new Action()
+    {
 
-              String s = fd.open();
-              if (s == null || s.length() == 0)
-              {
-                return;
-              }
-              if (!s.endsWith(".pdf"))
-              {
-                s = s + ".pdf";
-              }
-              final File file = new File(s);
-              //
-              SpendenbescheinigungPrintAction spa = new SpendenbescheinigungPrintAction(
-                  true, s);
-              spa.handleAction(spb);
-              GUI.getStatusBar().setSuccessText(
-                  JVereinPlugin.getI18n().tr("Spendenbescheinigung erstellt"));
-              GUI.getDisplay().asyncExec(new Runnable()
-              {
-                @Override
-                public void run()
-                {
-                  try
-                  {
-                    new Program().handleAction(file);
-                  }
-                  catch (ApplicationException ae)
-                  {
-                    Application.getMessagingFactory().sendMessage(
-                        new StatusBarMessage(ae.getLocalizedMessage(),
-                            StatusBarMessage.TYPE_ERROR));
-                  }
-                }
-              });
-            }
-            catch (RemoteException e)
-            {
-              Logger.error(e.getMessage());
-              throw new ApplicationException(JVereinPlugin.getI18n().tr(
-                  "Fehler bei der Aufbereitung der Spendenbescheinigung"));
-            }
+      /**
+       * Diese Action verwendet die "SpendenbescheinigungPrintAction" für die
+       * Aufbereitung des Dokumentes. Als Rahmen ist der Dialog zur Dateiauswahl
+       * und die Anzeige des Dokumentes um die Generierung gesetzt.
+       */
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          Spendenbescheinigung spb = getSpendenbescheinigung();
+          if (spb.isNewObject())
+          {
+            GUI.getStatusBar().setErrorText(
+                "Spendenbescheinigung bitte erst speichern!");
+            return;
           }
-        }, null, false, "acroread.png");
+          FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+          fd.setText("Ausgabedatei wählen.");
+          String path = Einstellungen.getEinstellung().getSpendenbescheinigungverzeichnis();
+          if (path != null && path.length() > 0)
+          {
+            fd.setFilterPath(path);
+          }
+          if (spb.getMitglied() != null)
+          {
+            fd.setFileName(new Dateiname(spb.getMitglied(),
+                spb.getBescheinigungsdatum(), "Spendenbescheinigung",
+                Einstellungen.getEinstellung().getDateinamenmusterSpende(),
+                "pdf").get());
+          }
+          else
+          {
+            fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(),
+                spb.getBescheinigungsdatum(), "Spendenbescheinigung",
+                Einstellungen.getEinstellung().getDateinamenmusterSpende(),
+                "pdf").get());
+          }
+          fd.setFilterExtensions(new String[] { "*.pdf"});
+
+          String s = fd.open();
+          if (s == null || s.length() == 0)
+          {
+            return;
+          }
+          if (!s.endsWith(".pdf"))
+          {
+            s = s + ".pdf";
+          }
+          final File file = new File(s);
+          //
+          SpendenbescheinigungPrintAction spa = new SpendenbescheinigungPrintAction(
+              true, s);
+          spa.handleAction(spb);
+          GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");
+          GUI.getDisplay().asyncExec(new Runnable()
+          {
+
+            @Override
+            public void run()
+            {
+              try
+              {
+                new Program().handleAction(file);
+              }
+              catch (ApplicationException ae)
+              {
+                Application.getMessagingFactory().sendMessage(
+                    new StatusBarMessage(ae.getLocalizedMessage(),
+                        StatusBarMessage.TYPE_ERROR));
+              }
+            }
+          });
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler bei der Aufbereitung der Spendenbescheinigung");
+        }
+      }
+    }, null, false, "acroread.png");
     return b;
   }
 
   public Button getPDFIndividuellButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF (Individuell)"),
-        new Action()
+    Button b = new Button("PDF (Individuell)", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
         {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            try
-            {
-              generiereSpendenbescheinigungIndividuell();
-            }
-            catch (RemoteException e)
-            {
-              Logger.error(e.getMessage());
-              throw new ApplicationException(JVereinPlugin.getI18n().tr(
-                  "Fehler bei der Aufbereitung der Spendenbescheinigung"));
-            }
-            catch (IOException e)
-            {
-              Logger.error(e.getMessage());
-              throw new ApplicationException(JVereinPlugin.getI18n().tr(
-                  "Fehler bei der Aufbereitung der Spendenbescheinigung"));
-            }
-          }
-        }, null, false, "acroread.png");
+          generiereSpendenbescheinigungIndividuell();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler bei der Aufbereitung der Spendenbescheinigung");
+        }
+        catch (IOException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler bei der Aufbereitung der Spendenbescheinigung");
+        }
+      }
+    }, null, false, "acroread.png");
     return b;
   }
 
@@ -604,32 +595,29 @@ public class SpendenbescheinigungControl extends AbstractControl
     if (spb.isNewObject())
     {
       GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr(
-              "Spendenbescheinigung bitte erst speichern!"));
+          "Spendenbescheinigung bitte erst speichern!");
       return;
     }
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    String path = Einstellungen.getEinstellung()
-        .getSpendenbescheinigungverzeichnis();
+    fd.setText("Ausgabedatei wählen.");
+    String path = Einstellungen.getEinstellung().getSpendenbescheinigungverzeichnis();
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
     if (spb.getMitglied() != null)
     {
-      fd.setFileName(new Dateiname(spb.getMitglied(), spb
-          .getBescheinigungsdatum(), JVereinPlugin.getI18n().tr(
-          "Spendenbescheinigung"), Einstellungen.getEinstellung()
-          .getDateinamenmusterSpende(), "pdf").get());
+      fd.setFileName(new Dateiname(spb.getMitglied(),
+          spb.getBescheinigungsdatum(), "Spendenbescheinigung",
+          Einstellungen.getEinstellung().getDateinamenmusterSpende(), "pdf").get());
     }
     else
     {
-      fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(), spb
-          .getBescheinigungsdatum(), "Spendenbescheinigung", Einstellungen
-          .getEinstellung().getDateinamenmusterSpende(), "pdf").get());
+      fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(),
+          spb.getBescheinigungsdatum(), "Spendenbescheinigung",
+          Einstellungen.getEinstellung().getDateinamenmusterSpende(), "pdf").get());
     }
-    fd.setFilterExtensions(new String[] { "*.pdf" });
+    fd.setFilterExtensions(new String[] { "*.pdf"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -647,8 +635,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     Formular spendeformular = getSpendenbescheinigung().getFormular();
     if (spendeformular == null)
     {
-      GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr("Bitte Formular auswaehlen"));
+      GUI.getStatusBar().setErrorText("Bitte Formular auswaehlen");
       return;
     }
 
@@ -665,25 +652,24 @@ public class SpendenbescheinigungControl extends AbstractControl
   public Part getSpendenbescheinigungList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator spendenbescheinigungen = service
-        .createList(Spendenbescheinigung.class);
+    DBIterator spendenbescheinigungen = service.createList(Spendenbescheinigung.class);
     spendenbescheinigungen.setOrder("ORDER BY bescheinigungsdatum desc");
 
     spbList = new TablePart(spendenbescheinigungen,
         new SpendenbescheinigungAction());
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Bescheinigungsdatum"),
-        "bescheinigungsdatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Spendedatum"), "spendedatum",
+    spbList.addColumn("Bescheinigungsdatum", "bescheinigungsdatum",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Betrag"), "betrag",
-        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 1"), "zeile1");
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 2"), "zeile2");
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 3"), "zeile3");
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 4"), "zeile4");
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 5"), "zeile5");
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 6"), "zeile6");
-    spbList.addColumn(JVereinPlugin.getI18n().tr("Zeile 7"), "zeile7");
+    spbList.addColumn("Spendedatum", "spendedatum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    spbList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+        Einstellungen.DECIMALFORMAT));
+    spbList.addColumn("Zeile 1", "zeile1");
+    spbList.addColumn("Zeile 2", "zeile2");
+    spbList.addColumn("Zeile 3", "zeile3");
+    spbList.addColumn("Zeile 4", "zeile4");
+    spbList.addColumn("Zeile 5", "zeile5");
+    spbList.addColumn("Zeile 6", "zeile6");
+    spbList.addColumn("Zeile 7", "zeile7");
 
     spbList.setRememberColWidths(true);
     spbList.setContextMenu(new SpendenbescheinigungMenu());
@@ -696,8 +682,8 @@ public class SpendenbescheinigungControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     spbList.removeAll();
-    DBIterator spendenbescheinigungen = Einstellungen.getDBService()
-        .createList(Spendenbescheinigung.class);
+    DBIterator spendenbescheinigungen = Einstellungen.getDBService().createList(
+        Spendenbescheinigung.class);
     spendenbescheinigungen.setOrder("ORDER BY bescheinigungsdatum desc");
     while (spendenbescheinigungen.hasNext())
     {

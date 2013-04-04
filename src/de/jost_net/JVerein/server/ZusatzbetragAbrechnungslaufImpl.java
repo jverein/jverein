@@ -28,11 +28,11 @@ import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.ZusatzbetragAbrechnungslauf;
 import de.willuhn.datasource.db.AbstractDBObject;
-import de.willuhn.util.ApplicationException;
 
 public class ZusatzbetragAbrechnungslaufImpl extends AbstractDBObject implements
     ZusatzbetragAbrechnungslauf
 {
+
   private static final long serialVersionUID = 6084498628933735690L;
 
   public ZusatzbetragAbrechnungslaufImpl() throws RemoteException
@@ -59,13 +59,13 @@ public class ZusatzbetragAbrechnungslaufImpl extends AbstractDBObject implements
   }
 
   @Override
-  protected void insertCheck() throws ApplicationException
+  protected void insertCheck()
   {
     //
   }
 
   @Override
-  protected void updateCheck() throws ApplicationException
+  protected void updateCheck()
   {
     insertCheck();
   }

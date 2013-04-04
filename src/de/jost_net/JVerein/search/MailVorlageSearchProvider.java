@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.MailVorlageDetailAction;
 import de.jost_net.JVerein.rmi.MailVorlage;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -44,7 +43,7 @@ public class MailVorlageSearchProvider implements SearchProvider
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("MailVorlagen");
+    return "MailVorlagen";
   }
 
   @Override
@@ -56,8 +55,7 @@ public class MailVorlageSearchProvider implements SearchProvider
     }
 
     String text = "%" + search.toLowerCase() + "%";
-    DBIterator list = Einstellungen.getDBService()
-        .createList(MailVorlage.class);
+    DBIterator list = Einstellungen.getDBService().createList(MailVorlage.class);
     list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();

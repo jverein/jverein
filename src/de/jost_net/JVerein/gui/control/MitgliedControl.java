@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +42,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.Messaging.FamilienbeitragMessage;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzAction;
@@ -137,6 +137,7 @@ import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedControl extends AbstractControl
 {
+
   private TablePart part;
 
   private SelectInput adresstyp;
@@ -320,7 +321,7 @@ public class MitgliedControl extends AbstractControl
   /**
    * 
    * @param typ
-   *          1=Mitglieder 2= alle ohne Mitglieder
+   *        1=Mitglieder 2= alle ohne Mitglieder
    * @throws RemoteException
    */
   public SelectInput getSuchAdresstyp(int typ) throws RemoteException
@@ -369,9 +370,10 @@ public class MitgliedControl extends AbstractControl
           Adresstyp.class, settings.getString("suchadresstyp", "2"));
       suchadresstyp = new SelectInput(at, def);
     }
-    suchadresstyp.setName(JVereinPlugin.getI18n().tr("Adresstyp"));
+    suchadresstyp.setName("Adresstyp");
     suchadresstyp.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -382,7 +384,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
     });
@@ -399,7 +401,7 @@ public class MitgliedControl extends AbstractControl
     at.addFilter("jvereinid != 1 or jvereinid is null");
     at.setOrder("order by bezeichnung");
     adresstyp = new SelectInput(at, getMitglied().getAdresstyp());
-    adresstyp.setName(JVereinPlugin.getI18n().tr("Adresstyp"));
+    adresstyp.setName("Adresstyp");
     return adresstyp;
   }
 
@@ -415,8 +417,7 @@ public class MitgliedControl extends AbstractControl
       ex = -1;
     }
     externemitgliedsnummer = new IntegerInput(ex);
-    externemitgliedsnummer.setName(JVereinPlugin.getI18n().tr(
-        "Ext. Mitgliedsnummer"));
+    externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
     return externemitgliedsnummer;
   }
 
@@ -427,7 +428,7 @@ public class MitgliedControl extends AbstractControl
       return mitgliedsnummer;
     }
     mitgliedsnummer = new TextInput(getMitglied().getID(), 10);
-    mitgliedsnummer.setName(JVereinPlugin.getI18n().tr("Mitgliedsnummer"));
+    mitgliedsnummer.setName("Mitgliedsnummer");
     mitgliedsnummer.setEnabled(false);
     return mitgliedsnummer;
   }
@@ -439,7 +440,7 @@ public class MitgliedControl extends AbstractControl
       return anrede;
     }
     anrede = new TextInput(getMitglied().getAnrede(), 40);
-    anrede.setName(JVereinPlugin.getI18n().tr("Anrede"));
+    anrede.setName("Anrede");
     return anrede;
   }
 
@@ -450,7 +451,7 @@ public class MitgliedControl extends AbstractControl
       return titel;
     }
     titel = new TextInput(getMitglied().getTitel(), 40);
-    titel.setName(JVereinPlugin.getI18n().tr("Titel"));
+    titel.setName("Titel");
     return titel;
   }
 
@@ -462,7 +463,7 @@ public class MitgliedControl extends AbstractControl
     }
 
     name = new TextInput(getMitglied().getName(), 40);
-    name.setName(JVereinPlugin.getI18n().tr("Name"));
+    name.setName("Name");
     name.setMandatory(true);
     if (withFocus)
     {
@@ -479,8 +480,7 @@ public class MitgliedControl extends AbstractControl
     }
 
     vorname = new TextInput(getMitglied().getVorname(), 40);
-    vorname.setName(JVereinPlugin.getI18n().tr(
-        JVereinPlugin.getI18n().tr("Vorname")));
+    vorname.setName("Vorname");
     vorname.setMandatory(true);
     return vorname;
   }
@@ -493,8 +493,7 @@ public class MitgliedControl extends AbstractControl
     }
     adressierungszusatz = new TextInput(getMitglied().getAdressierungszusatz(),
         40);
-    adressierungszusatz.setName(JVereinPlugin.getI18n().tr(
-        "Adressierungszusatz"));
+    adressierungszusatz.setName("Adressierungszusatz");
     return adressierungszusatz;
   }
 
@@ -506,7 +505,7 @@ public class MitgliedControl extends AbstractControl
     }
     strasse = new TextInput(getMitglied().getStrasse(), 40);
 
-    strasse.setName(JVereinPlugin.getI18n().tr("Straße"));
+    strasse.setName("Straße");
     return strasse;
   }
 
@@ -517,9 +516,10 @@ public class MitgliedControl extends AbstractControl
       return plz;
     }
     plz = new TextInput(getMitglied().getPlz(), 10);
-    plz.setName(JVereinPlugin.getI18n().tr("PLZ"));
+    plz.setName("PLZ");
     plz.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -553,7 +553,7 @@ public class MitgliedControl extends AbstractControl
       return ort;
     }
     ort = new TextInput(getMitglied().getOrt(), 40);
-    ort.setName(JVereinPlugin.getI18n().tr("Ort"));
+    ort.setName("Ort");
     return ort;
   }
 
@@ -564,7 +564,7 @@ public class MitgliedControl extends AbstractControl
       return staat;
     }
     staat = new TextInput(getMitglied().getStaat(), 50);
-    staat.setName(JVereinPlugin.getI18n().tr("Staat"));
+    staat.setName("Staat");
     return staat;
   }
 
@@ -580,14 +580,13 @@ public class MitgliedControl extends AbstractControl
       d = null;
     }
     this.geburtsdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.geburtsdatum.setName(JVereinPlugin.getI18n().tr("Geburtsdatum"));
-    this.geburtsdatum.setTitle(JVereinPlugin.getI18n().tr("Geburtsdatum"));
-    this.geburtsdatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Geburtsdatum wählen"));
-    this.geburtsdatum.setMandatory(Einstellungen.getEinstellung()
-        .getGeburtsdatumPflicht());
+    this.geburtsdatum.setName("Geburtsdatum");
+    this.geburtsdatum.setTitle("Geburtsdatum");
+    this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
+    this.geburtsdatum.setMandatory(Einstellungen.getEinstellung().getGeburtsdatumPflicht());
     this.geburtsdatum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -608,10 +607,10 @@ public class MitgliedControl extends AbstractControl
       return geschlecht;
     }
     geschlecht = new GeschlechtInput(getMitglied().getGeschlecht());
-    geschlecht.setName(JVereinPlugin.getI18n().tr("Geschlecht"));
-    geschlecht.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
+    geschlecht.setName("Geschlecht");
+    geschlecht.setPleaseChoose("Bitte auswählen");
     geschlecht.setMandatory(true);
-    geschlecht.setName(JVereinPlugin.getI18n().tr("Geschlecht"));
+    geschlecht.setName("Geschlecht");
     return geschlecht;
   }
 
@@ -631,9 +630,10 @@ public class MitgliedControl extends AbstractControl
       zahlungsweg = new SelectInput(Zahlungsweg.getArray(), new Zahlungsweg(
           Einstellungen.getEinstellung().getZahlungsweg()));
     }
-    zahlungsweg.setName(JVereinPlugin.getI18n().tr("Zahlungsweg"));
+    zahlungsweg.setName("Zahlungsweg");
     zahlungsweg.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -659,10 +659,10 @@ public class MitgliedControl extends AbstractControl
     else
     {
       zahlungsrhytmus = new SelectInput(Zahlungsrhytmus.getArray(),
-          new Zahlungsrhytmus(Einstellungen.getEinstellung()
-              .getZahlungsrhytmus()));
+          new Zahlungsrhytmus(
+              Einstellungen.getEinstellung().getZahlungsrhytmus()));
     }
-    zahlungsrhytmus.setName(JVereinPlugin.getI18n().tr("Zahlungsrhytmus"));
+    zahlungsrhytmus.setName("Zahlungsrhytmus");
     return zahlungsrhytmus;
   }
 
@@ -673,7 +673,7 @@ public class MitgliedControl extends AbstractControl
       return blz;
     }
     blz = new TextInput(getMitglied().getBlz(), 8);
-    blz.setName(JVereinPlugin.getI18n().tr("BLZ"));
+    blz.setName("BLZ");
     blz.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     BLZListener l = new BLZListener();
@@ -689,7 +689,7 @@ public class MitgliedControl extends AbstractControl
       return konto;
     }
     konto = new TextInput(getMitglied().getKonto(), 12);
-    konto.setName(JVereinPlugin.getI18n().tr("Konto"));
+    konto.setName("Konto");
     konto.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.DTAUS);
     return konto;
@@ -720,12 +720,12 @@ public class MitgliedControl extends AbstractControl
       d = null;
     }
     this.mandatdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.mandatdatum.setTitle(JVereinPlugin.getI18n().tr("Datum des Mandats"));
-    this.mandatdatum.setName(JVereinPlugin.getI18n().tr("Datum des Mandats"));
-    this.mandatdatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Datum des Mandats wählen"));
+    this.mandatdatum.setTitle("Datum des Mandats");
+    this.mandatdatum.setName("Datum des Mandats");
+    this.mandatdatum.setText("Bitte Datum des Mandats wählen");
     this.mandatdatum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -758,7 +758,7 @@ public class MitgliedControl extends AbstractControl
       return kontoinhaber;
     }
     kontoinhaber = new TextInput(getMitglied().getKontoinhaber(), 27);
-    kontoinhaber.setName(JVereinPlugin.getI18n().tr("Kontoinhaber"));
+    kontoinhaber.setName("Kontoinhaber");
     return kontoinhaber;
   }
 
@@ -769,7 +769,7 @@ public class MitgliedControl extends AbstractControl
       return telefonprivat;
     }
     telefonprivat = new TextInput(getMitglied().getTelefonprivat(), 20);
-    telefonprivat.setName(JVereinPlugin.getI18n().tr("Telefon priv."));
+    telefonprivat.setName("Telefon priv.");
     return telefonprivat;
   }
 
@@ -780,7 +780,7 @@ public class MitgliedControl extends AbstractControl
       return telefondienstlich;
     }
     telefondienstlich = new TextInput(getMitglied().getTelefondienstlich(), 20);
-    telefondienstlich.setName(JVereinPlugin.getI18n().tr("Telefon dienstl."));
+    telefondienstlich.setName("Telefon dienstl.");
     return telefondienstlich;
   }
 
@@ -791,7 +791,7 @@ public class MitgliedControl extends AbstractControl
       return handy;
     }
     handy = new TextInput(getMitglied().getHandy(), 20);
-    handy.setName(JVereinPlugin.getI18n().tr("Handy"));
+    handy.setName("Handy");
     return handy;
   }
 
@@ -802,7 +802,7 @@ public class MitgliedControl extends AbstractControl
       return email;
     }
     email = new TextInput(getMitglied().getEmail(), 50);
-    email.setName(JVereinPlugin.getI18n().tr("EMail"));
+    email.setName("EMail");
     return email;
   }
 
@@ -819,14 +819,13 @@ public class MitgliedControl extends AbstractControl
       d = null;
     }
     this.eintritt = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.eintritt.setTitle(JVereinPlugin.getI18n().tr("Eintrittsdatum"));
-    this.eintritt.setName(JVereinPlugin.getI18n().tr("Eintrittsdatum"));
-    this.eintritt.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Eintrittsdatum wählen"));
-    this.eintritt.setMandatory(Einstellungen.getEinstellung()
-        .getEintrittsdatumPflicht());
+    this.eintritt.setTitle("Eintrittsdatum");
+    this.eintritt.setName("Eintrittsdatum");
+    this.eintritt.setText("Bitte Eintrittsdatum wählen");
+    this.eintritt.setMandatory(Einstellungen.getEinstellung().getEintrittsdatumPflicht());
     this.eintritt.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -855,17 +854,17 @@ public class MitgliedControl extends AbstractControl
       // (NULL)
       // diese Beitragsgruppen müssen hier auch erlaubt sein.
       list.addFilter("beitragsart <> ? or beitragsart IS NULL",
-          new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER });
+          new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER});
     }
     beitragsgruppe = new SelectInput(list, getMitglied().getBeitragsgruppe());
     beitragsgruppe.setName("Beitragsgruppe");
     beitragsgruppe.setValue(getMitglied().getBeitragsgruppe());
     beitragsgruppe.setMandatory(true);
     beitragsgruppe.setAttribute("bezeichnung");
-    beitragsgruppe.setPleaseChoose(JVereinPlugin.getI18n()
-        .tr("Bitte auswählen"));
+    beitragsgruppe.setPleaseChoose("Bitte auswählen");
     beitragsgruppe.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -912,7 +911,6 @@ public class MitgliedControl extends AbstractControl
               zahler.setPreselected(null);
               zahler.setEnabled(false);
             }
-
             getFamilienverband().setVisible(false);
           }
 
@@ -934,10 +932,9 @@ public class MitgliedControl extends AbstractControl
     {
       return individuellerbeitrag;
     }
-    individuellerbeitrag = new DecimalInput(getMitglied()
-        .getIndividuellerBeitrag(), Einstellungen.DECIMALFORMAT);
-    individuellerbeitrag.setName(JVereinPlugin.getI18n().tr(
-        "individueller Beitrag"));
+    individuellerbeitrag = new DecimalInput(
+        getMitglied().getIndividuellerBeitrag(), Einstellungen.DECIMALFORMAT);
+    individuellerbeitrag.setName("individueller Beitrag");
     return individuellerbeitrag;
   }
 
@@ -949,7 +946,7 @@ public class MitgliedControl extends AbstractControl
     }
     auswertungUeberschrift = new TextInput(settings.getString(
         "auswertung.ueberschrift", ""));
-    auswertungUeberschrift.setName(JVereinPlugin.getI18n().tr("Überschrift"));
+    auswertungUeberschrift.setName("Überschrift");
     return auswertungUeberschrift;
   }
 
@@ -978,11 +975,10 @@ public class MitgliedControl extends AbstractControl
         Beitragsgruppe.class);
     list.setOrder("ORDER BY bezeichnung");
     beitragsgruppeausw = new SelectInput(list, bg);
-    beitragsgruppeausw.setName(JVereinPlugin.getI18n().tr("Beitragsgruppe"));
+    beitragsgruppeausw.setName("Beitragsgruppe");
     beitragsgruppeausw.setAttribute("bezeichnung");
-    beitragsgruppeausw.setPleaseChoose(JVereinPlugin.getI18n().tr(
-        "Bitte auswählen"));
-    beitragsgruppeausw.setName(JVereinPlugin.getI18n().tr("Beitragsgruppe"));
+    beitragsgruppeausw.setPleaseChoose("Bitte auswählen");
+    beitragsgruppeausw.setName("Beitragsgruppe");
     return beitragsgruppeausw;
   }
 
@@ -1049,14 +1045,15 @@ public class MitgliedControl extends AbstractControl
     {
       suche = getMitglied().getZahlerID().toString();
     }
-    Mitglied zahlmitglied = (Mitglied) Einstellungen.getDBService()
-        .createObject(Mitglied.class, suche);
+    Mitglied zahlmitglied = (Mitglied) Einstellungen.getDBService().createObject(
+        Mitglied.class, suche);
 
     zahler = new SelectInput(zhl, zahlmitglied);
     zahler.setAttribute("namevorname");
-    zahler.setPleaseChoose(JVereinPlugin.getI18n().tr("Bitte auswählen"));
+    zahler.setPleaseChoose("Bitte auswählen");
     zahler.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1110,12 +1107,12 @@ public class MitgliedControl extends AbstractControl
     Date d = getMitglied().getAustritt();
 
     this.austritt = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.austritt.setTitle(JVereinPlugin.getI18n().tr("Austrittsdatum"));
-    this.austritt.setName(JVereinPlugin.getI18n().tr("Austrittsdatum"));
-    this.austritt.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Austrittsdatum wählen"));
+    this.austritt.setTitle("Austrittsdatum");
+    this.austritt.setName("Austrittsdatum");
+    this.austritt.setText("Bitte Austrittsdatum wählen");
     this.austritt.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1138,12 +1135,12 @@ public class MitgliedControl extends AbstractControl
     Date d = getMitglied().getKuendigung();
 
     this.kuendigung = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.kuendigung.setName(JVereinPlugin.getI18n().tr("Kündigungsdatum"));
-    this.kuendigung.setTitle(JVereinPlugin.getI18n().tr("Kündigungsdatum"));
-    this.kuendigung.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Kündigungsdatum wählen"));
+    this.kuendigung.setName("Kündigungsdatum");
+    this.kuendigung.setTitle("Kündigungsdatum");
+    this.kuendigung.setText("Bitte Kündigungsdatum wählen");
     this.kuendigung.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1166,12 +1163,12 @@ public class MitgliedControl extends AbstractControl
     Date d = getMitglied().getSterbetag();
 
     this.sterbetag = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.sterbetag.setName(JVereinPlugin.getI18n().tr("Sterbetag"));
-    this.sterbetag.setTitle(JVereinPlugin.getI18n().tr("Sterbetag"));
-    this.sterbetag
-        .setText(JVereinPlugin.getI18n().tr("Bitte Sterbetag wählen"));
+    this.sterbetag.setName("Sterbetag");
+    this.sterbetag.setTitle("Sterbetag");
+    this.sterbetag.setText("Bitte Sterbetag wählen");
     this.sterbetag.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1192,7 +1189,7 @@ public class MitgliedControl extends AbstractControl
       return vermerk1;
     }
     vermerk1 = new TextAreaInput(getMitglied().getVermerk1(), 255);
-    vermerk1.setName(JVereinPlugin.getI18n().tr("Vermerk 1"));
+    vermerk1.setName("Vermerk 1");
     return vermerk1;
   }
 
@@ -1203,7 +1200,7 @@ public class MitgliedControl extends AbstractControl
       return vermerk2;
     }
     vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
-    vermerk2.setName(JVereinPlugin.getI18n().tr("Vermerk 2"));
+    vermerk2.setName("Vermerk 2");
     return vermerk2;
   }
 
@@ -1214,7 +1211,7 @@ public class MitgliedControl extends AbstractControl
       return foto;
     }
     DBIterator it = Einstellungen.getDBService().createList(Mitgliedfoto.class);
-    it.addFilter("mitglied = ?", new Object[] { mitglied.getID() });
+    it.addFilter("mitglied = ?", new Object[] { mitglied.getID()});
     Mitgliedfoto fo = null;
     if (it.size() > 0)
     {
@@ -1256,8 +1253,8 @@ public class MitgliedControl extends AbstractControl
       {
         DBIterator it2 = Einstellungen.getDBService().createList(
             Zusatzfelder.class);
-        it2.addFilter("mitglied=?", new Object[] { getMitglied().getID() });
-        it2.addFilter("felddefinition=?", new Object[] { fd.getID() });
+        it2.addFilter("mitglied=?", new Object[] { getMitglied().getID()});
+        it2.addFilter("felddefinition=?", new Object[] { fd.getID()});
         if (it2.size() > 0)
         {
           zf.setMitglied(Integer.parseInt(getMitglied().getID()));
@@ -1274,8 +1271,7 @@ public class MitgliedControl extends AbstractControl
           DateInput di = new DateInput(d, new JVDateFormatTTMMJJJJ());
           di.setName(fd.getLabel());
           di.setTitle(fd.getLabel());
-          di.setText(JVereinPlugin.getI18n().tr("Bitte {0} wählen",
-              fd.getLabel()));
+          di.setText(MessageFormat.format("Bitte {0} wählen", fd.getLabel()));
           zusatzfelder[i] = di;
           break;
         case Datentyp.GANZZAHL:
@@ -1340,8 +1336,7 @@ public class MitgliedControl extends AbstractControl
     lesefelder = new Input[lesefeldAuswerter.countLesefelder()];
 
     int i = 0;
-    Iterator<Entry<String, Object>> it = lesefeldAuswerter.getLesefelderMap()
-        .entrySet().iterator();
+    Iterator<Entry<String, Object>> it = lesefeldAuswerter.getLesefelderMap().entrySet().iterator();
     while (it.hasNext())
     {
       // Evaluiere Skripte und erzeuge für jedes ein TextAreaInput mit
@@ -1364,8 +1359,8 @@ public class MitgliedControl extends AbstractControl
     DBService service = Einstellungen.getDBService();
     DBIterator famiter = service.createList(Mitglied.class);
     famiter.addFilter("zahlerid = ? or zahlerid = ? or id = ? or id = ?",
-        getMitglied().getID(), getMitglied().getZahlerID(), getMitglied()
-            .getID(), getMitglied().getZahlerID());
+        getMitglied().getID(), getMitglied().getZahlerID(),
+        getMitglied().getID(), getMitglied().getZahlerID());
     while (famiter.hasNext())
     {
       Mitglied m = (Mitglied) famiter.next();
@@ -1390,11 +1385,11 @@ public class MitgliedControl extends AbstractControl
     familienangehoerige.setRememberColWidths(true);
     familienangehoerige.setRememberOrder(true);
     refreshFamilienangehoerigeTable();
-    familienangehoerige.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-    familienangehoerige.addColumn(JVereinPlugin.getI18n().tr("Vorname"),
-        "vorname");
+    familienangehoerige.addColumn("Name", "name");
+    familienangehoerige.addColumn("Vorname", "vorname");
     familienangehoerige.addColumn("", "zahlerid", new Formatter()
     {
+
       @Override
       public String format(Object o)
       {
@@ -1405,8 +1400,7 @@ public class MitgliedControl extends AbstractControl
         if (m == null)
           return "";
         else
-          return JVereinPlugin.getI18n().tr(
-              "beitragsbefreites Familienmitglied");
+          return "beitragsbefreites Familienmitglied";
       }
     });
 
@@ -1427,28 +1421,21 @@ public class MitgliedControl extends AbstractControl
     zusatzbetraegeList.setRememberColWidths(true);
     zusatzbetraegeList.setRememberOrder(true);
 
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Startdatum"),
-        "startdatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    zusatzbetraegeList.addColumn(
-        JVereinPlugin.getI18n().tr("nächste Fälligkeit"), "faelligkeit",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n()
-        .tr("letzte Ausführung"), "ausfuehrung", new DateFormatter(
+    zusatzbetraegeList.addColumn("Startdatum", "startdatum", new DateFormatter(
         new JVDateFormatTTMMJJJJ()));
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Intervall"),
-        "intervalltext");
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Endedatum"),
-        "endedatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Buchungstext 1"),
-        "buchungstext");
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Buchungstext 2"),
-        "buchungstext2");
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
-        "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-    zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("aktiv"), "aktiv",
-        new JaNeinFormatter());
-    zusatzbetraegeList
-        .setContextMenu(new ZusatzbetraegeMenu(zusatzbetraegeList));
+    zusatzbetraegeList.addColumn("nächste Fälligkeit", "faelligkeit",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    zusatzbetraegeList.addColumn("letzte Ausführung", "ausfuehrung",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    zusatzbetraegeList.addColumn("Intervall", "intervalltext");
+    zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
+    zusatzbetraegeList.addColumn("Buchungstext 2", "buchungstext2");
+    zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+        Einstellungen.DECIMALFORMAT));
+    zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
+    zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(zusatzbetraegeList));
     return zusatzbetraegeList;
   }
 
@@ -1466,12 +1453,11 @@ public class MitgliedControl extends AbstractControl
     wiedervorlageList.setRememberColWidths(true);
     wiedervorlageList.setRememberOrder(true);
 
-    wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Vermerk"),
-        "vermerk");
-    wiedervorlageList.addColumn(JVereinPlugin.getI18n().tr("Erledigung"),
-        "erledigung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    wiedervorlageList.addColumn("Datum", "datum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    wiedervorlageList.addColumn("Vermerk", "vermerk");
+    wiedervorlageList.addColumn("Erledigung", "erledigung", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
     wiedervorlageList.setContextMenu(new WiedervorlageMenu(wiedervorlageList));
     return wiedervorlageList;
   }
@@ -1491,11 +1477,11 @@ public class MitgliedControl extends AbstractControl
     mailList.setRememberColWidths(true);
     mailList.setRememberOrder(true);
 
-    mailList.addColumn(JVereinPlugin.getI18n().tr("Bearbeitung"),
-        "bearbeitung", new DateFormatter(new JVDateFormatTIMESTAMP()));
-    mailList.addColumn(JVereinPlugin.getI18n().tr("Versand"), "versand",
-        new DateFormatter(new JVDateFormatTIMESTAMP()));
-    mailList.addColumn(JVereinPlugin.getI18n().tr("Betreff"), "betreff");
+    mailList.addColumn("Bearbeitung", "bearbeitung", new DateFormatter(
+        new JVDateFormatTIMESTAMP()));
+    mailList.addColumn("Versand", "versand", new DateFormatter(
+        new JVDateFormatTIMESTAMP()));
+    mailList.addColumn("Betreff", "betreff");
     mailList.setContextMenu(new MitgliedMailMenu(this));
     return mailList;
   }
@@ -1516,12 +1502,11 @@ public class MitgliedControl extends AbstractControl
     arbeitseinsatzList.setRememberOrder(true);
     arbeitseinsatzList.setContextMenu(new ArbeitseinsatzMenu());
 
-    arbeitseinsatzList.addColumn(JVereinPlugin.getI18n().tr("Datum"), "datum",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    arbeitseinsatzList.addColumn(JVereinPlugin.getI18n().tr("Stunden"),
-        "stunden", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-    arbeitseinsatzList.addColumn(JVereinPlugin.getI18n().tr("Bemerkung"),
-        "bemerkung");
+    arbeitseinsatzList.addColumn("Datum", "datum", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    arbeitseinsatzList.addColumn("Stunden", "stunden", new CurrencyFormatter(
+        "", Einstellungen.DECIMALFORMAT));
+    arbeitseinsatzList.addColumn("Bemerkung", "bemerkung");
     // wiedervorlageList.setContextMenu(new
     // WiedervorlageMenu(wiedervorlageList));
     return arbeitseinsatzList;
@@ -1541,16 +1526,13 @@ public class MitgliedControl extends AbstractControl
     lehrgaengeList.setRememberColWidths(true);
     lehrgaengeList.setRememberOrder(true);
 
-    lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Lehrgangsart"),
-        "lehrgangsart");
-    lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("von/am"), "von",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("bis"), "bis",
-        new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    lehrgaengeList.addColumn(JVereinPlugin.getI18n().tr("Veranstalter"),
-        "veranstalter");
-    lehrgaengeList
-        .addColumn(JVereinPlugin.getI18n().tr("Ergebnis"), "ergebnis");
+    lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
+    lehrgaengeList.addColumn("von/am", "von", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    lehrgaengeList.addColumn("bis", "bis", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    lehrgaengeList.addColumn("Veranstalter", "veranstalter");
+    lehrgaengeList.addColumn("Ergebnis", "ergebnis");
     lehrgaengeList.setContextMenu(new LehrgangMenu());
     return lehrgaengeList;
   }
@@ -1575,11 +1557,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.geburtsdatumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.geburtsdatumvon.setTitle(JVereinPlugin.getI18n().tr("Geburtsdatum"));
-    this.geburtsdatumvon.setText(JVereinPlugin.getI18n().tr(
-        "Beginn des Geburtszeitraumes"));
+    this.geburtsdatumvon.setTitle("Geburtsdatum");
+    this.geburtsdatumvon.setText("Beginn des Geburtszeitraumes");
     this.geburtsdatumvon.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1590,7 +1572,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    geburtsdatumvon.setName(JVereinPlugin.getI18n().tr("Geburtsdatum von"));
+    geburtsdatumvon.setName("Geburtsdatum von");
     return geburtsdatumvon;
   }
 
@@ -1614,11 +1596,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.geburtsdatumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.geburtsdatumbis.setTitle(JVereinPlugin.getI18n().tr("Geburtsdatum"));
-    this.geburtsdatumbis.setText(JVereinPlugin.getI18n().tr(
-        "Ende des Geburtszeitraumes"));
+    this.geburtsdatumbis.setTitle("Geburtsdatum");
+    this.geburtsdatumbis.setText("Ende des Geburtszeitraumes");
     this.geburtsdatumbis.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1629,7 +1611,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    geburtsdatumbis.setName(JVereinPlugin.getI18n().tr("Geburtsdatum bis"));
+    geburtsdatumbis.setName("Geburtsdatum bis");
     return geburtsdatumbis;
   }
 
@@ -1653,11 +1635,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.sterbedatumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.sterbedatumvon.setTitle(JVereinPlugin.getI18n().tr("Sterbedatum"));
-    this.sterbedatumvon.setText(JVereinPlugin.getI18n().tr(
-        "Beginn des Sterbezeitraumes"));
+    this.sterbedatumvon.setTitle("Sterbedatum");
+    this.sterbedatumvon.setText("Beginn des Sterbezeitraumes");
     this.sterbedatumvon.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1668,7 +1650,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    sterbedatumvon.setName(JVereinPlugin.getI18n().tr("Sterbedatum von"));
+    sterbedatumvon.setName("Sterbedatum von");
     return sterbedatumvon;
   }
 
@@ -1692,11 +1674,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.sterbedatumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.sterbedatumbis.setTitle(JVereinPlugin.getI18n().tr("Sterbedatum"));
-    this.sterbedatumbis.setText(JVereinPlugin.getI18n().tr(
-        "Ende des Sterbezeitraumes"));
+    this.sterbedatumbis.setTitle("Sterbedatum");
+    this.sterbedatumbis.setText("Ende des Sterbezeitraumes");
     this.sterbedatumbis.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1707,7 +1689,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    sterbedatumbis.setName(JVereinPlugin.getI18n().tr("Sterbedatum bis"));
+    sterbedatumbis.setName("Sterbedatum bis");
     return sterbedatumbis;
   }
 
@@ -1731,11 +1713,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.eintrittvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.eintrittvon.setTitle(JVereinPlugin.getI18n().tr("Eintrittsdatum"));
-    this.eintrittvon.setText(JVereinPlugin.getI18n().tr(
-        "Beginn des Eintrittszeitraumes"));
+    this.eintrittvon.setTitle("Eintrittsdatum");
+    this.eintrittvon.setText("Beginn des Eintrittszeitraumes");
     this.eintrittvon.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1746,7 +1728,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    eintrittvon.setName(JVereinPlugin.getI18n().tr("Eintritt von"));
+    eintrittvon.setName("Eintritt von");
     return eintrittvon;
   }
 
@@ -1775,11 +1757,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.eintrittbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.eintrittbis.setTitle(JVereinPlugin.getI18n().tr("Eintrittsdatum"));
-    this.eintrittbis.setText(JVereinPlugin.getI18n().tr(
-        "Ende des Eintrittszeitraumes"));
+    this.eintrittbis.setTitle("Eintrittsdatum");
+    this.eintrittbis.setText("Ende des Eintrittszeitraumes");
     this.eintrittbis.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1790,7 +1772,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    eintrittbis.setName(JVereinPlugin.getI18n().tr("Eintritt bis"));
+    eintrittbis.setName("Eintritt bis");
     return eintrittbis;
   }
 
@@ -1814,11 +1796,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.austrittvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.austrittvon.setTitle(JVereinPlugin.getI18n().tr("Austrittsdatum"));
-    this.austrittvon.setText(JVereinPlugin.getI18n().tr(
-        "Beginn des Austrittszeitraumes"));
+    this.austrittvon.setTitle("Austrittsdatum");
+    this.austrittvon.setText("Beginn des Austrittszeitraumes");
     this.austrittvon.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1829,7 +1811,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    austrittvon.setName(JVereinPlugin.getI18n().tr("Austritt von"));
+    austrittvon.setName("Austritt von");
     return austrittvon;
   }
 
@@ -1858,11 +1840,11 @@ public class MitgliedControl extends AbstractControl
       }
     }
     this.austrittbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.austrittbis.setTitle(JVereinPlugin.getI18n().tr("Austrittsdatum"));
-    this.austrittbis.setText(JVereinPlugin.getI18n().tr(
-        "Ende des Austrittszeitraumes"));
+    this.austrittbis.setTitle("Austrittsdatum");
+    this.austrittbis.setText("Ende des Austrittszeitraumes");
     this.austrittbis.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1873,7 +1855,7 @@ public class MitgliedControl extends AbstractControl
         }
       }
     });
-    austrittbis.setName(JVereinPlugin.getI18n().tr("Austritt bis"));
+    austrittbis.setName("Austritt bis");
     return austrittbis;
   }
 
@@ -1885,7 +1867,7 @@ public class MitgliedControl extends AbstractControl
     }
     this.suchname = new TextInput(settings.getString("mitglied.suchname", ""),
         50);
-    suchname.setName(JVereinPlugin.getI18n().tr("Name"));
+    suchname.setName("Name");
     return suchname;
   }
 
@@ -1900,9 +1882,10 @@ public class MitgliedControl extends AbstractControl
     cal.set(Calendar.DAY_OF_MONTH, 31);
     Date d = new Date(cal.getTimeInMillis());
     this.stichtag = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.stichtag.setTitle(JVereinPlugin.getI18n().tr("Stichtag"));
+    this.stichtag.setTitle("Stichtag");
     this.stichtag.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1934,6 +1917,7 @@ public class MitgliedControl extends AbstractControl
     jubeljahr = new SelectInput(jubeljahre, jubeljahre[2]);
     jubeljahr.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -1965,8 +1949,8 @@ public class MitgliedControl extends AbstractControl
       }
       try
       {
-        Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService()
-            .createObject(Eigenschaft.class, stt.nextToken());
+        Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService().createObject(
+            Eigenschaft.class, stt.nextToken());
         text.append(ei.getBezeichnung());
       }
       catch (ObjectNotFoundException e)
@@ -1975,9 +1959,10 @@ public class MitgliedControl extends AbstractControl
       }
     }
     eigenschaftenabfrage = new DialogInput(text.toString(), d);
-    eigenschaftenabfrage.setName(JVereinPlugin.getI18n().tr("Eigenschaften"));
+    eigenschaftenabfrage.setName("Eigenschaften");
     eigenschaftenabfrage.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -2005,7 +1990,7 @@ public class MitgliedControl extends AbstractControl
 
     zusatzfelderabfrage = new DialogInput("", zad);
     setZusatzfelderAuswahl();
-    zusatzfelderabfrage.setName(JVereinPlugin.getI18n().tr("Zusatzfelder"));
+    zusatzfelderabfrage.setName("Zusatzfelder");
     return zusatzfelderabfrage;
   }
 
@@ -2023,8 +2008,8 @@ public class MitgliedControl extends AbstractControl
       return ausgabe;
     }
     ausgabe = new SelectInput(new Object[] { new MitgliedAuswertungPDF(this),
-        new MitgliedAuswertungCSV(), new MitgliedAdressbuchExport() }, null);
-    ausgabe.setName(JVereinPlugin.getI18n().tr("Ausgabe"));
+        new MitgliedAuswertungCSV(), new MitgliedAdressbuchExport()}, null);
+    ausgabe.setName("Ausgabe");
     return ausgabe;
   }
 
@@ -2034,13 +2019,10 @@ public class MitgliedControl extends AbstractControl
     {
       return sortierung;
     }
-    String[] sort = { JVereinPlugin.getI18n().tr("Name, Vorname"),
-        JVereinPlugin.getI18n().tr("Eintrittsdatum"),
-        JVereinPlugin.getI18n().tr("Geburtsdatum"),
-        JVereinPlugin.getI18n().tr("Geburtstagsliste") };
-    sortierung = new SelectInput(sort, JVereinPlugin.getI18n().tr(
-        "Name, Vorname"));
-    sortierung.setName(JVereinPlugin.getI18n().tr("Sortierung"));
+    String[] sort = { "Name, Vorname", "Eintrittsdatum", "Geburtsdatum",
+        "Geburtstagsliste"};
+    sortierung = new SelectInput(sort, "Name, Vorname");
+    sortierung.setName("Sortierung");
     return sortierung;
   }
 
@@ -2065,13 +2047,10 @@ public class MitgliedControl extends AbstractControl
     {
       return status;
     }
-    status = new SelectInput(new String[] {
-        JVereinPlugin.getI18n().tr("Angemeldet"),
-        JVereinPlugin.getI18n().tr("Abgemeldet"),
-        JVereinPlugin.getI18n().tr("An- und Abgemeldete") },
-        settings.getString("status.mitglied",
-            JVereinPlugin.getI18n().tr("Angemeldete")));
-    status.setName(JVereinPlugin.getI18n().tr("Mitgliedschaft"));
+    status = new SelectInput(new String[] { "Angemeldet", "Abgemeldet",
+        "An- und Abgemeldete"}, settings.getString("status.mitglied",
+        "Angemeldete"));
+    status.setName("Mitgliedschaft");
     return status;
   }
 
@@ -2082,14 +2061,15 @@ public class MitgliedControl extends AbstractControl
       return mailAuswahl;
     }
     mailAuswahl = new MailAuswertungInput(1);
-    mailAuswahl.setName(JVereinPlugin.getI18n().tr("Mail"));
+    mailAuswahl.setName("Mail");
     return mailAuswahl;
   }
 
   public Button getStartAuswertungButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
+    Button b = new Button("starten", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -2100,8 +2080,8 @@ public class MitgliedControl extends AbstractControl
         catch (RemoteException e)
         {
           Logger.error(e.getMessage());
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Fehler beim Start der Mitgliederauswertung"));
+          throw new ApplicationException(
+              "Fehler beim Start der Mitgliederauswertung");
         }
       }
     }, null, true, "go.png"); // "true" defines this button as the default
@@ -2111,8 +2091,9 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartAdressAuswertungButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
+    Button b = new Button("starten", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -2123,8 +2104,8 @@ public class MitgliedControl extends AbstractControl
         catch (RemoteException e)
         {
           Logger.error(e.getMessage());
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Fehler beim Start der Adressauswertung"));
+          throw new ApplicationException(
+              "Fehler beim Start der Adressauswertung");
         }
       }
     }, null, true, "go.png"); // "true" defines this button as the default
@@ -2134,8 +2115,9 @@ public class MitgliedControl extends AbstractControl
 
   public Button getStartStatistikButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("starten"), new Action()
+    Button b = new Button("starten", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -2155,34 +2137,32 @@ public class MitgliedControl extends AbstractControl
 
   public Button getLesefelderEdit()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Bearbeiten"),
-        new LesefelddefinitionenAction(getMitglied()), null, false, "edit.png");
+    return new Button("Bearbeiten", new LesefelddefinitionenAction(
+        getMitglied()), null, false, "edit.png");
   }
 
   public Button getZusatzbetragNeu()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Neu"),
-        new ZusatzbetraegeAction(getMitglied()), null, false,
-        "document-new.png");
+    return new Button("Neu", new ZusatzbetraegeAction(getMitglied()), null,
+        false, "document-new.png");
   }
 
   public Button getWiedervorlageNeu()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Neu"),
-        new WiedervorlageAction(getMitglied()), null, false, "document-new.png");
+    return new Button("Neu", new WiedervorlageAction(getMitglied()), null,
+        false, "document-new.png");
   }
 
   public Button getArbeitseinsatzNeu()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Neu"),
-        new ArbeitseinsatzAction(getMitglied()), null, false,
-        "document-new.png");
+    return new Button("Neu", new ArbeitseinsatzAction(getMitglied()), null,
+        false, "document-new.png");
   }
 
   public Button getLehrgangNeu()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Neu"), new LehrgangAction(
-        getMitglied()), null, false, "document-new.png");
+    return new Button("Neu", new LehrgangAction(getMitglied()), null, false,
+        "document-new.png");
   }
 
   public TablePart getMitgliedTable(int atyp, Action detailaction)
@@ -2219,8 +2199,8 @@ public class MitgliedControl extends AbstractControl
   {
     if (status != null)
     {
-      settings.setAttribute("status.mitglied", (String) getMitgliedStatus()
-          .getValue());
+      settings.setAttribute("status.mitglied",
+          (String) getMitgliedStatus().getValue());
     }
 
     if (geburtsdatumvon != null)
@@ -2381,8 +2361,7 @@ public class MitgliedControl extends AbstractControl
 
     if (beitragsgruppeausw != null)
     {
-      Beitragsgruppe tmpbg = (Beitragsgruppe) getBeitragsgruppeAusw()
-          .getValue();
+      Beitragsgruppe tmpbg = (Beitragsgruppe) getBeitragsgruppeAusw().getValue();
       if (tmpbg != null)
       {
         settings.setAttribute("mitglied.beitragsgruppe", tmpbg.getID());
@@ -2424,7 +2403,7 @@ public class MitgliedControl extends AbstractControl
         HashMap<String, Boolean> pflichtgruppen = new HashMap<String, Boolean>();
         DBIterator it = Einstellungen.getDBService().createList(
             EigenschaftGruppe.class);
-        it.addFilter("pflicht = ?", new Object[] { Boolean.TRUE });
+        it.addFilter("pflicht = ?", new Object[] { Boolean.TRUE});
         while (it.hasNext())
         {
           EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
@@ -2447,9 +2426,9 @@ public class MitgliedControl extends AbstractControl
         {
           if (!pflichtgruppen.get(key))
           {
-            EigenschaftGruppe eg = (EigenschaftGruppe) Einstellungen
-                .getDBService().createObject(EigenschaftGruppe.class, key);
-            throw new ApplicationException(JVereinPlugin.getI18n().tr(
+            EigenschaftGruppe eg = (EigenschaftGruppe) Einstellungen.getDBService().createObject(
+                EigenschaftGruppe.class, key);
+            throw new ApplicationException(MessageFormat.format(
                 "In der Eigenschaftengruppe \"{0}\" fehlt ein Eintrag!",
                 eg.getBezeichnung()));
           }
@@ -2457,7 +2436,7 @@ public class MitgliedControl extends AbstractControl
         // Max eine Eigenschaft pro Gruppe
         HashMap<String, Boolean> max1gruppen = new HashMap<String, Boolean>();
         it = Einstellungen.getDBService().createList(EigenschaftGruppe.class);
-        it.addFilter("max1 = ?", new Object[] { Boolean.TRUE });
+        it.addFilter("max1 = ?", new Object[] { Boolean.TRUE});
         while (it.hasNext())
         {
           EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
@@ -2477,10 +2456,9 @@ public class MitgliedControl extends AbstractControl
                 if (m1)
                 {
                   throw new ApplicationException(
-                      JVereinPlugin
-                          .getI18n()
-                          .tr("In der Eigenschaftengruppe \"{0} mehr als ein Eintrag markiert!",
-                              ei.getEigenschaftGruppe().getBezeichnung()));
+                      MessageFormat.format(
+                          "In der Eigenschaftengruppe \"{0} mehr als ein Eintrag markiert!",
+                          ei.getEigenschaftGruppe().getBezeichnung()));
                 }
                 else
                 {
@@ -2520,8 +2498,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (NullPointerException e)
         {
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Beitragsgruppe fehlt"));
+          throw new ApplicationException("Beitragsgruppe fehlt");
         }
       }
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
@@ -2542,8 +2519,7 @@ public class MitgliedControl extends AbstractControl
       {
         if (externemitgliedsnummer != null)
         {
-          m.setExterneMitgliedsnummer((Integer) getExterneMitgliedsnummer()
-              .getValue());
+          m.setExterneMitgliedsnummer((Integer) getExterneMitgliedsnummer().getValue());
         }
       }
       else
@@ -2585,7 +2561,7 @@ public class MitgliedControl extends AbstractControl
         Mitgliedfoto f = null;
         DBIterator it = Einstellungen.getDBService().createList(
             Mitgliedfoto.class);
-        it.addFilter("mitglied = ?", new Object[] { m.getID() });
+        it.addFilter("mitglied = ?", new Object[] { m.getID()});
         if (it.size() > 0)
         {
           f = (Mitgliedfoto) it.next();
@@ -2614,7 +2590,7 @@ public class MitgliedControl extends AbstractControl
         {
           DBIterator it = Einstellungen.getDBService().createList(
               Eigenschaften.class);
-          it.addFilter("mitglied = ?", new Object[] { getMitglied().getID() });
+          it.addFilter("mitglied = ?", new Object[] { getMitglied().getID()});
           while (it.hasNext())
           {
             Eigenschaften ei = (Eigenschaften) it.next();
@@ -2628,8 +2604,8 @@ public class MitgliedControl extends AbstractControl
             EigenschaftenNode node = (EigenschaftenNode) o1;
             if (node.getNodeType() == EigenschaftenNode.EIGENSCHAFTEN)
             {
-              Eigenschaften eig = (Eigenschaften) Einstellungen.getDBService()
-                  .createObject(Eigenschaften.class, null);
+              Eigenschaften eig = (Eigenschaften) Einstellungen.getDBService().createObject(
+                  Eigenschaften.class, null);
               eig.setEigenschaft(node.getEigenschaft().getID());
               eig.setMitglied(getMitglied().getID());
               eig.store();
@@ -2645,13 +2621,13 @@ public class MitgliedControl extends AbstractControl
           // Felddefinition ermitteln
           DBIterator it0 = Einstellungen.getDBService().createList(
               Felddefinition.class);
-          it0.addFilter("label = ?", new Object[] { ti.getName() });
+          it0.addFilter("label = ?", new Object[] { ti.getName()});
           Felddefinition fd = (Felddefinition) it0.next();
           // Ist bereits ein Datensatz für diese Definiton vorhanden ?
           DBIterator it = Einstellungen.getDBService().createList(
               Zusatzfelder.class);
-          it.addFilter("mitglied =?", new Object[] { m.getID() });
-          it.addFilter("felddefinition=?", new Object[] { fd.getID() });
+          it.addFilter("mitglied =?", new Object[] { m.getID()});
+          it.addFilter("felddefinition=?", new Object[] { fd.getID()});
           Zusatzfelder zf = null;
           if (it.size() > 0)
           {
@@ -2698,11 +2674,11 @@ public class MitgliedControl extends AbstractControl
       String successtext = "";
       if (m.getAdresstyp().getJVereinid() == 1)
       {
-        successtext = JVereinPlugin.getI18n().tr("Mitglied gespeichert");
+        successtext = "Mitglied gespeichert";
       }
       else
       {
-        successtext = JVereinPlugin.getI18n().tr("Adresse gespeichert");
+        successtext = "Adresse gespeichert";
       }
       GUI.getStatusBar().setSuccessText(successtext);
     }
@@ -2712,8 +2688,7 @@ public class MitgliedControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei Speichern des Mitgliedes");
+      String fehler = "Fehler bei Speichern des Mitgliedes";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -2735,7 +2710,7 @@ public class MitgliedControl extends AbstractControl
   {
     familienbeitragtree = new TreePart(new FamilienbeitragNode(),
         new MitgliedDetailAction());
-    familienbeitragtree.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
+    familienbeitragtree.addColumn("Name", "name");
     familienbeitragtree.setContextMenu(new FamilienbeitragMenu());
     familienbeitragtree.setRememberColWidths(true);
     familienbeitragtree.setRememberOrder(true);
@@ -2754,25 +2729,25 @@ public class MitgliedControl extends AbstractControl
     {
       String sort = (String) sortierung.getValue();
       String dateinamensort = "";
-      if (sort.equals(JVereinPlugin.getI18n().tr("Name, Vorname")))
+      if (sort.equals("Name, Vorname"))
       {
         dateinamensort = "name";
       }
-      else if (sort.equals(JVereinPlugin.getI18n().tr("Eintrittsdatum")))
+      else if (sort.equals("Eintrittsdatum"))
       {
         dateinamensort = "eintrittsdatum";
       }
-      else if (sort.equals(JVereinPlugin.getI18n().tr("Geburtsdatum")))
+      else if (sort.equals("Geburtsdatum"))
       {
         dateinamensort = "geburtsdatum";
       }
-      else if (sort.equals(JVereinPlugin.getI18n().tr("Geburtstagsliste")))
+      else if (sort.equals("Geburtstagsliste"))
       {
         dateinamensort = "geburtstagsliste";
       }
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+      fd.setText("Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -2780,10 +2755,10 @@ public class MitgliedControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("auswertung"),
-          dateinamensort, Einstellungen.getEinstellung().getDateinamenmuster(),
+      fd.setFileName(new Dateiname("auswertung", dateinamensort,
+          Einstellungen.getEinstellung().getDateinamenmuster(),
           ausw.getDateiendung()).get());
-      fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
+      fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung()});
 
       String s = fd.open();
       if (s == null || s.length() == 0)
@@ -2800,6 +2775,7 @@ public class MitgliedControl extends AbstractControl
       ausw.beforeGo();
       BackgroundTask t = new BackgroundTask()
       {
+
         @Override
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
@@ -2811,6 +2787,7 @@ public class MitgliedControl extends AbstractControl
             {
               GUI.getDisplay().asyncExec(new Runnable()
               {
+
                 @Override
                 public void run()
                 {
@@ -2830,13 +2807,13 @@ public class MitgliedControl extends AbstractControl
           }
           catch (ApplicationException ae)
           {
-            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
+            Logger.error("Fehler", ae);
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw ae;
           }
           catch (Exception re)
           {
-            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), re);
+            Logger.error("Fehler", re);
             GUI.getStatusBar().setErrorText(re.getMessage());
             throw new ApplicationException(re);
           }
@@ -2872,7 +2849,7 @@ public class MitgliedControl extends AbstractControl
     try
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
+      fd.setText("Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -2880,10 +2857,10 @@ public class MitgliedControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr(
-          "adressauswertung"), "", Einstellungen.getEinstellung()
-          .getDateinamenmuster(), ausw.getDateiendung()).get());
-      fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
+      fd.setFileName(new Dateiname("adressauswertung", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(),
+          ausw.getDateiendung()).get());
+      fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung()});
 
       String s = fd.open();
       if (s == null || s.length() == 0)
@@ -2900,6 +2877,7 @@ public class MitgliedControl extends AbstractControl
       ausw.beforeGo();
       BackgroundTask t = new BackgroundTask()
       {
+
         @Override
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
@@ -2911,6 +2889,7 @@ public class MitgliedControl extends AbstractControl
             {
               GUI.getDisplay().asyncExec(new Runnable()
               {
+
                 @Override
                 public void run()
                 {
@@ -2928,15 +2907,9 @@ public class MitgliedControl extends AbstractControl
               });
             }
           }
-          catch (ApplicationException ae)
-          {
-            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), ae);
-            GUI.getStatusBar().setErrorText(ae.getMessage());
-            throw ae;
-          }
           catch (Exception re)
           {
-            Logger.error(JVereinPlugin.getI18n().tr("Fehler"), re);
+            Logger.error("Fehler", re);
             GUI.getStatusBar().setErrorText(re.getMessage());
             throw new ApplicationException(re);
           }
@@ -2970,17 +2943,16 @@ public class MitgliedControl extends AbstractControl
   private void starteStatistik() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setText("Ausgabedatei wählen.");
+    fd.setFilterExtensions(new String[] { "*.PDF"});
     Settings settings = new Settings(this.getClass());
 
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("statistik"), "",
+    fd.setFileName(new Dateiname("statistik", "",
         Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
     String s = fd.open();
@@ -2999,6 +2971,7 @@ public class MitgliedControl extends AbstractControl
 
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -3026,18 +2999,16 @@ public class MitgliedControl extends AbstractControl
     int selected = settings.getInt("zusatzfelder.selected", 0);
     if (selected == 0)
     {
-      zusatzfelderabfrage.setText(JVereinPlugin.getI18n().tr(
-          "kein Feld ausgewählt"));
+      zusatzfelderabfrage.setText("kein Feld ausgewählt");
     }
     else if (selected == 1)
     {
-      zusatzfelderabfrage.setText(JVereinPlugin.getI18n().tr(
-          "1 Feld ausgewählt"));
+      zusatzfelderabfrage.setText("1 Feld ausgewählt");
     }
     else
     {
-      zusatzfelderabfrage.setText(JVereinPlugin.getI18n().tr(
-          "{0} Felder ausgewählt", selected + ""));
+      zusatzfelderabfrage.setText(MessageFormat.format("{0} Felder ausgewählt",
+          selected));
     }
   }
 
@@ -3047,6 +3018,7 @@ public class MitgliedControl extends AbstractControl
    */
   private class BLZListener implements Listener
   {
+
     @Override
     public void handleEvent(Event event)
     {
@@ -3067,6 +3039,7 @@ public class MitgliedControl extends AbstractControl
    */
   private class EigenschaftenListener implements Listener
   {
+
     @Override
     public void handleEvent(Event event)
     {
@@ -3092,7 +3065,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
       eigenschaftenabfrage.setText(text.toString());
@@ -3105,6 +3078,7 @@ public class MitgliedControl extends AbstractControl
    */
   private class ZusatzfelderListener implements Listener
   {
+
     @Override
     public void handleEvent(Event event)
     {
@@ -3114,6 +3088,7 @@ public class MitgliedControl extends AbstractControl
 
   public static class EigenschaftTreeFormatter implements TreeFormatter
   {
+
     @Override
     public void format(TreeItem item)
     {
@@ -3209,7 +3184,7 @@ public class MitgliedControl extends AbstractControl
     @Override
     public Class<?>[] getExpectedMessageTypes()
     {
-      return new Class[] { FamilienbeitragMessage.class };
+      return new Class[] { FamilienbeitragMessage.class};
     }
 
     /**
@@ -3220,6 +3195,7 @@ public class MitgliedControl extends AbstractControl
     {
       GUI.getDisplay().syncExec(new Runnable()
       {
+
         @Override
         public void run()
         {

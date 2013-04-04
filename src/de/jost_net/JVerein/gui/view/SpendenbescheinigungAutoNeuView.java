@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.SpendenbescheinigungAutoNeuControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -35,38 +34,31 @@ public class SpendenbescheinigungAutoNeuView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(
-        JVereinPlugin.getI18n().tr(
-            "Spendenbescheinigungen automatisch neu erzeugen"));
+    GUI.getView().setTitle("Spendenbescheinigungen automatisch neu erzeugen");
 
     SpendenbescheinigungAutoNeuControl control = new SpendenbescheinigungAutoNeuControl(
         this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Jahr"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Jahr"), control.getJahr());
+    LabelGroup group = new LabelGroup(getParent(), "Jahr");
+    group.addLabelPair("Jahr", control.getJahr());
     // TODO Unterscheidung Einzel/Sammel-Bestätigung: zwei Felder
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular-Einzelbest."),
-        control.getFormular());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Formular-Sammelbest."),
+    group.addLabelPair("Formular-Einzelbest.", control.getFormular());
+    group.addLabelPair("Formular-Sammelbest.",
         control.getFormularSammelbestaetigung());
 
     control.getSpendenbescheinigungTree().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(control.getSpendenbescheinigungErstellenButton());
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
-        false, "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.SPENDENBESCHEINIGUNG, false, "help-browser.png");
     buttons.paint(getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Spendenbescheinigungen</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigungen</span></p>"
+        + "</form>";
   }
 }

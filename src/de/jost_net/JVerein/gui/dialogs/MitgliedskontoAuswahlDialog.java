@@ -28,7 +28,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
@@ -71,7 +70,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     settings.setStoreWhenRead(true);
 
     this.setSize(600, 400);
-    this.setTitle(JVereinPlugin.getI18n().tr("Mitgliedskonto-Auswahl"));
+    this.setTitle("Mitgliedskonto-Auswahl");
     this.buchung = buchung;
     control = new MitgliedskontoControl(null);
   }
@@ -82,24 +81,21 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     TabFolder folder = new TabFolder(parent, SWT.NONE);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-    TabGroup tabNurIst = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "nur Ist"), false, 1);
+    TabGroup tabNurIst = new TabGroup(folder, "nur Ist", false, 1);
     Container grNurIst = new SimpleContainer(tabNurIst.getComposite());
-    grNurIst.addHeadline(JVereinPlugin.getI18n().tr(
-        "Auswahl des Mitgliedskontos"));
+    grNurIst.addHeadline("Auswahl des Mitgliedskontos");
     if (text == null || text.length() == 0)
     {
-      text = JVereinPlugin.getI18n().tr(
-          "Bitte wählen Sie das gewünschte Mitgliedskonto aus.");
+      text = "Bitte wählen Sie das gewünschte Mitgliedskonto aus.";
     }
     grNurIst.addText(text, true);
     TextInput suNa = control.getSuchName();
     suNa.setValue(buchung.getName());
-    grNurIst.addLabelPair(JVereinPlugin.getI18n().tr("Name"), suNa);
-    grNurIst.addLabelPair(JVereinPlugin.getI18n().tr("Differenz"),
-        control.getDifferenz("Fehlbetrag"));
+    grNurIst.addLabelPair("Name", suNa);
+    grNurIst.addLabelPair("Differenz", control.getDifferenz("Fehlbetrag"));
     Action action = new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -115,25 +111,22 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     mitgliedskontolist.paint(tabNurIst.getComposite());
 
     //
-    TabGroup tabSollIst = new TabGroup(folder, JVereinPlugin.getI18n().tr(
-        "Soll u. Ist"), true, 1);
+    TabGroup tabSollIst = new TabGroup(folder, "Soll u. Ist", true, 1);
     Container grSollIst = new SimpleContainer(tabSollIst.getComposite());
-    grSollIst.addHeadline(JVereinPlugin.getI18n().tr(
-        "Auswahl des Mitgliedskontos"));
+    grSollIst.addHeadline("Auswahl des Mitgliedskontos");
 
     if (text == null || text.length() == 0)
     {
-      text = JVereinPlugin.getI18n().tr(
-          "Bitte wählen Sie das gewünschte Mitgliedskonto aus.");
+      text = "Bitte wählen Sie das gewünschte Mitgliedskonto aus.";
     }
     grSollIst.addText(text, true);
     control.getSuchName2(true).setValue(buchung.getName());
-    grSollIst.addLabelPair(JVereinPlugin.getI18n().tr("Name"),
-        control.getSuchName2(false));
+    grSollIst.addLabelPair("Name", control.getSuchName2(false));
     grSollIst.addInput(control.getSpezialSuche());
 
     final Action action2 = new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -150,8 +143,9 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     ButtonArea b = new ButtonArea();
 
-    b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("übernehmen")), new Action()
+    b.addButton(i18n.tr("übernehmen"), new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -176,8 +170,9 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
       }
     }, null, false, "emblem-default.png");
 
-    b.addButton(i18n.tr(JVereinPlugin.getI18n().tr("entfernen")), new Action()
+    b.addButton(i18n.tr("entfernen"), new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -185,11 +180,12 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
         close();
       }
     }, null, false, "edit-undo.png");
-    b.addButton(JVereinPlugin.getI18n().tr("Hilfe"), new DokumentationAction(),
+    b.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.MITGLIEDSKONTO_AUSWAHL, false, "help-browser.png");
 
     b.addButton(i18n.tr("abbrechen"), new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {

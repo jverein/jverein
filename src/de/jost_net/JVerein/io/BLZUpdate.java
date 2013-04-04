@@ -74,13 +74,13 @@ public class BLZUpdate implements GenericObject
   }
 
   @Override
-  public String[] getAttributeNames() throws RemoteException
+  public String[] getAttributeNames()
   {
     return new String[] { "id", "mitglied", "namevorname", "newblz", "oldblz" };
   }
 
   @Override
-  public String getID() throws RemoteException
+  public String getID() 
   {
     return id;
   }

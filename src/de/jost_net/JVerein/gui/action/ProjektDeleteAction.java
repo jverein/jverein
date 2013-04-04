@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,13 +35,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class ProjektDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Projekt))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Projekt ausgewählt"));
+      throw new ApplicationException("Kein Projekt ausgewählt");
     }
     try
     {
@@ -52,9 +51,8 @@ public class ProjektDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Projekt löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie dieses Projekt wirklich löschen?"));
+      d.setTitle("Projekt löschen");
+      d.setText("Wollen Sie dieses Projekt wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -65,19 +63,16 @@ public class ProjektDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen des Projektes"), e);
+        Logger.error("Fehler beim Löschen des Projektes", e);
         return;
       }
 
       p.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Projekt gelöscht."));
+      GUI.getStatusBar().setSuccessText("Projekt gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Projektes.");
+      String fehler = "Fehler beim Löschen des Projektes.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

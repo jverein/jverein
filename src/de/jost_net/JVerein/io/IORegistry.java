@@ -53,7 +53,7 @@ public class IORegistry
    * Sucht im Classpath nach allen Importern/Exportern.
    * 
    * @param type
-   *          zu ladender Typ.
+   *        zu ladender Typ.
    * @return Liste der gefundenen Importer/Exporter.
    */
   private static synchronized ArrayList<IO> load(Class<?> type)
@@ -98,7 +98,7 @@ public class IORegistry
    */
   public static Exporter[] getExporters()
   {
-    return (Exporter[]) exporters.toArray(new Exporter[exporters.size()]);
+    return exporters.toArray(new Exporter[exporters.size()]);
   }
 
   /**
@@ -108,7 +108,7 @@ public class IORegistry
    */
   public static Importer[] getImporters()
   {
-    return (Importer[]) importers.toArray(new Importer[importers.size()]);
+    return importers.toArray(new Importer[importers.size()]);
   }
 
 }

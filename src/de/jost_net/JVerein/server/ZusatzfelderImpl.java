@@ -26,7 +26,6 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -222,8 +221,8 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
         case Datentyp.GANZZAHL:
           return getFeldGanzzahl() + "";
         case Datentyp.JANEIN:
-          return getFeldJaNein() ? JVereinPlugin.getI18n().tr("ja")
-              : JVereinPlugin.getI18n().tr("nein");
+          return getFeldJaNein() ? "ja"
+              : "nein";
         case Datentyp.WAEHRUNG:
           if (getFeldWaehrung() != null)
           {
@@ -236,12 +235,12 @@ public class ZusatzfelderImpl extends AbstractDBObject implements Zusatzfelder
         case Datentyp.ZEICHENFOLGE:
           return getFeld();
         default:
-          return JVereinPlugin.getI18n().tr("ungültiger Datentyp");
+          return "ungültiger Datentyp";
       }
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
       return e.getMessage();
     }
   }

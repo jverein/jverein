@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.io;
 
 import java.io.File;
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -47,8 +46,7 @@ public class CSVBuchungsImport implements Importer
 
   @Override
   public void doImport(Object context, IOFormat format, File file,
-      String encoding, ProgressMonitor monitor) throws RemoteException,
-      ApplicationException
+      String encoding, ProgressMonitor monitor)
   {
     ResultSet results;
     try

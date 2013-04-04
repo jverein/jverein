@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.gui.control.MailControl.EvalMail;
 import de.jost_net.JVerein.gui.formatter.DateiGroesseFormatter;
@@ -57,8 +56,11 @@ import de.willuhn.logging.Logger;
  */
 public class MailVorschauDialog extends AbstractDialog<Object>
 {
+
   private MailControl control;
+
   private MailEmpfaenger empf;
+
   private de.willuhn.jameica.system.Settings settings;
 
   public MailVorschauDialog(MailControl control, MailEmpfaenger mitglied,
@@ -68,10 +70,11 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     this.control = control;
     this.empf = mitglied;
-    setTitle(JVereinPlugin.getI18n().tr("Mail-Vorschau"));
+    setTitle("Mail-Vorschau");
     setSize(settings.getInt("width", 550), settings.getInt("height", 450));
     addCloseListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -89,14 +92,12 @@ public class MailVorschauDialog extends AbstractDialog<Object>
       Logger.error("Fehler", e);
     }
   }
-  
+
   @Override
   protected void onEscape()
   {
     close();
   }
-  
-  
 
   @Override
   protected void paint(Composite parent) throws Exception
@@ -108,11 +109,11 @@ public class MailVorschauDialog extends AbstractDialog<Object>
 
     TextInput empfaenger = new TextInput(empf.getMailAdresse());
     empfaenger.setEnabled(false);
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Empfänger"), empfaenger);
+    container.addLabelPair("Empfänger", empfaenger);
     TextInput betreff = new TextInput(
         em.evalBetreff(control.getBetreffString()));
     betreff.setEnabled(false);
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Betreff"), betreff);
+    container.addLabelPair("Betreff", betreff);
     TextAreaInput body = new TextAreaInput(em.evalText(control.getTxtString()));
     body.setEnabled(false);
     container.addInput(body);
@@ -132,7 +133,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
         anhang2.add(an);
       }
 
-      addLabel(JVereinPlugin.getI18n().tr("Anhänge"), container.getComposite(),
+      addLabel("Anhänge", container.getComposite(),
           GridData.VERTICAL_ALIGN_BEGINNING);
       Composite comp4 = new Composite(container.getComposite(), SWT.NONE);
       GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
@@ -143,18 +144,19 @@ public class MailVorschauDialog extends AbstractDialog<Object>
       comp4.setLayout(gl4);
 
       TablePart anhang = new TablePart(anhang2, null);
-      anhang.addColumn(JVereinPlugin.getI18n().tr("Dateiname"), "dateiname");
+      anhang.addColumn("Dateiname", "dateiname");
       anhang.setRememberColWidths(true);
       anhang.setRememberOrder(true);
       anhang.setSummary(false);
-      anhang.addColumn(JVereinPlugin.getI18n().tr("Dateigröße"), "dateigroesse",
+      anhang.addColumn("Dateigröße", "dateigroesse",
           new DateiGroesseFormatter());
       anhang.paint(comp4);
     }
 
     ButtonArea b = new ButtonArea();
-    b.addButton(JVereinPlugin.getI18n().tr("Schließen"), new Action()
+    b.addButton("Schließen", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -172,7 +174,9 @@ public class MailVorschauDialog extends AbstractDialog<Object>
 
   public class VorschauAnhang extends AbstractDBObject implements DBObject
   {
+
     private static final long serialVersionUID = 3587065856368087787L;
+
     private HashMap<String, Object> properties;
 
     public VorschauAnhang() throws RemoteException
@@ -182,7 +186,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     }
 
     @Override
-    public String getPrimaryAttribute() throws RemoteException
+    public String getPrimaryAttribute()
     {
       return "dateiname";
     }
@@ -197,14 +201,14 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     public Object getAttribute(String key)
     {
       return properties.get(key);
-    };
+    }
 
     @Override
     public Object setAttribute(String key, Object o)
     {
       properties.put(key, o);
       return true;
-    };
+    }
 
     public void setDateiname(String dateiname)
     {

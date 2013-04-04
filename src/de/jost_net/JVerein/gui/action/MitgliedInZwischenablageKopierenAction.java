@@ -30,7 +30,6 @@ import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.jost_net.JVerein.util.Spalte;
@@ -40,6 +39,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedInZwischenablageKopierenAction implements Action
 {
+
   /**
    * Kopiere als String in die Zwischenablage.
    */
@@ -47,7 +47,7 @@ public class MitgliedInZwischenablageKopierenAction implements Action
   {
     Clipboard cb = new Clipboard(GUI.getDisplay());
     TextTransfer textTransfer = TextTransfer.getInstance();
-    cb.setContents(new Object[] { aString }, new Transfer[] { textTransfer });
+    cb.setContents(new Object[] { aString}, new Transfer[] { textTransfer});
   }
 
   /**
@@ -108,8 +108,7 @@ public class MitgliedInZwischenablageKopierenAction implements Action
           {
             if (aktiveSpalten.get(i).isChecked())
             {
-              clip.append(mitglied.getAttribute(aktiveSpalten.get(i)
-                  .getSpaltenname()));
+              clip.append(mitglied.getAttribute(aktiveSpalten.get(i).getSpaltenname()));
               clip.append("\t");
             }
           }
@@ -119,8 +118,8 @@ public class MitgliedInZwischenablageKopierenAction implements Action
         catch (RemoteException ex)
         {
           ex.printStackTrace();
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Kopieren in Zwischenablage fehlgeschlagen."));
+          throw new ApplicationException(
+              "Kopieren in Zwischenablage fehlgeschlagen.");
         }
       }
       // kopiere clip in die Zwischenablage
@@ -128,8 +127,7 @@ public class MitgliedInZwischenablageKopierenAction implements Action
     }
     else
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Mitglied ausgewählt"));
+      throw new ApplicationException("Kein Mitglied ausgewählt");
     }
   }
 }

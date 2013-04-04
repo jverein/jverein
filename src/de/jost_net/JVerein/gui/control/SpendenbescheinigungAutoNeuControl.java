@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Formular;
@@ -77,9 +76,10 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     }
     Calendar cal = Calendar.getInstance();
     jahr = new SelectInput(new Object[] { cal.get(Calendar.YEAR),
-        cal.get(Calendar.YEAR) - 1 }, cal.get(Calendar.YEAR));
+        cal.get(Calendar.YEAR) - 1}, cal.get(Calendar.YEAR));
     jahr.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -90,7 +90,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
         }
       }
 
@@ -105,7 +105,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
       return formularEinzel;
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
-    it.addFilter("art = ?", new Object[] { Formularart.SPENDENBESCHEINIGUNG });
+    it.addFilter("art = ?", new Object[] { Formularart.SPENDENBESCHEINIGUNG});
     formularEinzel = new SelectInput(it, null);
     return formularEinzel;
   }
@@ -118,7 +118,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
     it.addFilter("art = ?",
-        new Object[] { Formularart.SAMMELSPENDENBESCHEINIGUNG });
+        new Object[] { Formularart.SAMMELSPENDENBESCHEINIGUNG});
     formularSammel = new SelectInput(it, null);
     return formularSammel;
   }
@@ -133,24 +133,23 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   public Button getSpendenbescheinigungErstellenButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("erstellen"), new Action()
+    Button b = new Button("erstellen", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
         {
           List items = spbTree.getItems();
-          SpendenbescheinigungNode spn = (SpendenbescheinigungNode) items
-              .get(0);
+          SpendenbescheinigungNode spn = (SpendenbescheinigungNode) items.get(0);
           // Loop über die Mitglieder
           GenericIterator it1 = spn.getChildren();
           while (it1.hasNext())
           {
-            SpendenbescheinigungNode sp1 = (SpendenbescheinigungNode) it1
-                .next();
-            Spendenbescheinigung spbescheinigung = (Spendenbescheinigung) Einstellungen
-                .getDBService().createObject(Spendenbescheinigung.class, null);
+            SpendenbescheinigungNode sp1 = (SpendenbescheinigungNode) it1.next();
+            Spendenbescheinigung spbescheinigung = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
+                Spendenbescheinigung.class, null);
             spbescheinigung.setSpendenart(Spendenart.GELDSPENDE);
             spbescheinigung.setMitglied(sp1.getMitglied());
             spbescheinigung.setZeile1(sp1.getMitglied().getAnrede());
@@ -167,16 +166,13 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             GenericIterator it2 = sp1.getChildren();
             while (it2.hasNext())
             {
-              SpendenbescheinigungNode sp2 = (SpendenbescheinigungNode) it2
-                  .next();
+              SpendenbescheinigungNode sp2 = (SpendenbescheinigungNode) it2.next();
               spbescheinigung.addBuchung(sp2.getBuchung());
             }
             // Nun noch das korrekte Formular setzen
             if (spbescheinigung.getBuchungen().size() > 1)
             {
-              spbescheinigung
-                  .setFormular((Formular) getFormularSammelbestaetigung()
-                      .getValue());
+              spbescheinigung.setFormular((Formular) getFormularSammelbestaetigung().getValue());
             }
             else
             {
@@ -184,15 +180,14 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             }
             spbescheinigung.store();
           }
-          GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr("Spendenbescheinigung(en) erstellt"));
+          GUI.getStatusBar().setSuccessText("Spendenbescheinigung(en) erstellt");
           spbTree.removeAll();
         }
         catch (RemoteException e)
         {
           Logger.error(e.getMessage());
-          throw new ApplicationException(JVereinPlugin.getI18n().tr(
-              "Fehler bei der Aufbereitung der Spendenbescheinigung"));
+          throw new ApplicationException(
+              "Fehler bei der Aufbereitung der Spendenbescheinigung");
         }
       }
     }, null, false, "document-save.png");
@@ -201,8 +196,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   public Part getSpendenbescheinigungTree() throws RemoteException
   {
-    spbTree = new TreePart(new SpendenbescheinigungNode((Integer) getJahr()
-        .getValue()), null);
+    spbTree = new TreePart(new SpendenbescheinigungNode(
+        (Integer) getJahr().getValue()), null);
     return spbTree;
   }
 

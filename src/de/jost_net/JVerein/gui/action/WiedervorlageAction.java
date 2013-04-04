@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.WiedervorlageView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
@@ -34,6 +33,7 @@ import de.willuhn.util.ApplicationException;
 
 public class WiedervorlageAction implements Action
 {
+
   private Mitglied m;
 
   public WiedervorlageAction(Mitglied m)
@@ -62,17 +62,15 @@ public class WiedervorlageAction implements Action
           if (m.getID() == null)
           {
             throw new ApplicationException(
-                JVereinPlugin
-                    .getI18n()
-                    .tr("Neues Mitglied bitte erst speichern. Dann können Wiedervorlagen aufgenommen werden."));
+                "Neues Mitglied bitte erst speichern. Dann können Wiedervorlagen aufgenommen werden.");
           }
           w.setMitglied(new Integer(m.getID()).intValue());
         }
       }
       catch (RemoteException e)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Fehler bei der Erzeugung einer neuen Wiedervorlage"), e);
+        throw new ApplicationException(
+            "Fehler bei der Erzeugung einer neuen Wiedervorlage", e);
       }
     }
     GUI.startView(WiedervorlageView.class.getName(), w);

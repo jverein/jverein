@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.dialogs;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.parts.BuchungPart;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -36,6 +35,7 @@ import de.willuhn.jameica.gui.dialogs.AbstractDialog;
  */
 public class SplitBuchungDialog extends AbstractDialog<Buchung>
 {
+
   private BuchungsControl control;
 
   private AbstractView view;
@@ -43,7 +43,7 @@ public class SplitBuchungDialog extends AbstractDialog<Buchung>
   public SplitBuchungDialog(BuchungsControl control, AbstractView view)
   {
     super(AbstractDialog.POSITION_CENTER);
-    setTitle(JVereinPlugin.getI18n().tr("Zuordnung Buchungsart"));
+    setTitle("Zuordnung Buchungsart");
     setSize(450, 650);
     this.control = control;
     this.view = view;

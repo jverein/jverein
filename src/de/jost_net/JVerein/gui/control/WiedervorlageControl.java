@@ -27,7 +27,6 @@ import java.util.Date;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -41,6 +40,7 @@ import de.willuhn.util.ApplicationException;
 
 public class WiedervorlageControl extends AbstractControl
 {
+
   private DateInput datum = null;
 
   private Input vermerk = null;
@@ -74,11 +74,11 @@ public class WiedervorlageControl extends AbstractControl
     Date d = getWiedervorlage().getDatum();
 
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle(JVereinPlugin.getI18n().tr("Datum"));
-    this.datum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Wiedervorlagedatum wählen"));
+    this.datum.setTitle("Datum");
+    this.datum.setText("Bitte Wiedervorlagedatum wählen");
     this.datum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -117,11 +117,11 @@ public class WiedervorlageControl extends AbstractControl
     Date d = getWiedervorlage().getErledigung();
 
     this.erledigung = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.erledigung.setTitle(JVereinPlugin.getI18n().tr("Erledigung"));
-    this.erledigung.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Erledigungsdatum wählen"));
+    this.erledigung.setTitle("Erledigung");
+    this.erledigung.setText("Bitte Erledigungsdatum wählen");
     this.erledigung.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -144,8 +144,7 @@ public class WiedervorlageControl extends AbstractControl
       w.setVermerk((String) getVermerk().getValue());
       w.setErledigung((Date) getErledigung().getValue());
       w.store();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Wiedervorlage gespeichert"));
+      GUI.getStatusBar().setSuccessText("Wiedervorlage gespeichert");
     }
     catch (ApplicationException e)
     {
@@ -153,8 +152,7 @@ public class WiedervorlageControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern der Wiedervorlage");
+      String fehler = "Fehler bei speichern der Wiedervorlage";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }

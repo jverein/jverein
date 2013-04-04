@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.view;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.willuhn.jameica.gui.Action;
@@ -42,6 +41,7 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractAdresseSucheView
 {
+
   public MitgliederSucheView() throws RemoteException
   {
     control.getSuchAdresstyp(1).getValue();
@@ -50,37 +50,33 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
   @Override
   public String getTitle()
   {
-    return JVereinPlugin.getI18n().tr("Mitglieder suchen");
+    return "Mitglieder suchen";
   }
 
   @Override
   public void getFilter() throws RemoteException
   {
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Filter"));
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
     ColumnLayout cl = new ColumnLayout(group.getComposite(), 3);
 
     SimpleContainer left = new SimpleContainer(cl.getComposite());
     Input mitglstat = control.getMitgliedStatus();
     mitglstat.addListener(new FilterListener());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Mitgliedschaft"), mitglstat);
-    IntegerInput suchexternemitgliedsnummer = control
-        .getSuchExterneMitgliedsnummer();
+    left.addLabelPair("Mitgliedschaft", mitglstat);
+    IntegerInput suchexternemitgliedsnummer = control.getSuchExterneMitgliedsnummer();
     suchexternemitgliedsnummer.addListener(new FilterListener());
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
-      left.addLabelPair(JVereinPlugin.getI18n().tr("Externe Mitgliedsnummer"),
+      left.addLabelPair("Externe Mitgliedsnummer",
           control.getSuchExterneMitgliedsnummer());
     }
     DialogInput mitgleigenschaften = control.getEigenschaftenAuswahl();
     mitgleigenschaften.addListener(new FilterListener());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Eigenschaften"),
-        mitgleigenschaften);
+    left.addLabelPair("Eigenschaften", mitgleigenschaften);
 
     SelectInput mitglbeitragsgruppe = control.getBeitragsgruppeAusw();
     mitglbeitragsgruppe.addListener(new FilterListener());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Beitragsgruppe"),
-        mitglbeitragsgruppe);
+    left.addLabelPair("Beitragsgruppe", mitglbeitragsgruppe);
 
     SimpleContainer middle = new SimpleContainer(cl.getComposite());
     TextInput suchName = control.getSuchname();
@@ -89,42 +85,34 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
 
     DateInput mitglgebdatvon = control.getGeburtsdatumvon();
     mitglgebdatvon.addListener(new FilterListener());
-    middle.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum von"),
-        mitglgebdatvon);
+    middle.addLabelPair("Geburtsdatum von", mitglgebdatvon);
     DateInput mitglgebdatbis = control.getGeburtsdatumbis();
     mitglgebdatbis.addListener(new FilterListener());
-    middle.addLabelPair(JVereinPlugin.getI18n().tr("Geburtsdatum bis"),
-        mitglgebdatbis);
+    middle.addLabelPair("Geburtsdatum bis", mitglgebdatbis);
     SelectInput mitglgeschlecht = control.getGeschlecht();
     mitglgeschlecht.setMandatory(false);
     mitglgeschlecht.addListener(new FilterListener());
-    middle.addLabelPair(JVereinPlugin.getI18n().tr("Geschlecht"),
-        mitglgeschlecht);
+    middle.addLabelPair("Geschlecht", mitglgeschlecht);
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
     DateInput mitgleintrittvon = control.getEintrittvon();
     mitgleintrittvon.addListener(new FilterListener());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum von"),
-        mitgleintrittvon);
+    right.addLabelPair("Eintrittsdatum von", mitgleintrittvon);
     DateInput mitgleintrittbis = control.getEintrittbis();
     mitgleintrittbis.addListener(new FilterListener());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Eintrittsdatum bis"),
-        mitgleintrittbis);
+    right.addLabelPair("Eintrittsdatum bis", mitgleintrittbis);
     DateInput mitglaustrittvon = control.getAustrittvon();
     mitglaustrittvon.addListener(new FilterListener());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Austrittsdatum von"),
-        mitglaustrittvon);
+    right.addLabelPair("Austrittsdatum von", mitglaustrittvon);
     DateInput mitglaustrittbis = control.getAustrittbis();
     mitglaustrittbis.addListener(new FilterListener());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Austrittsdatum bis"),
-        mitglaustrittbis);
+    right.addLabelPair("Austrittsdatum bis", mitglaustrittbis);
 
     DialogInput mitglzusatzfelder = control.getZusatzfelderAuswahl();
     mitglzusatzfelder.addListener(new FilterListener());
     if (Einstellungen.getEinstellung().hasZusatzfelder())
     {
-      left.addLabelPair(JVereinPlugin.getI18n().tr("Zusatzfelder"),
-          mitglzusatzfelder);
+      left.addLabelPair("Zusatzfelder", mitglzusatzfelder);
     }
     right.addPart(new Button("Filter-Reset", new Action()
     {
@@ -134,8 +122,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
       {
         try
         {
-          control.getMitgliedStatus().setValue(
-              JVereinPlugin.getI18n().tr("An- und Abgemeldete"));
+          control.getMitgliedStatus().setValue("An- und Abgemeldete");
           control.getSuchExterneMitgliedsnummer().setValue("");
           control.resetEigenschaftenAuswahl();
           control.getBeitragsgruppeAusw().setValue(null);
@@ -168,9 +155,8 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
   @Override
   public Button getHilfeButton()
   {
-    return new Button(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MITGLIED, false,
-        "help-browser.png");
+    return new Button("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MITGLIED, false, "help-browser.png");
   }
 
 }

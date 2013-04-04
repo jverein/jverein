@@ -31,7 +31,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 
@@ -45,7 +44,7 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Statistik Jahrgänge PDF-Export");
+    return "Statistik Jahrgänge PDF-Export";
   }
 
   @Override
@@ -70,33 +69,32 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.pdf" };
+        return new String[] { "*.pdf"};
       }
     };
-    return new IOFormat[] { f };
+    return new IOFormat[] { f};
   }
 
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("statistikjahrgaenge");
+    return "statistikjahrgaenge";
   }
 
   @Override
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
-        "Statistik Jahrgänge, Stichtag: {0}",
-        new JVDateFormatTTMMJJJJ().format(stichtag) + ""), "", 3);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Jahrgang"),
-        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Gesamt"),
-        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("männlich"),
-        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("weiblich"),
-        Element.ALIGN_CENTER, 50, BaseColor.LIGHT_GRAY);
+    reporter = new Reporter(fos, "Statistik Jahrgänge, Stichtag: "
+        + new JVDateFormatTTMMJJJJ().format(stichtag) + "", "", 3);
+    reporter.addHeaderColumn("Jahrgang", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Gesamt", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
     reporter.createHeader(50, Element.ALIGN_LEFT);
     int summegesamt = 0;
     int summemaennlich = 0;

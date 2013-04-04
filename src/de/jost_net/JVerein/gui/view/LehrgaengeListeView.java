@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.LehrgangControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -35,33 +34,26 @@ public class LehrgaengeListeView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Lehrgänge"));
+    GUI.getView().setTitle("Lehrgänge");
 
     LehrgangControl control = new LehrgangControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), JVereinPlugin.getI18n().tr(
-        "Filter"));
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Lehrgangsart"),
-        control.getSuchLehrgangsart());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum von"),
-        control.getDatumvon());
-    group.addLabelPair(JVereinPlugin.getI18n().tr("Datum bis"),
-        control.getDatumbis());
+    LabelGroup group = new LabelGroup(getParent(), "Filter");
+    group.addLabelPair("Lehrgangsart", control.getSuchLehrgangsart());
+    group.addLabelPair("Datum von", control.getDatumvon());
+    group.addLabelPair("Datum bis", control.getDatumbis());
 
     control.getLehrgaengeList().paint(this.getParent());
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.LEHRGANG, false,
-        "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.LEHRGANG, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Liste der Lehrgänge</span></p>"
-            + "<p>Mit einem Rechtsklick kann ein Eintrag gelöscht werden.</p></form>");
+    return "<form><p><span color=\"header\" font=\"header\">Liste der Lehrgänge</span></p>"
+        + "<p>Mit einem Rechtsklick kann ein Eintrag gelöscht werden.</p></form>";
   }
 }

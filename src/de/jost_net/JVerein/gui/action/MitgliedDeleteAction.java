@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -36,13 +35,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class MitgliedDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
     if (context == null || !(context instanceof Mitglied))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Kein Mitglied ausgewählt"));
+      throw new ApplicationException("Kein Mitglied ausgewählt");
     }
     try
     {
@@ -52,9 +51,8 @@ public class MitgliedDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Mitglied löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie dieses Mitglied wirklich löschen?"));
+      d.setTitle("Mitglied löschen");
+      d.setText("Wollen Sie dieses Mitglied wirklich löschen?");
 
       try
       {
@@ -64,20 +62,15 @@ public class MitgliedDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger
-            .error(
-                JVereinPlugin.getI18n()
-                    .tr("Fehler beim Löschen des Mitgliedes"), e);
+        Logger.error("Fehler beim Löschen des Mitgliedes", e);
         return;
       }
       m.delete();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Mitglied gelöscht."));
+      GUI.getStatusBar().setSuccessText("Mitglied gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler beim Löschen des Mitgliedes");
+      String fehler = "Fehler beim Löschen des Mitgliedes";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

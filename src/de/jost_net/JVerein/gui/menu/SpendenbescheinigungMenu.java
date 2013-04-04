@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungDeleteAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungDuplizierenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungPrintAction;
@@ -42,19 +41,15 @@ public class SpendenbescheinigungMenu extends ContextMenu
    */
   public SpendenbescheinigungMenu()
   {
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Drucken (Standard)"), new SpendenbescheinigungPrintAction(true),
-        "acroread.png"));
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr(
-        "Drucken (individuell)"), new SpendenbescheinigungPrintAction(false),
-        "acroread.png"));
+    addItem(new CheckedContextMenuItem("Drucken (Standard)",
+        new SpendenbescheinigungPrintAction(true), "acroread.png"));
+    addItem(new CheckedContextMenuItem("Drucken (individuell)",
+        new SpendenbescheinigungPrintAction(false), "acroread.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new DuplicateMenuItem(JVereinPlugin.getI18n().tr(
-        "als Vorlage für neue Spende"),
+    addItem(new DuplicateMenuItem("als Vorlage für neue Spende",
         new SpendenbescheinigungDuplizierenAction(), "edit-copy.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem(
-        JVereinPlugin.getI18n().tr("löschen..."),
+    addItem(new CheckedContextMenuItem("löschen...",
         new SpendenbescheinigungDeleteAction(), "user-trash.png"));
   }
 
@@ -65,7 +60,7 @@ public class SpendenbescheinigungMenu extends ContextMenu
      * @param text
      * @param action
      * @param icon
-     *          Optionale Angabe eines Icons.
+     *        Optionale Angabe eines Icons.
      */
     private DuplicateMenuItem(String text, Action action, String icon)
     {

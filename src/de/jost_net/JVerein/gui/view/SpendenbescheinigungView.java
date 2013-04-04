@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.control.SpendenbescheinigungControl;
@@ -40,7 +39,7 @@ public class SpendenbescheinigungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Spendenbescheinigung"));
+    GUI.getView().setTitle("Spendenbescheinigung");
 
     final SpendenbescheinigungControl control = new SpendenbescheinigungControl(
         this);
@@ -50,53 +49,39 @@ public class SpendenbescheinigungView extends AbstractView
     ColumnLayout cols1 = new ColumnLayout(scrolled.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
-    left.addHeadline(JVereinPlugin.getI18n().tr("Spendenart"));
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Spendenart"),
-        control.getSpendenart());
+    left.addHeadline("Spendenart");
+    left.addLabelPair("Spendenart", control.getSpendenart());
 
-    left.addHeadline(JVereinPlugin.getI18n().tr("Spender"));
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 1"),
-        control.getZeile1(true));
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 2"),
-        control.getZeile2());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 3"),
-        control.getZeile3());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 4"),
-        control.getZeile4());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 5"),
-        control.getZeile5());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 6"),
-        control.getZeile6());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Zeile 7"),
-        control.getZeile7());
+    left.addHeadline("Spender");
+    left.addLabelPair("Zeile 1", control.getZeile1(true));
+    left.addLabelPair("Zeile 2", control.getZeile2());
+    left.addLabelPair("Zeile 3", control.getZeile3());
+    left.addLabelPair("Zeile 4", control.getZeile4());
+    left.addLabelPair("Zeile 5", control.getZeile5());
+    left.addLabelPair("Zeile 6", control.getZeile6());
+    left.addLabelPair("Zeile 7", control.getZeile7());
 
-    left.addHeadline(JVereinPlugin.getI18n().tr("Datum"));
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Spende"),
-        control.getSpendedatum());
-    left.addLabelPair(JVereinPlugin.getI18n().tr("Bescheinigung"),
-        control.getBescheinigungsdatum());
+    left.addHeadline("Datum");
+    left.addLabelPair("Spende", control.getSpendedatum());
+    left.addLabelPair("Bescheinigung", control.getBescheinigungsdatum());
 
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
 
-    right.addHeadline(JVereinPlugin.getI18n().tr("Betrag"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Betrag"),
-        control.getBetrag());
+    right.addHeadline("Betrag");
+    right.addLabelPair("Betrag", control.getBetrag());
 
-    right.addHeadline(JVereinPlugin.getI18n().tr("Ersatz für Aufwendungen"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Ersatz für Aufwendungen"),
+    right.addHeadline("Ersatz für Aufwendungen");
+    right.addLabelPair("Ersatz für Aufwendungen",
         control.getErsatzAufwendungen());
 
-    right.addHeadline(JVereinPlugin.getI18n().tr("Formular"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Formular"),
-        control.getFormular());
+    right.addHeadline("Formular");
+    right.addLabelPair("Formular", control.getFormular());
 
-    right.addHeadline(JVereinPlugin.getI18n().tr(
-        "Zusatzinformationen Sachspenden"));
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Bezeichnung Sachzuwendung"),
+    right.addHeadline("Zusatzinformationen Sachspenden");
+    right.addLabelPair("Bezeichnung Sachzuwendung",
         control.getBezeichnungSachzuwendung());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Herkunft"),
-        control.getHerkunftSpende());
-    right.addLabelPair(JVereinPlugin.getI18n().tr("Unterlagen Wertermittlung"),
+    right.addLabelPair("Herkunft", control.getHerkunftSpende());
+    right.addLabelPair("Unterlagen Wertermittlung",
         control.getUnterlagenWertermittlung());
 
     /*
@@ -114,19 +99,19 @@ public class SpendenbescheinigungView extends AbstractView
       control.getBetrag().setEnabled(true);
     }
     LabelGroup grBuchungen = new LabelGroup(scrolled.getComposite(),
-        JVereinPlugin.getI18n().tr("Buchungen"));
+        "Buchungen");
     grBuchungen.addPart(control.getBuchungsList());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.SPENDENBESCHEINIGUNG,
-        false, "help-browser.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.SPENDENBESCHEINIGUNG, false, "help-browser.png");
     buttons.addButton(control.getPDFStandardButton());
     buttons.addButton(control.getPDFIndividuellButton());
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new SpendenbescheinigungAction(), null, false, "document-new.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("speichern"), new Action()
+    buttons.addButton("neu", new SpendenbescheinigungAction(), null, false,
+        "document-new.png");
+    buttons.addButton("speichern", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -139,9 +124,7 @@ public class SpendenbescheinigungView extends AbstractView
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Spendenbescheinigung</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigung</span></p>"
+        + "</form>";
   }
 }

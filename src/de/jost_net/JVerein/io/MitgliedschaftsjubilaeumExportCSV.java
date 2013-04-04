@@ -22,13 +22,9 @@
 
 package de.jost_net.JVerein.io;
 
-import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import com.itextpdf.text.DocumentException;
-
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -36,6 +32,7 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedschaftsjubilaeumExportCSV extends
     MitgliedschaftsjubilaeumsExport
 {
+
   private ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
 
   private int jahrgang;
@@ -43,7 +40,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("Mitgliedschaftsjubilare CSV-Export");
+    return "Mitgliedschaftsjubilare CSV-Export";
   }
 
   @Override
@@ -55,6 +52,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends
     }
     IOFormat f = new IOFormat()
     {
+
       @Override
       public String getName()
       {
@@ -67,20 +65,20 @@ public class MitgliedschaftsjubilaeumExportCSV extends
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv" };
+        return new String[] { "*.csv"};
       }
     };
-    return new IOFormat[] { f };
+    return new IOFormat[] { f};
   }
 
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("mitgliedschaftsjubilare");
+    return "mitgliedschaftsjubilare";
   }
 
   @Override
-  protected void open() throws DocumentException, FileNotFoundException
+  protected void open()
   {
     //
   }
@@ -114,7 +112,7 @@ public class MitgliedschaftsjubilaeumExportCSV extends
     }
     catch (ApplicationException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
   }
 }

@@ -426,7 +426,7 @@ public class AbrechnungSEPA
   }
 
   private void abbuchenKursteilnehmer(Basislastschrift lastschrift)
-      throws ApplicationException, DtausException, IOException
+      throws ApplicationException, IOException
   {
     DBIterator list = Einstellungen.getDBService().createList(
         Kursteilnehmer.class);

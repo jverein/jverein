@@ -23,8 +23,6 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 public class Util
 {
 
@@ -41,10 +39,8 @@ public class Util
     if (o instanceof String)
     {
       String v = (String) o;
-      return (v.equalsIgnoreCase("true") || v.equalsIgnoreCase("j") || v
-          .equalsIgnoreCase("1"));
+      return (v.equalsIgnoreCase("true") || v.equalsIgnoreCase("j") || v.equalsIgnoreCase("1"));
     }
-    throw new RemoteException(JVereinPlugin.getI18n().tr(
-        "Weder null, noch String oder Boolean"));
+    throw new RemoteException("Weder null, noch String oder Boolean");
   }
 }

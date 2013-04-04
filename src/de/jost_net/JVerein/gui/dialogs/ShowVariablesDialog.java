@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,6 @@ import java.util.Map.Entry;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.menu.ShowVariablesMenu;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.jameica.gui.Action;
@@ -46,6 +44,7 @@ import de.willuhn.logging.Logger;
  */
 public class ShowVariablesDialog extends AbstractDialog<Object>
 {
+
   private Map<String, Object> vars;
 
   private ContextMenu contextMenu;
@@ -60,7 +59,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
   public ShowVariablesDialog(Map<String, Object> vars, boolean open)
   {
     super(AbstractDialog.POSITION_CENTER);
-    setTitle(JVereinPlugin.getI18n().tr("Liste der Variablen"));
+    setTitle("Liste der Variablen");
     setSize(400, 400);
     this.vars = vars;
     // default context menu
@@ -73,7 +72,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       }
       catch (Exception e)
       {
-        Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+        Logger.error("Fehler", e);
       }
     }
   }
@@ -89,23 +88,22 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
       list.add(new Var(entry));
     }
     TablePart tab = new TablePart(list, doubleClickAction);
-    tab.addColumn(JVereinPlugin.getI18n().tr("Name"), "name");
-    tab.addColumn(JVereinPlugin.getI18n().tr("Wert"), "wert");
+    tab.addColumn("Name", "name");
+    tab.addColumn("Wert", "wert");
     tab.setRememberOrder(true);
     tab.setContextMenu(contextMenu);
     tab.paint(parent);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(
-        JVereinPlugin.getI18n().tr(JVereinPlugin.getI18n().tr("OK")),
-        new Action()
-        {
-          @Override
-          public void handleAction(Object context)
-          {
-            close();
-          }
-        });
+    buttons.addButton("OK", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        close();
+      }
+    });
     buttons.paint(parent);
   }
 
@@ -141,6 +139,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
 
   public class Var implements GenericObject
   {
+
     private String name;
 
     private Object wert;
@@ -152,25 +151,25 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
     }
 
     @Override
-    public String[] getAttributeNames() throws RemoteException
+    public String[] getAttributeNames()
     {
-      return new String[] { "name", "wert" };
+      return new String[] { "name", "wert"};
     }
 
     @Override
-    public String getID() throws RemoteException
+    public String getID()
     {
       return "name";
     }
 
     @Override
-    public boolean equals(GenericObject arg0) throws RemoteException
+    public boolean equals(GenericObject arg0)
     {
       return false;
     }
 
     @Override
-    public Object getAttribute(String arg0) throws RemoteException
+    public Object getAttribute(String arg0)
     {
       if (arg0.equals("name"))
       {
@@ -184,7 +183,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
     }
 
     @Override
-    public String getPrimaryAttribute() throws RemoteException
+    public String getPrimaryAttribute()
     {
       return "name";
     }

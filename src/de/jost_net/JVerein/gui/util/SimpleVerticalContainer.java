@@ -22,12 +22,12 @@ public class SimpleVerticalContainer extends Container
   private static class GUIElementBuffer
   {
 
-    private enum GUIElementTypes
-    {
+    private enum GUIElementTypes {
       BUTTONAREA, CHECKBOX, HEADLINE, INPUT, LABELPAIRINPUT, LABELPAIRSTRING, PART, RADIOINPUT, SEPARATOR, TEXT, TEXTCOLOR
-    };
+    }
 
     public GUIElementTypes guiElementType;
+
     public List<Object> arguments;
 
     public GUIElementBuffer(GUIElementTypes type)
@@ -46,9 +46,9 @@ public class SimpleVerticalContainer extends Container
   private boolean fullSize;
 
   private boolean headlineFullWidth;
-  
+
   private boolean arrangingStarted = false;
-  
+
   /**
    * Erzeugt einen neuen Container mit cols Spalten. GUI-Elemente werden über
    * dieselben Funktionen hingefügt wie bei einem normalen Container. Jedoch
@@ -57,19 +57,19 @@ public class SimpleVerticalContainer extends Container
    * arrangeVertically() die Elemente gezeichnet.
    * 
    * @param parent
-   *          Das Composite, in dem die Group gemalt werden soll.
+   *        Das Composite, in dem die Group gemalt werden soll.
    * @param fullSize
-   *          true, wenn es voelle Hoehe haben soll. Sollte normalerweise false sein,
-   *          da ansonsten kein Platz gespart werden kann, was jedoch die Idee
-   *          vom SimpleVerticalContainer ist.
+   *        true, wenn es voelle Hoehe haben soll. Sollte normalerweise false
+   *        sein, da ansonsten kein Platz gespart werden kann, was jedoch die
+   *        Idee vom SimpleVerticalContainer ist.
    * @param cols
-   *          Anzahl der Spalten.
-  */
+   *        Anzahl der Spalten.
+   */
   public SimpleVerticalContainer(Composite parent, boolean fullSize, int cols)
   {
     this(parent, fullSize, cols, true);
   }
-  
+
   /**
    * Erzeugt einen neuen Container mit cols Spalten. GUI-Elemente werden über
    * dieselben Funktionen hingefügt wie bei einem normalen Container. Jedoch
@@ -78,16 +78,16 @@ public class SimpleVerticalContainer extends Container
    * arrangeVertically() die Elemente gezeichnet.
    * 
    * @param parent
-   *          Das Composite, in dem die Group gemalt werden soll.
+   *        Das Composite, in dem die Group gemalt werden soll.
    * @param fullSize
-   *          true, wenn es voelle Hoehe haben soll. Sollte normalerweise false sein,
-   *          da ansonsten kein Platz gespart werden kann, was jedoch die Idee
-   *          vom SimpleVerticalContainer ist.
+   *        true, wenn es voelle Hoehe haben soll. Sollte normalerweise false
+   *        sein, da ansonsten kein Platz gespart werden kann, was jedoch die
+   *        Idee vom SimpleVerticalContainer ist.
    * @param cols
-   *          Anzahl der Spalten.
+   *        Anzahl der Spalten.
    * @param headlineFullWidth
-   *          true, wenn die Headline über alle Spalten gezeichnet werden soll.
-   *          Wenn false, wird die Headline innerhalb der Spalten gezeichnet.
+   *        true, wenn die Headline über alle Spalten gezeichnet werden soll.
+   *        Wenn false, wird die Headline innerhalb der Spalten gezeichnet.
    */
   public SimpleVerticalContainer(Composite parent, boolean fullSize, int cols,
       boolean headlineFullWidth)
@@ -110,19 +110,18 @@ public class SimpleVerticalContainer extends Container
   }
 
   /**
-   * Ordnet die Elemente, die mit den add...()-Funktionen angelegt wurden,
-   * in Spalten an und zeichnet diese auf dem im Konstruktur angegebenen
-   * Composite. arrangeVertically() sollte nur einmal aufgerufen werden.
-   * <br>
-   * Nach Aufruf von arrangeVertically() sollte keine add...()-Funktionen
-   * mehr verwendet werden.
+   * Ordnet die Elemente, die mit den add...()-Funktionen angelegt wurden, in
+   * Spalten an und zeichnet diese auf dem im Konstruktur angegebenen Composite.
+   * arrangeVertically() sollte nur einmal aufgerufen werden. <br>
+   * Nach Aufruf von arrangeVertically() sollte keine add...()-Funktionen mehr
+   * verwendet werden.
    */
   public void arrangeVertically()
   {
     arrangingStarted = true;
     Composite parentComposite = this.comp;
-    ColumnLayout layout = new ColumnLayout(this.comp,
-        this.columns, this.fullSize);
+    ColumnLayout layout = new ColumnLayout(this.comp, this.columns,
+        this.fullSize);
     // create container for each column
     SimpleContainer cols[] = new SimpleContainer[this.columns];
     for (int i = 0; i < this.columns; i++)
@@ -145,60 +144,60 @@ public class SimpleVerticalContainer extends Container
         currentRow = 0;
         currentCol++;
         comp = cols[currentCol].getComposite();
-      };
+      }
 
       switch (guiElement.guiElementType)
       {
-      case BUTTONAREA:
-        super.addButtonArea((ButtonArea) guiElement.arguments.get(0));
-        break;
-      case CHECKBOX:
-        super.addCheckbox((CheckboxInput) guiElement.arguments.get(0),
-            (String) guiElement.arguments.get(1));
-        break;
-      case HEADLINE:
-        if (headlineFullWidth)
-        {
-          // headline is handle directly by addHeadline()
-        }
-        else
-        {
-          super.addHeadline((String) guiElement.arguments.get(0));
-        }
-        break;
-      case INPUT:
-        super.addInput((Input) guiElement.arguments.get(0));
-        break;
-      case LABELPAIRINPUT:
-        super.addLabelPair((Input) guiElement.arguments.get(0),
-            (Input) guiElement.arguments.get(1));
-        break;
-      case LABELPAIRSTRING:
-        super.addLabelPair((String) guiElement.arguments.get(0),
-            (Input) guiElement.arguments.get(1));
-        break;
-      case PART:
-        super.addPart((Part) guiElement.arguments.get(0));
-        break;
-      case RADIOINPUT:
-        super.addRadioInput((RadioInput) guiElement.arguments.get(0),
-            (String) guiElement.arguments.get(1));
-        break;
-      case SEPARATOR:
-        super.addSeparator();
-        break;
-      case TEXT:
-        super.addText((String) guiElement.arguments.get(0),
-            (Boolean) guiElement.arguments.get(1));
-        break;
-      case TEXTCOLOR:
-        super.addText((String) guiElement.arguments.get(0),
-            (Boolean) guiElement.arguments.get(1),
-            (Color) guiElement.arguments.get(2));
-        break;
+        case BUTTONAREA:
+          super.addButtonArea((ButtonArea) guiElement.arguments.get(0));
+          break;
+        case CHECKBOX:
+          super.addCheckbox((CheckboxInput) guiElement.arguments.get(0),
+              (String) guiElement.arguments.get(1));
+          break;
+        case HEADLINE:
+          if (headlineFullWidth)
+          {
+            // headline is handle directly by addHeadline()
+          }
+          else
+          {
+            super.addHeadline((String) guiElement.arguments.get(0));
+          }
+          break;
+        case INPUT:
+          super.addInput((Input) guiElement.arguments.get(0));
+          break;
+        case LABELPAIRINPUT:
+          super.addLabelPair((Input) guiElement.arguments.get(0),
+              (Input) guiElement.arguments.get(1));
+          break;
+        case LABELPAIRSTRING:
+          super.addLabelPair((String) guiElement.arguments.get(0),
+              (Input) guiElement.arguments.get(1));
+          break;
+        case PART:
+          super.addPart((Part) guiElement.arguments.get(0));
+          break;
+        case RADIOINPUT:
+          super.addRadioInput((RadioInput) guiElement.arguments.get(0),
+              (String) guiElement.arguments.get(1));
+          break;
+        case SEPARATOR:
+          super.addSeparator();
+          break;
+        case TEXT:
+          super.addText((String) guiElement.arguments.get(0),
+              (Boolean) guiElement.arguments.get(1));
+          break;
+        case TEXTCOLOR:
+          super.addText((String) guiElement.arguments.get(0),
+              (Boolean) guiElement.arguments.get(1),
+              (Color) guiElement.arguments.get(2));
+          break;
 
-      default:
-        break;
+        default:
+          break;
       }
 
       currentRow++;
@@ -209,9 +208,9 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addCheckbox(CheckboxInput checkbox, String text)
   {
-    if(arrangingStarted)
+    if (arrangingStarted)
       super.addCheckbox(checkbox, text);
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.CHECKBOX);
     guiElement.arguments.add(checkbox);
@@ -222,11 +221,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addButtonArea(ButtonArea buttonArea)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addButtonArea(buttonArea);
-    return;
-  }
-    
+      return;
+    }
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.BUTTONAREA);
     guiElement.arguments.add(buttonArea);
@@ -236,9 +236,9 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addHeadline(String text)
   {
-    if(arrangingStarted)
+    if (arrangingStarted)
       super.addHeadline(text);
-    
+
     if (headlineFullWidth)
     {
       // head lines are not part of the column layout (they are shown above
@@ -257,12 +257,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addInput(Input input)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addInput(input);
       return;
     }
-    
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.INPUT);
     guiElement.arguments.add(input);
@@ -272,11 +272,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addLabelPair(Input left, Input right)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addLabelPair(left, right);
       return;
     }
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.LABELPAIRINPUT);
     guiElement.arguments.add(left);
@@ -287,12 +288,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addLabelPair(String name, Input input)
   {
-    if(arrangingStarted)
+    if (arrangingStarted)
     {
       super.addLabelPair(name, input);
       return;
     }
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.LABELPAIRSTRING);
     guiElement.arguments.add(name);
@@ -303,11 +304,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addPart(Part part)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addPart(part);
       return;
     }
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.PART);
     guiElement.arguments.add(part);
@@ -317,11 +319,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addRadioInput(RadioInput radio, String text)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addRadioInput(radio, text);
       return;
     }
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.RADIOINPUT);
     guiElement.arguments.add(radio);
@@ -332,7 +335,8 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addSeparator()
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addSeparator();
 
       return;
@@ -345,11 +349,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addText(String text, boolean linewrap)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addText(text, linewrap);
       return;
     }
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.TEXT);
     guiElement.arguments.add(text);
@@ -360,11 +365,12 @@ public class SimpleVerticalContainer extends Container
   @Override
   public void addText(String text, boolean linewrap, Color color)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       super.addText(text, linewrap, color);
       return;
     }
-    
+
     GUIElementBuffer guiElement = new GUIElementBuffer(
         GUIElementBuffer.GUIElementTypes.TEXTCOLOR);
     guiElement.arguments.add(text);
@@ -376,11 +382,13 @@ public class SimpleVerticalContainer extends Container
   @Override
   public de.willuhn.jameica.gui.util.ButtonArea createButtonArea(int numButtons)
   {
-    if(arrangingStarted){
+    if (arrangingStarted)
+    {
       return super.createButtonArea(numButtons);
     }
-    
-    GUI.getStatusBar().setErrorText("createButtonArea(int) ist in SimpleVerticalConainer nicht implementiert!");
+
+    GUI.getStatusBar().setErrorText(
+        "createButtonArea(int) ist in SimpleVerticalConainer nicht implementiert!");
     return null;
   }
 

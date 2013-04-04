@@ -33,7 +33,6 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
@@ -51,7 +50,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
   }
 
   @Override
-  public void beforeGo() throws RemoteException
+  public void beforeGo()
   {
     // Nothing to do
   }
@@ -94,6 +93,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
       {
+
         @Override
         public void run()
         {
@@ -113,8 +113,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
     catch (Exception e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Fehler beim Erzeugen des Reports"), e);
+      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
     }
   }
 
@@ -126,7 +125,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
     }
     catch (RemoteException e)
     {
-      Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+      Logger.error("Fehler", e);
     }
     return null;
   }
@@ -134,7 +133,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
   @Override
   public String getDateiname()
   {
-    return JVereinPlugin.getI18n().tr("mitglied");
+    return "mitglied";
   }
 
   @Override
@@ -146,7 +145,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
   @Override
   public String toString()
   {
-    return JVereinPlugin.getI18n().tr("Mitgliederliste CSV");
+    return "Mitgliederliste CSV";
   }
 
   @Override

@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.gui.view.LesefeldDetailView;
@@ -46,6 +45,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class LesefeldUebersichtPart implements Part
 {
+
   private ColumnLayout lesefelderListeLayout;
 
   private Mitglied selectedMitglied;
@@ -58,7 +58,7 @@ public class LesefeldUebersichtPart implements Part
    * ausgewählt.
    * 
    * @param selectedMitglied
-   *          Auszuwählendes Mitglied.
+   *        Auszuwählendes Mitglied.
    */
   public LesefeldUebersichtPart(Mitglied selectedMitglied)
   {
@@ -72,7 +72,7 @@ public class LesefeldUebersichtPart implements Part
 
     SimpleContainer container = new SimpleContainer(scrolled.getComposite());
 
-    container.addHeadline(JVereinPlugin.getI18n().tr("Lesefelder"));
+    container.addHeadline("Lesefelder");
 
     // Hole alle Mitglieder aus Datenbank um sie später anzuzeigen.
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
@@ -91,8 +91,7 @@ public class LesefeldUebersichtPart implements Part
     if (selectedMitglied == null)
     {
       Label textLabel = new Label(container.getComposite(), SWT.NONE);
-      textLabel.setText(JVereinPlugin.getI18n().tr(
-          "Bitte erst ein Mitglied anlegen."));
+      textLabel.setText("Bitte erst ein Mitglied anlegen.");
       return;
     }
 
@@ -102,6 +101,7 @@ public class LesefeldUebersichtPart implements Part
 
     mitgliederSelectInput.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -122,8 +122,7 @@ public class LesefeldUebersichtPart implements Part
         }
         catch (RemoteException e)
         {
-          String fehler = JVereinPlugin.getI18n().tr(
-              "Fehler beim Auswählen des Mitgliedes");
+          String fehler = "Fehler beim Auswählen des Mitgliedes";
           Logger.error(fehler, e);
           GUI.getStatusBar().setErrorText(fehler);
           e.printStackTrace();
@@ -131,9 +130,8 @@ public class LesefeldUebersichtPart implements Part
 
       }
     });
-    mitgliederSelectInput.setName(JVereinPlugin.getI18n().tr("Mitgliedschaft"));
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Mitglied"),
-        mitgliederSelectInput);
+    mitgliederSelectInput.setName("Mitgliedschaft");
+    container.addLabelPair("Mitglied", mitgliederSelectInput);
     // ENDE MITGLIEDER AUSWAHL-FELD
 
     // LesefelderListeLayout
@@ -155,11 +153,10 @@ public class LesefeldUebersichtPart implements Part
 
     // BUTTON AREA
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.LESEFELDER, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new NewLesefeldAction(), null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.LESEFELDER, false, "help-browser.png");
+    buttons.addButton("neu", new NewLesefeldAction(), null, false,
+        "document-new.png");
     buttons.paint(parent);
     // END BUTTON AREA
   }
@@ -168,7 +165,7 @@ public class LesefeldUebersichtPart implements Part
    * Fügt neue GUI-Elemente hinzu für ein neues Lesefeld.
    * 
    * @param lesefeld
-   *          Anzuzeigendes, neues Lesefeld.
+   *        Anzuzeigendes, neues Lesefeld.
    * @throws RemoteException
    */
   private void addLesefeldEinstellungRow(final Lesefeld lesefeld)
@@ -185,13 +182,13 @@ public class LesefeldUebersichtPart implements Part
     lesefelderListeLayout.add(tt);
 
     // Bearbeiten-Button
-    Button button = new Button(JVereinPlugin.getI18n().tr("bearbeiten"),
-        new EditLesefeldAction(lesefeld), null, false, "edit.png");
+    Button button = new Button("bearbeiten", new EditLesefeldAction(lesefeld),
+        null, false, "edit.png");
     lesefelderListeLayout.add(button);
 
     // Löschen-Button
-    button = new Button(JVereinPlugin.getI18n().tr("löschen"),
-        new DeleteLesefeldAction(lesefeld), null, false, "list-remove.png");
+    button = new Button("löschen", new DeleteLesefeldAction(lesefeld), null,
+        false, "list-remove.png");
     lesefelderListeLayout.add(button);
   }
 
@@ -199,7 +196,7 @@ public class LesefeldUebersichtPart implements Part
    * Aktualisiert die GUI, so dass Inhalt von lese angezeigt wird.
    * 
    * @param lesefeld
-   *          Anzuzeigendes, neues Lesefeld.
+   *        Anzuzeigendes, neues Lesefeld.
    * @throws RemoteException
    */
   private void updateLesefeldEinstellungRow(final Lesefeld lesefeld)
@@ -243,7 +240,7 @@ public class LesefeldUebersichtPart implements Part
    * erzeugt wurden.
    * 
    * @param lf
-   *          Zu löschendes Lesefeld.
+   *        Zu löschendes Lesefeld.
    * @throws RemoteException
    */
   private void deleteLesefeldEinstellungRow(Lesefeld lf) throws RemoteException
@@ -285,17 +282,15 @@ public class LesefeldUebersichtPart implements Part
   private void updateView()
   {
 
-    Point currentSizeParentParent = lesefelderListeLayout.getComposite()
-        .getParent().getParent().getSize();
-    Point sizeParentParent = lesefelderListeLayout.getComposite().getParent()
-        .computeSize(currentSizeParentParent.x, SWT.DEFAULT, true);
-    lesefelderListeLayout.getComposite().getParent().getParent()
-        .setSize(sizeParentParent);
+    Point currentSizeParentParent = lesefelderListeLayout.getComposite().getParent().getParent().getSize();
+    Point sizeParentParent = lesefelderListeLayout.getComposite().getParent().computeSize(
+        currentSizeParentParent.x, SWT.DEFAULT, true);
+    lesefelderListeLayout.getComposite().getParent().getParent().setSize(
+        sizeParentParent);
 
-    Point currentSizeParent = lesefelderListeLayout.getComposite().getParent()
-        .getSize();
-    Point sizeParent = lesefelderListeLayout.getComposite().getParent()
-        .computeSize(currentSizeParent.x, SWT.DEFAULT, true);
+    Point currentSizeParent = lesefelderListeLayout.getComposite().getParent().getSize();
+    Point sizeParent = lesefelderListeLayout.getComposite().getParent().computeSize(
+        currentSizeParent.x, SWT.DEFAULT, true);
     lesefelderListeLayout.getComposite().getParent().setSize(sizeParent);
 
     lesefelderListeLayout.getComposite().redraw();
@@ -309,8 +304,9 @@ public class LesefeldUebersichtPart implements Part
 
   class NewLesefeldAction implements Action
   {
+
     @Override
-    public void handleAction(Object context) throws ApplicationException
+    public void handleAction(Object context)
     {
       openEditLesefeldDialog(null);
     }
@@ -318,6 +314,7 @@ public class LesefeldUebersichtPart implements Part
 
   class EditLesefeldAction implements Action
   {
+
     Lesefeld lesefeld;
 
     public EditLesefeldAction(Lesefeld lesefeld)
@@ -326,7 +323,7 @@ public class LesefeldUebersichtPart implements Part
     }
 
     @Override
-    public void handleAction(Object context) throws ApplicationException
+    public void handleAction(Object context)
     {
       openEditLesefeldDialog(lesefeld);
     }
@@ -336,12 +333,11 @@ public class LesefeldUebersichtPart implements Part
    * Öffnet eine neue View zum Editieren einer Lesefeld-Definition.
    * 
    * @param lesefeld
-   *          Zu bearbeitendes Lesefeld oder null, wenn diese Lesefeld angelegt
-   *          werden soll.
+   *        Zu bearbeitendes Lesefeld oder null, wenn diese Lesefeld angelegt
+   *        werden soll.
    * @throws ApplicationException
    */
   private void openEditLesefeldDialog(Lesefeld lesefeld)
-      throws ApplicationException
   {
 
     GUI.startView(new LesefeldDetailView(lesefeldAuswerter, lesefeld), null);
@@ -349,6 +345,7 @@ public class LesefeldUebersichtPart implements Part
 
   class DeleteLesefeldAction implements Action
   {
+
     Lesefeld lesefeld;
 
     public DeleteLesefeldAction(Lesefeld lesefeld)
@@ -361,9 +358,8 @@ public class LesefeldUebersichtPart implements Part
     {
       /* Sicherheitsnachfrage */
       YesNoDialog ynd = new YesNoDialog(AbstractDialog.POSITION_CENTER);
-      ynd.setText(JVereinPlugin.getI18n().tr(
-          "Achtung! Lesefeld wird gelöscht. Weiter?"));
-      ynd.setTitle(JVereinPlugin.getI18n().tr("Löschen"));
+      ynd.setText("Achtung! Lesefeld wird gelöscht. Weiter?");
+      ynd.setTitle("Löschen");
       Boolean choice;
       try
       {
@@ -384,8 +380,7 @@ public class LesefeldUebersichtPart implements Part
       }
       catch (RemoteException e)
       {
-        String fehler = JVereinPlugin.getI18n().tr(
-            "Fehler beim Löschen des Lesefeldes");
+        String fehler = "Fehler beim Löschen des Lesefeldes";
         Logger.error(fehler, e);
         GUI.getStatusBar().setErrorText(fehler);
         e.printStackTrace();

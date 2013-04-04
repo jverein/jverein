@@ -27,7 +27,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.KontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.rmi.ObjectNotFoundException;
@@ -37,6 +36,7 @@ import de.willuhn.logging.Logger;
 
 public class KontoauswahlInput
 {
+
   private DialogInput kontoAuswahl = null;
 
   private Konto konto;
@@ -65,8 +65,8 @@ public class KontoauswahlInput
    * Liefert ein Auswahlfeld fuer das Konto.
    * 
    * @param keinkonto
-   *          true= ein kann auch kein Konto ausgewählt werden. false = es muss
-   *          ein Konto ausgewählt werden.
+   *        true= ein kann auch kein Konto ausgewählt werden. false = es muss
+   *        ein Konto ausgewählt werden.
    * 
    * @return Auswahl-Feld.
    * @throws RemoteException
@@ -115,6 +115,7 @@ public class KontoauswahlInput
    */
   private class KontoListener implements Listener
   {
+
     /**
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
@@ -150,8 +151,7 @@ public class KontoauswahlInput
       }
       catch (RemoteException er)
       {
-        String error = JVereinPlugin.getI18n().tr(
-            "Fehler bei der Ermittlung der Kontobezeichnung");
+        String error = "Fehler bei der Ermittlung der Kontobezeichnung";
         Logger.error(error, er);
         GUI.getStatusBar().setErrorText(error);
       }

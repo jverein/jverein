@@ -27,7 +27,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -75,12 +74,11 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     {
       if (getZweck1().length() == 0)
       {
-        throw new ApplicationException(JVereinPlugin.getI18n().tr(
-            "Verwendungszweck fehlt"));
+        throw new ApplicationException("Verwendungszweck fehlt");
       }
       if (getBetrag() == null)
       {
-        String fehler = JVereinPlugin.getI18n().tr("Betrag fehlt");
+        String fehler = "Betrag fehlt";
         Logger.error(fehler);
         throw new ApplicationException(fehler);
       }
@@ -88,8 +86,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Mitgliedskonto kann nicht gespeichert werden. Siehe system log");
+      String fehler = "Mitgliedskonto kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
@@ -207,6 +204,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {

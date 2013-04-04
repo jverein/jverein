@@ -147,7 +147,6 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
 
   @Override
   public void update(Version oldVersion, Version newVersion)
-      throws RemoteException
   {
     //
   }

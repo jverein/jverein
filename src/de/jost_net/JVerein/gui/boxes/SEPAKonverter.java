@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -105,7 +104,7 @@ public class SEPAKonverter extends AbstractBox
   @Override
   public String getName()
   {
-    return JVereinPlugin.getI18n().tr("JVerein: SEPA-Konvertierung");
+    return "JVerein: SEPA-Konvertierung";
   }
 
   @Override
@@ -155,7 +154,7 @@ public class SEPAKonverter extends AbstractBox
       title.setBackground(bg);
       title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
       title.setFont(Font.H2.getSWTFont());
-      title.setText(JVereinPlugin.getI18n().tr("SEPA-Konvertierung."));
+      title.setText("SEPA-Konvertierung.");
     }
 
     // Text
@@ -163,9 +162,8 @@ public class SEPAKonverter extends AbstractBox
       Label desc = new Label(comp, SWT.WRAP);
       desc.setBackground(bg);
       desc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-      desc.setText(JVereinPlugin.getI18n().tr(
-          "Konvertierung der Bankverbindung bei den Einstellungen, Mitgliedern und Kursteilnehmern "
-              + "von BLZ und Konto zu BIC und IBAN"));
+      desc.setText("Konvertierung der Bankverbindung bei den Einstellungen, Mitgliedern und Kursteilnehmern "
+          + "von BLZ und Konto zu BIC und IBAN");
     }
 
     ButtonArea buttons = new ButtonArea();

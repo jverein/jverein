@@ -26,16 +26,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.datasource.rmi.ObjectNotFoundException;
-import de.jost_net.JVerein.Einstellungen;
 
 /**
  * Cache fuer oft geladene Fachobjekte.
  */
 class Cache
 {
+
   private final static de.willuhn.jameica.system.Settings settings = new de.willuhn.jameica.system.Settings(
       Cache.class);
 
@@ -85,10 +86,10 @@ class Cache
    * Liefert den Cache fuer den genannten Typ.
    * 
    * @param type
-   *          der Typ.
+   *        der Typ.
    * @param init
-   *          true, wenn der Cache bei der Erzeugung automatisch befuellt werden
-   *          soll.
+   *        true, wenn der Cache bei der Erzeugung automatisch befuellt werden
+   *        soll.
    * @return der Cache.
    * @throws RemoteException
    */
@@ -135,7 +136,7 @@ class Cache
    * Liefert ein Objekt aus dem Cache.
    * 
    * @param id
-   *          die ID des Objektes.
+   *        die ID des Objektes.
    * @return das Objekt oder NULL, wenn es nicht existiert.
    * @throws RemoteException
    */
@@ -153,7 +154,7 @@ class Cache
       // Noch nicht im Cache. Vielleicht koennen wir es noch laden
       try
       {
-        value = (DBObject) Einstellungen.getDBService().createObject(type, s);
+        value = Einstellungen.getDBService().createObject(type, s);
         put(value); // tun wir gleich in den Cache
       }
       catch (ObjectNotFoundException one)
@@ -168,7 +169,7 @@ class Cache
    * Speichert ein Objekt im Cache.
    * 
    * @param object
-   *          das zu speichernde Objekt.
+   *        das zu speichernde Objekt.
    * @throws RemoteException
    */
   void put(DBObject object) throws RemoteException
@@ -182,7 +183,7 @@ class Cache
    * Entfernt ein Objekt aus dem Cache.
    * 
    * @param object
-   *          das zu entfernende Objekt.
+   *        das zu entfernende Objekt.
    * @throws RemoteException
    */
   void remove(DBObject object) throws RemoteException

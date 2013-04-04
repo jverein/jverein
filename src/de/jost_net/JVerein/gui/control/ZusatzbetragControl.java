@@ -41,7 +41,6 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
@@ -131,11 +130,11 @@ public class ZusatzbetragControl extends AbstractControl
     Date d = getZusatzbetrag().getFaelligkeit();
 
     this.faelligkeit = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.faelligkeit.setTitle(JVereinPlugin.getI18n().tr("Fälligkeit"));
-    this.faelligkeit.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Fälligkeitsdatum wählen"));
+    this.faelligkeit.setTitle("Fälligkeit");
+    this.faelligkeit.setText("Bitte Fälligkeitsdatum wählen");
     this.faelligkeit.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -193,11 +192,11 @@ public class ZusatzbetragControl extends AbstractControl
 
     Date d = getZusatzbetrag().getStartdatum();
     this.startdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.startdatum.setTitle(JVereinPlugin.getI18n().tr("Startdatum"));
-    this.startdatum.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Startdatum wählen"));
+    this.startdatum.setTitle("Startdatum");
+    this.startdatum.setText("Bitte Startdatum wählen");
     this.startdatum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -245,11 +244,11 @@ public class ZusatzbetragControl extends AbstractControl
 
     Date d = getZusatzbetrag().getEndedatum();
     this.endedatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.endedatum.setTitle(JVereinPlugin.getI18n().tr("Endedatum"));
-    this.endedatum
-        .setText(JVereinPlugin.getI18n().tr("Bitte Endedatum wählen"));
+    this.endedatum.setTitle("Endedatum");
+    this.endedatum.setText("Bitte Endedatum wählen");
     this.endedatum.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -273,11 +272,11 @@ public class ZusatzbetragControl extends AbstractControl
     Date d = getZusatzbetrag().getAusfuehrung();
 
     this.ausfuehrung = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.ausfuehrung.setTitle(JVereinPlugin.getI18n().tr("Ausführung"));
-    this.ausfuehrung.setText(JVereinPlugin.getI18n().tr(
-        "Bitte Ausführungsdatum wählen"));
+    this.ausfuehrung.setTitle("Ausführung");
+    this.ausfuehrung.setText("Bitte Ausführungsdatum wählen");
     this.ausfuehrung.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -300,9 +299,9 @@ public class ZusatzbetragControl extends AbstractControl
     }
 
     final Vector<String> werte = new Vector<String>();
-    werte.addElement(JVereinPlugin.getI18n().tr("Alle"));
-    werte.addElement(JVereinPlugin.getI18n().tr("Aktive"));
-    werte.addElement(JVereinPlugin.getI18n().tr("Noch nicht ausgeführt"));
+    werte.addElement("Alle");
+    werte.addElement("Aktive");
+    werte.addElement("Noch nicht ausgeführt");
 
     String sql = "select ausfuehrung from zusatzabbuchung where ausfuehrung is not null "
         + "group by ausfuehrung order by ausfuehrung desc";
@@ -310,6 +309,7 @@ public class ZusatzbetragControl extends AbstractControl
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
@@ -325,6 +325,7 @@ public class ZusatzbetragControl extends AbstractControl
     ausfuehrungSuch = new SelectInput(werte, werte.elementAt(0));
     ausfuehrungSuch.addListener(new Listener()
     {
+
       @Override
       public void handleEvent(Event event)
       {
@@ -349,8 +350,7 @@ public class ZusatzbetragControl extends AbstractControl
       Zusatzbetrag z = getZusatzbetrag();
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
       z.setStartdatum((Date) getStartdatum(false).getValue());
-      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall()
-          .getValue();
+      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall().getValue();
       z.setIntervall(iz.getKey());
       z.setEndedatum((Date) getEndedatum().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
@@ -358,8 +358,7 @@ public class ZusatzbetragControl extends AbstractControl
       Double d = (Double) getBetrag().getValue();
       z.setBetrag(d.doubleValue());
       z.store();
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Zusatzbetrag gespeichert"));
+      GUI.getStatusBar().setSuccessText("Zusatzbetrag gespeichert");
     }
     catch (ApplicationException e)
     {
@@ -367,8 +366,7 @@ public class ZusatzbetragControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n().tr(
-          "Fehler bei speichern des Zusatzbetrages");
+      String fehler = "Fehler bei speichern des Zusatzbetrages";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -382,49 +380,43 @@ public class ZusatzbetragControl extends AbstractControl
     {
       zusatzbetraegeList = new TablePart(zusatzbetraege,
           new ZusatzbetraegeAction(null));
-      zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Name"),
-          "mitglied", new Formatter()
-          {
+      zusatzbetraegeList.addColumn("Name", "mitglied", new Formatter()
+      {
+
         @Override
-            public String format(Object o)
-            {
-              Mitglied m = (Mitglied) o;
-              if (m == null)
-              {
-                return null;
-              }
-              String name = null;
-              try
-              {
-                name = m.getNameVorname();
-              }
-              catch (RemoteException e)
-              {
-                e.printStackTrace();
-              }
-              return name;
-            }
-          });
-      zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Startdatum"),
-          "startdatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      zusatzbetraegeList.addColumn(
-          JVereinPlugin.getI18n().tr("nächste Fälligkeit"), "faelligkeit",
+        public String format(Object o)
+        {
+          Mitglied m = (Mitglied) o;
+          if (m == null)
+          {
+            return null;
+          }
+          String name = null;
+          try
+          {
+            name = m.getNameVorname();
+          }
+          catch (RemoteException e)
+          {
+            e.printStackTrace();
+          }
+          return name;
+        }
+      });
+      zusatzbetraegeList.addColumn("Startdatum", "startdatum",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      zusatzbetraegeList.addColumn(
-          JVereinPlugin.getI18n().tr("letzte Ausführung"), "ausfuehrung",
+      zusatzbetraegeList.addColumn("nächste Fälligkeit", "faelligkeit",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Intervall"),
-          "intervalltext");
-      zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Endedatum"),
-          "endedatum", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      zusatzbetraegeList.addColumn(
-          JVereinPlugin.getI18n().tr("Buchungstext 1"), "buchungstext");
-      zusatzbetraegeList.addColumn(
-          JVereinPlugin.getI18n().tr("Buchungstext 2"), "buchungstext2");
-      zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("Betrag"),
-          "betrag", new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
-      zusatzbetraegeList.addColumn(JVereinPlugin.getI18n().tr("aktiv"),
-          "aktiv", new JaNeinFormatter());
+      zusatzbetraegeList.addColumn("letzte Ausführung", "ausfuehrung",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      zusatzbetraegeList.addColumn("Intervall", "intervalltext");
+      zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
+          new JVDateFormatTTMMJJJJ()));
+      zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
+      zusatzbetraegeList.addColumn("Buchungstext 2", "buchungstext2");
+      zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
+          "", Einstellungen.DECIMALFORMAT));
+      zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
       zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
           zusatzbetraegeList));
       zusatzbetraegeList.setRememberColWidths(true);
@@ -439,8 +431,7 @@ public class ZusatzbetragControl extends AbstractControl
         zusatzbetraegeList.addItem(zusatzbetraege.next());
       }
     }
-    if (this.ausfuehrungSuch.getText().equals(
-        JVereinPlugin.getI18n().tr("Aktive")))
+    if (this.ausfuehrungSuch.getText().equals("Aktive"))
     {
       nichtAktiveEliminieren(zusatzbetraegeList);
     }
@@ -457,13 +448,11 @@ public class ZusatzbetragControl extends AbstractControl
     {
       // nichts tun
     }
-    else if (this.ausfuehrungSuch.getText().equals(
-        JVereinPlugin.getI18n().tr("Aktive")))
+    else if (this.ausfuehrungSuch.getText().equals("Aktive"))
     {
       // zunächst nichts tun
     }
-    else if (this.ausfuehrungSuch.getText().equals(
-        JVereinPlugin.getI18n().tr("Noch nicht ausgeführt")))
+    else if (this.ausfuehrungSuch.getText().equals("Noch nicht ausgeführt"))
     {
       zusatzbetraege.addFilter("ausfuehrung is null");
     }
@@ -471,18 +460,16 @@ public class ZusatzbetragControl extends AbstractControl
     {
       try
       {
-        Date d = new JVDateFormatTTMMJJJJ().parse(this.ausfuehrungSuch
-            .getText());
+        Date d = new JVDateFormatTTMMJJJJ().parse(this.ausfuehrungSuch.getText());
         java.sql.Date sqd = new java.sql.Date(d.getTime());
-        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd });
+        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd});
       }
       catch (ParseException e)
       {
         e.printStackTrace();
       }
     }
-    zusatzbetraege
-        .setOrder("ORDER BY ausfuehrung DESC, faelligkeit DESC, name");
+    zusatzbetraege.setOrder("ORDER BY ausfuehrung DESC, faelligkeit DESC, name");
     return zusatzbetraege;
   }
 
@@ -502,40 +489,39 @@ public class ZusatzbetragControl extends AbstractControl
 
   public Button getPDFAusgabeButton()
   {
-    Button b = new Button(JVereinPlugin.getI18n().tr("PDF-Ausgabe"),
-        new Action()
-        {
+    Button b = new Button("PDF-Ausgabe", new Action()
+    {
+
       @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            try
-            {
-              starteAuswertung();
-            }
-            catch (RemoteException e)
-            {
-              Logger.error(e.getMessage());
-              throw new ApplicationException(JVereinPlugin.getI18n().tr(
-                  "Fehler beim Start der PDF-Ausgabe der Zusatzbeträge"));
-            }
-          }
-        }, null, true, "acroread.png");
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          starteAuswertung();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der PDF-Ausgabe der Zusatzbeträge");
+        }
+      }
+    }, null, true, "acroread.png");
     return b;
   }
 
   private void starteAuswertung() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(JVereinPlugin.getI18n().tr("Ausgabedatei wählen."));
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    fd.setText("Ausgabedatei wählen.");
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(JVereinPlugin.getI18n().tr("zusatzbetraege"),
-        "", Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("zusatzbetraege", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -551,32 +537,30 @@ public class ZusatzbetragControl extends AbstractControl
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
+
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, JVereinPlugin.getI18n().tr(
-              "Zusatzbeträge"), "", it.size());
-          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Mitglied"),
-              Element.ALIGN_LEFT, 60, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Startdatum"),
-              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(
-              JVereinPlugin.getI18n().tr("nächste Fälligkeit"),
-              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(
-              JVereinPlugin.getI18n().tr("letzte Ausführung"),
-              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Intervall"),
-              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Endedatum"),
-              Element.ALIGN_LEFT, 30, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Buchungstext"),
-              Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn(JVereinPlugin.getI18n().tr("Betrag"),
-              Element.ALIGN_RIGHT, 30, BaseColor.LIGHT_GRAY);
+          Reporter reporter = new Reporter(fos, "Zusatzbeträge", "", it.size());
+          reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
+              BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("Startdatum", Element.ALIGN_LEFT, 30,
+              BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("nächste Fälligkeit", Element.ALIGN_LEFT,
+              30, BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("letzte Ausführung", Element.ALIGN_LEFT, 30,
+              BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,
+              BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("Endedatum", Element.ALIGN_LEFT, 30,
+              BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("Buchungstext", Element.ALIGN_LEFT, 50,
+              BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("Betrag", Element.ALIGN_RIGHT, 30,
+              BaseColor.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
           {
@@ -602,12 +586,13 @@ public class ZusatzbetragControl extends AbstractControl
         }
         catch (Exception e)
         {
-          Logger.error(JVereinPlugin.getI18n().tr("Fehler"), e);
+          Logger.error("Fehler", e);
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
         GUI.getDisplay().asyncExec(new Runnable()
         {
+
           @Override
           public void run()
           {

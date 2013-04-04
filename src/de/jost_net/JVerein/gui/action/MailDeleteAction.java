@@ -23,7 +23,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Mail;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -37,6 +36,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class MailDeleteAction implements Action
 {
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -47,8 +47,7 @@ public class MailDeleteAction implements Action
     }
     if (context == null || !(context instanceof Mail))
     {
-      throw new ApplicationException(JVereinPlugin.getI18n().tr(
-          "Keine Mail ausgewählt"));
+      throw new ApplicationException("Keine Mail ausgewählt");
     }
     try
     {
@@ -58,9 +57,8 @@ public class MailDeleteAction implements Action
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(JVereinPlugin.getI18n().tr("Mail löschen"));
-      d.setText(JVereinPlugin.getI18n().tr(
-          "Wollen Sie diese Mail wirklich löschen?"));
+      d.setTitle("Mail löschen");
+      d.setText("Wollen Sie diese Mail wirklich löschen?");
 
       try
       {
@@ -73,17 +71,14 @@ public class MailDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Löschen der Mail"), e);
+        Logger.error("Fehler beim Löschen der Mail", e);
         return;
       }
-      GUI.getStatusBar().setSuccessText(
-          JVereinPlugin.getI18n().tr("Mail gelöscht."));
+      GUI.getStatusBar().setSuccessText("Mail gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = JVereinPlugin.getI18n()
-          .tr("Fehler beim Löschen der Mail");
+      String fehler = "Fehler beim Löschen der Mail";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }

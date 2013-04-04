@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MailVorlageDetailAction;
 import de.jost_net.JVerein.gui.control.MailVorlageControl;
@@ -35,27 +34,24 @@ public class MailVorlagenUebersichtView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Mail-Vorlagen"));
+    GUI.getView().setTitle("Mail-Vorlagen");
 
     MailVorlageControl control = new MailVorlageControl(this);
 
     control.getMailVorlageTable().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.MAIL, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"),
-        new MailVorlageDetailAction(), null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MAIL, false, "help-browser.png");
+    buttons.addButton("neu", new MailVorlageDetailAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin
-        .getI18n()
-        .tr("<form><p><span color=\"header\" font=\"header\">Übersicht über die Mailvorlagen</span></p>"
-            + "</form>");
+    return "<form><p><span color=\"header\" font=\"header\">Übersicht über die Mailvorlagen</span></p>"
+        + "</form>";
   }
 }

@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.kapott.hbci.manager.HBCIUtils;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;

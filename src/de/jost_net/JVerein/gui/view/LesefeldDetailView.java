@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ShowVariablesDialog;
 import de.jost_net.JVerein.gui.menu.ShowVariablesMenu;
 import de.jost_net.JVerein.rmi.Lesefeld;
@@ -70,42 +69,39 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
     // Auf diese Input-Felder sollte nur über die Funktionen
     // updateLesefeldFromGUI() und updateScriptResult() zugegriffen werden.
-    textInputScriptName = new TextInput(
-        lesefeld != null ? lesefeld.getBezeichnung() : "");
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Skript-Name"),
-        textInputScriptName);
+    textInputScriptName = new TextInput(lesefeld != null
+        ? lesefeld.getBezeichnung() : "");
+    container.addLabelPair("Skript-Name", textInputScriptName);
 
-    textAreaInputScriptCode = new TextAreaInput(
-        lesefeld != null ? lesefeld.getScript() : "");
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Skript"),
-        textAreaInputScriptCode);
+    textAreaInputScriptCode = new TextAreaInput(lesefeld != null
+        ? lesefeld.getScript() : "");
+    container.addLabelPair("Skript", textAreaInputScriptCode);
 
     textAreaInputScriptResult = new TextAreaInput("");
-    container.addLabelPair(JVereinPlugin.getI18n().tr("Ausgabe"),
-        textAreaInputScriptResult);
+    container.addLabelPair("Ausgabe", textAreaInputScriptResult);
 
     if (lesefeld != null)
       updateScriptResult();
 
     ButtonArea buttonArea = new ButtonArea();
-    Button button = new Button(
-        JVereinPlugin.getI18n().tr("Aktualisieren (F5)"), new Action()
-        {
-          @Override
-          public void handleAction(Object context) throws ApplicationException
-          {
-            updateScriptResult();
-          }
-        }, null, false, "view-refresh.png");
+    Button button = new Button("Aktualisieren (F5)", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        updateScriptResult();
+      }
+    }, null, false, "view-refresh.png");
     buttonArea.addButton(button);
-    button = new Button(JVereinPlugin.getI18n().tr("Variablen anzeigen (F6)"),
+    button = new Button("Variablen anzeigen (F6)",
         new OpenInsertVariableDialogAction(), null, false, "zuordnung.png");
     buttonArea.addButton(button);
-    button = new Button(JVereinPlugin.getI18n().tr("Speichern und zurück"),
-        new SaveLesefeldAction(), null, false, "document-save.png");
+    button = new Button("Speichern und zurück", new SaveLesefeldAction(), null,
+        false, "document-save.png");
     buttonArea.addButton(button);
-    button = new Button(JVereinPlugin.getI18n().tr("Abbrechen und zurück"),
-        new AbortEditLesefeldAction(), null, false, "process-stop.png");
+    button = new Button("Abbrechen und zurück", new AbortEditLesefeldAction(),
+        null, false, "process-stop.png");
     buttonArea.addButton(button);
     buttonArea.paint(this.getParent());
   }
@@ -120,8 +116,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
   {
     if (textInputScriptName.getValue().toString().isEmpty())
     {
-      GUI.getStatusBar().setErrorText(
-          JVereinPlugin.getI18n().tr("Bitte Skript-Namen eingeben."));
+      GUI.getStatusBar().setErrorText("Bitte Skript-Namen eingeben.");
       return false;
     }
     try
@@ -133,12 +128,11 @@ public class LesefeldDetailView extends AbstractView implements Listener
         {
           String currentid = lesefeld.getID();
           if (this.lesefeld == null
-              || (this.lesefeld != null && !this.lesefeld.getID()
-                  .equalsIgnoreCase((currentid))))
+              || (this.lesefeld != null && !this.lesefeld.getID().equalsIgnoreCase(
+                  (currentid))))
           {
             GUI.getStatusBar().setErrorText(
-                JVereinPlugin.getI18n().tr(
-                    "Bitte eindeutigen Skript-Namen eingeben!"));
+                "Bitte eindeutigen Skript-Namen eingeben!");
             return false;
           }
         }
@@ -151,8 +145,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
       lesefeld.setBezeichnung((String) textInputScriptName.getValue());
       lesefeld.setScript((String) textAreaInputScriptCode.getValue());
-      lesefeld.setEvaluatedContent((String) textAreaInputScriptResult
-          .getValue());
+      lesefeld.setEvaluatedContent((String) textAreaInputScriptResult.getValue());
     }
     catch (RemoteException e)
     {
@@ -165,10 +158,10 @@ public class LesefeldDetailView extends AbstractView implements Listener
   }
 
   @Override
-  public void unbind() throws ApplicationException
+  public void unbind()
   {
     GUI.getDisplay().removeFilter(SWT.KeyDown, this);
-  };
+  }
 
   public LesefeldDetailView(LesefeldAuswerter lesefeldAuswerter,
       Lesefeld lesefeld)
@@ -198,16 +191,14 @@ public class LesefeldDetailView extends AbstractView implements Listener
       result = (String) lesefeldAuswerter.eval(lesefeld.getScript());
       if (result == null)
       {
-        result = JVereinPlugin.getI18n().tr(
-            "Skript-Fehler: Skript muss Rückgabewert liefern.");
+        result = "Skript-Fehler: Skript muss Rückgabewert liefern.";
         success = false;
       }
     }
     catch (Exception e)
     {
       e.printStackTrace();
-      result = JVereinPlugin.getI18n().tr("Skript-Fehler:\r\n")
-          + e.getMessage();
+      result = "Skript-Fehler:\r\n" + e.getMessage();
       success = false;
     }
     finally
@@ -234,8 +225,9 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
   private final class AbortEditLesefeldAction implements Action
   {
+
     @Override
-    public void handleAction(Object context) throws ApplicationException
+    public void handleAction(Object context)
     {
       GUI.startPreviousView();
     }
@@ -243,6 +235,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
   private final class SaveLesefeldAction implements Action
   {
+
     @Override
     public void handleAction(Object context) throws ApplicationException
     {
@@ -254,32 +247,26 @@ public class LesefeldDetailView extends AbstractView implements Listener
         try
         {
           lesefeld.store();
-          GUI.getStatusBar().setSuccessText(
-              JVereinPlugin.getI18n().tr("Skript gespeichert."));
+          GUI.getStatusBar().setSuccessText("Skript gespeichert.");
           GUI.startPreviousView();
         }
         catch (RemoteException e)
         {
           e.printStackTrace();
           GUI.getStatusBar().setErrorText(
-              JVereinPlugin.getI18n().tr(
-                  "Skript kann nicht gespeichert werden."));
-          Logger.error(
-              JVereinPlugin.getI18n().tr(
-                  "Skript kann nicht gespeichert werden."), e);
+              "Skript kann nicht gespeichert werden.");
+          Logger.error("Skript kann nicht gespeichert werden.", e);
         }
-
       }
       else
         GUI.getStatusBar().setErrorText(
-            JVereinPlugin.getI18n().tr(
-                "Skript enthält Fehler. Kann nicht gespeichert werden."));
-
+            "Skript enthält Fehler. Kann nicht gespeichert werden.");
     }
   }
 
   private final class OpenInsertVariableDialogAction implements Action
   {
+
     @Override
     public void handleAction(Object context)
     {
@@ -296,9 +283,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
       }
       catch (Exception e)
       {
-        Logger.error(
-            JVereinPlugin.getI18n().tr("Fehler beim Anzeigen der Variablen."),
-            e);
+        Logger.error("Fehler beim Anzeigen der Variablen.", e);
         GUI.getStatusBar().setErrorText("Fehler beim Anzeigen der Variablen.");
       }
 

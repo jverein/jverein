@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.StringTokenizer;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.input.MailAuswertungInput;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -68,7 +67,7 @@ public class MitgliedQuery
 
     sql = "select distinct mitglied.*, ucase(name), ucase(vorname) ";
     String sort = (String) control.getSortierung().getValue();
-    if (sort.equals(JVereinPlugin.getI18n().tr("Geburtstagsliste")))
+    if (sort.equals("Geburtstagsliste"))
     {
       sql += ", month(geburtsdatum), day(geburtsdatum) ";
     }
@@ -192,13 +191,11 @@ public class MitgliedQuery
     addCondition("adresstyp = " + adresstyp);
     if (control.isMitgliedStatusAktiv())
     {
-      if (control.getMitgliedStatus().getValue()
-          .equals(JVereinPlugin.getI18n().tr("Angemeldet")))
+      if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
       {
         addCondition("(austritt is null or austritt > current_date())");
       }
-      else if (control.getMitgliedStatus().getValue()
-          .equals(JVereinPlugin.getI18n().tr("Abgemeldet")))
+      else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
       {
         addCondition("austritt is not null and austritt <= current_date()");
       }
@@ -259,8 +256,7 @@ public class MitgliedQuery
       addCondition("sterbetag <= ?");
     }
     if (control.getGeschlecht().getText() != null
-        && !control.getGeschlecht().getText()
-            .equals(JVereinPlugin.getI18n().tr("Bitte auswählen")))
+        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
     {
       addCondition("geschlecht = ?");
     }
@@ -304,8 +300,7 @@ public class MitgliedQuery
         // Workaround für einen Bug in IntegerInput
       }
     }
-    Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
-        .getValue();
+    Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw().getValue();
     if (bg != null)
     {
       addCondition("beitragsgruppe = ? ");
@@ -314,18 +309,15 @@ public class MitgliedQuery
     {
       sql += " ORDER BY ucase(name), ucase(vorname)";
     }
-    else if (sort.equals(JVereinPlugin.getI18n().tr(
-        JVereinPlugin.getI18n().tr("Eintrittsdatum"))))
+    else if (sort.equals("Eintrittsdatum"))
     {
       sql += " ORDER BY eintritt";
     }
-    else if (sort.equals(JVereinPlugin.getI18n().tr(
-        JVereinPlugin.getI18n().tr("Geburtsdatum"))))
+    else if (sort.equals("Geburtsdatum"))
     {
       sql += " ORDER BY geburtsdatum";
     }
-    else if (sort.equals(JVereinPlugin.getI18n().tr(
-        JVereinPlugin.getI18n().tr("Geburtstagsliste"))))
+    else if (sort.equals("Geburtstagsliste"))
     {
       sql += " ORDER BY month(geburtsdatum), day(geburtsdatum)";
     }
@@ -337,6 +329,7 @@ public class MitgliedQuery
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
+
       @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
@@ -379,8 +372,7 @@ public class MitgliedQuery
       bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (control.getGeschlecht().getText() != null
-        && !control.getGeschlecht().getText()
-            .equals(JVereinPlugin.getI18n().tr("Bitte auswählen")))
+        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
     {
       String g = (String) control.getGeschlecht().getValue();
       bedingungen.add(g);
@@ -421,8 +413,7 @@ public class MitgliedQuery
     {
       bedingungen.add(new Integer(bg.getID()));
     }
-    return (ArrayList<Mitglied>) service
-        .execute(sql, bedingungen.toArray(), rs);
+    return (ArrayList<Mitglied>) service.execute(sql, bedingungen.toArray(), rs);
   }
 
   private void addCondition(String condition)

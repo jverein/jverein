@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.ProjektAction;
 import de.jost_net.JVerein.gui.control.ProjektControl;
@@ -35,26 +34,25 @@ public class ProjektListView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(JVereinPlugin.getI18n().tr("Projekte"));
+    GUI.getView().setTitle("Projekte");
 
     ProjektControl control = new ProjektControl(this);
 
     control.getProjektList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(JVereinPlugin.getI18n().tr("Hilfe"),
-        new DokumentationAction(), DokumentationUtil.PROJEKTE, false,
-        "help-browser.png");
-    buttons.addButton(JVereinPlugin.getI18n().tr("neu"), new ProjektAction(),
-        null, false, "document-new.png");
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.PROJEKTE, false, "help-browser.png");
+    buttons.addButton("neu", new ProjektAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 
   @Override
   public String getHelp()
   {
-    return JVereinPlugin.getI18n().tr("<form><p><span color=\"header\" font=\"header\">Projekt</span></p>"
+    return "<form><p><span color=\"header\" font=\"header\">Projekt</span></p>"
         + "<p>Über Projekte können die Buchungen verschiedener Buchungsarten gruppiert werden.</p>"
-        + "</form>");
+        + "</form>";
   }
 }

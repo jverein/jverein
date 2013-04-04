@@ -21,19 +21,15 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
-import java.rmi.RemoteException;
-
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.ShowVariablesDialog.Var;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Kontext-Menu für einen ShowVariablesDialog. Auswahl "kopieren" kopiert den
@@ -43,6 +39,7 @@ import de.willuhn.util.ApplicationException;
  */
 public class ShowVariablesMenu extends ContextMenu
 {
+
   private Action copy;
 
   /**
@@ -53,7 +50,7 @@ public class ShowVariablesMenu extends ContextMenu
   public Action getCopyToClipboardAction()
   {
     return copy;
-  };
+  }
 
   private String prependCopyText = "${";
 
@@ -62,13 +59,13 @@ public class ShowVariablesMenu extends ContextMenu
    * soll.
    * 
    * @param pre
-   *          Text, der vor den Eintrag in den Zwischen speicher kopiert werden
-   *          soll.
+   *        Text, der vor den Eintrag in den Zwischen speicher kopiert werden
+   *        soll.
    */
   public void setPrependCopyText(String pre)
   {
     prependCopyText = pre;
-  };
+  }
 
   private String appendCopyText = "}";
 
@@ -77,13 +74,13 @@ public class ShowVariablesMenu extends ContextMenu
    * soll.
    * 
    * @param append
-   *          Text, der hinter den Eintrag in den Zwischen speicher kopiert
-   *          werden soll.
+   *        Text, der hinter den Eintrag in den Zwischen speicher kopiert werden
+   *        soll.
    */
   public void setAppendCopyText(String append)
   {
     appendCopyText = append;
-  };
+  }
 
   /**
    * Erzeugt ein Kontext-Menu
@@ -96,29 +93,21 @@ public class ShowVariablesMenu extends ContextMenu
     {
 
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
-        try
+        if (context instanceof Var)
         {
-          if (context instanceof Var)
+          Var v = (Var) context;
+          String textData = (String) v.getAttribute("name");
+          if (textData.length() > 0)
           {
-            Var v = (Var) context;
-            String textData = (String) v.getAttribute("name");
-            if (textData.length() > 0)
-            {
-              TextTransfer textTransfer = TextTransfer.getInstance();
-              cb.setContents(new Object[] { prependCopyText + textData
-                  + appendCopyText }, new Transfer[] { textTransfer });
-            }
+            TextTransfer textTransfer = TextTransfer.getInstance();
+            cb.setContents(new Object[] { prependCopyText + textData
+                + appendCopyText}, new Transfer[] { textTransfer});
           }
-        }
-        catch (RemoteException e)
-        {
-          throw new ApplicationException(e);
         }
       }
     };
-    addItem(new CheckedContextMenuItem(JVereinPlugin.getI18n().tr("kopieren"),
-        copy, "copy_edit.png"));
+    addItem(new CheckedContextMenuItem("kopieren", copy, "copy_edit.png"));
   }
 }

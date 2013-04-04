@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -79,12 +78,10 @@ public class MitgliedskontoauswahlInput
         buchungen[0]);
     d.addCloseListener(new MitgliedskontoListener());
 
-    mitgliedskontoAuswahl = new DialogInput(konto != null ? konto.getMitglied()
-        .getNameVorname()
-        + ", "
-        + new JVDateFormatTTMMJJJJ().format(konto.getDatum())
-        + ", "
-        + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
+    mitgliedskontoAuswahl = new DialogInput(konto != null
+        ? konto.getMitglied().getNameVorname() + ", "
+            + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
+            + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
     mitgliedskontoAuswahl.disableClientControl();
     mitgliedskontoAuswahl.setValue(buchungen[0].getMitgliedskonto());
     return mitgliedskontoAuswahl;
@@ -119,8 +116,7 @@ public class MitgliedskontoauswahlInput
         }
         catch (RemoteException er)
         {
-          String error = JVereinPlugin.getI18n().tr(
-              "Fehler bei Auswahl des Mitgliedskontos");
+          String error = "Fehler bei Auswahl des Mitgliedskontos";
           Logger.error(error, er);
           GUI.getStatusBar().setErrorText(error);
         }
@@ -134,8 +130,8 @@ public class MitgliedskontoauswahlInput
           b = konto.getMitglied().getNameVorname() + ", "
               + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
               + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
-          String name = (String) buchungen[0].getName();
-          String zweck1 = (String) buchungen[0].getZweck();
+          String name = buchungen[0].getName();
+          String zweck1 = buchungen[0].getZweck();
           if ((name == null || name.length() == 0)
               && (zweck1 == null || zweck1.length() == 0))
           {
@@ -154,8 +150,7 @@ public class MitgliedskontoauswahlInput
       }
       catch (RemoteException er)
       {
-        String error = JVereinPlugin.getI18n().tr(
-            "Fehler bei des Mitgliedskontos");
+        String error = "Fehler bei des Mitgliedskontos";
         Logger.error(error, er);
         GUI.getStatusBar().setErrorText(error);
       }

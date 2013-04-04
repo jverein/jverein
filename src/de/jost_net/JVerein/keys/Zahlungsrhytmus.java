@@ -23,13 +23,12 @@ package de.jost_net.JVerein.keys;
 
 import java.util.ArrayList;
 
-import de.jost_net.JVerein.JVereinPlugin;
-
 /**
  * Schlüssel Zahlungsrhytmus
  */
 public class Zahlungsrhytmus
 {
+
   public static final int JAEHRLICH = 12;
 
   public static final int HALBJAEHRLICH = 6;
@@ -60,13 +59,13 @@ public class Zahlungsrhytmus
     switch (key)
     {
       case Zahlungsrhytmus.JAEHRLICH:
-        return JVereinPlugin.getI18n().tr("jährlich");
+        return "jährlich";
       case Zahlungsrhytmus.HALBJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("halbjährlich");
+        return "halbjährlich";
       case Zahlungsrhytmus.VIERTELJAEHRLICH:
-        return JVereinPlugin.getI18n().tr("vierteljährlich");
+        return "vierteljährlich";
       case Zahlungsrhytmus.MONATLICH:
-        return JVereinPlugin.getI18n().tr("monatlich");
+        return "monatlich";
       default:
         return null;
     }
