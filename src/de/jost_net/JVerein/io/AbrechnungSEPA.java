@@ -103,7 +103,7 @@ public class AbrechnungSEPA
     }
 
     lastschrift.setMessageID(abrl.getID());
-    lastschrift.create(param.dtausfile);
+    lastschrift.write(param.dtausfile);
 
     // Gegenbuchung für das Mitgliedskonto schreiben
     writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", lastschrift
@@ -299,7 +299,8 @@ public class AbrechnungSEPA
             zahler.setIban(m.getIban());
             zahler.setMandatid(m.getID());
             zahler.setMandatdatum(m.getMandatDatum());
-            zahler.setVerwendungszweck(param.verwendungszweck);
+            zahler.setVerwendungszweck(param.verwendungszweck + " "
+                + getVerwendungszweck2(m));
             if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
             {
               DBIterator angeh = Einstellungen.getDBService().createList(
@@ -652,7 +653,6 @@ public class AbrechnungSEPA
     {
       zpfl = m.getKontoinhaber();
     }
-    zpfl = dtaus27(zpfl);
     return zpfl;
   }
 
@@ -662,33 +662,7 @@ public class AbrechnungSEPA
         .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
         .getID())
         + "/" + m.getNameVorname();
-    mitgliedname = dtaus27(mitgliedname);
     return mitgliedname;
-  }
-
-  public static String dtaus27(String in)
-  {
-    String out = in;
-    if (in.length() > 27)
-    {
-      out = in.substring(0, 27);
-    }
-    while (out.length() < 27)
-    {
-      out += " ";
-    }
-    int lae = out.length();
-    for (int i = 0; i < out.length(); i++)
-    {
-      Character c = out.charAt(i);
-      if (c.equals('Ä') || c.equals('Ö') || c.equals('Ü') || c.equals('ä')
-          || c.equals('ö') || c.equals('ü') || c.equals('ß'))
-      {
-        lae--;
-      }
-    }
-    out = out.substring(0, lae);
-    return out;
   }
 
 }
