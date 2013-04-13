@@ -22,7 +22,6 @@
 package de.jost_net.JVerein.gui.navigation;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.action.AbbuchungAction;
 import de.jost_net.JVerein.gui.action.AboutAction;
 import de.jost_net.JVerein.gui.action.AbrechnungSEPAAction;
 import de.jost_net.JVerein.gui.action.AdressenSucheAction;
@@ -108,16 +107,14 @@ public class MyExtension implements Extension
       DBIterator it = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
       it.addFilter("beitragsart = ?",
-          new Object[] { ArtBeitragsart.FAMILIE_ZAHLER});
+          new Object[] { ArtBeitragsart.FAMILIE_ZAHLER });
       if (it.size() > 0)
       {
         jverein.addChild(new MyItem(jverein, "Familienbeitrag",
             new FamilienbeitragAction(), "family-icon.png"));
       }
-      jverein.addChild(new MyItem(jverein, "Abrechnung (SEPA)",
+      jverein.addChild(new MyItem(jverein, "Abrechnung",
           new AbrechnungSEPAAction(), "accessories-calculator.png"));
-      jverein.addChild(new MyItem(jverein, "Abrechnung (DTAUS)",
-          new AbbuchungAction(), "accessories-calculator.png"));
       jverein.addChild(new MyItem(jverein, "Mitgliedskonten",
           new MitgliedskontoListeAction(), "human_folder_public.png"));
       jverein.addChild(new MyItem(jverein, "Rechnungen",
@@ -209,8 +206,9 @@ public class MyExtension implements Extension
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
           "Buchungsklassen", new BuchungsklasseListAction(),
           "activity_category.gif"));
-      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
-          "Buchungsarten", new BuchungsartListAction(), "activity_category.gif"));
+      einstellungenbuchfuehrung
+          .addChild(new MyItem(einstellungenbuchfuehrung, "Buchungsarten",
+              new BuchungsartListAction(), "activity_category.gif"));
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
           "Kontenrahmen-Export", new KontenrahmenExportAction(),
           "activity_category.gif"));
