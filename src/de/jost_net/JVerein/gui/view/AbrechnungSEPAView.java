@@ -74,6 +74,7 @@ public class AbrechnungSEPAView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
     group.addLabelPair("Modus", control.getAbbuchungsmodus());
+    group.addLabelPair("Fälligkeit SEPA", control.getFaelligkeit());
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group
@@ -85,8 +86,7 @@ public class AbrechnungSEPAView extends AbstractView
     }
     group.addLabelPair("Kursteilnehmer", control.getKursteilnehmer());
     group.addLabelPair("Kompakte Abbuchung", control.getKompakteAbbuchung());
-    // group.addLabelPair(JVereinPlugin.getI18n().tr("Dtaus-Datei drucken"),
-    // control.getDtausPrint());
+    group.addLabelPair("SEPA-Datei drucken", control.getSEPAPrint());
 
     if (!Einstellungen.getEinstellung().getKursteilnehmer())
     {

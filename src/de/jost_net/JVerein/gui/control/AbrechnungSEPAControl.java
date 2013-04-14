@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -63,6 +64,8 @@ public class AbrechnungSEPAControl extends AbstractControl
 
   private DateInput stichtag = null;
 
+  private DateInput faelligkeit = null;
+
   private DateInput vondatum = null;
 
   private TextInput zahlungsgrund;
@@ -73,7 +76,7 @@ public class AbrechnungSEPAControl extends AbstractControl
 
   private CheckboxInput kompakteabbuchung;
 
-  private CheckboxInput dtausprint;
+  private CheckboxInput sepaprint;
 
   private SelectInput ausgabe;
 
@@ -138,6 +141,33 @@ public class AbrechnungSEPAControl extends AbstractControl
     });
     this.stichtag.setComment("*)");
     return stichtag;
+  }
+
+  public DateInput getFaelligkeit()
+  {
+    if (faelligkeit != null)
+    {
+      return faelligkeit;
+    }
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.DAY_OF_MONTH, 14);
+    this.faelligkeit = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
+    this.faelligkeit.setTitle("Fälligkeit SEPA-Lastschrift");
+    this.faelligkeit
+        .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift wählen");
+    this.faelligkeit.addListener(new Listener()
+    {
+      @Override
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) faelligkeit.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return faelligkeit;
   }
 
   public DateInput getVondatum()
@@ -211,14 +241,14 @@ public class AbrechnungSEPAControl extends AbstractControl
     return kompakteabbuchung;
   }
 
-  public CheckboxInput getDtausPrint()
+  public CheckboxInput getSEPAPrint()
   {
-    if (dtausprint != null)
+    if (sepaprint != null)
     {
-      return dtausprint;
+      return sepaprint;
     }
-    dtausprint = new CheckboxInput(settings.getBoolean("dtausprint", false));
-    return dtausprint;
+    sepaprint = new CheckboxInput(settings.getBoolean("sepaprint", false));
+    return sepaprint;
   }
 
   public SelectInput getAbbuchungsausgabe()
@@ -229,7 +259,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
     ausgabe = new SelectInput(Abrechnungsausgabe.getArray(),
         new Abrechnungsausgabe(settings.getInt("abrechnungsausgabe",
-            Abrechnungsausgabe.DTAUS)));
+            Abrechnungsausgabe.SEPA_DATEI)));
     return ausgabe;
   }
 
@@ -259,17 +289,16 @@ public class AbrechnungSEPAControl extends AbstractControl
 
   private void doAbrechnung() throws ApplicationException, RemoteException
   {
-    File dtausfile;
+    File sepafile;
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
     settings.setAttribute("zusatzbetraege", (Boolean) zusatzbetrag.getValue());
     settings
         .setAttribute("kursteilnehmer", (Boolean) kursteilnehmer.getValue());
     settings.setAttribute("kompakteabbuchung",
         (Boolean) kompakteabbuchung.getValue());
-    // settings.setAttribute("dtausprint", (Boolean) dtausprint.getValue());
+    settings.setAttribute("sepaprint", (Boolean) sepaprint.getValue());
     Abrechnungsausgabe aa = (Abrechnungsausgabe) ausgabe.getValue();
     settings.setAttribute("abrechnungsausgabe", aa.getKey());
-
     Integer modus = null;
     try
     {
@@ -279,6 +308,15 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       throw new ApplicationException(
           "Interner Fehler - kann Abrechnungsmodus nicht auslesen");
+    }
+    if (faelligkeit.getValue() == null)
+    {
+      throw new ApplicationException("Fälligkeitsdatum fehlt");
+    }
+    Date f = (Date) faelligkeit.getValue();
+    if (f.before(new Date()))
+    {
+      throw new ApplicationException("Fälligkeit muss in der Zukunft liegen");
     }
     Date vondatum = null;
     if (stichtag.getValue() == null)
@@ -297,10 +335,10 @@ public class AbrechnungSEPAControl extends AbstractControl
     aa = (Abrechnungsausgabe) this.getAbbuchungsausgabe().getValue();
     ausgabe = aa.getKey();
 
-    if (ausgabe == Abrechnungsausgabe.DTAUS)
+    if (ausgabe == Abrechnungsausgabe.SEPA_DATEI)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText("DTAUS-Ausgabedatei wählen.");
+      fd.setText("SEPA-Ausgabedatei wählen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -309,20 +347,20 @@ public class AbrechnungSEPAControl extends AbstractControl
         fd.setFilterPath(path);
       }
       fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "TXT").get());
+          .getEinstellung().getDateinamenmuster(), "XML").get());
       String file = fd.open();
 
       if (file == null || file.length() == 0)
       {
         throw new ApplicationException("keine Datei ausgewählt!");
       }
-      dtausfile = new File(file);
+      sepafile = new File(file);
     }
     else
     {
       try
       {
-        dtausfile = File.createTempFile("dtaus", null);
+        sepafile = File.createTempFile("sepa", null);
       }
       catch (IOException e)
       {
@@ -331,31 +369,31 @@ public class AbrechnungSEPAControl extends AbstractControl
       }
     }
 
-    // PDF-Datei für Dtaus2PDF
+    // PDF-Datei für Basislastschrift2PDF
     String pdffile = null;
-    // final Boolean pdfprintb = (Boolean) dtausprint.getValue();
-    // if (pdfprintb)
-    // {
-    // FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    // fd.setText(JVereinPlugin.getI18n().tr("PDF-Ausgabedatei wählen"));
-    //
-    // String path = settings.getString("lastdir",
-    // System.getProperty("user.home"));
-    // if (path != null && path.length() > 0)
-    // {
-    // fd.setFilterPath(path);
-    // }
-    // fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
-    // .getEinstellung().getDateinamenmuster(), "PDF").get());
-    // pdffile = fd.open();
-    // }
+    final Boolean pdfprintb = (Boolean) sepaprint.getValue();
+    if (pdfprintb)
+    {
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("PDF-Ausgabedatei wählen");
+
+      String path = settings.getString("lastdir",
+          System.getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      pdffile = fd.open();
+    }
 
     // Wir merken uns noch das Verzeichnis fürs nächste mal
-    settings.setAttribute("lastdir", dtausfile.getParent());
+    settings.setAttribute("lastdir", sepafile.getParent());
     final AbrechnungSEPAParam abupar;
     try
     {
-      abupar = new AbrechnungSEPAParam(this, dtausfile, pdffile);
+      abupar = new AbrechnungSEPAParam(this, sepafile, pdffile);
     }
     catch (RemoteException e)
     {
@@ -373,8 +411,8 @@ public class AbrechnungSEPAControl extends AbstractControl
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
               MessageFormat.format(
-                  "Abrechung durchgeführt., Abbuchungsdatei {0} geschrieben.",
-                  abupar.dtausfile.getAbsolutePath()));
+                  "Abrechung durchgeführt., SEPA-Datei {0} geschrieben.",
+                  abupar.sepafile.getAbsolutePath()));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -389,11 +427,11 @@ public class AbrechnungSEPAControl extends AbstractControl
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error(MessageFormat.format(
               "error while reading objects from {0}",
-              abupar.dtausfile.getAbsolutePath()), e);
+              abupar.sepafile.getAbsolutePath()), e);
           ApplicationException ae = new ApplicationException(
               MessageFormat.format(
                   "Fehler beim erstellen der Abbuchungsdatei: {0}",
-                  abupar.dtausfile.getAbsolutePath()), e);
+                  abupar.sepafile.getAbsolutePath()), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
