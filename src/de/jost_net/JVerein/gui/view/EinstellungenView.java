@@ -114,7 +114,6 @@ public class EinstellungenView extends AbstractView
     groupAbu.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
-    groupAbu.addInput(control.getDtausTextschluessel());
     groupAbu.addInput(control.getDefaultSEPALand());
 
     TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen");

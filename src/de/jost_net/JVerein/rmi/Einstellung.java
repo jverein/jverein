@@ -276,11 +276,6 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setZahlungsweg(int zahlungsweg) throws RemoteException;
 
-  public String getDtausTextschluessel() throws RemoteException;
-
-  public void setDtausTextschluessel(String dtaustextschluessel)
-      throws RemoteException;
-
   public String getDefaultLand() throws RemoteException;
 
   public void setDefaultLand(String defaultland) throws RemoteException;

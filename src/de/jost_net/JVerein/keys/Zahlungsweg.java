@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class Zahlungsweg
 {
 
-  public static final int DTAUS = 1;
+  public static final int BASISLASTSCHRIFT = 1;
 
   public static final int ÜBERWEISUNG = 2;
 
@@ -56,8 +56,8 @@ public class Zahlungsweg
   {
     switch (key)
     {
-      case DTAUS:
-        return "Datenaustausch Bank";
+      case BASISLASTSCHRIFT:
+        return "Basislastschrift";
       case ÜBERWEISUNG:
         return "Überweisung";
       case BARZAHLUNG:
@@ -70,7 +70,7 @@ public class Zahlungsweg
   public static ArrayList<Zahlungsweg> getArray()
   {
     ArrayList<Zahlungsweg> ret = new ArrayList<Zahlungsweg>();
-    ret.add(new Zahlungsweg(DTAUS));
+    ret.add(new Zahlungsweg(BASISLASTSCHRIFT));
     ret.add(new Zahlungsweg(ÜBERWEISUNG));
     ret.add(new Zahlungsweg(BARZAHLUNG));
     return ret;

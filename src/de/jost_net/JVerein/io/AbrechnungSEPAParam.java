@@ -41,6 +41,8 @@ public class AbrechnungSEPAParam
 {
   public final int abbuchungsmodus;
 
+  public final Date faelligkeit;
+
   public final Date stichtag;
 
   public final int abbuchungsausgabe;
@@ -55,9 +57,9 @@ public class AbrechnungSEPAParam
 
   public final Boolean kompakteabbuchung;
 
-  public final Boolean dtausprint;
+  public final Boolean sepaprint;
 
-  public final File dtausfile;
+  public final File sepafile;
 
   public final String pdffile;
 
@@ -65,10 +67,11 @@ public class AbrechnungSEPAParam
 
   public Konto konto;
 
-  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File dtausfile,
+  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafile,
       String pdffile) throws ApplicationException, RemoteException
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
+    faelligkeit = (Date) ac.getFaelligkeit().getValue();
     stichtag = (Date) ac.getStichtag().getValue();
     Abrechnungsausgabe aa = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
         .getValue();
@@ -78,9 +81,9 @@ public class AbrechnungSEPAParam
     zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();
     kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
     kompakteabbuchung = (Boolean) ac.getKompakteAbbuchung().getValue();
-    dtausprint = (Boolean) ac.getDtausPrint().getValue();
+    sepaprint = (Boolean) ac.getSEPAPrint().getValue();
     this.pdffile = pdffile;
-    this.dtausfile = dtausfile;
+    this.sepafile = sepafile;
 
     if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
         || abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)

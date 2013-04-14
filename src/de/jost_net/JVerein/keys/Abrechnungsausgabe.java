@@ -28,7 +28,7 @@ import java.util.ArrayList;
  */
 public class Abrechnungsausgabe
 {
-  public static final int DTAUS = 1;
+  public static final int SEPA_DATEI = 1;
 
   public static final int HIBISCUS_EINZELBUCHUNGEN = 2;
 
@@ -39,6 +39,7 @@ public class Abrechnungsausgabe
   public Abrechnungsausgabe(int key)
   {
     this.ausgabe = key;
+    this.ausgabe = SEPA_DATEI; // TODO
   }
 
   public int getKey()
@@ -55,7 +56,7 @@ public class Abrechnungsausgabe
   {
     switch (key)
     {
-      case DTAUS:
+      case SEPA_DATEI:
         return "Datei";
       case HIBISCUS_EINZELBUCHUNGEN:
         return "Hibiscus (Einzelbuchungen)";
@@ -69,9 +70,9 @@ public class Abrechnungsausgabe
   public static ArrayList<Abrechnungsausgabe> getArray()
   {
     ArrayList<Abrechnungsausgabe> ret = new ArrayList<Abrechnungsausgabe>();
-    ret.add(new Abrechnungsausgabe(DTAUS));
-    ret.add(new Abrechnungsausgabe(HIBISCUS_EINZELBUCHUNGEN));
-    ret.add(new Abrechnungsausgabe(HIBISCUS_SAMMELBUCHUNG));
+    ret.add(new Abrechnungsausgabe(SEPA_DATEI));
+    // TODO ret.add(new Abrechnungsausgabe(HIBISCUS_EINZELBUCHUNGEN));
+    // TODO ret.add(new Abrechnungsausgabe(HIBISCUS_SAMMELBUCHUNG));
     return ret;
   }
 

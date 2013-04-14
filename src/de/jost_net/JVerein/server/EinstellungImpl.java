@@ -763,7 +763,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util
+        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override
@@ -931,19 +932,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setZahlungsweg(int zahlungsweg) throws RemoteException
   {
     setAttribute("zahlungsweg", zahlungsweg);
-  }
-
-  @Override
-  public String getDtausTextschluessel() throws RemoteException
-  {
-    return (String) getAttribute("dtaustextschluessel");
-  }
-
-  @Override
-  public void setDtausTextschluessel(String dtaustextschluessel)
-      throws RemoteException
-  {
-    setAttribute("dtaustextschluessel", dtaustextschluessel);
   }
 
   @Override

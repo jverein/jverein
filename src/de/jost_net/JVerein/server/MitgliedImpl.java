@@ -169,7 +169,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throw new ApplicationException("Bitte Eintrittsdatum eingeben");
     }
     if (getAdresstyp().getJVereinid() == 1
-        && getZahlungsweg() == Zahlungsweg.DTAUS
+        && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
         && getBeitragsgruppe().getBetrag() > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
@@ -1115,22 +1115,19 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         Datum.formatDate(this.getAustritt()));
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
-        this.getBeitragsgruppe() != null
-            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getArbeitseinsatzBetrag())
-            : "");
+        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(this.getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
-        this.getBeitragsgruppe() != null
-            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getArbeitseinsatzStunden())
-            : "");
+        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(this.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
-        this.getBeitragsgruppe() != null
-            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getBetrag())
-            : "");
-    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(),
-        this.getBeitragsgruppe() != null
-            ? this.getBeitragsgruppe().getBezeichnung() : "");
+        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(this.getBeitragsgruppe().getBetrag()) : "");
+    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
+        .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
+        .getBezeichnung() : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
@@ -1184,7 +1181,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     String zahlungsweg = "";
     switch (this.getZahlungsweg())
     {
-      case Zahlungsweg.DTAUS:
+      case Zahlungsweg.BASISLASTSCHRIFT:
       {
         zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", this.getKonto());
@@ -1200,7 +1197,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       case Zahlungsweg.ÜBERWEISUNG:
       {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextUeberweisung();
+        zahlungsweg = Einstellungen.getEinstellung()
+            .getRechnungTextUeberweisung();
         break;
       }
     }
@@ -1215,7 +1213,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       DBIterator itzus = Einstellungen.getDBService().createList(
           Zusatzfelder.class);
       itzus.addFilter("mitglied = ? and felddefinition = ? ", new Object[] {
-          getID(), fd.getID()});
+          getID(), fd.getID() });
       Zusatzfelder z = null;
       if (itzus.hasNext())
       {
@@ -1269,7 +1267,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       DBIterator iteigm = Einstellungen.getDBService().createList(
           Eigenschaften.class);
       iteigm.addFilter("mitglied = ? and eigenschaft = ?",
-          new Object[] { this.getID(), eig.getID()});
+          new Object[] { this.getID(), eig.getID() });
       String val = "";
       if (iteigm.size() > 0)
       {
@@ -1325,11 +1323,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
-      it.addFilter("name = ?", new Object[] { fieldName.substring(13)});
+      it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
       Felddefinition fd = (Felddefinition) it.next();
       it = Einstellungen.getDBService().createList(Zusatzfelder.class);
       it.addFilter("felddefinition = ? AND mitglied = ?",
-          new Object[] { fd.getID(), getID()});
+          new Object[] { fd.getID(), getID() });
       if (it.hasNext())
       {
         Zusatzfelder zf = (Zusatzfelder) it.next();
