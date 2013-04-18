@@ -172,6 +172,8 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput zahlungsrhytmus;
 
+  private TextInput mandatid = null;
+
   private DateInput mandatdatum = null;
 
   private TextInput bic;
@@ -707,6 +709,18 @@ public class MitgliedControl extends AbstractControl
     bic.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
     return bic;
+  }
+
+  public TextInput getMandatID() throws RemoteException
+  {
+    if (mandatid != null)
+    {
+      return mandatid;
+    }
+    mandatid = new TextInput(getMitglied().getID());
+    mandatid.setName("Mandats-ID");
+    mandatid.disable();
+    return mandatid;
   }
 
   public DateInput getMandatDatum() throws RemoteException
