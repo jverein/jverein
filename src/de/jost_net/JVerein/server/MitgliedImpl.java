@@ -1044,6 +1044,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
           Beitragsgruppe.class);
       Beitragsgruppe bg = (Beitragsgruppe) it.next();
       this.setBeitragsgruppe(Integer.parseInt(bg.getID()));
+      this.setBic("XXXXXXXXXXX");
       this.setBlz("10020030");
       this.setEingabedatum();
       this.setEintritt("05.02.1999");
@@ -1052,6 +1053,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setGeburtsdatum("02.03.1980");
       this.setGeschlecht("M");
       this.setHandy("0170/123456789");
+      this.setIban("DE89370400440532013000");
       this.setID("1");
       this.setIndividuellerBeitrag(123.45);
       this.setKonto("1234567890");
