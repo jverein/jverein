@@ -73,11 +73,15 @@ public class KursteilnehmerControl extends AbstractControl
 
   private Input name;
 
+  private TextInput strasse;
+
+  private TextInput plz;
+
+  private TextInput ort;
+
   private DecimalInput betrag;
 
   private Input vzweck1;
-
-  private Input vzweck2;
 
   private DateInput mandatdatum;
 
@@ -143,25 +147,45 @@ public class KursteilnehmerControl extends AbstractControl
     return name;
   }
 
+  public Input getStrasse() throws RemoteException
+  {
+    if (strasse != null)
+    {
+      return strasse;
+    }
+    strasse = new TextInput(getKursteilnehmer().getStrasse(), 40);
+    return strasse;
+  }
+
+  public Input getPLZ() throws RemoteException
+  {
+    if (plz != null)
+    {
+      return plz;
+    }
+    plz = new TextInput(getKursteilnehmer().getPLZ(), 10);
+    return plz;
+  }
+
+  public Input getOrt() throws RemoteException
+  {
+    if (ort != null)
+    {
+      return ort;
+    }
+    ort = new TextInput(getKursteilnehmer().getOrt(), 40);
+    return ort;
+  }
+
   public Input getVZweck1() throws RemoteException
   {
     if (vzweck1 != null)
     {
       return vzweck1;
     }
-    vzweck1 = new TextInput(getKursteilnehmer().getVZweck1(), 27);
+    vzweck1 = new TextInput(getKursteilnehmer().getVZweck1(), 140);
     vzweck1.setMandatory(true);
     return vzweck1;
-  }
-
-  public Input getVZweck2() throws RemoteException
-  {
-    if (vzweck2 != null)
-    {
-      return vzweck2;
-    }
-    vzweck2 = new TextInput(getKursteilnehmer().getVZweck2(), 27);
-    return vzweck2;
   }
 
   public DateInput getMandatDatum() throws RemoteException
@@ -468,10 +492,12 @@ public class KursteilnehmerControl extends AbstractControl
     part = new TablePart(kursteilnehmer, new KursteilnehmerDetailAction());
 
     part.addColumn("Name", "name");
-    part.addColumn("VZweck 1", "vzweck1");
-    part.addColumn("VZweck 2", "vzweck2");
-    part.addColumn("BLZ", "blz");
-    part.addColumn("Konto", "konto");
+    part.addColumn("Straße", "strasse");
+    part.addColumn("PLZ", "plz");
+    part.addColumn("Ort", "ort");
+    part.addColumn("Verwendungszweck", "vzweck1");
+    part.addColumn("BIC", "bic");
+    part.addColumn("IBAN", "iban");
     part.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
     part.addColumn("Eingabedatum", "eingabedatum", new DateFormatter(
@@ -598,8 +624,10 @@ public class KursteilnehmerControl extends AbstractControl
     {
       Kursteilnehmer k = getKursteilnehmer();
       k.setName((String) getName(false).getValue());
+      k.setStrasse((String) getStrasse().getValue());
+      k.setPLZ((String) getPLZ().getValue());
+      k.setOrt((String) getOrt().getValue());
       k.setVZweck1((String) getVZweck1().getValue());
-      k.setVZweck2((String) getVZweck2().getValue());
       k.setMandatdatum((Date) getMandatDatum().getValue());
       k.setBlz((String) getBlz().getValue());
       k.setKonto((String) getKonto().getValue());
@@ -662,7 +690,7 @@ public class KursteilnehmerControl extends AbstractControl
         subtitle += "Abbuchungsdatum von" + " "
             + new JVDateFormatTTMMJJJJ().format(d) + "  ";
         list.addFilter("abbudatum >= ?",
-            new Object[] { new java.sql.Date(d.getTime())});
+            new Object[] { new java.sql.Date(d.getTime()) });
       }
       if (abbuchungsdatumbis.getValue() != null)
       {
@@ -670,7 +698,7 @@ public class KursteilnehmerControl extends AbstractControl
         subtitle += " " + "bis" + " " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
         list.addFilter("abbudatum <= ?",
-            new Object[] { new java.sql.Date(d.getTime())});
+            new Object[] { new java.sql.Date(d.getTime()) });
       }
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
@@ -683,8 +711,8 @@ public class KursteilnehmerControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("kursteilnehmer", "",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("kursteilnehmer", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -725,8 +753,7 @@ public class KursteilnehmerControl extends AbstractControl
               Kursteilnehmer kt = (Kursteilnehmer) list.next();
               rpt.addColumn(kt.getAbbudatum(), Element.ALIGN_LEFT);
               rpt.addColumn(kt.getName(), Element.ALIGN_LEFT);
-              rpt.addColumn(kt.getVZweck1() + "\n" + kt.getVZweck2(),
-                  Element.ALIGN_LEFT);
+              rpt.addColumn(kt.getVZweck1(), Element.ALIGN_LEFT);
               rpt.addColumn(kt.getBetrag());
             }
             rpt.close();
@@ -805,17 +832,18 @@ public class KursteilnehmerControl extends AbstractControl
     String suchN = (String) getSuchname().getValue();
     if (suchN != null && suchN.length() > 0)
     {
-      kursteilnehmer.addFilter("name like ?", new Object[] { "%" + suchN + "%"});
+      kursteilnehmer.addFilter("name like ?",
+          new Object[] { "%" + suchN + "%" });
     }
     if (getEingabedatumvon().getValue() != null)
     {
       kursteilnehmer.addFilter("eingabedatum >= ?",
-          new Object[] { (Date) getEingabedatumvon().getValue()});
+          new Object[] { (Date) getEingabedatumvon().getValue() });
     }
     if (getEingabedatumbis().getValue() != null)
     {
       kursteilnehmer.addFilter("eingabedatum <= ?",
-          new Object[] { (Date) getEingabedatumbis().getValue()});
+          new Object[] { (Date) getEingabedatumbis().getValue() });
     }
     return kursteilnehmer;
   }

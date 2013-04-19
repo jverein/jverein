@@ -441,7 +441,7 @@ public class AbrechnungSEPA
         zahler.setMandatid("K" + kt.getID());
         zahler.setMandatdatum(kt.getMandatdatum());
         zahler.setName(kt.getName());
-        zahler.setVerwendungszweck(kt.getVZweck1() + " " + kt.getVZweck2());
+        zahler.setVerwendungszweck(kt.getVZweck1());
         lastschrift.add(zahler);
         kt.setAbbudatum();
         kt.store();

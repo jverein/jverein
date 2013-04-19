@@ -146,6 +146,42 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
+  public String getStrasse() throws RemoteException
+  {
+    return (String) getAttribute("strasse");
+  }
+
+  @Override
+  public void setStrasse(String strasse) throws RemoteException
+  {
+    setAttribute("strasse", strasse);
+  }
+
+  @Override
+  public String getPLZ() throws RemoteException
+  {
+    return (String) getAttribute("plz");
+  }
+
+  @Override
+  public void setPLZ(String plz) throws RemoteException
+  {
+    setAttribute("plz", plz);
+  }
+
+  @Override
+  public String getOrt() throws RemoteException
+  {
+    return (String) getAttribute("ort");
+  }
+
+  @Override
+  public void setOrt(String ort) throws RemoteException
+  {
+    setAttribute("ort", ort);
+  }
+
+  @Override
   public Date getMandatdatum() throws RemoteException
   {
     Date d = (Date) getAttribute("mandatdatum");
@@ -250,18 +286,6 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   public void setVZweck1(String vzweck1) throws RemoteException
   {
     setAttribute("vzweck1", vzweck1);
-  }
-
-  @Override
-  public String getVZweck2() throws RemoteException
-  {
-    return (String) getAttribute("vzweck2");
-  }
-
-  @Override
-  public void setVZweck2(String vzweck2) throws RemoteException
-  {
-    setAttribute("vzweck2", vzweck2);
   }
 
   @Override

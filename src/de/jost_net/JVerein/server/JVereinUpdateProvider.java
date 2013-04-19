@@ -1135,6 +1135,34 @@ public class JVereinUpdateProvider
     {
       update0284(conn);
     }
+    if (cv < 285)
+    {
+      update0285(conn);
+    }
+    if (cv < 286)
+    {
+      update0286(conn);
+    }
+    if (cv < 287)
+    {
+      update0287(conn);
+    }
+    if (cv < 288)
+    {
+      update0288(conn);
+    }
+    if (cv < 289)
+    {
+      update0289(conn);
+    }
+    if (cv < 290)
+    {
+      update0290(conn);
+    }
+    if (cv < 291)
+    {
+      update0291(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6673,6 +6701,120 @@ public class JVereinUpdateProvider
         "ALTER TABLE einstellung DROP COLUMN dtaustextschluessel;\n");
 
     execute(conn, statements, "Spalten aus Tabelle einstellung entfernt", 284);
+  }
+
+  private void update0285(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer ADD strasse varchar(40) before vzweck1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer ADD strasse varchar(40) after name;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte strasse in die Tabelle kursteilnehmer aufgenommen", 285);
+  }
+
+  private void update0286(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer ADD plz varchar(10) before vzweck1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer ADD plz varchar(10) after strasse;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte plz in die Tabelle kursteilnehmer aufgenommen", 286);
+  }
+
+  private void update0287(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer ADD ort varchar(40) before vzweck1;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer ADD ort varchar(40) after plz;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte ort in die Tabelle kursteilnehmer aufgenommen", 287);
+  }
+
+  private void update0288(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table kursteilnehmer alter column vzweck1 varchar(140);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table kursteilnehmer modify column  vzweck1 varchar(140);\n");
+
+    execute(conn, statements,
+        "Spalte vzweck1 der Tabelle kursteilnehmer verlängert", 288);
+  }
+
+  private void update0289(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "update kursteilnehmer set vzweck1 = trim(concat(vzweck1, vzweck2));\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(
+        conn,
+        statements,
+        "Spalte vzweck1 und vzweck2 in der Tabelle kursteilnehmer zusammengefügt",
+        289);
+  }
+
+  private void update0290(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer DROP vzweck2;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE kursteilnehmer DROP vzweck2;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte vzweck2 aus der Tabelle kursteilnehmer entfernt", 290);
+  }
+
+  private void update0291(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "alter table kursteilnehmer alter column name varchar(40);\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table kursteilnehmer modify column  name varchar(40);\n");
+
+    execute(conn, statements,
+        "Spalte name der Tabelle kursteilnehmer verlängert", 291);
   }
 
 }

@@ -45,14 +45,16 @@ public class KursteilnehmerDetailView extends AbstractView
     LabelGroup grGrund = new LabelGroup(getParent(), "Daten für die Abbuchung");
     grGrund.getComposite().setSize(290, 190);
     grGrund.addLabelPair("Name", control.getName(true));
+    grGrund.addLabelPair("Straße", control.getStrasse());
+    grGrund.addLabelPair("PLZ", control.getPLZ());
+    grGrund.addLabelPair("Ort", control.getOrt());
     grGrund.addLabelPair("Verwendungszweck 1", control.getVZweck1());
-    grGrund.addLabelPair("Verwendungszweck 2", control.getVZweck2());
     grGrund.addInput(control.getMandatDatum());
     grGrund.addInput(control.getBIC());
     grGrund.addInput(control.getIBAN());
     grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),
-        control.getBlz(), control.getKonto(), control.getBIC(),
-        control.getIBAN()));
+        control.getBlz(), control.getKonto(), control.getBIC(), control
+            .getIBAN()));
     // grGrund.addLabelPair("BLZ"),
     // control.getBlz());
     // grGrund.addLabelPair("Konto"),

@@ -36,13 +36,21 @@ public interface Kursteilnehmer extends DBObject, IBankverbindung
 
   public void setName(String name) throws RemoteException;
 
+  public String getStrasse() throws RemoteException;
+
+  public void setStrasse(String strasse) throws RemoteException;
+
+  public String getPLZ() throws RemoteException;
+
+  public void setPLZ(String plz) throws RemoteException;
+
+  public String getOrt() throws RemoteException;
+
+  public void setOrt(String ort) throws RemoteException;
+
   public String getVZweck1() throws RemoteException;
 
   public void setVZweck1(String vzweck1) throws RemoteException;
-
-  public String getVZweck2() throws RemoteException;
-
-  public void setVZweck2(String vzweck2) throws RemoteException;
 
   public Date getMandatdatum() throws RemoteException;
 

@@ -95,8 +95,8 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     {
       try
       {
-        return k.getName() + ", " + k.getVZweck1() + ", " + k.getVZweck2()
-            + ", " + "IBAN: " + k.getIban() + ", " + "BIC: " + k.getBic();
+        return k.getName() + ", " + k.getVZweck1() + ", " + "IBAN: "
+            + k.getIban() + ", " + "BIC: " + k.getBic();
       }
       catch (RemoteException re)
       {
