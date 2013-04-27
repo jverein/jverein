@@ -28,7 +28,6 @@ import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
-import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -248,7 +247,6 @@ public class BuchungsuebernahmeControl extends AbstractControl
         buchungsList.addColumn("Verwendungszweck", "zweck");
         buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
             Einstellungen.DECIMALFORMAT));
-        buchungsList.setContextMenu(new BuchungMenu());
         buchungsList.setRememberColWidths(true);
         buchungsList.setRememberOrder(true);
         buchungsList.setSummary(true);
