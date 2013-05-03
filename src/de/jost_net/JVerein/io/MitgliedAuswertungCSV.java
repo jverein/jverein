@@ -22,17 +22,21 @@
 package de.jost_net.JVerein.io;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvListReader;
 import org.supercsv.io.CsvMapWriter;
+import org.supercsv.io.ICsvListReader;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
@@ -45,14 +49,77 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedAuswertungCSV implements IAuswertung
 {
 
+  private MitgliedControl control;
+
+  private String[] headerUser;
+
+  private String[] headerKeys;
+
   public MitgliedAuswertungCSV()
   {
+    this.control = null;
+    this.headerKeys = null;
+    this.headerUser = null;
+  }
+
+  public MitgliedAuswertungCSV(MitgliedControl control)
+  {
+    this.control = control;
+    this.headerKeys = null;
+    this.headerUser = null;
   }
 
   @Override
-  public void beforeGo()
+  public void beforeGo() throws RemoteException
   {
-    // Nothing to do
+    // read and check vorlagedateicsv
+    headerKeys = null;
+    headerUser = null;
+
+    if (control != null)
+    {
+      String vorlagedateiname = (String) control.getVorlagedateicsv()
+          .getValue();
+      if ((vorlagedateiname != null) && !vorlagedateiname.isEmpty())
+      {
+        Logger.info("reading " + vorlagedateiname);
+
+        // read the file content: first 2 lines
+        // 1st line: headerUser
+        // 2nd line: headerKeys
+        try
+        {
+          File file = new File(vorlagedateiname);
+          ICsvListReader reader = new CsvListReader(new FileReader(file),
+              CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+          headerUser = reader.read().toArray(new String[0]);
+          headerKeys = reader.read().toArray(new String[0]);
+
+        }
+        catch (Exception e)
+        {
+          Logger.error("error reading " + vorlagedateiname, e);
+          throw new RemoteException("Fehler beim Einlesen der Vorlagedatei "
+              + vorlagedateiname, e);
+        }
+
+        // check the file content
+        if (headerUser.length == 0)
+        {
+          Logger.error("no elements in first line: " + vorlagedateiname);
+          throw new RemoteException("keine Elemente in erster Zeile in Datei "
+              + vorlagedateiname);
+        }
+        if (headerUser.length != headerKeys.length)
+        {
+          Logger.error("different number of elements in 1st and 2nd line: "
+              + vorlagedateiname);
+          throw new RemoteException(
+              "unterschiedliche Anzahl Elemente in 1. und 2. Zeile: "
+                  + vorlagedateiname);
+        }
+      }
+    }
   }
 
   @Override
@@ -75,20 +142,40 @@ public class MitgliedAuswertungCSV implements IAuswertung
             Mitglied.class, null);
       }
 
-      String[] header = createHeader(m);
+      if (headerKeys == null || headerUser == null)
+      {
+        headerKeys = createHeader(m);
+        headerUser = headerKeys;
+      }
+      // TEST
+      // headerKeys = new String[] { "mitglied_name", "mitglied_vorname",
+      // "mitglied_eintritt" };
+      // headerUser = new String[] { "Name", "Vorname", "Eintrittsdatum" };
+
       Logger.debug("Header");
-      for (String s : header)
+      for (String s : headerKeys)
       {
         Logger.debug(s);
       }
-      Map<String, Object> map = m.getMap(null);
-      CellProcessor[] processors = CellProcessors.createCellProcessors(map);
 
-      writer.writeHeader(header);
+      Map<String, Object> map = m.getMap(null);
+      // check headerKeys against map
+      for (String key : headerKeys)
+      {
+        if (!map.containsKey(key))
+        {
+          throw new ApplicationException("invalid key: " + key);
+        }
+      }
+
+      CellProcessor[] processors = CellProcessors.createCellProcessors(map,
+          headerKeys);
+
+      writer.writeHeader(headerUser);
 
       for (Mitglied mit : list)
       {
-        writer.write(mit.getMap(null), header, processors);
+        writer.write(mit.getMap(null), headerKeys, processors);
       }
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
@@ -113,7 +200,8 @@ public class MitgliedAuswertungCSV implements IAuswertung
     catch (Exception e)
     {
       Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
+      throw new ApplicationException("Fehler beim Erzeugen des Reports ("
+          + e.getMessage() + ")", e);
     }
   }
 
