@@ -68,8 +68,8 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
         FamilienbeitragNode zahler = (FamilienbeitragNode) fbn.getParent();
         control.getKonto().setValue(zahler.getMitglied().getKonto());
         control.getBlz().setValue(zahler.getMitglied().getBlz());
-        control.getKontoinhaber().setValue(
-            zahler.getMitglied().getKontoinhaber());
+        // control.getKontoinhaber().setValue(
+        // zahler.getMitglied().getKontoinhaber());
       }
     }
     catch (RemoteException e)
@@ -87,7 +87,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     LabelGroup lgBank = new LabelGroup(parent, "Bankverbindung");
     lgBank.addLabelPair("Konto", control.getKonto());
     lgBank.addLabelPair("Bankleitzahl", control.getBlz());
-    lgBank.addLabelPair("Kontoinhaber", control.getKontoinhaber());
+    // lgBank.addLabelPair("Kontoinhaber", control.getKontoinhaber());
     ButtonArea b = new ButtonArea();
     b.addButton("weiter", new Action()
     {
@@ -102,11 +102,12 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
           {
             throw new ApplicationException("Bitte Beitragsgruppe auswählen");
           }
-          Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppe(false).getValue();
+          Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppe(false)
+              .getValue();
           m.setBeitragsgruppe(new Integer(bg.getID()));
           m.setKonto((String) control.getKonto().getValue());
           m.setBlz((String) control.getBlz().getValue());
-          m.setKontoinhaber((String) control.getKontoinhaber().getValue());
+          // m.setKontoinhaber((String) control.getKontoinhaber().getValue());
           m.setZahlerID(null);
           m.setLetzteAenderung();
           m.store();

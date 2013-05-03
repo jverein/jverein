@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.navigation;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AboutAction;
 import de.jost_net.JVerein.gui.action.AbrechnungSEPAAction;
+import de.jost_net.JVerein.gui.action.AbrechnunslaufListAction;
 import de.jost_net.JVerein.gui.action.AdressenSucheAction;
 import de.jost_net.JVerein.gui.action.AdresstypListAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
@@ -113,8 +114,15 @@ public class MyExtension implements Extension
         jverein.addChild(new MyItem(jverein, "Familienbeitrag",
             new FamilienbeitragAction(), "family-icon.png"));
       }
-      jverein.addChild(new MyItem(jverein, "Abrechnung",
+
+      NavigationItem abrechnung = null;
+      abrechnung = new MyItem(abrechnung, "Abrechnung", null);
+      abrechnung.addChild(new MyItem(abrechnung, "Abrechnung",
           new AbrechnungSEPAAction(), "accessories-calculator.png"));
+      abrechnung.addChild(new MyItem(abrechnung, "Abrechnungslauf",
+          new AbrechnunslaufListAction(), "accessories-calculator.png"));
+      jverein.addChild(abrechnung);
+
       jverein.addChild(new MyItem(jverein, "Mitgliedskonten",
           new MitgliedskontoListeAction(), "human_folder_public.png"));
       jverein.addChild(new MyItem(jverein, "Rechnungen",

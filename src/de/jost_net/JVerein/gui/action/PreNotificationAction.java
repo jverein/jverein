@@ -19,27 +19,27 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.menu;
+package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.gui.action.AbrechnungslaufDeleteAction;
-import de.jost_net.JVerein.gui.action.PreNotificationAction;
-import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
-import de.willuhn.jameica.gui.parts.ContextMenu;
+import de.jost_net.JVerein.gui.view.PreNotificationView;
+import de.jost_net.JVerein.rmi.Abrechnungslauf;
+import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.util.ApplicationException;
 
-/**
- * Kontext-Menu zu den Abrechnungsläufen
- */
-public class AbrechnungslaufMenu extends ContextMenu
+public class PreNotificationAction implements Action
 {
-
-  /**
-   * Erzeugt ein Kontext-Menu fuer die Liste der Abrechnungläufe
-   */
-  public AbrechnungslaufMenu()
+  @Override
+  public void handleAction(Object context) throws ApplicationException
   {
-    addItem(new CheckedContextMenuItem("Pre-Notification",
-        new PreNotificationAction(), "document-new.png"));
-    addItem(new CheckedContextMenuItem("löschen...",
-        new AbrechnungslaufDeleteAction(), "user-trash.png"));
+    if (context == null)
+    {
+      throw new ApplicationException("Keinen Abrechnunglauf ausgewählt!");
+    }
+    if (!(context instanceof Abrechnungslauf))
+    {
+      throw new ApplicationException("Programmfehler! Kein Abrechnunglauf!");
+    }
+    GUI.startView(PreNotificationView.class.getName(), context);
   }
 }

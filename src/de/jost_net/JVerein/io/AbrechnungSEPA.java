@@ -26,12 +26,14 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
@@ -43,6 +45,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
+import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -98,6 +101,30 @@ public class AbrechnungSEPA
 
     lastschrift.setMessageID(abrl.getID());
     lastschrift.write(param.sepafile);
+
+    ArrayList<Zahler> z = lastschrift.getZahler();
+    for (Zahler za : z)
+    {
+      Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
+          Lastschrift.class, null);
+      ls.setAbrechnungslauf(Integer.parseInt(abrl.getID()));
+      if (za.getMandatid().startsWith("K"))
+      {
+        ls.setKursteilnehmer(Integer.parseInt(za.getMandatid().substring(1)));
+      }
+      else
+      {
+        ls.setMitglied(Integer.parseInt(za.getMandatid()));
+      }
+      ls.setBetrag(za.getBetrag());
+      ls.setBIC(za.getBic());
+      ls.setIBAN(za.getIban());
+      ls.setMandatDatum(za.getMandatdatum());
+      ls.setMandatID(za.getMandatid());
+      ls.setName(za.getNameOrig());
+      ls.setVerwendungszweck(za.getVerwendungszweckOrig());
+      ls.store();
+    }
 
     // Gegenbuchung für das Mitgliedskonto schreiben
     writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", lastschrift
@@ -264,7 +291,8 @@ public class AbrechnungSEPA
           }
           catch (NullPointerException e)
           {
-            Logger.error(m.getVornameName() + ": " + m.getBeitragsgruppeId());
+            Logger.error(Adressaufbereitung.getVornameName(m) + ": "
+                + m.getBeitragsgruppeId());
             DBIterator li = Einstellungen.getDBService().createList(
                 Beitragsgruppe.class);
             while (li.hasNext())
@@ -319,13 +347,13 @@ public class AbrechnungSEPA
               zahler.setVerwendungszweck(zahler.getVerwendungszweck() + " "
                   + an);
             }
-            zahler.setName(getZahlungspflichtigen(m));
+            zahler.setName(m.getKontoinhaber(1));
             lastschrift.add(zahler);
           }
           catch (Exception e)
           {
-            throw new ApplicationException(m.getNameVorname() + ": "
-                + e.getMessage());
+            throw new ApplicationException(Adressaufbereitung.getNameVorname(m)
+                + ": " + e.getMessage());
           }
         }
       }
@@ -365,7 +393,7 @@ public class AbrechnungSEPA
             zahler.setIban(m.getIban());
             zahler.setMandatid(m.getID());
             zahler.setMandatdatum(m.getMandatDatum());
-            zahler.setName(getZahlungspflichtigen(m));
+            zahler.setName(m.getKontoinhaber(1));
             String verwendungszweck = z.getBuchungstext();
             if (z.getBuchungstext2() != null
                 && z.getBuchungstext2().length() > 0)
@@ -377,8 +405,8 @@ public class AbrechnungSEPA
           }
           catch (Exception e)
           {
-            throw new ApplicationException(m.getNameVorname() + ": "
-                + e.getMessage());
+            throw new ApplicationException(Adressaufbereitung.getNameVorname(m)
+                + ": " + e.getMessage());
           }
         }
         if (z.getIntervall().intValue() != IntervallZusatzzahlung.KEIN
@@ -408,7 +436,8 @@ public class AbrechnungSEPA
           String debString = z.getStartdatum() + ", " + z.getEndedatum() + ", "
               + z.getIntervallText() + ", " + z.getBuchungstext() + ", "
               + z.getBetrag();
-          Logger.error(z.getMitglied().getNameVorname() + " " + debString, e);
+          Logger.error(Adressaufbereitung.getNameVorname(z.getMitglied()) + " "
+              + debString, e);
           monitor.log(z.getMitglied().getName() + " " + debString + " " + e);
           throw e;
         }
@@ -565,6 +594,7 @@ public class AbrechnungSEPA
         .createObject(Abrechnungslauf.class, null);
     abrl.setDatum(new Date());
     abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
+    abrl.setFaelligkeit(param.faelligkeit);
     abrl.setDtausdruck(param.sepaprint);
     abrl.setEingabedatum(param.vondatum);
     abrl.setKursteilnehmer(param.kursteilnehmer);
@@ -605,7 +635,8 @@ public class AbrechnungSEPA
       buchung.setBetrag(betrag);
       buchung.setDatum(datum);
       buchung.setKonto(konto);
-      buchung.setName(mitglied != null ? mitglied.getNameVorname() : "JVerein");
+      buchung.setName(mitglied != null ? Adressaufbereitung
+          .getNameVorname(mitglied) : "JVerein");
       buchung.setZweck(zweck1);
       if (mk != null)
       {
@@ -639,22 +670,12 @@ public class AbrechnungSEPA
     return k;
   }
 
-  private String getZahlungspflichtigen(Mitglied m) throws RemoteException
-  {
-    String zpfl = m.getNameVorname();
-    if (m.getKontoinhaber().length() > 0)
-    {
-      zpfl = m.getKontoinhaber();
-    }
-    return zpfl;
-  }
-
   private String getVerwendungszweck2(Mitglied m) throws RemoteException
   {
     String mitgliedname = (Einstellungen.getEinstellung()
         .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
         .getID())
-        + "/" + m.getNameVorname();
+        + "/" + Adressaufbereitung.getNameVorname(m);
     return mitgliedname;
   }
 

@@ -24,7 +24,6 @@ package de.jost_net.JVerein.gui.view;
 import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.action.AbrechnunslaufListAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
 import de.jost_net.JVerein.rmi.Konto;
@@ -100,8 +99,6 @@ public class AbrechnungSEPAView extends AbstractView
             true);
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton("Rückgängig", new AbrechnunslaufListAction(), null,
-        false, "edit-undo.png");
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
     buttons.addButton(control.getStartButton());
