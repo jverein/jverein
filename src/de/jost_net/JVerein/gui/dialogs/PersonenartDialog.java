@@ -22,13 +22,13 @@
 
 package de.jost_net.JVerein.gui.dialogs;
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
+import java.rmi.RemoteException;
 
+import org.eclipse.swt.widgets.Composite;
+
+import de.jost_net.JVerein.gui.input.PersonenartInput;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
-import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
@@ -40,13 +40,9 @@ import de.willuhn.jameica.system.OperationCanceledException;
 public class PersonenartDialog extends AbstractDialog<String>
 {
 
-  private final static String NATUERLICHE_PERSON = "natürliche Person";
-
-  private final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
-
   private String selected = null;
 
-  private SelectInput personenart = null;
+  private PersonenartInput personenart = null;
 
   public PersonenartDialog(int position)
   {
@@ -60,7 +56,7 @@ public class PersonenartDialog extends AbstractDialog<String>
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup options = new LabelGroup(parent, "Personenart");
-    options.addInput(this.getPersonenart());
+    options.addInput(this.getPersonenartInput());
     ButtonArea b = new ButtonArea();
     b.addButton("weiter", new Action()
     {
@@ -91,25 +87,12 @@ public class PersonenartDialog extends AbstractDialog<String>
     return this.selected;
   }
 
-  private SelectInput getPersonenart()
+  private PersonenartInput getPersonenartInput() throws RemoteException
   {
-    if (this.personenart != null)
+    if (personenart != null)
     {
-      return this.personenart;
+      return personenart;
     }
-    this.personenart = new SelectInput(new Object[] { NATUERLICHE_PERSON,
-        JURISTISCHE_PERSON}, NATUERLICHE_PERSON);
-    this.personenart.setName("Personenart");
-    this.personenart.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        String s = (String) personenart.getValue();
-        selected = s.substring(0, 1);
-      }
-    });
-    return this.personenart;
+    return personenart = new PersonenartInput("n");
   }
 }
