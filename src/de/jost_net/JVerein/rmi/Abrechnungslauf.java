@@ -38,6 +38,10 @@ public interface Abrechnungslauf extends DBObject
 
   public void setModus(Integer modus) throws RemoteException;
 
+  public Date getFaelligkeit() throws RemoteException;
+
+  public void setFaelligkeit(Date faelligkeit) throws RemoteException;
+
   public Date getStichtag() throws RemoteException;
 
   public void setStichtag(Date stichtag) throws RemoteException;

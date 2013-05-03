@@ -113,6 +113,23 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
   }
 
   @Override
+  public Date getFaelligkeit() throws RemoteException
+  {
+    Date d = (Date) getAttribute("faelligkeit");
+    if (d == null)
+    {
+      return Einstellungen.NODATE;
+    }
+    return d;
+  }
+
+  @Override
+  public void setFaelligkeit(Date faelligkeit) throws RemoteException
+  {
+    setAttribute("faelligkeit", faelligkeit);
+  }
+
+  @Override
   public Date getStichtag() throws RemoteException
   {
     Date d = (Date) getAttribute("stichtag");
