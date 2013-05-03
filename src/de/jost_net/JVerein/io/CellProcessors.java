@@ -36,9 +36,14 @@ public class CellProcessors
 {
   public static CellProcessor[] createCellProcessors(Map<String, Object> map)
   {
-    CellProcessor[] ret = new CellProcessor[map.size()];
+	  return createCellProcessors(map, map.keySet().toArray(new String[0]));
+  }
+  
+  public static CellProcessor[] createCellProcessors(Map<String, Object> map, String[] keys)
+  {
+    CellProcessor[] ret = new CellProcessor[keys.length];
     int i = 0;
-    for (String elem : map.keySet())
+    for (String elem : keys)
     {
       Object o = map.get(elem);
       if (o instanceof Double)
