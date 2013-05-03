@@ -39,6 +39,8 @@ public class Formularart
 
   public static final int SAMMELSPENDENBESCHEINIGUNG = 5;
 
+  public static final int SEPA_PRENOTIFICATION = 6;
+
   private int formularart;
 
   public Formularart(int key)
@@ -70,6 +72,8 @@ public class Formularart
         return "Freies Formular";
       case SAMMELSPENDENBESCHEINIGUNG:
         return "Sammelbestätigung";
+      case SEPA_PRENOTIFICATION:
+        return "SEPA Pre-Notification";
       default:
         return null;
     }
@@ -83,6 +87,7 @@ public class Formularart
     ret.add(new Formularart(RECHNUNG));
     ret.add(new Formularart(MAHNUNG));
     ret.add(new Formularart(FREIESFORMULAR));
+    ret.add(new Formularart(SEPA_PRENOTIFICATION));
     return ret;
   }
 
