@@ -1163,6 +1163,74 @@ public class JVereinUpdateProvider
     {
       update0291(conn);
     }
+    if (cv < 292)
+    {
+      update0292(conn);
+    }
+    if (cv < 293)
+    {
+      update0293(conn);
+    }
+    if (cv < 294)
+    {
+      update0294(conn);
+    }
+    if (cv < 295)
+    {
+      update0295(conn);
+    }
+    if (cv < 296)
+    {
+      update0296(conn);
+    }
+    if (cv < 297)
+    {
+      update0297(conn);
+    }
+    if (cv < 298)
+    {
+      update0298(conn);
+    }
+    if (cv < 299)
+    {
+      update0299(conn);
+    }
+    if (cv < 300)
+    {
+      update0300(conn);
+    }
+    if (cv < 301)
+    {
+      update0301(conn);
+    }
+    if (cv < 302)
+    {
+      update0302(conn);
+    }
+    if (cv < 303)
+    {
+      update0303(conn);
+    }
+    if (cv < 304)
+    {
+      update0304(conn);
+    }
+    if (cv < 305)
+    {
+      update0305(conn);
+    }
+    if (cv < 306)
+    {
+      update0306(conn);
+    }
+    if (cv < 307)
+    {
+      update0307(conn);
+    }
+    if (cv < 308)
+    {
+      update0308(conn);
+    }
   }
 
   public Connection getConnection()
@@ -6815,6 +6883,343 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte name der Tabelle kursteilnehmer verlängert", 291);
+  }
+
+  private void update0292(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE abrechnungslauf ADD faelligkeit date before stichtag;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE abrechnungslauf ADD faelligkeit date after modus;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte faelligkeit in die Tabelle abrechnungslauf aufgenommen", 292);
+  }
+
+  private void update0293(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE lastschrift(");
+    sb.append(" id IDENTITY(1),");
+    sb.append(" abrechnungslauf INTEGER NOT NULL,");
+    sb.append(" mitglied INTEGER,");
+    sb.append(" kursteilnehmer INTEGER,");
+    sb.append(" personenart CHAR(1),");
+    sb.append(" anrede VARCHAR(10),");
+    sb.append(" titel VARCHAR(10),");
+    sb.append(" name VARCHAR(40) NOT NULL,");
+    sb.append(" vorname VARCHAR(40),");
+    sb.append(" strasse VARCHAR(40),");
+    sb.append(" adressierungszusatz VARCHAR(40),");
+    sb.append(" plz VARCHAR(10),");
+    sb.append(" ort VARCHAR(40),");
+    sb.append(" staat VARCHAR(50),");
+    sb.append(" mandatid VARCHAR(35) NOT NULL,");
+    sb.append(" mandatdatum DATE NOT NULL,");
+    sb.append(" bic VARCHAR(11) NOT NULL,");
+    sb.append(" lsname VARCHAR(70) NOT NULL,");
+    sb.append(" iban VARCHAR(35) NOT NULL,");
+    sb.append(" verwendungszweck VARCHAR(140) NOT NULL,");
+    sb.append(" betrag double NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" PRIMARY KEY (id));\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("CREATE TABLE lastschrift(");
+    sb.append(" id INTEGER AUTO_INCREMENT, ");
+    sb.append(" abrechnungslauf INTEGER NOT NULL,");
+    sb.append(" mitglied INTEGER,");
+    sb.append(" kursteilnehmer INTEGER,");
+    sb.append(" personenart CHAR(1),");
+    sb.append(" anrede VARCHAR(10),");
+    sb.append(" titel VARCHAR(10),");
+    sb.append(" name VARCHAR(40) NOT NULL,");
+    sb.append(" vorname VARCHAR(40),");
+    sb.append(" strasse VARCHAR(40),");
+    sb.append(" adressierungszusatz VARCHAR(40),");
+    sb.append(" plz VARCHAR(10),");
+    sb.append(" ort VARCHAR(40),");
+    sb.append(" staat VARCHAR(50),");
+    sb.append(" mandatid VARCHAR(35) NOT NULL,");
+    sb.append(" mandatdatum DATE NOT NULL,");
+    sb.append(" bic VARCHAR(11) NOT NULL,");
+    sb.append(" lsname VARCHAR(70) NOT NULL,");
+    sb.append(" iban VARCHAR(35) NOT NULL,");
+    sb.append(" verwendungszweck VARCHAR(140) NOT NULL,");
+    sb.append(" betrag double NOT NULL,");
+    sb.append(" UNIQUE (id),");
+    sb.append(" KEY (abrechnungslauf),");
+    sb.append(" KEY (mitglied),");
+    sb.append(" KEY(kursteilnehmer),");
+    sb.append(" PRIMARY KEY (id));\n");
+    sb.append(")  ENGINE=InnoDB;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Tabelle lastschrift erstellt", 293);
+  }
+
+  private void update0294(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id)  ON DELETE CASCADE;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 1 für lastschrift neu erstellt", 294);
+  }
+
+  private void update0295(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift2 FOREIGN KEY (mitglied) REFERENCES mitglied (id)  ON DELETE RESTRICT;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 2 für lastschrift neu erstellt", 295);
+  }
+
+  private void update0296(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift3 FOREIGN KEY (kursteilnehmer) REFERENCES kursteilnehmer (id)  ON DELETE RESTRICT;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift3 FOREIGN KEY (kursteilnehmer) REFERENCES kursteilnehmer (id) ON DELETE RESTRICT;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements, "Foreign Key 3 für lastschrift neu erstellt", 296);
+  }
+
+  private void update0297(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoipersonenart char(1) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoipersonenart char(1) after kontoinhaber;\n");
+
+    execute(conn, statements,
+        "Spalte ktopersonenart in Tabelle mitglied eingefügt", 297);
+  }
+
+  private void update0298(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoianrede varchar(10) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoianrede varchar(10) after ktoipersonenart;\n");
+
+    execute(conn, statements,
+        "Spalte ktoianrede in Tabelle mitglied eingefügt", 298);
+  }
+
+  private void update0299(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoititel varchar(10) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoititel varchar(10) after ktoianrede;\n");
+
+    execute(conn, statements, "Spalte ktoititel in Tabelle mitglied eingefügt",
+        299);
+  }
+
+  private void update0300(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiname varchar(40) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiname varchar(40) after ktoititel;\n");
+
+    execute(conn, statements, "Spalte ktoiname in Tabelle mitglied eingefügt",
+        300);
+  }
+
+  private void update0301(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoivorname varchar(40) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoivorname varchar(40) after ktoiname;\n");
+
+    execute(conn, statements,
+        "Spalte ktoivorname in Tabelle mitglied eingefügt", 301);
+  }
+
+  private void update0302(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoistrasse varchar(40) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoistrasse varchar(40) after ktoivorname;\n");
+
+    execute(conn, statements,
+        "Spalte ktoistrasse in Tabelle mitglied eingefügt", 302);
+  }
+
+  private void update0303(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiadressierungszusatz varchar(40) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiadressierungszusatz varchar(40) after ktoistrasse;\n");
+
+    execute(conn, statements,
+        "Spalte ktoiadressierungszusatz in Tabelle mitglied eingefügt", 303);
+  }
+
+  private void update0304(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiplz varchar(10) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiplz varchar(10) after ktoiadressierungszusatz;\n");
+
+    execute(conn, statements, "Spalte ktoiplz in Tabelle mitglied eingefügt",
+        304);
+  }
+
+  private void update0305(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiort varchar(40) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "alter table mitglied add column ktoiort varchar(40) after ktoiplz;\n");
+
+    execute(conn, statements, "Spalte ktoiort in Tabelle mitglied eingefügt",
+        305);
+  }
+
+  private void update0306(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoistaat varchar(50) before geburtsdatum;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoistaat varchar(50) after ktoiort;\n");
+
+    execute(conn, statements, "Spalte ktoistaat in Tabelle mitglied eingefügt",
+        306);
+  }
+
+  private void update0307(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE mitglied set ktoiname = kontoinhaber;\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte ktoiname mit kontoinhaber gefüllt", 307);
+  }
+
+  private void update0308(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied DROP kontoinhaber;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE mitglied DROP kontoinhaber;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte kontoinhaber aus der Tabelle mitglied entfernt", 308);
   }
 
 }
