@@ -24,7 +24,8 @@ package de.jost_net.JVerein.io;
 import java.util.LinkedList;
 import java.util.List;
 
-public enum InternalColumns {
+public enum InternalColumns
+{
   ADRESSTYP("Adresstyp", false), //
   ADRZUSATZ("Adressierungszusatz", false), //
   ANREDE("Anrede", true), //
@@ -39,6 +40,16 @@ public enum InternalColumns {
   GESCHLECHT("Geschlecht", true), //
   KONTONR("Kontonummer", true), //
   KONTOINHABER("Zahler", true), //
+  KTOIPERSONENART("KtoiPersonenart", false), //
+  KTOIANREDE("KtoiAnrede", false), //
+  KTOITITEL("KtoiTitel", false), //
+  KTOINAME("KtoiName", false), //
+  KTOIVORNAME("KtoiVorname", false), //
+  KTOISTRASSE("KtoiStrasse", false), //
+  KTOIADRESSIERUNGSZUSATZ("KtoiAdressierungszusatz", false), //
+  KTOIPLZ("KtoiPlz", false), //
+  KTOIORT("KtoiOrt", false), //
+  KTOISTAAT("KtoiStaat", false), //
   KUENDIGUNGSDATUM("Kuendigung", true), //
   MITGLIEDSNR("Mitglieds_Nr", true), //
   NACHNAME("Nachname", true), //
