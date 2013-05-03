@@ -58,6 +58,7 @@ import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.MailAuswertungInput;
+import de.jost_net.JVerein.gui.input.PersonenartInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
 import de.jost_net.JVerein.gui.menu.FamilienbeitragMenu;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
@@ -115,6 +116,7 @@ import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.DialogInput;
+import de.willuhn.jameica.gui.input.FileInput;
 import de.willuhn.jameica.gui.input.ImageInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
@@ -184,7 +186,25 @@ public class MitgliedControl extends AbstractControl
 
   private TextInput konto;
 
-  private Input kontoinhaber;
+  private PersonenartInput ktoipersonenart;
+
+  private TextInput ktoianrede;
+
+  private TextInput ktoititel;
+
+  private TextInput ktoiname;
+
+  private TextInput ktoivorname;
+
+  private TextInput ktoistrasse;
+
+  private TextInput ktoiadressierungszusatz;
+
+  private TextInput ktoiplz;
+
+  private TextInput ktoiort;
+
+  private TextInput ktoistaat;
 
   private Input telefonprivat;
 
@@ -250,6 +270,8 @@ public class MitgliedControl extends AbstractControl
   private TextAreaInput vermerk2;
 
   private SelectInput ausgabe;
+  
+  private FileInput vorlagedateicsv;	// RWU
 
   private SelectInput sortierung;
 
@@ -767,15 +789,115 @@ public class MitgliedControl extends AbstractControl
     return iban;
   }
 
-  public Input getKontoinhaber() throws RemoteException
+  public SelectInput getKtoiPersonenart() throws RemoteException
   {
-    if (kontoinhaber != null)
+    if (ktoipersonenart != null)
     {
-      return kontoinhaber;
+      return ktoipersonenart;
     }
-    kontoinhaber = new TextInput(getMitglied().getKontoinhaber(), 27);
-    kontoinhaber.setName("Kontoinhaber");
-    return kontoinhaber;
+    ktoipersonenart = new PersonenartInput(getMitglied().getKtoiPersonenart());
+    ktoipersonenart.setName("Personenart");
+    return ktoipersonenart;
+  }
+
+  public TextInput getKtoiAnrede() throws RemoteException
+  {
+    if (ktoianrede != null)
+    {
+      return ktoianrede;
+    }
+    ktoianrede = new TextInput(getMitglied().getKtoiAnrede(), 10);
+    ktoianrede.setName("Anrede");
+    return ktoianrede;
+  }
+
+  public TextInput getKtoiTitel() throws RemoteException
+  {
+    if (ktoititel != null)
+    {
+      return ktoititel;
+    }
+    ktoititel = new TextInput(getMitglied().getKtoiTitel(), 10);
+    ktoititel.setName("Titel");
+    return ktoititel;
+  }
+
+  public TextInput getKtoiName() throws RemoteException
+  {
+    if (ktoiname != null)
+    {
+      return ktoiname;
+    }
+    ktoiname = new TextInput(getMitglied().getKtoiName(), 40);
+    ktoiname.setName("Name");
+    return ktoiname;
+  }
+
+  public TextInput getKtoiVorname() throws RemoteException
+  {
+    if (ktoivorname != null)
+    {
+      return ktoivorname;
+    }
+    ktoivorname = new TextInput(getMitglied().getKtoiVorname(), 40);
+    ktoivorname.setName("Vorname");
+    return ktoivorname;
+  }
+
+  public TextInput getKtoiStrasse() throws RemoteException
+  {
+    if (ktoistrasse != null)
+    {
+      return ktoistrasse;
+    }
+    ktoistrasse = new TextInput(getMitglied().getKtoiStrasse(), 40);
+    ktoistrasse.setName("Straﬂe");
+    return ktoistrasse;
+  }
+
+  public TextInput getKtoiAdressierungszusatz() throws RemoteException
+  {
+    if (ktoiadressierungszusatz != null)
+    {
+      return ktoiadressierungszusatz;
+    }
+    ktoiadressierungszusatz = new TextInput(getMitglied()
+        .getKtoiAdressierungszusatz(), 40);
+    ktoiadressierungszusatz.setName("Adressierungszusatz");
+    return ktoiadressierungszusatz;
+  }
+
+  public TextInput getKtoiPlz() throws RemoteException
+  {
+    if (ktoiplz != null)
+    {
+      return ktoiplz;
+    }
+    ktoiplz = new TextInput(getMitglied().getKtoiPlz(), 10);
+    ktoiplz.setName("Plz");
+    return ktoiplz;
+  }
+
+  public TextInput getKtoiOrt() throws RemoteException
+  {
+    if (ktoiort != null)
+    {
+      return ktoiort;
+    }
+    ktoiort = new TextInput(getMitglied().getKtoiOrt(), 40);
+    ktoiort.setName("Ort");
+    return ktoiort;
+  }
+
+  public TextInput getKtoiStaat() throws RemoteException
+  {
+    if (ktoistaat != null)
+    {
+      return ktoistaat;
+    }
+    ktoistaat = new TextInput(getMitglied().getKtoiStaat(), 50);
+    ktoistaat.setName("Staat");
+    return ktoistaat;
   }
 
   public Input getTelefonprivat() throws RemoteException
@@ -2027,9 +2149,39 @@ public class MitgliedControl extends AbstractControl
       return ausgabe;
     }
     ausgabe = new SelectInput(new Object[] { new MitgliedAuswertungPDF(this),
-        new MitgliedAuswertungCSV(), new MitgliedAdressbuchExport() }, null);
+        new MitgliedAuswertungCSV(this), new MitgliedAdressbuchExport() }, null);
     ausgabe.setName("Ausgabe");
+    ausgabe.addListener(new Listener()
+    {
+
+      @Override
+      public void handleEvent(Event event)
+      {
+    	// enable/disable of GUI element "vorlagedateicsv"
+    	if (event.type == SWT.Selection)
+    	{
+    	  boolean enable = (ausgabe.getValue() instanceof MitgliedAuswertungCSV);
+    	  vorlagedateicsv.setEnabled(enable);
+        }
+      }
+    });
+    
     return ausgabe;
+  }
+  
+  // RWU: vorlage fuer .csv ausgabe
+  public Input getVorlagedateicsv()
+  {
+	  if (vorlagedateicsv != null)
+	  {
+		  return vorlagedateicsv;
+	  }
+	  String lastValue = settings.getString("auswertung.vorlagedateicsv", "");
+	  String[] extensions = { "*.csv" };
+	  vorlagedateicsv = new FileInput(lastValue, false, extensions);
+	  vorlagedateicsv.setName("Vorlagedatei CSV");
+	  vorlagedateicsv.setEnabled(false);	// default is PDF
+	  return vorlagedateicsv;
   }
 
   public Input getSortierung()
@@ -2245,6 +2397,20 @@ public class MitgliedControl extends AbstractControl
       else
       {
         settings.setAttribute("auswertung.ueberschrift", "");
+      }
+    }
+
+    // RWU: vorlagedateicsv
+    if (vorlagedateicsv != null)
+    {
+      String tmp = (String) getVorlagedateicsv().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("auswertung.vorlagedateicsv", tmp);
+      }
+      else
+      {
+        settings.setAttribute("auswertung.vorlagedateicsv", "");
       }
     }
 
@@ -2555,7 +2721,17 @@ public class MitgliedControl extends AbstractControl
         m.setGeschlecht((String) getGeschlecht().getValue());
       }
       m.setKonto((String) getKonto().getValue());
-      m.setKontoinhaber((String) getKontoinhaber().getValue());
+      m.setKtoiAdressierungszusatz((String) getKtoiAdressierungszusatz()
+          .getValue());
+      m.setKtoiAnrede((String) getKtoiAnrede().getValue());
+      m.setKtoiName((String) getKtoiName().getValue());
+      m.setKtoiOrt((String) getKtoiOrt().getValue());
+      m.setKtoiPersonenart((String) getKtoiPersonenart().getValue());
+      m.setKtoiPlz((String) getKtoiPlz().getValue());
+      m.setKtoiStaat((String) getKtoiStaat().getValue());
+      m.setKtoiStrasse((String) getKtoiStrasse().getValue());
+      m.setKtoiTitel((String) getKtoiTitel().getValue());
+      m.setKtoiVorname((String) getKtoiVorname().getValue());
       m.setKuendigung((Date) getKuendigung().getValue());
       m.setSterbetag((Date) getSterbetag().getValue());
       m.setName((String) getName(false).getValue());
