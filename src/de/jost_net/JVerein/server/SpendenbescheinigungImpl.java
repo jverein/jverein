@@ -437,7 +437,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * kleinste Datum der Buchungen gesetzt.
    * 
    * @param buchung
-   *        Die Buchung zum Hinzufügen
+   *          Die Buchung zum Hinzufügen
    */
   @Override
   public void addBuchung(Buchung buchung) throws RemoteException
@@ -474,7 +474,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
    * worden sein, wird die Liste der Buchungen vorher gelöscht.
    * 
    * @param buchung
-   *        Die Buchung, die der Spendenbescheinigung zugeordnet wird
+   *          Die Buchung, die der Spendenbescheinigung zugeordnet wird
    */
   @Override
   public void setBuchung(Buchung buchung) throws RemoteException
@@ -607,7 +607,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     GregorianCalendar gc = new GregorianCalendar();
     gc.setTime(getBescheinigungsdatum());
 
-    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ().format(getBescheinigungsdatum());
+    String bescheinigungsdatum = new JVDateFormatTTMMJJJJ()
+        .format(getBescheinigungsdatum());
     map.put(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName(),
         bescheinigungsdatum);
     switch (getSpendenart())
@@ -625,13 +626,13 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         break;
     }
     String spendedatum = new JVDateFormatTTMMJJJJ().format(getSpendedatum());
-    boolean printBuchungsart = Einstellungen.getEinstellung().getSpendenbescheinigungPrintBuchungsart();
+    boolean printBuchungsart = Einstellungen.getEinstellung()
+        .getSpendenbescheinigungPrintBuchungsart();
     map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
         getBezeichnungSachzuwendung());
     map.put(
         SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
-        getUnterlagenWertermittlung()
-            ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
+        getUnterlagenWertermittlung() ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
             : "");
     // Unterscheidung bis 2012 / ab 2013
     if (gc.get(GregorianCalendar.YEAR) <= 2012)
