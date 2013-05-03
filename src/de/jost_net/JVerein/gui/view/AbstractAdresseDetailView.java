@@ -444,16 +444,30 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         cols.addInput(control.getZahlungsrhytmus());
       }
     }
-    cols.addInput(control.getKontoinhaber());
+
     cols.addInput(control.getMandatID());
     cols.addInput(control.getMandatDatum());
     cols.addInput(control.getBic());
     cols.addInput(control.getIban());
     cols.addPart(new BankverbindungDialogButton(control.getMitglied(), control
         .getBlz(), control.getKonto(), control.getBic(), control.getIban()));
+    cols.addSeparator();
+    cols.addText("Abweichender Kontoinhaber", false);
+    cols.addInput(control.getKtoiPersonenart());
+    cols.addInput(control.getKtoiAnrede());
+    cols.addInput(control.getKtoiTitel());
+    cols.addInput(control.getKtoiName());
+    cols.addInput(control.getKtoiVorname());
+    cols.addInput(control.getKtoiStrasse());
+    cols.addInput(control.getKtoiAdressierungszusatz());
+    cols.addInput(control.getKtoiPlz());
+    cols.addInput(control.getKtoiOrt());
+    if (Einstellungen.getEinstellung().getAuslandsadressen())
+    {
+      cols.addInput(control.getKtoiStaat());
+    }
     // cols.addInput(control.getBlz());
     // cols.addInput(control.getKonto());
-
     cols.arrangeVertically();
   }
 
