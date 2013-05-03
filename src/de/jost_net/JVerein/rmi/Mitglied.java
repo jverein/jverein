@@ -25,11 +25,12 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Map;
 
+import de.jost_net.JVerein.io.IAdresse;
 import de.jost_net.JVerein.io.IBankverbindung;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
-public interface Mitglied extends DBObject, IBankverbindung
+public interface Mitglied extends DBObject, IBankverbindung, IAdresse
 {
   public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException;
 
@@ -41,43 +42,53 @@ public interface Mitglied extends DBObject, IBankverbindung
 
   public Adresstyp getAdresstyp() throws RemoteException;
 
+  @Override
   public String getPersonenart() throws RemoteException;
 
   public void setPersonenart(String personenart) throws RemoteException;
 
+  @Override
   public String getAnrede() throws RemoteException;
 
   public void setAnrede(String anrede) throws RemoteException;
 
+  @Override
   public String getTitel() throws RemoteException;
 
   public void setTitel(String titel) throws RemoteException;
 
+  @Override
   public String getName() throws RemoteException;
 
   public void setName(String name) throws RemoteException;
 
+  @Override
   public String getVorname() throws RemoteException;
 
   public void setVorname(String vorname) throws RemoteException;
 
+  @Override
   public String getAdressierungszusatz() throws RemoteException;
 
   public void setAdressierungszusatz(String adressierungszusatz)
       throws RemoteException;
 
+  @Override
   public String getStrasse() throws RemoteException;
 
   public void setStrasse(String strasse) throws RemoteException;
 
+  @Override
   public String getPlz() throws RemoteException;
 
   public void setPlz(String plz) throws RemoteException;
 
+  @Override
   public String getOrt() throws RemoteException;
 
   public void setOrt(String ort) throws RemoteException;
 
+  @Override
   public String getStaat() throws RemoteException;
 
   public void setStaat(String staat) throws RemoteException;
@@ -119,9 +130,48 @@ public interface Mitglied extends DBObject, IBankverbindung
   @Override
   public void setKonto(String konto) throws RemoteException;
 
-  public String getKontoinhaber() throws RemoteException;
+  public String getKtoiPersonenart() throws RemoteException;
 
-  public void setKontoinhaber(String kontoinhaber) throws RemoteException;
+  public void setKtoiPersonenart(String ktoipersonenart) throws RemoteException;
+
+  public String getKtoiAnrede() throws RemoteException;
+
+  public void setKtoiAnrede(String ktoianrede) throws RemoteException;
+
+  public String getKtoiTitel() throws RemoteException;
+
+  public void setKtoiTitel(String ktoititel) throws RemoteException;
+
+  public String getKtoiName() throws RemoteException;
+
+  public void setKtoiName(String ktoiname) throws RemoteException;
+
+  public String getKtoiVorname() throws RemoteException;
+
+  public void setKtoiVorname(String ktoivorname) throws RemoteException;
+
+  public String getKtoiStrasse() throws RemoteException;
+
+  public void setKtoiStrasse(String ktoiStrasse) throws RemoteException;
+
+  public String getKtoiAdressierungszusatz() throws RemoteException;
+
+  public void setKtoiAdressierungszusatz(String ktoiAdressierungszusatz)
+      throws RemoteException;
+
+  public String getKtoiPlz() throws RemoteException;
+
+  public void setKtoiPlz(String ktoiPlz) throws RemoteException;
+
+  public String getKtoiOrt() throws RemoteException;
+
+  public void setKtoiOrt(String ktoiOrt) throws RemoteException;
+
+  public String getKtoiStaat() throws RemoteException;
+
+  public void setKtoiStaat(String ktoiStaat) throws RemoteException;
+  
+  public String getKontoinhaber(int art) throws RemoteException;
 
   public Date getGeburtsdatum() throws RemoteException;
 
@@ -207,17 +257,9 @@ public interface Mitglied extends DBObject, IBankverbindung
 
   public Date getLetzteAenderung() throws RemoteException;
 
-  public String getNameVorname() throws RemoteException;
-
-  public String getVornameName() throws RemoteException;
-
-  public String getAnschrift() throws RemoteException;
-
   public Mitgliedfoto getFoto() throws RemoteException;
 
   public void setFoto(Mitgliedfoto foto) throws RemoteException;
-
-  public String getEmpfaenger() throws RemoteException;
 
   public boolean isAngemeldet(Date stichtag) throws RemoteException;
 
