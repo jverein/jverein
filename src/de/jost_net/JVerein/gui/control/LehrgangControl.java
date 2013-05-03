@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Listener;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Lehrgangsart;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -366,17 +367,17 @@ public class LehrgangControl extends AbstractControl
     if (getSuchLehrgangsart().getValue() != null)
     {
       Lehrgangsart la = (Lehrgangsart) getSuchLehrgangsart().getValue();
-      lehrgaenge.addFilter("lehrgangsart = ?", new Object[] { la.getID()});
+      lehrgaenge.addFilter("lehrgangsart = ?", new Object[] { la.getID() });
     }
     if (getDatumvon().getValue() != null)
     {
-      lehrgaenge.addFilter("von >= ?",
-          new Object[] { (Date) getDatumvon().getValue()});
+      lehrgaenge.addFilter("von >= ?", new Object[] { (Date) getDatumvon()
+          .getValue() });
     }
     if (getDatumbis().getValue() != null)
     {
-      lehrgaenge.addFilter("bis <= ?",
-          new Object[] { (Date) getDatumbis().getValue()});
+      lehrgaenge.addFilter("bis <= ?", new Object[] { (Date) getDatumbis()
+          .getValue() });
     }
     return lehrgaenge;
   }
@@ -448,7 +449,7 @@ public class LehrgangControl extends AbstractControl
           String name = null;
           try
           {
-            name = m.getNameVorname();
+            name = Adressaufbereitung.getNameVorname(m);
           }
           catch (RemoteException e)
           {

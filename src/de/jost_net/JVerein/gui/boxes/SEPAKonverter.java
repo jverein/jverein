@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -228,7 +229,8 @@ public class SEPAKonverter extends AbstractBox
     try
     {
       // Einstellungen
-      DBIterator it = Einstellungen.getDBService().createList(Einstellung.class);
+      DBIterator it = Einstellungen.getDBService()
+          .createList(Einstellung.class);
       while (it.hasNext())
       {
         Einstellung einstellung = (Einstellung) it.next();
@@ -265,17 +267,17 @@ public class SEPAKonverter extends AbstractBox
           if (bank != null)
           {
             m2.setBic(bank.getBIC());
-            IBAN i = new IBAN(m2.getKonto(), m2.getBlz(),
-                Einstellungen.getEinstellung().getDefaultLand());
+            IBAN i = new IBAN(m2.getKonto(), m2.getBlz(), Einstellungen
+                .getEinstellung().getDefaultLand());
             m2.setIban(i.getIBAN());
-            monitor.log("Mitglied: " + m.getNameVorname() + ", " + m2.getBic()
-                + ", " + m2.getIban());
+            monitor.log("Mitglied: " + Adressaufbereitung.getNameVorname(m)
+                + ", " + m2.getBic() + ", " + m2.getIban());
             m2.store();
           }
           else
           {
-            monitor.log("Mitglied: " + m.getNameVorname() + ", ungültige BLZ "
-                + m.getBlz());
+            monitor.log("Mitglied: " + Adressaufbereitung.getNameVorname(m)
+                + ", ungültige BLZ " + m.getBlz());
           }
         }
       }
@@ -284,16 +286,16 @@ public class SEPAKonverter extends AbstractBox
       while (it.hasNext())
       {
         Kursteilnehmer k = (Kursteilnehmer) it.next();
-        Kursteilnehmer k2 = (Kursteilnehmer) Einstellungen.getDBService().createObject(
-            Kursteilnehmer.class, k.getID());
+        Kursteilnehmer k2 = (Kursteilnehmer) Einstellungen.getDBService()
+            .createObject(Kursteilnehmer.class, k.getID());
         if (k2.getBlz() != null && k2.getBlz().length() > 0)
         {
           Bank bank = Banken.getBankByBLZ(k2.getBlz());
           if (bank != null)
           {
             k2.setBic(bank.getBIC());
-            IBAN i = new IBAN(k2.getKonto(), k2.getBlz(),
-                Einstellungen.getEinstellung().getDefaultLand());
+            IBAN i = new IBAN(k2.getKonto(), k2.getBlz(), Einstellungen
+                .getEinstellung().getDefaultLand());
             k2.setIban(i.getIBAN());
             monitor.log("Kursteilnehmer: " + k2.getName() + ", " + k2.getBic()
                 + ", " + k2.getIban());

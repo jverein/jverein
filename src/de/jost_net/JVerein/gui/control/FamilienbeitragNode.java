@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -143,7 +144,7 @@ public class FamilienbeitragNode implements GenericObjectNode
         return "Familienbeiträge";
       }
       JVDateFormatTTMMJJJJ jvttmmjjjj = new JVDateFormatTTMMJJJJ();
-      return mitglied.getNameVorname()
+      return Adressaufbereitung.getNameVorname(mitglied)
           + (mitglied.getGeburtsdatum() != null ? ", "
               + jvttmmjjjj.format(mitglied.getGeburtsdatum()) : "")
           + (mitglied.getIban().length() > 0 ? ", " + mitglied.getBic() + ", "

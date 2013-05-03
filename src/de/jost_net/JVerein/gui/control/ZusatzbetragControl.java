@@ -45,6 +45,7 @@ import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.io.Reporter;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -350,7 +351,8 @@ public class ZusatzbetragControl extends AbstractControl
       Zusatzbetrag z = getZusatzbetrag();
       z.setFaelligkeit((Date) getFaelligkeit().getValue());
       z.setStartdatum((Date) getStartdatum(false).getValue());
-      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall().getValue();
+      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall()
+          .getValue();
       z.setIntervall(iz.getKey());
       z.setEndedatum((Date) getEndedatum().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
@@ -394,7 +396,7 @@ public class ZusatzbetragControl extends AbstractControl
           String name = null;
           try
           {
-            name = m.getNameVorname();
+            name = Adressaufbereitung.getNameVorname(m);
           }
           catch (RemoteException e)
           {
@@ -460,16 +462,18 @@ public class ZusatzbetragControl extends AbstractControl
     {
       try
       {
-        Date d = new JVDateFormatTTMMJJJJ().parse(this.ausfuehrungSuch.getText());
+        Date d = new JVDateFormatTTMMJJJJ().parse(this.ausfuehrungSuch
+            .getText());
         java.sql.Date sqd = new java.sql.Date(d.getTime());
-        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd});
+        zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd });
       }
       catch (ParseException e)
       {
         e.printStackTrace();
       }
     }
-    zusatzbetraege.setOrder("ORDER BY ausfuehrung DESC, faelligkeit DESC, name");
+    zusatzbetraege
+        .setOrder("ORDER BY ausfuehrung DESC, faelligkeit DESC, name");
     return zusatzbetraege;
   }
 
@@ -514,14 +518,15 @@ public class ZusatzbetragControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("zusatzbetraege", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("zusatzbetraege", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -565,7 +570,8 @@ public class ZusatzbetragControl extends AbstractControl
           while (it.hasNext())
           {
             Zusatzbetrag z = (Zusatzbetrag) it.next();
-            reporter.addColumn(z.getMitglied().getNameVorname(),
+            reporter.addColumn(
+                Adressaufbereitung.getNameVorname(z.getMitglied()),
                 Element.ALIGN_LEFT);
             reporter.addColumn(z.getStartdatum(), Element.ALIGN_LEFT);
             reporter.addColumn(z.getFaelligkeit(), Element.ALIGN_LEFT);

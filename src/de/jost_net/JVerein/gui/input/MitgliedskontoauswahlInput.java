@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.dialogs.MitgliedskontoAuswahlDialog;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -78,9 +79,9 @@ public class MitgliedskontoauswahlInput
         buchungen[0]);
     d.addCloseListener(new MitgliedskontoListener());
 
-    mitgliedskontoAuswahl = new DialogInput(konto != null
-        ? konto.getMitglied().getNameVorname() + ", "
-            + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
+    mitgliedskontoAuswahl = new DialogInput(
+        konto != null ? Adressaufbereitung.getNameVorname(konto.getMitglied())
+            + ", " + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
             + Einstellungen.DECIMALFORMAT.format(konto.getBetrag()) : "", d);
     mitgliedskontoAuswahl.disableClientControl();
     mitgliedskontoAuswahl.setValue(buchungen[0].getMitgliedskonto());
@@ -127,7 +128,7 @@ public class MitgliedskontoauswahlInput
         if (event.data instanceof Mitgliedskonto)
         {
           konto = (Mitgliedskonto) event.data;
-          b = konto.getMitglied().getNameVorname() + ", "
+          b = Adressaufbereitung.getNameVorname(konto.getMitglied()) + ", "
               + new JVDateFormatTTMMJJJJ().format(konto.getDatum()) + ", "
               + Einstellungen.DECIMALFORMAT.format(konto.getBetrag());
           String name = buchungen[0].getName();
@@ -135,7 +136,8 @@ public class MitgliedskontoauswahlInput
           if ((name == null || name.length() == 0)
               && (zweck1 == null || zweck1.length() == 0))
           {
-            buchungen[0].setName(konto.getMitglied().getNameVorname());
+            buchungen[0].setName(Adressaufbereitung.getNameVorname(konto
+                .getMitglied()));
             buchungen[0].setZweck(konto.getZweck1());
             buchungen[0].setBetrag(konto.getBetrag());
             buchungen[0].setDatum(new Date());
@@ -144,7 +146,8 @@ public class MitgliedskontoauswahlInput
         else if (event.data instanceof Mitglied)
         {
           mitglied = (Mitglied) event.data;
-          b = mitglied.getNameVorname() + ", Sollbuchung erzeugen";
+          b = Adressaufbereitung.getNameVorname(mitglied)
+              + ", Sollbuchung erzeugen";
         }
         getMitgliedskontoAuswahl().setText(b);
       }

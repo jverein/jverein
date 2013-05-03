@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -76,9 +77,10 @@ public class MailemfaengerDeleteAction implements Action
           Mitglied.class, mc.getMitglied().getID());
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle("Mail" + (mail.length > 1 ? "s" : "") + " von "
-          + mitglied.getVornameName() + " löschen");
+          + Adressaufbereitung.getVornameName(mitglied) + " löschen");
       d.setText("Wollen Sie diese Mail" + (mail.length > 1 ? "s" : "")
-          + " von " + mitglied.getVornameName() + " wirklich löschen?");
+          + " von " + Adressaufbereitung.getVornameName(mitglied)
+          + " wirklich löschen?");
       try
       {
         Boolean choice = (Boolean) d.open();
@@ -101,8 +103,8 @@ public class MailemfaengerDeleteAction implements Action
         while (me.hasNext())
         {
           MailEmpfaenger me2 = (MailEmpfaenger) me.next();
-          MailEmpfaenger me3 = (MailEmpfaenger) Einstellungen.getDBService().createObject(
-              MailEmpfaenger.class, me2.getID());
+          MailEmpfaenger me3 = (MailEmpfaenger) Einstellungen.getDBService()
+              .createObject(MailEmpfaenger.class, me2.getID());
           me3.delete();
         }
         mc.getMailTable().removeItem(ma);

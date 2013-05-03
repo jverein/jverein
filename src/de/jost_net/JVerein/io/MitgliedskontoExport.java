@@ -32,6 +32,7 @@ import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.MitgliedskontoQuery;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -76,7 +77,7 @@ public abstract class MitgliedskontoExport implements Exporter
       for (Mitgliedskonto mk : mkq.get())
       {
         add(mk);
-        monitor.log("Vorbereitung: " + m.getNameVorname());
+        monitor.log("Vorbereitung: " + Adressaufbereitung.getNameVorname(m));
       }
       endeMitglied();
     }

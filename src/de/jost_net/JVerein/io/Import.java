@@ -36,6 +36,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -634,7 +635,7 @@ public class Import
       if (Einstellungen.getEinstellung().getGeburtsdatumPflicht())
       {
         throw new ApplicationException(MessageFormat.format(
-            "{0}: Geburtsdatum fehlt!", m.getNameVorname()));
+            "{0}: Geburtsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
       }
     }
     m.setGeburtsdatum(gebDatum);
@@ -666,7 +667,7 @@ public class Import
             .log(MessageFormat
                 .format(
                     "Bei {0} ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen",
-                    m.getNameVorname()));
+                    Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
     }
@@ -684,14 +685,23 @@ public class Import
     {
       progMonitor.log(MessageFormat.format(
           "{0}: ungueltige Zahlungsart. Bar wird angenommen.",
-          m.getNameVorname()));
+          Adressaufbereitung.getNameVorname(m)));
     }
 
     m.setBlz(blz);
     m.setKonto(ktnr);
     m.setZahlungsweg(zahlweg);
-    m.setKontoinhaber(getResultFrom(results, InternalColumns.KONTOINHABER));
-
+    m.setKtoiPersonenart(getResultFrom(results, InternalColumns.KTOIPERSONENART));
+    m.setKtoiAnrede(getResultFrom(results, InternalColumns.KTOIANREDE));
+    m.setKtoiTitel(getResultFrom(results, InternalColumns.KTOITITEL));
+    m.setKtoiName(getResultFrom(results, InternalColumns.KTOINAME));
+    m.setKtoiVorname(getResultFrom(results, InternalColumns.KTOIVORNAME));
+    m.setKtoiStrasse(getResultFrom(results, InternalColumns.KTOISTRASSE));
+    m.setKtoiAdressierungszusatz(getResultFrom(results,
+        InternalColumns.KTOIADRESSIERUNGSZUSATZ));
+    m.setKtoiPlz(getResultFrom(results, InternalColumns.KTOIPLZ));
+    m.setKtoiOrt(getResultFrom(results, InternalColumns.KTOIORT));
+    m.setKtoiStaat(getResultFrom(results, InternalColumns.KTOISTAAT));
     Integer bg = beitragsGruppen.get(getResultFrom(results,
         InternalColumns.BEITRAGSART));
     m.setBeitragsgruppe(bg);
@@ -706,7 +716,7 @@ public class Import
       if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
       {
         throw new ApplicationException(MessageFormat.format(
-            "{0}: Eintrittsdatum fehlt!", m.getNameVorname()));
+            "{0}: Eintrittsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
       }
     }
     m.setEintritt(eintritt);
@@ -733,7 +743,7 @@ public class Import
             .log(MessageFormat
                 .format(
                     "{0}: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
-                    m.getNameVorname()));
+                    Adressaufbereitung.getNameVorname(m)));
         m.setAustritt(sterbeTag);
       }
     }
@@ -774,7 +784,7 @@ public class Import
             .log(MessageFormat
                 .format(
                     "Individueller Beitrag fuer {0} enthält keine gültige Formatierung und wird verworfen.",
-                    m.getNameVorname()));
+                    Adressaufbereitung.getNameVorname(m)));
       }
     }
 
@@ -795,7 +805,7 @@ public class Import
             .log(MessageFormat
                 .format(
                     "Personenart für {0} enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
-                    m.getNameVorname()));
+                    Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
 
@@ -823,7 +833,7 @@ public class Import
             .log(MessageFormat
                 .format(
                     "Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
-                    m.getNameVorname()));
+                    Adressaufbereitung.getNameVorname(m)));
         m.setZahlungsrhytmus(new Integer(12));
       }
     }
@@ -845,7 +855,7 @@ public class Import
             .log(MessageFormat
                 .format(
                     "Adresstyp bei: {0} ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
-                    m.getNameVorname()));
+                    Adressaufbereitung.getNameVorname(m)));
         m.setAdresstyp(new Integer(1));
       }
     }
@@ -873,7 +883,8 @@ public class Import
     }
     catch (ApplicationException e)
     {
-      progMonitor.log(m.getNameVorname() + ": " + e.getMessage());
+      progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
+          + e.getMessage());
       throw e;
     }
   }
@@ -909,7 +920,8 @@ public class Import
           {
             throw new ApplicationException(MessageFormat.format(
                 "{0} : ungültiges Datumsformat {1}: {2}",
-                curMitglied.getNameVorname(), f.getName(), inhalt));
+                Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                inhalt));
           }
         }
         else
@@ -928,7 +940,8 @@ public class Import
           {
             throw new ApplicationException(MessageFormat.format(
                 "{0}: ungültiges Datenformat {1}: {2}",
-                curMitglied.getNameVorname(), f.getName(), inhalt));
+                Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                inhalt));
           }
         }
         else
@@ -950,7 +963,8 @@ public class Import
         {
           throw new ApplicationException(MessageFormat.format(
               "{0}: ungültiges Datenformat {1}: {2}",
-              curMitglied.getNameVorname(), f.getName(), inhalt));
+              Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+              inhalt));
         }
         break;
       case Datentyp.WAEHRUNG:
@@ -965,7 +979,8 @@ public class Import
           {
             throw new ApplicationException(MessageFormat.format(
                 "{0}: ungültiges Datenformat {1}: {2}",
-                curMitglied.getNameVorname(), f.getName(), inhalt));
+                Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                inhalt));
           }
         }
         else

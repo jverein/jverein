@@ -27,6 +27,7 @@ import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -96,9 +97,9 @@ public class MitgliedSearchProvider implements SearchProvider
     {
       try
       {
-        return m.getNameVorname()
+        return Adressaufbereitung.getNameVorname(m)
             + ", "
-            + m.getAnschrift()
+            + Adressaufbereitung.getAnschrift(m)
             + (m.getGeburtsdatum() != null ? ", "
                 + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum()) : "")
             + (m.getKonto() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "

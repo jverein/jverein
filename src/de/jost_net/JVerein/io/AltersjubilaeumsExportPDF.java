@@ -34,6 +34,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
 
@@ -132,8 +133,9 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   protected void add(Mitglied m) throws RemoteException
   {
     reporter.addColumn(m.getGeburtsdatum(), Element.ALIGN_LEFT);
-    reporter.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-    reporter.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
+    reporter
+        .addColumn(Adressaufbereitung.getNameVorname(m), Element.ALIGN_LEFT);
+    reporter.addColumn(Adressaufbereitung.getAnschrift(m), Element.ALIGN_LEFT);
     String kommunikation = m.getTelefonprivat();
     if (kommunikation.length() > 0 && m.getTelefondienstlich().length() > 0)
     {

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -79,7 +80,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     type = MITGLIED;
     this.mitglied = m;
     this.zahlungsweg = m.getZahlungsweg();
-    this.name = m.getNameVorname();
+    this.name = Adressaufbereitung.getNameVorname(m);
     this.soll = new Double(0);
     this.ist = new Double(0);
     this.children = new ArrayList<MitgliedskontoNode>();

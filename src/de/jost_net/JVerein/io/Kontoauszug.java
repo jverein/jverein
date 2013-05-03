@@ -37,6 +37,7 @@ import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.Dateiname;
@@ -88,14 +89,15 @@ public class Kontoauszug
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("kontoauszug", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("kontoauszug", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -115,7 +117,9 @@ public class Kontoauszug
   {
     rpt.newPage();
     rpt.add(Einstellungen.getEinstellung().getName(), 20);
-    rpt.add(MessageFormat.format("Kontoauszug {0}", m.getVornameName()), 18);
+    rpt.add(
+        MessageFormat.format("Kontoauszug {0}",
+            Adressaufbereitung.getVornameName(m)), 18);
     JVDateFormatTTMMJJJJ jv = new JVDateFormatTTMMJJJJ();
     rpt.add(MessageFormat.format("Stand: {0}", jv.format(new Date())), 16);
 

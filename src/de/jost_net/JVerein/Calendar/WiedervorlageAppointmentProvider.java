@@ -31,6 +31,7 @@ import org.eclipse.swt.graphics.RGB;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.calendar.Appointment;
@@ -59,9 +60,9 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       cal.setTime(from);
       if (from != null)
         list.addFilter("datum >= ?",
-            new Object[] { new java.sql.Date(from.getTime())});
+            new Object[] { new java.sql.Date(from.getTime()) });
       list.addFilter("datum <= ?",
-          new Object[] { new java.sql.Date(to.getTime())});
+          new Object[] { new java.sql.Date(to.getTime()) });
       list.setOrder("ORDER BY day(datum)");
 
       List<Appointment> result = new LinkedList<Appointment>();
@@ -145,7 +146,8 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return "Wiedervorlage:" + w.getMitglied().getNameVorname() + ": "
+        return "Wiedervorlage:"
+            + Adressaufbereitung.getNameVorname(w.getMitglied()) + ": "
             + w.getVermerk();
       }
       catch (RemoteException re)

@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.RGB;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.calendar.Appointment;
@@ -77,13 +78,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
 
         if (calf.getTime().after(from) && calf.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calf.getTime(),
-              calf.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calf.getTime(), calf
+              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
         else if (calt.getTime().after(from) && calt.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calt.getTime(),
-              calt.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calt.getTime(), calt
+              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
       }
       return result;
@@ -154,7 +155,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
       try
       {
         return MessageFormat.format("{0}. Geburtstag von {1}", alter + "",
-            m.getNameVorname());
+            Adressaufbereitung.getNameVorname(m));
       }
       catch (RemoteException re)
       {
@@ -172,7 +173,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
       try
       {
         return MessageFormat.format("{0}. Geburtstag von {1}", alter + "",
-            m.getNameVorname());
+            Adressaufbereitung.getNameVorname(m));
       }
       catch (RemoteException re)
       {

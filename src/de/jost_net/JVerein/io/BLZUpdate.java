@@ -23,6 +23,7 @@ package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.GenericObject;
 
@@ -60,7 +61,7 @@ public class BLZUpdate implements GenericObject
     }
     else if (arg0.equals("namevorname"))
     {
-      return mitglied.getNameVorname();
+      return Adressaufbereitung.getNameVorname(mitglied);
     }
     else if (arg0.equals("oldblz"))
     {
@@ -80,7 +81,7 @@ public class BLZUpdate implements GenericObject
   }
 
   @Override
-  public String getID() 
+  public String getID()
   {
     return id;
   }
@@ -88,7 +89,7 @@ public class BLZUpdate implements GenericObject
   @Override
   public String getPrimaryAttribute() throws RemoteException
   {
-    return mitglied.getNameVorname();
+    return Adressaufbereitung.getNameVorname(mitglied);
   }
 
   @Override

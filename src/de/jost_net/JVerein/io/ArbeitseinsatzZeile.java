@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.GenericObject;
 
@@ -63,7 +64,7 @@ public class ArbeitseinsatzZeile implements GenericObject
     {
       Mitglied mitglied = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, mitgliedid);
-      return mitglied.getNameVorname();
+      return Adressaufbereitung.getNameVorname(mitglied);
     }
     else if (arg0.equals("mitgliedid"))
     {

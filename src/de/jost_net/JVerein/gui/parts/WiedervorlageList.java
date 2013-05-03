@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -71,7 +72,7 @@ public class WiedervorlageList extends TablePart implements Part
           String name = null;
           try
           {
-            name = m.getNameVorname();
+            name = Adressaufbereitung.getNameVorname(m);
           }
           catch (RemoteException e)
           {
@@ -85,7 +86,8 @@ public class WiedervorlageList extends TablePart implements Part
       wiedervorlageList.addColumn("Vermerk", "vermerk");
       wiedervorlageList.addColumn("Erledigung", "erledigung",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      wiedervorlageList.setContextMenu(new WiedervorlageMenu(wiedervorlageList));
+      wiedervorlageList
+          .setContextMenu(new WiedervorlageMenu(wiedervorlageList));
       wiedervorlageList.setRememberColWidths(true);
       wiedervorlageList.setRememberOrder(true);
       wiedervorlageList.setSummary(true);

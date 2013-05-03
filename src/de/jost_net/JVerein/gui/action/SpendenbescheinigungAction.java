@@ -29,6 +29,7 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedskontoNode;
 import de.jost_net.JVerein.gui.view.SpendenbescheinigungView;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -101,7 +102,7 @@ public class SpendenbescheinigungAction implements Action
             Date maxDatum = Calendar.getInstance().getTime();
             DBIterator itMk = Einstellungen.getDBService().createList(
                 Mitgliedskonto.class);
-            itMk.addFilter("mitglied = ?", new Object[] { mkn.getID()});
+            itMk.addFilter("mitglied = ?", new Object[] { mkn.getID() });
             // it.addFilter("spendenbescheinigung = ?",
             // new Object[] { null });
             itMk.setOrder("ORDER BY datum asc");
@@ -112,7 +113,7 @@ public class SpendenbescheinigungAction implements Action
 
               DBIterator it = Einstellungen.getDBService().createList(
                   Buchung.class);
-              it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID()});
+              it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
               it.addFilter("spendenbescheinigung is null");
               it.setOrder("ORDER BY datum asc");
 
@@ -159,7 +160,7 @@ public class SpendenbescheinigungAction implements Action
     {
       adresse.add(m.getAnrede());
     }
-    adresse.add(m.getVornameName());
+    adresse.add(Adressaufbereitung.getVornameName(m));
     if (m.getAdressierungszusatz() != null
         && m.getAdressierungszusatz().length() > 0)
     {

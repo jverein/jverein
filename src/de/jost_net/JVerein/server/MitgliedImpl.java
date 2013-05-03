@@ -29,6 +29,7 @@ import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.MitgliedVar;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -638,15 +639,163 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public String getKontoinhaber() throws RemoteException
+  public String getKtoiPersonenart() throws RemoteException
   {
-    return (String) getAttribute("kontoinhaber");
+    String ret = (String) getAttribute("ktoipersonenart");
+    if (ret == null)
+    {
+      ret = "n";
+    }
+    return ret;
   }
 
   @Override
-  public void setKontoinhaber(String kontoinhaber) throws RemoteException
+  public void setKtoiPersonenart(String ktoipersonenart) throws RemoteException
   {
-    setAttribute("kontoinhaber", kontoinhaber);
+    setAttribute("ktoipersonenart", ktoipersonenart);
+  }
+
+  @Override
+  public String getKtoiAnrede() throws RemoteException
+  {
+    return (String) getAttribute("ktoianrede");
+  }
+
+  @Override
+  public void setKtoiAnrede(String ktoianrede) throws RemoteException
+  {
+    setAttribute("ktoianrede", ktoianrede);
+  }
+
+  @Override
+  public String getKtoiTitel() throws RemoteException
+  {
+    return (String) getAttribute("ktoititel");
+  }
+
+  @Override
+  public void setKtoiTitel(String ktoititel) throws RemoteException
+  {
+    setAttribute("ktoititel", ktoititel);
+  }
+
+  @Override
+  public String getKtoiName() throws RemoteException
+  {
+    return (String) getAttribute("ktoiname");
+  }
+
+  @Override
+  public void setKtoiName(String ktoiname) throws RemoteException
+  {
+    setAttribute("ktoiname", ktoiname);
+  }
+
+  @Override
+  public String getKtoiVorname() throws RemoteException
+  {
+    return (String) getAttribute("ktoivorname");
+  }
+
+  @Override
+  public void setKtoiVorname(String ktoivorname) throws RemoteException
+  {
+    setAttribute("ktoivorname", ktoivorname);
+  }
+
+  @Override
+  public String getKtoiStrasse() throws RemoteException
+  {
+    return (String) getAttribute("ktoistrasse");
+  }
+
+  @Override
+  public void setKtoiStrasse(String ktoistrasse) throws RemoteException
+  {
+    setAttribute("ktoistrasse", ktoistrasse);
+  }
+
+  @Override
+  public String getKtoiAdressierungszusatz() throws RemoteException
+  {
+    return (String) getAttribute("ktoiadressierungszusatz");
+  }
+
+  @Override
+  public void setKtoiAdressierungszusatz(String ktoiadressierungszusatz)
+      throws RemoteException
+  {
+    setAttribute("ktoiadressierungszusatz", ktoiadressierungszusatz);
+  }
+
+  @Override
+  public String getKtoiPlz() throws RemoteException
+  {
+    return (String) getAttribute("ktoiplz");
+  }
+
+  @Override
+  public void setKtoiPlz(String ktoiplz) throws RemoteException
+  {
+    setAttribute("ktoiplz", ktoiplz);
+  }
+
+  @Override
+  public String getKtoiOrt() throws RemoteException
+  {
+    return (String) getAttribute("ktoiort");
+  }
+
+  @Override
+  public void setKtoiOrt(String ktoiort) throws RemoteException
+  {
+    setAttribute("ktoiort", ktoiort);
+  }
+
+  @Override
+  public String getKtoiStaat() throws RemoteException
+  {
+    return (String) getAttribute("ktoistaat");
+  }
+
+  @Override
+  public void setKtoiStaat(String ktoistaat) throws RemoteException
+  {
+    setAttribute("ktoistaat", ktoistaat);
+  }
+
+  /**
+   * art = 1: Name, Vorname
+   */
+  @Override
+  public String getKontoinhaber(int art) throws RemoteException
+  {
+    Mitglied m2 = (Mitglied) Einstellungen.getDBService().createObject(
+        Mitglied.class, getID());
+    if (m2.getKtoiVorname() != null && m2.getKtoiVorname().length() > 0)
+    {
+      m2.setVorname(getKtoiVorname());
+      m2.setPersonenart(getKtoiPersonenart());
+    }
+    if (m2.getKtoiName() != null && m2.getKtoiName().length() > 0)
+    {
+      m2.setName(getKtoiName());
+      m2.setPersonenart(getKtoiPersonenart());
+    }
+    if (m2.getKtoiAnrede() != null && m2.getKtoiAnrede().length() > 0)
+    {
+      m2.setAnrede(getKtoiAnrede());
+    }
+    if (m2.getKtoiTitel() != null && m2.getKtoiTitel().length() > 0)
+    {
+      m2.setTitel(getKtoiTitel());
+    }
+    switch (art)
+    {
+      case 1:
+        return Adressaufbereitung.getNameVorname(m2);
+    }
+    return null;
   }
 
   @Override
@@ -938,82 +1087,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return (Date) getAttribute("letzteaenderung");
   }
 
-  /**
-   * Gibt den Namen aufbereitet zurück, Meier, Dr. Willi
-   */
-  @Override
-  public String getNameVorname() throws RemoteException
-  {
-    String ret = getName() + ", ";
-    if (getTitel() != null && getTitel().length() > 0)
-    {
-      ret += getTitel() + " ";
-    }
-    ret += getVorname();
-    return ret;
-  }
-
-  /**
-   * Gibt den Namen aufbereitet zurück: Dr. Willi Meier
-   */
-  @Override
-  public String getVornameName() throws RemoteException
-  {
-    String ret = "";
-    if (getPersonenart().equals("n"))
-    {
-      ret = getTitel();
-      if (ret == null)
-      {
-        ret = "";
-      }
-      if (ret.length() > 0)
-      {
-        ret += " ";
-      }
-      ret += getVorname() + " " + getName();
-    }
-    else
-    {
-      ret = getName()
-          + (getVorname().length() > 0 ? ("\n" + getVorname()) : "");
-    }
-    return ret;
-  }
-
-  /**
-   * Gibt die Anschrift aufbereitet zurück
-   */
-  @Override
-  public String getAnschrift() throws RemoteException
-  {
-    return (getAdressierungszusatz() != null
-        && getAdressierungszusatz().length() > 0 ? getAdressierungszusatz()
-        + ", " : "")
-        + getStrasse()
-        + ", "
-        + getPlz()
-        + " "
-        + getOrt()
-        + (getStaat() != null ? ", " + getStaat() : "");
-  }
-
-  @Override
-  public String getEmpfaenger() throws RemoteException
-  {
-    String empfaenger = getAnrede()
-        + "\n"
-        + getVornameName()
-        + "\n"
-        + (getAdressierungszusatz().length() > 0 ? getAdressierungszusatz()
-            + "\n" : "") + getStrasse() + "\n" + getPlz() + " " + getOrt();
-    if (getStaat() != null && getStaat().length() > 0)
-    {
-      empfaenger += "\n" + getStaat();
-    }
-    return empfaenger;
-  }
-
   @Override
   public Map<String, Object> getMap(Map<String, Object> inma)
       throws RemoteException
@@ -1057,7 +1130,15 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setID("1");
       this.setIndividuellerBeitrag(123.45);
       this.setKonto("1234567890");
-      this.setKontoinhaber("Wichtig, Willi");
+      this.setKtoiPersonenart("n");
+      this.setKtoiAnrede("Herrn");
+      this.setKtoiTitel("Dr. Dr.");
+      this.setKtoiName("Wichtig");
+      this.setKtoiVorname("Willi");
+      this.setKtoiStrasse("Bahnhofstr. 22");
+      this.setAdressierungszusatz("Hinterhof bei Lieschen Müller");
+      this.setPlz("12345");
+      this.setOrt("Testenhausen");
       this.setKuendigung("21.02.2011");
       this.setLetzteAenderung();
       this.setName("Wichtig");
@@ -1141,7 +1222,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.EINTRITT.getName(),
         Datum.formatDate(this.getEintritt()));
     map.put(MitgliedVar.EMAIL.getName(), this.getEmail());
-    map.put(MitgliedVar.EMPFAENGER.getName(), this.getEmpfaenger());
+    map.put(MitgliedVar.EMPFAENGER.getName(),
+        Adressaufbereitung.getAdressfeld(this));
     map.put(MitgliedVar.EXTERNE_MITGLIEDSNUMMER.getName(),
         this.getExterneMitgliedsnummer());
     map.put(MitgliedVar.GEBURTSDATUM.getName(),
@@ -1153,13 +1235,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
         Einstellungen.DECIMALFORMAT.format(this.getIndividuellerBeitrag()));
     map.put(MitgliedVar.KONTO.getName(), this.getKonto());
-    map.put(MitgliedVar.KONTOINHABER.getName(), this.getKontoinhaber());
+    // TODO map.put(MitgliedVar.KONTOINHABER.getName(), this.getKontoinhaber());
     map.put(MitgliedVar.KUENDIGUNG.getName(),
         Datum.formatDate(this.getKuendigung()));
     map.put(MitgliedVar.LETZTEAENDERUNG.getName(),
         Datum.formatDate(this.getLetzteAenderung()));
     map.put(MitgliedVar.NAME.getName(), this.getName());
-    map.put(MitgliedVar.NAMEVORNAME.getName(), this.getNameVorname());
+    map.put(MitgliedVar.NAMEVORNAME.getName(),
+        Adressaufbereitung.getNameVorname(this));
     map.put(MitgliedVar.ORT.getName(), this.getOrt());
     map.put(MitgliedVar.PERSONENART.getName(), this.getPersonenart());
     map.put(MitgliedVar.PLZ.getName(), this.getPlz());
@@ -1174,7 +1257,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.VERMERK1.getName(), this.getVermerk1());
     map.put(MitgliedVar.VERMERK2.getName(), this.getVermerk2());
     map.put(MitgliedVar.VORNAME.getName(), this.getVorname());
-    map.put(MitgliedVar.VORNAMENAME.getName(), this.getVornameName());
+    map.put(MitgliedVar.VORNAMENAME.getName(),
+        Adressaufbereitung.getVornameName(this));
     map.put(MitgliedVar.ZAHLERID.getName(), this.getZahlerID());
     map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(), this.getZahlungsrhytmus()
         + "");
@@ -1311,15 +1395,15 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (fieldName.equals("namevorname"))
     {
-      return getNameVorname();
+      return Adressaufbereitung.getNameVorname(this);
     }
     else if (fieldName.equals("vornamename"))
     {
-      return getVornameName();
+      return Adressaufbereitung.getVornameName(this);
     }
     else if (fieldName.equals("empfaenger"))
     {
-      return getEmpfaenger();
+      return Adressaufbereitung.getAdressfeld(this);
     }
     else if (fieldName.startsWith("zusatzfelder."))
     {

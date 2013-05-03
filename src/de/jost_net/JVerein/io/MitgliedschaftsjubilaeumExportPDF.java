@@ -34,6 +34,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 
 public class MitgliedschaftsjubilaeumExportPDF extends
@@ -74,10 +75,10 @@ public class MitgliedschaftsjubilaeumExportPDF extends
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.pdf"};
+        return new String[] { "*.pdf" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 
   @Override
@@ -131,8 +132,9 @@ public class MitgliedschaftsjubilaeumExportPDF extends
   protected void add(Mitglied m) throws RemoteException
   {
     reporter.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
-    reporter.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-    reporter.addColumn(m.getAnschrift(), Element.ALIGN_LEFT);
+    reporter
+        .addColumn(Adressaufbereitung.getNameVorname(m), Element.ALIGN_LEFT);
+    reporter.addColumn(Adressaufbereitung.getAnschrift(m), Element.ALIGN_LEFT);
     String kommunikation = m.getTelefonprivat();
     if (kommunikation.length() > 0 && m.getTelefondienstlich().length() > 0)
     {

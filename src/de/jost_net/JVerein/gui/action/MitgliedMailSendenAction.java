@@ -29,6 +29,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MailVorlageControl;
 import de.jost_net.JVerein.gui.dialogs.MailVorlagenAuswahlDialog;
 import de.jost_net.JVerein.gui.view.MailDetailView;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.MailVorlage;
@@ -66,15 +67,16 @@ public class MitgliedMailSendenAction implements Action
         StringBuilder mitgliederohnemail = new StringBuilder();
         for (Mitglied mitglied : mitgl)
         {
-          MailEmpfaenger me = (MailEmpfaenger) Einstellungen.getDBService().createObject(
-              MailEmpfaenger.class, null);
+          MailEmpfaenger me = (MailEmpfaenger) Einstellungen.getDBService()
+              .createObject(MailEmpfaenger.class, null);
           if (mitglied.getEmail() == null || mitglied.getEmail().length() == 0)
           {
             if (mitgliederohnemail.length() > 0)
             {
               mitgliederohnemail.append(", ");
             }
-            mitgliederohnemail.append(mitglied.getNameVorname());
+            mitgliederohnemail.append(Adressaufbereitung
+                .getNameVorname(mitglied));
           }
           else
           {

@@ -24,6 +24,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -150,7 +151,7 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
     {
       if (getMitglied() != null)
       {
-        return getMitglied().getNameVorname();
+        return Adressaufbereitung.getNameVorname(getMitglied());
       }
       else
       {

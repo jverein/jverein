@@ -29,6 +29,7 @@ import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.BuchungVar;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -428,24 +429,24 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       //
     }
     map.put(BuchungVar.ABRECHNUNGSLAUF.getName(),
-        (this.getAbrechnungslauf() != null
-            ? this.getAbrechnungslauf().getDatum() : ""));
+        (this.getAbrechnungslauf() != null ? this.getAbrechnungslauf()
+            .getDatum() : ""));
     map.put(BuchungVar.ART.getName(), StringTool.toNotNullString(this.getArt()));
     map.put(BuchungVar.AUSZUGSNUMMER.getName(), this.getAuszugsnummer());
     map.put(BuchungVar.BETRAG.getName(), this.getBetrag());
     map.put(BuchungVar.BLATTNUMMER.getName(), this.getBlattnummer());
     if (this.getBuchungsart() != null)
     {
-      map.put(BuchungVar.BUCHUNGSARBEZEICHNUNG.getName(),
-          this.getBuchungsart().getBezeichnung());
-      map.put(BuchungVar.BUCHUNGSARTNUMMER.getName(),
-          this.getBuchungsart().getNummer());
+      map.put(BuchungVar.BUCHUNGSARBEZEICHNUNG.getName(), this.getBuchungsart()
+          .getBezeichnung());
+      map.put(BuchungVar.BUCHUNGSARTNUMMER.getName(), this.getBuchungsart()
+          .getNummer());
       if (this.getBuchungsart().getBuchungsklasse() != null)
       {
-        map.put(BuchungVar.BUCHUNGSKLASSEBEZEICHNUNG.getName(),
-            this.getBuchungsart().getBuchungsklasse().getBezeichnung());
-        map.put(BuchungVar.BUCHUNGSKLASSENUMMER.getName(),
-            this.getBuchungsart().getBuchungsklasse().getNummer());
+        map.put(BuchungVar.BUCHUNGSKLASSEBEZEICHNUNG.getName(), this
+            .getBuchungsart().getBuchungsklasse().getBezeichnung());
+        map.put(BuchungVar.BUCHUNGSKLASSENUMMER.getName(), this
+            .getBuchungsart().getBuchungsklasse().getNummer());
       }
       else
       {
@@ -464,8 +465,8 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     if (this.getProjekt() != null)
     {
       map.put(BuchungVar.PROJEKTNUMMER.getName(), this.getProjektID());
-      map.put(BuchungVar.PROJEKTBEZEICHNUNG.getName(),
-          this.getProjekt().getBezeichnung());
+      map.put(BuchungVar.PROJEKTBEZEICHNUNG.getName(), this.getProjekt()
+          .getBezeichnung());
     }
     else
     {
@@ -479,11 +480,12 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
             : "");
     map.put(BuchungVar.KOMMENTAR.getName(),
         StringTool.toNotNullString(this.getKommentar()));
-    map.put(BuchungVar.KONTONUMMER.getName(), this.getKonto() != null
-        ? this.getKonto().getNummer() : "");
-    map.put(BuchungVar.MITGLIEDSKONTO.getName(),
-        this.getMitgliedskonto() != null
-            ? this.getMitgliedskonto().getMitglied().getNameVorname() : "");
+    map.put(BuchungVar.KONTONUMMER.getName(), this.getKonto() != null ? this
+        .getKonto().getNummer() : "");
+    map.put(
+        BuchungVar.MITGLIEDSKONTO.getName(),
+        this.getMitgliedskonto() != null ? Adressaufbereitung
+            .getNameVorname(this.getMitgliedskonto().getMitglied()) : "");
     map.put(BuchungVar.NAME.getName(), this.getName());
     map.put(BuchungVar.ZWECK1.getName(),
         StringTool.toNotNullString(this.getZweck()));
@@ -535,8 +537,8 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     DBIterator it = Einstellungen.getDBService().createList(
         Jahresabschluss.class);
-    it.addFilter("von <= ?", new Object[] { getDatum()});
-    it.addFilter("bis >= ?", new Object[] { getDatum()});
+    it.addFilter("von <= ?", new Object[] { getDatum() });
+    it.addFilter("bis >= ?", new Object[] { getDatum() });
     if (it.hasNext())
     {
       Jahresabschluss ja = (Jahresabschluss) it.next();

@@ -36,6 +36,7 @@ import com.itextpdf.text.Paragraph;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -137,11 +138,13 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       if (control.getBeitragsgruppeAusw().getValue() != null)
       {
-        Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw().getValue();
+        Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
+            .getValue();
         subtitle += "nur Beitragsgruppe " + bg.getBezeichnung() + "  ";
       }
     }
-    String ueberschrift = (String) control.getAuswertungUeberschrift().getValue();
+    String ueberschrift = (String) control.getAuswertungUeberschrift()
+        .getValue();
     if (ueberschrift.length() > 0)
     {
       subtitle = ueberschrift;
@@ -173,19 +176,20 @@ public class MitgliedAuswertungPDF implements IAuswertung
                 + "Sterbedatum") : ""), Element.ALIGN_CENTER, 30,
             BaseColor.LIGHT_GRAY);
       }
-      report.addHeaderColumn(
+      report
+          .addHeaderColumn(
 
-      "Beitragsgruppe /\nEigenschaften"
-          + (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
-              ? "\nMitgliedsnummer" : ""), Element.ALIGN_CENTER, 60,
-          BaseColor.LIGHT_GRAY);
+              "Beitragsgruppe /\nEigenschaften"
+                  + (Einstellungen.getEinstellung().getExterneMitgliedsnummer() ? "\nMitgliedsnummer"
+                      : ""), Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
       for (int i = 0; i < list.size(); i++)
       {
         Mitglied m = list.get(i);
-        report.addColumn(m.getNameVorname(), Element.ALIGN_LEFT);
-        String anschriftkommunikation = m.getAnschrift();
+        report.addColumn(Adressaufbereitung.getNameVorname(m),
+            Element.ALIGN_LEFT);
+        String anschriftkommunikation = Adressaufbereitung.getAnschrift(m);
         if (m.getTelefonprivat() != null && m.getTelefonprivat().length() > 0)
         {
           anschriftkommunikation += "\n" + "Tel. priv: " + m.getTelefonprivat();
@@ -233,8 +237,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
           zelle += "\n"
-              + (m.getExterneMitgliedsnummer() != null
-                  ? m.getExterneMitgliedsnummer() : "");
+              + (m.getExterneMitgliedsnummer() != null ? m
+                  .getExterneMitgliedsnummer() : "");
         }
         if (adresstyp.getJVereinid() == 1)
         {
@@ -243,10 +247,12 @@ public class MitgliedAuswertungPDF implements IAuswertung
         StringBuilder beitragsgruppebemerkung = new StringBuilder();
         if (m.getBeitragsgruppe() != null)
         {
-          beitragsgruppebemerkung.append(m.getBeitragsgruppe().getBezeichnung());
+          beitragsgruppebemerkung
+              .append(m.getBeitragsgruppe().getBezeichnung());
         }
         StringBuilder eigenschaften = new StringBuilder();
-        ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m.getID());
+        ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m
+            .getID());
         for (int i2 = 0; i2 < eig.size(); i2 = i2 + 2)
         {
           if (i2 == 0)
@@ -262,8 +268,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
         zelle = "";
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
-          zelle += (m.getExterneMitgliedsnummer() != null
-              ? m.getExterneMitgliedsnummer() : "");
+          zelle += (m.getExterneMitgliedsnummer() != null ? m
+              .getExterneMitgliedsnummer() : "");
         }
 
         report.addColumn(
@@ -273,8 +279,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
       report.closeTable();
 
       report.add(new Paragraph(MessageFormat.format("Anzahl {0}: {1}",
-          adresstyp.getBezeichnungPlural(), list.size() + ""),
-          FontFactory.getFont(FontFactory.HELVETICA, 8)));
+          adresstyp.getBezeichnungPlural(), list.size() + ""), FontFactory
+          .getFont(FontFactory.HELVETICA, 8)));
 
       report.close();
       GUI.getStatusBar().setSuccessText(

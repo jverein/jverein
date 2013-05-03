@@ -19,31 +19,33 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.formatter;
+
+package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
-import de.jost_net.JVerein.rmi.Mitgliedskonto;
-import de.willuhn.jameica.gui.formatter.Formatter;
-
-public class MitgliedskontoFormatter implements Formatter
+public interface IAdresse
 {
-  @Override
-  public String format(Object o)
-  {
-    if (o instanceof Mitgliedskonto)
-    {
-      Mitgliedskonto mk = (Mitgliedskonto) o;
-      try
-      {
-        return Adressaufbereitung.getNameVorname(mk.getMitglied());
-      }
-      catch (RemoteException e)
-      {
-        //
-      }
-    }
-    return "";
-  }
+  /**
+   * N = Natürliche Person, J = Juristische Person
+   */
+  public String getPersonenart() throws RemoteException;
+
+  public String getAnrede() throws RemoteException;
+
+  public String getTitel() throws RemoteException;
+
+  public String getName() throws RemoteException;
+
+  public String getVorname() throws RemoteException;
+
+  public String getStrasse() throws RemoteException;
+
+  public String getAdressierungszusatz() throws RemoteException;
+
+  public String getPlz() throws RemoteException;
+
+  public String getOrt() throws RemoteException;
+
+  public String getStaat() throws RemoteException;
 }

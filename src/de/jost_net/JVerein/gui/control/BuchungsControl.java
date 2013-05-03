@@ -46,6 +46,7 @@ import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.io.BuchungAuswertungCSV;
 import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.io.BuchungsjournalPDF;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -352,7 +353,8 @@ public class BuchungsControl extends AbstractControl
             if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
             {
               Mitgliedskonto mk = (Mitgliedskonto) mitgliedskonto.getValue();
-              getName().setValue(mk.getMitglied().getNameVorname());
+              getName().setValue(
+                  Adressaufbereitung.getNameVorname(mk.getMitglied()));
               getBetrag().setValue(mk.getBetrag());
               getZweck().setValue(mk.getZweck1());
               getDatum().setValue(mk.getDatum());
@@ -360,7 +362,7 @@ public class BuchungsControl extends AbstractControl
             if (mitgliedskonto.getValue() instanceof Mitglied)
             {
               Mitglied m2 = (Mitglied) mitgliedskonto.getValue();
-              getName().setValue(m2.getNameVorname());
+              getName().setValue(Adressaufbereitung.getNameVorname(m2));
               getDatum().setValue(new Date());
             }
           }

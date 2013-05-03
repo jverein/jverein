@@ -33,6 +33,7 @@ import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
+import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.GUI;
@@ -76,10 +77,10 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv"};
+        return new String[] { "*.csv" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 
   @Override
@@ -152,7 +153,8 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
         Map<String, Object> mp = mkto.getMitglied().getMap(null);
         map = new MitgliedskontoMap().getMap(mkto, mp);
         writer.write(map, header, processors);
-        monitor.log("Export: " + mkto.getMitglied().getNameVorname());
+        monitor.log("Export: "
+            + Adressaufbereitung.getNameVorname(mkto.getMitglied()));
       }
       writer.close();
       GUI.getDisplay().asyncExec(new Runnable()
