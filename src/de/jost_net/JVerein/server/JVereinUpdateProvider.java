@@ -1293,7 +1293,8 @@ public class JVereinUpdateProvider
   }
 
   public void execute(Connection conn, Map<String, String[]> statements,
-      String logstring, int version, boolean dummy) throws ApplicationException
+      String logstring, int version, @SuppressWarnings("unused")
+      boolean dummy) throws ApplicationException
   {
     for (String driver : statements.keySet())
     {

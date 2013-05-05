@@ -98,7 +98,9 @@ public class FamilienbeitragNode implements GenericObjectNode
     }
   }
 
-  public FamilienbeitragNode(FamilienbeitragNode parent, Mitglied m, int dummy)
+  public FamilienbeitragNode(FamilienbeitragNode parent, Mitglied m,
+      @SuppressWarnings("unused")
+      int dummy)
   {
     this.parent = parent;
     this.type = ANGEHOERIGER;
