@@ -22,12 +22,9 @@
 
 package de.jost_net.JVerein.io;
 
-import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-
-import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
@@ -35,6 +32,7 @@ import de.willuhn.util.ApplicationException;
 
 public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
 {
+
   private ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
 
   private int jahrgang;
@@ -54,6 +52,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
     }
     IOFormat f = new IOFormat()
     {
+
       @Override
       public String getName()
       {
@@ -66,10 +65,10 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv" };
+        return new String[] { "*.csv"};
       }
     };
-    return new IOFormat[] { f };
+    return new IOFormat[] { f};
   }
 
   @Override
@@ -79,7 +78,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   }
 
   @Override
-  protected void open() throws DocumentException, FileNotFoundException
+  protected void open()
   {
     //
   }

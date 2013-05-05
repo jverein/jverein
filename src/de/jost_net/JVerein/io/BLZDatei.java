@@ -29,6 +29,7 @@ import java.util.Iterator;
 
 public class BLZDatei
 {
+
   private BufferedInputStream bin;
 
   private HashMap<String, BLZSatz> blzdatenbank;
@@ -51,7 +52,7 @@ public class BLZDatei
     it = blzdatenbank.keySet().iterator();
   }
 
-  public BLZSatz getNext() throws IOException
+  public BLZSatz getNext()
   {
     return blzdatenbank.get(it.next());
   }

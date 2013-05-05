@@ -36,9 +36,9 @@ public class PersonenartInput extends SelectInput
 
   private final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
 
-  public PersonenartInput(String personenart) throws RemoteException
+  public PersonenartInput(String personenart)
   {
-    super(new Object[] { NATUERLICHE_PERSON, JURISTISCHE_PERSON },
+    super(new Object[] { NATUERLICHE_PERSON, JURISTISCHE_PERSON},
         init(personenart));
   }
 
@@ -46,7 +46,7 @@ public class PersonenartInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static String init(String personenart) throws RemoteException
+  private static String init(String personenart)
   {
     if (personenart.equals("n"))
     {

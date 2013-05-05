@@ -22,8 +22,6 @@
 
 package de.jost_net.JVerein.gui.dialogs;
 
-import java.rmi.RemoteException;
-
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.gui.input.PersonenartInput;
@@ -87,7 +85,7 @@ public class PersonenartDialog extends AbstractDialog<String>
     return this.selected;
   }
 
-  private PersonenartInput getPersonenartInput() throws RemoteException
+  private PersonenartInput getPersonenartInput()
   {
     if (personenart != null)
     {

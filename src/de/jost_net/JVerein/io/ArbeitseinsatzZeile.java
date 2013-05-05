@@ -102,7 +102,7 @@ public class ArbeitseinsatzZeile implements GenericObject
   }
 
   @Override
-  public String getID() throws RemoteException
+  public String getID() 
   {
     return mitgliedid;
   }
