@@ -733,8 +733,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String tmpdir = (String) getAttribute("vorlagencsvverzeichnis");
     if (tmpdir == null)
     {
-      // noch kein Verzeichnis ausgewählt. Dann nehmen wir das tmp-Verzeichnis
-      tmpdir = System.getProperty("java.io.tmpdir");
+      // das Verzeichnis ist optional
+      tmpdir = "";
     }
     return tmpdir;
   }
