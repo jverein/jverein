@@ -122,6 +122,11 @@ public class EinstellungenView extends AbstractView
     groupDatei.addLabelPair("Auswertung", control.getDateinamenmuster());
     groupDatei.addLabelPair("Spendenbescheinigungen",
         control.getDateinamenmusterSpende());
+    // LabelGroup groupVorlagenCsvDir = new
+    // LabelGroup(tabDateinamen.getComposite(),
+    // "Verzeichnisse");
+    groupDatei.addLabelPair("CSV Vorlagenverzeichnis",
+        control.getVorlagenCsvVerzeichnis());
 
     TabGroup tabSpendenbescheinigung = new TabGroup(folder,
         "Spendenbescheinigungen");

@@ -29,6 +29,7 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Einstellung extends DBObject, IBankverbindung
 {
+
   public void setID() throws RemoteException;
 
   public String getName() throws RemoteException;
@@ -211,6 +212,11 @@ public interface Einstellung extends DBObject, IBankverbindung
   public String getDateinamenmusterSpende() throws RemoteException;
 
   public void setDateinamenmusterSpende(String dateinamenmusterspende)
+      throws RemoteException;
+
+  public String getVorlagenCsvVerzeichnis() throws RemoteException;
+
+  public void setVorlagenCsvVerzeichnis(String vorlagenCsvVerzeichnis)
       throws RemoteException;
 
   public double getSpendenbescheinigungminbetrag() throws RemoteException;

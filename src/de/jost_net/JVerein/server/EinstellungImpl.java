@@ -728,6 +728,25 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public String getVorlagenCsvVerzeichnis() throws RemoteException
+  {
+    String tmpdir = (String) getAttribute("vorlagencsvverzeichnis");
+    if (tmpdir == null)
+    {
+      // noch kein Verzeichnis ausgewählt. Dann nehmen wir das tmp-Verzeichnis
+      tmpdir = System.getProperty("java.io.tmpdir");
+    }
+    return tmpdir;
+  }
+
+  @Override
+  public void setVorlagenCsvVerzeichnis(String vorlagencsvdir)
+      throws RemoteException
+  {
+    setAttribute("vorlagencsvverzeichnis", vorlagencsvdir);
+  }
+
+  @Override
   public double getSpendenbescheinigungminbetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("spendenbescheinigungminbetrag");
@@ -763,8 +782,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util
-        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override

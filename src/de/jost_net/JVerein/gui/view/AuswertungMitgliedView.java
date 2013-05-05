@@ -82,7 +82,6 @@ public class AuswertungMitgliedView extends AbstractView
     right.addInput(control.getBeitragsgruppeAusw());
 
     right.addInput(control.getAusgabe());
-    right.addInput(control.getVorlagedateicsv());
     right.addInput(control.getSortierung());
     right.addInput(control.getAuswertungUeberschrift());
 

@@ -36,7 +36,6 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.GUI;
@@ -49,7 +48,9 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedAuswertungCSV implements IAuswertung
 {
 
-  private MitgliedControl control;
+  private String vorlagedateiname;
+  
+  private String name;
 
   private String[] headerUser;
 
@@ -57,16 +58,23 @@ public class MitgliedAuswertungCSV implements IAuswertung
 
   public MitgliedAuswertungCSV()
   {
-    this.control = null;
+    this.vorlagedateiname = "";
+    this.name = "Mitgliederliste CSV";
     this.headerKeys = null;
     this.headerUser = null;
   }
 
-  public MitgliedAuswertungCSV(MitgliedControl control)
+  public MitgliedAuswertungCSV(String filename)
   {
-    this.control = control;
-    this.headerKeys = null;
-    this.headerUser = null;
+    this();  // call default constructor
+    
+    if (filename.length() > 0)
+    {
+      this.vorlagedateiname = filename;
+      this.name = "Vorlage CSV: " + filename.substring(
+          filename.lastIndexOf(File.separator) + 1, 
+          filename.lastIndexOf("."));  
+    }
   }
 
   @Override
@@ -76,48 +84,43 @@ public class MitgliedAuswertungCSV implements IAuswertung
     headerKeys = null;
     headerUser = null;
 
-    if (control != null)
+    if (!vorlagedateiname.isEmpty())
     {
-      String vorlagedateiname = (String) control.getVorlagedateicsv()
-          .getValue();
-      if ((vorlagedateiname != null) && !vorlagedateiname.isEmpty())
+      Logger.info("reading " + vorlagedateiname);
+
+      // read the file content: first 2 lines
+      // 1st line: headerUser
+      // 2nd line: headerKeys
+      try
       {
-        Logger.info("reading " + vorlagedateiname);
+        File file = new File(vorlagedateiname);
+        ICsvListReader reader = new CsvListReader(new FileReader(file),
+            CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+        headerUser = reader.read().toArray(new String[0]);
+        headerKeys = reader.read().toArray(new String[0]);
 
-        // read the file content: first 2 lines
-        // 1st line: headerUser
-        // 2nd line: headerKeys
-        try
-        {
-          File file = new File(vorlagedateiname);
-          ICsvListReader reader = new CsvListReader(new FileReader(file),
-              CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
-          headerUser = reader.read().toArray(new String[0]);
-          headerKeys = reader.read().toArray(new String[0]);
+      }
+      catch (Exception e)
+      {
+        Logger.error("error reading " + vorlagedateiname, e);
+        throw new RemoteException("Fehler beim Einlesen der Vorlagedatei "
+            + vorlagedateiname, e);
+      }
 
-        }
-        catch (Exception e)
-        {
-          Logger.error("error reading " + vorlagedateiname, e);
-          throw new RemoteException("Fehler beim Einlesen der Vorlagedatei "
-              + vorlagedateiname, e);
-        }
-
-        // check the file content
-        if (headerUser.length == 0)
-        {
-          Logger.error("no elements in first line: " + vorlagedateiname);
-          throw new RemoteException("keine Elemente in erster Zeile in Datei "
-              + vorlagedateiname);
-        }
-        if (headerUser.length != headerKeys.length)
-        {
-          Logger.error("different number of elements in 1st and 2nd line: "
-              + vorlagedateiname);
-          throw new RemoteException(
-              "unterschiedliche Anzahl Elemente in 1. und 2. Zeile: "
-                  + vorlagedateiname);
-        }
+      // check the file content
+      if (headerUser.length == 0)
+      {
+        Logger.error("no elements in first line: " + vorlagedateiname);
+        throw new RemoteException("keine Elemente in erster Zeile in Datei "
+            + vorlagedateiname);
+      }
+      if (headerUser.length != headerKeys.length)
+      {
+        Logger.error("different number of elements in 1st and 2nd line: "
+            + vorlagedateiname);
+        throw new RemoteException(
+            "unterschiedliche Anzahl Elemente in 1. und 2. Zeile: "
+                + vorlagedateiname);
       }
     }
   }
@@ -233,7 +236,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
   @Override
   public String toString()
   {
-    return "Mitgliederliste CSV";
+    return name;     
   }
 
   @Override
