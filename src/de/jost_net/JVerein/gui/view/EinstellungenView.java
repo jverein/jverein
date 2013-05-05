@@ -116,16 +116,15 @@ public class EinstellungenView extends AbstractView
     groupAbu.addInput(control.getZahlungsweg());
     groupAbu.addInput(control.getDefaultSEPALand());
 
-    TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen");
+    TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen", false, 1);
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
         "Dateinamenmuster");
     groupDatei.addLabelPair("Auswertung", control.getDateinamenmuster());
     groupDatei.addLabelPair("Spendenbescheinigungen",
         control.getDateinamenmusterSpende());
-    // LabelGroup groupVorlagenCsvDir = new
-    // LabelGroup(tabDateinamen.getComposite(),
-    // "Verzeichnisse");
-    groupDatei.addLabelPair("CSV Vorlagenverzeichnis",
+    LabelGroup groupVorlagenCsvDir = new LabelGroup(
+        tabDateinamen.getComposite(), "Verzeichnisse");
+    groupVorlagenCsvDir.addLabelPair("CSV Vorlagenverzeichnis",
         control.getVorlagenCsvVerzeichnis());
 
     TabGroup tabSpendenbescheinigung = new TabGroup(folder,
