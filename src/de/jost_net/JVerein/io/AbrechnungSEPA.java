@@ -82,8 +82,7 @@ public class AbrechnungSEPA
     // Vorbereitung: Allgemeine Informationen einstellen
     lastschrift.setBIC(Einstellungen.getEinstellung().getBic());
     lastschrift.setFaelligskeitsdatum(param.faelligkeit);
-    lastschrift.setGlaeubigerID(Einstellungen.getEinstellung()
-        .getGlaeubigerID());
+    lastschrift.setGlaeubigerID(Einstellungen.getEinstellung().getGlaeubigerID());
     lastschrift.setIBAN(Einstellungen.getEinstellung().getIban());
     lastschrift.setKomprimiert(param.kompakteabbuchung.booleanValue());
     lastschrift.setName(Einstellungen.getEinstellung().getNameLang());
@@ -115,20 +114,35 @@ public class AbrechnungSEPA
       else
       {
         ls.setMitglied(Integer.parseInt(za.getMandatid()));
+        Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
+            Mitglied.class, za.getMandatid());
+        ls.setName(getKontoinhaber(m.getName(), m.getKtoiName()));
+        ls.setVorname(getKontoinhaber(m.getVorname(), m.getKtoiVorname()));
+        ls.setStrasse(getKontoinhaber(m.getStrasse(), m.getKtoiStrasse()));
+        ls.setAdressierungszusatz(getKontoinhaber(m.getAdressierungszusatz(),
+            m.getKtoiAdressierungszusatz()));
+        ls.setPlz(getKontoinhaber(m.getPlz(), m.getKtoiPlz()));
+        ls.setOrt(getKontoinhaber(m.getOrt(), m.getKtoiOrt()));
+        ls.setStaat(getKontoinhaber(m.getStaat(), m.getKtoiStaat()));
+        if (!ls.getName().equals(m.getName())
+            || !ls.getVorname().equals(m.getVorname()))
+        {
+          ls.setPersonenart(m.getPersonenart());
+        }
       }
       ls.setBetrag(za.getBetrag());
       ls.setBIC(za.getBic());
       ls.setIBAN(za.getIban());
       ls.setMandatDatum(za.getMandatdatum());
       ls.setMandatID(za.getMandatid());
-      ls.setName(za.getNameOrig());
       ls.setVerwendungszweck(za.getVerwendungszweckOrig());
       ls.store();
     }
 
     // Gegenbuchung für das Mitgliedskonto schreiben
-    writeMitgliedskonto(null, new Date(), "Gegenbuchung", "", lastschrift
-        .getKontrollsumme().doubleValue() * -1, abrl, true, getKonto(), null);
+    writeMitgliedskonto(null, new Date(), "Gegenbuchung",
+        lastschrift.getKontrollsumme().doubleValue() * -1, abrl, true,
+        getKonto(), null);
 
     // if (param.abbuchungsausgabe ==
     // Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
@@ -147,6 +161,18 @@ public class AbrechnungSEPA
     if (param.sepaprint)
     {
       ausdruckenSEPA(lastschrift, param.pdffile);
+    }
+  }
+
+  private String getKontoinhaber(String mitglied, String ktoi)
+  {
+    if (ktoi != null && ktoi.length() > 0)
+    {
+      return ktoi;
+    }
+    else
+    {
+      return mitglied;
     }
   }
 
@@ -190,10 +216,10 @@ public class AbrechnungSEPA
 
       // Das Mitglied muss bereits eingetreten sein
       list.addFilter("(eintritt <= ? or eintritt is null) ",
-          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+          new Object[] { new java.sql.Date(param.stichtag.getTime())});
       // Das Mitglied darf noch nicht ausgetreten sein
       list.addFilter("(austritt is null or austritt > ?)",
-          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+          new Object[] { new java.sql.Date(param.stichtag.getTime())});
       // Beitragsfreie Mitglieder können auch unberücksichtigt bleiben.
       if (beitragsfrei.length() > 0)
       {
@@ -204,7 +230,7 @@ public class AbrechnungSEPA
       if (param.vondatum != null)
       {
         list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
-            param.vondatum.getTime()) });
+            param.vondatum.getTime())});
       }
       if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
       {
@@ -214,7 +240,7 @@ public class AbrechnungSEPA
               "(zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
               new Object[] { new Integer(Zahlungsrhytmus.HALBJAEHRLICH),
                   new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
-                  new Integer(Zahlungsrhytmus.MONATLICH) });
+                  new Integer(Zahlungsrhytmus.MONATLICH)});
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.JAVIMO)
         {
@@ -222,34 +248,33 @@ public class AbrechnungSEPA
               "(zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
               new Object[] { new Integer(Zahlungsrhytmus.JAEHRLICH),
                   new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
-                  new Integer(Zahlungsrhytmus.MONATLICH) });
+                  new Integer(Zahlungsrhytmus.MONATLICH)});
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.VIMO)
         {
           list.addFilter("(zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
               new Object[] { Integer.valueOf(Zahlungsrhytmus.VIERTELJAEHRLICH),
-                  Integer.valueOf(Zahlungsrhytmus.MONATLICH) });
+                  Integer.valueOf(Zahlungsrhytmus.MONATLICH)});
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.MO)
         {
           list.addFilter("zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.MONATLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhytmus.MONATLICH)});
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.VI)
         {
-          list.addFilter(
-              "zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.VIERTELJAEHRLICH) });
+          list.addFilter("zahlungsrhytmus = ?",
+              new Object[] { Integer.valueOf(Zahlungsrhytmus.VIERTELJAEHRLICH)});
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.HA)
         {
           list.addFilter("zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.HALBJAEHRLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhytmus.HALBJAEHRLICH)});
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.JA)
         {
           list.addFilter("zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.JAEHRLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhytmus.JAEHRLICH)});
         }
       }
       list.setOrder("ORDER BY name, vorname");
@@ -305,8 +330,8 @@ public class AbrechnungSEPA
             throw e;
           }
         }
-        writeMitgliedskonto(m, new Date(), param.verwendungszweck, "", betr,
-            abrl, m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
+        writeMitgliedskonto(m, new Date(), param.verwendungszweck, betr, abrl,
+            m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
             beitragsgruppe.get(m.getBeitragsgruppeId() + ""));
         if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
         {
@@ -410,8 +435,7 @@ public class AbrechnungSEPA
           }
         }
         if (z.getIntervall().intValue() != IntervallZusatzzahlung.KEIN
-            && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z
-                .getEndedatum().getTime()))
+            && (z.getEndedatum() == null || z.getFaelligkeit().getTime() <= z.getEndedatum().getTime()))
         {
           z.setFaelligkeit(Datum.addInterval(z.getFaelligkeit(),
               z.getIntervall()));
@@ -420,9 +444,8 @@ public class AbrechnungSEPA
         {
           if (abrl != null)
           {
-            ZusatzbetragAbrechnungslauf za = (ZusatzbetragAbrechnungslauf) Einstellungen
-                .getDBService().createObject(ZusatzbetragAbrechnungslauf.class,
-                    null);
+            ZusatzbetragAbrechnungslauf za = (ZusatzbetragAbrechnungslauf) Einstellungen.getDBService().createObject(
+                ZusatzbetragAbrechnungslauf.class, null);
             za.setAbrechnungslauf(abrl);
             za.setZusatzbetrag(z);
             za.setLetzteAusfuehrung(z.getAusfuehrung());
@@ -441,10 +464,9 @@ public class AbrechnungSEPA
           monitor.log(z.getMitglied().getName() + " " + debString + " " + e);
           throw e;
         }
-        writeMitgliedskonto(m, new Date(), z.getBuchungstext(),
-            z.getBuchungstext2() != null ? z.getBuchungstext2() : "",
-            z.getBetrag(), abrl,
-            m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto, null);
+        writeMitgliedskonto(m, new Date(), z.getBuchungstext(), z.getBetrag(),
+            abrl, m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
+            null);
       }
     }
   }
@@ -488,6 +510,7 @@ public class AbrechnungSEPA
     new Basislastschrift2Pdf(lastschrift, pdf);
     GUI.getDisplay().asyncExec(new Runnable()
     {
+
       @Override
       public void run()
       {
@@ -590,8 +613,8 @@ public class AbrechnungSEPA
   private Abrechnungslauf getAbrechnungslauf() throws RemoteException,
       ApplicationException
   {
-    Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
-        .createObject(Abrechnungslauf.class, null);
+    Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService().createObject(
+        Abrechnungslauf.class, null);
     abrl.setDatum(new Date());
     abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
     abrl.setFaelligkeit(param.faelligkeit);
@@ -607,9 +630,9 @@ public class AbrechnungSEPA
   }
 
   private void writeMitgliedskonto(Mitglied mitglied, Date datum,
-      String zweck1, String zweck2, double betrag, Abrechnungslauf abrl,
-      boolean haben, Konto konto, Beitragsgruppe beitragsgruppe)
-      throws ApplicationException, RemoteException
+      String zweck1, double betrag, Abrechnungslauf abrl, boolean haben,
+      Konto konto, Beitragsgruppe beitragsgruppe) throws ApplicationException,
+      RemoteException
   {
     Mitgliedskonto mk = null;
     if (mitglied != null) /*
@@ -635,8 +658,8 @@ public class AbrechnungSEPA
       buchung.setBetrag(betrag);
       buchung.setDatum(datum);
       buchung.setKonto(konto);
-      buchung.setName(mitglied != null ? Adressaufbereitung
-          .getNameVorname(mitglied) : "JVerein");
+      buchung.setName(mitglied != null
+          ? Adressaufbereitung.getNameVorname(mitglied) : "JVerein");
       buchung.setZweck(zweck1);
       if (mk != null)
       {
@@ -644,8 +667,8 @@ public class AbrechnungSEPA
       }
       if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
       {
-        buchung.setBuchungsart(new Integer(beitragsgruppe.getBuchungsart()
-            .getID()));
+        buchung.setBuchungsart(new Integer(
+            beitragsgruppe.getBuchungsart().getID()));
       }
       buchung.store();
     }
@@ -661,10 +684,9 @@ public class AbrechnungSEPA
     if (it.size() != 1)
     {
       throw new ApplicationException(
-          MessageFormat
-              .format(
-                  "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
-                  Einstellungen.getEinstellung().getKonto()));
+          MessageFormat.format(
+              "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+              Einstellungen.getEinstellung().getKonto()));
     }
     Konto k = (Konto) it.next();
     return k;
@@ -672,10 +694,10 @@ public class AbrechnungSEPA
 
   private String getVerwendungszweck2(Mitglied m) throws RemoteException
   {
-    String mitgliedname = (Einstellungen.getEinstellung()
-        .getExterneMitgliedsnummer() ? m.getExterneMitgliedsnummer() : m
-        .getID())
-        + "/" + Adressaufbereitung.getNameVorname(m);
+    String mitgliedname = (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
+        ? m.getExterneMitgliedsnummer() : m.getID())
+        + "/"
+        + Adressaufbereitung.getNameVorname(m);
     return mitgliedname;
   }
 
