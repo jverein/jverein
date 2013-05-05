@@ -141,13 +141,12 @@ public class KontoControl extends AbstractControl
       {
         try
         {
-          preselected = (de.willuhn.jameica.hbci.rmi.Konto) Settings
-              .getDBService().createObject(
-                  de.willuhn.jameica.hbci.rmi.Konto.class, hibid);
+          preselected = (de.willuhn.jameica.hbci.rmi.Konto) Settings.getDBService().createObject(
+              de.willuhn.jameica.hbci.rmi.Konto.class, hibid);
         }
         catch (ObjectNotFoundException e)
         {
-          preselected = null;
+          //
         }
       }
     }
@@ -177,25 +176,21 @@ public class KontoControl extends AbstractControl
       }
       else
       {
-        de.willuhn.jameica.hbci.rmi.Konto hkto = (de.willuhn.jameica.hbci.rmi.Konto) getHibiscusId()
-            .getValue();
+        de.willuhn.jameica.hbci.rmi.Konto hkto = (de.willuhn.jameica.hbci.rmi.Konto) getHibiscusId().getValue();
         k.setHibiscusId(Integer.parseInt(hkto.getID()));
       }
       k.store();
-      GUI.getStatusBar().setSuccessText(
-          "Konto gespeichert");
+      GUI.getStatusBar().setSuccessText("Konto gespeichert");
     }
     catch (RemoteException e)
     {
-      String fehler = 
-          "Fehler bei speichern des Kontos";
+      String fehler = "Fehler bei speichern des Kontos";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
     catch (ApplicationException e)
     {
-      String fehler = 
-          "Fehler bei speichern des Kontos";
+      String fehler = "Fehler bei speichern des Kontos";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
     }
@@ -209,33 +204,32 @@ public class KontoControl extends AbstractControl
 
     kontenList = new TablePart(konten, new KontoAction());
     kontenList.addColumn("Nummer", "nummer");
-    kontenList.addColumn("Bezeichnung",
-        "bezeichnung");
-    kontenList.addColumn("Hibiscus-Konto",
-        "hibiscusid", new Formatter()
+    kontenList.addColumn("Bezeichnung", "bezeichnung");
+    kontenList.addColumn("Hibiscus-Konto", "hibiscusid", new Formatter()
+    {
+
+      @Override
+      public String format(Object o)
+      {
+        if (o == null)
         {
-          @Override
-          public String format(Object o)
+          return "nein";
+        }
+        if (o instanceof Integer)
+        {
+          Integer hibid = (Integer) o;
+          if (hibid.intValue() >= 0)
           {
-            if (o == null)
-            {
-              return "nein";
-            }
-            if (o instanceof Integer)
-            {
-              Integer hibid = (Integer) o;
-              if (hibid.intValue() >= 0)
-              {
-                return "ja";
-              }
-            }
-            return "nein";
+            return "ja";
           }
-        }, false, Column.ALIGN_LEFT);
-    kontenList.addColumn("Konto-Eröffnung",
-        "eroeffnung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    kontenList.addColumn("Konto-Auflösung",
-        "aufloesung", new DateFormatter(new JVDateFormatTTMMJJJJ()));
+        }
+        return "nein";
+      }
+    }, false, Column.ALIGN_LEFT);
+    kontenList.addColumn("Konto-Eröffnung", "eroeffnung", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
+    kontenList.addColumn("Konto-Auflösung", "aufloesung", new DateFormatter(
+        new JVDateFormatTTMMJJJJ()));
     kontenList.setRememberColWidths(true);
     kontenList.setContextMenu(new KontoMenu());
     kontenList.setRememberOrder(true);

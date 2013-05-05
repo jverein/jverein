@@ -214,7 +214,7 @@ public class JahressaldoControl extends AbstractControl
       {
         try
         {
-          new JahressaldoPDF(zeile, file, monitor, gj);
+          new JahressaldoPDF(zeile, file, gj);
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)

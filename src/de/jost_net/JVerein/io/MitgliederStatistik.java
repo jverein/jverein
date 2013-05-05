@@ -49,13 +49,12 @@ import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 public class MitgliederStatistik
 {
 
-  public MitgliederStatistik(final File file, ProgressMonitor monitor,
-      Date stichtag) throws ApplicationException
+  public MitgliederStatistik(final File file, Date stichtag)
+      throws ApplicationException
   {
     try
     {

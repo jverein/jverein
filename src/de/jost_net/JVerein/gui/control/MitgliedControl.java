@@ -2149,6 +2149,7 @@ public class MitgliedControl extends AbstractControl
     FilenameFilter csvFilter = new FilenameFilter()
     {
 
+      @Override
       public boolean accept(File dir, String name)
       {
         return name.toLowerCase().endsWith(".csv");
@@ -3192,7 +3193,7 @@ public class MitgliedControl extends AbstractControl
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
-        new MitgliederStatistik(file, monitor, sticht);
+        new MitgliederStatistik(file, sticht);
       }
 
       @Override
