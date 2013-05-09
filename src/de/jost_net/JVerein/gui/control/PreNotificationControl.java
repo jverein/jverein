@@ -24,17 +24,20 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.LastschriftMap;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Formular;
-import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -44,6 +47,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.system.Settings;
+import de.willuhn.logging.Logger;
 
 public class PreNotificationControl extends AbstractControl
 {
@@ -65,7 +69,7 @@ public class PreNotificationControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public CheckboxInput getEmail() throws RemoteException
+  public CheckboxInput getEmail()
   {
     if (email != null)
     {
@@ -75,7 +79,7 @@ public class PreNotificationControl extends AbstractControl
     return email;
   }
 
-  public CheckboxInput getPdf() throws RemoteException
+  public CheckboxInput getPdf()
   {
     if (pdf != null)
     {
@@ -99,6 +103,7 @@ public class PreNotificationControl extends AbstractControl
   {
     Button button = new Button("starten", new Action()
     {
+
       @Override
       public void handleAction(Object context)
       {
@@ -112,6 +117,7 @@ public class PreNotificationControl extends AbstractControl
         }
         catch (Exception e)
         {
+          Logger.error("Fehler", e);
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
@@ -121,18 +127,17 @@ public class PreNotificationControl extends AbstractControl
 
   private void generierePDF(Object currentObject) throws IOException
   {
-    System.out.println(currentObject);
+    Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("prenotification", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
+    fd.setFileName(new Dateiname("prenotification", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF"});
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -145,8 +150,7 @@ public class PreNotificationControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(Formularart.SEPA_PRENOTIFICATION)
-        .getValue();
+    Formular form = (Formular) getFormular(Formularart.SEPA_PRENOTIFICATION).getValue();
     if (form == null)
     {
       throw new IOException("kein SEPA Pre-Notification-Formular ausgewählt");
@@ -154,61 +158,26 @@ public class PreNotificationControl extends AbstractControl
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
     fa = new FormularAufbereitung(file);
-    ArrayList<ArrayList<Mitgliedskonto>> mks = null;
-    DBIterator it = Einstellungen.getDBService().createList(
-        Mitgliedskonto.class);
-    // Date d = null;
-    // if (getVondatum(datumverwendung).getValue() != null)
-    // {
-    // d = (Date) getVondatum(datumverwendung).getValue();
-    // if (d != null)
-    // {
-    // settings.setAttribute(datumverwendung + "datumvon",
-    // new JVDateFormatTTMMJJJJ().format(d));
-    // }
-    //
-    // it.addFilter("datum >= ?", new Object[] { d });
-    // }
-    // else
-    // {
-    // settings.setAttribute(datumverwendung + "datumvon", "");
-    // }
-    // if (getBisdatum(datumverwendung).getValue() != null)
-    // {
-    // d = (Date) getBisdatum(datumverwendung).getValue();
-    // if (d != null)
-    // {
-    // settings.setAttribute(datumverwendung + "datumbis",
-    // new JVDateFormatTTMMJJJJ().format(d));
-    // }
-    // it.addFilter("datum <= ?", new Object[] { d });
-    // }
-    // else
-    // {
-    // settings.setAttribute(datumverwendung + "datumbis", "");
-    // }
-    // if ((Boolean) getOhneAbbucher().getValue())
-    // {
-    // it.addFilter("zahlungsweg <> ?",
-    // new Object[] { Zahlungsweg.BASISLASTSCHRIFT });
-    // }
-    //
-    // Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
-    // int i = 0;
-    // while (it.hasNext())
-    // {
-    // mk[i] = (Mitgliedskonto) it.next();
-    // i++;
-    // }
-    // mks = getRechnungsempfaenger(mk);
-    // }
-    // for (ArrayList<Mitgliedskonto> mk : mks)
-    // {
-    // aufbereitenFormular(mk, fo);
-    // }
-    // fa.showFormular();
+    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    it.addFilter("abrechnungslauf = ?", abrl.getID());
+    it.setOrder("order by name, vorname");
+    while (it.hasNext())
+    {
+      Lastschrift ls = (Lastschrift) it.next();
+      aufbereitenFormular(ls, fo);
+    }
+    fa.showFormular();
 
   }
+
+  private void aufbereitenFormular(Lastschrift ls, Formular fo)
+      throws RemoteException
+  {
+    Map<String, Object> map = new LastschriftMap().getMap(ls, null);
+    map = new AllgemeineMap().getMap(map);
+    fa.writeForm(fo, map);
+  }
+
   // private void doAbrechnung() throws ApplicationException, RemoteException
   // {
   // File sepafile;
