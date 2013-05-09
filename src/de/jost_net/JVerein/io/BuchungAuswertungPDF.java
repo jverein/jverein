@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
@@ -180,7 +181,7 @@ public class BuchungAuswertungPDF
   }
 
   private void createTableContent(Reporter reporter, Buchungsart bua,
-      ArrayList<Buchung> buchungen, boolean einzel) throws RemoteException,
+      List<Buchung> buchungen, boolean einzel) throws RemoteException,
       DocumentException
   {
     if (einzel)

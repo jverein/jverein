@@ -27,7 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -48,7 +48,7 @@ import de.willuhn.util.ProgressMonitor;
 public class BuchungAuswertungCSV
 {
 
-  public BuchungAuswertungCSV(ArrayList<Buchung> list, final File file,
+  public BuchungAuswertungCSV(List<Buchung> list, final File file,
       ProgressMonitor monitor) throws ApplicationException
   {
 

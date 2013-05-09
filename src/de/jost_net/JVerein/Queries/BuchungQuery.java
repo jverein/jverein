@@ -22,11 +22,9 @@
 package de.jost_net.JVerein.Queries;
 
 import java.rmi.RemoteException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -34,9 +32,9 @@ import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.willuhn.datasource.pseudo.PseudoIterator;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
-import de.willuhn.datasource.rmi.ResultSetExtractor;
-import de.willuhn.logging.Logger;
 
 public class BuchungQuery
 {
@@ -52,13 +50,7 @@ public class BuchungQuery
 
   public String text;
 
-  private boolean and = false;
-
-  private String sql = "";
-
-  private ArrayList<Object> bedingungen = new ArrayList<Object>();
-
-  private ArrayList<Buchung> ergebnis;
+  private List<Buchung> ergebnis;
 
   private static final int ORDER_UMSATZID = 0;
 
@@ -133,94 +125,72 @@ public class BuchungQuery
     return text;
   }
 
-  public ArrayList<Buchung> get() throws RemoteException
+  public List<Buchung> get() throws RemoteException
   {
-    and = false;
-    bedingungen = new ArrayList<Object>();
-
     final DBService service = Einstellungen.getDBService();
-    ergebnis = new ArrayList<Buchung>();
-    sql = "select buchung.* ";
-    sql += "from buchung ";
-
-    addCondition("datum >= ? ", datumvon);
-    addCondition("datum <= ? ", datumbis);
+   
+    DBIterator it = service.createList(Buchung.class);
+    it.addFilter("datum >= ? ", datumvon);
+    it.addFilter("datum <= ? ", datumbis);
+   
     if (konto != null)
     {
-      addCondition("konto = ? ", konto.getID());
+      it.addFilter("konto = ? ", konto.getID());
     }
     if (buchungart != null)
     {
       if (buchungart.getNummer() == -1)
       {
-        addCondition("buchungsart is null ");
+        it.addFilter("buchungsart is null ");
       }
       else if (buchungart.getNummer() >= 0)
       {
-        addCondition("buchungsart = ? ", buchungart.getID());
+        it.addFilter("buchungsart = ? ", buchungart.getID());
       }
     }
 
     if (projekt != null)
     {
-      addCondition("projekt = ?", projekt.getID());
+      it.addFilter("projekt = ?", projekt.getID());
     }
 
     if (text.length() > 0)
     {
       String ttext = text.toUpperCase();
       ttext = "%" + ttext + "%";
-      addCondition(
-          "(upper(name) like ? or upper(zweck) like ? or upper(kommentar) like ?) ",
-          new Object[] { ttext, ttext, ttext });
+      it.addFilter("(upper(name) like ? or upper(zweck) like ? or upper(kommentar) like ?) ",ttext, ttext, ttext);
     }
     switch (order)
     {
       case ORDER_UMSATZID:
       {
-        sql += "ORDER BY umsatzid DESC";
+        it.setOrder("ORDER BY umsatzid DESC");
         break;
       }
       case ORDER_DATUM:
       {
-        sql += "ORDER BY datum";
+        it.setOrder("ORDER BY datum");
         break;
       }
       case ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER:
       {
-        sql += "ORDER BY datum, auszugsnummer, blattnummer, id";
+        it.setOrder("ORDER BY datum, auszugsnummer, blattnummer, id");
         break;
       }
       case ORDER_DATUM_NAME:
       {
-        sql += "ORDER BY datum, name, id";
+        it.setOrder("ORDER BY datum, name, id");
         break;
       }
       case ORDER_ID:
       {
-        sql += "ORDER BY id";
+        it.setOrder("ORDER BY id");
         break;
       }
 
     }
-    Logger.debug(sql);
 
-    ResultSetExtractor rs = new ResultSetExtractor()
-    {
-      @Override
-      public Object extract(ResultSet rs) throws RemoteException, SQLException
-      {
-        ArrayList<Buchung> list = new ArrayList<Buchung>();
-        while (rs.next())
-        {
-          list.add((Buchung) service.createObject(Buchung.class,
-              rs.getString(1)));
-        }
-        return list;
-      }
-    };
-    ergebnis = (ArrayList<Buchung>) service.execute(sql, bedingungen.toArray(),
-        rs);
+    this.ergebnis = PseudoIterator.asList(it);
     return ergebnis;
   }
 
@@ -252,32 +222,4 @@ public class BuchungQuery
     return ergebnis.size();
   }
 
-  private void addCondition(String condition)
-  {
-    if (and)
-    {
-      sql += " AND ";
-    }
-    else
-    {
-      sql += "where ";
-    }
-    and = true;
-    sql += condition;
-  }
-
-  private void addCondition(String condition, Object obj)
-  {
-    addCondition(condition);
-    bedingungen.add(obj);
-  }
-
-  private void addCondition(String condition, Object[] obj)
-  {
-    addCondition(condition);
-    for (Object o : obj)
-    {
-      bedingungen.add(o);
-    }
-  }
 }
