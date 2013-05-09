@@ -40,6 +40,7 @@ import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
+import de.jost_net.JVerein.gui.input.PersonenartInput;
 import de.jost_net.JVerein.gui.menu.KursteilnehmerMenu;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
@@ -71,13 +72,27 @@ import de.willuhn.util.ProgressMonitor;
 public class KursteilnehmerControl extends AbstractControl
 {
 
-  private Input name;
+  private PersonenartInput personenart;
+
+  private TextInput anrede;
+
+  private TextInput titel;
+
+  private TextInput name;
+
+  private TextInput vorname;
 
   private TextInput strasse;
+
+  private TextInput adressierungszusatz;
 
   private TextInput plz;
 
   private TextInput ort;
+
+  private TextInput staat;
+
+  private TextInput email;
 
   private DecimalInput betrag;
 
@@ -132,19 +147,81 @@ public class KursteilnehmerControl extends AbstractControl
     return ktn;
   }
 
-  public Input getName(boolean withFocus) throws RemoteException
+  public PersonenartInput getPersonenart() throws RemoteException
+  {
+    if (personenart != null)
+    {
+      return personenart;
+    }
+    personenart = new PersonenartInput(getKursteilnehmer().getPersonenart());
+    personenart.addListener(new Listener()
+    {
+
+      @Override
+      public void handleEvent(Event event)
+      {
+        String pa = (String) personenart.getValue();
+        if (pa.startsWith("n"))
+        {
+          name.setName("Name");
+          vorname.setName("Vorname");
+        }
+        else
+        {
+          name.setName("Zeile 1");
+          vorname.setName("Zeile 2");
+        }
+      }
+
+    });
+
+    personenart.setName("Personenart");
+    return personenart;
+  }
+
+  public TextInput getAnrede() throws RemoteException
+  {
+    if (anrede != null)
+    {
+      return anrede;
+    }
+    anrede = new TextInput(getKursteilnehmer().getAnrede(), 10);
+    anrede.setName("Anrede");
+    return anrede;
+  }
+
+  public TextInput getTitel() throws RemoteException
+  {
+    if (titel != null)
+    {
+      return titel;
+    }
+    titel = new TextInput(getKursteilnehmer().getTitel(), 10);
+    titel.setName("Titel");
+    return titel;
+  }
+
+  public TextInput getName() throws RemoteException
   {
     if (name != null)
     {
       return name;
     }
-    name = new TextInput(getKursteilnehmer().getName(), 27);
+    name = new TextInput(getKursteilnehmer().getName(), 40);
+    name.setName("Name");
     name.setMandatory(true);
-    if (withFocus)
-    {
-      name.focus();
-    }
     return name;
+  }
+
+  public TextInput getVorname() throws RemoteException
+  {
+    if (vorname != null)
+    {
+      return vorname;
+    }
+    vorname = new TextInput(getKursteilnehmer().getVorname(), 40);
+    vorname.setName("Vorname");
+    return vorname;
   }
 
   public Input getStrasse() throws RemoteException
@@ -154,7 +231,20 @@ public class KursteilnehmerControl extends AbstractControl
       return strasse;
     }
     strasse = new TextInput(getKursteilnehmer().getStrasse(), 40);
+    strasse.setName("Straße");
     return strasse;
+  }
+
+  public TextInput getAdressierungszusatz() throws RemoteException
+  {
+    if (adressierungszusatz != null)
+    {
+      return adressierungszusatz;
+    }
+    adressierungszusatz = new TextInput(
+        getKursteilnehmer().getAdressierungszusatz(), 40);
+    adressierungszusatz.setName("Adressierungszusatz");
+    return adressierungszusatz;
   }
 
   public Input getPLZ() throws RemoteException
@@ -164,6 +254,7 @@ public class KursteilnehmerControl extends AbstractControl
       return plz;
     }
     plz = new TextInput(getKursteilnehmer().getPLZ(), 10);
+    plz.setName("PLZ");
     return plz;
   }
 
@@ -174,7 +265,30 @@ public class KursteilnehmerControl extends AbstractControl
       return ort;
     }
     ort = new TextInput(getKursteilnehmer().getOrt(), 40);
+    ort.setName("Ort");
     return ort;
+  }
+
+  public TextInput getStaat() throws RemoteException
+  {
+    if (staat != null)
+    {
+      return staat;
+    }
+    staat = new TextInput(getKursteilnehmer().getStaat(), 50);
+    staat.setName("Staat");
+    return staat;
+  }
+
+  public TextInput getEmail() throws RemoteException
+  {
+    if (email != null)
+    {
+      return email;
+    }
+    email = new TextInput(getKursteilnehmer().getEmail(), 50);
+    email.setName("EMail");
+    return email;
   }
 
   public Input getVZweck1() throws RemoteException
@@ -184,6 +298,7 @@ public class KursteilnehmerControl extends AbstractControl
       return vzweck1;
     }
     vzweck1 = new TextInput(getKursteilnehmer().getVZweck1(), 140);
+    vzweck1.setName("Verwendungszweck");
     vzweck1.setMandatory(true);
     return vzweck1;
   }
@@ -217,6 +332,7 @@ public class KursteilnehmerControl extends AbstractControl
         }
       }
     });
+    mandatdatum.setName("Datum des Mandats");
     return mandatdatum;
   }
 
@@ -227,6 +343,7 @@ public class KursteilnehmerControl extends AbstractControl
       return bic;
     }
     bic = new BICInput(getKursteilnehmer().getBic());
+    bic.setName("BIC");
     bic.setMandatory(true);
     return bic;
   }
@@ -238,6 +355,7 @@ public class KursteilnehmerControl extends AbstractControl
       return iban;
     }
     iban = new IBANInput(getKursteilnehmer().getIban());
+    iban.setName("IBAN");
     iban.setMandatory(true);
     return iban;
   }
@@ -275,6 +393,7 @@ public class KursteilnehmerControl extends AbstractControl
     }
     betrag = new DecimalInput(getKursteilnehmer().getBetrag(),
         Einstellungen.DECIMALFORMAT);
+    betrag.setName("Betrag");
     betrag.setMandatory(true);
     return betrag;
   }
@@ -313,6 +432,7 @@ public class KursteilnehmerControl extends AbstractControl
       return geschlecht;
     }
     geschlecht = new GeschlechtInput(getKursteilnehmer().getGeschlecht());
+    geschlecht.setName("Geschlecht");
     geschlecht.setPleaseChoose("Bitte auswählen");
     geschlecht.setMandatory(true);
     return geschlecht;
@@ -492,6 +612,7 @@ public class KursteilnehmerControl extends AbstractControl
     part = new TablePart(kursteilnehmer, new KursteilnehmerDetailAction());
 
     part.addColumn("Name", "name");
+    part.addColumn("Vorname", "vorname");
     part.addColumn("Straße", "strasse");
     part.addColumn("PLZ", "plz");
     part.addColumn("Ort", "ort");
@@ -623,10 +744,19 @@ public class KursteilnehmerControl extends AbstractControl
     try
     {
       Kursteilnehmer k = getKursteilnehmer();
-      k.setName((String) getName(false).getValue());
+      String p = (String) getPersonenart().getValue();
+      p = p.substring(0, 1);
+      k.setPersonenart(p);
+      k.setAnrede((String) getAnrede().getValue());
+      k.setTitel((String) getTitel().getValue());
+      k.setName((String) getName().getValue());
+      k.setVorname((String) getVorname().getValue());
       k.setStrasse((String) getStrasse().getValue());
+      k.setAdressierungszuatz((String) getAdressierungszusatz().getValue());
       k.setPLZ((String) getPLZ().getValue());
       k.setOrt((String) getOrt().getValue());
+      k.setStaat((String) getStaat().getValue());
+      k.setEmail((String) getEmail().getValue());
       k.setVZweck1((String) getVZweck1().getValue());
       k.setMandatdatum((Date) getMandatDatum().getValue());
       k.setBlz((String) getBlz().getValue());
@@ -690,7 +820,7 @@ public class KursteilnehmerControl extends AbstractControl
         subtitle += "Abbuchungsdatum von" + " "
             + new JVDateFormatTTMMJJJJ().format(d) + "  ";
         list.addFilter("abbudatum >= ?",
-            new Object[] { new java.sql.Date(d.getTime()) });
+            new Object[] { new java.sql.Date(d.getTime())});
       }
       if (abbuchungsdatumbis.getValue() != null)
       {
@@ -698,7 +828,7 @@ public class KursteilnehmerControl extends AbstractControl
         subtitle += " " + "bis" + " " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
         list.addFilter("abbudatum <= ?",
-            new Object[] { new java.sql.Date(d.getTime()) });
+            new Object[] { new java.sql.Date(d.getTime())});
       }
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
@@ -711,8 +841,8 @@ public class KursteilnehmerControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("kursteilnehmer", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("kursteilnehmer", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -832,18 +962,17 @@ public class KursteilnehmerControl extends AbstractControl
     String suchN = (String) getSuchname().getValue();
     if (suchN != null && suchN.length() > 0)
     {
-      kursteilnehmer.addFilter("name like ?",
-          new Object[] { "%" + suchN + "%" });
+      kursteilnehmer.addFilter("name like ?", new Object[] { "%" + suchN + "%"});
     }
     if (getEingabedatumvon().getValue() != null)
     {
       kursteilnehmer.addFilter("eingabedatum >= ?",
-          new Object[] { (Date) getEingabedatumvon().getValue() });
+          new Object[] { (Date) getEingabedatumvon().getValue()});
     }
     if (getEingabedatumbis().getValue() != null)
     {
       kursteilnehmer.addFilter("eingabedatum <= ?",
-          new Object[] { (Date) getEingabedatumbis().getValue() });
+          new Object[] { (Date) getEingabedatumbis().getValue()});
     }
     return kursteilnehmer;
   }

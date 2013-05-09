@@ -134,6 +134,47 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
+  public String getPersonenart() throws RemoteException
+  {
+    String pa = (String) getAttribute("personenart");
+    if (pa == null)
+    {
+      return "n";
+    }
+    return pa;
+  }
+
+  @Override
+  public void setPersonenart(String personenart) throws RemoteException
+  {
+    setAttribute("personenart", personenart);
+  }
+
+  @Override
+  public String getAnrede() throws RemoteException
+  {
+    return (String) getAttribute("anrede");
+  }
+
+  @Override
+  public void setAnrede(String anrede) throws RemoteException
+  {
+    setAttribute("anrede", anrede);
+  }
+
+  @Override
+  public String getTitel() throws RemoteException
+  {
+    return (String) getAttribute("titel");
+  }
+
+  @Override
+  public void setTitel(String titel) throws RemoteException
+  {
+    setAttribute("titel", titel);
+  }
+
+  @Override
   public String getName() throws RemoteException
   {
     return (String) getAttribute("name");
@@ -146,6 +187,18 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
+  public String getVorname() throws RemoteException
+  {
+    return (String) getAttribute("vorname");
+  }
+
+  @Override
+  public void setVorname(String vorname) throws RemoteException
+  {
+    setAttribute("vorname", vorname);
+  }
+
+  @Override
   public String getStrasse() throws RemoteException
   {
     return (String) getAttribute("strasse");
@@ -155,6 +208,19 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   public void setStrasse(String strasse) throws RemoteException
   {
     setAttribute("strasse", strasse);
+  }
+
+  @Override
+  public String getAdressierungszusatz() throws RemoteException
+  {
+    return (String) getAttribute("adressierungszusatz");
+  }
+
+  @Override
+  public void setAdressierungszuatz(String adressierungszusatz)
+      throws RemoteException
+  {
+    setAttribute("adressierungszusatz", adressierungszusatz);
   }
 
   @Override
@@ -179,6 +245,30 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   public void setOrt(String ort) throws RemoteException
   {
     setAttribute("ort", ort);
+  }
+
+  @Override
+  public String getStaat() throws RemoteException
+  {
+    return (String) getAttribute("staat");
+  }
+
+  @Override
+  public void setStaat(String staat) throws RemoteException
+  {
+    setAttribute("staat", staat);
+  }
+
+  @Override
+  public String getEmail() throws RemoteException
+  {
+    return (String) getAttribute("email");
+  }
+
+  @Override
+  public void setEmail(String email) throws RemoteException
+  {
+    setAttribute("email", email);
   }
 
   @Override

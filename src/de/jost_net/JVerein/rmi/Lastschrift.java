@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
-import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Date;
 
@@ -30,6 +29,7 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Lastschrift extends DBObject, IAdresse
 {
+
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException;
 
   public void setAbrechnungslauf(int abrechnungslauf) throws RemoteException;
@@ -93,6 +93,10 @@ public interface Lastschrift extends DBObject, IAdresse
 
   public void setStaat(String staat) throws RemoteException;
 
+  public String getEmail() throws RemoteException;
+
+  public void setEmail(String email) throws RemoteException;
+
   public String getMandatID() throws RemoteException;
 
   public void setMandatID(String mandatid) throws RemoteException;
@@ -105,10 +109,6 @@ public interface Lastschrift extends DBObject, IAdresse
 
   public void setBIC(String bic) throws RemoteException;
 
-  public String getLsName() throws RemoteException;
-
-  public void setLsName(String lsname) throws RemoteException;
-
   public String getIBAN() throws RemoteException;
 
   public void setIBAN(String iban) throws RemoteException;
@@ -118,9 +118,10 @@ public interface Lastschrift extends DBObject, IAdresse
   public void setVerwendungszweck(String verwendungszweck)
       throws RemoteException;
 
-  public BigDecimal getBetrag() throws RemoteException;
+  public Double getBetrag() throws RemoteException;
 
-  public void setBetrag(BigDecimal betrag) throws RemoteException;
+  public void setBetrag(Double betrag) throws RemoteException;
 
   public void set(IAdresse adr) throws RemoteException;
+
 }

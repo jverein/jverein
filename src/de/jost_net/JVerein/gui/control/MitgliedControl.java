@@ -207,6 +207,8 @@ public class MitgliedControl extends AbstractControl
 
   private TextInput ktoistaat;
 
+  private TextInput ktoiemail;
+
   private Input telefonprivat;
 
   private Input telefondienstlich;
@@ -897,6 +899,17 @@ public class MitgliedControl extends AbstractControl
     ktoistaat = new TextInput(getMitglied().getKtoiStaat(), 50);
     ktoistaat.setName("Staat");
     return ktoistaat;
+  }
+
+  public TextInput getKtoiEmail() throws RemoteException
+  {
+    if (ktoiemail != null)
+    {
+      return ktoiemail;
+    }
+    ktoiemail = new TextInput(getMitglied().getKtoiEmail(), 50);
+    ktoiemail.setName("EMail");
+    return ktoiemail;
   }
 
   public Input getTelefonprivat() throws RemoteException
@@ -2744,9 +2757,11 @@ public class MitgliedControl extends AbstractControl
       m.setKonto((String) getKonto().getValue());
       m.setKtoiAdressierungszusatz((String) getKtoiAdressierungszusatz().getValue());
       m.setKtoiAnrede((String) getKtoiAnrede().getValue());
+      m.setKtoiEmail((String) getKtoiEmail().getValue());
       m.setKtoiName((String) getKtoiName().getValue());
       m.setKtoiOrt((String) getKtoiOrt().getValue());
-      m.setKtoiPersonenart((String) getKtoiPersonenart().getValue());
+      String persa = (String) getKtoiPersonenart().getValue();
+      m.setKtoiPersonenart(persa.substring(0, 1));
       m.setKtoiPlz((String) getKtoiPlz().getValue());
       m.setKtoiStaat((String) getKtoiStaat().getValue());
       m.setKtoiStrasse((String) getKtoiStrasse().getValue());

@@ -32,6 +32,7 @@ import de.willuhn.util.ApplicationException;
 
 public interface Mitglied extends DBObject, IBankverbindung, IAdresse
 {
+
   public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException;
 
   public Integer getExterneMitgliedsnummer() throws RemoteException;
@@ -170,7 +171,11 @@ public interface Mitglied extends DBObject, IBankverbindung, IAdresse
   public String getKtoiStaat() throws RemoteException;
 
   public void setKtoiStaat(String ktoiStaat) throws RemoteException;
-  
+
+  public String getKtoiEmail() throws RemoteException;
+
+  public void setKtoiEmail(String ktoiEmail) throws RemoteException;
+
   public String getKontoinhaber(int art) throws RemoteException;
 
   public Date getGeburtsdatum() throws RemoteException;

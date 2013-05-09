@@ -30,15 +30,37 @@ import de.willuhn.util.ApplicationException;
 
 public interface Kursteilnehmer extends DBObject, IBankverbindung
 {
+
   public void setID(String id) throws RemoteException;
+
+  public String getPersonenart() throws RemoteException;
+
+  public void setPersonenart(String personenart) throws RemoteException;
+
+  public String getAnrede() throws RemoteException;
+
+  public void setAnrede(String anrede) throws RemoteException;
+
+  public String getTitel() throws RemoteException;
+
+  public void setTitel(String titel) throws RemoteException;
 
   public String getName() throws RemoteException;
 
   public void setName(String name) throws RemoteException;
 
+  public String getVorname() throws RemoteException;
+
+  public void setVorname(String vorname) throws RemoteException;
+
   public String getStrasse() throws RemoteException;
 
   public void setStrasse(String strasse) throws RemoteException;
+
+  public String getAdressierungszusatz() throws RemoteException;
+
+  public void setAdressierungszuatz(String adressierungszusatz)
+      throws RemoteException;
 
   public String getPLZ() throws RemoteException;
 
@@ -47,6 +69,14 @@ public interface Kursteilnehmer extends DBObject, IBankverbindung
   public String getOrt() throws RemoteException;
 
   public void setOrt(String ort) throws RemoteException;
+
+  public String getStaat() throws RemoteException;
+
+  public void setStaat(String staat) throws RemoteException;
+
+  public String getEmail() throws RemoteException;
+
+  public void setEmail(String email) throws RemoteException;
 
   public String getVZweck1() throws RemoteException;
 

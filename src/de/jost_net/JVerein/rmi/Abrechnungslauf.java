@@ -28,6 +28,9 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Abrechnungslauf extends DBObject
 {
+
+  public void setID(String id) throws RemoteException;
+
   public Integer getNr() throws RemoteException;
 
   public Date getDatum() throws RemoteException;

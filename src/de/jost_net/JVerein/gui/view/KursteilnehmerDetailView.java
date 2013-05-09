@@ -31,6 +31,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.ScrolledContainer;
 
 public class KursteilnehmerDetailView extends AbstractView
 {
@@ -42,26 +43,37 @@ public class KursteilnehmerDetailView extends AbstractView
 
     final KursteilnehmerControl control = new KursteilnehmerControl(this);
 
-    LabelGroup grGrund = new LabelGroup(getParent(), "Daten für die Abbuchung");
+    ScrolledContainer scrolled = new ScrolledContainer(getParent(), 1);
+
+    LabelGroup grGrund = new LabelGroup(scrolled.getComposite(),
+        "Daten für die Lastschrift");
     grGrund.getComposite().setSize(290, 190);
-    grGrund.addLabelPair("Name", control.getName(true));
-    grGrund.addLabelPair("Straße", control.getStrasse());
-    grGrund.addLabelPair("PLZ", control.getPLZ());
-    grGrund.addLabelPair("Ort", control.getOrt());
-    grGrund.addLabelPair("Verwendungszweck 1", control.getVZweck1());
+    grGrund.addInput(control.getPersonenart());
+    grGrund.addInput(control.getAnrede());
+    grGrund.addInput(control.getTitel());
+    grGrund.addInput(control.getName());
+    grGrund.addInput(control.getVorname());
+    grGrund.addInput(control.getStrasse());
+    grGrund.addInput(control.getAdressierungszusatz());
+    grGrund.addInput(control.getPLZ());
+    grGrund.addInput(control.getOrt());
+    grGrund.addInput(control.getStaat());
+    grGrund.addInput(control.getEmail());
+    grGrund.addInput(control.getVZweck1());
     grGrund.addInput(control.getMandatDatum());
     grGrund.addInput(control.getBIC());
     grGrund.addInput(control.getIBAN());
     grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),
-        control.getBlz(), control.getKonto(), control.getBIC(), control
-            .getIBAN()));
+        control.getBlz(), control.getKonto(), control.getBIC(),
+        control.getIBAN()));
     // grGrund.addLabelPair("BLZ"),
     // control.getBlz());
     // grGrund.addLabelPair("Konto"),
     // control.getKonto());
     grGrund.addLabelPair("Betrag", control.getBetrag());
 
-    LabelGroup grStatistik = new LabelGroup(getParent(), "Statistik");
+    LabelGroup grStatistik = new LabelGroup(scrolled.getComposite(),
+        "Statistik");
     grStatistik.getComposite().setSize(290, 190);
     grStatistik.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
     grStatistik.addLabelPair("Geschlecht", control.getGeschlecht());

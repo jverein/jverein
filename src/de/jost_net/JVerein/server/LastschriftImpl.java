@@ -21,7 +21,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
-import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Date;
 
@@ -259,6 +258,18 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   }
 
   @Override
+  public String getEmail() throws RemoteException
+  {
+    return (String) getAttribute("email");
+  }
+
+  @Override
+  public void setEmail(String email) throws RemoteException
+  {
+    setAttribute("email", email);
+  }
+
+  @Override
   public Date getMandatDatum() throws RemoteException
   {
     return (Date) getAttribute("mandatdatum");
@@ -280,18 +291,6 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   public void setMandatID(String mandatid) throws RemoteException
   {
     setAttribute("mandatid", mandatid);
-  }
-
-  @Override
-  public String getLsName() throws RemoteException
-  {
-    return (String) getAttribute("lsname");
-  }
-
-  @Override
-  public void setLsName(String lsname) throws RemoteException
-  {
-    setAttribute("lsname", lsname);
   }
 
   @Override
@@ -332,13 +331,13 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   }
 
   @Override
-  public BigDecimal getBetrag() throws RemoteException
+  public Double getBetrag() throws RemoteException
   {
-    return (BigDecimal) getAttribute("betrag");
+    return (Double) getAttribute("betrag");
   }
 
   @Override
-  public void setBetrag(BigDecimal betrag) throws RemoteException
+  public void setBetrag(Double betrag) throws RemoteException
   {
     setAttribute("betrag", betrag);
   }

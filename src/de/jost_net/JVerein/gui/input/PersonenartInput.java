@@ -36,7 +36,7 @@ public class PersonenartInput extends SelectInput
 
   private final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
 
-  public PersonenartInput(String personenart)
+  public PersonenartInput(final String personenart)
   {
     super(new Object[] { NATUERLICHE_PERSON, JURISTISCHE_PERSON},
         init(personenart));
@@ -59,4 +59,5 @@ public class PersonenartInput extends SelectInput
     else
       return null;
   }
+
 }

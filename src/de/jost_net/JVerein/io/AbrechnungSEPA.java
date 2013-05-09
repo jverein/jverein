@@ -58,6 +58,7 @@ import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.Basislastschrift;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.Basislastschrift2Pdf;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.Zahler;
+import de.jost_net.OBanToo.StringLatin.Zeichen;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
@@ -85,7 +86,7 @@ public class AbrechnungSEPA
     lastschrift.setGlaeubigerID(Einstellungen.getEinstellung().getGlaeubigerID());
     lastschrift.setIBAN(Einstellungen.getEinstellung().getIban());
     lastschrift.setKomprimiert(param.kompakteabbuchung.booleanValue());
-    lastschrift.setName(Einstellungen.getEinstellung().getNameLang());
+    lastschrift.setName(Zeichen.convert(Einstellungen.getEinstellung().getNameLang()));
 
     Konto konto = getKonto();
     abrechnenMitglieder(lastschrift, monitor, abrl, konto);
@@ -110,12 +111,28 @@ public class AbrechnungSEPA
       if (za.getMandatid().startsWith("K"))
       {
         ls.setKursteilnehmer(Integer.parseInt(za.getMandatid().substring(1)));
+        Kursteilnehmer k = (Kursteilnehmer) Einstellungen.getDBService().createObject(
+            Kursteilnehmer.class, za.getMandatid().substring(1));
+        ls.setPersonenart(k.getPersonenart());
+        ls.setAnrede(k.getAnrede());
+        ls.setTitel(k.getTitel());
+        ls.setName(k.getName());
+        ls.setVorname(k.getVorname());
+        ls.setStrasse(k.getStrasse());
+        ls.setAdressierungszusatz(k.getAdressierungszusatz());
+        ls.setPlz(k.getPLZ());
+        ls.setOrt(k.getOrt());
+        ls.setStaat(k.getStaat());
+        ls.setEmail(k.getEmail());
       }
       else
       {
         ls.setMitglied(Integer.parseInt(za.getMandatid()));
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
             Mitglied.class, za.getMandatid());
+        ls.setPersonenart(getKontoinhaber(m.getPersonenart(), m.getKtoiPersonenart()));
+        ls.setAnrede(getKontoinhaber(m.getAnrede(), m.getKtoiAnrede()));
+        ls.setTitel(getKontoinhaber(m.getTitel(), m.getKtoiTitel()));
         ls.setName(getKontoinhaber(m.getName(), m.getKtoiName()));
         ls.setVorname(getKontoinhaber(m.getVorname(), m.getKtoiVorname()));
         ls.setStrasse(getKontoinhaber(m.getStrasse(), m.getKtoiStrasse()));
@@ -124,13 +141,14 @@ public class AbrechnungSEPA
         ls.setPlz(getKontoinhaber(m.getPlz(), m.getKtoiPlz()));
         ls.setOrt(getKontoinhaber(m.getOrt(), m.getKtoiOrt()));
         ls.setStaat(getKontoinhaber(m.getStaat(), m.getKtoiStaat()));
+        ls.setEmail(getKontoinhaber(m.getEmail(), m.getKtoiEmail()));
         if (!ls.getName().equals(m.getName())
             || !ls.getVorname().equals(m.getVorname()))
         {
           ls.setPersonenart(m.getPersonenart());
         }
       }
-      ls.setBetrag(za.getBetrag());
+      ls.setBetrag(za.getBetrag().doubleValue());
       ls.setBIC(za.getBic());
       ls.setIBAN(za.getIban());
       ls.setMandatDatum(za.getMandatdatum());
