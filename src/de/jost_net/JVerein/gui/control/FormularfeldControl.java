@@ -28,6 +28,7 @@ import com.itextpdf.text.pdf.BaseFont;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineVar;
+import de.jost_net.JVerein.Variable.LastschriftVar;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
@@ -198,6 +199,17 @@ public class FormularfeldControl extends AbstractControl
       for (MitgliedVar mv : MitgliedVar.values())
       {
         namen.add(mv.getName());
+      }
+    }
+    if (formular.getArt() == Formularart.SEPA_PRENOTIFICATION)
+    {
+      for (AllgemeineVar av : AllgemeineVar.values())
+      {
+        namen.add(av.getName());
+      }
+      for (LastschriftVar lsv : LastschriftVar.values())
+      {
+        namen.add(lsv.getName());
       }
     }
     if (formular.getArt() == Formularart.RECHNUNG

@@ -31,12 +31,14 @@ import java.util.Map;
 import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.LastschriftMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.rmi.Formular;
+import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -67,6 +69,11 @@ public class FormularAnzeigeAction implements Action
           Mitglied.class, null);
 
       Map<String, Object> map = m.getMap(null);
+
+      Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
+          Lastschrift.class, null);
+      map = new LastschriftMap().getMap(ls, map);
+
       map = new AllgemeineMap().getMap(map);
       map.put(FormularfeldControl.EMPFAENGER,
           "Herr\nDr. Willi Wichtig\nTestgasse 1\n12345 Testenhausen");
