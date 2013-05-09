@@ -21,7 +21,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
-public enum MitgliedVar {
+public enum MitgliedVar
+{
   ADRESSIERUNGSZUSATZ("mitglied_adressierungszusatz"), //
   ADRESSTYP("mitglied_adresstyp"), //
   ANREDE("mitglied_anrede"), //
@@ -49,6 +50,17 @@ public enum MitgliedVar {
   INDIVIDUELLERBEITRAG("mitglied_individuellerbeitrag"), //
   KONTO("mitglied_konto"), //
   KONTOINHABER("mitglied_kontoinhaber"), //
+  KONTOINHABER_PERSONENART("mitglied_kontoinhaber_personenart"), //
+  KONTOINHABER_ANREDE("mitglied_kontoinhaber_anrede"), //
+  KONTOINHABER_TITEL("mitglied_kontoinhaber_titel"), //
+  KONTOINHABER_NAME("mitglied_kontoinhaber_name"), //
+  KONTOINHABER_VORNAME("mitglied_kontoinhaber_vorname"), //
+  KONTOINHABER_STRASSE("mitglied_kontoinhaber_strasse"), //
+  KONTOINHABER_ADRESSIERUNGSZUSATZ("mitglied_kontoinhaber_adressierungszusatz"), //
+  KONTOINHABER_PLZ("mitglied_kontoinhaber_plz"), //
+  KONTOINHABER_ORT("mitglied_kontoinhaber_ort"), //
+  KONTOINHABER_STAAT("mitglied_kontoinhaber_staat"), //
+  KONTOINHABER_EMAIL("mitglied_kontoinhaber_email"), //
   KUENDIGUNG("mitglied_kuendigung"), //
   LETZTEAENDERUNG("mitglied_letzte.aenderung"), //
   NAME("mitglied_name"), //
