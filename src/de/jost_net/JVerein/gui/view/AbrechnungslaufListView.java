@@ -49,7 +49,8 @@ public class AbrechnungslaufListView extends AbstractView
   public String getHelp()
   {
     return "<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
-        + "<p>Mit einem Rechtsklick kann ein Abrechnungslauf gelöscht werden.</p>"
+        + "<p>Mit einem Rechtsklick wird ein Kontextmenü geöffnet. Damit kann entweder eine "
+        + "Pre-Notification erstellt werden oder ein Abrechnungslauf gelöscht werden.</p>"
         + "</form>";
   }
 }

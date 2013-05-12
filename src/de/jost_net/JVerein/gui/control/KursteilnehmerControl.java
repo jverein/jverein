@@ -174,7 +174,6 @@ public class KursteilnehmerControl extends AbstractControl
       }
 
     });
-
     personenart.setName("Personenart");
     return personenart;
   }
@@ -241,8 +240,8 @@ public class KursteilnehmerControl extends AbstractControl
     {
       return adressierungszusatz;
     }
-    adressierungszusatz = new TextInput(
-        getKursteilnehmer().getAdressierungszusatz(), 40);
+    adressierungszusatz = new TextInput(getKursteilnehmer()
+        .getAdressierungszusatz(), 40);
     adressierungszusatz.setName("Adressierungszusatz");
     return adressierungszusatz;
   }
@@ -820,7 +819,7 @@ public class KursteilnehmerControl extends AbstractControl
         subtitle += "Abbuchungsdatum von" + " "
             + new JVDateFormatTTMMJJJJ().format(d) + "  ";
         list.addFilter("abbudatum >= ?",
-            new Object[] { new java.sql.Date(d.getTime())});
+            new Object[] { new java.sql.Date(d.getTime()) });
       }
       if (abbuchungsdatumbis.getValue() != null)
       {
@@ -828,7 +827,7 @@ public class KursteilnehmerControl extends AbstractControl
         subtitle += " " + "bis" + " " + new JVDateFormatTTMMJJJJ().format(d)
             + "  ";
         list.addFilter("abbudatum <= ?",
-            new Object[] { new java.sql.Date(d.getTime())});
+            new Object[] { new java.sql.Date(d.getTime()) });
       }
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
@@ -841,8 +840,8 @@ public class KursteilnehmerControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("kursteilnehmer", "",
-          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("kursteilnehmer", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -962,17 +961,18 @@ public class KursteilnehmerControl extends AbstractControl
     String suchN = (String) getSuchname().getValue();
     if (suchN != null && suchN.length() > 0)
     {
-      kursteilnehmer.addFilter("name like ?", new Object[] { "%" + suchN + "%"});
+      kursteilnehmer.addFilter("name like ?",
+          new Object[] { "%" + suchN + "%" });
     }
     if (getEingabedatumvon().getValue() != null)
     {
       kursteilnehmer.addFilter("eingabedatum >= ?",
-          new Object[] { (Date) getEingabedatumvon().getValue()});
+          new Object[] { (Date) getEingabedatumvon().getValue() });
     }
     if (getEingabedatumbis().getValue() != null)
     {
       kursteilnehmer.addFilter("eingabedatum <= ?",
-          new Object[] { (Date) getEingabedatumbis().getValue()});
+          new Object[] { (Date) getEingabedatumbis().getValue() });
     }
     return kursteilnehmer;
   }

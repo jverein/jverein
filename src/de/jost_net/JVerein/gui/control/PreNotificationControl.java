@@ -23,31 +23,46 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.Map;
+import java.util.TreeSet;
 
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.LastschriftMap;
+import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.io.FormularAufbereitung;
+import de.jost_net.JVerein.io.MailSender;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Lastschrift;
+import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextAreaInput;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class PreNotificationControl extends AbstractControl
 {
@@ -55,6 +70,10 @@ public class PreNotificationControl extends AbstractControl
   private Settings settings = null;
 
   private SelectInput output = null;
+
+  private TextInput mailsubject = null;
+
+  private TextAreaInput mailbody = null;
 
   public static final String EMAIL = "EMail";
 
@@ -80,7 +99,7 @@ public class PreNotificationControl extends AbstractControl
       return output;
     }
     Object[] values = new Object[] { EMAIL, PDF1, PDF2 };
-    output = new SelectInput(values, PDF1);
+    output = new SelectInput(values, settings.getString("output", PDF1));
     output.setName("Ausgabe");
     return output;
   }
@@ -95,6 +114,30 @@ public class PreNotificationControl extends AbstractControl
     return formular;
   }
 
+  public TextInput getMailSubject() throws RemoteException
+  {
+    if (mailsubject != null)
+    {
+      return mailsubject;
+    }
+    mailsubject = new TextInput(settings.getString("mail.subject", ""), 150);
+    mailsubject.setName("Betreff");
+    return mailsubject;
+
+  }
+
+  public TextAreaInput getMailBody() throws RemoteException
+  {
+    if (mailbody != null)
+    {
+      return mailbody;
+    }
+    mailbody = new TextAreaInput(settings.getString("mail.body", ""), 1000);
+    mailbody.setHeight(200);
+    mailbody.setName("Text");
+    return mailbody;
+  }
+
   public Button getStartButton(final Object currentObject)
   {
     Button button = new Button("starten", new Action()
@@ -106,6 +149,9 @@ public class PreNotificationControl extends AbstractControl
         try
         {
           String val = (String) getOutput().getValue();
+          settings.setAttribute("output", val);
+          settings.setAttribute("mail.subject", (String) mailsubject.getValue());
+          settings.setAttribute("mail.body", (String) mailbody.getValue());
           if (val.equals(PDF1))
           {
             generierePDF(currentObject, false);
@@ -113,6 +159,10 @@ public class PreNotificationControl extends AbstractControl
           if (val.equals(PDF2))
           {
             generierePDF(currentObject, true);
+          }
+          if (val.equals(EMAIL))
+          {
+            generiereEMail(currentObject);
           }
         }
         catch (Exception e)
@@ -177,6 +227,18 @@ public class PreNotificationControl extends AbstractControl
 
   }
 
+  private void generiereEMail(Object currentObject) throws IOException
+  {
+    Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
+    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    it.addFilter("abrechnungslauf = ?", abrl.getID());
+    it.addFilter("email is not null and length(email) > 0");
+    it.setOrder("order by name, vorname");
+    String betr = (String) getMailSubject().getValue();
+    String text = (String) getMailBody().getValue();
+    sendeMail(it, betr, text);
+  }
+
   private void aufbereitenFormular(Lastschrift ls, Formular fo)
       throws RemoteException
   {
@@ -185,169 +247,87 @@ public class PreNotificationControl extends AbstractControl
     fa.writeForm(fo, map);
   }
 
-  // private void doAbrechnung() throws ApplicationException, RemoteException
-  // {
-  // File sepafile;
-  // settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
-  // settings.setAttribute("zusatzbetraege", (Boolean) zusatzbetrag.getValue());
-  // settings
-  // .setAttribute("kursteilnehmer", (Boolean) kursteilnehmer.getValue());
-  // settings.setAttribute("kompakteabbuchung",
-  // (Boolean) kompakteabbuchung.getValue());
-  // settings.setAttribute("sepaprint", (Boolean) sepaprint.getValue());
-  // Abrechnungsausgabe aa = (Abrechnungsausgabe) ausgabe.getValue();
-  // settings.setAttribute("abrechnungsausgabe", aa.getKey());
-  // Integer modus = null;
-  // try
-  // {
-  // modus = (Integer) getAbbuchungsmodus().getValue();
-  // }
-  // catch (RemoteException e)
-  // {
-  // throw new ApplicationException(
-  // "Interner Fehler - kann Abrechnungsmodus nicht auslesen");
-  // }
-  // if (faelligkeit.getValue() == null)
-  // {
-  // throw new ApplicationException("Fälligkeitsdatum fehlt");
-  // }
-  // Date f = (Date) faelligkeit.getValue();
-  // if (f.before(new Date()))
-  // {
-  // throw new ApplicationException("Fälligkeit muss in der Zukunft liegen");
-  // }
-  // Date vondatum = null;
-  // if (stichtag.getValue() == null)
-  // {
-  // throw new ApplicationException("Stichtag fehlt");
-  // }
-  // if (modus != Abrechnungsmodi.KEINBEITRAG)
-  // {
-  // vondatum = (Date) getVondatum().getValue();
-  // if (modus == Abrechnungsmodi.EINGETRETENEMITGLIEDER && vondatum == null)
-  // {
-  // throw new ApplicationException("von-Datum fehlt");
-  // }
-  // }
-  // Integer ausgabe;
-  // aa = (Abrechnungsausgabe) this.getAbbuchungsausgabe().getValue();
-  // ausgabe = aa.getKey();
-  //
-  // if (ausgabe == Abrechnungsausgabe.SEPA_DATEI)
-  // {
-  // FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-  // fd.setText("SEPA-Ausgabedatei wählen.");
-  //
-  // String path = settings.getString("lastdir",
-  // System.getProperty("user.home"));
-  // if (path != null && path.length() > 0)
-  // {
-  // fd.setFilterPath(path);
-  // }
-  // fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
-  // .getEinstellung().getDateinamenmuster(), "XML").get());
-  // String file = fd.open();
-  //
-  // if (file == null || file.length() == 0)
-  // {
-  // throw new ApplicationException("keine Datei ausgewählt!");
-  // }
-  // sepafile = new File(file);
-  // }
-  // else
-  // {
-  // try
-  // {
-  // sepafile = File.createTempFile("sepa", null);
-  // }
-  // catch (IOException e)
-  // {
-  // throw new ApplicationException(
-  // "Temporäre Datei für die Abbuchung kann nicht erstellt werden.");
-  // }
-  // }
-  //
-  // // PDF-Datei für Basislastschrift2PDF
-  // String pdffile = null;
-  // final Boolean pdfprintb = (Boolean) sepaprint.getValue();
-  // if (pdfprintb)
-  // {
-  // FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-  // fd.setText("PDF-Ausgabedatei wählen");
-  //
-  // String path = settings.getString("lastdir",
-  // System.getProperty("user.home"));
-  // if (path != null && path.length() > 0)
-  // {
-  // fd.setFilterPath(path);
-  // }
-  // fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
-  // .getEinstellung().getDateinamenmuster(), "PDF").get());
-  // pdffile = fd.open();
-  // }
-  //
-  // // Wir merken uns noch das Verzeichnis fürs nächste mal
-  // settings.setAttribute("lastdir", sepafile.getParent());
-  // final AbrechnungSEPAParam abupar;
-  // try
-  // {
-  // abupar = new AbrechnungSEPAParam(this, sepafile, pdffile);
-  // }
-  // catch (RemoteException e)
-  // {
-  // throw new ApplicationException(e);
-  // }
-  // BackgroundTask t = new BackgroundTask()
-  // {
-  // @Override
-  // public void run(ProgressMonitor monitor) throws ApplicationException
-  // {
-  // try
-  // {
-  // new AbrechnungSEPA(abupar, monitor);
-  // monitor.setPercentComplete(100);
-  // monitor.setStatus(ProgressMonitor.STATUS_DONE);
-  // GUI.getStatusBar().setSuccessText(
-  // MessageFormat.format(
-  // "Abrechung durchgeführt., SEPA-Datei {0} geschrieben.",
-  // abupar.sepafile.getAbsolutePath()));
-  // GUI.getCurrentView().reload();
-  // }
-  // catch (ApplicationException ae)
-  // {
-  // monitor.setStatusText(ae.getMessage());
-  // monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-  // GUI.getStatusBar().setErrorText(ae.getMessage());
-  // throw ae;
-  // }
-  // catch (Exception e)
-  // {
-  // monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-  // Logger.error(MessageFormat.format(
-  // "error while reading objects from {0}",
-  // abupar.sepafile.getAbsolutePath()), e);
-  // ApplicationException ae = new ApplicationException(
-  // MessageFormat.format(
-  // "Fehler beim erstellen der Abbuchungsdatei: {0}",
-  // abupar.sepafile.getAbsolutePath()), e);
-  // monitor.setStatusText(ae.getMessage());
-  // GUI.getStatusBar().setErrorText(ae.getMessage());
-  // throw ae;
-  // }
-  // }
-  //
-  // @Override
-  // public void interrupt()
-  // {
-  // //
-  // }
-  //
-  // @Override
-  // public boolean isInterrupted()
-  // {
-  // return false;
-  // }
-  // };
-  // Application.getController().start(t);
-  // }
+  private void sendeMail(final DBIterator it, final String betr,
+      final String txt) throws RemoteException
+  {
+
+    BackgroundTask t = new BackgroundTask()
+    {
+
+      @Override
+      public void run(ProgressMonitor monitor)
+      {
+        try
+        {
+          MailSender sender = new MailSender(Einstellungen.getEinstellung()
+              .getSmtpServer(), Einstellungen.getEinstellung().getSmtpPort(),
+              Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
+                  .getEinstellung().getSmtpAuthPwd(), Einstellungen
+                  .getEinstellung().getSmtpFromAddress(), Einstellungen
+                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
+                  .getEinstellung().getSmtpSsl(), Einstellungen
+                  .getEinstellung().getSmtpStarttls());
+
+          Velocity.init();
+          Logger.debug("preparing velocity context");
+          monitor.setStatus(ProgressMonitor.STATUS_RUNNING);
+          monitor.setPercentComplete(0);
+          int sentCount = 0;
+          while (it.hasNext())
+          {
+            Lastschrift ls = (Lastschrift) it.next();
+            VelocityContext context = new VelocityContext();
+            context.put("dateformat", new JVDateFormatTTMMJJJJ());
+            context.put("decimalformat", Einstellungen.DECIMALFORMAT);
+            context.put("email", ls.getEmail());
+            Map<String, Object> map = new LastschriftMap().getMap(ls, null);
+            VarTools.add(context, map);
+
+            StringWriter wtext1 = new StringWriter();
+            Velocity.evaluate(context, wtext1, "LOG", betr);
+
+            StringWriter wtext2 = new StringWriter();
+            Velocity.evaluate(context, wtext2, "LOG", txt);
+
+            sender.sendMail(ls.getEmail(), wtext1.getBuffer().toString(),
+                wtext2.getBuffer().toString(), new TreeSet<MailAnhang>());
+            sentCount++;
+            monitor.log(ls.getEmail() + " - versendet");
+
+          }
+          monitor.setPercentComplete(100);
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
+          monitor.setStatusText(MessageFormat.format(
+              "Anzahl verschickter Mails: {0}", sentCount + ""));
+          GUI.getStatusBar().setSuccessText(
+              "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
+          GUI.getCurrentView().reload();
+        }
+        catch (ApplicationException ae)
+        {
+          Logger.error("", ae);
+          monitor.log(ae.getMessage());
+        }
+        catch (Exception re)
+        {
+          Logger.error("", re);
+          monitor.log(re.getMessage());
+        }
+      }
+
+      @Override
+      public void interrupt()
+      {
+        //
+      }
+
+      @Override
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
+  }
+
 }

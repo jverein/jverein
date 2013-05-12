@@ -44,6 +44,10 @@ public class PreNotificationView extends AbstractView
     group.addLabelPair("Formular",
         control.getFormular(Formularart.SEPA_PRENOTIFICATION));
 
+    LabelGroup grMail = new LabelGroup(getParent(), "Mail");
+    grMail.addInput(control.getMailSubject());
+    grMail.addInput(control.getMailBody());
+
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.PRENOTIFICATION, false, "help-browser.png");
