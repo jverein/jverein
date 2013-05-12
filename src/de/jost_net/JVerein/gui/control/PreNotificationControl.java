@@ -44,7 +44,7 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.input.CheckboxInput;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
@@ -54,9 +54,13 @@ public class PreNotificationControl extends AbstractControl
 
   private Settings settings = null;
 
-  private CheckboxInput email = null;
+  private SelectInput output = null;
 
-  private CheckboxInput pdf = null;
+  public static final String EMAIL = "EMail";
+
+  public static final String PDF1 = "PDF (Lastschriften ohne Mailadresse)";
+
+  public static final String PDF2 = "PDF (Alle)";
 
   private FormularInput formular = null;
 
@@ -69,24 +73,16 @@ public class PreNotificationControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public CheckboxInput getEmail()
+  public SelectInput getOutput()
   {
-    if (email != null)
+    if (output != null)
     {
-      return email;
+      return output;
     }
-    email = new CheckboxInput(false);
-    return email;
-  }
-
-  public CheckboxInput getPdf()
-  {
-    if (pdf != null)
-    {
-      return pdf;
-    }
-    pdf = new CheckboxInput(false);
-    return pdf;
+    Object[] values = new Object[] { EMAIL, PDF1, PDF2 };
+    output = new SelectInput(values, PDF1);
+    output.setName("Ausgabe");
+    return output;
   }
 
   public FormularInput getFormular(int formulartyp) throws RemoteException
@@ -109,10 +105,14 @@ public class PreNotificationControl extends AbstractControl
       {
         try
         {
-          boolean pdf = (Boolean) getPdf().getValue();
-          if (pdf)
+          String val = (String) getOutput().getValue();
+          if (val.equals(PDF1))
           {
-            generierePDF(currentObject);
+            generierePDF(currentObject, false);
+          }
+          if (val.equals(PDF2))
+          {
+            generierePDF(currentObject, true);
           }
         }
         catch (Exception e)
@@ -125,19 +125,21 @@ public class PreNotificationControl extends AbstractControl
     return button;
   }
 
-  private void generierePDF(Object currentObject) throws IOException
+  private void generierePDF(Object currentObject, boolean mitMail)
+      throws IOException
   {
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("prenotification", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("prenotification", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -150,7 +152,8 @@ public class PreNotificationControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(Formularart.SEPA_PRENOTIFICATION).getValue();
+    Formular form = (Formular) getFormular(Formularart.SEPA_PRENOTIFICATION)
+        .getValue();
     if (form == null)
     {
       throw new IOException("kein SEPA Pre-Notification-Formular ausgewählt");
@@ -160,6 +163,10 @@ public class PreNotificationControl extends AbstractControl
     fa = new FormularAufbereitung(file);
     DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
     it.addFilter("abrechnungslauf = ?", abrl.getID());
+    if (!mitMail)
+    {
+      it.addFilter("(email is null or length(email)=0)");
+    }
     it.setOrder("order by name, vorname");
     while (it.hasNext())
     {

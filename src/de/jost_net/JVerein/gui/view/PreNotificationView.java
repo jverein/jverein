@@ -40,8 +40,7 @@ public class PreNotificationView extends AbstractView
     final PreNotificationControl control = new PreNotificationControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
-    group.addLabelPair("E-Mail", control.getEmail());
-    group.addLabelPair("PDF", control.getPdf());
+    group.addInput(control.getOutput());
     group.addLabelPair("Formular",
         control.getFormular(Formularart.SEPA_PRENOTIFICATION));
 
