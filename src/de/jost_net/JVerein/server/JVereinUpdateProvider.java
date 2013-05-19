@@ -34,6 +34,7 @@ import java.util.Map;
 
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.ScriptExecutor;
@@ -1288,7 +1289,8 @@ public class JVereinUpdateProvider
     try
     {
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT version FROM version WHERE id = 1");
+      ResultSet rs = stmt
+          .executeQuery("SELECT version FROM version WHERE id = 1");
       if (rs.next())
       {
         ret = rs.getInt(1);
@@ -1333,8 +1335,8 @@ public class JVereinUpdateProvider
   }
 
   public void execute(Connection conn, Map<String, String[]> statements,
-      String logstring, int version, @SuppressWarnings("unused")
-      boolean dummy) throws ApplicationException
+      String logstring, int version, @SuppressWarnings("unused") boolean dummy)
+      throws ApplicationException
   {
     for (String driver : statements.keySet())
     {
@@ -1958,14 +1960,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE abrechnung ADD CONSTRAINT fkAbrechnung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE RESTRICT;\n");
 
     execute(conn, statements, "Foreign Key für Tabelle abrechnung erstellt", 24);
   }
@@ -1989,12 +1993,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) before strasse;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) before strasse;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) after vorname;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE mitglied ADD adressierungszusatz varchar(40) after vorname;\n");
 
     execute(conn, statements,
         "Spalte adressierungszusatz in die Tabelle mitglied eingefügt", 26);
@@ -2004,14 +2010,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "UPDATE mitglied SET adressierungszusatz = '' WHERE adressierungszusatz is null;\n");
 
     execute(
         conn,
@@ -2885,14 +2893,16 @@ public class JVereinUpdateProvider
     {
       List<String> eigenschaften = new ArrayList<String>();
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("select eigenschaft from eigenschaften group by eigenschaft order by eigenschaft");
+      ResultSet rs = stmt
+          .executeQuery("select eigenschaft from eigenschaften group by eigenschaft order by eigenschaft");
       while (rs.next())
       {
         eigenschaften.add(rs.getString(1));
       }
       rs.close();
       stmt.close();
-      PreparedStatement pstmt = conn.prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
+      PreparedStatement pstmt = conn
+          .prepareStatement("INSERT INTO eigenschaft (bezeichnung) values (?)");
       for (String eig : eigenschaften)
       {
         pstmt.setString(1, eig);
@@ -2913,14 +2923,16 @@ public class JVereinUpdateProvider
     {
       Map<String, String> eigenschaften = new HashMap<String, String>();
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("select id, bezeichnung from eigenschaft");
+      ResultSet rs = stmt
+          .executeQuery("select id, bezeichnung from eigenschaft");
       while (rs.next())
       {
         eigenschaften.put(rs.getString(1), rs.getString(2));
       }
       rs.close();
       stmt.close();
-      PreparedStatement pstmt = conn.prepareStatement("UPDATE eigenschaften SET eigenschaft = ? WHERE eigenschaft = ?");
+      PreparedStatement pstmt = conn
+          .prepareStatement("UPDATE eigenschaften SET eigenschaft = ? WHERE eigenschaft = ?");
       for (String eig : eigenschaften.keySet())
       {
         pstmt.setString(1, eig);
@@ -2940,12 +2952,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table eigenschaften alter column  eigenschaft integer not null;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table eigenschaften alter column  eigenschaft integer not null;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table eigenschaften modify column  eigenschaft integer not null;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table eigenschaften modify column  eigenschaft integer not null;\n");
 
     execute(conn, statements,
         "Typ der Spalte eigenschaft der Tabelle eigenschaften verändert", 74);
@@ -2997,12 +3011,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaftGruppe1 ON eigenschaftgruppe(bezeichnung);\n");
 
     execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 78);
   }
@@ -4960,10 +4976,11 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagevorher;\n"
-            + "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagenachher;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagevorher;\n"
+                + "ALTER TABLE einstellung DROP COLUMN aktuellegeburtstagenachher;\n");
 
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
@@ -5161,12 +5178,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE mitglied ADD individuellerbeitrag DOUBLE before zahlerid;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE mitglied ADD individuellerbeitrag DOUBLE before zahlerid;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE mitglied ADD individuellerbeitrag DOUBLE after beitragsgruppe;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE mitglied ADD individuellerbeitrag DOUBLE after beitragsgruppe;\n");
 
     execute(conn, statements,
         "Spalte individuellerBeitrag in die Tabelle mitglied eingefügt", 198);
@@ -5176,13 +5195,15 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE zusatzabbuchung ADD buchungstext2 VARCHAR(27) before betrag;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE zusatzabbuchung ADD buchungstext2 VARCHAR(27) before betrag;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE zusatzabbuchung ADD buchungstext2 VARCHAR(27) after buchungstext;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE zusatzabbuchung ADD buchungstext2 VARCHAR(27) after buchungstext;\n");
 
     execute(conn, statements,
         "Spalte buchungstext2 in die Tabelle zusatzabbuchung eingefügt", 199);
@@ -5431,14 +5452,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n");
 
     execute(conn, statements,
         "Foreign Key für Tabelle arbeitseinsatz erstellt", 202);
@@ -5485,7 +5508,7 @@ public class JVereinUpdateProvider
       statements.put(
           DBSupportH2Impl.class.getName(),
           new String[] { "ALTER TABLE " + b.getTabelle() + " ALTER COLUMN "
-              + b.getSpalte() + " BOOLEAN;\n"});
+              + b.getSpalte() + " BOOLEAN;\n" });
       execute(conn, statements, "Boolean-Spalten angepasst", 203, true);
       // MySQL
       statements = new HashMap<String, String[]>();
@@ -5503,7 +5526,7 @@ public class JVereinUpdateProvider
               "ALTER TABLE `" + b.getTabelle() + "` DROP COLUMN `"
                   + b.getSpalte() + "`;\n",
               "ALTER TABLE `" + b.getTabelle() + "` CHANGE COLUMN `"
-                  + b.getSpalte() + "_b` `" + b.getSpalte() + "` BIT(1);\n"});
+                  + b.getSpalte() + "_b` `" + b.getSpalte() + "` BIT(1);\n" });
       execute(conn, statements, "Boolean-Spalten angepasst", 203, true);
     }
   }
@@ -5549,14 +5572,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n");
 
     execute(conn, statements, "Foreign Key für Tabelle eigenschaften erstellt",
         205);
@@ -5677,12 +5702,14 @@ public class JVereinUpdateProvider
   private void update0214(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ADD dateinamenmusterspende VARCHAR(50) before beginngeschaeftsjahr;\n");
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung ADD dateinamenmusterspende VARCHAR(50) after dateinamenmuster;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD dateinamenmusterspende VARCHAR(50) before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD dateinamenmusterspende VARCHAR(50) after dateinamenmuster;\n");
     execute(conn, statements,
         "Spalte dateinamenmusterspende in die Tabelle einstellung aufgenommen",
         214);
@@ -5691,12 +5718,14 @@ public class JVereinUpdateProvider
   private void update0215(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ADD spendenbescheinigungminbetrag DOUBLE before beginngeschaeftsjahr;\n");
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung ADD spendenbescheinigungminbetrag DOUBLE after dateinamenmusterspende;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungminbetrag DOUBLE before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungminbetrag DOUBLE after dateinamenmusterspende;\n");
     execute(
         conn,
         statements,
@@ -5707,12 +5736,14 @@ public class JVereinUpdateProvider
   private void update0216(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ADD spendenbescheinigungverzeichnis VARCHAR(200) before beginngeschaeftsjahr;\n");
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung ADD spendenbescheinigungverzeichnis VARCHAR(200) after spendenbescheinigungminbetrag;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungverzeichnis VARCHAR(200) before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungverzeichnis VARCHAR(200) after spendenbescheinigungminbetrag;\n");
     execute(
         conn,
         statements,
@@ -5723,12 +5754,14 @@ public class JVereinUpdateProvider
   private void update0217(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ADD spendenbescheinigungprintbuchungsart BOOLEAN DEFAULT FALSE before beginngeschaeftsjahr;\n");
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung ADD spendenbescheinigungprintbuchungsart BOOLEAN DEFAULT FALSE after spendenbescheinigungverzeichnis;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungprintbuchungsart BOOLEAN DEFAULT FALSE before beginngeschaeftsjahr;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD spendenbescheinigungprintbuchungsart BOOLEAN DEFAULT FALSE after spendenbescheinigungverzeichnis;\n");
     execute(
         conn,
         statements,
@@ -5761,10 +5794,12 @@ public class JVereinUpdateProvider
   private void update0220(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ALTER COLUMN beguenstigterzweck VARCHAR(100);\n");
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung MODIFY COLUMN beguenstigterzweck VARCHAR(100);\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ALTER COLUMN beguenstigterzweck VARCHAR(100);\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung MODIFY COLUMN beguenstigterzweck VARCHAR(100);\n");
     execute(conn, statements,
         "Spalte beguenstigterzweck in der Tabelle einstellung verlängert", 220);
   }
@@ -6167,14 +6202,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "CREATE UNIQUE INDEX ixEigenschaft1 ON eigenschaft(bezeichnung, eigenschaftgruppe);\n");
 
     execute(conn, statements, "Index für Tabelle eigenschaft erstellt", 245);
   }
@@ -6552,12 +6589,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE adresstyp ADD bezeichnungplural varchar(30) before jvereinid;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE adresstyp ADD bezeichnungplural varchar(30) before jvereinid;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE adresstyp ADD bezeichnungplural varchar(30) after bezeichnung;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE adresstyp ADD bezeichnungplural varchar(30) after bezeichnung;\n");
 
     execute(conn, statements,
         "Spalte bezeichnungplural in die Tabelle adresstyp eingefügt", 269);
@@ -6725,7 +6764,8 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    String sql = "UPDATE mitglied set mandatdatum = eintritt;\n";
+    String sql = "UPDATE mitglied set mandatdatum = eintritt where zahlungsweg = "
+        + Zahlungsweg.BASISLASTSCHRIFT + ";\n";
     statements.put(DBSupportH2Impl.class.getName(), sql);
 
     // Update fuer MySQL
@@ -7027,13 +7067,15 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoipersonenart char(1) before geburtsdatum;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoipersonenart char(1) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoipersonenart char(1) after kontoinhaber;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoipersonenart char(1) after kontoinhaber;\n");
 
     execute(conn, statements,
         "Spalte ktopersonenart in Tabelle mitglied eingefügt", 297);
@@ -7043,13 +7085,15 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoianrede varchar(10) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoianrede varchar(10) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoianrede varchar(10) after ktoipersonenart;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoianrede varchar(10) after ktoipersonenart;\n");
 
     execute(conn, statements,
         "Spalte ktoianrede in Tabelle mitglied eingefügt", 298);
@@ -7059,12 +7103,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoititel varchar(10) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoititel varchar(10) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoititel varchar(10) after ktoianrede;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoititel varchar(10) after ktoianrede;\n");
 
     execute(conn, statements, "Spalte ktoititel in Tabelle mitglied eingefügt",
         299);
@@ -7074,12 +7120,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoiname varchar(40) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiname varchar(40) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoiname varchar(40) after ktoititel;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiname varchar(40) after ktoititel;\n");
 
     execute(conn, statements, "Spalte ktoiname in Tabelle mitglied eingefügt",
         300);
@@ -7089,13 +7137,15 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoivorname varchar(40) before geburtsdatum;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoivorname varchar(40) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoivorname varchar(40) after ktoiname;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoivorname varchar(40) after ktoiname;\n");
 
     execute(conn, statements,
         "Spalte ktoivorname in Tabelle mitglied eingefügt", 301);
@@ -7105,13 +7155,15 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoistrasse varchar(40) before geburtsdatum;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoistrasse varchar(40) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoistrasse varchar(40) after ktoivorname;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoistrasse varchar(40) after ktoivorname;\n");
 
     execute(conn, statements,
         "Spalte ktoistrasse in Tabelle mitglied eingefügt", 302);
@@ -7121,14 +7173,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoiadressierungszusatz varchar(40) before geburtsdatum;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiadressierungszusatz varchar(40) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoiadressierungszusatz varchar(40) after ktoistrasse;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiadressierungszusatz varchar(40) after ktoistrasse;\n");
 
     execute(conn, statements,
         "Spalte ktoiadressierungszusatz in Tabelle mitglied eingefügt", 303);
@@ -7138,13 +7192,15 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoiplz varchar(10) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiplz varchar(10) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoiplz varchar(10) after ktoiadressierungszusatz;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiplz varchar(10) after ktoiadressierungszusatz;\n");
 
     execute(conn, statements, "Spalte ktoiplz in Tabelle mitglied eingefügt",
         304);
@@ -7154,8 +7210,9 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoiort varchar(40) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiort varchar(40) before geburtsdatum;\n");
 
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
@@ -7169,12 +7226,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoistaat varchar(50) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoistaat varchar(50) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoistaat varchar(50) after ktoiort;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoistaat varchar(50) after ktoiort;\n");
 
     execute(conn, statements, "Spalte ktoistaat in Tabelle mitglied eingefügt",
         306);
@@ -7214,12 +7273,14 @@ public class JVereinUpdateProvider
   private void update0309(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ADD vorlagencsvverzeichnis VARCHAR(200) BEFORE SPENDENBESCHEINIGUNGMINBETRAG;\n");
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung ADD vorlagencsvverzeichnis VARCHAR(200) AFTER DATEINAMENMUSTERSPENDE;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD vorlagencsvverzeichnis VARCHAR(200) BEFORE SPENDENBESCHEINIGUNGMINBETRAG;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD vorlagencsvverzeichnis VARCHAR(200) AFTER DATEINAMENMUSTERSPENDE;\n");
     execute(conn, statements,
         "Spalte vorlagencsvverzeichnis in die Tabelle einstellung aufgenommen",
         309);
@@ -7229,12 +7290,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column personenart char(1) before name;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column personenart char(1) before name;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table kursteilnehmer add column personenart char(1) after id;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table kursteilnehmer add column personenart char(1) after id;\n");
 
     execute(conn, statements,
         "Spalte personenart in Tabelle kursteilnehmer eingefügt", 310);
@@ -7244,12 +7307,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column vorname varchar(40) before strasse;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column vorname varchar(40) before strasse;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table kursteilnehmer add column vorname varchar(40) after name;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table kursteilnehmer add column vorname varchar(40) after name;\n");
 
     execute(conn, statements,
         "Spalte vorname in Tabelle kursteilnehmer eingefügt", 311);
@@ -7259,14 +7324,16 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(
-        DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column adressierungszusatz varchar(40) before plz;\n");
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column adressierungszusatz varchar(40) before plz;\n");
 
     // Update fuer MySQL
-    statements.put(
-        DBSupportMySqlImpl.class.getName(),
-        "alter table kursteilnehmer add column adressierungszusatz varchar(40) after strasse;\n");
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "alter table kursteilnehmer add column adressierungszusatz varchar(40) after strasse;\n");
 
     execute(conn, statements,
         "Spalte adressierungszusatz in Tabelle kursteilnehmer eingefügt", 312);
@@ -7276,8 +7343,9 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column staat varchar(50) before vzweck1;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column staat varchar(50) before vzweck1;\n");
 
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
@@ -7291,12 +7359,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column anrede varchar(10) before name;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column anrede varchar(10) before name;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table kursteilnehmer add column anrede varchar(10) after personenart;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table kursteilnehmer add column anrede varchar(10) after personenart;\n");
 
     execute(conn, statements,
         "Spalte anrede in Tabelle kursteilnehmer eingefügt", 314);
@@ -7306,12 +7376,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column titel varchar(10) before name;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column titel varchar(10) before name;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table kursteilnehmer add column titel varchar(10) after anrede;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table kursteilnehmer add column titel varchar(10) after anrede;\n");
 
     execute(conn, statements,
         "Spalte titel in Tabelle kursteilnehmer eingefügt", 315);
@@ -7321,12 +7393,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table kursteilnehmer add column email varchar(50) before vzweck1;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table kursteilnehmer add column email varchar(50) before vzweck1;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table kursteilnehmer add column email varchar(50) after staat;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table kursteilnehmer add column email varchar(50) after staat;\n");
 
     execute(conn, statements,
         "Spalte email in Tabelle kursteilnehmer eingefügt", 316);
@@ -7336,12 +7410,14 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table mitglied add column ktoiemail varchar(50) before geburtsdatum;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table mitglied add column ktoiemail varchar(50) before geburtsdatum;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "alter table mitglied add column ktoiemail varchar(50) after ktoistaat;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table mitglied add column ktoiemail varchar(50) after ktoistaat;\n");
 
     execute(conn, statements, "Spalte email in Tabelle mitglied eingefügt", 317);
   }
@@ -7350,8 +7426,9 @@ public class JVereinUpdateProvider
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "alter table lastschrift add column email varchar(50) before mandatid;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table lastschrift add column email varchar(50) before mandatid;\n");
 
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
