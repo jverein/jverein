@@ -179,6 +179,8 @@ public class MitgliedControl extends AbstractControl
 
   private DateInput mandatdatum = null;
 
+  private DateInput letztelastschrift = null;
+
   private TextInput bic;
 
   private TextInput iban;
@@ -778,6 +780,19 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return mandatdatum;
+  }
+
+  public DateInput getLetzteLastschrift() throws RemoteException
+  {
+    if (letztelastschrift != null)
+    {
+      return letztelastschrift;
+    }
+
+    Date d = getMitglied().getLetzteLastschrift();
+    this.letztelastschrift = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.letztelastschrift.setName("letzte Lastschrift");
+    return letztelastschrift;
   }
 
   public TextInput getIban() throws RemoteException

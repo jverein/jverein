@@ -22,6 +22,8 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +53,7 @@ import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -568,6 +571,31 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setMandatDatum(Date mandatdatum) throws RemoteException
   {
     setAttribute("mandatdatum", mandatdatum);
+  }
+
+  @Override
+  public Date getLetzteLastschrift() throws RemoteException
+  {
+    ResultSetExtractor rs = new ResultSetExtractor()
+    {
+      @Override
+      public Object extract(ResultSet rs) throws SQLException
+      {
+        Date letzteLastschrift = Einstellungen.NODATE;
+        while (rs.next())
+        {
+          letzteLastschrift = rs.getDate(1);
+        }
+        return letzteLastschrift;
+      }
+    };
+
+    String sql = "select max(abrechnungslauf.FAELLIGKEIT) from lastschrift, abrechnungslauf "
+        + "where lastschrift.ABRECHNUNGSLAUF = abrechnungslauf.id and lastschrift.MITGLIED = ?";
+    Date d = (Date) Einstellungen.getDBService().execute(sql,
+        new Object[] { getID() }, rs);
+
+    return d;
   }
 
   @Override

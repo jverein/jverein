@@ -107,6 +107,8 @@ public interface Mitglied extends DBObject, IBankverbindung, IAdresse
 
   public void setMandatDatum(Date mandatdatum) throws RemoteException;
 
+  public Date getLetzteLastschrift() throws RemoteException;
+
   @Override
   public String getBic() throws RemoteException;
 

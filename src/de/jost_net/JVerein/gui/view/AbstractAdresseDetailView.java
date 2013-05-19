@@ -97,11 +97,14 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     MitgliedUtils.setMitglied(zhl);
     zhl.setOrder("ORDER BY name, vorname");
 
-    int anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenStammdaten();
-    boolean showInTab = Einstellungen.getEinstellung().getZeigeStammdatenInTab();
+    int anzahlSpalten = Einstellungen.getEinstellung()
+        .getAnzahlSpaltenStammdaten();
+    boolean showInTab = Einstellungen.getEinstellung()
+        .getZeigeStammdatenInTab();
     zeicheStammdaten(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
-    anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenMitgliedschaft();
+    anzahlSpalten = Einstellungen.getEinstellung()
+        .getAnzahlSpaltenMitgliedschaft();
     showInTab = Einstellungen.getEinstellung().getZeigeMitgliedschaftInTab();
     zeichneMitgliedschaft(showInTab ? folder : oben.getComposite(),
         anzahlSpalten);
@@ -128,7 +131,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     showInTab = Einstellungen.getEinstellung().getZeigeEigenschaftenInTab();
     zeichneEigenschaften(showInTab ? folder : oben.getComposite());
 
-    anzahlSpalten = Einstellungen.getEinstellung().getAnzahlSpaltenZusatzfelder();
+    anzahlSpalten = Einstellungen.getEinstellung()
+        .getAnzahlSpaltenZusatzfelder();
     showInTab = Einstellungen.getEinstellung().getZeigeZusatzfelderInTab();
     zeichneZusatzfelder(showInTab ? folder : oben.getComposite(), anzahlSpalten);
 
@@ -199,9 +203,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         getCurrentObject(), false, "mail-message-new.png");
     buttons.addButton("neu", isMitgliedDetail() ? new MitgliedDetailAction()
         : new AdresseDetailAction(), null, false, "document-new.png");
-    buttons.addButton("löschen", (isMitgliedDetail()
-        ? new MitgliedDeleteAction() : new AdresseDeleteAction()),
-        control.getCurrentObject(), false, "user-trash.png");
+    buttons.addButton("löschen",
+        (isMitgliedDetail() ? new MitgliedDeleteAction()
+            : new AdresseDeleteAction()), control.getCurrentObject(), false,
+        "user-trash.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -222,8 +227,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     {
       Container cont = getTabOrLabelContainer(parentComposite, "Dokumente");
 
-      MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService().createObject(
-          MitgliedDokument.class, null);
+      MitgliedDokument mido = (MitgliedDokument) Einstellungen.getDBService()
+          .createObject(MitgliedDokument.class, null);
       mido.setReferenz(new Integer(control.getMitglied().getID()));
       DokumentControl dcontrol = new DokumentControl(this, "mitglieder", true);
       cont.addPart(dcontrol.getDokumenteList(mido));
@@ -442,11 +447,11 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
     cols.addInput(control.getMandatID());
     cols.addInput(control.getMandatDatum());
+    cols.addInput(control.getLetzteLastschrift());
     cols.addInput(control.getBic());
     cols.addInput(control.getIban());
-    cols.addPart(new BankverbindungDialogButton(control.getMitglied(),
-        control.getBlz(), control.getKonto(), control.getBic(),
-        control.getIban()));
+    cols.addPart(new BankverbindungDialogButton(control.getMitglied(), control
+        .getBlz(), control.getKonto(), control.getBic(), control.getIban()));
     cols.addSeparator();
     cols.addText("Abweichender Kontoinhaber", false);
     cols.addInput(control.getKtoiPersonenart());
@@ -474,10 +479,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
    * eine TabGroup eingebettet, anderenfalls in eine LabelGroup.
    * 
    * @param parentComposite
-   *        Parent composite in das TabGroup bzw. LabelGroup und SimpleContainer
-   *        gezeichnet wird.
+   *          Parent composite in das TabGroup bzw. LabelGroup und
+   *          SimpleContainer gezeichnet wird.
    * @param titel
-   *        Beschriftung von TabGroup bzw. LabelGroup
+   *          Beschriftung von TabGroup bzw. LabelGroup
    * @return SimpleContainer, in den Inhalt gezeichnet werden kann.
    */
   private Container getTabOrLabelContainer(Composite parentComposite,
@@ -561,7 +566,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
    * sind, werden drei Spalten angezeigt, ansonsten zwei.
    * 
    * @param parentComposite
-   *        Composite auf dem gezeichnet wird.
+   *          Composite auf dem gezeichnet wird.
    * @throws RemoteException
    */
   private void zeicheStammdaten(Composite parentComposite, int spaltenanzahl)
