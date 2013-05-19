@@ -40,6 +40,8 @@ public class DokumentationUtil
 
   public static final String PRENOTIFICATION = PRE + "PreNotification";
 
+  public static final String SEPABUGS = PRE + "SEPABugs";
+
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
       + "Auswertung_Kursteilnehmer";
 

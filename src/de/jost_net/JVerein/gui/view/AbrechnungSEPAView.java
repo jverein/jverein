@@ -29,6 +29,7 @@ import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
@@ -101,6 +102,14 @@ public class AbrechnungSEPAView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
+    buttons.addButton("Fehler/Warnungen/Hinweise", new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        GUI.startView(SEPABugsView.class.getName(), null);
+      }
+    }, null, false, "debug_exc.gif");
     buttons.addButton(control.getStartButton());
     buttons.paint(this.getParent());
   }
