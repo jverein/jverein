@@ -24,53 +24,33 @@ package de.jost_net.JVerein.rmi;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import de.jost_net.JVerein.io.IBankverbindung;
+import de.jost_net.JVerein.io.ILastschrift;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
-public interface Kursteilnehmer extends DBObject, IBankverbindung
+public interface Kursteilnehmer extends DBObject, ILastschrift
 {
 
   public void setID(String id) throws RemoteException;
 
-  public String getPersonenart() throws RemoteException;
-
   public void setPersonenart(String personenart) throws RemoteException;
-
-  public String getAnrede() throws RemoteException;
 
   public void setAnrede(String anrede) throws RemoteException;
 
-  public String getTitel() throws RemoteException;
-
   public void setTitel(String titel) throws RemoteException;
-
-  public String getName() throws RemoteException;
 
   public void setName(String name) throws RemoteException;
 
-  public String getVorname() throws RemoteException;
-
   public void setVorname(String vorname) throws RemoteException;
 
-  public String getStrasse() throws RemoteException;
-
   public void setStrasse(String strasse) throws RemoteException;
-
-  public String getAdressierungszusatz() throws RemoteException;
 
   public void setAdressierungszuatz(String adressierungszusatz)
       throws RemoteException;
 
-  public String getPLZ() throws RemoteException;
-
-  public void setPLZ(String plz) throws RemoteException;
-
-  public String getOrt() throws RemoteException;
+  public void setPlz(String plz) throws RemoteException;
 
   public void setOrt(String ort) throws RemoteException;
-
-  public String getStaat() throws RemoteException;
 
   public void setStaat(String staat) throws RemoteException;
 
@@ -82,33 +62,7 @@ public interface Kursteilnehmer extends DBObject, IBankverbindung
 
   public void setVZweck1(String vzweck1) throws RemoteException;
 
-  public Date getMandatdatum() throws RemoteException;
-
-  public void setMandatdatum(Date mandatdatum) throws RemoteException;
-
-  @Override
-  public String getBic() throws RemoteException;
-
-  @Override
-  public void setBic(String bic) throws RemoteException;
-
-  @Override
-  public String getIban() throws RemoteException;
-
-  @Override
-  public void setIban(String iban) throws RemoteException;
-
-  @Override
-  public String getBlz() throws RemoteException;
-
-  @Override
-  public void setBlz(String blz) throws RemoteException;
-
-  @Override
-  public String getKonto() throws RemoteException;
-
-  @Override
-  public void setKonto(String konto) throws RemoteException;
+  public void setMandatDatum(Date mandatdatum) throws RemoteException;
 
   public double getBetrag() throws RemoteException;
 

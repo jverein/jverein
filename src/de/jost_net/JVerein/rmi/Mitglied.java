@@ -25,12 +25,11 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Map;
 
-import de.jost_net.JVerein.io.IAdresse;
-import de.jost_net.JVerein.io.IBankverbindung;
+import de.jost_net.JVerein.io.ILastschrift;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
-public interface Mitglied extends DBObject, IBankverbindung, IAdresse
+public interface Mitglied extends DBObject, ILastschrift
 {
 
   public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException;
@@ -43,58 +42,26 @@ public interface Mitglied extends DBObject, IBankverbindung, IAdresse
 
   public Adresstyp getAdresstyp() throws RemoteException;
 
-  @Override
-  public String getPersonenart() throws RemoteException;
-
   public void setPersonenart(String personenart) throws RemoteException;
-
-  @Override
-  public String getAnrede() throws RemoteException;
 
   public void setAnrede(String anrede) throws RemoteException;
 
-  @Override
-  public String getTitel() throws RemoteException;
-
   public void setTitel(String titel) throws RemoteException;
-
-  @Override
-  public String getName() throws RemoteException;
 
   public void setName(String name) throws RemoteException;
 
-  @Override
-  public String getVorname() throws RemoteException;
-
   public void setVorname(String vorname) throws RemoteException;
-
-  @Override
-  public String getAdressierungszusatz() throws RemoteException;
 
   public void setAdressierungszusatz(String adressierungszusatz)
       throws RemoteException;
 
-  @Override
-  public String getStrasse() throws RemoteException;
-
   public void setStrasse(String strasse) throws RemoteException;
-
-  @Override
-  public String getPlz() throws RemoteException;
 
   public void setPlz(String plz) throws RemoteException;
 
-  @Override
-  public String getOrt() throws RemoteException;
-
   public void setOrt(String ort) throws RemoteException;
 
-  @Override
-  public String getStaat() throws RemoteException;
-
   public void setStaat(String staat) throws RemoteException;
-
-  public Integer getZahlungsweg() throws RemoteException;
 
   public void setZahlungsweg(Integer zahlungsweg) throws RemoteException;
 
@@ -103,35 +70,9 @@ public interface Mitglied extends DBObject, IBankverbindung, IAdresse
   public void setZahlungsrhytmus(Integer zahlungsrhytmus)
       throws RemoteException;
 
-  public Date getMandatDatum() throws RemoteException;
-
   public void setMandatDatum(Date mandatdatum) throws RemoteException;
 
   public Date getLetzteLastschrift() throws RemoteException;
-
-  @Override
-  public String getBic() throws RemoteException;
-
-  @Override
-  public void setBic(String bic) throws RemoteException;
-
-  @Override
-  public String getIban() throws RemoteException;
-
-  @Override
-  public void setIban(String iban) throws RemoteException;
-
-  @Override
-  public String getBlz() throws RemoteException;
-
-  @Override
-  public void setBlz(String blz) throws RemoteException;
-
-  @Override
-  public String getKonto() throws RemoteException;
-
-  @Override
-  public void setKonto(String konto) throws RemoteException;
 
   public String getKtoiPersonenart() throws RemoteException;
 

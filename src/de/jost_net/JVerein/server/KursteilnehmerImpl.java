@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -85,7 +86,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     {
       throw new ApplicationException("Bitte Verwendungszweck 1 eingeben");
     }
-    if (getMandatdatum() == Einstellungen.NODATE)
+    if (getMandatDatum() == Einstellungen.NODATE)
     {
       throw new ApplicationException("Bitte Datum des Mandats eingeben");
     }
@@ -224,13 +225,13 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
-  public String getPLZ() throws RemoteException
+  public String getPlz() throws RemoteException
   {
     return (String) getAttribute("plz");
   }
 
   @Override
-  public void setPLZ(String plz) throws RemoteException
+  public void setPlz(String plz) throws RemoteException
   {
     setAttribute("plz", plz);
   }
@@ -272,7 +273,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
-  public Date getMandatdatum() throws RemoteException
+  public Date getMandatDatum() throws RemoteException
   {
     Date d = (Date) getAttribute("mandatdatum");
     if (d == null)
@@ -283,9 +284,21 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
-  public void setMandatdatum(Date mandatdatum) throws RemoteException
+  public void setMandatDatum(Date mandatdatum) throws RemoteException
   {
     setAttribute("mandatdatum", mandatdatum);
+  }
+
+  @Override
+  public String getMandatID() throws RemoteException
+  {
+    return "K" + getID();
+  }
+
+  @Override
+  public Integer getZahlungsweg()
+  {
+    return Zahlungsweg.BASISLASTSCHRIFT;
   }
 
   @Override

@@ -574,6 +574,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
+  public String getMandatID() throws RemoteException
+  {
+    return getID();
+  }
+
+  @Override
   public Date getLetzteLastschrift() throws RemoteException
   {
     ResultSetExtractor rs = new ResultSetExtractor()

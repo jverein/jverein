@@ -252,7 +252,7 @@ public class KursteilnehmerControl extends AbstractControl
     {
       return plz;
     }
-    plz = new TextInput(getKursteilnehmer().getPLZ(), 10);
+    plz = new TextInput(getKursteilnehmer().getPlz(), 10);
     plz.setName("PLZ");
     return plz;
   }
@@ -309,7 +309,7 @@ public class KursteilnehmerControl extends AbstractControl
       return mandatdatum;
     }
 
-    Date d = getKursteilnehmer().getMandatdatum();
+    Date d = getKursteilnehmer().getMandatDatum();
     if (d.equals(Einstellungen.NODATE))
     {
       d = null;
@@ -752,12 +752,12 @@ public class KursteilnehmerControl extends AbstractControl
       k.setVorname((String) getVorname().getValue());
       k.setStrasse((String) getStrasse().getValue());
       k.setAdressierungszuatz((String) getAdressierungszusatz().getValue());
-      k.setPLZ((String) getPLZ().getValue());
+      k.setPlz((String) getPLZ().getValue());
       k.setOrt((String) getOrt().getValue());
       k.setStaat((String) getStaat().getValue());
       k.setEmail((String) getEmail().getValue());
       k.setVZweck1((String) getVZweck1().getValue());
-      k.setMandatdatum((Date) getMandatDatum().getValue());
+      k.setMandatDatum((Date) getMandatDatum().getValue());
       k.setBlz((String) getBlz().getValue());
       k.setKonto((String) getKonto().getValue());
       k.setBetrag((Double) getBetrag().getValue());
