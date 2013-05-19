@@ -23,6 +23,7 @@ package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,11 +56,16 @@ public class SEPABugsControl extends AbstractControl
 
   private TablePart bugsList;
 
+  private Date sepagueltigkeit;
+
   public SEPABugsControl(AbstractView view)
   {
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.MONTH, -36);
+    sepagueltigkeit = cal.getTime();
   }
 
   public Part getBugsList() throws RemoteException
@@ -153,6 +159,13 @@ public class SEPABugsControl extends AbstractControl
           bugs.add(new Bug(ls, "BIC passt nicht zur IBAN: " + ls.getBic()
               + ", " + ls.getIban(), Bug.ERROR));
         }
+      }
+      if (ls.getLetzteLastschrift().before(sepagueltigkeit))
+      {
+        bugs.add(new Bug(
+            ls,
+            "Letzte Lastschrift ist älter als 36 Monate. Neues Mandat anfordern und eingeben.",
+            Bug.ERROR));
       }
     }
   }

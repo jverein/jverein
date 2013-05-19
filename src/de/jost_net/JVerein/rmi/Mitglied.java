@@ -72,8 +72,6 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public void setMandatDatum(Date mandatdatum) throws RemoteException;
 
-  public Date getLetzteLastschrift() throws RemoteException;
-
   public String getKtoiPersonenart() throws RemoteException;
 
   public void setKtoiPersonenart(String ktoipersonenart) throws RemoteException;

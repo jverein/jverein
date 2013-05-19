@@ -31,4 +31,6 @@ public interface ILastschrift extends IAdresse, IBankverbindung
   public Date getMandatDatum() throws RemoteException;
 
   public String getMandatID() throws RemoteException;
+
+  public Date getLetzteLastschrift() throws RemoteException;
 }

@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -73,12 +74,16 @@ public class AbrechnungSEPA
 
   private AbrechnungSEPAParam param;
 
+  private Calendar sepagueltigkeit;
+
   public AbrechnungSEPA(AbrechnungSEPAParam param, ProgressMonitor monitor)
       throws Exception
   {
     this.param = param;
     Abrechnungslauf abrl = getAbrechnungslauf();
 
+    sepagueltigkeit = Calendar.getInstance();
+    sepagueltigkeit.add(Calendar.MONTH, -36);
     Basislastschrift lastschrift = new Basislastschrift();
     // Vorbereitung: Allgemeine Informationen einstellen
     lastschrift.setBIC(Einstellungen.getEinstellung().getBic());
@@ -300,13 +305,17 @@ public class AbrechnungSEPA
       }
       list.setOrder("ORDER BY name, vorname");
       // Sätze im Resultset
-      monitor.log(MessageFormat.format("Anzahl Sätze: {0}", list.size() + ""));
 
       int count = 0;
       while (list.hasNext())
       {
         monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
         Mitglied m = (Mitglied) list.next();
+
+        if (!checkSEPA(m, monitor))
+        {
+          continue;
+        }
         Double betr;
         if (Einstellungen.getEinstellung().getBeitragsmodel() != Beitragsmodel.MONATLICH12631)
         {
@@ -426,6 +435,11 @@ public class AbrechnungSEPA
         {
           continue;
         }
+        if (!checkSEPA(m, monitor))
+        {
+          continue;
+        }
+
         if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
         {
           try
@@ -725,4 +739,27 @@ public class AbrechnungSEPA
     return mitgliedname;
   }
 
+  private boolean checkSEPA(Mitglied m, ProgressMonitor monitor)
+      throws RemoteException
+  {
+    if (m.getZahlungsweg() != Zahlungsweg.BASISLASTSCHRIFT)
+    {
+      return true;
+    }
+    if (m.getLetzteLastschrift() != null
+        && m.getLetzteLastschrift().before(sepagueltigkeit.getTime()))
+    {
+      monitor.log(Adressaufbereitung.getNameVorname(m)
+          + ": Letzte Lastschrift ist älter als 36 Monate.");
+      return false;
+    }
+    if (m.getMandatDatum() == Einstellungen.NODATE)
+    {
+      monitor.log(Adressaufbereitung.getNameVorname(m)
+          + ": Kein Mandat-Datum vorhanden.");
+      return false;
+    }
+    return true;
+
+  }
 }

@@ -22,6 +22,8 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -29,6 +31,7 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -84,7 +87,7 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     }
     if (getVZweck1() == null || getVZweck1().length() == 0)
     {
-      throw new ApplicationException("Bitte Verwendungszweck 1 eingeben");
+      throw new ApplicationException("Bitte Verwendungszweck eingeben");
     }
     if (getMandatDatum() == Einstellungen.NODATE)
     {
@@ -293,6 +296,31 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   public String getMandatID() throws RemoteException
   {
     return "K" + getID();
+  }
+
+  @Override
+  public Date getLetzteLastschrift() throws RemoteException
+  {
+    ResultSetExtractor rs = new ResultSetExtractor()
+    {
+      @Override
+      public Object extract(ResultSet rs) throws SQLException
+      {
+        Date letzteLastschrift = Einstellungen.NODATE;
+        while (rs.next())
+        {
+          letzteLastschrift = rs.getDate(1);
+        }
+        return letzteLastschrift;
+      }
+    };
+
+    String sql = "select max(abrechnungslauf.FAELLIGKEIT) from lastschrift, abrechnungslauf "
+        + "where lastschrift.ABRECHNUNGSLAUF = abrechnungslauf.id and lastschrift.KURSTEILNEHMER = ?";
+    Date d = (Date) Einstellungen.getDBService().execute(sql,
+        new Object[] { getID() }, rs);
+
+    return d;
   }
 
   @Override
