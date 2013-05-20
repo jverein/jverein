@@ -30,7 +30,7 @@ public enum InternalColumns
   ADRZUSATZ("Adressierungszusatz", false), //
   ANREDE("Anrede", true), //
   AUSTRITTSDATUM("Austritt", true), //
-  BIC("BIC", true), //
+  BIC("BIC", false), // TODO true), //
   BLZ("Bankleitzahl", true), //
   BEITRAG("Beitrag_1", true), //
   BEITRAGSART("Beitragsart_1", true), //
@@ -39,7 +39,7 @@ public enum InternalColumns
   EMAIL("Email", true), //
   GEBDATUM("Geburtsdatum", true), //
   GESCHLECHT("Geschlecht", true), //
-  IBAN("IBAN", true), //
+  IBAN("IBAN", false), // TODO true), //
   KONTONR("Kontonummer", true), //
   KTOIPERSONENART("KtoiPersonenart", false), //
   KTOIANREDE("KtoiAnrede", false), //
@@ -53,6 +53,7 @@ public enum InternalColumns
   KTOISTAAT("KtoiStaat", false), //
   KTOIEMAIL("KtoiEMail", false), //
   KUENDIGUNGSDATUM("Kuendigung", true), //
+  MANDATDATUM("Mandat_Datum", false), //
   MITGLIEDSNR("Mitglieds_Nr", true), //
   NACHNAME("Nachname", true), //
   ORT("Ort", true), //
