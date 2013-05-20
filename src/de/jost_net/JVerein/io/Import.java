@@ -648,6 +648,8 @@ public class Import
     int zahlweg = Zahlungsweg.BARZAHLUNG;
     String blz = getResultFrom(results, InternalColumns.BLZ);
     String ktnr = getResultFrom(results, InternalColumns.KONTONR);
+    String bic = getResultFrom(results, InternalColumns.BIC);
+    String iban = getResultFrom(results, InternalColumns.IBAN);
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
 
     if (zahlart.equalsIgnoreCase("l")
@@ -690,6 +692,8 @@ public class Import
 
     m.setBlz(blz);
     m.setKonto(ktnr);
+    m.setBic(bic);
+    m.setIban(iban);
     m.setZahlungsweg(zahlweg);
     m.setKtoiPersonenart(getResultFrom(results, InternalColumns.KTOIPERSONENART));
     m.setKtoiAnrede(getResultFrom(results, InternalColumns.KTOIANREDE));
@@ -702,6 +706,7 @@ public class Import
     m.setKtoiPlz(getResultFrom(results, InternalColumns.KTOIPLZ));
     m.setKtoiOrt(getResultFrom(results, InternalColumns.KTOIORT));
     m.setKtoiStaat(getResultFrom(results, InternalColumns.KTOISTAAT));
+    m.setKtoiEmail(getResultFrom(results, InternalColumns.KTOIEMAIL));
     Integer bg = beitragsGruppen.get(getResultFrom(results,
         InternalColumns.BEITRAGSART));
     m.setBeitragsgruppe(bg);
