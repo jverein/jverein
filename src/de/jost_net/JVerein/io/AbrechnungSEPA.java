@@ -76,6 +76,8 @@ public class AbrechnungSEPA
 
   private Calendar sepagueltigkeit;
 
+  private int counter = 0;
+
   public AbrechnungSEPA(AbrechnungSEPAParam param, ProgressMonitor monitor)
       throws Exception
   {
@@ -105,6 +107,8 @@ public class AbrechnungSEPA
     {
       abbuchenKursteilnehmer(lastschrift);
     }
+
+    monitor.log(counter + " abgerechnete Fälle");
 
     lastschrift.setMessageID(abrl.getID());
     lastschrift.write(param.sepafile);
@@ -360,6 +364,7 @@ public class AbrechnungSEPA
             throw e;
           }
         }
+        counter++;
         writeMitgliedskonto(m, new Date(), param.verwendungszweck, betr, abrl,
             m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
             beitragsgruppe.get(m.getBeitragsgruppeId() + ""));
@@ -439,7 +444,7 @@ public class AbrechnungSEPA
         {
           continue;
         }
-
+        counter++;
         if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
         {
           try
@@ -516,6 +521,7 @@ public class AbrechnungSEPA
     list.addFilter("abbudatum is null");
     while (list.hasNext())
     {
+      counter++;
       Kursteilnehmer kt = (Kursteilnehmer) list.next();
       try
       {
