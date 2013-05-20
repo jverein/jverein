@@ -49,7 +49,11 @@ import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.OBanToo.SEPA.BIC;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -649,8 +653,23 @@ public class Import
     String blz = getResultFrom(results, InternalColumns.BLZ);
     String ktnr = getResultFrom(results, InternalColumns.KONTONR);
     String bic = getResultFrom(results, InternalColumns.BIC);
+
     String iban = getResultFrom(results, InternalColumns.IBAN);
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
+    if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0)
+    {
+      try
+      {
+        IBAN ib = new IBAN(ktnr, blz, "DE");
+        iban = ib.getIBAN();
+        BIC bi = new BIC(ktnr, blz, "DE");
+        bic = bi.getBIC();
+      }
+      catch (SEPAException e)
+      {
+        Logger.error(Adressaufbereitung.getNameVorname(m), e);
+      }
+    }
 
     if (zahlart.equalsIgnoreCase("l")
         || zahlart.equalsIgnoreCase("lastschrift")
@@ -694,6 +713,9 @@ public class Import
     m.setKonto(ktnr);
     m.setBic(bic);
     m.setIban(iban);
+
+    m.setMandatDatum(Datum.toDate(formatDate(getResultFrom(results,
+        InternalColumns.MANDATDATUM))));
     m.setZahlungsweg(zahlweg);
     m.setKtoiPersonenart(getResultFrom(results, InternalColumns.KTOIPERSONENART));
     m.setKtoiAnrede(getResultFrom(results, InternalColumns.KTOIANREDE));
