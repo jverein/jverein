@@ -72,6 +72,7 @@ public class SEPABugsControl extends AbstractControl
   {
     bugsList = new TablePart(getBugs(), new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
@@ -160,7 +161,8 @@ public class SEPABugsControl extends AbstractControl
               + ", " + ls.getIban(), Bug.ERROR));
         }
       }
-      if (ls.getLetzteLastschrift().before(sepagueltigkeit))
+      if (ls.getLetzteLastschrift() != null
+          && ls.getLetzteLastschrift().before(sepagueltigkeit))
       {
         bugs.add(new Bug(
             ls,
