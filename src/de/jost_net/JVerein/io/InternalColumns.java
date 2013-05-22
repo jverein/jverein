@@ -53,7 +53,7 @@ public enum InternalColumns
   KTOISTAAT("KtoiStaat", false), //
   KTOIEMAIL("KtoiEMail", false), //
   KUENDIGUNGSDATUM("Kuendigung", true), //
-  MANDATDATUM("Mandat_Datum", false), //
+  MANDATDATUM("Mandat_Datum", true), //
   MITGLIEDSNR("Mitglieds_Nr", true), //
   NACHNAME("Nachname", true), //
   ORT("Ort", true), //
