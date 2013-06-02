@@ -36,10 +36,16 @@ public class Util
     {
       return (Boolean) o;
     }
+    if (o instanceof Byte)
+    {
+      Byte b = (Byte) o;
+      return (b == 1);
+    }
     if (o instanceof String)
     {
       String v = (String) o;
-      return (v.equalsIgnoreCase("true") || v.equalsIgnoreCase("j") || v.equalsIgnoreCase("1"));
+      return (v.equalsIgnoreCase("true") || v.equalsIgnoreCase("j") || v
+          .equalsIgnoreCase("1"));
     }
     throw new RemoteException("Weder null, noch String oder Boolean");
   }
