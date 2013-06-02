@@ -50,11 +50,19 @@ public class JVereinUpdateProvider
 
   private StringBuilder sb;
 
+  private String driver;
+
+  private static final String MYSQL = DBSupportMySqlImpl.class.getName();
+
+  private static final String H2 = DBSupportH2Impl.class.getName();
+
   public JVereinUpdateProvider(Connection conn, ProgressMonitor progressmonitor)
       throws ApplicationException
   {
     this.conn = conn;
     this.progressmonitor = progressmonitor;
+    driver = JVereinDBService.SETTINGS.getString("database.driver", H2);
+
     int cv = getCurrentVersion();
     if (cv == 0)
     {
@@ -1276,6 +1284,27 @@ public class JVereinUpdateProvider
     {
       update0319(conn);
     }
+    if (cv < 320)
+    {
+      update0320(conn);
+    }
+    if (cv < 321)
+    {
+      update0321(conn);
+    }
+    if (cv < 322)
+    {
+      update0322(conn);
+    }
+    if (cv < 323)
+    {
+      update0323(conn);
+    }
+    if (cv < 324)
+    {
+      update0324(conn);
+    }
+    // TODO
   }
 
   public Connection getConnection()
@@ -1335,8 +1364,7 @@ public class JVereinUpdateProvider
   }
 
   public void execute(Connection conn, Map<String, String[]> statements,
-      String logstring, int version, @SuppressWarnings("unused") boolean dummy)
-      throws ApplicationException
+      String logstring, int version, boolean dummy) throws ApplicationException
   {
     for (String driver : statements.keySet())
     {
@@ -7008,7 +7036,7 @@ public class JVereinUpdateProvider
     sb.append(" KEY (abrechnungslauf),");
     sb.append(" KEY (mitglied),");
     sb.append(" KEY(kursteilnehmer),");
-    sb.append(" PRIMARY KEY (id));\n");
+    sb.append(" PRIMARY KEY (id)");
     sb.append(")  ENGINE=InnoDB;\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
@@ -7453,6 +7481,279 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte lsname aus der Tabelle lastschrift entfernt", 319);
+  }
+
+  private void update0320(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "DROP TABLE bank";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Tabelle bank gelöscht", 320);
+  }
+
+  private void update0321(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "DROP TABLE sepaparam";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Tabelle sepaparam gelöscht", 321);
+  }
+
+  private void update0322(Connection conn) throws ApplicationException
+  {
+    if (driver.equals(H2))
+    {
+      return;
+    }
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE anfangsbestand DROP FOREIGN KEY fkAnfangsbestand1;\n"
+                + "ALTER TABLE arbeitseinsatz DROP FOREIGN KEY fkArbeitseinsatz1;\n"
+                + "ALTER TABLE beitragsgruppe DROP FOREIGN KEY fkBeitragsgruppe1;\n"
+                + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung1;\n"
+                + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung2;\n"
+                + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung3;\n"
+                + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung4;\n"
+                + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung5;\n"
+                + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung6;\n"
+                + "ALTER TABLE buchungdokument DROP FOREIGN KEY fkBuchungDokument1;\n"
+                + "ALTER TABLE buchungsart DROP FOREIGN KEY fkBuchungsart1;\n"
+                + "ALTER TABLE buchungsart DROP FOREIGN KEY fkBuchungsart2;\n"
+                + "ALTER TABLE eigenschaft DROP FOREIGN KEY fkEigenschaft1;\n"
+                + "ALTER TABLE eigenschaften DROP FOREIGN KEY fkEigenschaften2;\n"
+                + "ALTER TABLE eigenschaften DROP FOREIGN KEY fkEigenschaften1;\n"
+                + "ALTER TABLE formularfeld DROP FOREIGN KEY fkFormularfeld1;\n"
+                + "ALTER TABLE lastschrift DROP FOREIGN KEY fkLastschrift1;\n"
+                + "ALTER TABLE lastschrift DROP FOREIGN KEY fkLastschrift2;\n"
+                + "ALTER TABLE lastschrift DROP FOREIGN KEY fkLastschrift3;\n"
+                + "ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang2;\n"
+                + "ALTER TABLE lehrgang DROP FOREIGN KEY fkLehrgang1;\n"
+                + "ALTER TABLE mailanhang DROP FOREIGN KEY fkMailAnhang1;\n"
+                + "ALTER TABLE mailempfaenger DROP FOREIGN KEY fkMailempfaenger2;\n"
+                + "ALTER TABLE mailempfaenger DROP FOREIGN KEY fkMailEmpfaenger1;\n"
+                + "ALTER TABLE mitglied DROP FOREIGN KEY fkMitglied1;\n"
+                + "ALTER TABLE mitglied DROP FOREIGN KEY fkMitglied2;\n"
+                + "ALTER TABLE mitglieddokument DROP FOREIGN KEY fkMitgliedDokument1;\n"
+                + "ALTER TABLE mitgliedfoto DROP FOREIGN KEY fkMitgliedfoto1;\n"
+                + "ALTER TABLE mitgliedskonto DROP FOREIGN KEY fkMitgliedskonto1;\n"
+                + "ALTER TABLE mitgliedskonto DROP FOREIGN KEY fkMitgliedskonto2;\n"
+                + "ALTER TABLE spendenbescheinigung DROP FOREIGN KEY fkSpendenbescheinigung1;\n"
+                + "ALTER TABLE spendenbescheinigung DROP FOREIGN KEY fkSpendenbescheinigung2;\n"
+                + "ALTER TABLE wiedervorlage DROP FOREIGN KEY fkWiedervorlage1;\n"
+                + "ALTER TABLE zusatzabbuchung DROP FOREIGN KEY fkZusatzabbuchung1;\n"
+                + "ALTER TABLE zusatzbetragabrechnungslauf DROP FOREIGN KEY fkZusatzbetragabrechnungslauf2;\n"
+                + "ALTER TABLE zusatzbetragabrechnungslauf DROP FOREIGN KEY fkZusatzbetragabrechnungslauf1;\n"
+                + "ALTER TABLE zusatzfelder DROP FOREIGN KEY fkzusatzfelder1;\n"
+                + "ALTER TABLE zusatzfelder DROP FOREIGN KEY fkZusatzfelder2;\n");
+
+    execute(conn, statements, "Spaltentypen geändert", 322);
+  }
+
+  private void update0323(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("anfangsbestand", "konto", "BIGINT");
+    sql += alterColumn("arbeitseinsatz", "mitglied", "BIGINT");
+    sql += alterColumn("beitragsgruppe", "buchungsart", "BIGINT");
+    sql += alterColumn("buchung", "abrechnungslauf", "BIGINT");
+    sql += alterColumn("buchung", "buchungsart", "BIGINT");
+    sql += alterColumn("buchung", "konto", "BIGINT");
+    sql += alterColumn("buchung", "mitgliedskonto", "BIGINT");
+    sql += alterColumn("buchung", "projekt", "BIGINT");
+    sql += alterColumn("buchung", "spendenbescheinigung", "BIGINT");
+    sql += alterColumn("buchungdokument", "referenz", "BIGINT");
+    sql += alterColumn("buchungsart", "buchungsklasse", "BIGINT");
+    sql += alterColumn("eigenschaft", "eigenschaftgruppe", "BIGINT");
+    sql += alterColumn("eigenschaften", "eigenschaft", "BIGINT");
+    sql += alterColumn("eigenschaften", "mitglied", "BIGINT");
+    sql += alterColumn("einstellung", "finanzamt", "VARCHAR(30)");
+    sql += alterColumn("einstellung", "steuernummer", "VARCHAR(30)");
+    sql += alterColumn("formularfeld", "formular", "BIGINT");
+    sql += alterColumn("lastschrift", "abrechnungslauf", "BIGINT");
+    sql += alterColumn("lastschrift", "kursteilnehmer", "BIGINT");
+    sql += alterColumn("lastschrift", "mitglied", "BIGINT");
+    sql += alterColumn("lehrgang", "lehrgangsart", "BIGINT");
+    sql += alterColumn("lehrgang", "mitglied", "BIGINT");
+    sql += alterColumn("mailanhang", "mail", "BIGINT");
+    sql += alterColumn("mailempfaenger", "mail", "BIGINT");
+    sql += alterColumn("mailempfaenger", "mitglied", "BIGINT");
+    sql += alterColumn("mitglied", "adresstyp", "BIGINT");
+    sql += alterColumn("mitglied", "beitragsgruppe", "BIGINT");
+    sql += alterColumn("mitglieddokument", "referenz", "BIGINT");
+    sql += alterColumn("mitgliedfoto", "mitglied", "BIGINT");
+    sql += alterColumn("mitgliedskonto", "abrechnungslauf", "BIGINT");
+    sql += alterColumn("mitgliedskonto", "mitglied", "BIGINT");
+    sql += alterColumn("spendenbescheinigung", "formular", "BIGINT");
+    sql += alterColumn("spendenbescheinigung", "mitglied", "BIGINT");
+    sql += alterColumn("wiedervorlage", "mitglied", "BIGINT");
+    sql += alterColumn("zusatzabbuchung", "mitglied", "BIGINT");
+    sql += alterColumn("zusatzbetragabrechnungslauf", "abrechnungslauf",
+        "BIGINT");
+    sql += alterColumn("zusatzbetragabrechnungslauf", "zusatzbetrag", "BIGINT");
+    sql += alterColumn("zusatzfelder", "felddefinition", "BIGINT");
+    sql += alterColumn("zusatzfelder", "mitglied", "BIGINT");
+    sql += alterColumn(MYSQL, "abrechnungslauf", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "adresstyp", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "anfangsbestand", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "arbeitseinsatz", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "beitragsgruppe", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "buchung", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "buchungdokument", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "buchungsart", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "buchungsklasse", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "eigenschaft", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "eigenschaften", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "eigenschaftgruppe", "id",
+        "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "einstellung", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "felddefinition", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "formular", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "formularfeld", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "jahresabschluss", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "konto", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "kursteilnehmer", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "lastschrift", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "lehrgang", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "lehrgangsart", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "lesefeld", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mail", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mailanhang", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mailempfaenger", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mailvorlage", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mitglied", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mitglieddokument", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mitgliedfoto", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "mitgliedskonto", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "projekt", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "spendenbescheinigung", "id",
+        "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "version", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "wiedervorlage", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "zusatzabbuchung", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "zusatzbetragabrechnungslauf", "id",
+        "BIGINT AUTO_INCREMENT");
+    sql += alterColumn(MYSQL, "zusatzfelder", "id", "BIGINT AUTO_INCREMENT");
+    sql += alterColumn("abrechnungslauf", "dtausdruck", "tinyint(1)");
+    sql += alterColumn("abrechnungslauf", "zusatzbetraege", "tinyint(1)");
+    sql += alterColumn("abrechnungslauf", "kursteilnehmer", "tinyint(1)");
+    sql += alterColumn("buchungsart", "spende", "tinyint(1)");
+    sql += alterColumn("eigenschaftgruppe", "pflicht", "tinyint(1)");
+    sql += alterColumn("eigenschaftgruppe", "max1", "tinyint(1)");
+    sql += alterColumn("einstellung", "vorlaeufig", "tinyint(1)");
+    sql += alterColumn("einstellung", "mitgliedsbeitraege", "tinyint(1)");
+    sql += alterColumn("einstellung", "geburtsdatumpflicht", "tinyint(1)");
+    sql += alterColumn("einstellung", "eintrittsdatumpflicht", "tinyint(1)");
+    sql += alterColumn("einstellung", "sterbedatum", "tinyint(1)");
+    sql += alterColumn("einstellung", "kommunikationsdaten", "tinyint(1)");
+    sql += alterColumn("einstellung", "zusatzabbuchung", "tinyint(1)");
+    sql += alterColumn("einstellung", "vermerke", "tinyint(1)");
+    sql += alterColumn("einstellung", "wiedervorlage", "tinyint(1)");
+    sql += alterColumn("einstellung", "kursteilnehmer", "tinyint(1)");
+    sql += alterColumn("einstellung", "lehrgaenge", "tinyint(1)");
+    sql += alterColumn("einstellung", "juristischepersonen", "tinyint(1)");
+    sql += alterColumn("einstellung", "mitgliedfoto", "tinyint(1)");
+    sql += alterColumn("einstellung", "auslandsadressen", "tinyint(1)");
+    sql += alterColumn("einstellung", "arbeitseinsatz", "tinyint(1)");
+    sql += alterColumn("einstellung", "dokumentenspeicherung", "tinyint(1)");
+    sql += alterColumn("einstellung", "individuellebeitraege", "tinyint(1)");
+    sql += alterColumn("einstellung", "externemitgliedsnummer", "tinyint(1)");
+    sql += alterColumn("einstellung", "smtp_ssl", "tinyint(1)");
+    sql += alterColumn("einstellung", "zusatzadressen", "tinyint(1)");
+    sql += alterColumn("einstellung", "smtp_starttls", "tinyint(1)");
+    sql += alterColumn("spendenbescheinigung", "ersatzaufwendungen",
+        "tinyint(1)");
+    sql += alterColumn("spendenbescheinigung", "unterlagenwertermittlung",
+        "tinyint(1)");
+    sql += alterColumn("zusatzfelder", "feldjanein", "tinyint(1)");
+
+    statements.put(driver, sql);
+    execute(conn, statements, "Spaltentypen geändert", 323);
+  }
+
+  private void update0324(Connection conn) throws ApplicationException
+  {
+    if (driver.equals(H2))
+    {
+      return;
+    }
+    Map<String, String> statements = new HashMap<String, String>();
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE anfangsbestand ADD CONSTRAINT fkAnfangsbestand1 FOREIGN KEY (konto) REFERENCES konto (id);"
+                + "ALTER TABLE arbeitseinsatz ADD CONSTRAINT fkArbeitseinsatz1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE beitragsgruppe ADD CONSTRAINT fkBeitragsgruppe1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);\n"
+                + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung1 FOREIGN KEY (buchungsart) REFERENCES buchungsart (id);\n"
+                + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung2 FOREIGN KEY (konto) REFERENCES konto (id);\n"
+                + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung3 FOREIGN KEY (mitgliedskonto) REFERENCES mitgliedskonto (id);\n"
+                + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung4 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung5 FOREIGN KEY (spendenbescheinigung) REFERENCES spendenbescheinigung (id);\n"
+                + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung6 FOREIGN KEY (projekt) REFERENCES projekt (id);\n"
+                + "ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (referenz) REFERENCES buchung (id);\n"
+                + "ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart1 FOREIGN KEY (buchungsart) REFERENCES buchungsklasse (id);\n"
+                + "ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id);\n"
+                + "ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id);\n"
+                + "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE formularfeld ADD CONSTRAINT fkFormularfeld1 FOREIGN KEY (formular) REFERENCES formular (id) ON DELETE CASCADE ON UPDATE CASCADE;\n"
+                + "ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n"
+                + "ALTER TABLE lastschrift ADD CONSTRAINT fkLastschrift3 FOREIGN KEY (kursteilnehmer) REFERENCES kursteilnehmer (id);\n"
+                + "ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang2 FOREIGN KEY (lehrgangsart) REFERENCES lehrgangsart (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE lehrgang ADD CONSTRAINT fkLehrgang1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE mailanhang ADD CONSTRAINT fkMailAnhang1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailempfaenger2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE mailempfaenger ADD CONSTRAINT fkMailEmpfaenger1 FOREIGN KEY (mail) REFERENCES mail (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE mitglied ADD CONSTRAINT fkMitglied1 FOREIGN KEY (beitragsgruppe) REFERENCES beitragsgruppe (id);\n"
+                + "ALTER TABLE mitglied ADD CONSTRAINT fkMitglied2 FOREIGN KEY (adresstyp) REFERENCES adresstyp (id);\n"
+                + "ALTER TABLE mitglieddokument ADD CONSTRAINT fkMitgliedDokument1 FOREIGN KEY (referenz) REFERENCES mitglied (id);\n"
+                + "ALTER TABLE mitgliedfoto ADD CONSTRAINT fkMitgliedfoto1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE mitgliedskonto ADD CONSTRAINT fkMitgliedskonto2 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung1 FOREIGN KEY (formular) REFERENCES formular (id);\n"
+                + "ALTER TABLE spendenbescheinigung ADD CONSTRAINT fkSpendenbescheinigung2 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n"
+                + "ALTER TABLE wiedervorlage ADD CONSTRAINT fkWiedervorlage1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n"
+                + "ALTER TABLE zusatzabbuchung ADD CONSTRAINT fkZusatzabbuchung1 FOREIGN KEY (mitglied) REFERENCES mitglied (id);\n"
+                + "ALTER TABLE zusatzbetragabrechnungslauf ADD CONSTRAINT fkZusatzbetragabrechnungslauf2 FOREIGN KEY (zusatzbetrag) REFERENCES zusatzabbuchung (id) ON DELETE CASCADE ON UPDATE CASCADE;\n"
+                + "ALTER TABLE zusatzbetragabrechnungslauf ADD CONSTRAINT fkZusatzbetragabrechnungslauf1 FOREIGN KEY (abrechnungslauf) REFERENCES abrechnungslauf (id) ON DELETE CASCADE ON UPDATE CASCADE;\n"
+                + "ALTER TABLE zusatzfelder ADD CONSTRAINT fkzusatzfelder1 FOREIGN KEY (mitglied) REFERENCES mitglied (id) ON DELETE CASCADE;\n"
+                + "ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition (id) ON DELETE CASCADE;\n");
+
+    execute(conn, statements, "Spaltentypen geändert", 324);
+  }
+
+  private String alterColumn(String table, String column, String type)
+      throws ApplicationException
+  {
+    return alterColumn(this.driver, table, column, type);
+  }
+
+  private String alterColumn(String _driver, String table, String column,
+      String type)
+  {
+    if (driver.equals(H2) && _driver.equals(H2))
+    {
+      return "ALTER TABLE " + table + " ALTER COLUMN " + column + " " + type
+          + ";\n";
+    }
+    if (driver.equals(MYSQL) && _driver.equals(MYSQL))
+    {
+      return "ALTER TABLE " + table + " MODIFY COLUMN " + column + " " + type
+          + ";\n";
+    }
+    return "";
   }
 
 }
