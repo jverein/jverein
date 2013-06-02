@@ -68,6 +68,7 @@ import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
+import de.jost_net.JVerein.gui.view.AuswertungVorlagenCsvView;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.MitgliedAdressbuchExport;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
@@ -2383,6 +2384,21 @@ public class MitgliedControl extends AbstractControl
     }, null, true, "go.png"); // "true" defines this button as the default
     // button
     return b;
+  }
+
+  public Button getVorlagenCsvEditButton()
+  {
+    Button b = new Button("CSV Vorlagen...", new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        GUI.startView(AuswertungVorlagenCsvView.class.getName(), null);
+      }
+    }, null, false, "csv.jpg");
+    // button
+    return b;
+
   }
 
   public Button getLesefelderEdit()
