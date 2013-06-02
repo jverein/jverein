@@ -12,9 +12,8 @@
 	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/bsh-core-2.0b4.jar"/>
 	<classpathentry kind="lib" path="/hibiscus/lib/itextpdf-5.3.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/obantoo"/>
 	<classpathentry exported="true" kind="lib" path="lib/csvjdbc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
-	<classpathentry kind="lib" path="lib/obantoo-bin-2.0.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/obantoo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
