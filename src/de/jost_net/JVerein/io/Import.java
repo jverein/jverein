@@ -674,7 +674,9 @@ public class Import
       }
       catch (SEPAException e)
       {
-        Logger.error(Adressaufbereitung.getNameVorname(m), e);
+        progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
+            + e.getMessage());
+        throw new ApplicationException();
       }
     }
 
