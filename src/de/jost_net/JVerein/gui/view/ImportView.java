@@ -449,6 +449,7 @@ public class ImportView extends AbstractView
           monitor.setStatusText(ae.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
+          monitor.log("Abbruch des Imports!");
           throw ae;
         }
         catch (Exception e)
