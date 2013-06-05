@@ -60,6 +60,7 @@ public class MailAnhangAnzeigeAction implements Action
       MailAnhang ma = (MailAnhang) context;
       File tmp = new File(System.getProperty("java.io.tmpdir"),
           ma.getDateiname());
+      tmp.deleteOnExit();
       FileOutputStream fos = new FileOutputStream(tmp);
       fos.write(ma.getAnhang());
       fos.close();
