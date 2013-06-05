@@ -405,10 +405,10 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    list.setOrder("ORDER BY bezeichnung");
+    list.setOrder("ORDER BY nummer");
     buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
     buchungsart.setValue(getBuchung().getBuchungsart());
-    buchungsart.setAttribute("bezeichnung");
+    buchungsart.setAttribute("nrbezeichnung");
     buchungsart.setPleaseChoose("Bitte auswählen");
     return buchungsart;
   }

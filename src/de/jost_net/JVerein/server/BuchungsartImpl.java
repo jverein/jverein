@@ -170,6 +170,19 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
   }
 
   @Override
+  public Object getAttribute(String fieldName) throws RemoteException
+  {
+    if (fieldName.equals("nrbezeichnung"))
+    {
+      return getNummer() + " - " + getBezeichnung();
+    }
+    else
+    {
+      return super.getAttribute(fieldName);
+    }
+  }
+
+  @Override
   public void delete() throws RemoteException, ApplicationException
   {
     super.delete();
