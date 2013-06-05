@@ -163,12 +163,12 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   @Override
   public Konto getKonto() throws RemoteException
   {
-    Integer i = (Integer) super.getAttribute("konto");
-    if (i == null)
+    Long l = (Long) super.getAttribute("konto");
+    if (l == null){
       return null; // Kein Konto zugeordnet
-
+    }
     Cache cache = Cache.get(Konto.class, true);
-    return (Konto) cache.get(i);
+    return (Konto) cache.get(l);
   }
 
   @Override
@@ -288,12 +288,14 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   @Override
   public Buchungsart getBuchungsart() throws RemoteException
   {
-    Integer i = (Integer) super.getAttribute("buchungsart");
-    if (i == null)
+    Long l = (Long) super.getAttribute("buchungsart");
+    if (l == null)
+    {
       return null; // Keine Buchungsart zugeordnet
-
+    }
+    
     Cache cache = Cache.get(Buchungsart.class, true);
-    return (Buchungsart) cache.get(i);
+    return (Buchungsart) cache.get(l);
   }
 
   @Override
