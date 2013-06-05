@@ -42,6 +42,7 @@ import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.PersonenartInput;
 import de.jost_net.JVerein.gui.menu.KursteilnehmerMenu;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.util.Dateiname;
@@ -58,10 +59,8 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -886,24 +885,7 @@ public class KursteilnehmerControl extends AbstractControl
               rpt.addColumn(kt.getBetrag());
             }
             rpt.close();
-            GUI.getDisplay().asyncExec(new Runnable()
-            {
-
-              @Override
-              public void run()
-              {
-                try
-                {
-                  new Program().handleAction(file);
-                }
-                catch (ApplicationException ae)
-                {
-                  Application.getMessagingFactory().sendMessage(
-                      new StatusBarMessage(ae.getLocalizedMessage(),
-                          StatusBarMessage.TYPE_ERROR));
-                }
-              }
-            });
+            FileViewer.show(file);
           }
           catch (ApplicationException ae)
           {

@@ -35,6 +35,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -54,11 +55,9 @@ import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
@@ -371,23 +370,7 @@ public class BuchungsartControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
-        GUI.getDisplay().asyncExec(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            try
-            {
-              new Program().handleAction(file);
-            }
-            catch (ApplicationException ae)
-            {
-              Application.getMessagingFactory().sendMessage(
-                  new StatusBarMessage(ae.getLocalizedMessage(),
-                      StatusBarMessage.TYPE_ERROR));
-            }
-          }
-        });
+        FileViewer.show(file);
       }
 
       @Override

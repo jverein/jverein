@@ -36,12 +36,7 @@ import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
-import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
 public class MitgliedskontoExportCSV extends MitgliedskontoExport
@@ -157,24 +152,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
             + Adressaufbereitung.getNameVorname(mkto.getMitglied()));
       }
       writer.close();
-      GUI.getDisplay().asyncExec(new Runnable()
-      {
-
-        @Override
-        public void run()
-        {
-          try
-          {
-            new Program().handleAction(file);
-          }
-          catch (ApplicationException ae)
-          {
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(ae.getLocalizedMessage(),
-                    StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      });
+      FileViewer.show(file);
     }
     catch (Exception e)
     {

@@ -40,6 +40,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
@@ -190,25 +191,7 @@ public class PersonalbogenAction implements Action
             }
           }
           rpt.close();
-          GUI.getDisplay().asyncExec(new Runnable()
-          {
-
-            @Override
-            public void run()
-            {
-              try
-              {
-                new Program().handleAction(file);
-              }
-              catch (ApplicationException ae)
-              {
-                Application.getMessagingFactory().sendMessage(
-                    new StatusBarMessage(ae.getLocalizedMessage(),
-                        StatusBarMessage.TYPE_ERROR));
-              }
-            }
-          });
-
+          FileViewer.show(file);
         }
         catch (Exception re)
         {

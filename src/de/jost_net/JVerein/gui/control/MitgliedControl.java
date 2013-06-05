@@ -70,6 +70,7 @@ import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.gui.view.AuswertungVorlagenCsvView;
 import de.jost_net.JVerein.gui.view.IAuswertung;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.MitgliedAdressbuchExport;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
 import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
@@ -125,13 +126,11 @@ import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.parts.TreePart;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -3079,24 +3078,7 @@ public class MitgliedControl extends AbstractControl
             GUI.getCurrentView().reload();
             if (ausw.openFile())
             {
-              GUI.getDisplay().asyncExec(new Runnable()
-              {
-
-                @Override
-                public void run()
-                {
-                  try
-                  {
-                    new Program().handleAction(file);
-                  }
-                  catch (ApplicationException ae)
-                  {
-                    Application.getMessagingFactory().sendMessage(
-                        new StatusBarMessage(ae.getLocalizedMessage(),
-                            StatusBarMessage.TYPE_ERROR));
-                  }
-                }
-              });
+              FileViewer.show(file);
             }
           }
           catch (ApplicationException ae)
@@ -3180,24 +3162,7 @@ public class MitgliedControl extends AbstractControl
             GUI.getCurrentView().reload();
             if (ausw.openFile())
             {
-              GUI.getDisplay().asyncExec(new Runnable()
-              {
-
-                @Override
-                public void run()
-                {
-                  try
-                  {
-                    new Program().handleAction(file);
-                  }
-                  catch (ApplicationException ae)
-                  {
-                    Application.getMessagingFactory().sendMessage(
-                        new StatusBarMessage(ae.getLocalizedMessage(),
-                            StatusBarMessage.TYPE_ERROR));
-                  }
-                }
-              });
+              FileViewer.show(file);
             }
           }
           catch (Exception re)

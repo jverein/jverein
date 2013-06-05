@@ -44,6 +44,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
@@ -66,11 +67,9 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.hbci.HBCIProperties;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
@@ -596,25 +595,7 @@ public class ZusatzbetragControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
-        GUI.getDisplay().asyncExec(new Runnable()
-        {
-
-          @Override
-          public void run()
-          {
-            try
-            {
-              new Program().handleAction(file);
-            }
-            catch (ApplicationException ae)
-            {
-              Application.getMessagingFactory().sendMessage(
-                  new StatusBarMessage(ae.getLocalizedMessage(),
-                      StatusBarMessage.TYPE_ERROR));
-            }
-          }
-        });
-
+        FileViewer.show(file);
       }
 
       @Override

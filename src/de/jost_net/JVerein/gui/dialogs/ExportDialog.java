@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.io.Exporter;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.IOFormat;
 import de.jost_net.JVerein.io.IORegistry;
 import de.jost_net.JVerein.util.Dateiname;
@@ -44,12 +45,10 @@ import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Container;
 import de.willuhn.jameica.gui.util.SimpleContainer;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -81,9 +80,9 @@ public class ExportDialog extends AbstractDialog<Object>
    * ct.
    * 
    * @param objects
-   *        Liste der zu exportierenden Objekte.
+   *          Liste der zu exportierenden Objekte.
    * @param type
-   *        die Art der zu exportierenden Objekte.
+   *          die Art der zu exportierenden Objekte.
    */
   public ExportDialog(Object[] objects, Class<?> type, String helplink)
   {
@@ -106,9 +105,10 @@ public class ExportDialog extends AbstractDialog<Object>
   protected void paint(Composite parent) throws Exception
   {
     Container group = new SimpleContainer(parent);
-    group.addText(
-        i18n.tr("Bitte wählen Sie das gewünschte Dateiformat aus für den Export aus"),
-        true);
+    group
+        .addText(
+            i18n.tr("Bitte wählen Sie das gewünschte Dateiformat aus für den Export aus"),
+            true);
 
     Input formats = getExporterList();
     group.addLabelPair(i18n.tr("Verfügbare Formate:"), formats);
@@ -144,7 +144,8 @@ public class ExportDialog extends AbstractDialog<Object>
     }, null, false, "process-stop.png");
     group.addButtonArea(buttons);
 
-    getShell().setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
+    getShell()
+        .setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
   }
 
   /**
@@ -175,7 +176,8 @@ public class ExportDialog extends AbstractDialog<Object>
     settings.setAttribute("lastformat", exp.format.getName());
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(i18n.tr("Bitte geben Sie eine Datei ein, in die die Daten exportiert werden sollen."));
+    fd.setText(i18n
+        .tr("Bitte geben Sie eine Datei ein, in die die Daten exportiert werden sollen."));
     fd.setOverwrite(true);
     String[] se = exp.format.getFileExtensions();
     String ext = se == null ? "" : se[0];
@@ -184,7 +186,8 @@ public class ExportDialog extends AbstractDialog<Object>
     fd.setFileName(new Dateiname(exp.exporter.getDateiname(), "", "a$-d$z$",
         ext).get());
 
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
@@ -227,24 +230,7 @@ public class ExportDialog extends AbstractDialog<Object>
 
           if (open)
           {
-            GUI.getDisplay().asyncExec(new Runnable()
-            {
-
-              @Override
-              public void run()
-              {
-                try
-                {
-                  new Program().handleAction(file);
-                }
-                catch (ApplicationException ae)
-                {
-                  Application.getMessagingFactory().sendMessage(
-                      new StatusBarMessage(ae.getLocalizedMessage(),
-                          StatusBarMessage.TYPE_ERROR));
-                }
-              }
-            });
+            FileViewer.show(file);
           }
         }
         catch (ApplicationException ae)
@@ -396,7 +382,7 @@ public class ExportDialog extends AbstractDialog<Object>
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "name"};
+      return new String[] { "name" };
     }
 
     /**

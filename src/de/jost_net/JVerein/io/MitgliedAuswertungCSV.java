@@ -38,10 +38,6 @@ import org.supercsv.prefs.CsvPreference;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -49,7 +45,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
 {
 
   private String vorlagedateiname;
-  
+
   private String name;
 
   private String[] headerUser;
@@ -66,14 +62,14 @@ public class MitgliedAuswertungCSV implements IAuswertung
 
   public MitgliedAuswertungCSV(String filename)
   {
-    this();  // call default constructor
-    
+    this(); // call default constructor
+
     if (filename.length() > 0)
     {
       this.vorlagedateiname = filename;
-      this.name = "Vorlage CSV: " + filename.substring(
-          filename.lastIndexOf(File.separator) + 1, 
-          filename.lastIndexOf("."));  
+      this.name = "Vorlage CSV: "
+          + filename.substring(filename.lastIndexOf(File.separator) + 1,
+              filename.lastIndexOf("."));
     }
   }
 
@@ -181,24 +177,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
         writer.write(mit.getMap(null), headerKeys, processors);
       }
       writer.close();
-      GUI.getDisplay().asyncExec(new Runnable()
-      {
-
-        @Override
-        public void run()
-        {
-          try
-          {
-            new Program().handleAction(file);
-          }
-          catch (ApplicationException ae)
-          {
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(ae.getLocalizedMessage(),
-                    StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      });
+      FileViewer.show(file);
     }
     catch (Exception e)
     {
@@ -236,7 +215,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
   @Override
   public String toString()
   {
-    return name;     
+    return name;
   }
 
   @Override

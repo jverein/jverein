@@ -44,10 +44,6 @@ import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.system.Application;
-import de.willuhn.util.ApplicationException;
 
 public class Kontoauszug
 {
@@ -177,24 +173,6 @@ public class Kontoauszug
   private void zeigeDokument()
   {
     GUI.getStatusBar().setSuccessText("Kontoauszug erstellt");
-    GUI.getDisplay().asyncExec(new Runnable()
-    {
-
-      @Override
-      public void run()
-      {
-        try
-        {
-          new Program().handleAction(file);
-        }
-        catch (ApplicationException ae)
-        {
-          Application.getMessagingFactory().sendMessage(
-              new StatusBarMessage(ae.getLocalizedMessage(),
-                  StatusBarMessage.TYPE_ERROR));
-        }
-      }
-    });
-
+    FileViewer.show(file);
   }
 }

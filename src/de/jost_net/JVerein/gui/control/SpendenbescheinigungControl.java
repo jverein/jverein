@@ -42,6 +42,7 @@ import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
 import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.keys.HerkunftSpende;
@@ -67,11 +68,8 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -533,24 +531,7 @@ public class SpendenbescheinigungControl extends AbstractControl
               true, s);
           spa.handleAction(spb);
           GUI.getStatusBar().setSuccessText("Spendenbescheinigung erstellt");
-          GUI.getDisplay().asyncExec(new Runnable()
-          {
-
-            @Override
-            public void run()
-            {
-              try
-              {
-                new Program().handleAction(file);
-              }
-              catch (ApplicationException ae)
-              {
-                Application.getMessagingFactory().sendMessage(
-                    new StatusBarMessage(ae.getLocalizedMessage(),
-                        StatusBarMessage.TYPE_ERROR));
-              }
-            }
-          });
+          FileViewer.show(file);
         }
         catch (RemoteException e)
         {

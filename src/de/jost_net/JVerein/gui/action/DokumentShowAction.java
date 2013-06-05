@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Map;
 
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.rmi.AbstractDokument;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -56,13 +57,13 @@ public class DokumentShowAction implements Action
         return;
       }
       QueryMessage qm = new QueryMessage(ad.getUUID(), null);
-      Application.getMessagingFactory().getMessagingQueue(
-          "jameica.messaging.getmeta").sendSyncMessage(qm);
+      Application.getMessagingFactory()
+          .getMessagingQueue("jameica.messaging.getmeta").sendSyncMessage(qm);
       Map map = (Map) qm.getData();
 
       qm = new QueryMessage(ad.getUUID(), null);
-      Application.getMessagingFactory().getMessagingQueue(
-          "jameica.messaging.get").sendSyncMessage(qm);
+      Application.getMessagingFactory()
+          .getMessagingQueue("jameica.messaging.get").sendSyncMessage(qm);
       byte[] data = (byte[]) qm.getData();
       final File file = new File(System.getProperty("java.io.tmpdir") + "/"
           + map.get("filename"));
@@ -70,24 +71,7 @@ public class DokumentShowAction implements Action
       fos.write(data);
       fos.close();
       file.deleteOnExit();
-      GUI.getDisplay().asyncExec(new Runnable()
-      {
-
-        @Override
-        public void run()
-        {
-          try
-          {
-            new Program().handleAction(file);
-          }
-          catch (ApplicationException ae)
-          {
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(ae.getLocalizedMessage(),
-                    StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      });
+      FileViewer.show(file);
     }
     catch (Exception e)
     {

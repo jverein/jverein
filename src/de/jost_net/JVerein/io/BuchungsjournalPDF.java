@@ -35,9 +35,6 @@ import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.messaging.StatusBarMessage;
-import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -148,23 +145,7 @@ public class BuchungsjournalPDF
 
       reporter.close();
       fos.close();
-      GUI.getDisplay().asyncExec(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          try
-          {
-            new Program().handleAction(file);
-          }
-          catch (ApplicationException ae)
-          {
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(ae.getLocalizedMessage(),
-                    StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      });
+      FileViewer.show(file);
     }
     catch (DocumentException e)
     {

@@ -47,6 +47,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.ArbeitseinsatzUeberpruefungInput;
 import de.jost_net.JVerein.gui.parts.ArbeitseinsatzUeberpruefungList;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
+import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
@@ -67,9 +68,7 @@ import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.gui.parts.Button;
-import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -303,14 +302,15 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -373,24 +373,7 @@ public class ArbeitseinsatzControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
-        GUI.getDisplay().asyncExec(new Runnable()
-        {
-
-          @Override
-          public void run()
-          {
-            try
-            {
-              new Program().handleAction(file);
-            }
-            catch (ApplicationException ae)
-            {
-              Application.getMessagingFactory().sendMessage(
-                  new StatusBarMessage(ae.getLocalizedMessage(),
-                      StatusBarMessage.TYPE_ERROR));
-            }
-          }
-        });
+        FileViewer.show(file);
       }
 
       @Override
@@ -412,14 +395,15 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "CSV").get());
-    fd.setFilterExtensions(new String[] { "*.CSV"});
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "CSV").get());
+    fd.setFilterExtensions(new String[] { "*.CSV" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -447,7 +431,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
           final String[] header = new String[] { "name", "vorname", "strasse",
               "adressierungszusatz", "plz", "ort", "anrede", "soll", "ist",
-              "differenz", "stundensatz", "gesamtbetrag"};
+              "differenz", "stundensatz", "gesamtbetrag" };
           writer.writeHeader(header);
           // set up some data to write
           while (it.hasNext())
@@ -479,25 +463,7 @@ public class ArbeitseinsatzControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
           throw new ApplicationException(e);
         }
-        GUI.getDisplay().asyncExec(new Runnable()
-        {
-
-          @Override
-          public void run()
-          {
-            try
-            {
-              new Program().handleAction(file);
-            }
-            catch (ApplicationException ae)
-            {
-              Application.getMessagingFactory().sendMessage(
-                  new StatusBarMessage(ae.getLocalizedMessage(),
-                      StatusBarMessage.TYPE_ERROR));
-            }
-          }
-        });
-
+        FileViewer.show(file);
       }
 
       @Override
@@ -532,8 +498,8 @@ public class ArbeitseinsatzControl extends AbstractControl
           while (it.hasNext())
           {
             ArbeitseinsatzZeile z = (ArbeitseinsatzZeile) it.next();
-            Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService().createObject(
-                Zusatzbetrag.class, null);
+            Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService()
+                .createObject(Zusatzbetrag.class, null);
             Double betrag = (Double) z.getAttribute("gesamtbetrag");
             betrag = betrag * -1;
             zb.setBetrag(betrag);
@@ -575,9 +541,11 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   private GenericIterator getIterator() throws RemoteException
   {
-    ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList.getInfo();
+    ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
+        .getInfo();
 
-    GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
+    GenericIterator gi = PseudoIterator.fromArray(zeile
+        .toArray(new GenericObject[zeile.size()]));
     return gi;
   }
 
@@ -586,8 +554,8 @@ public class ArbeitseinsatzControl extends AbstractControl
     try
     {
       settings.setAttribute("jahr", (Integer) getSuchJahr().getValue());
-      settings.setAttribute("schluessel",
-          (Integer) getAuswertungSchluessel().getValue());
+      settings.setAttribute("schluessel", (Integer) getAuswertungSchluessel()
+          .getValue());
 
       if (arbeitseinsatzueberpruefungList == null)
       {
@@ -597,9 +565,12 @@ public class ArbeitseinsatzControl extends AbstractControl
       }
       else
       {
-        arbeitseinsatzueberpruefungList.setJahr((Integer) getSuchJahr().getValue());
-        arbeitseinsatzueberpruefungList.setSchluessel((Integer) getAuswertungSchluessel().getValue());
-        ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList.getInfo();
+        arbeitseinsatzueberpruefungList.setJahr((Integer) getSuchJahr()
+            .getValue());
+        arbeitseinsatzueberpruefungList
+            .setSchluessel((Integer) getAuswertungSchluessel().getValue());
+        ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
+            .getInfo();
         arbeitseinsatzueberpruefungList.removeAll();
         for (ArbeitseinsatzZeile az : zeile)
         {

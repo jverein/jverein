@@ -19,25 +19,38 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.menu;
+package de.jost_net.JVerein.io;
 
-import de.jost_net.JVerein.gui.action.MailAnhangAnzeigeAction;
-import de.jost_net.JVerein.gui.action.MailAnhangDeleteAction;
-import de.jost_net.JVerein.gui.control.MailControl;
-import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
-import de.willuhn.jameica.gui.parts.ContextMenu;
+import java.io.File;
 
-/**
- * Kontext-Menu zu Mailanhängen.
- */
-public class MailAnhangMenu extends ContextMenu
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.messaging.StatusBarMessage;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.util.ApplicationException;
+
+public class FileViewer
 {
-
-  public MailAnhangMenu(MailControl control)
+  public static void show(final File file)
   {
-    addItem(new CheckedContextMenuItem("anzeigen", new MailAnhangAnzeigeAction(
-        control), "show.png"));
-    addItem(new CheckedContextMenuItem("entfernen", new MailAnhangDeleteAction(
-        control), "user-trash.png"));
+    GUI.getDisplay().asyncExec(new Runnable()
+    {
+
+      @Override
+      public void run()
+      {
+        try
+        {
+          new Program().handleAction(file);
+        }
+        catch (ApplicationException ae)
+        {
+          Application.getMessagingFactory().sendMessage(
+              new StatusBarMessage(ae.getLocalizedMessage(),
+                  StatusBarMessage.TYPE_ERROR));
+        }
+      }
+    });
+
   }
 }
