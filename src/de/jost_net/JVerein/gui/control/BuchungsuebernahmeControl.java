@@ -74,7 +74,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
       return konto;
     }
     // String kontoid = settings.getString("kontoid", "");
-    konto = new KontoauswahlInput().getKontoAuswahl(false, "", true);
+    konto = new KontoauswahlInput().getKontoAuswahl(false, "", true, true);
     return konto;
   }
 

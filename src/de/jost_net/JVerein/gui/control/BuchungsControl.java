@@ -203,7 +203,7 @@ public class BuchungsControl extends AbstractControl
     }
     String kontoid = settings.getString("kontoid", "");
     konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl(
-        false, kontoid, false);
+        false, kontoid, false, false);
     if (withFocus)
     {
       konto.focus();
@@ -435,7 +435,8 @@ public class BuchungsControl extends AbstractControl
       return suchkonto;
     }
     String kontoid = settings.getString("suchkontoid", "");
-    suchkonto = new KontoauswahlInput().getKontoAuswahl(true, kontoid, false);
+    suchkonto = new KontoauswahlInput().getKontoAuswahl(true, kontoid, false,
+        false);
     suchkonto.addListener(new FilterListener());
     return suchkonto;
   }

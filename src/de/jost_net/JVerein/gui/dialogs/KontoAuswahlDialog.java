@@ -45,16 +45,26 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
 
   private boolean keinkonto;
 
-  private boolean onlyHibiscus;
+  private boolean nurHibiscus;
+  
+  private boolean nurAktuelleKonten;
 
+  /**
+   * Dialog zur Kontenauswahl
+   * @param position An welcher Stelle soll der Dialog angezeigt werden?
+   * @param keinkonto Darf der Dialog auch ohne Kontenauswahl geschlossen werden?
+   * @param nurHibiscus Es sollen nur Hibiscus-Konten angezeigt werden
+   * @param nurAktuelleKonten Es sollen nur aktuelle Konten angezeigt werden.
+   */
   public KontoAuswahlDialog(int position, boolean keinkonto,
-      boolean onlyHibiscus)
+      boolean nurHibiscus, boolean nurAktuelleKonten)
   {
     super(position);
     super.setSize(400, 300);
     this.setTitle("Konto-Auswahl");
     this.keinkonto = keinkonto;
-    this.onlyHibiscus = onlyHibiscus;
+    this.nurHibiscus = nurHibiscus;
+    this.nurAktuelleKonten=nurAktuelleKonten;
   }
 
   @Override
@@ -70,7 +80,6 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
 
     Action a = new Action()
     {
-
       @Override
       public void handleAction(Object context)
       {
@@ -89,7 +98,7 @@ public class KontoAuswahlDialog extends AbstractDialog<Konto>
       }
     };
     final KontoList konten = new de.jost_net.JVerein.gui.parts.KontoList(a,
-        onlyHibiscus);
+        nurHibiscus, nurAktuelleKonten);
     konten.setContextMenu(null);
     konten.setMulti(false);
     konten.setSummary(false);

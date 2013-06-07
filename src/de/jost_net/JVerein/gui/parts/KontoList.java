@@ -24,6 +24,7 @@
 package de.jost_net.JVerein.gui.parts;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -41,9 +42,10 @@ import de.willuhn.jameica.gui.parts.TablePart;
 public class KontoList extends TablePart implements Part
 {
 
-  public KontoList(Action action, boolean onlyHibiscus) throws RemoteException
+  public KontoList(Action action, boolean onlyHibiscus,
+      boolean nurAktuelleKonten) throws RemoteException
   {
-    this(init(onlyHibiscus), action);
+    this(init(onlyHibiscus, nurAktuelleKonten), action);
   }
 
   public KontoList(GenericIterator konten, Action action)
@@ -72,12 +74,20 @@ public class KontoList extends TablePart implements Part
    * @return Liste der Konten.
    * @throws RemoteException
    */
-  private static DBIterator init(boolean onlyHibiscus) throws RemoteException
+  private static DBIterator init(boolean onlyHibiscus, boolean nurAktuelleKonten)
+      throws RemoteException
   {
     DBIterator i = Einstellungen.getDBService().createList(Konto.class);
     if (onlyHibiscus)
     {
       i.addFilter("hibiscusid > -1");
+    }
+    if (nurAktuelleKonten)
+    {
+      Calendar cal = Calendar.getInstance();
+      int year = cal.get(Calendar.YEAR);
+      year = year - 2;
+      i.addFilter("(aufloesung is null or year(aufloesung) >= ?)", year);
     }
     i.setOrder("ORDER BY nummer, bezeichnung");
     return i;

@@ -53,10 +53,16 @@ public class AnfangsbestandNeuAction implements Action
       else
       {
         KontoAuswahlDialog d = new KontoAuswahlDialog(
-            KontoAuswahlDialog.POSITION_CENTER, false, false);
+            KontoAuswahlDialog.POSITION_CENTER, false, false, true);
         try
         {
           context = d.open();
+          if (context == null)
+          {
+            GUI.getStatusBar().setErrorText(
+                "Kein Konto ausgewählt. Vorgang abgebrochen.");
+            return;
+          }
           k = (Konto) context;
           anf.setKonto(k);
         }

@@ -65,14 +65,14 @@ public class KontoauswahlInput
    * Liefert ein Auswahlfeld fuer das Konto.
    * 
    * @param keinkonto
-   *        true= ein kann auch kein Konto ausgewählt werden. false = es muss
-   *        ein Konto ausgewählt werden.
+   *          true= ein kann auch kein Konto ausgewählt werden. false = es muss
+   *          ein Konto ausgewählt werden.
    * 
    * @return Auswahl-Feld.
    * @throws RemoteException
    */
   public DialogInput getKontoAuswahl(boolean keinkonto, String kontoid,
-      boolean onlyHibiscus) throws RemoteException
+      boolean onlyHibiscus, boolean nurAktuelleKunden) throws RemoteException
   {
     if (kontoAuswahl != null)
     {
@@ -80,7 +80,8 @@ public class KontoauswahlInput
     }
     this.keinkonto = keinkonto;
     KontoAuswahlDialog d = new KontoAuswahlDialog(
-        KontoAuswahlDialog.POSITION_MOUSE, keinkonto, onlyHibiscus);
+        KontoAuswahlDialog.POSITION_MOUSE, keinkonto, onlyHibiscus,
+        nurAktuelleKunden);
     d.addCloseListener(new KontoListener());
 
     if (kontoid == null || kontoid.length() == 0)
@@ -130,8 +131,9 @@ public class KontoauswahlInput
           konto = null;
           try
           {
-            getKontoAuswahl(keinkonto, "", false).setText("");
-            getKontoAuswahl(keinkonto, "", false).setComment("");
+            // TODO warum wird das doppelt aufgerufen?
+            getKontoAuswahl(keinkonto, "", false, false).setText("");
+            getKontoAuswahl(keinkonto, "", false, false).setComment("");
             settings.setAttribute("kontoid", "");
           }
           catch (RemoteException e)
@@ -145,8 +147,9 @@ public class KontoauswahlInput
       try
       {
         String b = konto.getBezeichnung();
-        getKontoAuswahl(keinkonto, "", false).setText(konto.getNummer());
-        getKontoAuswahl(keinkonto, "", false).setComment(b == null ? "" : b);
+        getKontoAuswahl(keinkonto, "", false, false).setText(konto.getNummer());
+        getKontoAuswahl(keinkonto, "", false, false).setComment(
+            b == null ? "" : b);
         settings.setAttribute("kontoid", konto.getID());
       }
       catch (RemoteException er)
