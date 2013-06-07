@@ -41,11 +41,8 @@ import de.willuhn.util.ApplicationException;
 public class MailAnhangAnzeigeAction implements Action
 {
 
-  private MailControl control = null;
-
   public MailAnhangAnzeigeAction(MailControl control)
   {
-    this.control = control;
   }
 
   @Override
