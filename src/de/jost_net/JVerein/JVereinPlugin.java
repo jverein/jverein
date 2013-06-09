@@ -24,6 +24,7 @@ package de.jost_net.JVerein;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
+import de.jost_net.JVerein.io.UmsatzMessageConsumer;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.server.JVereinDBServiceImpl;
 import de.jost_net.JVerein.util.HelpConsumer;
@@ -52,7 +53,8 @@ public class JVereinPlugin extends AbstractPlugin
    * MessageConsumer, mit dem JVerein über neu eingetroffene Umsätze aus
    * Hibiscus informiert wird.
    */
-  // private UmsatzMessageConsumer umc = null;
+  private UmsatzMessageConsumer umc = null;
+
   /**
    * constructor.
    * 
@@ -89,11 +91,11 @@ public class JVereinPlugin extends AbstractPlugin
 
     Application.getCallback().getStartupMonitor().addPercentComplete(5);
     ExtensionRegistry.register(new MyExtension(), "jverein.main");
-    // this.umc = new UmsatzMessageConsumer();
-    // Application.getMessagingFactory().registerMessageConsumer(this.umc);
+    this.umc = new UmsatzMessageConsumer();
+    Application.getMessagingFactory().registerMessageConsumer(this.umc);
     MessageConsumer mc = new HelpConsumer();
-    Application.getMessagingFactory().getMessagingQueue("jameica.help.missing").registerMessageConsumer(
-        mc);
+    Application.getMessagingFactory().getMessagingQueue("jameica.help.missing")
+        .registerMessageConsumer(mc);
 
     Application.getBootLoader().getBootable(ArchiveService.class);
   }
@@ -173,7 +175,7 @@ public class JVereinPlugin extends AbstractPlugin
    * Hilfsmethode zum bequemen Ausfuehren von Methoden auf dem Service.
    * 
    * @param call
-   *        der Call.
+   *          der Call.
    * @throws ApplicationException
    */
   private void call(ServiceCall call) throws ApplicationException
@@ -227,7 +229,8 @@ public class JVereinPlugin extends AbstractPlugin
       Logger.info("Archiv-Plugin ist lokal installiert");
       return true;
     }
-    String uri = LookupService.lookup("tcp:de.willuhn.jameica.messaging.Plugin.connector.tcp");
+    String uri = LookupService
+        .lookup("tcp:de.willuhn.jameica.messaging.Plugin.connector.tcp");
     if (uri != null)
     {
       Logger.info("Archiv-Plugin im LAN gefunden: " + uri);

@@ -109,8 +109,6 @@ public class DokumentationUtil
 
   public static final String ANFANGSBESTAENDE = PRE + "Anfangsbestände";
 
-  public static final String BUCHUNGENAUSHIBISCUS = PRE + "Buchungsübernahme";
-
   public static final String BUCHUNGEN = PRE + "Buchungen.php";
 
   public static final String JAHRESSALDO = PRE + "Jahressaldo";

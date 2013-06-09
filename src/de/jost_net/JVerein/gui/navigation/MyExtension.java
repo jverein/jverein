@@ -40,7 +40,6 @@ import de.jost_net.JVerein.gui.action.BuchungsListeAction;
 import de.jost_net.JVerein.gui.action.BuchungsartListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseSaldoAction;
-import de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeListeAction;
 import de.jost_net.JVerein.gui.action.EigenschaftListeAction;
@@ -189,8 +188,6 @@ public class MyExtension implements Extension
           new KontoListAction(), "system-file-manager.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Anfangsbestände",
           new AnfangsbestandListAction(), "tab-new.png"));
-      buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungsübernahme",
-          new BuchungsuebernahmeAction(), "view-refresh.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungen",
           new BuchungsListeAction(), "preferences-system-windows.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungsklassen",

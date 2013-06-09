@@ -1,4 +1,4 @@
-package de.jost_net.JVerein.gui.control;
+package de.jost_net.JVerein.io;
 
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.jameica.hbci.messaging.ImportMessage;
@@ -13,7 +13,6 @@ import de.willuhn.jameica.messaging.MessageConsumer;
 
 public class UmsatzMessageConsumer implements MessageConsumer
 {
-
   @Override
   public Class<?>[] getExpectedMessageTypes()
   {
@@ -36,12 +35,9 @@ public class UmsatzMessageConsumer implements MessageConsumer
     }
     if (o instanceof Umsatz)
     {
-      Umsatz u = (Umsatz) o;
-      System.out.println("UmsatzMessageConsumer:" + u);
+      BuchungsuebernahmeThread but = BuchungsuebernahmeThread.getInstance();
+      but.newStart();
     }
-    // Checken, ob uns der Transfer-Typ interessiert
-    // if (!getObjectType().isAssignableFrom(o.getClass()))
-    // { return;}
   }
 
   @Override
