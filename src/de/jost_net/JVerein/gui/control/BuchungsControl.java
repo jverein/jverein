@@ -614,7 +614,7 @@ public class BuchungsControl extends AbstractControl
       {
         if (o != null)
         {
-          b.setBuchungsart(new Integer(o.getID()));
+          b.setBuchungsart(new Long(o.getID()));
         }
         else
         {
@@ -623,7 +623,7 @@ public class BuchungsControl extends AbstractControl
         o = (GenericObject) getProjekt().getValue();
         if (o != null)
         {
-          b.setProjektID(new Integer(o.getID()));
+          b.setProjektID(new Long(o.getID()));
         }
         else
         {
@@ -849,7 +849,7 @@ public class BuchungsControl extends AbstractControl
         b2.setKonto(b.getKonto());
         b2.setMitgliedskonto(b.getMitgliedskonto());
         b2.setName(b.getName());
-        b2.setSplitId(Integer.parseInt(b.getID()));
+        b2.setSplitId(new Long(b.getID()));
         b2.setUmsatzid(b.getUmsatzid());
         b2.setZweck(b.getZweck());
         splitbuchungen.add(b2);

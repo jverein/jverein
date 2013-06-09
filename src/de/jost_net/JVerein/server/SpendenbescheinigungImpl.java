@@ -363,7 +363,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   public void store() throws RemoteException, ApplicationException
   {
     super.store();
-    int id = Integer.parseInt(getID());
+    Long id = new Long(getID());
     for (Buchung b : buchungen)
     {
       b.setSpendenbescheinigungId(id);

@@ -88,7 +88,7 @@ public class BuchungBuchungsartZuordnungAction implements Action
           }
           else
           {
-            buchung.setBuchungsart(new Integer(ba.getID()));
+            buchung.setBuchungsart(new Long(ba.getID()));
             buchung.store();
           }
         }

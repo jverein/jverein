@@ -73,47 +73,45 @@ public interface Buchung extends DBObject
 
   public Buchungsart getBuchungsart() throws RemoteException;
 
-  public int getBuchungsartId() throws RemoteException;
+  public Long getBuchungsartId() throws RemoteException;
 
-  public void setBuchungsart(Integer buchungsart) throws RemoteException;
+  public void setBuchungsart(Long buchungsart) throws RemoteException;
 
   public Abrechnungslauf getAbrechnungslauf() throws RemoteException;
 
-  public int getAbrechnungslaufID() throws RemoteException;
+  public Long getAbrechnungslaufID() throws RemoteException;
 
   public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
       throws RemoteException;
 
-  public void setAbrechnungslauf(Integer abrechnungslauf)
-      throws RemoteException;
+  public void setAbrechnungslauf(Long abrechnungslauf) throws RemoteException;
 
   public Mitgliedskonto getMitgliedskonto() throws RemoteException;
 
-  public int getMitgliedskontoID() throws RemoteException;
+  public Long getMitgliedskontoID() throws RemoteException;
 
   public void setMitgliedskonto(Mitgliedskonto mitgliedskonto)
       throws RemoteException;
 
-  public void setMitgliedskontoID(Integer mitgliedskonto)
-      throws RemoteException;
+  public void setMitgliedskontoID(Long mitgliedskonto) throws RemoteException;
 
   public Projekt getProjekt() throws RemoteException;
 
-  public int getProjektID() throws RemoteException;
+  public Long getProjektID() throws RemoteException;
 
   public void setProjekt(Projekt projekt) throws RemoteException;
 
-  public void setProjektID(Integer projekt) throws RemoteException;
+  public void setProjektID(Long projekt) throws RemoteException;
 
   public Jahresabschluss getJahresabschluss() throws RemoteException;
 
-  public Integer getSplitId() throws RemoteException;
+  public Long getSplitId() throws RemoteException;
 
-  public void setSplitId(Integer splitid) throws RemoteException;
+  public void setSplitId(Long splitid) throws RemoteException;
 
   public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException;
 
-  public void setSpendenbescheinigungId(Integer spendenbescheinigung)
+  public void setSpendenbescheinigungId(Long spendenbescheinigung)
       throws RemoteException;
 
   public Map<String, Object> getMap(Map<String, Object> map)

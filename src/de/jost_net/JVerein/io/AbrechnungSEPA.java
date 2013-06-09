@@ -710,7 +710,7 @@ public class AbrechnungSEPA
       }
       if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
       {
-        buchung.setBuchungsart(new Integer(beitragsgruppe.getBuchungsart()
+        buchung.setBuchungsart(new Long(beitragsgruppe.getBuchungsart()
             .getID()));
       }
       buchung.store();

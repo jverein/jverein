@@ -166,7 +166,7 @@ public class CSVBuchungsImport implements Importer
               throw new ApplicationException(MessageFormat.format(
                   "Buchungsart {0} existiert nicht in JVerein!", bart + ""));
             }
-            bu.setBuchungsart(Integer.parseInt(b1.getID()));
+            bu.setBuchungsart(new Long(b1.getID()));
           }
           catch (SQLException e)
           {
