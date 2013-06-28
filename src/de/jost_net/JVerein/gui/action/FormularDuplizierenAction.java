@@ -65,6 +65,7 @@ public class FormularDuplizierenAction implements Action
         Formularfeld ff1 = (Formularfeld) it.next();
         Formularfeld ff2 = (Formularfeld) Einstellungen.getDBService().createObject(
             Formularfeld.class, ff1.getID());
+        ff2.setID(null);
         ff2.setFormular(f2);
         ff2.store();
       }

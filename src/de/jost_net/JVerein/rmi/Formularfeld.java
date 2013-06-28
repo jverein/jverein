@@ -27,6 +27,8 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Formularfeld extends DBObject
 {
+  public void setID(String id) throws RemoteException;
+
   public Formular getFormular() throws RemoteException;
 
   public void setFormular(Formular formular) throws RemoteException;
