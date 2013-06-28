@@ -1304,6 +1304,10 @@ public class JVereinUpdateProvider
     {
       update0324(conn);
     }
+    if (cv < 325)
+    {
+      update0325(conn);
+    }
     // TODO
   }
 
@@ -7732,6 +7736,22 @@ public class JVereinUpdateProvider
                 + "ALTER TABLE zusatzfelder ADD CONSTRAINT fkZusatzfelder2 FOREIGN KEY (felddefinition) REFERENCES felddefinition (id) ON DELETE CASCADE;\n");
 
     execute(conn, statements, "Spaltentypen geändert", 324);
+  }
+
+  private void update0325(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "alter table abrechnungslauf alter column zahlungsgrund varchar(140);\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "alter table abrechnungslauf modify column zahlungsgrund varchar(140);\n");
+
+    execute(conn, statements, "Spalte zahlungsgrund der Tabelle abrechnungslauf verlängert", 325);
   }
 
   private String alterColumn(String table, String column, String type)
