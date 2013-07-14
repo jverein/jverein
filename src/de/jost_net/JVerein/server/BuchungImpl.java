@@ -50,6 +50,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
   private static final long serialVersionUID = 1L;
 
+  private transient boolean speicherung = true;
+
+  private transient boolean delete = false;
+
   public BuchungImpl() throws RemoteException
   {
     super();
@@ -88,7 +92,8 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
   }
 
-  private void plausi() throws RemoteException, ApplicationException
+  @Override
+  public void plausi() throws RemoteException, ApplicationException
   {
     if (getKonto() == null)
     {
@@ -116,6 +121,14 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     {
       throw new ApplicationException(
           "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!");
+    }
+    if (getBetrag() == 0.0d)
+    {
+      throw new ApplicationException("Betrag fehlt!");
+    }
+    if (!getSpeicherung() && getBuchungsart() == null)
+    {
+      throw new ApplicationException("Buchungsart fehlt bei Splitbuchung!");
     }
   }
 
@@ -570,6 +583,18 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   }
 
   @Override
+  public Integer getSplitTyp() throws RemoteException
+  {
+    return (Integer) getAttribute("splittyp");
+  }
+
+  @Override
+  public void setSplitTyp(Integer splittyp) throws RemoteException
+  {
+    setAttribute("splittyp", splittyp);
+  }
+
+  @Override
   public Boolean getVerzicht() throws RemoteException
   {
     return Util.getBoolean(getAttribute("verzicht"));
@@ -581,4 +606,27 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     setAttribute("verzicht", verzicht);
   }
 
+  @Override
+  public void setSpeicherung(boolean speicherung)
+  {
+    this.speicherung = speicherung;
+  }
+
+  @Override
+  public boolean getSpeicherung()
+  {
+    return speicherung;
+  }
+
+  @Override
+  public void setDelete(boolean delete)
+  {
+    this.delete = delete;
+  }
+
+  @Override
+  public boolean isToDelete()
+  {
+    return delete;
+  }
 }

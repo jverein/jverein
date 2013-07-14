@@ -35,6 +35,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class BuchungView extends AbstractView
@@ -43,10 +44,15 @@ public class BuchungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Buchung");
-
     final BuchungsControl control = new BuchungsControl(this);
-
+    if (control.getBuchung().getSpeicherung())
+    {
+      GUI.getView().setTitle("Buchung");
+    }
+    else
+    {
+      GUI.getView().setTitle("Splitbuchung");
+    }
     boolean buchungabgeschlossen = false;
     try
     {
@@ -76,14 +82,26 @@ public class BuchungView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
-    buttons.addButton("neu", new BuchungNeuAction(), null, false,
-        "document-new.png");
+    if (control.getBuchung().getSpeicherung())
+    {
+      buttons.addButton("neu", new BuchungNeuAction(), null, false,
+          "document-new.png");
+    }
     Button savButton = new Button("speichern", new Action()
     {
       @Override
       public void handleAction(Object context)
       {
         control.handleStore();
+        try
+        {
+          control.refreshSplitbuchungen();
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+
       }
     }, null, true, "document-save.png");
     savButton.setEnabled(!buchungabgeschlossen);

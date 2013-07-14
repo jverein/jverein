@@ -25,59 +25,44 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.view.BuchungView;
-import de.jost_net.JVerein.gui.view.SplitBuchungView;
-import de.jost_net.JVerein.io.SplitbuchungsContainer;
+import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
-public class BuchungAction implements Action
+public class SplitbuchungNeuAction implements Action
 {
-  private boolean splitbuchung;
-
-  public BuchungAction(boolean splitbuchung)
-  {
-    this.splitbuchung = splitbuchung;
-  }
-
   @Override
-  public void handleAction(Object context) throws ApplicationException
+  public void handleAction(Object context)
   {
-    Buchung b = null;
-
-    if (context != null && (context instanceof Buchung))
+    Buchung buch;
+    Buchung master = null;
+    if (context instanceof Buchung)
     {
-      b = (Buchung) context;
-    }
-    else
-    {
-      try
-      {
-        b = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
-            null);
-      }
-      catch (RemoteException e)
-      {
-        throw new ApplicationException(
-            "Fehler bei der Erzeugung einer neuen Buchung", e);
-      }
+      master = (Buchung) context;
     }
     try
     {
-      if (b.getSplitId() == null || splitbuchung)
-      {
-        GUI.startView(BuchungView.class.getName(), b);
-      }
-      else
-      {
-        SplitbuchungsContainer.init(b);
-        GUI.startView(SplitBuchungView.class.getName(), b);
-      }
+      buch = (Buchung) Einstellungen.getDBService().createObject(
+          Buchung.class, null);
+      buch.setAuszugsnummer(master.getAuszugsnummer());
+      buch.setBlattnummer(master.getBlattnummer());
+      buch.setDatum(master.getDatum());
+      buch.setKommentar(master.getKommentar());
+      buch.setKonto(master.getKonto());
+      buch.setMitgliedskonto(master.getMitgliedskonto());
+      buch.setName(master.getName());
+      buch.setProjekt(master.getProjekt());
+      buch.setSplitId(new Long(master.getID()));
+      buch.setUmsatzid(master.getUmsatzid());
+      buch.setZweck(master.getZweck());
+      buch.setSpeicherung(false);
+      buch.setSplitTyp(SplitbuchungTyp.SPLIT);
+      GUI.startView(BuchungView.class, buch);
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(e);
+      e.printStackTrace();
     }
   }
 }

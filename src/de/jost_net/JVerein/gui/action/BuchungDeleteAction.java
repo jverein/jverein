@@ -24,12 +24,14 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 
+import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -89,7 +91,15 @@ public class BuchungDeleteAction implements Action
               new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
                   ja.getName() }));
         }
-        bu.delete();
+        if (bu.getSplitId() == null)
+        {
+          bu.delete();
+        }
+        else
+        {
+          bu.setDelete(true);
+          Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
+        }
       }
       GUI.getStatusBar().setSuccessText(
           "Buchung" + (b.length > 1 ? "en" : "") + " gelöscht.");

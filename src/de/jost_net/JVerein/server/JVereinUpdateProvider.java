@@ -1308,6 +1308,14 @@ public class JVereinUpdateProvider
     {
       update0325(conn);
     }
+    if (cv < 326)
+    {
+      update0326(conn);
+    }
+    if (cv < 327)
+    {
+      update0327(conn);
+    }
     // TODO
   }
 
@@ -7751,7 +7759,33 @@ public class JVereinUpdateProvider
         .put(DBSupportMySqlImpl.class.getName(),
             "alter table abrechnungslauf modify column zahlungsgrund varchar(140);\n");
 
-    execute(conn, statements, "Spalte zahlungsgrund der Tabelle abrechnungslauf verlängert", 325);
+    execute(conn, statements,
+        "Spalte zahlungsgrund der Tabelle abrechnungslauf verlängert", 325);
+  }
+
+  private void update0326(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE buchung ADD splittyp integer before spendenbescheinigung;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE buchung ADD splitid integer after splitid;\n");
+
+    execute(conn, statements,
+        "Spalte splittyp in die Tabelle buchung eingefügt", 326);
+  }
+
+  private void update0327(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("buchung", "splitid", "BIGINT");
+
+    statements.put(driver, sql);
+    execute(conn, statements, "Spaltentypen geändert", 327);
   }
 
   private String alterColumn(String table, String column, String type)

@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Map;
 
 import de.willuhn.datasource.rmi.DBObject;
+import de.willuhn.util.ApplicationException;
 
 public interface Buchung extends DBObject
 {
@@ -109,6 +110,10 @@ public interface Buchung extends DBObject
 
   public void setSplitId(Long splitid) throws RemoteException;
 
+  public Integer getSplitTyp() throws RemoteException;
+
+  public void setSplitTyp(Integer splittyp) throws RemoteException;
+
   public Spendenbescheinigung getSpendenbescheinigung() throws RemoteException;
 
   public void setSpendenbescheinigungId(Long spendenbescheinigung)
@@ -120,5 +125,23 @@ public interface Buchung extends DBObject
   public Boolean getVerzicht() throws RemoteException;
 
   public void setVerzicht(Boolean verzicht) throws RemoteException;
+
+  /**
+   * Soll der Datensatz in die Datenbank geschrieben werden?<br>
+   * 
+   * @param speicherung
+   *          true: ja, Normalfall <br>
+   *          false: nein, bei Splitbuchungen werden die Datensätze zunächst in
+   *          einer ArrayList gehalten und später in die Datenbank geschrieben.
+   */
+  public void setSpeicherung(boolean speicherung) throws RemoteException;
+
+  public boolean getSpeicherung() throws RemoteException;
+
+  public void setDelete(boolean delete) throws RemoteException;
+
+  public boolean isToDelete() throws RemoteException;
+
+  public void plausi() throws RemoteException, ApplicationException;
 
 }

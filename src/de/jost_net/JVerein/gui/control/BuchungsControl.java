@@ -29,14 +29,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.TableItem;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
-import de.jost_net.JVerein.gui.action.SplitBuchungDetailAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
@@ -44,10 +47,13 @@ import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
+import de.jost_net.JVerein.gui.parts.SplitbuchungListTablePart;
 import de.jost_net.JVerein.io.BuchungAuswertungCSV;
 import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.io.BuchungsjournalPDF;
+import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
+import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -67,6 +73,7 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
+import de.willuhn.jameica.gui.formatter.TableFormatter;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
@@ -78,6 +85,8 @@ import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.messaging.Message;
+import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -92,8 +101,10 @@ public class BuchungsControl extends AbstractControl
 
   private TablePart buchungsList;
 
+  /* Split-Buchnungen */
   private TablePart splitbuchungsList;
 
+  /* Controls */
   private Input id;
 
   private Input umsatzid;
@@ -144,7 +155,7 @@ public class BuchungsControl extends AbstractControl
 
   public static final String PROJEKT = "suchprojekt";
 
-  private ArrayList<Buchung> splitbuchungen = null;
+  private BuchungMessageConsumer mc = null;
 
   public BuchungsControl(AbstractView view)
   {
@@ -646,7 +657,10 @@ public class BuchungsControl extends AbstractControl
         }
         b.setBlattnummer(val);
         b.setName((String) getName().getValue());
-        b.setBetrag((Double) getBetrag().getValue());
+        if (getBetrag().getValue() != null)
+        {
+          b.setBetrag((Double) getBetrag().getValue());
+        }
         b.setZweck((String) getZweck().getValue());
         b.setDatum((Date) getDatum().getValue());
         b.setArt((String) getArt().getValue());
@@ -674,9 +688,18 @@ public class BuchungsControl extends AbstractControl
           }
         }
         b.setKommentar((String) getKommentar().getValue());
-        b.store();
-        getID().setValue(b.getID());
-        GUI.getStatusBar().setSuccessText("Buchung gespeichert");
+        if (b.getSpeicherung())
+        {
+          b.store();
+          getID().setValue(b.getID());
+          GUI.getStatusBar().setSuccessText("Buchung gespeichert");
+        }
+        else
+        {
+          SplitbuchungsContainer.add(b);
+          refreshSplitbuchungen();
+          GUI.getStatusBar().setSuccessText("Buchung übernommen");
+        }
       }
       catch (ApplicationException e)
       {
@@ -741,7 +764,8 @@ public class BuchungsControl extends AbstractControl
     query = new BuchungQuery(dv, db, k, b, p, (String) getSuchtext().getValue());
     if (buchungsList == null)
     {
-      buchungsList = new BuchungListTablePart(query.get(), new BuchungAction());
+      buchungsList = new BuchungListTablePart(query.get(), new BuchungAction(
+          false));
       buchungsList.addColumn("Nr", "id-int");
       buchungsList.addColumn("Konto", "konto", new Formatter()
       {
@@ -816,50 +840,11 @@ public class BuchungsControl extends AbstractControl
   {
     if (splitbuchungsList == null)
     {
-      splitbuchungen = new ArrayList<Buchung>();
-      Buchung b = (Buchung) getCurrentObject();
-      // Wenn eine gesplittete Buchung aufgerufen wird, wird die Hauptbuchung
-      // gelesen
-      if (b.getSplitId() != null)
-      {
-        b = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
-            b.getSplitId() + "");
-      }
-      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-      it.addFilter("id = ? or splitid = ?", b.getID(), b.getID());
-      while (it.hasNext())
-      {
-        splitbuchungen.add((Buchung) it.next());
-      }
-      it = Einstellungen.getDBService().createList(Buchung.class);
-      it.addFilter("(id = ? or splitid = ?)", b.getID(), b.getID());
-      it.addFilter("betrag = ?", b.getBetrag() * -1);
-
-      if (!it.hasNext())
-      {
-        Buchung b2 = (Buchung) Einstellungen.getDBService().createObject(
-            Buchung.class, null);
-        b2.setArt(b.getArt());
-        b2.setAuszugsnummer(b.getAuszugsnummer());
-        b2.setBetrag(b.getBetrag() * -1);
-        b2.setBlattnummer(b.getBlattnummer());
-        b2.setBuchungsart(b.getBuchungsartId());
-        b2.setDatum(b.getDatum());
-        b2.setKommentar(b.getKommentar());
-        b2.setKonto(b.getKonto());
-        b2.setMitgliedskonto(b.getMitgliedskonto());
-        b2.setName(b.getName());
-        b2.setSplitId(new Long(b.getID()));
-        b2.setUmsatzid(b.getUmsatzid());
-        b2.setZweck(b.getZweck());
-        splitbuchungen.add(b2);
-      }
-      splitbuchungsList = new TablePart(splitbuchungen,
-          new SplitBuchungDetailAction(this, this.view));
+      splitbuchungsList = new SplitbuchungListTablePart(
+          SplitbuchungsContainer.get(), new BuchungAction(true));
       splitbuchungsList.addColumn("Nr", "id-int");
       splitbuchungsList.addColumn("Konto", "konto", new Formatter()
       {
-
         @Override
         public String format(Object o)
         {
@@ -878,6 +863,15 @@ public class BuchungsControl extends AbstractControl
           return "";
         }
       });
+      splitbuchungsList.addColumn("Typ", "splittyp", new Formatter()
+      {
+        @Override
+        public String format(Object o)
+        {
+          Integer typ = (Integer) o;
+          return SplitbuchungTyp.get(typ);
+        }
+      });
       splitbuchungsList.addColumn("Datum", "datum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
       splitbuchungsList.addColumn("Auszug", "auszugsnummer");
@@ -890,8 +884,37 @@ public class BuchungsControl extends AbstractControl
           Einstellungen.DECIMALFORMAT));
       splitbuchungsList.addColumn("Mitglied", "mitgliedskonto",
           new MitgliedskontoFormatter());
+      splitbuchungsList.setContextMenu(new BuchungMenu(this));
       splitbuchungsList.setRememberColWidths(true);
       splitbuchungsList.setSummary(true);
+      this.mc = new BuchungMessageConsumer();
+      Application.getMessagingFactory().registerMessageConsumer(this.mc);
+      splitbuchungsList.setFormatter(new TableFormatter()
+      {
+        /**
+         * @see de.willuhn.jameica.gui.formatter.TableFormatter#format(org.eclipse.swt.widgets.TableItem)
+         */
+        @Override
+        public void format(TableItem item)
+        {
+          if (item == null)
+          {
+            return;
+          }
+          try
+          {
+            Buchung b = (Buchung) item.getData();
+            if (b.isToDelete())
+            {
+              item.setForeground(new Color(null, new RGB(255, 0, 0)));
+            }
+          }
+          catch (Exception e)
+          {
+            Logger.error("unable to format line", e);
+          }
+        }
+      });
     }
     else
     {
@@ -902,11 +925,15 @@ public class BuchungsControl extends AbstractControl
 
   public void refreshSplitbuchungen() throws RemoteException
   {
+    if (splitbuchungsList == null)
+    {
+      return;
+    }
     splitbuchungsList.removeAll();
 
     try
     {
-      for (Buchung b : splitbuchungen)
+      for (Buchung b : SplitbuchungsContainer.get())
       {
         splitbuchungsList.addItem(b);
       }
@@ -915,16 +942,6 @@ public class BuchungsControl extends AbstractControl
     {
       throw e;
     }
-  }
-
-  public String getDifference(Buchung b2) throws RemoteException
-  {
-    Double summe = b2.getBetrag();
-    for (Buchung b : splitbuchungen)
-    {
-      summe += b.getBetrag();
-    }
-    return Einstellungen.DECIMALFORMAT.format(summe);
   }
 
   private void starteAuswertung(boolean einzelbuchungen)
@@ -1213,4 +1230,62 @@ public class BuchungsControl extends AbstractControl
     }
   }
 
+  /**
+   * Wird benachrichtigt um die Anzeige zu aktualisieren.
+   */
+  private class BuchungMessageConsumer implements MessageConsumer
+  {
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#autoRegister()
+     */
+    @Override
+    public boolean autoRegister()
+    {
+      return false;
+    }
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#getExpectedMessageTypes()
+     */
+    @Override
+    public Class<?>[] getExpectedMessageTypes()
+    {
+      return new Class[] { BuchungMessage.class };
+    }
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#handleMessage(de.willuhn.jameica.messaging.Message)
+     */
+    @Override
+    public void handleMessage(final Message message) throws Exception
+    {
+      GUI.getDisplay().syncExec(new Runnable()
+      {
+
+        @Override
+        public void run()
+        {
+          try
+          {
+            if (splitbuchungsList == null)
+            {
+              // Eingabe-Feld existiert nicht. Also abmelden
+              Application.getMessagingFactory().unRegisterMessageConsumer(
+                  BuchungMessageConsumer.this);
+              return;
+            }
+            refreshSplitbuchungen();
+          }
+          catch (Exception e)
+          {
+            // Wenn hier ein Fehler auftrat, deregistrieren wir uns wieder
+            Logger.error("unable to refresh Splitbuchungen", e);
+            Application.getMessagingFactory().unRegisterMessageConsumer(
+                BuchungMessageConsumer.this);
+          }
+        }
+      });
+    }
+  }
 }

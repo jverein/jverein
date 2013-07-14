@@ -59,7 +59,9 @@ public class BuchungPart implements Part
   @Override
   public void paint(Composite parent) throws RemoteException
   {
-    GUI.getView().setTitle("Buchung");
+    String title = (control.getBuchung().getSpeicherung() ? "Buchung"
+        : "Splitbuchung");
+    GUI.getView().setTitle(title);
 
     ScrolledContainer scrolled = new ScrolledContainer(parent, 1);
 
@@ -67,7 +69,7 @@ public class BuchungPart implements Part
 
     SimpleContainer grKontoauszug = new SimpleContainer(cols1.getComposite());
 
-    grKontoauszug.addHeadline("Buchung");
+    grKontoauszug.addHeadline(title);
     grKontoauszug.addLabelPair("Buchungsnummer", control.getID());
     grKontoauszug.addLabelPair("Umsatz-ID", control.getUmsatzid());
     grKontoauszug.addLabelPair("Konto", control.getKonto(true));

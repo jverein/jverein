@@ -21,15 +21,15 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.SplitbuchungAufloesenAction;
+import de.jost_net.JVerein.gui.action.SplitbuchungNeuAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
-import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class SplitBuchungView extends AbstractView
 {
@@ -37,35 +37,41 @@ public class SplitBuchungView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Splitbuchung");
+    GUI.getView().setTitle("Splitbuchungen");
 
     final BuchungsControl control = new BuchungsControl(this);
 
     control.getSplitBuchungsList().paint(getParent());
-    LabelGroup lg = new LabelGroup(getParent(), "Differenz");
-    lg.addText(control.getDifference((Buchung) control.getCurrentObject()),
-        false);
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
-    buttons.addButton("neu", new BuchungNeuAction(), null, false,
-        "document-new.png");
+    buttons.addButton("neu", new SplitbuchungNeuAction(),
+        control.getCurrentObject(), false, "document-new.png");
+    buttons.addButton("auflösen", new SplitbuchungAufloesenAction(),
+        control.getCurrentObject(), false, "document-new.png");
     buttons.addButton("speichern", new Action()
     {
-
       @Override
       public void handleAction(Object context)
       {
-        control.handleStore();
+        try
+        {
+          SplitbuchungsContainer.store();
+          GUI.getStatusBar().setSuccessText("Splitbuchungen gespeichert");
+        }
+        catch (Exception e)
+        {
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
       }
     }, null, true, "document-save.png");
     buttons.paint(getParent());
   }
 
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
-        + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>";
-  }
+  // @Override
+  // public String getHelp()
+  // {
+  // return "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
+  // + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>";
+  // }
 }

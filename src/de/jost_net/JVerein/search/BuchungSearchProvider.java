@@ -86,7 +86,7 @@ public class BuchungSearchProvider implements SearchProvider
     @Override
     public void execute() throws ApplicationException
     {
-      new BuchungAction().handleAction(this.b);
+      new BuchungAction(false).handleAction(this.b);
     }
 
     @Override

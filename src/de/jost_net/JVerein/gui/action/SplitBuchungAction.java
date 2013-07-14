@@ -25,6 +25,8 @@ import java.rmi.RemoteException;
 import java.text.MessageFormat;
 
 import de.jost_net.JVerein.gui.view.SplitBuchungView;
+import de.jost_net.JVerein.io.SplitbuchungsContainer;
+import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -57,7 +59,8 @@ public class SplitBuchungAction implements Action
           throw new ApplicationException(
               "Der Buchung muss zunächst eine Buchungsart zugeordnet werden.");
         }
-
+        b.setSplitTyp(SplitbuchungTyp.HAUPT);
+        SplitbuchungsContainer.init(b);
       }
       catch (RemoteException e)
       {

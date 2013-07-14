@@ -21,6 +21,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import java.rmi.RemoteException;
+
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.action.BuchungBuchungsartZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungDeleteAction;
@@ -29,11 +31,15 @@ import de.jost_net.JVerein.gui.action.BuchungKontoauszugZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungMitgliedskontoZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.BuchungProjektZuordnungAction;
+import de.jost_net.JVerein.gui.action.SplitBuchungAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
+import de.jost_net.JVerein.rmi.Buchung;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
+import de.willuhn.logging.Logger;
 
 /**
  * Kontext-Menu zu den Buchungen.
@@ -51,15 +57,29 @@ public class BuchungMenu extends ContextMenu
 
   public BuchungMenu(BuchungsControl control)
   {
-    addItem(new ContextMenuItem("neu", new BuchungNeuAction(),
-        "document-new.png"));
-    addItem(new CheckedSingleContextMenuItem("bearbeiten", new BuchungAction(),
+    boolean splitbuchung = false;
+    try
+    {
+      if (control.getBuchung().getSplitId() != null)
+      {
+        splitbuchung = true;
+      }
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
+    if (!splitbuchung)
+    {
+      addItem(new ContextMenuItem("neu", new BuchungNeuAction(),
+          "document-new.png"));
+    }
+    addItem(new CheckedSingleContextMenuItem("bearbeiten", new BuchungAction(
+        splitbuchung), "edit.png"));
+    addItem(new BuchungItem("duplizieren", new BuchungDuplizierenAction(),
+        "copy_v2.png"));
+    addItem(new BuchungItem("Splitbuchung", new SplitBuchungAction(),
         "edit.png"));
-    addItem(new CheckedSingleContextMenuItem("duplizieren",
-        new BuchungDuplizierenAction(), "copy_v2.png"));
-    // Einführung der Splitbuchungen auf Version 2.2 verschoben
-    // addItem(new CheckedSingleContextMenuItem(JVereinPlugin.getI18n().tr(
-    // "Splitbuchung"), new SplitBuchungAction(), "edit.png"));
     addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
     addItem(new CheckedContextMenuItem("Mitgliedskonto zuordnen",
@@ -72,4 +92,43 @@ public class BuchungMenu extends ContextMenu
     addItem(new CheckedContextMenuItem("löschen...", new BuchungDeleteAction(),
         "user-trash.png"));
   }
+
+  private static class BuchungItem extends CheckedContextMenuItem
+  {
+
+    /**
+     * @param text
+     * @param action
+     */
+    private BuchungItem(String text, Action action, String icon)
+    {
+      super(text, action, icon);
+    }
+
+    @Override
+    public boolean isEnabledFor(Object o)
+    {
+      if (o instanceof Buchung)
+      {
+        Buchung b = (Buchung) o;
+        try
+        {
+          if (b.getSplitId() == null)
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+      return super.isEnabledFor(o);
+    }
+  }
+
 }
