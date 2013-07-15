@@ -7541,7 +7541,8 @@ public class JVereinUpdateProvider
                 + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung5;\n"
                 + "ALTER TABLE buchung DROP FOREIGN KEY fkBuchung6;\n"
                 + "ALTER TABLE buchungdokument DROP FOREIGN KEY fkBuchungDokument1;\n"
-                + "ALTER TABLE buchungsart DROP FOREIGN KEY fkBuchungsart1;\n"
+                // +
+                // "ALTER TABLE buchungsart DROP FOREIGN KEY fkBuchungsart1;\n"
                 + "ALTER TABLE buchungsart DROP FOREIGN KEY fkBuchungsart2;\n"
                 + "ALTER TABLE eigenschaft DROP FOREIGN KEY fkEigenschaft1;\n"
                 + "ALTER TABLE eigenschaften DROP FOREIGN KEY fkEigenschaften2;\n"
@@ -7714,7 +7715,6 @@ public class JVereinUpdateProvider
                 + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung5 FOREIGN KEY (spendenbescheinigung) REFERENCES spendenbescheinigung (id);\n"
                 + "ALTER TABLE buchung ADD CONSTRAINT fkBuchung6 FOREIGN KEY (projekt) REFERENCES projekt (id);\n"
                 + "ALTER TABLE buchungdokument ADD CONSTRAINT fkBuchungDokument1 FOREIGN KEY (referenz) REFERENCES buchung (id);\n"
-                + "ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart1 FOREIGN KEY (buchungsart) REFERENCES buchungsklasse (id);\n"
                 + "ALTER TABLE buchungsart ADD CONSTRAINT fkBuchungsart2 FOREIGN KEY (buchungsklasse) REFERENCES buchungsklasse (id);\n"
                 + "ALTER TABLE eigenschaft ADD CONSTRAINT fkEigenschaft1 FOREIGN KEY (eigenschaftgruppe) REFERENCES eigenschaftgruppe (id);\n"
                 + "ALTER TABLE eigenschaften ADD CONSTRAINT fkEigenschaften2 FOREIGN KEY (eigenschaft) REFERENCES eigenschaft (id) ON DELETE CASCADE;\n"
@@ -7773,7 +7773,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE buchung ADD splitid integer after splitid;\n");
+        "ALTER TABLE buchung ADD splittyp integer after splitid;\n");
 
     execute(conn, statements,
         "Spalte splittyp in die Tabelle buchung eingefügt", 326);
