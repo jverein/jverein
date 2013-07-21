@@ -25,12 +25,14 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 
+import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.BuchungsartZuordnungDialog;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -90,6 +92,8 @@ public class BuchungBuchungsartZuordnungAction implements Action
           {
             buchung.setBuchungsart(new Long(ba.getID()));
             buchung.store();
+            Application.getMessagingFactory().sendMessage(
+                new BuchungMessage(buchung));
           }
         }
         control.getBuchungsList();
