@@ -30,7 +30,15 @@ public class JaNeinFormatter implements Formatter
   {
     if (o == null)
     {
-      return "_";
+      return " ";
+    }
+    if (o instanceof Byte)
+    {
+      Byte b = (Byte) o;
+      if (b.equals(new Byte("1")))
+      {
+        return "X";
+      }
     }
     if (o instanceof Boolean)
     {
@@ -48,6 +56,6 @@ public class JaNeinFormatter implements Formatter
         return "X";
       }
     }
-    return "_";
+    return " ";
   }
 }
