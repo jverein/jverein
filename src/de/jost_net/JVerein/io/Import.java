@@ -108,7 +108,7 @@ public class Import
    * Datei gibt und legt diese als Map ab.
    * 
    * @param results
-   *          der zu Importierende Datensatz
+   *        der zu Importierende Datensatz
    * @return gibt die erzeugten Beitragsgruppen als Map zurueck mit dem Format
    *         key=Beitraggruppe item=BGID
    * @throws SQLException
@@ -127,10 +127,11 @@ public class Import
       /* find all existing groups in the dataset */
       while (results.next())
       {
-        bestehendeBeitragsgruppen.put(this.getResultFrom(results,
-            InternalColumns.BEITRAGSART),
-            new Double(this.getResultFrom(results, InternalColumns.BEITRAG)
-                .replace(',', '.')));
+        bestehendeBeitragsgruppen.put(
+            this.getResultFrom(results, InternalColumns.BEITRAGSART),
+            new Double(
+                this.getResultFrom(results, InternalColumns.BEITRAG).replace(
+                    ',', '.')));
       }
     }
     catch (NumberFormatException e)
@@ -158,9 +159,9 @@ public class Import
    * store the specified group and get the id what is assigned to the group
    * 
    * @param beitrag
-   *          amount of money
+   *        amount of money
    * @param beitragsgruppe
-   *          group name
+   *        group name
    * @return the id of the created group
    * @throws RemoteException
    * @throws ApplicationException
@@ -168,8 +169,8 @@ public class Import
   private int createBeitragsgruppeAndID(Double beitrag, String beitragsgruppe)
       throws RemoteException, ApplicationException
   {
-    Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService()
-        .createObject(Beitragsgruppe.class, null);
+    Beitragsgruppe b = (Beitragsgruppe) Einstellungen.getDBService().createObject(
+        Beitragsgruppe.class, null);
 
     /* if beitragsgruppe larger than 30 signs it will be cuted */
     b.setBezeichnung(beitragsgruppe.length() > 30 ? beitragsgruppe.substring(0,
@@ -208,12 +209,10 @@ public class Import
       }
       else if (ba.length() > 30)
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "{0}, {1}: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
-                    this.getResultFrom(results, InternalColumns.NACHNAME),
-                    this.getResultFrom(results, InternalColumns.VORNAME)));
+        progMonitor.log(MessageFormat.format(
+            "{0}, {1}: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
+            this.getResultFrom(results, InternalColumns.NACHNAME),
+            this.getResultFrom(results, InternalColumns.VORNAME)));
       }
 
       if (btr == null || btr.length() == 0)
@@ -307,9 +306,8 @@ public class Import
   {
     try
     {
-      DBIterator it = Einstellungen.getDBService()
-          .createList(Eigenschaft.class);
-      it.addFilter("bezeichnung = ?", new Object[] { eigenschaft });
+      DBIterator it = Einstellungen.getDBService().createList(Eigenschaft.class);
+      it.addFilter("bezeichnung = ?", new Object[] { eigenschaft});
       if (it.hasNext())
       {
         Eigenschaft eig = (Eigenschaft) it.next();
@@ -317,8 +315,8 @@ public class Import
       }
       else
       {
-        Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService()
-            .createObject(Eigenschaft.class, null);
+        Eigenschaft eigenschaftneu = (Eigenschaft) Einstellungen.getDBService().createObject(
+            Eigenschaft.class, null);
         eigenschaftneu.setBezeichnung(eigenschaft);
         String id = HM_eigenschaftsgruppen.get(groupName);
         if (id != null) // no entry for this groupName
@@ -387,8 +385,7 @@ public class Import
         /* remove leading and trailing commatas */
         if (resultValue.startsWith("\"") && resultValue.endsWith("\""))
         {
-          resultValue = resultValue.substring(1, resultValue.length() - 2)
-              .trim();
+          resultValue = resultValue.substring(1, resultValue.length() - 2).trim();
         }
       }
       catch (NullPointerException e)
@@ -471,8 +468,8 @@ public class Import
       }
 
       /* create a default property group */
-      eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
-          .createObject(EigenschaftGruppe.class, null);
+      eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService().createObject(
+          EigenschaftGruppe.class, null);
       eigenschaftgruppe.setBezeichnung("Noch nicht zugeordnet");
       eigenschaftgruppe.store();
 
@@ -495,8 +492,8 @@ public class Import
             groupName = groupName.substring(0, groupName.length() - 2);
           }
 
-          eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService()
-              .createObject(EigenschaftGruppe.class, null);
+          eigenschaftgruppe = (EigenschaftGruppe) Einstellungen.getDBService().createObject(
+              EigenschaftGruppe.class, null);
           eigenschaftgruppe.setBezeichnung(groupName);
           eigenschaftgruppe.store();
           HM_eigenschaftsgruppen.put(groupName, eigenschaftgruppe.getID());
@@ -535,8 +532,8 @@ public class Import
         /* import all additonal fields */
         for (Felddefinition f : zusfeld)
         {
-          Zusatzfelder zf = (Zusatzfelder) Einstellungen.getDBService()
-              .createObject(Zusatzfelder.class, null);
+          Zusatzfelder zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
+              Zusatzfelder.class, null);
           importZusatzfelder(results, zf, m, f);
         }
 
@@ -554,8 +551,8 @@ public class Import
 
             if (eig.length() > 0) // only if not empty add not empty
             {
-              Eigenschaften eigenschaften = (Eigenschaften) Einstellungen
-                  .getDBService().createObject(Eigenschaften.class, null);
+              Eigenschaften eigenschaften = (Eigenschaften) Einstellungen.getDBService().createObject(
+                  Eigenschaften.class, null);
               eigenschaften.setMitglied(m.getID());
               eigenschaften.setEigenschaft(getEigenschaftID(eig, groupName));
               eigenschaften.store();
@@ -564,13 +561,10 @@ public class Import
         }
         catch (Exception e)
         {
-          progMonitor
-              .log(MessageFormat
-                  .format(
-                      "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= {0}, NAME= {1}: {2}",
-                      getResultFrom(results, InternalColumns.MITGLIEDSNR),
-                      getResultFrom(results, InternalColumns.NACHNAME),
-                      e.getMessage()));
+          progMonitor.log(MessageFormat.format(
+              "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= {0}, NAME= {1}: {2}",
+              getResultFrom(results, InternalColumns.MITGLIEDSNR),
+              getResultFrom(results, InternalColumns.NACHNAME), e.getMessage()));
           return false;
         }
 
@@ -608,7 +602,12 @@ public class Import
      */
 
     /* Setze Stammdaten */
-    m.setID(getResultFrom(results, InternalColumns.MITGLIEDSNR));
+    String id = getResultFrom(results, InternalColumns.MITGLIEDSNR);
+    if (id.length() == 0)
+    {
+      throw new RemoteException("Mitglieds_Nr ist leer");
+    }
+    m.setID(id);
     m.setAnrede(getResultFrom(results, InternalColumns.ANREDE));
     m.setTitel(getResultFrom(results, InternalColumns.TITEL));
     m.setName(getResultFrom(results, InternalColumns.NACHNAME));
@@ -693,11 +692,9 @@ public class Import
       zahlweg = Zahlungsweg.BASISLASTSCHRIFT;
       if (blz.length() == 0 || ktnr.length() == 0)
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "Bei {0} ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(MessageFormat.format(
+            "Bei {0} ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen",
+            Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
     }
@@ -778,11 +775,9 @@ public class Import
     {
       if (austritt == null)
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "{0}: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(MessageFormat.format(
+            "{0}: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
+            Adressaufbereitung.getNameVorname(m)));
         m.setAustritt(sterbeTag);
       }
     }
@@ -819,11 +814,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "Individueller Beitrag fuer {0} enthält keine gültige Formatierung und wird verworfen.",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(MessageFormat.format(
+            "Individueller Beitrag fuer {0} enthält keine gültige Formatierung und wird verworfen.",
+            Adressaufbereitung.getNameVorname(m)));
       }
     }
 
@@ -840,11 +833,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "Personenart für {0} enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(MessageFormat.format(
+            "Personenart für {0} enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
+            Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
 
@@ -868,11 +859,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(MessageFormat.format(
+            "Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
+            Adressaufbereitung.getNameVorname(m)));
         m.setZahlungsrhytmus(new Integer(12));
       }
     }
@@ -890,11 +879,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(MessageFormat
-                .format(
-                    "Adresstyp bei: {0} ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(MessageFormat.format(
+            "Adresstyp bei: {0} ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
+            Adressaufbereitung.getNameVorname(m)));
         m.setAdresstyp(new Integer(1));
       }
     }
@@ -1085,8 +1072,7 @@ public class Import
         m.delete();
       }
       // Spendenbescheinigung
-      list = Einstellungen.getDBService()
-          .createList(Spendenbescheinigung.class);
+      list = Einstellungen.getDBService().createList(Spendenbescheinigung.class);
       while (list.hasNext())
       {
         Spendenbescheinigung s = (Spendenbescheinigung) list.next();
