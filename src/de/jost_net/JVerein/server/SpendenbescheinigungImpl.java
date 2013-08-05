@@ -516,7 +516,10 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         buchungen.add(bu);
         summe += bu.getBetrag();
       }
-      setBetrag(summe);
+      if (!buchungen.isEmpty())
+      {
+        setBetrag(summe);
+      }
     }
     return buchungen;
   }

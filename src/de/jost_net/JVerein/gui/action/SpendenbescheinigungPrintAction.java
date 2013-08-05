@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
@@ -720,7 +721,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (spb.getAutocreate())
     {
-      if (!isSammelbestaetigung)
+      if (!isSammelbestaetigung && spb.getSpendenart() == Spendenart.GELDSPENDE)
       {
         if (spb.getBuchungen().get(0).getVerzicht().booleanValue())
         {
@@ -784,12 +785,30 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.add("\n\nEs wird bestätigt, dass die Zuwendung nur zur "
         + Einstellungen.getEinstellung().getBeguenstigterzweck()
         + " verwendet wird.\n", 9);
-    if (!Einstellungen.getEinstellung().getMitgliedsbetraege()
-        && spb.getSpendenart() == Spendenart.GELDSPENDE)
+    if (spb.getSpendenart() == Spendenart.GELDSPENDE)
     {
-      rpt.add(
-          "Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag i.S.v § 10b Abs. 1 Satz 2 Einkommensteuergesetzes handelt.",
-          9);
+      char mitgliedBetraege = (char) 113; // box leer
+      if (!Einstellungen.getEinstellung().getMitgliedsbetraege())
+      {
+        mitgliedBetraege = (char) 53; // X
+      }
+      Paragraph p = new Paragraph();
+      p.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9));
+      p.setAlignment(Element.ALIGN_LEFT);
+      p.add(new Chunk("\n"));
+      p.add(new Chunk(
+          "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitliedsbeiträge steuerlich nicht abziehbar sind:"));
+      rpt.add(p);
+      p = new Paragraph();
+      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
+      p.setAlignment(Element.ALIGN_JUSTIFIED);
+      p.setFirstLineIndent((float)-18.5);
+      p.setIndentationLeft((float)18.5);
+      p.add(new Chunk(mitgliedBetraege, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
+          10)));
+      p.add(new Chunk(
+          "  Es wird bestätigt, dass es sich nicht um einen Mitgliedbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist."));
+      rpt.add(p);
     }
 
     if (isSammelbestaetigung)
