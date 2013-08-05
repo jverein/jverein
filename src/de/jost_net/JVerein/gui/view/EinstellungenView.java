@@ -115,6 +115,7 @@ public class EinstellungenView extends AbstractView
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
     groupAbu.addInput(control.getDefaultSEPALand());
+    groupAbu.addLabelPair("Arbeitsstunden Model", control.getArbeitsstundenmodel());
 
     TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen", false, 1);
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),
@@ -292,6 +293,9 @@ public class EinstellungenView extends AbstractView
     return "<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
         + "<p>Anzeige: In diesem Bereich kann gesteuert werden, welche Datenfelder "
         + "angezeigt werden.</p>"
+        + "Arbeitsstundenmodell:"
+        + "<li>Standard - nur positive Werte können als Arbeitsstunden gebucht werden.</li>"
+        + "<li>negative Stunden erlaubt - negative Arbeitsstunden erhöhen die möglichen Zusatzbeträge</li>"
         + "Beitragsmodell:"
         + "<li>jährlich fester Beitrag</li>"
         + "<li>halbjährlich fester Beitrag</li>"

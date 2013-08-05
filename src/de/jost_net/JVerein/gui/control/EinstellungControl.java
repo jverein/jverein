@@ -36,6 +36,7 @@ import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.gui.input.SEPALandObject;
+import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -138,6 +139,8 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput externemitgliedsnummer;
 
+  private SelectInput arbeitsstundenmodel;
+  
   private SelectInput beitragsmodel;
 
   private TextInput dateinamenmuster;
@@ -672,6 +675,17 @@ public class EinstellungControl extends AbstractControl
     return beitragsmodel;
   }
 
+  public SelectInput getArbeitsstundenmodel() throws RemoteException
+  {
+    if (arbeitsstundenmodel != null)
+    {
+      return arbeitsstundenmodel;
+    }
+    arbeitsstundenmodel = new SelectInput(ArbeitsstundenModel.getArray(),
+        new ArbeitsstundenModel(Einstellungen.getEinstellung().getArbeitsstundenmodel()));
+    return arbeitsstundenmodel;
+  }
+  
   public TextInput getDateinamenmuster() throws RemoteException
   {
     if (dateinamenmuster != null)
@@ -1229,6 +1243,8 @@ public class EinstellungControl extends AbstractControl
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
+      ArbeitsstundenModel am = (ArbeitsstundenModel) arbeitsstundenmodel.getValue();
+      e.setArbeitsstundenmodel(am.getKey());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setDateinamenmusterSpende((String) dateinamenmusterspende.getValue());
       e.setVorlagenCsvVerzeichnis((String) vorlagenCsvVerzeichnis.getValue());

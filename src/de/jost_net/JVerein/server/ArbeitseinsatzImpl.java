@@ -24,6 +24,8 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -75,7 +77,10 @@ public class ArbeitseinsatzImpl extends AbstractDBObject implements
       }
       if (getStunden() <= 0d)
       {
-        throw new ApplicationException("Bitte mehr als 0 Stunden eingeben");
+          if ( Einstellungen.getEinstellung().getArbeitsstundenmodel() == ArbeitsstundenModel.STANDARD )
+          {
+              throw new ApplicationException("Bitte mehr als 0 Stunden eingeben oder Arbeitsstundenmodel in Einstellung ändern");
+          }
       }
       if (getDatum() == null)
       {

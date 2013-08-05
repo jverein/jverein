@@ -1300,4 +1300,15 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     settings.setAttribute("AnzahlSpaltenZahlung", anzahlSpalten);
   }
 
+  @Override
+  public int getArbeitsstundenmodel() throws RemoteException
+  {
+        return (Integer) getAttribute("arbeitsmodel");
+  }
+
+  @Override
+  public void setArbeitsstundenmodel(int arbeitsstundenmodel) throws RemoteException
+  {
+      setAttribute("arbeitsmodel", arbeitsstundenmodel);
+  }
 }

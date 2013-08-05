@@ -398,4 +398,9 @@ public interface Einstellung extends DBObject, IBankverbindung
   public int getAnzahlSpaltenZahlung() throws RemoteException;
 
   public void setAnzahlSpaltenZahlung(int anzahlSpalten) throws RemoteException;
+
+  public int getArbeitsstundenmodel() throws RemoteException;
+
+  public void setArbeitsstundenmodel(int arbeitsstundenmodel) throws RemoteException;
+
 }

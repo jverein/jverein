@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Einstellung;
@@ -124,6 +125,8 @@ public class Einstellungen
             "externemitgliedsnummer.verwenden", false));
         einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
             Beitragsmodel.GLEICHERTERMINFUERALLE));
+        einstellung.setArbeitsstundenmodel(settings.getInt("arbeitsmodel",
+            ArbeitsstundenModel.STANDARD));
         einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",
             "a$s$-d$-z$"));
         einstellung.setBeginnGeschaeftsjahr(settings.getString(

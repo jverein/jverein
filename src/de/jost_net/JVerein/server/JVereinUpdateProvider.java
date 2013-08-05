@@ -1316,6 +1316,10 @@ public class JVereinUpdateProvider
     {
       update0327(conn);
     }
+    if ( cv < 328)
+    {
+      update0328(conn);
+    }
     // TODO
   }
 
@@ -7787,7 +7791,22 @@ public class JVereinUpdateProvider
     statements.put(driver, sql);
     execute(conn, statements, "Spaltentypen geändert", 327);
   }
+  
+  private void update0328(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung ADD arbeitsmodel integer not null default 1;\n");
 
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung ADD arbeitsmodel integer not null default 1;\n");
+
+    execute(conn, statements,
+        "Spalte Arbeitsmodel in die Tabelle einstellung eingefügt", 328);
+  }
+  
   private String alterColumn(String table, String column, String type)
       throws ApplicationException
   {
