@@ -269,6 +269,25 @@ public class DefaultZusatzbetraegeImport implements Importer
               fehlerInDaten = true;
             }
             zus.setIntervall(intervall);
+            try
+            {
+              String datum = results.getString("Endedatum");
+              if (datum.length() > 0)
+              {
+                Date d = de.jost_net.JVerein.util.Datum.toDate(results
+                    .getString("Endedatum"));
+                zus.setEndedatum(d);
+              }
+            }
+            catch (ParseException e)
+            {
+              monitor
+                  .setStatusText(MessageFormat
+                      .format(
+                          "Für die Importzeile {0} ({1}) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
+                          anz + "", mitgliedIdString));
+              fehlerInDaten = true;
+            }
 
             zusatzbetraegeList.add(zus);
           }
