@@ -150,6 +150,17 @@ public class ImportDialog extends AbstractDialog<Object>
     getShell().setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
   }
 
+  private String[] getFilterNames(Imp imp)
+  {
+      String[] fileExtensionList = imp.format.getFileExtensions();
+      String filterName = imp.format.getName();
+      String[] fileFilterNameList = new String[fileExtensionList.length];
+      for ( int i = 0; i < fileExtensionList.length; ++i)
+      {
+          fileFilterNameList[i] = filterName + " (" + fileExtensionList[i] + ")";
+      }
+      return fileFilterNameList;
+  }
   /**
    * Importiert die Daten.
    * 
@@ -176,7 +187,8 @@ public class ImportDialog extends AbstractDialog<Object>
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
     fd.setText(i18n.tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
-    fd.setFilterNames(imp.format.getFileExtensions());
+    fd.setFilterNames(getFilterNames(imp));
+    fd.setFilterExtensions(imp.format.getFileExtensions());
 
     String path = settings.getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
@@ -216,11 +228,11 @@ public class ImportDialog extends AbstractDialog<Object>
       {
         try
         {
+          monitor.setPercentComplete(0);
           importer.doImport(context, format, file, enc, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText(
-              MessageFormat.format("Daten importiert aus {0}", s));
+          GUI.getStatusBar().setSuccessText( MessageFormat.format("Daten importiert aus {0}", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
