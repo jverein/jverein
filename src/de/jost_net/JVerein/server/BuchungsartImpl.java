@@ -176,9 +176,36 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
     {
       return getNummer() + " - " + getBezeichnung();
     }
+    else if (fieldName.equals("klasse-art-bez"))
+    {
+      Buchungsklasse klasse = getBuchungsklasse();
+      StringBuilder stb = new StringBuilder(80);
+      if (null != klasse)
+        stb.append(klasse.getBezeichnung());
+      stb.append(getArtCode());
+      stb.append(getNummer());
+      stb.append(" ");
+      stb.append(getBezeichnung());
+      return stb.toString();
+    }
     else
     {
       return super.getAttribute(fieldName);
+    }
+  }
+
+  private String getArtCode() throws RemoteException
+  {
+    switch (getArt())
+    {
+      case 0:
+        return " + ";
+      case 1:
+        return " - ";
+      case 2:
+        return " T ";
+      default:
+        return "   ";
     }
   }
 

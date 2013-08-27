@@ -1316,9 +1316,13 @@ public class JVereinUpdateProvider
     {
       update0327(conn);
     }
-    if ( cv < 328)
+    if (cv < 328)
     {
       update0328(conn);
+    }
+    if (cv < 329)
+    {
+      update0329(conn);
     }
     // TODO
   }
@@ -7791,22 +7795,107 @@ public class JVereinUpdateProvider
     statements.put(driver, sql);
     execute(conn, statements, "Spaltentypen geändert", 327);
   }
-  
+
   private void update0328(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
-    statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE einstellung ADD arbeitsmodel integer not null default 1;\n");
+    statements
+        .put(DBSupportH2Impl.class.getName(),
+            "ALTER TABLE einstellung ADD arbeitsmodel integer not null default 1;\n");
 
     // Update fuer MySQL
-    statements.put(DBSupportMySqlImpl.class.getName(),
-        "ALTER TABLE einstellung ADD arbeitsmodel integer not null default 1;\n");
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE einstellung ADD arbeitsmodel integer not null default 1;\n");
 
     execute(conn, statements,
         "Spalte Arbeitsmodel in die Tabelle einstellung eingefügt", 328);
   }
-  
+
+  private void update0329(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements
+        .put(
+            DBSupportH2Impl.class.getName(),
+            "CREATE TABLE QIFIMPORTHEAD( "
+                + " id IDENTITY(1), "
+                + " name VARCHAR(30), "
+                + " beschreibung VARCHAR(30), "
+                + " startsalto DOUBLE, "
+                + " startdate DATE, "
+                + " konto INTEGER, "
+                + " importdatum DATE NOT NULL, "
+                + " importfile VARCHAR(256), "
+                + " processdate DATE, "
+                + " UNIQUE(id), "
+                + " PRIMARY KEY(id) "
+                + ");\n "
+                +
+
+                " CREATE TABLE QIFIMPORTPOS( "
+                + "   posid IDENTITY(1), "
+                + "   headid INTEGER NOT NULL, "
+                + "   datum DATE NOT NULL, "
+                + "   betrag DOUBLE NOT NULL, "
+                + "   beleg VARCHAR(30), "
+                + "   name VARCHAR(100), "
+                + "   zweck VARCHAR(100), "
+                + "   buchartex VARCHAR(50), "
+                + "   buchart INTEGER, "
+                + "   mitgliedbar VARCHAR(1), "
+                + "   mitglied INTEGER, "
+                + "   sperre VARCHAR(1), "
+                + "   UNIQUE(posid) "
+                + " );\n "
+                +
+
+                " ALTER TABLE qifimportpos ADD CONSTRAINT fkImpKntPos1 FOREIGN KEY (headid) REFERENCES qifimporthead(id) DEFERRABLE;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(
+            DBSupportMySqlImpl.class.getName(),
+            "CREATE TABLE QIFIMPORTHEAD( "
+                + " id int(10) AUTO_INCREMENT, "
+                + " name VARCHAR(30), "
+                + " beschreibung VARCHAR(30), "
+                + " startdate DATE, "
+                + " startsalto DOUBLE, "
+                + " konto int(10), "
+                + " importdatum DATE NOT NULL, "
+                + " importfile VARCHAR(256), "
+                + " processdate DATE, "
+                + " UNIQUE(id), "
+                + " PRIMARY KEY(id) "
+                + " );\n "
+                +
+
+                "CREATE TABLE QIFIMPORTPOS( "
+                + "  posid int(10) AUTO_INCREMENT, "
+                + "  headid int(10) NOT NULL, "
+                + "  datum DATE NOT NULL, "
+                + "  betrag DOUBLE NOT NULL, "
+                + "  beleg VARCHAR(30), "
+                + "  name VARCHAR(100), "
+                + "  zweck VARCHAR(100), "
+                + "  buchartex VARCHAR(50), "
+                + "  buchart int(10), "
+                + "  mitgliedbar VARCHAR(1), "
+                + "  mitglied int(10), "
+                + "  sperre VARCHAR(1), "
+                + "  UNIQUE(posid) "
+                + " );\n "
+                +
+
+                "ALTER TABLE qifimportpos ADD CONSTRAINT fkImpKntPos1 FOREIGN KEY (headid) REFERENCES qifimporthead(id) DEFERRABLE;\n");
+
+    execute(conn, statements,
+        "Neue Tabellen für Import von Buchungen aus z.B. Quicken.", 329);
+  }
+
   private String alterColumn(String table, String column, String type)
       throws ApplicationException
   {

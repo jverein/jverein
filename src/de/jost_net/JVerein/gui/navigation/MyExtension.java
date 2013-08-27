@@ -36,6 +36,7 @@ import de.jost_net.JVerein.gui.action.BLZUpdateAction;
 import de.jost_net.JVerein.gui.action.BackupCreateAction;
 import de.jost_net.JVerein.gui.action.BackupRestoreAction;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeSucheAction;
+import de.jost_net.JVerein.gui.action.QIFBuchungsImportViewAction;
 import de.jost_net.JVerein.gui.action.BuchungsListeAction;
 import de.jost_net.JVerein.gui.action.BuchungsartListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseListAction;
@@ -65,6 +66,7 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoMahnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.ProjektListAction;
+//import de.jost_net.JVerein.gui.action.SEPAKonvertierungAction;
 import de.jost_net.JVerein.gui.action.SpendenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikJahrgaengeAction;
@@ -221,6 +223,9 @@ public class MyExtension implements Extension
           "Kontenrahmen-Import", new KontenrahmenImportAction(),
           "activity_category.gif"));
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          "QIF Datei-Import", new QIFBuchungsImportViewAction(),
+          "import_obj.gif"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
           "Projekte", new ProjektListAction(), "projects.png"));
       einstellungen.addChild(einstellungenbuchfuehrung);
 
@@ -248,6 +253,8 @@ public class MyExtension implements Extension
       }
       einstellungen.addChild(new MyItem(einstellungen, "BLZ-Update",
           new BLZUpdateAction(), "adler.png"));
+      // einstellungen.addChild(new MyItem(einstellungen, "SEPA-Konvertierung",
+      // new SEPAKonvertierungAction(), "sepa.png"));
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
           null);
