@@ -26,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +86,7 @@ public class SpendenbescheinigungPrintAction implements Action
    * oder das individuelle Dokument aufbereitet werden soll.
    * 
    * @param standard
-   *        true=Standard-Dokument, false=individuelles Dokument
+   *          true=Standard-Dokument, false=individuelles Dokument
    */
   public SpendenbescheinigungPrintAction(boolean standard)
   {
@@ -102,9 +101,9 @@ public class SpendenbescheinigungPrintAction implements Action
    * oder das individuelle Dokument aufbereitet werden soll.
    * 
    * @param standard
-   *        true=Standard-Dokument, false=individuelles Dokument
+   *          true=Standard-Dokument, false=individuelles Dokument
    * @param fileName
-   *        Dateiname als Vorgabe inklusive Pfad
+   *          Dateiname als Vorgabe inklusive Pfad
    */
   public SpendenbescheinigungPrintAction(boolean standard, String fileName)
   {
@@ -121,7 +120,7 @@ public class SpendenbescheinigungPrintAction implements Action
    * angezeigt.
    * 
    * @param context
-   *        Die Spendenbescheinigung(en)
+   *          Die Spendenbescheinigung(en)
    */
   @Override
   public void handleAction(Object context) throws ApplicationException
@@ -139,7 +138,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else if (context instanceof Spendenbescheinigung)
     {
-      spbArr = new Spendenbescheinigung[] { (Spendenbescheinigung) context};
+      spbArr = new Spendenbescheinigung[] { (Spendenbescheinigung) context };
     }
     else if (context instanceof Spendenbescheinigung[])
     {
@@ -152,7 +151,8 @@ public class SpendenbescheinigungPrintAction implements Action
     // Aufbereitung
     try
     {
-      String path = Einstellungen.getEinstellung().getSpendenbescheinigungverzeichnis();
+      String path = Einstellungen.getEinstellung()
+          .getSpendenbescheinigungverzeichnis();
       if (path == null)
       {
         path = settings.getString("lastdir", System.getProperty("user.home"));
@@ -173,8 +173,9 @@ public class SpendenbescheinigungPrintAction implements Action
           Formular spendeformular = spb.getFormular();
           if (spendeformular == null)
           {
-            GUI.getStatusBar().setErrorText(
-                "Nicht alle Spendenbescheinigungen haben ein gültiges Formular!");
+            GUI.getStatusBar()
+                .setErrorText(
+                    "Nicht alle Spendenbescheinigungen haben ein gültiges Formular!");
             return;
           }
         }
@@ -262,9 +263,9 @@ public class SpendenbescheinigungPrintAction implements Action
    * bis 31.12.2012
    * 
    * @param spb
-   *        Die Spendenbescheinigung aus der Datenbank
+   *          Die Spendenbescheinigung aus der Datenbank
    * @param fileName
-   *        Der Dateiname, wohin das Dokument geschrieben werden soll
+   *          Der Dateiname, wohin das Dokument geschrieben werden soll
    * @throws IOException
    * @throws DocumentException
    */
@@ -333,8 +334,9 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.createHeader();
     rpt.addColumn(
         "*"
-            + Einstellungen.DECIMALFORMAT.format(map.get(SpendenbescheinigungVar.BETRAG.getName()))
-            + "*", Element.ALIGN_CENTER);
+            + Einstellungen.DECIMALFORMAT.format(map
+                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        Element.ALIGN_CENTER);
     rpt.addColumn(
         (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
         Element.ALIGN_CENTER);
@@ -430,7 +432,8 @@ public class SpendenbescheinigungPrintAction implements Action
           + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()
           + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung().getBescheiddatum())
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
       rpt.add(txt, 9);
     }
@@ -444,9 +447,11 @@ public class SpendenbescheinigungPrintAction implements Action
           + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()
           + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung().getBescheiddatum())
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
           + " ab "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung().getVorlaeufigab())
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getVorlaeufigab())
           + " als steuerbegünstigten Zwecken dienend anerkannt.";
       rpt.add(txt, 9);
     }
@@ -498,12 +503,12 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.add(new Paragraph(" "));
       rpt.add(
           "Anlage zur Sammelbestätigung vom "
-              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()),
-          11);
+              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
+                  .getName()), 11);
       rpt.add(
           "für den Zeitraum vom "
-              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
-          11);
+              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
+                  .getName()), 11);
 
       rpt.add(new Paragraph(" "));
 
@@ -515,7 +520,8 @@ public class SpendenbescheinigungPrintAction implements Action
           BaseColor.LIGHT_GRAY);
       rpt.createHeader();
 
-      boolean printBuchungsart = Einstellungen.getEinstellung().getSpendenbescheinigungPrintBuchungsart();
+      boolean printBuchungsart = Einstellungen.getEinstellung()
+          .getSpendenbescheinigungPrintBuchungsart();
 
       for (Buchung buchung : buchungen)
       {
@@ -576,9 +582,9 @@ public class SpendenbescheinigungPrintAction implements Action
    * ab 01.01.2013
    * 
    * @param spb
-   *        Die Spendenbescheinigung aus der Datenbank
+   *          Die Spendenbescheinigung aus der Datenbank
    * @param fileName
-   *        Der Dateiname, wohin das Dokument geschrieben werden soll
+   *          Der Dateiname, wohin das Dokument geschrieben werden soll
    * @throws IOException
    * @throws DocumentException
    */
@@ -656,8 +662,9 @@ public class SpendenbescheinigungPrintAction implements Action
     rpt.createHeader();
     rpt.addColumn(
         "*"
-            + Einstellungen.DECIMALFORMAT.format(map.get(SpendenbescheinigungVar.BETRAG.getName()))
-            + "*", Element.ALIGN_CENTER);
+            + Einstellungen.DECIMALFORMAT.format(map
+                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        Element.ALIGN_CENTER);
     rpt.addColumn(
         (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
         Element.ALIGN_CENTER);
@@ -763,7 +770,8 @@ public class SpendenbescheinigungPrintAction implements Action
           + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()
           + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung().getBescheiddatum())
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
       rpt.add(txt, 9);
     }
@@ -776,9 +784,11 @@ public class SpendenbescheinigungPrintAction implements Action
           + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()
           + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung().getBescheiddatum())
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
           + " ab "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung().getVorlaeufigab())
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getVorlaeufigab())
           + " als begünstigten Zwecken dienend anerkannt.";
       rpt.add(txt, 9);
     }
@@ -802,10 +812,10 @@ public class SpendenbescheinigungPrintAction implements Action
       p = new Paragraph();
       p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
       p.setAlignment(Element.ALIGN_JUSTIFIED);
-      p.setFirstLineIndent((float)-18.5);
-      p.setIndentationLeft((float)18.5);
-      p.add(new Chunk(mitgliedBetraege, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
-          10)));
+      p.setFirstLineIndent((float) -18.5);
+      p.setIndentationLeft((float) 18.5);
+      p.add(new Chunk(mitgliedBetraege, FontFactory.getFont(
+          FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk(
           "  Es wird bestätigt, dass es sich nicht um einen Mitgliedbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist."));
       rpt.add(p);
@@ -849,12 +859,12 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.add(new Paragraph(" "));
       rpt.add(
           "Anlage zur Sammelbestätigung vom "
-              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()),
-          11);
+              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
+                  .getName()), 11);
       rpt.add(
           "für den Zeitraum vom "
-              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
-          11);
+              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
+                  .getName()), 11);
 
       rpt.add(new Paragraph(" "));
 
@@ -869,7 +879,8 @@ public class SpendenbescheinigungPrintAction implements Action
           BaseColor.LIGHT_GRAY);
       rpt.createHeader();
 
-      boolean printBuchungsart = Einstellungen.getEinstellung().getSpendenbescheinigungPrintBuchungsart();
+      boolean printBuchungsart = Einstellungen.getEinstellung()
+          .getSpendenbescheinigungPrintBuchungsart();
 
       /* Buchungszeilen */
       for (Buchung buchung : buchungen)
