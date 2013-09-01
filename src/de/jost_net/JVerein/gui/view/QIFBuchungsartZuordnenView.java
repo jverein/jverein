@@ -66,7 +66,7 @@ public class QIFBuchungsartZuordnenView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.IMPORT, false, "help-browser.png");
+        DokumentationUtil.QIFIMPORT, false, "help-browser.png");
     buttons.addButton("Speichern", detailControl.getSpeichernAction(), null,
         false, "document-save.png");
     buttons.paint(getParent());

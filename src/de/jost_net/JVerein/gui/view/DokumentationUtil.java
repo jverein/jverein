@@ -117,4 +117,7 @@ public class DokumentationUtil
 
   public static final String SPENDENBESCHEINIGUNG = PRE
       + "Spendenbescheinigung";
+
+  public static final String QIFIMPORT = PRE + "QIFImport";
+
 }

@@ -493,8 +493,8 @@ public class QIFBuchungsImportControl extends AbstractControl
           }
           if (pos.getMitgliedZuordenbar().booleanValue() == false)
           {
-            item.setFont(9, Font.ITALIC.getSWTFont());
-            item.setText(9, "ohne Mitgliedsreferenz");
+            item.setFont(10, Font.ITALIC.getSWTFont());
+            item.setText(10, "ohne Mitgliedsreferenz");
           }
         }
 

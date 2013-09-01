@@ -81,7 +81,7 @@ public class QIFBuchungsImportView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.IMPORT, false, "help-browser.png");
+        DokumentationUtil.QIFIMPORT, false, "help-browser.png");
     buttons.addButton("Datei einlesen", new QIFDateiEinlesenAction(), null,
         false, "import_obj.gif");
     buttons.addButton("Import löschen",
