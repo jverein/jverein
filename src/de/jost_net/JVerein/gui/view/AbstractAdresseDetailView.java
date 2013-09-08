@@ -547,8 +547,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       {
         // Verstecke Familienverband wenn aktuelles Mitglied nicht Teil einer
         // Familie ist.
-        if (control.getMitglied().getBeitragsgruppe() != null
-            && control.getMitglied().getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.NORMAL)
+        if (isBeitragsGruppeFuerFamilieAktiv() == false)
         {
           control.getFamilienverband().setVisible(false);
         }
@@ -558,7 +557,30 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         // oder ein leeres Composite (setShow(false))
         container.addPart(control.getFamilienverband());
       }
+      if (isBeitragsGruppeFuerZahlerAktiv() == false)
+        control.getZukuenftigeBeitraegeView().setVisible(false);
+      container.addPart(control.getZukuenftigeBeitraegeView());
     }
+  }
+
+  private boolean isBeitragsGruppeFuerZahlerAktiv() throws RemoteException
+  {
+    Beitragsgruppe gruppe = control.getMitglied().getBeitragsgruppe();
+    if (null == gruppe)
+      return false;
+    if (gruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
+      return false;
+    return true;
+  }
+
+  private boolean isBeitragsGruppeFuerFamilieAktiv() throws RemoteException
+  {
+    Beitragsgruppe gruppe = control.getMitglied().getBeitragsgruppe();
+    if (null == gruppe)
+      return false;
+    if (gruppe.getBeitragsArt() == ArtBeitragsart.NORMAL)
+      return false;
+    return true;
   }
 
   /**

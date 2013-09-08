@@ -1324,6 +1324,11 @@ public class JVereinUpdateProvider
     {
       update0329(conn);
     }
+
+    if (cv < 330)
+    {
+      update0330(conn);
+    }
     // TODO
   }
 
@@ -7894,6 +7899,27 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Neue Tabellen für Import von Buchungen aus z.B. Quicken.", 329);
+  }
+
+  private void update0330(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "CREATE TABLE MITGLIEDNEXTBGRUPPE( " + " id IDENTITY(1), "
+            + " mitglied INTEGER, " + " beitragsgruppe INTEGER, "
+            + " bemerkung VARCHAR(30), " + " abdatum DATE, " + " UNIQUE(id), "
+            + " PRIMARY KEY(id) " + ");\n ");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "CREATE TABLE MITGLIEDNEXTBGRUPPE( " + " id int(10) AUTO_INCREMENT, "
+            + " mitglied int(10), " + " beitragsgruppe int(10), "
+            + " bemerkung VARCHAR(30), " + " abdatum DATE, " + " UNIQUE(id), "
+            + " PRIMARY KEY(id) " + " );\n ");
+
+    execute(conn, statements, "Neue Tabelle für zukünftige Mitgliedsbeiträge.",
+        330);
   }
 
   private String alterColumn(String table, String column, String type)

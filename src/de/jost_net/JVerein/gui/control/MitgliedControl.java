@@ -63,10 +63,12 @@ import de.jost_net.JVerein.gui.input.PersonenartInput;
 import de.jost_net.JVerein.gui.menu.ArbeitseinsatzMenu;
 import de.jost_net.JVerein.gui.menu.FamilienbeitragMenu;
 import de.jost_net.JVerein.gui.menu.LehrgangMenu;
+import de.jost_net.JVerein.gui.menu.MitgliedNextBGruppeMenue;
 import de.jost_net.JVerein.gui.menu.MitgliedMailMenu;
 import de.jost_net.JVerein.gui.menu.MitgliedMenu;
 import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
+import de.jost_net.JVerein.gui.parts.MitgliedNextBGruppePart;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.gui.view.AuswertungVorlagenCsvView;
 import de.jost_net.JVerein.gui.view.IAuswertung;
@@ -89,7 +91,9 @@ import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.MitgliedNextBGruppe;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
+import de.jost_net.JVerein.rmi.QIFImportPos;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -226,6 +230,8 @@ public class MitgliedControl extends AbstractControl
   private DecimalInput individuellerbeitrag;
 
   private Familienverband famverb;
+  
+  private MitgliedNextBGruppePart zukueftigeBeitraegeView;
 
   private TreePart familienbeitragtree;
 
@@ -324,6 +330,8 @@ public class MitgliedControl extends AbstractControl
   private LesefeldAuswerter lesefeldAuswerter = null;
 
   private int jjahr = 0;
+  
+  private TablePart beitragsTabelle;
 
   public MitgliedControl(AbstractView view)
   {
@@ -1070,6 +1078,7 @@ public class MitgliedControl extends AbstractControl
               && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER)
           {
             getFamilienverband().setVisible(true);
+            getZukuenftigeBeitraegeView().setVisible(false);
             if (zahler != null)
             {
               zahler.setEnabled(true);
@@ -1084,6 +1093,7 @@ public class MitgliedControl extends AbstractControl
               && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
             getFamilienverband().setVisible(true);
+            getZukuenftigeBeitraegeView().setVisible(true);
             getMitglied().setZahlerID(null);
             if (zahler != null)
             {
@@ -1101,6 +1111,7 @@ public class MitgliedControl extends AbstractControl
               zahler.setEnabled(false);
             }
             getFamilienverband().setVisible(false);
+            getZukuenftigeBeitraegeView().setVisible(true);
           }
 
           refreshFamilienangehoerigeTable();
@@ -1188,6 +1199,13 @@ public class MitgliedControl extends AbstractControl
     }
     famverb = new Familienverband(this, getMitglied().getBeitragsgruppe());
     return famverb;
+  }
+  
+  public MitgliedNextBGruppePart getZukuenftigeBeitraegeView()
+  {
+      if ( null == zukueftigeBeitraegeView)
+          zukueftigeBeitraegeView = new MitgliedNextBGruppePart(this);
+      return zukueftigeBeitraegeView;
   }
 
   public Input getZahler() throws RemoteException
@@ -3480,4 +3498,42 @@ public class MitgliedControl extends AbstractControl
       });
     }
   }
+
+    public Part getMitgliedBeitraegeTabelle() throws RemoteException
+    {
+        if (beitragsTabelle != null)
+        {
+            beitragsTabelle.setContextMenu(new MitgliedNextBGruppeMenue(this));
+            return beitragsTabelle;
+        }
+
+        beitragsTabelle = new TablePart(null);
+        beitragsTabelle.setRememberColWidths(true);
+        beitragsTabelle.setRememberOrder(true);
+        beitragsTabelle.setContextMenu(new MitgliedNextBGruppeMenue(this));
+        beitragsTabelle.addColumn("Ab Datum", MitgliedNextBGruppe.COL_AB_DATUM,
+                new DateFormatter(new JVDateFormatTTMMJJJJ()));
+        beitragsTabelle.addColumn("Beitragsgruppe",MitgliedNextBGruppe.VIEW_BEITRAGSGRUPPE);
+        beitragsTabelle.addColumn("Bemerkung",MitgliedNextBGruppe.COL_BEMERKUNG);
+        refreshMitgliedBeitraegeTabelle();
+        return beitragsTabelle;
+    }
+
+    public void refreshMitgliedBeitraegeTabelle() throws RemoteException
+    {
+      if (beitragsTabelle == null)
+        return;
+      beitragsTabelle.removeAll();
+      
+      DBService service = Einstellungen.getDBService();
+      DBIterator datenIterator = service.createList(MitgliedNextBGruppe.class);
+      datenIterator.addFilter(MitgliedNextBGruppe.COL_MITGLIED + " = ? ", getMitglied().getID());
+      datenIterator.setOrder("order by " + MitgliedNextBGruppe.COL_AB_DATUM);
+      
+      while (datenIterator.hasNext())
+      {
+        MitgliedNextBGruppe m = (MitgliedNextBGruppe) datenIterator.next();
+        beitragsTabelle.addItem(m);
+      }
+    }
 }
