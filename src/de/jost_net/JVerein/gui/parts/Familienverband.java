@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.util.GuiRepainter;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.jameica.gui.Part;
@@ -204,7 +205,8 @@ public class Familienverband implements Part
       {
         e.printStackTrace();
       }
-      updateGUI();
+      GuiRepainter.repaint(parent);
+      // updateGUI();
     }
   }
 
