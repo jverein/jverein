@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -133,7 +134,7 @@ public class BuchungsControl extends AbstractControl
 
   private SelectInput projekt;
 
-  private Input suchkonto;
+  private DialogInput suchkonto;
 
   private SelectInput suchbuchungsart;
 
@@ -156,6 +157,8 @@ public class BuchungsControl extends AbstractControl
   public static final String PROJEKT = "suchprojekt";
 
   private BuchungMessageConsumer mc = null;
+
+  private Vector<Listener> changeKontoListener = new Vector<Listener>();
 
   public BuchungsControl(AbstractView view)
   {
@@ -304,7 +307,6 @@ public class BuchungsControl extends AbstractControl
     this.datum.setText("Bitte Datum wählen");
     this.datum.addListener(new Listener()
     {
-
       @Override
       public void handleEvent(Event event)
       {
@@ -439,7 +441,7 @@ public class BuchungsControl extends AbstractControl
     return projekt;
   }
 
-  public Input getSuchKonto() throws RemoteException
+  public DialogInput getSuchKonto() throws RemoteException
   {
     if (suchkonto != null)
     {
@@ -841,6 +843,9 @@ public class BuchungsControl extends AbstractControl
       }
       buchungsList.sort();
     }
+
+    informKontoChangeListener();
+
     return buchungsList;
   }
 
@@ -1222,7 +1227,9 @@ public class BuchungsControl extends AbstractControl
     @Override
     public void handleEvent(Event event)
     {
-      if (event.type != SWT.Selection && event.type != SWT.FocusOut)
+      if (event.type != SWT.Selection) // && event.type != SWT.FocusOut) R.Mamat
+                                       // entfernt, weil damit zu oft geladen
+                                       // wird
       {
         return;
       }
@@ -1236,6 +1243,23 @@ public class BuchungsControl extends AbstractControl
         GUI.getStatusBar().setErrorText(e.getMessage());
       }
     }
+
+  }
+
+  private void informKontoChangeListener() throws RemoteException
+  {
+    Konto k = (Konto) getSuchKonto().getValue();
+    Event event = new Event();
+    event.data = k;
+    for (Listener listener : changeKontoListener)
+    {
+      listener.handleEvent(event);
+    }
+  }
+
+  public void addKontoChangeListener(Listener listener)
+  {
+    this.changeKontoListener.add(listener);
   }
 
   /**

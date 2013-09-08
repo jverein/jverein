@@ -21,14 +21,21 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.TabFolder;
+
 import de.jost_net.JVerein.gui.action.BuchungImportAction;
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
+import de.jost_net.JVerein.gui.control.BuchungsHeaderControl;
 import de.willuhn.jameica.gui.AbstractView;
-import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.TabGroup;
 
 public class BuchungslisteView extends AbstractView
 {
@@ -36,17 +43,47 @@ public class BuchungslisteView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle("Liste der Buchungen");
-
     final BuchungsControl control = new BuchungsControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Suche Buchungen");
+    LabelGroup group = new LabelGroup(getParent(), "Buchungen");
     group.addLabelPair("Konto", control.getSuchKonto());
-    group.addLabelPair("Buchungsart", control.getSuchBuchungsart());
-    group.addLabelPair("Projekt", control.getSuchProjekt());
-    group.addLabelPair("von Datum", control.getVondatum());
-    group.addLabelPair("bis Datum", control.getBisdatum());
-    group.addLabelPair("enthaltener Text", control.getSuchtext());
+
+    TabFolder folder = new TabFolder(getParent(), SWT.V_SCROLL | SWT.BORDER);
+    folder.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    folder.setBackground(Color.BACKGROUND.getSWTColor());
+    {
+      TabGroup tabAllgemein = new TabGroup(folder, "Suche Buchungen", true, 2);
+      tabAllgemein.addLabelPair("Buchungsart", control.getSuchBuchungsart());
+      tabAllgemein.addLabelPair("Projekt", control.getSuchProjekt());
+      tabAllgemein.addLabelPair("von Datum", control.getVondatum());
+      tabAllgemein.addLabelPair("bis Datum", control.getBisdatum());
+      tabAllgemein.addLabelPair("enthaltener Text", control.getSuchtext());
+    }
+    {
+      final BuchungsHeaderControl headerControl = new BuchungsHeaderControl(
+          this, control);
+      TabGroup tabKonto = new TabGroup(folder, "Konto Kenndaten", true, 4);
+      tabKonto.addLabelPair("Konto:", headerControl.getKontoNameInput());
+      tabKonto.addLabelPair("Vorjahr", new LabelInput(""));
+
+      tabKonto.addLabelPair("Anfangssalto:",
+          headerControl.getAktJahrAnfangsSaltoInput());
+      tabKonto.addLabelPair("Anfangssalto:",
+          headerControl.getVorJahrAnfangsSaltoInput());
+
+      tabKonto.addLabelPair("Einnahmen:",
+          headerControl.getAktJahrEinnahmenInput());
+      tabKonto.addLabelPair("Einnahmen:",
+          headerControl.getVorJahrEinnahmenInput());
+
+      tabKonto.addLabelPair("Ausgaben:",
+          headerControl.getAktJahrAusgabenInput());
+      tabKonto.addLabelPair("Ausgaben:",
+          headerControl.getVorJahrAusgabenInput());
+
+      tabKonto.addLabelPair("Salto:", headerControl.getAktJahrSaltoInput());
+      tabKonto.addLabelPair("Salto:", headerControl.getVorJahrSaltoInput());
+    }
 
     control.getBuchungsList().paint(this.getParent());
 
