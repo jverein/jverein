@@ -24,8 +24,10 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.view.BuchungView;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 
@@ -39,6 +41,13 @@ public class BuchungNeuAction implements Action
     {
       buch = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
           null);
+      if ( context instanceof BuchungsControl)
+      {
+          BuchungsControl control = (BuchungsControl) context;
+          Konto konto = (Konto) control.getSuchKonto().getValue();
+          if ( null != konto)
+              buch.setKonto(konto);
+      }
       GUI.startView(BuchungView.class, buch);
     }
     catch (RemoteException e)

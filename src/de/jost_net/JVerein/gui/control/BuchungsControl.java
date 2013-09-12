@@ -215,7 +215,7 @@ public class BuchungsControl extends AbstractControl
     {
       return konto;
     }
-    String kontoid = settings.getString("kontoid", "");
+    String kontoid = getVorauswahlKontoId();
     konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl(
         false, kontoid, false, false);
     if (withFocus)
@@ -223,6 +223,18 @@ public class BuchungsControl extends AbstractControl
       konto.focus();
     }
     return konto;
+  }
+  
+  private String getVorauswahlKontoId() throws RemoteException
+  {
+      Buchung buchung = getBuchung();
+      if ( null != buchung)
+      {
+          Konto konto = buchung.getKonto();
+          if ( null != konto)
+              return konto.getID();
+      }
+      return settings.getString("kontoid", "");
   }
 
   public Input getAuszugsnummer() throws RemoteException
