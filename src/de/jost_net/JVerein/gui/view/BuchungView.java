@@ -45,36 +45,9 @@ public class BuchungView extends AbstractView
   public void bind() throws Exception
   {
     final BuchungsControl control = new BuchungsControl(this);
-    if (control.getBuchung().getSpeicherung())
-    {
-      GUI.getView().setTitle("Buchung");
-    }
-    else
-    {
-      GUI.getView().setTitle("Splitbuchung");
-    }
-    boolean buchungabgeschlossen = false;
-    try
-    {
-      if (!control.getBuchung().isNewObject())
-      {
-        Jahresabschluss ja = control.getBuchung().getJahresabschluss();
-        if (ja != null)
-        {
-          GUI.getStatusBar().setErrorText(
-              MessageFormat.format(
-                  "Buchung wurde bereits am {0} von {1} abgeschlossen.",
-                  new Object[] {
-                      new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                      ja.getName() }));
-          buchungabgeschlossen = true;
-        }
-      }
-    }
-    catch (RemoteException e)
-    {
-      throw new ApplicationException(e.getMessage());
-    }
+    GUI.getView().setTitle(control.getTitleBuchungsView());
+
+    final boolean buchungabgeschlossen = control.isBuchungAbgeschlossen();
 
     BuchungPart part = new BuchungPart(control, this, buchungabgeschlossen);
     part.paint(this.getParent());
@@ -87,23 +60,8 @@ public class BuchungView extends AbstractView
       buttons.addButton("neu", new BuchungNeuAction(), null, false,
           "document-new.png");
     }
-    Button savButton = new Button("speichern", new Action()
-    {
-      @Override
-      public void handleAction(Object context)
-      {
-        control.handleStore();
-        try
-        {
-          control.refreshSplitbuchungen();
-        }
-        catch (RemoteException e)
-        {
-          Logger.error("Fehler", e);
-        }
-
-      }
-    }, null, true, "document-save.png");
+    Button savButton = new Button("speichern",
+        control.getBuchungSpeichernAction(), null, true, "document-save.png");
     savButton.setEnabled(!buchungabgeschlossen);
     buttons.addButton(savButton);
     buttons.paint(getParent());

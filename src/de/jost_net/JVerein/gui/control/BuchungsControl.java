@@ -23,6 +23,7 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +39,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableItem;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.DBTools.DBTransaction;
 import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
@@ -58,13 +60,13 @@ import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -224,17 +226,17 @@ public class BuchungsControl extends AbstractControl
     }
     return konto;
   }
-  
+
   private String getVorauswahlKontoId() throws RemoteException
   {
-      Buchung buchung = getBuchung();
-      if ( null != buchung)
-      {
-          Konto konto = buchung.getKonto();
-          if ( null != konto)
-              return konto.getID();
-      }
-      return settings.getString("kontoid", "");
+    Buchung buchung = getBuchung();
+    if (null != buchung)
+    {
+      Konto konto = buchung.getKonto();
+      if (null != konto)
+        return konto.getID();
+    }
+    return settings.getString("kontoid", "");
   }
 
   public Input getAuszugsnummer() throws RemoteException
@@ -628,103 +630,184 @@ public class BuchungsControl extends AbstractControl
     return b;
   }
 
-  public void handleStore()
+  private void handleStore() throws ApplicationException
   {
     try
     {
       Buchung b = getBuchung();
 
-      GenericObject o = (GenericObject) getBuchungsart().getValue();
-      try
+      b.setBuchungsart(getSelectedBuchungsArtId());
+      b.setProjektID(getSelectedProjektId());
+      b.setKonto(getSelectedKonto());
+      b.setAuszugsnummer(getAuszugsnummerWert());
+      b.setBlattnummer(getBlattnummerWert());
+      b.setName((String) getName().getValue());
+      if (getBetrag().getValue() != null)
       {
-        if (o != null)
-        {
-          b.setBuchungsart(new Long(o.getID()));
-        }
-        else
-        {
-          b.setBuchungsart(null);
-        }
-        o = (GenericObject) getProjekt().getValue();
-        if (o != null)
-        {
-          b.setProjektID(new Long(o.getID()));
-        }
-        else
-        {
-          b.setProjekt(null);
-        }
-        b.setKonto((Konto) getKonto(false).getValue());
-        settings.setAttribute("kontoid", b.getKonto().getID());
-        Integer val = null;
-        String sval = (String) getAuszugsnummer().getValue();
-        if (sval.length() > 0)
-        {
-          val = Integer.parseInt((String) getAuszugsnummer().getValue());
-        }
-        b.setAuszugsnummer(val);
-        val = null;
-        sval = (String) getBlattnummer().getValue();
-        if (sval.length() > 0)
-        {
-          val = Integer.parseInt((String) getBlattnummer().getValue());
-        }
-        b.setBlattnummer(val);
-        b.setName((String) getName().getValue());
-        if (getBetrag().getValue() != null)
-        {
-          b.setBetrag((Double) getBetrag().getValue());
-        }
-        b.setZweck((String) getZweck().getValue());
-        b.setDatum((Date) getDatum().getValue());
-        b.setArt((String) getArt().getValue());
-        b.setVerzicht((Boolean) getVerzicht().getValue());
-
-        if (mitgliedskonto.getValue() != null)
-        {
-          if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
-          {
-            b.setMitgliedskonto((Mitgliedskonto) mitgliedskonto.getValue());
-          }
-          else if (mitgliedskonto.getValue() instanceof Mitglied)
-          {
-            Mitglied mitglied = (Mitglied) mitgliedskonto.getValue();
-            Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
-                .createObject(Mitgliedskonto.class, null);
-            mk.setBetrag(b.getBetrag());
-            mk.setDatum(b.getDatum());
-            mk.setMitglied(mitglied);
-            mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
-            mk.setZweck1(b.getZweck());
-            mk.store();
-            b.setMitgliedskonto(mk);
-            mitgliedskonto.setValue(mk);
-          }
-        }
-        b.setKommentar((String) getKommentar().getValue());
-        if (b.getSpeicherung())
-        {
-          b.store();
-          getID().setValue(b.getID());
-          GUI.getStatusBar().setSuccessText("Buchung gespeichert");
-        }
-        else
-        {
-          SplitbuchungsContainer.add(b);
-          refreshSplitbuchungen();
-          GUI.getStatusBar().setSuccessText("Buchung übernommen");
-        }
+        b.setBetrag((Double) getBetrag().getValue());
       }
-      catch (ApplicationException e)
+      b.setZweck((String) getZweck().getValue());
+      b.setDatum((Date) getDatum().getValue());
+      b.setArt((String) getArt().getValue());
+      b.setVerzicht((Boolean) getVerzicht().getValue());
+      b.setMitgliedskonto(getSelectedMitgliedsKonto(b));
+      b.setKommentar((String) getKommentar().getValue());
+
+      if (b.getSpeicherung())
       {
-        GUI.getStatusBar().setErrorText(e.getMessage());
+        b.store();
+        getID().setValue(b.getID());
+        GUI.getStatusBar().setSuccessText("Buchung gespeichert");
+      }
+      else
+      {
+        SplitbuchungsContainer.add(b);
+        refreshSplitbuchungen();
+        GUI.getStatusBar().setSuccessText("Buchung übernommen");
       }
     }
-    catch (RemoteException e)
+    catch (RemoteException ex)
     {
-      String fehler = "Fehler bei speichern der Buchung";
-      Logger.error(fehler, e);
-      GUI.getStatusBar().setErrorText(fehler);
+      final String meldung = "Fehler beim Speichern der Buchung.";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
+    }
+  }
+
+  private Mitgliedskonto getSelectedMitgliedsKonto(Buchung b)
+      throws ApplicationException
+  {
+    try
+    {
+      Object auswahl = mitgliedskonto.getValue();
+      if (null == auswahl)
+        return null;
+
+      if (auswahl instanceof Mitgliedskonto)
+        return (Mitgliedskonto) auswahl;
+
+      if (auswahl instanceof Mitglied)
+      {
+        Mitglied mitglied = (Mitglied) auswahl;
+        Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
+            .createObject(Mitgliedskonto.class, null);
+        mk.setBetrag(b.getBetrag());
+        mk.setDatum(b.getDatum());
+        mk.setMitglied(mitglied);
+        mk.setZahlungsweg(Zahlungsweg.ÜBERWEISUNG);
+        mk.setZweck1(b.getZweck());
+        mk.store();
+        mitgliedskonto.setValue(mk);
+
+        return mk;
+      }
+      return null;
+    }
+    catch (RemoteException ex)
+    {
+      final String meldung = "Fehler beim Buchen des Mitgliedskontos.";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
+    }
+  }
+
+  private Integer getBlattnummerWert() throws ApplicationException
+  {
+    try
+    {
+      String sval = (String) getBlattnummer().getValue();
+      return wandleStringToInteger(sval);
+    }
+    catch (RemoteException ex)
+    {
+      final String meldung = "Blattnummer kann nicht gespeichert werden. Muss leer oder eine ganze Zahl sein.";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
+    }
+  }
+
+  private Integer getAuszugsnummerWert() throws ApplicationException
+  {
+    try
+    {
+      String sval = (String) getAuszugsnummer().getValue();
+      return wandleStringToInteger(sval);
+    }
+    catch (RemoteException ex)
+    {
+      final String meldung = "Auszugsnummer kann nicht gespeichert werden. Muss leer oder eine ganze Zahl sein.";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
+    }
+  }
+
+  private Integer wandleStringToInteger(String text) throws RemoteException
+  {
+    if (null == text)
+      return null;
+    if (text.isEmpty())
+      return null;
+
+    try
+    {
+      return new Integer(text);
+    }
+    catch (NumberFormatException ex)
+    {
+      throw new RemoteException("Eingabe ist keine Zahl. Eingabe = <" + text
+          + ">");
+    }
+  }
+
+  private Konto getSelectedKonto() throws ApplicationException
+  {
+    try
+    {
+      Konto konto = (Konto) getKonto(false).getValue();
+      settings.setAttribute("kontoid", konto.getID());
+      return konto;
+    }
+    catch (RemoteException ex)
+    {
+      final String meldung = "Konto der Buchung kann nicht ermittelt werden";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
+    }
+  }
+
+  private Long getSelectedProjektId() throws ApplicationException
+  {
+    try
+    {
+      Projekt projekt = (Projekt) getProjekt().getValue();
+      if (null == projekt)
+        return null;
+      Long id = new Long(projekt.getID());
+      return id;
+    }
+    catch (RemoteException ex)
+    {
+      final String meldung = "Gewähltes Projekt kann nicht ermittelt werden";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
+    }
+  }
+
+  private Long getSelectedBuchungsArtId() throws ApplicationException
+  {
+    try
+    {
+      Buchungsart buchungsArt = (Buchungsart) getBuchungsart().getValue();
+      if (null == buchungsArt)
+        return null;
+      Long id = new Long(buchungsArt.getID());
+      return id;
+    }
+    catch (RemoteException ex)
+    {
+      final String meldung = "Gewählte Buchungsart kann nicht ermittelt werden";
+      Logger.error(meldung, ex);
+      throw new ApplicationException(meldung, ex);
     }
   }
 
@@ -956,16 +1039,9 @@ public class BuchungsControl extends AbstractControl
     }
     splitbuchungsList.removeAll();
 
-    try
+    for (Buchung b : SplitbuchungsContainer.get())
     {
-      for (Buchung b : SplitbuchungsContainer.get())
-      {
-        splitbuchungsList.addItem(b);
-      }
-    }
-    catch (RemoteException e)
-    {
-      throw e;
+      splitbuchungsList.addItem(b);
     }
   }
 
@@ -1274,6 +1350,72 @@ public class BuchungsControl extends AbstractControl
     this.changeKontoListener.add(listener);
   }
 
+  public String getTitleBuchungsView() throws RemoteException
+  {
+    if (getBuchung().getSpeicherung())
+      return "Buchung";
+    return "Splitbuchung";
+  }
+
+  public boolean isBuchungAbgeschlossen() throws ApplicationException
+  {
+    try
+    {
+      if (!getBuchung().isNewObject())
+      {
+        Jahresabschluss ja = getBuchung().getJahresabschluss();
+        if (ja != null)
+        {
+          GUI.getStatusBar().setErrorText(
+              MessageFormat.format(
+                  "Buchung wurde bereits am {0} von {1} abgeschlossen.",
+                  new Object[] {
+                      new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
+                      ja.getName() }));
+          return true;
+        }
+      }
+    }
+    catch (RemoteException e)
+    {
+      throw new ApplicationException(
+          "Status der aktuellen Buchung kann nicht geprüft werden.", e);
+    }
+    return false;
+  }
+
+  public Action getBuchungSpeichernAction()
+  {
+    return new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        buchungSpeichern();
+      }
+    };
+  }
+
+  private void buchungSpeichern()
+  {
+    try
+    {
+      DBTransaction.starten();
+      handleStore();
+      DBTransaction.commit();
+      refreshSplitbuchungen();
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
+    catch (ApplicationException e)
+    {
+      DBTransaction.rollback();
+      GUI.getStatusBar().setErrorText(e.getLocalizedMessage());
+    }
+  }
+
   /**
    * Wird benachrichtigt um die Anzeige zu aktualisieren.
    */
@@ -1332,4 +1474,5 @@ public class BuchungsControl extends AbstractControl
       });
     }
   }
+
 }
