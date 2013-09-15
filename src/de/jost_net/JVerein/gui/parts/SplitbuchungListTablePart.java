@@ -60,14 +60,12 @@ public class SplitbuchungListTablePart extends TablePart
   protected String getSummary()
   {
     String summary = super.getSummary();
-    double sumBetrag = 0.0;
     try
     {
       List l = this.getItems();
       for (int i = 0; i < l.size(); i++)
       {
         Buchung b = (Buchung) l.get(i);
-        sumBetrag += b.getBetrag();
       }
       // summary += " / Differenz:"
       // + " "
