@@ -209,13 +209,4 @@ public class Familienverband implements Part
       // updateGUI();
     }
   }
-
-  private void updateGUI()
-  {
-    // Beim Ein- und Ausblenden der Familienverband-Tabelle muss
-    // die Größe des Rahmens neuberechnet werden
-    // und auch die Größe und Positionen der Geschwister des Rahmens! -->
-    parent.getParent().getParent().getParent().pack(true);
-  }
-
 }
