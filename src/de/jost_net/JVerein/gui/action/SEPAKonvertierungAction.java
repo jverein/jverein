@@ -19,29 +19,19 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.io;
+package de.jost_net.JVerein.gui.action;
 
-import java.rmi.RemoteException;
+import de.jost_net.JVerein.gui.view.SEPAKonvertierungView;
+import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.util.ApplicationException;
 
-import de.willuhn.datasource.rmi.DBObject;
-
-public interface IBankverbindung extends DBObject
+public class SEPAKonvertierungAction implements Action
 {
 
-  public String getBlz() throws RemoteException;
-
-  public void setBlz(String blz) throws RemoteException;
-
-  public String getBic() throws RemoteException;
-
-  public void setBic(String bic) throws RemoteException;
-
-  public String getIban() throws RemoteException;
-
-  public void setIban(String iban) throws RemoteException;
-
-  public String getKonto() throws RemoteException;
-
-  public void setKonto(String konto) throws RemoteException;
-
+  @Override
+  public void handleAction(Object context) throws ApplicationException
+  {
+    GUI.startView(SEPAKonvertierungView.class.getName(), null);
+  }
 }

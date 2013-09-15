@@ -30,15 +30,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
-import de.jost_net.JVerein.rmi.Einstellung;
+import de.jost_net.JVerein.gui.action.SEPAKonvertierungAction;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.OBanToo.SEPA.IBAN;
-import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
-import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.datasource.rmi.DBIterator;
-import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.boxes.AbstractBox;
 import de.willuhn.jameica.gui.parts.Button;
@@ -46,11 +41,7 @@ import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Font;
 import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.system.Application;
-import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Platform;
-import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
-import de.willuhn.util.ProgressMonitor;
 
 /**
  * Seite fuer die SEPA-Konvertierung.
@@ -174,47 +165,8 @@ public class SEPAKonverter extends AbstractBox
 
   private Button getButton()
   {
-    Button b = new Button("starten", new Action()
-    {
-
-      @Override
-      public void handleAction(Object context)
-      {
-        BackgroundTask t = new BackgroundTask()
-        {
-
-          @Override
-          public void run(ProgressMonitor monitor)
-          {
-            try
-            {
-              starte(monitor);
-              monitor.setPercentComplete(100);
-              monitor.setStatus(ProgressMonitor.STATUS_DONE);
-              GUI.getCurrentView().reload();
-            }
-            catch (Exception e)
-            {
-              monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            }
-          }
-
-          @Override
-          public void interrupt()
-          {
-            //
-          }
-
-          @Override
-          public boolean isInterrupted()
-          {
-            return false;
-          }
-        };
-        Application.getController().start(t);
-
-      }
-    }, null, true, "document-save.png");
+    Button b = new Button("starten", new SEPAKonvertierungAction(), null, true,
+        "document-save.png");
     return b;
   }
 
@@ -224,97 +176,4 @@ public class SEPAKonverter extends AbstractBox
     return 140;
   }
 
-  private void starte(ProgressMonitor monitor) throws ApplicationException
-  {
-    try
-    {
-      // Einstellungen
-      DBIterator it = Einstellungen.getDBService()
-          .createList(Einstellung.class);
-      while (it.hasNext())
-      {
-        Einstellung einstellung = (Einstellung) it.next();
-        if (einstellung != null)
-        {
-          Bank bank = Banken.getBankByBLZ(einstellung.getBlz());
-          if (bank != null)
-          {
-            einstellung.setBic(bank.getBIC());
-            IBAN i = new IBAN(einstellung.getKonto(), einstellung.getBlz(),
-                Einstellungen.getEinstellung().getDefaultLand());
-            einstellung.setIban(i.getIBAN());
-            einstellung.store();
-            Einstellungen.setEinstellung(einstellung);
-            monitor.log("Einstellung: " + einstellung.getName() + ", "
-                + einstellung.getBic() + ", " + einstellung.getIban());
-          }
-          else
-          {
-            monitor.log("Einstellung: Ungültige BLZ " + einstellung.getBlz());
-          }
-        }
-      }
-      // Mitglieder
-      it = Einstellungen.getDBService().createList(Mitglied.class);
-      while (it.hasNext())
-      {
-        Mitglied m = (Mitglied) it.next();
-        Mitglied m2 = (Mitglied) Einstellungen.getDBService().createObject(
-            Mitglied.class, m.getID());
-        if (m2.getBlz() != null && m2.getBlz().length() > 0)
-        {
-          Bank bank = Banken.getBankByBLZ(m2.getBlz());
-          if (bank != null)
-          {
-            m2.setBic(bank.getBIC());
-            IBAN i = new IBAN(m2.getKonto(), m2.getBlz(), Einstellungen
-                .getEinstellung().getDefaultLand());
-            m2.setIban(i.getIBAN());
-            monitor.log("Mitglied: " + Adressaufbereitung.getNameVorname(m)
-                + ", " + m2.getBic() + ", " + m2.getIban());
-            m2.store();
-          }
-          else
-          {
-            monitor.log("Mitglied: " + Adressaufbereitung.getNameVorname(m)
-                + ", ungültige BLZ " + m.getBlz());
-          }
-        }
-      }
-      // Kursteilnehmer
-      it = Einstellungen.getDBService().createList(Kursteilnehmer.class);
-      while (it.hasNext())
-      {
-        Kursteilnehmer k = (Kursteilnehmer) it.next();
-        Kursteilnehmer k2 = (Kursteilnehmer) Einstellungen.getDBService()
-            .createObject(Kursteilnehmer.class, k.getID());
-        if (k2.getBlz() != null && k2.getBlz().length() > 0)
-        {
-          Bank bank = Banken.getBankByBLZ(k2.getBlz());
-          if (bank != null)
-          {
-            k2.setBic(bank.getBIC());
-            IBAN i = new IBAN(k2.getKonto(), k2.getBlz(), Einstellungen
-                .getEinstellung().getDefaultLand());
-            k2.setIban(i.getIBAN());
-            monitor.log("Kursteilnehmer: " + k2.getName() + ", " + k2.getBic()
-                + ", " + k2.getIban());
-            k2.store();
-          }
-          else
-          {
-            monitor.log("Kursteilnehmer: " + k.getName() + ", ungültige BLZ "
-                + k.getBlz());
-          }
-        }
-
-      }
-    }
-    catch (Exception e)
-    {
-      monitor.log(e.getMessage());
-      Logger.error("Fehler", e);
-      throw new ApplicationException(e);
-    }
-  }
 }
