@@ -49,6 +49,7 @@ public enum MitgliedVar
   ID("mitglied_id"), //
   INDIVIDUELLERBEITRAG("mitglied_individuellerbeitrag"), //
   KONTO("mitglied_konto"), //
+  BANKNAME("mitglied_bankname"), //
   KONTOINHABER("mitglied_kontoinhaber"), //
   KONTOINHABER_PERSONENART("mitglied_kontoinhaber_personenart"), //
   KONTOINHABER_ANREDE("mitglied_kontoinhaber_anrede"), //

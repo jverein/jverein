@@ -51,6 +51,8 @@ import de.jost_net.JVerein.util.StringTool;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
+import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -614,6 +616,33 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     return ret;
   }
+
+    private Object getBankname() throws RemoteException
+    {
+        String bic = getBic();
+        if (null != bic)
+        {
+            Bank bank = Banken.getBankByBIC(bic);
+            if ( null != bank)
+                return formatBankname(bank);
+        }
+        String blz = getBlz();
+        if ( null != blz)
+        {
+            Bank bank = Banken.getBankByBLZ(blz);
+            if ( null != bank)
+                return formatBankname(bank);
+        }
+        return null;
+    }
+    
+    private String formatBankname(Bank bank)
+    {
+        String name = bank.getBezeichnung();
+        if ( null != name)
+            return name.trim();
+        return null;
+    }
 
   @Override
   public void setBic(String bic) throws RemoteException
@@ -1280,6 +1309,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.ID.getName(), this.getID());
     map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
         Einstellungen.DECIMALFORMAT.format(this.getIndividuellerBeitrag()));
+    map.put(MitgliedVar.BANKNAME.getName(), this.getBankname()); 
     map.put(MitgliedVar.KONTO.getName(), this.getKonto());
     map.put(MitgliedVar.KONTOINHABER_ADRESSIERUNGSZUSATZ.getName(),
         this.getKtoiAdressierungszusatz());
@@ -1437,7 +1467,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return map;
   }
 
-  @Override
+
+@Override
   public boolean isAngemeldet(Date stichtag) throws RemoteException
   {
     return ((getEintritt() != null || getEintritt().before(stichtag))
