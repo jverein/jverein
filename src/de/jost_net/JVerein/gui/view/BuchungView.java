@@ -21,22 +21,14 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import java.rmi.RemoteException;
-import java.text.MessageFormat;
-
 import de.jost_net.JVerein.gui.action.BuchungNeuAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.parts.BuchungPart;
-import de.jost_net.JVerein.rmi.Jahresabschluss;
-import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.AbstractView;
-import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 
 public class BuchungView extends AbstractView
 {
