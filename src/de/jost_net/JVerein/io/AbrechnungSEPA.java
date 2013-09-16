@@ -710,8 +710,8 @@ public class AbrechnungSEPA
       }
       if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
       {
-        buchung.setBuchungsart(new Long(beitragsgruppe.getBuchungsart()
-            .getID()));
+        buchung
+            .setBuchungsart(new Long(beitragsgruppe.getBuchungsart().getID()));
       }
       buchung.store();
     }
@@ -748,7 +748,8 @@ public class AbrechnungSEPA
   private boolean checkSEPA(Mitglied m, ProgressMonitor monitor)
       throws RemoteException
   {
-    if (m.getZahlungsweg() != Zahlungsweg.BASISLASTSCHRIFT)
+    if (m.getZahlungsweg() == null
+        || m.getZahlungsweg() != Zahlungsweg.BASISLASTSCHRIFT)
     {
       return true;
     }
