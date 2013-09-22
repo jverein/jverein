@@ -354,7 +354,7 @@ public class ExportDialog extends AbstractDialog<Object>
   /**
    * Hilfsklasse zur Anzeige der Exporter.
    */
-  private class Exp implements GenericObject, Comparable
+  private class Exp implements GenericObject, Comparable<Object>
   {
 
     private Exporter exporter = null;

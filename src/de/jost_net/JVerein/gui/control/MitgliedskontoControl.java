@@ -92,6 +92,31 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoControl extends AbstractControl
 {
+  public enum DIFFERENZ
+  {
+    EGAL("egal"), FEHLBETRAG("Fehlbetrag"), UEBERZAHLUNG("Überzahlung");
+    private final String titel;
+
+    private DIFFERENZ(String titel)
+    {
+      this.titel = titel;
+    }
+
+    public String toString()
+    {
+      return titel;
+    }
+
+    public static DIFFERENZ fromString(final String text)
+    {
+      for (DIFFERENZ item : DIFFERENZ.values())
+      {
+        if (item.titel.equals(text))
+          return item;
+      }
+      return null;
+    }
+  }
 
   private Settings settings;
 
@@ -297,6 +322,21 @@ public class MitgliedskontoControl extends AbstractControl
     return bisdatum;
   }
 
+  public Object[] getCVSExportGrenzen()
+  {
+    return new Object[] {
+        getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
+        getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
+        getDifferenz().getValue(), getCVSExportGrenzeOhneAbbucher() };
+  }
+
+  private Boolean getCVSExportGrenzeOhneAbbucher()
+  {
+    if (null == ohneabbucher)
+      return Boolean.FALSE;
+    return (Boolean) ohneabbucher.getValue();
+  }
+
   public CheckboxInput getOhneAbbucher()
   {
     if (ohneabbucher != null)
@@ -341,21 +381,14 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return differenz;
     }
-    differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
-        "Überzahlung" }, settings.getString("differenz", "egal"));
-    differenz.setName("Differenz");
-    differenz.addListener(new FilterListener());
-    return differenz;
+    DIFFERENZ defaultwert = DIFFERENZ.fromString(settings.getString(
+        "differenz", DIFFERENZ.EGAL.toString()));
+    return getDifferenz(defaultwert);
   }
 
-  public SelectInput getDifferenz(String defaultvalue)
+  public SelectInput getDifferenz(DIFFERENZ defaultvalue)
   {
-    // if (differenz != null)
-    // {
-    // return differenz;
-    // }
-    differenz = new SelectInput(new Object[] { "egal", "Fehlbetrag",
-        "Überzahlung" }, defaultvalue);
+    differenz = new SelectInput(DIFFERENZ.values(), defaultvalue);
     differenz.setName("Differenz");
     differenz.addListener(new FilterListener());
     return differenz;
@@ -459,7 +492,7 @@ public class MitgliedskontoControl extends AbstractControl
   {
     this.action = action;
     GenericIterator mitgliedskonten = getMitgliedskontoIterator();
-    settings.setAttribute("differenz", (String) getDifferenz().getValue());
+    settings.setAttribute("differenz", getDifferenz().getValue().toString());
     if (mitgliedskontoList == null)
     {
       mitgliedskontoList = new TablePart(mitgliedskonten, action);
@@ -666,17 +699,18 @@ public class MitgliedskontoControl extends AbstractControl
             {
               Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
                   .createObject(Mitgliedskonto.class, rs.getString(1));
-              String diff = "";
+
+              DIFFERENZ diff = DIFFERENZ.EGAL;
               if (differenz != null)
               {
-                diff = (String) differenz.getValue();
+                diff = (DIFFERENZ) differenz.getValue();
               }
-              if (diff.equals("Fehlbetrag")
+              if (DIFFERENZ.FEHLBETRAG == diff
                   && mk.getIstSumme() >= mk.getBetrag())
               {
                 continue;
               }
-              if (diff.equals("Überzahlung")
+              if (DIFFERENZ.UEBERZAHLUNG == diff
                   && mk.getIstSumme() <= mk.getBetrag())
               {
                 continue;

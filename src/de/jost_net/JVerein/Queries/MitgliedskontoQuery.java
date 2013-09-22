@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.control.MitgliedskontoControl.DIFFERENZ;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.rmi.DBService;
@@ -43,7 +45,9 @@ public class MitgliedskontoQuery
 
   protected Date bisDatum;
 
-  protected String differenz;
+  protected DIFFERENZ differenz;
+
+  protected Boolean ohneAbbucher;
 
   private boolean and = false;
 
@@ -54,14 +58,16 @@ public class MitgliedskontoQuery
   private ArrayList<Mitgliedskonto> ergebnis;
 
   public MitgliedskontoQuery(Mitglied m, Date vonDatum, Date bisDatum,
-      String differenz)
+      DIFFERENZ differenz, Boolean ohneAbbucher)
   {
     this.mitglied = m;
     this.vonDatum = vonDatum;
     this.bisDatum = bisDatum;
     this.differenz = differenz;
+    this.ohneAbbucher = ohneAbbucher;
   }
 
+  @SuppressWarnings("unchecked")
   public ArrayList<Mitgliedskonto> get() throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
@@ -72,36 +78,39 @@ public class MitgliedskontoQuery
 
     addCondition("mitgliedskonto.mitglied = ?", mitglied.getID());
 
-    java.sql.Date vd = null;
     try
     {
-      vd = new java.sql.Date(vonDatum.getTime());
+      java.sql.Date vd = new java.sql.Date(vonDatum.getTime());
+      addCondition("mitgliedskonto.datum >= ? ", vd);
     }
     catch (NullPointerException e)
     {
-      throw new RemoteException("von-Datum fehlt");
+      Logger.info("Export Mitgliedskonto ohne 'von-Datum'");
     }
 
-    java.sql.Date bd = null;
     try
     {
-      bd = new java.sql.Date(bisDatum.getTime());
+      java.sql.Date bd = new java.sql.Date(bisDatum.getTime());
+      addCondition("mitgliedskonto.datum <= ? ", bd);
     }
     catch (NullPointerException e)
     {
-      throw new RemoteException("bis-Datum fehlt");
+      Logger.info("Export Mitgliedskonto ohne 'bis-Datum'");
     }
 
-    addCondition("mitgliedskonto.datum >= ? ", vd);
-    addCondition("mitgliedskonto.datum <= ? ", bd);
+    if (ohneAbbucher.booleanValue())
+    {
+      addCondition("mitgliedskonto.zahlungsweg <> ? ",
+          Zahlungsweg.BASISLASTSCHRIFT);
+    }
 
     sql += "group by mitgliedskonto.id ";
 
-    if (differenz.equals("Fehlbetrag"))
+    if (DIFFERENZ.FEHLBETRAG == differenz)
     {
       sql += "having sum(buchung.betrag) < mitgliedskonto.betrag or sum(buchung.betrag) is null";
     }
-    if (differenz.equals("Überzahlung"))
+    if (DIFFERENZ.UEBERZAHLUNG == differenz)
     {
       sql += "having sum(buchung.betrag) > mitgliedskonto.betrag ";
     }

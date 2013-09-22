@@ -24,6 +24,7 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction;
+import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction.EXPORT_TYP;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.menu.Mitgliedskonto2Menu;
 import de.willuhn.jameica.gui.AbstractView;
@@ -53,20 +54,13 @@ public class MitgliedskontoListeView extends AbstractView
         new Mitgliedskonto2Menu()).paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(),
-        getObject(control), false, "document-save.png"));
+    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(EXPORT_TYP.MITGLIEDSKONTO),
+        control, false, "document-save.png"));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
 
-  private Object[] getObject(MitgliedskontoControl control)
-  {
-    return new Object[] {
-        control.getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
-        control.getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
-        control.getDifferenz().getText()};
-  }
 
   @Override
   public String getHelp()

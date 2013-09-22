@@ -178,7 +178,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
     Date d = null;
     this.vondatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.vondatum.setTitle("Anfangsdatum Abrechung");
+    this.vondatum.setTitle("Anfangsdatum Abrechnung");
     this.vondatum.setText("Bitte Anfangsdatum der Abrechnung wählen");
     this.vondatum.setEnabled(false);
     this.vondatum.addListener(new Listener()
@@ -411,7 +411,7 @@ public class AbrechnungSEPAControl extends AbstractControl
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
               MessageFormat.format(
-                  "Abrechung durchgeführt., SEPA-Datei {0} geschrieben.",
+                  "Abrechnung durchgeführt., SEPA-Datei {0} geschrieben.",
                   abupar.sepafile.getAbsolutePath()));
           GUI.getCurrentView().reload();
         }

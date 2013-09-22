@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
+import de.jost_net.JVerein.gui.control.MitgliedskontoControl.DIFFERENZ;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -92,7 +93,8 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     TextInput suNa = control.getSuchName();
     suNa.setValue(buchung.getName());
     grNurIst.addLabelPair("Name", suNa);
-    grNurIst.addLabelPair("Differenz", control.getDifferenz("Fehlbetrag"));
+    grNurIst.addLabelPair("Differenz",
+        control.getDifferenz(DIFFERENZ.FEHLBETRAG));
     Action action = new Action()
     {
 

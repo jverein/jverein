@@ -21,8 +21,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
+import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.dialogs.ExportDialog;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
+import de.jost_net.JVerein.io.Exporter;
+import de.jost_net.JVerein.io.IORegistry;
+import de.jost_net.JVerein.io.MitgliedskontoExport;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -32,7 +36,12 @@ import de.willuhn.util.ApplicationException;
 
 public class MitgliedskontoExportAction implements Action
 {
-
+  private EXPORT_TYP exportTyp;
+  public MitgliedskontoExportAction(EXPORT_TYP exportTyp)
+  {
+      this.exportTyp = exportTyp;
+  }
+  
   /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
    */
@@ -41,7 +50,8 @@ public class MitgliedskontoExportAction implements Action
   {
     try
     {
-      ExportDialog d = new ExportDialog((Object[]) context,
+        initExporter();
+      ExportDialog d = new ExportDialog( gibSuchGrenzen(context),
           Mitgliedskonto.class, DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT);
       d.open();
     }
@@ -61,5 +71,53 @@ public class MitgliedskontoExportAction implements Action
 
       "Fehler beim exportieren der Mitgliedskonten");
     }
+  }
+
+  /**
+   * Der Exporter bekommt seine Instanz bereits ziemlich früh, deshalb
+   * suchen wir hier unseren um den Typ zu setzen.
+   */
+  private void initExporter()
+  {
+      Exporter[] exporters = IORegistry.getExporters();
+      for ( Exporter export : exporters)
+      {
+          if ( export instanceof MitgliedskontoExport)
+          {
+              MitgliedskontoExport mkexport = (MitgliedskontoExport) export;
+              mkexport.setExportTyp(exportTyp);
+          }
+      }
+  }
+  
+  private Object[] gibSuchGrenzen(Object context) throws ApplicationException
+  {
+      if ( context instanceof MitgliedskontoControl)
+      {
+          MitgliedskontoControl control = (MitgliedskontoControl) context;
+          return control.getCVSExportGrenzen();
+      }
+      throw new ApplicationException("Dieser Export wurde aus dem falschen Context aufgerufen!");
+  }
+
+  public enum EXPORT_TYP
+  {
+      MITGLIEDSKONTO("Mitgliedskonten"), MAHNUNGEN("Mahnungen"), RECHNUNGEN("Rechnungen");
+      
+      private final String titel;
+      private EXPORT_TYP(String name)
+      {
+          this.titel = name;
+      }
+      
+      public String getDateiName()
+      {
+          return titel.toLowerCase();
+      }
+      
+      public String getTitel()
+      {
+          return titel;
+      }
   }
 }

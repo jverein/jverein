@@ -22,10 +22,13 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction;
+import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction.EXPORT_TYP;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.keys.Formularart;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 
@@ -54,6 +57,8 @@ public class MitgliedskontoRechnungView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.RECHNUNG, false, "help-browser.png");
+    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(
+        EXPORT_TYP.RECHNUNGEN), control, false, "document-save.png"));
     buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }

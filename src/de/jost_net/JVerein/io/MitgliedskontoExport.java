@@ -32,6 +32,8 @@ import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.MitgliedskontoQuery;
+import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction.EXPORT_TYP;
+import de.jost_net.JVerein.gui.control.MitgliedskontoControl.DIFFERENZ;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -47,13 +49,17 @@ public abstract class MitgliedskontoExport implements Exporter
   @Override
   public abstract IOFormat[] getIOFormats(Class<?> objectType);
 
+  protected EXPORT_TYP exportTyp = EXPORT_TYP.MITGLIEDSKONTO;
+
   protected File file;
 
   protected Date vonDatum;
 
   protected Date bisDatum;
 
-  protected String differenz;
+  protected DIFFERENZ differenz;
+
+  protected Boolean ohneAbbucher;
 
   @Override
   public void doExport(Object[] objects, IOFormat format, File file,
@@ -62,7 +68,8 @@ public abstract class MitgliedskontoExport implements Exporter
     this.file = file;
     vonDatum = (Date) objects[0];
     bisDatum = (Date) objects[1];
-    differenz = (String) objects[2];
+    differenz = (DIFFERENZ) objects[2];
+    ohneAbbucher = (Boolean) objects[3];
     open();
 
     DBIterator mitgl = Einstellungen.getDBService().createList(Mitglied.class);
@@ -73,7 +80,7 @@ public abstract class MitgliedskontoExport implements Exporter
       Mitglied m = (Mitglied) mitgl.next();
       startMitglied(m);
       MitgliedskontoQuery mkq = new MitgliedskontoQuery(m, vonDatum, bisDatum,
-          differenz);
+          differenz, ohneAbbucher);
       for (Mitgliedskonto mk : mkq.get())
       {
         add(mk);
@@ -84,10 +91,15 @@ public abstract class MitgliedskontoExport implements Exporter
     close(monitor);
   }
 
+  public void setExportTyp(EXPORT_TYP typ)
+  {
+    exportTyp = typ;
+  }
+
   @Override
   public String getDateiname()
   {
-    return "mitgliedskonten";
+    return exportTyp.getDateiName();
   }
 
   protected abstract void startMitglied(Mitglied m) throws DocumentException;

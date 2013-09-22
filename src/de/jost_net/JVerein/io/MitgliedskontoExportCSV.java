@@ -47,7 +47,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
   @Override
   public String getName()
   {
-    return "Mitgliedskonten CSV-Export";
+    return String.format("%s CSV-Export", this.exportTyp.getTitel());
   }
 
   @Override
@@ -76,12 +76,6 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       }
     };
     return new IOFormat[] { f };
-  }
-
-  @Override
-  public String getDateiname()
-  {
-    return "mitgliedskonten";
   }
 
   @Override
@@ -152,7 +146,6 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
             + Adressaufbereitung.getNameVorname(mkto.getMitglied()));
       }
       writer.close();
-      FileViewer.show(file);
     }
     catch (Exception e)
     {
