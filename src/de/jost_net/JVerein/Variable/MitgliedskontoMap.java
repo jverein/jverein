@@ -90,6 +90,8 @@ public class MitgliedskontoMap
     map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
     map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
     map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
+    map.put(MitgliedskontoVar.STAND.getName(), new Double(-1 * saldo));
+    map.put(MitgliedskontoVar.SUMME_OFFEN.getName(), new Double(saldo));
     return map;
   }
 

@@ -46,8 +46,10 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.input.DecimalInput;
+import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 
@@ -73,6 +75,10 @@ public class FormularfeldControl extends AbstractControl
   private Formular formular;
 
   private Formularfeld formularfeld;
+
+  private TextInput formularTyp;
+
+  private TextInput formularName;
 
   public static final String EMPFAENGER = "Empfänger";
 
@@ -144,6 +150,26 @@ public class FormularfeldControl extends AbstractControl
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     settings.setStoreWhenRead(true);
     this.formular = formular;
+  }
+
+  public Input getFormularTyp() throws RemoteException
+  {
+    if (null == formularTyp)
+    {
+      formularTyp = new TextInput(getFormularArtName());
+      formularTyp.disable();
+    }
+    return formularTyp;
+  }
+
+  public Input getFormularName() throws RemoteException
+  {
+    if (null == formularName)
+    {
+      formularName = new TextInput(formular.getBezeichnung());
+      formularName.disable();
+    }
+    return formularName;
   }
 
   public Formularfeld getFormularfeld()
@@ -354,7 +380,7 @@ public class FormularfeldControl extends AbstractControl
   {
     DBService service = Einstellungen.getDBService();
     DBIterator formularfelder = service.createList(Formularfeld.class);
-    formularfelder.addFilter("formular = ?", new Object[] { formular.getID()});
+    formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
     formularfelder.setOrder("ORDER BY seite, x, y");
 
     formularfelderList = new TablePart(formularfelder, new FormularfeldAction());
@@ -377,12 +403,32 @@ public class FormularfeldControl extends AbstractControl
     formularfelderList.removeAll();
     DBIterator formularfelder = Einstellungen.getDBService().createList(
         Formularfeld.class);
-    formularfelder.addFilter("formular = ?", new Object[] { formular.getID()});
+    formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
     formularfelder.setOrder("ORDER BY x, y");
     while (formularfelder.hasNext())
     {
       formularfelderList.addItem(formularfelder.next());
     }
+  }
+
+  private String getFormularArtName() throws RemoteException
+  {
+    switch (formular.getArt())
+    {
+      case Formularart.FREIESFORMULAR:
+        return "Freies Formular";
+      case Formularart.MAHNUNG:
+        return "Mahnung";
+      case Formularart.RECHNUNG:
+        return "Rechnung";
+      case Formularart.SAMMELSPENDENBESCHEINIGUNG:
+        return "Sammel Spendenbescheinigung";
+      case Formularart.SEPA_PRENOTIFICATION:
+        return "SEPA Vorankündigung";
+      case Formularart.SPENDENBESCHEINIGUNG:
+        return "Spendenbescheinigung";
+    }
+    return "";
   }
 
 }

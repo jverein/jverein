@@ -29,6 +29,7 @@ import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 
 public class FormularfelderListeView extends AbstractView
 {
@@ -40,6 +41,10 @@ public class FormularfelderListeView extends AbstractView
 
     FormularfeldControl control = new FormularfeldControl(this,
         (Formular) getCurrentObject());
+    SimpleContainer labelContainer = new SimpleContainer(getParent(), false, 4);
+    labelContainer.addLabelPair("Formulartyp:", control.getFormularTyp());
+    labelContainer.addLabelPair("Formularname:", control.getFormularName());
+
     control.getFormularfeldList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
