@@ -58,7 +58,8 @@ public class MitgliedskontoMahnungView extends AbstractView
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.MAHNUNG, false, "help-browser.png");
     buttons.addButton(new Button("Export", new MitgliedskontoExportAction(
-        EXPORT_TYP.MAHNUNGEN), control, false, "document-save.png"));
+        EXPORT_TYP.MAHNUNGEN, getCurrentObject()), control, false,
+        "document-save.png"));
     buttons.addButton(control.getStartMahnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }

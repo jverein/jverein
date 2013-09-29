@@ -61,6 +61,8 @@ public abstract class MitgliedskontoExport implements Exporter
 
   protected Boolean ohneAbbucher;
 
+  protected Mitglied selectedMitglied;
+
   @Override
   public void doExport(Object[] objects, IOFormat format, File file,
       ProgressMonitor monitor) throws DocumentException, IOException
@@ -70,9 +72,12 @@ public abstract class MitgliedskontoExport implements Exporter
     bisDatum = (Date) objects[1];
     differenz = (DIFFERENZ) objects[2];
     ohneAbbucher = (Boolean) objects[3];
+    selectedMitglied = (Mitglied) objects[4];
     open();
 
     DBIterator mitgl = Einstellungen.getDBService().createList(Mitglied.class);
+    if (null != selectedMitglied)
+      mitgl.addFilter("id = ? ", selectedMitglied.getID());
     mitgl.setOrder("ORDER BY name, vorname");
 
     while (mitgl.hasNext())

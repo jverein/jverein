@@ -58,7 +58,8 @@ public class MitgliedskontoRechnungView extends AbstractView
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.RECHNUNG, false, "help-browser.png");
     buttons.addButton(new Button("Export", new MitgliedskontoExportAction(
-        EXPORT_TYP.RECHNUNGEN), control, false, "document-save.png"));
+        EXPORT_TYP.RECHNUNGEN, getCurrentObject()), control, false,
+        "document-save.png"));
     buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }

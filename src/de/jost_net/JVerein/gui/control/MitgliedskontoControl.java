@@ -322,12 +322,13 @@ public class MitgliedskontoControl extends AbstractControl
     return bisdatum;
   }
 
-  public Object[] getCVSExportGrenzen()
+  public Object[] getCVSExportGrenzen(Mitglied selectedMitglied)
   {
     return new Object[] {
         getVondatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
         getBisdatum(MitgliedskontoControl.DATUM_MITGLIEDSKONTO).getValue(),
-        getDifferenz().getValue(), getCVSExportGrenzeOhneAbbucher() };
+        getDifferenz().getValue(), getCVSExportGrenzeOhneAbbucher(),
+        selectedMitglied };
   }
 
   private Boolean getCVSExportGrenzeOhneAbbucher()

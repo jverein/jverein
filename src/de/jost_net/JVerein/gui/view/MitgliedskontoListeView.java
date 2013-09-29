@@ -54,13 +54,12 @@ public class MitgliedskontoListeView extends AbstractView
         new Mitgliedskonto2Menu()).paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(EXPORT_TYP.MITGLIEDSKONTO),
-        control, false, "document-save.png"));
+    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(
+        EXPORT_TYP.MITGLIEDSKONTO, null), control, false, "document-save.png"));
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
 
   @Override
   public String getHelp()
