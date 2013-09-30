@@ -99,6 +99,7 @@ import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTIMESTAMP;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
@@ -619,6 +620,7 @@ public class MitgliedControl extends AbstractControl
     this.geburtsdatum.setName("Geburtsdatum");
     this.geburtsdatum.setTitle("Geburtsdatum");
     this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
+    zeigeAlter(d);
     this.geburtsdatum.setMandatory(Einstellungen.getEinstellung()
         .getGeburtsdatumPflicht());
     this.geburtsdatum.addListener(new Listener()
@@ -628,6 +630,7 @@ public class MitgliedControl extends AbstractControl
       public void handleEvent(Event event)
       {
         Date date = (Date) geburtsdatum.getValue();
+        zeigeAlter(date);
         if (date == null)
         {
           return;
@@ -635,6 +638,15 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return geburtsdatum;
+  }
+
+  private void zeigeAlter(Date datum)
+  {
+    Integer alter = Datum.getAlter(datum);
+    if (null != alter)
+      geburtsdatum.setComment(" Alter: " + alter.toString());
+    else
+      geburtsdatum.setComment(" ");
   }
 
   public GeschlechtInput getGeschlecht() throws RemoteException

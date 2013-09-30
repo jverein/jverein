@@ -180,6 +180,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   private void zeichneButtonArea(Composite parent) throws RemoteException
   {
     ButtonArea buttons = new ButtonArea();
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.MITGLIED, false, "help-browser.png");
     if (!control.getMitglied().isNewObject())
     {
       MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
@@ -197,8 +199,6 @@ public abstract class AbstractAdresseDetailView extends AbstractView
           new MitgliedDuplizierenAction(), control.getCurrentObject(), false,
           "copy_v2.png"));
     }
-    buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIED, false, "help-browser.png");
     buttons.addButton("Mail", new MitgliedMailSendenAction(),
         getCurrentObject(), false, "mail-message-new.png");
     buttons.addButton("neu", isMitgliedDetail() ? new MitgliedDetailAction()

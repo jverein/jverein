@@ -125,6 +125,8 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public void setGeburtsdatum(String geburtsdatum) throws RemoteException;
 
+  public Integer getAlter() throws RemoteException;
+
   public String getGeschlecht() throws RemoteException;
 
   public void setGeschlecht(String geschlecht) throws RemoteException;

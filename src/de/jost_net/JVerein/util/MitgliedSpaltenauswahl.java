@@ -63,6 +63,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Kontoinhaber", "kontoinhaber", false, true);
     add("Geburtsdatum", "geburtsdatum", true, new DateFormatter(
         new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+    add("Alter", "alter", false, true);
     add("Geschlecht", "geschlecht", false, true);
     add("Telefon privat", "telefonprivat", true, true);
     add("Telefon dienstlich", "telefondienstlich", false, true);
