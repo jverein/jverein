@@ -86,7 +86,8 @@ public class CSVBuchungsImport implements Importer
               Buchung.class, null);
           try
           {
-            bu.setAuszugsnummer(results.getInt(BuchungVar.AUSZUGSNUMMER.getName()));
+            bu.setAuszugsnummer(results.getInt(BuchungVar.AUSZUGSNUMMER
+                .getName()));
           }
           catch (SQLException e)
           {
@@ -119,7 +120,8 @@ public class CSVBuchungsImport implements Importer
           }
           try
           {
-            Date d = de.jost_net.JVerein.util.Datum.toDate(results.getString(BuchungVar.DATUM.getName()));
+            Date d = de.jost_net.JVerein.util.Datum.toDate(results
+                .getString(BuchungVar.DATUM.getName()));
             bu.setDatum(d);
           }
           catch (SQLException e)
@@ -137,7 +139,7 @@ public class CSVBuchungsImport implements Importer
           }
           try
           {
-            Long knr = results.getLong(BuchungVar.KONTONUMMER.getName());
+            String knr = results.getString(BuchungVar.KONTONUMMER.getName());
             DBIterator kit = Einstellungen.getDBService().createList(
                 Konto.class);
             kit.addFilter("nummer = ?", knr);
@@ -156,7 +158,8 @@ public class CSVBuchungsImport implements Importer
           }
           try
           {
-            Integer bart = results.getInt(BuchungVar.BUCHUNGSARTNUMMER.getName());
+            Integer bart = results.getInt(BuchungVar.BUCHUNGSARTNUMMER
+                .getName());
             DBIterator bit = Einstellungen.getDBService().createList(
                 Buchungsart.class);
             bit.addFilter("nummer = ?", bart);
@@ -245,9 +248,9 @@ public class CSVBuchungsImport implements Importer
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv"};
+        return new String[] { "*.csv" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 }
