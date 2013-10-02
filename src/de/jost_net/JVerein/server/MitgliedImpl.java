@@ -888,7 +888,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public Integer getAlter() throws RemoteException
   {
     Date geburtstag = getGeburtsdatum();
-    return Datum.getAlter(geburtstag);
+    int altersmodel = Einstellungen.getEinstellung().getAltersModel();
+    return Datum.getAlter(geburtstag, altersmodel);
   }
 
   @Override

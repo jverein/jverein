@@ -1324,10 +1324,13 @@ public class JVereinUpdateProvider
     {
       update0329(conn);
     }
-
     if (cv < 330)
     {
       update0330(conn);
+    }
+    if (cv < 331)
+    {
+      update0331(conn);
     }
     // TODO
   }
@@ -7920,6 +7923,21 @@ public class JVereinUpdateProvider
 
     execute(conn, statements, "Neue Tabelle für zukünftige Mitgliedsbeiträge.",
         330);
+  }
+
+  private void update0331(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung ADD altermodel integer not null default 1;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung ADD altermodel integer not null default 1;\n");
+
+    execute(conn, statements,
+        "Spalte Altermodel in die Tabelle einstellung eingefügt", 331);
   }
 
   private String alterColumn(String table, String column, String type)

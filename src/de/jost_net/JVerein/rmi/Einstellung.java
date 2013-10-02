@@ -29,6 +29,9 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Einstellung extends DBObject, IBankverbindung
 {
+  public static final String COL_ALTER_MODEL = "altermodel";
+
+  public static final String COL_ARBEITS_MODEL = "arbeitsmodel";
 
   public void setID() throws RemoteException;
 
@@ -401,6 +404,11 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public int getArbeitsstundenmodel() throws RemoteException;
 
-  public void setArbeitsstundenmodel(int arbeitsstundenmodel) throws RemoteException;
+  public void setArbeitsstundenmodel(int arbeitsstundenmodel)
+      throws RemoteException;
+
+  public int getAltersModel() throws RemoteException;
+
+  public void setAltersModel(int altersmodel) throws RemoteException;
 
 }

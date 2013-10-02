@@ -106,6 +106,9 @@ public class EinstellungenView extends AbstractView
         control.getExterneMitgliedsnummer());
     right.addLabelPair("Verzögerungszeit Suche (in Millisekunden)",
         control.getDelaytime());
+    right.addLabelPair("Basis für Berechnung des Alters",
+        control.getAltersModel());
+
     right.addHeadline("* " + "Änderung erfordert Neustart");
 
     TabGroup tabBeitraege = new TabGroup(folder, "Beiträge");
@@ -115,7 +118,8 @@ public class EinstellungenView extends AbstractView
     groupAbu.addInput(control.getZahlungsrhytmus());
     groupAbu.addInput(control.getZahlungsweg());
     groupAbu.addInput(control.getDefaultSEPALand());
-    groupAbu.addLabelPair("Arbeitsstunden Model", control.getArbeitsstundenmodel());
+    groupAbu.addLabelPair("Arbeitsstunden Model",
+        control.getArbeitsstundenmodel());
 
     TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen", false, 1);
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),

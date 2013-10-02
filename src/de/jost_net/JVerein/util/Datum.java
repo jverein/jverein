@@ -48,6 +48,7 @@ import java.util.Date;
  * www.jverein.de
  **********************************************************************/
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.Altermodel;
 
 public class Datum
 {
@@ -158,6 +159,38 @@ public class Datum
     return d == null ? "" : new JVDateFormatTTMMJJJJ().format(d);
   }
 
+  public final static Integer getAlter(Date geburtstag, int altersModel)
+  {
+    if (Altermodel.JAHRES_ENDE == altersModel)
+      return getAlter(geburtstag, getJahresEnde());
+    if (Altermodel.JAHRES_START == altersModel)
+      return getAlter(geburtstag, getJahresStart());
+    return getAlter(geburtstag);
+  }
+
+  private static Date getJahresStart()
+  {
+    Calendar datum = Calendar.getInstance();
+    int jahr = datum.get(Calendar.YEAR);
+    datum.clear();
+    datum.set(jahr, Calendar.JANUARY, 1);
+    return datum.getTime();
+  }
+
+  private static Date getJahresEnde()
+  {
+    Calendar datum = Calendar.getInstance();
+    int jahr = datum.get(Calendar.YEAR);
+    datum.clear();
+    datum.set(jahr, Calendar.DECEMBER, 31);
+    return datum.getTime();
+  }
+
+  public final static Integer getAlter(Date geburtstag)
+  {
+    return getAlter(geburtstag, new Date());
+  }
+
   /**
    * Gibt das Alter zum übergebenen Date zurück. oder null falls kein Geburtstag
    * übergeben wurde oder das Alter < 1 ist.
@@ -165,13 +198,14 @@ public class Datum
    * @param geburtstag
    * @return
    */
-  public final static Integer getAlter(Date geburtstag)
+  public final static Integer getAlter(Date geburtstag, Date referenzDatum)
   {
     if (null == geburtstag)
       return null;
     if (Einstellungen.NODATE == geburtstag)
       return null;
     Calendar heute = Calendar.getInstance();
+    heute.setTime(referenzDatum);
     Calendar birthDate = Calendar.getInstance();
     birthDate.setTime(geburtstag);
     int alter = heute.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);

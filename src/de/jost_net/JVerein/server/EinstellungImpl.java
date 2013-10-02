@@ -28,6 +28,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.io.JubilaeenParser;
+import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -782,7 +783,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util
+        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override
@@ -1303,12 +1305,28 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public int getArbeitsstundenmodel() throws RemoteException
   {
-        return (Integer) getAttribute("arbeitsmodel");
+    return (Integer) getAttribute(COL_ARBEITS_MODEL);
   }
 
   @Override
-  public void setArbeitsstundenmodel(int arbeitsstundenmodel) throws RemoteException
+  public void setArbeitsstundenmodel(int arbeitsstundenmodel)
+      throws RemoteException
   {
-      setAttribute("arbeitsmodel", arbeitsstundenmodel);
+    setAttribute(COL_ARBEITS_MODEL, arbeitsstundenmodel);
+  }
+
+  @Override
+  public int getAltersModel() throws RemoteException
+  {
+    Integer wert = (Integer) getAttribute(COL_ALTER_MODEL);
+    if (null == wert)
+      return Altermodel.AKTUELLES_DATUM;
+    return wert.intValue();
+  }
+
+  @Override
+  public void setAltersModel(int altersmodel) throws RemoteException
+  {
+    setAttribute(COL_ALTER_MODEL, altersmodel);
   }
 }
