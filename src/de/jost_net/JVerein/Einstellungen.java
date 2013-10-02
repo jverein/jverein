@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -116,7 +117,8 @@ public class Einstellungen
             "kommunikationsdaten.einblenden", true));
         einstellung.setZusatzbetrag(settings.getBoolean(
             "zusatzabbuchung.einblenden", true));
-        einstellung.setVermerke(settings.getBoolean("vermerke.einblenden", true));
+        einstellung.setVermerke(settings
+            .getBoolean("vermerke.einblenden", true));
         einstellung.setWiedervorlage(settings.getBoolean(
             "wiedervorlage.einblenden", true));
         einstellung.setKursteilnehmer(settings.getBoolean(
@@ -125,12 +127,14 @@ public class Einstellungen
             "externemitgliedsnummer.verwenden", false));
         einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
             Beitragsmodel.GLEICHERTERMINFUERALLE));
-        einstellung.setArbeitsstundenmodel(settings.getInt("arbeitsmodel",
-            ArbeitsstundenModel.STANDARD));
+        einstellung.setArbeitsstundenmodel(settings.getInt(
+            Einstellung.COL_ARBEITS_MODEL, ArbeitsstundenModel.STANDARD));
         einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",
             "a$s$-d$-z$"));
         einstellung.setBeginnGeschaeftsjahr(settings.getString(
             "beginngeschaeftsjahr", "01.01."));
+        einstellung.setAltersModel(settings.getInt(Einstellung.COL_ALTER_MODEL,
+            Altermodel.AKTUELLES_DATUM));
       }
       catch (RemoteException e1)
       {
@@ -178,8 +182,8 @@ public class Einstellungen
   public final static boolean checkAccountCRC(String blz, String kontonummer)
   {
     QueryMessage q = new QueryMessage(blz + ":" + kontonummer);
-    Application.getMessagingFactory().getMessagingQueue(
-        "hibiscus.query.accountcrc").sendSyncMessage(q);
+    Application.getMessagingFactory()
+        .getMessagingQueue("hibiscus.query.accountcrc").sendSyncMessage(q);
     Object data = q.getData();
 
     // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
@@ -194,14 +198,14 @@ public class Einstellungen
    * Liefert den Namen der Bank zu einer BLZ.
    * 
    * @param blz
-   *        BLZ.
+   *          BLZ.
    * @return Name der Bank oder Leerstring.
    */
   public final static String getNameForBLZ(String blz)
   {
     QueryMessage q = new QueryMessage(blz);
-    Application.getMessagingFactory().getMessagingQueue(
-        "hibiscus.query.bankname").sendSyncMessage(q);
+    Application.getMessagingFactory()
+        .getMessagingQueue("hibiscus.query.bankname").sendSyncMessage(q);
     Object data = q.getData();
 
     // wenn wir nicht zurueckerhalten haben oder die Nachricht
