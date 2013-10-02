@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -46,7 +47,9 @@ import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.IBANCode;
 import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.SEPAException.Fehler;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -217,8 +220,7 @@ public class SEPAKonvertierungControl extends AbstractControl
         }
       }
       // Mitglieder
-      it = Einstellungen.getDBService().createList(Mitglied.class);
-      it.addFilter("blz is not null and length(blz)>0 and konto is not null and length(konto)>0");
+      it = getMitglieder();
       while (it.hasNext())
       {
         Mitglied m = (Mitglied) it.next();
@@ -228,20 +230,6 @@ public class SEPAKonvertierungControl extends AbstractControl
             Adressaufbereitung.getNameVorname(m2), m2.getBlz(), m2.getKonto(),
             null, null, null);
         konvertiere(m2, iu);
-      }
-      // Kursteilnehmer
-      it = Einstellungen.getDBService().createList(Kursteilnehmer.class);
-      it.addFilter("blz is not null and length(blz)>0 and konto is not null and length(konto)>0");
-      while (it.hasNext())
-      {
-        Kursteilnehmer k = (Kursteilnehmer) it.next();
-        Kursteilnehmer k2 = (Kursteilnehmer) Einstellungen.getDBService()
-            .createObject(Kursteilnehmer.class, k.getID());
-        IBANUpdate iu = new IBANUpdate(k2.getID(),
-            Adressaufbereitung.getNameVorname(k2), k2.getBlz(), k2.getKonto(),
-            null, null, null);
-        konvertiere(k2, iu);
-
       }
     }
     catch (RemoteException e)
@@ -319,64 +307,8 @@ public class SEPAKonvertierungControl extends AbstractControl
       @Override
       public String format(Object o)
       {
-        String in = (String) o;
-        if (in.equals("00"))
-        {
-          return "Umstellung war erfolgreich oder nicht erforderlich";
-        }
-        else if (in.equals("10"))
-        {
-          return "Bankleitzahl ungültig";
-        }
-        else if (in.equals("11"))
-        {
-          return "Aufbau Kontonummer falsch, z.B. auf Grund der Prüfziffernrechnung";
-        }
-        else if (in.equals("13"))
-        {
-          return "Gemeldete Bankleitzahl ist zur Löschung vorgemerkt und wurde gegen die Nachfolgebankleitzahl ausgetauscht.";
-        }
-        else if (in.equals("14"))
-        {
-          return "IBAN wurde auf Basis einer zur Löschung vorgemerkten Bankleitzahl ermittelt. Es liegt keine Nachfolgebankleitzahl vor.";
-        }
-        else if (in.equals("1x"))
-        {
-          return "Ggf. weitere Fehler basierend auf den Angaben aus Feld 5b und Feld 5c";
-        }
-        else if (in.equals("20"))
-        {
-          return "Aufbau der IBAN alt ungültig";
-        }
-        else if (in.equals("21"))
-        {
-          return "Prüfziffernrechnung der IBAN alt falsch";
-        }
-        else if (in.equals("22"))
-        {
-          return "BIC ist nicht gültig";
-        }
-        else if (in.equals("2x"))
-        {
-          return "Ggf. weitere Fehler basierend auf Feld 4 und Feld 5";
-        }
-        else if (in.equals("3x"))
-        {
-          return "Ggf. weitere Fehler aus kontenbezogenen Prüfungen";
-        }
-        else if (in.equals("40"))
-        {
-          return "Konto ist kein Konto der umstellenden Stelle (gem. Feld 5 oder 5b)";
-        }
-        else if (in.equals("50"))
-        {
-          return "IBAN-Berechnung nicht möglich";
-        }
-        else if (in.equals("9x"))
-        {
-          return "Individuelle Fehler und Hinweismeldungen die zwischen dem Einreicher und Bearbeiter der Datei vereinbart sind";
-        }
-        return "Unbekannter Fehlerstatus";
+        IBANCode ic = IBANCode.fromString((String) o);
+        return ic.getMessage();
       }
     });
     ibanupdateList.setRememberColWidths(true);
@@ -408,20 +340,11 @@ public class SEPAKonvertierungControl extends AbstractControl
   {
     BufferedWriter wr = new BufferedWriter(new PrintWriter(file));
     // Mitglieder
-    DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
-    it.addFilter("konto is not null and length(konto) > 0 and blz is not null and length(blz) > 0");
+    DBIterator it = getMitglieder();
     while (it.hasNext())
     {
       Mitglied m = (Mitglied) it.next();
       schreibeExportsatz(wr, "M", m.getID(), m.getBlz(), m.getKonto());
-    }
-    // Kursteilnehmer
-    it = Einstellungen.getDBService().createList(Kursteilnehmer.class);
-    it.addFilter("konto is not null and length(konto) > 0 and blz is not null and length(blz) > 0");
-    while (it.hasNext())
-    {
-      Kursteilnehmer k = (Kursteilnehmer) it.next();
-      schreibeExportsatz(wr, "K", k.getID(), k.getBlz(), k.getKonto());
     }
     // Einstellungen
     it = Einstellungen.getDBService().createList(Einstellung.class);
@@ -453,7 +376,6 @@ public class SEPAKonvertierungControl extends AbstractControl
     zeile = new ArrayList<IBANUpdate>();
     ICsvListReader r = new CsvListReader(new FileReader(file),
         CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
-    r.getCSVHeader(false);
     List<String> line = null;
     while ((line = r.read()) != null)
     {
@@ -503,5 +425,14 @@ public class SEPAKonvertierungControl extends AbstractControl
         zeile.add(iu);
       }
     }
+  }
+
+  private DBIterator getMitglieder() throws RemoteException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    it.addFilter("konto is not null and length(konto) > 0 and blz is not null and length(blz) > 0");
+    it.addFilter("eintritt is not null and eintritt <=?", new Date());
+    it.addFilter("(austritt is null or austritt > ?)", new Date());
+    return it;
   }
 }
