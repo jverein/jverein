@@ -49,7 +49,6 @@ import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.IBANCode;
 import de.jost_net.OBanToo.SEPA.SEPAException;
-import de.jost_net.OBanToo.SEPA.SEPAException.Fehler;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
