@@ -45,8 +45,6 @@ public class ATBankdatei
       return new ATBank(bankMap);
     }
     return null;
-    // System.out.println(String.format("lineNo=%s, customerMap=%s",
-    // csvreader.getLineNumber(), bankMap));
   }
 
   private static CellProcessor[] getProcessors()
