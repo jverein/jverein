@@ -27,7 +27,6 @@ import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.SplitbuchungsContainer;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -62,15 +61,6 @@ public class SplitbuchungListTablePart extends TablePart
     String summary = super.getSummary();
     try
     {
-      List l = this.getItems();
-      for (int i = 0; i < l.size(); i++)
-      {
-        Buchung b = (Buchung) l.get(i);
-      }
-      // summary += " / Differenz:"
-      // + " "
-      // + Einstellungen.DECIMALFORMAT.format(SplitbuchungsContainer
-      // .getDifference()) + " " + Einstellungen.CURRENCY;
       summary += " / Differenz:" + " " + SplitbuchungsContainer.getDifference()
           + " " + Einstellungen.CURRENCY;
     }
