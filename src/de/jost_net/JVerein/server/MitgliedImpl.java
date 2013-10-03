@@ -308,6 +308,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Zahler auswählen!");
     }
+    
+    if ( getGeschlecht() == null || getGeschlecht().length() == 0)
+        throw new ApplicationException("Bitte erfassen Sie das Geschlecht des Mitglieds!");
   }
 
   @Override
@@ -576,9 +579,26 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
+  public Integer getMandatVersion() throws RemoteException
+  {
+    Integer vers = (Integer) getAttribute("mandatversion");
+    if (vers == null)
+    {
+      vers = new Integer(0);
+    }
+    return vers;
+  }
+
+  @Override
+  public void setMandatVersion(Integer mandatversion) throws RemoteException
+  {
+    setAttribute("mandatversion", mandatversion);
+  }
+
+  @Override
   public String getMandatID() throws RemoteException
   {
-    return getID();
+    return getID() + "-" + getMandatID();
   }
 
   @Override
@@ -1298,6 +1318,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
     map.put(MitgliedVar.MANDATDATUM.getName(), this.getMandatDatum());
+    map.put(MitgliedVar.MANDATDATUM.getName(), this.getMandatID());
     map.put(MitgliedVar.BIC.getName(), this.getBic());
     map.put(MitgliedVar.BLZ.getName(), this.getBlz());
     map.put(MitgliedVar.EINGABEDATUM.getName(),

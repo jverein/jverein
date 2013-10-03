@@ -70,6 +70,16 @@ public class GeschlechtInput extends SelectInput
     }
     return o.geschlecht;
   }
+  
+  /**
+   * Liefert das gewählte Objekt ohne Default-Wert zurück
+   * @return
+   */
+  public GeschlechtObject getSelectedValue()
+  {
+      GeschlechtObject o = (GeschlechtObject) super.getValue();
+      return o;
+  }
 
   @Override
   public void setValue(Object obj)
