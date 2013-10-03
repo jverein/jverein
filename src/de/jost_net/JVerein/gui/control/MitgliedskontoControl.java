@@ -102,6 +102,7 @@ public class MitgliedskontoControl extends AbstractControl
       this.titel = titel;
     }
 
+    @Override
     public String toString()
     {
       return titel;
