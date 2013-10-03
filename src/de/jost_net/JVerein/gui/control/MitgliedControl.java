@@ -128,6 +128,7 @@ import de.willuhn.jameica.gui.input.ImageInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.SpinnerInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
@@ -182,6 +183,8 @@ public class MitgliedControl extends AbstractControl
   private TextInput mandatid = null;
 
   private DateInput mandatdatum = null;
+
+  private SpinnerInput mandatversion = null;
 
   private DateInput letztelastschrift = null;
 
@@ -799,6 +802,17 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return mandatdatum;
+  }
+
+  public SpinnerInput getMandatVersion() throws RemoteException
+  {
+    if (mandatversion != null)
+    {
+      return mandatversion;
+    }
+    mandatversion = new SpinnerInput(0, 1000, getMitglied().getMandatVersion());
+    mandatversion.setName("Mandatsversion");
+    return mandatversion;
   }
 
   public DateInput getLetzteLastschrift() throws RemoteException
@@ -2820,6 +2834,7 @@ public class MitgliedControl extends AbstractControl
       Zahlungsrhytmus zr = (Zahlungsrhytmus) getZahlungsrhytmus().getValue();
       m.setZahlungsrhytmus(zr.getKey());
       m.setMandatDatum((Date) getMandatDatum().getValue());
+      m.setMandatVersion((Integer) getMandatVersion().getValue());
       m.setBlz((String) getBlz().getValue());
       m.setBic((String) getBic().getValue());
       m.setIban((String) getIban().getValue());
@@ -2841,6 +2856,11 @@ public class MitgliedControl extends AbstractControl
       if (m.getPersonenart().equals("n"))
       {
         m.setGeburtsdatum((Date) getGeburtsdatum().getValue());
+        if (getGeschlecht().getSelectedValue() == null)
+        {
+            throw new ApplicationException("Bitte Geschlecht auswählen!");
+        }
+            
         m.setGeschlecht((String) getGeschlecht().getValue());
       }
       m.setKonto((String) getKonto().getValue());

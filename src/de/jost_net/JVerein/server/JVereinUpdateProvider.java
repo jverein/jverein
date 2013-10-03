@@ -1332,6 +1332,14 @@ public class JVereinUpdateProvider
     {
       update0331(conn);
     }
+    if (cv < 332)
+    {
+      update0332(conn);
+    }
+    if (cv < 333)
+    {
+      update0333(conn);
+    }
     // TODO
   }
 
@@ -7938,6 +7946,35 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte Altermodel in die Tabelle einstellung eingefügt", 331);
+  }
+
+  private void update0332(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE mitglied ADD mandatversion integer before bic;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE mitglied ADD mandatversion integer after mandatdatum;\n");
+
+    execute(conn, statements,
+        "Spalte mandatversion in die Tabelle mitglied eingefügt", 332);
+  }
+
+  private void update0333(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE mitglied set mandatversion = 1 WHERE mandatdatum is not null";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte mandatversion initialisiert", 333);
   }
 
   private String alterColumn(String table, String column, String type)

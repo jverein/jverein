@@ -447,6 +447,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
     cols.addInput(control.getMandatID());
     cols.addInput(control.getMandatDatum());
+    cols.addInput(control.getMandatVersion());
     cols.addInput(control.getLetzteLastschrift());
     cols.addInput(control.getBic());
     cols.addInput(control.getIban());

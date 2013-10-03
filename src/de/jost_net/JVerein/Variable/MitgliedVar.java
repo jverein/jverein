@@ -35,6 +35,7 @@ public enum MitgliedVar
   BEITRAGSGRUPPE_BETRAG("mitglied_beitragsgruppe_betrag"), //
   BEITRAGSGRUPPE_ID("mitglied_beitragsgruppe_id"), //
   MANDATDATUM("mitglied_mandatdatum"), //
+  MANDATID("mitglied_mandatid"), //
   BIC("mitglied_bic"), //
   BLZ("mitglied_blz"), //
   EINTRITT("mitglied_eintritt"), //

@@ -379,7 +379,7 @@ public class AbrechnungSEPA
             zahler.setBic(m.getBic());
             new IBAN(m.getIban()); // Prüfung der IBAN
             zahler.setIban(m.getIban());
-            zahler.setMandatid(m.getID());
+            zahler.setMandatid(m.getMandatID());
             zahler.setMandatdatum(m.getMandatDatum());
             zahler.setVerwendungszweck(param.verwendungszweck + " "
                 + getVerwendungszweck2(m));
@@ -456,7 +456,7 @@ public class AbrechnungSEPA
             new IBAN(m.getIban());
             zahler.setBic(m.getBic());
             zahler.setIban(m.getIban());
-            zahler.setMandatid(m.getID());
+            zahler.setMandatid(m.getMandatID());
             zahler.setMandatdatum(m.getMandatDatum());
             zahler.setName(m.getKontoinhaber(1));
             String verwendungszweck = z.getBuchungstext();
