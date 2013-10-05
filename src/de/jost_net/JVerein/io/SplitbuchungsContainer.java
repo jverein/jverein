@@ -21,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -99,14 +100,15 @@ public class SplitbuchungsContainer
     }
   }
 
-  public static double getSumme(Integer typ) throws RemoteException
+  public static BigDecimal getSumme(Integer typ) throws RemoteException
   {
-    double summe = 0;
+    BigDecimal summe = new BigDecimal(0).setScale(2);
     for (Buchung b : splitbuchungen)
     {
       if (b.getSplitTyp().equals(typ) && !b.isToDelete())
       {
-        summe += b.getBetrag();
+        summe = summe.add(new BigDecimal(b.getBetrag()).setScale(2,
+            BigDecimal.ROUND_HALF_UP));
       }
     }
     return summe;
@@ -115,7 +117,7 @@ public class SplitbuchungsContainer
   public static String getDifference() throws RemoteException
   {
     return Einstellungen.DECIMALFORMAT.format(getSumme(SplitbuchungTyp.HAUPT)
-        - getSumme(SplitbuchungTyp.SPLIT));
+        .subtract(getSumme(SplitbuchungTyp.SPLIT)));
   }
 
   public static void aufloesen() throws RemoteException, ApplicationException
@@ -136,17 +138,19 @@ public class SplitbuchungsContainer
 
   public static void store() throws RemoteException, ApplicationException
   {
-    if (getSumme(SplitbuchungTyp.HAUPT) != getSumme(SplitbuchungTyp.GEGEN) * -1)
+    BigDecimal gegen = getSumme(SplitbuchungTyp.GEGEN).multiply(
+        new BigDecimal(-1));
+    if (!getSumme(SplitbuchungTyp.HAUPT).equals(gegen))
     {
       throw new RemoteException(
           "Die Minusbuchung muss den gleichen Betrag mit umgekehrtem Vorzeichen wie die Hauptbuchung haben.");
     }
-    double differenz = getSumme(SplitbuchungTyp.HAUPT)
-        - getSumme(SplitbuchungTyp.SPLIT);
-    if (differenz != 0)
+    BigDecimal differenz = getSumme(SplitbuchungTyp.HAUPT).subtract(
+        getSumme(SplitbuchungTyp.SPLIT));
+    if (!differenz.equals(new BigDecimal(0).setScale(2)))
     {
       throw new RemoteException(
-          "Differenz zwischen Hauptbuchung und Gegenbuchungen");
+          "Differenz zwischen Hauptbuchung und Gegenbuchungen: " + differenz);
     }
 
     Buchungsart ba_haupt = null;
