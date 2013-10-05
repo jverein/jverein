@@ -138,9 +138,11 @@ public class AbrechnungSEPA
       }
       else
       {
-        ls.setMitglied(Integer.parseInt(za.getMandatid()));
+        int pos = za.getMandatid().indexOf("-");
+        int mitgliedid = Integer.parseInt(za.getMandatid().substring(0, pos));
+        ls.setMitglied(mitgliedid);
         Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-            Mitglied.class, za.getMandatid());
+            Mitglied.class, mitgliedid + "");
         ls.setPersonenart(getKontoinhaber(m.getPersonenart(),
             m.getKtoiPersonenart()));
         ls.setAnrede(getKontoinhaber(m.getAnrede(), m.getKtoiAnrede()));
