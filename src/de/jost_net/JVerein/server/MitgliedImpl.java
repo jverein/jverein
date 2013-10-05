@@ -308,9 +308,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Zahler auswählen!");
     }
-    
-    if ( getGeschlecht() == null || getGeschlecht().length() == 0)
-        throw new ApplicationException("Bitte erfassen Sie das Geschlecht des Mitglieds!");
+
+    if (getGeschlecht() == null || getGeschlecht().length() == 0)
+      throw new ApplicationException(
+          "Bitte erfassen Sie das Geschlecht des Mitglieds!");
   }
 
   @Override
@@ -598,7 +599,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getMandatID() throws RemoteException
   {
-    return getID() + "-" + getMandatID();
+    return getID() + "-" + getMandatVersion();
   }
 
   @Override
