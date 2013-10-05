@@ -134,10 +134,15 @@ public class SplitbuchungsContainer
         b.delete();
       }
     }
+    splitbuchungen.clear();
   }
 
   public static void store() throws RemoteException, ApplicationException
   {
+    if (splitbuchungen.size() == 0) // Splitbuchungen wurden aufgelöst
+    {
+      return;
+    }
     BigDecimal gegen = getSumme(SplitbuchungTyp.GEGEN).multiply(
         new BigDecimal(-1));
     if (!getSumme(SplitbuchungTyp.HAUPT).equals(gegen))
