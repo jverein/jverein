@@ -29,10 +29,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.SEPAKonvertierungAction;
-import de.jost_net.JVerein.rmi.Kursteilnehmer;
-import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.gui.control.SEPAKonvertierungControl;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.boxes.AbstractBox;
@@ -42,6 +40,7 @@ import de.willuhn.jameica.gui.util.Font;
 import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Platform;
+import de.willuhn.logging.Logger;
 
 /**
  * Seite fuer die SEPA-Konvertierung.
@@ -55,22 +54,16 @@ public class SEPAKonverter extends AbstractBox
   {
     try
     {
-      DBIterator it0 = Einstellungen.getDBService().createList(Mitglied.class);
-
-      DBIterator it1 = Einstellungen.getDBService().createList(Mitglied.class);
-      it1.addFilter("iban is null and length(blz) > 0");
-      DBIterator it2 = Einstellungen.getDBService().createList(
-          Kursteilnehmer.class);
-      it2.addFilter("iban is null and length(blz) > 0");
-      if (it0.size() > 0 && (it1.size() > 0 || it2.size() > 0))
+      DBIterator it = SEPAKonvertierungControl.getMitglieder();
+      it.addFilter("iban is null and length(blz) > 0");
+      if (it.size() > 0)
       {
         aktiv = true;
       }
-
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
 
   }
