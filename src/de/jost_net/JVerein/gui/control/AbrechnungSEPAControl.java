@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.DBTools.DBTransaction;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.AbrechnungSEPA;
 import de.jost_net.JVerein.io.AbrechnungSEPAParam;
@@ -406,7 +407,11 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         try
         {
+            
+          DBTransaction.starten();
           new AbrechnungSEPA(abupar, monitor);
+          DBTransaction.commit();
+          
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
@@ -417,6 +422,7 @@ public class AbrechnungSEPAControl extends AbstractControl
         }
         catch (ApplicationException ae)
         {
+          DBTransaction.rollback();
           monitor.setStatusText(ae.getMessage());
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           GUI.getStatusBar().setErrorText(ae.getMessage());
@@ -424,6 +430,7 @@ public class AbrechnungSEPAControl extends AbstractControl
         }
         catch (Exception e)
         {
+          DBTransaction.rollback();
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error(MessageFormat.format(
               "error while reading objects from {0}",
