@@ -70,6 +70,7 @@ import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.gui.parts.MitgliedNextBGruppePart;
+import de.jost_net.JVerein.gui.view.AbstractAdresseDetailView;
 import de.jost_net.JVerein.gui.view.AuswertungVorlagenCsvView;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.FileViewer;
@@ -458,7 +459,18 @@ public class MitgliedControl extends AbstractControl
     }
     externemitgliedsnummer = new IntegerInput(ex);
     externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
+    externemitgliedsnummer.setMandatory(isExterneMitgliedsnummerMandatory());
     return externemitgliedsnummer;
+  }
+
+  private boolean isExterneMitgliedsnummerMandatory() throws RemoteException
+  {
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer() == false)
+      return false;
+    if (view instanceof AbstractAdresseDetailView == false)
+      return false;
+    AbstractAdresseDetailView detailView = (AbstractAdresseDetailView) view;
+    return detailView.isMitgliedDetail();
   }
 
   public TextInput getMitgliedsnummer() throws RemoteException
@@ -2230,9 +2242,8 @@ public class MitgliedControl extends AbstractControl
 
   public void resetZusatzfelderAuswahl()
   {
-    zad.reset();
+    settings.setAttribute("mitglied.eigenschaften", "");
     setZusatzfelderAuswahl();
-    zusatzfelderabfrage.getControl().redraw();
   }
 
   public Input getAusgabe()
@@ -2858,9 +2869,9 @@ public class MitgliedControl extends AbstractControl
         m.setGeburtsdatum((Date) getGeburtsdatum().getValue());
         if (getGeschlecht().getSelectedValue() == null)
         {
-            throw new ApplicationException("Bitte Geschlecht auswählen!");
+          throw new ApplicationException("Bitte Geschlecht auswählen!");
         }
-            
+
         m.setGeschlecht((String) getGeschlecht().getValue());
       }
       m.setKonto((String) getKonto().getValue());
