@@ -107,14 +107,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 
   private void plausi() throws RemoteException, ApplicationException
   {
-    if (getAdresstyp().getJVereinid() == 1
-        && Einstellungen.getEinstellung().getExterneMitgliedsnummer())
-    {
-      if (getExterneMitgliedsnummer() == null)
-      {
-        throw new ApplicationException("Externe Mitgliedsnummer fehlt");
-      }
-    }
+    checkExterneMitgliedsnummer();
+
     if (getPersonenart() == null
         || (!getPersonenart().equals("n") && !getPersonenart().equals("j")))
     {
@@ -312,6 +306,42 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     if (getGeschlecht() == null || getGeschlecht().length() == 0)
       throw new ApplicationException(
           "Bitte erfassen Sie das Geschlecht des Mitglieds!");
+  }
+
+  /***
+   * Prüfe die externe Mitgliedsnummer. Ist es ein Mitgliedssatz und ist in den
+   * Einstellungen die externe Mitgliedsnummer aktiviert, dann muss eine
+   * vorhanden sein und diese muss eindeutig sein.
+   * 
+   * @throws RemoteException
+   * @throws ApplicationException
+   */
+  private void checkExterneMitgliedsnummer() throws RemoteException,
+      ApplicationException
+  {
+    if (getAdresstyp().getJVereinid() != 1)
+      return;
+    if (Einstellungen.getEinstellung().getExterneMitgliedsnummer() == false)
+      return;
+
+    if (getExterneMitgliedsnummer() == null)
+    {
+      throw new ApplicationException("Externe Mitgliedsnummer fehlt");
+    }
+
+    DBIterator mitglieder = Einstellungen.getDBService().createList(
+        Mitglied.class);
+    mitglieder.addFilter("id != ?", getID());
+    mitglieder.addFilter("externemitgliedsnummer = ?",
+        getExterneMitgliedsnummer());
+    if (mitglieder.hasNext())
+    {
+      Mitglied mitglied = (Mitglied) mitglieder.next();
+      throw new ApplicationException(
+          "Die externe Mitgliedsnummer wird bereits verwendet für Mitglied : "
+              + mitglied.getAttribute("namevorname"));
+    }
+
   }
 
   @Override
