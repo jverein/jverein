@@ -105,6 +105,7 @@ import de.jost_net.JVerein.util.JVDateFormatTIMESTAMP;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.MANDATSEQUENCE;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.GenericObjectNode;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -186,6 +187,8 @@ public class MitgliedControl extends AbstractControl
   private DateInput mandatdatum = null;
 
   private SpinnerInput mandatversion = null;
+
+  private SelectInput mandatsequence = null;
 
   private DateInput letztelastschrift = null;
 
@@ -825,6 +828,19 @@ public class MitgliedControl extends AbstractControl
     mandatversion = new SpinnerInput(0, 1000, getMitglied().getMandatVersion());
     mandatversion.setName("Mandatsversion");
     return mandatversion;
+  }
+
+  public SelectInput getMandatSequence() throws RemoteException
+  {
+    if (mandatsequence != null)
+    {
+      return mandatsequence;
+    }
+    mandatsequence = new SelectInput(MANDATSEQUENCE.values(),
+        MANDATSEQUENCE.fromString(getMitglied().getMandatSequence()));
+
+    mandatsequence.setName("Sequenz");
+    return mandatsequence;
   }
 
   public DateInput getLetzteLastschrift() throws RemoteException
@@ -2846,6 +2862,8 @@ public class MitgliedControl extends AbstractControl
       m.setZahlungsrhytmus(zr.getKey());
       m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setMandatVersion((Integer) getMandatVersion().getValue());
+      MANDATSEQUENCE seq = (MANDATSEQUENCE) getMandatSequence().getValue();
+      m.setMandatSequence(seq.toString());
       m.setBlz((String) getBlz().getValue());
       m.setBic((String) getBic().getValue());
       m.setIban((String) getIban().getValue());

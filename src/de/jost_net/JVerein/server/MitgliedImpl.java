@@ -627,6 +627,18 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
+  public String getMandatSequence() throws RemoteException
+  {
+    return (String) getAttribute("mandatsequence");
+  }
+
+  @Override
+  public void setMandatSequence(String mandatsequence) throws RemoteException
+  {
+    setAttribute("mandatsequence", mandatsequence);
+  }
+
+  @Override
   public String getMandatID() throws RemoteException
   {
     return getID() + "-" + getMandatVersion();
@@ -1349,7 +1361,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
     map.put(MitgliedVar.MANDATDATUM.getName(), this.getMandatDatum());
-    map.put(MitgliedVar.MANDATDATUM.getName(), this.getMandatID());
+    map.put(MitgliedVar.MANDATID.getName(), this.getMandatID());
     map.put(MitgliedVar.BIC.getName(), this.getBic());
     map.put(MitgliedVar.BLZ.getName(), this.getBlz());
     map.put(MitgliedVar.EINGABEDATUM.getName(),

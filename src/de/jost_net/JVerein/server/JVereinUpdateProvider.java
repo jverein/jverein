@@ -1340,6 +1340,14 @@ public class JVereinUpdateProvider
     {
       update0333(conn);
     }
+    if (cv < 334)
+    {
+      update0334(conn);
+    }
+    if (cv < 335)
+    {
+      update0335(conn);
+    }
     // TODO
   }
 
@@ -7973,8 +7981,36 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
+    execute(conn, statements, "Spalte mandatversion initialisiert", 333);
+  }
+
+  private void update0334(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE mitglied ADD mandatsequence VARCHAR(4) before bic;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE mitglied ADD mandatsequence VARCHAR(4) after mandatversion;\n");
+
     execute(conn, statements,
-        "Spalte mandatversion initialisiert", 333);
+        "Spalte mandatsequence in die Tabelle mitglied eingefügt", 334);
+  }
+
+  private void update0335(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE mitglied set mandatsequence = 'RCUR' WHERE blz is not null or iban is not null";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte mandatsequence initialisiert", 335);
   }
 
   private String alterColumn(String table, String column, String type)
