@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/jameica"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/obantoo"/>
 	<classpathentry kind="lib" path="lib/nc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/hibiscus"/>
@@ -14,6 +15,5 @@
 	<classpathentry kind="lib" path="/hibiscus/lib/itextpdf-5.3.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/csvjdbc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/obantoo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
