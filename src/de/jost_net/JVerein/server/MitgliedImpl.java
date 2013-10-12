@@ -178,68 +178,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         throw new ApplicationException("Bitte BIC und IBAN eingeben");
       }
     }
-    // SEPAParam sepaparam = null;
-    // try
-    // {
-    // sepaparam = SEPA.getSEPAParam(Einstellungen.getEinstellung()
-    // .getDefaultLand());
-    // }
-    // catch (SEPAException e1)
-    // {
-    // Logger.error(e1.getMessage());
-    // }
-    // if (getBlz() != null && getBlz().length() != 0
-    // && getBlz().length() != sepaparam.getBankIdentifierLength())
-    // {
-    // throw new ApplicationException(
-    // "Die Bankleitzahl muss {0}stellig sein",
-    // sepaparam.getBankIdentifierLength() + ""));
-    // }
-    if (getBlz() != null && getBlz().length() > 0 && getKonto() == null)
-    {
-      throw new ApplicationException("Kontonummer fehlt");
-    }
-    if (getKonto() != null && getKonto().length() > 0 && getBlz() == null)
-    {
-      throw new ApplicationException("BLZ fehlt");
-    }
-    // if (getBlz().length() != 0 || getKonto().length() != 0l)
-    // {
-    // try
-    // {
-    // Long.parseLong(getKonto());
-    // }
-    // catch (NumberFormatException e)
-    // {
-    // throw new ApplicationException("Kontonummer ist nicht numerisch");
-    // }
-    // if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
-    // {
-    // throw new ApplicationException(
-    // JVereinPlugin
-    // .getI18n()
-    // .tr("BLZ/Kontonummer ({0}/{1}) ungültig. Bitte prüfen Sie Ihre Eingaben.",
-    // new String[] { getBlz(), getKonto() }));
-    // }
-    // try
-    // {
-    // IBAN i = new IBAN(getIban());
-    // if (!Einstellungen.checkAccountCRC(i.getBLZ(), i.getKonto()))
-    // {
-    // throw new ApplicationException(
-    // JVereinPlugin
-    // .getI18n()
-    // .tr("BLZ/Kontonummer-Kombination in IBAN ungültig. Bitte prüfen Sie Ihre Eingaben.",
-    // new String[] { getBlz(), getKonto() }));
-    //
-    // }
-    // }
-    // catch (SEPAException e)
-    // {
-    // throw new ApplicationException(e.getMessage());
-    // }
-    // }
-
     if (getIban() != null && getIban().length() != 0)
     {
       try
@@ -302,10 +240,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       throw new ApplicationException("Bitte Zahler auswählen!");
     }
-
-    if (getGeschlecht() == null || getGeschlecht().length() == 0)
-      throw new ApplicationException(
-          "Bitte erfassen Sie das Geschlecht des Mitglieds!");
   }
 
   /***
