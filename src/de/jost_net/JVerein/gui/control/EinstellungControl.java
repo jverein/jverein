@@ -66,8 +66,6 @@ public class EinstellungControl extends AbstractControl
 
   private Input name;
 
-  private Input namelang;
-
   private Input strasse;
 
   private Input plz;
@@ -252,23 +250,13 @@ public class EinstellungControl extends AbstractControl
     {
       return name;
     }
-    name = new TextInput(Einstellungen.getEinstellung().getName(), 27);
+    name = new TextInput(Einstellungen.getEinstellung().getName(), 70);
     name.setMandatory(true);
     if (withFocus)
     {
       name.focus();
     }
     return name;
-  }
-
-  public Input getNameLang() throws RemoteException
-  {
-    if (namelang != null)
-    {
-      return namelang;
-    }
-    namelang = new TextInput(Einstellungen.getEinstellung().getNameLang(), 100);
-    return namelang;
   }
 
   public Input getStrasse() throws RemoteException
@@ -1223,7 +1211,6 @@ public class EinstellungControl extends AbstractControl
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setName((String) getName(false).getValue());
-      e.setNameLang((String) getNameLang().getValue());
       e.setStrasse((String) getStrasse().getValue());
       e.setPlz((String) getPlz().getValue());
       e.setOrt((String) getOrt().getValue());

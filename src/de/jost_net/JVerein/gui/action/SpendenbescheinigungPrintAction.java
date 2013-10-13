@@ -936,7 +936,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
   private String getAussteller() throws RemoteException
   {
-    return Einstellungen.getEinstellung().getNameLang() + ", "
+    return Einstellungen.getEinstellung().getName() + ", "
         + Einstellungen.getEinstellung().getStrasse() + ", "
         + Einstellungen.getEinstellung().getPlz() + " "
         + Einstellungen.getEinstellung().getOrt();

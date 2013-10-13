@@ -57,7 +57,6 @@ public class EinstellungenView extends AbstractView
     TabGroup tabAllgemein = new TabGroup(folder, "Allgemein");
     tabAllgemein.addHeadline("Allgemein");
     tabAllgemein.addLabelPair("Name", control.getName(true));
-    tabAllgemein.addLabelPair("Langer Name", control.getNameLang());
     tabAllgemein.addLabelPair("Straﬂe", control.getStrasse());
     tabAllgemein.addLabelPair("PLZ", control.getPlz());
     tabAllgemein.addLabelPair("Ort", control.getOrt());

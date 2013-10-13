@@ -1364,6 +1364,18 @@ public class JVereinUpdateProvider
     {
       update0339(conn);
     }
+    if (cv < 340)
+    {
+      update0340(conn);
+    }
+    if (cv < 341)
+    {
+      update0341(conn);
+    }
+    if (cv < 342)
+    {
+      update0342(conn);
+    }
     // TODO
   }
 
@@ -8086,6 +8098,42 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte faelligkeit in abrechungslauf initialisiert", 339);
+  }
+
+  private void update0340(Connection conn) throws ApplicationException
+  {
+
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("einstellung", "name", "VARCHAR(70)");
+    statements.put(driver, sql);
+    execute(conn, statements, "", 340);
+  }
+
+  private void update0341(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE einstellung set name = left(namelang,70) where namelang is not null or length(namelang) > 0";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "", 341);
+  }
+
+  private void update0342(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN namelang;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN namelang\n");
+
+    execute(conn, statements, "", 342);
   }
 
   private String alterColumn(String table, String column, String type)

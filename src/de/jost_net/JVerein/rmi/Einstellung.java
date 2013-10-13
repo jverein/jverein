@@ -39,10 +39,6 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setName(String name) throws RemoteException;
 
-  public String getNameLang() throws RemoteException;
-
-  public void setNameLang(String name) throws RemoteException;
-
   public String getStrasse() throws RemoteException;
 
   public void setStrasse(String strasse) throws RemoteException;

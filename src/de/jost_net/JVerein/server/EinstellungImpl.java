@@ -196,18 +196,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public String getNameLang() throws RemoteException
-  {
-    return (String) getAttribute("namelang");
-  }
-
-  @Override
-  public void setNameLang(String name) throws RemoteException
-  {
-    setAttribute("namelang", name);
-  }
-
-  @Override
   public String getStrasse() throws RemoteException
   {
     return (String) getAttribute("strasse");

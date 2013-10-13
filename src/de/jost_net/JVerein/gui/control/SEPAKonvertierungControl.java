@@ -212,8 +212,8 @@ public class SEPAKonvertierungControl extends AbstractControl
         if (einstellung != null)
         {
           IBANUpdate iu = new IBANUpdate(einstellung.getID(),
-              einstellung.getName() + einstellung.getNameLang(),
-              einstellung.getBlz(), einstellung.getKonto(), null, null, null);
+              einstellung.getName(), einstellung.getBlz(),
+              einstellung.getKonto(), null, null, null);
           konvertiere(einstellung, iu);
           Einstellungen.setEinstellung(einstellung);
         }
@@ -412,9 +412,8 @@ public class SEPAKonvertierungControl extends AbstractControl
       {
         Einstellung e = (Einstellung) Einstellungen.getDBService()
             .createObject(Einstellung.class, line.get(2).substring(1));
-        IBANUpdate iu = new IBANUpdate(e.getID(),
-            e.getName() + e.getNameLang(), e.getBlz(), e.getKonto(),
-            line.get(9), line.get(8), line.get(11));
+        IBANUpdate iu = new IBANUpdate(e.getID(), e.getName(), e.getBlz(),
+            e.getKonto(), line.get(9), line.get(8), line.get(11));
         if (line.get(11).equals("00"))
         {
           e.setIban(line.get(9));

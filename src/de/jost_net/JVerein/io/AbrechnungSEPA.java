@@ -95,7 +95,7 @@ public class AbrechnungSEPA
     lastschrift.setIBAN(Einstellungen.getEinstellung().getIban());
     lastschrift.setKomprimiert(param.kompakteabbuchung.booleanValue());
     lastschrift.setName(Zeichen.convert(Einstellungen.getEinstellung()
-        .getNameLang()));
+        .getName()));
 
     Konto konto = getKonto();
     abrechnenMitglieder(lastschrift, monitor, abrl, konto);
