@@ -41,7 +41,9 @@ public class AbrechnungSEPAParam
 {
   public final int abbuchungsmodus;
 
-  public final Date faelligkeit;
+  public final Date faelligkeit1;
+
+  public final Date faelligkeit2;
 
   public final Date stichtag;
 
@@ -71,7 +73,8 @@ public class AbrechnungSEPAParam
       String pdffile) throws ApplicationException, RemoteException
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
-    faelligkeit = (Date) ac.getFaelligkeit().getValue();
+    faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
+    faelligkeit2 = (Date) ac.getFaelligkeit2().getValue();
     stichtag = (Date) ac.getStichtag().getValue();
     Abrechnungsausgabe aa = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
         .getValue();

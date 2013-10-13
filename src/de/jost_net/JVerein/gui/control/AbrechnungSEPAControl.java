@@ -65,7 +65,9 @@ public class AbrechnungSEPAControl extends AbstractControl
 
   private DateInput stichtag = null;
 
-  private DateInput faelligkeit = null;
+  private DateInput faelligkeit1 = null;
+
+  private DateInput faelligkeit2 = null;
 
   private DateInput vondatum = null;
 
@@ -144,31 +146,58 @@ public class AbrechnungSEPAControl extends AbstractControl
     return stichtag;
   }
 
-  public DateInput getFaelligkeit()
+  public DateInput getFaelligkeit1()
   {
-    if (faelligkeit != null)
+    if (faelligkeit1 != null)
     {
-      return faelligkeit;
+      return faelligkeit1;
     }
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.DAY_OF_MONTH, 14);
-    this.faelligkeit = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
-    this.faelligkeit.setTitle("Fälligkeit SEPA-Lastschrift");
-    this.faelligkeit
-        .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift wählen");
-    this.faelligkeit.addListener(new Listener()
+    cal.add(Calendar.DAY_OF_YEAR, 5);
+    this.faelligkeit1 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
+    this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
+    this.faelligkeit1
+        .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Erst+einmalig) wählen");
+    this.faelligkeit1.addListener(new Listener()
     {
       @Override
       public void handleEvent(Event event)
       {
-        Date date = (Date) faelligkeit.getValue();
+        Date date = (Date) faelligkeit1.getValue();
         if (date == null)
         {
           return;
         }
       }
     });
-    return faelligkeit;
+    return faelligkeit1;
+  }
+
+  public DateInput getFaelligkeit2()
+  {
+    if (faelligkeit2 != null)
+    {
+      return faelligkeit2;
+    }
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.DAY_OF_YEAR, 2);
+    this.faelligkeit2 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
+    this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
+    this.faelligkeit2
+        .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Folge) wählen");
+    this.faelligkeit2.addListener(new Listener()
+    {
+      @Override
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) faelligkeit2.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    return faelligkeit2;
   }
 
   public DateInput getVondatum()
@@ -310,14 +339,25 @@ public class AbrechnungSEPAControl extends AbstractControl
       throw new ApplicationException(
           "Interner Fehler - kann Abrechnungsmodus nicht auslesen");
     }
-    if (faelligkeit.getValue() == null)
+    if (faelligkeit1.getValue() == null)
     {
-      throw new ApplicationException("Fälligkeitsdatum fehlt");
+      throw new ApplicationException("Fälligkeitsdatum (Erst/einmalig) fehlt");
     }
-    Date f = (Date) faelligkeit.getValue();
+    Date f = (Date) faelligkeit1.getValue();
     if (f.before(new Date()))
     {
-      throw new ApplicationException("Fälligkeit muss in der Zukunft liegen");
+      throw new ApplicationException(
+          "Fälligkeit (Erst/einmalig) muss in der Zukunft liegen");
+    }
+    if (faelligkeit2.getValue() == null)
+    {
+      throw new ApplicationException("Fälligkeitsdatum (Folge) fehlt");
+    }
+    f = (Date) faelligkeit2.getValue();
+    if (f.before(new Date()))
+    {
+      throw new ApplicationException(
+          "Fälligkeit (Folge) muss in der Zukunft liegen");
     }
     Date vondatum = null;
     if (stichtag.getValue() == null)
@@ -407,11 +447,11 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         try
         {
-            
+
           DBTransaction.starten();
           new AbrechnungSEPA(abupar, monitor);
           DBTransaction.commit();
-          
+
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(

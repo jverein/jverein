@@ -105,7 +105,7 @@ import de.jost_net.JVerein.util.JVDateFormatTIMESTAMP;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
-import de.jost_net.OBanToo.SEPA.Basislastschrift.MANDATSEQUENCE;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.GenericObjectNode;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -836,8 +836,8 @@ public class MitgliedControl extends AbstractControl
     {
       return mandatsequence;
     }
-    mandatsequence = new SelectInput(MANDATSEQUENCE.values(),
-        MANDATSEQUENCE.fromString(getMitglied().getMandatSequence()));
+    mandatsequence = new SelectInput(MandatSequence.values(), getMitglied()
+        .getMandatSequence());
 
     mandatsequence.setName("Sequenz");
     return mandatsequence;
@@ -2862,8 +2862,7 @@ public class MitgliedControl extends AbstractControl
       m.setZahlungsrhytmus(zr.getKey());
       m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setMandatVersion((Integer) getMandatVersion().getValue());
-      MANDATSEQUENCE seq = (MANDATSEQUENCE) getMandatSequence().getValue();
-      m.setMandatSequence(seq.toString());
+      m.setMandatSequence((MandatSequence) getMandatSequence().getValue());
       m.setBlz((String) getBlz().getValue());
       m.setBic((String) getBic().getValue());
       m.setIban((String) getIban().getValue());

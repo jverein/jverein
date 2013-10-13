@@ -105,6 +105,10 @@ public interface Lastschrift extends DBObject, IAdresse
 
   public void setMandatDatum(Date mandatdatum) throws RemoteException;
 
+  public String getMandatSequence() throws RemoteException;
+
+  public void setMandatSequence(String mandatsequence) throws RemoteException;
+
   public String getBIC() throws RemoteException;
 
   public void setBIC(String bic) throws RemoteException;

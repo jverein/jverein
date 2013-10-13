@@ -292,6 +292,18 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   {
     setAttribute("mandatid", mandatid);
   }
+  @Override
+  public String getMandatSequence() throws RemoteException
+  {
+    return (String) getAttribute("mandatsequence");
+  }
+
+  @Override
+  public void setMandatSequence(String mandatsequence)throws RemoteException
+  {
+    setAttribute("mandatsequence", mandatsequence);
+  }
+
 
   @Override
   public String getVerwendungszweck() throws RemoteException

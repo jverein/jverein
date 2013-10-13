@@ -83,7 +83,9 @@ public class AbrechnungslaufControl extends AbstractControl
           new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Modus", "modus",
           new AbrechnungsmodusFormatter(), false, Column.ALIGN_LEFT);
-      abrechnungslaufList.addColumn("Fälligkeit", "faelligkeit",
+      abrechnungslaufList.addColumn("Fälligkeit 1", "faelligkeit",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn("Fälligkeit 2", "faelligkeit2",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Stichtag", "stichtag", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));

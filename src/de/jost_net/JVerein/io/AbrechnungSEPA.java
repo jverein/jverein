@@ -58,6 +58,7 @@ import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.Basislastschrift;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.Basislastschrift2Pdf;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.Zahler;
 import de.jost_net.OBanToo.StringLatin.Zeichen;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -89,7 +90,6 @@ public class AbrechnungSEPA
     Basislastschrift lastschrift = new Basislastschrift();
     // Vorbereitung: Allgemeine Informationen einstellen
     lastschrift.setBIC(Einstellungen.getEinstellung().getBic());
-    lastschrift.setFaelligskeitsdatum(param.faelligkeit);
     lastschrift.setGlaeubigerID(Einstellungen.getEinstellung()
         .getGlaeubigerID());
     lastschrift.setIBAN(Einstellungen.getEinstellung().getIban());
@@ -166,6 +166,7 @@ public class AbrechnungSEPA
       ls.setBIC(za.getBic());
       ls.setIBAN(za.getIban());
       ls.setMandatDatum(za.getMandatdatum());
+      ls.setMandatSequence(za.getMandatsequence().getTxt());
       ls.setMandatID(za.getMandatid());
       ls.setVerwendungszweck(za.getVerwendungszweckOrig());
       ls.store();
@@ -383,6 +384,9 @@ public class AbrechnungSEPA
             zahler.setIban(m.getIban());
             zahler.setMandatid(m.getMandatID());
             zahler.setMandatdatum(m.getMandatDatum());
+            zahler.setMandatsequence(m.getMandatSequence());
+            zahler.setFaelligkeit(param.faelligkeit1, param.faelligkeit2, m
+                .getMandatSequence().getCode());
             zahler.setVerwendungszweck(param.verwendungszweck + " "
                 + getVerwendungszweck2(m));
             if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
@@ -460,6 +464,9 @@ public class AbrechnungSEPA
             zahler.setIban(m.getIban());
             zahler.setMandatid(m.getMandatID());
             zahler.setMandatdatum(m.getMandatDatum());
+            zahler.setMandatsequence(m.getMandatSequence());
+            zahler.setFaelligkeit(param.faelligkeit1, param.faelligkeit2, m
+                .getMandatSequence().getCode());
             zahler.setName(m.getKontoinhaber(1));
             String verwendungszweck = z.getBuchungstext();
             if (z.getBuchungstext2() != null
@@ -536,6 +543,8 @@ public class AbrechnungSEPA
         zahler.setIban(kt.getIban());
         zahler.setMandatid("K" + kt.getID());
         zahler.setMandatdatum(kt.getMandatDatum());
+        zahler.setMandatsequence(MandatSequence.OOFF);
+        zahler.setFaelligkeit(param.faelligkeit1);
         zahler.setName(kt.getName());
         zahler.setVerwendungszweck(kt.getVZweck1());
         lastschrift.add(zahler);
@@ -662,7 +671,8 @@ public class AbrechnungSEPA
         .createObject(Abrechnungslauf.class, null);
     abrl.setDatum(new Date());
     abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
-    abrl.setFaelligkeit(param.faelligkeit);
+    abrl.setFaelligkeit(param.faelligkeit1);
+    abrl.setFaelligkeit2(param.faelligkeit2);
     abrl.setDtausdruck(param.sepaprint);
     abrl.setEingabedatum(param.vondatum);
     abrl.setKursteilnehmer(param.kursteilnehmer);

@@ -1348,6 +1348,22 @@ public class JVereinUpdateProvider
     {
       update0335(conn);
     }
+    if (cv < 336)
+    {
+      update0336(conn);
+    }
+    if (cv < 337)
+    {
+      update0337(conn);
+    }
+    if (cv < 338)
+    {
+      update0338(conn);
+    }
+    if (cv < 339)
+    {
+      update0339(conn);
+    }
     // TODO
   }
 
@@ -8011,6 +8027,65 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
     execute(conn, statements, "Spalte mandatsequence initialisiert", 335);
+  }
+
+  private void update0336(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE lastschrift ADD mandatsequence VARCHAR(4) before bic;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE lastschrit ADD mandatsequence VARCHAR(4) after mandatversion;\n");
+
+    execute(conn, statements,
+        "Spalte mandatsequence in die Tabelle lastschrift eingefügt", 336);
+  }
+
+  private void update0337(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE mitglied set mandatsequence = 'RCUR'";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Spalte mandatsequence initialisiert", 337);
+  }
+
+  private void update0338(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE abrechnungslauf ADD faelligkeit2 date before stichtag;\n");
+
+    // Update fuer MySQL
+    statements
+        .put(DBSupportMySqlImpl.class.getName(),
+            "ALTER TABLE abrechnungslauf ADD faelligkeit2 date after faelligkeit;\n");
+
+    execute(conn, statements,
+        "Spalte faelligkeit2 in die Tabelle abrechnungslauf eingefügt", 338);
+  }
+
+  private void update0339(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "UPDATE abrechnungslauf set faelligkeit2 = faelligkeit";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Spalte faelligkeit in abrechungslauf initialisiert", 339);
   }
 
   private String alterColumn(String table, String column, String type)

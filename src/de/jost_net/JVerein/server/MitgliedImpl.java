@@ -53,6 +53,7 @@ import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
 import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -561,15 +562,21 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public String getMandatSequence() throws RemoteException
+  public MandatSequence getMandatSequence() throws RemoteException
   {
-    return (String) getAttribute("mandatsequence");
+    String sequ = (String) getAttribute("mandatsequence");
+    if (sequ == null)
+    {
+      return null;
+    }
+    return MandatSequence.fromString(sequ);
   }
 
   @Override
-  public void setMandatSequence(String mandatsequence) throws RemoteException
+  public void setMandatSequence(MandatSequence mandatsequence)
+      throws RemoteException
   {
-    setAttribute("mandatsequence", mandatsequence);
+    setAttribute("mandatsequence", mandatsequence.getTxt());
   }
 
   @Override

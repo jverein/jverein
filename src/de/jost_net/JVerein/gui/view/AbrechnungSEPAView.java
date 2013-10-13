@@ -74,7 +74,10 @@ public class AbrechnungSEPAView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
     group.addLabelPair("Modus", control.getAbbuchungsmodus());
-    group.addLabelPair("Fälligkeit SEPA", control.getFaelligkeit());
+    group.addLabelPair("Fälligkeit SEPA (Erst-/Einzel-Lastschrift)",
+        control.getFaelligkeit1());
+    group.addLabelPair("Fälligkeit SEPA (Folge-/Letzte-Lastschrift)",
+        control.getFaelligkeit2());
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group
