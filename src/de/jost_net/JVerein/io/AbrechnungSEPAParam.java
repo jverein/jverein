@@ -88,8 +88,7 @@ public class AbrechnungSEPAParam
     this.pdffile = pdffile;
     this.sepafile = sepafile;
 
-    if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
-        || abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
+    if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
     {
       // DB-Service holen
       try

@@ -287,9 +287,15 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return ausgabe;
     }
+    int aus = settings.getInt("abrechnungsausgabe",
+        Abrechnungsausgabe.SEPA_DATEI);
+    if (aus != Abrechnungsausgabe.SEPA_DATEI
+        && aus != Abrechnungsausgabe.HIBISCUS)
+    {
+      aus = Abrechnungsausgabe.HIBISCUS;
+    }
     ausgabe = new SelectInput(Abrechnungsausgabe.getArray(),
-        new Abrechnungsausgabe(settings.getInt("abrechnungsausgabe",
-            Abrechnungsausgabe.SEPA_DATEI)));
+        new Abrechnungsausgabe(aus));
     return ausgabe;
   }
 

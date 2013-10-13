@@ -31,6 +31,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
+import de.jost_net.JVerein.keys.Abrechnungsausgabe;
+
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -64,6 +66,8 @@ import de.jost_net.OBanToo.StringLatin.Zeichen;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.hbci.rmi.SepaLastSequenceType;
+import de.willuhn.jameica.hbci.rmi.SepaLastschrift;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
@@ -176,12 +180,10 @@ public class AbrechnungSEPA
     writeMitgliedskonto(null, new Date(), "Gegenbuchung", lastschrift
         .getKontrollsumme().doubleValue() * -1, abrl, true, getKonto(), null);
 
-    // if (param.abbuchungsausgabe ==
-    // Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN
-    // || param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
-    // {
-    // buchenHibiscus();
-    // }
+    if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
+    {
+      buchenHibiscus(z);
+    }
     // monitor.log(JVereinPlugin.getI18n().tr(
     // "Anzahl Abbuchungen/Lastschrift: {0}",
     // new String[] { dtaus.getAnzahlSaetze() + "" }));
@@ -582,87 +584,38 @@ public class AbrechnungSEPA
     });
   }
 
-  // private void buchenHibiscus() throws ApplicationException
-  // {
-  // try
-  // {
-  // DtausDateiParser parser = new DtausDateiParser(
-  // param.sepafile.getAbsolutePath());
-  // SammelLastschrift sl = null;
-  // CSatz c = parser.next();
-  // if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
-  // {
-  // sl = (SammelLastschrift) param.service.createObject(
-  // SammelLastschrift.class, null);
-  // sl.setKonto(param.konto);
-  // sl.setBezeichnung(param.verwendungszweck);
-  // }
-  // while (c != null)
-  // {
-  // if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_EINZELBUCHUNGEN)
-  // {
-  // Lastschrift o = (Lastschrift) param.service.createObject(
-  // Lastschrift.class, null);
-  // o.setKonto(param.konto);
-  // o.setBetrag(c.getBetragInEuro());
-  // o.setZweck(c.getVerwendungszweck(1));
-  // o.setZweck2(c.getVerwendungszweck(2));
-  // if (c.getAnzahlVerwendungszwecke() > 2)
-  // {
-  // String[] weiterzwecke = new String[c.getAnzahlVerwendungszwecke() - 2];
-  // for (int i = 3; i <= c.getAnzahlVerwendungszwecke(); i++)
-  // {
-  // weiterzwecke[i - 3] = c.getVerwendungszweck(i);
-  // }
-  // o.setWeitereVerwendungszwecke(weiterzwecke);
-  // }
-  // o.setGegenkontoName(c.getNameEmpfaenger());
-  // o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
-  // o.setGegenkontoNummer(c.getKontonummer() + "");
-  // o.setTextSchluessel(Einstellungen.getEinstellung()
-  // .getDtausTextschluessel());
-  // o.store();
-  // }
-  // if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS_SAMMELBUCHUNG)
-  // {
-  // SammelTransferBuchung o = sl.createBuchung();
-  // o.setBetrag(c.getBetragInEuro());
-  // o.setZweck(c.getVerwendungszweck(1));
-  // o.setZweck2(c.getVerwendungszweck(2));
-  // if (c.getAnzahlVerwendungszwecke() > 2)
-  // {
-  // final String[] weiterzwecke = new String[c
-  // .getAnzahlVerwendungszwecke() - 2];
-  // for (int i = 3; i <= c.getAnzahlVerwendungszwecke(); i++)
-  // {
-  // weiterzwecke[i - 3] = c.getVerwendungszweck(i);
-  // }
-  // o.setWeitereVerwendungszwecke(weiterzwecke);
-  // }
-  // o.setGegenkontoName(c.getNameEmpfaenger());
-  // o.setGegenkontoBLZ(c.getBlzEndbeguenstigt() + "");
-  // o.setGegenkontoNummer(c.getKontonummer() + "");
-  // o.setTextSchluessel(Einstellungen.getEinstellung()
-  // .getDtausTextschluessel());
-  // o.store();
-  // }
-  // c = parser.next();
-  // }
-  // }
-  // catch (RemoteException e)
-  // {
-  // throw new ApplicationException(e);
-  // }
-  // catch (IOException e)
-  // {
-  // throw new ApplicationException("Fehler beim öffnen der DTAUS-Datei");
-  // }
-  // catch (DtausException e)
-  // {
-  // throw new ApplicationException("Fehler beim parsen der DTAUS-Datei: "
-  // + e.getMessage());
-  // }
-  // }
+  private void buchenHibiscus(ArrayList<Zahler> z) throws ApplicationException
+  {
+    try
+    {
+      for (Zahler za : z)
+      {
+        SepaLastschrift sl = (SepaLastschrift) param.service.createObject(
+            SepaLastschrift.class, null);
+        sl.setBetrag(za.getBetrag().doubleValue());
+        sl.setCreditorId(Einstellungen.getEinstellung().getGlaeubigerID());
+        sl.setGegenkontoName(za.getName());
+        sl.setGegenkontoBLZ(za.getBic());
+        sl.setGegenkontoNummer(za.getIban());
+        sl.setKonto(param.konto);
+        sl.setMandateId(za.getMandatid());
+        sl.setSequenceType(SepaLastSequenceType.valueOf(za.getMandatsequence()
+            .getTxt()));
+        sl.setSignatureDate(za.getMandatdatum());
+        sl.setTermin(za.getFaelligkeit());
+        sl.setZweck(za.getVerwendungszweck());
+        sl.store();
+      }
+    }
+    catch (RemoteException e)
+    {
+      throw new ApplicationException(e);
+    }
+    catch (SEPAException e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
 
   private Abrechnungslauf getAbrechnungslauf() throws RemoteException,
       ApplicationException

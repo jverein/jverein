@@ -30,16 +30,13 @@ public class Abrechnungsausgabe
 {
   public static final int SEPA_DATEI = 1;
 
-  public static final int HIBISCUS_EINZELBUCHUNGEN = 2;
-
-  public static final int HIBISCUS_SAMMELBUCHUNG = 3;
+  public static final int HIBISCUS = 2;
 
   private int ausgabe;
 
   public Abrechnungsausgabe(int key)
   {
     this.ausgabe = key;
-    this.ausgabe = SEPA_DATEI; // TODO
   }
 
   public int getKey()
@@ -58,10 +55,8 @@ public class Abrechnungsausgabe
     {
       case SEPA_DATEI:
         return "Datei";
-      case HIBISCUS_EINZELBUCHUNGEN:
-        return "Hibiscus (Einzelbuchungen)";
-      case HIBISCUS_SAMMELBUCHUNG:
-        return "Hibiscus (Sammelbuchungen)";
+      case HIBISCUS:
+        return "Hibiscus";
       default:
         return null;
     }
@@ -71,8 +66,7 @@ public class Abrechnungsausgabe
   {
     ArrayList<Abrechnungsausgabe> ret = new ArrayList<Abrechnungsausgabe>();
     ret.add(new Abrechnungsausgabe(SEPA_DATEI));
-    // TODO ret.add(new Abrechnungsausgabe(HIBISCUS_EINZELBUCHUNGEN));
-    // TODO ret.add(new Abrechnungsausgabe(HIBISCUS_SAMMELBUCHUNG));
+    ret.add(new Abrechnungsausgabe(HIBISCUS));
     return ret;
   }
 
