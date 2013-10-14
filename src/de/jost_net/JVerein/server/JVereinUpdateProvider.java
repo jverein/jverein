@@ -8051,7 +8051,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     statements
         .put(DBSupportMySqlImpl.class.getName(),
-            "ALTER TABLE lastschrit ADD mandatsequence VARCHAR(4) after mandatversion;\n");
+            "ALTER TABLE lastschrift ADD mandatsequence VARCHAR(4) after mandatversion;\n");
 
     execute(conn, statements,
         "Spalte mandatsequence in die Tabelle lastschrift eingefügt", 336);
