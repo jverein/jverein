@@ -67,6 +67,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
 import de.willuhn.jameica.hbci.rmi.SepaLastSequenceType;
+import de.willuhn.jameica.hbci.rmi.SepaLastType;
 import de.willuhn.jameica.hbci.rmi.SepaLastschrift;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
@@ -602,7 +603,9 @@ public class AbrechnungSEPA
         sl.setSequenceType(SepaLastSequenceType.valueOf(za.getMandatsequence()
             .getTxt()));
         sl.setSignatureDate(za.getMandatdatum());
+        sl.setTargetDate(za.getFaelligkeit());
         sl.setTermin(za.getFaelligkeit());
+        sl.setType(SepaLastType.CORE);
         sl.setZweck(za.getVerwendungszweck());
         sl.store();
       }
