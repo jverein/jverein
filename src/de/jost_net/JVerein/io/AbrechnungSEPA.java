@@ -589,6 +589,7 @@ public class AbrechnungSEPA
   {
     try
     {
+      Date d = new Date();
       for (Zahler za : z)
       {
         SepaLastschrift sl = (SepaLastschrift) param.service.createObject(
@@ -604,7 +605,7 @@ public class AbrechnungSEPA
             .getTxt()));
         sl.setSignatureDate(za.getMandatdatum());
         sl.setTargetDate(za.getFaelligkeit());
-        sl.setTermin(za.getFaelligkeit());
+        sl.setTermin(d);
         sl.setType(SepaLastType.CORE);
         sl.setZweck(za.getVerwendungszweck());
         sl.store();
