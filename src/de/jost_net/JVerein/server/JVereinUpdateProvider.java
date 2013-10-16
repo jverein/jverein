@@ -1376,6 +1376,14 @@ public class JVereinUpdateProvider
     {
       update0342(conn);
     }
+    if (cv < 343)
+    {
+      update0343(conn);
+    }
+    if (cv < 344)
+    {
+      update0344(conn);
+    }
     // TODO
   }
 
@@ -8134,6 +8142,24 @@ public class JVereinUpdateProvider
         "ALTER TABLE einstellung DROP COLUMN namelang\n");
 
     execute(conn, statements, "", 342);
+  }
+
+  private void update0343(Connection conn) throws ApplicationException
+  {
+
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("lastschrift", "titel", "VARCHAR(40)");
+    statements.put(driver, sql);
+    execute(conn, statements, "", 343);
+  }
+
+  private void update0344(Connection conn) throws ApplicationException
+  {
+
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("kursteilnehmer", "titel", "VARCHAR(40)");
+    statements.put(driver, sql);
+    execute(conn, statements, "", 344);
   }
 
   private String alterColumn(String table, String column, String type)
