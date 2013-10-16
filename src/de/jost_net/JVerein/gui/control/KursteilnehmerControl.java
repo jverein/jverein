@@ -194,7 +194,7 @@ public class KursteilnehmerControl extends AbstractControl
     {
       return titel;
     }
-    titel = new TextInput(getKursteilnehmer().getTitel(), 10);
+    titel = new TextInput(getKursteilnehmer().getTitel(), 40);
     titel.setName("Titel");
     return titel;
   }
