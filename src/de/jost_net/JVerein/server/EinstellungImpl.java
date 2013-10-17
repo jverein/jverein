@@ -607,7 +607,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     String text = (String) getAttribute("rechnungtextabbuchung");
     if (text == null)
     {
-      text = "Der Betrag wird vom Konto ${Konto} (BLZ ${BLZ}) abgebucht.";
+      text = "Der Betrag wird vom Konto ${IBAN}, (BIC ${BIC}) abgebucht.";
     }
     return text;
   }
