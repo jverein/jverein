@@ -358,10 +358,7 @@ public class PersonalbogenAction implements Action
         && m.getIban().length() > 0)
     {
       rpt.addColumn("Bankverbindung", Element.ALIGN_LEFT);
-      rpt.addColumn(
-          m.getBic() + "/" + m.getIban() + " ("
-              + Einstellungen.getNameForBLZ(m.getBlz()) + ")",
-          Element.ALIGN_LEFT);
+      rpt.addColumn(m.getBic() + "/" + m.getIban(), Element.ALIGN_LEFT);
     }
     rpt.addColumn("Datum Erstspeicherung", Element.ALIGN_LEFT);
     rpt.addColumn(m.getEingabedatum(), Element.ALIGN_LEFT);
