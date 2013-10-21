@@ -62,13 +62,12 @@ public class AbrechnungSEPAView extends AbstractView
     if (it.size() != 1)
     {
       throw new ApplicationException(
-          MessageFormat
-              .format(
-                  "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
-                  Einstellungen.getEinstellung().getKonto()));
+          MessageFormat.format(
+              "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
+              Einstellungen.getEinstellung().getKonto()));
     }
 
-    GUI.getView().setTitle("Abrechnung SEPA");
+    GUI.getView().setTitle("Abrechnung");
 
     final AbrechnungSEPAControl control = new AbrechnungSEPAControl(this);
 
@@ -80,8 +79,7 @@ public class AbrechnungSEPAView extends AbstractView
         control.getFaelligkeit2());
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
-    group
-        .addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
+    group.addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
     group.addLabelPair("Zusatzbeträge", control.getZusatzbetrag());
     if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
@@ -97,16 +95,16 @@ public class AbrechnungSEPAView extends AbstractView
     }
     group.addLabelPair("Abbuchungsausgabe", control.getAbbuchungsausgabe());
     group.addSeparator();
-    group
-        .addText(
-            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
-            true);
+    group.addText(
+        "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
+        true);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
     buttons.addButton("Fehler/Warnungen/Hinweise", new Action()
     {
+
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
