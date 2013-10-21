@@ -90,7 +90,7 @@ public class KontoControl extends AbstractControl
     {
       return nummer;
     }
-    nummer = new TextInput(getKonto().getNummer());
+    nummer = new TextInput(getKonto().getNummer(), 35);
     return nummer;
   }
 
