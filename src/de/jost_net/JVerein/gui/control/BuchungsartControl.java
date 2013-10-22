@@ -317,7 +317,7 @@ public class BuchungsartControl extends AbstractControl
         {
           FileOutputStream fos = new FileOutputStream(file);
           Reporter reporter = new Reporter(fos, "Buchungsarten", "", it.size());
-          reporter.addHeaderColumn("Nummer", Element.ALIGN_LEFT, 15,
+          reporter.addHeaderColumn("Nummer", Element.ALIGN_LEFT, 20,
               BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("Bezeichnung", Element.ALIGN_LEFT, 80,
               BaseColor.LIGHT_GRAY);
@@ -325,7 +325,7 @@ public class BuchungsartControl extends AbstractControl
               BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("Buchungsklasse", Element.ALIGN_LEFT, 80,
               BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn("Spende", Element.ALIGN_CENTER, 10,
+          reporter.addHeaderColumn("Spende", Element.ALIGN_CENTER, 20,
               BaseColor.LIGHT_GRAY);
           reporter.createHeader();
           while (it.hasNext())
