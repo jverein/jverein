@@ -30,6 +30,8 @@ public class DokumentationUtil
 
   public static final String ABRECHNUNG = PRE + "Abrechnung";
 
+  public static final String ABRECHNUNGSLAUF = PRE + "Abrechnungslauf";
+
   public static final String ADRESSTYPEN = PRE + "Adresstypen";
 
   public static final String ARBEITSEINSATZ = PRE + "Arbeitseinsatz";
