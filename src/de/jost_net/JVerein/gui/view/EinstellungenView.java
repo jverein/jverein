@@ -103,8 +103,6 @@ public class EinstellungenView extends AbstractView
         control.getIndividuelleBeitraege());
     right.addLabelPair("externe Mitgliedsnummer",
         control.getExterneMitgliedsnummer());
-    right.addLabelPair("Verzögerungszeit Suche (in Millisekunden)",
-        control.getDelaytime());
     right.addLabelPair("Basis für Berechnung des Alters",
         control.getAltersModel());
 

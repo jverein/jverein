@@ -771,8 +771,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util
-        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override
@@ -1022,25 +1021,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setAltersjubilaeen(String altersjubilaeen) throws RemoteException
   {
     setAttribute("altersjubilaeen", altersjubilaeen);
-  }
-
-  @Override
-  public int getDelaytime() throws RemoteException
-  {
-    try
-    {
-      return (Integer) getAttribute("delaytime");
-    }
-    catch (NullPointerException e)
-    {
-      return 1000;
-    }
-  }
-
-  @Override
-  public void setDelaytime(int delaytime) throws RemoteException
-  {
-    setAttribute("delaytime", delaytime);
   }
 
   @Override

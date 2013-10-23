@@ -1388,6 +1388,10 @@ public class JVereinUpdateProvider
     {
       update0345(conn);
     }
+    if (cv < 346)
+    {
+      update0346(conn);
+    }
     // TODO
   }
 
@@ -8086,8 +8090,21 @@ public class JVereinUpdateProvider
     execute(conn, statements, "", 345);
   }
 
+  private void update0346(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN delaytime;\n");
+
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(),
+        "ALTER TABLE einstellung DROP COLUMN delaytime;\n");
+
+    execute(conn, statements, "Spalte aus Tabelle einstellung entfernt", 346);
+  }
+
   private String alterColumn(String table, String column, String type)
-      throws ApplicationException
   {
     return alterColumn(this.driver, table, column, type);
   }

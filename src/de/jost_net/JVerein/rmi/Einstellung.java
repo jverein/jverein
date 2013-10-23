@@ -29,6 +29,7 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface Einstellung extends DBObject, IBankverbindung
 {
+
   public static final String COL_ALTER_MODEL = "altermodel";
 
   public static final String COL_ARBEITS_MODEL = "arbeitsmodel";
@@ -300,10 +301,6 @@ public interface Einstellung extends DBObject, IBankverbindung
   public int getJubilarStartAlter() throws RemoteException;
 
   public void setJubilarStartAlter(int alter) throws RemoteException;
-
-  public int getDelaytime() throws RemoteException;
-
-  public void setDelaytime(int delaytime) throws RemoteException;
 
   public boolean hasZusatzfelder() throws RemoteException;
 
