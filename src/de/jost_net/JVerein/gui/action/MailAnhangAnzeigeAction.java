@@ -22,10 +22,7 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.io.FileViewer;
@@ -63,21 +60,11 @@ public class MailAnhangAnzeigeAction implements Action
       fos.close();
       FileViewer.show(tmp);
     }
-    catch (RemoteException e)
+    catch (Exception e)
     {
       String fehler = "Fehler beim entfernen eines Mailanhanges";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
-    }
-    catch (FileNotFoundException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    catch (IOException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
   }
 }
