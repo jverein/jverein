@@ -31,6 +31,9 @@ import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
+import de.jost_net.OBanToo.SEPA.BIC;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.system.Settings;
@@ -87,50 +90,32 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       {
         throw new ApplicationException("Bitte Namen eingeben");
       }
-      if (getBlz() == null || getBlz().length() == 0)
+      if (getIban() == null || getIban().length() == 0)
       {
-        throw new ApplicationException("Bitte Bankleitzahl eingeben");
+        throw new ApplicationException("Bitte IBAN eingeben");
+      }
+      System.out.println(getBic());
+      if (getBic() == null || getBic().length() == 0)
+      {
+        throw new ApplicationException("Bitte BIC eingeben");
+      }
+      
+      try
+      {
+        new IBAN(getIban());
+      }
+      catch (SEPAException e1)
+      {
+        throw new ApplicationException(e1.getMessage());
       }
       try
       {
-        Integer.parseInt(getBlz());
+        new BIC(getBic());
       }
-      catch (NumberFormatException e)
+      catch (SEPAException e1)
       {
-        throw new ApplicationException(
-            "Bankleitzahl enthält unzulässige Zeichen!");
+        throw new ApplicationException(e1.getMessage());
       }
-      if (getKonto() == null || getKonto().length() == 0)
-      {
-        throw new ApplicationException("Bitte Kontonummer eingeben");
-      }
-      try
-      {
-        Long.parseLong(getKonto());
-      }
-      catch (NumberFormatException e)
-      {
-        throw new ApplicationException(
-            "Kontonummer enthält unzulässige Zeichen!");
-      }
-      if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
-      {
-        throw new ApplicationException(
-            "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
-      }
-
-      // TODO muss noch sauber implementiert werden
-      // try
-      // {
-      // if (!SEPA.isValid(getBic(), getIban()))
-      // {
-      // throw new ApplicationException("Ungültige Kombination BIC und IBAN");
-      // }
-      // }
-      // catch (SEPAException e1)
-      // {
-      // e1.printStackTrace();
-      // }
       try
       {
         new AltersgruppenParser(getAltersgruppen());
@@ -771,7 +756,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public boolean getSpendenbescheinigungPrintBuchungsart()
       throws RemoteException
   {
-    return Util.getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
+    return Util
+        .getBoolean(getAttribute("spendenbescheinigungprintbuchungsart"));
   }
 
   @Override
