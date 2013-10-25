@@ -36,7 +36,7 @@ public interface QIFImportHead extends DBObject
 
   public static final String COL_BESCHREIBUNG = "beschreibung";
 
-  public static final String COL_START_SALTO = "startsalto";
+  public static final String COL_START_SALDO = "startsaldo";
 
   public static final String COL_START_DATE = "startdate";
 
@@ -58,9 +58,9 @@ public interface QIFImportHead extends DBObject
 
   public String getBeschreibung() throws RemoteException;
 
-  public void setStartSalto(double betrag) throws RemoteException;
+  public void setStartSaldo(double betrag) throws RemoteException;
 
-  public double getStartSalto() throws RemoteException;
+  public double getStartSaldo() throws RemoteException;
 
   public void setStartDate(Date datum) throws RemoteException;
 

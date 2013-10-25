@@ -70,7 +70,7 @@ public interface QIFImportPos extends DBObject
 
   public static final String VIEW_MITGLIED_BAR = "mitglied-barview";
 
-  public static final String VIEW_SALTO = "salto";
+  public static final String VIEW_SALDO = "saldo";
 
   public void setQIFImpHead(QIFImportHead head) throws RemoteException;
 

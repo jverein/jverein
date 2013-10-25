@@ -65,8 +65,8 @@ public class QIFBuchungsImportView extends AbstractView
 
     SimpleContainer bankRechts = new SimpleContainer(colLayout.getComposite());
     bankRechts.addLabelPair("Export Datei", control.getInputImportDatei());
-    bankRechts.addLabelPair("Eröffnungs Salto", control.getInputStartSalto());
-    bankRechts.addLabelPair("Gesamt Salto", control.getInputEndSalto());
+    bankRechts.addLabelPair("Eröffnungs Saldo", control.getInputStartSaldo());
+    bankRechts.addLabelPair("Gesamt Saldo", control.getInputEndSaldo());
     bankRechts.addLabelPair("Anzahl Buchungen",
         control.getInputAnzahlBuchungen());
 

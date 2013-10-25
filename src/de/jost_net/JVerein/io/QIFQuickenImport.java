@@ -351,7 +351,7 @@ public class QIFQuickenImport implements Importer
     importHead.setImportFile(dateiName);
     importHead.setName(qifType.getKontoName());
     importHead.setStartDate(getAsDate(qifType.datum));
-    importHead.setStartSalto(getAsDouble(qifType.eroeffnungsSalto));
+    importHead.setStartSaldo(getAsDouble(qifType.eroeffnungsSaldo));
 
     if (null != qifKonto)
     {
@@ -554,7 +554,7 @@ public class QIFQuickenImport implements Importer
   {
     String datum;
 
-    String eroeffnungsSalto;
+    String eroeffnungsSaldo;
 
     String kontoName;
 
@@ -569,7 +569,7 @@ public class QIFQuickenImport implements Importer
           datum = daten;
           break;
         case 'T':
-          eroeffnungsSalto = daten;
+          eroeffnungsSaldo = daten;
           break;
         case 'L':
           kontoName = daten;
@@ -582,7 +582,7 @@ public class QIFQuickenImport implements Importer
     public void clear()
     {
       datum = null;
-      eroeffnungsSalto = null;
+      eroeffnungsSaldo = null;
       kontoName = null;
       qifImportHead = null;
     }

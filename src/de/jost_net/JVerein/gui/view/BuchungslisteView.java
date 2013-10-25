@@ -66,10 +66,10 @@ public class BuchungslisteView extends AbstractView
       tabKonto.addLabelPair("Konto:", headerControl.getKontoNameInput());
       tabKonto.addLabelPair("Vorjahr", new LabelInput(""));
 
-      tabKonto.addLabelPair("Anfangssalto:",
-          headerControl.getAktJahrAnfangsSaltoInput());
-      tabKonto.addLabelPair("Anfangssalto:",
-          headerControl.getVorJahrAnfangsSaltoInput());
+      tabKonto.addLabelPair("Anfangssaldo:",
+          headerControl.getAktJahrAnfangsSaldoInput());
+      tabKonto.addLabelPair("Anfangssaldo:",
+          headerControl.getVorJahrAnfangsSaldoInput());
 
       tabKonto.addLabelPair("Einnahmen:",
           headerControl.getAktJahrEinnahmenInput());
@@ -81,8 +81,8 @@ public class BuchungslisteView extends AbstractView
       tabKonto.addLabelPair("Ausgaben:",
           headerControl.getVorJahrAusgabenInput());
 
-      tabKonto.addLabelPair("Salto:", headerControl.getAktJahrSaltoInput());
-      tabKonto.addLabelPair("Salto:", headerControl.getVorJahrSaltoInput());
+      tabKonto.addLabelPair("Saldo:", headerControl.getAktJahrSaldoInput());
+      tabKonto.addLabelPair("Saldo:", headerControl.getVorJahrSaldoInput());
     }
 
     control.getBuchungsList().paint(this.getParent());

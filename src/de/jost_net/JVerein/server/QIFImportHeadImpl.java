@@ -76,15 +76,15 @@ public class QIFImportHeadImpl extends AbstractDBObject implements
   }
 
   @Override
-  public void setStartSalto(double betrag) throws RemoteException
+  public void setStartSaldo(double betrag) throws RemoteException
   {
-    setAttribute(COL_START_SALTO, new Double(betrag));
+    setAttribute(COL_START_SALDO, new Double(betrag));
   }
 
   @Override
-  public double getStartSalto() throws RemoteException
+  public double getStartSaldo() throws RemoteException
   {
-    Double wert = (Double) getAttribute(COL_START_SALTO);
+    Double wert = (Double) getAttribute(COL_START_SALDO);
     if (null == wert)
       return 0;
     return wert.doubleValue();

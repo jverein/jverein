@@ -36,7 +36,7 @@ public class QIFImportPosImpl extends AbstractDBObject implements QIFImportPos
 {
   private static final long serialVersionUID = -371377436256187302L;
 
-  private transient double salto;
+  private transient double saldo;
 
   public QIFImportPosImpl() throws RemoteException
   {
@@ -219,9 +219,9 @@ public class QIFImportPosImpl extends AbstractDBObject implements QIFImportPos
         return "Buchung im Mitgliedskonto möglich";
       return " - ";
     }
-    if (VIEW_SALTO.equals(fieldName))
+    if (VIEW_SALDO.equals(fieldName))
     {
-      return getSalto();
+      return getSaldo();
     }
 
     return super.getAttribute(fieldName);
@@ -300,14 +300,14 @@ public class QIFImportPosImpl extends AbstractDBObject implements QIFImportPos
     }
   }
 
-  public void setSalto(double wert)
+  public void setSaldo(double wert)
   {
-    salto = wert;
+    saldo = wert;
   }
 
-  public Double getSalto()
+  public Double getSaldo()
   {
-    return new Double(salto);
+    return new Double(saldo);
   }
 
 }

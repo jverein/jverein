@@ -46,21 +46,21 @@ public class BuchungsHeaderControl extends AbstractControl
 {
   private TextInput kontoNameInput;
 
-  private TextInput aktJahrAnfangSaltoInput;
+  private TextInput aktJahrAnfangSaldoInput;
 
   private TextInput aktJahrEinnahmenInput;
 
   private TextInput aktJahrAusgabenInput;
 
-  private TextInput aktJahrSaltoInput;
+  private TextInput aktJahrSaldoInput;
 
-  private TextInput lastJahrAnfangSaltoInput;
+  private TextInput lastJahrAnfangSaldoInput;
 
   private TextInput lastJahrEinnahmenInput;
 
   private TextInput lastJahrAusgabenInput;
 
-  private TextInput lastJahrSaltoInput;
+  private TextInput lastJahrSaldoInput;
 
   public BuchungsHeaderControl(AbstractView view, BuchungsControl control)
   {
@@ -82,7 +82,7 @@ public class BuchungsHeaderControl extends AbstractControl
     try
     {
       DatenSammler sammler = ladeAnfangsBestand(konto);
-      sammler = ermittleSaltos(sammler);
+      sammler = ermittleSaldos(sammler);
       zeigeDaten(sammler);
     }
     catch (RemoteException ex)
@@ -96,27 +96,27 @@ public class BuchungsHeaderControl extends AbstractControl
     getKontoNameInput().setValue(sammler.konto.getBezeichnung());
 
     JahresDaten aktJahrDaten = sammler.getAktJahr();
-    getAktJahrAnfangsSaltoInput().setValue(aktJahrDaten.getAnfangsSaltoText());
-    getAktJahrAnfangsSaltoInput()
+    getAktJahrAnfangsSaldoInput().setValue(aktJahrDaten.getAnfangsSaldoText());
+    getAktJahrAnfangsSaldoInput()
         .setComment(aktJahrDaten.getAnfangsDatumText());
 
     getAktJahrEinnahmenInput().setValue(aktJahrDaten.getEinnahmenText());
     getAktJahrAusgabenInput().setValue(aktJahrDaten.getAusgabenText());
-    getAktJahrSaltoInput().setValue(aktJahrDaten.getSaltoText());
-    getAktJahrSaltoInput().setComment(aktJahrDaten.getSaltoDatumText());
+    getAktJahrSaldoInput().setValue(aktJahrDaten.getSaldoText());
+    getAktJahrSaldoInput().setComment(aktJahrDaten.getSaldoDatumText());
 
     JahresDaten vorJahrDaten = sammler.getVorJahr();
-    getVorJahrAnfangsSaltoInput().setValue(vorJahrDaten.getAnfangsSaltoText());
-    getVorJahrAnfangsSaltoInput()
+    getVorJahrAnfangsSaldoInput().setValue(vorJahrDaten.getAnfangsSaldoText());
+    getVorJahrAnfangsSaldoInput()
         .setComment(vorJahrDaten.getAnfangsDatumText());
 
     getVorJahrEinnahmenInput().setValue(vorJahrDaten.getEinnahmenText());
     getVorJahrAusgabenInput().setValue(vorJahrDaten.getAusgabenText());
-    getVorJahrSaltoInput().setValue(vorJahrDaten.getSaltoText());
-    getVorJahrSaltoInput().setComment(vorJahrDaten.getSaltoDatumText());
+    getVorJahrSaldoInput().setValue(vorJahrDaten.getSaldoText());
+    getVorJahrSaldoInput().setComment(vorJahrDaten.getSaldoDatumText());
   }
 
-  private DatenSammler ermittleSaltos(DatenSammler sammler)
+  private DatenSammler ermittleSaldos(DatenSammler sammler)
       throws RemoteException
   {
     DBIterator iteratorBuchungen = Einstellungen.getDBService().createList(
@@ -160,13 +160,13 @@ public class BuchungsHeaderControl extends AbstractControl
     return kontoNameInput;
   }
 
-  public Input getAktJahrAnfangsSaltoInput()
+  public Input getAktJahrAnfangsSaldoInput()
   {
-    if (null == aktJahrAnfangSaltoInput)
+    if (null == aktJahrAnfangSaldoInput)
     {
-      aktJahrAnfangSaltoInput = createTextInput();
+      aktJahrAnfangSaldoInput = createTextInput();
     }
-    return aktJahrAnfangSaltoInput;
+    return aktJahrAnfangSaldoInput;
   }
 
   public Input getAktJahrEinnahmenInput()
@@ -187,22 +187,22 @@ public class BuchungsHeaderControl extends AbstractControl
     return aktJahrAusgabenInput;
   }
 
-  public Input getAktJahrSaltoInput()
+  public Input getAktJahrSaldoInput()
   {
-    if (null == aktJahrSaltoInput)
+    if (null == aktJahrSaldoInput)
     {
-      aktJahrSaltoInput = createTextInput();
+      aktJahrSaldoInput = createTextInput();
     }
-    return aktJahrSaltoInput;
+    return aktJahrSaldoInput;
   }
 
-  public Input getVorJahrAnfangsSaltoInput()
+  public Input getVorJahrAnfangsSaldoInput()
   {
-    if (null == lastJahrAnfangSaltoInput)
+    if (null == lastJahrAnfangSaldoInput)
     {
-      lastJahrAnfangSaltoInput = createTextInput();
+      lastJahrAnfangSaldoInput = createTextInput();
     }
-    return lastJahrAnfangSaltoInput;
+    return lastJahrAnfangSaldoInput;
   }
 
   public Input getVorJahrEinnahmenInput()
@@ -223,13 +223,13 @@ public class BuchungsHeaderControl extends AbstractControl
     return lastJahrAusgabenInput;
   }
 
-  public Input getVorJahrSaltoInput()
+  public Input getVorJahrSaldoInput()
   {
-    if (null == lastJahrSaltoInput)
+    if (null == lastJahrSaldoInput)
     {
-      lastJahrSaltoInput = createTextInput();
+      lastJahrSaldoInput = createTextInput();
     }
-    return lastJahrSaltoInput;
+    return lastJahrSaldoInput;
   }
 
   private TextInput createTextInput()
@@ -254,7 +254,7 @@ public class BuchungsHeaderControl extends AbstractControl
 
     double ausgaben;
 
-    double salto;
+    double saldo;
 
     Date juengstesBuchungsDatum;
 
@@ -262,7 +262,7 @@ public class BuchungsHeaderControl extends AbstractControl
     {
       einnahmen = 0d;
       ausgaben = 0d;
-      salto = 0d;
+      saldo = 0d;
     }
 
     public void setAnfangsBestand(Anfangsbestand bestand)
@@ -270,7 +270,7 @@ public class BuchungsHeaderControl extends AbstractControl
     {
       anfangsBestand = bestand;
       if (null != bestand)
-        salto = bestand.getBetrag();
+        saldo = bestand.getBetrag();
     }
 
     public boolean hatAnfangsBestand()
@@ -283,7 +283,7 @@ public class BuchungsHeaderControl extends AbstractControl
     public void addBuchung(Buchung buchung) throws RemoteException
     {
       double wert = buchung.getBetrag();
-      salto += wert;
+      saldo += wert;
       if (wert > 0d)
         einnahmen += wert;
       else
@@ -310,12 +310,12 @@ public class BuchungsHeaderControl extends AbstractControl
       return dateFormater.format(datum);
     }
 
-    public String getSaltoText()
+    public String getSaldoText()
     {
-      return formatWert(salto);
+      return formatWert(saldo);
     }
 
-    public String getSaltoDatumText()
+    public String getSaldoDatumText()
     {
       return "letzte Buchung: " + formatDatum(juengstesBuchungsDatum);
     }
@@ -330,7 +330,7 @@ public class BuchungsHeaderControl extends AbstractControl
       return formatWert(einnahmen);
     }
 
-    public String getAnfangsSaltoText() throws RemoteException
+    public String getAnfangsSaldoText() throws RemoteException
     {
       if (null == anfangsBestand)
         return "-";

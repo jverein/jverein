@@ -99,9 +99,9 @@ public class QIFBuchungsImportControl extends AbstractControl
 
   private TextInput eroffnungsDatum;
 
-  private DecimalInput startSalto;
+  private DecimalInput startSaldo;
 
-  private DecimalInput endSalto;
+  private DecimalInput endSaldo;
 
   private IntegerInput anzahlBuchungen;
 
@@ -178,26 +178,26 @@ public class QIFBuchungsImportControl extends AbstractControl
     return eroffnungsDatum;
   }
 
-  public DecimalInput getInputStartSalto()
+  public DecimalInput getInputStartSaldo()
   {
-    if (null == startSalto)
+    if (null == startSaldo)
     {
-      startSalto = new DecimalInput(Einstellungen.DECIMALFORMAT);
-      startSalto.setComment("Euro");
-      startSalto.disable();
+      startSaldo = new DecimalInput(Einstellungen.DECIMALFORMAT);
+      startSaldo.setComment("Euro");
+      startSaldo.disable();
     }
-    return startSalto;
+    return startSaldo;
   }
 
-  public DecimalInput getInputEndSalto()
+  public DecimalInput getInputEndSaldo()
   {
-    if (null == endSalto)
+    if (null == endSaldo)
     {
-      endSalto = new DecimalInput(Einstellungen.DECIMALFORMAT);
-      endSalto.setComment("Euro");
-      endSalto.disable();
+      endSaldo = new DecimalInput(Einstellungen.DECIMALFORMAT);
+      endSaldo.setComment("Euro");
+      endSaldo.disable();
     }
-    return endSalto;
+    return endSaldo;
   }
 
   public IntegerInput getInputAnzahlBuchungen()
@@ -279,7 +279,7 @@ public class QIFBuchungsImportControl extends AbstractControl
     qifImportPosList.addColumn("Betrag", QIFImportPos.COL_BETRAG,
         new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
         Column.ALIGN_RIGHT);
-    qifImportPosList.addColumn("Stand", QIFImportPos.VIEW_SALTO,
+    qifImportPosList.addColumn("Stand", QIFImportPos.VIEW_SALDO,
         new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
         Column.ALIGN_RIGHT);
     qifImportPosList.addColumn("Buchungsart", QIFImportPos.COL_QIF_BUCHART);
@@ -309,19 +309,19 @@ public class QIFBuchungsImportControl extends AbstractControl
         + QIFImportPos.COL_POSID);
 
     qifImportPosList.removeAll();
-    double salto = head.getStartSalto();
+    double saldo = head.getStartSaldo();
     int anzahl = 0;
     while (kontoPosIterator.hasNext())
     {
       QIFImportPosImpl importPos = (QIFImportPosImpl) kontoPosIterator.next();
       ++anzahl;
-      salto += importPos.getBetrag().doubleValue();
-      importPos.setSalto(salto);
+      saldo += importPos.getBetrag().doubleValue();
+      importPos.setSaldo(saldo);
       qifImportPosList.addItem(importPos);
     }
 
     anzahlBuchungen.setValue(new Integer(anzahl));
-    endSalto.setValue(new Double(salto));
+    endSaldo.setValue(new Double(saldo));
   }
 
   private GenericIterator getIterator() throws RemoteException
@@ -341,7 +341,7 @@ public class QIFBuchungsImportControl extends AbstractControl
       headerSelected = header;
       beschreibungKonto.setValue(header.getBeschreibung());
       eroffnungsDatum.setValue(header.getStartDate());
-      startSalto.setValue(header.getStartSalto());
+      startSaldo.setValue(header.getStartSaldo());
       importDatum.setValue(header.getImportDatum());
       importDatei.setValue(header.getImportFile());
       processDatum.setValue(header.getProcessDate());
@@ -370,8 +370,8 @@ public class QIFBuchungsImportControl extends AbstractControl
     headerSelected = null;
     beschreibungKonto.setValue(null);
     eroffnungsDatum.setValue(null);
-    startSalto.setValue(null);
-    endSalto.setValue(null);
+    startSaldo.setValue(null);
+    endSaldo.setValue(null);
     anzahlBuchungen.setValue(null);
     importDatum.setValue(null);
     importDatei.setValue(null);
@@ -591,11 +591,11 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     private ArrayList<QIFImportHead> importHeadList;
 
-    private double aktSalto;
+    private double aktSaldo;
 
-    private int saltoJahr;
+    private int saldoJahr;
 
-    private ArrayList<SaltoJahr> jahresListe = new ArrayList<SaltoJahr>();
+    private ArrayList<SaldoJahr> jahresListe = new ArrayList<SaldoJahr>();
 
     private Calendar calenderItem = Calendar.getInstance();
 
@@ -627,12 +627,12 @@ public class QIFBuchungsImportControl extends AbstractControl
         ApplicationException
     {
       int aktJahr = getAktJahr();
-      for (SaltoJahr jahr : jahresListe)
+      for (SaldoJahr jahr : jahresListe)
       {
-        int saltoJahr = jahr.getJahr();
-        if (saltoJahr >= aktJahr)
+        int saldoJahr = jahr.getJahr();
+        if (saldoJahr >= aktJahr)
           break;
-        speichernJahresabschluss(saltoJahr);
+        speichernJahresabschluss(saldoJahr);
       }
     }
 
@@ -690,7 +690,7 @@ public class QIFBuchungsImportControl extends AbstractControl
           + konto.getBezeichnung());
       DBIterator iteratorQIFImportPos = loadExterneBuchungen(importHead);
       speichernKontoeroeffnung(konto, importHead);
-      speichernAnfangsbestand(importHead.getStartSalto(), konto,
+      speichernAnfangsbestand(importHead.getStartSaldo(), konto,
           (QIFImportPos) iteratorQIFImportPos.next());
 
       iteratorQIFImportPos.begin();
@@ -723,8 +723,8 @@ public class QIFBuchungsImportControl extends AbstractControl
         Konto konto) throws RemoteException, ApplicationException
     {
       int buchJahr = getJahr(importPos.getDatum());
-      if (buchJahr != saltoJahr)
-        speichernAnfangsbestand(aktSalto, konto, importPos);
+      if (buchJahr != saldoJahr)
+        speichernAnfangsbestand(aktSaldo, konto, importPos);
     }
 
     private void mitgliedsKontoSpeichern(QIFImportPos importPos, Buchung buchung)
@@ -756,10 +756,10 @@ public class QIFBuchungsImportControl extends AbstractControl
     private void speichernAnfangsbestand(double anfangWert, Konto konto,
         QIFImportPos importPos) throws RemoteException, ApplicationException
     {
-      Date datum = gibDatumAnfangsSalto(importPos);
-      aktSalto = anfangWert;
-      saltoJahr = getJahr(datum);
-      merkenSaltoJahr(saltoJahr);
+      Date datum = gibDatumAnfangsSaldo(importPos);
+      aktSaldo = anfangWert;
+      saldoJahr = getJahr(datum);
+      merkenSaldoJahr(saldoJahr);
 
       Anfangsbestand anfangsBestand = (Anfangsbestand) Einstellungen
           .getDBService().createObject(Anfangsbestand.class, null);
@@ -769,14 +769,14 @@ public class QIFBuchungsImportControl extends AbstractControl
       anfangsBestand.store();
     }
 
-    private void merkenSaltoJahr(int jahr)
+    private void merkenSaldoJahr(int jahr)
     {
-      SaltoJahr saltoJahr = new SaltoJahr(jahr);
-      if (jahresListe.contains(saltoJahr) == false)
-        jahresListe.add(saltoJahr);
+      SaldoJahr saldoJahr = new SaldoJahr(jahr);
+      if (jahresListe.contains(saldoJahr) == false)
+        jahresListe.add(saldoJahr);
     }
 
-    private Date gibDatumAnfangsSalto(QIFImportPos importPos)
+    private Date gibDatumAnfangsSaldo(QIFImportPos importPos)
         throws RemoteException
     {
       calenderItem.setTime(importPos.getDatum());
@@ -799,7 +799,7 @@ public class QIFBuchungsImportControl extends AbstractControl
       buchung.setZweck(importPos.getZweck());
       buchung.store();
 
-      aktSalto += buchung.getBetrag();
+      aktSaldo += buchung.getBetrag();
 
       return buchung;
     }
@@ -959,11 +959,11 @@ public class QIFBuchungsImportControl extends AbstractControl
 
   }
 
-  static class SaltoJahr
+  static class SaldoJahr
   {
     private int jahr;
 
-    public SaltoJahr(int jahr)
+    public SaldoJahr(int jahr)
     {
       this.jahr = jahr;
     }
@@ -988,7 +988,7 @@ public class QIFBuchungsImportControl extends AbstractControl
         return false;
       if (getClass() != obj.getClass())
         return false;
-      SaltoJahr other = (SaltoJahr) obj;
+      SaldoJahr other = (SaldoJahr) obj;
       if (jahr != other.jahr)
         return false;
       return true;
