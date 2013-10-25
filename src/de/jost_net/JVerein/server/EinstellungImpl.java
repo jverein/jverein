@@ -99,7 +99,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       {
         throw new ApplicationException("Bitte BIC eingeben");
       }
-      
+
       try
       {
         new IBAN(getIban());
