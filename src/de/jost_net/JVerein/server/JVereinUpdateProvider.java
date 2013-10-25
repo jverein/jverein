@@ -1481,6 +1481,7 @@ public class JVereinUpdateProvider
   public void execute(Connection conn, Map<String, String> statements,
       String logstring, int version) throws ApplicationException
   {
+    System.out.println(version);
     Logger.info("TODO: " + logstring);
     String driver = JVereinDBService.SETTINGS.getString("database.driver",
         DBSupportH2Impl.class.getName());
@@ -7932,7 +7933,7 @@ public class JVereinUpdateProvider
                 + " );\n "
                 +
 
-                " ALTER TABLE qifimportpos ADD CONSTRAINT fkImpKntPos1 FOREIGN KEY (headid) REFERENCES qifimporthead(id) DEFERRABLE;\n");
+                " ALTER TABLE qifimportpos ADD CONSTRAINT fkImpKntPos1 FOREIGN KEY (headid) REFERENCES qifimporthead(id)  DEFERRABLE;\n");
 
     // Update fuer MySQL
     statements
@@ -7970,7 +7971,7 @@ public class JVereinUpdateProvider
                 + " );\n "
                 +
 
-                "ALTER TABLE qifimportpos ADD CONSTRAINT fkImpKntPos1 FOREIGN KEY (headid) REFERENCES qifimporthead(id) DEFERRABLE;\n");
+                "ALTER TABLE qifimportpos ADD CONSTRAINT fkImpKntPos1 FOREIGN KEY (headid) REFERENCES qifimporthead(id);\n");
 
     execute(conn, statements,
         "Neue Tabellen für Import von Buchungen aus z.B. Quicken.", 329);
@@ -8079,7 +8080,7 @@ public class JVereinUpdateProvider
     // Update fuer MySQL
     statements
         .put(DBSupportMySqlImpl.class.getName(),
-            "ALTER TABLE lastschrift ADD mandatsequence VARCHAR(4) after mandatversion;\n");
+            "ALTER TABLE lastschrift ADD mandatsequence VARCHAR(4) after mandatdatum;\n");
 
     execute(conn, statements,
         "Spalte mandatsequence in die Tabelle lastschrift eingefügt", 336);
