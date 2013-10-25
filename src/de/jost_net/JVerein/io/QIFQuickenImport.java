@@ -379,8 +379,7 @@ public class QIFQuickenImport implements Importer
    * IN Quicken sind die Zahlen mit Dezimalpunkt und Tausender Komma formatiert.
    * Beispiel: 7,669.38
    * 
-   * @return
-   */
+    */
   private DecimalFormat getDecimalFormat()
   {
     if (null == decimalFormat)

@@ -357,7 +357,6 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
    * einmal vorhanden sind. Positionen ohne QIFBuchungsart werden alle in die
    * Liste aufgenommen
    * 
-   * @return
    * @throws RemoteException
    */
   private GenericIterator getDistinctQIFNameList() throws RemoteException

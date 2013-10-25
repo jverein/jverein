@@ -335,7 +335,6 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
    * einmal vorhanden sind. Positionen ohne QIFBuchungsart werden alle in die
    * Liste aufgenommen
    * 
-   * @return
    * @throws RemoteException
    */
   private GenericIterator getDistinctQIFBuchartList() throws RemoteException

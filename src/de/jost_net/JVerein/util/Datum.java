@@ -196,7 +196,7 @@ public class Datum
    * übergeben wurde oder das Alter < 1 ist.
    * 
    * @param geburtstag
-   * @return
+   * @return alter
    */
   public final static Integer getAlter(Date geburtstag, Date referenzDatum)
   {

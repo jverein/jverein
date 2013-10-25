@@ -73,7 +73,6 @@ public class GeschlechtInput extends SelectInput
   
   /**
    * Liefert das gewählte Objekt ohne Default-Wert zurück
-   * @return
    */
   public GeschlechtObject getSelectedValue()
   {
