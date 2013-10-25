@@ -21,6 +21,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.dialogs;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import de.willuhn.jameica.gui.Action;
@@ -110,6 +111,8 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
       }
     });
     buttons.paint(parent);
+    getShell().setMinimumSize(getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
   }
 
   /**
