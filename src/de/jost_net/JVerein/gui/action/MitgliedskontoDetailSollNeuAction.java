@@ -50,6 +50,7 @@ public class MitgliedskontoDetailSollNeuAction implements Action
             Mitglied.class, mkn.getID());
         mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
             Mitgliedskonto.class, null);
+        mk.setZahlungsweg(m.getZahlungsweg());
         mk.setMitglied(m);
       }
       catch (RemoteException e)
