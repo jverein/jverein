@@ -25,6 +25,7 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.willuhn.jameica.gui.formatter.Formatter;
+import de.willuhn.logging.Logger;
 
 public class EigenschaftGruppeFormatter implements Formatter
 {
@@ -43,7 +44,7 @@ public class EigenschaftGruppeFormatter implements Formatter
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
     return bez;
   }

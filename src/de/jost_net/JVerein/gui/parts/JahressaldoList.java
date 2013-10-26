@@ -40,6 +40,7 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class JahressaldoList extends TablePart implements Part
@@ -58,7 +59,7 @@ public class JahressaldoList extends TablePart implements Part
     }
     catch (ParseException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 

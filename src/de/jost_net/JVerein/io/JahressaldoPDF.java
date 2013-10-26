@@ -87,7 +87,6 @@ public class JahressaldoPDF
     }
     catch (Exception e)
     {
-      e.printStackTrace();
       Logger.error("error while creating report", e);
       throw new ApplicationException("Fehler beim Erzeugen des Reports", e);
     }

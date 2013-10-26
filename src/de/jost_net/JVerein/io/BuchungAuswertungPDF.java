@@ -118,7 +118,6 @@ public class BuchungAuswertungPDF
     }
     catch (DocumentException e)
     {
-      e.printStackTrace();
       Logger.error("error while creating report", e);
       throw new ApplicationException("Fehler", e);
     }

@@ -29,6 +29,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import de.willuhn.logging.Logger;
+
 /**
  * Tools, mit dessen Hilfe die Reihenfolge der Tabellen für das Diagnosebackup
  * ermittelt wird. Ansonsten gibt es Probleme mit der referenziellen Integrität.
@@ -106,11 +108,11 @@ public class DBTool
     }
     catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
     catch (SQLException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 

@@ -30,6 +30,7 @@ import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.logging.Logger;
 
 public class BuchungNeuAction implements Action
 {
@@ -41,18 +42,18 @@ public class BuchungNeuAction implements Action
     {
       buch = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
           null);
-      if ( context instanceof BuchungsControl)
+      if (context instanceof BuchungsControl)
       {
-          BuchungsControl control = (BuchungsControl) context;
-          Konto konto = (Konto) control.getSuchKonto().getValue();
-          if ( null != konto)
-              buch.setKonto(konto);
+        BuchungsControl control = (BuchungsControl) context;
+        Konto konto = (Konto) control.getSuchKonto().getValue();
+        if (null != konto)
+          buch.setKonto(konto);
       }
       GUI.startView(BuchungView.class, buch);
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 }

@@ -34,6 +34,7 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.parts.Column;
+import de.willuhn.logging.Logger;
 
 public class MitgliedSpaltenauswahl extends Spaltenauswahl
 {
@@ -112,7 +113,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 }

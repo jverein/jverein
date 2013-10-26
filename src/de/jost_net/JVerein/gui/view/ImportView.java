@@ -373,7 +373,7 @@ public class ImportView extends AbstractView
       }
       catch (Exception e)
       {
-        e.printStackTrace();
+        Logger.error("Fehler", e);
       }
       return;
     }
@@ -391,7 +391,7 @@ public class ImportView extends AbstractView
     }
     catch (Exception e1)
     {
-      e1.printStackTrace();
+      Logger.error("Fehler", e1);
     }
 
     /* Wenn diese bestaetigt wurde dann wird der Import gestartet */

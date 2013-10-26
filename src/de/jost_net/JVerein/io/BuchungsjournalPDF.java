@@ -147,23 +147,11 @@ public class BuchungsjournalPDF
       fos.close();
       FileViewer.show(file);
     }
-    catch (DocumentException e)
-    {
-      e.printStackTrace();
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler", e);
-    }
-    catch (FileNotFoundException e)
+    catch (Exception e)
     {
       Logger.error("error while creating report", e);
       throw new ApplicationException("Fehler", e);
     }
-    catch (IOException e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler", e);
-    }
-
   }
 
   private void createTableHeader(Reporter reporter) throws DocumentException

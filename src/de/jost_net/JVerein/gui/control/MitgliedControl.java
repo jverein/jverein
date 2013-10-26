@@ -593,7 +593,7 @@ public class MitgliedControl extends AbstractControl
           }
           catch (RemoteException e)
           {
-            e.printStackTrace();
+            Logger.error("Fehler", e);
           }
         }
       }
@@ -1172,7 +1172,7 @@ public class MitgliedControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          e.printStackTrace();
+          Logger.error("Fehler", e);
         }
       }
     });
@@ -1336,8 +1336,8 @@ public class MitgliedControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          e.printStackTrace();
-        }
+          Logger.error("Fehler", e);
+       }
       }
     });
 
@@ -3188,7 +3188,7 @@ public class MitgliedControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 
@@ -3266,7 +3266,7 @@ public class MitgliedControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 
@@ -3494,7 +3494,7 @@ public class MitgliedControl extends AbstractControl
       }
       catch (RemoteException e)
       {
-        e.printStackTrace();
+        Logger.error("Fehler", e);
       }
     }
   }

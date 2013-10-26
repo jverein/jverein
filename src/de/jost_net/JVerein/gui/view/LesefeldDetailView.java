@@ -69,12 +69,12 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
     // Auf diese Input-Felder sollte nur über die Funktionen
     // updateLesefeldFromGUI() und updateScriptResult() zugegriffen werden.
-    textInputScriptName = new TextInput(lesefeld != null
-        ? lesefeld.getBezeichnung() : "");
+    textInputScriptName = new TextInput(
+        lesefeld != null ? lesefeld.getBezeichnung() : "");
     container.addLabelPair("Skript-Name", textInputScriptName);
 
-    textAreaInputScriptCode = new TextAreaInput(lesefeld != null
-        ? lesefeld.getScript() : "");
+    textAreaInputScriptCode = new TextAreaInput(
+        lesefeld != null ? lesefeld.getScript() : "");
     container.addLabelPair("Skript", textAreaInputScriptCode);
 
     textAreaInputScriptResult = new TextAreaInput("");
@@ -128,8 +128,8 @@ public class LesefeldDetailView extends AbstractView implements Listener
         {
           String currentid = lesefeld.getID();
           if (this.lesefeld == null
-              || (this.lesefeld != null && !this.lesefeld.getID().equalsIgnoreCase(
-                  (currentid))))
+              || (this.lesefeld != null && !this.lesefeld.getID()
+                  .equalsIgnoreCase((currentid))))
           {
             GUI.getStatusBar().setErrorText(
                 "Bitte eindeutigen Skript-Namen eingeben!");
@@ -145,11 +145,12 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
       lesefeld.setBezeichnung((String) textInputScriptName.getValue());
       lesefeld.setScript((String) textAreaInputScriptCode.getValue());
-      lesefeld.setEvaluatedContent((String) textAreaInputScriptResult.getValue());
+      lesefeld.setEvaluatedContent((String) textAreaInputScriptResult
+          .getValue());
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
       GUI.getStatusBar().setErrorText(e.getMessage());
       return false;
     }
@@ -197,7 +198,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
       result = "Skript-Fehler:\r\n" + e.getMessage();
       success = false;
     }
@@ -252,7 +253,7 @@ public class LesefeldDetailView extends AbstractView implements Listener
         }
         catch (RemoteException e)
         {
-          e.printStackTrace();
+          Logger.error("Fehler", e);
           GUI.getStatusBar().setErrorText(
               "Skript kann nicht gespeichert werden.");
           Logger.error("Skript kann nicht gespeichert werden.", e);

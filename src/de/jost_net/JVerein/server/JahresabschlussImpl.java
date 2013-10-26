@@ -34,6 +34,7 @@ import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class JahresabschlussImpl extends AbstractDBObject implements
@@ -122,7 +123,7 @@ public class JahresabschlussImpl extends AbstractDBObject implements
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
       String msg = "Jahresabschluss kann nicht gespeichert werden. Siehe system log";
       throw new ApplicationException(msg);
     }

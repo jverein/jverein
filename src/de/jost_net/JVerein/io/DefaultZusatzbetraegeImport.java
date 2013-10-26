@@ -350,7 +350,6 @@ public class DefaultZusatzbetraegeImport implements Importer
       catch (SQLException e)
       {
         Logger.error("Fehler beim Schlieﬂen von ResultSet results", e);
-        e.printStackTrace();
       }
       try
       {
@@ -359,7 +358,6 @@ public class DefaultZusatzbetraegeImport implements Importer
       catch (SQLException e)
       {
         Logger.error("Fehler beim Schlieﬂen von Statement stmt", e);
-        e.printStackTrace();
       }
       try
       {
@@ -368,7 +366,6 @@ public class DefaultZusatzbetraegeImport implements Importer
       catch (SQLException e)
       {
         Logger.error("Fehler beim Schlieﬂen von Connection conn", e);
-        e.printStackTrace();
       }
     }
   }

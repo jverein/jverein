@@ -372,7 +372,7 @@ public class SpendenbescheinigungControl extends AbstractControl
             }
             catch (RemoteException e)
             {
-              e.printStackTrace();
+              Logger.error("Fehler", e);
             }
           }
           return "";

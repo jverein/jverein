@@ -887,7 +887,7 @@ public class BuchungsControl extends AbstractControl
             }
             catch (RemoteException e)
             {
-              e.printStackTrace();
+              Logger.error("Fehler", e);
             }
           }
           return "";
@@ -965,7 +965,7 @@ public class BuchungsControl extends AbstractControl
             }
             catch (RemoteException e)
             {
-              e.printStackTrace();
+              Logger.error("Fehler", e);
             }
           }
           return "";
@@ -1172,7 +1172,7 @@ public class BuchungsControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 

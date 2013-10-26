@@ -288,7 +288,6 @@ public class MitgliedAuswertungPDF implements IAuswertung
     }
     catch (Exception e)
     {
-      e.printStackTrace();
       Logger.error("error while creating report", e);
       throw new ApplicationException("Fehler", e);
     }

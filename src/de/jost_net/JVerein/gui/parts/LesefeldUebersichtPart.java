@@ -58,7 +58,7 @@ public class LesefeldUebersichtPart implements Part
    * ausgewählt.
    * 
    * @param selectedMitglied
-   *        Auszuwählendes Mitglied.
+   *          Auszuwählendes Mitglied.
    */
   public LesefeldUebersichtPart(Mitglied selectedMitglied)
   {
@@ -125,7 +125,6 @@ public class LesefeldUebersichtPart implements Part
           String fehler = "Fehler beim Auswählen des Mitgliedes";
           Logger.error(fehler, e);
           GUI.getStatusBar().setErrorText(fehler);
-          e.printStackTrace();
         }
 
       }
@@ -165,7 +164,7 @@ public class LesefeldUebersichtPart implements Part
    * Fügt neue GUI-Elemente hinzu für ein neues Lesefeld.
    * 
    * @param lesefeld
-   *        Anzuzeigendes, neues Lesefeld.
+   *          Anzuzeigendes, neues Lesefeld.
    * @throws RemoteException
    */
   private void addLesefeldEinstellungRow(final Lesefeld lesefeld)
@@ -196,7 +195,7 @@ public class LesefeldUebersichtPart implements Part
    * Aktualisiert die GUI, so dass Inhalt von lese angezeigt wird.
    * 
    * @param lesefeld
-   *        Anzuzeigendes, neues Lesefeld.
+   *          Anzuzeigendes, neues Lesefeld.
    * @throws RemoteException
    */
   private void updateLesefeldEinstellungRow(final Lesefeld lesefeld)
@@ -240,7 +239,7 @@ public class LesefeldUebersichtPart implements Part
    * erzeugt wurden.
    * 
    * @param lf
-   *        Zu löschendes Lesefeld.
+   *          Zu löschendes Lesefeld.
    * @throws RemoteException
    */
   private void deleteLesefeldEinstellungRow(Lesefeld lf) throws RemoteException
@@ -282,15 +281,17 @@ public class LesefeldUebersichtPart implements Part
   private void updateView()
   {
 
-    Point currentSizeParentParent = lesefelderListeLayout.getComposite().getParent().getParent().getSize();
-    Point sizeParentParent = lesefelderListeLayout.getComposite().getParent().computeSize(
-        currentSizeParentParent.x, SWT.DEFAULT, true);
-    lesefelderListeLayout.getComposite().getParent().getParent().setSize(
-        sizeParentParent);
+    Point currentSizeParentParent = lesefelderListeLayout.getComposite()
+        .getParent().getParent().getSize();
+    Point sizeParentParent = lesefelderListeLayout.getComposite().getParent()
+        .computeSize(currentSizeParentParent.x, SWT.DEFAULT, true);
+    lesefelderListeLayout.getComposite().getParent().getParent()
+        .setSize(sizeParentParent);
 
-    Point currentSizeParent = lesefelderListeLayout.getComposite().getParent().getSize();
-    Point sizeParent = lesefelderListeLayout.getComposite().getParent().computeSize(
-        currentSizeParent.x, SWT.DEFAULT, true);
+    Point currentSizeParent = lesefelderListeLayout.getComposite().getParent()
+        .getSize();
+    Point sizeParent = lesefelderListeLayout.getComposite().getParent()
+        .computeSize(currentSizeParent.x, SWT.DEFAULT, true);
     lesefelderListeLayout.getComposite().getParent().setSize(sizeParent);
 
     lesefelderListeLayout.getComposite().redraw();
@@ -333,8 +334,8 @@ public class LesefeldUebersichtPart implements Part
    * Öffnet eine neue View zum Editieren einer Lesefeld-Definition.
    * 
    * @param lesefeld
-   *        Zu bearbeitendes Lesefeld oder null, wenn diese Lesefeld angelegt
-   *        werden soll.
+   *          Zu bearbeitendes Lesefeld oder null, wenn diese Lesefeld angelegt
+   *          werden soll.
    * @throws ApplicationException
    */
   private void openEditLesefeldDialog(Lesefeld lesefeld)
@@ -369,7 +370,7 @@ public class LesefeldUebersichtPart implements Part
       }
       catch (Exception e1)
       {
-        e1.printStackTrace();
+        Logger.error("Fehler", e1);
       }
 
       try
@@ -383,7 +384,6 @@ public class LesefeldUebersichtPart implements Part
         String fehler = "Fehler beim Löschen des Lesefeldes";
         Logger.error(fehler, e);
         GUI.getStatusBar().setErrorText(fehler);
-        e.printStackTrace();
       }
     }
 

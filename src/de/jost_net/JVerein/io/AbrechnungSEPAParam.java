@@ -35,6 +35,7 @@ import de.willuhn.jameica.hbci.gui.dialogs.KontoAuswahlDialog;
 import de.willuhn.jameica.hbci.rmi.Konto;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.OperationCanceledException;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class AbrechnungSEPAParam
@@ -129,7 +130,7 @@ public class AbrechnungSEPAParam
       }
       catch (Exception e)
       {
-        e.printStackTrace();
+        Logger.error("Fehler", e);
         throw new ApplicationException(
             "Hibiscus-Datenbank kann nicht geöffnet werden.");
       }

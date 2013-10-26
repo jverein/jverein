@@ -255,8 +255,7 @@ public class SEPAKonvertierungControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
     catch (SEPAException e)
     {
@@ -287,8 +286,7 @@ public class SEPAKonvertierungControl extends AbstractControl
     }
     catch (ApplicationException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 

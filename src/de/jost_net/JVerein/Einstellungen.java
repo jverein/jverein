@@ -253,8 +253,8 @@ public class Einstellungen
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
-    }
+      Logger.error("Fehler", e);
+   }
     return !beigen || !bbeitragsgruppe;
   }
 

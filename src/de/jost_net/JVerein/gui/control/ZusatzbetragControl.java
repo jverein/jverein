@@ -335,7 +335,7 @@ public class ZusatzbetragControl extends AbstractControl
         }
         catch (RemoteException e)
         {
-          e.printStackTrace();
+          Logger.error("Fehler", e);
         }
       }
     });
@@ -399,7 +399,7 @@ public class ZusatzbetragControl extends AbstractControl
           }
           catch (RemoteException e)
           {
-            e.printStackTrace();
+            Logger.error("Fehler", e);
           }
           return name;
         }
@@ -468,7 +468,7 @@ public class ZusatzbetragControl extends AbstractControl
       }
       catch (ParseException e)
       {
-        e.printStackTrace();
+        Logger.error("Fehler", e);
       }
     }
     zusatzbetraege

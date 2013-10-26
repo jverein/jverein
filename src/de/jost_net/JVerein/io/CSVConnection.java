@@ -32,6 +32,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import de.willuhn.logging.Logger;
+
 /**
  * This class handles the connection to a csv db file.
  * 
@@ -194,7 +196,7 @@ public class CSVConnection
     }
     catch (SQLException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
       throw new SQLException(
           "Konnte Anzahl Daten nicht ermitteln - Häufiger Grund eine Leerstelle vor/nach einen Semikolon, siehe Stacktrace wegen der Zeile");
     }
@@ -224,7 +226,7 @@ public class CSVConnection
     }
     catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
       throw new SQLException("Wasn't able to load CSV DB Driver");
     }
 
@@ -264,7 +266,7 @@ public class CSVConnection
          * this will just be printed to the stack trace because you can't do
          * anything about it
          */
-        e.printStackTrace();
+        Logger.error("Fehler", e);
       }
     }
 

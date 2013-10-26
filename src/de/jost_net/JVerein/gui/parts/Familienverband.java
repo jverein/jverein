@@ -36,6 +36,7 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.util.Container;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
+import de.willuhn.logging.Logger;
 
 public class Familienverband implements Part
 {
@@ -157,7 +158,7 @@ public class Familienverband implements Part
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
     tab.redraw();
     tab.layout(true);
@@ -203,7 +204,7 @@ public class Familienverband implements Part
       }
       catch (RemoteException e)
       {
-        e.printStackTrace();
+        Logger.error("Fehler", e);
       }
       GuiRepainter.repaint(parent);
       // updateGUI();

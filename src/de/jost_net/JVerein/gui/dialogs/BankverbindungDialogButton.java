@@ -26,6 +26,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.logging.Logger;
 
 public class BankverbindungDialogButton extends ButtonArea
 {
@@ -55,7 +56,7 @@ public class BankverbindungDialogButton extends ButtonArea
         }
         catch (Exception e)
         {
-          e.printStackTrace();
+          Logger.error("Fehler", e);
         }
       }
     }, null, false, "wand.png");

@@ -123,7 +123,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     }
     catch (RemoteException e1)
     {
-      e1.printStackTrace();
+      Logger.error("Fehler", e1);
     }
   }
 

@@ -39,6 +39,7 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.logging.Logger;
 
 public class WiedervorlageList extends TablePart implements Part
 {
@@ -76,7 +77,7 @@ public class WiedervorlageList extends TablePart implements Part
           }
           catch (RemoteException e)
           {
-            e.printStackTrace();
+            Logger.error("Fehler", e);
           }
           return name;
         }

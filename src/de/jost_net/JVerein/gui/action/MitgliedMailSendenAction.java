@@ -121,7 +121,7 @@ public class MitgliedMailSendenAction implements Action
         }
         catch (Exception e)
         {
-          e.printStackTrace();
+          Logger.error("Fehler", e);
         }
         mail.setEmpfaenger(empf);
         GUI.startView(MailDetailView.class.getName(), mail);

@@ -101,7 +101,7 @@ public class LesefeldAuswerter
    * true) erhalten werden.
    * 
    * @param map
-   *        map mit Mitgliedsdaten
+   *          map mit Mitgliedsdaten
    */
   public void setMap(Map<String, Object> map)
   {
@@ -113,8 +113,8 @@ public class LesefeldAuswerter
     {
 
       // TODO: gibt es noch mehr Zeichen, die ersetzt werden müssen?
-      String keyNormalized = key.replace("-", "_").replace(".", "_").replace(
-          " ", "_");
+      String keyNormalized = key.replace("-", "_").replace(".", "_")
+          .replace(" ", "_");
 
       try
       {
@@ -125,7 +125,6 @@ public class LesefeldAuswerter
         Logger.error(
             "Interner Fehler beim Auswerten eines Skriptes: \""
                 + e.getMessage() + "\".", e);
-        e.printStackTrace();
       }
     }
 
@@ -224,7 +223,7 @@ public class LesefeldAuswerter
    * berücksichtig, die vorher mit setMap() gesetzt wurden.
    * 
    * @param script
-   *        Auszuwertendes Skript.
+   *          Auszuwertendes Skript.
    * @return Ergebnis der Skript-Ausführung
    * @throws EvalError
    */
@@ -239,7 +238,7 @@ public class LesefeldAuswerter
    * berücksichtig, die vorher mit setMap() gesetzt wurden.
    * 
    * @param lesefeld
-   *        Auszuwertendes Lesefeld
+   *          Auszuwertendes Lesefeld
    * @return Lesefeld in das der ausgewertete Inhalt des Skriptes geschrieben
    *         wurde.
    * @throws RemoteException
@@ -258,7 +257,6 @@ public class LesefeldAuswerter
     {
       Logger.error("Fehler beim Auswerten des Skriptes: \"" + e.getMessage()
           + "\".", e);
-      e.printStackTrace();
       return null;
     }
     return lesefeld;

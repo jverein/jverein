@@ -47,6 +47,7 @@ import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 import de.willuhn.jameica.gui.util.SWTUtil;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
@@ -90,7 +91,7 @@ public class MitgliedMenu extends ContextMenu
             }
             catch (Exception e)
             {
-              e.printStackTrace();
+              Logger.error("Fehler", e);
             }
             m.setAdresstyp(1);
             GUI.startView(MitgliedDetailView.class.getName(), m);

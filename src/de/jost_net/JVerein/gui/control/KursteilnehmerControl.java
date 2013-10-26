@@ -648,7 +648,7 @@ public class KursteilnehmerControl extends AbstractControl
     }
     catch (RemoteException e1)
     {
-      e1.printStackTrace();
+      Logger.error("Fehler", e1);
     }
   }
 
@@ -918,7 +918,7 @@ public class KursteilnehmerControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      e.printStackTrace();
+      Logger.error("Fehler", e);
     }
   }
 
