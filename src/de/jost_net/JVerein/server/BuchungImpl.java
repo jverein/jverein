@@ -106,10 +106,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     Calendar cal1 = Calendar.getInstance();
     cal1.setTime(getDatum());
     Calendar cal2 = Calendar.getInstance();
-    if (cal1.after(cal2))
-    {
-      throw new ApplicationException("Buchungsdatum liegt in der Zukunft");
-    }
+    // if (cal1.after(cal2))
+    // {
+    // throw new ApplicationException("Buchungsdatum liegt in der Zukunft");
+    // }
     cal2.add(Calendar.YEAR, -10);
     if (cal1.before(cal2))
     {
