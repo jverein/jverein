@@ -7901,7 +7901,7 @@ public class JVereinUpdateProvider
     statements
         .put(
             DBSupportH2Impl.class.getName(),
-            "CREATE TABLE QIFIMPORTHEAD( "
+            "CREATE TABLE qifimporthead( "
                 + " id IDENTITY(1), "
                 + " name VARCHAR(30), "
                 + " beschreibung VARCHAR(30), "
@@ -7916,7 +7916,7 @@ public class JVereinUpdateProvider
                 + ");\n "
                 +
 
-                " CREATE TABLE QIFIMPORTPOS( "
+                " CREATE TABLE qifimportpos( "
                 + "   posid IDENTITY(1), "
                 + "   headid INTEGER NOT NULL, "
                 + "   datum DATE NOT NULL, "
@@ -7939,7 +7939,7 @@ public class JVereinUpdateProvider
     statements
         .put(
             DBSupportMySqlImpl.class.getName(),
-            "CREATE TABLE QIFIMPORTHEAD( "
+            "CREATE TABLE qifimporthead( "
                 + " id int(10) AUTO_INCREMENT, "
                 + " name VARCHAR(30), "
                 + " beschreibung VARCHAR(30), "
@@ -7954,7 +7954,7 @@ public class JVereinUpdateProvider
                 + " );\n "
                 +
 
-                "CREATE TABLE QIFIMPORTPOS( "
+                "CREATE TABLE qifimportpos( "
                 + "  posid int(10) AUTO_INCREMENT, "
                 + "  headid int(10) NOT NULL, "
                 + "  datum DATE NOT NULL, "
@@ -7982,14 +7982,14 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     statements.put(DBSupportH2Impl.class.getName(),
-        "CREATE TABLE MITGLIEDNEXTBGRUPPE( " + " id IDENTITY(1), "
+        "CREATE TABLE mitgliednextbgruppe( " + " id IDENTITY(1), "
             + " mitglied INTEGER, " + " beitragsgruppe INTEGER, "
             + " bemerkung VARCHAR(30), " + " abdatum DATE, " + " UNIQUE(id), "
             + " PRIMARY KEY(id) " + ");\n ");
 
     // Update fuer MySQL
     statements.put(DBSupportMySqlImpl.class.getName(),
-        "CREATE TABLE MITGLIEDNEXTBGRUPPE( " + " id int(10) AUTO_INCREMENT, "
+        "CREATE TABLE mitgliednextbgruppe( " + " id int(10) AUTO_INCREMENT, "
             + " mitglied int(10), " + " beitragsgruppe int(10), "
             + " bemerkung VARCHAR(30), " + " abdatum DATE, " + " UNIQUE(id), "
             + " PRIMARY KEY(id) " + " );\n ");
@@ -8209,12 +8209,12 @@ public class JVereinUpdateProvider
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2
     statements.put(DBSupportH2Impl.class.getName(),
-        "ALTER TABLE QIFIMPORTHEAD ADD startsaldo DOUBLE before startdate;\n");
+        "ALTER TABLE qifimporthead ADD startsaldo DOUBLE before startdate;\n");
 
     // Update fuer MySQL
     statements
         .put(DBSupportMySqlImpl.class.getName(),
-            "ALTER TABLE QIFIMPORTHEAD ADD startsaldo DOUBLE after beschreibung;\n");
+            "ALTER TABLE qifimporthead ADD startsaldo DOUBLE after beschreibung;\n");
 
     execute(conn, statements,
         "Spalte startsaldo in die Tabelle qifimporthead eingefügt", 347);
