@@ -8203,7 +8203,6 @@ public class JVereinUpdateProvider
     execute(conn, statements, "Spalte aus Tabelle einstellung entfernt", 346);
   }
 
-  // TODO
   private void update0347(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
