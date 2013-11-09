@@ -122,10 +122,6 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       throw new ApplicationException(
           "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!");
     }
-    if (getBetrag() == 0.0d)
-    {
-      throw new ApplicationException("Betrag fehlt!");
-    }
     if (!getSpeicherung() && getBuchungsart() == null)
     {
       throw new ApplicationException("Buchungsart fehlt bei Splitbuchung!");
