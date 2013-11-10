@@ -14,6 +14,5 @@
 	<classpathentry kind="lib" path="/hibiscus/lib/itextpdf-5.3.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/csvjdbc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
-	<classpathentry kind="lib" path="lib/obantoo-bin-2.0.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
