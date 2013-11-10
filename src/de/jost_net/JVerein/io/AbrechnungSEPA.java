@@ -88,6 +88,24 @@ public class AbrechnungSEPA
       throws Exception
   {
     this.param = param;
+
+    if (Einstellungen.getEinstellung().getName() == null
+        || Einstellungen.getEinstellung().getName().length() == 0
+        || Einstellungen.getEinstellung().getIban() == null
+        || Einstellungen.getEinstellung().getIban().length() == 0)
+    {
+      throw new ApplicationException(
+          "Name des Vereins oder Bankverbindung fehlt. Bitte unter Administration|Einstellungen erfassen.");
+    }
+
+    if (Einstellungen.getEinstellung().getGlaeubigerID() == null
+        || Einstellungen.getEinstellung().getGlaeubigerID().length() == 0)
+    {
+      throw new ApplicationException(
+          "Gläubiger-ID fehlt. Gfls. unter https://extranet.bundesbank.de/scp/ oder http://www.oenb.at/idakilz/cid?lang=de beantragen und unter Administration|Einstellungen|Allgemein eintragen.\n"
+              + "Zu Testzwecken kann DE98ZZZ09999999999 eingesetzt werden.");
+    }
+
     Abrechnungslauf abrl = getAbrechnungslauf();
 
     sepagueltigkeit = Calendar.getInstance();

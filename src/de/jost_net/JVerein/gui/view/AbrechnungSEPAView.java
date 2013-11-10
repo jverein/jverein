@@ -21,13 +21,9 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import java.text.MessageFormat;
-
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
-import de.jost_net.JVerein.rmi.Konto;
-import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -41,32 +37,6 @@ public class AbrechnungSEPAView extends AbstractView
   @Override
   public void bind() throws Exception
   {
-    if (Einstellungen.getEinstellung().getName() == null
-        || Einstellungen.getEinstellung().getName().length() == 0
-        || Einstellungen.getEinstellung().getIban() == null
-        || Einstellungen.getEinstellung().getIban().length() == 0)
-    {
-      throw new ApplicationException(
-          "Name des Vereins oder Bankverbindung fehlt.Bitte unter Administration|Einstellungen erfassen.");
-    }
-    if (Einstellungen.getEinstellung().getGlaeubigerID() == null
-        || Einstellungen.getEinstellung().getGlaeubigerID().length() == 0)
-    {
-      throw new ApplicationException(
-          "Gläubiger-ID fehlt. Gfls. unter https://extranet.bundesbank.de/scp/ oder http://www.oenb.at/idakilz/cid?lang=de beantragen und unter Administration|Einstellungen|Allgemein eintragen.\n"
-              + "Zu Testzwecken kann DE98ZZZ09999999999 eingesetzt werden.");
-    }
-
-    DBIterator it = Einstellungen.getDBService().createList(Konto.class);
-    it.addFilter("nummer = ?", Einstellungen.getEinstellung().getKonto());
-    if (it.size() != 1)
-    {
-      throw new ApplicationException(
-          MessageFormat.format(
-              "Konto {0} ist in der Buchführung nicht eingerichtet. Menu: Buchführung | Konten",
-              Einstellungen.getEinstellung().getKonto()));
-    }
-
     GUI.getView().setTitle("Abrechnung");
 
     final AbrechnungSEPAControl control = new AbrechnungSEPAControl(this);
@@ -79,7 +49,8 @@ public class AbrechnungSEPAView extends AbstractView
         control.getFaelligkeit2());
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
-    group.addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
+    group
+        .addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
     group.addLabelPair("Zusatzbeträge", control.getZusatzbetrag());
     if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
@@ -95,9 +66,10 @@ public class AbrechnungSEPAView extends AbstractView
     }
     group.addLabelPair("Abbuchungsausgabe", control.getAbbuchungsausgabe());
     group.addSeparator();
-    group.addText(
-        "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
-        true);
+    group
+        .addText(
+            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
+            true);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
