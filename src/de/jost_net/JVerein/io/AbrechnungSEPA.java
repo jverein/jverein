@@ -491,13 +491,7 @@ public class AbrechnungSEPA
             zahler.setFaelligkeit(param.faelligkeit1, param.faelligkeit2, m
                 .getMandatSequence().getCode());
             zahler.setName(m.getKontoinhaber(1));
-            String verwendungszweck = z.getBuchungstext();
-            if (z.getBuchungstext2() != null
-                && z.getBuchungstext2().length() > 0)
-            {
-              verwendungszweck += z.getBuchungstext2();
-            }
-            zahler.setVerwendungszweck(verwendungszweck);
+            zahler.setVerwendungszweck(z.getBuchungstext());
             lastschrift.add(zahler);
           }
           catch (Exception e)

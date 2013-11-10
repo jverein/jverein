@@ -83,7 +83,8 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
       }
       if (getEndedatum() != null)
       {
-        if (!Datum.isImInterval(getStartdatum(), getEndedatum(), getIntervall()))
+        if (!Datum
+            .isImInterval(getStartdatum(), getEndedatum(), getIntervall()))
         {
           throw new ApplicationException("Endedatum liegt nicht im Intervall");
         }
@@ -93,7 +94,8 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
         throw new ApplicationException(
             "Das Fälligkeitsdatum darf nicht vor dem Startdatum liegen");
       }
-      if (!Datum.isImInterval(getStartdatum(), getFaelligkeit(), getIntervall()))
+      if (!Datum
+          .isImInterval(getStartdatum(), getFaelligkeit(), getIntervall()))
       {
         throw new ApplicationException(
             "Nächste Fälligkeit liegt nicht im Intervall");
@@ -161,18 +163,6 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
   public void setBuchungstext(String buchungstext) throws RemoteException
   {
     setAttribute("buchungstext", buchungstext);
-  }
-
-  @Override
-  public String getBuchungstext2() throws RemoteException
-  {
-    return (String) getAttribute("buchungstext2");
-  }
-
-  @Override
-  public void setBuchungstext2(String buchungstext2) throws RemoteException
-  {
-    setAttribute("buchungstext2", buchungstext2);
   }
 
   @Override

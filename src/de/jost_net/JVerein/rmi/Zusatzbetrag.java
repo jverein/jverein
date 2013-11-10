@@ -40,10 +40,6 @@ public interface Zusatzbetrag extends DBObject
 
   public void setBuchungstext(String buchungstext) throws RemoteException;
 
-  public String getBuchungstext2() throws RemoteException;
-
-  public void setBuchungstext2(String buchungstext2) throws RemoteException;
-
   public double getBetrag() throws RemoteException;
 
   public void setBetrag(double betrag) throws RemoteException;

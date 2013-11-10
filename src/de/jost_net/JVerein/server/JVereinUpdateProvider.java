@@ -1404,6 +1404,18 @@ public class JVereinUpdateProvider
     {
       update0349(conn);
     }
+    if (cv < 350)
+    {
+      update0350(conn);
+    }
+    if (cv < 351)
+    {
+      update0351(conn);
+    }
+    if (cv < 352)
+    {
+      update0352(conn);
+    }
     // TODO
   }
 
@@ -8244,6 +8256,47 @@ public class JVereinUpdateProvider
         "ALTER TABLE qifimporthead DROP COLUMN startsalto;\n");
 
     execute(conn, statements, "Spalte aus Tabelle qifimporthead entfernt", 349);
+  }
+
+  private void update0350(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("zusatzabbuchung", "buchungstext", "VARCHAR(140)");
+    statements.put(driver, sql);
+    execute(conn, statements, "", 350);
+  }
+
+  private void update0351(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = "update zusatzabbuchung set buchungstext = trim(concat(buchungstext, ' ', buchungstext2));\n";
+    // Update fuer H2
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    // Update fuer MySQL
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(
+        conn,
+        statements,
+        "Spalte buchungstext und buchungstext2 in tabelle zusatzabbuchung zusammengefügt",
+        351);
+  }
+
+  private void update0352(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzabbuchung DROP buchungstext2;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE zusatzabbuchung DROP buchungstext2;\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(conn, statements,
+        "Spalte buchungstext2 aus der Tabelle zusatzabbuchung entfernt", 352);
   }
 
   private String alterColumn(String table, String column, String type)

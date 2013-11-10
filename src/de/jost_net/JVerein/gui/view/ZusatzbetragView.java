@@ -46,14 +46,13 @@ public class ZusatzbetragView extends AbstractView
     group.addLabelPair("Intervall", control.getIntervall());
     group.addLabelPair("Endedatum", control.getEndedatum());
     group.addLabelPair("Buchungstext 1", control.getBuchungstext());
-    group.addLabelPair("Buchungstext 2", control.getBuchungstext2());
     group.addLabelPair("Betrag", control.getBetrag());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
-    buttons.addButton("Mitglied", new MitgliedDetailAction(),
-        control.getZusatzbetrag().getMitglied(), false, "system-users.png");
+    buttons.addButton("Mitglied", new MitgliedDetailAction(), control
+        .getZusatzbetrag().getMitglied(), false, "system-users.png");
     buttons.addButton("löschen", new ZusatzbetraegeDeleteAction(),
         control.getZusatzbetrag(), false, "user-trash.png");
     buttons.addButton("speichern", new Action()

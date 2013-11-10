@@ -85,8 +85,6 @@ public class ZusatzbetragControl extends AbstractControl
 
   private TextInput buchungstext;
 
-  private TextInput buchungstext2;
-
   private DecimalInput betrag;
 
   private Zusatzbetrag zuab;
@@ -154,21 +152,10 @@ public class ZusatzbetragControl extends AbstractControl
     {
       return buchungstext;
     }
-    buchungstext = new TextInput(getZusatzbetrag().getBuchungstext(), 27);
+    buchungstext = new TextInput(getZusatzbetrag().getBuchungstext(), 140);
     buchungstext.setMandatory(true);
     buchungstext.setValidChars(HBCIProperties.HBCI_DTAUS_VALIDCHARS);
     return buchungstext;
-  }
-
-  public TextInput getBuchungstext2() throws RemoteException
-  {
-    if (buchungstext2 != null)
-    {
-      return buchungstext2;
-    }
-    buchungstext2 = new TextInput(getZusatzbetrag().getBuchungstext2(), 27);
-    buchungstext2.setValidChars(HBCIProperties.HBCI_DTAUS_VALIDCHARS);
-    return buchungstext2;
   }
 
   public DecimalInput getBetrag() throws RemoteException
@@ -355,7 +342,6 @@ public class ZusatzbetragControl extends AbstractControl
       z.setIntervall(iz.getKey());
       z.setEndedatum((Date) getEndedatum().getValue());
       z.setBuchungstext((String) getBuchungstext().getValue());
-      z.setBuchungstext2((String) getBuchungstext2().getValue());
       Double d = (Double) getBetrag().getValue();
       z.setBetrag(d.doubleValue());
       z.store();
@@ -414,7 +400,6 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
       zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
-      zusatzbetraegeList.addColumn("Buchungstext 2", "buchungstext2");
       zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
       zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
@@ -577,11 +562,7 @@ public class ZusatzbetragControl extends AbstractControl
             reporter.addColumn(z.getAusfuehrung(), Element.ALIGN_LEFT);
             reporter.addColumn(z.getIntervallText(), Element.ALIGN_LEFT);
             reporter.addColumn(z.getEndedatum(), Element.ALIGN_LEFT);
-            reporter.addColumn(
-                z.getBuchungstext()
-                    + (z.getBuchungstext2() != null
-                        && z.getBuchungstext2().length() > 0 ? "\n"
-                        + z.getBuchungstext() : ""), Element.ALIGN_LEFT);
+            reporter.addColumn(z.getBuchungstext(), Element.ALIGN_LEFT);
             reporter.addColumn(z.getBetrag());
           }
           reporter.closeTable();

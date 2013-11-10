@@ -81,9 +81,11 @@ public class DefaultZusatzbetraegeImport implements Importer
 
       results = stmt.executeQuery("SELECT * FROM " + fil.substring(0, pos));
       String columnMitgliedsnummer = "Mitglieds_Nr";
+      String colExtMitgliedsnummer = "Ext_Mitglieds_Nr";
       String colNachname = "Nachname";
       String colVorname = "Vorname";
       boolean b_mitgliedsnummer = false;
+      boolean b_extmitgliedsnummer = false;
       boolean b_nachname = false;
       boolean b_vorname = false;
       ResultSetMetaData meta = results.getMetaData();
@@ -107,6 +109,10 @@ public class DefaultZusatzbetraegeImport implements Importer
         {
           b_mitgliedsnummer = true;
         }
+        else if (columnTitle.equals(colExtMitgliedsnummer))
+        {
+          b_extmitgliedsnummer = true;
+        }
         else if (columnTitle.equals(colNachname))
         {
           b_nachname = true;
@@ -116,19 +122,27 @@ public class DefaultZusatzbetraegeImport implements Importer
           b_vorname = true;
         }
       }
-      if (b_mitgliedsnummer && (b_nachname || b_vorname))
+      if (b_mitgliedsnummer && b_extmitgliedsnummer)
       {
         monitor.setStatus(ProgressMonitor.STATUS_ERROR);
         monitor
-            .setStatusText("Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Nachname und Vorname zur Zuordnung des Mitglieds enhalten. Es ist beides vorhanden. Abbruch!");
+            .setStatusText("Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Ext_Mitglieds_Nr zur Zuordnung des Mitglieds enthalten. Es ist beides vorhanden. Abbruch!");
         fehlerInUeberschrift = true;
       }
-      if (b_mitgliedsnummer == false
+      if ((b_mitgliedsnummer || b_extmitgliedsnummer)
+          && (b_nachname || b_vorname))
+      {
+        monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+        monitor
+            .setStatusText("Spaltenüberschrift muss entweder Angaben zur Mitgliedsnummer oder Nachname und Vorname zur Zuordnung des Mitglieds enthalten. Es ist beides vorhanden. Abbruch!");
+        fehlerInUeberschrift = true;
+      }
+      if (b_mitgliedsnummer == false && b_extmitgliedsnummer == false
           && (b_nachname == false || b_vorname == false))
       {
         monitor.setStatus(ProgressMonitor.STATUS_ERROR);
         monitor
-            .setStatusText("Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds enhalten. Es ist weder noch vorhanden. Abbruch!");
+            .setStatusText("Spaltenüberschrift muss entweder Mitglieds_Nr, Ext_Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds enhalten. Es ist keine Information vorhanden. Abbruch!");
         fehlerInUeberschrift = true;
       }
       if (fehlerInUeberschrift)
@@ -156,6 +170,11 @@ public class DefaultZusatzbetraegeImport implements Importer
           {
             list.addFilter("id = ? ", results.getString(columnMitgliedsnummer));
           }
+          if (b_extmitgliedsnummer)
+          {
+            list.addFilter("externemitgliedsnummer = ? ",
+                results.getString(colExtMitgliedsnummer));
+          }
           if (b_nachname)
           {
             list.addFilter("name = ? ", results.getString(colNachname));
@@ -169,6 +188,11 @@ public class DefaultZusatzbetraegeImport implements Importer
           if (b_mitgliedsnummer)
             mitgliedIdString = columnMitgliedsnummer + "="
                 + results.getString(columnMitgliedsnummer);
+          else if (b_extmitgliedsnummer)
+          {
+            mitgliedIdString = colExtMitgliedsnummer + "="
+                + results.getString(colExtMitgliedsnummer);
+          }
           else
             mitgliedIdString = colNachname + "="
                 + results.getString(colNachname) + ", " + colVorname + "="
@@ -213,34 +237,16 @@ public class DefaultZusatzbetraegeImport implements Importer
             }
             zus.setBetrag(betrag);
             String buchungstext = results.getString("Buchungstext");
-            if (buchungstext.length() > 27)
+            if (buchungstext.length() > 140)
             {
               monitor
                   .setStatusText(MessageFormat
                       .format(
-                          "Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 27 Buchstaben begrenzt. Abbruch!",
+                          "Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 140 Zeichen begrenzt. Abbruch!",
                           anz + "", mitgliedIdString));
               fehlerInDaten = true;
             }
             zus.setBuchungstext(buchungstext);
-            try
-            {
-              buchungstext = results.getString("Buchungstext2");
-              if (buchungstext.length() > 27)
-              {
-                monitor
-                    .setStatusText(MessageFormat
-                        .format(
-                            "Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 27 Buchstaben begrenzt. Abbruch!",
-                            anz + "", mitgliedIdString));
-                fehlerInDaten = true;
-              }
-              zus.setBuchungstext2(buchungstext);
-            }
-            catch (SQLException e)
-            {
-              Logger.error("Fehler", e);
-            }
             try
             {
               Date d = de.jost_net.JVerein.util.Datum.toDate(results

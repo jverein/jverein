@@ -397,11 +397,7 @@ public class PersonalbogenAction implements Action
         rpt.addColumn(z.getAusfuehrung(), Element.ALIGN_LEFT);
         rpt.addColumn(z.getIntervallText(), Element.ALIGN_LEFT);
         rpt.addColumn(z.getEndedatum(), Element.ALIGN_LEFT);
-        rpt.addColumn(
-            z.getBuchungstext()
-                + (z.getBuchungstext2() != null
-                    && z.getBuchungstext2().length() > 0 ? "\n"
-                    + z.getBuchungstext2() : ""), Element.ALIGN_LEFT);
+        rpt.addColumn(z.getBuchungstext(), Element.ALIGN_LEFT);
         rpt.addColumn(z.getBetrag());
       }
     }

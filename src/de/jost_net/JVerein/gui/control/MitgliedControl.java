@@ -1692,8 +1692,7 @@ public class MitgliedControl extends AbstractControl
     zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
         new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
-    zusatzbetraegeList.addColumn("Buchungstext 2", "buchungstext2");
-    zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+     zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
     zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
     zusatzbetraegeList
