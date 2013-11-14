@@ -58,8 +58,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     DBIterator list = Einstellungen.getDBService().createList(
         Kursteilnehmer.class);
     list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vzweck1) LIKE ? OR "
-        + "vzweck2 LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?", text, text,
-        text, text, text);
+        + "blz LIKE ? OR " + "konto LIKE ?", text, text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
