@@ -60,7 +60,7 @@ public class MitgliedSearchProvider implements SearchProvider
     String text = "%" + search.toLowerCase() + "%";
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vorname) LIKE ? OR "
-        + "ort LIKE ? OR " + "blz LIKE ? OR " + "konto LIKE ?", text, text,
+        + "ort LIKE ? OR " + "bic LIKE ? OR " + "iban LIKE ?", text, text,
         text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
