@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -83,6 +78,8 @@ public class EinstellungenView extends AbstractView
     left.addLabelPair("Kommunikationsdaten anzeigen",
         control.getKommunikationsdaten());
     left.addLabelPair("Zusatzbeträge anzeigen" + "*", control.getZusatzbetrag());
+    left.addLabelPair("Zusatzbeträge auch für Ausgetretene *",
+        control.getZusatzbetragAusgetretene());
     left.addLabelPair("Vermerke anzeigen", control.getVermerke());
     left.addLabelPair("Wiedervorlage anzeigen" + "*",
         control.getWiedervorlage());

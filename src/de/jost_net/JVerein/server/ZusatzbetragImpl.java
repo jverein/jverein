@@ -24,6 +24,7 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
@@ -253,7 +254,10 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
   {
     if (!getMitglied().isAngemeldet(new Date()))
     {
-      return false;
+      if (!Einstellungen.getEinstellung().getZusatzbetragAusgetretene())
+      {
+        return false;
+      }
     }
     // Wenn der Auftrag noch nie ausgeführt wurde, ist er auszuführen
     // if (getAusfuehrung() == null)

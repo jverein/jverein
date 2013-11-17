@@ -1416,6 +1416,10 @@ public class JVereinUpdateProvider
     {
       update0352(conn);
     }
+    if (cv < 353)
+    {
+      update0353(conn);
+    }
     // TODO
   }
 
@@ -8297,6 +8301,26 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Spalte buchungstext2 aus der Tabelle zusatzabbuchung entfernt", 352);
+  }
+
+  private void update0353(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zusatzbetragausgetretene boolean;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+
+    // Update fuer MySQL
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung ADD zusatzbetragausgetretenebit(1);\n");
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalte zusatzbetragausgetretene in die Tabelle einstellung aufgenommen",
+        353);
   }
 
   private String alterColumn(String table, String column, String type)

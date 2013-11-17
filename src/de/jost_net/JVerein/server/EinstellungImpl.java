@@ -1283,4 +1283,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute(COL_ALTER_MODEL, altersmodel);
   }
+
+  @Override
+  public boolean getZusatzbetragAusgetretene() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("zusatzbetragausgetretene"));
+  }
+
+  @Override
+  public void setZusatzbetragAusgetretene(boolean zusatzbetragausgetretene)
+      throws RemoteException
+  {
+    setAttribute("zusatzbetragausgetretene",
+        Boolean.valueOf(zusatzbetragausgetretene));
+  }
+
 }
