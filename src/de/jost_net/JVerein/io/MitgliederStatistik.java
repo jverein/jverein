@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -37,6 +32,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
@@ -74,6 +70,8 @@ public class MitgliederStatistik
           BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
           BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("ohne Angabe", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
       AltersgruppenParser ap = new AltersgruppenParser(Einstellungen
@@ -97,6 +95,8 @@ public class MitgliederStatistik
       reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 30,
           BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 30,
+          BaseColor.LIGHT_GRAY);
+      reporter.addHeaderColumn("ohne Angabe", Element.ALIGN_CENTER, 30,
           BaseColor.LIGHT_GRAY);
       reporter.createHeader(60f, Element.ALIGN_LEFT);
 
@@ -162,9 +162,14 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getAltersgruppe(von, bis, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getAltersgruppe(von, bis, "m", stichtag) + "",
+    reporter.addColumn(
+        getAltersgruppe(von, bis, GeschlechtInput.MAENNLICH, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getAltersgruppe(von, bis, "w", stichtag) + "",
+    reporter.addColumn(
+        getAltersgruppe(von, bis, GeschlechtInput.WEIBLICH, stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(
+        getAltersgruppe(von, bis, GeschlechtInput.OHNEANGABE, stichtag) + "",
         Element.ALIGN_RIGHT);
   }
 
@@ -181,9 +186,14 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getBeitragsgruppe(bg, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getBeitragsgruppe(bg, "m", stichtag) + "",
+    reporter.addColumn(
+        getBeitragsgruppe(bg, GeschlechtInput.MAENNLICH, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getBeitragsgruppe(bg, "w", stichtag) + "",
+    reporter.addColumn(
+        getBeitragsgruppe(bg, GeschlechtInput.WEIBLICH, stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(
+        getBeitragsgruppe(bg, GeschlechtInput.OHNEANGABE, stichtag) + "",
         Element.ALIGN_RIGHT);
   }
 

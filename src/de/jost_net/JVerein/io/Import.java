@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -36,6 +31,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -624,9 +620,11 @@ public class Import
 
     String geschlecht = getResultFrom(results, InternalColumns.GESCHLECHT);
     if (geschlecht.matches("^(m|M).*"))
-      geschlecht = "m";
+      geschlecht = GeschlechtInput.MAENNLICH;
     else if (geschlecht.matches("^(w|W).*"))
-      geschlecht = "w";
+      geschlecht = GeschlechtInput.WEIBLICH;
+    else if (geschlecht.matches("^(o|O).*"))
+      geschlecht = GeschlechtInput.OHNEANGABE;
     else
     {
       /*
@@ -634,9 +632,9 @@ public class Import
        * werden
        */
       if (m.getAnrede().equalsIgnoreCase("Frau"))
-        geschlecht = "w";
+        geschlecht = GeschlechtInput.WEIBLICH;
       else if (m.getAnrede().startsWith("Herr"))
-        geschlecht = "m";
+        geschlecht = GeschlechtInput.MAENNLICH;
       else
         geschlecht = "";
     }

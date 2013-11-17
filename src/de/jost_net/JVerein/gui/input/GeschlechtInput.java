@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -40,6 +35,8 @@ public class GeschlechtInput extends SelectInput
 
   public static final String WEIBLICH = "w";
 
+  public static final String OHNEANGABE = "o";
+
   public GeschlechtInput(String geschlecht) throws RemoteException
   {
     super(init(), new GeschlechtObject(geschlecht));
@@ -54,6 +51,7 @@ public class GeschlechtInput extends SelectInput
     ArrayList<GeschlechtObject> l = new ArrayList<GeschlechtObject>();
     l.add(new GeschlechtObject(MAENNLICH));
     l.add(new GeschlechtObject(WEIBLICH));
+    l.add(new GeschlechtObject(OHNEANGABE));
     return PseudoIterator.fromArray(l.toArray(new GeschlechtObject[l.size()]));
   }
 
@@ -70,14 +68,14 @@ public class GeschlechtInput extends SelectInput
     }
     return o.geschlecht;
   }
-  
+
   /**
    * Liefert das gewählte Objekt ohne Default-Wert zurück
    */
   public GeschlechtObject getSelectedValue()
   {
-      GeschlechtObject o = (GeschlechtObject) super.getValue();
-      return o;
+    GeschlechtObject o = (GeschlechtObject) super.getValue();
+    return o;
   }
 
   @Override
@@ -121,6 +119,10 @@ public class GeschlechtInput extends SelectInput
       {
         this.label = "weiblich";
       }
+      else if (geschlecht.equals(OHNEANGABE))
+      {
+        this.label = "ohne Angabe";
+      }
       else
       {
         this.label = "Programmfehler";
@@ -144,7 +146,7 @@ public class GeschlechtInput extends SelectInput
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "label", "geschlecht"};
+      return new String[] { "label", "geschlecht" };
     }
 
     @Override

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -33,6 +28,7 @@ import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -83,11 +79,11 @@ public abstract class StatistikJahrgaengeExport implements Exporter
         statistik.put(jg, dsbj);
       }
       dsbj.incrementGesamt();
-      if (m.getGeschlecht().equals("m"))
+      if (m.getGeschlecht().equals(GeschlechtInput.MAENNLICH))
       {
         dsbj.incrementMaennlich();
       }
-      if (m.getGeschlecht().equals("w"))
+      if (m.getGeschlecht().equals(GeschlechtInput.WEIBLICH))
       {
         dsbj.incrementWeiblich();
       }

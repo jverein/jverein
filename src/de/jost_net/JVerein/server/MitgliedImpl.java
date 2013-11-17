@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -31,6 +26,7 @@ import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.MitgliedVar;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -1211,7 +1207,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setEmail("willi.wichtig@jverein.de");
       this.setExterneMitgliedsnummer(123456);
       this.setGeburtsdatum("02.03.1980");
-      this.setGeschlecht("M");
+      this.setGeschlecht(GeschlechtInput.MAENNLICH);
       this.setHandy("0170/123456789");
       this.setIban("DE89370400440532013000");
       this.setID("1");
@@ -1253,14 +1249,19 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     String anredefoermlich = "Sehr geehrte";
     if (getGeschlecht() != null)
     {
-      if (getGeschlecht().equals("m"))
+      if (getGeschlecht().equals(GeschlechtInput.MAENNLICH))
       {
         anredefoermlich += "r Herr " + getTitel()
             + (getTitel().length() > 0 ? " " : "") + getName() + ",";
       }
-      else if (getGeschlecht().equals("w"))
+      else if (getGeschlecht().equals(GeschlechtInput.WEIBLICH))
       {
         anredefoermlich += " Frau " + getTitel()
+            + (getTitel().length() > 0 ? " " : "") + getName() + ",";
+      }
+      else if (getGeschlecht().equals(GeschlechtInput.OHNEANGABE))
+      {
+        anredefoermlich = "Guten Tag " + getTitel()
             + (getTitel().length() > 0 ? " " : "") + getName() + ",";
       }
       else

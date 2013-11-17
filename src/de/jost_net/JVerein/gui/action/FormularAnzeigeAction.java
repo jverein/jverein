@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -35,6 +30,7 @@ import de.jost_net.JVerein.Variable.LastschriftMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.rmi.Formular;
@@ -98,7 +94,7 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.KONTO, "1234567");
       map.put(FormularfeldControl.KONTOINHABER, "Wichtig");
       map.put(FormularfeldControl.GEBURTSDATUM, new Date());
-      map.put(FormularfeldControl.GESCHLECHT, "M");
+      map.put(FormularfeldControl.GESCHLECHT, GeschlechtInput.MAENNLICH);
       map.put(FormularfeldControl.TELEFONPRIVAT, "01234/56789");
       map.put(FormularfeldControl.TELEFONDIENSTLICH, "01234/55555");
       map.put(FormularfeldControl.HANDY, "0160/1234567");
@@ -112,8 +108,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.TAGESDATUM,
           new JVDateFormatTTMMJJJJ().format(new Date()));
 
-      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
-          Spendenbescheinigung.class, null);
+      Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
+          .getDBService().createObject(Spendenbescheinigung.class, null);
       map = spb.getMap(map);
       map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "15.12.2008");
       map.put("Buchungsdatum", new Date());
