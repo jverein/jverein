@@ -13,8 +13,9 @@
   <icon>jverein-icon-64x64.png</icon>
   <menu>
     <item name="JVerein" >
-  	<item name="About" 
-          action="de.jost_net.JVerein.gui.action.AboutAction" />
+  	<item name="&amp;Über" 
+          action="de.jost_net.JVerein.gui.action.AboutAction" 
+          icon="gtk-info.png"  />
         	</item>
   </menu>
   <classfinder>

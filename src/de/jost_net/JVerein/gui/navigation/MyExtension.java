@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -267,8 +262,8 @@ public class MyExtension implements Extension
           new DokumentationAction(), "help_view.gif"));
       jverein.addChild(new MyItem(jverein, "Spende für JVerein",
           new SpendenAction(), "emblem-special.png"));
-      jverein.addChild(new MyItem(jverein, "über", new AboutAction(),
-          "info_tsk.gif"));
+      jverein.addChild(new MyItem(jverein, "Über", new AboutAction(),
+          "gtk-info.png"));
     }
     catch (Exception e)
     {
