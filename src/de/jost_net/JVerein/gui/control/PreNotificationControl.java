@@ -25,7 +25,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -45,7 +47,9 @@ import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Lastschrift;
+import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
+import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -120,7 +124,7 @@ public class PreNotificationControl extends AbstractControl
     {
       return mailsubject;
     }
-    mailsubject = new TextInput(settings.getString("mail.subject", ""), 150);
+    mailsubject = new TextInput(settings.getString("mail.subject", ""), 100);
     mailsubject.setName("Betreff");
     return mailsubject;
 
@@ -132,7 +136,7 @@ public class PreNotificationControl extends AbstractControl
     {
       return mailbody;
     }
-    mailbody = new TextAreaInput(settings.getString("mail.body", ""), 1000);
+    mailbody = new TextAreaInput(settings.getString("mail.body", ""), 10000);
     mailbody.setHeight(200);
     mailbody.setName("Text");
     return mailbody;
@@ -291,6 +295,26 @@ public class PreNotificationControl extends AbstractControl
 
             sender.sendMail(ls.getEmail(), wtext1.getBuffer().toString(),
                 wtext2.getBuffer().toString(), new TreeSet<MailAnhang>());
+
+            // Mail in die Datenbank schreiben
+            if (ls.getMitglied() != null)
+            {
+              Mail mail = (Mail) Einstellungen.getDBService().createObject(
+                  Mail.class, null);
+              Timestamp ts = new Timestamp(new Date().getTime());
+              mail.setBearbeitung(ts);
+              mail.setBetreff(wtext1.getBuffer().toString());
+              mail.setTxt(wtext2.getBuffer().toString());
+              mail.setVersand(ts);
+              mail.store();
+              MailEmpfaenger empf = (MailEmpfaenger) Einstellungen
+                  .getDBService().createObject(MailEmpfaenger.class, null);
+              empf.setMail(mail);
+              empf.setMitglied(ls.getMitglied());
+              empf.setVersand(ts);
+              empf.store();
+            }
+
             sentCount++;
             monitor.log(ls.getEmail() + " - versendet");
 
