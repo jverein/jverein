@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -33,6 +28,7 @@ public enum BuchungVar
   BUCHUNGSKLASSEBEZEICHNUNG("buchung_buchungsklasse_bezeichnung"), //
   BUCHUNGSKLASSENUMMER("buchung_buchungsklasse_nummer"), //
   DATUM("buchung_datum"), //
+  ID("buchung_id"), //
   JAHRESABSCHLUSS("buchung_jahresabschluss"), //
   KOMMENTAR("buchung_kommentar"), //
   KONTONUMMER("buchung_kontonummer"), //
