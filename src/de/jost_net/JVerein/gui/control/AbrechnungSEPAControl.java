@@ -387,7 +387,7 @@ public class AbrechnungSEPAControl extends AbstractControl
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("SEPA-Ausgabedatei wählen.");
 
-      String path = settings.getString("lastdir",
+      String path = settings.getString("lastdir.sepa",
           System.getProperty("user.home"));
       if (path != null && path.length() > 0)
       {
@@ -402,6 +402,8 @@ public class AbrechnungSEPAControl extends AbstractControl
         throw new ApplicationException("keine Datei ausgewählt!");
       }
       sepafile = new File(file);
+      // Wir merken uns noch das Verzeichnis fürs nächste mal
+      settings.setAttribute("lastdir.sepa", sepafile.getParent());
     }
     else
     {
@@ -424,7 +426,7 @@ public class AbrechnungSEPAControl extends AbstractControl
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("PDF-Ausgabedatei wählen");
 
-      String path = settings.getString("lastdir",
+      String path = settings.getString("lastdir.pdf",
           System.getProperty("user.home"));
       if (path != null && path.length() > 0)
       {
@@ -433,10 +435,11 @@ public class AbrechnungSEPAControl extends AbstractControl
       fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
           .getEinstellung().getDateinamenmuster(), "PDF").get());
       pdffile = fd.open();
+      // Wir merken uns noch das Verzeichnis fürs nächste mal
+      File fi = new File(pdffile);
+      settings.setAttribute("lastdir.pdf", fi.getParent());
     }
 
-    // Wir merken uns noch das Verzeichnis fürs nächste mal
-    settings.setAttribute("lastdir", sepafile.getParent());
     final AbrechnungSEPAParam abupar;
     try
     {
