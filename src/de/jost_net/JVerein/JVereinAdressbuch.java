@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -49,7 +44,7 @@ public class JVereinAdressbuch implements Addressbook
     String su = "%" + text.toLowerCase() + "%";
     it.addFilter("(lower(name) like ? or lower(vorname) like ?)", new Object[] {
         su, su });
-    it.addFilter("konto is not null and length(konto)>0 and blz is not null and length(blz) > 0");
+    it.addFilter("(iban is not null and length(iban)>0)");
     ArrayList<MitgliedAddress> list = new ArrayList<MitgliedAddress>();
     while (it.hasNext())
     {
@@ -59,8 +54,9 @@ public class JVereinAdressbuch implements Addressbook
       {
         kategorie = m.getBeitragsgruppe().getBezeichnung();
       }
-      MitgliedAddress ma = new MitgliedAddress(m.getKonto(), m.getBlz(),
-          Adressaufbereitung.getNameVorname(m), "", "", m.getIban(), kategorie);
+      MitgliedAddress ma = new MitgliedAddress(
+          Adressaufbereitung.getNameVorname(m), "", m.getBic(), m.getIban(),
+          kategorie);
       list.add(ma);
     }
     return list;

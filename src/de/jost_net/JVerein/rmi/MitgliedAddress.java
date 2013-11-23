@@ -21,15 +21,13 @@
  **********************************************************************/
 package de.jost_net.JVerein.rmi;
 
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.jameica.hbci.rmi.Address;
+import de.willuhn.logging.Logger;
 
 public class MitgliedAddress implements Address
 {
-
-  private String kontonummer = null;
-
-  private String blz = null;
-
   private String name = null;
 
   private String kommentar = null;
@@ -38,6 +36,8 @@ public class MitgliedAddress implements Address
 
   private String iban = null;
 
+  private IBAN ib = null;
+
   private String kategorie = null;
 
   public MitgliedAddress()
@@ -45,28 +45,34 @@ public class MitgliedAddress implements Address
     //
   }
 
-  public MitgliedAddress(String kontonummer, String blz, String name,
-      String kommentar, String bic, String iban, String kategorie)
+  public MitgliedAddress(String name, String kommentar, String bic,
+      String iban, String kategorie)
   {
-    this.kontonummer = kontonummer;
-    this.blz = blz;
     this.name = name;
     this.kommentar = kommentar;
     this.bic = bic;
     this.iban = iban;
+    try
+    {
+      ib = new IBAN(iban);
+    }
+    catch (SEPAException e)
+    {
+      Logger.error("Fehler: ", e);
+    }
     this.kategorie = kategorie;
   }
 
   @Override
   public String getKontonummer()
   {
-    return kontonummer;
+    return ib.getKonto();
   }
 
   @Override
   public String getBlz()
   {
-    return blz;
+    return ib.getBLZ();
   }
 
   @Override
