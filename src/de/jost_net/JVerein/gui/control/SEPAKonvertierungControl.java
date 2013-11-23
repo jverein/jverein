@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -28,6 +23,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +41,7 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.IBANCode;
@@ -58,8 +55,11 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.formatter.TableFormatter;
+import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.Color;
@@ -75,6 +75,8 @@ public class SEPAKonvertierungControl extends AbstractControl
   private ArrayList<IBANUpdate> zeile = new ArrayList<IBANUpdate>();
 
   private TablePart ibanupdateList;
+
+  private DateInput mandatdatum;
 
   public SEPAKonvertierungControl(AbstractView view)
   {
@@ -124,6 +126,73 @@ public class SEPAKonvertierungControl extends AbstractControl
       }
     });
     return b;
+  }
+
+  public Button getButtonMandatdatumSetzen()
+  {
+    Button b = new Button("Mandatdatum setzen", new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        try
+        {
+          Date d = (Date)getMandatsdatum().getValue();
+          if (d == null)
+          {
+            GUI.getStatusBar().setErrorText("Datum fehlt!");
+          }
+          Calendar dminus36=Calendar.getInstance();
+          dminus36.add(Calendar.MONTH, -36);
+          if (d.before(dminus36.getTime()))
+          {
+            GUI.getStatusBar().setErrorText("Datum liegt mehr als 36 Monate zurück. Das ist nicht zulässig!");
+          }
+          if (d.after(new Date()))
+          {
+            GUI.getStatusBar().setErrorText("Datum darf nicht in der Zukunft liegen!");
+          }
+          YesNoDialog ynd = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+          ynd.setText("Wollen Sie bei allen Mitgliedern das Mandatsdatum setzen? Hinweis: Existierende Werte werden überschrieben");
+          ynd.setTitle("Sicherheitsabfrage");
+          Boolean answer = (Boolean) ynd.open();
+          if (!answer)
+          {
+            GUI.getStatusBar().setErrorText("Abbruch!");
+            return;
+          }
+          DBIterator it = Einstellungen.getDBService().createList(
+              Mitglied.class);
+          it.addFilter("mandatdatum is not null");
+          while (it.hasNext())
+          {
+            Mitglied m1 = (Mitglied) it.next();
+            Mitglied m2 = (Mitglied) Einstellungen.getDBService().createObject(
+                Mitglied.class, m1.getID());
+            m2.setMandatDatum((Date) getMandatsdatum().getValue());
+            m2.store();
+          }
+          GUI.getStatusBar().setSuccessText(
+              "Mandatsdatum bei allen Mitgliedern gesetzt");
+        }
+        catch (Exception e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
+    return b;
+  }
+
+  public DateInput getMandatsdatum() throws RemoteException
+  {
+    if (mandatdatum != null)
+    {
+      return mandatdatum;
+    }
+    mandatdatum = new DateInput();
+    mandatdatum.setName("Datum des Mandats");
+    return mandatdatum;
   }
 
   public Button getButtonExtImport()

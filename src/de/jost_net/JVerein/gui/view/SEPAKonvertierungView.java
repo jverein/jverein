@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -48,6 +43,12 @@ public class SEPAKonvertierungView extends AbstractView
     extbuttons.addButton(control.getButtonExtImport());
     extbuttons.paint(extgroup.getComposite());
 
+    LabelGroup mandatdatum = new LabelGroup(getParent(), "Datum des Mandats setzen");
+    mandatdatum.addInput(control.getMandatsdatum());
+    ButtonArea mdButton =new ButtonArea();
+    mdButton.addButton(control.getButtonMandatdatumSetzen());
+    mdButton.paint(mandatdatum.getComposite());
+    
     LabelGroup erggroup = new LabelGroup(getParent(), "Ergebnis", true);
     erggroup.addPart(control.getList());
   }
