@@ -41,7 +41,6 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.util.Datum;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.IBANCode;
@@ -55,7 +54,6 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
-import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.formatter.TableFormatter;
@@ -137,20 +135,23 @@ public class SEPAKonvertierungControl extends AbstractControl
       {
         try
         {
-          Date d = (Date)getMandatsdatum().getValue();
+          Date d = (Date) getMandatsdatum().getValue();
           if (d == null)
           {
             GUI.getStatusBar().setErrorText("Datum fehlt!");
           }
-          Calendar dminus36=Calendar.getInstance();
+          Calendar dminus36 = Calendar.getInstance();
           dminus36.add(Calendar.MONTH, -36);
           if (d.before(dminus36.getTime()))
           {
-            GUI.getStatusBar().setErrorText("Datum liegt mehr als 36 Monate zurück. Das ist nicht zulässig!");
+            GUI.getStatusBar()
+                .setErrorText(
+                    "Datum liegt mehr als 36 Monate zurück. Das ist nicht zulässig!");
           }
           if (d.after(new Date()))
           {
-            GUI.getStatusBar().setErrorText("Datum darf nicht in der Zukunft liegen!");
+            GUI.getStatusBar().setErrorText(
+                "Datum darf nicht in der Zukunft liegen!");
           }
           YesNoDialog ynd = new YesNoDialog(YesNoDialog.POSITION_CENTER);
           ynd.setText("Wollen Sie bei allen Mitgliedern das Mandatsdatum setzen? Hinweis: Existierende Werte werden überschrieben");
