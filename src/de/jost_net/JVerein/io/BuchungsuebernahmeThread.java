@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.dialogs.BuchungUebernahmeProtokollDialog;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -123,7 +124,7 @@ public class BuchungsuebernahmeThread implements Runnable
     }
     catch (Exception e)
     {
-      Logger.error("Fehler",e);
+      Logger.error("Fehler", e);
     }
 
   }
@@ -150,6 +151,15 @@ public class BuchungsuebernahmeThread implements Runnable
     };
     Integer maximum = (Integer) service.execute(sql, new Object[] {}, rs);
 
+    DBIterator itjahresabschl = Einstellungen.getDBService().createList(
+        Jahresabschluss.class);
+    itjahresabschl.setOrder("order by bis");
+    Jahresabschluss ja = null;
+    if (itjahresabschl.hasNext())
+    {
+      ja = (Jahresabschluss) itjahresabschl.next();
+    }
+
     DBService hibservice = (DBService) Application.getServiceFactory().lookup(
         HBCI.class, "database");
     DBIterator hibbuchungen = hibservice.createList(Umsatz.class);
@@ -158,6 +168,10 @@ public class BuchungsuebernahmeThread implements Runnable
       hibbuchungen.addFilter("id >" + maximum);
     }
     hibbuchungen.addFilter("konto_id = ?", hibid);
+    if (ja != null)
+    {
+      hibbuchungen.addFilter("datum > =", ja.getBis());
+    }
     hibbuchungen.setOrder("ORDER BY id");
     while (hibbuchungen.hasNext())
     {
