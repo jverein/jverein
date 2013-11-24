@@ -97,12 +97,13 @@ public class AbrechnungSEPAParam
         service = (DBService) Application.getServiceFactory().lookup(
             HBCI.class, "database");
         DBIterator konten = service.createList(Konto.class);
+        Logger.debug("Vereinskonto: "
+            + Einstellungen.getEinstellung().getIban());
         while (konten.hasNext())
         {
           konto = (Konto) konten.next();
-          if (Einstellungen.getEinstellung().getKonto()
-              .equals(konto.getKontonummer())
-              && Einstellungen.getEinstellung().getBlz().equals(konto.getBLZ()))
+          Logger.debug("Hibiscus-Konto: " + konto.getIban());
+          if (Einstellungen.getEinstellung().getIban().equals(konto.getIban()))
           {
             // passendes Konto gefunden
             break;
