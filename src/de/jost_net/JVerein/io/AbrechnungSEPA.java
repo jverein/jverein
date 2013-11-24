@@ -131,6 +131,7 @@ public class AbrechnungSEPA
     lastschrift.write(param.sepafile);
 
     ArrayList<Zahler> z = lastschrift.getZahler();
+    BigDecimal summemitgliedskonto = new BigDecimal("0");
     for (Zahler za : z)
     {
       Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
@@ -180,6 +181,7 @@ public class AbrechnungSEPA
         }
       }
       ls.setBetrag(za.getBetrag().doubleValue());
+      summemitgliedskonto = summemitgliedskonto.add(za.getBetrag());
       ls.setBIC(za.getBic());
       ls.setIBAN(za.getIban());
       ls.setMandatDatum(za.getMandatdatum());
@@ -190,9 +192,11 @@ public class AbrechnungSEPA
     }
 
     // Gegenbuchung für das Mitgliedskonto schreiben
-    writeMitgliedskonto(null, new Date(), "Gegenbuchung", lastschrift
-        .getKontrollsumme().doubleValue() * -1, abrl, true, getKonto(), null);
-
+    if (!summemitgliedskonto.equals(new BigDecimal("0")))
+    {
+      writeMitgliedskonto(null, new Date(), "Gegenbuchung",
+          summemitgliedskonto.doubleValue() * -1, abrl, true, getKonto(), null);
+    }
     if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
     {
       buchenHibiscus(z);
