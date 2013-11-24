@@ -599,9 +599,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     };
 
     String sql = "select max(abrechnungslauf.FAELLIGKEIT) from lastschrift, abrechnungslauf "
-        + "where lastschrift.ABRECHNUNGSLAUF = abrechnungslauf.id and lastschrift.MITGLIED = ?";
+        + "where lastschrift.ABRECHNUNGSLAUF = abrechnungslauf.id and lastschrift.MITGLIED = ? and lastschrift.mandatid = ?";
     Date d = (Date) Einstellungen.getDBService().execute(sql,
-        new Object[] { getID() }, rs);
+        new Object[] { getID(), getMandatID() }, rs);
 
     return d;
   }

@@ -838,7 +838,7 @@ public class MitgliedControl extends AbstractControl
     }
     mandatsequence = new SelectInput(MandatSequence.values(), getMitglied()
         .getMandatSequence());
-
+    mandatsequence.setEnabled(false);
     mandatsequence.setName("Sequenz");
     return mandatsequence;
   }
@@ -852,6 +852,7 @@ public class MitgliedControl extends AbstractControl
 
     Date d = getMitglied().getLetzteLastschrift();
     this.letztelastschrift = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.letztelastschrift.setEnabled(false);
     this.letztelastschrift.setName("letzte Lastschrift");
     return letztelastschrift;
   }
@@ -1337,7 +1338,7 @@ public class MitgliedControl extends AbstractControl
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
-       }
+        }
       }
     });
 
@@ -1692,7 +1693,7 @@ public class MitgliedControl extends AbstractControl
     zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
         new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
-     zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
+    zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
     zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
     zusatzbetraegeList

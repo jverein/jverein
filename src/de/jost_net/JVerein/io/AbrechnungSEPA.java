@@ -736,7 +736,7 @@ public class AbrechnungSEPA
   }
 
   private boolean checkSEPA(Mitglied m, ProgressMonitor monitor)
-      throws RemoteException
+      throws RemoteException, ApplicationException
   {
     if (m.getZahlungsweg() == null
         || m.getZahlungsweg() != Zahlungsweg.BASISLASTSCHRIFT)
@@ -750,6 +750,15 @@ public class AbrechnungSEPA
           + ": Letzte Lastschrift ist älter als 36 Monate.");
       return false;
     }
+    if (m.getMandatSequence().equals(MandatSequence.FRST)
+        && m.getLetzteLastschrift() != null)
+    {
+      Mitglied m1 = (Mitglied) Einstellungen.getDBService().createObject(
+          Mitglied.class, m.getID());
+      m1.setMandatSequence(MandatSequence.RCUR);
+      m1.store();
+      m.setMandatSequence(MandatSequence.RCUR);
+    }
     if (m.getMandatDatum() == Einstellungen.NODATE)
     {
       monitor.log(Adressaufbereitung.getNameVorname(m)
@@ -757,6 +766,5 @@ public class AbrechnungSEPA
       return false;
     }
     return true;
-
   }
 }
