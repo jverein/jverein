@@ -447,7 +447,8 @@ public class MitgliedskontoControl extends AbstractControl
 
   public Part getMitgliedskontoTree(Mitglied mitglied) throws RemoteException
   {
-    mitgliedskontoTree = new TreePart(new MitgliedskontoNode(mitglied), null)
+    mitgliedskontoTree = new TreePart(new MitgliedskontoNode(mitglied),
+        (Action) null)
     {
 
       @SuppressWarnings("unchecked")
