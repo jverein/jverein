@@ -496,8 +496,10 @@ public class SEPAKonvertierungControl extends AbstractControl
   public static DBIterator getMitglieder() throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
-    it.addFilter("konto is not null and length(konto) > 0 and blz is not null and length(blz) > 0");
-    it.addFilter("eintritt is not null and eintritt <=?", new Date());
+    it.addFilter("(konto is not null and length(konto) > 0 and blz is not null and length(blz) > 0)");
+    it.addFilter(
+        "((eintritt is null) or (eintritt is not null and eintritt <=?))",
+        new Date());
     it.addFilter("(austritt is null or austritt > ?)", new Date());
     return it;
   }
