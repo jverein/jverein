@@ -153,7 +153,7 @@ public class BuchungsuebernahmeThread implements Runnable
 
     DBIterator itjahresabschl = Einstellungen.getDBService().createList(
         Jahresabschluss.class);
-    itjahresabschl.setOrder("order by bis");
+    itjahresabschl.setOrder("order by bis desc");
     Jahresabschluss ja = null;
     if (itjahresabschl.hasNext())
     {
@@ -165,12 +165,12 @@ public class BuchungsuebernahmeThread implements Runnable
     DBIterator hibbuchungen = hibservice.createList(Umsatz.class);
     if (maximum.intValue() > 0)
     {
-      hibbuchungen.addFilter("id >" + maximum);
+      hibbuchungen.addFilter("id > ?", maximum);
     }
     hibbuchungen.addFilter("konto_id = ?", hibid);
     if (ja != null)
     {
-      hibbuchungen.addFilter("datum > =", ja.getBis());
+      hibbuchungen.addFilter("datum >", ja.getBis());
     }
     hibbuchungen.setOrder("ORDER BY id");
     while (hibbuchungen.hasNext())
