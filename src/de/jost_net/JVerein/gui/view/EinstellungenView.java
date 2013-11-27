@@ -113,7 +113,11 @@ public class EinstellungenView extends AbstractView
     groupAbu.addInput(control.getZahlungsweg());
     groupAbu.addInput(control.getDefaultSEPALand());
     groupAbu.addLabelPair("Arbeitsstunden Model",
-        control.getArbeitsstundenmodel());
+            control.getArbeitsstundenmodel());
+    groupAbu.addSeparator();
+    groupAbu.addHeadline("ACHTUNG! Nur ändern, wenn noch keine SEPA-Lastschriften durchgeführt wurden!");
+    groupAbu.addLabelPair("Quelle für SEPA-Mandatsreferenz (*)",
+            control.getSepamandatidsourcemodel());
 
     TabGroup tabDateinamen = new TabGroup(folder, "Dateinamen", false, 1);
     LabelGroup groupDatei = new LabelGroup(tabDateinamen.getComposite(),

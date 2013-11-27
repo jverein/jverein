@@ -28,6 +28,8 @@ public interface Einstellung extends DBObject, IBankverbindung
   public static final String COL_ALTER_MODEL = "altermodel";
 
   public static final String COL_ARBEITS_MODEL = "arbeitsmodel";
+  
+  public static final String COL_SEPA_MANDANTID_SOURCE = "mandatid_source";
 
   public void setID() throws RemoteException;
 
@@ -404,4 +406,8 @@ public interface Einstellung extends DBObject, IBankverbindung
   public void setZusatzbetragAusgetretene(boolean zusatzbetragAusgetretene)
       throws RemoteException;
 
+  public int getSepaMandatIdSource() throws RemoteException;
+
+  public void setSepaMandatIdSource(int sepaMandatIdSource)
+      throws RemoteException;
 }
