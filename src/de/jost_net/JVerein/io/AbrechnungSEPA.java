@@ -137,48 +137,54 @@ public class AbrechnungSEPA
       Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
           Lastschrift.class, null);
       ls.setAbrechnungslauf(Integer.parseInt(abrl.getID()));
-      if (za.getMandatid().startsWith("K"))
-      {
-        ls.setKursteilnehmer(Integer.parseInt(za.getMandatid().substring(1)));
-        Kursteilnehmer k = (Kursteilnehmer) Einstellungen.getDBService()
-            .createObject(Kursteilnehmer.class, za.getMandatid().substring(1));
-        ls.setPersonenart(k.getPersonenart());
-        ls.setAnrede(k.getAnrede());
-        ls.setTitel(k.getTitel());
-        ls.setName(k.getName());
-        ls.setVorname(k.getVorname());
-        ls.setStrasse(k.getStrasse());
-        ls.setAdressierungszusatz(k.getAdressierungszusatz());
-        ls.setPlz(k.getPlz());
-        ls.setOrt(k.getOrt());
-        ls.setStaat(k.getStaat());
-        ls.setEmail(k.getEmail());
-      }
-      else
-      {
-        int pos = za.getMandatid().indexOf("-");
-        int mitgliedid = Integer.parseInt(za.getMandatid().substring(0, pos));
-        ls.setMitglied(mitgliedid);
-        Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-            Mitglied.class, mitgliedid + "");
-        ls.setPersonenart(getKontoinhaber(m.getPersonenart(),
-            m.getKtoiPersonenart()));
-        ls.setAnrede(getKontoinhaber(m.getAnrede(), m.getKtoiAnrede()));
-        ls.setTitel(getKontoinhaber(m.getTitel(), m.getKtoiTitel()));
-        ls.setName(getKontoinhaber(m.getName(), m.getKtoiName()));
-        ls.setVorname(getKontoinhaber(m.getVorname(), m.getKtoiVorname()));
-        ls.setStrasse(getKontoinhaber(m.getStrasse(), m.getKtoiStrasse()));
-        ls.setAdressierungszusatz(getKontoinhaber(m.getAdressierungszusatz(),
-            m.getKtoiAdressierungszusatz()));
-        ls.setPlz(getKontoinhaber(m.getPlz(), m.getKtoiPlz()));
-        ls.setOrt(getKontoinhaber(m.getOrt(), m.getKtoiOrt()));
-        ls.setStaat(getKontoinhaber(m.getStaat(), m.getKtoiStaat()));
-        ls.setEmail(getKontoinhaber(m.getEmail(), m.getKtoiEmail()));
-        if (!ls.getName().equals(m.getName())
-            || !ls.getVorname().equals(m.getVorname()))
-        {
-          ls.setPersonenart(m.getPersonenart());
-        }
+      
+      assert (za instanceof JVereinZahler):
+              "Illegaler Zahlertyp in Sepa-Abrechnung detektiert.";
+      
+      JVereinZahler vza = (JVereinZahler) za;
+      
+      switch(vza.getPersonTyp()) {
+        case KURSTEILNEHMER:
+          ls.setKursteilnehmer(Integer.parseInt(vza.getPersonId()));
+          Kursteilnehmer k = (Kursteilnehmer) Einstellungen.getDBService()
+              .createObject(Kursteilnehmer.class, vza.getPersonId());
+          ls.setPersonenart(k.getPersonenart());
+          ls.setAnrede(k.getAnrede());
+          ls.setTitel(k.getTitel());
+          ls.setName(k.getName());
+          ls.setVorname(k.getVorname());
+          ls.setStrasse(k.getStrasse());
+          ls.setAdressierungszusatz(k.getAdressierungszusatz());
+          ls.setPlz(k.getPlz());
+          ls.setOrt(k.getOrt());
+          ls.setStaat(k.getStaat());
+          ls.setEmail(k.getEmail());
+          break;
+        case MITGLIED:
+          ls.setMitglied(Integer.parseInt(vza.getPersonId()));
+          Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
+              Mitglied.class, vza.getPersonId());
+          ls.setPersonenart(getKontoinhaber(m.getPersonenart(),
+              m.getKtoiPersonenart()));
+          ls.setAnrede(getKontoinhaber(m.getAnrede(), m.getKtoiAnrede()));
+          ls.setTitel(getKontoinhaber(m.getTitel(), m.getKtoiTitel()));
+          ls.setName(getKontoinhaber(m.getName(), m.getKtoiName()));
+          ls.setVorname(getKontoinhaber(m.getVorname(), m.getKtoiVorname()));
+          ls.setStrasse(getKontoinhaber(m.getStrasse(), m.getKtoiStrasse()));
+          ls.setAdressierungszusatz(getKontoinhaber(m.getAdressierungszusatz(),
+              m.getKtoiAdressierungszusatz()));
+          ls.setPlz(getKontoinhaber(m.getPlz(), m.getKtoiPlz()));
+          ls.setOrt(getKontoinhaber(m.getOrt(), m.getKtoiOrt()));
+          ls.setStaat(getKontoinhaber(m.getStaat(), m.getKtoiStaat()));
+          ls.setEmail(getKontoinhaber(m.getEmail(), m.getKtoiEmail()));
+          if (!ls.getName().equals(m.getName())
+              || !ls.getVorname().equals(m.getVorname()))
+          {
+            ls.setPersonenart(m.getPersonenart());
+          }
+          break;
+        default:
+          assert false : "Personentyp ist nicht implementiert";
       }
       ls.setBetrag(za.getBetrag().doubleValue());
       summemitgliedskonto = summemitgliedskonto.add(za.getBetrag());
@@ -396,7 +402,9 @@ public class AbrechnungSEPA
         {
           try
           {
-            Zahler zahler = new Zahler();
+            JVereinZahler zahler = new JVereinZahler();
+            zahler.setPersonId(m.getID());
+            zahler.setPersonTyp(JVereinZahlerTyp.MITGLIED);
             zahler.setBetrag(new BigDecimal(betr).setScale(2,
                 BigDecimal.ROUND_HALF_UP));
             new BIC(m.getBic()); // Prüfung des BIC
@@ -477,7 +485,9 @@ public class AbrechnungSEPA
         {
           try
           {
-            Zahler zahler = new Zahler();
+            JVereinZahler zahler = new JVereinZahler();
+            zahler.setPersonId(m.getID());
+            zahler.setPersonTyp(JVereinZahlerTyp.MITGLIED);
             zahler.setBetrag(new BigDecimal(z.getBetrag()).setScale(2,
                 BigDecimal.ROUND_HALF_UP));
             new BIC(m.getBic());
@@ -551,14 +561,16 @@ public class AbrechnungSEPA
       Kursteilnehmer kt = (Kursteilnehmer) list.next();
       try
       {
-        Zahler zahler = new Zahler();
+        JVereinZahler zahler = new JVereinZahler();
+        zahler.setPersonId(kt.getID());
+        zahler.setPersonTyp(JVereinZahlerTyp.KURSTEILNEHMER);
         zahler.setBetrag(new BigDecimal(kt.getBetrag()).setScale(2,
             BigDecimal.ROUND_HALF_UP));
         new BIC(kt.getBic());
         new IBAN(kt.getIban());
         zahler.setBic(kt.getBic());
         zahler.setIban(kt.getIban());
-        zahler.setMandatid("K" + kt.getID());
+        zahler.setMandatid(kt.getMandatID());
         zahler.setMandatdatum(kt.getMandatDatum());
         zahler.setMandatsequence(MandatSequence.OOFF);
         zahler.setFaelligkeit(param.faelligkeit1);
