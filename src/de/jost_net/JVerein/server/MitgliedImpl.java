@@ -30,6 +30,7 @@ import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
+import de.jost_net.JVerein.keys.SepaMandatIdSource;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -578,7 +579,12 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getMandatID() throws RemoteException
   {
-    return getID() + "-" + getMandatVersion();
+    int sepaMandatIdSource = Einstellungen.getEinstellung().getSepaMandatIdSource();
+    if (sepaMandatIdSource == SepaMandatIdSource.EXTERNE_MITGLIEDSNUMMER) {
+      return getExterneMitgliedsnummer() + "-" + getMandatVersion();
+    } else {
+      return getID() + "-" + getMandatVersion();
+    }
   }
 
   @Override
