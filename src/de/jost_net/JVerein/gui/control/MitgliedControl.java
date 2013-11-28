@@ -781,7 +781,7 @@ public class MitgliedControl extends AbstractControl
     {
       return mandatid;
     }
-    mandatid = new TextInput(getMitglied().getID());
+    mandatid = new TextInput(getMitglied().getMandatID());
     mandatid.setName("Mandats-ID");
     mandatid.disable();
     return mandatid;
