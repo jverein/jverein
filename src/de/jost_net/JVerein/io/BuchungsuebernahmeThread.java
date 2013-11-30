@@ -170,7 +170,8 @@ public class BuchungsuebernahmeThread implements Runnable
     hibbuchungen.addFilter("konto_id = ?", hibid);
     if (ja != null)
     {
-      hibbuchungen.addFilter("datum >", ja.getBis());
+    	Logger.info("datum="+ja.getBis());
+      hibbuchungen.addFilter("datum > ?", ja.getBis());
     }
     hibbuchungen.setOrder("ORDER BY id");
     while (hibbuchungen.hasNext())
