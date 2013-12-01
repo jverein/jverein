@@ -32,6 +32,7 @@ import java.util.Date;
 import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.keys.SepaMandatIdSource;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -134,7 +135,9 @@ public class Einstellungen
         einstellung.setBeginnGeschaeftsjahr(settings.getString(
             "beginngeschaeftsjahr", "01.01."));
         einstellung.setAltersModel(settings.getInt(Einstellung.COL_ALTER_MODEL,
-            Altermodel.AKTUELLES_DATUM));
+                  Altermodel.AKTUELLES_DATUM));
+        einstellung.setSepaMandatIdSource(settings.getInt(
+             Einstellung.COL_SEPA_MANDANTID_SOURCE, SepaMandatIdSource.DBID));
       }
       catch (RemoteException e1)
       {

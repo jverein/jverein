@@ -34,6 +34,7 @@ import de.jost_net.JVerein.gui.input.SEPALandObject;
 import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.keys.SepaMandatIdSource;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
@@ -136,6 +137,8 @@ public class EinstellungControl extends AbstractControl
   private SelectInput arbeitsstundenmodel;
 
   private SelectInput beitragsmodel;
+  
+  private SelectInput sepamandatidsourcemodel;
 
   private TextInput dateinamenmuster;
 
@@ -674,6 +677,18 @@ public class EinstellungControl extends AbstractControl
         new ArbeitsstundenModel(Einstellungen.getEinstellung()
             .getArbeitsstundenmodel()));
     return arbeitsstundenmodel;
+  }
+  
+  public SelectInput getSepamandatidsourcemodel() throws RemoteException
+  {
+    if (sepamandatidsourcemodel != null)
+    {
+      return sepamandatidsourcemodel;
+    }
+    sepamandatidsourcemodel = new SelectInput(SepaMandatIdSource.getArray(),
+        new SepaMandatIdSource(Einstellungen.getEinstellung()
+            .getSepaMandatIdSource()));
+    return sepamandatidsourcemodel;
   }
 
   public SelectInput getAltersModel() throws RemoteException
@@ -1254,6 +1269,9 @@ public class EinstellungControl extends AbstractControl
       ArbeitsstundenModel am = (ArbeitsstundenModel) arbeitsstundenmodel
           .getValue();
       e.setArbeitsstundenmodel(am.getKey());
+      SepaMandatIdSource sepaSource = (SepaMandatIdSource) sepamandatidsourcemodel
+          .getValue();
+      e.setSepaMandatIdSource(sepaSource.getKey());
       Altermodel amValue = (Altermodel) altersmodel.getValue();
       e.setAltersModel(amValue.getKey());
       e.setDateinamenmuster((String) dateinamenmuster.getValue());

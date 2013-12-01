@@ -35,6 +35,7 @@ import java.util.Map;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.keys.Zahlungsweg;
+import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.ScriptExecutor;
@@ -1419,6 +1420,10 @@ public class JVereinUpdateProvider
     if (cv < 353)
     {
       update0353(conn);
+    }
+    if (cv < 354)
+    {
+      update0354(conn);
     }
     // TODO
   }
@@ -8321,6 +8326,23 @@ public class JVereinUpdateProvider
         statements,
         "Spalte zusatzbetragausgetretene in die Tabelle einstellung aufgenommen",
         353);
+  }
+  
+  private void update0354(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    // Update fuer H2 und MySQL
+    sb = new StringBuilder();
+    sb.append(String.format("ALTER TABLE einstellung ADD %s INT DEFAULT 1;\n", 
+            Einstellung.COL_SEPA_MANDANTID_SOURCE));
+    
+    String statement = sb.toString();
+    
+    statements.put(DBSupportH2Impl.class.getName(), statement);
+    statements.put(DBSupportMySqlImpl.class.getName(), statement);
+
+    execute(conn, statements,
+        "Quelle für SEPA-Mandat-ID in die Tabelle einstellung aufgenommen", 354);
   }
 
   private String alterColumn(String table, String column, String type)

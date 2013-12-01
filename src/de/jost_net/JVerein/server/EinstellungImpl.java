@@ -1298,4 +1298,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
         Boolean.valueOf(zusatzbetragausgetretene));
   }
 
+  @Override
+  public int getSepaMandatIdSource() throws RemoteException
+  {
+    return (Integer) getAttribute(COL_SEPA_MANDANTID_SOURCE);
+  }
+
+  @Override
+  public void setSepaMandatIdSource(int sepaMandatIdSource)
+      throws RemoteException
+  {
+    setAttribute(COL_SEPA_MANDANTID_SOURCE, sepaMandatIdSource);
+  }
+  
 }
