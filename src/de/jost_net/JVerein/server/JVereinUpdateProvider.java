@@ -8313,7 +8313,7 @@ public class JVereinUpdateProvider
 
     // Update fuer MySQL
     sb = new StringBuilder();
-    sb.append("ALTER TABLE einstellung ADD zusatzbetragausgetretenebit(1);\n");
+    sb.append("ALTER TABLE einstellung ADD zusatzbetragausgetretene bit(1);\n");
     statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
 
     execute(
