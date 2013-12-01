@@ -2,135 +2,134 @@
 
 <project basedir=".." default="all" name="All">
 
-  <target name="init" description="inits the build">
+    <target name="init" description="inits the build">
+        <xmlproperty file="plugin.xml" collapseattributes="true" />
+        <property environment="env"/>
+        <property name="build.dir" value="build" />
+        
+        <tstamp>
+            <format property="build.timestamp" pattern="yyyyMMdd" />
+        </tstamp>
+        <buildnumber file="${build.dir}/BUILD"/>
 
-    <property environment="env"/>
-    <property name="build.dir" value="build" />
-    <tstamp>
-      <format property="build.timestamp" pattern="yyyyMMdd" />
-    </tstamp>
-    <buildnumber file="${build.dir}/BUILD"/>
-       <loadfile property="version" srcFile="${build.dir}/RELEASE">
-         <filterchain>
-           <striplinebreaks/>
-         </filterchain>
-       </loadfile>
-    <path id="compilepath">
-		  <pathelement location="../jameica/lib/swt/linux/swt.jar"/>
-		  <pathelement location="../jameica/bin/"/>
-		  <pathelement location="../hibiscus/bin/"/>
-    	  <pathelement location="../obantoo/bin/"/>
-		  <fileset dir="../jameica/lib/de_willuhn_ds/">
-        <include name="*.jar"/>
-      </fileset>
-        <fileset dir="../jameica/lib/de_willuhn_util/">
-            <include name="*.jar"/>
-          </fileset>
-        <fileset dir="../jameica/lib/velocity/">
-            <include name="*.jar"/>
-          </fileset>
-        <fileset dir="../jameica/lib/nanoxml/">
-            <include name="*.jar"/>
-          </fileset>
-          <fileset dir="../hibiscus/lib/">
-        <include name="*.jar"/>
-      </fileset>
-      <fileset dir="../jverein/lib/">
-        <include name="*.jar"/>
-      </fileset>
-    </path>
+        <loadproperties srcfile="${build.dir}/build.properties" />
+        
+        <path id="compilepath">
+            <pathelement location="../jameica/lib/swt/linux/swt.jar"/>
+            <pathelement location="../jameica/bin/"/>
+            <pathelement location="../hibiscus/bin/"/>
+            <fileset dir="../jameica/lib/de_willuhn_ds/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="../jameica/lib/de_willuhn_util/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="../jameica/lib/velocity/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="../jameica/lib/nanoxml/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="../hibiscus/lib/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="../jverein/lib/">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+        
+    </target>
     
-    <loadproperties srcFile="${build.dir}/build.properties"/>
-    
-  </target>
+    <target name="compile" depends="init">
+        <mkdir dir="${class.dir}" />
+        <javac debug="true" 
+               includeantruntime="false" 
+               debuglevel="lines,vars,source" 
+               source="1.5" 
+               target="1.5" 
+               encoding="${define.encoding}" 
+               deprecation="true" 
+               destdir="${class.dir}" 
+               srcdir="${src.dir}">
+            <classpath refid="compilepath" />
+        </javac>
+    </target>
 
-  <target name="cvstag"  description="tags the source in the CVS">
-	<copy file="${build.dir}/RELEASE" tofile="${build.dir}/TAG" />
-    <replaceregexp flags="g" file="${build.dir}/TAG" match="\." replace="_" />
-    <loadfile property="mytag" srcFile="${build.dir}/TAG">
-       <filterchain>
-         <striplinebreaks />
-       </filterchain>
-    </loadfile>
-    <delete file="${build.dir}/TAG" />
-    <property name="tag" value="V_${mytag}_BUILD_${build.number}" />
+    <target name="jar" depends="init,compile" description="generates the jar file">
+        <mkdir dir="${project.release}"/>
+        <mkdir dir="${project.zipdir}"/>
+        <tstamp />
+        <jar destfile="${project.zipdir}/${define.jarfilename}">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-Date" value="${DSTAMP}" />
+                <attribute name="Implementation-Title" value="${plugin.name}"/>
+                <attribute name="Implementation-Version" value="${plugin.version}"/>
+                <attribute name="Implementation-Buildnumber" value="${build.number}"/>
+                <attribute name="Class-Path" value="lang help lib"/>
+            </manifest>
+            <fileset dir="${class.dir}"/>
+            <fileset dir="${src.dir}">
+                <exclude name="*.java" />
+            </fileset>
+        </jar>
+        <mkdir dir="${project.zipdir}/lib" />
+        <copy todir="${project.zipdir}/lib">
+            <fileset dir="${lib.dir}" />
+        </copy>
+        <copy todir="${project.zipdir}" file="plugin.xml" />
+        <!-- Jetzt muessen wir noch das ZIP-File erzeugen -->
+        <zip destfile="${project.release}/${project.zipfilename}">
+            <fileset dir="${project.release}">
+                <include name="${plugin.name}"/>
+                <include name="${plugin.name}/**"/>
+            </fileset>
+        </zip>
+        
+        <delete dir="${project.releaseCurrent}" />
+        <copydir src="${project.release}" dest="${project.releaseCurrent}" />
+        <move file="${project.releaseCurrent}/${project.zipfilename}" 
+              tofile="${project.releaseCurrent}/${project.zipfilenameCurrent}" />
+    </target>
 
-    <echo message="VERSION: ${appversion}" />
-    <echo message="CVS-Tag: ${tag}" />
-    <echo message="BUILD  : ${build.number}" />
-    <echo message="JAVA   : ${java.version}" />
-	
-    <exec executable="cvs" failonerror="true" dir="${basedir}">
-      <arg line="tag ${tag}"/>
-    </exec>
-  </target>
+    <target name="javadoc" depends="init" description="creates the api doc">
+        <mkdir dir="${project.javadoc}"/>
+        <javadoc destdir="${project.javadoc}" packagenames="${define.package}.*" encoding="ISO8859-1">
+            <classpath refid="compilepath" />
+            <sourcepath>
+                <pathelement location="${src.dir}"/>
+            </sourcepath>
+        </javadoc>
+    </target>
 
-  <target name="jar" description="generates the jar file">
-    <mkdir dir="${project.release}"/>
-    <mkdir dir="${project.zipdir}"/>
-    <tstamp />
-    <jar destfile="${project.zipdir}/${define.jarfilename}">
-      <manifest>
-        <attribute name="Built-By" value="${user.name}"/>
-        <attribute name="Built-Date" value="${DSTAMP}" />
-        <attribute name="Implementation-Title" value="${define.pluginname}"/>
-        <attribute name="Implementation-Version" value="${version}"/>
-        <attribute name="Implementation-Buildnumber" value="${build.number}"/>
-        <attribute name="Class-Path" value="lang help lib"/>
-      </manifest>
-      <fileset dir="${class.dir}"/>
-		</jar>
-    <mkdir dir="${project.zipdir}/lib" />
-    <copy todir="${project.zipdir}/lib">
-      <fileset dir="${lib.dir}" />
-    </copy>
-  	<copy todir="${project.zipdir}" file="plugin.xml" />
-    <!-- Jetzt muessen wir noch das ZIP-File erzeugen -->
-    <zip destfile="${project.release}/${project.zipfilename}">
-      <fileset dir="${project.release}">
-        <include name="${define.pluginname}"/>
-        <include name="${define.pluginname}/**"/>
-      </fileset>
-    </zip>
-  </target>
+    <target name="src" description="build source package, depends compile target to make sure, the code has no errors">
+        <mkdir dir="${project.release}"/>
+        <mkdir dir="${project.tmp}/${plugin.name}" />
+        <copy todir="${project.tmp}/${plugin.name}">
+            <fileset dir=".">
+                <include name=".project" />
+                <include name=".classpath" />
+                <include name="${src.dir}/**" />
+                <include name="${build.dir}/**" />
+                <exclude name="${build.dir}/BUILD" />
+            </fileset>
+        </copy>
+        <zip casesensitive="true" zipfile="${project.release}/${define.srcfilename}">
+            <fileset dir="${project.tmp}">
+                <include name="${plugin.name}/**" />
+            </fileset>
+        </zip>
+    </target>
 
-  <target name="javadoc" depends="init" description="creates the api doc">
-    <mkdir dir="${project.javadoc}"/>
-    <javadoc destdir="${project.javadoc}" packagenames="${define.package}.*" encoding="ISO8859-1">
-      <classpath refid="compilepath" />
-      <sourcepath>
-        <pathelement location="${src.dir}"/>
-      </sourcepath>
-    </javadoc>
-  </target>
+    <target name="clean" depends="init" description="cleanup">
+        <delete dir="${project.tmp}"/>
+        <delete dir="${class.dir}"/>
+    </target>
 
-  <target name="src" description="build source package, depends compile target to make sure, the code has no errors">
-    <mkdir dir="${project.release}"/>
-    <mkdir dir="${project.tmp}/${define.pluginname}" />
-    <copy todir="${project.tmp}/${define.pluginname}">
-      <fileset dir=".">
-        <include name=".project" />
-        <include name=".classpath" />
-        <include name="${src.dir}/**" />
-        <include name="${build.dir}/**" />
-        <exclude name="${build.dir}/BUILD" />
-      </fileset>
-    </copy>
-    <zip casesensitive="true" zipfile="${project.release}/${define.srcfilename}">
-      <fileset dir="${project.tmp}">
-        <include name="${define.pluginname}/**" />
-      </fileset>
-		</zip>
-  </target>
+    <target name="all" depends="init,jar,javadoc,src,clean" description="build an official release" />
 
-  <target name="clean" description="cleanup">
-  	<delete dir="${project.tmp}"/>
-  </target>
-
-  <target name="all" depends="init,cvstag,jar,javadoc,src,clean" description="build an official release" />
-
-  <target name="fast" depends="init,javadoc,jar,src" description="Entwicklerversion bauen">
-     <move file="${project.release}/${project.zipfilename}" tofile="${project.release}/${project.zipfilename}"/>
-  </target>
+    <target name="fast" depends="init,javadoc,jar,src" description="Entwicklerversion bauen">
+        <move file="${project.release}/${project.zipfilename}" tofile="${project.release}/${project.zipfilename}"/>
+    </target>
 	
 </project>
