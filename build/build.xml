@@ -15,29 +15,8 @@
         <loadproperties srcfile="${build.dir}/build.properties" />
         
         <path id="compilepath">
-            <pathelement location="../jameica/lib/swt/linux/swt.jar"/>
-            <pathelement location="../jameica/bin/"/>
-            <pathelement location="../hibiscus/bin/"/>
-            <fileset dir="../jameica/lib/de_willuhn_ds/">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="../jameica/lib/de_willuhn_util/">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="../jameica/lib/velocity/">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="../jameica/lib/nanoxml/">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="../hibiscus/lib/">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="../jverein/lib/">
-                <include name="*.jar"/>
-            </fileset>
+            <pathelement path="${define.compilepath}" />
         </path>
-        
     </target>
     
     <target name="compile" depends="init">
