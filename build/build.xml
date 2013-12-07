@@ -66,7 +66,9 @@
         </zip>
         
         <delete dir="${project.releaseCurrent}" />
-        <copydir src="${project.release}" dest="${project.releaseCurrent}" />
+        <copy todir="${project.releaseCurrent}">
+            <fileset dir="${project.release}" />
+        </copy>
         <move file="${project.releaseCurrent}/${project.zipfilename}" 
               tofile="${project.releaseCurrent}/${project.zipfilenameCurrent}" />
     </target>
