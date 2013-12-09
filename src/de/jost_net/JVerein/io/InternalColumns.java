@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -39,7 +34,7 @@ public enum InternalColumns
   EMAIL("Email", true), //
   GEBDATUM("Geburtsdatum", true), //
   GESCHLECHT("Geschlecht", true), //
-  IBAN("IBAN", false), // TODO true), //
+  IBAN("IBAN", true), //
   KONTONR("Kontonummer", true), //
   KTOIPERSONENART("KtoiPersonenart", false), //
   KTOIANREDE("KtoiAnrede", false), //
@@ -54,6 +49,8 @@ public enum InternalColumns
   KTOIEMAIL("KtoiEMail", false), //
   KUENDIGUNGSDATUM("Kuendigung", true), //
   MANDATDATUM("Mandat_Datum", true), //
+  MANDATSEQUENCE("Mandat_Sequence", true), //
+  MANDATVERSION("Mandat_Sequence", true), //
   MITGLIEDSNR("Mitglieds_Nr", true), //
   NACHNAME("Nachname", true), //
   ORT("Ort", true), //

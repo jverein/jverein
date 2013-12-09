@@ -57,6 +57,7 @@ import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -690,16 +691,17 @@ public class Import
     {
 
       /*
-       * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine BLZ und
-       * eine KTNR geben
+       * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine BIC und
+       * eine IBAN geben
        */
       zahlweg = Zahlungsweg.BASISLASTSCHRIFT;
-      if (blz.length() == 0 || ktnr.length() == 0)
+
+      if (iban.length() == 0 || bic.length() == 0)
       {
         progMonitor
             .log(MessageFormat
                 .format(
-                    "Bei {0} ist als Zahlungsart Abbuchung gesetzt aber Kontonr und/oder BLZ fehlen",
+                    "Bei {0} ist als Zahlungsart Basislastschrift gesetzt aber IBAN  und/oder BIC fehlen",
                     Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
@@ -725,7 +727,10 @@ public class Import
     m.setKonto(ktnr);
     m.setBic(bic);
     m.setIban(iban);
-
+    m.setMandatSequence(MandatSequence.fromString(getResultFrom(results,
+        InternalColumns.MANDATSEQUENCE)));
+    m.setMandatVersion(new Integer(getResultFrom(results,
+        InternalColumns.MANDATVERSION)));
     String m_d = getResultFrom(results, InternalColumns.MANDATDATUM);
     if (m_d.length() > 0)
     {
