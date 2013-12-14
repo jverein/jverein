@@ -94,7 +94,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       {
         throw new ApplicationException("Bitte IBAN eingeben");
       }
-      System.out.println(getBic());
       if (getBic() == null || getBic().length() == 0)
       {
         throw new ApplicationException("Bitte BIC eingeben");
@@ -1310,5 +1309,5 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute(COL_SEPA_MANDANTID_SOURCE, sepaMandatIdSource);
   }
-  
+
 }
