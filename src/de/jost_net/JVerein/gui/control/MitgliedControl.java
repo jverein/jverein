@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -1125,6 +1120,10 @@ public class MitgliedControl extends AbstractControl
         }
         try
         {
+          if (getMitglied().getID() == null)
+          {
+            return;
+          }
           Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
           // Feld zahler ist nur aktiviert, wenn aktuelles Mitglied nicht das
           // zahlende Mitglied der Familie ist.
