@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -38,6 +33,7 @@ import de.jost_net.JVerein.DBTools.DBTransaction;
 import de.jost_net.JVerein.gui.input.AbbuchungsmodusInput;
 import de.jost_net.JVerein.io.AbrechnungSEPA;
 import de.jost_net.JVerein.io.AbrechnungSEPAParam;
+import de.jost_net.JVerein.io.Bankarbeitstage;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.util.Dateiname;
@@ -153,7 +149,8 @@ public class AbrechnungSEPAControl extends AbstractControl
       return faelligkeit1;
     }
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.DAY_OF_YEAR, 5);
+    Bankarbeitstage bat = new Bankarbeitstage();
+    cal = bat.getCalendar(cal, 5);
     this.faelligkeit1 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
     this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
     this.faelligkeit1
@@ -180,7 +177,8 @@ public class AbrechnungSEPAControl extends AbstractControl
       return faelligkeit2;
     }
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.DAY_OF_YEAR, 2);
+    Bankarbeitstage bat = new Bankarbeitstage();
+    cal = bat.getCalendar(cal, 2);
     this.faelligkeit2 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
     this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
     this.faelligkeit2

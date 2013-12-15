@@ -14,5 +14,7 @@
 	<classpathentry kind="lib" path="/hibiscus/lib/itextpdf-5.3.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/csvjdbc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
+	<classpathentry kind="lib" path="lib/jollyday-0.4.7.jar"/>
+	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -26,12 +26,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
-import de.jost_net.JVerein.keys.Abrechnungsausgabe;
-
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
+import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
@@ -137,13 +136,13 @@ public class AbrechnungSEPA
       Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
           Lastschrift.class, null);
       ls.setAbrechnungslauf(Integer.parseInt(abrl.getID()));
-      
-      assert (za instanceof JVereinZahler):
-              "Illegaler Zahlertyp in Sepa-Abrechnung detektiert.";
-      
+
+      assert (za instanceof JVereinZahler) : "Illegaler Zahlertyp in Sepa-Abrechnung detektiert.";
+
       JVereinZahler vza = (JVereinZahler) za;
-      
-      switch(vza.getPersonTyp()) {
+
+      switch (vza.getPersonTyp())
+      {
         case KURSTEILNEHMER:
           ls.setKursteilnehmer(Integer.parseInt(vza.getPersonId()));
           Kursteilnehmer k = (Kursteilnehmer) Einstellungen.getDBService()
