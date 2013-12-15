@@ -37,6 +37,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
+import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -561,12 +562,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public MandatSequence getMandatSequence() throws RemoteException
   {
-    String sequ = (String) getAttribute("mandatsequence");
-    if (sequ == null)
+    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    it.addFilter("mandatid = ?", getMandatID());
+    if (it.size() == 0)
     {
-      return null;
+      return MandatSequence.FRST;
     }
-    return MandatSequence.fromString(sequ);
+    else
+    {
+      return MandatSequence.RCUR;
+    }
   }
 
   @Override
@@ -579,10 +584,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getMandatID() throws RemoteException
   {
-    int sepaMandatIdSource = Einstellungen.getEinstellung().getSepaMandatIdSource();
-    if (sepaMandatIdSource == SepaMandatIdSource.EXTERNE_MITGLIEDSNUMMER) {
+    int sepaMandatIdSource = Einstellungen.getEinstellung()
+        .getSepaMandatIdSource();
+    if (sepaMandatIdSource == SepaMandatIdSource.EXTERNE_MITGLIEDSNUMMER)
+    {
       return getExterneMitgliedsnummer() + "-" + getMandatVersion();
-    } else {
+    }
+    else
+    {
       return getID() + "-" + getMandatVersion();
     }
   }
