@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -30,6 +25,9 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.OBanToo.SEPA.BIC;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.logging.Logger;
@@ -97,22 +95,34 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     {
       throw new ApplicationException("Bitte Geburtsdatum eingeben");
     }
-    if (getBlz() == null || getBlz().length() != 8)
+    if (getIban() == null || getIban().length() == 0)
     {
-      throw new ApplicationException("Bitte Bankleitzahl eingeben");
+      throw new ApplicationException("Bitte IBAN eingeben");
     }
-    if (getKonto() == null || getKonto().length() == 0)
+    if (getBic() == null || getBic().length() == 0)
     {
-      throw new ApplicationException("Bitte Konto eingeben");
+      throw new ApplicationException("Bitte BIC eingeben");
+    }
+
+    try
+    {
+      new IBAN(getIban());
+    }
+    catch (SEPAException e1)
+    {
+      throw new ApplicationException(e1.getMessage());
+    }
+    try
+    {
+      new BIC(getBic());
+    }
+    catch (SEPAException e1)
+    {
+      throw new ApplicationException(e1.getMessage());
     }
     if (getBetrag() <= 0)
     {
       throw new ApplicationException("Bitte Betrag größer als 0 eingeben");
-    }
-    if (!Einstellungen.checkAccountCRC(getBlz(), getKonto()))
-    {
-      throw new ApplicationException(
-          "Ungültige BLZ/Kontonummer. Bitte prüfen Sie Ihre Eingaben.");
     }
   }
 
