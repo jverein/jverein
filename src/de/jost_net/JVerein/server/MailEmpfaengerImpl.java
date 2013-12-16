@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -62,20 +57,7 @@ public class MailEmpfaengerImpl extends AbstractDBObject implements
   @Override
   protected void insertCheck()
   {
-    // try
-    // {
-    // if (getBetreff() == null || getBetreff().length() == 0)
-    // {
-    // throw new ApplicationException(JVereinPlugin.getI18n().tr(
-    // "Bitte Betreff eingeben"));
-    // }
-    // }
-    // catch (RemoteException e)
-    // {
-    // Logger.error("insert check of mailvorlage failed", e);
-    // throw new ApplicationException(JVereinPlugin.getI18n().tr(
-    // "MailVorlage kann nicht gespeichert werden. Siehe system log"));
-    // }
+    // 
   }
 
   @Override

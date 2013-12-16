@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -69,16 +64,7 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   @Override
   protected void updateCheck()
   {
-    // try
-    // {
-    // }
-    // catch (RemoteException e)
-    // {
-    // String fehler =
-    // "Lehrgangsart kann nicht gespeichert werden. Siehe system log";
-    // Logger.error(fehler, e);
-    // throw new ApplicationException(fehler);
-    // }
+    //
   }
 
   @Override

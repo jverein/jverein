@@ -62,27 +62,13 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
   @Override
   protected void insertCheck() throws ApplicationException
   {
-    // try
-    // {
-    // if (getBetreff() == null || getBetreff().length() == 0)
-    // {
-    // throw new ApplicationException(JVereinPlugin.getI18n().tr(
-    // "Bitte Betreff eingeben"));
-    // }
-    // }
-    // catch (RemoteException e)
-    // {
-    // Logger.error("insert check of mailvorlage failed", e);
-    // throw new ApplicationException(JVereinPlugin.getI18n().tr(
-    // "MailVorlage kann nicht gespeichert werden. Siehe system log"));
-    // }
     try
     {
       dateinameCheck(getDateiname());
     }
     catch (RemoteException e)
     {
-      String fehler = "MailVorlage kann nicht gespeichert werden. Siehe system log";
+      String fehler = "MailAnhang kann nicht gespeichert werden. Siehe system log";
       Logger.error(fehler, e);
       throw new ApplicationException(fehler);
     }
