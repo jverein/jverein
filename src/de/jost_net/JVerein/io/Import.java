@@ -242,9 +242,6 @@ public class Import
 
     String result = "";
 
-    // TODO Es waere moeglich auch Datums mit dem Format 1.Sep.2001 zu
-    // unterstuetzen.
-
     /* change format from xx/xx/xxxx to xx.xx.xxxx */
     String dotDate = date.replace('/', '.');
 
@@ -664,9 +661,24 @@ public class Import
     String blz = getResultFrom(results, InternalColumns.BLZ);
     String ktnr = getResultFrom(results, InternalColumns.KONTONR);
     String bic = getResultFrom(results, InternalColumns.BIC);
-
     String iban = getResultFrom(results, InternalColumns.IBAN);
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
+    if (blz.length() > 0 && ktnr.length() > 0)
+    {
+      try
+      {
+        IBAN ib = new IBAN(ktnr, blz, "DE");
+        iban = ib.getIBAN();
+        BIC bi = new BIC(ktnr, blz, "DE");
+        bic = bi.getBIC();
+      }
+      catch (SEPAException e)
+      {
+        progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
+            + e.getMessage());
+        throw new ApplicationException();
+      }
+    }
     if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0)
     {
       try
@@ -691,17 +703,21 @@ public class Import
     {
 
       /*
-       * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine BIC und
-       * eine IBAN geben
+       * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine
+       * Bankverbindung existieren (BIC und IBAN oder übergangsweise BLZ und
+       * Konto)
        */
       zahlweg = Zahlungsweg.BASISLASTSCHRIFT;
 
-      if (iban.length() == 0 || bic.length() == 0)
+      boolean altebankverbindung = blz.length() > 0 && ktnr.length() > 0;
+      boolean neuebankverbindung = iban.length() > 0 && bic.length() > 0;
+
+      if (!altebankverbindung && !neuebankverbindung)
       {
         progMonitor
             .log(MessageFormat
                 .format(
-                    "Bei {0} ist als Zahlungsart Basislastschrift gesetzt aber IBAN  und/oder BIC fehlen",
+                    "Bei {0} ist als Zahlungsart Basislastschrift gesetzt aber weder neue Bankverbindung (IBAN  / BIC) noch (BLZ /Konto) vorhanden",
                     Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
