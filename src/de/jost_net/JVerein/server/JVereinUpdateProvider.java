@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -1424,6 +1419,10 @@ public class JVereinUpdateProvider
     if (cv < 354)
     {
       update0354(conn);
+    }
+    if (cv < 355)
+    {
+      update0355(conn);
     }
     // TODO
   }
@@ -8327,22 +8326,33 @@ public class JVereinUpdateProvider
         "Spalte zusatzbetragausgetretene in die Tabelle einstellung aufgenommen",
         353);
   }
-  
+
   private void update0354(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
     // Update fuer H2 und MySQL
     sb = new StringBuilder();
-    sb.append(String.format("ALTER TABLE einstellung ADD %s INT DEFAULT 1;\n", 
-            Einstellung.COL_SEPA_MANDANTID_SOURCE));
-    
+    sb.append(String.format("ALTER TABLE einstellung ADD %s INT DEFAULT 1;\n",
+        Einstellung.COL_SEPA_MANDANTID_SOURCE));
+
     String statement = sb.toString();
-    
+
     statements.put(DBSupportH2Impl.class.getName(), statement);
     statements.put(DBSupportMySqlImpl.class.getName(), statement);
 
     execute(conn, statements,
         "Quelle für SEPA-Mandat-ID in die Tabelle einstellung aufgenommen", 354);
+  }
+
+  private void update0355(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = " ALTER TABLE beitragsgruppe ADD UNIQUE INDEX ixBeitragsgruppe1 (bezeichnung);";
+
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Unique-Index f. Beitragsgruppe eingefügt", 355);
   }
 
   private String alterColumn(String table, String column, String type)
