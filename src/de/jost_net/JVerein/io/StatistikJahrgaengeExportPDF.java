@@ -89,7 +89,7 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
         + new JVDateFormatTTMMJJJJ().format(stichtag) + "", "", 3);
     reporter.addHeaderColumn("Jahrgang", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn("Gesamt", Element.ALIGN_CENTER, 50,
+    reporter.addHeaderColumn("Insgesamt", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn("männlich", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);
