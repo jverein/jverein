@@ -54,7 +54,7 @@ public class MitgliederStatistik
       String subtitle = "";
       if (stichtag != null)
       {
-        subtitle = "Stichtag: }" + new JVDateFormatTTMMJJJJ().format(stichtag);
+        subtitle = "Stichtag: " + new JVDateFormatTTMMJJJJ().format(stichtag);
       }
       Reporter reporter = new Reporter(fos, "Mitgliederstatistik", subtitle, 3);
 
@@ -72,7 +72,7 @@ public class MitgliederStatistik
           BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn("ohne Angabe", Element.ALIGN_CENTER, 30,
           BaseColor.LIGHT_GRAY);
-      reporter.createHeader(60f, Element.ALIGN_LEFT);
+      reporter.createHeader(70f, Element.ALIGN_LEFT);
 
       AltersgruppenParser ap = new AltersgruppenParser(Einstellungen
           .getEinstellung().getAltersgruppen());
@@ -98,7 +98,7 @@ public class MitgliederStatistik
           BaseColor.LIGHT_GRAY);
       reporter.addHeaderColumn("ohne Angabe", Element.ALIGN_CENTER, 30,
           BaseColor.LIGHT_GRAY);
-      reporter.createHeader(60f, Element.ALIGN_LEFT);
+      reporter.createHeader(70f, Element.ALIGN_LEFT);
 
       DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
@@ -124,7 +124,7 @@ public class MitgliederStatistik
             BaseColor.LIGHT_GRAY);
         reporter.addHeaderColumn("Anzahl", Element.ALIGN_CENTER, 30,
             BaseColor.LIGHT_GRAY);
-        reporter.createHeader(60f, Element.ALIGN_LEFT);
+        reporter.createHeader(70f, Element.ALIGN_LEFT);
         reporter.addColumn("Anmeldungen", Element.ALIGN_LEFT);
         reporter.addColumn(getAnmeldungen(gj) + "", Element.ALIGN_RIGHT);
         reporter.addColumn("Abmeldungen", Element.ALIGN_LEFT);
