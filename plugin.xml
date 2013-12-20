@@ -6,8 +6,7 @@
   xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.1.xsd">
 
   <description>OpenSource-Vereinsverwaltung</description>
-  <url>http://www.jverein.de/wiki/index.php?title=Download</url>
-  
+  <url>http://master.dl.sourceforge.net/project/jverein/updates/2.6/jverein.2.6.0.zip</url>
   <homepage>http://www.jverein.de</homepage>
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
   <icon>jverein-icon-64x64.png</icon>
