@@ -300,10 +300,12 @@ public class PersonalbogenAction implements Action
                   .getBetrag()) + " EUR", Element.ALIGN_LEFT);
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
       {
-        rpt.addColumn("individueller Beitrag", Element.ALIGN_LEFT);
+        rpt.addColumn("Individueller Beitrag", Element.ALIGN_LEFT);
         if (m.getIndividuellerBeitrag() > 0)
         {
-          rpt.addColumn(m.getIndividuellerBeitrag());
+          rpt.addColumn(
+              Einstellungen.DECIMALFORMAT.format(m.getIndividuellerBeitrag())
+                  + " EUR", Element.ALIGN_LEFT);
         }
         else
         {
