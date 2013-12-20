@@ -63,7 +63,8 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     Input mitglstat = control.getMitgliedStatus();
     mitglstat.addListener(new FilterListener());
     left.addLabelPair("Mitgliedschaft", mitglstat);
-    IntegerInput suchexternemitgliedsnummer = control.getSuchExterneMitgliedsnummer();
+    IntegerInput suchexternemitgliedsnummer = control
+        .getSuchExterneMitgliedsnummer();
     suchexternemitgliedsnummer.addListener(new FilterListener());
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
@@ -122,7 +123,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
       {
         try
         {
-          control.getMitgliedStatus().setValue("An- und Abgemeldete");
+          control.getMitgliedStatus().setValue("Angemeldete");
           control.getSuchExterneMitgliedsnummer().setValue("");
           control.resetEigenschaftenAuswahl();
           control.getBeitragsgruppeAusw().setValue(null);
