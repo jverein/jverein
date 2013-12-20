@@ -1315,9 +1315,7 @@ public class BuchungsControl extends AbstractControl
     @Override
     public void handleEvent(Event event)
     {
-      if (event.type != SWT.Selection) // && event.type != SWT.FocusOut) R.Mamat
-                                       // entfernt, weil damit zu oft geladen
-                                       // wird
+      if (event.type != SWT.Selection && event.type != SWT.FocusOut)
       {
         return;
       }
