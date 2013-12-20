@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -83,7 +78,7 @@ public class AnfangsbestandControl extends AbstractControl
     {
       return konto;
     }
-    konto = new TextInput(getAnfangsbestand().getKonto().getNummer(), 12);
+    konto = new TextInput(getAnfangsbestand().getKonto().getNummer(), 35);
     konto.setEnabled(false);
     return konto;
   }
