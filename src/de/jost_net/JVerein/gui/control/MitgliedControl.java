@@ -2368,7 +2368,7 @@ public class MitgliedControl extends AbstractControl
     }
     status = new SelectInput(new String[] { "Angemeldet", "Abgemeldet",
         "An- und Abgemeldete" }, settings.getString("status.mitglied",
-        "Angemeldete"));
+        "Angemeldet"));
     status.setName("Mitgliedschaft");
     return status;
   }
