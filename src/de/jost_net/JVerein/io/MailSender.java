@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.Properties;
 import java.util.TreeSet;
 
@@ -36,10 +37,12 @@ import javax.activation.DataSource;
 import javax.activation.MimetypesFileTypeMap;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -54,25 +57,110 @@ import de.willuhn.logging.Logger;
 public class MailSender
 {
 
-  private String smtp_host_name;
+  public static class IMAPCopyData
+  {
+    private final boolean copy_to_imap_folder;
 
-  private String smtp_port;
+    private final String imap_auth_user;
 
-  private String smtp_auth_user;
+    private final String imap_auth_pwd;
 
-  private String smtp_auth_pwd;
+    private final String imap_host;
 
-  private String smtp_from_address;
-  
-  private String smtp_from_anzeigename;
+    private final String imap_port;
 
-  private boolean smtp_ssl;
+    private final boolean imap_ssl;
 
-  private boolean smtp_starttls;
+    private final boolean imap_starttls;
+
+    private final String imap_sent_folder;
+
+    /**
+     * All data relevant to IMAP copy to folder
+     */
+    public IMAPCopyData(boolean copy_to_imap_folder, String imap_auth_user,
+        String imap_auth_pwd, String imap_host, String imap_port,
+        boolean imap_ssl, boolean imap_starttls, String imap_sent_folder)
+    {
+      this.copy_to_imap_folder = copy_to_imap_folder;
+      this.imap_auth_user = imap_auth_user;
+      this.imap_auth_pwd = imap_auth_pwd;
+      this.imap_host = imap_host;
+      this.imap_port = imap_port;
+      this.imap_ssl = imap_ssl;
+      this.imap_starttls = imap_starttls;
+      this.imap_sent_folder = imap_sent_folder;
+    }
+
+    public boolean isCopy_to_imap_folder()
+    {
+      return copy_to_imap_folder;
+    }
+
+    public String getImap_auth_user()
+    {
+      return imap_auth_user;
+    }
+
+    public String getImap_auth_pwd()
+    {
+      return imap_auth_pwd;
+    }
+
+    public String getImap_host()
+    {
+      return imap_host;
+    }
+
+    public String getImap_port()
+    {
+      return imap_port;
+    }
+
+    public boolean isImap_ssl()
+    {
+      return imap_ssl;
+    }
+
+    public boolean isImap_starttls()
+    {
+      return imap_starttls;
+    }
+
+    public String getImap_sent_folder()
+    {
+      return imap_sent_folder;
+    }
+  }
+
+  private final String smtp_host_name;
+
+  private final String smtp_port;
+
+  private final String smtp_auth_user;
+
+  private final String smtp_auth_pwd;
+
+  private final String smtp_from_address;
+
+  private final String smtp_from_anzeigename;
+
+  /** If set, all mails will be sent to this BCC, too */
+  private final String bcc_address;
+
+  /** If set, all mails will be sent to this BCC, too */
+  private final String cc_address;
+
+  private final boolean smtp_ssl;
+
+  private final boolean smtp_starttls;
+
+  private IMAPCopyData imapCopyData;
 
   public MailSender(String smtp_host_name, String smtp_port,
-      String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,String smtp_from_anzeigename,
-      boolean smtp_ssl, boolean smtp_starttls)
+      String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,
+      String smtp_from_anzeigename, String bcc_address, String cc_address,
+      boolean smtp_ssl, boolean smtp_starttls, IMAPCopyData imapCopyData)
   {
     this.smtp_host_name = smtp_host_name;
     this.smtp_port = smtp_port;
@@ -80,8 +168,11 @@ public class MailSender
     this.smtp_auth_pwd = smtp_auth_pwd;
     this.smtp_from_address = smtp_from_address;
     this.smtp_from_anzeigename = smtp_from_anzeigename;
+    this.bcc_address = bcc_address;
+    this.cc_address = cc_address;
     this.smtp_ssl = smtp_ssl;
     this.smtp_starttls = smtp_starttls;
+    this.imapCopyData = imapCopyData;
   }
 
   // Send to a single recipient
@@ -147,7 +238,8 @@ public class MailSender
      * msg.addHeader("Disposition-Notification-To", smtp_from_address);
      * msg.addHeader("Return-Receipt-To", smtp_from_address);
      */
-    InternetAddress addressFrom = new InternetAddress(smtp_from_address, smtp_from_anzeigename);
+    InternetAddress addressFrom = new InternetAddress(smtp_from_address,
+        smtp_from_anzeigename);
     msg.setFrom(addressFrom);
 
     InternetAddress[] addressTo = new InternetAddress[emailadresses.length];
@@ -158,6 +250,16 @@ public class MailSender
     }
 
     msg.setRecipients(Message.RecipientType.TO, addressTo);
+    if (bcc_address != null && !bcc_address.trim().isEmpty())
+    {
+      msg.setRecipient(Message.RecipientType.BCC, new InternetAddress(
+          bcc_address.trim()));
+    }
+    if (cc_address != null && !cc_address.trim().isEmpty())
+    {
+      msg.setRecipient(Message.RecipientType.CC,
+          new InternetAddress(cc_address.trim()));
+    }
     msg.setSubject(subject);
 
     BodyPart messageBodyPart = new MimeBodyPart();
@@ -182,6 +284,56 @@ public class MailSender
 
     Transport.send(msg);
 
+    // Copy to IMAP sent folder
+    if (imapCopyData != null && imapCopyData.copy_to_imap_folder)
+    {
+      copyMessageToImapFolder(msg);
+    }
+  }
+
+  private void copyMessageToImapFolder(Message message) throws Exception
+  {
+    Properties props = new Properties();
+    props.put("mail.debug", "true");
+    props.put("mail.imap.host", imapCopyData.getImap_host());
+    props.put("mail.imap.port", imapCopyData.getImap_port());
+
+    String protocol = "imap";
+
+    if (imapCopyData.isImap_ssl())
+    {
+      protocol = "imaps";
+      java.security.Security
+          .addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+      props.setProperty("mail.imap.socketFactory.class",
+          "javax.net.ssl.SSLSocketFactory");
+      props.setProperty("mail.imap.socketFactory.port",
+          imapCopyData.getImap_port());
+      props.setProperty("mail.imap.socketFactory.fallback", "false");
+    }
+    else if (imapCopyData.isImap_starttls())
+    {
+      props.put("mail.imap.starttls.enable", "true");
+      props.put("mail.imap.tls", "true");
+    }
+
+    props.put("mail.store.protocol", protocol);
+
+    Session session = Session.getInstance(props, new IMAPAuthenticator());
+
+    Store store = session.getStore(protocol);
+    store.connect(imapCopyData.getImap_host(),
+        imapCopyData.getImap_auth_user(), imapCopyData.getImap_auth_pwd());
+
+    Folder folder = store.getFolder(imapCopyData.getImap_sent_folder());
+
+    // need to set "sent" date explicitly
+    message.setSentDate(new Date());
+
+    // save in IMAP folder
+    folder.appendMessages(new Message[] { message });
+
+    store.close();
   }
 
   private class SMTPAuthenticator extends Authenticator
@@ -192,6 +344,18 @@ public class MailSender
     {
       String username = smtp_auth_user;
       String password = smtp_auth_pwd;
+      return new PasswordAuthentication(username, password);
+    }
+  }
+
+  private class IMAPAuthenticator extends Authenticator
+  {
+
+    @Override
+    public PasswordAuthentication getPasswordAuthentication()
+    {
+      String username = imapCopyData.getImap_auth_user();
+      String password = imapCopyData.getImap_auth_pwd();
       return new PasswordAuthentication(username, password);
     }
   }

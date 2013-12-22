@@ -137,7 +137,7 @@ public class EinstellungControl extends AbstractControl
   private SelectInput arbeitsstundenmodel;
 
   private SelectInput beitragsmodel;
-  
+
   private SelectInput sepamandatidsourcemodel;
 
   private TextInput dateinamenmuster;
@@ -169,6 +169,26 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput smtp_ssl;
 
   private CheckboxInput smtp_starttls;
+
+  private TextInput alwaysBccTo;
+
+  private TextInput alwaysCcTo;
+
+  private CheckboxInput copyToImapFolder;
+
+  private TextInput imapAuthUser;
+
+  private PasswordInput imapAuthPwd;
+
+  private TextInput imapHost;
+
+  private TextInput imapPort;
+
+  private CheckboxInput imap_ssl;
+
+  private CheckboxInput imap_starttls;
+
+  private TextInput imapSentFolder;
 
   private SelectInput zahlungsweg;
 
@@ -678,7 +698,7 @@ public class EinstellungControl extends AbstractControl
             .getArbeitsstundenmodel()));
     return arbeitsstundenmodel;
   }
-  
+
   public SelectInput getSepamandatidsourcemodel() throws RemoteException
   {
     if (sepamandatidsourcemodel != null)
@@ -874,6 +894,112 @@ public class EinstellungControl extends AbstractControl
     smtp_starttls = new CheckboxInput(Einstellungen.getEinstellung()
         .getSmtpStarttls());
     return smtp_starttls;
+  }
+
+  public TextInput getAlwaysBccTo() throws RemoteException
+  {
+    if (alwaysBccTo != null)
+    {
+      return alwaysBccTo;
+    }
+    alwaysBccTo = new TextInput(Einstellungen.getEinstellung()
+        .getMailAlwaysBcc());
+    return alwaysBccTo;
+  }
+
+  public TextInput getAlwaysCcTo() throws RemoteException
+  {
+    if (alwaysCcTo != null)
+    {
+      return alwaysCcTo;
+    }
+    alwaysCcTo = new TextInput(Einstellungen.getEinstellung().getMailAlwaysCc());
+    return alwaysCcTo;
+  }
+
+  public CheckboxInput getCopyToImapFolder() throws RemoteException
+  {
+    if (copyToImapFolder != null)
+    {
+      return copyToImapFolder;
+    }
+    copyToImapFolder = new CheckboxInput(Einstellungen.getEinstellung()
+        .getCopyToImapFolder());
+    return copyToImapFolder;
+  }
+
+  public TextInput getImapAuthUser() throws RemoteException
+  {
+    if (imapAuthUser != null)
+    {
+      return imapAuthUser;
+    }
+    imapAuthUser = new TextInput(Einstellungen.getEinstellung()
+        .getImapAuthUser());
+    return imapAuthUser;
+  }
+
+  public TextInput getImapAuthPwd() throws RemoteException
+  {
+    if (imapAuthPwd != null)
+    {
+      return imapAuthPwd;
+    }
+    imapAuthPwd = new PasswordInput(Einstellungen.getEinstellung()
+        .getImapAuthPwd());
+    return imapAuthPwd;
+  }
+
+  public TextInput getImapHost() throws RemoteException
+  {
+    if (imapHost != null)
+    {
+      return imapHost;
+    }
+    imapHost = new TextInput(Einstellungen.getEinstellung().getImapHost());
+    return imapHost;
+  }
+
+  public TextInput getImapPort() throws RemoteException
+  {
+    if (imapPort != null)
+    {
+      return imapPort;
+    }
+    imapPort = new TextInput(Einstellungen.getEinstellung().getImapPort());
+    return imapPort;
+  }
+
+  public CheckboxInput getImap_ssl() throws RemoteException
+  {
+    if (imap_ssl != null)
+    {
+      return imap_ssl;
+    }
+    imap_ssl = new CheckboxInput(Einstellungen.getEinstellung().getImapSsl());
+    return imap_ssl;
+  }
+
+  public CheckboxInput getImap_starttls() throws RemoteException
+  {
+    if (imap_starttls != null)
+    {
+      return imap_starttls;
+    }
+    imap_starttls = new CheckboxInput(Einstellungen.getEinstellung()
+        .getImapStartTls());
+    return imap_starttls;
+  }
+
+  public TextInput getImapSentFolder() throws RemoteException
+  {
+    if (imapSentFolder != null)
+    {
+      return imapSentFolder;
+    }
+    imapSentFolder = new TextInput(Einstellungen.getEinstellung()
+        .getImapSentFolder());
+    return imapSentFolder;
   }
 
   public SelectInput getZahlungsweg() throws RemoteException
@@ -1292,8 +1418,19 @@ public class EinstellungControl extends AbstractControl
       e.setSmtpFromAddress((String) smtp_from_address.getValue());
       e.setSmtpFromAnzeigename((String) smtp_from_anzeigename.getValue());
       e.setSmtpSsl((Boolean) smtp_ssl.getValue());
-
       e.setSmtpStarttls((Boolean) smtp_starttls.getValue());
+      e.setMailAlwaysCc((String) alwaysCcTo.getValue());
+      e.setMailAlwaysBcc((String) alwaysBccTo.getValue());
+
+      e.setCopyToImapFolder((Boolean) copyToImapFolder.getValue());
+      e.setImapHost((String) imapHost.getValue());
+      e.setImapPort((String) imapPort.getValue());
+      e.setImapAuthUser(((String) imapAuthUser.getValue()));
+      e.setImapAuthPwd(((String) imapAuthPwd.getValue()));
+      e.setImapSsl((Boolean) imap_ssl.getValue());
+      e.setImapStartTls((Boolean) imap_starttls.getValue());
+      e.setImapSentFolder((String) imapSentFolder.getValue());
+
       Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();

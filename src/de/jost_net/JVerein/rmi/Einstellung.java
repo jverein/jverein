@@ -28,7 +28,7 @@ public interface Einstellung extends DBObject, IBankverbindung
   public static final String COL_ALTER_MODEL = "altermodel";
 
   public static final String COL_ARBEITS_MODEL = "arbeitsmodel";
-  
+
   public static final String COL_SEPA_MANDANTID_SOURCE = "mandatid_source";
 
   public void setID() throws RemoteException;
@@ -270,6 +270,47 @@ public interface Einstellung extends DBObject, IBankverbindung
   public Boolean getSmtpStarttls() throws RemoteException;
 
   public void setSmtpStarttls(Boolean smtp_starttls) throws RemoteException;
+
+  public String getMailAlwaysBcc() throws RemoteException;
+
+  public void setMailAlwaysBcc(String mail_always_bcc) throws RemoteException;
+
+  public String getMailAlwaysCc() throws RemoteException;
+
+  public void setMailAlwaysCc(String mail_always_cc) throws RemoteException;
+
+  public Boolean getCopyToImapFolder() throws RemoteException;
+
+  public void setCopyToImapFolder(Boolean copy_to_imap_folder)
+      throws RemoteException;
+
+  public String getImapAuthUser() throws RemoteException;
+
+  public void setImapAuthUser(String imap_auth_user) throws RemoteException;
+
+  public String getImapAuthPwd() throws RemoteException;
+
+  public void setImapAuthPwd(String imap_auth_pwd) throws RemoteException;
+
+  public String getImapHost() throws RemoteException;
+
+  public void setImapHost(String imap_host) throws RemoteException;
+
+  public String getImapPort() throws RemoteException;
+
+  public void setImapPort(String imap_port) throws RemoteException;
+
+  public Boolean getImapSsl() throws RemoteException;
+
+  public void setImapSsl(Boolean imap_ssl) throws RemoteException;
+
+  public Boolean getImapStartTls() throws RemoteException;
+
+  public void setImapStartTls(Boolean imap_starttls) throws RemoteException;
+
+  public String getImapSentFolder() throws RemoteException;
+
+  public void setImapSentFolder(String imap_sent_folder) throws RemoteException;
 
   public int getZahlungsrhytmus() throws RemoteException;
 

@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.jost_net.JVerein.io.MailSender.IMAPCopyData;
 import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
@@ -261,4 +262,20 @@ public class Einstellungen
     return !beigen || !bbeitragsgruppe;
   }
 
+  /**
+   * Get the IMAP folder copy data from Einstellungen
+   * 
+   * @return IMAP copy data
+   * @throws RemoteException
+   */
+  public static IMAPCopyData getImapCopyData() throws RemoteException
+  {
+    IMAPCopyData imapCopyData = new IMAPCopyData(getEinstellung()
+        .getCopyToImapFolder(), getEinstellung().getImapAuthUser(),
+        getEinstellung().getImapAuthPwd(), getEinstellung().getImapHost(),
+        getEinstellung().getImapPort(), getEinstellung().getImapSsl(),
+        getEinstellung().getImapStartTls(), getEinstellung()
+            .getImapSentFolder());
+    return imapCopyData;
+  }
 }

@@ -175,6 +175,7 @@ public class EinstellungenView extends AbstractView
         "Trefferliste Mitglieder");
     control.getSpaltendefinitionTable(groupMitglieder.getComposite());
 
+    
     TabGroup tabMail = new TabGroup(folder, "Mail");
     LabelGroup groupMail = new LabelGroup(tabMail.getComposite(), "Mail");
     groupMail.addLabelPair("Server", control.getSmtpServer());
@@ -184,7 +185,21 @@ public class EinstellungenView extends AbstractView
     groupMail.addLabelPair("Absenderadresse", control.getSmtpFromAddress());
     groupMail.addLabelPair("Anzeigename", control.getSmtpFromAnzeigename());
     groupMail.addLabelPair("SSL verwenden", control.getSmtpSsl());
-    groupMail.addLabelPair("Starttls verwenden", control.getSmtpStarttls());
+    groupMail.addLabelPair("StartTLS verwenden", control.getSmtpStarttls());
+    groupMail.addLabelPair("Immer Cc an Adresse", control.getAlwaysCcTo());
+    groupMail.addLabelPair("Immer Bcc an Adresse", control.getAlwaysBccTo());
+    
+    groupMail.addSeparator();
+    groupMail.addText("IMAP 'Gesendete'-Ordner", false);
+    groupMail.addLabelPair("Kopie in 'Gesendete'-Ordner IMAP ablegen", control.getCopyToImapFolder());
+    groupMail.addLabelPair("IMAP Server", control.getImapHost());
+    groupMail.addLabelPair("IMAP Port", control.getImapPort());
+    groupMail.addLabelPair("IMAP Benutzer", control.getImapAuthUser());
+    groupMail.addLabelPair("IMAP Passwort", control.getImapAuthPwd());
+    groupMail.addLabelPair("IMAP SSL verwenden", control.getImap_ssl());
+    groupMail.addLabelPair("IMAP StartTLS verwenden", control.getImap_starttls());    
+    groupMail.addLabelPair("IMAP 'Gesendete'-Ordername", control.getImapSentFolder());
+    
 
     TabGroup tabStatistik = new TabGroup(folder, "Statistik");
     LabelGroup grStatistik = new LabelGroup(tabStatistik.getComposite(),

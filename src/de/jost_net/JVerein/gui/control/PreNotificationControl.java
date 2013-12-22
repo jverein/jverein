@@ -268,9 +268,12 @@ public class PreNotificationControl extends AbstractControl
               Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
                   .getEinstellung().getSmtpAuthPwd(), Einstellungen
                   .getEinstellung().getSmtpFromAddress(), Einstellungen
-                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
+                  .getEinstellung().getSmtpFromAnzeigename(), 
+                  Einstellungen.getEinstellung().getMailAlwaysBcc(),
+                  Einstellungen.getEinstellung().getMailAlwaysCc(), Einstellungen
                   .getEinstellung().getSmtpSsl(), Einstellungen
-                  .getEinstellung().getSmtpStarttls());
+                  .getEinstellung().getSmtpStarttls(),
+                  Einstellungen.getImapCopyData());
 
           Velocity.init();
           Logger.debug("preparing velocity context");

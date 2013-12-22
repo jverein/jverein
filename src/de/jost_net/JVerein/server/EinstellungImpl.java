@@ -889,6 +889,135 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public String getMailAlwaysBcc() throws RemoteException
+  {
+    return (String) getAttribute("mail_always_bcc");
+  }
+
+  @Override
+  public void setMailAlwaysBcc(String mail_always_bcc) throws RemoteException
+  {
+    setAttribute("mail_always_bcc", mail_always_bcc);
+  }
+
+  @Override
+  public String getMailAlwaysCc() throws RemoteException
+  {
+    return (String) getAttribute("mail_always_cc");
+  }
+
+  @Override
+  public void setMailAlwaysCc(String mail_always_cc) throws RemoteException
+  {
+    setAttribute("mail_always_cc", mail_always_cc);
+  }
+
+  @Override
+  public Boolean getCopyToImapFolder() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("copy_to_imap_folder"));
+  }
+
+  @Override
+  public void setCopyToImapFolder(Boolean copy_to_imap_folder)
+      throws RemoteException
+  {
+    setAttribute("copy_to_imap_folder", copy_to_imap_folder);
+  }
+
+  @Override
+  public String getImapAuthUser() throws RemoteException
+  {
+    return (String) getAttribute("imap_auth_user");
+  }
+
+  @Override
+  public void setImapAuthUser(String imap_auth_user) throws RemoteException
+  {
+    setAttribute("imap_auth_user", imap_auth_user);
+
+  }
+
+  @Override
+  public String getImapAuthPwd() throws RemoteException
+  {
+    return (String) getAttribute("imap_auth_pwd");
+  }
+
+  @Override
+  public void setImapAuthPwd(String imap_auth_pwd) throws RemoteException
+  {
+    setAttribute("imap_auth_pwd", imap_auth_pwd);
+
+  }
+
+  @Override
+  public String getImapHost() throws RemoteException
+  {
+    return (String) getAttribute("imap_host");
+  }
+
+  @Override
+  public void setImapHost(String imap_host) throws RemoteException
+  {
+    setAttribute("imap_host", imap_host);
+  }
+
+  @Override
+  public String getImapPort() throws RemoteException
+  {
+    return (String) getAttribute("imap_port");
+  }
+
+  @Override
+  public void setImapPort(String imap_port) throws RemoteException
+  {
+    setAttribute("imap_port", imap_port);
+
+  }
+
+  @Override
+  public Boolean getImapSsl() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("imap_ssl"));
+  }
+
+  @Override
+  public void setImapSsl(Boolean imap_ssl) throws RemoteException
+  {
+    setAttribute("imap_ssl", imap_ssl);
+  }
+
+  @Override
+  public Boolean getImapStartTls() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("imap_starttls"));
+  }
+
+  @Override
+  public void setImapStartTls(Boolean imap_starttls) throws RemoteException
+  {
+    setAttribute("imap_starttls", imap_starttls);
+  }
+
+  @Override
+  public String getImapSentFolder() throws RemoteException
+  {
+    String folder = (String) getAttribute("imap_sent_folder");
+    if (folder == null || folder.isEmpty())
+    {
+      folder = "Sent";
+    }
+    return folder;
+  }
+
+  @Override
+  public void setImapSentFolder(String imap_sent_folder) throws RemoteException
+  {
+    setAttribute("imap_sent_folder", imap_sent_folder);
+  }
+
+  @Override
   public int getZahlungsrhytmus() throws RemoteException
   {
     try

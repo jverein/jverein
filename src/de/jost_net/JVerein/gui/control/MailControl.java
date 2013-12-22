@@ -416,7 +416,7 @@ public class MailControl extends AbstractControl
       public void run(ProgressMonitor monitor)
       {
         try
-        {
+        {	
           MailSender sender = new MailSender(
               Einstellungen.getEinstellung().getSmtpServer(),
               Einstellungen.getEinstellung().getSmtpPort(),
@@ -424,8 +424,11 @@ public class MailControl extends AbstractControl
               Einstellungen.getEinstellung().getSmtpAuthPwd(),
               Einstellungen.getEinstellung().getSmtpFromAddress(),
               Einstellungen.getEinstellung().getSmtpFromAnzeigename(),
+              Einstellungen.getEinstellung().getMailAlwaysBcc(),
+              Einstellungen.getEinstellung().getMailAlwaysCc(),
               Einstellungen.getEinstellung().getSmtpSsl(),
-              Einstellungen.getEinstellung().getSmtpStarttls());
+              Einstellungen.getEinstellung().getSmtpStarttls(),
+              Einstellungen.getImapCopyData());
 
           Velocity.init();
           Logger.debug("preparing velocity context");
