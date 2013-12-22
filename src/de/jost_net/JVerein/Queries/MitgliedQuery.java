@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -27,13 +22,15 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.input.MailAuswertungInput;
+import de.jost_net.JVerein.gui.util.EigenschaftenUtil;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Eigenschaft;
+import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -211,22 +208,22 @@ public class MitgliedQuery
     }
     String eigenschaften = "";
     eigenschaften = control.getEigenschaftenString();
-    if (eigenschaften != null && eigenschaften.length() > 0)
+    EigenschaftenUtil eiu = new EigenschaftenUtil(eigenschaften);
+    for (EigenschaftGruppe eg : eiu.getGruppen())
     {
       StringBuilder condEigenschaft = new StringBuilder(
           "(select count(*) from eigenschaften where ");
-      StringTokenizer st = new StringTokenizer(eigenschaften, ",");
-      condEigenschaft.append("eigenschaften.mitglied = mitglied.id AND (");
       boolean first = true;
-      while (st.hasMoreTokens())
+      condEigenschaft.append("eigenschaften.mitglied = mitglied.id AND (");
+      for (Eigenschaft ei : eiu.get(eg))
       {
         if (!first)
         {
           condEigenschaft.append("OR ");
         }
-        st.nextToken();
         first = false;
         condEigenschaft.append("eigenschaft = ? ");
+        bedingungen.add(ei.getID());
       }
       condEigenschaft.append(")) > 0 ");
       addCondition(condEigenschaft.toString());
@@ -241,42 +238,60 @@ public class MitgliedQuery
     if (control.getGeburtsdatumvon().getValue() != null)
     {
       addCondition("geburtsdatum >= ?");
+      Date d = (Date) control.getGeburtsdatumvon().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (control.getGeburtsdatumbis().getValue() != null)
     {
       addCondition("geburtsdatum <= ?");
+      Date d = (Date) control.getGeburtsdatumbis().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
     }
 
     if (batch && control.getSterbedatumvon().getValue() != null)
     {
       addCondition("sterbetag >= ?");
+      Date d = (Date) control.getSterbedatumvon().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (batch && control.getSterbedatumbis().getValue() != null)
     {
       addCondition("sterbetag <= ?");
+      Date d = (Date) control.getSterbedatumbis().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (control.getGeschlecht().getText() != null
         && !control.getGeschlecht().getText().equals("Bitte auswählen"))
     {
       addCondition("geschlecht = ?");
+      String g = (String) control.getGeschlecht().getValue();
+      bedingungen.add(g);
     }
     if (control.getEintrittvon().getValue() != null)
     {
       addCondition("eintritt >= ?");
+      Date d = (Date) control.getEintrittvon().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (control.getEintrittbis().getValue() != null)
     {
       addCondition("eintritt <= ?");
+      Date d = (Date) control.getEintrittbis().getValue();
+      bedingungen.add(new java.sql.Date(d.getTime()));
     }
     if (control.isAustrittbisAktiv())
     {
       if (control.getAustrittvon().getValue() != null)
       {
         addCondition("austritt >= ?");
+        Date d = (Date) control.getAustrittvon().getValue();
+        bedingungen.add(new java.sql.Date(d.getTime()));
       }
       if (control.getAustrittbis().getValue() != null)
       {
         addCondition("austritt <= ?");
+        Date d = (Date) control.getAustrittbis().getValue();
+        bedingungen.add(new java.sql.Date(d.getTime()));
       }
       if (control.getSterbedatumvon() == null
           && control.getSterbedatumbis() == null
@@ -300,7 +315,8 @@ public class MitgliedQuery
         // Workaround für einen Bug in IntegerInput
       }
     }
-    Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw().getValue();
+    Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
+        .getValue();
     if (bg != null)
     {
       addCondition("beitragsgruppe = ? ");
@@ -329,7 +345,6 @@ public class MitgliedQuery
 
     ResultSetExtractor rs = new ResultSetExtractor()
     {
-
       @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
@@ -343,60 +358,6 @@ public class MitgliedQuery
       }
     };
 
-    if (eigenschaften != null && eigenschaften.length() > 0)
-    {
-      StringTokenizer st = new StringTokenizer(eigenschaften, ",");
-      while (st.hasMoreTokens())
-      {
-        bedingungen.add(st.nextToken());
-      }
-    }
-    if (control.getGeburtsdatumvon().getValue() != null)
-    {
-      Date d = (Date) control.getGeburtsdatumvon().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (control.getGeburtsdatumbis().getValue() != null)
-    {
-      Date d = (Date) control.getGeburtsdatumbis().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (batch && control.getSterbedatumvon().getValue() != null)
-    {
-      Date d = (Date) control.getSterbedatumvon().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (batch && control.getSterbedatumbis().getValue() != null)
-    {
-      Date d = (Date) control.getSterbedatumbis().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (control.getGeschlecht().getText() != null
-        && !control.getGeschlecht().getText().equals("Bitte auswählen"))
-    {
-      String g = (String) control.getGeschlecht().getValue();
-      bedingungen.add(g);
-    }
-    if (control.getEintrittvon().getValue() != null)
-    {
-      Date d = (Date) control.getEintrittvon().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (control.getEintrittbis().getValue() != null)
-    {
-      Date d = (Date) control.getEintrittbis().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (control.getAustrittvon().getValue() != null)
-    {
-      Date d = (Date) control.getAustrittvon().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
-    if (control.getAustrittbis().getValue() != null)
-    {
-      Date d = (Date) control.getAustrittbis().getValue();
-      bedingungen.add(new java.sql.Date(d.getTime()));
-    }
     try
     {
       if (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
@@ -413,7 +374,8 @@ public class MitgliedQuery
     {
       bedingungen.add(new Integer(bg.getID()));
     }
-    return (ArrayList<Mitglied>) service.execute(sql, bedingungen.toArray(), rs);
+    return (ArrayList<Mitglied>) service
+        .execute(sql, bedingungen.toArray(), rs);
   }
 
   private void addCondition(String condition)
