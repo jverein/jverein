@@ -1424,6 +1424,10 @@ public class JVereinUpdateProvider
     {
       update0355(conn);
     }
+    if (cv < 356)
+    {
+      update0356(conn);
+    }
     // TODO
   }
 
@@ -8353,6 +8357,42 @@ public class JVereinUpdateProvider
     statements.put(DBSupportMySqlImpl.class.getName(), sql);
 
     execute(conn, statements, "Unique-Index f. Beitragsgruppe eingefügt", 355);
+  }
+
+  private void update0356(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    sb = new StringBuilder();
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "mail_always_bcc"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "mail_always_cc"));
+
+    sb.append(String.format("ALTER TABLE einstellung ADD %s boolean;\n",
+        "copy_to_imap_folder"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s boolean;\n",
+        "imap_ssl"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s boolean;\n",
+        "imap_starttls"));
+
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "imap_auth_user"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "imap_auth_pwd"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "imap_host"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "imap_port"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s VARCHAR(140);\n",
+        "imap_sent_folder"));
+
+    String statement = sb.toString();
+
+    statements.put(DBSupportH2Impl.class.getName(), statement);
+    statements.put(DBSupportMySqlImpl.class.getName(), statement);
+
+    execute(conn, statements,
+        "Einstellungen für Cc, Bcc und IMAP sent aufgenommen.", 356);
   }
 
   private String alterColumn(String table, String column, String type)
