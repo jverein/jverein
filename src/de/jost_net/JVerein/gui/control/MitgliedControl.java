@@ -32,6 +32,7 @@ import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
@@ -112,6 +113,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
@@ -131,6 +133,7 @@ import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.parts.TreePart;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.system.Application;
@@ -174,6 +177,8 @@ public class MitgliedControl extends AbstractControl
   private GeschlechtInput geschlecht;
 
   private SelectInput zahlungsweg;
+
+  private LabelGroup bankverbindungLabelGroup;
 
   private SelectInput zahlungsrhytmus;
 
@@ -699,12 +704,85 @@ public class MitgliedControl extends AbstractControl
       @Override
       public void handleEvent(Event event)
       {
-        Zahlungsweg z = (Zahlungsweg) zahlungsweg.getValue();
-        blz.setMandatory(z.getKey() == Zahlungsweg.BASISLASTSCHRIFT);
-        konto.setMandatory(z.getKey() == Zahlungsweg.BASISLASTSCHRIFT);
+        if (event != null && event.type == SWT.Selection)
+        {
+          Zahlungsweg zahlungswegValue = (Zahlungsweg) zahlungsweg.getValue();
+          boolean isLastschrift = zahlungswegValue.getKey() == Zahlungsweg.BASISLASTSCHRIFT;
+
+          // Optimalerweise mit Prüfung auf zahlungsweg.hasChanged() und
+          // zahlungsweg.getOldValue == BASISLASTSCHRIFT
+          // Allerdings funktioniert hasChanged erst beim zweiten Aufruf, und
+          // getOldValue gibt es in Jameica nicht.
+          if (!isLastschrift)
+          {
+            YesNoDialog dialog = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+            dialog.setTitle("Bankverbindungsdaten");
+            dialog
+                .setText("Die Bankverbindung wird beim gewählten Zahlungsweg nicht benötigt.\n"
+                    + "Sollen eventuell vorhandene Werte gelöscht werden?");
+            boolean delete = false;
+            try
+            {
+              delete = ((Boolean) dialog.open()).booleanValue();
+            }
+            catch (Exception e)
+            {
+              Logger.error("Fehler beim Bankverbindung-Löschen-Dialog.");
+            }
+            if (delete)
+            {
+              deleteBankverbindung();
+            }
+          }
+
+          if (bankverbindungLabelGroup != null)
+          {
+            bankverbindungLabelGroup.getComposite().setVisible(isLastschrift);
+          }
+        }
       }
     });
     return zahlungsweg;
+  }
+
+  // Lösche alle Daten aus der Bankverbindungsmaske
+  private void deleteBankverbindung()
+  {
+    if (zahlungsrhytmus != null)
+    {
+      zahlungsrhytmus.setValue(null);
+    }
+
+    mandatid.setValue(null);
+    mandatdatum.setValue(null);
+    mandatdatum.setValue(null);
+    mandatversion.setValue(null);
+    mandatsequence.setValue(null);
+    letztelastschrift.setValue(null);
+    bic.setValue(null);
+    iban.setValue(null);
+    blz.setValue(null);
+    konto.setValue(null);
+    ktoipersonenart.setValue(null);
+    ktoianrede.setValue(null);
+    ktoititel.setValue(null);
+    ktoiname.setValue(null);
+    ktoivorname.setValue(null);
+    ktoistrasse.setValue(null);
+    ktoiadressierungszusatz.setValue(null);
+    ktoiplz.setValue(null);
+    ktoiort.setValue(null);
+    ktoistaat.setValue(null);
+    ktoiemail.setValue(null);
+  }
+
+  public LabelGroup getBankverbindungLabelGroup(Composite parent)
+  {
+    if (bankverbindungLabelGroup == null)
+    {
+      bankverbindungLabelGroup = new LabelGroup(parent, "Bankverbindung");
+    }
+    return bankverbindungLabelGroup;
   }
 
   public SelectInput getZahlungsrhytmus() throws RemoteException
