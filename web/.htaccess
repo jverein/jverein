@@ -1,4 +1,0 @@
-Options +Includes
-DirectoryIndex index.php index.php5
-AddType application/x-httpd-php .php .php3 .php4 .php5
-
