@@ -49,6 +49,7 @@ import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.jost_net.JVerein.gui.util.SimpleVerticalContainer;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.MitgliedDokument;
@@ -433,17 +434,29 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       throws RemoteException
   {
     Container container = getTabOrLabelContainer(parentComposite, "Zahlung");
-    SimpleVerticalContainer cols = new SimpleVerticalContainer(
-        container.getComposite(), true, spaltenanzahl);
+    GridLayout layout = new GridLayout(1, false);
+    container.getComposite().setLayout(layout);
+
+    LabelGroup zahlungsweg = new LabelGroup(container.getComposite(),
+        "Zahlungsweg");
 
     if (isMitgliedDetail())
     {
-      cols.addInput(control.getZahlungsweg());
+      zahlungsweg.addInput(control.getZahlungsweg());
       if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
       {
-        cols.addInput(control.getZahlungsrhytmus());
+        zahlungsweg.addInput(control.getZahlungsrhytmus());
       }
     }
+
+    LabelGroup bankverbindung = control.getBankverbindungLabelGroup(container.getComposite());
+    bankverbindung
+        .getComposite()
+        .setVisible(
+            ((Zahlungsweg) control.getZahlungsweg().getValue()).getKey() == Zahlungsweg.BASISLASTSCHRIFT);
+
+    SimpleVerticalContainer cols = new SimpleVerticalContainer(
+        bankverbindung.getComposite(), true, spaltenanzahl);
 
     cols.addInput(control.getMandatID());
     cols.addInput(control.getMandatDatum());
