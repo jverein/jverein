@@ -727,7 +727,7 @@ public class MitgliedControl extends AbstractControl
             }
             catch (Exception e)
             {
-              Logger.error("Fehler beim Bankverbindung-Löschen-Dialog.");
+              Logger.error("Fehler beim Bankverbindung-Löschen-Dialog.", e);
             }
             if (delete)
             {
@@ -748,32 +748,35 @@ public class MitgliedControl extends AbstractControl
   // Lösche alle Daten aus der Bankverbindungsmaske
   private void deleteBankverbindung()
   {
-    if (zahlungsrhytmus != null)
+    try
     {
-      zahlungsrhytmus.setValue(null);
+      getZahlungsrhytmus().setValue(new Zahlungsrhytmus(
+          Einstellungen.getEinstellung().getZahlungsrhytmus()));
+      getMandatID().setValue(null);
+      getMandatDatum().setValue(null);
+      getMandatVersion().setValue(null);
+      getMandatSequence().setValue(null);
+      getLetzteLastschrift().setValue(null);
+      getBic().setValue(null);
+      getIban().setValue(null);
+      getBlz().setValue(null);
+      getKonto().setValue(null);
+      getKtoiPersonenart().setValue(null);
+      getKtoiAnrede().setValue(null);
+      getKtoiTitel().setValue(null);
+      getKtoiName().setValue(null);
+      getKtoiVorname().setValue(null);
+      getKtoiStrasse().setValue(null);
+      getKtoiAdressierungszusatz().setValue(null);
+      getKtoiPlz().setValue(null);
+      getKtoiOrt().setValue(null);
+      getKtoiStaat().setValue(null);
+      getKtoiEmail().setValue(null);
     }
-
-    mandatid.setValue(null);
-    mandatdatum.setValue(null);
-    mandatdatum.setValue(null);
-    mandatversion.setValue(null);
-    mandatsequence.setValue(null);
-    letztelastschrift.setValue(null);
-    bic.setValue(null);
-    iban.setValue(null);
-    blz.setValue(null);
-    konto.setValue(null);
-    ktoipersonenart.setValue(null);
-    ktoianrede.setValue(null);
-    ktoititel.setValue(null);
-    ktoiname.setValue(null);
-    ktoivorname.setValue(null);
-    ktoistrasse.setValue(null);
-    ktoiadressierungszusatz.setValue(null);
-    ktoiplz.setValue(null);
-    ktoiort.setValue(null);
-    ktoistaat.setValue(null);
-    ktoiemail.setValue(null);
+    catch (Exception e)
+    {
+      Logger.error("Fehler beim Leeren der Bankverbindungsdaten", e);
+    }
   }
 
   public LabelGroup getBankverbindungLabelGroup(Composite parent)
