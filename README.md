@@ -28,7 +28,7 @@ Entwicklungsumgebung
 Für die JVerein Entwicklung werden benötigt
 
 - Eclipse 
-- JDK 1.6 oder JDK 1.7
+- JDK 1.7
 
 Build und Test
 --------------
