@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -319,18 +314,6 @@ public class BuchungsControl extends AbstractControl
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
     this.datum.setText("Bitte Datum wählen");
-    this.datum.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) datum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return datum;
   }
 

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -23,9 +18,6 @@ package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
 import java.util.Date;
-
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.LehrgangsartAction;
@@ -107,19 +99,6 @@ public class LehrgangsartControl extends AbstractControl
     this.von = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.von.setTitle("von/am");
     this.von.setText("Bitte Beginn oder Tag der Veranstaltung wählen");
-    this.von.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) von.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return von;
   }
 
@@ -137,19 +116,6 @@ public class LehrgangsartControl extends AbstractControl
     this.bis = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.bis.setTitle("bis");
     this.bis.setText("Bitte Ende der Veranstaltung wählen");
-    this.bis.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) bis.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return bis;
   }
 

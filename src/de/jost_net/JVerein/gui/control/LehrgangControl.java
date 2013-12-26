@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -127,7 +122,7 @@ public class LehrgangControl extends AbstractControl
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
-       }
+        }
       }
     });
     return lehrgangsart;
@@ -145,19 +140,6 @@ public class LehrgangControl extends AbstractControl
     this.von = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.von.setTitle("Datum");
     this.von.setText("Bitte (Beginn-)Datum wählen");
-    this.von.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) von.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return von;
   }
 
@@ -173,19 +155,6 @@ public class LehrgangControl extends AbstractControl
     this.bis = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.bis.setTitle("Datum");
     this.bis.setText("Bitte Ende-Datum wählen");
-    this.bis.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) bis.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return bis;
   }
 
@@ -255,19 +224,6 @@ public class LehrgangControl extends AbstractControl
     this.datumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datumvon.setTitle("Datum von");
     this.datumvon.setText("Datum von");
-    this.datumvon.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) datumvon.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     datumvon.addListener(new FilterListener());
     return datumvon;
   }
@@ -294,19 +250,6 @@ public class LehrgangControl extends AbstractControl
     this.datumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datumbis.setTitle("Datum bis");
     this.datumbis.setText("Datum bis");
-    this.datumbis.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) datumbis.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     datumbis.addListener(new FilterListener());
     return datumbis;
   }

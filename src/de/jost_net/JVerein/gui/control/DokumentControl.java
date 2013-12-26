@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -29,9 +24,6 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.menu.DokumentMenu;
@@ -107,19 +99,6 @@ public class DokumentControl extends AbstractControl
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
     this.datum.setText("Bitte Datum wählen");
-    this.datum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) datum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return datum;
   }
 
@@ -201,8 +180,8 @@ public class DokumentControl extends AbstractControl
       // Dokument speichern
       String locverz = verzeichnis + doc.getReferenz();
       QueryMessage qm = new QueryMessage(locverz, fis);
-      Application.getMessagingFactory().getMessagingQueue(
-          "jameica.messaging.put").sendSyncMessage(qm);
+      Application.getMessagingFactory()
+          .getMessagingQueue("jameica.messaging.put").sendSyncMessage(qm);
       // Satz in die DB schreiben
       doc.setBemerkung((String) getBemerkung().getValue());
       String uuid = qm.getData().toString();
@@ -213,8 +192,8 @@ public class DokumentControl extends AbstractControl
       Map<String, String> map = new HashMap<String, String>();
       map.put("filename", file.getName());
       qm = new QueryMessage(uuid, map);
-      Application.getMessagingFactory().getMessagingQueue(
-          "jameica.messaging.putmeta").sendMessage(qm);
+      Application.getMessagingFactory()
+          .getMessagingQueue("jameica.messaging.putmeta").sendMessage(qm);
       speichernButton.setEnabled(false);
       GUI.getStatusBar().setSuccessText("Dokument gespeichert");
     }
@@ -232,7 +211,7 @@ public class DokumentControl extends AbstractControl
   {
     DBService service = Einstellungen.getDBService();
     DBIterator docs = service.createList(doc.getClass());
-    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz()});
+    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz() });
     docs.setOrder("ORDER BY datum desc");
 
     docsList = new TablePart(docs, null /* new KontoAction() */);
@@ -250,7 +229,7 @@ public class DokumentControl extends AbstractControl
   {
     docsList.removeAll();
     DBIterator docs = Einstellungen.getDBService().createList(doc.getClass());
-    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz()});
+    docs.addFilter("referenz = ?", new Object[] { doc.getReferenz() });
     docs.setOrder("ORDER BY datum desc");
     while (docs.hasNext())
     {

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -33,9 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Listener;
 import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
@@ -127,19 +120,6 @@ public class ArbeitseinsatzControl extends AbstractControl
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
     this.datum.setText("Datum Arbeitseinsatz wählen");
-    this.datum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) datum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return datum;
   }
 

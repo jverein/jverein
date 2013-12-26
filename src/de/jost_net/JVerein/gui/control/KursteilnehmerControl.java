@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -317,19 +312,6 @@ public class KursteilnehmerControl extends AbstractControl
     this.mandatdatum.setTitle("Datum des Mandats");
     this.mandatdatum.setName("Datum des Mandats");
     this.mandatdatum.setText("Bitte Datum des Mandats wählen");
-    this.mandatdatum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) mandatdatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     mandatdatum.setName("Datum des Mandats");
     return mandatdatum;
   }
@@ -406,19 +388,6 @@ public class KursteilnehmerControl extends AbstractControl
     this.geburtsdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.geburtsdatum.setTitle("Geburtsdatum");
     this.geburtsdatum.setText(("Bitte Geburtsdatum wählen"));
-    this.geburtsdatum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) geburtsdatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     this.geburtsdatum.setMandatory(true);
     return geburtsdatum;
   }
@@ -470,19 +439,6 @@ public class KursteilnehmerControl extends AbstractControl
     this.eingabedatumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.eingabedatumvon.setTitle("Eingabedatum");
     this.eingabedatumvon.setText("Beginn des Eingabe-Zeitraumes");
-    this.eingabedatumvon.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) eingabedatumvon.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     eingabedatumvon.addListener(new FilterListener());
     return eingabedatumvon;
   }
@@ -509,19 +465,6 @@ public class KursteilnehmerControl extends AbstractControl
     this.eingabedatumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.eingabedatumbis.setTitle("Eingabedatum");
     this.eingabedatumbis.setText("Ende des Eingabe-Zeitraumes");
-    this.eingabedatumbis.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) eingabedatumbis.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     eingabedatumbis.addListener(new FilterListener());
     return eingabedatumbis;
   }
@@ -548,19 +491,6 @@ public class KursteilnehmerControl extends AbstractControl
     this.abbuchungsdatumvon = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.abbuchungsdatumvon.setTitle("Abbuchungsdatum");
     this.abbuchungsdatumvon.setText("Beginn des Abbuchungszeitraumes");
-    this.abbuchungsdatumvon.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) abbuchungsdatumvon.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return abbuchungsdatumvon;
   }
 
@@ -586,19 +516,6 @@ public class KursteilnehmerControl extends AbstractControl
     this.abbuchungsdatumbis = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.abbuchungsdatumbis.setTitle("Abbuchungsdatum");
     this.abbuchungsdatumbis.setText("Ende des Abbuchungszeitraumes");
-    this.abbuchungsdatumbis.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) abbuchungsdatumbis.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return abbuchungsdatumbis;
   }
 

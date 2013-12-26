@@ -126,18 +126,6 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.stichtag = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.stichtag.setTitle("Stichtag für die Abrechnung");
     this.stichtag.setText("Bitte Stichtag für die Abrechnung wählen");
-    this.stichtag.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) stichtag.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     this.stichtag.setComment("*)");
     return stichtag;
   }
@@ -155,18 +143,6 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
     this.faelligkeit1
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Erst+einmalig) wählen");
-    this.faelligkeit1.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) faelligkeit1.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return faelligkeit1;
   }
 
@@ -183,18 +159,6 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
     this.faelligkeit2
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Folge) wählen");
-    this.faelligkeit2.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) faelligkeit2.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return faelligkeit2;
   }
 
@@ -209,18 +173,6 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.vondatum.setTitle("Anfangsdatum Abrechnung");
     this.vondatum.setText("Bitte Anfangsdatum der Abrechnung wählen");
     this.vondatum.setEnabled(false);
-    this.vondatum.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) vondatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return vondatum;
   }
 
