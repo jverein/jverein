@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -21,6 +16,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Date;
 
@@ -36,6 +32,7 @@ import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.security.Wallet;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -57,10 +54,31 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
    */
   private Settings settings;
 
+  /**
+   * Verschlüsselte Datei für besonders sensible Daten (Passwörter)
+   */
+  private Wallet wallet = null;
+
+  /**
+   * Passwort zwischenspeichern, erst bei store() ins Wallet schreiben
+   */
+  private String imap_auth_pwd = null;
+
+  private String smtp_auth_pwd = null;
+
   public EinstellungImpl() throws RemoteException
   {
     super();
     settings = new Settings(this.getClass());
+    try
+    {
+      wallet = new Wallet(this.getClass());
+    }
+    catch (Exception e)
+    {
+      Logger.error("Erstellen des Wallet-Objekts fehlgeschlagen");
+    }
+
   }
 
   @Override
@@ -824,13 +842,29 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public String getSmtpAuthPwd() throws RemoteException
   {
-    return (String) getAttribute("smtp_auth_pwd");
+    if (this.smtp_auth_pwd == null)
+    {
+      try
+      {
+        Serializable pwd = wallet.get("smtp_auth_pwd");
+        if (pwd != null && pwd instanceof String)
+        {
+          this.smtp_auth_pwd = (String) pwd;
+        }
+      }
+      catch (Exception e)
+      {
+        Logger.error("Fehler beim Auslesen des SMTP-Passworts aus dem Wallet",
+            e);
+      }
+    }
+    return this.smtp_auth_pwd;
   }
 
   @Override
   public void setSmtpAuthPwd(String smtp_auth_pwd) throws RemoteException
   {
-    setAttribute("smtp_auth_pwd", smtp_auth_pwd);
+    this.smtp_auth_pwd = smtp_auth_pwd;
   }
 
   @Override
@@ -941,14 +975,30 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public String getImapAuthPwd() throws RemoteException
   {
-    return (String) getAttribute("imap_auth_pwd");
+    if (imap_auth_pwd == null)
+    {
+      try
+      {
+        Serializable pwd = wallet.get("imap_auth_pwd");
+        if (pwd != null && pwd instanceof String)
+        {
+          this.imap_auth_pwd = (String) pwd;
+        }
+      }
+      catch (Exception e)
+      {
+        Logger.error("Fehler beim Auslesen des IMAP-Passworts aus dem Wallet",
+            e);
+      }
+    }
+
+    return imap_auth_pwd;
   }
 
   @Override
   public void setImapAuthPwd(String imap_auth_pwd) throws RemoteException
   {
-    setAttribute("imap_auth_pwd", imap_auth_pwd);
-
+    this.imap_auth_pwd = imap_auth_pwd;
   }
 
   @Override
@@ -1437,6 +1487,26 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute(COL_SEPA_MANDANTID_SOURCE, sepaMandatIdSource);
+  }
+
+  @Override
+  public void store() throws RemoteException, ApplicationException
+  {
+    try
+    {
+      wallet.set("smtp_auth_pwd", smtp_auth_pwd);
+      wallet.set("imap_auth_pwd", imap_auth_pwd);
+    }
+    catch (Exception e)
+    {
+      Logger.error("Speichern der Mail-Passwörter im Wallet fehlgeschlagen.");
+      throw new ApplicationException(
+          "Speichern der Mail-Passwörter im Wallet fehlgeschlagen.", e);
+    }
+    // Es kann passieren, dass das DB-Speichern fehlschlägt. Dann wäre das
+    // Wallet gespeichert, die DB-Werte aber nicht. Risiko wird eingegangen, da
+    // das Abfangen alles nur komplexer macht und die Auswirkung gering ist.
+    super.store();
   }
 
 }

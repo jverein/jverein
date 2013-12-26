@@ -32,6 +32,7 @@ import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.JVereinDBService;
+import de.willuhn.jameica.security.Wallet;
 import de.willuhn.logging.Logger;
 import de.willuhn.sql.ScriptExecutor;
 import de.willuhn.util.ApplicationException;
@@ -1431,6 +1432,10 @@ public class JVereinUpdateProvider
     if (cv < 357)
     {
       update0357(conn);
+    }
+    if (cv < 358)
+    {
+      update0358(conn);
     }
     // TODO
   }
@@ -8410,6 +8415,58 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Mitglied Vermerk1 und Vermerk2 Feldlänge auf 2000 verlängert", 357);
+  }
+
+  private void update0358(Connection conn) throws ApplicationException
+  {
+    String imapPwd = "";
+    String smtpPwd = "";
+    try
+    {
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt
+          .executeQuery("select imap_auth_pwd from einstellung;");
+      if (rs.next())
+      {
+        imapPwd = rs.getString(1);
+      }
+      stmt = conn.createStatement();
+      rs = stmt.executeQuery("select smtp_auth_pwd from einstellung;");
+      if (rs.next())
+      {
+        smtpPwd = rs.getString(1);
+      }
+    }
+    catch (SQLException e)
+    {
+      Logger
+          .error("Datenbankupdate 358: Auslesen der Emailpasswörter fehlgeschlagen. Fehler wird ignoriert, Passwörter in Einstellungsmaske bitte neu eingeben.");
+    }
+
+    try
+    {
+      Wallet wallet = new Wallet(EinstellungImpl.class);
+      wallet.set("imap_auth_pwd", imapPwd);
+      wallet.set("smtp_auth_pwd", smtpPwd);
+    }
+    catch (Exception e)
+    {
+      Logger
+          .error("Datenbankupdate 358: Speichern der Emailpasswörter in Wallet fehlgeschlagen.");
+    }
+
+    Map<String, String> statements = new HashMap<String, String>();
+    sb = new StringBuilder();
+    sb.append("ALTER TABLE einstellung DROP imap_auth_pwd;\n");
+    sb.append("ALTER TABLE einstellung DROP smtp_auth_pwd;\n");
+    statements.put(DBSupportH2Impl.class.getName(), sb.toString());
+    statements.put(DBSupportMySqlImpl.class.getName(), sb.toString());
+
+    execute(
+        conn,
+        statements,
+        "Spalten imap_auth_pwd und smtp_auth_pwd aus Tabelle einstellung entfernt",
+        358);
   }
 
   private String alterColumn(String table, String column, String type)
