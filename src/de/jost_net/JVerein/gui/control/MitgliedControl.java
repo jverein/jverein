@@ -908,6 +908,24 @@ public class MitgliedControl extends AbstractControl
     }
     mandatversion = new SpinnerInput(0, 1000, getMitglied().getMandatVersion());
     mandatversion.setName("Mandatsversion");
+    mandatversion.addListener(new Listener()
+    {
+      @Override
+      public void handleEvent(Event event)
+      {
+        try
+        {
+          getMitglied().setMandatVersion(
+              (Integer) getMandatVersion().getValue());
+          mandatid.setValue(getMitglied().getMandatID());
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+
+      }
+    });
     return mandatversion;
   }
 
