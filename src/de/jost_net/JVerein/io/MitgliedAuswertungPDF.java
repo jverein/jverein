@@ -234,12 +234,6 @@ public class MitgliedAuswertungPDF implements IAuswertung
         {
           zelle += "\n" + new JVDateFormatTTMMJJJJ().format(m.getSterbetag());
         }
-        if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
-        {
-          zelle += "\n"
-              + (m.getExterneMitgliedsnummer() != null ? m
-                  .getExterneMitgliedsnummer() : "");
-        }
         if (adresstyp.getJVereinid() == 1)
         {
           report.addColumn(zelle, Element.ALIGN_LEFT);
