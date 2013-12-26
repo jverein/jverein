@@ -190,7 +190,9 @@ public class MitgliedQuery
     {
       if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
       {
+        addCondition("(eintritt is null or eintritt <= ?)");
         addCondition("(austritt is null or austritt > ?)");
+        bedingungen.add(control.getStichtag(false).getValue());
         bedingungen.add(control.getStichtag(false).getValue());
       }
       else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
