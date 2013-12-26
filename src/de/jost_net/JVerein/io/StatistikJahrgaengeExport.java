@@ -56,7 +56,7 @@ public abstract class StatistikJahrgaengeExport implements Exporter
     this.file = file;
     statistik = new TreeMap<String, StatistikJahrgang>();
     MitgliedControl control = (MitgliedControl) objects[0];
-    stichtag = (Date) control.getStichtag().getValue();
+    stichtag = (Date) control.getStichtag(true).getValue();
     /*
      * Teil 1: natürliche Personen
      */

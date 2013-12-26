@@ -190,11 +190,13 @@ public class MitgliedQuery
     {
       if (control.getMitgliedStatus().getValue().equals("Angemeldet"))
       {
-        addCondition("(austritt is null or austritt > current_date())");
+        addCondition("(austritt is null or austritt > ?)");
+        bedingungen.add(control.getStichtag(false).getValue());
       }
       else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
       {
-        addCondition("austritt is not null and austritt <= current_date()");
+        addCondition("austritt is not null and austritt <= ?");
+        bedingungen.add(control.getStichtag(false).getValue());
       }
     }
     int mailauswahl = (Integer) control.getMailauswahl().getValue();

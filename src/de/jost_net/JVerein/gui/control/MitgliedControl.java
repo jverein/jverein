@@ -2236,31 +2236,23 @@ public class MitgliedControl extends AbstractControl
     return suchname;
   }
 
-  public DateInput getStichtag()
+  public DateInput getStichtag(boolean jahresende)
   {
     if (stichtag != null)
     {
       return stichtag;
     }
-    Calendar cal = Calendar.getInstance();
-    cal.set(Calendar.MONTH, Calendar.DECEMBER);
-    cal.set(Calendar.DAY_OF_MONTH, 31);
-    Date d = new Date(cal.getTimeInMillis());
+    Date d = new Date();
+    if (jahresende)
+    {
+      Calendar cal = Calendar.getInstance();
+      cal.set(Calendar.MONTH, Calendar.DECEMBER);
+      cal.set(Calendar.DAY_OF_MONTH, 31);
+      d = new Date(cal.getTimeInMillis());
+    }
     this.stichtag = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.stichtag.setTitle("Stichtag");
-    this.stichtag.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) stichtag.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
+    this.stichtag.setName("Stichtag");
     return stichtag;
   }
 

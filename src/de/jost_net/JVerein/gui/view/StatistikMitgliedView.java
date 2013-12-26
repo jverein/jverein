@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -39,7 +34,7 @@ public class StatistikMitgliedView extends AbstractView
     final MitgliedControl control = new MitgliedControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
-    group.addLabelPair("Stichtag", control.getStichtag());
+    group.addLabelPair("Stichtag", control.getStichtag(true));
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

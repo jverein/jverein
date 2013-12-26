@@ -89,6 +89,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     mitglgeschlecht.setMandatory(false);
     mitglgeschlecht.addListener(new FilterListener());
     middle.addLabelPair("Geschlecht", mitglgeschlecht);
+    middle.addLabelPair("Stichtag", control.getStichtag(false));
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
     DateInput mitgleintrittvon = control.getEintrittvon();

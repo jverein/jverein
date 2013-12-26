@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -46,21 +41,21 @@ public class AuswertungMitgliedView extends AbstractView
     LabelGroup group = new LabelGroup(getParent(), "Filter");
 
     ColumnLayout cl = new ColumnLayout(group.getComposite(), 3);
-    
+
     // left
     SimpleContainer left = new SimpleContainer(cl.getComposite());
     Input mitglstat = control.getMitgliedStatus();
     left.addInput(mitglstat);
     left.addInput(control.getEigenschaftenAuswahl());
     left.addInput(control.getBeitragsgruppeAusw());
-    
+
     if (Einstellungen.getEinstellung().hasZusatzfelder())
     {
       left.addInput(control.getZusatzfelderAuswahl());
-    }    
-    
+    }
+
     // middle
-    SimpleContainer middle = new SimpleContainer(cl.getComposite());    
+    SimpleContainer middle = new SimpleContainer(cl.getComposite());
     middle.addInput(control.getMailauswahl());
     middle.addInput(control.getGeburtsdatumvon());
     middle.addInput(control.getGeburtsdatumbis());
@@ -68,7 +63,7 @@ public class AuswertungMitgliedView extends AbstractView
     SelectInput inpGeschlecht = control.getGeschlecht();
     inpGeschlecht.setMandatory(false);
     middle.addInput(inpGeschlecht);
-    
+
     // right
     SimpleContainer right = new SimpleContainer(cl.getComposite());
     right.addInput(control.getEintrittvon());
@@ -76,25 +71,24 @@ public class AuswertungMitgliedView extends AbstractView
 
     right.addInput(control.getAustrittvon());
     right.addInput(control.getAustrittbis());
+    right.addInput(control.getStichtag(false));
 
     if (Einstellungen.getEinstellung().getSterbedatum())
     {
       right.addInput(control.getSterbedatumvon());
       right.addInput(control.getSterbedatumbis());
-    }  
+    }
 
-    
     // Zweite Gruppe: Ausgabe
     LabelGroup group2 = new LabelGroup(getParent(), "Ausgabe");
 
     ColumnLayout cl2 = new ColumnLayout(group2.getComposite(), 2);
     SimpleContainer left2 = new SimpleContainer(cl2.getComposite());
     SimpleContainer right2 = new SimpleContainer(cl2.getComposite());
-    
-    left2.addInput(control.getSortierung());
-    left2.addInput(control.getAuswertungUeberschrift());    
-    right2.addInput(control.getAusgabe());
 
+    left2.addInput(control.getSortierung());
+    left2.addInput(control.getAuswertungUeberschrift());
+    right2.addInput(control.getAusgabe());
 
     // Button-Bereich
     ButtonArea buttons = new ButtonArea();
