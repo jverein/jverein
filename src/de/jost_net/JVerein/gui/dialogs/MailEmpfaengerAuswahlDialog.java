@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -23,7 +18,6 @@
 package de.jost_net.JVerein.gui.dialogs;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -76,9 +70,9 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         try
         {
           EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog(null,
-              false);
-          ArrayList<EigenschaftenNode> auswahl = ead.open();
-          for (EigenschaftenNode node : auswahl)
+              false,true);
+          EigenschaftenAuswahlParameter param = ead.open();
+          for (EigenschaftenNode node : param.getEigenschaften())
           {
             DBIterator it = Einstellungen.getDBService().createList(
                 Eigenschaften.class);

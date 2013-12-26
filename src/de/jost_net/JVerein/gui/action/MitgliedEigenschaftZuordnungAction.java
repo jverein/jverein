@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -24,10 +19,10 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlParameter;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.EigenschaftenNode;
@@ -53,7 +48,7 @@ public class MitgliedEigenschaftZuordnungAction implements Action
     Mitglied[] m = null;
     if (context instanceof Mitglied)
     {
-      m = new Mitglied[] { (Mitglied) context};
+      m = new Mitglied[] { (Mitglied) context };
     }
     else if (context instanceof Mitglied[])
     {
@@ -63,14 +58,15 @@ public class MitgliedEigenschaftZuordnungAction implements Action
     int anzBereitsVorhanden = 0;
     try
     {
-      EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog("", true);
-      ArrayList<EigenschaftenNode> eigenschaft = ead.open();
-      for (EigenschaftenNode en : eigenschaft)
+      EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog("", true,
+          false);
+      EigenschaftenAuswahlParameter param = ead.open();
+      for (EigenschaftenNode en : param.getEigenschaften())
       {
         for (Mitglied mit : m)
         {
-          Eigenschaften eig = (Eigenschaften) Einstellungen.getDBService().createObject(
-              Eigenschaften.class, null);
+          Eigenschaften eig = (Eigenschaften) Einstellungen.getDBService()
+              .createObject(Eigenschaften.class, null);
           eig.setEigenschaft(en.getEigenschaft().getID());
           eig.setMitglied(mit.getID());
           try

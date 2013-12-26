@@ -209,13 +209,35 @@ public class MitgliedQuery
     String eigenschaften = "";
     eigenschaften = control.getEigenschaftenString();
     EigenschaftenUtil eiu = new EigenschaftenUtil(eigenschaften);
-    for (EigenschaftGruppe eg : eiu.getGruppen())
+    if (control.getEigenschaftenVerknuepfung().equals("und"))
+    {
+      for (EigenschaftGruppe eg : eiu.getGruppen())
+      {
+        StringBuilder condEigenschaft = new StringBuilder(
+            "(select count(*) from eigenschaften where ");
+        boolean first = true;
+        condEigenschaft.append("eigenschaften.mitglied = mitglied.id AND (");
+        for (Eigenschaft ei : eiu.get(eg))
+        {
+          if (!first)
+          {
+            condEigenschaft.append("OR ");
+          }
+          first = false;
+          condEigenschaft.append("eigenschaft = ? ");
+          bedingungen.add(ei.getID());
+        }
+        condEigenschaft.append(")) > 0 ");
+        addCondition(condEigenschaft.toString());
+      }
+    }
+    else
     {
       StringBuilder condEigenschaft = new StringBuilder(
           "(select count(*) from eigenschaften where ");
       boolean first = true;
       condEigenschaft.append("eigenschaften.mitglied = mitglied.id AND (");
-      for (Eigenschaft ei : eiu.get(eg))
+      for (Eigenschaft ei : eiu.getEigenschaften())
       {
         if (!first)
         {

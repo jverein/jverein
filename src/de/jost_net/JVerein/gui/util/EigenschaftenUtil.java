@@ -76,4 +76,9 @@ public class EigenschaftenUtil
     }
     return ret;
   }
+
+  public ArrayList<Eigenschaft> getEigenschaften()
+  {
+    return eigenschaftenList;
+  }
 }

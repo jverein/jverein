@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -30,6 +25,7 @@ import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.server.EigenschaftenNode;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TreePart;
 import de.willuhn.jameica.gui.util.LabelGroup;
@@ -39,28 +35,34 @@ import de.willuhn.logging.Logger;
  * Dialog, zur Auswahl von Eigenschaften eines Mitglied.
  */
 public class EigenschaftenAuswahlDialog extends
-    AbstractDialog<ArrayList<EigenschaftenNode>>
+    AbstractDialog<EigenschaftenAuswahlParameter>
 {
 
   private MitgliedControl control;
+
+  private SelectInput eigenschaftenverknuepfung;
 
   private String defaults = null;
 
   private boolean ohnePflicht;
 
-  private ArrayList<EigenschaftenNode> retval = new ArrayList<EigenschaftenNode>();
+  private boolean verknuepfung;
+
+  private EigenschaftenAuswahlParameter param;
 
   /**
    * Eigenschaften oder Eigenschaftengruppen auswählen
    * 
    * @param defaults
-   *        Liste der Eigenschaften-IDs durch Komma separiert.
+   *          Liste der Eigenschaften-IDs durch Komma separiert.
    */
-  public EigenschaftenAuswahlDialog(String defaults, boolean ohnePflicht)
+  public EigenschaftenAuswahlDialog(String defaults, boolean ohnePflicht,
+      boolean verknuepfung)
   {
     super(EigenschaftenAuswahlDialog.POSITION_CENTER);
     this.setSize(400, 400);
     this.ohnePflicht = ohnePflicht;
+    this.verknuepfung = verknuepfung;
     setTitle("Eigenschaften auswählen ");
     control = new MitgliedControl(null);
     this.setDefaults(defaults);
@@ -83,27 +85,32 @@ public class EigenschaftenAuswahlDialog extends
         ohnePflicht);
 
     LabelGroup group = new LabelGroup(parent, "Eigenschaften", true);
-
     group.addPart(tree);
-
-    ButtonArea buttons = new ButtonArea();
-    buttons.addButton(i18n.tr("OK"), new Action()
+    if (verknuepfung)
     {
-
+      group.addInput(getEigenschaftenVerknuepfung());
+    }
+    ButtonArea buttons = new ButtonArea();
+    buttons.addButton("OK", new Action()
+    {
       @Override
       public void handleAction(Object context)
       {
         try
         {
-          retval = new ArrayList<EigenschaftenNode>();
+          param = new EigenschaftenAuswahlParameter();
           ArrayList<?> checkednodes = (ArrayList<?>) tree.getItems();
           for (Object o : checkednodes)
           {
             EigenschaftenNode checkedNode = (EigenschaftenNode) o;
             if (checkedNode.getNodeType() == EigenschaftenNode.EIGENSCHAFTEN)
             {
-              retval.add(checkedNode);
+              param.add(checkedNode);
             }
+          }
+          if (verknuepfung)
+          {
+            param.setVerknuepfung((String) eigenschaftenverknuepfung.getValue());
           }
         }
         catch (RemoteException e)
@@ -117,8 +124,25 @@ public class EigenschaftenAuswahlDialog extends
   }
 
   @Override
-  protected ArrayList<EigenschaftenNode> getData()
+  protected EigenschaftenAuswahlParameter getData()
   {
-    return retval;
+    return param;
   }
+
+  private SelectInput getEigenschaftenVerknuepfung()
+  {
+    if (eigenschaftenverknuepfung != null
+        && !eigenschaftenverknuepfung.getControl().isDisposed())
+    {
+      return eigenschaftenverknuepfung;
+    }
+    ArrayList<String> werte = new ArrayList<String>();
+    werte.add("und");
+    werte.add("oder");
+    eigenschaftenverknuepfung = new SelectInput(werte,
+        control.getEigenschaftenVerknuepfung());
+    eigenschaftenverknuepfung.setName("Gruppen-Verknüpfung");
+    return eigenschaftenverknuepfung;
+  }
+
 }

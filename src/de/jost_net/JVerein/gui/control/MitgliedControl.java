@@ -49,6 +49,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
+import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlParameter;
 import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.input.BICInput;
@@ -339,6 +340,9 @@ public class MitgliedControl extends AbstractControl
   private int jjahr = 0;
 
   private TablePart beitragsTabelle;
+
+  // Zeitstempel merken, wann der Letzte refresh ausgeführt wurde.
+  private long lastrefresh = 0;
 
   public MitgliedControl(AbstractView view)
   {
@@ -750,8 +754,9 @@ public class MitgliedControl extends AbstractControl
   {
     try
     {
-      getZahlungsrhytmus().setValue(new Zahlungsrhytmus(
-          Einstellungen.getEinstellung().getZahlungsrhytmus()));
+      getZahlungsrhytmus().setValue(
+          new Zahlungsrhytmus(Einstellungen.getEinstellung()
+              .getZahlungsrhytmus()));
       getMandatID().setValue(null);
       getMandatDatum().setValue(null);
       getMandatVersion().setValue(null);
@@ -2278,7 +2283,7 @@ public class MitgliedControl extends AbstractControl
   {
     String tmp = settings.getString("mitglied.eigenschaften", "");
     final EigenschaftenAuswahlDialog d = new EigenschaftenAuswahlDialog(tmp,
-        false);
+        false, true);
     d.addCloseListener(new EigenschaftenListener());
 
     StringTokenizer stt = new StringTokenizer(tmp, ",");
@@ -2308,7 +2313,7 @@ public class MitgliedControl extends AbstractControl
       @Override
       public void handleEvent(Event event)
       {
-        d.setDefaults(settings.getString("mitglied.eigenschaften", "xxx"));
+        d.setDefaults(settings.getString("mitglied.eigenschaften", ""));
       }
     });
     return eigenschaftenabfrage;
@@ -2595,6 +2600,11 @@ public class MitgliedControl extends AbstractControl
 
   public TablePart refreshMitgliedTable(int atyp) throws RemoteException
   {
+    if (System.currentTimeMillis() - lastrefresh < 500)
+    {
+      return part;
+    }
+    lastrefresh = System.currentTimeMillis();
     saveDefaults();
     part.removeAll();
     ArrayList<Mitglied> mitglieder = new MitgliedQuery(this, false).get(atyp);
@@ -2806,6 +2816,11 @@ public class MitgliedControl extends AbstractControl
   public String getEigenschaftenString()
   {
     return settings.getString("mitglied.eigenschaften", "");
+  }
+
+  public String getEigenschaftenVerknuepfung()
+  {
+    return settings.getString("mitglied.eigenschaften.verknuepfung", "und");
   }
 
   public TreePart getEigenschaftenTree() throws RemoteException
@@ -3463,10 +3478,10 @@ public class MitgliedControl extends AbstractControl
       {
         return;
       }
-      ArrayList<Object> sel = (ArrayList<Object>) event.data;
+      EigenschaftenAuswahlParameter param = (EigenschaftenAuswahlParameter) event.data;
       StringBuilder id = new StringBuilder();
       StringBuilder text = new StringBuilder();
-      for (Object o : sel)
+      for (Object o : param.getEigenschaften())
       {
         if (text.length() > 0)
         {
@@ -3486,6 +3501,8 @@ public class MitgliedControl extends AbstractControl
       }
       eigenschaftenabfrage.setText(text.toString());
       settings.setAttribute("mitglied.eigenschaften", id.toString());
+      settings.setAttribute("mitglied.eigenschaften.verknuepfung",
+          param.getVerknuepfung());
     }
   }
 
