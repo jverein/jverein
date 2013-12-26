@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -27,6 +22,7 @@ import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeMap;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
@@ -35,6 +31,7 @@ import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.MitgliedControl;
+import de.jost_net.JVerein.gui.input.MailAuswertungInput;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Adresstyp;
@@ -56,6 +53,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
 
   private String subtitle = "";
 
+  private TreeMap<String, String> params;
+
   public MitgliedAuswertungPDF(MitgliedControl control)
   {
     this.control = control;
@@ -64,6 +63,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
   @Override
   public void beforeGo() throws RemoteException
   {
+    params = new TreeMap<>();
     this.adresstyp = (Adresstyp) control.getAdresstyp().getValue();
     if (adresstyp == null)
     {
@@ -71,76 +71,82 @@ public class MitgliedAuswertungPDF implements IAuswertung
       it.addFilter("jvereinid=1");
       adresstyp = (Adresstyp) it.next();
     }
-    subtitle = "";
+
     if (adresstyp.getJVereinid() == 1)
     {
-      if (control.getMitgliedStatus().getValue().equals(
-
-      "Abgemeldet"))
+      params.put("Status", (String) control.getMitgliedStatus().getValue());
+      String eig = control.getEigenschaftenAuswahl().getText();
+      if (eig.length() > 0)
       {
-        subtitle += "Abgemeldet" + "";
+        params.put("Eigenschaften", eig);
       }
       if (control.getGeburtsdatumvon().getValue() != null)
       {
         Date d = (Date) control.getGeburtsdatumvon().getValue();
-        subtitle += "Geburtsdatum von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Geburtsdatum von ", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getGeburtsdatumbis().getValue() != null)
       {
         Date d = (Date) control.getGeburtsdatumbis().getValue();
-        subtitle += "Geburtsdatum bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Geburtsdatum bis ", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getEintrittvon().getValue() != null)
       {
         Date d = (Date) control.getEintrittvon().getValue();
-        subtitle += "Eintritt von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Eintritt von ", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getEintrittbis().getValue() != null)
       {
         Date d = (Date) control.getEintrittbis().getValue();
-        subtitle += "Eintritt bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Eintritt bis ", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getAustrittvon().getValue() != null)
       {
         Date d = (Date) control.getAustrittvon().getValue();
-        subtitle += "Austritt von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Austritt von ", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getAustrittbis().getValue() != null)
       {
         Date d = (Date) control.getAustrittbis().getValue();
-        subtitle += "Austritt bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Austritt bis ", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getSterbedatumvon().getValue() != null)
       {
         Date d = (Date) control.getSterbedatumvon().getValue();
-        subtitle += "Sterbetag von " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
+        params.put("Sterbetag von", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getSterbedatumbis().getValue() != null)
       {
         Date d = (Date) control.getSterbedatumbis().getValue();
-        subtitle += "Sterbedatum bis " + new JVDateFormatTTMMJJJJ().format(d)
-            + "  ";
-      }
-      if (control.getMitgliedStatus().getValue().equals("Angemeldet")
-          && control.getAustrittvon().getValue() == null
-          && control.getAustrittbis().getValue() == null
-          && control.getSterbedatumvon().getValue() == null
-          && control.getSterbedatumbis().getValue() == null)
-      {
-        subtitle += "nur Angemeldete, keine Ausgetretenen (nur lfd. Jahr)  ";
+        params.put("Sterbedatum bis", new JVDateFormatTTMMJJJJ().format(d));
       }
       if (control.getBeitragsgruppeAusw().getValue() != null)
       {
         Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppeAusw()
             .getValue();
-        subtitle += "nur Beitragsgruppe " + bg.getBezeichnung() + "  ";
+        params.put("Beitragsgruppe", bg.getBezeichnung());
+      }
+      if (!control.getMailauswahl().getText().equals(MailAuswertungInput.ALLE))
+      {
+        params.put("Mail", control.getMailauswahl().getText());
+      }
+      if (control.getGeschlecht().getText() != null
+          && !control.getGeschlecht().getText().equals("Bitte auswählen"))
+      {
+        params.put("Geschlecht", control.getGeschlecht().getText());
+      }
+      Date d = (Date) control.getStichtag(false).getValue();
+      params.put("Stichtag", new JVDateFormatTTMMJJJJ().format(d));
+    }
+    for (int i = 0; i < control.getSettings()
+        .getInt("zusatzfelder.selected", 0); i++)
+    {
+      if (!control.getSettings().getString("zusatzfeld." + i + ".value", "")
+          .equals(""))
+      {
+        params.put(
+            control.getSettings().getString("zusatzfeld." + i + ".name", ""),
+            control.getSettings().getString("zusatzfeld." + i + ".value", ""));
       }
     }
     String ueberschrift = (String) control.getAuswertungUeberschrift()
@@ -149,7 +155,6 @@ public class MitgliedAuswertungPDF implements IAuswertung
     {
       subtitle = ueberschrift;
     }
-
   }
 
   @Override
@@ -276,6 +281,20 @@ public class MitgliedAuswertungPDF implements IAuswertung
           adresstyp.getBezeichnungPlural(), list.size() + ""), FontFactory
           .getFont(FontFactory.HELVETICA, 8)));
 
+      report.add(new Paragraph("Parameter", FontFactory.getFont(
+          FontFactory.HELVETICA, 12)));
+
+      report.addHeaderColumn("Parameter", Element.ALIGN_RIGHT, 100,
+          BaseColor.LIGHT_GRAY);
+      report.addHeaderColumn("Wert", Element.ALIGN_LEFT, 200,
+          BaseColor.LIGHT_GRAY);
+      report.createHeader(75f, Element.ALIGN_LEFT);
+      for (String key : params.keySet())
+      {
+        report.addColumn(key, Element.ALIGN_RIGHT);
+        report.addColumn(params.get(key), Element.ALIGN_LEFT);
+      }
+      report.closeTable();
       report.close();
       GUI.getStatusBar().setSuccessText(
           MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()));

@@ -645,20 +645,6 @@ public class MitgliedControl extends AbstractControl
     zeigeAlter(d);
     this.geburtsdatum.setMandatory(Einstellungen.getEinstellung()
         .getGeburtsdatumPflicht());
-    this.geburtsdatum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) geburtsdatum.getValue();
-        zeigeAlter(date);
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return geburtsdatum;
   }
 
@@ -884,19 +870,6 @@ public class MitgliedControl extends AbstractControl
     this.mandatdatum.setTitle("Datum des Mandats");
     this.mandatdatum.setName("Datum des Mandats");
     this.mandatdatum.setText("Bitte Datum des Mandats wählen");
-    this.mandatdatum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) mandatdatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return mandatdatum;
   }
 
@@ -1173,19 +1146,6 @@ public class MitgliedControl extends AbstractControl
     this.eintritt.setText("Bitte Eintrittsdatum wählen");
     this.eintritt.setMandatory(Einstellungen.getEinstellung()
         .getEintrittsdatumPflicht());
-    this.eintritt.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) eintritt.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
     return eintritt;
   }
 
