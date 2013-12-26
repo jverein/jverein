@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -389,6 +384,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       // Stelle sicher, dass Eingabefeld sich über mehrere Zeilen erstreckt.
       GridData gridData = new GridData(GridData.FILL_BOTH);
       gridData.minimumHeight = 80;
+      // wenn der Vermerk mehr Zeilen benötigt, sollte er die Scrollbar
+      // einblenden.
+      gridData.heightHint = 80;
       cols.getComposite().setLayoutData(gridData);
 
       cols.addLabelPair("Vermerk 1", control.getVermerk1());
@@ -449,7 +447,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     }
 
-    LabelGroup bankverbindung = control.getBankverbindungLabelGroup(container.getComposite());
+    LabelGroup bankverbindung = control.getBankverbindungLabelGroup(container
+        .getComposite());
     bankverbindung
         .getComposite()
         .setVisible(

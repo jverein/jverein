@@ -1534,7 +1534,7 @@ public class MitgliedControl extends AbstractControl
     {
       return vermerk1;
     }
-    vermerk1 = new TextAreaInput(getMitglied().getVermerk1(), 255);
+    vermerk1 = new TextAreaInput(getMitglied().getVermerk1(), 2000);
     vermerk1.setName("Vermerk 1");
     return vermerk1;
   }
@@ -1545,7 +1545,7 @@ public class MitgliedControl extends AbstractControl
     {
       return vermerk2;
     }
-    vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 255);
+    vermerk2 = new TextAreaInput(getMitglied().getVermerk2(), 2000);
     vermerk2.setName("Vermerk 2");
     return vermerk2;
   }

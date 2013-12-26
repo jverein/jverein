@@ -1428,6 +1428,10 @@ public class JVereinUpdateProvider
     {
       update0356(conn);
     }
+    if (cv < 357)
+    {
+      update0357(conn);
+    }
     // TODO
   }
 
@@ -8393,6 +8397,19 @@ public class JVereinUpdateProvider
 
     execute(conn, statements,
         "Einstellungen für Cc, Bcc und IMAP sent aufgenommen.", 356);
+  }
+
+  private void update0357(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("mitglied", "vermerk1", "VARCHAR(2000)");
+    sql += alterColumn("mitglied", "vermerk2", "VARCHAR(2000)");
+
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements,
+        "Mitglied Vermerk1 und Vermerk2 Feldlänge auf 2000 verlängert", 357);
   }
 
   private String alterColumn(String table, String column, String type)
