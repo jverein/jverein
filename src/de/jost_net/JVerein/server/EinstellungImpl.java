@@ -188,7 +188,12 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public String getName() throws RemoteException
   {
-    return (String) getAttribute("name");
+    String name = (String) getAttribute("name");
+    if (name == null)
+    {
+      name = "Vereinsname fehlt! Unter Administration | Einstellungen erfassen.";
+    }
+    return name;
   }
 
   @Override
