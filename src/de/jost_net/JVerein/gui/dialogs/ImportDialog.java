@@ -81,9 +81,9 @@ public class ImportDialog extends AbstractDialog<Object>
    * ct.
    * 
    * @param context
-   *        Context.
+   *          Context.
    * @param type
-   *        die Art der zu importierenden Objekte.
+   *          die Art der zu importierenden Objekte.
    * @throws RemoteException
    */
   public ImportDialog(GenericObject context, Class<?> type, boolean enc,
@@ -147,20 +147,22 @@ public class ImportDialog extends AbstractDialog<Object>
       }
     }, null, false, "process-stop.png");
     group.addButtonArea(buttons);
-    getShell().setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
+    getShell()
+        .setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
   }
 
   private String[] getFilterNames(Imp imp)
   {
-      String[] fileExtensionList = imp.format.getFileExtensions();
-      String filterName = imp.format.getName();
-      String[] fileFilterNameList = new String[fileExtensionList.length];
-      for ( int i = 0; i < fileExtensionList.length; ++i)
-      {
-          fileFilterNameList[i] = filterName + " (" + fileExtensionList[i] + ")";
-      }
-      return fileFilterNameList;
+    String[] fileExtensionList = imp.format.getFileExtensions();
+    String filterName = imp.format.getName();
+    String[] fileFilterNameList = new String[fileExtensionList.length];
+    for (int i = 0; i < fileExtensionList.length; ++i)
+    {
+      fileFilterNameList[i] = filterName + " (" + fileExtensionList[i] + ")";
+    }
+    return fileFilterNameList;
   }
+
   /**
    * Importiert die Daten.
    * 
@@ -186,11 +188,13 @@ public class ImportDialog extends AbstractDialog<Object>
     settings.setAttribute("lastformat", imp.format.getName());
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-    fd.setText(i18n.tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
+    fd.setText(i18n
+        .tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
     fd.setFilterNames(getFilterNames(imp));
     fd.setFilterExtensions(imp.format.getFileExtensions());
 
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
       fd.setFilterPath(path);
 
@@ -232,7 +236,8 @@ public class ImportDialog extends AbstractDialog<Object>
           importer.doImport(context, format, file, enc, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText( MessageFormat.format("Daten importiert aus {0}", s));
+          GUI.getStatusBar().setSuccessText(
+              MessageFormat.format("Daten importiert aus {0}", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -338,7 +343,7 @@ public class ImportDialog extends AbstractDialog<Object>
   /**
    * Hilfsklasse zur Anzeige der Importer.
    */
-  private class Imp implements GenericObject, Comparable
+  private class Imp implements GenericObject, Comparable<Imp>
   {
 
     private Importer importer = null;
@@ -366,7 +371,7 @@ public class ImportDialog extends AbstractDialog<Object>
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "name"};
+      return new String[] { "name" };
     }
 
     /**
@@ -403,13 +408,15 @@ public class ImportDialog extends AbstractDialog<Object>
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
-    public int compareTo(Object o)
+    public int compareTo(Imp o)
     {
-      if (o == null || !(o instanceof Imp))
+      if (o == null)
+      {
         return -1;
+      }
       try
       {
-        return this.format.getName().compareTo(((Imp) o).format.getName());
+        return this.format.getName().compareTo((o).format.getName());
       }
       catch (Exception e)
       {

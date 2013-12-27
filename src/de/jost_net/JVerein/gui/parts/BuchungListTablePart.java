@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -44,7 +39,7 @@ public class BuchungListTablePart extends TablePart
     super(list, action);
   }
 
-  public BuchungListTablePart(List list, Action action)
+  public BuchungListTablePart(List<Buchung> list, Action action)
   {
     super(list, action);
   }

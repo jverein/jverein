@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -27,6 +22,7 @@ import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.SplitbuchungsContainer;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -44,7 +40,7 @@ public class SplitbuchungListTablePart extends TablePart
     super(list, action);
   }
 
-  public SplitbuchungListTablePart(List list, Action action)
+  public SplitbuchungListTablePart(List<Buchung> list, Action action)
   {
     super(list, action);
   }
