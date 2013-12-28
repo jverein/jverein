@@ -19,7 +19,7 @@
         </path>
     </target>
     
-    <target name="compile" depends="init">
+    <target name="compile" depends="init, clean">
         <mkdir dir="${class.dir}" />
         <javac debug="true" 
                includeantruntime="false" 
@@ -102,7 +102,7 @@
         </zip>
     </target>
 
-    <target name="clean" depends="init" description="cleanup">
+    <target name="clean" description="cleanup">
         <delete dir="${project.tmp}"/>
         <delete dir="${class.dir}"/>
     </target>
