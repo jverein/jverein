@@ -1421,10 +1421,10 @@ public class JVereinUpdateProvider
     {
       update0354(conn);
     }
-    if (cv < 355)
-    {
-      update0355(conn);
-    }
+    // if (cv < 355)
+    // {
+    // update0355(conn);
+    // }
     if (cv < 356)
     {
       update0356(conn);
@@ -8357,16 +8357,17 @@ public class JVereinUpdateProvider
         "Quelle für SEPA-Mandat-ID in die Tabelle einstellung aufgenommen", 354);
   }
 
-  private void update0355(Connection conn) throws ApplicationException
-  {
-    Map<String, String> statements = new HashMap<String, String>();
-    String sql = " ALTER TABLE beitragsgruppe ADD UNIQUE INDEX ixBeitragsgruppe1 (bezeichnung);";
-
-    statements.put(DBSupportH2Impl.class.getName(), sql);
-    statements.put(DBSupportMySqlImpl.class.getName(), sql);
-
-    execute(conn, statements, "Unique-Index f. Beitragsgruppe eingefügt", 355);
-  }
+  // private void update0355(Connection conn) throws ApplicationException
+  // {
+  // Map<String, String> statements = new HashMap<String, String>();
+  // String sql =
+  // " ALTER TABLE beitragsgruppe ADD UNIQUE INDEX ixBeitragsgruppe1 (bezeichnung);";
+  //
+  // statements.put(DBSupportH2Impl.class.getName(), sql);
+  // statements.put(DBSupportMySqlImpl.class.getName(), sql);
+  //
+  // execute(conn, statements, "Unique-Index f. Beitragsgruppe eingefügt", 355);
+  // }
 
   private void update0356(Connection conn) throws ApplicationException
   {
