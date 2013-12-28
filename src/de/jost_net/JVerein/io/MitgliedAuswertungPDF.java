@@ -63,7 +63,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
   @Override
   public void beforeGo() throws RemoteException
   {
-    params = new TreeMap<>();
+    params = new TreeMap<String, String>();
     this.adresstyp = (Adresstyp) control.getAdresstyp().getValue();
     if (adresstyp == null)
     {
