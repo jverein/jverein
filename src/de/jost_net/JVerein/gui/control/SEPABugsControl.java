@@ -106,69 +106,57 @@ public class SEPABugsControl extends AbstractControl
     while (it.hasNext())
     {
       Mitglied m = (Mitglied) it.next();
-      if (m.getBeitragsgruppe().getBetrag() == 0)
+      if (m.getBeitragsgruppe().getBetrag() > 0
+          && m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
       {
-        continue;
+        plausi(bugs, m);
       }
-      plausi(bugs, m);
     }
     return bugs;
   }
 
   private void plausi(List<Bug> bugs, ILastschrift ls) throws RemoteException
   {
-    if (ls.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
-        && ls.getMandatDatum().equals(Einstellungen.NODATE))
+    if (ls.getMandatDatum().equals(Einstellungen.NODATE))
       bugs.add(new Bug(ls,
           "Für die Basislastschrift fehlt das Mandatsdatum. Keine Lastschrift",
           Bug.HINT));
 
-    if (ls.getZahlungsweg() != Zahlungsweg.BASISLASTSCHRIFT
-        && !ls.getMandatDatum().equals(Einstellungen.NODATE))
+    IBAN iban = null;
+    BIC bic = null;
+    try
+    {
+      iban = new IBAN(ls.getIban());
+    }
+    catch (SEPAException e)
+    {
+      bugs.add(new Bug(ls, "Ungültige IBAN " + ls.getIban(), Bug.ERROR));
+    }
+    try
+    {
+      bic = new BIC(ls.getBic());
+    }
+    catch (SEPAException e)
+    {
+      bugs.add(new Bug(ls, "Ungültige BIC " + ls.getBic(), Bug.ERROR));
+    }
+    if (bic != null && iban != null)
+    {
+      String blz = iban.getBLZ();
+      Bank b = Banken.getBankByBLZ(blz);
+      if (!b.getBIC().equals(ls.getBic()))
+      {
+        bugs.add(new Bug(ls, "BIC passt nicht zur IBAN: " + ls.getBic() + ", "
+            + ls.getIban(), Bug.ERROR));
+      }
+    }
+    if (ls.getLetzteLastschrift() != null
+        && ls.getLetzteLastschrift().before(sepagueltigkeit))
     {
       bugs.add(new Bug(
           ls,
-          "Mandat-Datum gefüllt. Zahlungsweg ist nicht Basislastschrift. Zahlungsweg ändern?",
-          Bug.HINT));
-    }
-    if (ls.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
-    {
-      IBAN iban = null;
-      BIC bic = null;
-      try
-      {
-        iban = new IBAN(ls.getIban());
-      }
-      catch (SEPAException e)
-      {
-        bugs.add(new Bug(ls, "Ungültige IBAN " + ls.getIban(), Bug.ERROR));
-      }
-      try
-      {
-        bic = new BIC(ls.getBic());
-      }
-      catch (SEPAException e)
-      {
-        bugs.add(new Bug(ls, "Ungültige BIC " + ls.getBic(), Bug.ERROR));
-      }
-      if (bic != null && iban != null)
-      {
-        String blz = iban.getBLZ();
-        Bank b = Banken.getBankByBLZ(blz);
-        if (!b.getBIC().equals(ls.getBic()))
-        {
-          bugs.add(new Bug(ls, "BIC passt nicht zur IBAN: " + ls.getBic()
-              + ", " + ls.getIban(), Bug.ERROR));
-        }
-      }
-      if (ls.getLetzteLastschrift() != null
-          && ls.getLetzteLastschrift().before(sepagueltigkeit))
-      {
-        bugs.add(new Bug(
-            ls,
-            "Letzte Lastschrift ist älter als 36 Monate. Neues Mandat anfordern und eingeben.",
-            Bug.ERROR));
-      }
+          "Letzte Lastschrift ist älter als 36 Monate. Neues Mandat anfordern und eingeben.",
+          Bug.ERROR));
     }
   }
 
