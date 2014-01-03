@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -94,7 +89,7 @@ public class SpendenbescheinigungBuchungQuery
 
     if (spb != null)
     {
-      addCondition("spendenbescheinigung = ?", spb.getID());
+      addCondition("spendenbescheinigung = ? ", spb.getID());
     }
     switch (order)
     {
@@ -170,13 +165,4 @@ public class SpendenbescheinigungBuchungQuery
     addCondition(condition);
     bedingungen.add(obj);
   }
-
-  // private void addCondition(String condition, Object[] obj)
-  // {
-  // addCondition(condition);
-  // for (Object o : obj)
-  // {
-  // bedingungen.add(o);
-  // }
-  // }
 }
