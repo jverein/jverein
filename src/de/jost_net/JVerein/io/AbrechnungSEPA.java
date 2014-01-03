@@ -365,15 +365,15 @@ public class AbrechnungSEPA
           {
             BigDecimal bbetr = new BigDecimal(beitragsgruppe.get(
                 m.getBeitragsgruppeId() + "").getBetrag());
+            if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
+                && m.getIndividuellerBeitrag() > 0)
+            {
+              bbetr = new BigDecimal(m.getIndividuellerBeitrag());
+            }
             bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
             bbetr = bbetr.multiply(bmonate);
             betr = bbetr.doubleValue();
-            if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
-                && m.getIndividuellerBeitrag() > 0)
-            {
-              betr = m.getIndividuellerBeitrag();
-            }
           }
           catch (NullPointerException e)
           {
