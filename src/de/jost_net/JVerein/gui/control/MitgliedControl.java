@@ -725,10 +725,10 @@ public class MitgliedControl extends AbstractControl
             }
           }
 
-          if (bankverbindungLabelGroup != null)
-          {
-            bankverbindungLabelGroup.getComposite().setVisible(isLastschrift);
-          }
+          // if (bankverbindungLabelGroup != null)
+          // {
+          // bankverbindungLabelGroup.getComposite().setVisible(isLastschrift);
+          // }
         }
       }
     });
