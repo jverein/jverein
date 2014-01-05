@@ -1184,10 +1184,6 @@ public class MitgliedControl extends AbstractControl
         }
         try
         {
-          if (getMitglied().getID() == null)
-          {
-            return;
-          }
           Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppe.getValue();
           // Feld zahler ist nur aktiviert, wenn aktuelles Mitglied nicht das
           // zahlende Mitglied der Familie ist.
@@ -1210,7 +1206,11 @@ public class MitgliedControl extends AbstractControl
               && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
             getFamilienverband().setVisible(true);
-            getZukuenftigeBeitraegeView().setVisible(true);
+            // Zukünftige Beiträge nur bei bereits gespeicherten Mitgliedern
+            if (getMitglied().getID() != null)
+            {
+              getZukuenftigeBeitraegeView().setVisible(true);
+            }
             getMitglied().setZahlerID(null);
             if (zahler != null)
             {
@@ -1228,7 +1228,11 @@ public class MitgliedControl extends AbstractControl
               zahler.setEnabled(false);
             }
             getFamilienverband().setVisible(false);
-            getZukuenftigeBeitraegeView().setVisible(true);
+            // Zukünftige Beiträge nur bei bereits gespeicherten Mitgliedern
+            if (getMitglied().getID() != null)
+            {
+              getZukuenftigeBeitraegeView().setVisible(true);
+            }
           }
 
           refreshFamilienangehoerigeTable();
