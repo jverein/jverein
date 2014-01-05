@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -792,7 +787,7 @@ public class SpendenbescheinigungPrintAction implements Action
           + " als begünstigten Zwecken dienend anerkannt.";
       rpt.add(txt, 9);
     }
-    rpt.add("\n\nEs wird bestätigt, dass die Zuwendung nur zur "
+    rpt.add("\nEs wird bestätigt, dass die Zuwendung nur zur "
         + Einstellungen.getEinstellung().getBeguenstigterzweck()
         + " verwendet wird.\n", 9);
     if (spb.getSpendenart() == Spendenart.GELDSPENDE)
@@ -817,7 +812,7 @@ public class SpendenbescheinigungPrintAction implements Action
       p.add(new Chunk(mitgliedBetraege, FontFactory.getFont(
           FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk(
-          "  Es wird bestätigt, dass es sich nicht um einen Mitgliedbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist."));
+          "   Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist."));
       rpt.add(p);
     }
 
@@ -830,6 +825,17 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.add(
           "Ob es sich um den Verzicht auf Erstattung von Aufwendungen handelt, ist der Anlage zur Sammelbestätigung zu entnehmen.",
           9);
+    }
+    else
+    {
+        rpt.add(new Paragraph(" "));
+        rpt.add(
+            "\n",
+            9);
+        rpt.add(
+            "\n\n",
+            9);
+      
     }
 
     rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
