@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -50,14 +45,17 @@ public class StatistikJahrgaengeView extends AbstractView
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.JUBILAEEN, false, "help-browser.png");
     Button btnStart = new Button("Start",
-        new StatistikJahrgaengeExportAction(), control, true, "go.png");
+        new StatistikJahrgaengeExportAction(), control.getJubeljahr(), true,
+        "go.png");
     if (!Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
       btnStart.setEnabled(false);
-      Application.getMessagingFactory().sendMessage(
-          new StatusBarMessage(
-              "Einstellungen->Anzeige->Geburtsdatum: keine Pflicht. Die Statistik kann nicht erstellt werden.",
-              StatusBarMessage.TYPE_ERROR));
+      Application
+          .getMessagingFactory()
+          .sendMessage(
+              new StatusBarMessage(
+                  "Einstellungen->Anzeige->Geburtsdatum: keine Pflicht. Die Statistik kann nicht erstellt werden.",
+                  StatusBarMessage.TYPE_ERROR));
 
     }
     buttons.addButton(btnStart);

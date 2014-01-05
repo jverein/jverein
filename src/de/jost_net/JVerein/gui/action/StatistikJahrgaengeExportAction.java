@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -26,6 +21,7 @@ import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.gui.view.StatistikJahrgaengeView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -41,7 +37,9 @@ public class StatistikJahrgaengeExportAction implements Action
   {
     try
     {
-      ExportDialog d = new ExportDialog(new Object[] { context},
+      SelectInput cjahr = (SelectInput) context;
+      final Integer jahr = (Integer) cjahr.getValue();
+      ExportDialog d = new ExportDialog(new Object[] { jahr },
           StatistikJahrgaengeView.class, DokumentationUtil.STATISTIKJAHRGAENGE);
       d.open();
     }

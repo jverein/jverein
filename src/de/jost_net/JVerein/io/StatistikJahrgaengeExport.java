@@ -20,6 +20,7 @@ package de.jost_net.JVerein.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TreeMap;
@@ -27,11 +28,12 @@ import java.util.TreeMap;
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.control.MitgliedControl;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.Datum;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ProgressMonitor;
 
 public abstract class StatistikJahrgaengeExport implements Exporter
@@ -55,8 +57,15 @@ public abstract class StatistikJahrgaengeExport implements Exporter
   {
     this.file = file;
     statistik = new TreeMap<String, StatistikJahrgang>();
-    MitgliedControl control = (MitgliedControl) objects[0];
-    stichtag = (Date) control.getStichtag(true).getValue();
+    Integer jahr = (Integer) objects[0];
+    try
+    {
+      stichtag = Datum.toDate("31.12." + jahr);
+    }
+    catch (ParseException e)
+    {
+      Logger.error("Datum kann nicht geparsed werden: ", e);
+    }
     /*
      * Teil 1: natürliche Personen
      */
