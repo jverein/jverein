@@ -663,7 +663,8 @@ public class Import
     String bic = getResultFrom(results, InternalColumns.BIC);
     String iban = getResultFrom(results, InternalColumns.IBAN);
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
-    if (blz.length() > 0 && ktnr.length() > 0)
+    if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0
+        && bic.length() == 0)
     {
       try
       {
@@ -676,7 +677,6 @@ public class Import
       {
         progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
             + e.getMessage());
-        throw new ApplicationException();
       }
     }
     if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0)
@@ -692,14 +692,14 @@ public class Import
       {
         progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
             + e.getMessage());
-        throw new ApplicationException();
       }
     }
 
     if (zahlart.equalsIgnoreCase("l")
         || zahlart.equalsIgnoreCase("lastschrift")
         || zahlart.equalsIgnoreCase("abbuchung")
-        || zahlart.equalsIgnoreCase("bankeinzug"))
+        || zahlart.equalsIgnoreCase("bankeinzug")
+        || zahlart.equalsIgnoreCase("s")) // SPG-Verein, SEPA-Lastschrift
     {
 
       /*
@@ -743,10 +743,30 @@ public class Import
     m.setKonto(ktnr);
     m.setBic(bic);
     m.setIban(iban);
-    m.setMandatSequence(MandatSequence.fromString(getResultFrom(results,
-        InternalColumns.MANDATSEQUENCE)));
-    m.setMandatVersion(new Integer(getResultFrom(results,
-        InternalColumns.MANDATVERSION)));
+    try
+    {
+      m.setMandatSequence(MandatSequence.fromString(getResultFrom(results,
+          InternalColumns.MANDATSEQUENCE)));
+    }
+    catch (NullPointerException e)
+    {
+      progMonitor.log(MessageFormat.format(
+          "{0}: Ungültige Mandatssequence. RCUR wird angenommen.",
+          Adressaufbereitung.getNameVorname(m)));
+      m.setMandatSequence(MandatSequence.RCUR);
+    }
+    try
+    {
+      m.setMandatVersion(new Integer(getResultFrom(results,
+          InternalColumns.MANDATVERSION)));
+    }
+    catch (NumberFormatException e)
+    {
+      progMonitor.log(MessageFormat.format(
+          "{0}: Ungültige Mandatsversion. 1 wird angenommen.",
+          Adressaufbereitung.getNameVorname(m)));
+      m.setMandatVersion(1);
+    }
     String m_d = getResultFrom(results, InternalColumns.MANDATDATUM);
     if (m_d.length() > 0)
     {
