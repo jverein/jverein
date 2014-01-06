@@ -8290,7 +8290,7 @@ public class JVereinUpdateProvider
   private void update0351(Connection conn) throws ApplicationException
   {
     Map<String, String> statements = new HashMap<String, String>();
-    String sql = "update zusatzabbuchung set buchungstext = trim(concat(buchungstext, ' ', buchungstext2));\n";
+    String sql = "update zusatzabbuchung set buchungstext = trim(concat(buchungstext, ' ', IFNULL(buchungstext2,'')));\n";
     // Update fuer H2
     statements.put(DBSupportH2Impl.class.getName(), sql);
     // Update fuer MySQL
