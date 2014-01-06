@@ -44,7 +44,6 @@ import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.jost_net.JVerein.gui.util.SimpleVerticalContainer;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
-import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.MitgliedDokument;
@@ -449,10 +448,11 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
     LabelGroup bankverbindung = control.getBankverbindungLabelGroup(container
         .getComposite());
-    bankverbindung
-        .getComposite()
-        .setVisible(
-            ((Zahlungsweg) control.getZahlungsweg().getValue()).getKey() == Zahlungsweg.BASISLASTSCHRIFT);
+    // bankverbindung
+    // .getComposite()
+    // .setVisible(
+    // ((Zahlungsweg) control.getZahlungsweg().getValue()).getKey() ==
+    // Zahlungsweg.BASISLASTSCHRIFT);
 
     SimpleVerticalContainer cols = new SimpleVerticalContainer(
         bankverbindung.getComposite(), true, spaltenanzahl);
