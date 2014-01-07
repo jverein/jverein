@@ -1437,6 +1437,10 @@ public class JVereinUpdateProvider
     {
       update0358(conn);
     }
+    if (cv < 359)
+    {
+      update0359(conn);
+    }
     // TODO
   }
 
@@ -8468,6 +8472,18 @@ public class JVereinUpdateProvider
         statements,
         "Spalten imap_auth_pwd und smtp_auth_pwd aus Tabelle einstellung entfernt",
         358);
+  }
+
+  private void update0359(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    String sql = alterColumn("lastschrift", "anrede", "VARCHAR(40)");
+
+    statements.put(DBSupportH2Impl.class.getName(), sql);
+    statements.put(DBSupportMySqlImpl.class.getName(), sql);
+
+    execute(conn, statements, "Lastschrift anrede Feldlänge auf 40 verlängert",
+        359);
   }
 
   private String alterColumn(String table, String column, String type)
