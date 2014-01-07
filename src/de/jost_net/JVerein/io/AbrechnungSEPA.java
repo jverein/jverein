@@ -367,12 +367,12 @@ public class AbrechnungSEPA
                 m.getBeitragsgruppeId() + "").getBetrag());
             bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
+            bbetr = bbetr.multiply(bmonate);
             if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
                 && m.getIndividuellerBeitrag() > 0)
             {
               bbetr = new BigDecimal(m.getIndividuellerBeitrag());
             }
-            bbetr = bbetr.multiply(bmonate);
             betr = bbetr.doubleValue();
           }
           catch (NullPointerException e)
