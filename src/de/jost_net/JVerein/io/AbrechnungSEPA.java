@@ -163,23 +163,33 @@ public class AbrechnungSEPA
           ls.setMitglied(Integer.parseInt(vza.getPersonId()));
           Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
               Mitglied.class, vza.getPersonId());
-          ls.setPersonenart(getKontoinhaber(m.getPersonenart(),
-              m.getKtoiPersonenart()));
-          ls.setAnrede(getKontoinhaber(m.getAnrede(), m.getKtoiAnrede()));
-          ls.setTitel(getKontoinhaber(m.getTitel(), m.getKtoiTitel()));
-          ls.setName(getKontoinhaber(m.getName(), m.getKtoiName()));
-          ls.setVorname(getKontoinhaber(m.getVorname(), m.getKtoiVorname()));
-          ls.setStrasse(getKontoinhaber(m.getStrasse(), m.getKtoiStrasse()));
-          ls.setAdressierungszusatz(getKontoinhaber(m.getAdressierungszusatz(),
-              m.getKtoiAdressierungszusatz()));
-          ls.setPlz(getKontoinhaber(m.getPlz(), m.getKtoiPlz()));
-          ls.setOrt(getKontoinhaber(m.getOrt(), m.getKtoiOrt()));
-          ls.setStaat(getKontoinhaber(m.getStaat(), m.getKtoiStaat()));
-          ls.setEmail(getKontoinhaber(m.getEmail(), m.getKtoiEmail()));
-          if (!ls.getName().equals(m.getName())
-              || !ls.getVorname().equals(m.getVorname()))
+          if (m.getKtoiName() == null || m.getKtoiName().length() == 0)
           {
             ls.setPersonenart(m.getPersonenart());
+            ls.setAnrede(m.getAnrede());
+            ls.setTitel(m.getTitel());
+            ls.setName(m.getName());
+            ls.setVorname(m.getVorname());
+            ls.setStrasse(m.getStrasse());
+            ls.setAdressierungszusatz(m.getAdressierungszusatz());
+            ls.setPlz(m.getPlz());
+            ls.setOrt(m.getOrt());
+            ls.setStaat(m.getStaat());
+            ls.setEmail(m.getEmail());
+          }
+          else
+          {
+            ls.setPersonenart(m.getKtoiPersonenart());
+            ls.setAnrede(m.getKtoiAnrede());
+            ls.setTitel(m.getKtoiTitel());
+            ls.setName(m.getKtoiName());
+            ls.setVorname(m.getKtoiVorname());
+            ls.setStrasse(m.getKtoiStrasse());
+            ls.setAdressierungszusatz(m.getKtoiAdressierungszusatz());
+            ls.setPlz(m.getKtoiPlz());
+            ls.setOrt(m.getKtoiOrt());
+            ls.setStaat(m.getKtoiStaat());
+            ls.setEmail(m.getKtoiEmail());
           }
           break;
         default:
@@ -217,18 +227,6 @@ public class AbrechnungSEPA
     if (param.sepaprint)
     {
       ausdruckenSEPA(lastschrift, param.pdffile);
-    }
-  }
-
-  private String getKontoinhaber(String mitglied, String ktoi)
-  {
-    if (ktoi != null && ktoi.length() > 0)
-    {
-      return ktoi;
-    }
-    else
-    {
-      return mitglied;
     }
   }
 
