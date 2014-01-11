@@ -44,7 +44,7 @@ public class SplitBuchungView extends AbstractView
     control.getSplitBuchungsList().paint(getParent());
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
+        DokumentationUtil.SPLITBUCHUNG, false, "help-browser.png");
     buttons.addButton("neu", new SplitbuchungNeuAction(),
         control.getCurrentObject(), false, "document-new.png");
     buttons.addButton("auflösen", new SplitbuchungAufloesenAction(),
