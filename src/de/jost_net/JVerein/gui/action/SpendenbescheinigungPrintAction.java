@@ -744,17 +744,21 @@ public class SpendenbescheinigungPrintAction implements Action
     if (!isSammelbestaetigung)
     {
       Paragraph p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9));
+      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
       p.setAlignment(Element.ALIGN_LEFT);
-      p.add(new Chunk(
-          "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen:  Ja "));
+      p.add(new Chunk("Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
+      p.add(new Chunk(" Ja ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
       p.add(new Chunk(verzichtJa, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
           10)));
-      p.add(new Chunk("   Nein "));
+      p.add(new Chunk("   Nein ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
       p.add(new Chunk(verzichtNein, FontFactory.getFont(
           FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
       rpt.add(p);
+    }
+    else
+    {
+      rpt.add(new Paragraph(" "));
     }
     if (!Einstellungen.getEinstellung().getVorlaeufig())
     {
@@ -768,7 +772,7 @@ public class SpendenbescheinigungPrintAction implements Action
           + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
               .getBescheiddatum())
           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
-      rpt.add(txt, 9);
+      rpt.add(txt, 8);
     }
     else
     {
@@ -785,11 +789,11 @@ public class SpendenbescheinigungPrintAction implements Action
           + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
               .getVorlaeufigab())
           + " als begünstigten Zwecken dienend anerkannt.";
-      rpt.add(txt, 9);
+      rpt.add(txt, 8);
     }
     rpt.add("\nEs wird bestätigt, dass die Zuwendung nur zur "
         + Einstellungen.getEinstellung().getBeguenstigterzweck()
-        + " verwendet wird.\n", 9);
+        + " verwendet wird.\n", 8);
     if (spb.getSpendenart() == Spendenart.GELDSPENDE)
     {
       char mitgliedBetraege = (char) 113; // box leer
@@ -798,7 +802,7 @@ public class SpendenbescheinigungPrintAction implements Action
         mitgliedBetraege = (char) 53; // X
       }
       Paragraph p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9));
+      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk("\n"));
       p.add(new Chunk(
@@ -821,19 +825,19 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.add(new Paragraph(" "));
       rpt.add(
           "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.\n",
-          9);
+          8);
       rpt.add(
           "Ob es sich um den Verzicht auf Erstattung von Aufwendungen handelt, ist der Anlage zur Sammelbestätigung zu entnehmen.",
-          9);
+          8);
     }
     else
     {
         rpt.add(new Paragraph(" "));
         rpt.add(
-            "\n",
-            9);
-        rpt.add(
             "\n\n",
+            8);
+        rpt.add(
+            "\n",
             9);
       
     }
@@ -843,11 +847,11 @@ public class SpendenbescheinigungPrintAction implements Action
 
     rpt.add(
         "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
-        9);
+        8);
 
-    rpt.add("\n\nHinweis:", 9);
+    rpt.add("\nHinweis:", 9);
     rpt.add(
-        "\nWer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder wer veranlasst, dass "
+        "Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder wer veranlasst, dass "
             + "Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet "
             + "werden, haftet für die entgangene Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG).\n\n"
             + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das "
