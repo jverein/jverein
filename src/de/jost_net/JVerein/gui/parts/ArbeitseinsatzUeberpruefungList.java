@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -68,7 +63,8 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
       if (arbeitseinsatzueberpruefungList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator.fromArray(zeile
+            .toArray(new GenericObject[zeile.size()]));
 
         arbeitseinsatzueberpruefungList = new TablePart(gi,
             new MitgliedDetailAction());
@@ -116,10 +112,14 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
         + "  join beitragsgruppe on mitglied.beitragsgruppe = beitragsgruppe.id "
         + "  left join arbeitseinsatz on mitglied.id = arbeitseinsatz.mitglied and year(arbeitseinsatz.datum) = ? "
         + "where  (mitglied.eintritt is null or year(mitglied.eintritt) <= ?) and "
-        + "       (mitglied.austritt is null or year(mitglied.austritt) >= ?) and "
-        + "        beitragsgruppe.arbeitseinsatzstunden is not null and "
-        + "        beitragsgruppe.arbeitseinsatzstunden > 0 "
-        + "group by mitglied.id ";
+        + "       (mitglied.austritt is null or year(mitglied.austritt) >= ?) ";
+
+    if (schluessel != ArbeitseinsatzUeberpruefungInput.MEHRLEISTUNG)
+    {
+      sql += "        and beitragsgruppe.arbeitseinsatzstunden is not null and "
+          + "        beitragsgruppe.arbeitseinsatzstunden > 0 ";
+    }
+    sql += "group by mitglied.id ";
     if (schluessel == ArbeitseinsatzUeberpruefungInput.MINDERLEISTUNG)
     {
       sql += "    having iststunden < arbeitseinsatzstunden or iststunden is null  ";
@@ -154,8 +154,8 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
         return ergebnis;
       }
     };
-    return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService().execute(
-        sql, new Object[] { jahr, jahr, jahr}, rs);
+    return (ArrayList<ArbeitseinsatzZeile>) Einstellungen.getDBService()
+        .execute(sql, new Object[] { jahr, jahr, jahr }, rs);
   }
 
   @Override
