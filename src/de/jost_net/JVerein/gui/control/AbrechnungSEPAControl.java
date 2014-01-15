@@ -143,6 +143,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
     this.faelligkeit1
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Erst+einmalig) wählen");
+    this.faelligkeit1.setComment("Bitte bankspezifisch anpassen");
     return faelligkeit1;
   }
 
@@ -159,6 +160,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
     this.faelligkeit2
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Folge) wählen");
+    this.faelligkeit2.setComment("Bitte bankspezifisch anpassen");
     return faelligkeit2;
   }
 
