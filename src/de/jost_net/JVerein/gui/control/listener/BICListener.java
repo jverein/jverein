@@ -45,10 +45,13 @@ public class BICListener implements Listener
   @Override
   public void handleEvent(Event event)
   {
-    Bank b = Banken.getBankByBIC((String) bic.getValue());
-    if (b != null)
+    if (bic.getValue() != null)
     {
-      bic.setComment(b.getBezeichnung());
+      Bank b = Banken.getBankByBIC((String) bic.getValue());
+      if (b != null)
+      {
+        bic.setComment(b.getBezeichnung());
+      }
     }
   }
 }
