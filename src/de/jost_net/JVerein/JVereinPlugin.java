@@ -78,6 +78,26 @@ public class JVereinPlugin extends AbstractPlugin
   {
     Logger.info("starting init process for jverein");
 
+//    String driver = settings.getString("jdbc.driver", null);
+//    String url = settings.getString("jdbc.url", null);
+//    String username = settings.getString("jdbc.user", null);
+//    String password = settings.getString("jdbc.password", null);
+//    String changelog = "liquibase/jverein.xml";
+//    try
+//    {
+//      Class.forName(driver);
+//      Connection connection = DriverManager.getConnection(url, username,
+//          password);
+//      Liquibase liquibase = new Liquibase(changelog,
+//          new ClassLoaderResourceAccessor(), new JdbcConnection(connection));
+//      liquibase.update("");
+//      
+//    }
+//    catch (Exception e)
+//    {
+//      throw new ApplicationException(e);
+//    }
+
     call(new ServiceCall()
     {
 
@@ -108,15 +128,15 @@ public class JVereinPlugin extends AbstractPlugin
   @Override
   public void install() throws ApplicationException
   {
-    call(new ServiceCall()
-    {
-
-      @Override
-      public void call(JVereinDBService service) throws RemoteException
-      {
-        service.install();
-      }
-    });
+    // call(new ServiceCall()
+    // {
+    //
+    // @Override
+    // public void call(JVereinDBService service) throws RemoteException
+    // {
+    // service.install();
+    // }
+    // });
   }
 
   /**

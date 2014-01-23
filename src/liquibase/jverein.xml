@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	<changeSet author="Heiner" id="1">
+		<createTable tableName="abrechnungslauf">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="modus" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="faelligkeit" type="date" />
+			<column name="faelligkeit2" type="date" />
+			<column name="stichtag" type="date" />
+			<column name="eingabedatum" type="date" />
+			<column name="zahlungsgrund" type="VARCHAR(140)" />
+			<column name="zusatzbetraege" type="BIT" />
+			<column name="kursteilnehmer" type="BIT" />
+			<column name="dtausdruck" type="BIT" />
+			<column name="abbuchungsausgabe" type="INT(10)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="2">
+		<createTable tableName="adresstyp">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(30)" />
+			<column name="bezeichnungplural" type="VARCHAR(30)" />
+			<column name="jvereinid" type="INT(10)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="3">
+		<insert tableName="adresstyp">
+			<column name="id" value="1" />
+			<column name="bezeichnung" value="Mitglied" />
+			<column name="bezeichnungplural" value="Mitgieder" />
+			<column name="jvereinid" value="1" />
+		</insert>
+	</changeSet>
+	<changeSet author="Heiner" id="4">
+		<insert tableName="adresstyp">
+			<column name="id" value="2" />
+			<column name="bezeichnung" value="Spender/in" />
+			<column name="bezeichnungplural" value="Spender/innen" />
+			<column name="jvereinid" value="2" />
+		</insert>
+	</changeSet>
+	<changeSet author="Heiner" id="5">
+		<createTable tableName="anfangsbestand">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="konto" type="BIGINT(19)" />
+			<column name="datum" type="date" />
+			<column name="betrag" type="DOUBLE" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="6">
+		<createTable tableName="arbeitseinsatz">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="stunden" type="DOUBLE">
+				<constraints nullable="false" />
+			</column>
+			<column name="bemerkung" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="7">
+		<createTable tableName="beitragsgruppe">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="betrag" type="DOUBLE" />
+			<column defaultValueNumeric="0" name="beitragsart" type="INT(10)" />
+			<column name="arbeitseinsatzstunden" type="DOUBLE" />
+			<column name="arbeitseinsatzbetrag" type="DOUBLE" />
+			<column name="buchungsart" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="8">
+		<createTable tableName="buchung">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="umsatzid" type="INT(10)" />
+			<column name="konto" type="BIGINT(19)" />
+			<column name="auszugsnummer" type="INT(10)" />
+			<column name="blattnummer" type="INT(10)" />
+			<column name="name" type="VARCHAR(100)" />
+			<column name="betrag" type="DOUBLE">
+				<constraints nullable="false" />
+			</column>
+			<column name="zweck" type="VARCHAR(500)" />
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="art" type="VARCHAR(100)" />
+			<column name="kommentar" type="VARCHAR(1000)" />
+			<column name="buchungsart" type="BIGINT(19)" />
+			<column name="mitgliedskonto" type="BIGINT(19)" />
+			<column name="abrechnungslauf" type="BIGINT(19)" />
+			<column name="splitid" type="BIGINT(19)" />
+			<column name="splittyp" type="INT(10)" />
+			<column name="spendenbescheinigung" type="BIGINT(19)" />
+			<column name="verzicht" type="BIT" />
+			<column name="projekt" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="9">
+		<createTable tableName="buchungdokument">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="referenz" type="BIGINT(19)" />
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="bemerkung" type="VARCHAR(50)" />
+			<column name="uuid" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="10">
+		<createTable tableName="buchungsart">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="nummer" type="INT(10)" />
+			<column name="bezeichnung" type="VARCHAR(50)" />
+			<column name="art" type="INT(10)" />
+			<column name="buchungsklasse" type="BIGINT(19)" />
+			<column name="spende" type="BIT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="11">
+		<createTable tableName="buchungsklasse">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="nummer" type="INT(10)" />
+			<column name="bezeichnung" type="VARCHAR(30)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="12">
+		<createTable tableName="eigenschaft">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="eigenschaftgruppe" type="BIGINT(19)" />
+			<column name="bezeichnung" type="VARCHAR(30)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="13">
+		<createTable tableName="eigenschaften">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="eigenschaft" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="14">
+		<createTable tableName="eigenschaftgruppe">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="pflicht" type="BIT" />
+			<column name="max1" type="BIT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="15">
+		<createTable tableName="einstellung">
+			<column name="name" type="VARCHAR(70)" />
+			<column name="strasse" type="VARCHAR(50)" />
+			<column name="plz" type="CHAR(5)" />
+			<column name="ort" type="VARCHAR(50)" />
+			<column name="finanzamt" type="VARCHAR(30)" />
+			<column name="steuernummer" type="VARCHAR(30)" />
+			<column name="bescheiddatum" type="date" />
+			<column name="vorlaeufig" type="BIT" />
+			<column name="vorlaeufigab" type="date" />
+			<column name="beguenstigterzweck" type="VARCHAR(100)" />
+			<column name="mitgliedsbeitraege" type="BIT" />
+			<column name="bic" type="VARCHAR(11)" />
+			<column name="iban" type="VARCHAR(34)" />
+			<column name="glaeubigerid" type="VARCHAR(35)" />
+			<column name="blz" type="VARCHAR(8)" />
+			<column name="konto" type="VARCHAR(12)" />
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="geburtsdatumpflicht" type="BIT" />
+			<column name="eintrittsdatumpflicht" type="BIT" />
+			<column name="sterbedatum" type="BIT" />
+			<column name="kommunikationsdaten" type="BIT" />
+			<column name="zusatzabbuchung" type="BIT" />
+			<column name="vermerke" type="BIT" />
+			<column name="wiedervorlage" type="BIT" />
+			<column name="kursteilnehmer" type="BIT" />
+			<column name="lehrgaenge" type="BIT" />
+			<column name="juristischepersonen" type="BIT" />
+			<column name="mitgliedfoto" type="BIT" />
+			<column name="uselesefelder" type="CHAR(5)" />
+			<column name="auslandsadressen" type="BIT" />
+			<column name="arbeitseinsatz" type="BIT" />
+			<column name="dokumentenspeicherung" type="BIT" />
+			<column name="individuellebeitraege" type="BIT" />
+			<column name="rechnungtextabbuchung" type="VARCHAR(100)" />
+			<column name="rechnungtextueberweisung" type="VARCHAR(100)" />
+			<column name="rechnungtextbar" type="VARCHAR(100)" />
+			<column name="externemitgliedsnummer" type="BIT" />
+			<column name="beitragsmodel" type="INT(10)" />
+			<column name="dateinamenmuster" type="VARCHAR(50)" />
+			<column name="dateinamenmusterspende" type="VARCHAR(50)" />
+			<column name="vorlagencsvverzeichnis" type="VARCHAR(200)" />
+			<column name="spendenbescheinigungminbetrag" type="DOUBLE" />
+			<column name="spendenbescheinigungverzeichnis" type="VARCHAR(200)" />
+			<column defaultValueNumeric="0"
+				name="spendenbescheinigungprintbuchungsart" type="BIT" />
+			<column name="beginngeschaeftsjahr" type="CHAR(6)" />
+			<column name="smtp_server" type="VARCHAR(50)" />
+			<column name="smtp_port" type="CHAR(5)" />
+			<column name="smtp_auth_user" type="VARCHAR(50)" />
+			<column name="smtp_from_address" type="VARCHAR(50)" />
+			<column name="smtp_from_anzeigename" type="VARCHAR(50)" />
+			<column name="smtp_ssl" type="BIT" />
+			<column defaultValueNumeric="1" name="zahlungsweg" type="INT(10)" />
+			<column defaultValueNumeric="12" name="zahlungsrhytmus" type="INT(10)" />
+			<column name="defaultland" type="CHAR(2)" />
+			<column name="altersgruppen" type="VARCHAR(50)" />
+			<column name="jubilaeen" type="VARCHAR(50)" />
+			<column name="jubilarstartalter" type="INT(10)" />
+			<column name="altersjubilaeen" type="VARCHAR(50)" />
+			<column name="zusatzadressen" type="BIT" />
+			<column name="smtp_starttls" type="BIT" />
+			<column defaultValueNumeric="1" name="arbeitsmodel" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValueNumeric="1" name="altermodel" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="zusatzbetragausgetretene" type="BIT(1)" />
+			<column defaultValueNumeric="1" name="mandatid_source" type="INT(10)" />
+			<column name="mail_always_bcc" type="VARCHAR(140)" />
+			<column name="mail_always_cc" type="VARCHAR(140)" />
+			<column name="copy_to_imap_folder" type="BIT" />
+			<column name="imap_ssl" type="BIT" />
+			<column name="imap_starttls" type="BIT" />
+			<column name="imap_auth_user" type="VARCHAR(140)" />
+			<column name="imap_host" type="VARCHAR(140)" />
+			<column name="imap_port" type="VARCHAR(140)" />
+			<column name="imap_sent_folder" type="VARCHAR(140)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="16">
+		<createTable tableName="felddefinition">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="label" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValueNumeric="1" name="datentyp" type="INT(10)" />
+			<column name="laenge" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="17">
+		<createTable tableName="formular">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="inhalt" type="LONGBLOB" />
+			<column name="art" type="INT(10)" />
+			<column name="bezeichnung" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="18">
+		<createTable tableName="formularfeld">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="formular" type="BIGINT(19)" />
+			<column name="name" type="VARCHAR(60)" />
+			<column name="seite" type="INT(10)" />
+			<column name="x" type="DOUBLE" />
+			<column name="y" type="DOUBLE" />
+			<column name="font" type="VARCHAR(50)" />
+			<column name="fontsize" type="INT(10)" />
+			<column name="fontstyle" type="INT(10)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="19">
+		<createTable tableName="jahresabschluss">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="von" type="date" />
+			<column name="bis" type="date" />
+			<column name="datum" type="date" />
+			<column name="name" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="20">
+		<createTable tableName="konto">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="nummer" type="VARCHAR(35)" />
+			<column name="bezeichnung" type="VARCHAR(255)" />
+			<column name="eroeffnung" type="date" />
+			<column name="aufloesung" type="date" />
+			<column name="hibiscusid" type="INT(10)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="21">
+		<createTable tableName="kursteilnehmer">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="personenart" type="CHAR(1)" />
+			<column name="anrede" type="VARCHAR(10)" />
+			<column name="titel" type="VARCHAR(40)" />
+			<column name="name" type="VARCHAR(40)" />
+			<column name="vorname" type="VARCHAR(40)" />
+			<column name="strasse" type="VARCHAR(40)" />
+			<column name="adressierungszusatz" type="VARCHAR(40)" />
+			<column name="plz" type="VARCHAR(10)" />
+			<column name="ort" type="VARCHAR(40)" />
+			<column name="staat" type="VARCHAR(50)" />
+			<column name="email" type="VARCHAR(50)" />
+			<column name="bic" type="VARCHAR(11)" />
+			<column name="iban" type="VARCHAR(34)" />
+			<column name="vzweck1" type="VARCHAR(140)" />
+			<column name="mandatdatum" type="date" />
+			<column name="blz" type="VARCHAR(8)">
+				<constraints nullable="false" />
+			</column>
+			<column name="konto" type="VARCHAR(12)" />
+			<column name="betrag" type="DOUBLE">
+				<constraints nullable="false" />
+			</column>
+			<column name="geburtsdatum" type="date" />
+			<column name="geschlecht" type="VARCHAR(1)" />
+			<column name="eingabedatum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="abbudatum" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="22">
+		<createTable tableName="lastschrift">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="abrechnungslauf" type="BIGINT(19)" />
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="kursteilnehmer" type="BIGINT(19)" />
+			<column name="personenart" type="CHAR(1)" />
+			<column name="anrede" type="VARCHAR(40)" />
+			<column name="titel" type="VARCHAR(40)" />
+			<column name="name" type="VARCHAR(40)">
+				<constraints nullable="false" />
+			</column>
+			<column name="vorname" type="VARCHAR(40)" />
+			<column name="strasse" type="VARCHAR(40)" />
+			<column name="adressierungszusatz" type="VARCHAR(40)" />
+			<column name="plz" type="VARCHAR(10)" />
+			<column name="ort" type="VARCHAR(40)" />
+			<column name="staat" type="VARCHAR(50)" />
+			<column name="email" type="VARCHAR(50)" />
+			<column name="mandatid" type="VARCHAR(35)">
+				<constraints nullable="false" />
+			</column>
+			<column name="mandatdatum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="mandatsequence" type="VARCHAR(4)" />
+			<column name="bic" type="VARCHAR(11)">
+				<constraints nullable="false" />
+			</column>
+			<column name="iban" type="VARCHAR(35)">
+				<constraints nullable="false" />
+			</column>
+			<column name="verwendungszweck" type="VARCHAR(140)">
+				<constraints nullable="false" />
+			</column>
+			<column name="betrag" type="DOUBLE">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="23">
+		<createTable tableName="lehrgang">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="lehrgangsart" type="BIGINT(19)" />
+			<column name="von" type="date" />
+			<column name="bis" type="date" />
+			<column name="veranstalter" type="VARCHAR(50)" />
+			<column name="ergebnis" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="24">
+		<createTable tableName="lehrgangsart">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="von" type="date" />
+			<column name="bis" type="date" />
+			<column name="veranstalter" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="25">
+		<createTable tableName="lesefeld">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(50)" />
+			<column name="script" type="VARCHAR(1000)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="26">
+		<createTable tableName="mail">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="betreff" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="txt" type="VARCHAR(10000)" />
+			<column defaultValueComputed="CURRENT_TIMESTAMP" name="bearbeitung"
+				type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValue="0000-00-00 00:00:00" name="versand"
+				type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="27">
+		<createTable tableName="mailanhang">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mail" type="BIGINT(19)" />
+			<column name="anhang" type="BLOB" />
+			<column name="dateiname" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="28">
+		<createTable tableName="mailempfaenger">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mail" type="BIGINT(19)" />
+			<column name="mitglied" type="BIGINT(19)" />
+			<column defaultValueComputed="CURRENT_TIMESTAMP" name="versand"
+				type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="29">
+		<createTable tableName="mailvorlage">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="betreff" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="txt" type="VARCHAR(10000)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="30">
+		<createTable tableName="mitglied">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="externemitgliedsnummer" type="INT(10)" />
+			<column name="adresstyp" type="BIGINT(19)" />
+			<column name="personenart" type="CHAR(1)" />
+			<column name="anrede" type="VARCHAR(40)" />
+			<column name="titel" type="VARCHAR(40)" />
+			<column name="name" type="VARCHAR(40)">
+				<constraints nullable="false" />
+			</column>
+			<column name="vorname" type="VARCHAR(40)" />
+			<column name="adressierungszusatz" type="VARCHAR(40)" />
+			<column name="strasse" type="VARCHAR(40)">
+				<constraints nullable="false" />
+			</column>
+			<column name="plz" type="VARCHAR(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ort" type="VARCHAR(40)">
+				<constraints nullable="false" />
+			</column>
+			<column name="staat" type="VARCHAR(50)" />
+			<column name="zahlungsweg" type="INT(10)" />
+			<column name="zahlungsrhytmus" type="INT(10)" />
+			<column name="mandatdatum" type="date" />
+			<column name="mandatversion" type="INT(10)" />
+			<column name="mandatsequence" type="VARCHAR(4)" />
+			<column name="bic" type="VARCHAR(11)" />
+			<column name="iban" type="VARCHAR(34)" />
+			<column name="blz" type="VARCHAR(8)" />
+			<column name="konto" type="VARCHAR(16)" />
+			<column name="ktoipersonenart" type="CHAR(1)" />
+			<column name="ktoianrede" type="VARCHAR(10)" />
+			<column name="ktoititel" type="VARCHAR(10)" />
+			<column name="ktoiname" type="VARCHAR(40)" />
+			<column name="ktoivorname" type="VARCHAR(40)" />
+			<column name="ktoistrasse" type="VARCHAR(40)" />
+			<column name="ktoiadressierungszusatz" type="VARCHAR(40)" />
+			<column name="ktoiplz" type="VARCHAR(10)" />
+			<column name="ktoiort" type="VARCHAR(40)" />
+			<column name="ktoistaat" type="VARCHAR(50)" />
+			<column name="ktoiemail" type="VARCHAR(50)" />
+			<column name="geburtsdatum" type="date" />
+			<column name="geschlecht" type="CHAR(1)" />
+			<column name="telefonprivat" type="VARCHAR(20)" />
+			<column name="telefondienstlich" type="VARCHAR(20)" />
+			<column name="handy" type="VARCHAR(20)" />
+			<column name="email" type="VARCHAR(50)" />
+			<column name="eintritt" type="date" />
+			<column name="beitragsgruppe" type="BIGINT(19)" />
+			<column name="individuellerbeitrag" type="DOUBLE" />
+			<column name="zahlerid" type="BIGINT(19)" />
+			<column name="austritt" type="date" />
+			<column name="kuendigung" type="date" />
+			<column name="sterbetag" type="date" />
+			<column name="vermerk1" type="VARCHAR(2000)" />
+			<column name="vermerk2" type="VARCHAR(2000)" />
+			<column name="eingabedatum" type="date" />
+			<column name="letzteaenderung" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="31">
+		<createTable tableName="mitglieddokument">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="referenz" type="BIGINT(19)" />
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="bemerkung" type="VARCHAR(50)" />
+			<column name="uuid" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="32">
+		<createTable tableName="mitgliedfoto">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="foto" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="33">
+		<createTable tableName="mitgliednextbgruppe">
+			<column autoIncrement="true" name="id" type="INT(10)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="INT(10)" />
+			<column name="beitragsgruppe" type="INT(10)" />
+			<column name="bemerkung" type="VARCHAR(30)" />
+			<column name="abdatum" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="34">
+		<createTable tableName="mitgliedskonto">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="abrechnungslauf" type="BIGINT(19)" />
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="zweck1" type="VARCHAR(500)" />
+			<column name="zahlungsweg" type="INT(10)" />
+			<column name="betrag" type="DOUBLE" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="35">
+		<createTable tableName="projekt">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="36">
+		<createTable tableName="qifimporthead">
+			<column autoIncrement="true" name="id" type="INT(10)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(30)" />
+			<column name="beschreibung" type="VARCHAR(30)" />
+			<column name="startsaldo" type="DOUBLE" />
+			<column name="startdate" type="date" />
+			<column name="konto" type="INT(10)" />
+			<column name="importdatum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="importfile" type="VARCHAR(256)" />
+			<column name="processdate" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="37">
+		<createTable tableName="qifimportpos">
+			<column autoIncrement="true" name="posid" type="INT(10)">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="headid" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="betrag" type="DOUBLE">
+				<constraints nullable="false" />
+			</column>
+			<column name="beleg" type="VARCHAR(30)" />
+			<column name="name" type="VARCHAR(100)" />
+			<column name="zweck" type="VARCHAR(100)" />
+			<column name="buchartex" type="VARCHAR(50)" />
+			<column name="buchart" type="INT(10)" />
+			<column name="mitgliedbar" type="VARCHAR(1)" />
+			<column name="mitglied" type="INT(10)" />
+			<column name="sperre" type="VARCHAR(1)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="38">
+		<createTable tableName="spendenbescheinigung">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column defaultValueNumeric="1" name="spendenart" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="zeile1" type="VARCHAR(80)" />
+			<column name="zeile2" type="VARCHAR(80)" />
+			<column name="zeile3" type="VARCHAR(80)" />
+			<column name="zeile4" type="VARCHAR(80)" />
+			<column name="zeile5" type="VARCHAR(80)" />
+			<column name="zeile6" type="VARCHAR(80)" />
+			<column name="zeile7" type="VARCHAR(80)" />
+			<column name="spendedatum" type="date" />
+			<column name="bescheinigungsdatum" type="date" />
+			<column name="betrag" type="DOUBLE" />
+			<column name="formular" type="BIGINT(19)" />
+			<column name="ersatzaufwendungen" type="BIT" />
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="bezeichnungsachzuwendung" type="VARCHAR(100)" />
+			<column name="herkunftspende" type="INT(10)" />
+			<column name="unterlagenwertermittlung" type="BIT" />
+			<column defaultValueNumeric="0" name="autocreate" type="BIT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="39">
+		<createTable tableName="version">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="version" type="INT(10)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="40">
+		<createTable tableName="wiedervorlage">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="datum" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="vermerk" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="erledigung" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="41">
+		<createTable tableName="zusatzabbuchung">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="faelligkeit" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="buchungstext" type="VARCHAR(140)" />
+			<column name="betrag" type="DOUBLE">
+				<constraints nullable="false" />
+			</column>
+			<column name="startdatum" type="date" />
+			<column name="intervall" type="INT(10)" />
+			<column name="endedatum" type="date" />
+			<column name="ausfuehrung" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="42">
+		<createTable tableName="zusatzbetragabrechnungslauf">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="abrechnungslauf" type="BIGINT(19)" />
+			<column name="zusatzbetrag" type="BIGINT(19)" />
+			<column name="letzteausfuehrung" type="date" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="43">
+		<createTable tableName="zusatzfelder">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mitglied" type="BIGINT(19)" />
+			<column name="felddefinition" type="BIGINT(19)" />
+			<column name="feld" type="VARCHAR(1000)" />
+			<column name="felddatum" type="date" />
+			<column name="feldganzzahl" type="INT(10)" />
+			<column name="feldgleitkommazahl" type="DOUBLE" />
+			<column name="feldwaehrung" type="DECIMAL(15, 2)" />
+			<column name="feldjanein" type="BIT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="44">
+		<addForeignKeyConstraint baseColumnNames="konto"
+			baseTableName="anfangsbestand" constraintName="fkAnfangsbestand1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="konto" />
+	</changeSet>
+	<changeSet author="Heiner" id="45">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="arbeitseinsatz" constraintName="fkArbeitseinsatz1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="46">
+		<addForeignKeyConstraint baseColumnNames="buchungsart"
+			baseTableName="beitragsgruppe" constraintName="fkBeitragsgruppe1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="buchungsart" />
+	</changeSet>
+	<changeSet author="Heiner" id="47">
+		<addForeignKeyConstraint baseColumnNames="buchungsart"
+			baseTableName="buchung" constraintName="fkBuchung1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="buchungsart" />
+	</changeSet>
+	<changeSet author="Heiner" id="48">
+		<addForeignKeyConstraint baseColumnNames="konto"
+			baseTableName="buchung" constraintName="fkBuchung2" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="konto" />
+	</changeSet>
+	<changeSet author="Heiner" id="49">
+		<addForeignKeyConstraint baseColumnNames="mitgliedskonto"
+			baseTableName="buchung" constraintName="fkBuchung3" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="mitgliedskonto" />
+	</changeSet>
+	<changeSet author="Heiner" id="50">
+		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
+			baseTableName="buchung" constraintName="fkBuchung4" deferrable="false"
+			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="abrechnungslauf" />
+	</changeSet>
+	<changeSet author="Heiner" id="51">
+		<addForeignKeyConstraint baseColumnNames="spendenbescheinigung"
+			baseTableName="buchung" constraintName="fkBuchung5" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="spendenbescheinigung" />
+	</changeSet>
+	<changeSet author="Heiner" id="52">
+		<addForeignKeyConstraint baseColumnNames="projekt"
+			baseTableName="buchung" constraintName="fkBuchung6" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="projekt" />
+	</changeSet>
+	<changeSet author="Heiner" id="53">
+		<addForeignKeyConstraint baseColumnNames="referenz"
+			baseTableName="buchungdokument" constraintName="fkBuchungDokument1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="buchung" />
+	</changeSet>
+	<changeSet author="Heiner" id="54">
+		<addForeignKeyConstraint baseColumnNames="buchungsklasse"
+			baseTableName="buchungsart" constraintName="fkBuchungsart2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="buchungsklasse" />
+	</changeSet>
+	<changeSet author="Heiner" id="55">
+		<addForeignKeyConstraint baseColumnNames="eigenschaftgruppe"
+			baseTableName="eigenschaft" constraintName="fkEigenschaft1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eigenschaftgruppe" />
+	</changeSet>
+	<changeSet author="Heiner" id="56">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="eigenschaften" constraintName="fkEigenschaften1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="57">
+		<addForeignKeyConstraint baseColumnNames="eigenschaft"
+			baseTableName="eigenschaften" constraintName="fkEigenschaften2"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eigenschaft" />
+	</changeSet>
+	<changeSet author="Heiner" id="58">
+		<addForeignKeyConstraint baseColumnNames="formular"
+			baseTableName="formularfeld" constraintName="fkFormularfeld1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="formular" />
+	</changeSet>
+	<changeSet author="Heiner" id="59">
+		<addForeignKeyConstraint baseColumnNames="headid"
+			baseTableName="qifimportpos" constraintName="fkImpKntPos1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="qifimporthead" />
+	</changeSet>
+	<changeSet author="Heiner" id="60">
+		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
+			baseTableName="lastschrift" constraintName="fkLastschrift1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="abrechnungslauf" />
+	</changeSet>
+	<changeSet author="Heiner" id="61">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="lastschrift" constraintName="fkLastschrift2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="62">
+		<addForeignKeyConstraint baseColumnNames="kursteilnehmer"
+			baseTableName="lastschrift" constraintName="fkLastschrift3"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="kursteilnehmer" />
+	</changeSet>
+	<changeSet author="Heiner" id="63">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="lehrgang" constraintName="fkLehrgang1" deferrable="false"
+			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="64">
+		<addForeignKeyConstraint baseColumnNames="lehrgangsart"
+			baseTableName="lehrgang" constraintName="fkLehrgang2" deferrable="false"
+			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="lehrgangsart" />
+	</changeSet>
+	<changeSet author="Heiner" id="65">
+		<addForeignKeyConstraint baseColumnNames="mail"
+			baseTableName="mailanhang" constraintName="fkMailAnhang1" deferrable="false"
+			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="mail" />
+	</changeSet>
+	<changeSet author="Heiner" id="66">
+		<addForeignKeyConstraint baseColumnNames="mail"
+			baseTableName="mailempfaenger" constraintName="fkMailEmpfaenger1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mail" />
+	</changeSet>
+	<changeSet author="Heiner" id="67">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="mailempfaenger" constraintName="fkMailempfaenger2"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="68">
+		<addForeignKeyConstraint baseColumnNames="beitragsgruppe"
+			baseTableName="mitglied" constraintName="fkMitglied1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="beitragsgruppe" />
+	</changeSet>
+	<changeSet author="Heiner" id="69">
+		<addForeignKeyConstraint baseColumnNames="adresstyp"
+			baseTableName="mitglied" constraintName="fkMitglied2" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="adresstyp" />
+	</changeSet>
+	<changeSet author="Heiner" id="70">
+		<addForeignKeyConstraint baseColumnNames="referenz"
+			baseTableName="mitglieddokument" constraintName="fkMitgliedDokument1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="71">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="mitgliedfoto" constraintName="fkMitgliedfoto1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="72">
+		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
+			baseTableName="mitgliedskonto" constraintName="fkMitgliedskonto1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="abrechnungslauf" />
+	</changeSet>
+	<changeSet author="Heiner" id="73">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="mitgliedskonto" constraintName="fkMitgliedskonto2"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="74">
+		<addForeignKeyConstraint baseColumnNames="formular"
+			baseTableName="spendenbescheinigung" constraintName="fkSpendenbescheinigung1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="formular" />
+	</changeSet>
+	<changeSet author="Heiner" id="75">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="spendenbescheinigung" constraintName="fkSpendenbescheinigung2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="76">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="wiedervorlage" constraintName="fkWiedervorlage1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="77">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="zusatzabbuchung" constraintName="fkZusatzabbuchung1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="78">
+		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
+			baseTableName="zusatzbetragabrechnungslauf" constraintName="fkZusatzbetragabrechnungslauf1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="abrechnungslauf" />
+	</changeSet>
+	<changeSet author="Heiner" id="79">
+		<addForeignKeyConstraint baseColumnNames="zusatzbetrag"
+			baseTableName="zusatzbetragabrechnungslauf" constraintName="fkZusatzbetragabrechnungslauf2"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="zusatzabbuchung" />
+	</changeSet>
+	<changeSet author="Heiner" id="80">
+		<addForeignKeyConstraint baseColumnNames="felddefinition"
+			baseTableName="zusatzfelder" constraintName="fkZusatzfelder2"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="felddefinition" />
+	</changeSet>
+	<changeSet author="Heiner" id="81">
+		<addForeignKeyConstraint baseColumnNames="mitglied"
+			baseTableName="zusatzfelder" constraintName="fkzusatzfelder1"
+			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="82">
+		<addUniqueConstraint columnNames="betreff"
+			constraintName="betreff" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="mailvorlage" />
+	</changeSet>
+	<changeSet author="Heiner" id="83">
+		<addUniqueConstraint columnNames="bezeichnung"
+			constraintName="bezeichnung" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="adresstyp" />
+	</changeSet>
+	<changeSet author="Heiner" id="84">
+		<addUniqueConstraint columnNames="externemitgliedsnummer"
+			constraintName="externemitgliedsnummer" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="mitglied" />
+	</changeSet>
+	<changeSet author="Heiner" id="85">
+		<addUniqueConstraint columnNames="id"
+			constraintName="id" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="eigenschaftgruppe" />
+	</changeSet>
+	<changeSet author="Heiner" id="86">
+		<addUniqueConstraint columnNames="bezeichnung, eigenschaftgruppe"
+			constraintName="ixEigenschaft1" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="eigenschaft" />
+	</changeSet>
+	<changeSet author="Heiner" id="87">
+		<addUniqueConstraint columnNames="bezeichnung"
+			constraintName="ixEigenschaftGruppe1" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="eigenschaftgruppe" />
+	</changeSet>
+	<changeSet author="Heiner" id="88">
+		<addUniqueConstraint columnNames="mitglied, eigenschaft"
+			constraintName="ixEigenschaften1" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="eigenschaften" />
+	</changeSet>
+	<changeSet author="Heiner" id="89">
+		<addUniqueConstraint columnNames="bezeichnung"
+			constraintName="ixFormular1" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="formular" />
+	</changeSet>
+	<changeSet author="Heiner" id="90">
+		<addUniqueConstraint columnNames="konto, datum"
+			constraintName="konto" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="anfangsbestand" />
+	</changeSet>
+	<changeSet author="Heiner" id="91">
+		<addUniqueConstraint columnNames="mitglied"
+			constraintName="mitglied" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="mitgliedfoto" />
+	</changeSet>
+	<changeSet author="Heiner" id="92">
+		<addUniqueConstraint columnNames="nummer"
+			constraintName="nummer" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="buchungsart" />
+	</changeSet>
+	<changeSet author="Heiner" id="93">
+		<addUniqueConstraint columnNames="posid"
+			constraintName="posid" deferrable="false" disabled="false"
+			initiallyDeferred="false" tableName="qifimportpos" />
+	</changeSet>
+	<changeSet author="Heiner" id="94">
+		<createIndex indexName="ixbuchungsklasse1" tableName="buchungsklasse"
+			unique="true">
+			<column name="nummer" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="Heiner" id="95">
+		<createIndex indexName="ixkonto1" tableName="konto" unique="true">
+			<column name="nummer" />
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>
