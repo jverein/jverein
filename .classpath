@@ -16,5 +16,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
 	<classpathentry kind="lib" path="lib/jollyday-0.4.7.jar"/>
 	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/liquibase.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/snakeyaml-1.13.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/obantoo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
