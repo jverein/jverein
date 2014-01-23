@@ -56,6 +56,7 @@ import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.IBANCode;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -668,28 +669,24 @@ public class Import
     {
       try
       {
-        IBAN ib = new IBAN(ktnr, blz, "DE");
-        iban = ib.getIBAN();
+        IBAN ib = new IBAN(ktnr, blz, Einstellungen.getEinstellung()
+            .getDefaultLand());
+        if (ib.getCode().equals(IBANCode.GUELTIG))
+        {
+          iban = ib.getIBAN();
+        }
+        else
+        {
+          progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
+              + ib.getCode().getMessage());
+          throw new ApplicationException();
+        }
         BIC bi = new BIC(ktnr, blz, "DE");
         bic = bi.getBIC();
       }
       catch (SEPAException e)
       {
-        progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
-            + e.getMessage());
-      }
-    }
-    if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0)
-    {
-      try
-      {
-        IBAN ib = new IBAN(ktnr, blz, "DE");
-        iban = ib.getIBAN();
-        BIC bi = new BIC(ktnr, blz, "DE");
-        bic = bi.getBIC();
-      }
-      catch (SEPAException e)
-      {
+        e.printStackTrace();
         progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
             + e.getMessage());
       }
@@ -710,7 +707,8 @@ public class Import
       zahlweg = Zahlungsweg.BASISLASTSCHRIFT;
 
       boolean altebankverbindung = blz.length() > 0 && ktnr.length() > 0;
-      boolean neuebankverbindung = iban.length() > 0 && bic.length() > 0;
+      boolean neuebankverbindung = iban != null && bic != null
+          && iban.length() > 0 && bic.length() > 0;
 
       if (!altebankverbindung && !neuebankverbindung)
       {
