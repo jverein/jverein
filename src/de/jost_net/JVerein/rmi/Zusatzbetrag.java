@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -62,7 +57,7 @@ public interface Zusatzbetrag extends DBObject
 
   public void setAusfuehrung(Date ausfuehrung) throws RemoteException;
 
-  public boolean isAktiv() throws RemoteException;
+  public boolean isAktiv(Date datum) throws RemoteException;
 
   public void naechsteFaelligkeit() throws RemoteException;
 

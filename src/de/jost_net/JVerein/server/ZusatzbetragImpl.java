@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -244,15 +239,15 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     }
     if (fieldName.equals("aktiv"))
     {
-      return isAktiv();
+      return isAktiv(new Date());
     }
     return super.getAttribute(fieldName);
   }
 
   @Override
-  public boolean isAktiv() throws RemoteException
+  public boolean isAktiv(Date datum) throws RemoteException
   {
-    if (!getMitglied().isAngemeldet(new Date()))
+    if (!getMitglied().isAngemeldet(datum))
     {
       if (!Einstellungen.getEinstellung().getZusatzbetragAusgetretene())
       {

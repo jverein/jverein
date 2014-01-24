@@ -461,7 +461,7 @@ public class AbrechnungSEPA
     while (list.hasNext())
     {
       Zusatzbetrag z = (Zusatzbetrag) list.next();
-      if (z.isAktiv())
+      if (z.isAktiv(abrl.getFaelligkeit()))
       {
         Mitglied m = z.getMitglied();
         if (m.isAngemeldet(param.stichtag)
