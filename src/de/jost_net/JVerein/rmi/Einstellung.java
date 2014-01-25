@@ -69,6 +69,14 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setVorlaeufigab(Date vorlaeufigab) throws RemoteException;
 
+  public Date getVeranlagungVon() throws RemoteException;
+
+  public void setVeranlagungVon(Date veranlagungvon) throws RemoteException;
+
+  public Date getVeranlagungBis() throws RemoteException;
+
+  public void setVeranlagungBis(Date veranlagungbis) throws RemoteException;
+
   public String getBeguenstigterzweck() throws RemoteException;
 
   public void setBeguenstigterzweck(String beguenstigterzweck)

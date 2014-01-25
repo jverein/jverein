@@ -1441,6 +1441,10 @@ public class JVereinUpdateProvider
     {
       update0359(conn);
     }
+    if (cv < 360)
+    {
+      update0360(conn);
+    }
     // TODO
   }
 
@@ -8486,6 +8490,24 @@ public class JVereinUpdateProvider
         359);
   }
 
+  private void update0360(Connection conn) throws ApplicationException
+  {
+    Map<String, String> statements = new HashMap<String, String>();
+    sb = new StringBuilder();
+    sb.append(String.format("ALTER TABLE einstellung ADD %s DATE;\n",
+        "veranlagungvon"));
+    sb.append(String.format("ALTER TABLE einstellung ADD %s DATE;\n",
+        "veranlagungbis"));
+
+    String statement = sb.toString();
+
+    statements.put(DBSupportH2Impl.class.getName(), statement);
+    statements.put(DBSupportMySqlImpl.class.getName(), statement);
+
+    execute(conn, statements,
+        "Einstellungen für Spendenbescheinigungen Veranlagung von, Veranlagung bis.", 360);
+  }
+  
   private String alterColumn(String table, String column, String type)
   {
     return alterColumn(this.driver, table, column, type);

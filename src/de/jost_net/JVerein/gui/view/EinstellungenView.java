@@ -139,6 +139,8 @@ public class EinstellungenView extends AbstractView
     groupSpenden.addLabelPair("Bescheiddatum", control.getBescheiddatum());
     groupSpenden.addLabelPair("vorläufiger Bescheid", control.getVorlaeufig());
     groupSpenden.addLabelPair("Vorläufig ab", control.getVorlaeufigab());
+    groupSpenden.addLabelPair("Veranlagung von", control.getVeranlagungVon());
+    groupSpenden.addLabelPair("Veranlagung bis", control.getVeranlagungBis());
     groupSpenden.addLabelPair("begünstigter Zweck",
         control.getBeguenstigterzweck());
     groupSpenden.addLabelPair("Mitgliedsbeiträge dürfen bescheinigt werden",

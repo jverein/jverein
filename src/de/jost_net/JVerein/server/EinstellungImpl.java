@@ -308,6 +308,42 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("vorlaeufigab", vorlaeufigab);
   }
 
+
+  @Override
+  public Date getVeranlagungVon() throws RemoteException
+  {
+    Date d = (Date) getAttribute("veranlagungvon");
+    if (d == null)
+    {
+      return new Date();
+    }
+    return d;
+  }
+
+  @Override
+  public void setVeranlagungVon(Date veranlagungvon) throws RemoteException
+  {
+    setAttribute("veranlagungvon", veranlagungvon);
+  }
+
+  @Override
+  public Date getVeranlagungBis() throws RemoteException
+  {
+    Date d = (Date) getAttribute("veranlagungbis");
+    if (d == null)
+    {
+      return new Date();
+    }
+    return d;
+  }
+
+  @Override
+  public void setVeranlagungBis(Date veranlagungbis) throws RemoteException
+  {
+    setAttribute("veranlagungbis", veranlagungbis);
+  }
+  
+  
   @Override
   public String getBeguenstigterzweck() throws RemoteException
   {

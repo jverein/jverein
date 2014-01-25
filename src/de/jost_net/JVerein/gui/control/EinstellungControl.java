@@ -78,6 +78,10 @@ public class EinstellungControl extends AbstractControl
 
   private DateInput vorlaeufigab;
 
+  private DateInput veranlagungvon;
+
+  private DateInput veranlagungbis;
+
   private TextInput beguenstigterzweck;
 
   private CheckboxInput mitgliedsbetraege;
@@ -359,6 +363,28 @@ public class EinstellungControl extends AbstractControl
     vorlaeufigab = new DateInput(Einstellungen.getEinstellung()
         .getVorlaeufigab());
     return vorlaeufigab;
+  }
+
+  public DateInput getVeranlagungVon() throws RemoteException
+  {
+    if (veranlagungvon != null)
+    {
+      return veranlagungvon;
+    }
+    veranlagungvon = new DateInput(Einstellungen.getEinstellung()
+        .getVeranlagungVon());
+    return veranlagungvon;
+  }
+
+  public DateInput getVeranlagungBis() throws RemoteException
+  {
+    if (veranlagungbis != null)
+    {
+      return veranlagungbis;
+    }
+    veranlagungbis = new DateInput(Einstellungen.getEinstellung()
+        .getVeranlagungBis());
+    return veranlagungbis;
   }
 
   public TextInput getBeguenstigterzweck() throws RemoteException
