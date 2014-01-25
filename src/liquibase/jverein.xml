@@ -236,6 +236,8 @@
 			<column name="spendenbescheinigungverzeichnis" type="VARCHAR(200)" />
 			<column defaultValueNumeric="0"
 				name="spendenbescheinigungprintbuchungsart" type="BIT" />
+			<column name="veranlagungvon" type="date" />
+			<column name="veranlagungbis" type="date" />
 			<column name="beginngeschaeftsjahr" type="CHAR(6)" />
 			<column name="smtp_server" type="VARCHAR(50)" />
 			<column name="smtp_port" type="CHAR(5)" />
@@ -702,7 +704,7 @@
 	<changeSet author="Heiner" id="40">
 		<insert tableName="version">
 			<column name="id" value="1" />
-			<column name="version" value="359" />
+			<column name="version" value="360" />
 		</insert>
 	</changeSet>
 	<changeSet author="Heiner" id="41">
