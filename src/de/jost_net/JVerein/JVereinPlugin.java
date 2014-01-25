@@ -22,6 +22,8 @@
 package de.jost_net.JVerein;
 
 import java.rmi.RemoteException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.io.UmsatzMessageConsumer;
@@ -78,25 +80,26 @@ public class JVereinPlugin extends AbstractPlugin
   {
     Logger.info("starting init process for jverein");
 
-//    String driver = settings.getString("jdbc.driver", null);
-//    String url = settings.getString("jdbc.url", null);
-//    String username = settings.getString("jdbc.user", null);
-//    String password = settings.getString("jdbc.password", null);
-//    String changelog = "liquibase/jverein.xml";
-//    try
-//    {
-//      Class.forName(driver);
-//      Connection connection = DriverManager.getConnection(url, username,
-//          password);
-//      Liquibase liquibase = new Liquibase(changelog,
-//          new ClassLoaderResourceAccessor(), new JdbcConnection(connection));
-//      liquibase.update("");
-//      
-//    }
-//    catch (Exception e)
-//    {
-//      throw new ApplicationException(e);
-//    }
+    update();
+    // String driver = settings.getString("jdbc.driver", null);
+    // String url = settings.getString("jdbc.url", null);
+    // String username = settings.getString("jdbc.user", null);
+    // String password = settings.getString("jdbc.password", null);
+    // String changelog = "liquibase/jverein.xml";
+    // try
+    // {
+    // Class.forName(driver);
+    // Connection connection = DriverManager.getConnection(url, username,
+    // password);
+    // Liquibase liquibase = new Liquibase(changelog,
+    // new ClassLoaderResourceAccessor(), new JdbcConnection(connection));
+    // liquibase.update("");
+    //
+    // }
+    // catch (Exception e)
+    // {
+    // throw new ApplicationException(e);
+    // }
 
     call(new ServiceCall()
     {
@@ -258,4 +261,47 @@ public class JVereinPlugin extends AbstractPlugin
     }
     return false;
   }
+
+  private void update() throws ApplicationException
+  {
+    String driver = settings.getString("jdbc.driver", null);
+    String url = settings.getString("jdbc.url", null);
+    String username = settings.getString("jdbc.user", null);
+    String password = settings.getString("jdbc.password", null);
+    try
+    {
+      Class.forName(driver);
+      Connection connection = DriverManager.getConnection(url, username,
+          password);
+      Integer version = DBUpdaterTool.getVersion(connection);
+      if (version == null)
+      {
+        DBUpdaterTool.updateLiquibase(connection);
+      }
+      else if (version < 359)
+      {
+        call(new ServiceCall()
+        {
+          @Override
+          public void call(JVereinDBService service) throws RemoteException
+          {
+            service.install();
+          }
+        });
+      }
+      boolean liquibaseinstalliert = DBUpdaterTool
+          .isLiquibaseInstalliert(connection);
+      if (!liquibaseinstalliert)
+      {
+        DBUpdaterTool.changelogsyncLiquibase(connection);
+      }
+      DBUpdaterTool.updateLiquibase(connection);
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+
+  }
+
 }

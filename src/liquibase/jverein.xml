@@ -700,6 +700,12 @@
 		</createTable>
 	</changeSet>
 	<changeSet author="Heiner" id="40">
+		<insert tableName="version">
+			<column name="id" value="1" />
+			<column name="version" value="359" />
+		</insert>
+	</changeSet>
+	<changeSet author="Heiner" id="41">
 		<createTable tableName="wiedervorlage">
 			<column autoIncrement="true" name="id" type="BIGINT(19)">
 				<constraints primaryKey="true" />
@@ -714,7 +720,7 @@
 			<column name="erledigung" type="date" />
 		</createTable>
 	</changeSet>
-	<changeSet author="Heiner" id="41">
+	<changeSet author="Heiner" id="42">
 		<createTable tableName="zusatzabbuchung">
 			<column autoIncrement="true" name="id" type="BIGINT(19)">
 				<constraints primaryKey="true" />
@@ -733,7 +739,7 @@
 			<column name="ausfuehrung" type="date" />
 		</createTable>
 	</changeSet>
-	<changeSet author="Heiner" id="42">
+	<changeSet author="Heiner" id="43">
 		<createTable tableName="zusatzbetragabrechnungslauf">
 			<column autoIncrement="true" name="id" type="BIGINT(19)">
 				<constraints primaryKey="true" />
@@ -743,7 +749,7 @@
 			<column name="letzteausfuehrung" type="date" />
 		</createTable>
 	</changeSet>
-	<changeSet author="Heiner" id="43">
+	<changeSet author="Heiner" id="44">
 		<createTable tableName="zusatzfelder">
 			<column autoIncrement="true" name="id" type="BIGINT(19)">
 				<constraints primaryKey="true" />
@@ -758,301 +764,301 @@
 			<column name="feldjanein" type="BIT" />
 		</createTable>
 	</changeSet>
-	<changeSet author="Heiner" id="44">
+	<changeSet author="Heiner" id="45">
 		<addForeignKeyConstraint baseColumnNames="konto"
 			baseTableName="anfangsbestand" constraintName="fkAnfangsbestand1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="konto" />
 	</changeSet>
-	<changeSet author="Heiner" id="45">
+	<changeSet author="Heiner" id="46">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="arbeitseinsatz" constraintName="fkArbeitseinsatz1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="46">
+	<changeSet author="Heiner" id="47">
 		<addForeignKeyConstraint baseColumnNames="buchungsart"
 			baseTableName="beitragsgruppe" constraintName="fkBeitragsgruppe1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="buchungsart" />
 	</changeSet>
-	<changeSet author="Heiner" id="47">
+	<changeSet author="Heiner" id="48">
 		<addForeignKeyConstraint baseColumnNames="buchungsart"
 			baseTableName="buchung" constraintName="fkBuchung1" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="buchungsart" />
 	</changeSet>
-	<changeSet author="Heiner" id="48">
+	<changeSet author="Heiner" id="49">
 		<addForeignKeyConstraint baseColumnNames="konto"
 			baseTableName="buchung" constraintName="fkBuchung2" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="konto" />
 	</changeSet>
-	<changeSet author="Heiner" id="49">
+	<changeSet author="Heiner" id="50">
 		<addForeignKeyConstraint baseColumnNames="mitgliedskonto"
 			baseTableName="buchung" constraintName="fkBuchung3" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="mitgliedskonto" />
 	</changeSet>
-	<changeSet author="Heiner" id="50">
+	<changeSet author="Heiner" id="51">
 		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
 			baseTableName="buchung" constraintName="fkBuchung4" deferrable="false"
 			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="abrechnungslauf" />
 	</changeSet>
-	<changeSet author="Heiner" id="51">
+	<changeSet author="Heiner" id="52">
 		<addForeignKeyConstraint baseColumnNames="spendenbescheinigung"
 			baseTableName="buchung" constraintName="fkBuchung5" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="spendenbescheinigung" />
 	</changeSet>
-	<changeSet author="Heiner" id="52">
+	<changeSet author="Heiner" id="53">
 		<addForeignKeyConstraint baseColumnNames="projekt"
 			baseTableName="buchung" constraintName="fkBuchung6" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="projekt" />
 	</changeSet>
-	<changeSet author="Heiner" id="53">
+	<changeSet author="Heiner" id="54">
 		<addForeignKeyConstraint baseColumnNames="referenz"
 			baseTableName="buchungdokument" constraintName="fkBuchungDokument1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="buchung" />
 	</changeSet>
-	<changeSet author="Heiner" id="54">
+	<changeSet author="Heiner" id="55">
 		<addForeignKeyConstraint baseColumnNames="buchungsklasse"
 			baseTableName="buchungsart" constraintName="fkBuchungsart2"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="buchungsklasse" />
 	</changeSet>
-	<changeSet author="Heiner" id="55">
+	<changeSet author="Heiner" id="56">
 		<addForeignKeyConstraint baseColumnNames="eigenschaftgruppe"
 			baseTableName="eigenschaft" constraintName="fkEigenschaft1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eigenschaftgruppe" />
 	</changeSet>
-	<changeSet author="Heiner" id="56">
+	<changeSet author="Heiner" id="57">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="eigenschaften" constraintName="fkEigenschaften1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="57">
+	<changeSet author="Heiner" id="58">
 		<addForeignKeyConstraint baseColumnNames="eigenschaft"
 			baseTableName="eigenschaften" constraintName="fkEigenschaften2"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eigenschaft" />
 	</changeSet>
-	<changeSet author="Heiner" id="58">
+	<changeSet author="Heiner" id="59">
 		<addForeignKeyConstraint baseColumnNames="formular"
 			baseTableName="formularfeld" constraintName="fkFormularfeld1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="formular" />
 	</changeSet>
-	<changeSet author="Heiner" id="59">
+	<changeSet author="Heiner" id="60">
 		<addForeignKeyConstraint baseColumnNames="headid"
 			baseTableName="qifimportpos" constraintName="fkImpKntPos1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="qifimporthead" />
 	</changeSet>
-	<changeSet author="Heiner" id="60">
+	<changeSet author="Heiner" id="61">
 		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
 			baseTableName="lastschrift" constraintName="fkLastschrift1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="abrechnungslauf" />
 	</changeSet>
-	<changeSet author="Heiner" id="61">
+	<changeSet author="Heiner" id="62">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="lastschrift" constraintName="fkLastschrift2"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="62">
+	<changeSet author="Heiner" id="63">
 		<addForeignKeyConstraint baseColumnNames="kursteilnehmer"
 			baseTableName="lastschrift" constraintName="fkLastschrift3"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="kursteilnehmer" />
 	</changeSet>
-	<changeSet author="Heiner" id="63">
+	<changeSet author="Heiner" id="64">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="lehrgang" constraintName="fkLehrgang1" deferrable="false"
 			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="64">
+	<changeSet author="Heiner" id="65">
 		<addForeignKeyConstraint baseColumnNames="lehrgangsart"
 			baseTableName="lehrgang" constraintName="fkLehrgang2" deferrable="false"
 			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="lehrgangsart" />
 	</changeSet>
-	<changeSet author="Heiner" id="65">
+	<changeSet author="Heiner" id="66">
 		<addForeignKeyConstraint baseColumnNames="mail"
 			baseTableName="mailanhang" constraintName="fkMailAnhang1" deferrable="false"
 			initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="mail" />
 	</changeSet>
-	<changeSet author="Heiner" id="66">
+	<changeSet author="Heiner" id="67">
 		<addForeignKeyConstraint baseColumnNames="mail"
 			baseTableName="mailempfaenger" constraintName="fkMailEmpfaenger1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mail" />
 	</changeSet>
-	<changeSet author="Heiner" id="67">
+	<changeSet author="Heiner" id="68">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="mailempfaenger" constraintName="fkMailempfaenger2"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="68">
+	<changeSet author="Heiner" id="69">
 		<addForeignKeyConstraint baseColumnNames="beitragsgruppe"
 			baseTableName="mitglied" constraintName="fkMitglied1" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="beitragsgruppe" />
 	</changeSet>
-	<changeSet author="Heiner" id="69">
+	<changeSet author="Heiner" id="70">
 		<addForeignKeyConstraint baseColumnNames="adresstyp"
 			baseTableName="mitglied" constraintName="fkMitglied2" deferrable="false"
 			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="adresstyp" />
 	</changeSet>
-	<changeSet author="Heiner" id="70">
+	<changeSet author="Heiner" id="71">
 		<addForeignKeyConstraint baseColumnNames="referenz"
 			baseTableName="mitglieddokument" constraintName="fkMitgliedDokument1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="71">
+	<changeSet author="Heiner" id="72">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="mitgliedfoto" constraintName="fkMitgliedfoto1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="72">
+	<changeSet author="Heiner" id="73">
 		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
 			baseTableName="mitgliedskonto" constraintName="fkMitgliedskonto1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="abrechnungslauf" />
 	</changeSet>
-	<changeSet author="Heiner" id="73">
+	<changeSet author="Heiner" id="74">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="mitgliedskonto" constraintName="fkMitgliedskonto2"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="74">
+	<changeSet author="Heiner" id="75">
 		<addForeignKeyConstraint baseColumnNames="formular"
 			baseTableName="spendenbescheinigung" constraintName="fkSpendenbescheinigung1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="formular" />
 	</changeSet>
-	<changeSet author="Heiner" id="75">
+	<changeSet author="Heiner" id="76">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="spendenbescheinigung" constraintName="fkSpendenbescheinigung2"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="76">
+	<changeSet author="Heiner" id="77">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="wiedervorlage" constraintName="fkWiedervorlage1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="77">
+	<changeSet author="Heiner" id="78">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="zusatzabbuchung" constraintName="fkZusatzabbuchung1"
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="78">
+	<changeSet author="Heiner" id="79">
 		<addForeignKeyConstraint baseColumnNames="abrechnungslauf"
 			baseTableName="zusatzbetragabrechnungslauf" constraintName="fkZusatzbetragabrechnungslauf1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="abrechnungslauf" />
 	</changeSet>
-	<changeSet author="Heiner" id="79">
+	<changeSet author="Heiner" id="80">
 		<addForeignKeyConstraint baseColumnNames="zusatzbetrag"
 			baseTableName="zusatzbetragabrechnungslauf" constraintName="fkZusatzbetragabrechnungslauf2"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="zusatzabbuchung" />
 	</changeSet>
-	<changeSet author="Heiner" id="80">
+	<changeSet author="Heiner" id="81">
 		<addForeignKeyConstraint baseColumnNames="felddefinition"
 			baseTableName="zusatzfelder" constraintName="fkZusatzfelder2"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="felddefinition" />
 	</changeSet>
-	<changeSet author="Heiner" id="81">
+	<changeSet author="Heiner" id="82">
 		<addForeignKeyConstraint baseColumnNames="mitglied"
 			baseTableName="zusatzfelder" constraintName="fkzusatzfelder1"
 			deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="82">
+	<changeSet author="Heiner" id="83">
 		<addUniqueConstraint columnNames="betreff"
 			constraintName="betreff" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="mailvorlage" />
 	</changeSet>
-	<changeSet author="Heiner" id="83">
+	<changeSet author="Heiner" id="84">
 		<addUniqueConstraint columnNames="bezeichnung"
 			constraintName="bezeichnung" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="adresstyp" />
 	</changeSet>
-	<changeSet author="Heiner" id="84">
+	<changeSet author="Heiner" id="85">
 		<addUniqueConstraint columnNames="externemitgliedsnummer"
 			constraintName="externemitgliedsnummer" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="mitglied" />
 	</changeSet>
-	<changeSet author="Heiner" id="85">
+	<changeSet author="Heiner" id="86">
 		<addUniqueConstraint columnNames="id"
 			constraintName="id" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="eigenschaftgruppe" />
 	</changeSet>
-	<changeSet author="Heiner" id="86">
+	<changeSet author="Heiner" id="87">
 		<addUniqueConstraint columnNames="bezeichnung, eigenschaftgruppe"
 			constraintName="ixEigenschaft1" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="eigenschaft" />
 	</changeSet>
-	<changeSet author="Heiner" id="87">
+	<changeSet author="Heiner" id="88">
 		<addUniqueConstraint columnNames="bezeichnung"
 			constraintName="ixEigenschaftGruppe1" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="eigenschaftgruppe" />
 	</changeSet>
-	<changeSet author="Heiner" id="88">
+	<changeSet author="Heiner" id="89">
 		<addUniqueConstraint columnNames="mitglied, eigenschaft"
 			constraintName="ixEigenschaften1" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="eigenschaften" />
 	</changeSet>
-	<changeSet author="Heiner" id="89">
+	<changeSet author="Heiner" id="90">
 		<addUniqueConstraint columnNames="bezeichnung"
 			constraintName="ixFormular1" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="formular" />
 	</changeSet>
-	<changeSet author="Heiner" id="90">
+	<changeSet author="Heiner" id="91">
 		<addUniqueConstraint columnNames="konto, datum"
 			constraintName="konto" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="anfangsbestand" />
 	</changeSet>
-	<changeSet author="Heiner" id="91">
+	<changeSet author="Heiner" id="92">
 		<addUniqueConstraint columnNames="mitglied"
 			constraintName="mitglied" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="mitgliedfoto" />
 	</changeSet>
-	<changeSet author="Heiner" id="92">
+	<changeSet author="Heiner" id="93">
 		<addUniqueConstraint columnNames="nummer"
 			constraintName="nummer" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="buchungsart" />
 	</changeSet>
-	<changeSet author="Heiner" id="93">
+	<changeSet author="Heiner" id="94">
 		<addUniqueConstraint columnNames="posid"
 			constraintName="posid" deferrable="false" disabled="false"
 			initiallyDeferred="false" tableName="qifimportpos" />
 	</changeSet>
-	<changeSet author="Heiner" id="94">
+	<changeSet author="Heiner" id="95">
 		<createIndex indexName="ixbuchungsklasse1" tableName="buchungsklasse"
 			unique="true">
 			<column name="nummer" />
 		</createIndex>
 	</changeSet>
-	<changeSet author="Heiner" id="95">
+	<changeSet author="Heiner" id="96">
 		<createIndex indexName="ixkonto1" tableName="konto" unique="true">
 			<column name="nummer" />
 		</createIndex>
