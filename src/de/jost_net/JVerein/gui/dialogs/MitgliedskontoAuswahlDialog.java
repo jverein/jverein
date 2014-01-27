@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * basiert auf dem KontoAuswahlDialog aus Hibiscus
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
@@ -70,7 +65,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     settings.setStoreWhenRead(true);
 
-    this.setSize(600, 400);
+    this.setSize(600, 700);
     this.setTitle("Mitgliedskonto-Auswahl");
     this.buchung = buchung;
     control = new MitgliedskontoControl(null);
