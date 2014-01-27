@@ -82,6 +82,7 @@ import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
+import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
@@ -878,12 +879,27 @@ public class BuchungsControl extends AbstractControl
       });
       buchungsList.addColumn("Datum", "datum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
-      buchungsList.addColumn("Auszug", "auszugsnummer");
+      buchungsList.addColumn(new Column("auszugsnummer", "Auszug",
+          new Formatter()
+          {
+            @Override
+            public String format(Object o)
+            {
+              return (String) o;
+            }
+          }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
+      buchungsList.addColumn(new Column("blattnummer", "Blatt", new Formatter()
+      {
+        @Override
+        public String format(Object o)
+        {
+          return (String) o;
+        }
+      }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
       buchungsList.addColumn("Blatt", "blattnummer");
       buchungsList.addColumn("Name", "name");
       buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
       {
-
         @Override
         public String format(Object value)
         {
@@ -902,8 +918,9 @@ public class BuchungsControl extends AbstractControl
           new BuchungsartFormatter());
       buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
           Einstellungen.DECIMALFORMAT));
-      buchungsList.addColumn("Mitglied", "mitgliedskonto",
-          new MitgliedskontoFormatter());
+      buchungsList.addColumn(new Column("mitgliedskonto", "Mitglied",
+          new MitgliedskontoFormatter(), false, Column.ALIGN_AUTO,
+          Column.SORT_BY_DISPLAY));
       buchungsList.setMulti(true);
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
