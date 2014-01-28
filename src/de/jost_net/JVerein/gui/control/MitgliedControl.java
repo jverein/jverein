@@ -2318,6 +2318,7 @@ public class MitgliedControl extends AbstractControl
   public void resetZusatzfelderAuswahl()
   {
     settings.setAttribute("mitglied.eigenschaften", "");
+    settings.setAttribute("zusatzfelder.selected", 0);
     setZusatzfelderAuswahl();
   }
 
@@ -2342,22 +2343,15 @@ public class MitgliedControl extends AbstractControl
     // Suche alle *.csv Dateien im vorlagencsvverzeichnis
     String vorlagencsvverzeichnis = "";
     String[] vorlagencsvList = {};
-    try
+    vorlagencsvverzeichnis = Einstellungen.getEinstellung()
+        .getVorlagenCsvVerzeichnis();
+    if (vorlagencsvverzeichnis.length() > 0)
     {
-      vorlagencsvverzeichnis = Einstellungen.getEinstellung()
-          .getVorlagenCsvVerzeichnis();
-      if (vorlagencsvverzeichnis.length() > 0)
+      File verzeichnis = new File(vorlagencsvverzeichnis);
+      if (verzeichnis.isDirectory())
       {
-        File verzeichnis = new File(vorlagencsvverzeichnis);
-        if (verzeichnis.isDirectory())
-        {
-          vorlagencsvList = verzeichnis.list(csvFilter);
-        }
+        vorlagencsvList = verzeichnis.list(csvFilter);
       }
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler", e);
     }
 
     // erzeuge Auswertungsobjekte
