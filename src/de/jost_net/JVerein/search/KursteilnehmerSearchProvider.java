@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -57,8 +52,9 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     String text = "%" + search.toLowerCase() + "%";
     DBIterator list = Einstellungen.getDBService().createList(
         Kursteilnehmer.class);
-    list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vzweck1) LIKE ? OR "
-        + "blz LIKE ? OR " + "konto LIKE ?", text, text, text, text, text);
+    list.addFilter(
+        "LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR blz LIKE ? OR konto LIKE ? OR iban LIKE ? OR BIC like ?",
+        text, text, text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
