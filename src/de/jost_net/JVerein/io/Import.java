@@ -56,7 +56,6 @@ import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
-import de.jost_net.OBanToo.SEPA.IBANCode;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -671,7 +670,7 @@ public class Import
       {
         IBAN ib = new IBAN(ktnr, blz, Einstellungen.getEinstellung()
             .getDefaultLand());
-        if (ib.getCode().equals(IBANCode.GUELTIG))
+        if (ib.getCode().getStatus() == 1 || ib.getCode().getStatus() == 2)
         {
           iban = ib.getIBAN();
         }
