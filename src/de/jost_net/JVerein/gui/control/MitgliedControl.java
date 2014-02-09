@@ -2322,7 +2322,7 @@ public class MitgliedControl extends AbstractControl
     setZusatzfelderAuswahl();
   }
 
-  public Input getAusgabe()
+  public Input getAusgabe() throws RemoteException
   {
     if (ausgabe != null)
     {
