@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -190,12 +185,23 @@ public class MailSender
       TreeSet<MailAnhang> anhang) throws Exception
   {
     Properties props = new Properties();
+    if (smtp_auth_user == null || smtp_auth_user.length() == 0)
+    {
+      props.put("mail.smtp.user", smtp_auth_user);
+    }
+
+    if (smtp_auth_pwd == null || smtp_auth_pwd.length() == 0)
+    {
+      props.put("mail.smtp.auth", "false");
+    }
+    else
+    {
+      props.put("mail.smtp.auth", "true");
+      props.put("mail.smtp.password", smtp_auth_pwd);
+    }
 
     props.put("mail.smtp.host", smtp_host_name);
-    props.put("mail.smtp.auth", "true");
     props.put("mail.debug", "true");
-    props.put("mail.smtp.user", smtp_auth_user);
-    props.put("mail.smtp.password", smtp_auth_pwd);
     props.put("mail.smtp.port", smtp_port);
     props.put("mail.mime.charset", "ISO-8859-15");
     System.setProperty("mail.mime.charset", "ISO-8859-15");
