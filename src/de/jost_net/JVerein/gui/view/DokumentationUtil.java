@@ -40,7 +40,7 @@ public class DokumentationUtil
 
   public static final String MAHNUNG = PRE + "Mitgliedskonto#Mahnung";
 
-  public static final String PRENOTIFICATION = PRE + "PreNotification";
+  public static final String PRENOTIFICATION = PRE + "Pre-Notification";
 
   public static final String SEPABUGS = PRE + "SEPABugs";
 
