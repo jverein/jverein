@@ -1167,7 +1167,7 @@ public class SpendenbescheinigungPrintAction implements Action
            + Einstellungen.getEinstellung().getSteuernummer()
            + ", vom "
            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-               .getVeranlagungVon())
+               .getBescheiddatum())
            + " für den letzten Veranlagungszeitraum "
            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
                    .getVeranlagungVon())
