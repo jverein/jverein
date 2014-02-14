@@ -14,27 +14,6 @@
 
 		<loadproperties srcfile="${build.dir}/build.properties" />
 
-		<!--
-		                                  ../jameica/lib/nanoxml/nanoxml-2.2.3.jar;\
-		                                  ../jameica/lib/velocity/velocity-1.5.jar;\
-		                                  ../jameica/lib/de_willuhn_ds/de_willuhn_ds.jar;\
-		                                  ../jameica/lib/de_willuhn_util/de_willuhn_util.jar;\
-		                                  ../jameica/lib/swt/linux/swt.jar;\
-		                                  ../jameica/bin;\
-		                                  ../hibiscus/bin;\
-		                                  lib/bsh-core-2.0b4.jar;\
-		                                  lib/activation.jar;\
-		                                  lib/nc.jar;\
-		                                  lib/csvjdbc.jar;\
-		                                  lib/junit-4.8.1.jar;\
-		                                  lib/itext-hyph-xml.jar;\
-		                                  lib/mail.jar;\
-		                                  lib/SuperCSV-1.52.jar;\
-		                                  lib/joda-time-2.3.jar;\
-		                                  lib/jollyday-0.4.7.jar
--->
-
-
 		<path id="compilepath">
 			<fileset dir="../hibiscus/lib">
 				<include name="**/*.jar" />
@@ -61,11 +40,7 @@
 		</path>
 	</target>
 
-	<target name="debug" depends="init, clean">
-		<echo message="${toString:compilepath}" />
-	</target>
 	<target name="compile" depends="init, clean">
-		<echo message="${toString:compilepath}" />
 		<mkdir dir="${class.dir}" />
 		<javac debug="true" includeantruntime="false" debuglevel="lines,vars,source" source="1.6" target="1.6" encoding="${define.encoding}" deprecation="true" destdir="${class.dir}" srcdir="${src.dir}">
 			<classpath refid="compilepath" />
