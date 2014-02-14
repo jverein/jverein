@@ -414,8 +414,18 @@ public class MitgliedControl extends AbstractControl
     }
     else
     {
-      Adresstyp def = (Adresstyp) Einstellungen.getDBService().createObject(
-          Adresstyp.class, settings.getString("suchadresstyp", "2"));
+      Adresstyp def = null;
+      try
+      {
+        def = (Adresstyp) Einstellungen.getDBService().createObject(
+            Adresstyp.class, settings.getString("suchadresstyp", "2"));
+      }
+      catch (Exception e)
+      {
+        settings.setAttribute("suchadresstyp", "2");
+        def = (Adresstyp) Einstellungen.getDBService().createObject(
+            Adresstyp.class, settings.getString("suchadresstyp", "2"));
+      }
       suchadresstyp = new SelectInput(at, def);
     }
     suchadresstyp.setName("Adresstyp");
