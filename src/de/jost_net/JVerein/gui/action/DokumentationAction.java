@@ -50,7 +50,7 @@ public class DokumentationAction implements Action
           else
           {
             new Program()
-                .handleAction("http://www.jverein.de/index.php5?title=Dokumentation");
+                .handleAction("http://www.jverein.de/wiki/index.php?title=Kategorie:Dokumentation");
           }
         }
         catch (ApplicationException ae)

@@ -44,6 +44,8 @@ public class DokumentationUtil
 
   public static final String SEPABUGS = PRE + "SEPABugs";
 
+  public static final String SEPAKONVERTIERUNG = PRE + "SEPA_Einführung";
+
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
       + "Auswertung_Kursteilnehmer";
 

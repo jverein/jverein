@@ -16,6 +16,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.SEPAKonvertierungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -43,14 +44,20 @@ public class SEPAKonvertierungView extends AbstractView
     extbuttons.addButton(control.getButtonExtImport());
     extbuttons.paint(extgroup.getComposite());
 
-    LabelGroup mandatdatum = new LabelGroup(getParent(), "Datum des Mandats setzen");
+    LabelGroup mandatdatum = new LabelGroup(getParent(),
+        "Datum des Mandats setzen");
     mandatdatum.addInput(control.getMandatsdatum());
-    ButtonArea mdButton =new ButtonArea();
+    ButtonArea mdButton = new ButtonArea();
     mdButton.addButton(control.getButtonMandatdatumSetzen());
     mdButton.paint(mandatdatum.getComposite());
-    
+
     LabelGroup erggroup = new LabelGroup(getParent(), "Ergebnis", true);
     erggroup.addPart(control.getList());
+
+    ButtonArea buttons = new ButtonArea();
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.IMPORT, false, "help-browser.png");
+    buttons.paint(getParent());
   }
 
   @Override

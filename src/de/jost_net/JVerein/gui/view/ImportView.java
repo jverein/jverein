@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -58,6 +53,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.io.AssignedColumnsIO;
 import de.jost_net.JVerein.io.CSVConnection;
 import de.jost_net.JVerein.io.CSVFileHelper;
@@ -67,10 +63,12 @@ import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.util.TableColumnReplacer;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.dialogs.SimpleDialog;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.jameica.system.Settings;
@@ -117,12 +115,13 @@ public class ImportView extends AbstractView
    * add a new column, that is available in the program
    * 
    * @param table
-   *        the content will be added to this table in the first column at the
-   *        end
+   *          the content will be added to this table in the first column at the
+   *          end
    * @param content
-   *        content to be added
+   *          content to be added
    * @param necessary
-   *        if true the background will be red, else no change to the background
+   *          if true the background will be red, else no change to the
+   *          background
    */
   private void addColumnTableItemWithOrder(final Table table,
       final String content, final boolean necessary)
@@ -140,9 +139,9 @@ public class ImportView extends AbstractView
    * background from red to green.
    * 
    * @param curItem
-   *        to this item the content will be placed in the second column
+   *          to this item the content will be placed in the second column
    * @param content
-   *        to be added
+   *          to be added
    */
   private void addColumnReplacementTableItem(final TableItem curItem,
       final String content)
@@ -159,9 +158,9 @@ public class ImportView extends AbstractView
    * column, the will automatically assigned to each other
    * 
    * @param table
-   *        with all internal items in the first column
+   *          with all internal items in the first column
    * @param availableColumns
-   *        from the import file
+   *          from the import file
    */
   private void autoColumnsAssignment(final Table table,
       final java.util.List<String> availableColumns)
@@ -259,23 +258,22 @@ public class ImportView extends AbstractView
     availdata.widthHint = 200;
     list.setLayoutData(availdata);
 
+    ButtonArea buttons = new ButtonArea();
+    buttons.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.IMPORT, false, "help-browser.png");
+
     /* Import Button */
-    Button importbt = new Button(parent, SWT.PUSH);
-    importbt.setText("Importieren");
-    GridData importData = new GridData(GridData.END, GridData.CENTER, false,
-        false);
-    importData.horizontalSpan = 2;
-    importbt.setLayoutData(importData);
-    importbt.addSelectionListener(new SelectionAdapter()
-    {
-
-      @Override
-      public void widgetSelected(SelectionEvent event)
-      {
-        doImport();
-      }
-    });
-
+    de.willuhn.jameica.gui.parts.Button importbt = new de.willuhn.jameica.gui.parts.Button(
+        "Import", new Action()
+        {
+          @Override
+          public void handleAction(Object context) throws ApplicationException
+          {
+            doImport();
+          }
+        });
+    buttons.addButton(importbt);
+    buttons.paint(getParent());
     /*
      * add all column headers found in the csv file to the available column
      * list.
@@ -296,7 +294,7 @@ public class ImportView extends AbstractView
      * Create the drag source from the available list
      */
     DragSource ds = new DragSource(list, DND.DROP_MOVE);
-    ds.setTransfer(new Transfer[] { TextTransfer.getInstance()});
+    ds.setTransfer(new Transfer[] { TextTransfer.getInstance() });
     ds.addDragListener(new DragSourceAdapter()
     {
 
@@ -310,7 +308,7 @@ public class ImportView extends AbstractView
 
     /* Create drop target table */
     DropTarget dt = new DropTarget(necTable, DND.DROP_MOVE);
-    dt.setTransfer(new Transfer[] { TextTransfer.getInstance()});
+    dt.setTransfer(new Transfer[] { TextTransfer.getInstance() });
     dt.addDropListener(new DropTargetAdapter()
     {
 
@@ -335,8 +333,8 @@ public class ImportView extends AbstractView
    * Clear a specified assignment
    * 
    * @param item
-   *        the replacement in the second table will be removed, if the
-   *        background was green it will be changed back to red
+   *          the replacement in the second table will be removed, if the
+   *          background was green it will be changed back to red
    */
   private void clearAssignment(final TableItem item)
   {
@@ -486,7 +484,7 @@ public class ImportView extends AbstractView
    * Find all columns with name starting with "Eigenschaft_"
    * 
    * @param columns
-   *        all available Columns from the import file
+   *          all available Columns from the import file
    * @return all Eigenschaft columns
    */
   private java.util.List<String> getEigenschaftFields(
@@ -573,7 +571,8 @@ public class ImportView extends AbstractView
       }
       else
       {
-        GUI.getStatusBar().setErrorText("Fehler - Import Datei existiert nicht");
+        GUI.getStatusBar()
+            .setErrorText("Fehler - Import Datei existiert nicht");
       }
     }
     catch (RemoteException e2)
@@ -588,7 +587,7 @@ public class ImportView extends AbstractView
    * at all.
    * 
    * @param table
-   *        this table will be reseted, too
+   *          this table will be reseted, too
    * @throws RemoteException
    */
   private void resetAllAssignment(final Table table) throws RemoteException
@@ -641,13 +640,13 @@ public class ImportView extends AbstractView
    * will be returned.
    * 
    * @param parent
-   *        a Shell to which the dialog is connected with
+   *          a Shell to which the dialog is connected with
    * @param tagOpenClose
-   *        define either SWT.OPEN or SWT.SAVE
+   *          define either SWT.OPEN or SWT.SAVE
    * @param dialogText
-   *        this text appears in the dialog itself
+   *          this text appears in the dialog itself
    * @param settingsVariable
-   *        to define where the last path will be saved for the next time.
+   *          to define where the last path will be saved for the next time.
    */
   private File selectFile(final Shell parent, final int tagOpenClose,
       final String dialogText, final String settingsVariable)
@@ -688,11 +687,11 @@ public class ImportView extends AbstractView
    * columns also find Eigenschaft fields and add the to the TableColumnReplacer
    * 
    * @param importColumns
-   *        columns red from the import file
+   *          columns red from the import file
    * @param necTable
-   *        the table where the columns get auto assigned to
+   *          the table where the columns get auto assigned to
    * @param list
-   *        to this list all columns will be added
+   *          to this list all columns will be added
    */
   private void setLoadedItems(final java.util.List<String> importColumns,
       final Table necTable, final List list)
