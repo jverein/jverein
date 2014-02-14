@@ -52,7 +52,7 @@ public class DokumentationUtil
 
   public static final String BEITRAGSGRUPPEN = PRE + "Beitragsgruppen";
 
-  public static final String BUCHUNGSARTEN = PRE + "Buchungsarten";
+  public static final String BUCHUNGSART = PRE + "Buchungsart";
 
   public static final String BUCHUNGSIMPORT = PRE + "Buchungsimport";
 

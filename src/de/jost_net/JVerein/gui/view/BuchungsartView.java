@@ -49,7 +49,7 @@ public class BuchungsartView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGSARTEN, false, "help-browser.png");
+        DokumentationUtil.BUCHUNGSART, false, "help-browser.png");
     buttons.addButton("speichern", new Action()
     {
       @Override
