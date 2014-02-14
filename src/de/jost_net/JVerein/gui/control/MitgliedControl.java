@@ -1394,7 +1394,7 @@ public class MitgliedControl extends AbstractControl
           Mitglied m = (Mitglied) zahler.getValue();
           if (m.getID() != null)
           {
-            getMitglied().setZahlerID(new Integer(m.getID()));
+            getMitglied().setZahlerID(new Long(m.getID()));
           }
           else
           {
