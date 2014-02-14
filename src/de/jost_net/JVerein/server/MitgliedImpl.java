@@ -1071,14 +1071,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public Integer getZahlerID() throws RemoteException
+  public Long getZahlerID() throws RemoteException
   {
-    Integer zahlerid = (Integer) getAttribute("zahlerid");
+    Long zahlerid = (Long) getAttribute("zahlerid");
     return zahlerid;
   }
 
   @Override
-  public void setZahlerID(Integer id) throws RemoteException
+  public void setZahlerID(Long id) throws RemoteException
   {
     setAttribute("zahlerid", id);
   }
