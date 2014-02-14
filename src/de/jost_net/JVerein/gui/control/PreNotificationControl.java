@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -27,9 +22,13 @@ import java.io.StringWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeSet;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -41,8 +40,10 @@ import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.LastschriftMap;
 import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.input.FormularInput;
+import de.jost_net.JVerein.io.Ct1Ueberweisung;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.MailSender;
+import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Formularart;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Formular;
@@ -51,12 +52,16 @@ import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.Ueberweisung.Ueberweisung;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -88,6 +93,10 @@ public class PreNotificationControl extends AbstractControl
   private FormularInput formular = null;
 
   private FormularAufbereitung fa;
+
+  private DateInput ausfuehrungsdatum;
+
+  private SelectInput ct1ausgabe;
 
   public PreNotificationControl(AbstractView view)
   {
@@ -142,6 +151,35 @@ public class PreNotificationControl extends AbstractControl
     return mailbody;
   }
 
+  public DateInput getAusfuehrungsdatum() throws RemoteException
+  {
+    if (ausfuehrungsdatum != null)
+    {
+      return ausfuehrungsdatum;
+    }
+    ausfuehrungsdatum = new DateInput();
+    ausfuehrungsdatum.setName("Ausführungsdatum");
+    return ausfuehrungsdatum;
+  }
+
+  public SelectInput getct1Ausgabe()
+  {
+    if (ct1ausgabe != null)
+    {
+      return ct1ausgabe;
+    }
+    int aus = settings.getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI);
+    if (aus != Abrechnungsausgabe.SEPA_DATEI
+        && aus != Abrechnungsausgabe.HIBISCUS)
+    {
+      aus = Abrechnungsausgabe.HIBISCUS;
+    }
+    ct1ausgabe = new SelectInput(Abrechnungsausgabe.getArray(),
+        new Abrechnungsausgabe(aus));
+    ct1ausgabe.setName("Ausgabe");
+    return ct1ausgabe;
+  }
+
   public Button getStartButton(final Object currentObject)
   {
     Button button = new Button("starten", new Action()
@@ -168,6 +206,38 @@ public class PreNotificationControl extends AbstractControl
           {
             generiereEMail(currentObject);
           }
+        }
+        catch (Exception e)
+        {
+          Logger.error("Fehler", e);
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
+      }
+    }, null, true, "go.png");
+    return button;
+  }
+
+  public Button getStart1ctUeberweisungButton(final Object currentObject)
+  {
+    Button button = new Button("starten", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        try
+        {
+          Abrechnungsausgabe aa = (Abrechnungsausgabe) ct1ausgabe.getValue();
+          settings.setAttribute("ct1ausgabe", aa.getKey());
+          if (ausfuehrungsdatum.getValue() == null)
+          {
+            GUI.getStatusBar().setErrorText("Ausführungsdatum fehlt");
+            return;
+          }
+          Date d = (Date) ausfuehrungsdatum.getValue();
+          settings.setAttribute("faelligkeitsdatum",
+              Einstellungen.DATETIMEFORMAT.format(d));
+          generiere1ct(currentObject);
         }
         catch (Exception e)
         {
@@ -231,6 +301,50 @@ public class PreNotificationControl extends AbstractControl
 
   }
 
+  private void generiere1ct(Object currentObject) throws IOException,
+      ParseException, SEPAException, DatatypeConfigurationException,
+      JAXBException
+  {
+    Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
+    File file = null;
+    Abrechnungsausgabe aa = new Abrechnungsausgabe(settings.getInt(
+        "ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI));
+    if (aa.getKey() == Abrechnungsausgabe.SEPA_DATEI)
+    {
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("SEPA-Ausgabedatei wählen.");
+      String path = settings.getString("lastdir",
+          System.getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname("1ctueberweisung", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "XML").get());
+      fd.setFilterExtensions(new String[] { "*.XML" });
+
+      String s = fd.open();
+      if (s == null || s.length() == 0)
+      {
+        return;
+      }
+      settings.setAttribute("ausgabedateiname", s);
+      if (!s.endsWith(".XML"))
+      {
+        s = s + ".XML";
+      }
+      file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
+    }
+    String faelligkeitsdatum = settings.getString("faelligkeitsdatum", null);
+    Date faell = Datum.toDate(faelligkeitsdatum);
+    String ct1ausgabe = settings.getString("ct1ausgabe", null);
+    Ct1Ueberweisung ct1ueberweisung = new Ct1Ueberweisung();
+    Ueberweisung ueb = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe);
+    GUI.getStatusBar().setSuccessText(
+        "Anzahl Überweisungen: " + ueb.getAnzahlBuchungen());
+  }
+
   private void generiereEMail(Object currentObject) throws IOException
   {
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
@@ -268,12 +382,12 @@ public class PreNotificationControl extends AbstractControl
               Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
                   .getEinstellung().getSmtpAuthPwd(), Einstellungen
                   .getEinstellung().getSmtpFromAddress(), Einstellungen
-                  .getEinstellung().getSmtpFromAnzeigename(), 
-                  Einstellungen.getEinstellung().getMailAlwaysBcc(),
-                  Einstellungen.getEinstellung().getMailAlwaysCc(), Einstellungen
+                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
+                  .getEinstellung().getMailAlwaysBcc(), Einstellungen
+                  .getEinstellung().getMailAlwaysCc(), Einstellungen
                   .getEinstellung().getSmtpSsl(), Einstellungen
                   .getEinstellung().getSmtpStarttls(),
-                  Einstellungen.getImapCopyData());
+              Einstellungen.getImapCopyData());
 
           Velocity.init();
           Logger.debug("preparing velocity context");
