@@ -120,7 +120,6 @@ public class PreNotificationControl extends AbstractControl
       return folder;
     }
     folder = new TabFolder(parent, SWT.NONE);
-    System.out.println(settings.getInt("tab.selection",-1));
     folder.setSelection(settings.getInt("tab.selection", 0));
     return folder;
   }
