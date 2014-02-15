@@ -16,7 +16,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 
@@ -39,7 +38,7 @@ public class PreNotificationView extends AbstractView
 
     final PreNotificationControl control = new PreNotificationControl(this);
 
-    TabFolder folder = new TabFolder(getParent(), SWT.NONE);
+    TabFolder folder = control.getFolder(getParent());
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
@@ -61,17 +60,18 @@ public class PreNotificationView extends AbstractView
     buttons1.addButton(control.getStartButton(this.getCurrentObject()));
     buttons1.paint(tabMailPDF.getComposite());
 
-    TabGroup tab1ctUeberw = new TabGroup(folder, "1 ct-Überweisung");
+    TabGroup tab2 = new TabGroup(folder, "1 ct-Überweisung");
 
-    tab1ctUeberw.addInput(control.getct1Ausgabe());
-    tab1ctUeberw.addInput(control.getAusfuehrungsdatum());
-
+    tab2.addInput(control.getct1Ausgabe());
+    tab2.addInput(control.getAusfuehrungsdatum());
+    tab2.addInput(control.getTextVorher());
+    tab2.addInput(control.getTextNachher());
     ButtonArea buttons2 = new ButtonArea();
     buttons2.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.PRENOTIFICATION, false, "help-browser.png");
     buttons2.addButton(control.getStart1ctUeberweisungButton(this
         .getCurrentObject()));
-    buttons2.paint(tab1ctUeberw.getComposite());
+    buttons2.paint(tab2.getComposite());
 
   }
 

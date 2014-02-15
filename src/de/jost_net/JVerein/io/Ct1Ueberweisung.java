@@ -41,8 +41,9 @@ public class Ct1Ueberweisung
   }
 
   public Ueberweisung write(Abrechnungslauf abrl, File file, Date faell,
-      String ct1ausgabe) throws RemoteException, SEPAException,
-      DatatypeConfigurationException, JAXBException
+      String ct1ausgabe, String textvorher, String textnachher)
+      throws RemoteException, SEPAException, DatatypeConfigurationException,
+      JAXBException
   {
     ueb = new Ueberweisung();
     ueb.setAusfuehrungsdatum(faell);
@@ -65,7 +66,8 @@ public class Ct1Ueberweisung
       e.setIban(ls.getIBAN());
       e.setName(ls.getName());
       e.setReferenz(ls.getMandatID());
-      String v = "Prenotification: " + ls.getVerwendungszweck();
+      String v = textvorher + " " + ls.getVerwendungszweck() + " "
+          + textnachher;
       if (v.length() > 140)
       {
         v = v.substring(0, 140);

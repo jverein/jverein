@@ -33,7 +33,9 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
@@ -78,6 +80,8 @@ public class PreNotificationControl extends AbstractControl
 
   private Settings settings = null;
 
+  private TabFolder folder = null;
+
   private SelectInput output = null;
 
   private TextInput mailsubject = null;
@@ -98,11 +102,27 @@ public class PreNotificationControl extends AbstractControl
 
   private SelectInput ct1ausgabe;
 
+  private TextInput textvorher;
+
+  private TextInput textnachher;
+
   public PreNotificationControl(AbstractView view)
   {
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+  }
+
+  public TabFolder getFolder(Composite parent)
+  {
+    if (folder != null)
+    {
+      return folder;
+    }
+    folder = new TabFolder(parent, SWT.NONE);
+    System.out.println(settings.getInt("tab.selection",-1));
+    folder.setSelection(settings.getInt("tab.selection", 0));
+    return folder;
   }
 
   public SelectInput getOutput()
@@ -180,6 +200,28 @@ public class PreNotificationControl extends AbstractControl
     return ct1ausgabe;
   }
 
+  public TextInput getTextVorher()
+  {
+    if (textvorher != null)
+    {
+      return textvorher;
+    }
+    textvorher = new TextInput(settings.getString("textvorher", ""));
+    textvorher.setName("Text vor Verwendungszweck");
+    return textvorher;
+  }
+
+  public TextInput getTextNachher()
+  {
+    if (textnachher != null)
+    {
+      return textnachher;
+    }
+    textnachher = new TextInput(settings.getString("textnachher", ""));
+    textnachher.setName("Text nach Verwendungszweck");
+    return textnachher;
+  }
+
   public Button getStartButton(final Object currentObject)
   {
     Button button = new Button("starten", new Action()
@@ -194,6 +236,7 @@ public class PreNotificationControl extends AbstractControl
           settings.setAttribute("output", val);
           settings.setAttribute("mail.subject", (String) mailsubject.getValue());
           settings.setAttribute("mail.body", (String) mailbody.getValue());
+          settings.setAttribute("tab.selection", folder.getSelectionIndex());
           if (val.equals(PDF1))
           {
             generierePDF(currentObject, false);
@@ -237,6 +280,11 @@ public class PreNotificationControl extends AbstractControl
           Date d = (Date) ausfuehrungsdatum.getValue();
           settings.setAttribute("faelligkeitsdatum",
               Einstellungen.DATETIMEFORMAT.format(d));
+          settings.setAttribute("textvorher", (String) getTextVorher()
+              .getValue());
+          settings.setAttribute("textnachher", (String) getTextNachher()
+              .getValue());
+          settings.setAttribute("tab.selection", folder.getSelectionIndex());
           generiere1ct(currentObject);
         }
         catch (Exception e)
@@ -339,8 +387,11 @@ public class PreNotificationControl extends AbstractControl
     String faelligkeitsdatum = settings.getString("faelligkeitsdatum", null);
     Date faell = Datum.toDate(faelligkeitsdatum);
     String ct1ausgabe = settings.getString("ct1ausgabe", null);
+    String textvorher = settings.getString("textvorher", "");
+    String textnachher = settings.getString("textnachher", "");
     Ct1Ueberweisung ct1ueberweisung = new Ct1Ueberweisung();
-    Ueberweisung ueb = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe);
+    Ueberweisung ueb = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe,
+        textvorher, textnachher);
     GUI.getStatusBar().setSuccessText(
         "Anzahl Überweisungen: " + ueb.getAnzahlBuchungen());
   }
