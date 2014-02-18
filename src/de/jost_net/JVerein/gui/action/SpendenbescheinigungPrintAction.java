@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -237,23 +236,12 @@ public class SpendenbescheinigungPrintAction implements Action
         }
       }
     }
-    catch (FileNotFoundException ie)
+    catch (Exception e)
     {
-      String fehler = "Fehler beim Aufbereiten der Spendenbescheinigung";
+      String fehler = "Fehler beim Aufbereiten der Spendenbescheinigung ("
+          + e.getMessage() + ")";
       GUI.getStatusBar().setErrorText(fehler);
-      Logger.error(fehler, ie);
-    }
-    catch (IOException ie)
-    {
-      String fehler = "Fehler beim Aufbereiten der Spendenbescheinigung";
-      GUI.getStatusBar().setErrorText(fehler);
-      Logger.error(fehler, ie);
-    }
-    catch (DocumentException ie)
-    {
-      String fehler = "Fehler beim Aufbereiten der Spendenbescheinigung";
-      GUI.getStatusBar().setErrorText(fehler);
-      Logger.error(fehler, ie);
+      Logger.error(fehler, e);
     }
   }
 
@@ -750,11 +738,14 @@ public class SpendenbescheinigungPrintAction implements Action
       Paragraph p = new Paragraph();
       p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
       p.setAlignment(Element.ALIGN_LEFT);
-      p.add(new Chunk("Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk(
+          "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
+      p.add(new Chunk(" Ja ", FontFactory
+          .getFont(FontFactory.HELVETICA_BOLD, 9)));
       p.add(new Chunk(verzichtJa, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
           10)));
-      p.add(new Chunk("   Nein ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk("   Nein ", FontFactory.getFont(
+          FontFactory.HELVETICA_BOLD, 9)));
       p.add(new Chunk(verzichtNein, FontFactory.getFont(
           FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
@@ -836,14 +827,10 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-        rpt.add(new Paragraph(" "));
-        rpt.add(
-            "\n\n",
-            8);
-        rpt.add(
-            "\n",
-            9);
-      
+      rpt.add(new Paragraph(" "));
+      rpt.add("\n\n", 8);
+      rpt.add("\n", 9);
+
     }
 
     rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
@@ -1067,8 +1054,8 @@ public class SpendenbescheinigungPrintAction implements Action
           case HerkunftSpende.BETRIEBSVERMOEGEN:
             rpt.add(
                 "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Betriebsvermögen. "
-                + "Die Zuwendung wurde mit dem Wert der Entnahme (ggf. mit dem niedrigeren gemeinen "
-             	+ "Wert) und nach der Umsatzsteuer, die auf die Entnahme entfällt, bewertet.\n\n",
+                    + "Die Zuwendung wurde mit dem Wert der Entnahme (ggf. mit dem niedrigeren gemeinen "
+                    + "Wert) und nach der Umsatzsteuer, die auf die Entnahme entfällt, bewertet.\n\n",
                 9);
             break;
           case HerkunftSpende.PRIVATVERMOEGEN:
@@ -1123,11 +1110,14 @@ public class SpendenbescheinigungPrintAction implements Action
       Paragraph p = new Paragraph();
       p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 8));
       p.setAlignment(Element.ALIGN_LEFT);
-      p.add(new Chunk("Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8)));
+      p.add(new Chunk(
+          "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
+      p.add(new Chunk(" Ja ", FontFactory
+          .getFont(FontFactory.HELVETICA_BOLD, 8)));
       p.add(new Chunk(verzichtJa, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
           10)));
-      p.add(new Chunk("   Nein ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk("   Nein ", FontFactory.getFont(
+          FontFactory.HELVETICA_BOLD, 9)));
       p.add(new Chunk(verzichtNein, FontFactory.getFont(
           FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
@@ -1140,18 +1130,18 @@ public class SpendenbescheinigungPrintAction implements Action
     if (Einstellungen.getEinstellung().getVorlaeufig())
     {
       String txt = "Wir sind wegen "
-	    + Einstellungen.getEinstellung().getBeguenstigterzweck()
-	  	+ " durch vorläufige Bescheinigung des Finanzamtes "
-	    + Einstellungen.getEinstellung().getFinanzamt()
-	   	+ ", StNr. "
-	    + Einstellungen.getEinstellung().getSteuernummer()
-	   	+ " vom "
-	    + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-	             .getBescheiddatum())
-	    + " ab "
-	    + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-	             .getVorlaeufigab())
-	   	+ " als steuerbegünstigten Zwecken dienend anerkannt.";
+          + Einstellungen.getEinstellung().getBeguenstigterzweck()
+          + " durch vorläufige Bescheinigung des Finanzamtes "
+          + Einstellungen.getEinstellung().getFinanzamt()
+          + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer()
+          + " vom "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
+          + " ab "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getVorlaeufigab())
+          + " als steuerbegünstigten Zwecken dienend anerkannt.";
       rpt.add(txt, 8);
     }
     else
@@ -1159,38 +1149,39 @@ public class SpendenbescheinigungPrintAction implements Action
       if (true) // Verein existiert und hat einen Bescheid bekommen
       {
         String txt = "Wir sind wegen "
-           + Einstellungen.getEinstellung().getBeguenstigterzweck()
-           + " nach dem Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid "
-           + "des Finanzamtes "
-           + Einstellungen.getEinstellung().getFinanzamt()
-           + ", StNr. "
-           + Einstellungen.getEinstellung().getSteuernummer()
-           + ", vom "
-           + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-               .getBescheiddatum())
-           + " für den letzten Veranlagungszeitraum "
-           + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-                   .getVeranlagungVon())
-           + " bis "
-           + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-                   .getVeranlagungBis())
-           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach "
-           + "§ 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
+            + Einstellungen.getEinstellung().getBeguenstigterzweck()
+            + " nach dem Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid "
+            + "des Finanzamtes "
+            + Einstellungen.getEinstellung().getFinanzamt()
+            + ", StNr. "
+            + Einstellungen.getEinstellung().getSteuernummer()
+            + ", vom "
+            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+                .getBescheiddatum())
+            + " für den letzten Veranlagungszeitraum "
+            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+                .getVeranlagungVon())
+            + " bis "
+            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+                .getVeranlagungBis())
+            + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach "
+            + "§ 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
         rpt.add(txt, 8);
       }
-      else // Verein neu gegründet, hat noch keinen Bescheid
+      else
+      // Verein neu gegründet, hat noch keinen Bescheid
       {
-	    String txt = "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
-	      + "AO wurde vom Finanzamt "
-	      + Einstellungen.getEinstellung().getFinanzamt()
-	      + ", StNr. "
-	      + Einstellungen.getEinstellung().getSteuernummer()
-	      + ", mit Bescheid vom "
-	      + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-	          .getBescheiddatum())
-	      + " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
-	      + Einstellungen.getEinstellung().getBeguenstigterzweck();
-	    rpt.add(txt, 8);
+        String txt = "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
+            + "AO wurde vom Finanzamt "
+            + Einstellungen.getEinstellung().getFinanzamt()
+            + ", StNr. "
+            + Einstellungen.getEinstellung().getSteuernummer()
+            + ", mit Bescheid vom "
+            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+                .getBescheiddatum())
+            + " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
+            + Einstellungen.getEinstellung().getBeguenstigterzweck();
+        rpt.add(txt, 8);
       }
     }
     rpt.add("\nEs wird bestätigt, dass die Zuwendung nur zur "
@@ -1234,14 +1225,10 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-        rpt.add(new Paragraph(" "));
-        rpt.add(
-            "\n\n",
-            8);
-        rpt.add(
-            "\n",
-            9);
-      
+      rpt.add(new Paragraph(" "));
+      rpt.add("\n\n", 8);
+      rpt.add("\n", 9);
+
     }
 
     rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
@@ -1255,31 +1242,29 @@ public class SpendenbescheinigungPrintAction implements Action
     if (Einstellungen.getEinstellung().getVorlaeufig())
     {
       rpt.add(
-     	"Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
-     		+ "oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
-     		+ "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene "
-     		+ "Steuer (§ 10b Absatz 4 EStG, § 9 Absatz 3 KStG, § 9 Nummer 5 GewStG)."
-            + "\n\n"
-     		+ "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
-     		+ "Zuwendung anerkannt, wenn das Datum der vorläufigen Bescheinigung länger als "
-     		+ "3 Jahre seit Ausstellung der Bestätigung zurückliegt "
-     		+ "(BMF vom 15.12.1994 -BStBl I Seite 884).",
-      8);    	
+          "Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
+              + "oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
+              + "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene "
+              + "Steuer (§ 10b Absatz 4 EStG, § 9 Absatz 3 KStG, § 9 Nummer 5 GewStG)."
+              + "\n\n"
+              + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
+              + "Zuwendung anerkannt, wenn das Datum der vorläufigen Bescheinigung länger als "
+              + "3 Jahre seit Ausstellung der Bestätigung zurückliegt "
+              + "(BMF vom 15.12.1994 -BStBl I Seite 884).", 8);
     }
     else
     {
       rpt.add(
-        "Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
-            + "oder wer veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
-            + "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene " 
-            + "Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG)."
-            + "\n\n"
-            + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
-            + "Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre "
-            + "bzw. das Datum der Freistellung der Einhaltung der satzungsgemäßen Voraussetzungen "
-            + "nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt "
-            + "(§ 63 Abs. 5 AO).",
-      8);
+          "Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
+              + "oder wer veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
+              + "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene "
+              + "Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG)."
+              + "\n\n"
+              + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
+              + "Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre "
+              + "bzw. das Datum der Freistellung der Einhaltung der satzungsgemäßen Voraussetzungen "
+              + "nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt "
+              + "(§ 63 Abs. 5 AO).", 8);
     }
 
     /* Es sind mehrere Spenden für diese Spendenbescheinigung vorhanden */
