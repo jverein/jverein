@@ -32,7 +32,11 @@ import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.jameica.hbci.HBCI;
+import de.willuhn.jameica.hbci.rmi.Konto;
 import de.willuhn.jameica.security.Wallet;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -308,7 +312,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("vorlaeufigab", vorlaeufigab);
   }
 
-
   @Override
   public Date getVeranlagungVon() throws RemoteException
   {
@@ -342,8 +345,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute("veranlagungbis", veranlagungbis);
   }
-  
-  
+
   @Override
   public String getBeguenstigterzweck() throws RemoteException
   {
@@ -404,6 +406,35 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setIban(String iban) throws RemoteException
   {
     setAttribute("iban", iban);
+  }
+
+  @Override
+  public de.willuhn.jameica.hbci.rmi.Konto getHibiscusKonto()
+      throws RemoteException
+  {
+    try
+    {
+      // DB-Service holen
+      DBService service = (DBService) Application.getServiceFactory().lookup(
+          HBCI.class, "database");
+      DBIterator konten = service.createList(Konto.class);
+      System.out.println(Einstellungen.getEinstellung().getIban());
+      konten.addFilter("iban = ?", Einstellungen.getEinstellung().getIban());
+      Logger.debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
+      if (konten.hasNext())
+      {
+        return (Konto) konten.next();
+      }
+      else
+      {
+        throw new RemoteException("Vereinskonto nicht in Hibiscus gefunden");
+      }
+    }
+    catch (Exception e)
+    {
+      //
+    }
+    return null;
   }
 
   @Override

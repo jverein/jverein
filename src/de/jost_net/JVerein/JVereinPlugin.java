@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import de.jost_net.JVerein.gui.dialogs.DatenbankverbindungDialog;
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.io.UmsatzMessageConsumer;
 import de.jost_net.JVerein.rmi.JVereinDBService;
@@ -263,6 +264,16 @@ public class JVereinPlugin extends AbstractPlugin
     String url = settings.getString("jdbc.url", null);
     String username = settings.getString("jdbc.user", null);
     String password = settings.getString("jdbc.password", null);
+    Settings stest = new Settings(DatenbankverbindungDialog.class);
+    DatenbankverbindungDialog dvd = new DatenbankverbindungDialog(stest);
+    try
+    {
+      settings = dvd.open();
+    }
+    catch (Exception e1)
+    {
+      Logger.error("Fehler beim DatenbankverbindungsDialog", e1);
+    }
     try
     {
       Class.forName(driver);

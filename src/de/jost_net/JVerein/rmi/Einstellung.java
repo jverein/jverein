@@ -99,6 +99,8 @@ public interface Einstellung extends DBObject, IBankverbindung
   @Override
   public String getIban() throws RemoteException;
 
+  public de.willuhn.jameica.hbci.rmi.Konto getHibiscusKonto() throws RemoteException;
+
   public void setGlaeubigerID(String glaeubigerid) throws RemoteException;
 
   public String getGlaeubigerID() throws RemoteException;
