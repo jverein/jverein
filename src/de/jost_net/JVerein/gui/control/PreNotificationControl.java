@@ -22,13 +22,9 @@ import java.io.StringWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeSet;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -56,8 +52,6 @@ import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.jost_net.OBanToo.SEPA.SEPAException;
-import de.jost_net.OBanToo.SEPA.Ueberweisung.Ueberweisung;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -348,9 +342,7 @@ public class PreNotificationControl extends AbstractControl
 
   }
 
-  private void generiere1ct(Object currentObject) throws IOException,
-      ParseException, SEPAException, DatatypeConfigurationException,
-      JAXBException
+  private void generiere1ct(Object currentObject) throws Exception
   {
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     File file = null;
@@ -385,14 +377,14 @@ public class PreNotificationControl extends AbstractControl
     }
     String faelligkeitsdatum = settings.getString("faelligkeitsdatum", null);
     Date faell = Datum.toDate(faelligkeitsdatum);
-    String ct1ausgabe = settings.getString("ct1ausgabe", null);
+    int ct1ausgabe = settings.getInt("ct1ausgabe",
+        Abrechnungsausgabe.SEPA_DATEI);
     String textvorher = settings.getString("textvorher", "");
     String textnachher = settings.getString("textnachher", "");
     Ct1Ueberweisung ct1ueberweisung = new Ct1Ueberweisung();
-    Ueberweisung ueb = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe,
+    int anzahl = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe,
         textvorher, textnachher);
-    GUI.getStatusBar().setSuccessText(
-        "Anzahl Überweisungen: " + ueb.getAnzahlBuchungen());
+    GUI.getStatusBar().setSuccessText("Anzahl Überweisungen: " + anzahl);
   }
 
   private void generiereEMail(Object currentObject) throws IOException

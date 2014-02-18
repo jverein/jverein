@@ -25,12 +25,19 @@ import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Ueberweisung.Empfaenger;
 import de.jost_net.OBanToo.SEPA.Ueberweisung.Ueberweisung;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.jameica.hbci.HBCI;
+import de.willuhn.jameica.hbci.rmi.AuslandsUeberweisung;
+import de.willuhn.jameica.hbci.rmi.HibiscusAddress;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.util.ApplicationException;
 
 public class Ct1Ueberweisung
 {
@@ -40,8 +47,25 @@ public class Ct1Ueberweisung
   {
   }
 
-  public Ueberweisung write(Abrechnungslauf abrl, File file, Date faell,
-      String ct1ausgabe, String textvorher, String textnachher)
+  public int write(Abrechnungslauf abrl, File file, Date faell, int ct1ausgabe,
+      String textvorher, String textnachher) throws Exception
+  {
+    switch (ct1ausgabe)
+    {
+      case Abrechnungsausgabe.SEPA_DATEI:
+        return dateiausgabe(abrl, file, faell, ct1ausgabe, textvorher,
+            textnachher);
+
+      case Abrechnungsausgabe.HIBISCUS:
+        return hibiscusausgabe(abrl, file, faell, ct1ausgabe, textvorher,
+            textnachher);
+
+    }
+    return -1;
+  }
+
+  private int dateiausgabe(Abrechnungslauf abrl, File file, Date faell,
+      int ct1ausgabe, String textvorher, String textnachher)
       throws RemoteException, SEPAException, DatatypeConfigurationException,
       JAXBException
   {
@@ -54,9 +78,7 @@ public class Ct1Ueberweisung
     ueb.setName(Einstellungen.getEinstellung().getName());
     ueb.setSammelbuchung(false);
 
-    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
-    it.addFilter("abrechnungslauf = ?", abrl.getID());
-    it.setOrder("order by name, vorname");
+    DBIterator it = getIterator(abrl);
     while (it.hasNext())
     {
       Lastschrift ls = (Lastschrift) it.next();
@@ -76,6 +98,56 @@ public class Ct1Ueberweisung
       ueb.add(e);
     }
     ueb.write(file);
-    return ueb;
+    return Integer.parseInt(ueb.getAnzahlBuchungen());
+  }
+
+  private int hibiscusausgabe(Abrechnungslauf abrl, File file, Date faell,
+      int ct1ausgabe, String textvorher, String textnachher) throws Exception
+  {
+    try
+    {
+      de.willuhn.jameica.hbci.rmi.Konto hibk = Einstellungen.getEinstellung()
+          .getHibiscusKonto();
+      DBIterator it = getIterator(abrl);
+      while (it.hasNext())
+      {
+        Lastschrift ls = (Lastschrift) it.next();
+        DBService service = (DBService) Application.getServiceFactory().lookup(
+            HBCI.class, "database");
+
+        AuslandsUeberweisung ue = (AuslandsUeberweisung) service.createObject(
+            AuslandsUeberweisung.class, null);
+        ue.setBetrag(ls.getBetrag());
+        HibiscusAddress ad = (HibiscusAddress) service.createObject(
+            HibiscusAddress.class, null);
+        ad.setBic(ls.getBIC());
+        ad.setIban(ls.getIBAN());
+        ue.setGegenkonto(ad);
+        ue.setEndtoEndId(ls.getMandatID());
+        ue.setGegenkontoName(ls.getName());
+        ue.setTermin(faell);
+        ue.setZweck(ls.getVerwendungszweck());
+        ue.setKonto(hibk);
+        ue.store();
+      }
+    }
+    catch (RemoteException e)
+    {
+      throw new ApplicationException(e);
+    }
+    catch (SEPAException e)
+    {
+      throw new ApplicationException(e);
+    }
+
+    return 1;
+  }
+
+  private DBIterator getIterator(Abrechnungslauf abrl) throws RemoteException
+  {
+    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    it.addFilter("abrechnungslauf = ?", abrl.getID());
+    it.setOrder("order by name, vorname");
+    return it;
   }
 }
