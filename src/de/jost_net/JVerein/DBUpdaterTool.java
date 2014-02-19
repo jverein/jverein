@@ -1,3 +1,19 @@
+/**********************************************************************
+ * Copyright (c) by Heiner Jostkleigrewe
+ * This program is free software: you can redistribute it and/or modify it under the terms of the 
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
+ *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ *  the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program.  If not, 
+ * see <http://www.gnu.org/licenses/>.
+ * 
+ * heiner@jverein.de
+ * www.jverein.de
+ **********************************************************************/
 package de.jost_net.JVerein;
 
 import java.sql.Connection;
@@ -47,7 +63,7 @@ public class DBUpdaterTool
     try
     {
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("select version from databasechangelog");
+      ResultSet rs = stmt.executeQuery("select id from databasechangelog");
       return rs.next();
     }
     catch (SQLException e)
@@ -69,15 +85,20 @@ public class DBUpdaterTool
   {
     Liquibase liquibase = new Liquibase(changelog,
         new ClassLoaderResourceAccessor(), new JdbcConnection(connection));
-    String contexts = "";
-    for (int i = 1; i <= 96; i++)
+    liquibase.changeLogSync("");
+    try
     {
-      if (i > 1)
-      {
-        contexts += ",";
-      }
-      contexts += i;
+      connection.setAutoCommit(true);
+      Statement stmt = connection.createStatement();
+      int anz = stmt
+          .executeUpdate("delete from databasechangelog where orderexecuted > 96");
+      System.out.println(anz);
+      connection.setAutoCommit(false);
+      stmt.close();
     }
-    liquibase.changeLogSync(contexts);
+    catch (SQLException e)
+    {
+      //
+    }
   }
 }
