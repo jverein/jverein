@@ -237,9 +237,19 @@ public class MitgliederStatistik
     list.addFilter("(eintritt is null or eintritt <= ?)",
         new Object[] { stichtag });
 
-    if (geschlecht != null)
+    if (geschlecht != null
+        && (geschlecht.equals(GeschlechtInput.MAENNLICH) || geschlecht
+            .equals(GeschlechtInput.WEIBLICH)))
     {
       list.addFilter("geschlecht = ?", new Object[] { geschlecht });
+    }
+    else
+    {
+      if (geschlecht != null && geschlecht.equals(GeschlechtInput.OHNEANGABE))
+      {
+        list.addFilter("(geschlecht = ? OR geschlecht is null)",
+            new Object[] { geschlecht });
+      }
     }
 
     return list.size();
@@ -258,11 +268,20 @@ public class MitgliederStatistik
       list.addFilter("beitragsgruppe = ?",
           new Object[] { new Integer(bg.getID()) });
     }
-    if (geschlecht != null)
+    if (geschlecht != null
+        && (geschlecht.equals(GeschlechtInput.MAENNLICH) || geschlecht
+            .equals(GeschlechtInput.WEIBLICH)))
     {
       list.addFilter("geschlecht = ?", new Object[] { geschlecht });
     }
-
+    else
+    {
+      if (geschlecht != null && geschlecht.equals(GeschlechtInput.OHNEANGABE))
+      {
+        list.addFilter("(geschlecht = ? OR geschlecht is null)",
+            new Object[] { geschlecht });
+      }
+    }
     return list.size();
   }
 

@@ -885,7 +885,7 @@ public class BuchungsControl extends AbstractControl
             @Override
             public String format(Object o)
             {
-              return (String) o;
+              return o.toString();
             }
           }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
       buchungsList.addColumn(new Column("blattnummer", "Blatt", new Formatter()
@@ -893,7 +893,7 @@ public class BuchungsControl extends AbstractControl
         @Override
         public String format(Object o)
         {
-          return (String) o;
+          return o.toString();
         }
       }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
       buchungsList.addColumn("Blatt", "blattnummer");
