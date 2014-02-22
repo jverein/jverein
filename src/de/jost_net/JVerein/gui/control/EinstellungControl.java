@@ -1384,6 +1384,8 @@ public class EinstellungControl extends AbstractControl
       e.setBescheiddatum((Date) getBescheiddatum().getValue());
       e.setVorlaeufig((Boolean) getVorlaeufig().getValue());
       e.setVorlaeufigab((Date) getVorlaeufigab().getValue());
+      e.setVeranlagungVon((Date) getVeranlagungVon().getValue());
+      e.setVeranlagungBis((Date) getVeranlagungBis().getValue());
       e.setBeguenstigterzweck((String) getBeguenstigterzweck().getValue());
       e.setMitgliedsbeitraege((Boolean) getMitgliedsbetraege().getValue());
       e.setBic((String) getBic().getValue());

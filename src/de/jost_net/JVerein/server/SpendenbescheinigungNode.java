@@ -273,6 +273,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
             + ", "
             + (buchung.getZweck() != null && buchung.getZweck().length() > 0 ? buchung
                 .getZweck() : "")
+            + ", "
             + Einstellungen.DECIMALFORMAT.format(buchung.getBetrag());
       }
     }
