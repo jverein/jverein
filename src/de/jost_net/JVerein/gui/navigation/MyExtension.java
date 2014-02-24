@@ -34,6 +34,7 @@ import de.jost_net.JVerein.gui.action.BuchungsListeAction;
 import de.jost_net.JVerein.gui.action.BuchungsartListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseSaldoAction;
+import de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction;
 import de.jost_net.JVerein.gui.action.DatenbankverbindungAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeListeAction;
@@ -187,6 +188,8 @@ public class MyExtension implements Extension
           new AnfangsbestandListAction(), "tab-new.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungen",
           new BuchungsListeAction(), "preferences-system-windows.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung, "Hibiscus-Buchungen",
+          new BuchungsuebernahmeAction(), "hibiscus-icon-64x64.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungsklassen",
           new BuchungsklasseSaldoAction(), "summe.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahressaldo",

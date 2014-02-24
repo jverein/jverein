@@ -58,6 +58,8 @@ public class DokumentationUtil
 
   public static final String BUCHUNGSIMPORT = PRE + "Buchungsimport";
 
+  public static final String BUCHUNGSUEBERNAHME = PRE + "Buchungsübernahme";
+
   public static final String BUCHUNGSKLASSEN = PRE + "Buchungsklasse";
 
   public static final String EIGENSCHAFT = PRE + "Eigenschaften";

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -38,6 +33,7 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.jameica.hbci.rmi.HBCIDBService;
 import de.willuhn.jameica.messaging.QueryMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
@@ -136,9 +132,9 @@ public class Einstellungen
         einstellung.setBeginnGeschaeftsjahr(settings.getString(
             "beginngeschaeftsjahr", "01.01."));
         einstellung.setAltersModel(settings.getInt(Einstellung.COL_ALTER_MODEL,
-                  Altermodel.AKTUELLES_DATUM));
+            Altermodel.AKTUELLES_DATUM));
         einstellung.setSepaMandatIdSource(settings.getInt(
-             Einstellung.COL_SEPA_MANDANTID_SOURCE, SepaMandatIdSource.DBID));
+            Einstellung.COL_SEPA_MANDANTID_SOURCE, SepaMandatIdSource.DBID));
       }
       catch (RemoteException e1)
       {
@@ -146,6 +142,11 @@ public class Einstellungen
       }
     }
 
+  }
+
+  public static HBCIDBService getHibiscusDBService() throws RemoteException
+  {
+    return de.willuhn.jameica.hbci.Settings.getDBService();
   }
 
   /**
@@ -258,7 +259,7 @@ public class Einstellungen
     catch (RemoteException e)
     {
       Logger.error("Fehler", e);
-   }
+    }
     return !beigen || !bbeitragsgruppe;
   }
 
