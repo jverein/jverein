@@ -1391,6 +1391,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{BLZ\\}", this.getBlz());
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{BIC\\}", this.getBic());
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{IBAN\\}", this.getIban());
+        zahlungsweg = zahlungsweg.replaceAll("\\$\\{MANDATID\\}",
+            this.getMandatID());
         break;
       }
       case Zahlungsweg.BARZAHLUNG:
