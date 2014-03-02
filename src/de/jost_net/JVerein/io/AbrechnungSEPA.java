@@ -26,6 +26,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.datatype.DatatypeConfigurationException;
+
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -103,7 +106,7 @@ public class AbrechnungSEPA
 
     sepagueltigkeit = Calendar.getInstance();
     sepagueltigkeit.add(Calendar.MONTH, -36);
-    Basislastschrift lastschrift = new Basislastschrift();
+    JVereinBasislastschrift lastschrift = new JVereinBasislastschrift();
     // Vorbereitung: Allgemeine Informationen einstellen
     lastschrift.setBIC(Einstellungen.getEinstellung().getBic());
     lastschrift.setGlaeubigerID(Einstellungen.getEinstellung()
@@ -127,7 +130,7 @@ public class AbrechnungSEPA
     monitor.log(counter + " abgerechnete Fälle");
 
     lastschrift.setMessageID(abrl.getID());
-    lastschrift.write(param.sepafile);
+    lastschrift.write(param.sepafileFRST, param.sepafileRCUR);
 
     ArrayList<Zahler> z = lastschrift.getZahler();
     BigDecimal summemitgliedskonto = new BigDecimal("0");
@@ -226,11 +229,11 @@ public class AbrechnungSEPA
     monitor.setPercentComplete(100);
     if (param.sepaprint)
     {
-      ausdruckenSEPA(lastschrift, param.pdffile);
+      ausdruckenSEPA(lastschrift, param.pdffileFRST, param.pdffileRCUR);
     }
   }
 
-  private void abrechnenMitglieder(Basislastschrift lastschrift,
+  private void abrechnenMitglieder(JVereinBasislastschrift lastschrift,
       ProgressMonitor monitor, Abrechnungslauf abrl, Konto konto)
       throws Exception
   {
@@ -452,7 +455,7 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abbuchenZusatzbetraege(Basislastschrift lastschrift,
+  private void abbuchenZusatzbetraege(JVereinBasislastschrift lastschrift,
       Abrechnungslauf abrl, Konto konto, ProgressMonitor monitor)
       throws NumberFormatException, IOException, ApplicationException
   {
@@ -461,7 +464,7 @@ public class AbrechnungSEPA
     while (list.hasNext())
     {
       Zusatzbetrag z = (Zusatzbetrag) list.next();
-      if (z.isAktiv(abrl.getFaelligkeit()))
+      if (z.isAktiv(param.stichtag))
       {
         Mitglied m = z.getMitglied();
         if (m.isAngemeldet(param.stichtag)
@@ -546,7 +549,7 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abbuchenKursteilnehmer(Basislastschrift lastschrift)
+  private void abbuchenKursteilnehmer(JVereinBasislastschrift lastschrift)
       throws ApplicationException, IOException
   {
     DBIterator list = Einstellungen.getDBService().createList(
@@ -584,10 +587,11 @@ public class AbrechnungSEPA
     }
   }
 
-  private void ausdruckenSEPA(final Basislastschrift lastschrift,
-      final String pdf) throws IOException, DocumentException, SEPAException
+  private void ausdruckenSEPA(final JVereinBasislastschrift lastschrift,
+      final String pdfFRST, final String pdfRCUR) throws IOException,
+      DocumentException, SEPAException
   {
-    new Basislastschrift2Pdf(lastschrift, pdf);
+    new Basislastschrift2Pdf(lastschrift.getLastschriftFRST(), pdfFRST);
     GUI.getDisplay().asyncExec(new Runnable()
     {
 
@@ -596,7 +600,26 @@ public class AbrechnungSEPA
       {
         try
         {
-          new Program().handleAction(new File(pdf));
+          new Program().handleAction(new File(pdfFRST));
+        }
+        catch (ApplicationException ae)
+        {
+          Application.getMessagingFactory().sendMessage(
+              new StatusBarMessage(ae.getLocalizedMessage(),
+                  StatusBarMessage.TYPE_ERROR));
+        }
+      }
+    });
+    new Basislastschrift2Pdf(lastschrift.getLastschriftRCUR(), pdfRCUR);
+    GUI.getDisplay().asyncExec(new Runnable()
+    {
+
+      @Override
+      public void run()
+      {
+        try
+        {
+          new Program().handleAction(new File(pdfRCUR));
         }
         catch (ApplicationException ae)
         {
@@ -780,4 +803,101 @@ public class AbrechnungSEPA
     }
     return true;
   }
+
+}
+
+class JVereinBasislastschrift
+{
+  private Basislastschrift lastschriftFRST;
+
+  private Basislastschrift lastschriftRCUR;
+
+  public JVereinBasislastschrift()
+  {
+    lastschriftFRST = new Basislastschrift();
+    lastschriftRCUR = new Basislastschrift();
+  }
+
+  public void setBIC(String bic) throws SEPAException
+  {
+    lastschriftFRST.setBIC(bic);
+    lastschriftRCUR.setBIC(bic);
+  }
+
+  public void setGlaeubigerID(String glaeubigerid) throws RemoteException,
+      SEPAException
+  {
+    lastschriftFRST.setGlaeubigerID(glaeubigerid);
+    lastschriftRCUR.setGlaeubigerID(glaeubigerid);
+  }
+
+  public void setIBAN(String iban) throws SEPAException
+  {
+    lastschriftFRST.setIBAN(iban);
+    lastschriftRCUR.setIBAN(iban);
+  }
+
+  public void setKomprimiert(boolean kompakt) throws SEPAException
+  {
+    lastschriftFRST.setKomprimiert(kompakt);
+    lastschriftRCUR.setKomprimiert(kompakt);
+  }
+
+  public void setName(String name) throws SEPAException
+  {
+    lastschriftFRST.setName(name);
+    lastschriftRCUR.setName(name);
+  }
+
+  public void setMessageID(String id) throws SEPAException
+  {
+    lastschriftFRST.setMessageID(id + "-FRST");
+    lastschriftRCUR.setMessageID(id + "-RCUR");
+  }
+
+  public void write(File frst, File rcur)
+      throws DatatypeConfigurationException, SEPAException, JAXBException
+  {
+    lastschriftFRST.write(frst);
+    lastschriftRCUR.write(rcur);
+  }
+
+  public void add(Zahler zahler) throws SEPAException
+  {
+    if (zahler.getMandatsequence().equals(MandatSequence.FRST))
+    {
+      lastschriftFRST.add(zahler);
+    }
+    else if (zahler.getMandatsequence().equals(MandatSequence.RCUR))
+    {
+      lastschriftRCUR.add(zahler);
+    }
+    else
+      throw new SEPAException("Ungültige Sequenz");
+  }
+
+  public Basislastschrift getLastschriftFRST()
+  {
+    return lastschriftFRST;
+  }
+
+  public Basislastschrift getLastschriftRCUR()
+  {
+    return lastschriftRCUR;
+  }
+
+  public ArrayList<Zahler> getZahler()
+  {
+    ArrayList<Zahler> ret = new ArrayList<Zahler>();
+    for (Zahler z : lastschriftFRST.getZahler())
+    {
+      ret.add(z);
+    }
+    for (Zahler z : lastschriftRCUR.getZahler())
+    {
+      ret.add(z);
+    }
+    return ret;
+  }
+
 }

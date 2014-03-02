@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -62,16 +57,21 @@ public class AbrechnungSEPAParam
 
   public final Boolean sepaprint;
 
-  public final File sepafile;
+  public final File sepafileFRST;
 
-  public final String pdffile;
+  public final File sepafileRCUR;
+
+  public final String pdffileFRST;
+
+  public final String pdffileRCUR;
 
   public final DBService service;
 
   public Konto konto;
 
-  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafile,
-      String pdffile) throws ApplicationException, RemoteException
+  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafileFRST,
+      File sepafileRCUR, String pdffileFRST, String pdffileRCUR)
+      throws ApplicationException, RemoteException
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
     faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
@@ -86,8 +86,10 @@ public class AbrechnungSEPAParam
     kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
     kompakteabbuchung = (Boolean) ac.getKompakteAbbuchung().getValue();
     sepaprint = (Boolean) ac.getSEPAPrint().getValue();
-    this.pdffile = pdffile;
-    this.sepafile = sepafile;
+    this.pdffileFRST = pdffileFRST;
+    this.pdffileRCUR = pdffileRCUR;
+    this.sepafileFRST = sepafileFRST;
+    this.sepafileRCUR = sepafileRCUR;
 
     if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
     {

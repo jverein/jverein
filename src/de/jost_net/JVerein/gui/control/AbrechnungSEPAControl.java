@@ -143,7 +143,6 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
     this.faelligkeit1
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Erst+einmalig) wählen");
-    this.faelligkeit1.setComment("Bitte bankspezifisch anpassen");
     return faelligkeit1;
   }
 
@@ -160,7 +159,6 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
     this.faelligkeit2
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Folge) wählen");
-    this.faelligkeit2.setComment("Bitte bankspezifisch anpassen");
     return faelligkeit2;
   }
 
@@ -277,7 +275,8 @@ public class AbrechnungSEPAControl extends AbstractControl
 
   private void doAbrechnung() throws ApplicationException, RemoteException
   {
-    File sepafile;
+    File sepafilefrst;
+    File sepafilercur;
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
     settings.setAttribute("zusatzbetraege", (Boolean) zusatzbetrag.getValue());
     settings
@@ -345,7 +344,7 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
+      fd.setFileName(new Dateiname("abbuchungFRST", "", Einstellungen
           .getEinstellung().getDateinamenmuster(), "XML").get());
       String file = fd.open();
 
@@ -353,15 +352,27 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         throw new ApplicationException("keine Datei ausgewählt!");
       }
-      sepafile = new File(file);
+      sepafilefrst = new File(file);
+
+      fd.setFileName(new Dateiname("abbuchungRCUR", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "XML").get());
+      file = fd.open();
+
+      if (file == null || file.length() == 0)
+      {
+        throw new ApplicationException("keine Datei ausgewählt!");
+      }
+
+      sepafilercur = new File(file);
       // Wir merken uns noch das Verzeichnis fürs nächste mal
-      settings.setAttribute("lastdir.sepa", sepafile.getParent());
+      settings.setAttribute("lastdir.sepa", sepafilefrst.getParent());
     }
     else
     {
       try
       {
-        sepafile = File.createTempFile("sepa", null);
+        sepafilefrst = File.createTempFile("sepafrst", null);
+        sepafilercur = File.createTempFile("separcur", null);
       }
       catch (IOException e)
       {
@@ -371,7 +382,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
 
     // PDF-Datei für Basislastschrift2PDF
-    String pdffile = null;
+    String pdffileFRST = null;
+    String pdffileRCUR = null;
     final Boolean pdfprintb = (Boolean) sepaprint.getValue();
     if (pdfprintb)
     {
@@ -384,18 +396,23 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchung", "", Einstellungen
+      fd.setFileName(new Dateiname("abbuchungFRST", "", Einstellungen
           .getEinstellung().getDateinamenmuster(), "PDF").get());
-      pdffile = fd.open();
+      pdffileFRST = fd.open();
       // Wir merken uns noch das Verzeichnis fürs nächste mal
-      File fi = new File(pdffile);
-      settings.setAttribute("lastdir.pdf", fi.getParent());
+      File fiFRST = new File(pdffileFRST);
+      fd.setFileName(new Dateiname("abbuchungRCUR", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      pdffileRCUR = fd.open();
+      // Wir merken uns noch das Verzeichnis fürs nächste mal
+      settings.setAttribute("lastdir.pdf", fiFRST.getParent());
     }
 
     final AbrechnungSEPAParam abupar;
     try
     {
-      abupar = new AbrechnungSEPAParam(this, sepafile, pdffile);
+      abupar = new AbrechnungSEPAParam(this, sepafilefrst, sepafilercur,
+          pdffileFRST, pdffileRCUR);
     }
     catch (RemoteException e)
     {
@@ -415,10 +432,13 @@ public class AbrechnungSEPAControl extends AbstractControl
 
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText(
-              MessageFormat.format(
-                  "Abrechnung durchgeführt., SEPA-Datei {0} geschrieben.",
-                  abupar.sepafile.getAbsolutePath()));
+          GUI.getStatusBar()
+              .setSuccessText(
+                  MessageFormat
+                      .format(
+                          "Abrechnung durchgeführt., SEPA-Dateien {0}, {1} geschrieben.",
+                          abupar.sepafileFRST.getAbsolutePath(),
+                          abupar.sepafileRCUR.getAbsolutePath()));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -435,11 +455,11 @@ public class AbrechnungSEPAControl extends AbstractControl
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error(MessageFormat.format(
               "error while reading objects from {0}",
-              abupar.sepafile.getAbsolutePath()), e);
+              abupar.sepafileFRST.getAbsolutePath()), e);
           ApplicationException ae = new ApplicationException(
               MessageFormat.format(
                   "Fehler beim erstellen der Abbuchungsdatei: {0}",
-                  abupar.sepafile.getAbsolutePath()), e);
+                  abupar.sepafileFRST.getAbsolutePath()), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
