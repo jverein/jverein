@@ -237,10 +237,6 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     {
       return getIntervallText();
     }
-    if (fieldName.equals("aktiv"))
-    {
-      return isAktiv(new Date());
-    }
     return super.getAttribute(fieldName);
   }
 
@@ -265,7 +261,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
       // Ist das Ausführungsdatum gesetzt?
       if (getAusfuehrung() == null)
       {
-        if (getFaelligkeit().getTime() <= Datum.getHeute().getTime())
+        if (getFaelligkeit().getTime() <= datum.getTime())
         {
           return true;
         }
@@ -288,7 +284,7 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     {
       return false;
     }
-    if (getFaelligkeit().getTime() <= Datum.getHeute().getTime())
+    if (getFaelligkeit().getTime() <= datum.getTime())
     {
       return true;
     }

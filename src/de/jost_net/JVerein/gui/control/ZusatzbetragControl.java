@@ -37,7 +37,6 @@ import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
-import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
@@ -397,7 +396,6 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
       zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
-      zusatzbetraegeList.addColumn("aktiv", "aktiv", new JaNeinFormatter());
       zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
           zusatzbetraegeList));
       zusatzbetraegeList.setRememberColWidths(true);
