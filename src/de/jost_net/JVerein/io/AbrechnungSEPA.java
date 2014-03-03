@@ -63,6 +63,7 @@ import de.jost_net.OBanToo.StringLatin.Zeichen;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
+import de.willuhn.jameica.hbci.gui.action.SepaLastschriftMerge;
 import de.willuhn.jameica.hbci.rmi.SepaLastSequenceType;
 import de.willuhn.jameica.hbci.rmi.SepaLastType;
 import de.willuhn.jameica.hbci.rmi.SepaLastschrift;
@@ -635,6 +636,8 @@ public class AbrechnungSEPA
   {
     try
     {
+      SepaLastschrift[] lastschriften = new SepaLastschrift[z.size()];
+      int sli = 0;
       Date d = new Date();
       for (Zahler za : z)
       {
@@ -654,8 +657,11 @@ public class AbrechnungSEPA
         sl.setTermin(d);
         sl.setType(SepaLastType.CORE);
         sl.setZweck(za.getVerwendungszweck());
-        sl.store();
+        lastschriften[sli] = sl;
+        sli++;
       }
+      SepaLastschriftMerge merge = new SepaLastschriftMerge();
+      merge.handleAction(lastschriften);
     }
     catch (RemoteException e)
     {
