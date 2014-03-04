@@ -104,21 +104,21 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
         switch (fd.getDatentyp())
         {
           case Datentyp.DATUM:
-            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
+            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
                 new DateFormatter(new JVDateFormatTTMMJJJJ()),
                 Column.ALIGN_AUTO, true);
             break;
           case Datentyp.WAEHRUNG:
-            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
+            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
                 new CurrencyFormatter("", Einstellungen.DECIMALFORMAT),
                 Column.ALIGN_AUTO, true);
             break;
           case Datentyp.JANEIN:
-            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false,
+            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
                 new JaNeinFormatter(), Column.ALIGN_AUTO, true);
             break;
           default:
-            add(fd.getLabel(), "zusatzfelder." + fd.getName(), false, true);
+            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false, true);
             break;
         }
       }

@@ -1524,7 +1524,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       return Adressaufbereitung.getAdressfeld(this);
     }
-    else if (fieldName.startsWith("zusatzfelder."))
+    else if (fieldName.startsWith("zusatzfelder_"))
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
