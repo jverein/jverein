@@ -35,7 +35,6 @@ import de.jost_net.JVerein.gui.action.BuchungsartListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseListAction;
 import de.jost_net.JVerein.gui.action.BuchungsklasseSaldoAction;
 import de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction;
-import de.jost_net.JVerein.gui.action.DatenbankverbindungAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeListeAction;
 import de.jost_net.JVerein.gui.action.EigenschaftListeAction;
@@ -251,8 +250,6 @@ public class MyExtension implements Extension
       }
       einstellungen.addChild(new MyItem(einstellungen, "SEPA-Konvertierung",
           new SEPAKonvertierungAction(), "sepa.png"));
-      einstellungen.addChild(new MyItem(einstellungen, "Datenbankverbindung",
-          new DatenbankverbindungAction(), "database.png"));
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
           null);

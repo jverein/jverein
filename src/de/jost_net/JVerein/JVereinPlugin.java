@@ -20,7 +20,6 @@ import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import de.jost_net.JVerein.gui.dialogs.DatenbankverbindungDialog;
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.io.UmsatzMessageConsumer;
 import de.jost_net.JVerein.rmi.DBSupport;
@@ -253,65 +252,25 @@ public class JVereinPlugin extends AbstractPlugin
 
   private void update() throws ApplicationException
   {
-    String driver = settings.getString("jdbc.driver", null);
-    
-    if (driver == null || driver.length() == 0) { 
-    	// Variante 1: Wenn in den neuen Properties nicht drin stand, lesen wir die alten Parameter aus
-      Settings s1 = new Settings(JVereinDBService.class);
-      // Unter "database.driver" ist die JVerein-Klasse mit den Parametern der Datenbank gespeichert
-      String d1 = s1.getString("database.driver", null);
-      if ( d1 != null ) {
-	      try
-	      {
-	        // Die Parameterklasse wird geladen
-	        Class<?> c = Class.forName(d1);
-	        DBSupport dsupp = (DBSupport) c.newInstance();
-	        // Parameter auslesen
-	        driver = dsupp.getJdbcDriver();
-	        String url = dsupp.getJdbcUrl();
-	        String username = dsupp.getJdbcUsername();
-	        String password = dsupp.getJdbcPassword();
-	        // Speichern der alten Parameter in den neuen Properties
-	        settings.setAttribute("jdbc.driver", driver);
-	        settings.setAttribute("jdbc.url", url);
-	        settings.setAttribute("jdbc.user", username);
-	        settings.setAttribute("jdbc.password", password);
-	      }
-	      catch (ClassNotFoundException e)
-	      {
-	        throw new ApplicationException(e);
-	      }
-	      catch (InstantiationException e)
-	      {
-	        throw new ApplicationException(e);
-	      }
-	      catch (IllegalAccessException e)
-	      {
-	        throw new ApplicationException(e);
-	      }
-	    }
-    }
-    if (driver == null || driver.length() == 0) {
-    	// Variante 2: Dialog 
-      DatenbankverbindungDialog dvd = new DatenbankverbindungDialog(settings);
-      try {
-        settings = dvd.open();
-      }
-      catch (Exception e) {
-        Logger.error("Fehler beim DatenbankverbindungsDialog", e);
-      }
-    }
-    try {
-    	
-    	driver = settings.getString("jdbc.driver", null);
-        String url = settings.getString("jdbc.url", null);
-        String username = settings.getString("jdbc.user", null);
-        String password = settings.getString("jdbc.password", null);
-
+    Settings s1 = new Settings(JVereinDBService.class);
+    // Unter "database.driver" ist die JVerein-Klasse mit den Parametern der
+    // Datenbank gespeichert
+    String d1 = s1.getString("database.driver", null);
+    try
+    {
+      // Die Parameterklasse wird geladen
+      Class<?> c = Class.forName(d1);
+      DBSupport dsupp = (DBSupport) c.newInstance();
+      // Parameter auslesen
+      String driver = dsupp.getJdbcDriver();
+      String url = dsupp.getJdbcUrl();
+      String username = dsupp.getJdbcUsername();
+      String password = dsupp.getJdbcPassword();
       // Datenbanktreiber laden
       Class.forName(driver);
       // Connection herstellen
-      Connection connection = DriverManager.getConnection(url, username, password);
+      Connection connection = DriverManager.getConnection(url, username,
+          password);
       // Versionsnummer (alt) aus der Datenbank auslesen
       Integer version = DBUpdaterTool.getVersion(connection);
       // Wenn die Version null ist, handelt es sich um eine neue leere Datenbank
