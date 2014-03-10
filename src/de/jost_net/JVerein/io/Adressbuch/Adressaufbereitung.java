@@ -27,15 +27,17 @@ import de.jost_net.JVerein.io.IAdresse;
 
 public class Adressaufbereitung
 {
+
   public static String getAdressfeld(IAdresse adr) throws RemoteException
   {
     String empfaenger = adr.getAnrede()
         + "\n"
         + getVornameName(adr)
         + "\n"
-        + (adr.getAdressierungszusatz().length() > 0 ? adr
-            .getAdressierungszusatz() + "\n" : "") + adr.getStrasse() + "\n"
-        + adr.getPlz() + " " + adr.getOrt();
+        + (adr.getAdressierungszusatz() != null
+            && adr.getAdressierungszusatz().length() > 0
+            ? adr.getAdressierungszusatz() + "\n" : "") + adr.getStrasse()
+        + "\n" + adr.getPlz() + " " + adr.getOrt();
     if (adr.getStaat() != null && adr.getStaat().length() > 0)
     {
       empfaenger += "\n" + adr.getStaat();
@@ -87,24 +89,26 @@ public class Adressaufbereitung
 
   public static String getAnschrift(IAdresse adr) throws RemoteException
   {
-      final String plzOrt = addAnschriftFeld(adr.getPlz(), " ", adr.getOrt());
-      String adresse = addAnschriftFeld(adr.getAdressierungszusatz(), ", ", adr.getStrasse());
-      adresse = addAnschriftFeld(adresse, ", ", plzOrt);
-      adresse = addAnschriftFeld(adresse, ", ", adr.getStaat());
-      return adresse;
+    final String plzOrt = addAnschriftFeld(adr.getPlz(), " ", adr.getOrt());
+    String adresse = addAnschriftFeld(adr.getAdressierungszusatz(), ", ",
+        adr.getStrasse());
+    adresse = addAnschriftFeld(adresse, ", ", plzOrt);
+    adresse = addAnschriftFeld(adresse, ", ", adr.getStaat());
+    return adresse;
   }
-  
-  private static String addAnschriftFeld(String anschrift, String trenner, String feldWert)
+
+  private static String addAnschriftFeld(String anschrift, String trenner,
+      String feldWert)
   {
-      if ( null == feldWert)
-          return anschrift;
-      if ( feldWert.length() == 0)
-          return anschrift;
-      if ( null == anschrift)
-          return feldWert;
-      if ( anschrift.length() == 0)
-          return feldWert;
-      return anschrift + trenner + feldWert;
+    if (null == feldWert)
+      return anschrift;
+    if (feldWert.length() == 0)
+      return anschrift;
+    if (null == anschrift)
+      return feldWert;
+    if (anschrift.length() == 0)
+      return feldWert;
+    return anschrift + trenner + feldWert;
   }
 
 }
