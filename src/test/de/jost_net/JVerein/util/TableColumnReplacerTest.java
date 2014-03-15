@@ -19,7 +19,7 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.JUnit;
+package test.de.jost_net.JVerein.util;
 
 import junit.framework.Assert;
 
@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import de.jost_net.JVerein.util.TableColumnReplacer;
 
-public class TestTableColumnReplacer
+public class TableColumnReplacerTest
 {
 
   private TableColumnReplacer tcr;
