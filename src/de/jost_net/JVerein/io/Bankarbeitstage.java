@@ -1,3 +1,19 @@
+/**********************************************************************
+ * Copyright (c) by Heiner Jostkleigrewe
+ * This program is free software: you can redistribute it and/or modify it under the terms of the 
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
+ *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ *  the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program.  If not, 
+ * see <http://www.gnu.org/licenses/>.
+ * 
+ * heiner@jverein.de
+ * www.jverein.de
+ **********************************************************************/
 package de.jost_net.JVerein.io;
 
 import java.util.Calendar;
@@ -27,12 +43,4 @@ public class Bankarbeitstage
     }
     return from;
   }
-
-  // public static void main(String[] args)
-  // {
-  // Bankarbeitstage bat = new Bankarbeitstage();
-  // Calendar cal = Calendar.getInstance();
-  // cal.set(2013, Calendar.DECEMBER, 30);
-  // System.out.println(bat.getDate(cal.getTime(), 1));
-  // }
 }
