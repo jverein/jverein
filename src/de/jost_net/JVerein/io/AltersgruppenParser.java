@@ -17,82 +17,67 @@
 package de.jost_net.JVerein.io;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
-import org.eclipse.swt.graphics.Point;
-
+import de.jost_net.JVerein.util.VonBis;
 import de.willuhn.util.ApplicationException;
 
 public class AltersgruppenParser
 {
-
-  private Vector<String> elemente;
-
-  private int ei = 0;
+  private Iterator<VonBis> iterator;
 
   public AltersgruppenParser(String altersgruppe) throws RuntimeException
   {
+    ArrayList<VonBis> elemente;
     if (altersgruppe == null)
     {
       throw new RuntimeException("Altersgruppe(n) müssen gefüllt sein!");
     }
     // Schritt 1: Zerlegen in die einzelnen Gruppen
     StringTokenizer stt = new StringTokenizer(altersgruppe, ",");
-    Vector<String> gruppen = new Vector<String>();
+    ArrayList<String> gruppen = new ArrayList<String>();
     while (stt.hasMoreElements())
     {
       String token = stt.nextToken().trim();
-      gruppen.addElement(token);
+      gruppen.add(token);
     }
     // Schritt 2: Zerlegen der Gruppen in ihre einzelnen Elemente
-    elemente = new Vector<String>();
+    elemente = new ArrayList<VonBis>();
     for (int i = 0; i < gruppen.size(); i++)
     {
-      stt = new StringTokenizer(gruppen.elementAt(i), "-");
+      stt = new StringTokenizer(gruppen.get(i), "-");
       if (stt.countTokens() != 2)
       {
         throw new RuntimeException(
             MessageFormat
                 .format(
                     "Ungültige Altersgruppe: {0} \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
-                    new Object[] { gruppen.elementAt(i) }));
+                    new Object[] { gruppen.get(i) }));
       }
-      elemente.addElement(stt.nextToken().trim());
-      elemente.addElement(stt.nextToken());
+      try
+      {
+        VonBis vb = new VonBis(Integer.parseInt(stt.nextToken().trim()),
+            Integer.parseInt(stt.nextToken().trim()));
+        elemente.add(vb);
+      }
+      catch (NumberFormatException e)
+      {
+        throw new RuntimeException("Fehler in den Altergruppen" + " "
+            + e.getMessage());
+      }
+      iterator = elemente.iterator();
     }
   }
 
   public boolean hasNext()
   {
-    if (ei < elemente.size())
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    return iterator.hasNext();
   }
 
-  public Point getNext() throws ApplicationException
+  public VonBis getNext() throws ApplicationException
   {
-    Point p = new Point(getValue(), getValue());
-    return p;
-  }
-
-  private int getValue() throws ApplicationException
-  {
-    try
-    {
-      int value = Integer.parseInt(elemente.elementAt(ei).trim());
-      ei++;
-      return value;
-    }
-    catch (NumberFormatException e)
-    {
-      throw new ApplicationException("Fehler in den Altergruppen" + " "
-          + e.getMessage());
-    }
+    return iterator.next();
   }
 }

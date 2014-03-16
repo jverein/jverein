@@ -24,8 +24,6 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.eclipse.swt.graphics.Point;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
@@ -38,6 +36,7 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Geschaeftsjahr;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.VonBis;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -78,10 +77,10 @@ public class MitgliederStatistik
           .getEinstellung().getAltersgruppen());
       while (ap.hasNext())
       {
-        Point p = ap.getNext();
-        addAltersgruppe(reporter, p.x, p.y, stichtag);
+        VonBis vb = ap.getNext();
+        addAltersgruppe(reporter, vb, stichtag);
       }
-      addAltersgruppe(reporter, 0, 199, stichtag);
+      addAltersgruppe(reporter, new VonBis(0, 199), stichtag);
       reporter.closeTable();
 
       Paragraph pBeitragsgruppen = new Paragraph("\n" + "Beitragsgruppen",
@@ -147,29 +146,27 @@ public class MitgliederStatistik
     }
   }
 
-  private void addAltersgruppe(Reporter reporter, int von, int bis,
-      Date stichtag) throws RemoteException
+  private void addAltersgruppe(Reporter reporter, VonBis vb, Date stichtag)
+      throws RemoteException
   {
-    if (von == 0 && bis == 199)
+    if (vb.getVon() == 0 && vb.getBis() == 199)
     {
       reporter.addColumn("Insgesamt", Element.ALIGN_LEFT);
     }
     else
     {
       reporter.addColumn(
-          MessageFormat.format("Altersgruppe {0} - {1}", von + "", bis + ""),
-          Element.ALIGN_LEFT);
+          MessageFormat.format("Altersgruppe {0} - {1}", vb.getVon() + "",
+              vb.getBis() + ""), Element.ALIGN_LEFT);
     }
-    reporter.addColumn(getAltersgruppe(von, bis, null, stichtag) + "",
+    reporter.addColumn(getAltersgruppe(vb, null, stichtag) + "",
         Element.ALIGN_RIGHT);
+    reporter.addColumn(getAltersgruppe(vb, GeschlechtInput.MAENNLICH, stichtag)
+        + "", Element.ALIGN_RIGHT);
+    reporter.addColumn(getAltersgruppe(vb, GeschlechtInput.WEIBLICH, stichtag)
+        + "", Element.ALIGN_RIGHT);
     reporter.addColumn(
-        getAltersgruppe(von, bis, GeschlechtInput.MAENNLICH, stichtag) + "",
-        Element.ALIGN_RIGHT);
-    reporter.addColumn(
-        getAltersgruppe(von, bis, GeschlechtInput.WEIBLICH, stichtag) + "",
-        Element.ALIGN_RIGHT);
-    reporter.addColumn(
-        getAltersgruppe(von, bis, GeschlechtInput.OHNEANGABE, stichtag) + "",
+        getAltersgruppe(vb, GeschlechtInput.OHNEANGABE, stichtag) + "",
         Element.ALIGN_RIGHT);
   }
 
@@ -208,12 +205,12 @@ public class MitgliederStatistik
    *          m, w oder null
    * @return Anzahl der Mitglieder
    */
-  private int getAltersgruppe(int von, int bis, String geschlecht, Date stichtag)
+  private int getAltersgruppe(VonBis vb, String geschlecht, Date stichtag)
       throws RemoteException
   {
     Calendar calVon = Calendar.getInstance();
     calVon.setTime(stichtag);
-    calVon.add(Calendar.YEAR, bis * -1);
+    calVon.add(Calendar.YEAR, vb.getBis() * -1);
     calVon.set(Calendar.MONTH, Calendar.JANUARY);
     calVon.set(Calendar.DAY_OF_MONTH, 1);
     calVon.set(Calendar.HOUR, 0);
@@ -224,7 +221,7 @@ public class MitgliederStatistik
 
     Calendar calBis = Calendar.getInstance();
     calBis.setTime(stichtag);
-    calBis.add(Calendar.YEAR, von * -1);
+    calBis.add(Calendar.YEAR, vb.getVon() * -1);
     calBis.set(Calendar.MONTH, Calendar.DECEMBER);
     calBis.set(Calendar.DAY_OF_MONTH, 31);
 
