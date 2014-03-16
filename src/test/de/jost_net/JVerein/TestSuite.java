@@ -19,12 +19,13 @@ package test.de.jost_net.JVerein;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import test.de.jost_net.JVerein.io.AltersgruppenParserTest;
 import test.de.jost_net.JVerein.io.Adressbuch.AdressaufbereitungTest;
 import test.de.jost_net.JVerein.util.TableColumnReplacerTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ AdressaufbereitungTest.class,
-    TableColumnReplacerTest.class })
+    AltersgruppenParserTest.class, TableColumnReplacerTest.class })
 public class TestSuite
 {
   // Nothing to do
