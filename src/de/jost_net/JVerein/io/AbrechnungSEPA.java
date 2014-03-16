@@ -573,7 +573,7 @@ public class AbrechnungSEPA
         zahler.setIban(kt.getIban());
         zahler.setMandatid(kt.getMandatID());
         zahler.setMandatdatum(kt.getMandatDatum());
-        zahler.setMandatsequence(MandatSequence.OOFF);
+        zahler.setMandatsequence(MandatSequence.FRST);
         zahler.setFaelligkeit(param.faelligkeit1);
         zahler.setName(kt.getName());
         zahler.setVerwendungszweck(kt.getVZweck1());
