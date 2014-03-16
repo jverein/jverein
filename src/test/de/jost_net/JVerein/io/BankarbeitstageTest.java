@@ -14,21 +14,35 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package test.de.jost_net.JVerein;
+package test.de.jost_net.JVerein.io;
 
+import static org.junit.Assert.assertEquals;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import test.de.jost_net.JVerein.io.AltersgruppenParserTest;
-import test.de.jost_net.JVerein.io.BankarbeitstageTest;
-import test.de.jost_net.JVerein.io.Adressbuch.AdressaufbereitungTest;
-import test.de.jost_net.JVerein.util.TableColumnReplacerTest;
+import de.jost_net.JVerein.io.Bankarbeitstage;
+import de.willuhn.util.ApplicationException;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ AdressaufbereitungTest.class,
-    AltersgruppenParserTest.class, BankarbeitstageTest.class,
-    TableColumnReplacerTest.class })
-public class TestSuite
+@RunWith(JUnit4.class)
+public class BankarbeitstageTest
 {
-  // Nothing to do
+  @Test
+  public void test01() throws ApplicationException
+  {
+    Bankarbeitstage bat = new Bankarbeitstage();
+    Calendar cal = Calendar.getInstance();
+    cal.set(2013, Calendar.DECEMBER, 30);
+    cal = bat.getCalendar(cal, 1);
+    Calendar cal2 = Calendar.getInstance();
+    cal2.set(Calendar.YEAR, 2014);
+    cal2.set(Calendar.MONTH, Calendar.JANUARY);
+    cal2.set(Calendar.DAY_OF_MONTH, 2);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    assertEquals(sdf.format(cal2.getTime()), sdf.format(cal.getTime()));
+  }
 }
