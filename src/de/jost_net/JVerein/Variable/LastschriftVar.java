@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -40,6 +35,7 @@ public enum LastschriftVar {
   MANDATDATUM("lastschrift_mandatdatum"), //
   BIC("lastschrift_bic"), //
   IBAN("lastschrift_iban"), //
+  IBANMASKIERT("lastschrift_ibanmaskiert"), //
   VERWENDUNGSZWECK("lastschrift_verwendungszweck"), //
   BETRAG("lastschrift_betrag"), //
   EMPFAENGER("lastschrift_empfaenger");

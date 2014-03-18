@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -60,6 +55,7 @@ public class LastschriftMap
       ls.setBIC("XXXXXXXXXXX");
       ls.setEmail("willi.wichtig@mail.de");
       ls.setIBAN("DE89370400440532013000");
+      ls.setIBAN("DE89370400440532013000");
       ls.setMandatDatum(new Date());
       ls.setMandatID("1234");
       ls.setName("Wichtig");
@@ -97,11 +93,22 @@ public class LastschriftMap
     map.put(LastschriftVar.MANDATDATUM.getName(), ls.getMandatDatum());
     map.put(LastschriftVar.BIC.getName(), ls.getBIC());
     map.put(LastschriftVar.IBAN.getName(), ls.getIBAN());
+    map.put(LastschriftVar.IBANMASKIERT.getName(), anonymisieren(ls.getIBAN()));
     map.put(LastschriftVar.VERWENDUNGSZWECK.getName(), ls.getVerwendungszweck());
     map.put(LastschriftVar.BETRAG.getName(), ls.getBetrag());
     map.put(LastschriftVar.EMPFAENGER.getName(),
         Adressaufbereitung.getAdressfeld(ls));
 
     return map;
+  }
+
+  private String anonymisieren(String wert)
+  {
+    StringBuffer sb = new StringBuffer(wert);
+    for (int i = 0; i < wert.length() - 4; i++)
+    {
+      sb.replace(i, i + 1, "X");
+    }
+    return sb.toString();
   }
 }
