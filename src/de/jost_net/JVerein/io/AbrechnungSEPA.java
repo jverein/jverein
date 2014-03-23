@@ -634,6 +634,11 @@ public class AbrechnungSEPA
 
   private void buchenHibiscus(ArrayList<Zahler> z) throws ApplicationException
   {
+    if (z.size() == 0)
+    {
+      // Wenn keine Buchungen vorhanden sind, wird nichts an Hibiscus übergeben.
+      return;
+    }
     try
     {
       SepaLastschrift[] lastschriften = new SepaLastschrift[z.size()];
