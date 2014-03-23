@@ -536,6 +536,7 @@ public class KursteilnehmerControl extends AbstractControl
     part.addColumn("IBAN", "iban");
     part.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
+    part.addColumn("Mandats-ID", "mandatid");
     part.addColumn("Eingabedatum", "eingabedatum", new DateFormatter(
         new JVDateFormatTTMMJJJJ()));
     part.addColumn("Abbuchungsdatum", "abbudatum", new DateFormatter(

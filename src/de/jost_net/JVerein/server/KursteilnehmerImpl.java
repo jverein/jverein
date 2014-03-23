@@ -477,6 +477,10 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("mandatid"))
+    {
+      return getMandatID();
+    }
     return super.getAttribute(fieldName);
   }
 
