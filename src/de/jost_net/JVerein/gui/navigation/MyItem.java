@@ -265,24 +265,3 @@ public GenericIterator getPossibleParents() throws RemoteException
 
 }
 
-/*******************************************************************************
- * $Log$
- * Revision 1.10  2012/08/14 19:03:42  jverein
- * Anpassung an Jameica
- * Revision 1.9 2011/10/23 20:58:26 jverein Hinweis auf
- * die GPL in den Quelltext aufgenommen
- * 
- * Revision 1.8 2011/10/01 21:44:40 jost Log-Eintr‰ge entfernt. Zeigt
- * Eclipse-History-View viel besser an. Macht den Quelltext schlanker. Revision
- * 1.7 2010-10-15 09:58:29 jost Code aufger‰umt Revision 1.6 2008-12-28 07:55:27
- * jost Icons an Jameica angepasst
- * 
- * Revision 1.5 2008/12/22 21:16:52 jost Icons ins Men√º aufgenommen. Revision
- * 1.4 2008/11/29 13:11:27 jost Refactoring: Warnungen beseitigt.
- * 
- * Revision 1.3 2008/05/22 06:51:47 jost Buchf√ºhrung Revision 1.2 2007/08/23
- * 19:25:23 jost Header korrigiert.
- * 
- * Revision 1.1 2007/08/22 20:43:54 jost *** empty log message ***
- * 
- ******************************************************************************/
