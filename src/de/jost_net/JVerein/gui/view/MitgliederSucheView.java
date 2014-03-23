@@ -25,7 +25,6 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DialogInput;
 import de.willuhn.jameica.gui.input.Input;
-import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
@@ -58,7 +57,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     Input mitglstat = control.getMitgliedStatus();
     mitglstat.addListener(new FilterListener());
     left.addLabelPair("Mitgliedschaft", mitglstat);
-    IntegerInput suchexternemitgliedsnummer = control
+    TextInput suchexternemitgliedsnummer = control
         .getSuchExterneMitgliedsnummer();
     suchexternemitgliedsnummer.addListener(new FilterListener());
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())

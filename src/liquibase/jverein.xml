@@ -1061,8 +1061,13 @@
 		</createIndex>
 	</changeSet>
 	<changeSet author="Heiner" id="96">
-		<createIndex indexName="ixkonto1" tableName="konto" unique="true">
+		<createIndex indexName="ixkonto1" tableName="konto"
+			unique="true">
 			<column name="nummer" />
 		</createIndex>
+	</changeSet>
+	<changeSet author="Heiner" id="97">
+		<modifyDataType columnName="externemitgliedsnummer"
+			newDataType="varchar(50)" tableName="mitglied" />
 	</changeSet>
 </databaseChangeLog>

@@ -335,7 +335,12 @@ public class MitgliedQuery
       {
         if (control.getSuchExterneMitgliedsnummer().getValue() != null)
         {
-          addCondition("externemitgliedsnummer = ?");
+          String ext = (String) control.getSuchExterneMitgliedsnummer()
+              .getValue();
+          if (ext.length() > 0)
+          {
+            addCondition("externemitgliedsnummer = ?");
+          }
         }
       }
       catch (NullPointerException e)
@@ -391,7 +396,12 @@ public class MitgliedQuery
       if (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
           && control.getSuchExterneMitgliedsnummer().getValue() != null)
       {
-        bedingungen.add(control.getSuchExterneMitgliedsnummer().getValue());
+        String ext = (String) control.getSuchExterneMitgliedsnummer()
+            .getValue();
+        if (ext.length() > 0)
+        {
+          bedingungen.add(control.getSuchExterneMitgliedsnummer().getValue());
+        }
       }
     }
     catch (NullPointerException e)

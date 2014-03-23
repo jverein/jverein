@@ -323,15 +323,15 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException
+  public void setExterneMitgliedsnummer(String extnr) throws RemoteException
   {
     setAttribute("externemitgliedsnummer", extnr);
   }
 
   @Override
-  public Integer getExterneMitgliedsnummer() throws RemoteException
+  public String getExterneMitgliedsnummer() throws RemoteException
   {
-    return (Integer) getAttribute("externemitgliedsnummer");
+    return (String) getAttribute("externemitgliedsnummer");
   }
 
   @Override
@@ -1220,7 +1220,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setEingabedatum();
       this.setEintritt("05.02.1999");
       this.setEmail("willi.wichtig@jverein.de");
-      this.setExterneMitgliedsnummer(123456);
+      this.setExterneMitgliedsnummer("123456");
       this.setGeburtsdatum("02.03.1980");
       this.setGeschlecht(GeschlechtInput.MAENNLICH);
       this.setHandy("0170/123456789");

@@ -953,7 +953,7 @@ public class Import
 
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
-      m.setExterneMitgliedsnummer(new Integer(getResultFrom(results,
+      m.setExterneMitgliedsnummer(new String(getResultFrom(results,
           InternalColumns.MITGLIEDSNR)));
     }
 

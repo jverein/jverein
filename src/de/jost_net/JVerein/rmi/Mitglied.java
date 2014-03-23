@@ -33,9 +33,9 @@ import de.willuhn.util.ApplicationException;
 public interface Mitglied extends DBObject, ILastschrift
 {
 
-  public void setExterneMitgliedsnummer(Integer extnr) throws RemoteException;
+  public void setExterneMitgliedsnummer(String extnr) throws RemoteException;
 
-  public Integer getExterneMitgliedsnummer() throws RemoteException;
+  public String getExterneMitgliedsnummer() throws RemoteException;
 
   public void setID(String id) throws RemoteException;
 

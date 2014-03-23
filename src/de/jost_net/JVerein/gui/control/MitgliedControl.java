@@ -150,7 +150,7 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput adresstyp;
 
-  private IntegerInput externemitgliedsnummer;
+  private TextInput externemitgliedsnummer;
 
   private TextInput mitgliedsnummer;
 
@@ -305,7 +305,7 @@ public class MitgliedControl extends AbstractControl
 
   private DialogInput zusatzfelderabfrage;
 
-  private IntegerInput suchexternemitgliedsnummer;
+  private TextInput suchexternemitgliedsnummer;
 
   private SelectInput mailAuswahl;
 
@@ -462,18 +462,13 @@ public class MitgliedControl extends AbstractControl
     return adresstyp;
   }
 
-  public IntegerInput getExterneMitgliedsnummer() throws RemoteException
+  public TextInput getExterneMitgliedsnummer() throws RemoteException
   {
     if (externemitgliedsnummer != null)
     {
       return externemitgliedsnummer;
     }
-    Integer ex = getMitglied().getExterneMitgliedsnummer();
-    if (ex == null)
-    {
-      ex = -1;
-    }
-    externemitgliedsnummer = new IntegerInput(ex);
+    externemitgliedsnummer = new TextInput(getMitglied().getExterneMitgliedsnummer(),50);
     externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
     externemitgliedsnummer.setMandatory(isExterneMitgliedsnummerMandatory());
     return externemitgliedsnummer;
@@ -2412,13 +2407,13 @@ public class MitgliedControl extends AbstractControl
     return status != null;
   }
 
-  public IntegerInput getSuchExterneMitgliedsnummer()
+  public TextInput getSuchExterneMitgliedsnummer()
   {
     if (suchexternemitgliedsnummer != null)
     {
       return suchexternemitgliedsnummer;
     }
-    suchexternemitgliedsnummer = new IntegerInput(-1);
+    suchexternemitgliedsnummer = new TextInput("",50);
     return suchexternemitgliedsnummer;
   }
 
@@ -2943,7 +2938,7 @@ public class MitgliedControl extends AbstractControl
       {
         if (externemitgliedsnummer != null)
         {
-          m.setExterneMitgliedsnummer((Integer) getExterneMitgliedsnummer()
+          m.setExterneMitgliedsnummer((String) getExterneMitgliedsnummer()
               .getValue());
         }
       }
