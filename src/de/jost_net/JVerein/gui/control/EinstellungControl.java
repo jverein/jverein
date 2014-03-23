@@ -158,6 +158,8 @@ public class EinstellungControl extends AbstractControl
 
   private TextInput beginngeschaeftsjahr;
 
+  private CheckboxInput autobuchunguebernahme;
+
   private TextInput smtp_server;
 
   private IntegerInput smtp_port;
@@ -835,6 +837,19 @@ public class EinstellungControl extends AbstractControl
     return beginngeschaeftsjahr;
   }
 
+  public CheckboxInput getAutoBuchunguebernahme() throws RemoteException
+  {
+    if (autobuchunguebernahme != null)
+    {
+      return autobuchunguebernahme;
+    }
+    autobuchunguebernahme = new CheckboxInput(Einstellungen.getEinstellung()
+        .getAutoBuchunguebernahme());
+    autobuchunguebernahme
+        .setName("Automatische Buchungsübernahme aus Hibiscus");
+    return autobuchunguebernahme;
+  }
+
   public TextInput getSmtpServer() throws RemoteException
   {
     if (smtp_server != null)
@@ -1438,6 +1453,7 @@ public class EinstellungControl extends AbstractControl
       e.setSpendenbescheinigungPrintBuchungsart((Boolean) spendenbescheinigungprintbuchungsart
           .getValue());
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
+      e.setAutoBuchunguebernahme((Boolean) autobuchunguebernahme.getValue());
       e.setSmtpServer((String) smtp_server.getValue());
       Integer port = (Integer) smtp_port.getValue();
       e.setSmtpPort(port.toString());

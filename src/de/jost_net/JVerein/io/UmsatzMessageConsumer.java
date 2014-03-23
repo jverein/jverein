@@ -1,5 +1,6 @@
 package de.jost_net.JVerein.io;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.jameica.hbci.messaging.ImportMessage;
 import de.willuhn.jameica.hbci.messaging.ObjectMessage;
@@ -26,7 +27,10 @@ public class UmsatzMessageConsumer implements MessageConsumer
     {
       return;
     }
-
+    if (!Einstellungen.getEinstellung().getAutoBuchunguebernahme())
+    {
+      return;
+    }
     final GenericObject o = ((ObjectMessage) message).getObject();
 
     if (o == null)

@@ -99,7 +99,8 @@ public interface Einstellung extends DBObject, IBankverbindung
   @Override
   public String getIban() throws RemoteException;
 
-  public de.willuhn.jameica.hbci.rmi.Konto getHibiscusKonto() throws RemoteException;
+  public de.willuhn.jameica.hbci.rmi.Konto getHibiscusKonto()
+      throws RemoteException;
 
   public void setGlaeubigerID(String glaeubigerid) throws RemoteException;
 
@@ -243,6 +244,10 @@ public interface Einstellung extends DBObject, IBankverbindung
       throws RemoteException;
 
   public String getBeginnGeschaeftsjahr() throws RemoteException;
+
+  public Boolean getAutoBuchunguebernahme() throws RemoteException;
+  
+  public void setAutoBuchunguebernahme(Boolean autobuchunguebernahme) throws RemoteException;
 
   public void setBeginnGeschaeftsjahr(String beginngeschaeftsjahr)
       throws RemoteException;

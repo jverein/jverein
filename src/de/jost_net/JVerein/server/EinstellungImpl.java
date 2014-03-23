@@ -1581,4 +1581,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     super.store();
   }
 
+  @Override
+  public Boolean getAutoBuchunguebernahme() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("autobuchunguebernahme"));
+  }
+
+  @Override
+  public void setAutoBuchunguebernahme(Boolean autobuchunguebernahme)
+      throws RemoteException
+  {
+    setAttribute("autobuchunguebernahme", autobuchunguebernahme);
+  }
+
 }

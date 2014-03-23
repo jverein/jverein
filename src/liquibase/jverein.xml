@@ -1070,4 +1070,9 @@
 		<modifyDataType columnName="externemitgliedsnummer"
 			newDataType="varchar(50)" tableName="mitglied" />
 	</changeSet>
+	<changeSet author="Heiner" id="98">
+		<addColumn tableName="einstellung">
+			<column name="autobuchunguebernahme" type="bit" defaultValueBoolean="true" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>
