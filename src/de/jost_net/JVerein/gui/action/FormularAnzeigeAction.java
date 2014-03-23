@@ -247,7 +247,7 @@ public class FormularAnzeigeAction implements Action
       map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
       map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
       map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
-
+      map.put(MitgliedskontoVar.SUMME_OFFEN.getName(), 700);
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);
       fab.showFormular();
