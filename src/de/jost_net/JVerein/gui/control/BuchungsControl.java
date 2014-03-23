@@ -879,24 +879,27 @@ public class BuchungsControl extends AbstractControl
       });
       buchungsList.addColumn("Datum", "datum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
-      buchungsList.addColumn(new Column("auszugsnummer", "Auszug",
-          new Formatter()
-          {
-            @Override
-            public String format(Object o)
-            {
-              return o.toString();
-            }
-          }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
-      buchungsList.addColumn(new Column("blattnummer", "Blatt", new Formatter()
-      {
-        @Override
-        public String format(Object o)
-        {
-          return o.toString();
-        }
-      }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
-      buchungsList.addColumn("Blatt", "blattnummer");
+      // buchungsList.addColumn(new Column("auszugsnummer", "Auszug",
+      // new Formatter()
+      // {
+      // @Override
+      // public String format(Object o)
+      // {
+      // return o.toString();
+      // }
+      // }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
+      // buchungsList.addColumn(new Column("blattnummer", "Blatt", new
+      // Formatter()
+      // {
+      // @Override
+      // public String format(Object o)
+      // {
+      // return o.toString();
+      // }
+      // }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
+      buchungsList.addColumn("Auszugsnummer", "auszugsnummer");
+      buchungsList.addColumn("Blatt", "blatt");
+      
       buchungsList.addColumn("Name", "name");
       buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
       {
