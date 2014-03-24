@@ -96,9 +96,7 @@ public class PreNotificationControl extends AbstractControl
 
   private SelectInput ct1ausgabe;
 
-  private TextInput textvorher;
-
-  private TextInput textnachher;
+  private TextInput verwendungszweck;
 
   public PreNotificationControl(AbstractView view)
   {
@@ -193,26 +191,15 @@ public class PreNotificationControl extends AbstractControl
     return ct1ausgabe;
   }
 
-  public TextInput getTextVorher()
+  public TextInput getVerwendungszweck()
   {
-    if (textvorher != null)
+    if (verwendungszweck != null)
     {
-      return textvorher;
+      return verwendungszweck;
     }
-    textvorher = new TextInput(settings.getString("textvorher", ""));
-    textvorher.setName("Text vor Verwendungszweck");
-    return textvorher;
-  }
-
-  public TextInput getTextNachher()
-  {
-    if (textnachher != null)
-    {
-      return textnachher;
-    }
-    textnachher = new TextInput(settings.getString("textnachher", ""));
-    textnachher.setName("Text nach Verwendungszweck");
-    return textnachher;
+    verwendungszweck = new TextInput(settings.getString("verwendungszweck", ""));
+    verwendungszweck.setName("Verwendungszweck");
+    return verwendungszweck;
   }
 
   public Button getStartButton(final Object currentObject)
@@ -273,10 +260,8 @@ public class PreNotificationControl extends AbstractControl
           Date d = (Date) ausfuehrungsdatum.getValue();
           settings.setAttribute("faelligkeitsdatum",
               Einstellungen.DATETIMEFORMAT.format(d));
-          settings.setAttribute("textvorher", (String) getTextVorher()
-              .getValue());
-          settings.setAttribute("textnachher", (String) getTextNachher()
-              .getValue());
+          settings.setAttribute("verwendungszweck",
+              (String) getVerwendungszweck().getValue());
           settings.setAttribute("tab.selection", folder.getSelectionIndex());
           generiere1ct(currentObject);
         }
@@ -379,11 +364,10 @@ public class PreNotificationControl extends AbstractControl
     Date faell = Datum.toDate(faelligkeitsdatum);
     int ct1ausgabe = settings.getInt("ct1ausgabe",
         Abrechnungsausgabe.SEPA_DATEI);
-    String textvorher = settings.getString("textvorher", "");
-    String textnachher = settings.getString("textnachher", "");
+    String verwendungszweck = settings.getString("verwendungszweck", "");
     Ct1Ueberweisung ct1ueberweisung = new Ct1Ueberweisung();
     int anzahl = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe,
-        textvorher, textnachher);
+        verwendungszweck);
     GUI.getStatusBar().setSuccessText("Anzahl Überweisungen: " + anzahl);
   }
 

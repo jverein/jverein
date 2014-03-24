@@ -64,8 +64,7 @@ public class PreNotificationView extends AbstractView
 
     tab2.addInput(control.getct1Ausgabe());
     tab2.addInput(control.getAusfuehrungsdatum());
-    tab2.addInput(control.getTextVorher());
-    tab2.addInput(control.getTextNachher());
+    tab2.addInput(control.getVerwendungszweck());
     ButtonArea buttons2 = new ButtonArea();
     buttons2.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.PRENOTIFICATION, false, "help-browser.png");

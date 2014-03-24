@@ -17,23 +17,36 @@
 package de.jost_net.JVerein.io;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.Map;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.datatype.DatatypeConfigurationException;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.LastschriftMap;
+import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Lastschrift;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.jost_net.JVerein.util.StringTool;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.Ueberweisung.Empfaenger;
 import de.jost_net.OBanToo.SEPA.Ueberweisung.Ueberweisung;
+import de.jost_net.OBanToo.StringLatin.Zeichen;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.hbci.HBCI;
+import de.willuhn.jameica.hbci.gui.action.SepaUeberweisungMerge;
 import de.willuhn.jameica.hbci.rmi.AuslandsUeberweisung;
 import de.willuhn.jameica.hbci.rmi.HibiscusAddress;
 import de.willuhn.jameica.system.Application;
@@ -48,26 +61,23 @@ public class Ct1Ueberweisung
   }
 
   public int write(Abrechnungslauf abrl, File file, Date faell, int ct1ausgabe,
-      String textvorher, String textnachher) throws Exception
+      String verwendungszweck) throws Exception
   {
+    Velocity.init();
     switch (ct1ausgabe)
     {
       case Abrechnungsausgabe.SEPA_DATEI:
-        return dateiausgabe(abrl, file, faell, ct1ausgabe, textvorher,
-            textnachher);
+        return dateiausgabe(abrl, file, faell, ct1ausgabe, verwendungszweck);
 
       case Abrechnungsausgabe.HIBISCUS:
-        return hibiscusausgabe(abrl, file, faell, ct1ausgabe, textvorher,
-            textnachher);
+        return hibiscusausgabe(abrl, file, faell, ct1ausgabe, verwendungszweck);
 
     }
     return -1;
   }
 
   private int dateiausgabe(Abrechnungslauf abrl, File file, Date faell,
-      int ct1ausgabe, String textvorher, String textnachher)
-      throws RemoteException, SEPAException, DatatypeConfigurationException,
-      JAXBException
+      int ct1ausgabe, String verwendungszweck) throws Exception
   {
     ueb = new Ueberweisung();
     ueb.setAusfuehrungsdatum(faell);
@@ -88,13 +98,7 @@ public class Ct1Ueberweisung
       e.setIban(ls.getIBAN());
       e.setName(ls.getName());
       e.setReferenz(ls.getMandatID());
-      String v = textvorher + " " + ls.getVerwendungszweck() + " "
-          + textnachher;
-      if (v.length() > 140)
-      {
-        v = v.substring(0, 140);
-      }
-      e.setVerwendungszweck(v);
+      e.setVerwendungszweck(eval(ls, ls.getVerwendungszweck()));
       ueb.add(e);
     }
     ueb.write(file);
@@ -102,13 +106,17 @@ public class Ct1Ueberweisung
   }
 
   private int hibiscusausgabe(Abrechnungslauf abrl, File file, Date faell,
-      int ct1ausgabe, String textvorher, String textnachher) throws Exception
+      int ct1ausgabe, String verwendungszweck) throws Exception
   {
     try
     {
       de.willuhn.jameica.hbci.rmi.Konto hibk = Einstellungen.getEinstellung()
           .getHibiscusKonto();
       DBIterator it = getIterator(abrl);
+      AuslandsUeberweisung[] ueberweisungen = new AuslandsUeberweisung[it
+          .size()];
+      int i = 0;
+
       while (it.hasNext())
       {
         Lastschrift ls = (Lastschrift) it.next();
@@ -124,12 +132,17 @@ public class Ct1Ueberweisung
         ad.setIban(ls.getIBAN());
         ue.setGegenkonto(ad);
         ue.setEndtoEndId(ls.getMandatID());
-        ue.setGegenkontoName(ls.getName());
+        ue.setGegenkontoName(StringTool.getStringWithMaxLength(
+            Zeichen.convert(ls.getName()), 255));
         ue.setTermin(faell);
-        ue.setZweck(ls.getVerwendungszweck());
+        ue.setZweck(StringTool.getStringWithMaxLength(
+            Zeichen.convert(eval(ls, ls.getVerwendungszweck())), 140));
         ue.setKonto(hibk);
-        ue.store();
+        ueberweisungen[i] = ue;
+        i++;
       }
+      SepaUeberweisungMerge merge = new SepaUeberweisungMerge();
+      merge.handleAction(ueberweisungen);
     }
     catch (RemoteException e)
     {
@@ -139,7 +152,6 @@ public class Ct1Ueberweisung
     {
       throw new ApplicationException(e);
     }
-
     return 1;
   }
 
@@ -150,4 +162,20 @@ public class Ct1Ueberweisung
     it.setOrder("order by name, vorname");
     return it;
   }
+
+  public String eval(Lastschrift ls, String verwendungszweck)
+      throws ParseErrorException, MethodInvocationException,
+      ResourceNotFoundException, IOException
+  {
+    VelocityContext context = new VelocityContext();
+    context.put("dateformat", new JVDateFormatTTMMJJJJ());
+    context.put("decimalformat", Einstellungen.DECIMALFORMAT);
+    Map<String, Object> map = new LastschriftMap().getMap(ls, null);
+    map = new AllgemeineMap().getMap(map);
+    VarTools.add(context, map);
+    StringWriter vzweck = new StringWriter();
+    Velocity.evaluate(context, vzweck, "LOG", verwendungszweck);
+    return vzweck.getBuffer().toString().toUpperCase();
+  }
+
 }
