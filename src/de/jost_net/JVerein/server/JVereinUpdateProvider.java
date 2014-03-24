@@ -1522,7 +1522,6 @@ public class JVereinUpdateProvider
   public void execute(Connection conn, Map<String, String> statements,
       String logstring, int version) throws ApplicationException
   {
-    System.out.println(version);
     Logger.info("TODO: " + logstring);
     String driver = JVereinDBService.SETTINGS.getString("database.driver",
         DBSupportH2Impl.class.getName());
