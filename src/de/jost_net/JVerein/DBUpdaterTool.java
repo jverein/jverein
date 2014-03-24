@@ -92,7 +92,6 @@ public class DBUpdaterTool
       Statement stmt = connection.createStatement();
       int anz = stmt
           .executeUpdate("delete from databasechangelog where orderexecuted > 96");
-      System.out.println(anz);
       connection.setAutoCommit(false);
       stmt.close();
     }
