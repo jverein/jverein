@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -94,5 +89,14 @@ public class StringTool
     while (string.length() < len)
       string = fillChar + string;
     return string;
+  }
+  
+  public static String getStringWithMaxLength(String in, int max)
+  {
+    if (in.length()>max)
+    {
+      return in.substring(0,max);
+    }
+    return in;
   }
 }
