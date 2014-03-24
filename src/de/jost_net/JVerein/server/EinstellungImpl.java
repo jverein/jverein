@@ -418,7 +418,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       DBService service = (DBService) Application.getServiceFactory().lookup(
           HBCI.class, "database");
       DBIterator konten = service.createList(Konto.class);
-      System.out.println(Einstellungen.getEinstellung().getIban());
       konten.addFilter("iban = ?", Einstellungen.getEinstellung().getIban());
       Logger.debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
       if (konten.hasNext())
