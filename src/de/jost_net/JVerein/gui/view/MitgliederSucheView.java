@@ -88,7 +88,9 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     mitglgeschlecht.setMandatory(false);
     mitglgeschlecht.addListener(new FilterListener());
     middle.addLabelPair("Geschlecht", mitglgeschlecht);
-    middle.addLabelPair("Stichtag", control.getStichtag(false));
+    DateInput stichtag = control.getStichtag();
+    stichtag.addListener(new FilterListener());
+    middle.addLabelPair("Stichtag", stichtag);
 
     SimpleContainer right = new SimpleContainer(cl.getComposite());
     DateInput mitgleintrittvon = control.getEintrittvon();
@@ -130,6 +132,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
           control.getEintrittbis().setValue(null);
           control.getAustrittvon().setValue(null);
           control.getAustrittbis().setValue(null);
+          control.getStichtag().setValue(null);
           control.resetZusatzfelderAuswahl();
           TabRefresh();
         }

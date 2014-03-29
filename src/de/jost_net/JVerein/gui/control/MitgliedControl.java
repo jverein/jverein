@@ -389,6 +389,7 @@ public class MitgliedControl extends AbstractControl
       settings.setAttribute("mitglied.geburtsdatumvon", "");
       settings.setAttribute("mitglied.sterbedatumbis", "");
       settings.setAttribute("mitglied.sterbedatumvon", "");
+      settings.setAttribute("mitglied.stichtag", "");
       settings.setAttribute("status.mitglied", "");
       settings.setAttribute("zusatzfelder.selected", 0);
     }
@@ -468,7 +469,8 @@ public class MitgliedControl extends AbstractControl
     {
       return externemitgliedsnummer;
     }
-    externemitgliedsnummer = new TextInput(getMitglied().getExterneMitgliedsnummer(),50);
+    externemitgliedsnummer = new TextInput(getMitglied()
+        .getExterneMitgliedsnummer(), 50);
     externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
     externemitgliedsnummer.setMandatory(isExterneMitgliedsnummerMandatory());
     return externemitgliedsnummer;
@@ -1729,7 +1731,7 @@ public class MitgliedControl extends AbstractControl
         // Alle Familienmitglieder, die eine Zahler-ID eingetragen haben, sind
         // nicht selbst das zahlende Mitglied.
         // Der Eintrag ohne zahlerid ist also das zahlende Mitglied.
-        Integer m = (Integer) o;
+        Long m = (Long) o;
         if (m == null)
           return "";
         else
@@ -2203,6 +2205,45 @@ public class MitgliedControl extends AbstractControl
     return suchname;
   }
 
+  public DateInput getStichtag()
+  {
+    if (stichtag != null)
+    {
+      return stichtag;
+    }
+    Date d = null;
+    String tmp = settings.getString("mitglied.stichtag", null);
+    if (tmp != null)
+    {
+      try
+      {
+        d = new JVDateFormatTTMMJJJJ().parse(tmp);
+      }
+      catch (ParseException e)
+      {
+        //
+      }
+    }
+    this.stichtag = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.stichtag.setTitle("Stichtag");
+    this.stichtag.setText("Stichtag");
+    this.stichtag.addListener(new Listener()
+    {
+
+      @Override
+      public void handleEvent(Event event)
+      {
+        Date date = (Date) stichtag.getValue();
+        if (date == null)
+        {
+          return;
+        }
+      }
+    });
+    stichtag.setName("Stichtag");
+    return stichtag;
+  }
+
   public DateInput getStichtag(boolean jahresende)
   {
     if (stichtag != null)
@@ -2413,7 +2454,7 @@ public class MitgliedControl extends AbstractControl
     {
       return suchexternemitgliedsnummer;
     }
-    suchexternemitgliedsnummer = new TextInput("",50);
+    suchexternemitgliedsnummer = new TextInput("", 50);
     return suchexternemitgliedsnummer;
   }
 
@@ -2748,6 +2789,19 @@ public class MitgliedControl extends AbstractControl
       else
       {
         settings.setAttribute("mitglied.austrittbis", "");
+      }
+    }
+    if (stichtag != null)
+    {
+      Date tmp = (Date) getStichtag().getValue();
+      if (tmp != null)
+      {
+        settings.setAttribute("mitglied.stichtag",
+            new JVDateFormatTTMMJJJJ().format(tmp));
+      }
+      else
+      {
+        settings.setAttribute("mitglied.stichtag", "");
       }
     }
 
