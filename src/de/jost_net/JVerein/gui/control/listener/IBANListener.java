@@ -47,23 +47,32 @@ public class IBANListener implements Listener
   public void handleEvent(Event event)
   {
     String ib = (String) iban.getValue();
-    ib = ib.trim();
-    iban.setValue(ib);
     if (ib == null)
     {
       return;
     }
-    if (ib.length() == 0)
+    ib = ib.trim();
+    String ib2 = "";
+    for (int i = 0; i < ib.length(); i++)
+    {
+      String t = ib.substring(i, i + 1);
+      if (!t.equals(" "))
+      {
+        ib2 += t;
+      }
+    }
+    iban.setValue(ib2);
+    if (ib2.length() == 0)
     {
       iban.setComment("");
       bic.setValue("");
       bic.setComment("");
     }
-    if (ib.length() > 4)
+    if (ib2.length() > 4)
     {
       try
       {
-        IBAN i = new IBAN(ib);
+        IBAN i = new IBAN(ib2);
         Bank b = Banken.getBankByBLZ(i.getBLZ());
         if (b != null)
         {
