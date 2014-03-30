@@ -78,7 +78,7 @@ public class MailAuswahlMenu extends ContextMenu
       @Override
       public void handleAction(Object context)
       {
-        if (context instanceof MailEmpfaenger)
+        if (context instanceof MailEmpfaenger && context != null)
         {
           MailEmpfaenger m = (MailEmpfaenger) context;
           new MailVorschauDialog(contr, m,
