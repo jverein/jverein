@@ -941,7 +941,7 @@ public class MitgliedControl extends AbstractControl
     {
       return iban;
     }
-    iban = new IBANInput(getMitglied().getIban());
+    iban = new IBANInput(getMitglied().getIban(), getBic());
     iban.setMandatory(getMitglied().getZahlungsweg() == null
         || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
     return iban;

@@ -27,11 +27,11 @@ import de.willuhn.jameica.gui.input.TextInput;
 public class IBANInput extends TextInput
 {
 
-  public IBANInput(String value)
+  public IBANInput(String value, TextInput bic)
   {
     super(value, 34);
     setName("IBAN");
-    IBANListener l = new IBANListener(this);
+    IBANListener l = new IBANListener(this, bic);
     addListener(l);
     l.handleEvent(null);
   }

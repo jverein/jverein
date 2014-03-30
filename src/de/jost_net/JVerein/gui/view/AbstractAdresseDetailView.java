@@ -462,8 +462,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     cols.addInput(control.getMandatVersion());
     cols.addInput(control.getMandatSequence());
     cols.addInput(control.getLetzteLastschrift());
-    cols.addInput(control.getBic());
     cols.addInput(control.getIban());
+    cols.addInput(control.getBic());
     cols.addPart(new BankverbindungDialogButton(control.getMitglied(), control
         .getBlz(), control.getKonto(), control.getBic(), control.getIban()));
     cols.addSeparator();

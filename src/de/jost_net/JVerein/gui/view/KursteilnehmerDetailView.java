@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -61,8 +56,8 @@ public class KursteilnehmerDetailView extends AbstractView
     grGrund.addInput(control.getEmail());
     grGrund.addInput(control.getVZweck1());
     grGrund.addInput(control.getMandatDatum());
-    grGrund.addInput(control.getBIC());
     grGrund.addInput(control.getIBAN());
+    grGrund.addInput(control.getBIC());
     grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),
         control.getBlz(), control.getKonto(), control.getBIC(),
         control.getIBAN()));

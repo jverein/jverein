@@ -55,8 +55,8 @@ public class EinstellungenView extends AbstractView
     tabAllgemein.addLabelPair("Straﬂe", control.getStrasse());
     tabAllgemein.addLabelPair("PLZ", control.getPlz());
     tabAllgemein.addLabelPair("Ort", control.getOrt());
-    tabAllgemein.addLabelPair("BIC", control.getBic());
     tabAllgemein.addLabelPair("IBAN", control.getIban());
+    tabAllgemein.addLabelPair("BIC", control.getBic());
     tabAllgemein.addPart(control.getButton());
     tabAllgemein.addLabelPair("Gl‰ubiger-ID", control.getGlaeubigerID());
     // tabAllgemein.addLabelPair(JVereinPlugin.getI18n().tr("Bankleitzahl"),

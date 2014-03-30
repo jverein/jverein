@@ -428,9 +428,9 @@ public class EinstellungControl extends AbstractControl
     {
       return iban;
     }
-    iban = new IBANInput(Einstellungen.getEinstellung().getIban());
+    iban = new IBANInput(Einstellungen.getEinstellung().getIban(), getBic());
     iban.setMandatory(true);
-    IBANListener l = new IBANListener(iban);
+    IBANListener l = new IBANListener(iban, getBic());
     iban.addListener(l);
     l.handleEvent(null);
     return iban;

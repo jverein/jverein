@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -33,22 +28,27 @@ import de.willuhn.jameica.gui.input.TextInput;
 
 /**
  * Sucht das Geldinstitut zur eingegebenen IBAN und zeigt es als Kommentar
- * hinter dem Feld an.
+ * hinter dem Feld an. -Prüft die IBAN -Ermittelt die BIC
  */
 
 public class IBANListener implements Listener
 {
   private TextInput iban;
 
-  public IBANListener(IBANInput iban)
+  private TextInput bic;
+
+  public IBANListener(IBANInput iban, TextInput bic)
   {
     this.iban = iban;
+    this.bic = bic;
   }
 
   @Override
   public void handleEvent(Event event)
   {
     String ib = (String) iban.getValue();
+    ib = ib.trim();
+    iban.setValue(ib);
     if (ib == null)
     {
       return;
@@ -56,6 +56,8 @@ public class IBANListener implements Listener
     if (ib.length() == 0)
     {
       iban.setComment("");
+      bic.setValue("");
+      bic.setComment("");
     }
     if (ib.length() > 4)
     {
@@ -66,6 +68,8 @@ public class IBANListener implements Listener
         if (b != null)
         {
           iban.setComment(b.getBezeichnung());
+          bic.setValue(b.getBIC());
+          bic.setComment(b.getBezeichnung());
         }
         return;
       }

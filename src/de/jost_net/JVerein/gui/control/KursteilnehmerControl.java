@@ -334,7 +334,7 @@ public class KursteilnehmerControl extends AbstractControl
     {
       return iban;
     }
-    iban = new IBANInput(getKursteilnehmer().getIban());
+    iban = new IBANInput(getKursteilnehmer().getIban(), getBIC());
     iban.setName("IBAN");
     iban.setMandatory(true);
     return iban;
