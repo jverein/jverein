@@ -83,12 +83,6 @@
 				<include name="${plugin.name}/**" />
 			</fileset>
 		</zip>
-
-		<delete dir="${project.releaseCurrent}" />
-		<copy todir="${project.releaseCurrent}">
-			<fileset dir="${project.release}" />
-		</copy>
-		<move file="${project.releaseCurrent}/${project.zipfilename}" tofile="${project.releaseCurrent}/${project.zipfilenameCurrent}" />
 	</target>
 
 	<target name="javadoc" depends="init" description="creates the api doc">
@@ -139,7 +133,7 @@
 
 	<target name="all" depends="init,jar,javadoc,src,clean" description="build an official release" />
 
-	<target name="fast" depends="init,junit,javadoc,jar,src" description="Entwicklerversion bauen">
+	<target name="fast" depends="init,junit,jar,src" description="Entwicklerversion bauen">
 		<move file="${project.release}/${project.zipfilename}" tofile="${project.release}/${project.zipfilename}" />
 	</target>
 
