@@ -52,6 +52,7 @@ import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlParameter;
 import de.jost_net.JVerein.gui.dialogs.ZusatzfelderAuswahlDialog;
 import de.jost_net.JVerein.gui.input.BICInput;
+import de.jost_net.JVerein.gui.input.EmailInput;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.MailAuswertungInput;
@@ -220,7 +221,7 @@ public class MitgliedControl extends AbstractControl
 
   private TextInput ktoistaat;
 
-  private TextInput ktoiemail;
+  private EmailInput ktoiemail;
 
   private Input telefonprivat;
 
@@ -228,7 +229,7 @@ public class MitgliedControl extends AbstractControl
 
   private Input handy;
 
-  private Input email;
+  private EmailInput email;
 
   private DateInput eintritt = null;
 
@@ -1079,14 +1080,13 @@ public class MitgliedControl extends AbstractControl
     return ktoistaat;
   }
 
-  public TextInput getKtoiEmail() throws RemoteException
+  public EmailInput getKtoiEmail() throws RemoteException
   {
     if (ktoiemail != null)
     {
       return ktoiemail;
     }
-    ktoiemail = new TextInput(getMitglied().getKtoiEmail(), 50);
-    ktoiemail.setName("EMail");
+    ktoiemail = new EmailInput(getMitglied().getKtoiEmail());
     return ktoiemail;
   }
 
@@ -1123,14 +1123,13 @@ public class MitgliedControl extends AbstractControl
     return handy;
   }
 
-  public Input getEmail() throws RemoteException
+  public EmailInput getEmail() throws RemoteException
   {
     if (email != null)
     {
       return email;
     }
-    email = new TextInput(getMitglied().getEmail(), 50);
-    email.setName("EMail");
+    email = new EmailInput(getMitglied().getEmail());
     return email;
   }
 

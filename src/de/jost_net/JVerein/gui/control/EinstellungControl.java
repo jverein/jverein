@@ -25,9 +25,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.control.listener.IBANListener;
 import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.jost_net.JVerein.gui.input.BICInput;
+import de.jost_net.JVerein.gui.input.EmailInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.SEPALandInput;
 import de.jost_net.JVerein.gui.input.SEPALandObject;
@@ -168,7 +168,7 @@ public class EinstellungControl extends AbstractControl
 
   private PasswordInput smtp_auth_pwd;
 
-  private TextInput smtp_from_address;
+  private EmailInput smtp_from_address;
 
   private TextInput smtp_from_anzeigename;
 
@@ -428,11 +428,8 @@ public class EinstellungControl extends AbstractControl
     {
       return iban;
     }
-    iban = new IBANInput(Einstellungen.getEinstellung().getIban(), getBic());
+    iban = new IBANInput(Einstellungen.getEinstellung().getIban(), bic);
     iban.setMandatory(true);
-    IBANListener l = new IBANListener(iban, getBic());
-    iban.addListener(l);
-    l.handleEvent(null);
     return iban;
   }
 
@@ -894,14 +891,14 @@ public class EinstellungControl extends AbstractControl
     return smtp_auth_pwd;
   }
 
-  public TextInput getSmtpFromAddress() throws RemoteException
+  public EmailInput getSmtpFromAddress() throws RemoteException
   {
     if (smtp_from_address != null)
     {
       return smtp_from_address;
     }
-    smtp_from_address = new TextInput(Einstellungen.getEinstellung()
-        .getSmtpFromAddress(), 50);
+    smtp_from_address = new EmailInput(Einstellungen.getEinstellung()
+        .getSmtpFromAddress());
     return smtp_from_address;
   }
 

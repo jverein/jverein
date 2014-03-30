@@ -14,22 +14,20 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package test.de.jost_net.JVerein;
+package de.jost_net.JVerein.gui.input;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import de.jost_net.JVerein.gui.control.listener.EMailListener;
+import de.willuhn.jameica.gui.input.TextInput;
 
-import test.de.jost_net.JVerein.io.AltersgruppenParserTest;
-import test.de.jost_net.JVerein.io.BankarbeitstageTest;
-import test.de.jost_net.JVerein.io.Adressbuch.AdressaufbereitungTest;
-import test.de.jost_net.JVerein.util.CheckerTest;
-import test.de.jost_net.JVerein.util.TableColumnReplacerTest;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ AdressaufbereitungTest.class,
-    AltersgruppenParserTest.class, BankarbeitstageTest.class,
-    CheckerTest.class, TableColumnReplacerTest.class })
-public class TestSuite
+public class EmailInput extends TextInput
 {
-  // Nothing to do
+
+  public EmailInput(String value)
+  {
+    super(value, 50);
+    setName("EMail");
+    EMailListener l = new EMailListener(this);
+    addListener(l);
+    l.handleEvent(null);
+  }
 }

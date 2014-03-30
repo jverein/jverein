@@ -33,6 +33,7 @@ import com.itextpdf.text.Element;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.input.BICInput;
+import de.jost_net.JVerein.gui.input.EmailInput;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.JVerein.gui.input.PersonenartInput;
@@ -86,7 +87,7 @@ public class KursteilnehmerControl extends AbstractControl
 
   private TextInput staat;
 
-  private TextInput email;
+  private EmailInput email;
 
   private DecimalInput betrag;
 
@@ -273,14 +274,13 @@ public class KursteilnehmerControl extends AbstractControl
     return staat;
   }
 
-  public TextInput getEmail() throws RemoteException
+  public EmailInput getEmail() throws RemoteException
   {
     if (email != null)
     {
       return email;
     }
-    email = new TextInput(getKursteilnehmer().getEmail(), 50);
-    email.setName("EMail");
+    email = new EmailInput(getKursteilnehmer().getEmail());
     return email;
   }
 

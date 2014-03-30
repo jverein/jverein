@@ -14,22 +14,48 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package test.de.jost_net.JVerein;
+package de.jost_net.JVerein.gui.control.listener;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 
-import test.de.jost_net.JVerein.io.AltersgruppenParserTest;
-import test.de.jost_net.JVerein.io.BankarbeitstageTest;
-import test.de.jost_net.JVerein.io.Adressbuch.AdressaufbereitungTest;
-import test.de.jost_net.JVerein.util.CheckerTest;
-import test.de.jost_net.JVerein.util.TableColumnReplacerTest;
+import de.jost_net.JVerein.gui.input.EmailInput;
+import de.jost_net.JVerein.util.Checker;
+import de.willuhn.jameica.gui.GUI;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ AdressaufbereitungTest.class,
-    AltersgruppenParserTest.class, BankarbeitstageTest.class,
-    CheckerTest.class, TableColumnReplacerTest.class })
-public class TestSuite
+/**
+ * Mail-Adresse prüfen
+ */
+
+public class EMailListener implements Listener
 {
-  // Nothing to do
+  private EmailInput email;
+
+  public EMailListener(EmailInput email)
+  {
+    this.email = email;
+  }
+
+  @Override
+  public void handleEvent(Event event)
+  {
+    if (event == null)
+    {
+      return;
+    }
+    if (event.type != SWT.FocusOut)
+    {
+      return;
+    }
+    String em = (String) email.getValue();
+    if (em == null || em.length() == 0)
+    {
+      return;
+    }
+    if (!Checker.isValidEmailAddress(em))
+    {
+      GUI.getStatusBar().setErrorText("Mailadresse ist ungültig");
+    }
+  }
 }

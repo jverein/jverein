@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -32,19 +27,38 @@ public class Checker
   {
     // a null string is invalid
     if (emailAddress == null)
+    {
       return false;
+    }
 
+    if (emailAddress.startsWith(" ") || emailAddress.endsWith(" "))
+    {
+      return false;
+    }
+
+    int atindex = emailAddress.indexOf("@");
     // a string without a "@" is an invalid email address
-    if (emailAddress.indexOf("@") < 0)
+    if (atindex < 0)
+    {
       return false;
+    }
 
-    // a string without a "." is an invalid email address
-    if (emailAddress.indexOf(".") < 0)
+    // a string without a "." after "@" is an invalid email address
+    if (emailAddress.substring(atindex).indexOf(".") < 0)
+    {
       return false;
+    }
+
+    // "." before "@" is invalid
+    if (emailAddress.charAt(atindex - 1) == '.')
+    {
+      return false;
+    }
 
     if (lastEmailFieldTwoCharsOrMore(emailAddress) == false)
+    {
       return false;
-
+    }
     try
     {
       new InternetAddress(emailAddress);
@@ -65,7 +79,9 @@ public class Checker
   private static boolean lastEmailFieldTwoCharsOrMore(String emailAddress)
   {
     if (emailAddress == null)
+    {
       return false;
+    }
     StringTokenizer st = new StringTokenizer(emailAddress, ".");
     String lastToken = null;
     while (st.hasMoreTokens())
