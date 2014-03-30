@@ -4,5 +4,6 @@
   <plugins name="JVerein"> 
      <plugin url="http://www.jverein.de/updates/2.4/"/>
      <plugin url="http://www.jverein.de/updates/2.6/"/>
+     <plugin url="http://www.jverein.de/updates/2.7/"/>
   </plugins>
 </repository>
