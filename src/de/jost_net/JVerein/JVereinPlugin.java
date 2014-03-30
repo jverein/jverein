@@ -97,6 +97,8 @@ public class JVereinPlugin extends AbstractPlugin
     // throw new ApplicationException(e);
     // }
 
+    changeRepository();
+
     call(new ServiceCall()
     {
 
@@ -308,6 +310,22 @@ public class JVereinPlugin extends AbstractPlugin
     catch (Exception e)
     {
       throw new ApplicationException(e);
+    }
+  }
+
+  private void changeRepository()
+  {
+    Settings repset = new Settings(
+        de.willuhn.jameica.services.RepositoryService.class);
+    repset.setStoreWhenRead(true);
+    for (int i = 0; i < 10; i++)
+    {
+      String rep = repset.getString("repository.url." + i, "");
+      if (rep.equals("https://sourceforge.net/projects/jverein/files/updates/"))
+      {
+        repset.setAttribute("repository.url." + i,
+            "http://www.jverein.de/updates");
+      }
     }
   }
 }
