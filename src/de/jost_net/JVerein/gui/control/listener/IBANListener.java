@@ -16,6 +16,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control.listener;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
@@ -46,6 +47,14 @@ public class IBANListener implements Listener
   @Override
   public void handleEvent(Event event)
   {
+    if (event == null)
+    {
+      return;
+    }
+    if (event.type != SWT.FocusOut)
+    {
+      return;
+    }
     String ib = (String) iban.getValue();
     if (ib == null)
     {
