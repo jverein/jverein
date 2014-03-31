@@ -257,7 +257,8 @@ public class JVereinPlugin extends AbstractPlugin
     Settings s1 = new Settings(JVereinDBService.class);
     // Unter "database.driver" ist die JVerein-Klasse mit den Parametern der
     // Datenbank gespeichert
-    String d1 = s1.getString("database.driver", null);
+    String d1 = s1.getString("database.driver",
+        "de.jost_net.JVerein.server.DBSupportH2Impl");
     try
     {
       // Die Parameterklasse wird geladen
