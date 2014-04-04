@@ -465,11 +465,11 @@ public class BuchungsControl extends AbstractControl
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
+        Buchung master = (Buchung) getCurrentObject();
         SammelueberweisungAuswahlDialog suad = new SammelueberweisungAuswahlDialog(
-            SammelueberweisungAuswahlDialog.POSITION_CENTER);
+            master);
         try
         {
-          Buchung master = (Buchung) getCurrentObject();
           SepaSammelUeberweisung su = suad.open();
           if (su != null)
           {

@@ -22,6 +22,7 @@ import java.rmi.RemoteException;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
@@ -46,12 +47,15 @@ public class SammelueberweisungAuswahlDialog extends
 
   private TablePart sammelueberweisung;
 
-  public SammelueberweisungAuswahlDialog(int position)
+  private Buchung master;
+
+  public SammelueberweisungAuswahlDialog(Buchung master)
   {
-    super(position);
+    super(AbstractDialog.POSITION_CENTER);
 
     setTitle("Sammelüberweisung auswählen");
     setSize(650, 350);
+    this.master = master;
   }
 
   @Override
@@ -85,6 +89,7 @@ public class SammelueberweisungAuswahlDialog extends
     }
     DBIterator sue = Einstellungen.getHibiscusDBService().createList(
         SepaSammelUeberweisung.class);
+    sue.setOrder("order by termin");
     this.sammelueberweisung = new TablePart(sue, new Action()
     {
       @Override
