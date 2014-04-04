@@ -44,6 +44,8 @@ public class SplitBuchungView extends AbstractView
         control.getCurrentObject(), false, "document-new.png");
     buttons.addButton("auflösen", new SplitbuchungAufloesenAction(),
         control.getCurrentObject(), false, "document-new.png");
+    buttons.addButton(control.getSammelueberweisungButton());
+
     buttons.addButton("speichern", new Action()
     {
       @Override
@@ -62,7 +64,6 @@ public class SplitBuchungView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(getParent());
   }
-
   // @Override
   // public String getHelp()
   // {

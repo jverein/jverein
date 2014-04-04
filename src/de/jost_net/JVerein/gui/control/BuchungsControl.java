@@ -39,6 +39,7 @@ import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
+import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
@@ -84,6 +85,8 @@ import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.hbci.rmi.SepaSammelUeberweisung;
+import de.willuhn.jameica.hbci.rmi.SepaSammelUeberweisungBuchung;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.system.Application;
@@ -147,6 +150,8 @@ public class BuchungsControl extends AbstractControl
   private CheckboxInput verzicht;
 
   private Buchung buchung;
+
+  private Button sammelueberweisungButton;
 
   private BuchungQuery query;
 
@@ -450,6 +455,53 @@ public class BuchungsControl extends AbstractControl
         false);
     suchkonto.addListener(new FilterListener());
     return suchkonto;
+  }
+
+  public Button getSammelueberweisungButton()
+  {
+    sammelueberweisungButton = new Button("Sammelüberweisung", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        SammelueberweisungAuswahlDialog suad = new SammelueberweisungAuswahlDialog(
+            SammelueberweisungAuswahlDialog.POSITION_CENTER);
+        try
+        {
+          Buchung master = (Buchung) getCurrentObject();
+          SepaSammelUeberweisung su = suad.open();
+          if (su != null)
+          {
+            for (SepaSammelUeberweisungBuchung ssub : su.getBuchungen())
+            {
+              Buchung b = (Buchung) Einstellungen.getDBService().createObject(
+                  Buchung.class, null);
+              b.setAuszugsnummer(master.getAuszugsnummer());
+              b.setBetrag(ssub.getBetrag() * -1);
+              b.setBlattnummer(master.getBlattnummer());
+              b.setBuchungsart(master.getBuchungsartId());
+              b.setDatum(su.getAusfuehrungsdatum());
+              b.setKonto(master.getKonto());
+              b.setName(ssub.getGegenkontoName());
+              b.setSpeicherung(true);
+              b.setSplitId(master.getSplitId());
+              b.setSplitTyp(SplitbuchungTyp.SPLIT);
+              b.setZweck(ssub.getZweck());
+              SplitbuchungsContainer.add(b);
+            }
+            refreshSplitbuchungen();
+          }
+        }
+        catch (Exception e)
+        {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+
+    }, null, false, "stock_navigator-shift-right.png");
+    return sammelueberweisungButton;
   }
 
   public Input getSuchProjekt() throws RemoteException
@@ -899,7 +951,7 @@ public class BuchungsControl extends AbstractControl
       // }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
       buchungsList.addColumn("Auszugsnummer", "auszugsnummer");
       buchungsList.addColumn("Blatt", "blatt");
-      
+
       buchungsList.addColumn("Name", "name");
       buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
       {
