@@ -18,6 +18,7 @@
 package de.jost_net.JVerein.gui.dialogs;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -89,6 +90,10 @@ public class SammelueberweisungAuswahlDialog extends
     }
     DBIterator sue = Einstellungen.getHibiscusDBService().createList(
         SepaSammelUeberweisung.class);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(master.getDatum());
+    cal.add(Calendar.WEEK_OF_YEAR, -2);
+    sue.addFilter("ausgefuehrt_am > ?", cal.getTime());
     sue.setOrder("order by termin");
     this.sammelueberweisung = new TablePart(sue, new Action()
     {
