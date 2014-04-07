@@ -910,12 +910,14 @@ public class SpendenbescheinigungPrintAction implements Action
       }
 
       /* Summenzeile */
-      // String sumString = Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
+      // String sumString =
+      // Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
       rpt.addColumn("Gesamtsumme", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
       rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
       rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
       rpt.addColumn(Double.valueOf(spb.getBetrag()));
-      // rpt.addColumn(sumString, Element.ALIGN_RIGHT, BaseColor.LIGHT_GRAY);
+      // rpt.addColumn(sumString, Element.ALIGN_RIGHT,
+      // BaseColor.LIGHT_GRAY);
 
       rpt.closeTable();
 
@@ -1168,21 +1170,24 @@ public class SpendenbescheinigungPrintAction implements Action
             + "§ 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
         rpt.add(txt, 8);
       }
-      else
+      // else
       // Verein neu gegründet, hat noch keinen Bescheid
-      {
-        String txt = "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
-            + "AO wurde vom Finanzamt "
-            + Einstellungen.getEinstellung().getFinanzamt()
-            + ", StNr. "
-            + Einstellungen.getEinstellung().getSteuernummer()
-            + ", mit Bescheid vom "
-            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-                .getBescheiddatum())
-            + " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
-            + Einstellungen.getEinstellung().getBeguenstigterzweck();
-        rpt.add(txt, 8);
-      }
+      // {
+      // String txt =
+      // "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
+      // + "AO wurde vom Finanzamt "
+      // + Einstellungen.getEinstellung().getFinanzamt()
+      // + ", StNr. "
+      // + Einstellungen.getEinstellung().getSteuernummer()
+      // + ", mit Bescheid vom "
+      // + new
+      // JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+      // .getBescheiddatum())
+      // +
+      // " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
+      // + Einstellungen.getEinstellung().getBeguenstigterzweck();
+      // rpt.add(txt, 8);
+      // }
     }
     rpt.add("\nEs wird bestätigt, dass die Zuwendung nur zur "
         + Einstellungen.getEinstellung().getBeguenstigterzweck()
@@ -1327,12 +1332,14 @@ public class SpendenbescheinigungPrintAction implements Action
       }
 
       /* Summenzeile */
-      // String sumString = Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
+      // String sumString =
+      // Einstellungen.DECIMALFORMAT.format(spb.getBetrag());
       rpt.addColumn("Gesamtsumme", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
       rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
       rpt.addColumn("", Element.ALIGN_LEFT, BaseColor.LIGHT_GRAY);
       rpt.addColumn(Double.valueOf(spb.getBetrag()));
-      // rpt.addColumn(sumString, Element.ALIGN_RIGHT, BaseColor.LIGHT_GRAY);
+      // rpt.addColumn(sumString, Element.ALIGN_RIGHT,
+      // BaseColor.LIGHT_GRAY);
 
       rpt.closeTable();
 
