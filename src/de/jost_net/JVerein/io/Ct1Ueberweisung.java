@@ -125,7 +125,7 @@ public class Ct1Ueberweisung
 
         AuslandsUeberweisung ue = (AuslandsUeberweisung) service.createObject(
             AuslandsUeberweisung.class, null);
-        ue.setBetrag(ls.getBetrag());
+        ue.setBetrag(0.01);
         HibiscusAddress ad = (HibiscusAddress) service.createObject(
             HibiscusAddress.class, null);
         ad.setBic(ls.getBIC());
