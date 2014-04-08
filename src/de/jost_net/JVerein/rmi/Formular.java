@@ -23,6 +23,7 @@ package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
 import de.willuhn.datasource.rmi.DBObject;
 
 public interface Formular extends DBObject
@@ -37,8 +38,8 @@ public interface Formular extends DBObject
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;
 
-  public int getArt() throws RemoteException;
+  public FormularArtEnum getArt() throws RemoteException;
 
-  public void setArt(int art) throws RemoteException;
+  public void setArt(FormularArtEnum formularArtEnum) throws RemoteException;
 
 }

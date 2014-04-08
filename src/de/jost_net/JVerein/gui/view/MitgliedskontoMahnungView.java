@@ -26,7 +26,7 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction.EXPORT_TYP;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl.DIFFERENZ;
-import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
@@ -51,7 +51,7 @@ public class MitgliedskontoMahnungView extends AbstractView
       group.addLabelPair("bis Datum",
           control.getBisdatum(MitgliedskontoControl.DATUM_MAHNUNG));
     }
-    group.addLabelPair("Formular", control.getFormular(Formularart.MAHNUNG));
+    group.addLabelPair("Formular", control.getFormular(FormularArtEnum.MAHNUNG));
     control.getDifferenz(DIFFERENZ.FEHLBETRAG);
 
     ButtonArea buttons = new ButtonArea();

@@ -51,7 +51,7 @@ import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.MitgliedskontoMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.Kontoauszug;
-import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -257,13 +257,13 @@ public class MitgliedskontoControl extends AbstractControl
     return betrag;
   }
 
-  public FormularInput getFormular(int formulartyp) throws RemoteException
+  public FormularInput getFormular(FormularArtEnum mahnung) throws RemoteException
   {
     if (formular != null)
     {
       return formular;
     }
-    formular = new FormularInput(formulartyp);
+    formular = new FormularInput(mahnung);
     return formular;
   }
 
@@ -803,7 +803,7 @@ public class MitgliedskontoControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(Formularart.RECHNUNG).getValue();
+    Formular form = (Formular) getFormular(FormularArtEnum.RECHNUNG).getValue();
     if (form == null)
     {
       throw new IOException("kein Rechnungsformular ausgewählt");
@@ -925,7 +925,7 @@ public class MitgliedskontoControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(Formularart.MAHNUNG).getValue();
+    Formular form = (Formular) getFormular(FormularArtEnum.MAHNUNG).getValue();
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
     fa = new FormularAufbereitung(file);
