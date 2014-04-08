@@ -3,6 +3,7 @@
 	<name>jverein</name>
 	<comment></comment>
 	<projects>
+		<project>hibiscus</project>
 		<project>jameica</project>
 	</projects>
 	<buildSpec>
