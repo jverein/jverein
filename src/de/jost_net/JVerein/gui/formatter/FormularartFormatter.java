@@ -28,9 +28,9 @@ import de.willuhn.jameica.gui.formatter.Formatter;
 public class FormularartFormatter implements Formatter
 {
   @Override
-  public String format(Object o)
-  {
-    FormularArtEnum art = (FormularArtEnum) o;
+  public String format(Object o) {
+  
+    FormularArtEnum art = FormularArtEnum.values()[(Integer) o];
     return Formularart.get(art);
   }
 }
