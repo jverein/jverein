@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -29,8 +24,11 @@ import java.util.ArrayList;
 public class Formularart
 {
 
-  public static enum FormularArtEnum {SPENDENBESCHEINIGUNG,RECHNUNG,MAHNUNG,FREIESFORMULAR,SAMMELSPENDENBESCHEINIGUNG,SEPA_PRENOTIFICATION}; 
-  
+  public static enum FormularArtEnum
+  {
+    SPENDENBESCHEINIGUNG, RECHNUNG, MAHNUNG, FREIESFORMULAR, SAMMELSPENDENBESCHEINIGUNG, SEPA_PRENOTIFICATION
+  };
+
   private FormularArtEnum formularart;
 
   public Formularart(FormularArtEnum key)
@@ -72,8 +70,9 @@ public class Formularart
   public static ArrayList<Formularart> getArray()
   {
     ArrayList<Formularart> ret = new ArrayList<Formularart>();
-    for (FormularArtEnum e : FormularArtEnum.values()) {
-    	ret.add(new Formularart(e));
+    for (FormularArtEnum e : FormularArtEnum.values())
+    {
+      ret.add(new Formularart(e));
     }
     return ret;
   }

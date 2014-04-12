@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -228,7 +223,7 @@ public class FormularfeldControl extends AbstractControl
         namen.add(mv.getName());
       }
     }
-    if (formular.getArt() == FormularArtEnum.SEPA_PRENOTIFICATION) 
+    if (formular.getArt() == FormularArtEnum.SEPA_PRENOTIFICATION)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
       {
@@ -414,7 +409,7 @@ public class FormularfeldControl extends AbstractControl
 
   private String getFormularArtName() throws RemoteException
   {
-	return Formularart.get(formular.getArt());  
-    }
+    return Formularart.get(formular.getArt());
+  }
 
 }
