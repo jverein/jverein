@@ -30,7 +30,7 @@ import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.view.MitgliedDetailView;
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -97,7 +97,7 @@ public class MitgliedMenu extends ContextMenu
             throw new ApplicationException(e);
           }
         }
-      },"change.gif"));
+      }, "change.gif"));
     }
     addItem(new CheckedSingleContextMenuItem("löschen...",
         new MitgliedDeleteAction(), "user-trash.png"));
@@ -113,7 +113,8 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedContextMenuItem("Personalbogen",
         new PersonalbogenAction(), "rechnung.png"));
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
-    it.addFilter("art = ?", new Object[] { FormularArtEnum.FREIESFORMULAR });
+    it.addFilter("art = ?",
+        new Object[] { FormularArt.FREIESFORMULAR.getKey() });
     while (it.hasNext())
     {
       Formular f = (Formular) it.next();

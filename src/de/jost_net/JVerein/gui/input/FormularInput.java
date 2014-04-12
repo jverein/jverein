@@ -25,7 +25,7 @@ package de.jost_net.JVerein.gui.input;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -37,12 +37,12 @@ import de.willuhn.jameica.gui.input.SelectInput;
  */
 public class FormularInput extends SelectInput
 {
-  public FormularInput(FormularArtEnum art, String id) throws RemoteException
+  public FormularInput(FormularArt art, String id) throws RemoteException
   {
     super(init(art), initdefault(id));
   }
 
-  public FormularInput(FormularArtEnum mahnung) throws RemoteException
+  public FormularInput(FormularArt mahnung) throws RemoteException
   {
     super(init(mahnung), null);
   }
@@ -51,10 +51,11 @@ public class FormularInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static GenericIterator init(FormularArtEnum mahnung) throws RemoteException
+  private static GenericIterator init(FormularArt mahnung)
+      throws RemoteException
   {
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
-    it.addFilter("art = ?", new Object[] { mahnung });
+    it.addFilter("art = ?", mahnung.getKey());
     return it;
   }
 

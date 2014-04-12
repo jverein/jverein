@@ -25,7 +25,7 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoExportAction.EXPORT_TYP;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
@@ -52,7 +52,8 @@ public class MitgliedskontoRechnungView extends AbstractView
       group.addLabelPair("ohne Abbucher", control.getOhneAbbucher());
     }
 
-    group.addLabelPair("Formular", control.getFormular(FormularArtEnum.RECHNUNG));
+    group.addLabelPair("Formular",
+        control.getFormular(FormularArt.RECHNUNG));
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

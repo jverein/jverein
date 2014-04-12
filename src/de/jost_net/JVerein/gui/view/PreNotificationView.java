@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.TabFolder;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.PreNotificationControl;
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
@@ -47,7 +47,7 @@ public class PreNotificationView extends AbstractView
     tabMailPDF.addHeadline("Parameter");
     tabMailPDF.addInput(control.getOutput());
     tabMailPDF.addLabelPair("Formular",
-        control.getFormular(FormularArtEnum.SEPA_PRENOTIFICATION));
+        control.getFormular(FormularArt.SEPA_PRENOTIFICATION));
 
     tabMailPDF.addHeadline("Mail");
 

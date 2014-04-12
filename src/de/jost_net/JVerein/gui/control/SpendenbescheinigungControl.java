@@ -44,7 +44,7 @@ import de.jost_net.JVerein.gui.menu.SpendenbescheinigungMenu;
 import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.FormularAufbereitung;
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.keys.HerkunftSpende;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -292,11 +292,12 @@ public class SpendenbescheinigungControl extends AbstractControl
     if (getSpendenbescheinigung().getBuchungen() != null
         && getSpendenbescheinigung().getBuchungen().size() > 1)
     {
-      formular = new FormularInput(FormularArtEnum.SAMMELSPENDENBESCHEINIGUNG, def);
+      formular = new FormularInput(FormularArt.SAMMELSPENDENBESCHEINIGUNG,
+          def);
     }
     else
     {
-      formular = new FormularInput(FormularArtEnum.SPENDENBESCHEINIGUNG, def);
+      formular = new FormularInput(FormularArt.SPENDENBESCHEINIGUNG, def);
     }
     return formular;
   }

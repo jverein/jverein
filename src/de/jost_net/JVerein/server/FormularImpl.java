@@ -18,7 +18,7 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -118,20 +118,25 @@ public class FormularImpl extends AbstractDBObject implements Formular
   }
 
   @Override
-  public FormularArtEnum getArt() throws RemoteException
+  public FormularArt getArt() throws RemoteException
   {
     Integer art = (Integer) getAttribute("art");
     if (art == null)
     {
       return null;
     }
-    return FormularArtEnum.values()[art]; // TODO: This is a workaround to
-    // keep the database side as
-    // integers
+    for (FormularArt form : FormularArt.values())
+    {
+      if (form.getKey() == art)
+      {
+        return form;
+      }
+    }
+    return null;
   }
 
   @Override
-  public void setArt(FormularArtEnum art) throws RemoteException
+  public void setArt(FormularArt art) throws RemoteException
   {
     setAttribute("art", art == null ? 0 : art.ordinal()); // TODO: This is a
                                                           // workaround to

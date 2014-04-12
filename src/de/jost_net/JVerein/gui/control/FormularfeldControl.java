@@ -29,8 +29,7 @@ import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
 import de.jost_net.JVerein.gui.menu.FormularfeldMenu;
-import de.jost_net.JVerein.keys.Formularart;
-import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Formularfeld;
@@ -190,7 +189,7 @@ public class FormularfeldControl extends AbstractControl
       return name;
     }
     ArrayList<String> namen = new ArrayList<String>();
-    if (formular.getArt() == FormularArtEnum.SPENDENBESCHEINIGUNG)
+    if (formular.getArt() == FormularArt.SPENDENBESCHEINIGUNG)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
       {
@@ -201,7 +200,7 @@ public class FormularfeldControl extends AbstractControl
         namen.add(spv.getName());
       }
     }
-    if (formular.getArt() == FormularArtEnum.SAMMELSPENDENBESCHEINIGUNG)
+    if (formular.getArt() == FormularArt.SAMMELSPENDENBESCHEINIGUNG)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
       {
@@ -212,7 +211,7 @@ public class FormularfeldControl extends AbstractControl
         namen.add(spv.getName());
       }
     }
-    if (formular.getArt() == FormularArtEnum.FREIESFORMULAR)
+    if (formular.getArt() == FormularArt.FREIESFORMULAR)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
       {
@@ -223,7 +222,7 @@ public class FormularfeldControl extends AbstractControl
         namen.add(mv.getName());
       }
     }
-    if (formular.getArt() == FormularArtEnum.SEPA_PRENOTIFICATION)
+    if (formular.getArt() == FormularArt.SEPA_PRENOTIFICATION)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
       {
@@ -234,8 +233,8 @@ public class FormularfeldControl extends AbstractControl
         namen.add(lsv.getName());
       }
     }
-    if (formular.getArt() == FormularArtEnum.RECHNUNG
-        || formular.getArt() == FormularArtEnum.MAHNUNG)
+    if (formular.getArt() == FormularArt.RECHNUNG
+        || formular.getArt() == FormularArt.MAHNUNG)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
       {
@@ -251,9 +250,9 @@ public class FormularfeldControl extends AbstractControl
       }
 
     }
-    if (formular.getArt() == FormularArtEnum.FREIESFORMULAR
-        || formular.getArt() == FormularArtEnum.RECHNUNG
-        || formular.getArt() == FormularArtEnum.MAHNUNG)
+    if (formular.getArt() == FormularArt.FREIESFORMULAR
+        || formular.getArt() == FormularArt.RECHNUNG
+        || formular.getArt() == FormularArt.MAHNUNG)
     {
       DBIterator itlesefelder = Einstellungen.getDBService().createList(
           Lesefeld.class);
@@ -409,7 +408,7 @@ public class FormularfeldControl extends AbstractControl
 
   private String getFormularArtName() throws RemoteException
   {
-    return Formularart.get(formular.getArt());
+    return formular.getArt().getText();
   }
 
 }

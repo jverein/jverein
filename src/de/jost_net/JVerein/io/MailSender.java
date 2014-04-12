@@ -31,7 +31,6 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.MimetypesFileTypeMap;
 import javax.mail.Authenticator;
-import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.Multipart;
@@ -51,6 +50,7 @@ import de.willuhn.logging.Logger;
 
 public class MailSender
 {
+  private static final String ISO_8859_15 = "ISO-8859-15";
 
   public static class IMAPCopyData
   {
@@ -203,7 +203,7 @@ public class MailSender
     props.put("mail.smtp.host", smtp_host_name);
     props.put("mail.debug", "true");
     props.put("mail.smtp.port", smtp_port);
-    props.put("mail.mime.charset", "ISO-8859-15");
+    props.put("mail.mime.charset", ISO_8859_15);
     System.setProperty("mail.mime.charset", "ISO-8859-15");
 
     if (smtp_ssl)
@@ -268,10 +268,10 @@ public class MailSender
     }
     msg.setSubject(subject);
 
-    BodyPart messageBodyPart = new MimeBodyPart();
-    messageBodyPart.addHeader("Content-Encoding", "ISO-8859-15");
+    MimeBodyPart messageBodyPart = new MimeBodyPart();
+    messageBodyPart.addHeader("Content-Encoding", ISO_8859_15);
     // Fill the message
-    messageBodyPart.setContent(text, "text/plain");
+    messageBodyPart.setText(text, ISO_8859_15);
 
     Multipart multipart = new MimeMultipart();
     multipart.addBodyPart(messageBodyPart);

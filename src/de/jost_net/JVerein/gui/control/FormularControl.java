@@ -30,7 +30,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.FormularAction;
 import de.jost_net.JVerein.gui.formatter.FormularartFormatter;
 import de.jost_net.JVerein.gui.menu.FormularMenu;
-import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -98,8 +98,7 @@ public class FormularControl extends AbstractControl
     {
       return art;
     }
-    art = new SelectInput(Formularart.getArray(), new Formularart(
-        getFormular().getArt()));
+    art = new SelectInput(FormularArt.values(), getFormular().getArt());
     return art;
   }
 
@@ -109,7 +108,7 @@ public class FormularControl extends AbstractControl
     {
       return datei;
     }
-    datei = new FileInput("", false, new String[] { "*.pdf", "*.PDF"});
+    datei = new FileInput("", false, new String[] { "*.pdf", "*.PDF" });
     return datei;
   }
 
@@ -122,8 +121,8 @@ public class FormularControl extends AbstractControl
     {
       Formular f = getFormular();
       f.setBezeichnung((String) getBezeichnung(true).getValue());
-      Formularart fa = (Formularart) getArt().getValue();
-      f.setArt(fa.getKey());
+      FormularArt fa = (FormularArt) getArt().getValue();
+      f.setArt(fa);
       String dat = (String) getDatei().getValue();
 
       if (dat.length() > 0)
