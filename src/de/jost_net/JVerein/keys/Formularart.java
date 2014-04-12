@@ -29,26 +29,16 @@ import java.util.ArrayList;
 public class Formularart
 {
 
-  public static final int SPENDENBESCHEINIGUNG = 1;
+  public static enum FormularArtEnum {SPENDENBESCHEINIGUNG,RECHNUNG,MAHNUNG,FREIESFORMULAR,SAMMELSPENDENBESCHEINIGUNG,SEPA_PRENOTIFICATION}; 
+  
+  private FormularArtEnum formularart;
 
-  public static final int RECHNUNG = 2;
-
-  public static final int MAHNUNG = 3;
-
-  public static final int FREIESFORMULAR = 4;
-
-  public static final int SAMMELSPENDENBESCHEINIGUNG = 5;
-
-  public static final int SEPA_PRENOTIFICATION = 6;
-
-  private int formularart;
-
-  public Formularart(int key)
+  public Formularart(FormularArtEnum key)
   {
     this.formularart = key;
   }
 
-  public int getKey()
+  public FormularArtEnum getKey()
   {
     return formularart;
   }
@@ -58,7 +48,7 @@ public class Formularart
     return get(formularart);
   }
 
-  public static String get(int key)
+  public static String get(FormularArtEnum key)
   {
     switch (key)
     {
@@ -75,19 +65,16 @@ public class Formularart
       case SEPA_PRENOTIFICATION:
         return "SEPA Pre-Notification";
       default:
-        return null;
+        return "";
     }
   }
 
   public static ArrayList<Formularart> getArray()
   {
     ArrayList<Formularart> ret = new ArrayList<Formularart>();
-    ret.add(new Formularart(SPENDENBESCHEINIGUNG));
-    ret.add(new Formularart(SAMMELSPENDENBESCHEINIGUNG));
-    ret.add(new Formularart(RECHNUNG));
-    ret.add(new Formularart(MAHNUNG));
-    ret.add(new Formularart(FREIESFORMULAR));
-    ret.add(new Formularart(SEPA_PRENOTIFICATION));
+    for (FormularArtEnum e : FormularArtEnum.values()) {
+    	ret.add(new Formularart(e));
+    }
     return ret;
   }
 
@@ -105,7 +92,7 @@ public class Formularart
   @Override
   public int hashCode()
   {
-    return formularart;
+    return formularart.ordinal();
   }
 
   @Override

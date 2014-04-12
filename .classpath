@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/liquibase.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/snakeyaml-1.13.jar"/>
+	<classpathentry kind="lib" path="/jameica/lib/swt/win64/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

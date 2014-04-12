@@ -42,7 +42,7 @@ import de.jost_net.JVerein.io.Ct1Ueberweisung;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.MailSender;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
-import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Lastschrift;
@@ -128,7 +128,7 @@ public class PreNotificationControl extends AbstractControl
     return output;
   }
 
-  public FormularInput getFormular(int formulartyp) throws RemoteException
+  public FormularInput getFormular(FormularArtEnum formulartyp) throws RemoteException
   {
     if (formular != null)
     {
@@ -302,7 +302,7 @@ public class PreNotificationControl extends AbstractControl
     }
     final File file = new File(s);
     settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(Formularart.SEPA_PRENOTIFICATION)
+    Formular form = (Formular) getFormular(FormularArtEnum.SEPA_PRENOTIFICATION)
         .getValue();
     if (form == null)
     {

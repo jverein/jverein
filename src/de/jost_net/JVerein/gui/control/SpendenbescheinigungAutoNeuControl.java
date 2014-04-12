@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
-import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
 import de.jost_net.JVerein.keys.Spendenart;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
@@ -106,7 +106,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
       return formularEinzel;
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
-    it.addFilter("art = ?", new Object[] { Formularart.SPENDENBESCHEINIGUNG });
+    it.addFilter("art = ?", new Object[] { FormularArtEnum.SPENDENBESCHEINIGUNG });
     formularEinzel = new SelectInput(it, null);
     return formularEinzel;
   }
@@ -119,7 +119,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
     it.addFilter("art = ?",
-        new Object[] { Formularart.SAMMELSPENDENBESCHEINIGUNG });
+        new Object[] { FormularArtEnum.SAMMELSPENDENBESCHEINIGUNG });
     formularSammel = new SelectInput(it, null);
     return formularSammel;
   }

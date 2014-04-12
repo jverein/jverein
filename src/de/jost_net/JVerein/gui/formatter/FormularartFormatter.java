@@ -22,14 +22,15 @@
 package de.jost_net.JVerein.gui.formatter;
 
 import de.jost_net.JVerein.keys.Formularart;
+import de.jost_net.JVerein.keys.Formularart.FormularArtEnum;
 import de.willuhn.jameica.gui.formatter.Formatter;
 
 public class FormularartFormatter implements Formatter
 {
   @Override
-  public String format(Object o)
-  {
-    Integer art = (Integer) o;
+  public String format(Object o) {
+  
+    FormularArtEnum art = FormularArtEnum.values()[(Integer) o];
     return Formularart.get(art);
   }
 }
