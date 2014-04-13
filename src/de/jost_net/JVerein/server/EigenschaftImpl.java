@@ -78,6 +78,10 @@ public class EigenschaftImpl extends AbstractDBObject implements Eigenschaft
     {
       throw new ApplicationException("Bitte Bezeichnung eingeben");
     }
+    if (getEigenschaftGruppe() == null)
+    {
+      throw new ApplicationException("Bitte Eigenschaftengruppe auswählen");
+    }
   }
 
   @Override
