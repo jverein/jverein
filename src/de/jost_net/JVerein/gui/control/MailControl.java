@@ -117,7 +117,7 @@ public class MailControl extends AbstractControl
     {
       DBIterator it = Einstellungen.getDBService().createList(
           MailEmpfaenger.class);
-      it.addFilter("mail = ?", new Object[] { getMail().getID()});
+      it.addFilter("mail = ?", new Object[] { getMail().getID() });
       TreeSet<MailEmpfaenger> empf = new TreeSet<MailEmpfaenger>();
       while (it.hasNext())
       {
@@ -229,7 +229,7 @@ public class MailControl extends AbstractControl
     if (!getMail().isNewObject() && getMail().getAnhang() == null)
     {
       DBIterator it = Einstellungen.getDBService().createList(MailAnhang.class);
-      it.addFilter("mail = ?", new Object[] { getMail().getID()});
+      it.addFilter("mail = ?", new Object[] { getMail().getID() });
       TreeSet<MailAnhang> anh = new TreeSet<MailAnhang>();
       while (it.hasNext())
       {
@@ -286,9 +286,7 @@ public class MailControl extends AbstractControl
             }
             catch (Exception e)
             {
-              Logger.error(
-
-              "Fehler beim Nicht-Senden der Mail", e);
+              Logger.error("Fehler beim Nicht-Senden der Mail", e);
             }
             return;
           }
@@ -406,9 +404,9 @@ public class MailControl extends AbstractControl
    */
   private void sendeMail(final boolean erneutSenden) throws RemoteException
   {
-
     final String betr = getBetreffString();
-    final String txt = getTxtString();
+    final String txt = getTxtString()
+        + Einstellungen.getEinstellung().getMailSignatur();
     BackgroundTask t = new BackgroundTask()
     {
 
@@ -416,18 +414,17 @@ public class MailControl extends AbstractControl
       public void run(ProgressMonitor monitor)
       {
         try
-        {	
-          MailSender sender = new MailSender(
-              Einstellungen.getEinstellung().getSmtpServer(),
-              Einstellungen.getEinstellung().getSmtpPort(),
-              Einstellungen.getEinstellung().getSmtpAuthUser(),
-              Einstellungen.getEinstellung().getSmtpAuthPwd(),
-              Einstellungen.getEinstellung().getSmtpFromAddress(),
-              Einstellungen.getEinstellung().getSmtpFromAnzeigename(),
-              Einstellungen.getEinstellung().getMailAlwaysBcc(),
-              Einstellungen.getEinstellung().getMailAlwaysCc(),
-              Einstellungen.getEinstellung().getSmtpSsl(),
-              Einstellungen.getEinstellung().getSmtpStarttls(),
+        {
+          MailSender sender = new MailSender(Einstellungen.getEinstellung()
+              .getSmtpServer(), Einstellungen.getEinstellung().getSmtpPort(),
+              Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
+                  .getEinstellung().getSmtpAuthPwd(), Einstellungen
+                  .getEinstellung().getSmtpFromAddress(), Einstellungen
+                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
+                  .getEinstellung().getMailAlwaysBcc(), Einstellungen
+                  .getEinstellung().getMailAlwaysCc(), Einstellungen
+                  .getEinstellung().getSmtpSsl(), Einstellungen
+                  .getEinstellung().getSmtpStarttls(),
               Einstellungen.getImapCopyData());
 
           Velocity.init();
@@ -451,8 +448,8 @@ public class MailControl extends AbstractControl
               empf.store();
               // aktualisiere TablePart getEmpfaenger() (zeige neues
               // Versand-Datum)
-              GUI.startView(GUI.getCurrentView().getClass(),
-                  GUI.getCurrentView().getCurrentObject());
+              GUI.startView(GUI.getCurrentView().getClass(), GUI
+                  .getCurrentView().getCurrentObject());
             }
             else
             {
@@ -511,7 +508,7 @@ public class MailControl extends AbstractControl
    * Speichert die Mail in der DB.
    * 
    * @param mitversand
-   *        wenn true, wird Spalte Versand auf aktuelles Datum gesetzt.
+   *          wenn true, wird Spalte Versand auf aktuelles Datum gesetzt.
    */
   public void handleStore(boolean mitversand)
   {
@@ -533,7 +530,7 @@ public class MailControl extends AbstractControl
       }
       DBIterator it = Einstellungen.getDBService().createList(
           MailEmpfaenger.class);
-      it.addFilter("mail = ?", new Object[] { m.getID()});
+      it.addFilter("mail = ?", new Object[] { m.getID() });
       while (it.hasNext())
       {
         MailEmpfaenger me = (MailEmpfaenger) it.next();
@@ -548,7 +545,7 @@ public class MailControl extends AbstractControl
         ma.store();
       }
       it = Einstellungen.getDBService().createList(MailAnhang.class);
-      it.addFilter("mail = ?", new Object[] { m.getID()});
+      it.addFilter("mail = ?", new Object[] { m.getID() });
       while (it.hasNext())
       {
         MailAnhang ma = (MailAnhang) it.next();

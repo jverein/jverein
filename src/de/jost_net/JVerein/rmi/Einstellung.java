@@ -246,8 +246,9 @@ public interface Einstellung extends DBObject, IBankverbindung
   public String getBeginnGeschaeftsjahr() throws RemoteException;
 
   public Boolean getAutoBuchunguebernahme() throws RemoteException;
-  
-  public void setAutoBuchunguebernahme(Boolean autobuchunguebernahme) throws RemoteException;
+
+  public void setAutoBuchunguebernahme(Boolean autobuchunguebernahme)
+      throws RemoteException;
 
   public void setBeginnGeschaeftsjahr(String beginngeschaeftsjahr)
       throws RemoteException;
@@ -326,6 +327,10 @@ public interface Einstellung extends DBObject, IBankverbindung
   public String getImapSentFolder() throws RemoteException;
 
   public void setImapSentFolder(String imap_sent_folder) throws RemoteException;
+
+  public String getMailSignatur() throws RemoteException;
+
+  public void setMailSignatur(String mailsignatur) throws RemoteException;
 
   public int getZahlungsrhytmus() throws RemoteException;
 

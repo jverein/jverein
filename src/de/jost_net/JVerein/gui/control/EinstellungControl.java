@@ -50,6 +50,7 @@ import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -195,6 +196,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput imap_starttls;
 
   private TextInput imapSentFolder;
+
+  private TextAreaInput mailsignatur;
 
   private SelectInput zahlungsweg;
 
@@ -1040,6 +1043,18 @@ public class EinstellungControl extends AbstractControl
     return imapSentFolder;
   }
 
+  public Input getMailSignatur() throws RemoteException
+  {
+    if (mailsignatur != null)
+    {
+      return mailsignatur;
+    }
+    mailsignatur = new TextAreaInput(Einstellungen.getEinstellung()
+        .getMailSignatur(), 1000);
+    mailsignatur.setHeight(50);
+    return mailsignatur;
+  }
+
   public SelectInput getZahlungsweg() throws RemoteException
   {
     if (zahlungsweg != null)
@@ -1471,6 +1486,7 @@ public class EinstellungControl extends AbstractControl
       e.setImapSsl((Boolean) imap_ssl.getValue());
       e.setImapStartTls((Boolean) imap_starttls.getValue());
       e.setImapSentFolder((String) imapSentFolder.getValue());
+      e.setMailSignatur((String) mailsignatur.getValue());
 
       Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());

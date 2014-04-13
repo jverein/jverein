@@ -1075,4 +1075,9 @@
 			<column name="autobuchunguebernahme" type="bit" defaultValueBoolean="true" />
 		</addColumn>
 	</changeSet>
+	<changeSet author="Heiner" id="99">
+		<addColumn tableName="einstellung">
+			<column name="mailsignatur" type="varchar(1000)" defaultValue="" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

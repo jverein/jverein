@@ -1139,6 +1139,18 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public String getMailSignatur() throws RemoteException
+  {
+    return (String) getAttribute("mailsignatur");
+  }
+
+  @Override
+  public void setMailSignatur(String mailsignatur) throws RemoteException
+  {
+    setAttribute("mailsignatur", mailsignatur);
+  }
+
+  @Override
   public int getZahlungsrhytmus() throws RemoteException
   {
     try

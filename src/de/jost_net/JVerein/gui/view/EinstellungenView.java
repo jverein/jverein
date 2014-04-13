@@ -45,6 +45,7 @@ public class EinstellungenView extends AbstractView
     final EinstellungControl control = new EinstellungControl(this);
 
     ScrolledContainer cont = new ScrolledContainer(getParent());
+
     TabFolder folder = new TabFolder(cont.getComposite(), SWT.NONE);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
@@ -205,7 +206,8 @@ public class EinstellungenView extends AbstractView
         control.getImap_starttls());
     groupMail.addLabelPair("IMAP 'Gesendete'-Ordername",
         control.getImapSentFolder());
-
+    groupMail.addSeparator();
+    groupMail.addLabelPair("Signatur", control.getMailSignatur());
     TabGroup tabStatistik = new TabGroup(folder, "Statistik");
     LabelGroup grStatistik = new LabelGroup(tabStatistik.getComposite(),
         "Statistik");
@@ -293,6 +295,9 @@ public class EinstellungenView extends AbstractView
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
       leftTab.addLabelPair("Zeige Arbeitseinsatz in Tab",
           control.getZeigeArbeitseinsatzInTabCheckbox());
+
+    folder.setSize(700, 800);
+    folder.pack(true);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
