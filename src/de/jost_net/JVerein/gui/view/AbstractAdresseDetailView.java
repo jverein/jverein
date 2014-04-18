@@ -338,7 +338,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     // if (isMitgliedDetail())
     // {
     Container cont = getTabOrLabelContainer(parentComposite, "Eigenschaften");
-
+    cont.getComposite().setLayout(new GridLayout(1, true));
     control.getEigenschaftenTree().paint(cont.getComposite());
     // }
   }

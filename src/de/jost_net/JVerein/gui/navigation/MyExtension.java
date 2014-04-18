@@ -20,6 +20,17 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AboutAction;
 import de.jost_net.JVerein.gui.action.AbrechnungSEPAAction;
 import de.jost_net.JVerein.gui.action.AbrechnunslaufListAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenAbrechnungAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenAllgemeinAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenAnzeigeAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenBuchfuehrungAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenDateinamenAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenMailAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenMitgliedAnsichtAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenMitgliederSpaltenAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenRechnungenAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenSpendenbescheinigungenAction;
+import de.jost_net.JVerein.gui.action.AdministrationEinstellungenStatistikAction;
 import de.jost_net.JVerein.gui.action.AdressenSucheAction;
 import de.jost_net.JVerein.gui.action.AdresstypListAction;
 import de.jost_net.JVerein.gui.action.AnfangsbestandListAction;
@@ -38,7 +49,6 @@ import de.jost_net.JVerein.gui.action.BuchungsuebernahmeAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.EigenschaftGruppeListeAction;
 import de.jost_net.JVerein.gui.action.EigenschaftListeAction;
-import de.jost_net.JVerein.gui.action.EinstellungenAction;
 import de.jost_net.JVerein.gui.action.FamilienbeitragAction;
 import de.jost_net.JVerein.gui.action.FelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.FormularListeAction;
@@ -197,11 +207,51 @@ public class MyExtension implements Extension
           new JahresabschlussListAction(), "summe.png"));
       jverein.addChild(buchfuehrung);
 
-      NavigationItem einstellungen = null;
-      einstellungen = new MyItem(einstellungen, "Administration", null);
-      einstellungen.addChild(new MyItem(einstellungen, "Einstellungen",
-          new EinstellungenAction(), "settings.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, "Beitragsgruppen",
+      NavigationItem administration = null;
+      administration = new MyItem(administration, "Administration", null);
+
+      NavigationItem administrationEinstellungen = null;
+      administrationEinstellungen = new MyItem(administrationEinstellungen,
+          "Einstellungen", null);
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Allgemein",
+          new AdministrationEinstellungenAllgemeinAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Anzeige",
+          new AdministrationEinstellungenAnzeigeAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Mitglieder Spalten",
+          new AdministrationEinstellungenMitgliederSpaltenAction(),
+          "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Mitglieder Ansicht",
+          new AdministrationEinstellungenMitgliedAnsichtAction(),
+          "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Abrechnung",
+          new AdministrationEinstellungenAbrechnungAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Dateinamen",
+          new AdministrationEinstellungenDateinamenAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Spendenbescheinigungen",
+          new AdministrationEinstellungenSpendenbescheinigungenAction(),
+          "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Buchführung",
+          new AdministrationEinstellungenBuchfuehrungAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Rechnungen",
+          new AdministrationEinstellungenRechnungenAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Mail",
+          new AdministrationEinstellungenMailAction(), "settings.gif"));
+      administrationEinstellungen.addChild(new MyItem(
+          administrationEinstellungen, "Statistik",
+          new AdministrationEinstellungenStatistikAction(), "settings.gif"));
+      administration.addChild(administrationEinstellungen);
+
+      administration.addChild(new MyItem(administration, "Beitragsgruppen",
           new BeitragsgruppeSucheAction(), "breakpoint_view.gif"));
 
       NavigationItem einstellungenbuchfuehrung = null;
@@ -224,31 +274,32 @@ public class MyExtension implements Extension
           "import_obj.gif"));
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
           "Projekte", new ProjektListAction(), "projects.png"));
-      einstellungen.addChild(einstellungenbuchfuehrung);
+      administration.addChild(einstellungenbuchfuehrung);
 
-      einstellungen.addChild(new MyItem(einstellungen, "Eigenschaften-Gruppen",
-          new EigenschaftGruppeListeAction(), "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, "Eigenschaften",
+      administration.addChild(new MyItem(administration,
+          "Eigenschaften-Gruppen", new EigenschaftGruppeListeAction(),
+          "activity_category.gif"));
+      administration.addChild(new MyItem(administration, "Eigenschaften",
           new EigenschaftListeAction(), "activity_category.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, "Felddefinitionen",
+      administration.addChild(new MyItem(administration, "Felddefinitionen",
           new FelddefinitionenAction(), "category_obj.gif"));
       if (Einstellungen.getEinstellung().getUseLesefelder())
       {
-        einstellungen.addChild(new MyItem(einstellungen, "Lesefelder",
+        administration.addChild(new MyItem(administration, "Lesefelder",
             new LesefelddefinitionenAction(null), "category_obj.gif"));
       }
-      einstellungen.addChild(new MyItem(einstellungen, "Formulare",
+      administration.addChild(new MyItem(administration, "Formulare",
           new FormularListeAction(), "layout_co.gif"));
-      einstellungen.addChild(new MyItem(einstellungen, "Lehrgangsarten",
+      administration.addChild(new MyItem(administration, "Lehrgangsarten",
           new LehrgangsartListeAction(), "x-office-presentation.png"));
-      einstellungen.addChild(new MyItem(einstellungen, "Import",
+      administration.addChild(new MyItem(administration, "Import",
           new MitgliedImportAction(), "import_obj.gif"));
       if (Einstellungen.getEinstellung().getZusatzadressen())
       {
-        einstellungen.addChild(new MyItem(einstellungen, "Adresstypen",
+        administration.addChild(new MyItem(administration, "Adresstypen",
             new AdresstypListAction(), "layout_co.gif"));
       }
-      einstellungen.addChild(new MyItem(einstellungen, "SEPA-Konvertierung",
+      administration.addChild(new MyItem(administration, "SEPA-Konvertierung",
           new SEPAKonvertierungAction(), "sepa.png"));
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
@@ -259,8 +310,8 @@ public class MyExtension implements Extension
       einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
           "Diagnose-Backup importieren", new BackupRestoreAction(),
           "thread2_obj.gif"));
-      einstellungen.addChild(einstellungenerweitert);
-      jverein.addChild(einstellungen);
+      administration.addChild(einstellungenerweitert);
+      jverein.addChild(administration);
       jverein.addChild(new MyItem(jverein, "Dokumentation",
           new DokumentationAction(), "help_view.gif"));
       jverein.addChild(new MyItem(jverein, "Spende für JVerein",

@@ -1396,7 +1396,171 @@ public class EinstellungControl extends AbstractControl
         getKonto(), getBic(), getIban());
   }
 
-  public void handleStore()
+  // // public void handleStore()
+  // {
+  // try
+  // {
+  // Einstellung e = Einstellungen.getEinstellung();
+  // e.setID();
+  // e.setName((String) getName(false).getValue());
+  // e.setStrasse((String) getStrasse().getValue());
+  // e.setPlz((String) getPlz().getValue());
+  // e.setOrt((String) getOrt().getValue());
+  // e.setFinanzamt((String) getFinanzamt().getValue());
+  // e.setSteuernummer((String) getSteuernummer().getValue());
+  // e.setBescheiddatum((Date) getBescheiddatum().getValue());
+  // e.setVorlaeufig((Boolean) getVorlaeufig().getValue());
+  // e.setVorlaeufigab((Date) getVorlaeufigab().getValue());
+  // e.setVeranlagungVon((Date) getVeranlagungVon().getValue());
+  // e.setVeranlagungBis((Date) getVeranlagungBis().getValue());
+  // e.setBeguenstigterzweck((String) getBeguenstigterzweck().getValue());
+  // e.setMitgliedsbeitraege((Boolean) getMitgliedsbetraege().getValue());
+  // e.setBic((String) getBic().getValue());
+  // e.setIban((String) getIban().getValue());
+  // e.setGlaeubigerID((String) getGlaeubigerID().getValue());
+  // e.setBlz((String) getBlz().getValue());
+  // e.setKonto((String) getKonto().getValue());
+  // e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
+  // e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
+  // e.setSterbedatum((Boolean) sterbedatum.getValue());
+  // e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
+  // e.setZusatzbetrag((Boolean) zusatzbetrag.getValue());
+  // e.setZusatzbetragAusgetretene((Boolean) zusatzbetragAusgetretene
+  // .getValue());
+  // e.setVermerke((Boolean) vermerke.getValue());
+  // e.setWiedervorlage((Boolean) wiedervorlage.getValue());
+  // e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
+  // e.setLehrgaenge((Boolean) lehrgaenge.getValue());
+  // e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
+  // e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
+  // e.setUseLesefelder((Boolean) uselesefelder.getValue());
+  // e.setZusatzadressen((Boolean) zusatzadressen.getValue());
+  // e.setAuslandsadressen((Boolean) auslandsadressen.getValue());
+  // e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());
+  // e.setDokumentenspeicherung((Boolean) dokumentenspeicherung.getValue());
+  // e.setIndividuelleBeitraege((Boolean) individuellebeitraege.getValue());
+  // e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
+  // e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
+  // e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
+  // .getValue());
+  // e.setRechnungTextBar((String) rechnungtextbar.getValue());
+  // e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
+  // Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
+  // e.setBeitragsmodel(bm.getKey());
+  // ArbeitsstundenModel am = (ArbeitsstundenModel) arbeitsstundenmodel
+  // .getValue();
+  // e.setArbeitsstundenmodel(am.getKey());
+  // SepaMandatIdSource sepaSource = (SepaMandatIdSource)
+  // sepamandatidsourcemodel
+  // .getValue();
+  // e.setSepaMandatIdSource(sepaSource.getKey());
+  // Altermodel amValue = (Altermodel) altersmodel.getValue();
+  // e.setAltersModel(amValue.getKey());
+  // e.setDateinamenmuster((String) dateinamenmuster.getValue());
+  // e.setDateinamenmusterSpende((String) dateinamenmusterspende.getValue());
+  // e.setVorlagenCsvVerzeichnis((String) vorlagenCsvVerzeichnis.getValue());
+  // e.setSpendenbescheinigungminbetrag((Double) spendenbescheinigungminbetrag
+  // .getValue());
+  // e.setSpendenbescheinigungverzeichnis((String)
+  // spendenbescheinigungverzeichnis
+  // .getValue());
+  // e.setSpendenbescheinigungPrintBuchungsart((Boolean)
+  // spendenbescheinigungprintbuchungsart
+  // .getValue());
+  // e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
+  // e.setAutoBuchunguebernahme((Boolean) autobuchunguebernahme.getValue());
+  // e.setSmtpServer((String) smtp_server.getValue());
+  // Integer port = (Integer) smtp_port.getValue();
+  // e.setSmtpPort(port.toString());
+  // e.setSmtpAuthUser((String) smtp_auth_user.getValue());
+  // e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
+  // e.setSmtpFromAddress((String) smtp_from_address.getValue());
+  // e.setSmtpFromAnzeigename((String) smtp_from_anzeigename.getValue());
+  // e.setSmtpSsl((Boolean) smtp_ssl.getValue());
+  // e.setSmtpStarttls((Boolean) smtp_starttls.getValue());
+  // e.setMailAlwaysCc((String) alwaysCcTo.getValue());
+  // e.setMailAlwaysBcc((String) alwaysBccTo.getValue());
+  //
+  // e.setCopyToImapFolder((Boolean) copyToImapFolder.getValue());
+  // e.setImapHost((String) imapHost.getValue());
+  // e.setImapPort((String) imapPort.getValue());
+  // e.setImapAuthUser(((String) imapAuthUser.getValue()));
+  // e.setImapAuthPwd(((String) imapAuthPwd.getValue()));
+  // e.setImapSsl((Boolean) imap_ssl.getValue());
+  // e.setImapStartTls((Boolean) imap_starttls.getValue());
+  // e.setImapSentFolder((String) imapSentFolder.getValue());
+  // e.setMailSignatur((String) mailsignatur.getValue());
+  //
+  // Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
+  // e.setZahlungsrhytmus(zr.getKey());
+  // Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
+  // e.setZahlungsweg(zw.getKey());
+  // SEPALandObject slo = (SEPALandObject) getDefaultSEPALand().getValue();
+  // e.setDefaultLand(slo.getLand().getKennzeichen());
+  // e.setAltersgruppen((String) getAltersgruppen().getValue());
+  // e.setJubilaeen((String) getJubilaeen().getValue());
+  // e.setAltersjubilaeen((String) getAltersjubilaeen().getValue());
+  // Integer jubilaeumStartAlter = (Integer) jubilarStartAlter.getValue();
+  // e.setJubilarStartAlter(jubilaeumStartAlter);
+  // e.store();
+  // spalten.save();
+  // Einstellungen.setEinstellung(e);
+  //
+  // e.setAnzahlSpaltenStammdaten((Integer) getAnzahlSpaltenStammdatenInput()
+  // .getValue());
+  // e.setAnzahlSpaltenLesefelder((Integer) getAnzahlSpaltenLesefelderInput()
+  // .getValue());
+  // e.setAnzahlSpaltenZusatzfelder((Integer)
+  // getAnzahlSpaltenZusatzfelderInput()
+  // .getValue());
+  // e.setAnzahlSpaltenMitgliedschaft((Integer)
+  // getAnzahlSpaltenMitgliedschaftInput()
+  // .getValue());
+  // e.setAnzahlSpaltenZahlung((Integer) getAnzahlSpaltenZahlungInput()
+  // .getValue());
+  // e.setZeigeStammdatenInTab((Boolean) getZeigeStammdatenInTabCheckbox()
+  // .getValue());
+  // e.setZeigeMitgliedschaftInTab((Boolean)
+  // getZeigeMitgliedschaftInTabCheckbox()
+  // .getValue());
+  // e.setZeigeZahlungInTab((Boolean) getZeigeZahlungInTabCheckbox()
+  // .getValue());
+  // e.setZeigeZusatzbetrageInTab((Boolean) getZeigeZusatzbetrageInTabCheckbox()
+  // .getValue());
+  // e.setZeigeMitgliedskontoInTab((Boolean)
+  // getZeigeMitgliedskontoInTabCheckbox()
+  // .getValue());
+  // e.setZeigeVermerkeInTab((Boolean) getZeigeVermerkeInTabCheckbox()
+  // .getValue());
+  // e.setZeigeWiedervorlageInTab((Boolean) getZeigeWiedervorlageInTabCheckbox()
+  // .getValue());
+  // e.setZeigeMailsInTab((Boolean) getZeigeMailsInTabCheckbox().getValue());
+  // e.setZeigeEigentschaftenInTab((Boolean)
+  // getZeigeEigenschaftenInTabCheckbox()
+  // .getValue());
+  // e.setZeigeZusatzfelderInTab((Boolean) getZeigeZusatzfelderInTabCheckbox()
+  // .getValue());
+  // e.setZeigeLehrgaengeInTab((Boolean) getZeigeLehrgaengeInTabCheckbox()
+  // .getValue());
+  // e.setZeigeFotoInTab((Boolean) getZeigeFotoInTabCheckbox().getValue());
+  // e.setZeigeLesefelderInTab((Boolean) getZeigeLesefelderInTabCheckbox()
+  // .getValue());
+  // e.setZeigeArbeitseinsatzInTab((Boolean)
+  // getZeigeArbeitseinsatzInTabCheckbox()
+  // .getValue());
+  // GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+  // }
+  // catch (RemoteException e)
+  // {
+  // GUI.getStatusBar().setErrorText(e.getMessage());
+  // }
+  // catch (ApplicationException e)
+  // {
+  // GUI.getStatusBar().setErrorText(e.getMessage());
+  // }
+  // }
+
+  public void handleStoreAllgemein()
   {
     try
     {
@@ -1406,20 +1570,30 @@ public class EinstellungControl extends AbstractControl
       e.setStrasse((String) getStrasse().getValue());
       e.setPlz((String) getPlz().getValue());
       e.setOrt((String) getOrt().getValue());
-      e.setFinanzamt((String) getFinanzamt().getValue());
-      e.setSteuernummer((String) getSteuernummer().getValue());
-      e.setBescheiddatum((Date) getBescheiddatum().getValue());
-      e.setVorlaeufig((Boolean) getVorlaeufig().getValue());
-      e.setVorlaeufigab((Date) getVorlaeufigab().getValue());
-      e.setVeranlagungVon((Date) getVeranlagungVon().getValue());
-      e.setVeranlagungBis((Date) getVeranlagungBis().getValue());
-      e.setBeguenstigterzweck((String) getBeguenstigterzweck().getValue());
-      e.setMitgliedsbeitraege((Boolean) getMitgliedsbetraege().getValue());
       e.setBic((String) getBic().getValue());
       e.setIban((String) getIban().getValue());
       e.setGlaeubigerID((String) getGlaeubigerID().getValue());
-      e.setBlz((String) getBlz().getValue());
-      e.setKonto((String) getKonto().getValue());
+      e.store();
+      Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen Allgemein gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreAnzeige()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
       e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
       e.setSterbedatum((Boolean) sterbedatum.getValue());
@@ -1439,12 +1613,31 @@ public class EinstellungControl extends AbstractControl
       e.setArbeitseinsatz((Boolean) arbeitseinsatz.getValue());
       e.setDokumentenspeicherung((Boolean) dokumentenspeicherung.getValue());
       e.setIndividuelleBeitraege((Boolean) individuellebeitraege.getValue());
-      e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
-      e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
-      e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
-          .getValue());
-      e.setRechnungTextBar((String) rechnungtextbar.getValue());
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
+      Altermodel amValue = (Altermodel) altersmodel.getValue();
+      e.setAltersModel(amValue.getKey());
+
+      e.store();
+      Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreAbrechnung()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
       ArbeitsstundenModel am = (ArbeitsstundenModel) arbeitsstundenmodel
@@ -1453,19 +1646,152 @@ public class EinstellungControl extends AbstractControl
       SepaMandatIdSource sepaSource = (SepaMandatIdSource) sepamandatidsourcemodel
           .getValue();
       e.setSepaMandatIdSource(sepaSource.getKey());
-      Altermodel amValue = (Altermodel) altersmodel.getValue();
-      e.setAltersModel(amValue.getKey());
+      Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
+      e.setZahlungsrhytmus(zr.getKey());
+      Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
+      e.setZahlungsweg(zw.getKey());
+      SEPALandObject slo = (SEPALandObject) getDefaultSEPALand().getValue();
+      e.setDefaultLand(slo.getLand().getKennzeichen());
+      e.store();
+      Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreDateinamen()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
       e.setDateinamenmusterSpende((String) dateinamenmusterspende.getValue());
       e.setVorlagenCsvVerzeichnis((String) vorlagenCsvVerzeichnis.getValue());
+      e.store();
+      Einstellungen.setEinstellung(e);
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreSpendenbescheinigungen()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
+      e.setFinanzamt((String) getFinanzamt().getValue());
+      e.setSteuernummer((String) getSteuernummer().getValue());
+      e.setBescheiddatum((Date) getBescheiddatum().getValue());
+      e.setVorlaeufig((Boolean) getVorlaeufig().getValue());
+      e.setVorlaeufigab((Date) getVorlaeufigab().getValue());
+      e.setVeranlagungVon((Date) getVeranlagungVon().getValue());
+      e.setVeranlagungBis((Date) getVeranlagungBis().getValue());
+      e.setBeguenstigterzweck((String) getBeguenstigterzweck().getValue());
+      e.setMitgliedsbeitraege((Boolean) getMitgliedsbetraege().getValue());
       e.setSpendenbescheinigungminbetrag((Double) spendenbescheinigungminbetrag
           .getValue());
       e.setSpendenbescheinigungverzeichnis((String) spendenbescheinigungverzeichnis
           .getValue());
       e.setSpendenbescheinigungPrintBuchungsart((Boolean) spendenbescheinigungprintbuchungsart
           .getValue());
+      e.store();
+      Einstellungen.setEinstellung(e);
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreBuchfuehrung()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setAutoBuchunguebernahme((Boolean) autobuchunguebernahme.getValue());
+      e.store();
+      Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreRechnungen()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
+      e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
+      e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
+          .getValue());
+      e.setRechnungTextBar((String) rechnungtextbar.getValue());
+      e.store();
+      Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreMitgliederSpalten()
+  {
+    try
+    {
+      spalten.save();
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreMail()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
       e.setSmtpServer((String) smtp_server.getValue());
       Integer port = (Integer) smtp_port.getValue();
       e.setSmtpPort(port.toString());
@@ -1488,20 +1814,53 @@ public class EinstellungControl extends AbstractControl
       e.setImapSentFolder((String) imapSentFolder.getValue());
       e.setMailSignatur((String) mailsignatur.getValue());
 
-      Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
-      e.setZahlungsrhytmus(zr.getKey());
-      Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
-      e.setZahlungsweg(zw.getKey());
-      SEPALandObject slo = (SEPALandObject) getDefaultSEPALand().getValue();
-      e.setDefaultLand(slo.getLand().getKennzeichen());
+      e.store();
+      Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreStatistik()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
       e.setAltersgruppen((String) getAltersgruppen().getValue());
       e.setJubilaeen((String) getJubilaeen().getValue());
       e.setAltersjubilaeen((String) getAltersjubilaeen().getValue());
       Integer jubilaeumStartAlter = (Integer) jubilarStartAlter.getValue();
       e.setJubilarStartAlter(jubilaeumStartAlter);
       e.store();
-      spalten.save();
       Einstellungen.setEinstellung(e);
+
+      GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
+    }
+    catch (RemoteException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+    catch (ApplicationException e)
+    {
+      GUI.getStatusBar().setErrorText(e.getMessage());
+    }
+  }
+
+  public void handleStoreMitgliedAnsicht()
+  {
+    try
+    {
+      Einstellung e = Einstellungen.getEinstellung();
+      e.setID();
 
       e.setAnzahlSpaltenStammdaten((Integer) getAnzahlSpaltenStammdatenInput()
           .getValue());
@@ -1539,6 +1898,8 @@ public class EinstellungControl extends AbstractControl
           .getValue());
       e.setZeigeArbeitseinsatzInTab((Boolean) getZeigeArbeitseinsatzInTabCheckbox()
           .getValue());
+      e.store();
+      Einstellungen.setEinstellung(e);
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
     }
     catch (RemoteException e)

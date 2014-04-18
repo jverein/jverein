@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -21,15 +16,15 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.gui.view.EinstellungenView;
+import de.jost_net.JVerein.gui.view.EinstellungenAnzeigeView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 
-public class EinstellungenAction implements Action
+public class AdministrationEinstellungenAnzeigeAction implements Action
 {
   @Override
   public void handleAction(Object context)
   {
-    GUI.startView(EinstellungenView.class.getName(), null);
+    GUI.startView(EinstellungenAnzeigeView.class.getName(), null);
   }
 }
