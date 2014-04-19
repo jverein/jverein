@@ -147,6 +147,8 @@ public class BuchungsControl extends AbstractControl
 
   private TextInput suchtext = null;
 
+  private TextInput suchbetrag = null;
+
   private CheckboxInput verzicht;
 
   private Buchung buchung;
@@ -332,6 +334,17 @@ public class BuchungsControl extends AbstractControl
     suchtext = new TextInput(settings.getString("suchtext", ""), 35);
     suchtext.addListener(new FilterListener());
     return suchtext;
+  }
+
+  public TextInput getSuchBetrag() throws RemoteException
+  {
+    if (suchbetrag != null)
+    {
+      return suchbetrag;
+    }
+    suchbetrag = new TextInput(settings.getString("suchbetrag", ""));
+    suchbetrag.addListener(new FilterListener());
+    return suchbetrag;
   }
 
   public CheckboxInput getVerzicht() throws RemoteException
@@ -894,7 +907,8 @@ public class BuchungsControl extends AbstractControl
     }
     settings.setAttribute("suchtext", (String) getSuchtext().getValue());
 
-    query = new BuchungQuery(dv, db, k, b, p, (String) getSuchtext().getValue());
+    query = new BuchungQuery(dv, db, k, b, p,
+        (String) getSuchtext().getValue(), (String) getSuchBetrag().getValue());
     if (buchungsList == null)
     {
       buchungsList = new BuchungListTablePart(query.get(), new BuchungAction(

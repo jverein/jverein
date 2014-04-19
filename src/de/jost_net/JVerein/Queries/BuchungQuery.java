@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.Suchbetrag;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
@@ -50,6 +51,8 @@ public class BuchungQuery
 
   public String text;
 
+  public String betrag;
+
   private List<Buchung> ergebnis;
 
   private static final int ORDER_UMSATZID = 0;
@@ -65,7 +68,7 @@ public class BuchungQuery
   private int order = ORDER_UMSATZID;
 
   public BuchungQuery(Date datumvon, Date datumbis, Konto konto,
-      Buchungsart buchungsart, Projekt projekt, String text)
+      Buchungsart buchungsart, Projekt projekt, String text, String betrag)
   {
     this.datumvon = datumvon;
     this.datumbis = datumbis;
@@ -73,6 +76,7 @@ public class BuchungQuery
     this.buchungart = buchungsart;
     this.projekt = projekt;
     this.text = text;
+    this.betrag = betrag;
   }
 
   public void setOrderID()
@@ -128,11 +132,11 @@ public class BuchungQuery
   public List<Buchung> get() throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
-   
+
     DBIterator it = service.createList(Buchung.class);
     it.addFilter("datum >= ? ", datumvon);
     it.addFilter("datum <= ? ", datumbis);
-   
+
     if (konto != null)
     {
       it.addFilter("konto = ? ", konto.getID());
@@ -154,11 +158,57 @@ public class BuchungQuery
       it.addFilter("projekt = ?", projekt.getID());
     }
 
+    if (betrag != null && betrag.length() > 0)
+    {
+      try
+      {
+        Suchbetrag suchbetrag = new Suchbetrag(betrag);
+        switch (suchbetrag.getSuchstrategie())
+        {
+          case GLEICH:
+          {
+            it.addFilter("betrag = ?", suchbetrag.getBetrag());
+            break;
+          }
+          case GRÖSSER:
+          {
+            it.addFilter("betrag > ?", suchbetrag.getBetrag());
+            break;
+          }
+          case GRÖSSERGLEICH:
+          {
+            it.addFilter("betrag >= ?", suchbetrag.getBetrag());
+            break;
+          }
+          case BEREICH:
+            it.addFilter("betrag >= ? AND betrag <= ?", suchbetrag.getBetrag(),
+                suchbetrag.getBetrag2());
+            break;
+          case KEINE:
+            break;
+          case KLEINER:
+            it.addFilter("betrag < ?", suchbetrag.getBetrag());
+            break;
+          case KLEINERGLEICH:
+            it.addFilter("betrag <= ?", suchbetrag.getBetrag());
+            break;
+          default:
+            break;
+        }
+      }
+      catch (Exception e)
+      {
+        // throw new RemoteException(e.getMessage());
+      }
+    }
+
     if (text.length() > 0)
     {
       String ttext = text.toUpperCase();
       ttext = "%" + ttext + "%";
-      it.addFilter("(upper(name) like ? or upper(zweck) like ? or upper(kommentar) like ?) ",ttext, ttext, ttext);
+      it.addFilter(
+          "(upper(name) like ? or upper(zweck) like ? or upper(kommentar) like ?) ",
+          ttext, ttext, ttext);
     }
     switch (order)
     {

@@ -21,6 +21,7 @@ import org.junit.runners.Suite;
 
 import test.de.jost_net.JVerein.io.AltersgruppenParserTest;
 import test.de.jost_net.JVerein.io.BankarbeitstageTest;
+import test.de.jost_net.JVerein.io.SuchbetragTest;
 import test.de.jost_net.JVerein.io.Adressbuch.AdressaufbereitungTest;
 import test.de.jost_net.JVerein.util.CheckerTest;
 import test.de.jost_net.JVerein.util.TableColumnReplacerTest;
@@ -28,7 +29,7 @@ import test.de.jost_net.JVerein.util.TableColumnReplacerTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ AdressaufbereitungTest.class,
     AltersgruppenParserTest.class, BankarbeitstageTest.class,
-    CheckerTest.class, TableColumnReplacerTest.class })
+    CheckerTest.class, SuchbetragTest.class, TableColumnReplacerTest.class })
 public class TestSuite
 {
   // Nothing to do

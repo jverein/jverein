@@ -34,7 +34,9 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.Color;
+import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
 
 public class BuchungslisteView extends AbstractView
@@ -53,11 +55,15 @@ public class BuchungslisteView extends AbstractView
     folder.setBackground(Color.BACKGROUND.getSWTColor());
     {
       TabGroup tabAllgemein = new TabGroup(folder, "Suche Buchungen", true, 2);
-      tabAllgemein.addLabelPair("Buchungsart", control.getSuchBuchungsart());
-      tabAllgemein.addLabelPair("Projekt", control.getSuchProjekt());
-      tabAllgemein.addLabelPair("von Datum", control.getVondatum());
-      tabAllgemein.addLabelPair("bis Datum", control.getBisdatum());
-      tabAllgemein.addLabelPair("enthaltener Text", control.getSuchtext());
+      ColumnLayout cl = new ColumnLayout(tabAllgemein.getComposite(), 2);
+      SimpleContainer left = new SimpleContainer(cl.getComposite());
+      SimpleContainer right = new SimpleContainer(cl.getComposite());
+      left.addLabelPair("Buchungsart", control.getSuchBuchungsart());
+      left.addLabelPair("Projekt", control.getSuchProjekt());
+      left.addLabelPair("Betrag", control.getSuchBetrag());
+      right.addLabelPair("von Datum", control.getVondatum());
+      right.addLabelPair("bis Datum", control.getBisdatum());
+      right.addLabelPair("enthaltener Text", control.getSuchtext());
     }
     {
       final BuchungsHeaderControl headerControl = new BuchungsHeaderControl(
@@ -107,6 +113,9 @@ public class BuchungslisteView extends AbstractView
     return "<form><p><span color=\"header\" font=\"header\">Buchungen</span></p>"
         + "<p>Alle Buchungen aus dem vorgegebenen Zeitraum werden angezeigt. Durch einen "
         + "Doppelklick auf eine Buchung kann die Buchungsart zugeordnet werden.</p>"
-        + "</form>";
+        + "<p>Bei der Suche nach Beträgen sind folgende Eingaben möglich:</p>"
+        + "<li>18,00 (gleich)</li><li>=18,00 (gleich)</li><li>&gt;18,00 (größer)</li>"
+        + "<li>&gt;18,00 (größergleich)</li><li>&lt;18,00 (kleiner)</li><li>&lt;=18,00 (kleinergleich)</li>"
+        + "<li>18,00..25,00 (Bereich)</li>" + "</form>";
   }
 }
