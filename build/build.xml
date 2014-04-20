@@ -101,7 +101,7 @@
 
 			<formatter type="plain" />
 
-			<test name="test.de.jost_net.JVerein.TestSuite" haltonfailure="yes" outfile="releases/result">
+			<test name="test.de.jost_net.JVerein.TestSuite" haltonfailure="yes">
 				<formatter type="xml" />
 			</test>
 		</junit>
