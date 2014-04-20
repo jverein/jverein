@@ -906,6 +906,7 @@ public class BuchungsControl extends AbstractControl
       settings.setAttribute(BuchungsControl.PROJEKT, -2);
     }
     settings.setAttribute("suchtext", (String) getSuchtext().getValue());
+    settings.setAttribute("suchbetrag", (String) getSuchBetrag().getValue());
 
     query = new BuchungQuery(dv, db, k, b, p,
         (String) getSuchtext().getValue(), (String) getSuchBetrag().getValue());
