@@ -160,9 +160,22 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       suBukEinnahmen = new Double(0);
       suBukAusgaben = new Double(0);
       suBukUmbuchungen = new Double(0);
+      boolean ausgabe = false;
+
       while (buchungsartenIt.hasNext())
       {
         buchungsart = (Buchungsart) buchungsartenIt.next();
+        String sqlc = "select count(*) from buchung, buchungsart "
+            + "where datum >= ? and datum <= ?  "
+            + "and buchung.buchungsart = buchungsart.id "
+            + "and buchungsart.id = ?";
+        int anz = (Integer) service.execute(sqlc, new Object[] { datumvon,
+            datumbis, buchungsart.getID() }, rsi);
+        if (anz == 0)
+        {
+          continue;
+        }
+        ausgabe = true;
         String sql = "select sum(betrag) from buchung, buchungsart "
             + "where datum >= ? and datum <= ?  "
             + "and buchung.buchungsart = buchungsart.id "
@@ -182,6 +195,13 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
       suEinnahmen += suBukEinnahmen;
       suAusgaben += suBukAusgaben;
       suUmbuchungen += suBukUmbuchungen;
+      if (!ausgabe
+          && Einstellungen.getEinstellung().getUnterdrueckungOhneBuchung())
+      {
+        zeile.remove(zeile.size() - 1);
+        continue;
+      }
+
       zeile.add(new BuchungsklasseSaldoZeile(
           BuchungsklasseSaldoZeile.SALDOFOOTER, "Saldo" + " "
               + buchungsklasse.getBezeichnung(), suBukEinnahmen, suBukAusgaben,

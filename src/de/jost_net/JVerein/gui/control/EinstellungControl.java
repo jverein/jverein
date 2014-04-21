@@ -161,6 +161,8 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput autobuchunguebernahme;
 
+  private CheckboxInput unterdrueckungohnebuchung;
+
   private TextInput smtp_server;
 
   private IntegerInput smtp_port;
@@ -848,6 +850,19 @@ public class EinstellungControl extends AbstractControl
     autobuchunguebernahme
         .setName("Automatische Buchungsübernahme aus Hibiscus");
     return autobuchunguebernahme;
+  }
+
+  public CheckboxInput getUnterdrueckungOhneBuchung() throws RemoteException
+  {
+    if (unterdrueckungohnebuchung != null)
+    {
+      return unterdrueckungohnebuchung;
+    }
+    unterdrueckungohnebuchung = new CheckboxInput(Einstellungen
+        .getEinstellung().getUnterdrueckungOhneBuchung());
+    unterdrueckungohnebuchung
+        .setName("Listen: Buchungsarten ohne Buchung unterdrücken");
+    return unterdrueckungohnebuchung;
   }
 
   public TextInput getSmtpServer() throws RemoteException
@@ -1733,6 +1748,8 @@ public class EinstellungControl extends AbstractControl
       e.setID();
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setAutoBuchunguebernahme((Boolean) autobuchunguebernahme.getValue());
+      e.setUnterdrueckungOhneBuchung((Boolean) unterdrueckungohnebuchung
+          .getValue());
       e.store();
       Einstellungen.setEinstellung(e);
 

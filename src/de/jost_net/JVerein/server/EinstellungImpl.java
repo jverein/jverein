@@ -1605,4 +1605,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("autobuchunguebernahme", autobuchunguebernahme);
   }
 
+  @Override
+  public Boolean getUnterdrueckungOhneBuchung() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("unterdrueckungohnebuchung"));
+  }
+
+  @Override
+  public void setUnterdrueckungOhneBuchung(Boolean unterdrueckungohnebuchung)
+      throws RemoteException
+  {
+    setAttribute("unterdrueckungohnebuchung", unterdrueckungohnebuchung);
+  }
+
 }

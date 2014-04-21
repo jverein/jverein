@@ -1080,4 +1080,9 @@
 			<column name="mailsignatur" type="varchar(1000)" defaultValue="" />
 		</addColumn>
 	</changeSet>
+	<changeSet author="Heiner" id="100">
+		<addColumn tableName="einstellung">
+			<column name="unterdrueckungohnebuchung" type="bit" defaultValueBoolean="false" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

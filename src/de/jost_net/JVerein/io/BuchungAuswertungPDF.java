@@ -36,6 +36,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -83,7 +84,8 @@ public class BuchungAuswertungPDF
       for (Buchungsart bua : buchungsarten)
       {
         query.setOrderDatum();
-        createTableContent(reporter, bua, query.get(), einzel);
+        List<Buchung> liste = getBuchungenEinerBuchungsart(query.get(), bua);
+        createTableContent(reporter, bua, liste, einzel);
       }
       if (buchungsarten.size() > 1)
       {
@@ -164,6 +166,11 @@ public class BuchungAuswertungPDF
       List<Buchung> buchungen, boolean einzel) throws RemoteException,
       DocumentException
   {
+    if (Einstellungen.getEinstellung().getUnterdrueckungOhneBuchung()
+        && buchungen.size() == 0)
+    {
+      return;
+    }
     if (einzel)
     {
       Paragraph pBuchungsart = new Paragraph(bua.getBezeichnung(),
@@ -175,24 +182,9 @@ public class BuchungAuswertungPDF
     {
       createTableHeaderEinzel(reporter);
     }
-    boolean gedruckt = false;
 
     for (Buchung b : buchungen)
     {
-      if (bua.getArt() != -1
-
-          && (b.getBuchungsart() == null || b.getBuchungsart().getNummer() != bua
-              .getNummer()))
-      {
-        continue;
-      }
-
-      if (bua.getArt() == -1 && b.getBuchungsart() != null)
-      {
-        continue;
-      }
-
-      gedruckt = true;
       if (einzel)
       {
         reporter.addColumn(new JVDateFormatTTMMJJJJ().format(b.getDatum()),
@@ -226,7 +218,7 @@ public class BuchungAuswertungPDF
     }
     if (einzel)
     {
-      if (!gedruckt)
+      if (buchungen.size() == 0)
       {
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
@@ -255,5 +247,27 @@ public class BuchungAuswertungPDF
     {
       reporter.closeTable();
     }
+  }
+
+  private List<Buchung> getBuchungenEinerBuchungsart(List<Buchung> buchungen,
+      Buchungsart bua) throws RemoteException
+  {
+    List<Buchung> liste = new ArrayList<Buchung>();
+    for (Buchung b : buchungen)
+    {
+      if (bua.getArt() != -1
+          && (b.getBuchungsart() == null || b.getBuchungsart().getNummer() != bua
+              .getNummer()))
+      {
+        continue;
+      }
+
+      if (bua.getArt() == -1 && b.getBuchungsart() != null)
+      {
+        continue;
+      }
+      liste.add(b);
+    }
+    return liste;
   }
 }

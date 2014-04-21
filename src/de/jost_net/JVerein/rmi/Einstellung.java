@@ -250,6 +250,11 @@ public interface Einstellung extends DBObject, IBankverbindung
   public void setAutoBuchunguebernahme(Boolean autobuchunguebernahme)
       throws RemoteException;
 
+  public Boolean getUnterdrueckungOhneBuchung() throws RemoteException;
+
+  public void setUnterdrueckungOhneBuchung(Boolean unterdrueckungohnebuchung)
+      throws RemoteException;
+
   public void setBeginnGeschaeftsjahr(String beginngeschaeftsjahr)
       throws RemoteException;
 
