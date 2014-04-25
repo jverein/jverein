@@ -1085,4 +1085,8 @@
 			<column name="unterdrueckungohnebuchung" type="bit" defaultValueBoolean="false" />
 		</addColumn>
 	</changeSet>
+	<changeSet author="Heiner" id="101">
+		<modifyDataType columnName="zahlerid"
+			newDataType="BIGINT(19)" tableName="mitglied" />
+	</changeSet>
 </databaseChangeLog>
