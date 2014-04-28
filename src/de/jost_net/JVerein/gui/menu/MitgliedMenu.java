@@ -26,6 +26,7 @@ import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDuplizierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedInZwischenablageKopierenAction;
+import de.jost_net.JVerein.gui.action.MitgliedLastschriftAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
@@ -112,6 +113,8 @@ public class MitgliedMenu extends ContextMenu
         new SpendenbescheinigungAction(), "rechnung.png"));
     addItem(new CheckedContextMenuItem("Personalbogen",
         new PersonalbogenAction(), "rechnung.png"));
+    addItem(new CheckedSingleContextMenuItem("Manuelle Lastschrift ...",
+        new MitgliedLastschriftAction(), "rechnung.png"));
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
     it.addFilter("art = ?",
         new Object[] { FormularArt.FREIESFORMULAR.getKey() });
