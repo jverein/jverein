@@ -102,7 +102,7 @@
 			<formatter type="plain" usefile="false"/>
 
 			<test name="test.de.jost_net.JVerein.TestSuite" haltonfailure="yes">
-				<formatter type="xml" />
+				<formatter type="xml" usefile="false" />
 			</test>
 		</junit>
 	</target>
