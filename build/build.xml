@@ -99,7 +99,7 @@
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath refid="classpath" />
 
-			<formatter type="plain" />
+			<formatter type="plain" usefile="false"/>
 
 			<test name="test.de.jost_net.JVerein.TestSuite" haltonfailure="yes">
 				<formatter type="xml" />
