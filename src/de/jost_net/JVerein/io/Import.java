@@ -607,7 +607,18 @@ public class Import
     {
       throw new RemoteException("Mitglieds_Nr ist leer");
     }
-    m.setID(id);
+    try
+    {
+      Integer.parseInt(id);
+      m.setID(id); // wird übersprungen bei nichtnumerischen externen
+                   // Mitgliedsnummern.
+    }
+    catch (NumberFormatException e)
+    {
+      // nichts tun. Es kann bei der Verwendung von nichtnumerischen
+      // Mitgliedsnummer zu der Exception kommen. In diesem Fall wird die ID
+      // automatisch von der DB vergeben.
+    }
     m.setAnrede(getResultFrom(results, InternalColumns.ANREDE));
     m.setTitel(getResultFrom(results, InternalColumns.TITEL));
     m.setName(getResultFrom(results, InternalColumns.NACHNAME));
