@@ -164,7 +164,7 @@ public class SEPAKonvertierungControl extends AbstractControl
           }
           DBIterator it = Einstellungen.getDBService().createList(
               Mitglied.class);
-          it.addFilter("mandatdatum is not null");
+          // it.addFilter("mandatdatum is not null");
           it.addFilter("iban is not null");
           while (it.hasNext())
           {
