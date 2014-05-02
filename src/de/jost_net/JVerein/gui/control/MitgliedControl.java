@@ -986,7 +986,7 @@ public class MitgliedControl extends AbstractControl
     {
       return ktoianrede;
     }
-    ktoianrede = new TextInput(getMitglied().getKtoiAnrede(), 10);
+    ktoianrede = new TextInput(getMitglied().getKtoiAnrede(), 40);
     ktoianrede.setName("Anrede");
     return ktoianrede;
   }
@@ -997,7 +997,7 @@ public class MitgliedControl extends AbstractControl
     {
       return ktoititel;
     }
-    ktoititel = new TextInput(getMitglied().getKtoiTitel(), 10);
+    ktoititel = new TextInput(getMitglied().getKtoiTitel(), 40);
     ktoititel.setName("Titel");
     return ktoititel;
   }

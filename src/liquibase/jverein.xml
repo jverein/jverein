@@ -1089,4 +1089,10 @@
 		<modifyDataType columnName="zahlerid"
 			newDataType="BIGINT(19)" tableName="mitglied" />
 	</changeSet>
+	<changeSet author="Heiner" id="102">
+		<modifyDataType columnName="ktoianrede"
+			newDataType="varchar(40)" tableName="mitglied" />
+		<modifyDataType columnName="ktoititel"
+			newDataType="varchar(40)" tableName="mitglied" />
+	</changeSet>
 </databaseChangeLog>
