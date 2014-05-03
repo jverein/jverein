@@ -1095,4 +1095,14 @@
 		<modifyDataType columnName="ktoititel"
 			newDataType="varchar(40)" tableName="mitglied" />
 	</changeSet>
+	<changeSet author="Heiner" id="103">
+		<addColumn tableName="lastschrift">
+			<column name="geschlecht" type="varchar(1)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="Heiner" id="104">
+		<addColumn tableName="mitglied">
+			<column name="ktoigeschlecht" type="varchar(1)" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

@@ -223,6 +223,8 @@ public class MitgliedControl extends AbstractControl
 
   private EmailInput ktoiemail;
 
+  private GeschlechtInput ktoigeschlecht;
+
   private Input telefonprivat;
 
   private Input telefondienstlich;
@@ -1088,6 +1090,21 @@ public class MitgliedControl extends AbstractControl
     }
     ktoiemail = new EmailInput(getMitglied().getKtoiEmail());
     return ktoiemail;
+  }
+
+  public GeschlechtInput getKtoiGeschlecht() throws RemoteException
+  {
+    if (ktoigeschlecht != null)
+    {
+      return ktoigeschlecht;
+    }
+    ktoigeschlecht = new GeschlechtInput(getMitglied().getKtoiGeschlecht());
+    ktoigeschlecht.setName("Geschlecht");
+    ktoigeschlecht.setPleaseChoose("Bitte auswählen");
+    ktoigeschlecht.setMandatory(true);
+    ktoigeschlecht.setName("Geschlecht");
+    ktoigeschlecht.setMandatory(false);
+    return ktoigeschlecht;
   }
 
   public Input getTelefonprivat() throws RemoteException
@@ -3024,6 +3041,7 @@ public class MitgliedControl extends AbstractControl
       m.setKtoiStrasse((String) getKtoiStrasse().getValue());
       m.setKtoiTitel((String) getKtoiTitel().getValue());
       m.setKtoiVorname((String) getKtoiVorname().getValue());
+      m.setKtoiGeschlecht((String) getKtoiGeschlecht().getValue());
       m.setKuendigung((Date) getKuendigung().getValue());
       m.setSterbetag((Date) getSterbetag().getValue());
       m.setName((String) getName(false).getValue());

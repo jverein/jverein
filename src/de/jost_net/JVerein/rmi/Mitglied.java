@@ -126,6 +126,10 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public void setKtoiEmail(String ktoiEmail) throws RemoteException;
 
+  public String getKtoiGeschlecht() throws RemoteException;
+
+  public void setKtoiGeschlecht(String ktoigeschlecht) throws RemoteException;
+
   public String getKontoinhaber(int art) throws RemoteException;
 
   public Date getGeburtsdatum() throws RemoteException;
@@ -136,6 +140,7 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public Integer getAlter() throws RemoteException;
 
+  @Override
   public String getGeschlecht() throws RemoteException;
 
   public void setGeschlecht(String geschlecht) throws RemoteException;

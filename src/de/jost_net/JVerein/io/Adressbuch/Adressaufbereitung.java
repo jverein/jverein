@@ -18,6 +18,7 @@ package de.jost_net.JVerein.io.Adressbuch;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.IAdresse;
 
 public class Adressaufbereitung
@@ -112,6 +113,59 @@ public class Adressaufbereitung
     if (anschrift.length() == 0)
       return feldWert;
     return anschrift + trenner + feldWert;
+  }
+
+  public static String getAnredeFoermlich(IAdresse adr) throws RemoteException
+  {
+    String anredefoermlich = "Sehr geehrte";
+    if (adr.getGeschlecht() != null)
+    {
+      if (adr.getGeschlecht().equals(GeschlechtInput.MAENNLICH))
+      {
+        anredefoermlich += "r Herr " + getEmptyIfNull(adr.getTitel())
+            + (getEmptyIfNull(adr.getTitel()).length() > 0 ? " " : "")
+            + adr.getName() + ",";
+      }
+      else if (adr.getGeschlecht().equals(GeschlechtInput.WEIBLICH))
+      {
+        anredefoermlich += " Frau " + getEmptyIfNull(adr.getTitel())
+            + (getEmptyIfNull(adr.getTitel()).length() > 0 ? " " : "")
+            + adr.getName() + ",";
+      }
+      else if (adr.getGeschlecht().equals(GeschlechtInput.OHNEANGABE))
+      {
+        anredefoermlich = "Guten Tag " + getVornameName(adr) + ",";
+      }
+      else
+      {
+        anredefoermlich += " Damen und Herren,";
+      }
+    }
+    else
+    {
+      anredefoermlich += " Damen und Herren,";
+    }
+    return anredefoermlich;
+  }
+
+  public static String getAnredeDu(IAdresse adr) throws RemoteException
+  {
+    String anrededu = "Hallo";
+    if (adr.getPersonenart().equals("n"))
+    {
+      anrededu += " " + adr.getVorname();
+    }
+    anrededu += ",";
+    return anrededu;
+  }
+
+  private static String getEmptyIfNull(String string)
+  {
+    if (string == null)
+    {
+      return "";
+    }
+    return string;
   }
 
 }

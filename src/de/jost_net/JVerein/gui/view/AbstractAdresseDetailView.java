@@ -482,6 +482,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       cols.addInput(control.getKtoiStaat());
     }
     cols.addInput(control.getKtoiEmail());
+    cols.addInput(control.getKtoiGeschlecht());
     // cols.addInput(control.getBlz());
     // cols.addInput(control.getKonto());
     cols.arrangeVertically();

@@ -48,4 +48,6 @@ public interface IAdresse
   public String getOrt() throws RemoteException;
 
   public String getStaat() throws RemoteException;
+
+  public String getGeschlecht() throws RemoteException;
 }

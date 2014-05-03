@@ -180,6 +180,7 @@ public class AbrechnungSEPA
             ls.setOrt(m.getOrt());
             ls.setStaat(m.getStaat());
             ls.setEmail(m.getEmail());
+            ls.setGeschlecht(m.getGeschlecht());
           }
           else
           {
@@ -194,6 +195,7 @@ public class AbrechnungSEPA
             ls.setOrt(m.getKtoiOrt());
             ls.setStaat(m.getKtoiStaat());
             ls.setEmail(m.getKtoiEmail());
+            ls.setGeschlecht(m.getKtoiGeschlecht());
           }
           break;
         default:

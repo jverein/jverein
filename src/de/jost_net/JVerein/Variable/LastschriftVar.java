@@ -16,10 +16,13 @@
  **********************************************************************/
 package de.jost_net.JVerein.Variable;
 
-public enum LastschriftVar {
+public enum LastschriftVar
+{
   ABRECHNUNGSLAUF_NR("lastschrift_abrechnungslauf_nr"), //
   ABRECHUNGSLAUF_DATUM("lastschrift_abrechnungslauf_datum"), //
   ABRECHNUNGSLAUF_FAELLIGKEIT("lastschrift_abrechnungslauf_faelligkeit"), //
+  ANREDE_DU("lastschrift_anrede_du"), //
+  ANREDE_FOERMLICH("lastschrift_anrede_foermlich"), //
   PERSONENART("lastschrift_personenart"), //
   ANREDE("lastschrift_anrede"), //
   TITEL("lastschrift_titel"), //

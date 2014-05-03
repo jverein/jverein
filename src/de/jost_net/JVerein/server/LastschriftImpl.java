@@ -278,6 +278,7 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   {
     setAttribute("mandatid", mandatid);
   }
+
   @Override
   public String getMandatSequence() throws RemoteException
   {
@@ -285,11 +286,10 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   }
 
   @Override
-  public void setMandatSequence(String mandatsequence)throws RemoteException
+  public void setMandatSequence(String mandatsequence) throws RemoteException
   {
     setAttribute("mandatsequence", mandatsequence);
   }
-
 
   @Override
   public String getVerwendungszweck() throws RemoteException
@@ -341,6 +341,18 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
   }
 
   @Override
+  public String getGeschlecht() throws RemoteException
+  {
+    return (String) getAttribute("geschlecht");
+  }
+
+  @Override
+  public void setGeschlecht(String geschlecht) throws RemoteException
+  {
+    setAttribute("geschlecht", geschlecht);
+  }
+
+  @Override
   public void set(IAdresse adr) throws RemoteException
   {
     this.setAdressierungszusatz(adr.getAdressierungszusatz());
@@ -353,6 +365,7 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
     this.setStrasse(adr.getStrasse());
     this.setTitel(adr.getTitel());
     this.setVorname(adr.getVorname());
+    this.setGeschlecht(adr.getGeschlecht());
   }
 
   @Override

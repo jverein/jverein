@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Lastschrift;
@@ -56,6 +57,7 @@ public class LastschriftMap
       ls.setEmail("willi.wichtig@mail.de");
       ls.setIBAN("DE89370400440532013000");
       ls.setIBAN("DE89370400440532013000");
+      ls.setGeschlecht(GeschlechtInput.MAENNLICH);
       ls.setMandatDatum(new Date());
       ls.setMandatID("1234");
       ls.setName("Wichtig");
@@ -79,6 +81,10 @@ public class LastschriftMap
         abrl.getFaelligkeit());
     map.put(LastschriftVar.PERSONENART.getName(), ls.getPersonenart());
     map.put(LastschriftVar.ANREDE.getName(), ls.getAnrede());
+    map.put(LastschriftVar.ANREDE_DU.getName(),
+        Adressaufbereitung.getAnredeDu(ls));
+    map.put(LastschriftVar.ANREDE_FOERMLICH.getName(),
+        Adressaufbereitung.getAnredeFoermlich(ls));
     map.put(LastschriftVar.TITEL.getName(), ls.getTitel());
     map.put(LastschriftVar.NAME.getName(), ls.getName());
     map.put(LastschriftVar.VORNAME.getName(), ls.getVorname());

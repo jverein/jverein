@@ -854,6 +854,18 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     setAttribute("ktoiemail", ktoiemail);
   }
 
+  @Override
+  public String getKtoiGeschlecht() throws RemoteException
+  {
+    return (String) getAttribute("ktoigeschlecht");
+  }
+
+  @Override
+  public void setKtoiGeschlecht(String ktoigeschlecht) throws RemoteException
+  {
+    setAttribute("ktoigeschlecht", ktoigeschlecht);
+  }
+
   /**
    * art = 1: Name, Vorname
    */
@@ -1261,42 +1273,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         StringTool.toNotNullString(this.getAdresstyp().getID()));
     map.put(MitgliedVar.ANREDE.getName(),
         StringTool.toNotNullString(this.getAnrede()));
-    String anredefoermlich = "Sehr geehrte";
-    if (getGeschlecht() != null)
-    {
-      if (getGeschlecht().equals(GeschlechtInput.MAENNLICH))
-      {
-        anredefoermlich += "r Herr " + getTitel()
-            + (getTitel().length() > 0 ? " " : "") + getName() + ",";
-      }
-      else if (getGeschlecht().equals(GeschlechtInput.WEIBLICH))
-      {
-        anredefoermlich += " Frau " + getTitel()
-            + (getTitel().length() > 0 ? " " : "") + getName() + ",";
-      }
-      else if (getGeschlecht().equals(GeschlechtInput.OHNEANGABE))
-      {
-        anredefoermlich = "Guten Tag " + getTitel()
-            + (getTitel().length() > 0 ? " " : "") + getName() + ",";
-      }
-      else
-      {
-        anredefoermlich += " Damen und Herren,";
-      }
-    }
-    else
-    {
-      anredefoermlich += " Damen und Herren,";
-    }
-    map.put(MitgliedVar.ANREDE_FOERMLICH.getName(), anredefoermlich);
-    String anrededu = "Hallo";
-    if (getPersonenart().equals("n"))
-    {
-      anrededu += " " + getVorname();
-    }
-    anrededu += ",";
-    map.put(MitgliedVar.ANREDE_DU.getName(), anrededu);
-
+    map.put(MitgliedVar.ANREDE_FOERMLICH.getName(),
+        Adressaufbereitung.getAnredeFoermlich(this));
+    map.put(MitgliedVar.ANREDE_DU.getName(),
+        Adressaufbereitung.getAnredeDu(this));
     map.put(MitgliedVar.AUSTRITT.getName(),
         Datum.formatDate(this.getAustritt()));
     map.put(

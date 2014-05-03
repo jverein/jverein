@@ -126,6 +126,11 @@ public interface Lastschrift extends DBObject, IAdresse
 
   public void setBetrag(Double betrag) throws RemoteException;
 
+  @Override
+  public String getGeschlecht() throws RemoteException;
+
+  public void setGeschlecht(String geschlecht) throws RemoteException;
+
   public void set(IAdresse adr) throws RemoteException;
 
 }
