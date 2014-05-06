@@ -536,6 +536,13 @@ public class ImportView extends AbstractView
         showPathFile.setText(importFile.getAbsolutePath());
         showPathFile.pack();
 
+        if (importFile.getAbsolutePath().indexOf(' ') > 0)
+        {
+          GUI.getStatusBar().setErrorText(
+              "Der Dateiname enthält Leerzeichen. Das ist nicht zulässig!");
+          return;
+        }
+
         /*
          * in the rare case, that a import File does have columns with the same
          * name it is necessary to ensure that they are unique bevor they will
