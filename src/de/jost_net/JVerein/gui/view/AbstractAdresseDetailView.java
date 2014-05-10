@@ -413,7 +413,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   private void zeichneZusatzbeitraege(Composite parentComposite)
       throws RemoteException
   {
-    if (isMitgliedDetail() && Einstellungen.getEinstellung().getZusatzbetrag())
+    if (Einstellungen.getEinstellung().getZusatzbetrag())
     {
       Container cont = getTabOrLabelContainer(parentComposite, "Zusatzbeträge");
 
@@ -437,9 +437,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     LabelGroup zahlungsweg = new LabelGroup(container.getComposite(),
         "Zahlungsweg");
 
+    zahlungsweg.addInput(control.getZahlungsweg());
     if (isMitgliedDetail())
     {
-      zahlungsweg.addInput(control.getZahlungsweg());
       if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
       {
         zahlungsweg.addInput(control.getZahlungsrhytmus());
