@@ -194,14 +194,25 @@ public class MitgliedQuery
         {
           addCondition("(eintritt is null or eintritt <= ?)");
           bedingungen.add(control.getStichtag().getValue());
+          addCondition("(austritt is null or austritt > ?)");
+          bedingungen.add(control.getStichtag(false).getValue());
         }
-        addCondition("(austritt is null or austritt > ?)");
-        bedingungen.add(control.getStichtag(false).getValue());
+        else
+        {
+          addCondition("(austritt is null)");
+        }
       }
       else if (control.getMitgliedStatus().getValue().equals("Abgemeldet"))
       {
-        addCondition("austritt is not null and austritt <= ?");
-        bedingungen.add(control.getStichtag(false).getValue());
+        if (control.getStichtag().getValue() != null)
+        {
+          addCondition("austritt is not null and austritt <= ?");
+          bedingungen.add(control.getStichtag(false).getValue());
+        }
+        else
+        {
+          addCondition("austritt is not null");
+        }
       }
     }
     int mailauswahl = (Integer) control.getMailauswahl().getValue();
