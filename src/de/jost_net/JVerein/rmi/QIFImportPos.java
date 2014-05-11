@@ -30,7 +30,7 @@ public interface QIFImportPos extends DBObject
 {
   public static final String TABLE_NAME = "qifimportpos";
 
-  public static final String COL_POSID = "posid";
+  public static final String COL_POSID = "id";
 
   public static final String COL_HEADID = "headid";
 

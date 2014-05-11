@@ -32,14 +32,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.rmi.Beitragsgruppe;
+import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.ZusatzbetragAbrechnungslauf;
 import de.jost_net.JVerein.server.AbrechnungslaufImpl;
 import de.jost_net.JVerein.server.AdresstypImpl;
 import de.jost_net.JVerein.server.AnfangsbestandImpl;
 import de.jost_net.JVerein.server.ArbeitseinsatzImpl;
-import de.jost_net.JVerein.server.BeitragsgruppeImpl;
 import de.jost_net.JVerein.server.BuchungDokumentImpl;
 import de.jost_net.JVerein.server.BuchungImpl;
-import de.jost_net.JVerein.server.BuchungsartImpl;
 import de.jost_net.JVerein.server.BuchungsklasseImpl;
 import de.jost_net.JVerein.server.EigenschaftGruppeImpl;
 import de.jost_net.JVerein.server.EigenschaftImpl;
@@ -51,17 +52,22 @@ import de.jost_net.JVerein.server.FormularfeldImpl;
 import de.jost_net.JVerein.server.JahresabschlussImpl;
 import de.jost_net.JVerein.server.KontoImpl;
 import de.jost_net.JVerein.server.KursteilnehmerImpl;
+import de.jost_net.JVerein.server.LastschriftImpl;
 import de.jost_net.JVerein.server.LehrgangImpl;
 import de.jost_net.JVerein.server.LehrgangsartImpl;
+import de.jost_net.JVerein.server.LesefeldImpl;
 import de.jost_net.JVerein.server.MailAnhangImpl;
 import de.jost_net.JVerein.server.MailEmpfaengerImpl;
 import de.jost_net.JVerein.server.MailImpl;
 import de.jost_net.JVerein.server.MailVorlageImpl;
 import de.jost_net.JVerein.server.MitgliedDokumentImpl;
 import de.jost_net.JVerein.server.MitgliedImpl;
+import de.jost_net.JVerein.server.MitgliedNextBGruppeImpl;
 import de.jost_net.JVerein.server.MitgliedfotoImpl;
 import de.jost_net.JVerein.server.MitgliedskontoImpl;
 import de.jost_net.JVerein.server.ProjektImpl;
+import de.jost_net.JVerein.server.QIFImportHeadImpl;
+import de.jost_net.JVerein.server.QIFImportPosImpl;
 import de.jost_net.JVerein.server.SpendenbescheinigungImpl;
 import de.jost_net.JVerein.server.WiedervorlageImpl;
 import de.jost_net.JVerein.server.ZusatzbetragImpl;
@@ -88,42 +94,22 @@ public class BackupCreateAction implements Action
 {
   // Die Versionstabelle wird nicht mit kopiert
 
-  Class<?>[] tab = { //
-  AbrechnungslaufImpl.class,//
-      AdresstypImpl.class,//
-      KontoImpl.class,//
-      AnfangsbestandImpl.class,//
-      BuchungsklasseImpl.class,//
-      EigenschaftGruppeImpl.class,//
-      EinstellungImpl.class,//
-      FelddefinitionImpl.class,//
-      FormularImpl.class, //
-      FormularfeldImpl.class,//
-      JahresabschlussImpl.class,//
-      KursteilnehmerImpl.class,//
-      LehrgangsartImpl.class, //
-      MailImpl.class,//
-      MailAnhangImpl.class,//
-      MailVorlageImpl.class,//
-      BuchungsartImpl.class,//
-      ProjektImpl.class,//
-      EigenschaftImpl.class,//
-      BeitragsgruppeImpl.class,//
-      MitgliedImpl.class,//
-      ArbeitseinsatzImpl.class,//
-      MitgliedDokumentImpl.class,//
-      MitgliedfotoImpl.class,//
-      MitgliedskontoImpl.class, //
-      SpendenbescheinigungImpl.class,//
-      WiedervorlageImpl.class,//
-      ZusatzbetragImpl.class,//
-      ZusatzfelderImpl.class, //
-      BuchungImpl.class,//
-      BuchungDokumentImpl.class, //
-      EigenschaftenImpl.class,//
-      LehrgangImpl.class,//
-      MailEmpfaengerImpl.class,//
-  };
+  Class<?>[] tab = { AbrechnungslaufImpl.class, AdresstypImpl.class,
+      BuchungsklasseImpl.class, EigenschaftGruppeImpl.class,
+      EinstellungImpl.class, FelddefinitionImpl.class, FormularImpl.class,
+      FormularfeldImpl.class, JahresabschlussImpl.class, KontoImpl.class,
+      KursteilnehmerImpl.class, LehrgangsartImpl.class, LesefeldImpl.class,
+      MailImpl.class, MailAnhangImpl.class, MailVorlageImpl.class,
+      MitgliedNextBGruppeImpl.class, ProjektImpl.class,
+      QIFImportHeadImpl.class, QIFImportPosImpl.class,
+      AnfangsbestandImpl.class, Buchungsart.class, EigenschaftImpl.class,
+      Beitragsgruppe.class, MitgliedImpl.class, MitgliedDokumentImpl.class,
+      MitgliedfotoImpl.class, MitgliedskontoImpl.class,
+      SpendenbescheinigungImpl.class, WiedervorlageImpl.class,
+      ZusatzbetragImpl.class, ZusatzbetragAbrechnungslauf.class,
+      ZusatzfelderImpl.class, ArbeitseinsatzImpl.class, BuchungImpl.class,
+      BuchungDokumentImpl.class, EigenschaftenImpl.class,
+      LastschriftImpl.class, LehrgangImpl.class, MailEmpfaengerImpl.class };
 
   /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)

@@ -38,72 +38,59 @@ import de.willuhn.logging.Logger;
  */
 public class DBTool
 {
-  private ArrayList<Tabelle> tabellen = new ArrayList<DBTool.Tabelle>();
+  /**
+   * Liste aller Tabellen
+   */
+  private ArrayList<String> tabellen = new ArrayList<String>();
 
-  private ArrayList<Tabelle> ausgabe1 = new ArrayList<Tabelle>();
-
-  private ArrayList<String> ausgabe2 = new ArrayList<String>();
+  private ArrayList<String> ausgabe = new ArrayList<String>();
 
   public DBTool()
   {
     try
     {
+      // Liste aller Tabellen aufbauen
       Connection con = getConnection();
       DatabaseMetaData meta = con.getMetaData();
-      ResultSet rs = meta.getTables(null, null, "%", new String[] { "TABLE" });
+      ResultSet rs = meta.getTables("%", "%", "%", new String[] { "TABLE" });
       while (rs.next())
       {
-        Tabelle t = new Tabelle(rs.getString("TABLE_NAME"));
-        tabellen.add(t);
+        tabellen.add(rs.getString("TABLE_NAME"));
       }
+      System.out.println("Tabellen insgesamt:" + tabellen.size());
 
-      for (Tabelle t : tabellen)
+      // Alle Tabellen auf importierte Keys überprüfen
+      while (ausgabe.size() < tabellen.size())
       {
-        rs = meta.getImportedKeys(null, null, t.getName());
-        while (rs.next())
+        for (String t : tabellen)
         {
-          t.add(rs.getString("PKTABLE_NAME"));
-        }
-        // rs = meta.getExportedKeys(null, null, t.getName());
-        // while (rs.next())
-        // {
-        // t.add(rs.getString("FKTABLE_NAME"));
-        // }
-        System.out.println(t);
-      }
-      int anzahlAusgegeben = 0;
-      while (anzahlAusgegeben < tabellen.size())
-      {
-        for (Tabelle t : tabellen)
-        {
-          if (t.isAusgegeben())
+          if (ausgabe.contains(t))
           {
             continue;
           }
-          boolean ausgeben = true;
-          for (String ref : t.getReferenzen())
+          rs = meta.getImportedKeys(null, null, t);
+
+          boolean allexported = true;
+          while (rs.next())
           {
-            if (!ausgabe2.contains(ref))
+            String imptab = rs.getString("PKTABLE_NAME");
+            if (!ausgabe.contains(imptab))
             {
-              ausgeben = false;
+              allexported = false;
             }
           }
-          if (ausgeben)
+          if (allexported)
           {
-            ausgabe1.add(t);
-            ausgabe2.add(t.getName());
-            t.setAusgegeben(true);
-            anzahlAusgegeben++;
+            ausgabe.add(t);
           }
         }
       }
-      System.out.println("----------------------------");
-      for (Tabelle t : ausgabe1)
+      for (String t : ausgabe)
       {
         System.out.println(t);
       }
-      System.out.println(ausgabe1.size());
-      System.out.println(tabellen.size());
+      System.out.println("Ausgabetabellen: " + ausgabe.size());
+      System.out.println("----------------------------");
       System.out.println("Fertig");
     }
     catch (ClassNotFoundException e)
@@ -120,7 +107,7 @@ public class DBTool
   {
     Class.forName("org.h2.Driver");
     return DriverManager.getConnection(
-        "jdbc:h2:C:/Users/heiner/jameica.dlrg/jverein/h2db/jverein", "jverein",
+        "jdbc:h2:/Users/heiner/jameica.buch/jverein/h2db/jverein", "jverein",
         "jverein");
   }
 
@@ -129,54 +116,4 @@ public class DBTool
     new DBTool();
   }
 
-  public class Tabelle
-  {
-    private boolean ausgegeben = false;
-
-    private String name;
-
-    private ArrayList<String> referenzen;
-
-    public Tabelle(String name)
-    {
-      this.name = name;
-      referenzen = new ArrayList<String>();
-    }
-
-    public void add(String referenz)
-    {
-      referenzen.add(referenz);
-    }
-
-    public String getName()
-    {
-      return name;
-    }
-
-    public ArrayList<String> getReferenzen()
-    {
-      return referenzen;
-    }
-
-    public void setAusgegeben(boolean ausgegeben)
-    {
-      this.ausgegeben = ausgegeben;
-    }
-
-    public boolean isAusgegeben()
-    {
-      return ausgegeben;
-    }
-
-    @Override
-    public String toString()
-    {
-      String ret = name;
-      for (String ref : referenzen)
-      {
-        ret += "->" + ref;
-      }
-      return ret;
-    }
-  }
 }

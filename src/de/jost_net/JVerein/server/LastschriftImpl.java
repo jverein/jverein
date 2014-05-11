@@ -23,7 +23,6 @@ import de.jost_net.JVerein.io.IAdresse;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Lastschrift;
-import de.jost_net.JVerein.rmi.Lehrgangsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.db.AbstractDBObject;
 
@@ -76,7 +75,7 @@ public class LastschriftImpl extends AbstractDBObject implements Lastschrift
     }
     if ("kursteilnehmer".equals(arg0))
     {
-      return Lehrgangsart.class;
+      return Kursteilnehmer.class;
     }
     if ("abrechnungslauf".equals(arg0))
     {
