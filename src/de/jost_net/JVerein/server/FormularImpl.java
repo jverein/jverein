@@ -138,10 +138,7 @@ public class FormularImpl extends AbstractDBObject implements Formular
   @Override
   public void setArt(FormularArt art) throws RemoteException
   {
-    setAttribute("art", art == null ? 0 : art.ordinal()); // TODO: This is a
-                                                          // workaround to
-    // keep the database side as
-    // integers
+    setAttribute("art", art == null ? 0 : art.getKey());
   }
 
   @Override
