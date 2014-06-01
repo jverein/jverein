@@ -29,19 +29,18 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Label;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.gui.dialogs.MailEmpfaengerAuswahlDialog;
+import de.jost_net.JVerein.gui.util.JameicaUtil;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.Color;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -62,7 +61,7 @@ public class MailDetailView extends AbstractView
     GridLayout layout = new GridLayout(2, false);
     comp.setLayout(layout);
 
-    addLabel("Empfänger", comp, GridData.VERTICAL_ALIGN_BEGINNING);
+    JameicaUtil.addLabel("Empfänger", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     Composite comp2 = new Composite(comp, SWT.NONE);
     GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
     gd2.heightHint = 100;
@@ -99,12 +98,12 @@ public class MailDetailView extends AbstractView
     });
     add.paint(comp3);
 
-    addLabel("Betreff", comp, GridData.VERTICAL_ALIGN_CENTER);
+    JameicaUtil.addLabel("Betreff", comp, GridData.VERTICAL_ALIGN_CENTER);
     control.getBetreff().paint(comp);
-    addLabel("Text", comp, GridData.VERTICAL_ALIGN_BEGINNING);
+    JameicaUtil.addLabel("Text", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     control.getTxt().paint(comp);
 
-    addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
+    JameicaUtil.addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     Composite comp4 = new Composite(comp, SWT.NONE);
     GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
     gd4.heightHint = 90;
@@ -138,9 +137,10 @@ public class MailDetailView extends AbstractView
         {
           try
           {
-            MailAnhang anh = (MailAnhang) Einstellungen.getDBService().createObject(
-                MailAnhang.class, null);
-            anh.setDateiname(f.substring(f.lastIndexOf(System.getProperty("file.separator")) + 1));
+            MailAnhang anh = (MailAnhang) Einstellungen.getDBService()
+                .createObject(MailAnhang.class, null);
+            anh.setDateiname(f.substring(f.lastIndexOf(System
+                .getProperty("file.separator")) + 1));
             File file = new File(f);
             FileInputStream fis = new FileInputStream(file);
             byte[] buffer = new byte[(int) file.length()];
@@ -167,14 +167,6 @@ public class MailDetailView extends AbstractView
     buttons.addButton(control.getMailReSendButton());
     buttons.addButton(control.getMailSendButton());
     buttons.paint(this.getParent());
-  }
-
-  private void addLabel(String name, Composite parent, int align)
-  {
-    Label lb = new Label(parent, SWT.NONE);
-    lb.setBackground(Color.BACKGROUND.getSWTColor());
-    lb.setText(name);
-    lb.setLayoutData(new GridData(align));
   }
 
   @Override

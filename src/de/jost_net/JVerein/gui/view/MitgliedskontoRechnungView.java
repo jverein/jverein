@@ -30,7 +30,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 
 public class MitgliedskontoRechnungView extends AbstractView
 {
@@ -42,18 +42,22 @@ public class MitgliedskontoRechnungView extends AbstractView
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Parameter");
+    SimpleContainer cont = new SimpleContainer(getParent(), true);
+    cont.addHeadline("Parameter");
     if (this.getCurrentObject() == null)
     {
-      group.addLabelPair("von Datum",
+      cont.addLabelPair("von Datum",
           control.getVondatum(MitgliedskontoControl.DATUM_RECHNUNG));
-      group.addLabelPair("bis Datum",
+      cont.addLabelPair("bis Datum",
           control.getBisdatum(MitgliedskontoControl.DATUM_RECHNUNG));
-      group.addLabelPair("ohne Abbucher", control.getOhneAbbucher());
+      cont.addLabelPair("ohne Abbucher", control.getOhneAbbucher());
     }
+    cont.addLabelPair("Formular", control.getFormular(FormularArt.RECHNUNG));
+    cont.addInput(control.getAusgabeart());
 
-    group.addLabelPair("Formular",
-        control.getFormular(FormularArt.RECHNUNG));
+    cont.addHeadline("Mail");
+    cont.addInput(control.getBetreff());
+    cont.addLabelPair("Text", control.getTxt());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

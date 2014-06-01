@@ -51,6 +51,8 @@ import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.MitgliedskontoMenu;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.Kontoauszug;
+import de.jost_net.JVerein.io.Rechnungsausgabe;
+import de.jost_net.JVerein.keys.Ausgabeart;
 import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Formular;
@@ -155,6 +157,8 @@ public class MitgliedskontoControl extends AbstractControl
 
   private CheckboxInput ohneabbucher = null;
 
+  private SelectInput ausgabeart = null;
+
   private TextInput suchname = null;
 
   private TextInput suchname2 = null;
@@ -162,6 +166,10 @@ public class MitgliedskontoControl extends AbstractControl
   private SelectInput differenz = null;
 
   private CheckboxInput spezialsuche = null;
+
+  private TextInput betreff = null;
+
+  private TextAreaInput txt = null;
 
   // private CheckboxInput offenePosten = null;
 
@@ -257,8 +265,7 @@ public class MitgliedskontoControl extends AbstractControl
     return betrag;
   }
 
-  public FormularInput getFormular(FormularArt mahnung)
-      throws RemoteException
+  public FormularInput getFormular(FormularArt mahnung) throws RemoteException
   {
     if (formular != null)
     {
@@ -266,6 +273,11 @@ public class MitgliedskontoControl extends AbstractControl
     }
     formular = new FormularInput(mahnung);
     return formular;
+  }
+
+  public String getDatumverwendung()
+  {
+    return this.datumverwendung;
   }
 
   public DateInput getVondatum(String datumverwendung)
@@ -419,6 +431,40 @@ public class MitgliedskontoControl extends AbstractControl
     suchname2.setName("Name");
     suchname2.addListener(new FilterListener());
     return suchname2;
+  }
+
+  public SelectInput getAusgabeart()
+  {
+    if (ausgabeart != null)
+    {
+      return ausgabeart;
+    }
+    ausgabeart = new SelectInput(Ausgabeart.values(),
+        Ausgabeart.valueOf(settings.getString("ausgabeart", "DRUCK")));
+    ausgabeart.setName("Ausgabe");
+    return ausgabeart;
+  }
+
+  public TextInput getBetreff() throws RemoteException
+  {
+    if (betreff != null)
+    {
+      return betreff;
+    }
+    betreff = new TextInput(settings.getString("mail.betreff", ""), 100);
+    betreff.setName("Betreff");
+    return betreff;
+  }
+
+  public TextAreaInput getTxt() throws RemoteException
+  {
+    if (txt != null)
+    {
+      return txt;
+    }
+    txt = new TextAreaInput(settings.getString("mail.text", ""), 10000);
+    txt.setName("Text");
+    return txt;
   }
 
   public void handleStore()
@@ -781,97 +827,11 @@ public class MitgliedskontoControl extends AbstractControl
 
   private void generiereRechnung(Object currentObject) throws IOException
   {
-    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
-    if (path != null && path.length() > 0)
-    {
-      fd.setFilterPath(path);
-    }
-    fd.setFileName(new Dateiname("rechnung", "", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
-
-    String s = fd.open();
-    if (s == null || s.length() == 0)
-    {
-      return;
-    }
-    if (!s.endsWith(".PDF"))
-    {
-      s = s + ".PDF";
-    }
-    final File file = new File(s);
-    settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(FormularArt.RECHNUNG).getValue();
-    if (form == null)
-    {
-      throw new IOException("kein Rechnungsformular ausgewählt");
-    }
-    Formular fo = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, form.getID());
-    fa = new FormularAufbereitung(file);
-    ArrayList<ArrayList<Mitgliedskonto>> mks = null;
-    if (currentObject != null)
-    {
-      mks = getRechnungsempfaenger(currentObject);
-    }
-    else
-    {
-      DBIterator it = Einstellungen.getDBService().createList(
-          Mitgliedskonto.class);
-      Date d = null;
-      if (getVondatum(datumverwendung).getValue() != null)
-      {
-        d = (Date) getVondatum(datumverwendung).getValue();
-        if (d != null)
-        {
-          settings.setAttribute(datumverwendung + "datumvon",
-              new JVDateFormatTTMMJJJJ().format(d));
-        }
-
-        it.addFilter("datum >= ?", new Object[] { d });
-      }
-      else
-      {
-        settings.setAttribute(datumverwendung + "datumvon", "");
-      }
-      if (getBisdatum(datumverwendung).getValue() != null)
-      {
-        d = (Date) getBisdatum(datumverwendung).getValue();
-        if (d != null)
-        {
-          settings.setAttribute(datumverwendung + "datumbis",
-              new JVDateFormatTTMMJJJJ().format(d));
-        }
-        it.addFilter("datum <= ?", new Object[] { d });
-      }
-      else
-      {
-        settings.setAttribute(datumverwendung + "datumbis", "");
-      }
-      if ((Boolean) getOhneAbbucher().getValue())
-      {
-        it.addFilter("zahlungsweg <> ?",
-            new Object[] { Zahlungsweg.BASISLASTSCHRIFT });
-      }
-
-      Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
-      int i = 0;
-      while (it.hasNext())
-      {
-        mk[i] = (Mitgliedskonto) it.next();
-        i++;
-      }
-      mks = getRechnungsempfaenger(mk);
-    }
-    for (ArrayList<Mitgliedskonto> mk : mks)
-    {
-      aufbereitenFormular(mk, fo);
-    }
-    fa.showFormular();
-
+    Ausgabeart aa = (Ausgabeart) getAusgabeart().getValue();
+    settings.setAttribute("ausgabeart", aa.toString());
+    settings.setAttribute("mail.betreff", (String) getBetreff().getValue());
+    settings.setAttribute("mail.text", (String) getTxt().getValue());
+    new Rechnungsausgabe(this);
   }
 
   public Button getStartMahnungButton(final Object currentObject)
