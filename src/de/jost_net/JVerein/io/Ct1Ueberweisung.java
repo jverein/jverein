@@ -98,7 +98,7 @@ public class Ct1Ueberweisung
       e.setIban(ls.getIBAN());
       e.setName(ls.getName());
       e.setReferenz(ls.getMandatID());
-      e.setVerwendungszweck(eval(ls, ls.getVerwendungszweck()));
+      e.setVerwendungszweck(eval(ls, verwendungszweck));
       ueb.add(e);
     }
     ueb.write(file);
@@ -136,7 +136,7 @@ public class Ct1Ueberweisung
             Zeichen.convert(ls.getName()), 255));
         ue.setTermin(faell);
         ue.setZweck(StringTool.getStringWithMaxLength(
-            Zeichen.convert(eval(ls, ls.getVerwendungszweck())), 140));
+            Zeichen.convert(eval(ls, verwendungszweck)), 140));
         ue.setKonto(hibk);
         ueberweisungen[i] = ue;
         i++;
