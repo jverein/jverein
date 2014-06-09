@@ -118,9 +118,16 @@ public class SEPABugsControl extends AbstractControl
   private void plausi(List<Bug> bugs, ILastschrift ls) throws RemoteException
   {
     if (ls.getMandatDatum().equals(Einstellungen.NODATE))
+    {
       bugs.add(new Bug(ls,
           "Für die Basislastschrift fehlt das Mandatsdatum. Keine Lastschrift",
           Bug.HINT));
+    }
+    else if (ls.getMandatDatum().after(new Date()))
+    {
+      bugs.add(new Bug(ls,
+          "Das Mandatsdatum liegt in der Zukunft. Keine Lastschrift", Bug.HINT));
+    }
 
     IBAN iban = null;
     BIC bic = null;
