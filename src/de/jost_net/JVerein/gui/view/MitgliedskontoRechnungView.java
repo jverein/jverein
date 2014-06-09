@@ -47,17 +47,18 @@ public class MitgliedskontoRechnungView extends AbstractView
     if (this.getCurrentObject() == null)
     {
       cont.addLabelPair("von Datum",
-          control.getVondatum(MitgliedskontoControl.DATUM_RECHNUNG));
+          control.getVondatum(MitgliedskontoControl.TYP.RECHNUNG.name()));
       cont.addLabelPair("bis Datum",
-          control.getBisdatum(MitgliedskontoControl.DATUM_RECHNUNG));
+          control.getBisdatum(MitgliedskontoControl.TYP.RECHNUNG.name()));
       cont.addLabelPair("ohne Abbucher", control.getOhneAbbucher());
     }
     cont.addLabelPair("Formular", control.getFormular(FormularArt.RECHNUNG));
     cont.addInput(control.getAusgabeart());
 
     cont.addHeadline("Mail");
-    cont.addInput(control.getBetreff());
-    cont.addLabelPair("Text", control.getTxt());
+    cont.addInput(control.getBetreff(MitgliedskontoControl.TYP.RECHNUNG.name()));
+    cont.addLabelPair("Text",
+        control.getTxt(MitgliedskontoControl.TYP.RECHNUNG.name()));
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

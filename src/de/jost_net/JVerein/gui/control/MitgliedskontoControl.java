@@ -21,44 +21,35 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
-import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
-import de.jost_net.JVerein.Variable.AllgemeineMap;
-import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
 import de.jost_net.JVerein.gui.input.FormularInput;
 import de.jost_net.JVerein.gui.menu.MitgliedskontoMenu;
-import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.Kontoauszug;
+import de.jost_net.JVerein.io.Mahnungsausgabe;
 import de.jost_net.JVerein.io.Rechnungsausgabe;
 import de.jost_net.JVerein.keys.Ausgabeart;
 import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.keys.Zahlungsweg;
-import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
-import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
@@ -133,8 +124,6 @@ public class MitgliedskontoControl extends AbstractControl
 
   private FormularInput formular = null;
 
-  private FormularAufbereitung fa;
-
   private Mitgliedskonto mkto;
 
   private TablePart mitgliedskontoList;
@@ -145,9 +134,15 @@ public class MitgliedskontoControl extends AbstractControl
 
   public static final String DATUM_MITGLIEDSKONTO = "datum.mitgliedskonto.";
 
-  public static final String DATUM_RECHNUNG = "datum.rechnung.";
+  //
+  // public static final String DATUM_RECHNUNG = "datum.rechnung.";
+  //
+  // public static final String DATUM_MAHNUNG = "datum.mahnung.";
 
-  public static final String DATUM_MAHNUNG = "datum.mahnung.";
+  public enum TYP
+  {
+    RECHNUNG, MAHNUNG
+  };
 
   private String datumverwendung = null;
 
@@ -445,24 +440,26 @@ public class MitgliedskontoControl extends AbstractControl
     return ausgabeart;
   }
 
-  public TextInput getBetreff() throws RemoteException
+  public TextInput getBetreff(String verwendung) throws RemoteException
   {
     if (betreff != null)
     {
       return betreff;
     }
-    betreff = new TextInput(settings.getString("mail.betreff", ""), 100);
+    betreff = new TextInput(
+        settings.getString(verwendung + ".mail.betreff", ""), 100);
     betreff.setName("Betreff");
     return betreff;
   }
 
-  public TextAreaInput getTxt() throws RemoteException
+  public TextAreaInput getTxt(String verwendung) throws RemoteException
   {
     if (txt != null)
     {
       return txt;
     }
-    txt = new TextAreaInput(settings.getString("mail.text", ""), 10000);
+    txt = new TextAreaInput(settings.getString(verwendung + ".mail.text", ""),
+        10000);
     txt.setName("Text");
     return txt;
   }
@@ -649,7 +646,7 @@ public class MitgliedskontoControl extends AbstractControl
     return mitglieder;
   }
 
-  private GenericIterator getMitgliedskontoIterator() throws RemoteException
+  public GenericIterator getMitgliedskontoIterator() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
     Date d1 = null;
@@ -829,8 +826,10 @@ public class MitgliedskontoControl extends AbstractControl
   {
     Ausgabeart aa = (Ausgabeart) getAusgabeart().getValue();
     settings.setAttribute("ausgabeart", aa.toString());
-    settings.setAttribute("mail.betreff", (String) getBetreff().getValue());
-    settings.setAttribute("mail.text", (String) getTxt().getValue());
+    settings.setAttribute(TYP.RECHNUNG.name() + ".mail.betreff",
+        (String) getBetreff(TYP.RECHNUNG.name()).getValue());
+    settings.setAttribute(TYP.RECHNUNG.name() + ".mail.text",
+        (String) getTxt(TYP.RECHNUNG.name()).getValue());
     new Rechnungsausgabe(this);
   }
 
@@ -863,147 +862,13 @@ public class MitgliedskontoControl extends AbstractControl
 
   private void generiereMahnung(Object currentObject) throws IOException
   {
-    FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
-    if (path != null && path.length() > 0)
-    {
-      fd.setFilterPath(path);
-    }
-    fd.setFileName(new Dateiname("mahnung", "", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF" });
-
-    String s = fd.open();
-    if (s == null || s.length() == 0)
-    {
-      return;
-    }
-    if (!s.endsWith(".PDF"))
-    {
-      s = s + ".PDF";
-    }
-    final File file = new File(s);
-    settings.setAttribute("lastdir", file.getParent());
-    Formular form = (Formular) getFormular(FormularArt.MAHNUNG).getValue();
-    Formular fo = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, form.getID());
-    fa = new FormularAufbereitung(file);
-    ArrayList<ArrayList<Mitgliedskonto>> mks = null;
-    if (currentObject != null)
-    {
-      mks = getRechnungsempfaenger(currentObject);
-    }
-    else
-    {
-      GenericIterator it = getMitgliedskontoIterator();
-      Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
-      int i = 0;
-      while (it.hasNext())
-      {
-        mk[i] = (Mitgliedskonto) it.next();
-        i++;
-      }
-      mks = getRechnungsempfaenger(mk);
-    }
-    for (ArrayList<Mitgliedskonto> mk : mks)
-    {
-      aufbereitenFormular(mk, fo);
-    }
-    fa.showFormular();
-
-  }
-
-  private void aufbereitenFormular(ArrayList<Mitgliedskonto> mk, Formular fo)
-      throws RemoteException
-  {
-    Map<String, Object> map = new MitgliedskontoMap().getMap(mk, null);
-    Mitglied m = mk.get(0).getMitglied();
-    map = m.getMap(map);
-    map = new AllgemeineMap().getMap(map);
-    fa.writeForm(fo, map);
-  }
-
-  /**
-   * Liefert ein Array pro Mitglied mit Arrays der einzelnen Rechnungspositionen
-   * 
-   * @param currentObject
-   */
-  private ArrayList<ArrayList<Mitgliedskonto>> getRechnungsempfaenger(
-      Object currentObject)
-  {
-    ArrayList<ArrayList<Mitgliedskonto>> ret = new ArrayList<ArrayList<Mitgliedskonto>>();
-    if (currentObject instanceof Mitgliedskonto)
-    {
-      Mitgliedskonto mk = (Mitgliedskonto) currentObject;
-      ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();
-      r.add(mk);
-      ret.add(r);
-      return ret;
-    }
-    if (currentObject instanceof Mitgliedskonto[])
-    {
-      Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
-      Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
-      {
-
-        @Override
-        public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
-        {
-          try
-          {
-            int c = mk1.getMitglied().getName()
-                .compareTo(mk2.getMitglied().getName());
-            if (c != 0)
-            {
-              return c;
-            }
-            c = mk1.getMitglied().getVorname()
-                .compareTo(mk2.getMitglied().getVorname());
-            if (c != 0)
-            {
-              return c;
-            }
-            return mk1.getMitglied().getID()
-                .compareTo(mk2.getMitglied().getID());
-          }
-          catch (RemoteException e)
-          {
-            throw new RuntimeException(e);
-          }
-        }
-      });
-      try
-      {
-        ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();
-        r = new ArrayList<Mitgliedskonto>();
-        for (Mitgliedskonto mk : mkn)
-        {
-          if (r.size() == 0
-              || r.get(0).getMitglied().getID()
-                  .equals(mk.getMitglied().getID()))
-          {
-            r.add(mk);
-          }
-          else
-          {
-            ret.add(r);
-            r = new ArrayList<Mitgliedskonto>();
-            r.add(mk);
-          }
-        }
-        if (r.size() > 0)
-        {
-          ret.add(r);
-        }
-      }
-      catch (RemoteException e)
-      {
-        throw new RuntimeException(e);
-      }
-    }
-    return ret;
+    Ausgabeart aa = (Ausgabeart) getAusgabeart().getValue();
+    settings.setAttribute("ausgabeart", aa.toString());
+    settings.setAttribute(TYP.MAHNUNG.name() + ".mail.betreff",
+        (String) getBetreff(TYP.MAHNUNG.name()).getValue());
+    settings.setAttribute(TYP.MAHNUNG.name() + ".mail.text",
+        (String) getTxt(TYP.MAHNUNG.name()).getValue());
+    new Mahnungsausgabe(this);
   }
 
   private class FilterListener implements Listener

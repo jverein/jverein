@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -31,7 +26,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.gui.util.SimpleContainer;
 
 public class MitgliedskontoMahnungView extends AbstractView
 {
@@ -43,17 +38,24 @@ public class MitgliedskontoMahnungView extends AbstractView
 
     final MitgliedskontoControl control = new MitgliedskontoControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Parameter");
+    SimpleContainer cont = new SimpleContainer(getParent(), true);
+    cont.addHeadline("Parameter");
     if (this.getCurrentObject() == null)
     {
-      group.addLabelPair("von Datum",
-          control.getVondatum(MitgliedskontoControl.DATUM_MAHNUNG));
-      group.addLabelPair("bis Datum",
-          control.getBisdatum(MitgliedskontoControl.DATUM_MAHNUNG));
+      cont.addLabelPair("von Datum",
+          control.getVondatum(MitgliedskontoControl.TYP.MAHNUNG.name()));
+      cont.addLabelPair("bis Datum",
+          control.getBisdatum(MitgliedskontoControl.TYP.MAHNUNG.name()));
     }
-    group
-        .addLabelPair("Formular", control.getFormular(FormularArt.MAHNUNG));
+    cont.addLabelPair("Formular", control.getFormular(FormularArt.MAHNUNG));
     control.getDifferenz(DIFFERENZ.FEHLBETRAG);
+
+    cont.addInput(control.getAusgabeart());
+
+    cont.addHeadline("Mail");
+    cont.addInput(control.getBetreff(MitgliedskontoControl.TYP.MAHNUNG.name()));
+    cont.addLabelPair("Text",
+        control.getTxt(MitgliedskontoControl.TYP.MAHNUNG.name()));
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
