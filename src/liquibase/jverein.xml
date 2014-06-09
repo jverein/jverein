@@ -1109,6 +1109,11 @@
     <renameColumn columnDataType="BIGINT(19)"
             newColumnName="id"
             oldColumnName="posid"
-            tableName="qifimportpos"/>
-</changeSet>
+            tableName="qifimportpos"/>            
+	</changeSet>
+	<changeSet author="Heiner" id="106">
+		<modifyDataType columnName="altersgruppen"
+			newDataType="varchar(200)" tableName="einstellung" />
+	</changeSet>
+	
 </databaseChangeLog>

@@ -1112,7 +1112,7 @@ public class EinstellungControl extends AbstractControl
       return altersgruppen;
     }
     altersgruppen = new TextInput(Einstellungen.getEinstellung()
-        .getAltersgruppen(), 50);
+        .getAltersgruppen(), 200);
     return altersgruppen;
   }
 
