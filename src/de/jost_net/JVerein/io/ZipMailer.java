@@ -28,6 +28,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import javax.mail.SendFailedException;
+
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -123,9 +125,16 @@ public class ZipMailer
               Velocity.evaluate(context, wtext2, "LOG", text);
 
               monitor.log("Versende an " + mail);
-
-              sender.sendMail(mail, wtext1.getBuffer().toString(), wtext2
-                  .getBuffer().toString(), anhang);
+              try
+              {
+                sender.sendMail(mail, wtext1.getBuffer().toString(), wtext2
+                    .getBuffer().toString(), anhang);
+              }
+              catch (SendFailedException e1)
+              {
+                monitor.log("Versand fehlgeschlagen: " + mail);
+                Logger.error("Fehler beim Mailversand: " + e1);
+              }
             } // Ende von if
           } // Ende von for
           zip.close();
