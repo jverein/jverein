@@ -801,7 +801,7 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk("\n"));
       p.add(new Chunk(
-          "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitliedsbeiträge steuerlich nicht abziehbar sind:"));
+          "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitgliedsbeiträge steuerlich nicht abziehbar sind:"));
       rpt.add(p);
       p = new Paragraph();
       p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
@@ -1204,7 +1204,7 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk("\n"));
       p.add(new Chunk(
-          "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitliedsbeiträge steuerlich nicht abziehbar sind:"));
+          "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitgliedsbeiträge steuerlich nicht abziehbar sind:"));
       rpt.add(p);
       p = new Paragraph();
       p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 8));
