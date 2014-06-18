@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -21,75 +16,48 @@
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
-import java.util.ArrayList;
-
 /**
  * Abrechnungsausgabe
  */
-public class Abrechnungsausgabe
+public enum Abrechnungsausgabe
 {
-  public static final int SEPA_DATEI = 1;
 
-  public static final int HIBISCUS = 2;
+  SEPA_DATEI(1, "Datei"), HIBISCUS(2, "Hibiscus");
+  private final String text;
 
-  private int ausgabe;
+  private final int key;
 
-  public Abrechnungsausgabe(int key)
+  Abrechnungsausgabe(int key, String text)
   {
-    this.ausgabe = key;
+    this.key = key;
+    this.text = text;
   }
 
   public int getKey()
   {
-    return ausgabe;
+    return key;
   }
 
   public String getText()
   {
-    return get(ausgabe);
+    return text;
   }
 
-  public static String get(int key)
+  public static Abrechnungsausgabe getByKey(int key)
   {
-    switch (key)
+    for (Abrechnungsausgabe ara : Abrechnungsausgabe.values())
     {
-      case SEPA_DATEI:
-        return "Datei";
-      case HIBISCUS:
-        return "Hibiscus";
-      default:
-        return null;
+      if (ara.getKey() == key)
+      {
+        return ara;
+      }
     }
-  }
-
-  public static ArrayList<Abrechnungsausgabe> getArray()
-  {
-    ArrayList<Abrechnungsausgabe> ret = new ArrayList<Abrechnungsausgabe>();
-    ret.add(new Abrechnungsausgabe(SEPA_DATEI));
-    ret.add(new Abrechnungsausgabe(HIBISCUS));
-    return ret;
-  }
-
-  @Override
-  public boolean equals(Object obj)
-  {
-    if (obj instanceof Abrechnungsausgabe)
-    {
-      Abrechnungsausgabe v = (Abrechnungsausgabe) obj;
-      return (getKey() == v.getKey());
-    }
-    return false;
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return ausgabe;
+    return null;
   }
 
   @Override
   public String toString()
   {
-    return get(ausgabe);
+    return getText();
   }
 }

@@ -250,15 +250,14 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return ausgabe;
     }
-    int aus = settings.getInt("abrechnungsausgabe",
-        Abrechnungsausgabe.SEPA_DATEI);
+    Abrechnungsausgabe aus = Abrechnungsausgabe.getByKey(settings.getInt(
+        "abrechnungsausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     if (aus != Abrechnungsausgabe.SEPA_DATEI
         && aus != Abrechnungsausgabe.HIBISCUS)
     {
       aus = Abrechnungsausgabe.HIBISCUS;
     }
-    ausgabe = new SelectInput(Abrechnungsausgabe.getArray(),
-        new Abrechnungsausgabe(aus));
+    ausgabe = new SelectInput(Abrechnungsausgabe.values(), aus);
     return ausgabe;
   }
 
@@ -342,11 +341,9 @@ public class AbrechnungSEPAControl extends AbstractControl
         throw new ApplicationException("von-Datum fehlt");
       }
     }
-    Integer ausgabe;
     aa = (Abrechnungsausgabe) this.getAbbuchungsausgabe().getValue();
-    ausgabe = aa.getKey();
 
-    if (ausgabe == Abrechnungsausgabe.SEPA_DATEI)
+    if (aa == Abrechnungsausgabe.SEPA_DATEI)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("SEPA-Ausgabedatei wählen.");

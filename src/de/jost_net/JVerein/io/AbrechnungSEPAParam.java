@@ -46,7 +46,7 @@ public class AbrechnungSEPAParam
 
   public final Date stichtag;
 
-  public final int abbuchungsausgabe;
+  public final Abrechnungsausgabe abbuchungsausgabe;
 
   public final Date vondatum;
 
@@ -82,9 +82,8 @@ public class AbrechnungSEPAParam
     faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
     faelligkeit2 = (Date) ac.getFaelligkeit2().getValue();
     stichtag = (Date) ac.getStichtag().getValue();
-    Abrechnungsausgabe aa = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
+    abbuchungsausgabe = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
         .getValue();
-    abbuchungsausgabe = aa.getKey();
     vondatum = (Date) ac.getVondatum().getValue();
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();
     zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();

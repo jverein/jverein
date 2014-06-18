@@ -843,7 +843,7 @@ public class AbrechnungSEPA
     Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
         .createObject(Abrechnungslauf.class, null);
     abrl.setDatum(new Date());
-    abrl.setAbbuchungsausgabe(param.abbuchungsausgabe);
+    abrl.setAbbuchungsausgabe(param.abbuchungsausgabe.getKey());
     abrl.setFaelligkeit(param.faelligkeit1);
     abrl.setFaelligkeit2(param.faelligkeit2);
     abrl.setDtausdruck(param.sepaprint);

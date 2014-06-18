@@ -180,14 +180,14 @@ public class PreNotificationControl extends AbstractControl
     {
       return ct1ausgabe;
     }
-    int aus = settings.getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI);
+    Abrechnungsausgabe aus = Abrechnungsausgabe.getByKey(settings.getInt(
+        "ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     if (aus != Abrechnungsausgabe.SEPA_DATEI
         && aus != Abrechnungsausgabe.HIBISCUS)
     {
       aus = Abrechnungsausgabe.HIBISCUS;
     }
-    ct1ausgabe = new SelectInput(Abrechnungsausgabe.getArray(),
-        new Abrechnungsausgabe(aus));
+    ct1ausgabe = new SelectInput(Abrechnungsausgabe.values(), aus);
     ct1ausgabe.setName("Ausgabe");
     return ct1ausgabe;
   }
@@ -332,9 +332,9 @@ public class PreNotificationControl extends AbstractControl
   {
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     File file = null;
-    Abrechnungsausgabe aa = new Abrechnungsausgabe(settings.getInt(
-        "ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI));
-    if (aa.getKey() == Abrechnungsausgabe.SEPA_DATEI)
+    Abrechnungsausgabe aa = Abrechnungsausgabe.getByKey(settings.getInt(
+        "ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
+    if (aa == Abrechnungsausgabe.SEPA_DATEI)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("SEPA-Ausgabedatei wählen.");
@@ -363,8 +363,8 @@ public class PreNotificationControl extends AbstractControl
     }
     String faelligkeitsdatum = settings.getString("faelligkeitsdatum", null);
     Date faell = Datum.toDate(faelligkeitsdatum);
-    int ct1ausgabe = settings.getInt("ct1ausgabe",
-        Abrechnungsausgabe.SEPA_DATEI);
+    Abrechnungsausgabe ct1ausgabe = Abrechnungsausgabe.getByKey(settings
+        .getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     String verwendungszweck = settings.getString("verwendungszweck", "");
     Ct1Ueberweisung ct1ueberweisung = new Ct1Ueberweisung();
     int anzahl = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe,

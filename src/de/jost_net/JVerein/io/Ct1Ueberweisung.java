@@ -60,16 +60,16 @@ public class Ct1Ueberweisung
   {
   }
 
-  public int write(Abrechnungslauf abrl, File file, Date faell, int ct1ausgabe,
-      String verwendungszweck) throws Exception
+  public int write(Abrechnungslauf abrl, File file, Date faell,
+      Abrechnungsausgabe ct1ausgabe, String verwendungszweck) throws Exception
   {
     Velocity.init();
     switch (ct1ausgabe)
     {
-      case Abrechnungsausgabe.SEPA_DATEI:
+      case SEPA_DATEI:
         return dateiausgabe(abrl, file, faell, ct1ausgabe, verwendungszweck);
 
-      case Abrechnungsausgabe.HIBISCUS:
+      case HIBISCUS:
         return hibiscusausgabe(abrl, file, faell, ct1ausgabe, verwendungszweck);
 
     }
@@ -77,7 +77,7 @@ public class Ct1Ueberweisung
   }
 
   private int dateiausgabe(Abrechnungslauf abrl, File file, Date faell,
-      int ct1ausgabe, String verwendungszweck) throws Exception
+      Abrechnungsausgabe ct1ausgabe, String verwendungszweck) throws Exception
   {
     ueb = new Ueberweisung();
     ueb.setAusfuehrungsdatum(faell);
@@ -106,7 +106,7 @@ public class Ct1Ueberweisung
   }
 
   private int hibiscusausgabe(Abrechnungslauf abrl, File file, Date faell,
-      int ct1ausgabe, String verwendungszweck) throws Exception
+      Abrechnungsausgabe ct1ausgabe, String verwendungszweck) throws Exception
   {
     try
     {
