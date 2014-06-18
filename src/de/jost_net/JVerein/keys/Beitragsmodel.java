@@ -30,7 +30,7 @@ public enum Beitragsmodel
       5,
       "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise zu fixen Terminen"), FLEXIBEL(
       10,
-      "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise zu flexiblen Terminen");
+      "monatl., viertel-, halb- oder jährliche Zahlungsweise zu flexiblen Terminen");
   private final String text;
 
   private final int key;
