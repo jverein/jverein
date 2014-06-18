@@ -90,8 +90,7 @@ public class DBUpdaterTool
     {
       connection.setAutoCommit(true);
       Statement stmt = connection.createStatement();
-      int anz = stmt
-          .executeUpdate("delete from databasechangelog where orderexecuted > 96");
+      stmt.executeUpdate("delete from databasechangelog where orderexecuted > 96");
       connection.setAutoCommit(false);
       stmt.close();
     }
