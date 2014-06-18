@@ -54,6 +54,6 @@ public class AltersgruppenParserTest
   @Test
   public void test02() throws ApplicationException
   {
-    AltersgruppenParser ap = new AltersgruppenParser("0-5,4-10");
+    new AltersgruppenParser("0-5,4-10");
   }
 }
