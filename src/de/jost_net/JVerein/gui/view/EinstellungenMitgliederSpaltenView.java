@@ -22,7 +22,6 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.ScrolledContainer;
 
 public class EinstellungenMitgliederSpaltenView extends AbstractView
 {
@@ -34,8 +33,8 @@ public class EinstellungenMitgliederSpaltenView extends AbstractView
 
     final EinstellungControl control = new EinstellungControl(this);
 
-    ScrolledContainer cont = new ScrolledContainer(getParent());
-    control.getSpaltendefinitionTable(cont.getComposite());
+    control.getSpaltendefinitionTable().paint(getParent());
+    control.setCheckSpalten();
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
