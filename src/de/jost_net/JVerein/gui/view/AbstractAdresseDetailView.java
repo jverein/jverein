@@ -43,7 +43,6 @@ import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.jost_net.JVerein.gui.util.SimpleVerticalContainer;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
-import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.MitgliedDokument;
@@ -440,9 +439,16 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     zahlungsweg.addInput(control.getZahlungsweg());
     if (isMitgliedDetail())
     {
-      if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
+      switch (Einstellungen.getEinstellung().getBeitragsmodel())
       {
-        zahlungsweg.addInput(control.getZahlungsrhytmus());
+        case GLEICHERTERMINFUERALLE:
+          break;
+        case MONATLICH12631:
+          zahlungsweg.addInput(control.getZahlungsrhytmus());
+          break;
+        case FLEXIBEL:
+          zahlungsweg.addInput(control.getZahlungstermin());
+          break;
       }
     }
 
@@ -557,7 +563,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       DBIterator it = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
       it.addFilter("beitragsart = ? or beitragsart = ?",
-          ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
+          ArtBeitragsart.FAMILIE_ZAHLER.getKey(),
+          ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey());
       if (it.hasNext())
       {
         // Verstecke Familienverband wenn aktuelles Mitglied nicht Teil einer

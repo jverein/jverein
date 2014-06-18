@@ -31,6 +31,7 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.SepaMandatIdSource;
+import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -219,7 +220,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       // Person ist ausgetreten
       // Hat das Mitglied für andere gezahlt?
-      if (getBeitragsgruppe().getBeitragsArt() == 1)
+      if (getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
       {
         // ja
         DBIterator famang = Einstellungen.getDBService().createList(
@@ -523,6 +524,23 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throws RemoteException
   {
     setAttribute("zahlungsrhytmus", zahlungsrhytmus);
+  }
+
+  @Override
+  public void setZahlungstermin(Integer zahlungstermin) throws RemoteException
+  {
+    setAttribute("zahlungstermin", zahlungstermin);
+  }
+
+  @Override
+  public Zahlungstermin getZahlungstermin() throws RemoteException
+  {
+    Integer i = (Integer) getAttribute("zahlungstermin");
+    if (i == null)
+    {
+      return null;
+    }
+    return Zahlungstermin.getByKey(i);
   }
 
   @Override

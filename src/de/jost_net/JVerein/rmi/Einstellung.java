@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.io.IBankverbindung;
+import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.willuhn.datasource.rmi.DBObject;
 
 public interface Einstellung extends DBObject, IBankverbindung
@@ -208,7 +209,7 @@ public interface Einstellung extends DBObject, IBankverbindung
   public void setExterneMitgliedsnummer(Boolean externemitgliedsnummer)
       throws RemoteException;
 
-  public int getBeitragsmodel() throws RemoteException;
+  public Beitragsmodel getBeitragsmodel() throws RemoteException;
 
   public void setBeitragsmodel(int beitragsmodel) throws RemoteException;
 

@@ -27,6 +27,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.formatter.BeitragsgruppeFormatter;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.formatter.ZahlungsrhytmusFormatter;
+import de.jost_net.JVerein.gui.formatter.ZahlungsterminFormatter;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -56,6 +57,8 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
         Column.ALIGN_LEFT, false);
     add("Zahlungsrhytmus", "zahlungsrhytmus", false,
         new ZahlungsrhytmusFormatter(), Column.ALIGN_LEFT, false);
+    add("Zahlungstermin", "zahlungstermin", false,
+        new ZahlungsterminFormatter(), Column.ALIGN_LEFT, true);
     add("Datum des Mandats", "mandatdatum", false, false);
     add("BIC", "bic", false, true);
     add("IBAN", "iban", false, true);
@@ -66,12 +69,13 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Kontoinhaber Titel", "ktoititel", false, true);
     add("Kontoinhaber Vorname", "ktoivorname", false, true);
     add("Kontoinhaber Straﬂe", "ktoistrasse", false, true);
-    add("Kontoinhaber Adressierungszusatz", "ktoiadressierungszsatz", false, true);
+    add("Kontoinhaber Adressierungszusatz", "ktoiadressierungszsatz", false,
+        true);
     add("Kontoinhaber PLZ", "ktoiplz", false, true);
     add("Kontoinhaber Ort", "ktoiort", false, true);
     add("Kontoinhaber Staat", "ktoistaat", false, true);
     add("Kontoinhaber Email", "ktoiemail", false, true);
-    add("Mandat Datum", "mandatdatum",false, true);
+    add("Mandat Datum", "mandatdatum", false, true);
     add("Mandat Version", "mandatversion", false, true);
     add("Mandat Sequence", "mandatsequence", false, true);
     add("Geburtsdatum", "geburtsdatum", true, new DateFormatter(

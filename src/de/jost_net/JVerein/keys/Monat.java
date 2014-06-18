@@ -16,20 +16,17 @@
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
-/**
- * Art der Beitragsart
- */
-
-public enum ArtBeitragsart
+public enum Monat
 {
-
-  NORMAL(0, "Normal"), FAMILIE_ZAHLER(1, "Familie: Zahler"), FAMILIE_ANGEHOERIGER(
-      2, "Familie: Angehöriger");
+  JANUAR(1, "Januar"), FEBRUAR(2, "Februar"), MAERZ(3, "März"), APRIL(4,
+      "April"), MAI(5, "Mai"), JUNI(6, "Juni"), JULI(7, "Juli"), AUGUST(8,
+      "August"), SEPTEMBER(9, "September"), OKTOBER(10, "Oktober"), NOVEMBER(
+      11, "November"), DEZEMBER(12, "Dezember");
   private final String text;
 
   private final int key;
 
-  ArtBeitragsart(int key, String text)
+  Monat(int key, String text)
   {
     this.key = key;
     this.text = text;
@@ -45,13 +42,13 @@ public enum ArtBeitragsart
     return text;
   }
 
-  public static ArtBeitragsart getByKey(int key)
+  public static Monat getByKey(int key)
   {
-    for (ArtBeitragsart aba : ArtBeitragsart.values())
+    for (Monat mon : Monat.values())
     {
-      if (aba.getKey() == key)
+      if (mon.getKey() == key)
       {
-        return aba;
+        return mon;
       }
     }
     return null;

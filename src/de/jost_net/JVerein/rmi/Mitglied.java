@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Map;
 
 import de.jost_net.JVerein.io.ILastschrift;
+import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
@@ -70,6 +71,10 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public void setZahlungsrhytmus(Integer zahlungsrhytmus)
       throws RemoteException;
+
+  public void setZahlungstermin(Integer zahlungstermin) throws RemoteException;
+
+  public Zahlungstermin getZahlungstermin() throws RemoteException;
 
   public void setMandatDatum(Date mandatdatum) throws RemoteException;
 

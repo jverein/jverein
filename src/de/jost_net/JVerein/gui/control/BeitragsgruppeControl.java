@@ -52,6 +52,14 @@ public class BeitragsgruppeControl extends AbstractControl
 
   private DecimalInput betrag;
 
+  private DecimalInput betragmonatlich;
+
+  private DecimalInput betragvierteljaehrlich;
+
+  private DecimalInput betraghalbjaehrlich;
+
+  private DecimalInput betragjaehrlich;
+
   private SelectInput beitragsart;
 
   private Beitragsgruppe beitrag;
@@ -98,8 +106,51 @@ public class BeitragsgruppeControl extends AbstractControl
     }
     betrag = new DecimalInput(getBeitragsgruppe().getBetrag(),
         Einstellungen.DECIMALFORMAT);
-    betrag.setMandatory(true);
     return betrag;
+  }
+
+  public DecimalInput getBetragMonatlich() throws RemoteException
+  {
+    if (betragmonatlich != null)
+    {
+      return betragmonatlich;
+    }
+    betragmonatlich = new DecimalInput(
+        getBeitragsgruppe().getBetragMonatlich(), Einstellungen.DECIMALFORMAT);
+    return betragmonatlich;
+  }
+
+  public DecimalInput getBetragVierteljaehrlich() throws RemoteException
+  {
+    if (betragvierteljaehrlich != null)
+    {
+      return betragvierteljaehrlich;
+    }
+    betragvierteljaehrlich = new DecimalInput(getBeitragsgruppe()
+        .getBetragVierteljaehrlich(), Einstellungen.DECIMALFORMAT);
+    return betragvierteljaehrlich;
+  }
+
+  public DecimalInput getBetragHalbjaehrlich() throws RemoteException
+  {
+    if (betraghalbjaehrlich != null)
+    {
+      return betraghalbjaehrlich;
+    }
+    betraghalbjaehrlich = new DecimalInput(getBeitragsgruppe()
+        .getBetragHalbjaehrlich(), Einstellungen.DECIMALFORMAT);
+    return betraghalbjaehrlich;
+  }
+
+  public DecimalInput getBetragJaehrlich() throws RemoteException
+  {
+    if (betragjaehrlich != null)
+    {
+      return betragjaehrlich;
+    }
+    betragjaehrlich = new DecimalInput(
+        getBeitragsgruppe().getBetragJaehrlich(), Einstellungen.DECIMALFORMAT);
+    return betragjaehrlich;
   }
 
   public SelectInput getBeitragsArt() throws RemoteException
@@ -108,8 +159,8 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return beitragsart;
     }
-    beitragsart = new SelectInput(ArtBeitragsart.getArray(),
-        new ArtBeitragsart(getBeitragsgruppe().getBeitragsArt()));
+    beitragsart = new SelectInput(ArtBeitragsart.values(), getBeitragsgruppe()
+        .getBeitragsArt());
     return beitragsart;
   }
 
@@ -153,21 +204,37 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       Beitragsgruppe b = getBeitragsgruppe();
       b.setBezeichnung((String) getBezeichnung(false).getValue());
-      Double d = (Double) getBetrag().getValue();
-      b.setBetrag(d.doubleValue());
-      ArtBeitragsart ba = (ArtBeitragsart) getBeitragsArt().getValue();
-      if (ba.getKey() == ArtBeitragsart.FAMILIE_ANGEHOERIGER && d != 0)
+      switch (Einstellungen.getEinstellung().getBeitragsmodel())
       {
-        throw new ApplicationException(
-            "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben.");
+        case GLEICHERTERMINFUERALLE:
+        case MONATLICH12631:
+          Double d = (Double) getBetrag().getValue();
+          b.setBetrag(d.doubleValue());
+          break;
+        case FLEXIBEL:
+          Double d1 = (Double) getBetragMonatlich().getValue();
+          b.setBetragMonatlich(d1.doubleValue());
+          Double d3 = (Double) getBetragVierteljaehrlich().getValue();
+          b.setBetragVierteljaehrlich(d3.doubleValue());
+          Double d6 = (Double) getBetragHalbjaehrlich().getValue();
+          b.setBetragHalbjaehrlich(d6.doubleValue());
+          Double d12 = (Double) getBetragJaehrlich().getValue();
+          b.setBetragJaehrlich(d12.doubleValue());
+          break;
       }
+      ArtBeitragsart ba = (ArtBeitragsart) getBeitragsArt().getValue();
+      // if (ba.getKey() == ArtBeitragsart.FAMILIE_ANGEHOERIGER && d != 0)
+      // {
+      // throw new ApplicationException(
+      // "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben.");
+      // }
       b.setBeitragsArt(ba.getKey());
       Buchungsart bua = (Buchungsart) getBuchungsart().getValue();
       if (bua != null)
       {
         b.setBuchungsart(bua);
       }
-      d = (Double) getArbeitseinsatzStunden().getValue();
+      Double d = (Double) getArbeitseinsatzStunden().getValue();
       b.setArbeitseinsatzStunden(d.doubleValue());
       d = (Double) getArbeitseinsatzBetrag().getValue();
       b.setArbeitseinsatzBetrag(d.doubleValue());
@@ -197,8 +264,25 @@ public class BeitragsgruppeControl extends AbstractControl
     beitragsgruppeList = new TablePart(beitragsgruppen,
         new BeitragsgruppeDetailAction());
     beitragsgruppeList.addColumn("Bezeichnung", "bezeichnung");
-    beitragsgruppeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    switch (Einstellungen.getEinstellung().getBeitragsmodel())
+    {
+      case GLEICHERTERMINFUERALLE:
+      case MONATLICH12631:
+        beitragsgruppeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
+            "", Einstellungen.DECIMALFORMAT));
+        break;
+      case FLEXIBEL:
+        beitragsgruppeList.addColumn("Betrag monatlich", "betragmonatlich",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+        beitragsgruppeList.addColumn("Betrag viertelj.",
+            "betragvierteljaehrlich", new CurrencyFormatter("",
+                Einstellungen.DECIMALFORMAT));
+        beitragsgruppeList.addColumn("Betrag viertelj.", "betraghalbjaehrlich",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+        beitragsgruppeList.addColumn("Betrag jährlich", "betragjaehrlich",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+        break;
+    }
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
       beitragsgruppeList.addColumn("Arbeitseinsatz-Stunden",

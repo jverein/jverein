@@ -14,52 +14,17 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.keys;
+package de.jost_net.JVerein.gui.formatter;
 
-/**
- * Art der Beitragsart
- */
+import de.jost_net.JVerein.keys.Zahlungstermin;
+import de.willuhn.jameica.gui.formatter.Formatter;
 
-public enum ArtBeitragsart
+public class ZahlungsterminFormatter implements Formatter
 {
-
-  NORMAL(0, "Normal"), FAMILIE_ZAHLER(1, "Familie: Zahler"), FAMILIE_ANGEHOERIGER(
-      2, "Familie: Angehöriger");
-  private final String text;
-
-  private final int key;
-
-  ArtBeitragsart(int key, String text)
-  {
-    this.key = key;
-    this.text = text;
-  }
-
-  public int getKey()
-  {
-    return key;
-  }
-
-  public String getText()
-  {
-    return text;
-  }
-
-  public static ArtBeitragsart getByKey(int key)
-  {
-    for (ArtBeitragsart aba : ArtBeitragsart.values())
-    {
-      if (aba.getKey() == key)
-      {
-        return aba;
-      }
-    }
-    return null;
-  }
-
   @Override
-  public String toString()
+  public String format(Object o)
   {
-    return getText();
+    Integer zt = (Integer) o;
+    return Zahlungstermin.getByKey(zt).getText();
   }
 }

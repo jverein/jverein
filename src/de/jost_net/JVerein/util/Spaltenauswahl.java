@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -24,8 +19,6 @@ package de.jost_net.JVerein.util;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.swt.widgets.Composite;
 
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -52,17 +45,16 @@ public abstract class Spaltenauswahl
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, boolean nurMitglied)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
-        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
-        nurMitglied));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
+        .getBoolean(tabelle + "." + spaltenname, defaultvalue), nurMitglied));
   }
 
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, Formatter formatter, int align, boolean nurMitglied)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
-        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
-        formatter, align, nurMitglied));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
+        .getBoolean(tabelle + "." + spaltenname, defaultvalue), formatter,
+        align, nurMitglied));
   }
 
   public void setColumns(TablePart part, int adresstyp)
@@ -85,26 +77,32 @@ public abstract class Spaltenauswahl
     return spalten;
   }
 
-  public TablePart paintSpaltenpaintSpaltendefinitionTable(Composite parent)
+  public TablePart paintSpaltenpaintSpaltendefinitionTable()
       throws RemoteException
   {
     if (spaltendefinitionList != null)
     {
       return spaltendefinitionList;
     }
-    spaltendefinitionList = new TablePart(spalten, null);
+    spaltendefinitionList = new TablePart(new ArrayList<Spalte>(), null);
     spaltendefinitionList.addColumn("Spalte", "spaltenbezeichnung");
     spaltendefinitionList.setCheckable(true);
     spaltendefinitionList.setMulti(true);
     spaltendefinitionList.setSummary(false);
-    spaltendefinitionList.paint(parent);
-    for (int i = 0; i < spalten.size(); ++i)
+    for (Spalte sp : spalten)
     {
-      spaltendefinitionList.setChecked(spalten.get(i),
-          spalten.get(i).isChecked());
+      spaltendefinitionList.addItem(sp, sp.isChecked());
     }
 
     return spaltendefinitionList;
+  }
+
+  public void setCheckSpalten()
+  {
+    for (Spalte spalte : spalten)
+    {
+      spaltendefinitionList.setChecked(spalte, spalte.isChecked());
+    }
   }
 
   @SuppressWarnings("unchecked")

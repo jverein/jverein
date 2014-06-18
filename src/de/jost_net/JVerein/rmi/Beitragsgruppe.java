@@ -23,6 +23,7 @@ package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.willuhn.datasource.rmi.DBObject;
 
 public interface Beitragsgruppe extends DBObject
@@ -35,7 +36,23 @@ public interface Beitragsgruppe extends DBObject
 
   public void setBetrag(double betrag) throws RemoteException;
 
-  public int getBeitragsArt() throws RemoteException;
+  public double getBetragMonatlich() throws RemoteException;
+
+  public void setBetragMonatlich(double betrag) throws RemoteException;
+
+  public double getBetragVierteljaehrlich() throws RemoteException;
+
+  public void setBetragVierteljaehrlich(double betrag) throws RemoteException;
+
+  public double getBetragHalbjaehrlich() throws RemoteException;
+
+  public void setBetragHalbjaehrlich(double betrag) throws RemoteException;
+
+  public double getBetragJaehrlich() throws RemoteException;
+
+  public void setBetragJaehrlich(double betrag) throws RemoteException;
+
+  public ArtBeitragsart getBeitragsArt() throws RemoteException;
 
   public void setBeitragsArt(int art) throws RemoteException;
 

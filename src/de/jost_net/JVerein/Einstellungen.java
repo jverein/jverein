@@ -123,8 +123,9 @@ public class Einstellungen
             "kursteilnehmer.einblenden", true));
         einstellung.setExterneMitgliedsnummer(settings.getBoolean(
             "externemitgliedsnummer.verwenden", false));
+
         einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
-            Beitragsmodel.GLEICHERTERMINFUERALLE));
+            Beitragsmodel.GLEICHERTERMINFUERALLE.getKey()));
         einstellung.setArbeitsstundenmodel(settings.getInt(
             Einstellung.COL_ARBEITS_MODEL, ArbeitsstundenModel.STANDARD));
         einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",

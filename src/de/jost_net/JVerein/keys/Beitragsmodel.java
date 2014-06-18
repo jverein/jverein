@@ -21,75 +21,51 @@
  **********************************************************************/
 package de.jost_net.JVerein.keys;
 
-import java.util.ArrayList;
-
 /**
- * Abrechnungsausgabe
+ * Beitragsmodel
  */
-public class Beitragsmodel
+public enum Beitragsmodel
 {
-  public static final int GLEICHERTERMINFUERALLE = 1;
+  GLEICHERTERMINFUERALLE(1, "Gleicher Termin für alle"), MONATLICH12631(
+      5,
+      "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise zu fixen Terminen"), FLEXIBEL(
+      10,
+      "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise zu flexiblen Terminen");
+  private final String text;
 
-  public static final int MONATLICH12631 = 5;
+  private final int key;
 
-  private int model;
-
-  public Beitragsmodel(int key)
+  Beitragsmodel(int key, String text)
   {
-    this.model = key;
+    this.key = key;
+    this.text = text;
   }
 
   public int getKey()
   {
-    return model;
+    return key;
   }
 
   public String getText()
   {
-    return get(model);
+    return text;
   }
 
-  public static String get(int key)
+  public static Beitragsmodel getByKey(int key)
   {
-    switch (key)
+    for (Beitragsmodel bm : Beitragsmodel.values())
     {
-      case GLEICHERTERMINFUERALLE:
-        return "Gleicher Termin für alle";
-      case MONATLICH12631:
-        return "monatlich mit monatl., viertel-, halb- oder jährlicher Zahlungsweise";
-      default:
-        return null;
+      if (bm.getKey() == key)
+      {
+        return bm;
+      }
     }
-  }
-
-  public static ArrayList<Beitragsmodel> getArray()
-  {
-    ArrayList<Beitragsmodel> ret = new ArrayList<Beitragsmodel>();
-    ret.add(new Beitragsmodel(GLEICHERTERMINFUERALLE));
-    ret.add(new Beitragsmodel(MONATLICH12631));
-    return ret;
-  }
-
-  @Override
-  public boolean equals(Object obj)
-  {
-    if (obj instanceof Beitragsmodel)
-    {
-      Beitragsmodel v = (Beitragsmodel) obj;
-      return (getKey() == v.getKey());
-    }
-    return false;
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return model;
+    return null;
   }
 
   @Override
   public String toString()
   {
-    return get(model);
+    return getText();
   }
 }

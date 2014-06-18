@@ -25,6 +25,7 @@ import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.keys.Altermodel;
+import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.OBanToo.SEPA.BIC;
@@ -742,9 +743,9 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public int getBeitragsmodel() throws RemoteException
+  public Beitragsmodel getBeitragsmodel() throws RemoteException
   {
-    return (Integer) getAttribute("beitragsmodel");
+    return Beitragsmodel.getByKey((Integer) getAttribute("beitragsmodel"));
   }
 
   @Override

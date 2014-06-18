@@ -78,6 +78,7 @@ import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
@@ -182,6 +183,8 @@ public class MitgliedControl extends AbstractControl
   private LabelGroup bankverbindungLabelGroup;
 
   private SelectInput zahlungsrhytmus;
+
+  private SelectInput zahlungstermin;
 
   private TextInput mandatid = null;
 
@@ -809,6 +812,18 @@ public class MitgliedControl extends AbstractControl
     return zahlungsrhytmus;
   }
 
+  public SelectInput getZahlungstermin() throws RemoteException
+  {
+    if (zahlungstermin != null)
+    {
+      return zahlungstermin;
+    }
+    zahlungstermin = new SelectInput(Zahlungstermin.values(), getMitglied()
+        .getZahlungstermin());
+    zahlungstermin.setName("Zahlungstermin");
+    return zahlungstermin;
+  }
+
   public TextInput getBlz() throws RemoteException
   {
     if (blz != null)
@@ -1186,7 +1201,7 @@ public class MitgliedControl extends AbstractControl
       // (NULL)
       // diese Beitragsgruppen müssen hier auch erlaubt sein.
       list.addFilter("beitragsart <> ? or beitragsart IS NULL",
-          new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER });
+          new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey() });
     }
     beitragsgruppe = new SelectInput(list, getMitglied().getBeitragsgruppe());
     beitragsgruppe.setName("Beitragsgruppe");
@@ -1373,7 +1388,7 @@ public class MitgliedControl extends AbstractControl
     // Beitragsgruppen ermitteln, die Zahler für andere Mitglieder sind
     DBIterator bg = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
-    bg.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER);
+    bg.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER.getKey());
     while (bg.hasNext())
     {
       if (cond.length() > 0)
@@ -2996,6 +3011,8 @@ public class MitgliedControl extends AbstractControl
       m.setZahlungsweg(zw.getKey());
       Zahlungsrhytmus zr = (Zahlungsrhytmus) getZahlungsrhytmus().getValue();
       m.setZahlungsrhytmus(zr.getKey());
+      Zahlungstermin zt = (Zahlungstermin) getZahlungstermin().getValue();
+      m.setZahlungstermin(zt.getKey());
       m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setMandatVersion((Integer) getMandatVersion().getValue());
       m.setMandatSequence((MandatSequence) getMandatSequence().getValue());

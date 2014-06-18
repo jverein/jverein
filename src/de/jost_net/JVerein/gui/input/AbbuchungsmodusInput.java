@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
-import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -52,22 +51,24 @@ public class AbbuchungsmodusInput extends SelectInput
   {
     ArrayList<AbbuchungsmodusObject> l = new ArrayList<AbbuchungsmodusObject>();
     l.add(new AbbuchungsmodusObject(Abrechnungsmodi.KEINBEITRAG));
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.GLEICHERTERMINFUERALLE)
+    switch (Einstellungen.getEinstellung().getBeitragsmodel())
     {
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ALLE));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
-    }
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.MONATLICH12631)
-    {
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAHAVIMO));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAVIMO));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HAVIMO));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VIMO));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JA));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HA));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VI));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MO));
-      l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+      case GLEICHERTERMINFUERALLE:
+      case FLEXIBEL:
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ALLE));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+        break;
+      case MONATLICH12631:
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAHAVIMO));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAVIMO));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HAVIMO));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VIMO));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JA));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HA));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VI));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MO));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+        break;
     }
     return PseudoIterator.fromArray(l.toArray(new AbbuchungsmodusObject[l
         .size()]));

@@ -63,7 +63,7 @@ public class FamilienbeitragNode implements GenericObjectNode
     DBIterator it = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
     it.addFilter("beitragsart = ?",
-        new Object[] { ArtBeitragsart.FAMILIE_ZAHLER });
+        new Object[] { ArtBeitragsart.FAMILIE_ZAHLER.getKey() });
     while (it.hasNext())
     {
       Beitragsgruppe bg = (Beitragsgruppe) it.next();

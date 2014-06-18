@@ -19,6 +19,7 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
+import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -42,6 +43,10 @@ public class AbrechnungSEPAView extends AbstractView
         control.getFaelligkeit1());
     group.addLabelPair("Fälligkeit SEPA (Folge-/Letzte-Lastschrift)",
         control.getFaelligkeit2());
+    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.FLEXIBEL)
+    {
+      group.addLabelPair("Abrechnungsmonat", control.getAbrechnungsmonat());
+    }
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group

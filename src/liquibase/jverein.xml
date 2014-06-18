@@ -1115,5 +1115,27 @@
 		<modifyDataType columnName="altersgruppen"
 			newDataType="varchar(200)" tableName="einstellung" />
 	</changeSet>
-	
+		<changeSet author="Heiner" id="107">
+		<addColumn tableName="einstellung">
+			<column defaultValueNumeric="1" name="abrechnungsmodul" type="INT(10)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="Heiner" id="108">
+		<addColumn tableName="beitragsgruppe">
+			<column name="betragmonatlich" type="DOUBLE" />
+			<column name="betragvierteljaehrlich" type="DOUBLE" />
+			<column name="betraghalbjaehrlich" type="DOUBLE" />
+			<column name="betragjaehrlich" type="DOUBLE" />
+		</addColumn>
+	</changeSet>	
+	<changeSet author="Heiner" id="109">
+		<addColumn tableName="mitglied">
+			<column name="zahlungstermin" type="INT(10)" />
+		</addColumn>
+	</changeSet>	
+	<changeSet author="heiner" id="110">
+    	<dropColumn 
+            columnName="abrechnungsmodul"
+            tableName="einstellung"/>
+	</changeSet>
 </databaseChangeLog>

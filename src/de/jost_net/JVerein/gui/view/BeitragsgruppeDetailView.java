@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -48,7 +43,25 @@ public class BeitragsgruppeDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Beitrag");
     group.addLabelPair("Bezeichnung", control.getBezeichnung(true));
-    group.addLabelPair("Betrag", control.getBetrag());
+    switch (Einstellungen.getEinstellung().getBeitragsmodel())
+    {
+      case GLEICHERTERMINFUERALLE:
+      case MONATLICH12631:
+      {
+        group.addLabelPair("Betrag", control.getBetrag());
+        break;
+      }
+      case FLEXIBEL:
+      {
+        group.addLabelPair("Betrag monatlich", control.getBetragMonatlich());
+        group.addLabelPair("Betrag vierteljährlich",
+            control.getBetragVierteljaehrlich());
+        group.addLabelPair("Betrag halbjährlich",
+            control.getBetragHalbjaehrlich());
+        group.addLabelPair("Betrag jährlich", control.getBetragJaehrlich());
+        break;
+      }
+    }
     group.addLabelPair("Beitragsart", control.getBeitragsArt());
     group.addLabelPair("Buchungsart", control.getBuchungsart());
 

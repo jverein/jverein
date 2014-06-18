@@ -36,6 +36,7 @@ import de.jost_net.JVerein.io.AbrechnungSEPAParam;
 import de.jost_net.JVerein.io.Bankarbeitstage;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
+import de.jost_net.JVerein.keys.Monat;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -60,6 +61,8 @@ public class AbrechnungSEPAControl extends AbstractControl
   private AbbuchungsmodusInput modus;
 
   private DateInput stichtag = null;
+
+  private SelectInput abrechnungsmonat;
 
   private DateInput faelligkeit1 = null;
 
@@ -86,6 +89,16 @@ public class AbrechnungSEPAControl extends AbstractControl
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+  }
+
+  public SelectInput getAbrechnungsmonat() throws RemoteException
+  {
+    if (abrechnungsmonat != null)
+    {
+      return abrechnungsmonat;
+    }
+    abrechnungsmonat = new SelectInput(Monat.values(), null);
+    return abrechnungsmonat;
   }
 
   public AbbuchungsmodusInput getAbbuchungsmodus() throws RemoteException

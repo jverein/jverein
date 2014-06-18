@@ -23,6 +23,7 @@ import java.util.Date;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.AbrechnungSEPAControl;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
+import de.jost_net.JVerein.keys.Monat;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.hbci.HBCI;
@@ -36,6 +37,8 @@ import de.willuhn.util.ApplicationException;
 public class AbrechnungSEPAParam
 {
   public final int abbuchungsmodus;
+
+  public final int abrechnungsmonat;
 
   public final Date faelligkeit1;
 
@@ -74,6 +77,8 @@ public class AbrechnungSEPAParam
       throws ApplicationException, RemoteException
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
+    Monat monat = (Monat) ac.getAbrechnungsmonat().getValue();
+    abrechnungsmonat = monat.getKey();
     faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
     faelligkeit2 = (Date) ac.getFaelligkeit2().getValue();
     stichtag = (Date) ac.getStichtag().getValue();

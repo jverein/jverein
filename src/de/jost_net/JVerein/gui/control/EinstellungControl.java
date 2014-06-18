@@ -20,7 +20,6 @@ import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
@@ -712,8 +711,8 @@ public class EinstellungControl extends AbstractControl
     {
       return beitragsmodel;
     }
-    beitragsmodel = new SelectInput(Beitragsmodel.getArray(),
-        new Beitragsmodel(Einstellungen.getEinstellung().getBeitragsmodel()));
+    beitragsmodel = new SelectInput(Beitragsmodel.values(), Einstellungen
+        .getEinstellung().getBeitragsmodel());
     return beitragsmodel;
   }
 
@@ -1147,24 +1146,19 @@ public class EinstellungControl extends AbstractControl
     return jubilarStartAlter;
   }
 
-  public TablePart getSpaltendefinitionTable(Composite parent)
-      throws RemoteException
+  public TablePart getSpaltendefinitionTable() throws RemoteException
   {
     if (spalten == null)
     {
       spalten = new MitgliedSpaltenauswahl();
     }
-    return spalten.paintSpaltenpaintSpaltendefinitionTable(parent);
+    return spalten.paintSpaltenpaintSpaltendefinitionTable();
   }
 
-  // public void setCheckSpalten()
-  // {
-  // for (int i = 0; i < spalten.size(); ++i)
-  // {
-  // spaltendefinitionList.setChecked(spalten.get(i), spalten.get(i)
-  // .isChecked());
-  // }
-  // }
+  public void setCheckSpalten()
+  {
+    spalten.setCheckSpalten();
+  }
 
   public IntegerInput getAnzahlSpaltenStammdatenInput() throws RemoteException
   {

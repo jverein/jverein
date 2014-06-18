@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -23,6 +18,8 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -67,9 +64,37 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
       {
         throw new ApplicationException("Bitte Bezeichnung eingeben");
       }
-      if (getBetrag() < 0)
+      switch (Einstellungen.getEinstellung().getBeitragsmodel())
       {
-        throw new ApplicationException("Betrag nicht gültig");
+        case GLEICHERTERMINFUERALLE:
+        case MONATLICH12631:
+          if (getBetrag() < 0)
+          {
+            throw new ApplicationException("Betrag nicht gültig");
+          }
+          if (getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER
+              && getBetrag() != 0)
+          {
+            throw new ApplicationException(
+                "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben.");
+          }
+
+          break;
+        case FLEXIBEL:
+          if (getBetragMonatlich() < 0 || getBetragVierteljaehrlich() < 0
+              || getBetragHalbjaehrlich() < 0 || getBetragJaehrlich() < 0)
+          {
+            throw new ApplicationException("Betrag nicht gültig");
+          }
+          if (getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER
+              && (getBetragMonatlich() != 0 || getBetragVierteljaehrlich() != 0
+                  || getBetragHalbjaehrlich() != 0 || getBetragJaehrlich() != 0))
+          {
+            throw new ApplicationException(
+                "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben.");
+          }
+
+          break;
       }
     }
     catch (RemoteException e)
@@ -126,14 +151,82 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
   }
 
   @Override
-  public int getBeitragsArt() throws RemoteException
+  public double getBetragMonatlich() throws RemoteException
+  {
+    Double d = (Double) getAttribute("betragmonatlich");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  @Override
+  public void setBetragMonatlich(double d) throws RemoteException
+  {
+    setAttribute("betragmonatlich", new Double(d));
+  }
+
+  @Override
+  public double getBetragVierteljaehrlich() throws RemoteException
+  {
+    Double d = (Double) getAttribute("betragvierteljaehrlich");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  @Override
+  public void setBetragVierteljaehrlich(double d) throws RemoteException
+  {
+    setAttribute("betragvierteljaehrlich", new Double(d));
+  }
+
+  @Override
+  public double getBetragHalbjaehrlich() throws RemoteException
+  {
+    Double d = (Double) getAttribute("betraghalbjaehrlich");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  @Override
+  public void setBetragHalbjaehrlich(double d) throws RemoteException
+  {
+    setAttribute("betraghalbjaehrlich", new Double(d));
+  }
+
+  @Override
+  public double getBetragJaehrlich() throws RemoteException
+  {
+    Double d = (Double) getAttribute("betragjaehrlich");
+    if (d == null)
+    {
+      return 0;
+    }
+    return d.doubleValue();
+  }
+
+  @Override
+  public void setBetragJaehrlich(double d) throws RemoteException
+  {
+    setAttribute("betragjaehrlich", new Double(d));
+  }
+
+  @Override
+  public ArtBeitragsart getBeitragsArt() throws RemoteException
   {
     Integer i = (Integer) getAttribute("beitragsart");
     if (i == null)
     {
-      return 0;
+      i = new Integer("0");
     }
-    return i.intValue();
+    return ArtBeitragsart.getByKey(i);
   }
 
   @Override

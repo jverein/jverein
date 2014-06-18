@@ -147,12 +147,13 @@ public class MitgliedNextBGruppeControl extends AbstractControl
     if (isFamilienMitglied())
     {
       list.addFilter("beitragsart is not null");
-      list.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER);
+      list.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER.getKey());
     }
     else
     {
       list.addFilter("beitragsart is null or beitragsart not in (?,?)",
-          ArtBeitragsart.FAMILIE_ZAHLER, ArtBeitragsart.FAMILIE_ANGEHOERIGER);
+          ArtBeitragsart.FAMILIE_ZAHLER.getKey(),
+          ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey());
     }
     beitragsgruppe = new SelectInput(list, null);
     beitragsgruppe.setName("Beitragsgruppe");

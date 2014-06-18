@@ -118,7 +118,16 @@ public class AbrechnungSEPA
         .getName()));
 
     Konto konto = getKonto();
-    abrechnenMitglieder(lastschrift, monitor, abrl, konto);
+    switch (Einstellungen.getEinstellung().getBeitragsmodel())
+    {
+      case GLEICHERTERMINFUERALLE:
+      case MONATLICH12631:
+        abrechnenMitgliederClassic(lastschrift, monitor, abrl, konto);
+        break;
+      case FLEXIBEL:
+        abrechnenMitgliederNeu(lastschrift, monitor, abrl, konto);
+        break;
+    }
     if (param.zusatzbetraege)
     {
       abbuchenZusatzbetraege(lastschrift, abrl, konto, monitor);
@@ -236,7 +245,7 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abrechnenMitglieder(JVereinBasislastschrift lastschrift,
+  private void abrechnenMitgliederClassic(JVereinBasislastschrift lastschrift,
       ProgressMonitor monitor, Abrechnungslauf abrl, Konto konto)
       throws Exception
   {
@@ -401,6 +410,154 @@ public class AbrechnungSEPA
                 : param.faelligkeit2, param.verwendungszweck, betr, abrl,
             m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
             beitragsgruppe.get(m.getBeitragsgruppeId() + ""));
+        if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
+        {
+          try
+          {
+            JVereinZahler zahler = new JVereinZahler();
+            zahler.setPersonId(m.getID());
+            zahler.setPersonTyp(JVereinZahlerTyp.MITGLIED);
+            zahler.setBetrag(new BigDecimal(betr).setScale(2,
+                BigDecimal.ROUND_HALF_UP));
+            new BIC(m.getBic()); // Prüfung des BIC
+            zahler.setBic(m.getBic());
+            new IBAN(m.getIban()); // Prüfung der IBAN
+            zahler.setIban(m.getIban());
+            zahler.setMandatid(m.getMandatID());
+            zahler.setMandatdatum(m.getMandatDatum());
+            zahler.setMandatsequence(m.getMandatSequence());
+            zahler.setFaelligkeit(param.faelligkeit1, param.faelligkeit2, m
+                .getMandatSequence().getCode());
+            zahler.setVerwendungszweck(param.verwendungszweck + " "
+                + getVerwendungszweck2(m));
+            if (m.getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
+            {
+              DBIterator angeh = Einstellungen.getDBService().createList(
+                  Mitglied.class);
+              angeh.addFilter("zahlerid = ?", m.getID());
+              String an = "";
+              int i = 0;
+              while (angeh.hasNext())
+              {
+                Mitglied a = (Mitglied) angeh.next();
+                if (i > 0)
+                {
+                  an += ", ";
+                }
+                i++;
+                an += a.getVorname();
+              }
+              if (an.length() > 27)
+              {
+                an = an.substring(0, 24) + "...";
+              }
+              zahler.setVerwendungszweck(zahler.getVerwendungszweck() + " "
+                  + an);
+            }
+            zahler.setName(m.getKontoinhaber(1));
+            lastschrift.add(zahler);
+          }
+          catch (Exception e)
+          {
+            throw new ApplicationException(Adressaufbereitung.getNameVorname(m)
+                + ": " + e.getMessage());
+          }
+        }
+      }
+    }
+  }
+
+  private void abrechnenMitgliederNeu(JVereinBasislastschrift lastschrift,
+      ProgressMonitor monitor, Abrechnungslauf abrl, Konto konto)
+      throws Exception
+  {
+    if (param.abbuchungsmodus != Abrechnungsmodi.KEINBEITRAG)
+    {
+      // Alle Mitglieder lesen
+      DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+      MitgliedUtils.setMitglied(list);
+
+      // Das Mitglied muss bereits eingetreten sein
+      list.addFilter("(eintritt <= ? or eintritt is null) ",
+          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+      // Das Mitglied darf noch nicht ausgetreten sein
+      list.addFilter("(austritt is null or austritt > ?)",
+          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+      // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
+      // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
+      if (param.vondatum != null)
+      {
+        list.addFilter("eingabedatum >= ?", new Object[] { new java.sql.Date(
+            param.vondatum.getTime()) });
+      }
+      list.setOrder("ORDER BY name, vorname");
+      // Sätze im Resultset
+
+      int count = 0;
+      while (list.hasNext())
+      {
+        monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
+        Mitglied m = (Mitglied) list.next();
+
+        Double betr = 0d;
+
+        if (m.getZahlungstermin() != null
+            && m.getZahlungstermin().isAbzurechnen(param.abrechnungsmonat))
+        {
+          switch (m.getZahlungstermin())
+          {
+            case MONATLICH:
+              betr = m.getBeitragsgruppe().getBetragMonatlich();
+              break;
+            case VIERTELJAEHRLICH1:
+            case VIERTELJAEHRLICH2:
+            case VIERTELJAEHRLICH3:
+              betr = m.getBeitragsgruppe().getBetragVierteljaehrlich();
+              break;
+            case HALBJAEHRLICH1:
+            case HALBJAEHRLICH2:
+            case HALBJAEHRLICH3:
+            case HALBJAEHRLICH4:
+            case HALBJAEHRLICH5:
+            case HALBJAEHRLICH6:
+              betr = m.getBeitragsgruppe().getBetragHalbjaehrlich();
+              break;
+            case JAERHLICH01:
+            case JAERHLICH02:
+            case JAERHLICH03:
+            case JAERHLICH04:
+            case JAERHLICH05:
+            case JAERHLICH06:
+            case JAERHLICH07:
+            case JAERHLICH08:
+            case JAERHLICH09:
+            case JAERHLICH10:
+            case JAERHLICH11:
+            case JAERHLICH12:
+              betr = m.getBeitragsgruppe().getBetragJaehrlich();
+              break;
+          }
+        }
+        if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
+            && m.getIndividuellerBeitrag() > 0)
+        {
+          betr = m.getIndividuellerBeitrag();
+        }
+        if (betr == 0d)
+        {
+          // Jetzt ist nichts abzurechnen
+          continue;
+        }
+        if (!checkSEPA(m, monitor))
+        {
+          continue;
+        }
+        counter++;
+        writeMitgliedskonto(m,
+            m.getMandatSequence().getTxt().equals("FRST") ? param.faelligkeit1
+                : param.faelligkeit2, param.verwendungszweck, betr, abrl,
+            m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
+            m.getBeitragsgruppe());
         if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
         {
           try
