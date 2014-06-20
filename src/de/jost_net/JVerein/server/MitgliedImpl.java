@@ -32,7 +32,7 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.SepaMandatIdSource;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
@@ -174,7 +174,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
         && BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
             .getBeitragsmodel(), this.getZahlungstermin(), this
-            .getZahlungsrhytmus(), this.getBeitragsgruppe()) > 0)
+            .getZahlungsrhythmus(), this.getBeitragsgruppe()) > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
@@ -209,10 +209,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       setKonto(null);
       setBlz(null);
     }
-    if (getZahlungsrhytmus() == null)
+    if (getZahlungsrhythmus() == null)
     {
       throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
-          + getZahlungsrhytmus());
+          + getZahlungsrhythmus());
     }
     if (getSterbetag() != null && getAustritt() == null)
     {
@@ -517,16 +517,16 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public Zahlungsrhytmus getZahlungsrhytmus() throws RemoteException
+  public Zahlungsrhythmus getZahlungsrhythmus() throws RemoteException
   {
-    return new Zahlungsrhytmus((Integer) getAttribute("zahlungsrhytmus"));
+    return new Zahlungsrhythmus((Integer) getAttribute("zahlungsrhytmus"));
   }
 
   @Override
-  public void setZahlungsrhytmus(Integer zahlungsrhytmus)
+  public void setZahlungsrhythmus(Integer zahlungsrhythmus)
       throws RemoteException
   {
-    setAttribute("zahlungsrhytmus", zahlungsrhytmus);
+    setAttribute("zahlungsrhytmus", zahlungsrhythmus);
   }
 
   @Override
@@ -1285,7 +1285,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setVermerk1("Vermerk 1");
       this.setVermerk2("Vermerk 2");
       this.setVorname("Willi");
-      this.setZahlungsrhytmus(12);
+      this.setZahlungsrhythmus(12);
       this.setZahlungsweg(1);
     }
     map.put(MitgliedVar.ADRESSIERUNGSZUSATZ.getName(),
@@ -1313,7 +1313,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
             .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
                 .getBeitragsmodel(), this.getZahlungstermin(), this
-                .getZahlungsrhytmus(), this.getBeitragsgruppe())) : "");
+                .getZahlungsrhythmus(), this.getBeitragsgruppe())) : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
         .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
         .getBezeichnung() : "");
@@ -1380,7 +1380,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(MitgliedVar.VORNAMENAME.getName(),
         Adressaufbereitung.getVornameName(this));
     map.put(MitgliedVar.ZAHLERID.getName(), this.getZahlerID());
-    map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(), this.getZahlungsrhytmus()
+    map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(), this.getZahlungsrhythmus()
+        + "");
+    map.put(MitgliedVar.ZAHLUNGSRHYTHMUS.getName(), this.getZahlungsrhythmus()
         + "");
     map.put(MitgliedVar.ZAHLUNGSWEG.getName(), this.getZahlungsweg() + "");
 

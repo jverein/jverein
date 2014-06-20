@@ -38,7 +38,7 @@ import de.jost_net.JVerein.keys.Abrechnungsmodi;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -307,44 +307,46 @@ public class AbrechnungSEPA
         {
           list.addFilter(
               "(zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
-              new Object[] { new Integer(Zahlungsrhytmus.HALBJAEHRLICH),
-                  new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
-                  new Integer(Zahlungsrhytmus.MONATLICH) });
+              new Object[] { new Integer(Zahlungsrhythmus.HALBJAEHRLICH),
+                  new Integer(Zahlungsrhythmus.VIERTELJAEHRLICH),
+                  new Integer(Zahlungsrhythmus.MONATLICH) });
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.JAVIMO)
         {
           list.addFilter(
               "(zahlungsrhytmus = ? or zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
-              new Object[] { new Integer(Zahlungsrhytmus.JAEHRLICH),
-                  new Integer(Zahlungsrhytmus.VIERTELJAEHRLICH),
-                  new Integer(Zahlungsrhytmus.MONATLICH) });
+              new Object[] { new Integer(Zahlungsrhythmus.JAEHRLICH),
+                  new Integer(Zahlungsrhythmus.VIERTELJAEHRLICH),
+                  new Integer(Zahlungsrhythmus.MONATLICH) });
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.VIMO)
         {
-          list.addFilter("(zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.VIERTELJAEHRLICH),
-                  Integer.valueOf(Zahlungsrhytmus.MONATLICH) });
+          list.addFilter(
+              "(zahlungsrhytmus = ? or zahlungsrhytmus = ?)",
+              new Object[] {
+                  Integer.valueOf(Zahlungsrhythmus.VIERTELJAEHRLICH),
+                  Integer.valueOf(Zahlungsrhythmus.MONATLICH) });
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.MO)
         {
           list.addFilter("zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.MONATLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhythmus.MONATLICH) });
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.VI)
         {
           list.addFilter(
               "zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.VIERTELJAEHRLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhythmus.VIERTELJAEHRLICH) });
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.HA)
         {
           list.addFilter("zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.HALBJAEHRLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhythmus.HALBJAEHRLICH) });
         }
         if (param.abbuchungsmodus == Abrechnungsmodi.JA)
         {
           list.addFilter("zahlungsrhytmus = ?",
-              new Object[] { Integer.valueOf(Zahlungsrhytmus.JAEHRLICH) });
+              new Object[] { Integer.valueOf(Zahlungsrhythmus.JAEHRLICH) });
         }
       }
       list.setOrder("ORDER BY name, vorname");
@@ -379,7 +381,8 @@ public class AbrechnungSEPA
             BigDecimal bbetr = new BigDecimal(beitragsgruppe.get(
                 m.getBeitragsgruppeId() + "").getBetrag());
             bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus().getKey());
+            BigDecimal bmonate = new BigDecimal(m.getZahlungsrhythmus()
+                .getKey());
             bbetr = bbetr.multiply(bmonate);
             if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
                 && m.getIndividuellerBeitrag() > 0)
@@ -506,7 +509,7 @@ public class AbrechnungSEPA
         {
           betr = BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
               .getBeitragsmodel(), m.getZahlungstermin(), m
-              .getZahlungsrhytmus(), m.getBeitragsgruppe());
+              .getZahlungsrhythmus(), m.getBeitragsgruppe());
         }
         if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
             && m.getIndividuellerBeitrag() > 0)

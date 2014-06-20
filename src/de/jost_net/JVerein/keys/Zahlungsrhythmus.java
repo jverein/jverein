@@ -24,9 +24,9 @@ package de.jost_net.JVerein.keys;
 import java.util.ArrayList;
 
 /**
- * Schlüssel Zahlungsrhytmus
+ * Schlüssel Zahlungsrhythmus
  */
-public class Zahlungsrhytmus
+public class Zahlungsrhythmus
 {
 
   public static final int JAEHRLICH = 12;
@@ -39,7 +39,7 @@ public class Zahlungsrhytmus
 
   private int zahlungsrhytmus;
 
-  public Zahlungsrhytmus(int key)
+  public Zahlungsrhythmus(int key)
   {
     this.zahlungsrhytmus = key;
   }
@@ -58,35 +58,35 @@ public class Zahlungsrhytmus
   {
     switch (key)
     {
-      case Zahlungsrhytmus.JAEHRLICH:
+      case Zahlungsrhythmus.JAEHRLICH:
         return "jährlich";
-      case Zahlungsrhytmus.HALBJAEHRLICH:
+      case Zahlungsrhythmus.HALBJAEHRLICH:
         return "halbjährlich";
-      case Zahlungsrhytmus.VIERTELJAEHRLICH:
+      case Zahlungsrhythmus.VIERTELJAEHRLICH:
         return "vierteljährlich";
-      case Zahlungsrhytmus.MONATLICH:
+      case Zahlungsrhythmus.MONATLICH:
         return "monatlich";
       default:
         return null;
     }
   }
 
-  public static ArrayList<Zahlungsrhytmus> getArray()
+  public static ArrayList<Zahlungsrhythmus> getArray()
   {
-    ArrayList<Zahlungsrhytmus> ret = new ArrayList<Zahlungsrhytmus>();
-    ret.add(new Zahlungsrhytmus(JAEHRLICH));
-    ret.add(new Zahlungsrhytmus(HALBJAEHRLICH));
-    ret.add(new Zahlungsrhytmus(VIERTELJAEHRLICH));
-    ret.add(new Zahlungsrhytmus(MONATLICH));
+    ArrayList<Zahlungsrhythmus> ret = new ArrayList<Zahlungsrhythmus>();
+    ret.add(new Zahlungsrhythmus(JAEHRLICH));
+    ret.add(new Zahlungsrhythmus(HALBJAEHRLICH));
+    ret.add(new Zahlungsrhythmus(VIERTELJAEHRLICH));
+    ret.add(new Zahlungsrhythmus(MONATLICH));
     return ret;
   }
 
   @Override
   public boolean equals(Object obj)
   {
-    if (obj instanceof Zahlungsrhytmus)
+    if (obj instanceof Zahlungsrhythmus)
     {
-      Zahlungsrhytmus v = (Zahlungsrhytmus) obj;
+      Zahlungsrhythmus v = (Zahlungsrhythmus) obj;
       return (getKey() == v.getKey());
     }
     return false;

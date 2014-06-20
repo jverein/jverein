@@ -916,7 +916,7 @@ public class Import
     {
       if (zahlungsrhythmus.matches("[0-9]+"))
       {
-        m.setZahlungsrhytmus(Integer.parseInt(zahlungsrhythmus));
+        m.setZahlungsrhythmus(Integer.parseInt(zahlungsrhythmus));
       }
       else
       {
@@ -925,12 +925,12 @@ public class Import
                 .format(
                     "Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
                     Adressaufbereitung.getNameVorname(m)));
-        m.setZahlungsrhytmus(new Integer(12));
+        m.setZahlungsrhythmus(new Integer(12));
       }
     }
     else
     { // Default value
-      m.setZahlungsrhytmus(new Integer(12));
+      m.setZahlungsrhythmus(new Integer(12));
     }
 
     String adresstyp = getResultFrom(results, InternalColumns.ADRESSTYP);

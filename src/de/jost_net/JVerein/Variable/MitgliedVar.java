@@ -80,7 +80,9 @@ public enum MitgliedVar
   VERMERK2("mitglied_vermerk2"), //
   VORNAME("mitglied_vorname"), //
   VORNAMENAME("mitglied_vornamename"), //
+  @Deprecated
   ZAHLUNGSRHYTMUS("mitglied_zahlungsrhytmus"), //
+  ZAHLUNGSRHYTHMUS("mitglied_zahlungsrhythmus"), //
   ZAHLUNGSWEG("mitglied_zahlungsweg"), //
   ZAHLUNGSWEGTEXT("mitglied_zahlungsweg_text"), //
   ZAHLERID("mitglied_zahlerid");

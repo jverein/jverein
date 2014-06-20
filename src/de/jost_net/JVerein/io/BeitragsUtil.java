@@ -20,14 +20,14 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.keys.Beitragsmodel;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 
 public class BeitragsUtil
 {
   public static double getBeitrag(Beitragsmodel bm, Zahlungstermin zt,
-      Zahlungsrhytmus zr, Beitragsgruppe bg) throws RemoteException
+      Zahlungsrhythmus zr, Beitragsgruppe bg) throws RemoteException
   {
     double betr = 0;
     switch (bm)

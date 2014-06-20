@@ -21,15 +21,15 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.formatter;
 
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.willuhn.jameica.gui.formatter.Formatter;
 
-public class ZahlungsrhytmusFormatter implements Formatter
+public class ZahlungsrhythmusFormatter implements Formatter
 {
   @Override
   public String format(Object o)
   {
     Integer zr = (Integer) o;
-    return Zahlungsrhytmus.get(zr);
+    return Zahlungsrhythmus.get(zr);
   }
 }

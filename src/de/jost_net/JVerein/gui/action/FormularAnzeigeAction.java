@@ -90,6 +90,7 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.PLZ, "12345");
       map.put(FormularfeldControl.ORT, "Testenhausen");
       map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, "jährlich");
+      map.put(FormularfeldControl.ZAHLUNGSRHYTHMUS, "jährlich");
       map.put(FormularfeldControl.BLZ, "10020030");
       map.put(FormularfeldControl.KONTO, "1234567");
       map.put(FormularfeldControl.KONTOINHABER, "Wichtig");

@@ -34,7 +34,7 @@ import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.SepaMandatIdSource;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
@@ -1087,9 +1087,9 @@ public class EinstellungControl extends AbstractControl
     {
       return zahlungsrhytmus;
     }
-    zahlungsrhytmus = new SelectInput(
-        Zahlungsrhytmus.getArray(),
-        new Zahlungsrhytmus(Einstellungen.getEinstellung().getZahlungsrhytmus()));
+    zahlungsrhytmus = new SelectInput(Zahlungsrhythmus.getArray(),
+        new Zahlungsrhythmus(Einstellungen.getEinstellung()
+            .getZahlungsrhytmus()));
     zahlungsrhytmus.setName("Standard-Zahlungsrhytmus f. neue Mitglieder");
     return zahlungsrhytmus;
   }
@@ -1655,7 +1655,7 @@ public class EinstellungControl extends AbstractControl
       SepaMandatIdSource sepaSource = (SepaMandatIdSource) sepamandatidsourcemodel
           .getValue();
       e.setSepaMandatIdSource(sepaSource.getKey());
-      Zahlungsrhytmus zr = (Zahlungsrhytmus) zahlungsrhytmus.getValue();
+      Zahlungsrhythmus zr = (Zahlungsrhythmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());
       Zahlungsweg zw = (Zahlungsweg) zahlungsweg.getValue();
       e.setZahlungsweg(zw.getKey());

@@ -444,7 +444,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         case GLEICHERTERMINFUERALLE:
           break;
         case MONATLICH12631:
-          zahlungsweg.addInput(control.getZahlungsrhytmus());
+          zahlungsweg.addInput(control.getZahlungsrhythmus());
           break;
         case FLEXIBEL:
           zahlungsweg.addInput(control.getZahlungstermin());

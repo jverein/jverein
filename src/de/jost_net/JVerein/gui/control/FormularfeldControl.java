@@ -111,7 +111,10 @@ public class FormularfeldControl extends AbstractControl
 
   public static final String STAAT = "Staat";
 
+  @Deprecated
   public static final String ZAHLUNGSRHYTMUS = "Zahlungsrhytmus";
+
+  public static final String ZAHLUNGSRHYTHMUS = "Zahlungsrhythmus";
 
   public static final String BLZ = "Bankleitzahl";
 

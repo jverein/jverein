@@ -77,7 +77,7 @@ import de.jost_net.JVerein.io.MitgliedAuswertungPDF;
 import de.jost_net.JVerein.io.MitgliederStatistik;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
-import de.jost_net.JVerein.keys.Zahlungsrhytmus;
+import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
@@ -752,8 +752,8 @@ public class MitgliedControl extends AbstractControl
   {
     try
     {
-      getZahlungsrhytmus().setValue(
-          new Zahlungsrhytmus(Einstellungen.getEinstellung()
+      getZahlungsrhythmus().setValue(
+          new Zahlungsrhythmus(Einstellungen.getEinstellung()
               .getZahlungsrhytmus()));
       getMandatID().setValue(null);
       getMandatDatum().setValue(null);
@@ -791,21 +791,21 @@ public class MitgliedControl extends AbstractControl
     return bankverbindungLabelGroup;
   }
 
-  public SelectInput getZahlungsrhytmus() throws RemoteException
+  public SelectInput getZahlungsrhythmus() throws RemoteException
   {
     if (zahlungsrhytmus != null)
     {
       return zahlungsrhytmus;
     }
-    if (getMitglied().getZahlungsrhytmus() != null)
+    if (getMitglied().getZahlungsrhythmus() != null)
     {
-      zahlungsrhytmus = new SelectInput(Zahlungsrhytmus.getArray(),
-          new Zahlungsrhytmus(getMitglied().getZahlungsrhytmus().getKey()));
+      zahlungsrhytmus = new SelectInput(Zahlungsrhythmus.getArray(),
+          new Zahlungsrhythmus(getMitglied().getZahlungsrhythmus().getKey()));
     }
     else
     {
-      zahlungsrhytmus = new SelectInput(Zahlungsrhytmus.getArray(),
-          new Zahlungsrhytmus(Einstellungen.getEinstellung()
+      zahlungsrhytmus = new SelectInput(Zahlungsrhythmus.getArray(),
+          new Zahlungsrhythmus(Einstellungen.getEinstellung()
               .getZahlungsrhytmus()));
     }
     zahlungsrhytmus.setName("Zahlungsrhytmus");
@@ -3009,8 +3009,8 @@ public class MitgliedControl extends AbstractControl
       }
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       m.setZahlungsweg(zw.getKey());
-      Zahlungsrhytmus zr = (Zahlungsrhytmus) getZahlungsrhytmus().getValue();
-      m.setZahlungsrhytmus(zr.getKey());
+      Zahlungsrhythmus zr = (Zahlungsrhythmus) getZahlungsrhythmus().getValue();
+      m.setZahlungsrhythmus(zr.getKey());
       Zahlungstermin zt = (Zahlungstermin) getZahlungstermin().getValue();
       m.setZahlungstermin(zt.getKey());
       m.setMandatDatum((Date) getMandatDatum().getValue());

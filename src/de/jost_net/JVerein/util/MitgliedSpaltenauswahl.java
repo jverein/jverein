@@ -26,7 +26,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.formatter.BeitragsgruppeFormatter;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
-import de.jost_net.JVerein.gui.formatter.ZahlungsrhytmusFormatter;
+import de.jost_net.JVerein.gui.formatter.ZahlungsrhythmusFormatter;
 import de.jost_net.JVerein.gui.formatter.ZahlungsterminFormatter;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -56,7 +56,7 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Zahlungsweg", "zahlungsweg", false, new ZahlungswegFormatter(),
         Column.ALIGN_LEFT, false);
     add("Zahlungsrhytmus", "zahlungsrhytmus", false,
-        new ZahlungsrhytmusFormatter(), Column.ALIGN_LEFT, false);
+        new ZahlungsrhythmusFormatter(), Column.ALIGN_LEFT, false);
     add("Zahlungstermin", "zahlungstermin", false,
         new ZahlungsterminFormatter(), Column.ALIGN_LEFT, true);
     add("Datum des Mandats", "mandatdatum", false, false);
