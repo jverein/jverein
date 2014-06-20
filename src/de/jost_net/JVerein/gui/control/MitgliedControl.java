@@ -800,7 +800,7 @@ public class MitgliedControl extends AbstractControl
     if (getMitglied().getZahlungsrhytmus() != null)
     {
       zahlungsrhytmus = new SelectInput(Zahlungsrhytmus.getArray(),
-          new Zahlungsrhytmus(getMitglied().getZahlungsrhytmus().intValue()));
+          new Zahlungsrhytmus(getMitglied().getZahlungsrhytmus().getKey()));
     }
     else
     {

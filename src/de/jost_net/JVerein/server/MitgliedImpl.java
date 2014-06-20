@@ -31,6 +31,7 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
 import de.jost_net.JVerein.keys.SepaMandatIdSource;
+import de.jost_net.JVerein.keys.Zahlungsrhytmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
@@ -205,8 +206,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       setKonto(null);
       setBlz(null);
     }
-    if (getZahlungsrhytmus() != 12 && getZahlungsrhytmus() != 6
-        && getZahlungsrhytmus() != 3 && getZahlungsrhytmus() != 1)
+    if (getZahlungsrhytmus() == null)
     {
       throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
           + getZahlungsrhytmus());
@@ -514,9 +514,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public Integer getZahlungsrhytmus() throws RemoteException
+  public Zahlungsrhytmus getZahlungsrhytmus() throws RemoteException
   {
-    return (Integer) getAttribute("zahlungsrhytmus");
+    return new Zahlungsrhytmus((Integer) getAttribute("zahlungsrhytmus"));
   }
 
   @Override

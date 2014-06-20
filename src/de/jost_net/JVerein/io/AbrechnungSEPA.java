@@ -379,7 +379,7 @@ public class AbrechnungSEPA
             BigDecimal bbetr = new BigDecimal(beitragsgruppe.get(
                 m.getBeitragsgruppeId() + "").getBetrag());
             bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus());
+            BigDecimal bmonate = new BigDecimal(m.getZahlungsrhytmus().getKey());
             bbetr = bbetr.multiply(bmonate);
             if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
                 && m.getIndividuellerBeitrag() > 0)
@@ -504,39 +504,9 @@ public class AbrechnungSEPA
         if (m.getZahlungstermin() != null
             && m.getZahlungstermin().isAbzurechnen(param.abrechnungsmonat))
         {
-          switch (m.getZahlungstermin())
-          {
-            case MONATLICH:
-              betr = m.getBeitragsgruppe().getBetragMonatlich();
-              break;
-            case VIERTELJAEHRLICH1:
-            case VIERTELJAEHRLICH2:
-            case VIERTELJAEHRLICH3:
-              betr = m.getBeitragsgruppe().getBetragVierteljaehrlich();
-              break;
-            case HALBJAEHRLICH1:
-            case HALBJAEHRLICH2:
-            case HALBJAEHRLICH3:
-            case HALBJAEHRLICH4:
-            case HALBJAEHRLICH5:
-            case HALBJAEHRLICH6:
-              betr = m.getBeitragsgruppe().getBetragHalbjaehrlich();
-              break;
-            case JAERHLICH01:
-            case JAERHLICH02:
-            case JAERHLICH03:
-            case JAERHLICH04:
-            case JAERHLICH05:
-            case JAERHLICH06:
-            case JAERHLICH07:
-            case JAERHLICH08:
-            case JAERHLICH09:
-            case JAERHLICH10:
-            case JAERHLICH11:
-            case JAERHLICH12:
-              betr = m.getBeitragsgruppe().getBetragJaehrlich();
-              break;
-          }
+          betr = BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
+              .getBeitragsmodel(), m.getZahlungstermin(), m
+              .getZahlungsrhytmus(), m.getBeitragsgruppe());
         }
         if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
             && m.getIndividuellerBeitrag() > 0)
