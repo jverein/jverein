@@ -106,7 +106,11 @@ public class SEPABugsControl extends AbstractControl
     while (it.hasNext())
     {
       Mitglied m = (Mitglied) it.next();
-      if (m.getBeitragsgruppe().getBetrag() > 0
+      if ((m.getBeitragsgruppe().getBetrag() > 0
+          || m.getBeitragsgruppe().getBetragMonatlich() > 0
+          || m.getBeitragsgruppe().getBetragVierteljaehrlich() > 0
+          || m.getBeitragsgruppe().getBetragHalbjaehrlich() > 0 || m
+          .getBeitragsgruppe().getBetragJaehrlich() > 0)
           && m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
       {
         plausi(bugs, m);

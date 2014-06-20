@@ -27,6 +27,7 @@ import java.util.Map;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
+import de.jost_net.JVerein.io.BeitragsUtil;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -171,7 +172,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (getAdresstyp().getJVereinid() == 1
         && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
-        && getBeitragsgruppe().getBetrag() > 0)
+        && BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
+            .getBeitragsmodel(), this.getZahlungstermin(), this
+            .getZahlungsrhytmus(), this.getBeitragsgruppe()) > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
@@ -1308,7 +1311,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
         this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(this.getBeitragsgruppe().getBetrag()) : "");
+            .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
+                .getBeitragsmodel(), this.getZahlungstermin(), this
+                .getZahlungsrhytmus(), this.getBeitragsgruppe())) : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
         .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
         .getBezeichnung() : "");
