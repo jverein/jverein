@@ -40,6 +40,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.io.BeitragsUtil;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -293,11 +294,14 @@ public class PersonalbogenAction implements Action
       rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
       rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
       rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
-      rpt.addColumn(
-          m.getBeitragsgruppe().getBezeichnung()
-              + " - "
-              + Einstellungen.DECIMALFORMAT.format(m.getBeitragsgruppe()
-                  .getBetrag()) + " EUR", Element.ALIGN_LEFT);
+      String beitragsgruppe = m.getBeitragsgruppe().getBezeichnung()
+          + " - "
+          + Einstellungen.DECIMALFORMAT.format(BeitragsUtil.getBeitrag(
+              Einstellungen.getEinstellung().getBeitragsmodel(),
+              m.getZahlungstermin(), m.getZahlungsrhytmus(),
+              m.getBeitragsgruppe())) + " EUR";
+      rpt.addColumn(beitragsgruppe, Element.ALIGN_LEFT);
+
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
       {
         rpt.addColumn("Individueller Beitrag", Element.ALIGN_LEFT);
