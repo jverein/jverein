@@ -174,7 +174,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
         && BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
             .getBeitragsmodel(), this.getZahlungstermin(), this
-            .getZahlungsrhythmus(), this.getBeitragsgruppe()) > 0)
+            .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe()) > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
@@ -1313,7 +1313,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
             .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
                 .getBeitragsmodel(), this.getZahlungstermin(), this
-                .getZahlungsrhythmus(), this.getBeitragsgruppe())) : "");
+                .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe()))
+            : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
         .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
         .getBezeichnung() : "");

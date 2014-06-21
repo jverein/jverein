@@ -20,14 +20,13 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.keys.Beitragsmodel;
-import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 
 public class BeitragsUtil
 {
-  public static double getBeitrag(Beitragsmodel bm, Zahlungstermin zt,
-      Zahlungsrhythmus zr, Beitragsgruppe bg) throws RemoteException
+  public static double getBeitrag(Beitragsmodel bm, Zahlungstermin zt, int zr,
+      Beitragsgruppe bg) throws RemoteException
   {
     double betr = 0;
     switch (bm)
@@ -38,7 +37,7 @@ public class BeitragsUtil
       case MONATLICH12631:
         BigDecimal bbetr = new BigDecimal(bg.getBetrag());
         bbetr = bbetr.setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal bmonate = new BigDecimal(zr.getKey());
+        BigDecimal bmonate = new BigDecimal(zr);
         bbetr = bbetr.multiply(bmonate);
         betr = bbetr.doubleValue();
         break;

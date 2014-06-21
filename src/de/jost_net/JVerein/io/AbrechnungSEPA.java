@@ -509,7 +509,7 @@ public class AbrechnungSEPA
         {
           betr = BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
               .getBeitragsmodel(), m.getZahlungstermin(), m
-              .getZahlungsrhythmus(), m.getBeitragsgruppe());
+              .getZahlungsrhythmus().getKey(), m.getBeitragsgruppe());
         }
         if (Einstellungen.getEinstellung().getIndividuelleBeitraege()
             && m.getIndividuellerBeitrag() > 0)
