@@ -30,7 +30,7 @@ import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.gui.dialogs.SimpleDialog;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -60,19 +60,23 @@ public class EigenschaftDeleteAction implements Action
       {
         return;
       }
-      YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+
+      SimpleDialog d = new SimpleDialog(SimpleDialog.POSITION_CENTER);
       d.setTitle("Eigenschaft löschen");
       DBIterator it = Einstellungen.getDBService().createList(
           Eigenschaften.class);
-      it.addFilter("eigenschaft = ?", new Object[] { ei.getID()});
-      d.setText(MessageFormat.format(
-          "Wollen Sie diese Eigenschaft wirklich löschen? Sie ist noch mit {0} Mitglied(ern) verknüpft.",
-          it.size()));
+      it.addFilter("eigenschaft = ?", new Object[] { ei.getID() });
+      d.setText(MessageFormat
+          .format(
+              "Die Eigenschaft kann nicht gelöscht werden. Sie ist noch mit {0} Mitglied(ern) verknüpft.",
+              it.size()));
       try
       {
-        Boolean choice = (Boolean) d.open();
-        if (!choice.booleanValue())
+        if (it.size() > 0)
+        {
+          d.open();
           return;
+        }
       }
       catch (Exception e)
       {
