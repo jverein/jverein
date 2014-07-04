@@ -99,7 +99,8 @@ public class LastschriftMap
     map.put(LastschriftVar.MANDATDATUM.getName(), ls.getMandatDatum());
     map.put(LastschriftVar.BIC.getName(), ls.getBIC());
     map.put(LastschriftVar.IBAN.getName(), ls.getIBAN());
-    map.put(LastschriftVar.IBANMASKIERT.getName(), anonymisieren(ls.getIBAN()));
+    map.put(LastschriftVar.IBANMASKIERT.getName(),
+        VarTools.maskieren(ls.getIBAN()));
     map.put(LastschriftVar.VERWENDUNGSZWECK.getName(), ls.getVerwendungszweck());
     map.put(LastschriftVar.BETRAG.getName(), ls.getBetrag());
     map.put(LastschriftVar.EMPFAENGER.getName(),
@@ -108,13 +109,4 @@ public class LastschriftMap
     return map;
   }
 
-  private String anonymisieren(String wert)
-  {
-    StringBuffer sb = new StringBuffer(wert);
-    for (int i = 0; i < wert.length() - 4; i++)
-    {
-      sb.replace(i, i + 1, "X");
-    }
-    return sb.toString();
-  }
 }

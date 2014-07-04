@@ -47,6 +47,7 @@ public enum MitgliedVar
   GESCHLECHT("mitglied_geschlecht"), //
   HANDY("mitglied_handy"), //
   IBAN("mitglied_iban"), //
+  IBANMASKIERT("mitglied_iban_maskiert"), //
   ID("mitglied_id"), //
   INDIVIDUELLERBEITRAG("mitglied_individuellerbeitrag"), //
   KONTO("mitglied_konto"), //

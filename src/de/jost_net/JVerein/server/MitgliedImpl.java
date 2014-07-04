@@ -26,6 +26,7 @@ import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.MitgliedVar;
+import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.BeitragsUtil;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -1338,6 +1339,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         Datum.formatDate(this.getGeburtsdatum()));
     map.put(MitgliedVar.GESCHLECHT.getName(), this.getGeschlecht());
     map.put(MitgliedVar.HANDY.getName(), this.getHandy());
+    map.put(MitgliedVar.IBANMASKIERT.getName(),
+        VarTools.maskieren(this.getIban()));
     map.put(MitgliedVar.IBAN.getName(), this.getIban());
     map.put(MitgliedVar.ID.getName(), this.getID());
     map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
