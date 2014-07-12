@@ -29,6 +29,7 @@ import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -299,7 +300,8 @@ public class PersonalbogenAction implements Action
           + Einstellungen.DECIMALFORMAT.format(BeitragsUtil.getBeitrag(
               Einstellungen.getEinstellung().getBeitragsmodel(),
               m.getZahlungstermin(), m.getZahlungsrhythmus().getKey(),
-              m.getBeitragsgruppe())) + " EUR";
+              m.getBeitragsgruppe(), new Date(), m.getEintritt(),
+              m.getAustritt())) + " EUR";
       rpt.addColumn(beitragsgruppe, Element.ALIGN_LEFT);
 
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
