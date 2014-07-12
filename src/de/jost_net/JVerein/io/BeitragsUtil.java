@@ -18,6 +18,7 @@ package de.jost_net.JVerein.io;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.Zahlungstermin;
@@ -26,9 +27,18 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 public class BeitragsUtil
 {
   public static double getBeitrag(Beitragsmodel bm, Zahlungstermin zt, int zr,
-      Beitragsgruppe bg) throws RemoteException
+      Beitragsgruppe bg, Date stichtag, Date eintritt, Date austritt)
+      throws RemoteException
   {
     double betr = 0;
+    if (eintritt != null && eintritt.after(stichtag))
+    {
+      return 0;
+    }
+    if (austritt != null && austritt.before(stichtag))
+    {
+      return 0;
+    }
     switch (bm)
     {
       case GLEICHERTERMINFUERALLE:
