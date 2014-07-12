@@ -250,11 +250,6 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
         return false;
       }
     }
-    // Wenn der Auftrag noch nie ausgeführt wurde, ist er auszuführen
-    // if (getAusfuehrung() == null)
-    // {
-    // return true;
-    // }
     // Einmalige Ausführung
     if (getIntervall().intValue() == IntervallZusatzzahlung.KEIN)
     {
@@ -279,17 +274,15 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
 
     // Wenn das Endedatum gesetzt ist und das Ausführungsdatum liegt hinter
     // dem Endedatum: nicht mehr ausführen
-    if (getEndedatum() != null && getAusfuehrung() != null
-        && getAusfuehrung().getTime() >= getEndedatum().getTime())
+    if (getEndedatum() != null && datum.getTime() >= getEndedatum().getTime())
     {
       return false;
     }
-    if (getFaelligkeit().getTime() <= datum.getTime())
+    if (getFaelligkeit().getTime() > datum.getTime())
     {
-      return true;
+      return false;
     }
-
-    return false;
+    return true;
   }
 
   @Override
