@@ -16,6 +16,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ import de.jost_net.JVerein.Variable.MitgliedVar;
 import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.BeitragsUtil;
+import de.jost_net.JVerein.io.VelocityTool;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -175,7 +177,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
         && BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
             .getBeitragsmodel(), this.getZahlungstermin(), this
-            .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe()) > 0)
+            .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe(),
+            new Date(), getEintritt(), getAustritt()) > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
@@ -1309,13 +1312,20 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
         this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
             .format(this.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
-    map.put(
-        MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
-        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
-                .getBeitragsmodel(), this.getZahlungstermin(), this
-                .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe()))
-            : "");
+    try
+    {
+      map.put(
+          MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
+          this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+              .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
+                  .getBeitragsmodel(), this.getZahlungstermin(), this
+                  .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe(),
+                  new Date(), this.getEintritt(), this.getAustritt())) : "");
+    }
+    catch (NullPointerException e)
+    {
+      System.out.println(getName());
+    }
     map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
         .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
         .getBezeichnung() : "");
@@ -1415,6 +1425,14 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
             .getRechnungTextUeberweisung();
         break;
       }
+    }
+    try
+    {
+      zahlungsweg = VelocityTool.eval(map, zahlungsweg);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
     }
     map.put(MitgliedVar.ZAHLUNGSWEGTEXT.getName(), zahlungsweg);
 
