@@ -191,7 +191,7 @@ public class BuchungAuswertungPDF
             Element.ALIGN_LEFT);
         if (b.getAuszugsnummer() != null)
         {
-          reporter.addColumn(b.getAuszugsnummer() + "/" + b.getBlattnummer(),
+          reporter.addColumn(b.getAuszugsnummer() + "/" + (b.getBlattnummer() != null ? b.getBlattnummer() : "-"),
               Element.ALIGN_LEFT);
         }
         else

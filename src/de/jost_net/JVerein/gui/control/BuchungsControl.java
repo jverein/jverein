@@ -113,9 +113,9 @@ public class BuchungsControl extends AbstractControl
 
   private DialogInput konto;
 
-  private Input auszugsnummer;
+  private IntegerInput auszugsnummer;
 
-  private Input blattnummer;
+  private IntegerInput blattnummer;
 
   private Input name;
 
@@ -242,33 +242,35 @@ public class BuchungsControl extends AbstractControl
     return settings.getString("kontoid", "");
   }
 
-  public Input getAuszugsnummer() throws RemoteException
+  public Input getAuszugsnummer()
   {
     if (auszugsnummer != null)
     {
       return auszugsnummer;
     }
-    String val = "";
-    if (getBuchung().getAuszugsnummer() != null)
-    {
-      val = getBuchung().getAuszugsnummer() + "";
+    Integer intAuszugsnummer;
+    try {
+    	intAuszugsnummer = getBuchung().getAuszugsnummer();
+    } catch (RemoteException e) {
+    	intAuszugsnummer = null;
     }
-    auszugsnummer = new TextInput(val + "", 5);
+    auszugsnummer = new IntegerInput(intAuszugsnummer != null ? intAuszugsnummer : -1);
     return auszugsnummer;
   }
 
-  public Input getBlattnummer() throws RemoteException
+  public Input getBlattnummer()
   {
     if (blattnummer != null)
     {
       return blattnummer;
     }
-    String val = "";
-    if (getBuchung().getBlattnummer() != null)
-    {
-      val = getBuchung().getBlattnummer() + "";
+    Integer intBlattnummer;
+    try {
+    	intBlattnummer = getBuchung().getBlattnummer();
+    } catch (RemoteException e) {
+    	intBlattnummer = null;
     }
-    blattnummer = new TextInput(val, 5);
+    blattnummer = new IntegerInput(intBlattnummer != null ? intBlattnummer : -1);
     return blattnummer;
   }
 
@@ -762,50 +764,24 @@ public class BuchungsControl extends AbstractControl
 
   private Integer getBlattnummerWert() throws ApplicationException
   {
-    try
-    {
-      String sval = (String) getBlattnummer().getValue();
-      return wandleStringToInteger(sval);
-    }
-    catch (RemoteException ex)
-    {
-      final String meldung = "Blattnummer kann nicht gespeichert werden. Muss leer oder eine ganze Zahl sein.";
-      Logger.error(meldung, ex);
-      throw new ApplicationException(meldung, ex);
-    }
+	  Integer intBlatt = (Integer) getBlattnummer().getValue();
+	  if (intBlatt != null && intBlatt <= 0) {
+		  final String meldung = "Blattnummer kann nicht gespeichert werden. Muss leer oder eine positive Zahl sein.";
+	      Logger.error(meldung);
+	      throw new ApplicationException(meldung);
+	  }
+	  return intBlatt;
   }
 
   private Integer getAuszugsnummerWert() throws ApplicationException
   {
-    try
-    {
-      String sval = (String) getAuszugsnummer().getValue();
-      return wandleStringToInteger(sval);
-    }
-    catch (RemoteException ex)
-    {
-      final String meldung = "Auszugsnummer kann nicht gespeichert werden. Muss leer oder eine ganze Zahl sein.";
-      Logger.error(meldung, ex);
-      throw new ApplicationException(meldung, ex);
-    }
-  }
-
-  private Integer wandleStringToInteger(String text) throws RemoteException
-  {
-    if (null == text)
-      return null;
-    if (text.isEmpty())
-      return null;
-
-    try
-    {
-      return new Integer(text);
-    }
-    catch (NumberFormatException ex)
-    {
-      throw new RemoteException("Eingabe ist keine Zahl. Eingabe = <" + text
-          + ">");
-    }
+	  Integer intAuszugsnummer = (Integer) auszugsnummer.getValue();
+	  if (intAuszugsnummer != null && intAuszugsnummer <= 0) {
+		  final String meldung = "Auszugsnummer kann nicht gespeichert werden. Muss leer oder eine positive Zahl sein.";
+	      Logger.error(meldung);
+	      throw new ApplicationException(meldung);
+	  }
+	  return intAuszugsnummer;
   }
 
   private Konto getSelectedKonto() throws ApplicationException
@@ -965,7 +941,7 @@ public class BuchungsControl extends AbstractControl
       // }
       // }, false, Column.ALIGN_AUTO, Column.SORT_BY_DISPLAY));
       buchungsList.addColumn("Auszugsnummer", "auszugsnummer");
-      buchungsList.addColumn("Blatt", "blatt");
+      buchungsList.addColumn("Blatt", "blattnummer");
 
       buchungsList.addColumn("Name", "name");
       buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()

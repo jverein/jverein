@@ -35,13 +35,11 @@ import de.willuhn.jameica.system.OperationCanceledException;
 public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
 {
 
-  private IntegerInput auszug = null;
+  private IntegerInput auszugsnummer = null;
+  private Integer intAuszugsnummer;
 
-  private Integer intAuszug;
-
-  private IntegerInput blatt = null;
-
-  private Integer intBlatt;
+  private IntegerInput blattnummer = null;
+  private Integer intBlattnummer;
 
   private CheckboxInput ueberschreiben = null;
 
@@ -52,19 +50,21 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
   /**
    * @param position
    */
-  public KontoauszugZuordnungDialog(int position)
+  public KontoauszugZuordnungDialog(int position, Integer auszugsnummer, Integer blattnummer)
   {
     super(position);
     setTitle("Zuordnung Kontoauszugsinformationen");
     setSize(400, 225);
+    getAuszugsnummer().setValue(auszugsnummer);
+    getBlattnummer().setValue(blattnummer);
   }
 
   @Override
   protected void paint(Composite parent) throws Exception
   {
     LabelGroup group = new LabelGroup(parent, "");
-    group.addLabelPair("Auszug", getAuszug());
-    group.addLabelPair("Blatt", getBlatt());
+    group.addLabelPair("Auszug", getAuszugsnummer());
+    group.addLabelPair("Blatt", getBlattnummer());
     group.addLabelPair("Kontoauszugsinformationen überschreiben",
         getUeberschreiben());
     group.addLabelPair("", getStatus());
@@ -76,22 +76,23 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
       @Override
       public void handleAction(Object context)
       {
-        intAuszug = (Integer) auszug.getValue();
-        if (intAuszug.intValue() <= 0)
+    	  
+    	intAuszugsnummer = (Integer) getAuszugsnummer().getValue();
+        if (intAuszugsnummer != null && intAuszugsnummer.intValue() <= 0)
         {
-          status.setValue("Auszugsnummer fehlt");
+          status.setValue("Auszugsnummer muss leer oder Positiv sein.");
           status.setColor(Color.ERROR);
           return;
         }
-        intBlatt = (Integer) blatt.getValue();
-        if (intBlatt <= 0)
+        intBlattnummer = (Integer) getBlattnummer().getValue();
+        if (intBlattnummer != null && intBlattnummer <= 0)
         {
-          status.setValue("Blattnummer fehlt");
+          status.setValue("Blattnummer muss leer oder Positiv sein.");
           status.setColor(Color.ERROR);
           return;
         }
-        intAuszug = (Integer) getAuszug().getValue();
-        intBlatt = (Integer) getBlatt().getValue();
+        
+        
         ueberschr = (Boolean) getUeberschreiben().getValue();
         close();
       }
@@ -119,14 +120,14 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
     return null;
   }
 
-  public Integer getAuszugValue()
+  public Integer getAuszugsnummerWert()
   {
-    return intAuszug;
+    return intAuszugsnummer;
   }
 
-  public Integer getBlattValue()
+  public Integer getBlattnummerWert()
   {
-    return intBlatt;
+    return intBlattnummer;
   }
 
   public boolean getOverride()
@@ -134,24 +135,24 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
     return ueberschr;
   }
 
-  private IntegerInput getAuszug()
+  private IntegerInput getAuszugsnummer()
   {
-    if (auszug != null)
+    if (auszugsnummer != null)
     {
-      return auszug;
+      return auszugsnummer;
     }
-    auszug = new IntegerInput(0);
-    return auszug;
+    auszugsnummer = new IntegerInput(-1);
+    return auszugsnummer;
   }
 
-  private IntegerInput getBlatt()
+  private IntegerInput getBlattnummer()
   {
-    if (blatt != null)
+    if (blattnummer != null)
     {
-      return blatt;
+      return blattnummer;
     }
-    blatt = new IntegerInput(0);
-    return blatt;
+    blattnummer = new IntegerInput(-1);
+    return blattnummer;
   }
 
   private LabelInput getStatus()
@@ -170,7 +171,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
     {
       return ueberschreiben;
     }
-    ueberschreiben = new CheckboxInput(false);
+    ueberschreiben = new CheckboxInput(true);
     return ueberschreiben;
   }
 }
