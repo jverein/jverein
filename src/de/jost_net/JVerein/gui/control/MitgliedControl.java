@@ -46,6 +46,7 @@ import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
 import de.jost_net.JVerein.gui.action.MailDetailAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
+import de.jost_net.JVerein.gui.action.MitgliedNextBGruppeBearbeitenAction;
 import de.jost_net.JVerein.gui.action.WiedervorlageAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
@@ -3722,7 +3723,7 @@ public class MitgliedControl extends AbstractControl
       return beitragsTabelle;
     }
 
-    beitragsTabelle = new TablePart(null);
+    beitragsTabelle = new TablePart(new MitgliedNextBGruppeBearbeitenAction());
     beitragsTabelle.setRememberColWidths(true);
     beitragsTabelle.setRememberOrder(true);
     beitragsTabelle.setContextMenu(new MitgliedNextBGruppeMenue(this));

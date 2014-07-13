@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -57,16 +52,34 @@ public class MitgliedNextBGruppeControl extends AbstractControl
 
   private TextInput beitragsGruppeAktuell;
 
+  private MitgliedNextBGruppe mitgliednextbgruppe;
+
   public MitgliedNextBGruppeControl(AbstractView view)
   {
     super(view);
+  }
+
+  private MitgliedNextBGruppe getMitgliedNextBGruppe() throws RemoteException
+  {
+    if (mitgliednextbgruppe != null)
+    {
+      return mitgliednextbgruppe;
+    }
+    if (getCurrentObject() instanceof Mitglied)
+    {
+      mitgliednextbgruppe = (MitgliedNextBGruppe) Einstellungen.getDBService()
+          .createObject(MitgliedNextBGruppe.class, null);
+      return mitgliednextbgruppe;
+    }
+    mitgliednextbgruppe = (MitgliedNextBGruppe) getCurrentObject();
+    return mitgliednextbgruppe;
   }
 
   public TextInput getBemerkungsInput() throws RemoteException
   {
     if (bemerkung == null)
     {
-      bemerkung = new TextInput("", 30);
+      bemerkung = new TextInput(getMitgliedNextBGruppe().getBemerkung(), 30);
     }
     return bemerkung;
   }
@@ -87,10 +100,14 @@ public class MitgliedNextBGruppeControl extends AbstractControl
   {
     Mitglied mitglied = getMitglied();
     if (null == mitglied)
+    {
       return null;
+    }
     Beitragsgruppe beitragsGruppe = mitglied.getBeitragsgruppe();
     if (null == beitragsGruppe)
+    {
       return null;
+    }
     return beitragsGruppe.getBezeichnung();
   }
 
@@ -109,9 +126,19 @@ public class MitgliedNextBGruppeControl extends AbstractControl
     return mitgliedsName;
   }
 
-  private Mitglied getMitglied()
+  private Mitglied getMitglied() throws RemoteException
   {
-    Mitglied mitglied = (Mitglied) this.view.getCurrentObject();
+    Mitglied mitglied = null;
+    if (this.view.getCurrentObject() instanceof Mitglied)
+    {
+      mitglied = (Mitglied) this.view.getCurrentObject();
+    }
+    if (this.view.getCurrentObject() instanceof MitgliedNextBGruppe)
+    {
+      MitgliedNextBGruppe mnb = (MitgliedNextBGruppe) this.view
+          .getCurrentObject();
+      mitglied = mnb.getMitglied();
+    }
     return mitglied;
   }
 
@@ -122,7 +149,8 @@ public class MitgliedNextBGruppeControl extends AbstractControl
       return abDatum;
     }
 
-    this.abDatum = new DateInput(null, new JVDateFormatTTMMJJJJ());
+    this.abDatum = new DateInput(getMitgliedNextBGruppe().getAbDatum(),
+        new JVDateFormatTTMMJJJJ());
     this.abDatum.setComment("Wann soll Beitragsgruppe aktiviert werden?");
     this.abDatum.setMandatory(true);
     return abDatum;
@@ -130,7 +158,7 @@ public class MitgliedNextBGruppeControl extends AbstractControl
 
   private boolean isFamilienMitglied() throws RemoteException
   {
-    Mitglied mitglied = (Mitglied) this.view.getCurrentObject();
+    Mitglied mitglied = getMitglied();
     Beitragsgruppe beitragsGruppe = mitglied.getBeitragsgruppe();
     return (beitragsGruppe.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER);
   }
@@ -155,7 +183,8 @@ public class MitgliedNextBGruppeControl extends AbstractControl
           ArtBeitragsart.FAMILIE_ZAHLER.getKey(),
           ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey());
     }
-    beitragsgruppe = new SelectInput(list, null);
+    beitragsgruppe = new SelectInput(list, getMitgliedNextBGruppe()
+        .getBeitragsgruppe());
     beitragsgruppe.setName("Beitragsgruppe");
     beitragsgruppe.setMandatory(true);
     beitragsgruppe.setAttribute("bezeichnung");
@@ -188,8 +217,7 @@ public class MitgliedNextBGruppeControl extends AbstractControl
   private void speichernBeitragsGruppe() throws RemoteException,
       ApplicationException
   {
-    MitgliedNextBGruppe mitgliedsBeitragsgruppe = (MitgliedNextBGruppe) Einstellungen
-        .getDBService().createObject(MitgliedNextBGruppe.class, null);
+    MitgliedNextBGruppe mitgliedsBeitragsgruppe = getMitgliedNextBGruppe();
     mitgliedsBeitragsgruppe.setMitglied(getMitglied());
     mitgliedsBeitragsgruppe.setBemerkung((String) getBemerkungsInput()
         .getValue());
