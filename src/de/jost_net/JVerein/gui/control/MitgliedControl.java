@@ -3013,7 +3013,10 @@ public class MitgliedControl extends AbstractControl
       Zahlungsrhythmus zr = (Zahlungsrhythmus) getZahlungsrhythmus().getValue();
       m.setZahlungsrhythmus(zr.getKey());
       Zahlungstermin zt = (Zahlungstermin) getZahlungstermin().getValue();
-      m.setZahlungstermin(zt.getKey());
+      if (zt != null)
+      {
+        m.setZahlungstermin(zt.getKey());
+      }
       m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setMandatVersion((Integer) getMandatVersion().getValue());
       m.setMandatSequence((MandatSequence) getMandatSequence().getValue());
