@@ -95,6 +95,7 @@
 		</javadoc>
 	</target>
 
+<!--	
 	<target name="junit" depends="init" description="JUnit-Tests">
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath refid="classpath" />
@@ -106,7 +107,7 @@
 			</test>
 		</junit>
 	</target>
-
+-->
 	<target name="src" description="build source package, depends compile target to make sure, the code has no errors">
 		<mkdir dir="${project.release}" />
 		<mkdir dir="${project.tmp}/${plugin.name}" />
@@ -133,7 +134,7 @@
 
 	<target name="all" depends="init,jar,javadoc,src,clean" description="build an official release" />
 
-	<target name="fast" depends="init,junit,jar,src" description="Entwicklerversion bauen">
+	<target name="fast" depends="init,jar,src" description="Entwicklerversion bauen">
 		<move file="${project.release}/${project.zipfilename}" tofile="${project.release}/${project.zipfilename}" />
 	</target>
 
