@@ -76,10 +76,10 @@ public class BuchungKontoauszugZuordnungAction implements Action
       try
       {
         KontoauszugZuordnungDialog kaz = new KontoauszugZuordnungDialog(
-            BuchungsartZuordnungDialog.POSITION_MOUSE);
+            BuchungsartZuordnungDialog.POSITION_MOUSE, b[0].getAuszugsnummer(), b[0].getBlattnummer());
         kaz.open();
-        Integer auszug = kaz.getAuszugValue();
-        Integer blatt = kaz.getBlattValue();
+        Integer auszugsnummer = kaz.getAuszugsnummerWert();
+        Integer blattnummer = kaz.getBlattnummerWert();
         int counter = 0;
 
         for (Buchung buchung : b)
@@ -94,8 +94,8 @@ public class BuchungKontoauszugZuordnungAction implements Action
           }
           else
           {
-            buchung.setAuszugsnummer(auszug);
-            buchung.setBlattnummer(blatt);
+            buchung.setAuszugsnummer(auszugsnummer);
+            buchung.setBlattnummer(blattnummer);
             buchung.store();
             Application.getMessagingFactory().sendMessage(
                 new BuchungMessage(buchung));

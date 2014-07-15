@@ -144,7 +144,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
         }
         case Datentyp.GANZZAHL:
         {
-          TextInput inputvon = new IntegerInput(-1);
+          IntegerInput inputvon = new IntegerInput(-1);
           inputvon.setName(fd.getLabel() + " von");
           felder.add(inputvon);
           group.addInput(inputvon);
@@ -159,7 +159,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
           inputvon.setValue(settings.getInt("zusatzfeld." + counter + ".value",
               -1));
 
-          TextInput inputbis = new IntegerInput(-1);
+          IntegerInput inputbis = new IntegerInput(-1);
           inputbis.setName(fd.getLabel() + " bis");
           felder.add(inputbis);
           group.addInput(inputbis);
