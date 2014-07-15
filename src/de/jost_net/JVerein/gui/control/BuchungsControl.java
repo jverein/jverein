@@ -249,12 +249,16 @@ public class BuchungsControl extends AbstractControl
       return auszugsnummer;
     }
     Integer intAuszugsnummer;
-    try {
-    	intAuszugsnummer = getBuchung().getAuszugsnummer();
-    } catch (RemoteException e) {
-    	intAuszugsnummer = null;
+    try
+    {
+      intAuszugsnummer = getBuchung().getAuszugsnummer();
     }
-    auszugsnummer = new IntegerInput(intAuszugsnummer != null ? intAuszugsnummer : -1);
+    catch (RemoteException e)
+    {
+      intAuszugsnummer = null;
+    }
+    auszugsnummer = new IntegerInput(
+        intAuszugsnummer != null ? intAuszugsnummer : -1);
     return auszugsnummer;
   }
 
@@ -265,10 +269,13 @@ public class BuchungsControl extends AbstractControl
       return blattnummer;
     }
     Integer intBlattnummer;
-    try {
-    	intBlattnummer = getBuchung().getBlattnummer();
-    } catch (RemoteException e) {
-    	intBlattnummer = null;
+    try
+    {
+      intBlattnummer = getBuchung().getBlattnummer();
+    }
+    catch (RemoteException e)
+    {
+      intBlattnummer = null;
     }
     blattnummer = new IntegerInput(intBlattnummer != null ? intBlattnummer : -1);
     return blattnummer;
@@ -510,7 +517,6 @@ public class BuchungsControl extends AbstractControl
         }
         catch (Exception e)
         {
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
@@ -764,24 +770,26 @@ public class BuchungsControl extends AbstractControl
 
   private Integer getBlattnummerWert() throws ApplicationException
   {
-	  Integer intBlatt = (Integer) getBlattnummer().getValue();
-	  if (intBlatt != null && intBlatt <= 0) {
-		  final String meldung = "Blattnummer kann nicht gespeichert werden. Muss leer oder eine positive Zahl sein.";
-	      Logger.error(meldung);
-	      throw new ApplicationException(meldung);
-	  }
-	  return intBlatt;
+    Integer intBlatt = (Integer) getBlattnummer().getValue();
+    if (intBlatt != null && intBlatt <= 0)
+    {
+      final String meldung = "Blattnummer kann nicht gespeichert werden. Muss leer oder eine positive Zahl sein.";
+      Logger.error(meldung);
+      throw new ApplicationException(meldung);
+    }
+    return intBlatt;
   }
 
   private Integer getAuszugsnummerWert() throws ApplicationException
   {
-	  Integer intAuszugsnummer = (Integer) auszugsnummer.getValue();
-	  if (intAuszugsnummer != null && intAuszugsnummer <= 0) {
-		  final String meldung = "Auszugsnummer kann nicht gespeichert werden. Muss leer oder eine positive Zahl sein.";
-	      Logger.error(meldung);
-	      throw new ApplicationException(meldung);
-	  }
-	  return intAuszugsnummer;
+    Integer intAuszugsnummer = (Integer) auszugsnummer.getValue();
+    if (intAuszugsnummer != null && intAuszugsnummer <= 0)
+    {
+      final String meldung = "Auszugsnummer kann nicht gespeichert werden. Muss leer oder eine positive Zahl sein.";
+      Logger.error(meldung);
+      throw new ApplicationException(meldung);
+    }
+    return intAuszugsnummer;
   }
 
   private Konto getSelectedKonto() throws ApplicationException

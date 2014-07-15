@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -63,7 +58,8 @@ public class BuchungsjournalPDF
         reporter.addColumn(b.getKonto().getNummer(), Element.ALIGN_RIGHT);
         if (b.getAuszugsnummer() != null)
         {
-          reporter.addColumn(b.getAuszugsnummer() + "/" + (b.getBlattnummer() != null ? b.getBlattnummer() : "-"),
+          reporter.addColumn(b.getAuszugsnummer() + "/"
+              + (b.getBlattnummer() != null ? b.getBlattnummer() : "-"),
               Element.ALIGN_LEFT);
         }
         else

@@ -36,9 +36,11 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
 {
 
   private IntegerInput auszugsnummer = null;
+
   private Integer intAuszugsnummer;
 
   private IntegerInput blattnummer = null;
+
   private Integer intBlattnummer;
 
   private CheckboxInput ueberschreiben = null;
@@ -50,7 +52,8 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
   /**
    * @param position
    */
-  public KontoauszugZuordnungDialog(int position, Integer auszugsnummer, Integer blattnummer)
+  public KontoauszugZuordnungDialog(int position, Integer auszugsnummer,
+      Integer blattnummer)
   {
     super(position);
     setTitle("Zuordnung Kontoauszugsinformationen");
@@ -76,8 +79,8 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
       @Override
       public void handleAction(Object context)
       {
-    	  
-    	intAuszugsnummer = (Integer) getAuszugsnummer().getValue();
+
+        intAuszugsnummer = (Integer) getAuszugsnummer().getValue();
         if (intAuszugsnummer != null && intAuszugsnummer.intValue() <= 0)
         {
           status.setValue("Auszugsnummer muss leer oder Positiv sein.");
@@ -91,8 +94,7 @@ public class KontoauszugZuordnungDialog extends AbstractDialog<Object>
           status.setColor(Color.ERROR);
           return;
         }
-        
-        
+
         ueberschr = (Boolean) getUeberschreiben().getValue();
         close();
       }
