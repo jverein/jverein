@@ -147,7 +147,7 @@ public class SEPABugsControl extends AbstractControl
     {
       bic = new BIC(ls.getBic());
     }
-    catch (SEPAException e)
+    catch (Exception e)
     {
       bugs.add(new Bug(ls, "Ungültige BIC " + ls.getBic(), Bug.ERROR));
     }
