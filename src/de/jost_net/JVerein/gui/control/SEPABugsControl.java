@@ -32,8 +32,6 @@ import de.jost_net.JVerein.server.Bug;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
-import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
-import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -68,7 +66,7 @@ public class SEPABugsControl extends AbstractControl
     {
 
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         Bug bug = (Bug) context;
         Object object = bug.getObject();
@@ -145,16 +143,16 @@ public class SEPABugsControl extends AbstractControl
     {
       bugs.add(new Bug(ls, "Ungültige BIC " + ls.getBic(), Bug.ERROR));
     }
-    if (bic != null && iban != null)
-    {
-      String blz = iban.getBLZ();
-      Bank b = Banken.getBankByBLZ(blz);
-      if (!b.getBIC().equals(ls.getBic()))
-      {
-        bugs.add(new Bug(ls, "BIC passt nicht zur IBAN: " + ls.getBic() + ", "
-            + ls.getIban(), Bug.ERROR));
-      }
-    }
+    // if (bic != null && iban != null)
+    // {
+    // String blz = iban.getBLZ();
+    // Bank b = Banken.getBankByBLZ(blz);
+    // if (!b.getBIC().equals(ls.getBic()))
+    // {
+    // bugs.add(new Bug(ls, "BIC passt nicht zur IBAN: " + ls.getBic() + ", "
+    // + ls.getIban(), Bug.ERROR));
+    // }
+    // }
     if (ls.getLetzteLastschrift() != null
         && ls.getLetzteLastschrift().before(sepagueltigkeit))
     {
