@@ -267,7 +267,7 @@ public class ImportView extends AbstractView
         "Import", new Action()
         {
           @Override
-          public void handleAction(Object context) throws ApplicationException
+          public void handleAction(Object context) 
           {
             doImport();
           }

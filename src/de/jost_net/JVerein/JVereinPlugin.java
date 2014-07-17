@@ -127,7 +127,7 @@ public class JVereinPlugin extends AbstractPlugin
    * throw an ApplicationException.
    */
   @Override
-  public void install() throws ApplicationException
+  public void install() 
   {
     //
   }

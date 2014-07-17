@@ -115,8 +115,7 @@ public class MitgliedLastschriftAction implements Action
     }
   }
 
-  private boolean checkSEPA(Mitglied m) throws RemoteException,
-      ApplicationException
+  private boolean checkSEPA(Mitglied m) throws RemoteException
   {
 
     // pruefe Zahlungsweg

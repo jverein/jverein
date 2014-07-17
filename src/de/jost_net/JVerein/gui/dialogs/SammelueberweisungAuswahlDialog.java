@@ -34,7 +34,6 @@ import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.hbci.rmi.SepaSammelUeberweisung;
 import de.willuhn.jameica.system.OperationCanceledException;
-import de.willuhn.util.ApplicationException;
 
 /**
  * Ein Dialog, ueber den man eine Sammelüberweisung zur Übernahme zur
@@ -98,7 +97,7 @@ public class SammelueberweisungAuswahlDialog extends
     this.sammelueberweisung = new TablePart(sue, new Action()
     {
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         selected = (SepaSammelUeberweisung) context;
         close();

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -78,7 +73,7 @@ public class MailAuswahlMenu extends ContextMenu
       @Override
       public void handleAction(Object context)
       {
-        if (context instanceof MailEmpfaenger && context != null)
+        if (context != null && context instanceof MailEmpfaenger )
         {
           MailEmpfaenger m = (MailEmpfaenger) context;
           new MailVorschauDialog(contr, m,

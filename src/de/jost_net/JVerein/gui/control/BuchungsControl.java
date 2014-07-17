@@ -485,7 +485,7 @@ public class BuchungsControl extends AbstractControl
     {
 
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         Buchung master = (Buchung) getCurrentObject();
         SammelueberweisungAuswahlDialog suad = new SammelueberweisungAuswahlDialog(

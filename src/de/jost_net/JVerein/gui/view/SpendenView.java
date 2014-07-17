@@ -41,7 +41,6 @@ import de.willuhn.jameica.hbci.rmi.Ueberweisung;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 
 /**
  * View fuer den Spenden-Aufruf.
@@ -96,7 +95,7 @@ public class SpendenView extends AbstractView
       buttons.addButton("Dauerauftrag erstellen", new Action()
       {
         @Override
-        public void handleAction(Object context) throws ApplicationException
+        public void handleAction(Object context)
         {
           try
           {
@@ -132,7 +131,7 @@ public class SpendenView extends AbstractView
       buttons.addButton("...oder Überweisung", new Action()
       {
         @Override
-        public void handleAction(Object context) throws ApplicationException
+        public void handleAction(Object context) 
         {
           try
           {
@@ -158,7 +157,7 @@ public class SpendenView extends AbstractView
       buttons.addButton("...oder SEPA-Überweisung", new Action()
       {
         @Override
-        public void handleAction(Object context) throws ApplicationException
+        public void handleAction(Object context) 
         {
           try
           {

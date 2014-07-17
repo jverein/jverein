@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -25,9 +20,10 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.rmi.QIFImportHead;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.rmi.QIFImportHead;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.logging.Logger;
 
 public class QIFImportHeadImpl extends AbstractDBObject implements
     QIFImportHead
@@ -181,7 +177,7 @@ public class QIFImportHeadImpl extends AbstractDBObject implements
     }
     catch (Throwable ex)
     {
-
+      Logger.error("Fehler", ex);
     }
     return super.toString();
   }

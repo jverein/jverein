@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -26,7 +21,6 @@ import de.jost_net.JVerein.gui.view.MitgliedNextBGruppeView;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 /**
  * @author Rolf Mamat
@@ -41,7 +35,7 @@ public class MitgliedNextBGruppeNeuAction implements Action
     }
     
     @Override
-    public void handleAction(Object context) throws ApplicationException
+    public void handleAction(Object context) 
     {
         Mitglied mitglied = control.getMitglied();
         GUI.startView(MitgliedNextBGruppeView.class.getName(), mitglied);

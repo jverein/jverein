@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -24,7 +19,6 @@ package de.jost_net.JVerein.gui.action;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import de.jost_net.JVerein.gui.control.MailControl;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.willuhn.jameica.gui.Action;
@@ -38,9 +32,6 @@ import de.willuhn.util.ApplicationException;
 public class MailAnhangAnzeigeAction implements Action
 {
 
-  public MailAnhangAnzeigeAction(MailControl control)
-  {
-  }
 
   @Override
   public void handleAction(Object context) throws ApplicationException

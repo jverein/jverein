@@ -61,6 +61,7 @@ public class LehrgangImpl extends AbstractDBObject implements Lehrgang
   @Override
   protected void updateCheck()
   {
+    //
   }
 
   @Override

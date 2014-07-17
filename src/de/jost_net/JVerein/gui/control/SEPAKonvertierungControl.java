@@ -186,7 +186,7 @@ public class SEPAKonvertierungControl extends AbstractControl
     return b;
   }
 
-  public DateInput getMandatsdatum() throws RemoteException
+  public DateInput getMandatsdatum()
   {
     if (mandatdatum != null)
     {
@@ -249,7 +249,7 @@ public class SEPAKonvertierungControl extends AbstractControl
     {
 
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         konvertiere();
         ibanupdateList.removeAll();

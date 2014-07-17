@@ -91,7 +91,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public SelectInput getAbrechnungsmonat() throws RemoteException
+  public SelectInput getAbrechnungsmonat()
   {
     if (abrechnungsmonat != null)
     {

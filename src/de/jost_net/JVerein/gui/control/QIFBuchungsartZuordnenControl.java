@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -53,10 +48,12 @@ import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.gui.util.Font;
 import de.willuhn.jameica.gui.util.SWTUtil;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class QIFBuchungsartZuordnenControl extends AbstractControl
 {
+
   private TablePart distinctBuchartListTable;
 
   private TablePart posBeispielListTable;
@@ -97,8 +94,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     if (null == cbMitgliedZuordnenErlaubt)
     {
       cbMitgliedZuordnenErlaubt = new CheckboxInput(true);
-      cbMitgliedZuordnenErlaubt
-          .setComment("Darf diese Buchungsart im Mitgliedskonto buchen?");
+      cbMitgliedZuordnenErlaubt.setComment("Darf diese Buchungsart im Mitgliedskonto buchen?");
     }
     return cbMitgliedZuordnenErlaubt;
   }
@@ -111,6 +107,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       cbboxPosSperre.setComment(" ");
       cbboxPosSperre.addListener(new Listener()
       {
+
         @Override
         public void handleEvent(Event event)
         {
@@ -159,6 +156,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     }
     catch (RemoteException ex)
     {
+      Logger.error("Fehler: ", ex);
     }
     getExterneBuchungsartInput().setValue("");
   }
@@ -238,8 +236,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     {
       return buchungsartInput;
     }
-    DBIterator list = Einstellungen.getDBService()
-        .createList(Buchungsart.class);
+    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
     list.join("buchungsklasse");
     list.addFilter("buchungsklasse.id = buchungsart.buchungsklasse");
     list.setOrder("ORDER BY buchungsklasse.bezeichnung, buchungsart.art, buchungsart.bezeichnung");
@@ -257,6 +254,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
 
   class SpeichernAction implements Action
   {
+
     private Buchungsart storeBuchart;
 
     private Boolean storeSperre;
@@ -382,14 +380,14 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       distinctBuchartListTable.setRememberColWidths(true);
       distinctBuchartListTable.setRememberOrder(true);
       distinctBuchartListTable.setFormatter(new BuchartListTableFormater());
-      distinctBuchartListTable
-          .addSelectionListener(new BuchartListSelectionListener());
+      distinctBuchartListTable.addSelectionListener(new BuchartListSelectionListener());
     }
     return distinctBuchartListTable;
   }
 
   class BuchartListSelectionListener implements Listener
   {
+
     @Override
     public void handleEvent(Event event)
     {
@@ -412,12 +410,13 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     }
     catch (Throwable ex)
     {
-
+      Logger.error("Fehler", ex);
     }
   }
 
   class BuchartListTableFormater implements TableFormatter
   {
+
     @Override
     public void format(TableItem item)
     {
@@ -442,7 +441,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       }
       catch (Throwable ex)
       {
-
+        Logger.error("Fehler", ex);
       }
     }
   }

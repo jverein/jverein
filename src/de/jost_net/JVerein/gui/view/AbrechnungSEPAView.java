@@ -25,7 +25,6 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.util.ApplicationException;
 
 public class AbrechnungSEPAView extends AbstractView
 {
@@ -78,7 +77,7 @@ public class AbrechnungSEPAView extends AbstractView
     {
 
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         GUI.startView(SEPABugsView.class.getName(), null);
       }

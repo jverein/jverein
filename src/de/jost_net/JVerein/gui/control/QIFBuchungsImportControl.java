@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -501,7 +496,7 @@ public class QIFBuchungsImportControl extends AbstractControl
       }
       catch (Throwable ex)
       {
-
+        Logger.error("Fehler:", ex);
       }
     }
   }
@@ -574,7 +569,7 @@ public class QIFBuchungsImportControl extends AbstractControl
     return new Action()
     {
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context)
       {
         GUI.startSync(new ExterneBuchungenImportieren());
       }
@@ -859,7 +854,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     }
 
-    private void zeigeMeldung(String meldetext) throws ApplicationException
+    private void zeigeMeldung(String meldetext) 
     {
       GUI.getStatusBar().setSuccessText(meldetext);
     }
@@ -1076,7 +1071,7 @@ public class QIFBuchungsImportControl extends AbstractControl
     return new Action()
     {
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         GUI.startSync(new AktuellenImportLoeschen());
       }
@@ -1088,7 +1083,7 @@ public class QIFBuchungsImportControl extends AbstractControl
     return new Action()
     {
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         GUI.startSync(new AlleImportsLoeschen());
       }

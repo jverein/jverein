@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -24,13 +19,12 @@ package de.jost_net.JVerein.gui.action;
 import de.jost_net.JVerein.gui.view.SEPAKonvertierungView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class SEPAKonvertierungAction implements Action
 {
 
   @Override
-  public void handleAction(Object context) throws ApplicationException
+  public void handleAction(Object context) 
   {
     GUI.startView(SEPAKonvertierungView.class.getName(), null);
   }

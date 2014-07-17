@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -440,7 +435,7 @@ public class MitgliedskontoControl extends AbstractControl
     return ausgabeart;
   }
 
-  public TextInput getBetreff(String verwendung) throws RemoteException
+  public TextInput getBetreff(String verwendung) 
   {
     if (betreff != null)
     {
@@ -452,7 +447,7 @@ public class MitgliedskontoControl extends AbstractControl
     return betreff;
   }
 
-  public TextAreaInput getTxt(String verwendung) throws RemoteException
+  public TextAreaInput getTxt(String verwendung)
   {
     if (txt != null)
     {

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -35,8 +30,8 @@ public class MailAnhangMenu extends ContextMenu
 
   public MailAnhangMenu(MailControl control)
   {
-    addItem(new CheckedContextMenuItem("anzeigen", new MailAnhangAnzeigeAction(
-        control), "show.png"));
+    addItem(new CheckedContextMenuItem("anzeigen",
+        new MailAnhangAnzeigeAction(), "show.png"));
     addItem(new CheckedContextMenuItem("entfernen", new MailAnhangDeleteAction(
         control), "user-trash.png"));
   }

@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import de.jost_net.JVerein.util.VonBis;
-import de.willuhn.util.ApplicationException;
 
 public class AltersgruppenParser
 {
@@ -76,7 +75,7 @@ public class AltersgruppenParser
     return iterator.hasNext();
   }
 
-  public VonBis getNext() throws ApplicationException
+  public VonBis getNext() 
   {
     return iterator.next();
   }

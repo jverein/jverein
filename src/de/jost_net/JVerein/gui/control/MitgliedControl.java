@@ -2589,7 +2589,7 @@ public class MitgliedControl extends AbstractControl
     Button b = new Button("CSV Vorlagen...", new Action()
     {
       @Override
-      public void handleAction(Object context) throws ApplicationException
+      public void handleAction(Object context) 
       {
         GUI.startView(AuswertungVorlagenCsvView.class.getName(), null);
       }

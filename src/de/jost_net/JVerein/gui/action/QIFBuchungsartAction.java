@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -25,13 +20,12 @@ import de.jost_net.JVerein.gui.view.QIFBuchungsartZuordnenView;
 import de.jost_net.JVerein.rmi.QIFImportPos;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.util.ApplicationException;
 
 public class QIFBuchungsartAction implements Action
 {
 
   @Override
-  public void handleAction(Object context) throws ApplicationException
+  public void handleAction(Object context) 
   {
     QIFImportPos pos = null;
     if (context != null && context instanceof QIFImportPos)

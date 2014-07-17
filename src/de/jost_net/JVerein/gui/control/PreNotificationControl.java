@@ -139,7 +139,7 @@ public class PreNotificationControl extends AbstractControl
     return formular;
   }
 
-  public TextInput getMailSubject() throws RemoteException
+  public TextInput getMailSubject()
   {
     if (mailsubject != null)
     {
@@ -163,7 +163,7 @@ public class PreNotificationControl extends AbstractControl
     return mailbody;
   }
 
-  public DateInput getAusfuehrungsdatum() throws RemoteException
+  public DateInput getAusfuehrungsdatum() 
   {
     if (ausfuehrungsdatum != null)
     {

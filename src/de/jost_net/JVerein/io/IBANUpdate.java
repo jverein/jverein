@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -42,7 +37,7 @@ public class IBANUpdate implements GenericObject
   private String status;
 
   public IBANUpdate(String id, String name, String blz, String konto,
-      String iban, String bic, String status) throws RemoteException
+      String iban, String bic, String status) 
   {
     this.id = id;
     this.name = name;
@@ -60,7 +55,7 @@ public class IBANUpdate implements GenericObject
   }
 
   @Override
-  public Object getAttribute(String arg0) throws RemoteException
+  public Object getAttribute(String arg0)
   {
     if (arg0.equals("id"))
     {
