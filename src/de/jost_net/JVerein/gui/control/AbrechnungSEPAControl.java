@@ -97,7 +97,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return abrechnungsmonat;
     }
-    abrechnungsmonat = new SelectInput(Monat.values(), null);
+    abrechnungsmonat = new SelectInput(Monat.values(), Monat.JANUAR);
     return abrechnungsmonat;
   }
 
