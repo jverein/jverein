@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="junit/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/jameica"/>
 	<classpathentry kind="lib" path="lib/nc.jar"/>
@@ -18,5 +19,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/liquibase.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/snakeyaml-1.13.jar"/>
 	<classpathentry kind="lib" path="/jameica/lib/swt/win64/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
