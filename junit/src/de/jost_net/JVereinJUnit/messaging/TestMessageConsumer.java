@@ -20,6 +20,7 @@ import de.jost_net.JVereinJUnit.Test;
 import de.willuhn.jameica.messaging.Message;
 import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.messaging.SystemMessage;
+import de.willuhn.jameica.system.Application;
 
 /**
  * Wird beim Start von Jameica aufgerufen und startet die Tests.
@@ -52,7 +53,14 @@ public class TestMessageConsumer implements MessageConsumer
   @Override
   public boolean autoRegister()
   {
-    return true;
+    for (String s : Application.getStartupParams().getParams())
+    {
+      if (s.equalsIgnoreCase("junit"))
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
