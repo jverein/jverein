@@ -674,6 +674,12 @@ public class Import
     String bic = getResultFrom(results, InternalColumns.BIC);
     String iban = getResultFrom(results, InternalColumns.IBAN);
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
+    String zahlungstermin = getResultFrom(results,
+        InternalColumns.ZAHLUNGSTERMIN);
+    if (zahlungstermin != null &&zahlungstermin.length()>0)
+    {
+      m.setZahlungstermin(new Integer(zahlungstermin));
+    }
     if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0
         && bic.length() == 0)
     {

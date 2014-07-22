@@ -67,7 +67,8 @@ public enum InternalColumns
   VERMERKB("Vermerk2", false), //
   VORNAME("Vorname", true), //
   ZAHLART("Zahlungsart", true), //
-  ZAHLRYTHM("Zahlungsrhytmus", false);
+  ZAHLRYTHM("Zahlungsrhytmus", false), //
+  ZAHLUNGSTERMIN("Zahlungstermin", false);
 
   private final String colname;
 
