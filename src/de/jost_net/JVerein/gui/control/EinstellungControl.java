@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.Date;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
@@ -48,6 +49,7 @@ import de.willuhn.jameica.gui.input.DirectoryInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
+import de.willuhn.jameica.gui.input.ScaleInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -259,6 +261,8 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput zusatzbetragAusgetretene;
 
   private SelectInput altersmodel;
+
+  private ScaleInput sepadatumoffset;
 
   public EinstellungControl(AbstractView view)
   {
@@ -474,6 +478,22 @@ public class EinstellungControl extends AbstractControl
     konto.setMandatory(true);
     konto.setComment("für die Abbuchung");
     return konto;
+  }
+
+  public ScaleInput getSEPADatumOffset() throws RemoteException
+  {
+    if (sepadatumoffset != null)
+    {
+      return sepadatumoffset;
+    }
+    sepadatumoffset = new ScaleInput(Einstellungen.getEinstellung()
+        .getSEPADatumOffset(), SWT.HORIZONTAL);
+    sepadatumoffset.setScaling(0, 14, 1, 1);
+    sepadatumoffset.setName("Zusätzliche SEPA-Vorlaufzeit");
+    RangeListener listener = new RangeListener();
+    sepadatumoffset.addListener(listener);
+    listener.handleEvent(null); // einmal initial ausloesen
+    return sepadatumoffset;
   }
 
   public CheckboxInput getGeburtsdatumPflicht() throws RemoteException
@@ -1388,17 +1408,6 @@ public class EinstellungControl extends AbstractControl
     return ZeigeArbeitseinsatzInTabInput;
   }
 
-  public CheckboxInput getZusatzbetragAusgetretene() throws RemoteException
-  {
-    if (zusatzbetragAusgetretene != null)
-    {
-      return zusatzbetragAusgetretene;
-    }
-    zusatzbetragAusgetretene = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZusatzbetragAusgetretene());
-    return zusatzbetragAusgetretene;
-  }
-
   public ButtonArea getButton() throws RemoteException
   {
     return new BankverbindungDialogButton(getEinstellung(), getBlz(),
@@ -1569,6 +1578,17 @@ public class EinstellungControl extends AbstractControl
   // }
   // }
 
+  public CheckboxInput getZusatzbetragAusgetretene() throws RemoteException
+  {
+    if (zusatzbetragAusgetretene != null)
+    {
+      return zusatzbetragAusgetretene;
+    }
+    zusatzbetragAusgetretene = new CheckboxInput(Einstellungen.getEinstellung()
+        .getZusatzbetragAusgetretene());
+    return zusatzbetragAusgetretene;
+  }
+
   public void handleStoreAllgemein()
   {
     try
@@ -1661,6 +1681,7 @@ public class EinstellungControl extends AbstractControl
       e.setZahlungsweg(zw.getKey());
       SEPALandObject slo = (SEPALandObject) getDefaultSEPALand().getValue();
       e.setDefaultLand(slo.getLand().getKennzeichen());
+      e.setSEPADatumOffset((Integer) sepadatumoffset.getValue());
       e.store();
       Einstellungen.setEinstellung(e);
 
@@ -1941,6 +1962,33 @@ public class EinstellungControl extends AbstractControl
       catch (RemoteException e)
       {
         Logger.error("error while updating blz comment", e);
+      }
+    }
+  }
+
+  /**
+   * Hilfsklasse zum Aktualisieren des Kommentars hinter dem Zeitraum.
+   */
+  private class RangeListener implements Listener
+  {
+    @Override
+    public void handleEvent(Event event)
+    {
+      try
+      {
+        int start = ((Integer) getSEPADatumOffset().getValue()).intValue();
+        if (start == 1)
+        {
+          getSEPADatumOffset().setComment("1 Tage");
+        }
+        else
+        {
+          getSEPADatumOffset().setComment(start + " Tage");
+        }
+      }
+      catch (Exception e)
+      {
+        Logger.error("unable to update comment", e);
       }
     }
   }

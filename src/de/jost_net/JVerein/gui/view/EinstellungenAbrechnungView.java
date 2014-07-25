@@ -39,6 +39,7 @@ public class EinstellungenAbrechnungView extends AbstractView
     cont.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
     cont.addInput(control.getZahlungsrhytmus());
     cont.addInput(control.getZahlungsweg());
+    cont.addInput(control.getSEPADatumOffset());
     cont.addInput(control.getDefaultSEPALand());
     cont.addLabelPair("Arbeitsstunden Model", control.getArbeitsstundenmodel());
     cont.addSeparator();

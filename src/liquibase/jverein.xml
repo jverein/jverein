@@ -1115,7 +1115,7 @@
 		<modifyDataType columnName="altersgruppen"
 			newDataType="varchar(200)" tableName="einstellung" />
 	</changeSet>
-		<changeSet author="Heiner" id="107">
+	<changeSet author="Heiner" id="107">
 		<addColumn tableName="einstellung">
 			<column defaultValueNumeric="1" name="abrechnungsmodul" type="INT(10)" />
 		</addColumn>
@@ -1138,4 +1138,10 @@
             columnName="abrechnungsmodul"
             tableName="einstellung"/>
 	</changeSet>
+	<changeSet author="Heiner" id="111">
+		<addColumn tableName="einstellung">
+			<column defaultValueNumeric="0" name="sepadatumoffset" type="INT(10)" />
+		</addColumn>
+	</changeSet>
+	
 </databaseChangeLog>

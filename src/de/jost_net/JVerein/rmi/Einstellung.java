@@ -350,6 +350,10 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setDefaultLand(String defaultland) throws RemoteException;
 
+  public Integer getSEPADatumOffset() throws RemoteException;
+
+  public void setSEPADatumOffset(Integer sepadatumoffset) throws RemoteException;
+
   public String getAltersgruppen() throws RemoteException;
 
   public void setAltersgruppen(String altersgruppen) throws RemoteException;

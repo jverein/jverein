@@ -1619,4 +1619,17 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("unterdrueckungohnebuchung", unterdrueckungohnebuchung);
   }
 
+  @Override
+  public Integer getSEPADatumOffset() throws RemoteException
+  {
+    return (Integer)getAttribute("sepadatumoffset");
+  }
+
+  @Override
+  public void setSEPADatumOffset(Integer sepadatumoffset) throws RemoteException
+  {
+   setAttribute("sepadatumoffset", sepadatumoffset); 
+  }
+
+
 }

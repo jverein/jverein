@@ -143,7 +143,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     return stichtag;
   }
 
-  public DateInput getFaelligkeit1()
+  public DateInput getFaelligkeit1() throws RemoteException
   {
     if (faelligkeit1 != null)
     {
@@ -151,7 +151,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
     Calendar cal = Calendar.getInstance();
     Bankarbeitstage bat = new Bankarbeitstage();
-    cal = bat.getCalendar(cal, 5);
+    cal = bat.getCalendar(cal, 5 + Einstellungen.getEinstellung()
+        .getSEPADatumOffset());
     this.faelligkeit1 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
     this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
     this.faelligkeit1
@@ -159,7 +160,7 @@ public class AbrechnungSEPAControl extends AbstractControl
     return faelligkeit1;
   }
 
-  public DateInput getFaelligkeit2()
+  public DateInput getFaelligkeit2() throws RemoteException
   {
     if (faelligkeit2 != null)
     {
@@ -167,7 +168,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
     Calendar cal = Calendar.getInstance();
     Bankarbeitstage bat = new Bankarbeitstage();
-    cal = bat.getCalendar(cal, 2);
+    cal = bat.getCalendar(cal, 2 + Einstellungen.getEinstellung()
+        .getSEPADatumOffset());
     this.faelligkeit2 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
     this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
     this.faelligkeit2
