@@ -107,7 +107,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
     it.addFilter("art = ?",
-        new Object[] { FormularArt.SPENDENBESCHEINIGUNG });
+        new Object[] { FormularArt.SPENDENBESCHEINIGUNG.getKey() });
     formularEinzel = new SelectInput(it, null);
     return formularEinzel;
   }
@@ -120,7 +120,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(Formular.class);
     it.addFilter("art = ?",
-        new Object[] { FormularArt.SAMMELSPENDENBESCHEINIGUNG });
+        new Object[] { FormularArt.SAMMELSPENDENBESCHEINIGUNG.getKey() });
     formularSammel = new SelectInput(it, null);
     return formularSammel;
   }
