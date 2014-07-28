@@ -84,6 +84,7 @@ public enum MitgliedVar
   @Deprecated
   ZAHLUNGSRHYTMUS("mitglied_zahlungsrhytmus"), //
   ZAHLUNGSRHYTHMUS("mitglied_zahlungsrhythmus"), //
+  ZAHLUNGSTERMIN("mitglied_zahlungstermin"), //
   ZAHLUNGSWEG("mitglied_zahlungsweg"), //
   ZAHLUNGSWEGTEXT("mitglied_zahlungsweg_text"), //
   ZAHLERID("mitglied_zahlerid");

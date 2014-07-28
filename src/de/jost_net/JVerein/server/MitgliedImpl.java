@@ -175,10 +175,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (getAdresstyp().getJVereinid() == 1
         && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
-        && BeitragsUtil.getBeitrag(
-            Einstellungen.getEinstellung().getBeitragsmodel(),
-            this.getZahlungstermin(), this.getZahlungsrhythmus().getKey(),
-            this.getBeitragsgruppe(), new Date(), getEintritt(), getAustritt()) > 0)
+        && BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
+            .getBeitragsmodel(), this.getZahlungstermin(), this
+            .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe(),
+            new Date(), getEintritt(), getAustritt()) > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
@@ -616,7 +616,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getMandatID() throws RemoteException
   {
-    int sepaMandatIdSource = Einstellungen.getEinstellung().getSepaMandatIdSource();
+    int sepaMandatIdSource = Einstellungen.getEinstellung()
+        .getSepaMandatIdSource();
     if (sepaMandatIdSource == SepaMandatIdSource.EXTERNE_MITGLIEDSNUMMER)
     {
       return getExterneMitgliedsnummer() + "-" + getMandatVersion();
@@ -648,7 +649,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     String sql = "select max(abrechnungslauf.FAELLIGKEIT) from lastschrift, abrechnungslauf "
         + "where lastschrift.ABRECHNUNGSLAUF = abrechnungslauf.id and lastschrift.MITGLIED = ? and lastschrift.mandatid = ?";
     Date d = (Date) Einstellungen.getDBService().execute(sql,
-        new Object[] { getID(), getMandatID()}, rs);
+        new Object[] { getID(), getMandatID() }, rs);
 
     return d;
   }
@@ -1298,6 +1299,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setVorname("Willi");
       this.setZahlungsrhythmus(12);
       this.setZahlungsweg(1);
+      this.setZahlungsweg(Zahlungstermin.HALBJAEHRLICH4.getKey());
     }
     map.put(MitgliedVar.ADRESSIERUNGSZUSATZ.getName(),
         StringTool.toNotNullString(this.getAdressierungszusatz()));
@@ -1313,33 +1315,29 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         Datum.formatDate(this.getAustritt()));
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
-        this.getBeitragsgruppe() != null
-            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getArbeitseinsatzBetrag())
-            : "");
+        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(this.getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
     map.put(
         MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
-        this.getBeitragsgruppe() != null
-            ? Einstellungen.DECIMALFORMAT.format(this.getBeitragsgruppe().getArbeitseinsatzStunden())
-            : "");
+        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(this.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
     try
     {
       map.put(
           MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
-          this.getBeitragsgruppe() != null
-              ? Einstellungen.DECIMALFORMAT.format(BeitragsUtil.getBeitrag(
-                  Einstellungen.getEinstellung().getBeitragsmodel(),
-                  this.getZahlungstermin(),
-                  this.getZahlungsrhythmus().getKey(),
-                  this.getBeitragsgruppe(), new Date(), this.getEintritt(),
-                  this.getAustritt())) : "");
+          this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+              .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
+                  .getBeitragsmodel(), this.getZahlungstermin(), this
+                  .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe(),
+                  new Date(), this.getEintritt(), this.getAustritt())) : "");
     }
     catch (NullPointerException e)
     {
       System.out.println(getName());
     }
-    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(),
-        this.getBeitragsgruppe() != null
-            ? this.getBeitragsgruppe().getBezeichnung() : "");
+    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
+        .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
+        .getBezeichnung() : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
         this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
             : "");
@@ -1409,6 +1407,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         + "");
     map.put(MitgliedVar.ZAHLUNGSRHYTHMUS.getName(), this.getZahlungsrhythmus()
         + "");
+    map.put(MitgliedVar.ZAHLUNGSTERMIN.getName(),
+        this.getZahlungstermin() != null ? this.getZahlungstermin().getText()
+            : "");
     map.put(MitgliedVar.ZAHLUNGSWEG.getName(), this.getZahlungsweg() + "");
 
     String zahlungsweg = "";
@@ -1432,7 +1433,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       case Zahlungsweg.ÜBERWEISUNG:
       {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextUeberweisung();
+        zahlungsweg = Einstellungen.getEinstellung()
+            .getRechnungTextUeberweisung();
         break;
       }
     }
@@ -1455,7 +1457,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       DBIterator itzus = Einstellungen.getDBService().createList(
           Zusatzfelder.class);
       itzus.addFilter("mitglied = ? and felddefinition = ? ", new Object[] {
-          getID(), fd.getID()});
+          getID(), fd.getID() });
       Zusatzfelder z = null;
       if (itzus.hasNext())
       {
@@ -1509,7 +1511,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       DBIterator iteigm = Einstellungen.getDBService().createList(
           Eigenschaften.class);
       iteigm.addFilter("mitglied = ? and eigenschaft = ?",
-          new Object[] { this.getID(), eig.getID()});
+          new Object[] { this.getID(), eig.getID() });
       String val = "";
       if (iteigm.size() > 0)
       {
@@ -1565,11 +1567,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     {
       DBIterator it = Einstellungen.getDBService().createList(
           Felddefinition.class);
-      it.addFilter("name = ?", new Object[] { fieldName.substring(13)});
+      it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
       Felddefinition fd = (Felddefinition) it.next();
       it = Einstellungen.getDBService().createList(Zusatzfelder.class);
       it.addFilter("felddefinition = ? AND mitglied = ?",
-          new Object[] { fd.getID(), getID()});
+          new Object[] { fd.getID(), getID() });
       if (it.hasNext())
       {
         Zusatzfelder zf = (Zusatzfelder) it.next();
