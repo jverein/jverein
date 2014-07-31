@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Kopie aus Hibiscus
  * Copyright (c) by willuhn software & services
  * This program is free software: you can redistribute it and/or modify it under the terms of the 

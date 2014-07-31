@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Kopie aus Hibiscus
  * Copyright (c) by willuhn software & services
  * Copyright (c) by Heiner Jostkleigrewe

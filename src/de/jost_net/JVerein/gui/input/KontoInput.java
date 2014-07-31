@@ -1,11 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- * $Locker$
- * $State$
- *
  * Copyright (c) by willuhn software & services
  * All rights reserved
  **********************************************************************/

@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -227,7 +222,7 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
         startTransaktion();
 
         @SuppressWarnings("unchecked")
-        List<MitgliedNextBGruppe> liste = (List<MitgliedNextBGruppe>) aenderungsListenPart
+        List<MitgliedNextBGruppe> liste = aenderungsListenPart
             .getItems();
         for (MitgliedNextBGruppe mitgliedBeitraege : liste)
         {

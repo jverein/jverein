@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Kopie aus Hibiscus
  * Copyright (c) by willuhn software & services
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
@@ -25,9 +20,9 @@ package de.jost_net.JVerein.rmi;
 import java.rmi.RemoteException;
 
 import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.jameica.plugin.Version;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.util.ApplicationException;
-import de.willuhn.jameica.plugin.Version;
 
 /**
  * Interface fuer den Datenbank-Service von JVerein.

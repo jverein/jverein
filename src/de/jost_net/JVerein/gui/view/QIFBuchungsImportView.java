@@ -1,9 +1,4 @@
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -22,9 +17,9 @@
 package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
+import de.jost_net.JVerein.gui.action.QIFBuchungsartAction;
 import de.jost_net.JVerein.gui.action.QIFDateiEinlesenAction;
 import de.jost_net.JVerein.gui.action.QIFMitgliederAction;
-import de.jost_net.JVerein.gui.action.QIFBuchungsartAction;
 import de.jost_net.JVerein.gui.control.QIFBuchungsImportControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;

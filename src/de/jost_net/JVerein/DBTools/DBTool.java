@@ -1,11 +1,4 @@
-package de.jost_net.JVerein.DBTools;
-
 /**********************************************************************
- * $Source$
- * $Revision$
- * $Date$
- * $Author$
- *
  * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
@@ -21,6 +14,7 @@ package de.jost_net.JVerein.DBTools;
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
+package de.jost_net.JVerein.DBTools;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
