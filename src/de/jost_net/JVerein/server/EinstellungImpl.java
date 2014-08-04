@@ -1622,14 +1622,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public Integer getSEPADatumOffset() throws RemoteException
   {
-    return (Integer)getAttribute("sepadatumoffset");
+    Integer offset = (Integer) getAttribute("sepadatumoffset");
+    if (offset == null)
+    {
+      offset = new Integer(0);
+    }
+    return offset;
   }
 
   @Override
-  public void setSEPADatumOffset(Integer sepadatumoffset) throws RemoteException
+  public void setSEPADatumOffset(Integer sepadatumoffset)
+      throws RemoteException
   {
-   setAttribute("sepadatumoffset", sepadatumoffset); 
+    setAttribute("sepadatumoffset", sepadatumoffset);
   }
-
 
 }
