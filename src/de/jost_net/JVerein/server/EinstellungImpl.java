@@ -1040,6 +1040,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public void setImapAuthUser(String imap_auth_user) throws RemoteException
   {
+    this.imap_auth_pwd=imap_auth_user;
     setAttribute("imap_auth_user", imap_auth_user);
 
   }
@@ -1571,26 +1572,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       throws RemoteException
   {
     setAttribute(COL_SEPA_MANDANTID_SOURCE, sepaMandatIdSource);
-  }
-
-  @Override
-  public void store() throws RemoteException, ApplicationException
-  {
-    try
-    {
-      wallet.set("smtp_auth_pwd", smtp_auth_pwd);
-      wallet.set("imap_auth_pwd", imap_auth_pwd);
-    }
-    catch (Exception e)
-    {
-      Logger.error("Speichern der Mail-Passwörter im Wallet fehlgeschlagen.");
-      throw new ApplicationException(
-          "Speichern der Mail-Passwörter im Wallet fehlgeschlagen.", e);
-    }
-    // Es kann passieren, dass das DB-Speichern fehlschlägt. Dann wäre das
-    // Wallet gespeichert, die DB-Werte aber nicht. Risiko wird eingegangen, da
-    // das Abfangen alles nur komplexer macht und die Auswirkung gering ist.
-    super.store();
   }
 
   @Override

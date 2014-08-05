@@ -38,6 +38,7 @@ import de.jost_net.JVerein.keys.SepaMandatIdSource;
 import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
+import de.jost_net.JVerein.server.EinstellungImpl;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -55,6 +56,7 @@ import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.security.Wallet;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -264,11 +266,25 @@ public class EinstellungControl extends AbstractControl
 
   private ScaleInput sepadatumoffset;
 
+  /**
+   * Verschlüsselte Datei für besonders sensible Daten (Passwörter)
+   */
+  private Wallet wallet = null;
+
   public EinstellungControl(AbstractView view)
   {
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    try
+    {
+      wallet = new Wallet(EinstellungImpl.class);
+    }
+    catch (Exception e)
+    {
+      Logger.error("Erstellen des Wallet-Objekts fehlgeschlagen");
+    }
+
   }
 
   public Einstellung getEinstellung()
@@ -1839,23 +1855,22 @@ public class EinstellungControl extends AbstractControl
       e.setCopyToImapFolder((Boolean) copyToImapFolder.getValue());
       e.setImapHost((String) imapHost.getValue());
       e.setImapPort((String) imapPort.getValue());
-      e.setImapAuthUser(((String) imapAuthUser.getValue()));
+      e.setImapAuthUser((String) imapAuthUser.getValue());
       e.setImapAuthPwd(((String) imapAuthPwd.getValue()));
       e.setImapSsl((Boolean) imap_ssl.getValue());
       e.setImapStartTls((Boolean) imap_starttls.getValue());
       e.setImapSentFolder((String) imapSentFolder.getValue());
       e.setMailSignatur((String) mailsignatur.getValue());
+      
+      wallet.set("smtp_auth_pwd",e.getSmtpAuthPwd());
+      wallet.set("imap_auth_pwd",e.getImapAuthPwd());
 
       e.store();
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
     }
-    catch (RemoteException e)
-    {
-      GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
+    catch (Exception e)
     {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
