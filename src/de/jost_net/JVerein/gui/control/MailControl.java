@@ -517,6 +517,10 @@ public class MailControl extends AbstractControl
       {
         m.setVersand(new Timestamp(new Date().getTime()));
       }
+      else
+      {
+        m.setVersand(null);
+      }
       m.store();
       for (MailEmpfaenger me : getMail().getEmpfaenger())
       {

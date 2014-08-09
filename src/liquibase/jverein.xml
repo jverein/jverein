@@ -1143,5 +1143,17 @@
 			<column defaultValueNumeric="0" name="sepadatumoffset" type="INT(10)" />
 		</addColumn>
 	</changeSet>
+	<changeSet author="Heiner" id="112">
+		<dropNotNullConstraint
+            columnDataType="TIMESTAMP"
+            columnName="versand"
+            tableName="mailempfaenger"/>
+	</changeSet>
+	<changeSet author="Heiner" id="113">
+		<dropNotNullConstraint
+            columnDataType="TIMESTAMP"
+            columnName="versand"
+            tableName="mail"/>
+	</changeSet>
 	
 </databaseChangeLog>
