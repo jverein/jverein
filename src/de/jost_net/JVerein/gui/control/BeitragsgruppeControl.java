@@ -272,7 +272,7 @@ public class BeitragsgruppeControl extends AbstractControl
         beitragsgruppeList.addColumn("Betrag viertelj.",
             "betragvierteljaehrlich", new CurrencyFormatter("",
                 Einstellungen.DECIMALFORMAT));
-        beitragsgruppeList.addColumn("Betrag viertelj.", "betraghalbjaehrlich",
+        beitragsgruppeList.addColumn("Betrag halbj.", "betraghalbjaehrlich",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
         beitragsgruppeList.addColumn("Betrag jährlich", "betragjaehrlich",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
