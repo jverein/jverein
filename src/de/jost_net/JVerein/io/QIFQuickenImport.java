@@ -374,7 +374,7 @@ public class QIFQuickenImport implements Importer
    * IN Quicken sind die Zahlen mit Dezimalpunkt und Tausender Komma formatiert.
    * Beispiel: 7,669.38
    * 
-    */
+   */
   private DecimalFormat getDecimalFormat()
   {
     if (null == decimalFormat)
@@ -647,19 +647,28 @@ public class QIFQuickenImport implements Importer
           betrag = daten;
           break;
         case 'N':
-          beleg = daten;
+          beleg = getStringMaxLaenge(daten, 30);
           break;
         case 'P':
-          person = daten;
+          person = getStringMaxLaenge(daten, 100);
           break;
         case 'M':
-          bemerkung = daten;
+          bemerkung = getStringMaxLaenge(daten, 100);
           break;
         case 'L':
           buchungsArt = daten;
           pruefeAufKontenTransfere();
           break;
       }
+    }
+
+    private String getStringMaxLaenge(String wert, int maxLaenge)
+    {
+      if (null == wert)
+        return wert;
+      if (wert.length() <= maxLaenge)
+        return wert;
+      return wert.substring(0, maxLaenge);
     }
 
     public QIFBuchung getGegenbuchung()
