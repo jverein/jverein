@@ -1155,5 +1155,11 @@
             columnName="versand"
             tableName="mail"/>
 	</changeSet>
+	<changeSet author="Heiner" id="114">
+		<dropNotNullConstraint
+            columnDataType="VARCHAR(8)"
+            columnName="blz"
+            tableName="kursteilnehmer"/>
+	</changeSet>
 	
 </databaseChangeLog>

@@ -677,6 +677,8 @@ public class KursteilnehmerControl extends AbstractControl
       k.setMandatDatum((Date) getMandatDatum().getValue());
       k.setBlz((String) getBlz().getValue());
       k.setKonto((String) getKonto().getValue());
+      k.setIban((String)getIBAN().getValue());
+      k.setBic((String)getBIC().getValue());
       k.setBetrag((Double) getBetrag().getValue());
       k.setGeburtsdatum((Date) getGeburtsdatum().getValue());
       k.setGeschlecht((String) getGeschlecht().getValue());
