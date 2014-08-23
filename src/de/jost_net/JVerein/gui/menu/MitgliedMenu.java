@@ -28,6 +28,8 @@ import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedInZwischenablageKopierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedLastschriftAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
+import de.jost_net.JVerein.gui.action.MitgliedVCardDateiAction;
+import de.jost_net.JVerein.gui.action.MitgliedVCardQRCodeAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.view.MitgliedDetailView;
@@ -105,6 +107,10 @@ public class MitgliedMenu extends ContextMenu
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem("Mail senden ...",
         new MitgliedMailSendenAction(), "mail-message-new.png"));
+    addItem(new CheckedContextMenuItem("vCard-Datei",
+        new MitgliedVCardDateiAction(), "vcard.png"));
+    addItem(new CheckedSingleContextMenuItem("vCard QR-Code", new MitgliedVCardQRCodeAction(),
+        "qr.png"));
     addItem(new CheckedContextMenuItem("Eigenschaften",
         new MitgliedEigenschaftZuordnungAction(), "settings.gif"));
     addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
