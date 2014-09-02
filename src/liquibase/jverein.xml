@@ -1161,5 +1161,11 @@
             columnName="blz"
             tableName="kursteilnehmer"/>
 	</changeSet>
+	<changeSet author="Heiner" id="115">
+		<addForeignKeyConstraint baseColumnNames="beitragsgruppe"
+			baseTableName="mitgliednextbgruppe" constraintName="fkMitgliednextbgruppe1"
+			onDelete="RESTRICT"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="beitragsgruppe" />
+	</changeSet>
 	
 </databaseChangeLog>
