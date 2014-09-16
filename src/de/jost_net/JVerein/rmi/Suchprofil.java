@@ -14,19 +14,26 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.action;
+package de.jost_net.JVerein.rmi;
 
-import de.jost_net.JVerein.gui.view.MitgliederSucheView;
-import de.willuhn.jameica.gui.Action;
-import de.willuhn.jameica.gui.GUI;
+import java.rmi.RemoteException;
 
-public class MitgliedSucheAction implements Action
+import de.willuhn.datasource.rmi.DBObject;
+
+public interface Suchprofil extends DBObject
 {
+  public void setID(String id) throws RemoteException;
 
-  @Override
-  public void handleAction(Object context)
-  {
-    GUI.startView(MitgliederSucheView.class.getName(), null);
-  }
+  public byte[] getInhalt() throws RemoteException;
+
+  public void setInhalt(byte[] inhalt) throws RemoteException;
+
+  public String getBezeichnung() throws RemoteException;
+
+  public void setBezeichnung(String bezeichnung) throws RemoteException;
+
+  public String getClazz() throws RemoteException;
+
+  public void setClazz(String clazz) throws RemoteException;
 
 }

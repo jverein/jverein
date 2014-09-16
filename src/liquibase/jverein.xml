@@ -1167,5 +1167,22 @@
 			onDelete="RESTRICT"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="beitragsgruppe" />
 	</changeSet>
-	
+	<changeSet author="Heiner" id="116">
+		<createTable tableName="suchprofil">
+			<column autoIncrement="true" name="id" type="BIGINT(19)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="bezeichnung" type="VARCHAR(50)" />
+			<column name="inhalt" type="LONGBLOB" />
+			<column name="clazz" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="Heiner" id="117">
+    <createIndex indexName="ixSuchprofil1"
+            tableName="suchprofil"
+            unique="true">
+        <column name="bezeichnung" type="varchar(50)"/>
+        <column name="clazz" type="varchar(255)"/>
+    </createIndex>
+</changeSet>
 </databaseChangeLog>

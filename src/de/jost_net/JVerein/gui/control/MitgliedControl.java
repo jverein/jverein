@@ -71,6 +71,7 @@ import de.jost_net.JVerein.gui.parts.MitgliedNextBGruppePart;
 import de.jost_net.JVerein.gui.view.AbstractAdresseDetailView;
 import de.jost_net.JVerein.gui.view.AuswertungVorlagenCsvView;
 import de.jost_net.JVerein.gui.view.IAuswertung;
+import de.jost_net.JVerein.gui.view.MitgliederSuchProfilView;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.MitgliedAdressbuchExport;
 import de.jost_net.JVerein.io.MitgliedAuswertungCSV;
@@ -2538,6 +2539,29 @@ public class MitgliedControl extends AbstractControl
     return b;
   }
 
+  public Button getProfileButton()
+  {
+    Button b = new Button("Such-Profile", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          saveDefaults();
+        }
+        catch (RemoteException e)
+        {
+          throw new ApplicationException(e);
+        }
+        GUI.startView(MitgliederSuchProfilView.class.getName(), settings);
+      }
+    }, null, true, "checked_user.png"); // "true" defines this button as the
+                                        // default button
+    return b;
+  }
+
   public Button getStartAdressAuswertungButton()
   {
     Button b = new Button("starten", new Action()
@@ -2589,7 +2613,7 @@ public class MitgliedControl extends AbstractControl
     Button b = new Button("CSV Vorlagen...", new Action()
     {
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         GUI.startView(AuswertungVorlagenCsvView.class.getName(), null);
       }

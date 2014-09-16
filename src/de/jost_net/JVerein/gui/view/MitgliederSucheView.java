@@ -112,7 +112,10 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
     {
       left.addLabelPair("Zusatzfelder", mitglzusatzfelder);
     }
-    right.addPart(new Button("Filter-Reset", new Action()
+    ColumnLayout bc = new ColumnLayout(right.getComposite(), 2);
+    bc.add(control.getProfileButton());
+
+    bc.add(new Button("Filter-Reset", new Action()
     {
 
       @Override

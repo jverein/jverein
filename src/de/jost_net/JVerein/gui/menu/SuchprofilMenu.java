@@ -14,19 +14,24 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.action;
+package de.jost_net.JVerein.gui.menu;
 
-import de.jost_net.JVerein.gui.view.MitgliederSucheView;
-import de.willuhn.jameica.gui.Action;
-import de.willuhn.jameica.gui.GUI;
+import de.jost_net.JVerein.gui.action.SuchprofilDeleteAction;
+import de.jost_net.JVerein.gui.action.SuchprofilLadenAction;
+import de.jost_net.JVerein.gui.control.MitgliedSuchProfilControl;
+import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
+import de.willuhn.jameica.gui.parts.ContextMenu;
 
-public class MitgliedSucheAction implements Action
+/**
+ * Kontext-Menu zu den Suchprofilen.
+ */
+public class SuchprofilMenu extends ContextMenu
 {
-
-  @Override
-  public void handleAction(Object context)
+  public SuchprofilMenu(MitgliedSuchProfilControl control)
   {
-    GUI.startView(MitgliederSucheView.class.getName(), null);
+    addItem(new CheckedContextMenuItem("laden", new SuchprofilLadenAction(),
+        "document-open.png"));
+    addItem(new CheckedContextMenuItem("löschen...",
+        new SuchprofilDeleteAction(control), "user-trash.png"));
   }
-
 }

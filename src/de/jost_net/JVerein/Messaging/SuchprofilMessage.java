@@ -14,19 +14,19 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.gui.view.MitgliederSucheView;
-import de.willuhn.jameica.gui.Action;
-import de.willuhn.jameica.gui.GUI;
+package de.jost_net.JVerein.Messaging;
 
-public class MitgliedSucheAction implements Action
+import de.willuhn.datasource.GenericObject;
+import de.willuhn.jameica.hbci.messaging.ObjectMessage;
+
+/**
+ * Wird versendet, wenn sich die Suchprofiltabelle geaendert hat.
+ */
+public class SuchprofilMessage extends ObjectMessage
 {
-
-  @Override
-  public void handleAction(Object context)
+  public SuchprofilMessage(GenericObject object)
   {
-    GUI.startView(MitgliederSucheView.class.getName(), null);
+    super(object);
   }
-
 }
