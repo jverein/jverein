@@ -393,7 +393,7 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn("Intervall", "intervalltext");
       zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
-      zusatzbetraegeList.addColumn("Buchungstext 1", "buchungstext");
+      zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
       zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
       zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(

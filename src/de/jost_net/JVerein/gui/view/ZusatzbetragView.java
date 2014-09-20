@@ -40,7 +40,7 @@ public class ZusatzbetragView extends AbstractView
     group.addLabelPair("nächste Fälligkeit", control.getFaelligkeit());
     group.addLabelPair("Intervall", control.getIntervall());
     group.addLabelPair("Endedatum", control.getEndedatum());
-    group.addLabelPair("Buchungstext 1", control.getBuchungstext());
+    group.addLabelPair("Buchungstext", control.getBuchungstext());
     group.addLabelPair("Betrag", control.getBetrag());
 
     ButtonArea buttons = new ButtonArea();
@@ -62,5 +62,11 @@ public class ZusatzbetragView extends AbstractView
     buttons.paint(getParent());
   }
 
-  // TODO getHelp()
+  @Override
+  public String getHelp()
+  {
+    return "<form><p><span color=\"header\" font=\"header\">Zusatzbetrag</span></p>"
+        + "<p>Beim Buchungstext können allgemeine Variable verwendet werden. Siehe Hilfe. "
+        + "</p></form>";
+  }
 }

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -32,6 +33,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
@@ -615,6 +617,16 @@ public class AbrechnungSEPA
           continue;
         }
         counter++;
+        String vzweck = z.getBuchungstext();
+        Map<String, Object> map = new AllgemeineMap().getMap(null);
+        try
+        {
+          vzweck = VelocityTool.eval(map, vzweck);
+        }
+        catch (IOException e)
+        {
+          Logger.error("Fehler bei der Aufbereitung der Variablen", e);
+        }
         if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
         {
           try
@@ -634,7 +646,7 @@ public class AbrechnungSEPA
             zahler.setFaelligkeit(param.faelligkeit1, param.faelligkeit2, m
                 .getMandatSequence().getCode());
             zahler.setName(m.getKontoinhaber(1));
-            zahler.setVerwendungszweck(z.getBuchungstext());
+            zahler.setVerwendungszweck(vzweck);
             lastschrift.add(zahler);
           }
           catch (Exception e)
@@ -677,7 +689,7 @@ public class AbrechnungSEPA
         }
         writeMitgliedskonto(m,
             m.getMandatSequence().getTxt().equals("FRST") ? param.faelligkeit1
-                : param.faelligkeit2, z.getBuchungstext(), z.getBetrag(), abrl,
+                : param.faelligkeit2, vzweck, z.getBetrag(), abrl,
             m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto, null);
       }
     }
