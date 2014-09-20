@@ -2539,6 +2539,36 @@ public class MitgliedControl extends AbstractControl
     return b;
   }
 
+  public Button getMitglied2KontoinhaberEintragenButton()
+  {
+    Button b = new Button("Mitglied-Daten eintragen", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          getKtoiName().setValue(getName(false).getValue());
+          getKtoiStrasse().setValue(getStrasse().getValue());
+          getKtoiAdressierungszusatz().setValue(
+              getAdressierungszusatz().getValue());
+          getKtoiPlz().setValue(getPlz().getValue());
+          getKtoiOrt().setValue(getOrt().getValue());
+          getKtoiEmail().setValue(getEmail().getValue());
+        }
+        catch (RemoteException e)
+        {
+          Logger.error(e.getMessage());
+          throw new ApplicationException(
+              "Fehler beim Start der Mitgliederauswertung");
+        }
+      }
+    }, null, true, "go.png"); // "true" defines this button as the default
+    // button
+    return b;
+  }
+
   public Button getProfileButton()
   {
     Button b = new Button("Such-Profile", new Action()

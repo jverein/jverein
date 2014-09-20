@@ -474,6 +474,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         .getBlz(), control.getKonto(), control.getBic(), control.getIban()));
     cols.addSeparator();
     cols.addText("Abweichender Kontoinhaber", false);
+    ButtonArea buttons2 = new ButtonArea();
+    buttons2.addButton(control.getMitglied2KontoinhaberEintragenButton());
+    cols.addButtonArea(buttons2);
     cols.addInput(control.getKtoiPersonenart());
     cols.addInput(control.getKtoiAnrede());
     cols.addInput(control.getKtoiTitel());
