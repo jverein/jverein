@@ -16,9 +16,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
+import java.io.ByteArrayInputStream;
 import java.util.Properties;
-
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
 import de.jost_net.JVerein.gui.view.MitgliederSucheView;
 import de.jost_net.JVerein.rmi.Suchprofil;
@@ -46,8 +45,7 @@ public class SuchprofilLadenAction implements Action
       Suchprofil sp = (Suchprofil) context;
       Settings s = new Settings(Class.forName(sp.getClazz()));
       s.setStoreWhenRead(true);
-      ByteInputStream bis = new ByteInputStream(sp.getInhalt(),
-          sp.getInhalt().length);
+      ByteArrayInputStream bis = new ByteArrayInputStream(sp.getInhalt());
       Properties p = new Properties();
       p.loadFromXML(bis);
       for (Object o : p.keySet())
@@ -55,7 +53,6 @@ public class SuchprofilLadenAction implements Action
         String key = (String) o;
         s.setAttribute(key, p.getProperty(key));
       }
-      System.out.println("geladen " + p.getProperty("mitglied.suchname"));
     }
     catch (Exception e)
     {
