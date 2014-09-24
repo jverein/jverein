@@ -70,7 +70,6 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Kontoinhaber Ort", "ktoiort", false, true);
     add("Kontoinhaber Staat", "ktoistaat", false, true);
     add("Kontoinhaber Email", "ktoiemail", false, true);
-    add("Mandat Datum", "mandatdatum", false, true);
     add("Mandat Version", "mandatversion", false, true);
     add("Mandat Sequence", "mandatsequence", false, true);
     add("Geburtsdatum", "geburtsdatum", true, new DateFormatter(
