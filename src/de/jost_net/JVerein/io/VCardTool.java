@@ -35,6 +35,7 @@ import ezvcard.property.Uid;
 
 public class VCardTool
 {
+
   public static ArrayList<VCard> getVCards(ArrayList<Mitglied> mitglieder)
       throws RemoteException
   {
@@ -60,7 +61,7 @@ public class VCardTool
       {
         vcard.setGender(Gender.female());
       }
-      if (m.getAdresstyp().equals("n"))
+      if (m.getPersonenart().equals("n"))
       {
         StructuredName n = new StructuredName();
         n.setFamily(m.getName());
