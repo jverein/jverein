@@ -26,6 +26,7 @@ import de.willuhn.datasource.rmi.ResultSetExtractor;
 
 public class EigenschaftenTool
 {
+  @SuppressWarnings("unchecked")
   public ArrayList<String> getEigenschaften(String mitgliedid)
       throws RemoteException
   {

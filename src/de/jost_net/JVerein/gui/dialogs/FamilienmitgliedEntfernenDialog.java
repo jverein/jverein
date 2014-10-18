@@ -1,5 +1,5 @@
 /**********************************************************************
-* Copyright (c) by Heiner Jostkleigrewe
+ * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
  * License, or (at your option) any later version.
@@ -43,8 +43,6 @@ import de.willuhn.util.ApplicationException;
  */
 public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
 {
-
-  private String selected = null;
 
   private MitgliedControl control;
 
@@ -150,7 +148,7 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
   @Override
   protected String getData() throws Exception
   {
-    return this.selected;
+    return null;
   }
 
 }

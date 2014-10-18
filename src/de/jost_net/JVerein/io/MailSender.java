@@ -187,7 +187,7 @@ public class MailSender
     Properties props = new Properties();
     if (smtp_auth_user == null || smtp_auth_user.length() == 0)
     {
-      props.put("mail.smtp.user", smtp_auth_user);
+      props.put("mail.smtp.auth", "false");
     }
 
     if (smtp_auth_pwd == null || smtp_auth_pwd.length() == 0)

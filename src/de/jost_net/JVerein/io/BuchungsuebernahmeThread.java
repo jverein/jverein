@@ -22,7 +22,7 @@ public class BuchungsuebernahmeThread implements Runnable
 {
   private static final int DEFAULTCOUNTDOWN = 2;
 
-  private static int countdown;
+  private int countdown;
 
   private static BuchungsuebernahmeThread instance = null;
 

@@ -63,7 +63,15 @@ public class BuchungMitgliedskontoZuordnungAction implements Action
       {
         b = (Buchung[]) context;
       }
-      if (b != null && b.length > 0 && b[0].isNewObject())
+      if (b == null)
+      {
+        return;
+      }
+      if (b.length == 0)
+      {
+        return;
+      }
+      if (b[0].isNewObject())
       {
         return;
       }

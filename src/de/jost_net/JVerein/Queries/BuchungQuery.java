@@ -124,6 +124,7 @@ public class BuchungQuery
     return text;
   }
 
+  @SuppressWarnings("unchecked")
   public List<Buchung> get() throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();

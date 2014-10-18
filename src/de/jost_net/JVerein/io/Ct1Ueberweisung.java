@@ -37,6 +37,7 @@ import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Lastschrift;
+import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.StringTool;
 import de.jost_net.OBanToo.SEPA.SEPAException;
@@ -84,7 +85,7 @@ public class Ct1Ueberweisung
     ueb.setBIC(Einstellungen.getEinstellung().getBic());
     ueb.setIBAN(Einstellungen.getEinstellung().getIban());
     ueb.setMessageID(abrl.getID() + " "
-        + Einstellungen.DATETIMEFORMAT.format(abrl.getDatum()));
+        + new JVDateFormatDATETIME().format(abrl.getDatum()));
     ueb.setName(Einstellungen.getEinstellung().getName());
     ueb.setSammelbuchung(false);
 

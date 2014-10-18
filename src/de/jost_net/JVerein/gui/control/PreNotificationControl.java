@@ -51,6 +51,7 @@ import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.Datum;
+import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -163,7 +164,7 @@ public class PreNotificationControl extends AbstractControl
     return mailbody;
   }
 
-  public DateInput getAusfuehrungsdatum() 
+  public DateInput getAusfuehrungsdatum()
   {
     if (ausfuehrungsdatum != null)
     {
@@ -260,7 +261,7 @@ public class PreNotificationControl extends AbstractControl
           }
           Date d = (Date) ausfuehrungsdatum.getValue();
           settings.setAttribute("faelligkeitsdatum",
-              Einstellungen.DATETIMEFORMAT.format(d));
+              new JVDateFormatDATETIME().format(d));
           settings.setAttribute("verwendungszweck",
               (String) getVerwendungszweck().getValue());
           settings.setAttribute("tab.selection", folder.getSelectionIndex());

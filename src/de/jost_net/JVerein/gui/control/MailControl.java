@@ -45,6 +45,7 @@ import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.server.MitgliedUtils;
+import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
@@ -135,7 +136,7 @@ public class MailControl extends AbstractControl
     empfaenger.addColumn("Mail-Adresse", "mailadresse");
     empfaenger.addColumn("Name", "name");
     empfaenger.addColumn("Versand", "versand", new DateFormatter(
-        Einstellungen.DATETIMEFORMAT));
+        new JVDateFormatDATETIME()));
     empfaenger.setContextMenu(new MailAuswahlMenu(this));
     empfaenger.setRememberOrder(true);
     empfaenger.setSummary(false);
@@ -578,9 +579,9 @@ public class MailControl extends AbstractControl
     mailsList = new TablePart(mails, new MailDetailAction());
     mailsList.addColumn("Betreff", "betreff");
     mailsList.addColumn("Bearbeitung", "bearbeitung", new DateFormatter(
-        Einstellungen.DATETIMEFORMAT));
+        new JVDateFormatDATETIME()));
     mailsList.addColumn("Versand", "versand", new DateFormatter(
-        Einstellungen.DATETIMEFORMAT));
+        new JVDateFormatDATETIME()));
     mailsList.setRememberColWidths(true);
     mailsList.setContextMenu(new MailMenu());
     mailsList.setRememberOrder(true);

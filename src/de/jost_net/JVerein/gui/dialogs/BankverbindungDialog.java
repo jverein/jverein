@@ -228,7 +228,10 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
           {
             setStatus("Ungültige Bankleitzahl");
           }
-          getBIC().setValue(b.getBIC());
+          else
+          {
+            getBIC().setValue(b.getBIC());
+          }
         }
       }
       catch (Exception e)

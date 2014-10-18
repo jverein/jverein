@@ -52,6 +52,7 @@ public class DokumentShowAction implements Action
       QueryMessage qm = new QueryMessage(ad.getUUID(), null);
       Application.getMessagingFactory()
           .getMessagingQueue("jameica.messaging.getmeta").sendSyncMessage(qm);
+      @SuppressWarnings("rawtypes")
       Map map = (Map) qm.getData();
 
       qm = new QueryMessage(ad.getUUID(), null);

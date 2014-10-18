@@ -61,22 +61,24 @@ public class KontenrahmenImportXML implements Importer
 
     // Element "buchungsklassen" holen
     IXMLElement buchungsklassen = root.getFirstChildNamed("buchungsklassen");
+    @SuppressWarnings("rawtypes")
     Enumeration enubu = buchungsklassen.enumerateChildren();
     while (enubu.hasMoreElements())
     {
       IXMLElement element = (IXMLElement) enubu.nextElement();
-      Buchungsklasse bukl = (Buchungsklasse) Einstellungen.getDBService().createObject(
-          Buchungsklasse.class, null);
+      Buchungsklasse bukl = (Buchungsklasse) Einstellungen.getDBService()
+          .createObject(Buchungsklasse.class, null);
       bukl.setBezeichnung(element.getAttribute("bezeichnung", ""));
       bukl.setNummer(element.getAttribute("nummer", 0));
       bukl.store();
       IXMLElement buchungsarten = element.getFirstChildNamed("buchungsarten");
+      @SuppressWarnings("rawtypes")
       Enumeration enubua = buchungsarten.enumerateChildren();
       while (enubua.hasMoreElements())
       {
         IXMLElement buaelement = (IXMLElement) enubua.nextElement();
-        Buchungsart buchungsart = (Buchungsart) Einstellungen.getDBService().createObject(
-            Buchungsart.class, null);
+        Buchungsart buchungsart = (Buchungsart) Einstellungen.getDBService()
+            .createObject(Buchungsart.class, null);
         buchungsart.setArt(buaelement.getAttribute("art", 0));
         buchungsart.setBezeichnung(buaelement.getAttribute("bezeichnung", ""));
         buchungsart.setBuchungsklasse(new Integer(bukl.getID()));
@@ -125,9 +127,9 @@ public class KontenrahmenImportXML implements Importer
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.xml"};
+        return new String[] { "*.xml" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 }

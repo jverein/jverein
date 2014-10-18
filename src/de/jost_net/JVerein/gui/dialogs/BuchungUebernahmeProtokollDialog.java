@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
@@ -119,7 +120,7 @@ public class BuchungUebernahmeProtokollDialog extends AbstractDialog<Buchung>
       LabelGroup lbFehler = new LabelGroup(parent, "Fehler");
       if (fehlerbuchung != null)
       {
-        lbFehler.addInput(new LabelInput(Einstellungen.DATETIMEFORMAT
+        lbFehler.addInput(new LabelInput(new JVDateFormatDATETIME()
             .format(fehlerbuchung.getDatum())));
         lbFehler.addInput(new LabelInput(fehlerbuchung.getName()));
         lbFehler.addInput(new LabelInput(fehlerbuchung.getZweck()));

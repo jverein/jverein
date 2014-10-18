@@ -64,14 +64,23 @@ public class BuchungKontoauszugZuordnungAction implements Action
       {
         b = (Buchung[]) context;
       }
-      if (b != null && b.length > 0 && b[0].isNewObject())
+      if (b == null)
+      {
+        return;
+      }
+      if (b.length == 0)
+      {
+        return;
+      }
+      if (b[0].isNewObject())
       {
         return;
       }
       try
       {
         KontoauszugZuordnungDialog kaz = new KontoauszugZuordnungDialog(
-            BuchungsartZuordnungDialog.POSITION_MOUSE, b[0].getAuszugsnummer(), b[0].getBlattnummer());
+            BuchungsartZuordnungDialog.POSITION_MOUSE, b[0].getAuszugsnummer(),
+            b[0].getBlattnummer());
         kaz.open();
         Integer auszugsnummer = kaz.getAuszugsnummerWert();
         Integer blattnummer = kaz.getBlattnummerWert();

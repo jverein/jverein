@@ -53,16 +53,19 @@ public class BuchungMenu extends ContextMenu
   public BuchungMenu(BuchungsControl control)
   {
     boolean splitbuchung = false;
-    try
+    if (control != null)
     {
-      if (control.getBuchung().getSplitId() != null)
+      try
       {
-        splitbuchung = true;
+        if (control.getBuchung().getSplitId() != null)
+        {
+          splitbuchung = true;
+        }
       }
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler", e);
+      catch (RemoteException e)
+      {
+        Logger.error("Fehler", e);
+      }
     }
     if (!splitbuchung)
     {

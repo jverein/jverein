@@ -18,9 +18,7 @@
 package de.jost_net.JVerein;
 
 import java.rmi.RemoteException;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,9 +50,6 @@ public class Einstellungen
   private static Einstellung einstellung;
 
   private static Settings settings = new Settings(Einstellungen.class);
-
-  public static DateFormat DATETIMEFORMAT = new SimpleDateFormat(
-      "dd.MM.yyyy HH:mm:ss");
 
   /**
    * Our decimal formatter.

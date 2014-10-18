@@ -80,6 +80,7 @@ public class FamilienbeitragNode implements GenericObjectNode
   {
     this.parent = parent;
     this.mitglied = m;
+    this.id = mitglied.getID();
     this.type = ZAHLER;
     this.children = new ArrayList<FamilienbeitragNode>();
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
@@ -98,6 +99,14 @@ public class FamilienbeitragNode implements GenericObjectNode
     this.parent = parent;
     this.type = ANGEHOERIGER;
     this.mitglied = m;
+    try
+    {
+      this.id = m.getID();
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
     this.children = new ArrayList<FamilienbeitragNode>();
   }
 
