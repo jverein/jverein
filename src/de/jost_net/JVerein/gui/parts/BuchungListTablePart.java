@@ -57,6 +57,7 @@ public class BuchungListTablePart extends TablePart
     double sumBetrag = 0.0;
     try
     {
+      @SuppressWarnings("rawtypes")
       List l = this.getItems();
       for (int i = 0; i < l.size(); i++)
       {

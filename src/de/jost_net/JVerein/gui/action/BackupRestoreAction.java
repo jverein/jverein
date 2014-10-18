@@ -142,8 +142,8 @@ public class BackupRestoreAction implements Action
           {
 
             @Override
-            public GenericObject create(String type, String id, Map values)
-                throws Exception
+            public GenericObject create(String type, String id,
+                @SuppressWarnings("rawtypes") Map values) throws Exception
             {
               AbstractDBObject object = (AbstractDBObject) Einstellungen
                   .getDBService().createObject(loader.loadClass(type), null);

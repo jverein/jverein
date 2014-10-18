@@ -269,7 +269,7 @@ public class AuswertungVorlagenCsvView extends AbstractView
                 switch (e.type)
                 {
                   case SWT.FocusOut:
-                    if (item.getText(column) != text.getText())
+                    if (!item.getText(column).equals(text.getText()))
                     {
                       item.setText(column, text.getText());
                       setDirty();
@@ -280,7 +280,7 @@ public class AuswertungVorlagenCsvView extends AbstractView
                     switch (e.detail)
                     {
                       case SWT.TRAVERSE_RETURN:
-                        if (item.getText(column) != text.getText())
+                        if (!item.getText(column).equals(text.getText()))
                         {
                           item.setText(column, text.getText());
                           setDirty();

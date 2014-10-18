@@ -122,7 +122,8 @@ public class BankverbindungDialog extends AbstractDialog<IBankverbindung>
     }
     try
     {
-      SEPALand la = SEPALaender.getLand(Einstellungen.getEinstellung().getDefaultLand());
+      SEPALand la = SEPALaender.getLand(Einstellungen.getEinstellung()
+          .getDefaultLand());
       if (bankverbindung.getIban() != null
           && bankverbindung.getIban().length() > 0)
       {
