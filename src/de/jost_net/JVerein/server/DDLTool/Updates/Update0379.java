@@ -14,41 +14,26 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein;
+package de.jost_net.JVerein.server.DDLTool.Updates;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-public class DBUpdaterTool
+import de.jost_net.JVerein.server.DDLTool.AbstractDDLUpdate;
+import de.jost_net.JVerein.server.DDLTool.Column;
+import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
+
+public class Update0379 extends AbstractDDLUpdate
 {
-
-  public static Integer getVersion(Connection connection)
+  public Update0379(String driver, ProgressMonitor monitor, Connection conn)
   {
-    try
-    {
-      Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("select version from version");
-      if (rs.next())
-      {
-        Integer v = rs.getInt(1);
-        rs.close();
-        stmt.close();
-        return v;
-      }
-      else
-      {
-        // Darf eigentlich nicht auftreten, dass die Tabelle Version existiert
-        // aber leer ist
-        return null;
-      }
-    }
-    catch (SQLException e)
-    {
-      return null; // Tabelle version existiert nicht
-    }
-
+    super(driver, monitor, conn);
   }
 
+  public void run() throws ApplicationException
+  {
+    // Liquibase id=111
+    execute(addColumn("einstellung", new Column("sepadatumoffset",
+        COLTYPE.INTEGER, 10, "0", false, false)));
+  }
 }

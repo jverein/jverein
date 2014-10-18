@@ -16,12 +16,11 @@
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
 	<classpathentry kind="lib" path="lib/jollyday-0.4.7.jar"/>
 	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/liquibase.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/snakeyaml-1.13.jar"/>
 	<classpathentry kind="lib" path="/jameica/lib/swt/win64/swt.jar" sourcepath="/jameica/lib.src/swt/linux/swt.src.zip"/>
 	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/ez-vcard-0.9.5.jar"/>
-	<classpathentry kind="lib" path="lib/core-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/javase-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/core-3.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

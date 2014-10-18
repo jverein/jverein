@@ -127,7 +127,7 @@ public class JVereinPlugin extends AbstractPlugin
    * throw an ApplicationException.
    */
   @Override
-  public void install() 
+  public void install()
   {
     //
   }
@@ -211,6 +211,7 @@ public class JVereinPlugin extends AbstractPlugin
     }
     catch (Exception e)
     {
+      Logger.error("Fehler beim Methodenaufruf", e);
       throw new ApplicationException(
           "Fehler beim Initialisieren der Datenbank", e);
     }
@@ -274,13 +275,13 @@ public class JVereinPlugin extends AbstractPlugin
       // Connection herstellen
       Connection connection = DriverManager.getConnection(url, username,
           password);
-      // Versionsnummer (alt) aus der Datenbank auslesen
+      // Versionsnummer aus der Datenbank auslesen
       Integer version = DBUpdaterTool.getVersion(connection);
       // Wenn die Version null ist, handelt es sich um eine neue leere Datenbank
       if (version == null)
       {
         // Weil die Datenbank leer ist, wird sie neu aufgebaut
-        DBUpdaterTool.updateLiquibase(connection);
+        // DBUpdaterTool.updateLiquibase(connection);
       }
       else if (version < 360)
       {
@@ -297,16 +298,16 @@ public class JVereinPlugin extends AbstractPlugin
       }
       // Ist Liquibase installiert? Das wird über das vorhandensein der Tabelle
       // databaselog geprüft
-      boolean liquibaseinstalliert = DBUpdaterTool
-          .isLiquibaseInstalliert(connection);
-      if (!liquibaseinstalliert)
-      {
-        // Liquibase ist nicht installiert. Über die Synchronisation werden die
-        // Liquibase-Tabellen mit Inhalt erzeugt.
-        DBUpdaterTool.changelogsyncLiquibase(connection);
-      }
+      // boolean liquibaseinstalliert = DBUpdaterTool
+      // .isLiquibaseInstalliert(connection);
+      // if (!liquibaseinstalliert)
+      // {
+      // Liquibase ist nicht installiert. Über die Synchronisation werden die
+      // Liquibase-Tabellen mit Inhalt erzeugt.
+      // DBUpdaterTool.changelogsyncLiquibase(connection);
+      // }
       // Jetzt wird noch geprüft ob ein Update erforderlich ist.
-      DBUpdaterTool.updateLiquibase(connection);
+      // DBUpdaterTool.updateLiquibase(connection);
     }
     catch (Exception e)
     {
