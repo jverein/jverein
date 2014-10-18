@@ -49,7 +49,7 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
    * Konstruktor mit expliziter Angabe des Treibers.
    * 
    * @param driverClass
-   *        der zu verwendende Treiber.
+   *          der zu verwendende Treiber.
    * @throws RemoteException
    */
   protected JVereinDBServiceImpl(String driverClass) throws RemoteException
@@ -119,14 +119,14 @@ public class JVereinDBServiceImpl extends DBServiceImpl implements
   {
     ProgressMonitor monitor = Application.getCallback().getStartupMonitor();
     monitor.setStatusText("Installiere JVerein");
-    try
-    {
-      new JVereinUpdateProvider(getConnection(), monitor);
-    }
-    catch (ApplicationException e)
-    {
-      throw new RemoteException(e.getMessage());
-    }
+    // try
+    // {
+    // new JVereinUpdateProvider(getConnection(), monitor);
+    // }
+    // catch (ApplicationException e)
+    // {
+    // throw new RemoteException(e.getMessage());
+    // }
     // this.driver.install();
 
     // PluginResources res = Application.getPluginLoader().getPlugin(

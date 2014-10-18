@@ -17,12 +17,9 @@
 package de.jost_net.JVerein;
 
 import java.rmi.RemoteException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 import de.jost_net.JVerein.gui.navigation.MyExtension;
 import de.jost_net.JVerein.io.UmsatzMessageConsumer;
-import de.jost_net.JVerein.rmi.DBSupport;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.server.JVereinDBServiceImpl;
 import de.jost_net.JVerein.util.HelpConsumer;
@@ -255,47 +252,47 @@ public class JVereinPlugin extends AbstractPlugin
 
   private void update() throws ApplicationException
   {
-    Settings s1 = new Settings(JVereinDBService.class);
+    // Settings s1 = new Settings(JVereinDBService.class);
     // Unter "database.driver" ist die JVerein-Klasse mit den Parametern der
     // Datenbank gespeichert
-    String d1 = s1.getString("database.driver",
-        "de.jost_net.JVerein.server.DBSupportH2Impl");
+    // String d1 = s1.getString("database.driver",
+    // "de.jost_net.JVerein.server.DBSupportH2Impl");
     try
     {
       // Die Parameterklasse wird geladen
-      Class<?> c = Class.forName(d1);
-      DBSupport dsupp = (DBSupport) c.newInstance();
+      // Class<?> c = Class.forName(d1);
+      // DBSupport dsupp = (DBSupport) c.newInstance();
       // Parameter auslesen
-      String driver = dsupp.getJdbcDriver();
-      String url = dsupp.getJdbcUrl();
-      String username = dsupp.getJdbcUsername();
-      String password = dsupp.getJdbcPassword();
+      // String driver = dsupp.getJdbcDriver();
+      // String url = dsupp.getJdbcUrl();
+      // String username = dsupp.getJdbcUsername();
+      // String password = dsupp.getJdbcPassword();
       // Datenbanktreiber laden
-      Class.forName(driver);
+      // Class.forName(driver);
       // Connection herstellen
-      Connection connection = DriverManager.getConnection(url, username,
-          password);
+      // Connection connection = DriverManager.getConnection(url, username,
+      // password);
       // Versionsnummer aus der Datenbank auslesen
-      Integer version = DBUpdaterTool.getVersion(connection);
+      // Integer version = DBUpdaterTool.getVersion(connection);
       // Wenn die Version null ist, handelt es sich um eine neue leere Datenbank
-      if (version == null)
+      // if (version == null)
+      // {
+      // Weil die Datenbank leer ist, wird sie neu aufgebaut
+      // DBUpdaterTool.updateLiquibase(connection);
+      // }
+      // else if (version < 360)
+      // {
+      // Wenn die Versionsnummer < 360 muss noch einmal die alte Updatemimik
+      // aufgerufen werden.
+      call(new ServiceCall()
       {
-        // Weil die Datenbank leer ist, wird sie neu aufgebaut
-        // DBUpdaterTool.updateLiquibase(connection);
-      }
-      else if (version < 360)
-      {
-        // Wenn die Versionsnummer < 360 muss noch einmal die alte Updatemimik
-        // aufgerufen werden.
-        call(new ServiceCall()
+        @Override
+        public void call(JVereinDBService service) throws RemoteException
         {
-          @Override
-          public void call(JVereinDBService service) throws RemoteException
-          {
-            service.install();
-          }
-        });
-      }
+          service.install();
+        }
+      });
+      // }
       // Ist Liquibase installiert? Das wird über das vorhandensein der Tabelle
       // databaselog geprüft
       // boolean liquibaseinstalliert = DBUpdaterTool

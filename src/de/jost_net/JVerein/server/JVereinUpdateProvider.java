@@ -74,6 +74,7 @@ public class JVereinUpdateProvider
     // Zwischenzeitlich war Liquibase in den Versionen 2.8.0 und 2.8.1 im
     // Einsatz. Wenn durch Liquibase die Datenbankstruktur angepasst wurde, muss
     // die interne Datenbankversion angepasst werden.
+    cv = getCurrentVersion(conn);
     if (cv <= 360)
     {
       cv = getLiquibaseVersion(conn);
@@ -85,8 +86,8 @@ public class JVereinUpdateProvider
       {
         cv = 360;
       }
-      cv++;
     }
+    cv++;
     try
     {
       while (callMethod2(driver, progressmonitor, conn, cv))
@@ -130,6 +131,15 @@ public class JVereinUpdateProvider
     {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt
+          .executeQuery("select * from DATABASECHANGELOG where id = '117'");
+      if (rs.next())
+      {
+        // Wenn es den Datensatz mit der id 117 gibt, ist JVerein 2.8.1
+        // installiert.
+        return 385;
+      }
+
+      rs = stmt
           .executeQuery("select * from DATABASECHANGELOG where id = '113'");
       if (rs.next())
       {
@@ -139,20 +149,7 @@ public class JVereinUpdateProvider
       }
       else
       {
-        rs = stmt
-            .executeQuery("select * from DATABASECHANGELOG where id = '117'");
-        if (rs.next())
-        {
-          // Wenn es den Datensatz mit der id 117 gibt, ist JVerein 2.8.1
-          // installiert.
-          return 385;
-        }
-        else
-        {
-          // Darf eigentlich nicht auftreten, dass die Tabelle Version existiert
-          // aber leer ist
-          return 0;
-        }
+        return 360;
       }
     }
     catch (SQLException e)
