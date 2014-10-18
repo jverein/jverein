@@ -77,6 +77,7 @@ public class SpendenbescheinigungBuchungQuery
     order = ORDER_DATUM_NAME;
   }
 
+  @SuppressWarnings("unchecked")
   public ArrayList<Buchung> get() throws RemoteException
   {
     and = false;

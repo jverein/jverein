@@ -584,6 +584,7 @@ public class PersonalbogenAction implements Action
     String sql = "select eigenschaften.id from eigenschaften, eigenschaft "
         + "where eigenschaften.eigenschaft = eigenschaft.id and mitglied = ? "
         + "order by eigenschaft.bezeichnung";
+    @SuppressWarnings("unchecked")
     ArrayList<String> idliste = (ArrayList<String>) Einstellungen
         .getDBService().execute(sql, new Object[] { m.getID() }, rs);
     if (idliste.size() > 0)

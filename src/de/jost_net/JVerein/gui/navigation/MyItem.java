@@ -175,6 +175,7 @@ public class MyItem implements NavigationItem
   /**
    * @see de.willuhn.datasource.GenericObjectNode#getPath()
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   @Override
   public GenericIterator getPath() throws RemoteException
   {
@@ -188,7 +189,7 @@ public class MyItem implements NavigationItem
    * @see de.willuhn.datasource.GenericObjectNode#getPossibleParents()
    */
   @Override
-public GenericIterator getPossibleParents() throws RemoteException
+  public GenericIterator getPossibleParents() throws RemoteException
   {
     throw new RemoteException("not implemented");
   }
@@ -259,4 +260,3 @@ public GenericIterator getPossibleParents() throws RemoteException
   }
 
 }
-

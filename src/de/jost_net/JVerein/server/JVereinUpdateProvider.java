@@ -4177,6 +4177,7 @@ public class JVereinUpdateProvider
     final String sql1 = "UPDATE formularfeld SET name = '";
     final String sql2 = "' WHERE name = '";
     final String sql3 = "';\n";
+    @SuppressWarnings("deprecation")
     String sql = sql1
         + MitgliedVar.ID.getName()
         + sql2

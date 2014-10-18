@@ -71,11 +71,16 @@ public class MailemfaengerDeleteAction implements Action
       Mitglied mitglied = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, mc.getMitglied().getID());
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+      if (mail == null)
+      {
+        return;
+      }
       d.setTitle("Mail" + (mail.length > 1 ? "s" : "") + " von "
           + Adressaufbereitung.getVornameName(mitglied) + " löschen");
       d.setText("Wollen Sie diese Mail" + (mail.length > 1 ? "s" : "")
           + " von " + Adressaufbereitung.getVornameName(mitglied)
           + " wirklich löschen?");
+
       try
       {
         Boolean choice = (Boolean) d.open();

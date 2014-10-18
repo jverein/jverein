@@ -73,7 +73,7 @@ public class MailAuswahlMenu extends ContextMenu
       @Override
       public void handleAction(Object context)
       {
-        if (context != null && context instanceof MailEmpfaenger )
+        if (context != null && context instanceof MailEmpfaenger)
         {
           MailEmpfaenger m = (MailEmpfaenger) context;
           new MailVorschauDialog(contr, m,
@@ -81,8 +81,12 @@ public class MailAuswahlMenu extends ContextMenu
         }
         else
         {
-          Logger.error("ShowVariablesDiaglog: Ungültige Klasse: "
-              + context.getClass().getCanonicalName());
+          String name = "";
+          if (context != null && context.getClass() != null)
+          {
+            name = context.getClass().getCanonicalName();
+          }
+          Logger.error("ShowVariablesDiaglog: Ungültige Klasse: " + name);
         }
 
       }

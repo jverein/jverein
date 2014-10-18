@@ -64,6 +64,11 @@ public class Spalte
     return this.spaltenname.equals(o.spaltenname);
   }
 
+  public int hashCode()
+  {
+    return spaltenname.hashCode();
+  }
+
   public String getSpaltenbezeichnung()
   {
     return this.spaltenbezeichnung;

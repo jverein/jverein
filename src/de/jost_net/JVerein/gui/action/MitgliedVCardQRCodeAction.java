@@ -42,6 +42,7 @@ import ezvcard.VCardVersion;
 public class MitgliedVCardQRCodeAction implements Action
 {
 
+  @SuppressWarnings("unchecked")
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -56,14 +57,16 @@ public class MitgliedVCardQRCodeAction implements Action
           String qrCodeData = Ezvcard.write(VCardTool.getVCards(mitgl))
               .version(VCardVersion.V3_0).go();
           String charset = "UTF-8"; // or "ISO-8859-1"
+          @SuppressWarnings("rawtypes")
           Map hintMap = new HashMap();
           hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
           BitMatrix matrix = new MultiFormatWriter().encode(new String(
               qrCodeData.getBytes(charset), charset), BarcodeFormat.QR_CODE,
               300, 300, hintMap);
           BufferedImage bi = MatrixToImageWriter.toBufferedImage(matrix);
-          
-          QRCodeImageDialog dia = new QRCodeImageDialog(AbstractDialog.POSITION_MOUSE,bi);
+
+          QRCodeImageDialog dia = new QRCodeImageDialog(
+              AbstractDialog.POSITION_MOUSE, bi);
           dia.open();
 
         }

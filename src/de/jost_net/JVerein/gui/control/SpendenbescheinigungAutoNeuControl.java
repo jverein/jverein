@@ -138,6 +138,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
       {
         try
         {
+          @SuppressWarnings("rawtypes")
           List items = spbTree.getItems();
           SpendenbescheinigungNode spn = (SpendenbescheinigungNode) items
               .get(0);

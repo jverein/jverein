@@ -49,6 +49,10 @@ public class MitgliederStatistik
   {
     try
     {
+      if (stichtag == null)
+      {
+        throw new ApplicationException("Stichtag ist leer");
+      }
       FileOutputStream fos = new FileOutputStream(file);
       String subtitle = "";
       if (stichtag != null)

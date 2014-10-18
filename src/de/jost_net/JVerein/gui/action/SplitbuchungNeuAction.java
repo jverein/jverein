@@ -37,10 +37,14 @@ public class SplitbuchungNeuAction implements Action
     {
       master = (Buchung) context;
     }
+    if (master == null)
+    {
+      return;
+    }
     try
     {
-      buch = (Buchung) Einstellungen.getDBService().createObject(
-          Buchung.class, null);
+      buch = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
+          null);
       buch.setAuszugsnummer(master.getAuszugsnummer());
       buch.setBlattnummer(master.getBlattnummer());
       buch.setDatum(master.getDatum());

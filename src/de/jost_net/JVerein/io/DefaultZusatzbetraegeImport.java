@@ -346,7 +346,10 @@ public class DefaultZusatzbetraegeImport implements Importer
     {
       try
       {
-        results.close();
+        if (results != null)
+        {
+          results.close();
+        }
       }
       catch (SQLException e)
       {
@@ -354,7 +357,10 @@ public class DefaultZusatzbetraegeImport implements Importer
       }
       try
       {
-        stmt.close();
+        if (stmt != null)
+        {
+          stmt.close();
+        }
       }
       catch (SQLException e)
       {
@@ -362,7 +368,8 @@ public class DefaultZusatzbetraegeImport implements Importer
       }
       try
       {
-        conn.close();
+        if (conn != null)
+          conn.close();
       }
       catch (SQLException e)
       {

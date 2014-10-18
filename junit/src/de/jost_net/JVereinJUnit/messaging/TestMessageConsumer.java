@@ -31,7 +31,7 @@ public class TestMessageConsumer implements MessageConsumer
    * @see de.willuhn.jameica.messaging.MessageConsumer#getExpectedMessageTypes()
    */
   @Override
-  public Class[] getExpectedMessageTypes()
+  public Class<?>[] getExpectedMessageTypes()
   {
     return new Class[] { SystemMessage.class };
   }

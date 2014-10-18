@@ -126,7 +126,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
             .getValue();
         params.put("Beitragsgruppe", bg.getBezeichnung());
       }
-      if (!control.getMailauswahl().getText().equals(MailAuswertungInput.ALLE))
+      int ma = (Integer) control.getMailauswahl().getValue();
+      if (ma == MailAuswertungInput.ALLE)
       {
         params.put("Mail", control.getMailauswahl().getText());
       }

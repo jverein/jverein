@@ -57,6 +57,7 @@ public class MitgliedQuery
     this.batch = batch;
   }
 
+  @SuppressWarnings("unchecked")
   public ArrayList<Mitglied> get(int adresstyp) throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();

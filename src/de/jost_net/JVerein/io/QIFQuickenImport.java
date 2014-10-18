@@ -400,7 +400,7 @@ public class QIFQuickenImport implements Importer
     }
   }
 
-  private static SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yy");
+  private SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yy");
 
   private void closeReader()
   {

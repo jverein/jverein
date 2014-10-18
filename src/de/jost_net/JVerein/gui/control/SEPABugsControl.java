@@ -125,11 +125,9 @@ public class SEPABugsControl extends AbstractControl
           "Das Mandatsdatum liegt in der Zukunft. Keine Lastschrift", Bug.HINT));
     }
 
-    IBAN iban = null;
-    BIC bic = null;
     try
     {
-      iban = new IBAN(ls.getIban());
+      new IBAN(ls.getIban());
     }
     catch (SEPAException e)
     {
@@ -137,7 +135,7 @@ public class SEPABugsControl extends AbstractControl
     }
     try
     {
-      bic = new BIC(ls.getBic());
+      new BIC(ls.getBic());
     }
     catch (Exception e)
     {

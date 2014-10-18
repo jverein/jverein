@@ -47,6 +47,10 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
   @Override
   public List<Appointment> getAppointments(Date from, Date to)
   {
+    if (from == null)
+    {
+      return null;
+    }
     try
     {
       DBIterator list = Einstellungen.getDBService().createList(

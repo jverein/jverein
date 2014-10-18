@@ -1237,6 +1237,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return getMap(inma, false);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public Map<String, Object> getMap(Map<String, Object> inma,
       boolean ohneLesefelder) throws RemoteException

@@ -315,8 +315,14 @@ public class CSVFileHelper
     }
     finally
     {
-      br.close();
-      bw.close();
+      if (br != null)
+      {
+        br.close();
+      }
+      if (bw != null)
+      {
+        bw.close();
+      }
     }
 
     return tmp;

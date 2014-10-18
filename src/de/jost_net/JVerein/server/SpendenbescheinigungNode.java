@@ -107,6 +107,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         // rdc: Nur Spendenbescheinigungen, deren Betrag >= Mindestbetrag
         + "HAVING sum(buchung.betrag) >= ? "
         + "ORDER BY mitglied.name, mitglied.vorname, mitglied.id";
+    @SuppressWarnings("unchecked")
     ArrayList<String> idliste = (ArrayList<String>) Einstellungen
         .getDBService().execute(sql, new Object[] { jahr, minBetrag }, rse);
 
@@ -171,6 +172,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         + "  AND buchung.spendenbescheinigung IS NULL "
         + "  AND buchung.mitgliedskonto IS NOT NULL "
         + "ORDER BY buchung.datum";
+    @SuppressWarnings("unchecked")
     ArrayList<String> idliste = (ArrayList<String>) Einstellungen
         .getDBService().execute(sql, new Object[] { jahr, mitglied.getID() },
             rs);
@@ -267,8 +269,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         return new JVDateFormatTTMMJJJJ().format(buchung.getDatum())
             + ", "
             + (buchung.getZweck() != null && buchung.getZweck().length() > 0 ? buchung
-                .getZweck() : "")
-            + ", "
+                .getZweck() : "") + ", "
             + Einstellungen.DECIMALFORMAT.format(buchung.getBetrag());
       }
     }

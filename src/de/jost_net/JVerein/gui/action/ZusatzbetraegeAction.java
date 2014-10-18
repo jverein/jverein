@@ -41,7 +41,10 @@ public class ZusatzbetraegeAction implements Action
   public void handleAction(Object context) throws ApplicationException
   {
     Zusatzbetrag z = null;
-
+    if (m == null)
+    {
+      return;
+    }
     if (context != null && (context instanceof Zusatzbetrag))
     {
       z = (Zusatzbetrag) context;
