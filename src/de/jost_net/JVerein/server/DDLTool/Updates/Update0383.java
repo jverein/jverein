@@ -19,6 +19,8 @@ package de.jost_net.JVerein.server.DDLTool.Updates;
 import java.sql.Connection;
 
 import de.jost_net.JVerein.server.DDLTool.AbstractDDLUpdate;
+import de.jost_net.JVerein.server.DDLTool.Column;
+import de.jost_net.JVerein.server.DDLTool.Index;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
@@ -29,8 +31,15 @@ public class Update0383 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
+    Index idx = new Index("ixMitgliednextbgruppe2", false);
+    Column col = new Column("beitragsgruppe", COLTYPE.INTEGER, 0, null, false,
+        false);
+    idx.add(col);
+    execute(idx.getCreateIndex("mitgliednextbgruppe"));
+
     // Liquibase id=116
     execute(createForeignKey("fkMitgliednextbgruppe1", "mitgliednextbgruppe",
         "beitragsgruppe", "beitragsgruppe", "id", "RESTRICT", "NO ACTION"));

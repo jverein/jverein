@@ -73,6 +73,12 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
 
   public void execute(String statement) throws ApplicationException
   {
+    execute(statement, true);
+  }
+
+  public void execute(String statement, boolean setVersion)
+      throws ApplicationException
+  {
     if (statement == null)
     {
       throw new ApplicationException("Leeres Statement");
@@ -81,7 +87,10 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
     {
       Logger.debug(statement);
       ScriptExecutor.execute(new StringReader(statement), conn, null);
-      setNewVersion(nr);
+      if (setVersion)
+      {
+        setNewVersion(nr);
+      }
     }
     catch (Exception e)
     {
@@ -293,8 +302,8 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
       }
       case MYSQL:
       {
-        return "ALTER TABLE " + table + " ADD CONSTRAINT " + constraintname
-            + " FOREIGN KEY (" + column + ") REFERENCES " + reftable + " ("
+        return "ALTER TABLE " + table + " ADD CONSTRAINT " + " FOREIGN KEY "
+            + constraintname + "(" + column + ") REFERENCES " + reftable + " ("
             + refcolumn + ") ON DELETE " + ondelete + " ON UPDATE " + onupdate
             + ";\n";
       }
