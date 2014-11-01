@@ -77,8 +77,16 @@ public class LastschriftMap
 
     map.put(LastschriftVar.ABRECHNUNGSLAUF_NR.getName(), abrl.getID());
     map.put(LastschriftVar.ABRECHUNGSLAUF_DATUM.getName(), abrl.getDatum());
-    map.put(LastschriftVar.ABRECHNUNGSLAUF_FAELLIGKEIT.getName(),
-        abrl.getFaelligkeit());
+    if (ls.getMandatSequence().equals("FRST"))
+    {
+      map.put(LastschriftVar.ABRECHNUNGSLAUF_FAELLIGKEIT.getName(),
+          abrl.getFaelligkeit());
+    }
+    else
+    {
+      map.put(LastschriftVar.ABRECHNUNGSLAUF_FAELLIGKEIT.getName(),
+          abrl.getFaelligkeit2());
+    }
     map.put(LastschriftVar.PERSONENART.getName(), ls.getPersonenart());
     map.put(LastschriftVar.ANREDE.getName(), ls.getAnrede());
     map.put(LastschriftVar.ANREDE_DU.getName(),
