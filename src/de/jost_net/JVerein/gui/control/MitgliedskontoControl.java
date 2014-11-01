@@ -196,7 +196,11 @@ public class MitgliedskontoControl extends AbstractControl
       return datum;
     }
 
-    Date d = getMitgliedskonto().getDatum();
+    Date d = new Date();
+    if (getMitgliedskonto() != null)
+    {
+      d = getMitgliedskonto().getDatum();
+    }
 
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
@@ -224,7 +228,12 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return zweck1;
     }
-    zweck1 = new TextAreaInput(getMitgliedskonto().getZweck1(), 500);
+    String z = "";
+    if (getMitgliedskonto() != null)
+    {
+      z = getMitgliedskonto().getZweck1();
+    }
+    zweck1 = new TextAreaInput(z, 500);
     zweck1.setHeight(50);
     zweck1.setMandatory(true);
     return zweck1;
@@ -236,10 +245,15 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return zahlungsweg;
     }
-    zahlungsweg = new SelectInput(Zahlungsweg.getArray(), getMitgliedskonto()
-        .getZahlungsweg() == null ? new Zahlungsweg(Einstellungen
-        .getEinstellung().getZahlungsweg()) : new Zahlungsweg(
-        getMitgliedskonto().getZahlungsweg()));
+    Integer z = null;
+    if (getMitgliedskonto() != null)
+    {
+      z = getMitgliedskonto().getZahlungsweg();
+    }
+    zahlungsweg = new SelectInput(Zahlungsweg.getArray(),
+        z == null ? new Zahlungsweg(Einstellungen.getEinstellung()
+            .getZahlungsweg()) : new Zahlungsweg(getMitgliedskonto()
+            .getZahlungsweg()));
     zahlungsweg.setName("Zahlungsweg");
     return zahlungsweg;
   }
@@ -250,8 +264,12 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return betrag;
     }
-    betrag = new DecimalInput(getMitgliedskonto().getBetrag(),
-        Einstellungen.DECIMALFORMAT);
+    Double b = new Double(0);
+    if (getMitgliedskonto() != null)
+    {
+      b = getMitgliedskonto().getBetrag();
+    }
+    betrag = new DecimalInput(b, Einstellungen.DECIMALFORMAT);
     return betrag;
   }
 
@@ -435,7 +453,7 @@ public class MitgliedskontoControl extends AbstractControl
     return ausgabeart;
   }
 
-  public TextInput getBetreff(String verwendung) 
+  public TextInput getBetreff(String verwendung)
   {
     if (betreff != null)
     {
