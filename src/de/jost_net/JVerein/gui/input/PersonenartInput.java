@@ -27,13 +27,13 @@ import de.willuhn.jameica.gui.input.SelectInput;
 public class PersonenartInput extends SelectInput
 {
 
-  private final static String NATUERLICHE_PERSON = "natürliche Person";
+  public final static String NATUERLICHE_PERSON = "natürliche Person";
 
-  private final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
+  public final static String JURISTISCHE_PERSON = "juristische Person (Firma, Organisation, Behörde)";
 
   public PersonenartInput(final String personenart)
   {
-    super(new Object[] { NATUERLICHE_PERSON, JURISTISCHE_PERSON},
+    super(new Object[] { NATUERLICHE_PERSON, JURISTISCHE_PERSON },
         init(personenart));
   }
 

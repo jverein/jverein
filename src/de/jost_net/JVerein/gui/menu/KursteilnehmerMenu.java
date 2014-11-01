@@ -18,6 +18,7 @@ package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.gui.action.KursteilnehmerAbuResetAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
+import de.jost_net.JVerein.gui.action.KursteilnehmerWirdMitgliedAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -35,6 +36,8 @@ public class KursteilnehmerMenu extends ContextMenu
   {
     addItem(new CheckedContextMenuItem("Abbuchungsdatum löschen...",
         new KursteilnehmerAbuResetAction(table), "user-trash.png"));
+    addItem(new CheckedContextMenuItem("Zum Mitglied machen",
+        new KursteilnehmerWirdMitgliedAction(), "system-users.png"));
     addItem(new CheckedContextMenuItem("löschen...",
         new KursteilnehmerDeleteAction(), "user-trash.png"));
   }
