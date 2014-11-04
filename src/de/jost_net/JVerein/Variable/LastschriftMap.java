@@ -59,6 +59,7 @@ public class LastschriftMap
       ls.setIBAN("DE89370400440532013000");
       ls.setGeschlecht(GeschlechtInput.MAENNLICH);
       ls.setMandatDatum(new Date());
+      ls.setMandatSequence("FRST");
       ls.setMandatID("1234");
       ls.setName("Wichtig");
       ls.setOrt("Testenhausen");

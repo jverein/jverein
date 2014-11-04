@@ -40,6 +40,7 @@ import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.jameica.gui.Action;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class FormularAnzeigeAction implements Action
@@ -264,6 +265,7 @@ public class FormularAnzeigeAction implements Action
     }
     catch (Exception e)
     {
+      Logger.error("Fehler bei der Anzeige eines Formulares", e);
       throw new ApplicationException(e);
     }
   }
