@@ -40,6 +40,7 @@ import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.JVDateFormatJJJJMMTT;
 import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.jameica.gui.GUI;
 
@@ -86,13 +87,11 @@ public abstract class AbstractMitgliedskontoDokument
           aufbereitenFormular(mk, formularaufbereitung, formular);
           break;
         case EMAIL:
-          File f = File.createTempFile(getDateiname(mk.get(0).getMitglied()),
-              ".pdf");
+          File f = File.createTempFile(getDateiname(mk), ".pdf");
           formularaufbereitung = new FormularAufbereitung(f);
           aufbereitenFormular(mk, formularaufbereitung, formular);
           formularaufbereitung.closeFormular();
-          zos.putNextEntry(new ZipEntry(getDateiname(mk.get(0).getMitglied())
-              + ".PDF"));
+          zos.putNextEntry(new ZipEntry(getDateiname(mk) + ".PDF"));
           FileInputStream in = new FileInputStream(f);
           // buffer size
           byte[] b = new byte[1024];
@@ -238,9 +237,11 @@ public abstract class AbstractMitgliedskontoDokument
     fa.writeForm(fo, map);
   }
 
-  String getDateiname(Mitglied m) throws RemoteException
+  String getDateiname(ArrayList<Mitgliedskonto> mk) throws RemoteException
   {
-    String filename = m.getID() + "#";
+    Mitglied m = mk.get(0).getMitglied();
+    String filename = m.getID() + "#"
+        + new JVDateFormatJJJJMMTT().format(mk.get(0).getDatum()) + "#";
     String email = StringTool.toNotNullString(m.getEmail());
     if (email.length() > 0)
     {

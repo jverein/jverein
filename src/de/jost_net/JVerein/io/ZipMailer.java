@@ -89,8 +89,8 @@ public class ZipMailer
             {
               // Entry mit Mail-Adresse
               String id = currentEntry.substring(0, currentEntry.indexOf("#"));
-              String mail = currentEntry
-                  .substring(currentEntry.indexOf("#") + 1);
+              String mail = currentEntry.substring(currentEntry
+                  .lastIndexOf("#") + 1);
               mail = mail.substring(0, mail.length() - 4);
               Mitglied m = (Mitglied) Einstellungen.getDBService()
                   .createObject(Mitglied.class, id);
