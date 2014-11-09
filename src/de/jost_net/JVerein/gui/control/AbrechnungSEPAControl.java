@@ -420,76 +420,78 @@ public class AbrechnungSEPAControl extends AbstractControl
       settings.setAttribute("lastdir.pdf", fiFRST.getParent());
     }
 
-    final AbrechnungSEPAParam abupar;
-    try
     {
-      abupar = new AbrechnungSEPAParam(this, sepafilefrst, sepafilercur,
-          pdffileFRST, pdffileRCUR);
+      final AbrechnungSEPAParam abupar;
+      try
+      {
+        abupar = new AbrechnungSEPAParam(this, sepafilefrst, sepafilercur,
+            pdffileFRST, pdffileRCUR);
+      }
+      catch (RemoteException e)
+      {
+        throw new ApplicationException(e);
+      }
+      BackgroundTask t = new BackgroundTask()
+      {
+        @Override
+        public void run(ProgressMonitor monitor) throws ApplicationException
+        {
+          try
+          {
+
+            DBTransaction.starten();
+            new AbrechnungSEPA(abupar, monitor);
+            DBTransaction.commit();
+
+            monitor.setPercentComplete(100);
+            monitor.setStatus(ProgressMonitor.STATUS_DONE);
+            GUI.getStatusBar()
+                .setSuccessText(
+                    MessageFormat
+                        .format(
+                            "Abrechnung durchgeführt., SEPA-Dateien {0}, {1} geschrieben.",
+                            abupar.sepafileFRST.getAbsolutePath(),
+                            abupar.sepafileRCUR.getAbsolutePath()));
+            GUI.getCurrentView().reload();
+          }
+          catch (ApplicationException ae)
+          {
+            DBTransaction.rollback();
+            monitor.setStatusText(ae.getMessage());
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            GUI.getStatusBar().setErrorText(ae.getMessage());
+            throw ae;
+          }
+          catch (Exception e)
+          {
+            DBTransaction.rollback();
+            monitor.setStatus(ProgressMonitor.STATUS_ERROR);
+            Logger.error(MessageFormat.format(
+                "error while reading objects from {0}",
+                abupar.sepafileFRST.getAbsolutePath()), e);
+            ApplicationException ae = new ApplicationException(
+                MessageFormat.format(
+                    "Fehler beim erstellen der Abbuchungsdatei: {0}",
+                    abupar.sepafileFRST.getAbsolutePath()), e);
+            monitor.setStatusText(ae.getMessage());
+            GUI.getStatusBar().setErrorText(ae.getMessage());
+            throw ae;
+          }
+        }
+
+        @Override
+        public void interrupt()
+        {
+          //
+        }
+
+        @Override
+        public boolean isInterrupted()
+        {
+          return false;
+        }
+      };
+      Application.getController().start(t);
     }
-    catch (RemoteException e)
-    {
-      throw new ApplicationException(e);
-    }
-    BackgroundTask t = new BackgroundTask()
-    {
-      @Override
-      public void run(ProgressMonitor monitor) throws ApplicationException
-      {
-        try
-        {
-
-          DBTransaction.starten();
-          new AbrechnungSEPA(abupar, monitor);
-          DBTransaction.commit();
-
-          monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar()
-              .setSuccessText(
-                  MessageFormat
-                      .format(
-                          "Abrechnung durchgeführt., SEPA-Dateien {0}, {1} geschrieben.",
-                          abupar.sepafileFRST.getAbsolutePath(),
-                          abupar.sepafileRCUR.getAbsolutePath()));
-          GUI.getCurrentView().reload();
-        }
-        catch (ApplicationException ae)
-        {
-          DBTransaction.rollback();
-          monitor.setStatusText(ae.getMessage());
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
-        catch (Exception e)
-        {
-          DBTransaction.rollback();
-          monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          Logger.error(MessageFormat.format(
-              "error while reading objects from {0}",
-              abupar.sepafileFRST.getAbsolutePath()), e);
-          ApplicationException ae = new ApplicationException(
-              MessageFormat.format(
-                  "Fehler beim erstellen der Abbuchungsdatei: {0}",
-                  abupar.sepafileFRST.getAbsolutePath()), e);
-          monitor.setStatusText(ae.getMessage());
-          GUI.getStatusBar().setErrorText(ae.getMessage());
-          throw ae;
-        }
-      }
-
-      @Override
-      public void interrupt()
-      {
-        //
-      }
-
-      @Override
-      public boolean isInterrupted()
-      {
-        return false;
-      }
-    };
-    Application.getController().start(t);
   }
 }

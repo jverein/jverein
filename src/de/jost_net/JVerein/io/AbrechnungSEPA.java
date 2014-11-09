@@ -22,9 +22,11 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBException;
@@ -54,6 +56,7 @@ import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.ZusatzbetragAbrechnungslauf;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Datum;
+import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
@@ -65,10 +68,11 @@ import de.jost_net.OBanToo.StringLatin.Zeichen;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.internal.action.Program;
-import de.willuhn.jameica.hbci.gui.action.SepaLastschriftMerge;
+import de.willuhn.jameica.hbci.io.SepaLastschriftMerger;
 import de.willuhn.jameica.hbci.rmi.SepaLastSequenceType;
 import de.willuhn.jameica.hbci.rmi.SepaLastType;
 import de.willuhn.jameica.hbci.rmi.SepaLastschrift;
+import de.willuhn.jameica.hbci.rmi.SepaSammelLastschrift;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
@@ -77,8 +81,6 @@ import de.willuhn.util.ProgressMonitor;
 
 public class AbrechnungSEPA
 {
-  private AbrechnungSEPAParam param;
-
   private Calendar sepagueltigkeit;
 
   private int counter = 0;
@@ -86,8 +88,6 @@ public class AbrechnungSEPA
   public AbrechnungSEPA(AbrechnungSEPAParam param, ProgressMonitor monitor)
       throws Exception
   {
-    this.param = param;
-
     if (Einstellungen.getEinstellung().getName() == null
         || Einstellungen.getEinstellung().getName().length() == 0
         || Einstellungen.getEinstellung().getIban() == null
@@ -105,7 +105,7 @@ public class AbrechnungSEPA
               + "Zu Testzwecken kann DE98ZZZ09999999999 eingesetzt werden.");
     }
 
-    Abrechnungslauf abrl = getAbrechnungslauf();
+    Abrechnungslauf abrl = getAbrechnungslauf(param);
 
     sepagueltigkeit = Calendar.getInstance();
     sepagueltigkeit.add(Calendar.MONTH, -36);
@@ -124,19 +124,19 @@ public class AbrechnungSEPA
     {
       case GLEICHERTERMINFUERALLE:
       case MONATLICH12631:
-        abrechnenMitgliederClassic(lastschrift, monitor, abrl, konto);
+        abrechnenMitgliederClassic(param, lastschrift, monitor, abrl, konto);
         break;
       case FLEXIBEL:
-        abrechnenMitgliederNeu(lastschrift, monitor, abrl, konto);
+        abrechnenMitgliederNeu(param, lastschrift, monitor, abrl, konto);
         break;
     }
     if (param.zusatzbetraege)
     {
-      abbuchenZusatzbetraege(lastschrift, abrl, konto, monitor);
+      abbuchenZusatzbetraege(param, lastschrift, abrl, konto, monitor);
     }
     if (param.kursteilnehmer)
     {
-      abbuchenKursteilnehmer(lastschrift);
+      abbuchenKursteilnehmer(param, lastschrift);
     }
 
     monitor.log(counter + " abgerechnete Fälle");
@@ -231,7 +231,7 @@ public class AbrechnungSEPA
     }
     if (param.abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
     {
-      buchenHibiscus(z);
+      buchenHibiscus(param, z);
     }
     // monitor.log(JVereinPlugin.getI18n().tr(
     // "Anzahl Abbuchungen/Lastschrift: {0}",
@@ -247,9 +247,9 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abrechnenMitgliederClassic(JVereinBasislastschrift lastschrift,
-      ProgressMonitor monitor, Abrechnungslauf abrl, Konto konto)
-      throws Exception
+  private void abrechnenMitgliederClassic(AbrechnungSEPAParam param,
+      JVereinBasislastschrift lastschrift, ProgressMonitor monitor,
+      Abrechnungslauf abrl, Konto konto) throws Exception
   {
     // Ermittlung der beitragsfreien Beitragsgruppen
     StringBuilder beitragsfrei = new StringBuilder();
@@ -472,9 +472,9 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abrechnenMitgliederNeu(JVereinBasislastschrift lastschrift,
-      ProgressMonitor monitor, Abrechnungslauf abrl, Konto konto)
-      throws Exception
+  private void abrechnenMitgliederNeu(AbrechnungSEPAParam param,
+      JVereinBasislastschrift lastschrift, ProgressMonitor monitor,
+      Abrechnungslauf abrl, Konto konto) throws Exception
   {
     if (param.abbuchungsmodus != Abrechnungsmodi.KEINBEITRAG)
     {
@@ -591,9 +591,10 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abbuchenZusatzbetraege(JVereinBasislastschrift lastschrift,
-      Abrechnungslauf abrl, Konto konto, ProgressMonitor monitor)
-      throws NumberFormatException, IOException, ApplicationException
+  private void abbuchenZusatzbetraege(AbrechnungSEPAParam param,
+      JVereinBasislastschrift lastschrift, Abrechnungslauf abrl, Konto konto,
+      ProgressMonitor monitor) throws NumberFormatException, IOException,
+      ApplicationException
   {
     DBIterator list = Einstellungen.getDBService().createList(
         Zusatzbetrag.class);
@@ -695,8 +696,9 @@ public class AbrechnungSEPA
     }
   }
 
-  private void abbuchenKursteilnehmer(JVereinBasislastschrift lastschrift)
-      throws ApplicationException, IOException
+  private void abbuchenKursteilnehmer(AbrechnungSEPAParam param,
+      JVereinBasislastschrift lastschrift) throws ApplicationException,
+      IOException
   {
     DBIterator list = Einstellungen.getDBService().createList(
         Kursteilnehmer.class);
@@ -777,7 +779,8 @@ public class AbrechnungSEPA
     });
   }
 
-  private void buchenHibiscus(ArrayList<Zahler> z) throws ApplicationException
+  private void buchenHibiscus(AbrechnungSEPAParam param, ArrayList<Zahler> z)
+      throws ApplicationException
   {
     if (z.size() == 0)
     {
@@ -810,8 +813,18 @@ public class AbrechnungSEPA
         lastschriften[sli] = sl;
         sli++;
       }
-      SepaLastschriftMerge merge = new SepaLastschriftMerge();
-      merge.handleAction(lastschriften);
+      SepaLastschriftMerger merger = new SepaLastschriftMerger();
+      List<SepaSammelLastschrift> sammler = merger.merge(Arrays
+          .asList(lastschriften));
+      for (SepaSammelLastschrift s : sammler)
+      {
+        // Hier noch die eigene Bezeichnung einfuegen
+        String vzweck = param.verwendungszweck + " "
+            + s.getBezeichnung().substring(0, s.getBezeichnung().indexOf(" "))
+            + " vom " + new JVDateFormatDATETIME().format(new Date());
+        s.setBezeichnung(vzweck);
+        s.store();
+      }
     }
     catch (RemoteException e)
     {
@@ -823,8 +836,8 @@ public class AbrechnungSEPA
     }
   }
 
-  private Abrechnungslauf getAbrechnungslauf() throws RemoteException,
-      ApplicationException
+  private Abrechnungslauf getAbrechnungslauf(AbrechnungSEPAParam param)
+      throws RemoteException, ApplicationException
   {
     Abrechnungslauf abrl = (Abrechnungslauf) Einstellungen.getDBService()
         .createObject(Abrechnungslauf.class, null);
