@@ -2700,6 +2700,8 @@ public class MitgliedControl extends AbstractControl
   {
     if (System.currentTimeMillis() - lastrefresh < 500)
     {
+      Logger.debug(String.format("Zeit zwischen den Refreshs: %s",
+          (System.currentTimeMillis() - lastrefresh)));
       return part;
     }
     lastrefresh = System.currentTimeMillis();
