@@ -34,7 +34,7 @@
   </services>
 	
   <requires jameica="2.6+">
-    <import plugin="hibiscus" version="2.6.8+"/>
+    <import plugin="hibiscus" version="2.6.11+"/>
   </requires>
 	
 </plugin>
