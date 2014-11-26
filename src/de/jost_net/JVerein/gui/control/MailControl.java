@@ -44,7 +44,6 @@ import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -180,9 +179,7 @@ public class MailControl extends AbstractControl
       return mitgliedmitmail;
     }
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
-    MitgliedUtils.setNurAktive(it);
-    // MitgliedUtils.setMitglied(it);
-    it.addFilter("email is not null and length(email)  > 0");
+    it.addFilter("email is not null and length(email) > 0");
     mitgliedmitmail = new TablePart(it, null);
     mitgliedmitmail.addColumn("EMail", "email");
     mitgliedmitmail.addColumn("Name", "name");

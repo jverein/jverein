@@ -18,6 +18,7 @@
 package de.jost_net.JVerein.gui.dialogs;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -61,23 +62,23 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     }
 
     ButtonArea b = new ButtonArea();
+
     b.addButton("Eigenschaften", new Action()
     {
-
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
         try
         {
           EigenschaftenAuswahlDialog ead = new EigenschaftenAuswahlDialog(null,
-              false,true);
+              false, true);
           EigenschaftenAuswahlParameter param = ead.open();
           for (EigenschaftenNode node : param.getEigenschaften())
           {
             DBIterator it = Einstellungen.getDBService().createList(
                 Eigenschaften.class);
-            it.addFilter("eigenschaft = ?",
-                new Object[] { node.getEigenschaft().getID()});
+            it.addFilter("eigenschaft = ?", new Object[] { node
+                .getEigenschaft().getID() });
             while (it.hasNext())
             {
               Eigenschaften ei = (Eigenschaften) it.next();
@@ -91,9 +92,111 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
       }
     });
-    b.addButton("alle", new Action()
-    {
 
+    b.addButton("aktive Mitglieder", new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        try
+        {
+          Date stichtag = new Date();
+          for (Object o : control.getMitgliedMitMail().getItems(false))
+          {
+            Mitglied m = (Mitglied) o;
+            if (m.getAdresstyp().getJVereinid() == 1
+                && m.isAngemeldet(stichtag))
+            {
+              control.getMitgliedMitMail().setChecked(o, true);
+            }
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
+
+    b.addButton("inaktive Mitglieder", new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        try
+        {
+          Date stichtag = new Date();
+          for (Object o : control.getMitgliedMitMail().getItems(false))
+          {
+            Mitglied m = (Mitglied) o;
+            if (m.getAdresstyp().getJVereinid() == 1
+                && !m.isAngemeldet(stichtag))
+            {
+              control.getMitgliedMitMail().setChecked(o, true);
+            }
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
+
+    b.addButton("alle Adressen", new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        try
+        {
+          for (Object o : control.getMitgliedMitMail().getItems(false))
+          {
+            Mitglied m = (Mitglied) o;
+            if (m.getAdresstyp().getJVereinid() != 1)
+            {
+              control.getMitgliedMitMail().setChecked(o, true);
+            }
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
+
+    b.addButton("aktive Mitglieder und Adressen", new Action()
+    {
+      @Override
+      public void handleAction(Object context)
+      {
+        try
+        {
+          Date stichtag = new Date();
+          for (Object o : control.getMitgliedMitMail().getItems(false))
+          {
+            Mitglied m = (Mitglied) o;
+            if (m.getAdresstyp().getJVereinid() != 1
+                || (m.getAdresstyp().getJVereinid() == 1 && m
+                    .isAngemeldet(stichtag)))
+            {
+              control.getMitgliedMitMail().setChecked(o, true);
+            }
+          }
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler", e);
+        }
+      }
+    });
+
+    b.paint(parent);
+
+    ButtonArea c = new ButtonArea();
+    c.addButton("alle", new Action()
+    {
       @Override
       public void handleAction(Object context)
       {
@@ -110,9 +213,9 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
       }
     });
-    b.addButton("keinen", new Action()
-    {
 
+    c.addButton("keinen", new Action()
+    {
       @Override
       public void handleAction(Object context)
       {
@@ -140,8 +243,8 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
           for (Object o : control.getMitgliedMitMail().getItems())
           {
             Mitglied m = (Mitglied) o;
-            MailEmpfaenger me = (MailEmpfaenger) Einstellungen.getDBService().createObject(
-                MailEmpfaenger.class, null);
+            MailEmpfaenger me = (MailEmpfaenger) Einstellungen.getDBService()
+                .createObject(MailEmpfaenger.class, null);
             me.setMitglied(m);
             control.addEmpfaenger(me);
           }
@@ -153,16 +256,17 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         close();
       }
     });
-    b.addButton("abbrechen", new Action()
-    {
 
+    c.addButton("abbrechen", new Action()
+    {
       @Override
       public void handleAction(Object context)
       {
         throw new OperationCanceledException();
       }
     });
-    b.paint(parent);
+
+    c.paint(parent);
   }
 
   @Override
