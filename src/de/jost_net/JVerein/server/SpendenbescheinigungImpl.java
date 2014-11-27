@@ -369,10 +369,13 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
   @Override
   public void delete() throws RemoteException, ApplicationException
   {
-    for (Buchung b : getBuchungen())
+    if (getSpendenart() == Spendenart.GELDSPENDE)
     {
-      b.setSpendenbescheinigungId(null);
-      b.store();
+      for (Buchung b : getBuchungen())
+      {
+        b.setSpendenbescheinigungId(null);
+        b.store();
+      }
     }
     super.delete();
   }
