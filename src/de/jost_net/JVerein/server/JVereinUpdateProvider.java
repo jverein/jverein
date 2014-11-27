@@ -147,6 +147,15 @@ public class JVereinUpdateProvider
         // 2.8.0 installiert.
         return 381;
       }
+
+      rs = stmt
+          .executeQuery("select * from DATABASECHANGELOG where id = '106'");
+      if (rs.next())
+      {
+        // Wenn es den Datensatz mit der id 106 gibt, ist mindestens JVerein
+        // 2.7.0-devel 480 installiert.
+        return 372;
+      }
       else
       {
         return 360;
