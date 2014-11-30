@@ -19,6 +19,7 @@ package de.jost_net.JVerein.gui.action;
 import de.jost_net.JVerein.gui.view.AboutView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -30,6 +31,10 @@ public class AboutAction implements Action
     try
     {
       new AboutView(AbstractDialog.POSITION_CENTER).open();
+    }
+    catch (OperationCanceledException e)
+    {
+      Logger.info("About-Dialog geschlossen");
     }
     catch (Exception e)
     {
