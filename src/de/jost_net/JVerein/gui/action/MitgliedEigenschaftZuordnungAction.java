@@ -18,7 +18,6 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.dialogs.EigenschaftenAuswahlDialog;
@@ -96,8 +95,7 @@ public class MitgliedEigenschaftZuordnungAction implements Action
       return;
     }
     GUI.getStatusBar().setSuccessText(
-        MessageFormat.format(
-            "{0} Eigenschaft(en) angelegt. waren bereits vorhanden.",
+        String.format("{0} Eigenschaft(en) angelegt. waren bereits vorhanden.",
             anzErfolgreich + "", anzBereitsVorhanden + ""));
   }
 }

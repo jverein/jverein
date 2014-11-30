@@ -18,7 +18,6 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -162,8 +161,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(MessageFormat.format(
-          "Fehler aufgetreten {0}", e.getMessage()));
+      throw new ApplicationException(String.format("Fehler aufgetreten {0}",
+          e.getMessage()));
     }
     return saldoList.getSaldoList();
   }
@@ -202,7 +201,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(MessageFormat.format(
+      throw new ApplicationException(String.format(
           "Fehler beim Aufbau des Reports: {0}", e.getMessage()));
     }
   }

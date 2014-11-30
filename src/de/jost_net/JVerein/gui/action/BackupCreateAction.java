@@ -20,7 +20,6 @@ package de.jost_net.JVerein.gui.action;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.MessageFormat;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -241,7 +240,7 @@ public class BackupCreateAction implements Action
       {
         Logger.error("error while writing object " + BeanUtil.toString(o)
             + " - skipping", e);
-        monitor.log(MessageFormat.format("  {0} fehlerhaft: {1}, überspringe",
+        monitor.log(String.format("  {0} fehlerhaft: {1}, überspringe",
             new Object[] { BeanUtil.toString(o), e.getMessage() }));
       }
     }

@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -227,8 +226,7 @@ public class BuchungAuswertungPDF
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn(
-            MessageFormat.format("Summe {0}", bua.getBezeichnung()),
+        reporter.addColumn(String.format("Summe {0}", bua.getBezeichnung()),
             Element.ALIGN_LEFT);
         summe += buchungsartSumme;
         reporter.addColumn(buchungsartSumme);

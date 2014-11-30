@@ -16,9 +16,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.Calendar;
 
-
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -149,7 +147,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return MessageFormat.format("{0}. Geburtstag von {1}", alter + "",
+        return String.format("{0}. Geburtstag von {1}", alter + "",
             Adressaufbereitung.getNameVorname(m));
       }
       catch (RemoteException re)
@@ -167,7 +165,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return MessageFormat.format("{0}. Geburtstag von {1}", alter + "",
+        return String.format("{0}. Geburtstag von {1}", alter + "",
             Adressaufbereitung.getNameVorname(m));
       }
       catch (RemoteException re)

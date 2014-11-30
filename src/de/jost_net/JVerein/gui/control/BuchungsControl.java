@@ -18,7 +18,6 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -485,7 +484,7 @@ public class BuchungsControl extends AbstractControl
     {
 
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         Buchung master = (Buchung) getCurrentObject();
         SammelueberweisungAuswahlDialog suad = new SammelueberweisungAuswahlDialog(
@@ -1419,7 +1418,7 @@ public class BuchungsControl extends AbstractControl
         if (ja != null)
         {
           GUI.getStatusBar().setErrorText(
-              MessageFormat.format(
+              String.format(
                   "Buchung wurde bereits am {0} von {1} abgeschlossen.",
                   new Object[] {
                       new JVDateFormatTTMMJJJJ().format(ja.getDatum()),

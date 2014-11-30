@@ -26,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -126,7 +125,7 @@ public class CSVFileHelper
             if (lastPosition - 1 >= 0 && rCache[lastPosition - 1] == SEPARATOR)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Leerzeichen nach einem Semikolon in Zeile: {0} und Spalte: {1}",
                           new Object[] { lineNo + "", columnsPerLine + "" }));
@@ -136,7 +135,7 @@ public class CSVFileHelper
                 && rCache[lastPosition + 1] == SEPARATOR)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Leerzeichen vor einem Semikolon in Zeile: {0} und Spalte: {1}",
                           new Object[] { lineNo + "", columnsPerLine + "" }));
@@ -150,7 +149,7 @@ public class CSVFileHelper
             if (columnsPerLine != numColumns)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Anzahl der Spalten in Zeile: {0} passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
                           lineNo + ""));

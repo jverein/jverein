@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.Queries;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -242,23 +241,23 @@ public class BuchungQuery
 
   public String getSubtitle() throws RemoteException
   {
-    String subtitle = MessageFormat.format("vom {0} bis {1}", new Object[] {
+    String subtitle = String.format("vom {0} bis {1}", new Object[] {
         new JVDateFormatTTMMJJJJ().format(getDatumvon()),
         new JVDateFormatTTMMJJJJ().format(getDatumbis()) });
     if (getKonto() != null)
     {
       subtitle += " "
-          + MessageFormat.format("für Konto {0} - {1}", new Object[] {
+          + String.format("für Konto {0} - {1}", new Object[] {
               getKonto().getNummer() + " - ", getKonto().getBezeichnung() });
     }
     if (getProjekt() != null)
     {
       subtitle += ", "
-          + MessageFormat.format("Projekt {0}", getProjekt().getBezeichnung());
+          + String.format("Projekt {0}", getProjekt().getBezeichnung());
     }
     if (getText() != null && getText().length() > 0)
     {
-      subtitle += ", " + MessageFormat.format("Text={0}", getText());
+      subtitle += ", " + String.format("Text={0}", getText());
     }
     return subtitle;
   }

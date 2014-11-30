@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.gui.view.SplitBuchungView;
 import de.jost_net.JVerein.io.SplitbuchungsContainer;
@@ -45,7 +44,7 @@ public class SplitBuchungAction implements Action
         Jahresabschluss ja = b.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(MessageFormat.format(
+          throw new ApplicationException(String.format(
               "Buchung wurde bereits am {0} von {1} abgeschlossen.",
               new JVDateFormatTTMMJJJJ().format(ja.getDatum()), ja.getName()));
         }

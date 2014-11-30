@@ -155,10 +155,6 @@ public class ZipMailer
 
         monitor.setPercentComplete(100);
         monitor.setStatus(ProgressMonitor.STATUS_DONE);
-        // monitor.setStatusText(MessageFormat.format(
-        // "Anzahl verschickter Mails: {0}", sentCount + ""));
-        // GUI.getStatusBar().setSuccessText(
-        // "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
         GUI.getCurrentView().reload();
       } // Ende von run()
 

@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -124,7 +123,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
       if (it.size() > 0)
       {
         Anfangsbestand anf = (Anfangsbestand) it.next();
-        throw new ApplicationException(MessageFormat.format(
+        throw new ApplicationException(String.format(
             "Datum muss nach dem {0} liegen",
             new JVDateFormatTTMMJJJJ().format(anf.getDatum())));
       }

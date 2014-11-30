@@ -22,7 +22,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Properties;
 
@@ -102,8 +101,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(MessageFormat.format(
-                "Spalte {0} fehlt!", BuchungVar.BETRAG.getName()));
+            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+                BuchungVar.BETRAG.getName()));
           }
           try
           {
@@ -121,8 +120,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(MessageFormat.format(
-                "Spalte {0} fehlt!", BuchungVar.DATUM.getName()));
+            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+                BuchungVar.DATUM.getName()));
           }
           try
           {
@@ -140,7 +139,7 @@ public class CSVBuchungsImport implements Importer
             kit.addFilter("nummer = ?", knr);
             if (kit.size() == 0)
             {
-              throw new ApplicationException(MessageFormat.format(
+              throw new ApplicationException(String.format(
                   "Konto {0} existiert nicht in JVerein!", knr + ""));
             }
             Konto k1 = (Konto) kit.next();
@@ -148,8 +147,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(MessageFormat.format(
-                "Spalte {0} fehlt!", BuchungVar.KONTONUMMER.getName()));
+            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+                BuchungVar.KONTONUMMER.getName()));
           }
           try
           {
@@ -161,7 +160,7 @@ public class CSVBuchungsImport implements Importer
             Buchungsart b1 = (Buchungsart) bit.next();
             if (bit.size() == 0)
             {
-              throw new ApplicationException(MessageFormat.format(
+              throw new ApplicationException(String.format(
                   "Buchungsart {0} existiert nicht in JVerein!", bart + ""));
             }
             bu.setBuchungsart(new Long(b1.getID()));
@@ -176,8 +175,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(MessageFormat.format(
-                "Spalte {0} fehlt!", BuchungVar.NAME.getName()));
+            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+                BuchungVar.NAME.getName()));
           }
           try
           {
@@ -185,8 +184,8 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(MessageFormat.format(
-                "Spalte {0} fehlt!", BuchungVar.ZWECK1.getName()));
+            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+                BuchungVar.ZWECK1.getName()));
           }
           bu.store();
         }

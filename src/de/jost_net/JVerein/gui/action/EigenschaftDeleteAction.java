@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Eigenschaft;
@@ -61,7 +60,7 @@ public class EigenschaftDeleteAction implements Action
       DBIterator it = Einstellungen.getDBService().createList(
           Eigenschaften.class);
       it.addFilter("eigenschaft = ?", new Object[] { ei.getID() });
-      d.setText(MessageFormat
+      d.setText(String
           .format(
               "Die Eigenschaft kann nicht gelöscht werden. Sie ist noch mit {0} Mitglied(ern) verknüpft.",
               it.size()));

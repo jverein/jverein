@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
@@ -86,15 +85,15 @@ public class MitgliedschaftsjubilaeumExportPDF extends
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    reporter = new Reporter(fos, MessageFormat.format(
-        "Mitgliedschaftsjubilare {0}", jahr + ""), "", 3);
+    reporter = new Reporter(fos, String.format("Mitgliedschaftsjubilare {0}",
+        jahr + ""), "", 3);
   }
 
   @Override
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
     Paragraph pHeader = new Paragraph("\n"
-        + MessageFormat.format("{0}-jähriges Jubiläum", jahrgang + ""),
+        + String.format("{0}-jähriges Jubiläum", jahrgang + ""),
         FontFactory.getFont(FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
     reporter.addHeaderColumn("Eintrittsdatum", Element.ALIGN_CENTER, 50,

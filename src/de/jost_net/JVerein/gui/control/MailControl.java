@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -456,8 +455,8 @@ public class MailControl extends AbstractControl
           }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor.setStatusText(MessageFormat.format(
-              "Anzahl verschickter Mails: {0}", sentCount + ""));
+          monitor.setStatusText(String.format("Anzahl verschickter Mails: {0}",
+              sentCount + ""));
           GUI.getStatusBar().setSuccessText(
               "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
           getMail().store();

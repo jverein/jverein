@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -925,7 +924,7 @@ public class AbrechnungSEPA
       return (Konto) it.next();
     }
     throw new ApplicationException(
-        MessageFormat
+        String
             .format(
                 "Weder Konto {0} noch Konto {1} ist in der Buchführung eingerichtet. Menu: Buchführung | Konten",
                 Einstellungen.getEinstellung().getIban(), iban.getKonto()));

@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.control.KontoControl;
@@ -72,15 +71,16 @@ public class HibiscusKontenImportAction implements Action
     final Konto k = (Konto) context;
     try
     {
-      de.jost_net.JVerein.rmi.Konto jvereinkonto = (de.jost_net.JVerein.rmi.Konto) Einstellungen.getDBService().createObject(
-          de.jost_net.JVerein.rmi.Konto.class, null);
+      de.jost_net.JVerein.rmi.Konto jvereinkonto = (de.jost_net.JVerein.rmi.Konto) Einstellungen
+          .getDBService().createObject(de.jost_net.JVerein.rmi.Konto.class,
+              null);
       jvereinkonto.setNummer(k.getKontonummer());
       jvereinkonto.setBezeichnung(k.getBezeichnung());
       jvereinkonto.setHibiscusId(new Integer(k.getID()));
       jvereinkonto.store();
       control.refreshTable();
       GUI.getStatusBar().setSuccessText(
-          MessageFormat.format("Konto {0} importiert.", k.getKontonummer()));
+          String.format("Konto {0} importiert.", k.getKontonummer()));
     }
     catch (RemoteException e)
     {

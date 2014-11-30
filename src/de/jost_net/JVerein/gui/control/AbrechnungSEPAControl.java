@@ -19,7 +19,6 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -447,7 +446,7 @@ public class AbrechnungSEPAControl extends AbstractControl
             monitor.setStatus(ProgressMonitor.STATUS_DONE);
             GUI.getStatusBar()
                 .setSuccessText(
-                    MessageFormat
+                    String
                         .format(
                             "Abrechnung durchgeführt., SEPA-Dateien {0}, {1} geschrieben.",
                             abupar.sepafileFRST.getAbsolutePath(),
@@ -466,13 +465,11 @@ public class AbrechnungSEPAControl extends AbstractControl
           {
             DBTransaction.rollback();
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            Logger.error(MessageFormat.format(
-                "error while reading objects from {0}",
+            Logger.error(String.format("error while reading objects from {0}",
                 abupar.sepafileFRST.getAbsolutePath()), e);
-            ApplicationException ae = new ApplicationException(
-                MessageFormat.format(
-                    "Fehler beim erstellen der Abbuchungsdatei: {0}",
-                    abupar.sepafileFRST.getAbsolutePath()), e);
+            ApplicationException ae = new ApplicationException(String.format(
+                "Fehler beim erstellen der Abbuchungsdatei: {0}",
+                abupar.sepafileFRST.getAbsolutePath()), e);
             monitor.setStatusText(ae.getMessage());
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw ae;

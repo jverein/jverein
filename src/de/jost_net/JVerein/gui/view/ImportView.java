@@ -19,7 +19,6 @@ package de.jost_net.JVerein.gui.view;
 import java.io.File;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -267,7 +266,7 @@ public class ImportView extends AbstractView
         "Import", new Action()
         {
           @Override
-          public void handleAction(Object context) 
+          public void handleAction(Object context)
           {
             doImport();
           }
@@ -420,7 +419,7 @@ public class ImportView extends AbstractView
             monitor.setPercentComplete(100);
             monitor.setStatus(ProgressMonitor.STATUS_DONE);
             GUI.getStatusBar().setSuccessText(
-                MessageFormat.format("Daten importiert aus {0}", s));
+                String.format("Daten importiert aus {0}", s));
             GUI.getCurrentView().reload();
           }
           else
@@ -434,10 +433,9 @@ public class ImportView extends AbstractView
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error opening reading objects from " + s, sqlE);
-          ApplicationException ae = new ApplicationException(
-              MessageFormat.format(
-                  "Fehler beim Importieren der Daten aus {0}, {1}", s,
-                  sqlE.getMessage()));
+          ApplicationException ae = new ApplicationException(String.format(
+              "Fehler beim Importieren der Daten aus {0}, {1}", s,
+              sqlE.getMessage()));
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
@@ -454,10 +452,9 @@ public class ImportView extends AbstractView
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while reading objects from " + s, e);
-          ApplicationException ae = new ApplicationException(
-              MessageFormat.format(
-                  "Fehler beim Importieren der Daten aus {0}, {1}", s,
-                  e.getMessage()));
+          ApplicationException ae = new ApplicationException(String.format(
+              "Fehler beim Importieren der Daten aus {0}, {1}", s,
+              e.getMessage()));
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;

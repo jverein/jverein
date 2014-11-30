@@ -19,7 +19,6 @@ package de.jost_net.JVerein.gui.dialogs;
 
 import java.io.File;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -232,7 +231,7 @@ public class ImportDialog extends AbstractDialog<Object>
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
-              MessageFormat.format("Daten importiert aus {0}", s));
+              String.format("Daten importiert aus {0}", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -246,9 +245,8 @@ public class ImportDialog extends AbstractDialog<Object>
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while reading objects from " + s, e);
-          ApplicationException ae = new ApplicationException(
-              MessageFormat.format("Fehler beim Importieren der Daten aus {0}",
-                  s), e);
+          ApplicationException ae = new ApplicationException(String.format(
+              "Fehler beim Importieren der Daten aus {0}", s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;

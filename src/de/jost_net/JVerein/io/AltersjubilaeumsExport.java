@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,8 +56,7 @@ public abstract class AltersjubilaeumsExport implements Exporter
     this.file = file;
     MitgliedControl control = (MitgliedControl) objects[0];
     jahr = control.getJJahr();
-    Logger.debug(MessageFormat.format("Altersjubiläumexport, Jahr={0}", jahr
-        + ""));
+    Logger.debug(String.format("Altersjubiläumexport, Jahr={0}", jahr + ""));
     open();
     JubilaeenParser jp = new JubilaeenParser(Einstellungen.getEinstellung()
         .getAltersjubilaeen());

@@ -22,7 +22,6 @@ import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,7 +131,7 @@ public class Import
     }
     catch (NumberFormatException e)
     {
-      throw new ApplicationException(MessageFormat.format(
+      throw new ApplicationException(String.format(
           "In Zeile: {0} besteht folgende ungueltige Formatierung: {1}",
           results.getRow() + "", e.getMessage()));
     }
@@ -197,7 +196,7 @@ public class Import
       // Zeige Benutzer genauen Fehler.
       if (ba == null || ba.length() == 0)
       {
-        progMonitor.log(MessageFormat.format(
+        progMonitor.log(String.format(
             "{0}, {1}: keine Angaben zur Beitragsart_1",
             this.getResultFrom(results, InternalColumns.NACHNAME),
             this.getResultFrom(results, InternalColumns.VORNAME)));
@@ -206,7 +205,7 @@ public class Import
       else if (ba.length() > 30)
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "{0}, {1}: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
                     this.getResultFrom(results, InternalColumns.NACHNAME),
@@ -215,8 +214,7 @@ public class Import
 
       if (btr == null || btr.length() == 0)
       {
-        progMonitor.log(MessageFormat.format(
-            "{0}, {1}: keine Angaben zum Beitrag_1",
+        progMonitor.log(String.format("{0}, {1}: keine Angaben zum Beitrag_1",
             this.getResultFrom(results, InternalColumns.NACHNAME),
             this.getResultFrom(results, InternalColumns.VORNAME)));
         groupsAreValid = false;
@@ -276,7 +274,7 @@ public class Import
         else
         {
           parts[2] = "20" + parts[2];
-          progMonitor.log(MessageFormat.format(
+          progMonitor.log(String.format(
               "Fuer {0} wurde das 21 Jahrhundert angenommen", dotDate + ""));
         }
       }
@@ -387,7 +385,7 @@ public class Import
       }
       catch (NullPointerException e)
       {
-        progMonitor.log(MessageFormat.format(
+        progMonitor.log(String.format(
             "Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: {0}",
             column.getColumnName()));
 
@@ -399,7 +397,7 @@ public class Import
       }
       catch (SQLException e)
       {
-        progMonitor.log(MessageFormat.format(
+        progMonitor.log(String.format(
             "Fehler beim lesen der Importdatei in der Spalte: {0}",
             colMap.get(column.getColumnName())));
         throw new SQLException();
@@ -559,7 +557,7 @@ public class Import
         catch (Exception e)
         {
           progMonitor
-              .log(MessageFormat
+              .log(String
                   .format(
                       "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= {0}, NAME= {1}: {2}",
                       getResultFrom(results, InternalColumns.MITGLIEDSNR),
@@ -570,7 +568,7 @@ public class Import
 
       }
 
-      progMonitor.setStatusText(MessageFormat.format(
+      progMonitor.setStatusText(String.format(
           "Import vollstaendig - Es wurden {0} Datensaetze importiert", anz
               + ""));
 
@@ -657,7 +655,7 @@ public class Import
 
       if (Einstellungen.getEinstellung().getGeburtsdatumPflicht())
       {
-        throw new ApplicationException(MessageFormat.format(
+        throw new ApplicationException(String.format(
             "{0}: Geburtsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
       }
     }
@@ -676,7 +674,7 @@ public class Import
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
     String zahlungstermin = getResultFrom(results,
         InternalColumns.ZAHLUNGSTERMIN);
-    if (zahlungstermin != null &&zahlungstermin.length()>0)
+    if (zahlungstermin != null && zahlungstermin.length() > 0)
     {
       m.setZahlungstermin(new Integer(zahlungstermin));
     }
@@ -729,7 +727,7 @@ public class Import
       if (!altebankverbindung && !neuebankverbindung)
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "Bei {0} ist als Zahlungsart Basislastschrift gesetzt aber weder neue Bankverbindung (IBAN  / BIC) noch (BLZ /Konto) vorhanden",
                     Adressaufbereitung.getNameVorname(m)));
@@ -748,7 +746,7 @@ public class Import
     }
     else
     {
-      progMonitor.log(MessageFormat.format(
+      progMonitor.log(String.format(
           "{0}: ungueltige Zahlungsart. Bar wird angenommen.",
           Adressaufbereitung.getNameVorname(m)));
     }
@@ -764,7 +762,7 @@ public class Import
     }
     catch (NullPointerException e)
     {
-      progMonitor.log(MessageFormat.format(
+      progMonitor.log(String.format(
           "{0}: Ungültige Mandatssequence. RCUR wird angenommen.",
           Adressaufbereitung.getNameVorname(m)));
       m.setMandatSequence(MandatSequence.RCUR);
@@ -776,7 +774,7 @@ public class Import
     }
     catch (NumberFormatException e)
     {
-      progMonitor.log(MessageFormat.format(
+      progMonitor.log(String.format(
           "{0}: Ungültige Mandatsversion. 1 wird angenommen.",
           Adressaufbereitung.getNameVorname(m)));
       m.setMandatVersion(1);
@@ -812,7 +810,7 @@ public class Import
 
       if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
       {
-        throw new ApplicationException(MessageFormat.format(
+        throw new ApplicationException(String.format(
             "{0}: Eintrittsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
       }
     }
@@ -837,7 +835,7 @@ public class Import
       if (austritt == null)
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "{0}: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
                     Adressaufbereitung.getNameVorname(m)));
@@ -878,7 +876,7 @@ public class Import
       else
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "Individueller Beitrag fuer {0} enthält keine gültige Formatierung und wird verworfen.",
                     Adressaufbereitung.getNameVorname(m)));
@@ -899,7 +897,7 @@ public class Import
       else
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "Personenart für {0} enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
                     Adressaufbereitung.getNameVorname(m)));
@@ -927,7 +925,7 @@ public class Import
       else
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
                     Adressaufbereitung.getNameVorname(m)));
@@ -949,7 +947,7 @@ public class Import
       else
       {
         progMonitor
-            .log(MessageFormat
+            .log(String
                 .format(
                     "Adresstyp bei: {0} ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
                     Adressaufbereitung.getNameVorname(m)));
@@ -1015,7 +1013,7 @@ public class Import
           }
           catch (ParseException e)
           {
-            throw new ApplicationException(MessageFormat.format(
+            throw new ApplicationException(String.format(
                 "{0} : ungültiges Datumsformat {1}: {2}",
                 Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
                 inhalt));
@@ -1035,7 +1033,7 @@ public class Import
           }
           catch (NumberFormatException e)
           {
-            throw new ApplicationException(MessageFormat.format(
+            throw new ApplicationException(String.format(
                 "{0}: ungültiges Datenformat {1}: {2}",
                 Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
                 inhalt));
@@ -1058,7 +1056,7 @@ public class Import
         }
         else
         {
-          throw new ApplicationException(MessageFormat.format(
+          throw new ApplicationException(String.format(
               "{0}: ungültiges Datenformat {1}: {2}",
               Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
               inhalt));
@@ -1074,7 +1072,7 @@ public class Import
           }
           catch (NumberFormatException e)
           {
-            throw new ApplicationException(MessageFormat.format(
+            throw new ApplicationException(String.format(
                 "{0}: ungültiges Datenformat {1}: {2}",
                 Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
                 inhalt));

@@ -24,7 +24,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -197,7 +196,7 @@ public class DefaultZusatzbetraegeImport implements Importer
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
             monitor
-                .setStatusText(MessageFormat
+                .setStatusText(String
                     .format(
                         "Für die Importzeile {0} ({1}) kein Mitglied in JVerein-Datenbank gefunden. Abbruch!",
                         anz + "", mitgliedIdString));
@@ -207,7 +206,7 @@ public class DefaultZusatzbetraegeImport implements Importer
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
             monitor
-                .setStatusText(MessageFormat
+                .setStatusText(String
                     .format(
                         "Für die Importzeile {0} ({1}) mehr als ein Mitglied gefunden. Abbruch!",
                         anz + "", mitgliedIdString));
@@ -224,7 +223,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             if (betrag == 0)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Für die Importzeile {0} ({1}) konnte die Fließkommazahl in der Spalte Betrag nicht verarbeitet werden. Zahl muss größer 0 sein. Abbruch!",
                           anz + "", mitgliedIdString));
@@ -235,7 +234,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             if (buchungstext.length() > 140)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 140 Zeichen begrenzt. Abbruch!",
                           anz + "", mitgliedIdString));
@@ -252,7 +251,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             catch (ParseException e)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Für die Importzeile {0} ({1}) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
                           anz + "", mitgliedIdString));
@@ -263,7 +262,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             if (intervall < 0)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Für die Importzeile {0} ({1}) konnte die Zahl in der Spalte Intervall nicht verarbeitet werden. Zahl muss größer oder gleich 0 sein. Abbruch!",
                           anz + "", mitgliedIdString));
@@ -283,7 +282,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             catch (ParseException e)
             {
               monitor
-                  .setStatusText(MessageFormat
+                  .setStatusText(String
                       .format(
                           "Für die Importzeile {0} ({1}) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
                           anz + "", mitgliedIdString));
@@ -298,7 +297,7 @@ public class DefaultZusatzbetraegeImport implements Importer
         if (fehlerInDaten == false)
         {
           monitor
-              .setStatusText(MessageFormat
+              .setStatusText(String
                   .format(
                       "Überprüfen aller Zusatzbeiträge erfolgreich abschlossen. {0} Zusatzbeiträge werden importiert...",
                       anz + ""));
@@ -309,7 +308,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             monitor.setPercentComplete(10 + (count * 90 / zusatzbetraegeList
                 .size()));
             zusatzbetrag.store();
-            monitor.setStatusText(MessageFormat.format(
+            monitor.setStatusText(String.format(
                 "Zusatzbeitrag für Mitglied {0} erfolgreich importiert. ",
                 Adressaufbereitung.getNameVorname(zusatzbetrag.getMitglied())));
           }

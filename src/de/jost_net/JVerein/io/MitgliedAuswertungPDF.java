@@ -19,7 +19,6 @@ package de.jost_net.JVerein.io;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
@@ -278,7 +277,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       report.closeTable();
 
-      report.add(new Paragraph(MessageFormat.format("Anzahl {0}: {1}",
+      report.add(new Paragraph(String.format("Anzahl {0}: {1}",
           adresstyp.getBezeichnungPlural(), list.size() + ""), FontFactory
           .getFont(FontFactory.HELVETICA, 8)));
 
@@ -298,7 +297,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
       report.closeTable();
       report.close();
       GUI.getStatusBar().setSuccessText(
-          MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()));
+          String.format("Auswertung fertig. {0} Sätze.", list.size()));
     }
     catch (Exception e)
     {

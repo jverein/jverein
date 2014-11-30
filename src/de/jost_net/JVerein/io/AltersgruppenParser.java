@@ -16,7 +16,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.io;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -50,7 +49,7 @@ public class AltersgruppenParser
       if (stt.countTokens() != 2)
       {
         throw new RuntimeException(
-            MessageFormat
+            String
                 .format(
                     "Ungültige Altersgruppe: {0} \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
                     new Object[] { gruppen.get(i) }));
@@ -75,7 +74,7 @@ public class AltersgruppenParser
     return iterator.hasNext();
   }
 
-  public VonBis getNext() 
+  public VonBis getNext()
   {
     return iterator.next();
   }

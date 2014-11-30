@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -109,10 +108,10 @@ public class Kontoauszug
     rpt.newPage();
     rpt.add(Einstellungen.getEinstellung().getName(), 20);
     rpt.add(
-        MessageFormat.format("Kontoauszug {0}",
-            Adressaufbereitung.getVornameName(m)), 18);
+        String.format("Kontoauszug {0}", Adressaufbereitung.getVornameName(m)),
+        18);
     JVDateFormatTTMMJJJJ jv = new JVDateFormatTTMMJJJJ();
-    rpt.add(MessageFormat.format("Stand: {0}", jv.format(new Date())), 16);
+    rpt.add(String.format("Stand: {0}", jv.format(new Date())), 16);
 
     rpt.addHeaderColumn(" ", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn("Datum", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);

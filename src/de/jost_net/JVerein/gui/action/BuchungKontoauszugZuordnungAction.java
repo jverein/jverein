@@ -18,7 +18,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
@@ -109,7 +108,7 @@ public class BuchungKontoauszugZuordnungAction implements Action
         String protecttext = "";
         if (counter > 0)
         {
-          protecttext = MessageFormat.format(
+          protecttext = String.format(
               ", {0} Buchungen wurden nicht überschrieben. ",
               new Object[] { counter + "" });
         }

@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1638,7 +1637,7 @@ public class MitgliedControl extends AbstractControl
           DateInput di = new DateInput(d, new JVDateFormatTTMMJJJJ());
           di.setName(fd.getLabel());
           di.setTitle(fd.getLabel());
-          di.setText(MessageFormat.format("Bitte {0} wählen", fd.getLabel()));
+          di.setText(String.format("Bitte {0} wählen", fd.getLabel()));
           zusatzfelder[i] = di;
           break;
         case Datentyp.GANZZAHL:
@@ -2986,7 +2985,7 @@ public class MitgliedControl extends AbstractControl
           {
             EigenschaftGruppe eg = (EigenschaftGruppe) Einstellungen
                 .getDBService().createObject(EigenschaftGruppe.class, key);
-            throw new ApplicationException(MessageFormat.format(
+            throw new ApplicationException(String.format(
                 "In der Eigenschaftengruppe \"{0}\" fehlt ein Eintrag!",
                 eg.getBezeichnung()));
           }
@@ -3014,7 +3013,7 @@ public class MitgliedControl extends AbstractControl
                 if (m1)
                 {
                   throw new ApplicationException(
-                      MessageFormat
+                      String
                           .format(
                               "In der Eigenschaftengruppe \"{0} mehr als ein Eintrag markiert!",
                               ei.getEigenschaftGruppe().getBezeichnung()));
@@ -3557,7 +3556,7 @@ public class MitgliedControl extends AbstractControl
     }
     else
     {
-      zusatzfelderabfrage.setText(MessageFormat.format("{0} Felder ausgewählt",
+      zusatzfelderabfrage.setText(String.format("{0} Felder ausgewählt",
           selected));
     }
   }

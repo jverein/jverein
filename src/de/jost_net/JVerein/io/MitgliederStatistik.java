@@ -19,7 +19,6 @@ package de.jost_net.JVerein.io;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,7 +117,7 @@ public class MitgliederStatistik
         JVDateFormatTTMMJJJJ ttmmjj = new JVDateFormatTTMMJJJJ();
         Geschaeftsjahr gj = new Geschaeftsjahr(stichtag);
         Paragraph pGuV = new Paragraph("\n"
-            + MessageFormat.format("Anmeldungen/Abmeldungen ({0} - {1})",
+            + String.format("Anmeldungen/Abmeldungen ({0} - {1})",
                 ttmmjj.format(gj.getBeginnGeschaeftsjahr()),
                 ttmmjj.format(gj.getEndeGeschaeftsjahr())),
             FontFactory.getFont(FontFactory.HELVETICA, 11));
@@ -160,8 +159,8 @@ public class MitgliederStatistik
     else
     {
       reporter.addColumn(
-          MessageFormat.format("Altersgruppe {0} - {1}", vb.getVon() + "",
-              vb.getBis() + ""), Element.ALIGN_LEFT);
+          String.format("Altersgruppe {0} - {1}", vb.getVon() + "", vb.getBis()
+              + ""), Element.ALIGN_LEFT);
     }
     reporter.addColumn(getAltersgruppe(vb, null, stichtag) + "",
         Element.ALIGN_RIGHT);

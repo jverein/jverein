@@ -21,7 +21,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -315,7 +314,7 @@ public class ArbeitseinsatzControl extends AbstractControl
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, MessageFormat.format(
+          Reporter reporter = new Reporter(fos, String.format(
               "Arbeitseinsätze {0}", jahr + ""), sub, it.size());
           reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
               BaseColor.LIGHT_GRAY);
@@ -483,8 +482,7 @@ public class ArbeitseinsatzControl extends AbstractControl
             Double betrag = (Double) z.getAttribute("gesamtbetrag");
             betrag = betrag * -1;
             zb.setBetrag(betrag);
-            zb.setBuchungstext(MessageFormat.format("Arbeitseinsatz {0}", +jahr
-                + ""));
+            zb.setBuchungstext(String.format("Arbeitseinsatz {0}", +jahr + ""));
             zb.setFaelligkeit(new Date());
             zb.setStartdatum(new Date());
             zb.setIntervall(IntervallZusatzzahlung.KEIN);

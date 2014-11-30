@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -170,8 +169,7 @@ public class BackupRestoreAction implements Action
             {
               Logger.error("unable to import " + o.getClass().getName() + ":"
                   + o.getID() + ", skipping", e);
-              monitor.log(MessageFormat.format(
-                  " {0} fehlerhaft: {1}, überspringe ",
+              monitor.log(String.format(" {0} fehlerhaft: {1}, überspringe ",
                   new Object[] { BeanUtil.toString(o), e.getMessage() }));
             }
             if (count++ % 100 == 0)

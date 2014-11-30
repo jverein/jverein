@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -63,8 +62,7 @@ public class BuchungAuswertungCSV
         writer.write(b.getMap(null), header, processors);
       }
       GUI.getStatusBar().setSuccessText(
-          MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()
-              + ""));
+          String.format("Auswertung fertig. {0} Sätze.", list.size() + ""));
       writer.close();
       FileViewer.show(file);
     }

@@ -18,7 +18,6 @@
 package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -60,10 +59,10 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv"};
+        return new String[] { "*.csv" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 
   @Override
@@ -100,8 +99,8 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   @Override
   protected void close() throws ApplicationException
   {
-    Logger.debug(MessageFormat.format("Alterjubiläum-CSV-Export, Jahr={0}",
-        jahr + ""));
+    Logger
+        .debug(String.format("Alterjubiläum-CSV-Export, Jahr={0}", jahr + ""));
     MitgliedAuswertungCSV mcsv = new MitgliedAuswertungCSV();
     mcsv.go(mitglieder, file);
   }

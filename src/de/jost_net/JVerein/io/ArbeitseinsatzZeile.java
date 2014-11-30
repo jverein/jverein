@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -85,8 +84,8 @@ public class ArbeitseinsatzZeile implements GenericObject
     {
       return (ist - soll) * stundensatz;
     }
-    throw new RemoteException(MessageFormat.format(
-        "Ungültige Spaltenbezeichung: {0}", arg0));
+    throw new RemoteException(String.format("Ungültige Spaltenbezeichung: {0}",
+        arg0));
   }
 
   @Override
@@ -97,7 +96,7 @@ public class ArbeitseinsatzZeile implements GenericObject
   }
 
   @Override
-  public String getID() 
+  public String getID()
   {
     return mitgliedid;
   }

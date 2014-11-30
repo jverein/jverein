@@ -205,9 +205,6 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
   @Override
   public String getSQLTimestamp(String content)
   {
-    // Nicht noetig
-    // return MessageFormat.format("DATEDIFF('MS','1970-01-01 00:00',{0})", new
-    // Object[]{content});
     return content;
   }
 

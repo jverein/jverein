@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
@@ -60,7 +59,7 @@ public class BeitragsgruppeDeleteAction implements Action
       if (mitgl.size() > 0)
       {
         throw new ApplicationException(
-            MessageFormat
+            String
                 .format(
                     "Beitragsgruppe \"{0}\" kann nicht gelöscht werden. {1} Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
                     new Object[] { bg.getBezeichnung(), mitgl.size() + "" }));
@@ -79,7 +78,7 @@ public class BeitragsgruppeDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(MessageFormat.format(
+        Logger.error(String.format(
             "Fehler beim Löschen der Beitragsgruppe: [0}",
             new Object[] { e.getMessage() }));
         return;

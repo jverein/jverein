@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
@@ -84,19 +83,18 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    Logger.debug(MessageFormat.format("Altersjubilare, Jahr={0}", jahr + ""));
-    reporter = new Reporter(fos, MessageFormat.format("Altersjubilare {0}",
-        jahr + ""), "", 3);
+    Logger.debug(String.format("Altersjubilare, Jahr={0}", jahr + ""));
+    reporter = new Reporter(fos,
+        String.format("Altersjubilare {0}", jahr + ""), "", 3);
   }
 
   @Override
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
-    Logger.debug(MessageFormat.format("Altersjubiläum, Jahrgang={0}", jahrgang
-        + ""));
+    Logger.debug(String.format("Altersjubiläum, Jahrgang={0}", jahrgang + ""));
     Paragraph pHeader = new Paragraph("\n"
-        + MessageFormat.format("{0}. Geburtstag", jahrgang + ""),
-        FontFactory.getFont(FontFactory.HELVETICA, 11));
+        + String.format("{0}. Geburtstag", jahrgang + ""), FontFactory.getFont(
+        FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
     reporter.addHeaderColumn("Geburtsdatum", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);

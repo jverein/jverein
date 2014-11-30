@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
@@ -55,8 +54,7 @@ public class AbrechnungslaufDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(MessageFormat.format("Abrechnungslauf {0} löschen",
-          abrl.getID()));
+      d.setTitle(String.format("Abrechnungslauf {0} löschen", abrl.getID()));
       d.setText("Wollen Sie diesen Abrechnungslauf wirklich löschen?");
 
       try
@@ -82,7 +80,7 @@ public class AbrechnungslaufDeleteAction implements Action
         Jahresabschluss ja = b.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(MessageFormat.format(
+          throw new ApplicationException(String.format(
               "Buchung wurde bereits am {0} von {1} abgeschlossen.",
               new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
                   ja.getName() }));

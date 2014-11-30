@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -89,7 +88,7 @@ public class BuchungDeleteAction implements Action
         Jahresabschluss ja = bu.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(MessageFormat.format(
+          throw new ApplicationException(String.format(
               "Buchung wurde bereits am {0} von {1} abgeschlossen.",
               new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
                   ja.getName() }));

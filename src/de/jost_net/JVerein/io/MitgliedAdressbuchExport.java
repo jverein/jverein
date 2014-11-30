@@ -19,7 +19,6 @@ package de.jost_net.JVerein.io;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.gui.view.IAuswertung;
@@ -54,7 +53,7 @@ public class MitgliedAdressbuchExport implements IAuswertung
       }
       txt.close();
       GUI.getStatusBar().setSuccessText(
-          MessageFormat.format("Auswertung fertig. {0} Sätze.", list.size()));
+          String.format("Auswertung fertig. {0} Sätze.", list.size()));
     }
     catch (IOException e)
     {
