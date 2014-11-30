@@ -38,7 +38,7 @@ public class AboutView extends AbstractDialog<Object>
   public AboutView(int position)
   {
     super(position);
-    this.setSize(335, 500);
+    this.setSize(460, 650);
     this.setTitle("Über...");
   }
 
