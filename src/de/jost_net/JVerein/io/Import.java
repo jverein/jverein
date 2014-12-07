@@ -56,7 +56,6 @@ import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
-import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -755,30 +754,7 @@ public class Import
     m.setKonto(ktnr);
     m.setBic(bic);
     m.setIban(iban);
-    try
-    {
-      m.setMandatSequence(MandatSequence.fromString(getResultFrom(results,
-          InternalColumns.MANDATSEQUENCE)));
-    }
-    catch (NullPointerException e)
-    {
-      progMonitor.log(String.format(
-          "{0}: Ungültige Mandatssequence. RCUR wird angenommen.",
-          Adressaufbereitung.getNameVorname(m)));
-      m.setMandatSequence(MandatSequence.RCUR);
-    }
-    try
-    {
-      m.setMandatVersion(new Integer(getResultFrom(results,
-          InternalColumns.MANDATVERSION)));
-    }
-    catch (NumberFormatException e)
-    {
-      progMonitor.log(String.format(
-          "{0}: Ungültige Mandatsversion. 1 wird angenommen.",
-          Adressaufbereitung.getNameVorname(m)));
-      m.setMandatVersion(1);
-    }
+    m.setMandatVersion(1);
     String m_d = getResultFrom(results, InternalColumns.MANDATDATUM);
     if (m_d.length() > 0)
     {

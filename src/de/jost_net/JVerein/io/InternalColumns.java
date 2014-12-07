@@ -49,8 +49,6 @@ public enum InternalColumns
   KTOIEMAIL("KtoiEMail", false), //
   KUENDIGUNGSDATUM("Kuendigung", true), //
   MANDATDATUM("Mandat_Datum", true), //
-  MANDATSEQUENCE("Mandat_Sequence", true), //
-  MANDATVERSION("Mandat_Version", true), //
   MITGLIEDSNR("Mitglieds_Nr", true), //
   NACHNAME("Nachname", true), //
   ORT("Ort", true), //
