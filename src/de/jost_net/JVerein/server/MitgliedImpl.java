@@ -55,6 +55,7 @@ import de.jost_net.JVerein.util.StringTool;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.OBanToo.SEPA.SEPAException.Fehler;
 import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
 import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
@@ -194,7 +195,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       catch (SEPAException e)
       {
-        throw new ApplicationException(e.getMessage());
+        if (e.getFehler() != Fehler.UNGUELTIGES_LAND)
+        {
+          throw new ApplicationException(e.getMessage());
+        }
       }
     }
     if (getBic() != null && getBic().length() != 0)
@@ -205,7 +209,10 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
       catch (SEPAException e)
       {
-        throw new ApplicationException(e.getMessage());
+        if (!e.getMessage().startsWith("Ungültiges Land"))
+        {
+          throw new ApplicationException(e.getMessage());
+        }
       }
     }
     if (getBic() == null || getBic().length() == 0)
