@@ -1210,7 +1210,12 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public String getAltersgruppen() throws RemoteException
   {
-    return (String) getAttribute("altersgruppen");
+   String ag = (String) getAttribute("altersgruppen");
+    if (ag == null || ag.length() == 0)
+    {
+      ag = "1-5,6-10,11-17,18-25,26-50,50-100";
+    }
+    return ag;
   }
 
   @Override
