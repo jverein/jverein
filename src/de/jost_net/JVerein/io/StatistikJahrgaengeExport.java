@@ -96,6 +96,10 @@ public abstract class StatistikJahrgaengeExport implements Exporter
       {
         dsbj.incrementWeiblich();
       }
+      if (m.getGeschlecht().equals(GeschlechtInput.OHNEANGABE))
+      {
+        dsbj.incrementOhne();
+      }
     }
     /*
      * Teil 2: Juristische Personen
@@ -141,6 +145,8 @@ public abstract class StatistikJahrgaengeExport implements Exporter
 
     private int anzahlweiblich = 0;
 
+    private int anzahlohne = 0;
+
     public int getAnzahlgesamt()
     {
       return anzahlgesamt;
@@ -169,6 +175,16 @@ public abstract class StatistikJahrgaengeExport implements Exporter
     public void incrementWeiblich()
     {
       this.anzahlweiblich++;
+    }
+
+    public int getAnzahlOhne()
+    {
+      return anzahlohne;
+    }
+
+    public void incrementOhne()
+    {
+      this.anzahlohne++;
     }
   }
 
