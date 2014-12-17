@@ -64,10 +64,10 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.pdf"};
+        return new String[] { "*.pdf" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 
   @Override
@@ -90,10 +90,13 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
         BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn("weiblich", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("ohne Angabe", Element.ALIGN_CENTER, 50,
+        BaseColor.LIGHT_GRAY);
     reporter.createHeader(50, Element.ALIGN_LEFT);
     int summegesamt = 0;
     int summemaennlich = 0;
     int summeweiblich = 0;
+    int summeohne = 0;
     for (String key : statistik.keySet())
     {
       reporter.addColumn(key, Element.ALIGN_CENTER);
@@ -107,9 +110,12 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
       reporter.addColumn(
           Einstellungen.INTFORMAT.format(dsbj.getAnzahlweiblich()),
           Element.ALIGN_RIGHT);
+      reporter.addColumn(Einstellungen.INTFORMAT.format(dsbj.getAnzahlOhne()),
+          Element.ALIGN_RIGHT);
       summegesamt += dsbj.getAnzahlgesamt();
       summemaennlich += dsbj.getAnzahlmaennlich();
       summeweiblich += dsbj.getAnzahlweiblich();
+      summeohne += dsbj.getAnzahlOhne();
     }
     reporter.addColumn("Summe", Element.ALIGN_CENTER);
     reporter.addColumn(Einstellungen.INTFORMAT.format(summegesamt),
@@ -117,6 +123,8 @@ public class StatistikJahrgaengeExportPDF extends StatistikJahrgaengeExport
     reporter.addColumn(Einstellungen.INTFORMAT.format(summemaennlich),
         Element.ALIGN_RIGHT);
     reporter.addColumn(Einstellungen.INTFORMAT.format(summeweiblich),
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(Einstellungen.INTFORMAT.format(summeohne),
         Element.ALIGN_RIGHT);
     reporter.closeTable();
 

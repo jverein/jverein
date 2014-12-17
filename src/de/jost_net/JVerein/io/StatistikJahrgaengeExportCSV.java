@@ -83,11 +83,12 @@ public class StatistikJahrgaengeExportCSV extends StatistikJahrgaengeExport
       ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file),
           CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
-      String[] header = new String[] { "Jahrgang", "m", "w" };
+      String[] header = new String[] { "Jahrgang", "m", "w", "o" };
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("Jahrgang", 2000);
       map.put("m", 1);
       map.put("w", 1);
+      map.put("o", 1);
       CellProcessor[] processors = CellProcessors.createCellProcessors(map);
 
       writer.writeHeader(header);
@@ -98,6 +99,7 @@ public class StatistikJahrgaengeExportCSV extends StatistikJahrgaengeExport
         map.put("Jahrgang", key);
         map.put("m", dsbj.getAnzahlmaennlich());
         map.put("w", dsbj.getAnzahlweiblich());
+        map.put("o", dsbj.getAnzahlOhne());
         writer.write(map, header, processors);
       }
       GUI.getStatusBar().setSuccessText("Auswertung fertig.");
