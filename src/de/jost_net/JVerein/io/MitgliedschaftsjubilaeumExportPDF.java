@@ -85,16 +85,16 @@ public class MitgliedschaftsjubilaeumExportPDF extends
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    reporter = new Reporter(fos, String.format("Mitgliedschaftsjubilare {0}",
-        jahr + ""), "", 3);
+    reporter = new Reporter(fos, String.format("Mitgliedschaftsjubilare %d",
+        jahr), "", 3);
   }
 
   @Override
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
     Paragraph pHeader = new Paragraph("\n"
-        + String.format("{0}-jähriges Jubiläum", jahrgang + ""),
-        FontFactory.getFont(FontFactory.HELVETICA, 11));
+        + String.format("%d-jähriges Jubiläum", jahrgang), FontFactory.getFont(
+        FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
     reporter.addHeaderColumn("Eintrittsdatum", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);

@@ -117,7 +117,7 @@ public class MitgliederStatistik
         JVDateFormatTTMMJJJJ ttmmjj = new JVDateFormatTTMMJJJJ();
         Geschaeftsjahr gj = new Geschaeftsjahr(stichtag);
         Paragraph pGuV = new Paragraph("\n"
-            + String.format("Anmeldungen/Abmeldungen ({0} - {1})",
+            + String.format("Anmeldungen/Abmeldungen (%s - %s)",
                 ttmmjj.format(gj.getBeginnGeschaeftsjahr()),
                 ttmmjj.format(gj.getEndeGeschaeftsjahr())),
             FontFactory.getFont(FontFactory.HELVETICA, 11));
@@ -159,8 +159,8 @@ public class MitgliederStatistik
     else
     {
       reporter.addColumn(
-          String.format("Altersgruppe {0} - {1}", vb.getVon() + "", vb.getBis()
-              + ""), Element.ALIGN_LEFT);
+          String.format("Altersgruppe %d - %d", vb.getVon(), vb.getBis()),
+          Element.ALIGN_LEFT);
     }
     reporter.addColumn(getAltersgruppe(vb, null, stichtag) + "",
         Element.ALIGN_RIGHT);

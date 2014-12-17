@@ -1419,10 +1419,9 @@ public class BuchungsControl extends AbstractControl
         {
           GUI.getStatusBar().setErrorText(
               String.format(
-                  "Buchung wurde bereits am {0} von {1} abgeschlossen.",
-                  new Object[] {
-                      new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                      ja.getName() }));
+                  "Buchung wurde bereits am %s von %s abgeschlossen.",
+                  new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
+                  ja.getName()));
           return true;
         }
       }

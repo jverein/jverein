@@ -95,7 +95,8 @@ public class MitgliedEigenschaftZuordnungAction implements Action
       return;
     }
     GUI.getStatusBar().setSuccessText(
-        String.format("{0} Eigenschaft(en) angelegt. waren bereits vorhanden.",
-            anzErfolgreich + "", anzBereitsVorhanden + ""));
+        String.format(
+            "%d Eigenschaft(en) angelegt. %d waren bereits vorhanden.",
+            anzErfolgreich, anzBereitsVorhanden));
   }
 }

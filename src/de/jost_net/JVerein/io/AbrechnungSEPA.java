@@ -232,13 +232,6 @@ public class AbrechnungSEPA
     {
       buchenHibiscus(param, z);
     }
-    // monitor.log(JVereinPlugin.getI18n().tr(
-    // "Anzahl Abbuchungen/Lastschrift: {0}",
-    // new String[] { dtaus.getAnzahlSaetze() + "" }));
-    // monitor.log(JVereinPlugin.getI18n().tr(
-    // "Gesamtsumme Abbuchung/Lastschrift: {0} EUR",
-    // Einstellungen.DECIMALFORMAT.format(dtaus.getSummeBetraegeDecimal())));
-    // dtaus.close();
     monitor.setPercentComplete(100);
     if (param.sepaprint)
     {

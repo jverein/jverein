@@ -419,7 +419,7 @@ public class ImportView extends AbstractView
             monitor.setPercentComplete(100);
             monitor.setStatus(ProgressMonitor.STATUS_DONE);
             GUI.getStatusBar().setSuccessText(
-                String.format("Daten importiert aus {0}", s));
+                String.format("Daten importiert aus %s", s));
             GUI.getCurrentView().reload();
           }
           else
@@ -434,7 +434,7 @@ public class ImportView extends AbstractView
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error opening reading objects from " + s, sqlE);
           ApplicationException ae = new ApplicationException(String.format(
-              "Fehler beim Importieren der Daten aus {0}, {1}", s,
+              "Fehler beim Importieren der Daten aus %s, %s", s,
               sqlE.getMessage()));
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
@@ -452,9 +452,9 @@ public class ImportView extends AbstractView
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while reading objects from " + s, e);
-          ApplicationException ae = new ApplicationException(String.format(
-              "Fehler beim Importieren der Daten aus {0}, {1}", s,
-              e.getMessage()));
+          ApplicationException ae = new ApplicationException(
+              String.format("Fehler beim Importieren der Daten aus %s, %s", s,
+                  e.getMessage()));
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;

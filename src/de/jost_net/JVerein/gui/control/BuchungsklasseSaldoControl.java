@@ -161,7 +161,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(String.format("Fehler aufgetreten {0}",
+      throw new ApplicationException(String.format("Fehler aufgetreten %s",
           e.getMessage()));
     }
     return saldoList.getSaldoList();
@@ -202,7 +202,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     catch (RemoteException e)
     {
       throw new ApplicationException(String.format(
-          "Fehler beim Aufbau des Reports: {0}", e.getMessage()));
+          "Fehler beim Aufbau des Reports: %s", e.getMessage()));
     }
   }
 

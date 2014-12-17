@@ -315,7 +315,7 @@ public class ArbeitseinsatzControl extends AbstractControl
         {
           FileOutputStream fos = new FileOutputStream(file);
           Reporter reporter = new Reporter(fos, String.format(
-              "Arbeitseinsätze {0}", jahr + ""), sub, it.size());
+              "Arbeitseinsätze %d", jahr), sub, it.size());
           reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
               BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("Sollstunden", Element.ALIGN_RIGHT, 30,
@@ -482,7 +482,7 @@ public class ArbeitseinsatzControl extends AbstractControl
             Double betrag = (Double) z.getAttribute("gesamtbetrag");
             betrag = betrag * -1;
             zb.setBetrag(betrag);
-            zb.setBuchungstext(String.format("Arbeitseinsatz {0}", +jahr + ""));
+            zb.setBuchungstext(String.format("Arbeitseinsatz %d", jahr));
             zb.setFaelligkeit(new Date());
             zb.setStartdatum(new Date());
             zb.setIntervall(IntervallZusatzzahlung.KEIN);

@@ -61,8 +61,8 @@ public class BeitragsgruppeDeleteAction implements Action
         throw new ApplicationException(
             String
                 .format(
-                    "Beitragsgruppe \"{0}\" kann nicht gelöscht werden. {1} Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
-                    new Object[] { bg.getBezeichnung(), mitgl.size() + "" }));
+                    "Beitragsgruppe '%s' kann nicht gelöscht werden. %d Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
+                    new Object[] { bg.getBezeichnung(), mitgl.size() }));
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle("Beitragsgruppe löschen");
@@ -79,7 +79,7 @@ public class BeitragsgruppeDeleteAction implements Action
       catch (Exception e)
       {
         Logger.error(String.format(
-            "Fehler beim Löschen der Beitragsgruppe: [0}",
+            "Fehler beim Löschen der Beitragsgruppe: %s",
             new Object[] { e.getMessage() }));
         return;
       }

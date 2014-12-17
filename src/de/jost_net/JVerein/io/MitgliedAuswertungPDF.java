@@ -277,9 +277,9 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       report.closeTable();
 
-      report.add(new Paragraph(String.format("Anzahl {0}: {1}",
-          adresstyp.getBezeichnungPlural(), list.size() + ""), FontFactory
-          .getFont(FontFactory.HELVETICA, 8)));
+      report.add(new Paragraph(String.format("Anzahl %d: %s", list.size(),
+          adresstyp.getBezeichnungPlural()), FontFactory.getFont(
+          FontFactory.HELVETICA, 8)));
 
       report.add(new Paragraph("Parameter", FontFactory.getFont(
           FontFactory.HELVETICA, 12)));
@@ -297,7 +297,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
       report.closeTable();
       report.close();
       GUI.getStatusBar().setSuccessText(
-          String.format("Auswertung fertig. {0} Sätze.", list.size()));
+          String.format("Auswertung fertig. %d Sätze.", list.size()));
     }
     catch (Exception e)
     {

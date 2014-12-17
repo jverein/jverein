@@ -124,7 +124,7 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
       {
         Anfangsbestand anf = (Anfangsbestand) it.next();
         throw new ApplicationException(String.format(
-            "Datum muss nach dem {0} liegen",
+            "Datum muss nach dem %s liegen",
             new JVDateFormatTTMMJJJJ().format(anf.getDatum())));
       }
       it = Einstellungen.getDBService().createList(Anfangsbestand.class);

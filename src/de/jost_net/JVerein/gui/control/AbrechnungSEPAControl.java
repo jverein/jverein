@@ -448,7 +448,7 @@ public class AbrechnungSEPAControl extends AbstractControl
                 .setSuccessText(
                     String
                         .format(
-                            "Abrechnung durchgeführt., SEPA-Dateien {0}, {1} geschrieben.",
+                            "Abrechnung durchgeführt., SEPA-Dateien %s, %s geschrieben.",
                             abupar.sepafileFRST.getAbsolutePath(),
                             abupar.sepafileRCUR.getAbsolutePath()));
             GUI.getCurrentView().reload();
@@ -465,10 +465,10 @@ public class AbrechnungSEPAControl extends AbstractControl
           {
             DBTransaction.rollback();
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            Logger.error(String.format("error while reading objects from {0}",
+            Logger.error(String.format("error while reading objects from %s",
                 abupar.sepafileFRST.getAbsolutePath()), e);
             ApplicationException ae = new ApplicationException(String.format(
-                "Fehler beim erstellen der Abbuchungsdatei: {0}",
+                "Fehler beim erstellen der Abbuchungsdatei: %s",
                 abupar.sepafileFRST.getAbsolutePath()), e);
             monitor.setStatusText(ae.getMessage());
             GUI.getStatusBar().setErrorText(ae.getMessage());

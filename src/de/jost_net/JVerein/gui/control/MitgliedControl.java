@@ -1637,7 +1637,7 @@ public class MitgliedControl extends AbstractControl
           DateInput di = new DateInput(d, new JVDateFormatTTMMJJJJ());
           di.setName(fd.getLabel());
           di.setTitle(fd.getLabel());
-          di.setText(String.format("Bitte {0} wählen", fd.getLabel()));
+          di.setText(String.format("Bitte %s wählen", fd.getLabel()));
           zusatzfelder[i] = di;
           break;
         case Datentyp.GANZZAHL:
@@ -2986,7 +2986,7 @@ public class MitgliedControl extends AbstractControl
             EigenschaftGruppe eg = (EigenschaftGruppe) Einstellungen
                 .getDBService().createObject(EigenschaftGruppe.class, key);
             throw new ApplicationException(String.format(
-                "In der Eigenschaftengruppe \"{0}\" fehlt ein Eintrag!",
+                "In der Eigenschaftengruppe \"%s\" fehlt ein Eintrag!",
                 eg.getBezeichnung()));
           }
         }
@@ -3015,7 +3015,7 @@ public class MitgliedControl extends AbstractControl
                   throw new ApplicationException(
                       String
                           .format(
-                              "In der Eigenschaftengruppe \"{0} mehr als ein Eintrag markiert!",
+                              "In der Eigenschaftengruppe '%s' mehr als ein Eintrag markiert!",
                               ei.getEigenschaftGruppe().getBezeichnung()));
                 }
                 else
@@ -3556,7 +3556,7 @@ public class MitgliedControl extends AbstractControl
     }
     else
     {
-      zusatzfelderabfrage.setText(String.format("{0} Felder ausgewählt",
+      zusatzfelderabfrage.setText(String.format("%d Felder ausgewählt",
           selected));
     }
   }

@@ -83,17 +83,17 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    Logger.debug(String.format("Altersjubilare, Jahr={0}", jahr + ""));
-    reporter = new Reporter(fos,
-        String.format("Altersjubilare {0}", jahr + ""), "", 3);
+    Logger.debug(String.format("Altersjubilare, Jahr=%d", jahr + ""));
+    reporter = new Reporter(fos, String.format("Altersjubilare %d", jahr + ""),
+        "", 3);
   }
 
   @Override
   protected void startJahrgang(int jahrgang) throws DocumentException
   {
-    Logger.debug(String.format("Altersjubiläum, Jahrgang={0}", jahrgang + ""));
+    Logger.debug(String.format("Altersjubiläum, Jahrgang=%d}", jahrgang));
     Paragraph pHeader = new Paragraph("\n"
-        + String.format("{0}. Geburtstag", jahrgang + ""), FontFactory.getFont(
+        + String.format("%d. Geburtstag", jahrgang), FontFactory.getFont(
         FontFactory.HELVETICA, 11));
     reporter.add(pHeader);
     reporter.addHeaderColumn("Geburtsdatum", Element.ALIGN_CENTER, 50,

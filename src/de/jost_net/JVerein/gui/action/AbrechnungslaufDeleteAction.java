@@ -54,7 +54,7 @@ public class AbrechnungslaufDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(String.format("Abrechnungslauf {0} löschen", abrl.getID()));
+      d.setTitle(String.format("Abrechnungslauf %d löschen", abrl.getID()));
       d.setText("Wollen Sie diesen Abrechnungslauf wirklich löschen?");
 
       try
@@ -81,7 +81,7 @@ public class AbrechnungslaufDeleteAction implements Action
         if (ja != null)
         {
           throw new ApplicationException(String.format(
-              "Buchung wurde bereits am {0} von {1} abgeschlossen.",
+              "Buchung wurde bereits am %s von %s abgeschlossen.",
               new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
                   ja.getName() }));
         }

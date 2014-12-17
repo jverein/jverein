@@ -465,8 +465,8 @@ public class PreNotificationControl extends AbstractControl
           }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor.setStatusText(String.format("Anzahl verschickter Mails: {0}",
-              sentCount + ""));
+          monitor.setStatusText(String.format("Anzahl verschickter Mails: %d",
+              sentCount));
           GUI.getStatusBar().setSuccessText(
               "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
           GUI.getCurrentView().reload();

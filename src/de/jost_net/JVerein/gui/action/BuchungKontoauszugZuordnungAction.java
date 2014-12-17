@@ -109,8 +109,7 @@ public class BuchungKontoauszugZuordnungAction implements Action
         if (counter > 0)
         {
           protecttext = String.format(
-              ", {0} Buchungen wurden nicht überschrieben. ",
-              new Object[] { counter + "" });
+              ", %d Buchungen wurden nicht überschrieben. ", counter);
         }
         GUI.getStatusBar().setSuccessText(
             "Kontoauszugsinformationen zugeordnet" + protecttext);

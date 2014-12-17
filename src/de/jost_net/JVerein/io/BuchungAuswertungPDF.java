@@ -226,7 +226,7 @@ public class BuchungAuswertungPDF
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn(String.format("Summe {0}", bua.getBezeichnung()),
+        reporter.addColumn(String.format("Summe %s", bua.getBezeichnung()),
             Element.ALIGN_LEFT);
         summe += buchungsartSumme;
         reporter.addColumn(buchungsartSumme);

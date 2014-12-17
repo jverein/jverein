@@ -89,9 +89,8 @@ public class BuchungDeleteAction implements Action
         if (ja != null)
         {
           throw new ApplicationException(String.format(
-              "Buchung wurde bereits am {0} von {1} abgeschlossen.",
-              new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                  ja.getName() }));
+              "Buchung wurde bereits am %s von %s abgeschlossen.",
+              new JVDateFormatTTMMJJJJ().format(ja.getDatum()), ja.getName()));
         }
         if (bu.getSplitId() == null)
         {

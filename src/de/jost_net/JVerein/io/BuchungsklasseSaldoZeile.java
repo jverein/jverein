@@ -155,7 +155,7 @@ public class BuchungsklasseSaldoZeile implements GenericObject
     {
       return anzahlbuchungen;
     }
-    throw new RemoteException(String.format("Ungültige Spaltenbezeichung: {0}",
+    throw new RemoteException(String.format("Ungültige Spaltenbezeichung: %s",
         arg0));
   }
 

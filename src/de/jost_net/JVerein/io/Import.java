@@ -131,8 +131,8 @@ public class Import
     catch (NumberFormatException e)
     {
       throw new ApplicationException(String.format(
-          "In Zeile: {0} besteht folgende ungueltige Formatierung: {1}",
-          results.getRow() + "", e.getMessage()));
+          "In Zeile: %d besteht folgende ungueltige Formatierung: %s",
+          results.getRow(), e.getMessage()));
     }
 
     /* add them to the db and return a string map */
@@ -196,7 +196,7 @@ public class Import
       if (ba == null || ba.length() == 0)
       {
         progMonitor.log(String.format(
-            "{0}, {1}: keine Angaben zur Beitragsart_1",
+            "%s, %s: keine Angaben zur Beitragsart_1",
             this.getResultFrom(results, InternalColumns.NACHNAME),
             this.getResultFrom(results, InternalColumns.VORNAME)));
         groupsAreValid = false;
@@ -213,7 +213,7 @@ public class Import
 
       if (btr == null || btr.length() == 0)
       {
-        progMonitor.log(String.format("{0}, {1}: keine Angaben zum Beitrag_1",
+        progMonitor.log(String.format("%s, %s: keine Angaben zum Beitrag_1",
             this.getResultFrom(results, InternalColumns.NACHNAME),
             this.getResultFrom(results, InternalColumns.VORNAME)));
         groupsAreValid = false;
@@ -274,7 +274,7 @@ public class Import
         {
           parts[2] = "20" + parts[2];
           progMonitor.log(String.format(
-              "Fuer {0} wurde das 21 Jahrhundert angenommen", dotDate + ""));
+              "Fuer %s wurde das 21 Jahrhundert angenommen", dotDate + ""));
         }
       }
 
@@ -385,7 +385,7 @@ public class Import
       catch (NullPointerException e)
       {
         progMonitor.log(String.format(
-            "Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: {0}",
+            "Zuordnung wurde fuer folgenden Spaltennamen nicht gefunden: %s",
             column.getColumnName()));
 
         /*
@@ -397,7 +397,7 @@ public class Import
       catch (SQLException e)
       {
         progMonitor.log(String.format(
-            "Fehler beim lesen der Importdatei in der Spalte: {0}",
+            "Fehler beim lesen der Importdatei in der Spalte: %s",
             colMap.get(column.getColumnName())));
         throw new SQLException();
       }
@@ -568,8 +568,7 @@ public class Import
       }
 
       progMonitor.setStatusText(String.format(
-          "Import vollstaendig - Es wurden {0} Datensaetze importiert", anz
-              + ""));
+          "Import vollstaendig - Es wurden %d Datensaetze importiert", anz));
 
     }
     catch (SQLException e)
@@ -654,8 +653,8 @@ public class Import
 
       if (Einstellungen.getEinstellung().getGeburtsdatumPflicht())
       {
-        throw new ApplicationException(String.format(
-            "{0}: Geburtsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
+        throw new ApplicationException(String.format("%s: Geburtsdatum fehlt!",
+            Adressaufbereitung.getNameVorname(m)));
       }
     }
     m.setGeburtsdatum(gebDatum);
@@ -746,7 +745,7 @@ public class Import
     else
     {
       progMonitor.log(String.format(
-          "{0}: ungueltige Zahlungsart. Bar wird angenommen.",
+          "%s: ungueltige Zahlungsart. Bar wird angenommen.",
           Adressaufbereitung.getNameVorname(m)));
     }
 
@@ -787,7 +786,7 @@ public class Import
       if (Einstellungen.getEinstellung().getEintrittsdatumPflicht())
       {
         throw new ApplicationException(String.format(
-            "{0}: Eintrittsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
+            "%s: Eintrittsdatum fehlt!", Adressaufbereitung.getNameVorname(m)));
       }
     }
     m.setEintritt(eintritt);
@@ -990,7 +989,7 @@ public class Import
           catch (ParseException e)
           {
             throw new ApplicationException(String.format(
-                "{0} : ungültiges Datumsformat {1}: {2}",
+                "%s : ungültiges Datumsformat %s: %s",
                 Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
                 inhalt));
           }
@@ -1010,7 +1009,7 @@ public class Import
           catch (NumberFormatException e)
           {
             throw new ApplicationException(String.format(
-                "{0}: ungültiges Datenformat {1}: {2}",
+                "%s: ungültiges Datenformat %s: %s",
                 Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
                 inhalt));
           }
@@ -1033,7 +1032,7 @@ public class Import
         else
         {
           throw new ApplicationException(String.format(
-              "{0}: ungültiges Datenformat {1}: {2}",
+              "%s: ungültiges Datenformat %s: %s",
               Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
               inhalt));
         }
@@ -1049,7 +1048,7 @@ public class Import
           catch (NumberFormatException e)
           {
             throw new ApplicationException(String.format(
-                "{0}: ungültiges Datenformat {1}: {2}",
+                "%s: ungültiges Datenformat %s: %s",
                 Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
                 inhalt));
           }

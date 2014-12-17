@@ -309,7 +309,7 @@ public class DefaultZusatzbetraegeImport implements Importer
                 .size()));
             zusatzbetrag.store();
             monitor.setStatusText(String.format(
-                "Zusatzbeitrag für Mitglied {0} erfolgreich importiert. ",
+                "Zusatzbeitrag für Mitglied %s erfolgreich importiert. ",
                 Adressaufbereitung.getNameVorname(zusatzbetrag.getMitglied())));
           }
           monitor.setStatusText("Import komplett abgeschlossen.");

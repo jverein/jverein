@@ -220,8 +220,8 @@ public class ExportDialog extends AbstractDialog<Object>
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
-              i18n.tr("Daten exportiert nach {0}", s));
-          monitor.setStatusText(i18n.tr("Daten exportiert nach {0}", s));
+              String.format("Daten exportiert nach %s", s));
+          monitor.setStatusText(String.format("Daten exportiert nach %s", s));
 
           if (open)
           {
@@ -239,8 +239,8 @@ public class ExportDialog extends AbstractDialog<Object>
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while writing objects to " + s, e);
-          ApplicationException ae = new ApplicationException(i18n.tr(
-              "Fehler beim Exportieren der Daten in {0}", s), e);
+          ApplicationException ae = new ApplicationException(String.format(
+              "Fehler beim Exportieren der Daten in %s", s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;

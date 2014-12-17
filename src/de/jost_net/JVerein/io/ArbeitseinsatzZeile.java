@@ -84,7 +84,7 @@ public class ArbeitseinsatzZeile implements GenericObject
     {
       return (ist - soll) * stundensatz;
     }
-    throw new RemoteException(String.format("Ungültige Spaltenbezeichung: {0}",
+    throw new RemoteException(String.format("Ungültige Spaltenbezeichung: %s",
         arg0));
   }
 

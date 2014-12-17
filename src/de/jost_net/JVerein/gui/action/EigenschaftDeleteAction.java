@@ -62,7 +62,7 @@ public class EigenschaftDeleteAction implements Action
       it.addFilter("eigenschaft = ?", new Object[] { ei.getID() });
       d.setText(String
           .format(
-              "Die Eigenschaft kann nicht gelöscht werden. Sie ist noch mit {0} Mitglied(ern) verknüpft.",
+              "Die Eigenschaft kann nicht gelöscht werden. Sie ist noch mit %d Mitglied(ern) verknüpft.",
               it.size()));
       try
       {

@@ -108,10 +108,10 @@ public class Kontoauszug
     rpt.newPage();
     rpt.add(Einstellungen.getEinstellung().getName(), 20);
     rpt.add(
-        String.format("Kontoauszug {0}", Adressaufbereitung.getVornameName(m)),
+        String.format("Kontoauszug %s", Adressaufbereitung.getVornameName(m)),
         18);
     JVDateFormatTTMMJJJJ jv = new JVDateFormatTTMMJJJJ();
-    rpt.add(String.format("Stand: {0}", jv.format(new Date())), 16);
+    rpt.add(String.format("Stand: %s", jv.format(new Date())), 16);
 
     rpt.addHeaderColumn(" ", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);
     rpt.addHeaderColumn("Datum", Element.ALIGN_CENTER, 20, BaseColor.LIGHT_GRAY);

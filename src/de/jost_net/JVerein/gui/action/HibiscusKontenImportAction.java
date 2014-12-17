@@ -80,7 +80,7 @@ public class HibiscusKontenImportAction implements Action
       jvereinkonto.store();
       control.refreshTable();
       GUI.getStatusBar().setSuccessText(
-          String.format("Konto {0} importiert.", k.getKontonummer()));
+          String.format("Konto %s importiert.", k.getKontonummer()));
     }
     catch (RemoteException e)
     {

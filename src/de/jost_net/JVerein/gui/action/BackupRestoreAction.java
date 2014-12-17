@@ -169,7 +169,7 @@ public class BackupRestoreAction implements Action
             {
               Logger.error("unable to import " + o.getClass().getName() + ":"
                   + o.getID() + ", skipping", e);
-              monitor.log(String.format(" {0} fehlerhaft: {1}, überspringe ",
+              monitor.log(String.format(" %s fehlerhaft: %s, überspringe ",
                   new Object[] { BeanUtil.toString(o), e.getMessage() }));
             }
             if (count++ % 100 == 0)

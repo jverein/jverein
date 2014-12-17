@@ -231,7 +231,7 @@ public class ImportDialog extends AbstractDialog<Object>
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           GUI.getStatusBar().setSuccessText(
-              String.format("Daten importiert aus {0}", s));
+              String.format("Daten importiert aus %s", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -246,7 +246,7 @@ public class ImportDialog extends AbstractDialog<Object>
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while reading objects from " + s, e);
           ApplicationException ae = new ApplicationException(String.format(
-              "Fehler beim Importieren der Daten aus {0}", s), e);
+              "Fehler beim Importieren der Daten aus %s", s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;

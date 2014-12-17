@@ -240,7 +240,7 @@ public class BackupCreateAction implements Action
       {
         Logger.error("error while writing object " + BeanUtil.toString(o)
             + " - skipping", e);
-        monitor.log(String.format("  {0} fehlerhaft: {1}, überspringe",
+        monitor.log(String.format("  %s fehlerhaft: %s, überspringe",
             new Object[] { BeanUtil.toString(o), e.getMessage() }));
       }
     }

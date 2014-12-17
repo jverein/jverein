@@ -62,7 +62,7 @@ public class BuchungAuswertungCSV
         writer.write(b.getMap(null), header, processors);
       }
       GUI.getStatusBar().setSuccessText(
-          String.format("Auswertung fertig. {0} Sätze.", list.size() + ""));
+          String.format("Auswertung fertig. %d Sätze.", list.size()));
       writer.close();
       FileViewer.show(file);
     }

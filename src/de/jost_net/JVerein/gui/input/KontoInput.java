@@ -28,14 +28,14 @@ import de.willuhn.util.I18N;
 public class KontoInput extends SelectInput
 {
 
-  private final static I18N i18n = Application.getPluginLoader().getPlugin(
-      HBCI.class).getResources().getI18N();
+  private final static I18N i18n = Application.getPluginLoader()
+      .getPlugin(HBCI.class).getResources().getI18N();
 
   /**
    * ct.
    * 
    * @param konto
-   *        ausgewaehltes Konto.
+   *          ausgewaehltes Konto.
    * @throws RemoteException
    */
   public KontoInput(Konto konto) throws RemoteException
@@ -83,7 +83,7 @@ public class KontoInput extends SelectInput
       if (disabled)
         sb.append("[");
 
-      sb.append(i18n.tr("Kto. {0}", k.getKontonummer()));
+      sb.append(String.format("Kto. %s", k.getKontonummer()));
 
       String blz = k.getBLZ();
       sb.append(" [");

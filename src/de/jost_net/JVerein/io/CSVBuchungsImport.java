@@ -101,7 +101,7 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+            throw new ApplicationException(String.format("Spalte %s fehlt!",
                 BuchungVar.BETRAG.getName()));
           }
           try
@@ -120,7 +120,7 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+            throw new ApplicationException(String.format("Spalte %s fehlt!",
                 BuchungVar.DATUM.getName()));
           }
           try
@@ -140,14 +140,14 @@ public class CSVBuchungsImport implements Importer
             if (kit.size() == 0)
             {
               throw new ApplicationException(String.format(
-                  "Konto {0} existiert nicht in JVerein!", knr + ""));
+                  "Konto %s existiert nicht in JVerein!", knr));
             }
             Konto k1 = (Konto) kit.next();
             bu.setKonto(k1);
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+            throw new ApplicationException(String.format("Spalte %s fehlt!",
                 BuchungVar.KONTONUMMER.getName()));
           }
           try
@@ -161,7 +161,7 @@ public class CSVBuchungsImport implements Importer
             if (bit.size() == 0)
             {
               throw new ApplicationException(String.format(
-                  "Buchungsart {0} existiert nicht in JVerein!", bart + ""));
+                  "Buchungsart %d existiert nicht in JVerein!", bart));
             }
             bu.setBuchungsart(new Long(b1.getID()));
           }
@@ -175,7 +175,7 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+            throw new ApplicationException(String.format("Spalte %s fehlt!",
                 BuchungVar.NAME.getName()));
           }
           try
@@ -184,7 +184,7 @@ public class CSVBuchungsImport implements Importer
           }
           catch (SQLException e)
           {
-            throw new ApplicationException(String.format("Spalte {0} fehlt!",
+            throw new ApplicationException(String.format("Spalte %s fehlt!",
                 BuchungVar.ZWECK1.getName()));
           }
           bu.store();

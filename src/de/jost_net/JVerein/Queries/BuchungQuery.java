@@ -241,23 +241,23 @@ public class BuchungQuery
 
   public String getSubtitle() throws RemoteException
   {
-    String subtitle = String.format("vom {0} bis {1}", new Object[] {
+    String subtitle = String.format("vom %s bis %s",
         new JVDateFormatTTMMJJJJ().format(getDatumvon()),
-        new JVDateFormatTTMMJJJJ().format(getDatumbis()) });
+        new JVDateFormatTTMMJJJJ().format(getDatumbis()));
     if (getKonto() != null)
     {
       subtitle += " "
-          + String.format("für Konto {0} - {1}", new Object[] {
-              getKonto().getNummer() + " - ", getKonto().getBezeichnung() });
+          + String.format("für Konto %s - %s", getKonto().getNummer(),
+              getKonto().getBezeichnung());
     }
     if (getProjekt() != null)
     {
       subtitle += ", "
-          + String.format("Projekt {0}", getProjekt().getBezeichnung());
+          + String.format("Projekt %s", getProjekt().getBezeichnung());
     }
     if (getText() != null && getText().length() > 0)
     {
-      subtitle += ", " + String.format("Text={0}", getText());
+      subtitle += ", " + String.format("Text=%s", getText());
     }
     return subtitle;
   }
