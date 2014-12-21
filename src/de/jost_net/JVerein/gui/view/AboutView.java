@@ -23,14 +23,17 @@ import org.eclipse.swt.widgets.Label;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Version;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.LabelInput;
 import de.willuhn.jameica.gui.parts.FormTextPart;
+import de.willuhn.jameica.gui.util.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.plugin.AbstractPlugin;
 import de.willuhn.jameica.system.Application;
+import de.willuhn.util.ApplicationException;
 
 public class AboutView extends AbstractDialog<Object>
 {
@@ -78,6 +81,14 @@ public class AboutView extends AbstractDialog<Object>
         .addLabelPair("Datenbank-Version", new LabelInput("" + v.getVersion()));
     group.addLabelPair("Arbeitsverzeichnis", new LabelInput(""
         + p.getResources().getWorkPath()));
+
+    ButtonArea buttons = group.createButtonArea(1);
+    buttons.addButton(i18n.tr("Schlieﬂen"),new Action() {
+      public void handleAction(Object context) throws ApplicationException
+      {
+        close();
+      }
+    }, null, true, "window-close.png");
 
   }
 
