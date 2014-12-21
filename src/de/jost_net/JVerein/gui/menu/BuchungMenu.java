@@ -69,7 +69,7 @@ public class BuchungMenu extends ContextMenu
     }
     if (!splitbuchung)
     {
-      addItem(new ContextMenuItem("neu", new BuchungNeuAction(),
+      addItem(new ContextMenuItem("neue Buchung", new BuchungNeuAction(),
           "document-new.png"));
     }
     addItem(new CheckedSingleContextMenuItem("bearbeiten", new BuchungAction(

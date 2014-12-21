@@ -124,7 +124,7 @@ public class DokumentControl extends AbstractControl
 
   public Button getNeuButton(final AbstractDokument doc)
   {
-    neuButton = new Button("neu", new Action()
+    neuButton = new Button("neues Dokument", new Action()
     {
 
       @Override
