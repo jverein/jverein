@@ -2660,25 +2660,25 @@ public class MitgliedControl extends AbstractControl
 
   public Button getZusatzbetragNeu()
   {
-    return new Button("Neu", new ZusatzbetraegeAction(getMitglied()), null,
+    return new Button("Neuer Zusatzbetrag", new ZusatzbetraegeAction(getMitglied()), null,
         false, "document-new.png");
   }
 
   public Button getWiedervorlageNeu()
   {
-    return new Button("Neu", new WiedervorlageAction(getMitglied()), null,
+    return new Button("Neue Wiedervorlage", new WiedervorlageAction(getMitglied()), null,
         false, "document-new.png");
   }
 
   public Button getArbeitseinsatzNeu()
   {
-    return new Button("Neu", new ArbeitseinsatzAction(getMitglied()), null,
+    return new Button("Neuer Arbeitseinsatz", new ArbeitseinsatzAction(getMitglied()), null,
         false, "document-new.png");
   }
 
   public Button getLehrgangNeu()
   {
-    return new Button("Neu", new LehrgangAction(getMitglied()), null, false,
+    return new Button("Neuer Lehrgang", new LehrgangAction(getMitglied()), null, false,
         "document-new.png");
   }
 
