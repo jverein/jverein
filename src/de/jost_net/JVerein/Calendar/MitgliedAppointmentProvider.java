@@ -147,7 +147,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return String.format("%d. Geburtstag von %s", alter + "",
+        return String.format("%d. Geburtstag von %s", alter,
             Adressaufbereitung.getNameVorname(m));
       }
       catch (RemoteException re)
@@ -165,7 +165,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
     {
       try
       {
-        return String.format("%d. Geburtstag von %s", alter + "",
+        return String.format("%d. Geburtstag von %s", alter,
             Adressaufbereitung.getNameVorname(m));
       }
       catch (RemoteException re)

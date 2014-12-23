@@ -272,16 +272,16 @@ public class QIFQuickenImport implements Importer
   private void monitorFertig(ProgressMonitor monitor)
   {
     monitor.setStatusText(String.format(
-        "Fertig! Importiert wurden %d Konten mit %d Buchungen.", new Integer(
-            anzahlKonten), new Integer(anzahlBuchungen)));
+        "Fertig! Importiert wurden %d Konten mit %d Buchungen.", anzahlKonten,
+        anzahlBuchungen));
     monitor.setStatus(ProgressMonitor.STATUS_DONE);
   }
 
   private void monitorSpeichern(ProgressMonitor monitor)
   {
     monitor.setStatusText(String.format(
-        "Importiere %d Konten mit %d Buchungen..", new Integer(anzahlKonten),
-        new Integer(anzahlBuchungen)));
+        "Importiere %d Konten mit %d Buchungen..", anzahlKonten,
+        anzahlBuchungen));
     if (prozentFertig < 100)
     {
       if (anzahlBuchungen % 100 == 0)

@@ -54,7 +54,7 @@ public class AbrechnungslaufDeleteAction implements Action
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle(String.format("Abrechnungslauf %d löschen", abrl.getID()));
+      d.setTitle(String.format("Abrechnungslauf %s löschen", abrl.getID()));
       d.setText("Wollen Sie diesen Abrechnungslauf wirklich löschen?");
 
       try

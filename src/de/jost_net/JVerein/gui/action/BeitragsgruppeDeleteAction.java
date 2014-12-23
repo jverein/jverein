@@ -62,7 +62,7 @@ public class BeitragsgruppeDeleteAction implements Action
             String
                 .format(
                     "Beitragsgruppe '%s' kann nicht gelöscht werden. %d Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
-                    new Object[] { bg.getBezeichnung(), mitgl.size() }));
+                    bg.getBezeichnung(), mitgl.size()));
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle("Beitragsgruppe löschen");

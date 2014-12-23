@@ -83,9 +83,9 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   protected void open() throws DocumentException, FileNotFoundException
   {
     fos = new FileOutputStream(file);
-    Logger.debug(String.format("Altersjubilare, Jahr=%d", jahr + ""));
-    reporter = new Reporter(fos, String.format("Altersjubilare %d", jahr + ""),
-        "", 3);
+    Logger.debug(String.format("Altersjubilare, Jahr=%d", jahr));
+    reporter = new Reporter(fos, String.format("Altersjubilare %d", jahr), "",
+        3);
   }
 
   @Override
