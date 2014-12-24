@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -680,7 +679,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       String zeitraumende = new JVDateFormatTTMMJJJJ().format(getZeitraumBis());
       map.put(SpendenbescheinigungVar.SPENDEDATUM.getName(), "s. Anlage");
       map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(),
-          MessageFormat.format("{0} bis {1}", spendedatum, zeitraumende));
+          String.format("%s bis %s", spendedatum, zeitraumende));
       StringBuilder bl = new StringBuilder();
       if (gc.get(GregorianCalendar.YEAR) <= 2012)
       {

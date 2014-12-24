@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -72,9 +71,8 @@ public class FelddefinitionImpl extends AbstractDBObject implements
       {
         char c = testString.charAt(i);
         if (validChars.indexOf(c) == -1)
-          throw new ApplicationException(MessageFormat.format(
-              "Ungültiges Zeichen ({0}) im Feldnamen an Position {1}", c + "",
-              i));
+          throw new ApplicationException(String.format(
+              "Ungültiges Zeichen (%s) im Feldnamen an Position %d", c, i));
       }
       Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, null);
@@ -83,8 +81,8 @@ public class FelddefinitionImpl extends AbstractDBObject implements
       {
         if (getName().equals(s))
         {
-          throw new ApplicationException(MessageFormat.format(
-              "{0} ist ein reservierter Name und darf nicht verwendet werden.",
+          throw new ApplicationException(String.format(
+              "%s ist ein reservierter Name und darf nicht verwendet werden.",
               getName()));
         }
       }

@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.util;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -192,8 +191,8 @@ public class LesefeldAuswerter
       map.put(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung(),
           lesefeld.getEvaluatedContent());
     }
-    Logger.debug(MessageFormat.format("Lesefeld-Variablen für Mitglied {0}:",
-        vornamename));
+    Logger.debug(String.format("Lesefeld-Variablen für Mitglied %s:",
+    		vornamename));
     for (String key : map.keySet())
     {
       Logger.debug(key + "=" + map.get(key));

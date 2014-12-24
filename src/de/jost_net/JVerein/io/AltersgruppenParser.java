@@ -49,10 +49,9 @@ public class AltersgruppenParser
       if (stt.countTokens() != 2)
       {
         throw new RuntimeException(
-            String
-                .format(
-                    "Ungültige Altersgruppe: {0} \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
-                    new Object[] { gruppen.get(i) }));
+            String.format(
+                "Ungültige Altersgruppe: %s \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
+                gruppen.get(i)));
       }
       try
       {

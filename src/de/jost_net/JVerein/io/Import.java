@@ -203,12 +203,10 @@ public class Import
       }
       else if (ba.length() > 30)
       {
-        progMonitor
-            .log(String
-                .format(
-                    "{0}, {1}: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
-                    this.getResultFrom(results, InternalColumns.NACHNAME),
-                    this.getResultFrom(results, InternalColumns.VORNAME)));
+        progMonitor.log(String.format(
+            "%s, %s: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
+            this.getResultFrom(results, InternalColumns.NACHNAME),
+            this.getResultFrom(results, InternalColumns.VORNAME)));
       }
 
       if (btr == null || btr.length() == 0)
@@ -274,7 +272,7 @@ public class Import
         {
           parts[2] = "20" + parts[2];
           progMonitor.log(String.format(
-              "Fuer %s wurde das 21 Jahrhundert angenommen", dotDate + ""));
+              "Fuer %s wurde das 21 Jahrhundert angenommen", dotDate));
         }
       }
 
@@ -555,13 +553,11 @@ public class Import
         }
         catch (Exception e)
         {
-          progMonitor
-              .log(String
-                  .format(
-                      "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= {0}, NAME= {1}: {2}",
-                      getResultFrom(results, InternalColumns.MITGLIEDSNR),
-                      getResultFrom(results, InternalColumns.NACHNAME),
-                      e.getMessage()));
+          progMonitor.log(String.format(
+              "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= %s, NAME= %s: %s",
+              getResultFrom(results, InternalColumns.MITGLIEDSNR),
+              getResultFrom(results, InternalColumns.NACHNAME),
+              e.getMessage()));
           return false;
         }
 
@@ -724,11 +720,9 @@ public class Import
 
       if (!altebankverbindung && !neuebankverbindung)
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Bei {0} ist als Zahlungsart Basislastschrift gesetzt aber weder neue Bankverbindung (IBAN  / BIC) noch (BLZ /Konto) vorhanden",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Bei %s ist als Zahlungsart Basislastschrift gesetzt aber weder neue Bankverbindung (IBAN/BIC) noch (BLZ/Konto) vorhanden",
+            Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
     }
@@ -809,11 +803,9 @@ public class Import
     {
       if (austritt == null)
       {
-        progMonitor
-            .log(String
-                .format(
-                    "{0}: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "%s: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
+            Adressaufbereitung.getNameVorname(m)));
         m.setAustritt(sterbeTag);
       }
     }
@@ -850,11 +842,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Individueller Beitrag fuer {0} enthält keine gültige Formatierung und wird verworfen.",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Individueller Beitrag fuer %s enthält keine gültige Formatierung und wird verworfen.",
+            Adressaufbereitung.getNameVorname(m)));
       }
     }
 
@@ -871,11 +861,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Personenart für {0} enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Personenart für %s enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
+            Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
 
@@ -899,11 +887,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Zahlungsrythmus bei: {0}  ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Zahlungsrythmus bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
+            Adressaufbereitung.getNameVorname(m)));
         m.setZahlungsrhythmus(new Integer(12));
       }
     }
@@ -921,11 +907,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Adresstyp bei: {0} ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Adresstyp bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
+            Adressaufbereitung.getNameVorname(m)));
         m.setAdresstyp(new Integer(1));
       }
     }

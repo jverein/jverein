@@ -124,21 +124,17 @@ public class CSVFileHelper
           {
             if (lastPosition - 1 >= 0 && rCache[lastPosition - 1] == SEPARATOR)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Leerzeichen nach einem Semikolon in Zeile: {0} und Spalte: {1}",
-                          new Object[] { lineNo + "", columnsPerLine + "" }));
+              monitor.setStatusText(String.format(
+                  "Leerzeichen nach einem Semikolon in Zeile: %d und Spalte: %d",
+                  new Object[] { lineNo, columnsPerLine }));
               valid = false;
             }
             if (lastPosition + 1 < numberOfChars
                 && rCache[lastPosition + 1] == SEPARATOR)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Leerzeichen vor einem Semikolon in Zeile: {0} und Spalte: {1}",
-                          new Object[] { lineNo + "", columnsPerLine + "" }));
+              monitor.setStatusText(String.format(
+                  "Leerzeichen vor einem Semikolon in Zeile: %d und Spalte: %d",
+                  new Object[] { lineNo, columnsPerLine }));
               valid = false;
             }
           }
@@ -148,11 +144,9 @@ public class CSVFileHelper
             lineNo++;
             if (columnsPerLine != numColumns)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Anzahl der Spalten in Zeile: {0} passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
-                          lineNo + ""));
+              monitor.setStatusText(String.format(
+                  "Anzahl der Spalten in Zeile: %d passt nicht mit der Anzahl Spalten in der Kopfzeile ueberein.",
+                  lineNo));
               valid = false;
             }
             columnsPerLine = 0;

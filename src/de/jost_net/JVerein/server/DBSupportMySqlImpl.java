@@ -22,7 +22,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.willuhn.jameica.system.Application;
@@ -122,7 +121,7 @@ public class DBSupportMySqlImpl extends AbstractDBSupportImpl
   @Override
   public String getSQLTimestamp(String content)
   {
-    return MessageFormat.format("(UNIX_TIMESTAMP({0})*1000)",
+    return String.format("(UNIX_TIMESTAMP(%s)*1000)",
         new Object[] { content });
   }
 

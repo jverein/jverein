@@ -195,21 +195,17 @@ public class DefaultZusatzbetraegeImport implements Importer
           if (list.size() == 0)
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            monitor
-                .setStatusText(String
-                    .format(
-                        "Für die Importzeile {0} ({1}) kein Mitglied in JVerein-Datenbank gefunden. Abbruch!",
-                        anz + "", mitgliedIdString));
+            monitor.setStatusText(String.format(
+                 "Für die Importzeile %d (%s) kein Mitglied in JVerein-Datenbank gefunden. Abbruch!",
+                 anz, mitgliedIdString));
             fehlerInDaten = true;
           }
           else if (list.size() > 1)
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            monitor
-                .setStatusText(String
-                    .format(
-                        "Für die Importzeile {0} ({1}) mehr als ein Mitglied gefunden. Abbruch!",
-                        anz + "", mitgliedIdString));
+            monitor.setStatusText(String.format(
+                 "Für die Importzeile %d (%s) mehr als ein Mitglied gefunden. Abbruch!",
+                 anz, mitgliedIdString));
             fehlerInDaten = true;
           }
           else
@@ -222,22 +218,18 @@ public class DefaultZusatzbetraegeImport implements Importer
             double betrag = results.getDouble("Betrag");
             if (betrag == 0)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Für die Importzeile {0} ({1}) konnte die Fließkommazahl in der Spalte Betrag nicht verarbeitet werden. Zahl muss größer 0 sein. Abbruch!",
-                          anz + "", mitgliedIdString));
+              monitor.setStatusText(String.format(
+                 "Für die Importzeile %d (%s) konnte die Fließkommazahl in der Spalte Betrag nicht verarbeitet werden. Zahl muss größer 0 sein. Abbruch!",
+                 anz, mitgliedIdString));
               fehlerInDaten = true;
             }
             zus.setBetrag(betrag);
             String buchungstext = results.getString("Buchungstext");
             if (buchungstext.length() > 140)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Für die Importzeile {0} ({1}) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 140 Zeichen begrenzt. Abbruch!",
-                          anz + "", mitgliedIdString));
+              monitor.setStatusText(String.format(
+                  "Für die Importzeile %d (%s) konnte der Text in der Spalte Buchungstext nicht verarbeitet werden. Länge des Buchungstextes ist auf 140 Zeichen begrenzt. Abbruch!",
+                  anz, mitgliedIdString));
               fehlerInDaten = true;
             }
             zus.setBuchungstext(buchungstext);
@@ -250,22 +242,18 @@ public class DefaultZusatzbetraegeImport implements Importer
             }
             catch (ParseException e)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Für die Importzeile {0} ({1}) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
-                          anz + "", mitgliedIdString));
+              monitor.setStatusText(String.format(
+                  "Für die Importzeile %d (%s) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
+                  anz, mitgliedIdString));
               fehlerInDaten = true;
             }
 
             int intervall = results.getInt("Intervall");
             if (intervall < 0)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Für die Importzeile {0} ({1}) konnte die Zahl in der Spalte Intervall nicht verarbeitet werden. Zahl muss größer oder gleich 0 sein. Abbruch!",
-                          anz + "", mitgliedIdString));
+              monitor.setStatusText(String.format(
+                  "Für die Importzeile %d (%s) konnte die Zahl in der Spalte Intervall nicht verarbeitet werden. Zahl muss größer oder gleich 0 sein. Abbruch!",
+                  anz, mitgliedIdString));
               fehlerInDaten = true;
             }
             zus.setIntervall(intervall);
@@ -281,11 +269,9 @@ public class DefaultZusatzbetraegeImport implements Importer
             }
             catch (ParseException e)
             {
-              monitor
-                  .setStatusText(String
-                      .format(
-                          "Für die Importzeile {0} ({1}) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
-                          anz + "", mitgliedIdString));
+              monitor.setStatusText(String.format(
+                   "Für die Importzeile %d (%s) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
+                   anz, mitgliedIdString));
               fehlerInDaten = true;
             }
 
@@ -296,11 +282,9 @@ public class DefaultZusatzbetraegeImport implements Importer
         // überprüfen und parsen der Daten beendet.
         if (fehlerInDaten == false)
         {
-          monitor
-              .setStatusText(String
-                  .format(
-                      "Überprüfen aller Zusatzbeiträge erfolgreich abschlossen. {0} Zusatzbeiträge werden importiert...",
-                      anz + ""));
+          monitor.setStatusText(String.format(
+              "Überprüfen aller Zusatzbeiträge erfolgreich abschlossen. %d Zusatzbeiträge werden importiert...",
+              anz));
           int count = 0;
           for (Zusatzbetrag zusatzbetrag : zusatzbetraegeList)
           {
@@ -309,7 +293,7 @@ public class DefaultZusatzbetraegeImport implements Importer
                 .size()));
             zusatzbetrag.store();
             monitor.setStatusText(String.format(
-                "Zusatzbeitrag für Mitglied %s erfolgreich importiert. ",
+                "Zusatzbeitrag für Mitglied %s erfolgreich importiert.",
                 Adressaufbereitung.getNameVorname(zusatzbetrag.getMitglied())));
           }
           monitor.setStatusText("Import komplett abgeschlossen.");

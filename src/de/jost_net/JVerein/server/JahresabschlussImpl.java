@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -106,8 +105,8 @@ public class JahresabschlussImpl extends AbstractDBObject implements
             new Object[] { gj.getBeginnGeschaeftsjahr()});
         if (!anfangsbestaende.hasNext())
         {
-          throw new ApplicationException(MessageFormat.format(
-              "Für Konto {0} {1} fehlt der Anfangsbestand.", k1.getNummer(),
+          throw new ApplicationException(String.format(
+              "Für Konto %s %s fehlt der Anfangsbestand.", k1.getNummer(),
               k1.getBezeichnung()));
         }
       }

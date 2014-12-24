@@ -17,7 +17,6 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
-import java.text.MessageFormat;
 
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
@@ -76,9 +75,9 @@ public class MailAnhangImpl extends AbstractDBObject implements MailAnhang,
     // JVereinUpdateProvider: update0093(Connection)
     if (dateiname.length() > 50)
       throw new ApplicationException(
-          MessageFormat.format(
-              "Maximale Länge (50) des Dateinamens von Mail-Anhang überschritten. ({0}, {1}...)",
-              dateiname.length() + "", dateiname.substring(0, 50)));
+          String.format(
+              "Maximale Länge (50) des Dateinamens von Mail-Anhang überschritten. (%d, %s...)",
+              dateiname.length(), dateiname.substring(0, 50)));
   }
 
   @Override
