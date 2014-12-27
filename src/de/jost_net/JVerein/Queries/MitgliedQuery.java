@@ -195,7 +195,7 @@ public class MitgliedQuery
         {
           addCondition("(eintritt is null or eintritt <= ?)");
           bedingungen.add(control.getStichtag().getValue());
-          addCondition("(austritt is null or austritt > ?)");
+          addCondition("(austritt is null or austritt >= ?)");
           bedingungen.add(control.getStichtag(false).getValue());
         }
         else
