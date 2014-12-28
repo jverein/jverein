@@ -31,7 +31,7 @@ public class DokumentationUtil
 
   public static final String ARBEITSEINSATZ = PRE + "Arbeitseinsatz";
 
-  public static final String RECHNUNG = PRE + "Mitgliedskonto#Rechnungen";
+  public static final String RECHNUNG = PRE + "Rechnungen";
 
   public static final String MAHNUNG = PRE + "Mitgliedskonto#Mahnung";
 
@@ -96,6 +96,8 @@ public class DokumentationUtil
   public static final String STATISTIKMITGLIEDER = PRE + "Statistik";
 
   public static final String STATISTIKJAHRGAENGE = PRE + "StatistikJahrgaenge";
+
+  public static final String SUCHPROFIL = PRE + "Suchprofil";
 
   public static final String WIEDERVORLAGE = PRE + "Wiedervorlage";
 

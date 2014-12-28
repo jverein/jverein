@@ -40,7 +40,7 @@ public class MitgliederSuchProfilView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EIGENSCHAFT, false, "help-browser.png");
+        DokumentationUtil.SUCHPROFIL, false, "help-browser.png");
     buttons.addButton("speichern", new Action()
     {
 

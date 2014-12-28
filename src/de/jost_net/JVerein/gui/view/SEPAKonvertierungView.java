@@ -56,7 +56,7 @@ public class SEPAKonvertierungView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.IMPORT, false, "help-browser.png");
+        DokumentationUtil.SEPAKONVERTIERUNG, false, "help-browser.png");
     buttons.paint(getParent());
   }
 
