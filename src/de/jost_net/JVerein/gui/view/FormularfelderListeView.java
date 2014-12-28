@@ -19,6 +19,8 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.FormularAnzeigeAction;
 import de.jost_net.JVerein.gui.action.FormularfeldAction;
+import de.jost_net.JVerein.gui.action.FormularfelderExportAction;
+import de.jost_net.JVerein.gui.action.FormularfelderImportAction;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.jameica.gui.AbstractView;
@@ -45,6 +47,10 @@ public class FormularfelderListeView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.FORMULARE, false, "help-browser.png");
+    buttons.addButton("Export", new  FormularfelderExportAction(),
+    		getCurrentObject(), false, "document-save.png");
+    buttons.addButton("Import", new  FormularfelderImportAction(control),
+    		getCurrentObject(), false, "import_obj.gif");
     buttons.addButton("anzeigen", new FormularAnzeigeAction(),
         getCurrentObject(), false, "edit.png");
     buttons.addButton("neu", new FormularfeldAction(), getCurrentObject(),
