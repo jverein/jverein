@@ -25,18 +25,18 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.willuhn.datasource.GenericObject;
-import de.willuhn.jameica.gui.dialogs.AbstractDialog;
-import de.willuhn.jameica.gui.dialogs.YesNoDialog;
-import de.willuhn.jameica.gui.Action;
-import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.system.OperationCanceledException;
-import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.gui.dialogs.ImportDialog;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.rmi.Formularfeld;
+import de.willuhn.datasource.GenericObject;
+import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.dialogs.YesNoDialog;
+import de.willuhn.jameica.system.OperationCanceledException;
+import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
 
 public class FormularfelderImportAction implements Action
 {
@@ -50,30 +50,30 @@ public class FormularfelderImportAction implements Action
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
-  	
-  	// Nachfrage, da alle Daten gelöscht werden!
-  	YesNoDialog ynd = new YesNoDialog(AbstractDialog.POSITION_CENTER);
-  	ynd.setText("Achtung! Alle momentan vorhanden Formularfelder für\n"
-  			      + "dieses Formular werden gelöscht.\n"
-  			      + "Dieser Vorgang kann nicht rückgängig gemacht werden.\n\n"
-  		    	  + "Wirklich fortfahren?");
-  	ynd.setTitle("Import: Formularfelder");
-  	Boolean choice;
-  	try
-  	{
-  	  choice = (Boolean) ynd.open();
-  	  if (!choice.booleanValue())
-  	    return;
-  	}
-  	catch (Exception e)
-  	{
-  	  Logger.error("Fehler", e);
-  	}
 
-  	try
+    // Nachfrage, da alle Daten gelöscht werden!
+    YesNoDialog ynd = new YesNoDialog(AbstractDialog.POSITION_CENTER);
+    ynd.setText("Achtung! Alle momentan vorhandenen Formularfelder für\n"
+        + "dieses Formular werden gelöscht.\n"
+        + "Dieser Vorgang kann nicht rückgängig gemacht werden.\n\n"
+        + "Wirklich fortfahren?");
+    ynd.setTitle("Import: Formularfelder");
+    Boolean choice;
+    try
     {
-      ImportDialog d = new ImportDialog((GenericObject) context, Formularfeld.class, true,  
-    		  DokumentationUtil.FORMULARE);
+      choice = (Boolean) ynd.open();
+      if (!choice.booleanValue())
+        return;
+    }
+    catch (Exception e)
+    {
+      Logger.error("Fehler", e);
+    }
+
+    try
+    {
+      ImportDialog d = new ImportDialog((GenericObject) context,
+          Formularfeld.class, true, DokumentationUtil.FORMULARE);
       d.open();
     }
     catch (OperationCanceledException oce)
@@ -88,14 +88,16 @@ public class FormularfelderImportAction implements Action
     catch (Exception e)
     {
       Logger.error("error while importing form  fields", e);
-      GUI.getStatusBar().setErrorText("Fehler beim Importieren von Formularfeldern");
+      GUI.getStatusBar().setErrorText(
+          "Fehler beim Importieren von Formularfeldern");
     }
 
-  	try {
-	    control.refreshTable();
+    try
+    {
+      control.refreshTable();
     }
-  	catch (RemoteException re)
-  	{
+    catch (RemoteException re)
+    {
       Logger.error("Fehler: ", re);
       throw new ApplicationException("Fehler anzeigen der Formularfelder", re);
     }
