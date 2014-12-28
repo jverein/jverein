@@ -31,6 +31,7 @@ import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.util.ColumnLayout;
 import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.SimpleContainer;
+import de.willuhn.jameica.system.Settings;
 import de.willuhn.util.ApplicationException;
 
 public class MitgliederSucheView extends AbstractAdresseSucheView
@@ -123,6 +124,10 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
       {
         try
         {
+          Settings s = control.getSettings(); 
+          s.setAttribute("id", "");
+          s.setAttribute("profilname", "");
+
           control.getMitgliedStatus().setValue("Angemeldet");
           control.getSuchExterneMitgliedsnummer().setValue("");
           control.resetEigenschaftenAuswahl();

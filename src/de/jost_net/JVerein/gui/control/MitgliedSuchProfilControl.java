@@ -127,9 +127,14 @@ public class MitgliedSuchProfilControl extends AbstractControl
       }
       catch (ObjectNotFoundException e)
       {
-        s.setAttribute("id", "");
-        sp1 = (Suchprofil) Einstellungen.getDBService().createObject(
-            Suchprofil.class, null);
+    	// Was nun?
+      }
+      if (sp1.getID() == null)
+      {
+    	// Es gibt kein Suchprofil mit der angegebenen ID bzw. die
+    	// ID ist null. Nicht weiter schlimm, wir verfahren einfach wie
+    	// beim "Speichern unter" 
+    	saveas = true;  
       }
       if (saveas)
       {
@@ -141,32 +146,44 @@ public class MitgliedSuchProfilControl extends AbstractControl
         {
           Object o = td.open();
           getProfilname().setValue(o);
-          s.setAttribute("id", "");
           sp1 = (Suchprofil) Einstellungen.getDBService().createObject(
               Suchprofil.class, null);
-          s.setAttribute("id", "");
         }
         catch (OperationCanceledException e)
         {
           // Abbruch
           return;
         }
+        sp1.setClazz(MitgliedControl.class.getName());
+        sp1.setBezeichnung((String) getProfilname().getValue());
+        s.setAttribute("id", "");
+        s.setAttribute("profilname", sp1.getBezeichnung());
+        // Die ID ist nicht im Inhalt enthalten, da zu diesem Zeitpunkt
+        // noch nicht bekannt. Macht aber nichts, da wir die ID einfach
+        // direkt aus dem Primärschlüsselfeld des Datensatzes verwenden
+        storeSettings(s, sp1); 
+        sp1.store();
+        s.setAttribute("id", sp1.getID());
       }
-      sp1.setBezeichnung((String) getProfilname().getValue());
-      s.setAttribute("profilname", sp1.getBezeichnung());
-      // Eigentlich sollte der Name der Klasse, die bei der Instanziierung
-      // übergeben wurde gespeichert werden. Der steht aber nicht zur Verfügung.
-      // Daher wird de.jost_net.JVerein.gui.control.MitgliedControl
-      // festverdrahtet übergeben.
-      sp1.setClazz("de.jost_net.JVerein.gui.control.MitgliedControl");
-      storeSettings(s, sp1);
-      sp1.store();
-      s.setAttribute("id", sp1.getID());
-      sp1.store(); // Doppelte Speicherung erforderlich, damit die ID auch in
-                   // den Inhalt der Properties kommt
+      else 
+      {
+    	// Überschreiben eines vorhandenen Suchprofils
+        s.setAttribute("id", sp1.getID());
+        storeSettings(s, sp1); 
+        sp1.store();
+      }
+
       Application.getMessagingFactory().sendMessage(new SuchprofilMessage(sp1));
 
-      GUI.getStatusBar().setSuccessText("Profil gespeichert");
+      if (saveas)
+      {
+        GUI.getStatusBar().setSuccessText("Profil gespeichert");
+      }
+      else
+      {
+        GUI.getStatusBar().setSuccessText("Profil aktualisiert");   	  
+      }
+
     }
     catch (Exception e)
     {

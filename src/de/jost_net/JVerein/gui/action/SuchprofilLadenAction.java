@@ -53,6 +53,7 @@ public class SuchprofilLadenAction implements Action
         String key = (String) o;
         s.setAttribute(key, p.getProperty(key));
       }
+      s.setAttribute("id", sp.getID());
     }
     catch (Exception e)
     {
