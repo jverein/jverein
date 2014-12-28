@@ -39,7 +39,15 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
   {
     super("mitglied");
     add("ID", "idint", false, true);
-    add("externe Mitgliedsnummer", "externemitgliedsnummer", false, false);
+    try
+    {
+	  if (Einstellungen.getEinstellung().getExterneMitgliedsnummer()) {
+	    add("externe Mitgliedsnummer", "externemitgliedsnummer", false, false);
+	  }
+	} 
+    catch (RemoteException re)
+    {
+	}
     add("Anrede", "anrede", false, true);
     add("Titel", "titel", false, true);
     add("Name", "name", true, true);
