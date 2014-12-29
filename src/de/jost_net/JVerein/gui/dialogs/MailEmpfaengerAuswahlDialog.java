@@ -49,7 +49,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
     super(position);
     this.control = control;
     setTitle("Mail-Empfänger");
-    setSize(550, 450);
+    setSize(1000, 450);
   }
 
   @Override
@@ -232,7 +232,7 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
         }
       }
     });
-    b.addButton("übernehmen", new Action()
+    c.addButton("übernehmen", new Action()
     {
 
       @Override
