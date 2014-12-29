@@ -30,7 +30,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import java.util.Properties;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -56,17 +55,19 @@ public class FormularfelderImportCSV implements Importer
   /**
    * Alle vorhandenen Formularfelder für ein bestimmtes Formular löschen
    */
-  private void deleteExistingData(Formular f) {
-		try
-		{
-		  DBIterator list = Einstellungen.getDBService().createList(Formularfeld.class);
-		  list.addFilter("formular = ?", f.getID()); 
-		  while (list.hasNext())
-		  {
-		    Formularfeld ff = (Formularfeld) list.next();
-		    ff.delete();
-		  }
-		}
+  private void deleteExistingData(Formular f)
+  {
+    try
+    {
+      DBIterator list = Einstellungen.getDBService().createList(
+          Formularfeld.class);
+      list.addFilter("formular = ?", f.getID());
+      while (list.hasNext())
+      {
+        Formularfeld ff = (Formularfeld) list.next();
+        ff.delete();
+      }
+    }
     catch (RemoteException e)
     {
       Logger.error("Fehler", e);
@@ -82,12 +83,16 @@ public class FormularfelderImportCSV implements Importer
       String encoding, ProgressMonitor monitor)
   {
 
-	  // Datenbank bereinigen
-  	Formular f = (Formular) context;
-  	try {
-	    Logger.info("Importiere Formularfelder für Formular " + f.getBezeichnung());
-    } catch (RemoteException re) {
-    	//  pass
+    // Datenbank bereinigen
+    Formular f = (Formular) context;
+    try
+    {
+      Logger.info("Importiere Formularfelder für Formular "
+          + f.getBezeichnung());
+    }
+    catch (RemoteException re)
+    {
+      // pass
     }
     deleteExistingData(f);
 
@@ -105,8 +110,10 @@ public class FormularfelderImportCSV implements Importer
       props.put("fileExtension", fil.substring(pos));
 
       Class.forName("org.relique.jdbc.csv.CsvDriver");
-      Connection conn = DriverManager.getConnection("jdbc:relique:csv:" + path, props);
-      Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+      Connection conn = DriverManager.getConnection("jdbc:relique:csv:" + path,
+          props);
+      Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+          ResultSet.CONCUR_READ_ONLY);
       results = stmt.executeQuery("SELECT * FROM " + fil.substring(0, pos));
 
       int anz = 0;
@@ -117,11 +124,12 @@ public class FormularfelderImportCSV implements Importer
 
         try
         {
-          Formularfeld ff = (Formularfeld) Einstellungen.getDBService().createObject(Formularfeld.class, null);
+          Formularfeld ff = (Formularfeld) Einstellungen.getDBService()
+              .createObject(Formularfeld.class, null);
           ff.setFormular(f);
           try
           {
-          	ff.setName(results.getString("name"));
+            ff.setName(results.getString("name"));
           }
           catch (SQLException e)
           {
@@ -152,12 +160,12 @@ public class FormularfelderImportCSV implements Importer
           }
           catch (SQLException e)
           {
-          	ff.setFontsize(1);
+            ff.setFontsize(1);
           }
 
           try
           {
-          	ff.setFont(results.getString("font"));
+            ff.setFont(results.getString("font"));
           }
           catch (SQLException e)
           {
@@ -170,7 +178,7 @@ public class FormularfelderImportCSV implements Importer
           }
           catch (SQLException e)
           {
-          	ff.setFontsize(10);
+            ff.setFontsize(10);
           }
 
           try
@@ -179,7 +187,7 @@ public class FormularfelderImportCSV implements Importer
           }
           catch (SQLException e)
           {
-          	ff.setFontstyle(0);
+            ff.setFontstyle(0);
           }
 
           ff.store();
