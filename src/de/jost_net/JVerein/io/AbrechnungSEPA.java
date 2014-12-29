@@ -919,7 +919,7 @@ public class AbrechnungSEPA
     throw new ApplicationException(
         String
             .format(
-                "Weder Konto {0} noch Konto {1} ist in der Buchführung eingerichtet. Menu: Buchführung | Konten",
+                "Weder Konto %s noch Konto %s ist in der Buchführung eingerichtet. Menu: Buchführung | Konten",
                 Einstellungen.getEinstellung().getIban(), iban.getKonto()));
   }
 
