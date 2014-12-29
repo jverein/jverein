@@ -21,6 +21,7 @@ import de.jost_net.JVerein.gui.action.ZusatzbetraegeNaechsteFaelligkeitAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeResetAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeVorherigeFaelligkeitAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
+import de.willuhn.jameica.gui.parts.CheckedSingleContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
 import de.willuhn.jameica.gui.parts.ContextMenuItem;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -36,14 +37,14 @@ public class ZusatzbetraegeMenu extends ContextMenu
    */
   public ZusatzbetraegeMenu(TablePart table)
   {
-    addItem(new CheckedContextMenuItem("Vorheriges Fälligkeitsdatum",
+    addItem(new CheckedSingleContextMenuItem("Vorheriges Fälligkeitsdatum",
         new ZusatzbetraegeVorherigeFaelligkeitAction(table),
         "office-calendar.png"));
-    addItem(new CheckedContextMenuItem("Nächstes Fälligkeitsdatum",
+    addItem(new CheckedSingleContextMenuItem("Nächstes Fälligkeitsdatum",
         new ZusatzbetraegeNaechsteFaelligkeitAction(table),
         "office-calendar.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem("erneut ausführen",
+    addItem(new CheckedSingleContextMenuItem("erneut ausführen",
         new ZusatzbetraegeResetAction(table), "view-refresh.png"));
     addItem(new CheckedContextMenuItem("löschen...",
         new ZusatzbetraegeDeleteAction(), "user-trash.png"));

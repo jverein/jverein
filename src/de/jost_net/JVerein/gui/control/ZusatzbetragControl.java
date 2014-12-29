@@ -401,6 +401,7 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.setRememberColWidths(true);
       zusatzbetraegeList.setRememberOrder(true);
       zusatzbetraegeList.setSummary(true);
+      zusatzbetraegeList.setMulti(true);
     }
     else
     {

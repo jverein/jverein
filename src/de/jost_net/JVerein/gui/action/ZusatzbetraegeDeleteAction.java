@@ -34,38 +34,58 @@ public class ZusatzbetraegeDeleteAction implements Action
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
-    if (context == null || !(context instanceof Zusatzbetrag))
+    Zusatzbetrag[] z = null;
+    if (context != null
+        && (context instanceof Zusatzbetrag || context instanceof Zusatzbetrag[]))
     {
-      throw new ApplicationException("Kein Zusatzbetrag ausgewählt");
+      if (context instanceof Zusatzbetrag)
+      {
+        z = new Zusatzbetrag[] { (Zusatzbetrag) context };
+      }
+      else if (context instanceof Zusatzbetrag[])
+      {
+        z = (Zusatzbetrag[]) context;
+      }
     }
+    else
+    {
+      throw new ApplicationException("Keinen Zusatzbetrag ausgewählt");
+    }
+
+    YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+    d.setTitle("Zusatzbetrag löschen");
+    d.setText(String.format("Wollen Sie %d %s wirklich löschen?", z.length,
+        (z.length == 1 ? "Zusatzbetrag" : "Zusatzbeträge")));
+    Boolean choice;
     try
     {
-      Zusatzbetrag z = (Zusatzbetrag) context;
-      if (z.isNewObject())
+      choice = (Boolean) d.open();
+      if (!choice.booleanValue())
       {
         return;
       }
-      YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-      d.setTitle("Zusatzbetrag löschen");
-      d.setText("Wollen Sie diesen Zusatzbetrag wirklich löschen?");
-      try
-      {
-        Boolean choice = (Boolean) d.open();
-        if (!choice.booleanValue())
-          return;
-      }
-      catch (Exception e)
-      {
-        Logger.error("Fehler beim Löschen eines Zusatzbetrages", e);
-        return;
-      }
+    }
+    catch (Exception e1)
+    {
+      Logger.error("Fehler", e1);
+    }
 
-      z.delete();
-      GUI.getStatusBar().setSuccessText("Zusatzbetrag gelöscht.");
+    try
+    {
+      for (Zusatzbetrag z1 : z)
+      {
+        if (z1.isNewObject())
+        {
+          continue;
+        }
+
+        z1.delete();
+      }
+      GUI.getStatusBar().setSuccessText("gelöscht.");
     }
     catch (RemoteException e)
     {
-      String fehler = "Fehler beim Löschen eines Zusatzbetrages.";
+      String fehler = "Fehler beim Löschen von Zusatzbeträgen.";
       GUI.getStatusBar().setErrorText(fehler);
       Logger.error(fehler, e);
     }
