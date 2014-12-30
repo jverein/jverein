@@ -19,6 +19,7 @@ package de.jost_net.JVerein.gui.control;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -33,10 +34,12 @@ import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.jost_net.JVerein.util.Dateiname;
 import de.willuhn.datasource.GenericObject;
+import de.willuhn.datasource.pseudo.PseudoIterator;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
@@ -75,6 +78,8 @@ public class BuchungsartControl extends AbstractControl
 
   private CheckboxInput spende;
 
+  private TextInput suchtext; 
+  
   private Buchungsart buchungsart;
 
   public BuchungsartControl(AbstractView view)
@@ -204,17 +209,33 @@ public class BuchungsartControl extends AbstractControl
     }
   }
 
-  public Part getBuchungsartList() throws RemoteException
+  public TextInput getSuchtext()
   {
-    if (buchungsartList != null)
+    if (suchtext != null)
     {
-      return buchungsartList;
+      return suchtext;
     }
+    suchtext = new TextInput(settings.getString("suchtext", ""), 35);
+    return suchtext;
+  }
+  
+  @SuppressWarnings("unchecked")
+public Part getBuchungsartList() throws RemoteException
+  {
+
     DBService service = Einstellungen.getDBService();
     DBIterator buchungsarten = service.createList(Buchungsart.class);
     buchungsarten.addFilter("nummer >= 0");
+	if ((String) getSuchtext().getValue() != "") {
+		String text = "%" + ((String) getSuchtext().getValue()).toUpperCase() + "%";
+		buchungsarten.addFilter("(UPPER(bezeichnung) like ? or nummer like ?)",
+				new Object[] { text, text });
+	}
     buchungsarten.setOrder("ORDER BY nummer");
 
+    if (buchungsartList == null)
+    {
+    
     buchungsartList = new TablePart(buchungsarten, new BuchungsartAction());
     buchungsartList.addColumn("Nummer", "nummer");
     buchungsartList.addColumn("Bezeichnung", "bezeichnung");
@@ -250,6 +271,16 @@ public class BuchungsartControl extends AbstractControl
     buchungsartList.setRememberOrder(true);
     buchungsartList.setRememberState(true);
     buchungsartList.setSummary(true);
+    }
+    else {
+    	buchungsartList.removeAll();
+
+        for (Buchungsart bu : (List<Buchungsart>)PseudoIterator.asList(buchungsarten))
+        {
+          buchungsartList.addItem(bu);
+        }
+        buchungsartList.sort();
+    }
     return buchungsartList;
   }
 

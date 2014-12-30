@@ -34,6 +34,7 @@ import de.jost_net.JVerein.gui.input.SEPALandObject;
 import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.keys.SepaMandatIdSource;
 import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -265,6 +266,8 @@ public class EinstellungControl extends AbstractControl
   private SelectInput altersmodel;
 
   private ScaleInput sepadatumoffset;
+
+  private SelectInput buchungBuchungsartAuswahl;
 
   /**
    * Verschlüsselte Datei für besonders sensible Daten (Passwörter)
@@ -1424,6 +1427,20 @@ public class EinstellungControl extends AbstractControl
     return ZeigeArbeitseinsatzInTabInput;
   }
 
+  public SelectInput getBuchungBuchungsartAuswahl() throws RemoteException
+  {
+    if (null != buchungBuchungsartAuswahl)
+    {
+      return buchungBuchungsartAuswahl;
+    }
+
+    buchungBuchungsartAuswahl = new SelectInput(
+        BuchungBuchungsartAuswahl.getArray(), new BuchungBuchungsartAuswahl(
+            Einstellungen.getEinstellung().getBuchungBuchungsartAuswahl()));
+
+    return buchungBuchungsartAuswahl;
+  }
+
   public ButtonArea getButton() throws RemoteException
   {
     return new BankverbindungDialogButton(getEinstellung(), getBlz(),
@@ -1661,6 +1678,9 @@ public class EinstellungControl extends AbstractControl
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Altermodel amValue = (Altermodel) altersmodel.getValue();
       e.setAltersModel(amValue.getKey());
+      BuchungBuchungsartAuswahl bbaAuswahl = (BuchungBuchungsartAuswahl) buchungBuchungsartAuswahl
+          .getValue();
+      e.setBuchungBuchungsartAuswahl(bbaAuswahl.getKey());
 
       e.store();
       Einstellungen.setEinstellung(e);
@@ -1861,9 +1881,9 @@ public class EinstellungControl extends AbstractControl
       e.setImapStartTls((Boolean) imap_starttls.getValue());
       e.setImapSentFolder((String) imapSentFolder.getValue());
       e.setMailSignatur((String) mailsignatur.getValue());
-      
-      wallet.set("smtp_auth_pwd",e.getSmtpAuthPwd());
-      wallet.set("imap_auth_pwd",e.getImapAuthPwd());
+
+      wallet.set("smtp_auth_pwd", e.getSmtpAuthPwd());
+      wallet.set("imap_auth_pwd", e.getImapAuthPwd());
 
       e.store();
       Einstellungen.setEinstellung(e);

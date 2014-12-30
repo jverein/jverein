@@ -38,6 +38,8 @@ public class EinstellungenAnzeigeView extends AbstractView
 
     ScrolledContainer cont = new ScrolledContainer(getParent());
 
+    // Allgemeine Einstellung zu Navigation
+    cont.addText("Einstellung Mitgliederverwaltung", false);
     ColumnLayout cols1 = new ColumnLayout(cont.getComposite(), 2);
     SimpleContainer left = new SimpleContainer(cols1.getComposite());
 
@@ -73,9 +75,12 @@ public class EinstellungenAnzeigeView extends AbstractView
         control.getExterneMitgliedsnummer());
     right.addLabelPair("Basis für Berechnung des Alters",
         control.getAltersModel());
+    // Einstellung zum Buchungsdialog
+    right.addLabelPair("Buchungsart Auswahl",
+        control.getBuchungBuchungsartAuswahl());
 
     right.addHeadline("* " + "Änderung erfordert Neustart");
-
+    cont.addSeparator();
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");

@@ -26,6 +26,7 @@ import de.jost_net.JVerein.io.AltersgruppenParser;
 import de.jost_net.JVerein.io.JubilaeenParser;
 import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
+import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.OBanToo.SEPA.BIC;
@@ -1623,4 +1624,20 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("sepadatumoffset", sepadatumoffset);
   }
 
+  @Override
+  public int getBuchungBuchungsartAuswahl() throws RemoteException
+  {
+    Integer wert = (Integer) getAttribute(COL_BUCHUNG_BUCHUNGSART_AUSWAHL);
+    if (null == wert)
+      return BuchungBuchungsartAuswahl.SearchInput;
+    return wert.intValue();
+  }
+
+  @Override
+  public void setBuchungBuchungsartAuswahl(int auswahl) throws RemoteException
+  {
+    setAttribute(COL_BUCHUNG_BUCHUNGSART_AUSWAHL, auswahl);
+  }
+
+  
 }

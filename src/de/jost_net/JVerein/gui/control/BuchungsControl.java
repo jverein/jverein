@@ -41,6 +41,7 @@ import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
+import de.jost_net.JVerein.gui.input.BuchungsartSearchInput;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
@@ -51,6 +52,7 @@ import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.io.BuchungsjournalPDF;
 import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
+import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -72,6 +74,7 @@ import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
 import de.willuhn.jameica.gui.formatter.TableFormatter;
+import de.willuhn.jameica.gui.input.AbstractInput;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
@@ -130,7 +133,9 @@ public class BuchungsControl extends AbstractControl
 
   private Input kommentar;
 
-  private SelectInput buchungsart;
+  // Definition f?r beide Auswahlvarianten (SelectInput und
+  // BuchungsartSearchInput)
+  private AbstractInput buchungsart;
 
   private SelectInput projekt;
 
@@ -443,10 +448,23 @@ public class BuchungsControl extends AbstractControl
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
     list.setOrder("ORDER BY nummer");
-    buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
+
+    switch (Einstellungen.getEinstellung().getBuchungBuchungsartAuswahl())
+    {
+      case BuchungBuchungsartAuswahl.ComboBox:
+        buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
+        ((SelectInput) buchungsart).setPleaseChoose("Bitte auswählen");
+        break;
+      case BuchungBuchungsartAuswahl.SearchInput:
+      default: // default soll SearchInput sein. Eigentlich sollten die
+               // Settings immer gesetzt sein, aber man weiss ja nie.
+        buchungsart = new BuchungsartSearchInput();
+        ((BuchungsartSearchInput) buchungsart).setAttribute("nrbezeichnung");
+        ((BuchungsartSearchInput) buchungsart)
+            .setSearchString("Zum Suchen tippen ...");
+    }
+
     buchungsart.setValue(getBuchung().getBuchungsart());
-    buchungsart.setAttribute("nrbezeichnung");
-    buchungsart.setPleaseChoose("Bitte auswählen");
     return buchungsart;
   }
 

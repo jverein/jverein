@@ -16,12 +16,18 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import java.rmi.RemoteException;
+
 import de.jost_net.JVerein.gui.action.BuchungsartAction;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.BuchungsartControl;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.util.ApplicationException;
 
 public class BuchungsartListView extends AbstractView
 {
@@ -31,9 +37,31 @@ public class BuchungsartListView extends AbstractView
   {
     GUI.getView().setTitle("Buchungsarten");
 
-    BuchungsartControl control = new BuchungsartControl(this);
+    final BuchungsartControl control = new BuchungsartControl(this);
 
-    control.getBuchungsartList().paint(this.getParent());
+    LabelGroup group = new LabelGroup(getParent(), "Suche");
+    group.addLabelPair("Suche", control.getSuchtext());
+
+    ButtonArea buttons1 = new ButtonArea();
+    Button button = new Button("suchen", new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+    	 try {
+			control.getBuchungsartList();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			GUI.getStatusBar().setErrorText(e.getMessage());
+		}
+      }
+    }, null, true, "system-search.png");
+    buttons1.addButton(button);
+    buttons1.paint(this.getParent());
+    
+    LabelGroup group2 = new LabelGroup(getParent(), "Liste", true);
+    group2.addPart(control.getBuchungsartList());
+    
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="lib/ez-vcard-0.9.5.jar"/>
 	<classpathentry kind="lib" path="lib/javase-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/core-3.1.0.jar"/>
+	<classpathentry kind="lib" path="/jameica/lib/de_willuhn_ds/de_willuhn_ds.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
