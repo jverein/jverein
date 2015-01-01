@@ -104,6 +104,7 @@ public class MitgliederStatistik
 
       DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
           Beitragsgruppe.class);
+      beitragsgruppen.setOrder("order by bezeichnung");
       while (beitragsgruppen.hasNext())
       {
         Beitragsgruppe bg = (Beitragsgruppe) beitragsgruppen.next();
