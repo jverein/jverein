@@ -40,7 +40,7 @@ public class Test
     Result result = JUnitCore.runClasses(AdressaufbereitungTest.class,
         AltersgruppenParserTest.class, BankarbeitstageTest.class,
         BeitragsUtilTest.class, CheckerTest.class, SuchbetragTest.class,
-        TableColumnReplacerTest.class,
+        TableColumnReplacerTest.class, Settings.class,
         /* ShutdownTest muss der letzte Test sein */ShutdownTest.class);
 
     for (Failure failure : result.getFailures())
