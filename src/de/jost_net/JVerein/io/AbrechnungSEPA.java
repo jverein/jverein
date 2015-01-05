@@ -218,7 +218,7 @@ public class AbrechnungSEPA
       ls.setMandatDatum(za.getMandatdatum());
       ls.setMandatSequence(za.getMandatsequence().getTxt());
       ls.setMandatID(za.getMandatid());
-      ls.setVerwendungszweck(za.getVerwendungszweckOrig());
+      ls.setVerwendungszweck(za.getVerwendungszweck());
       ls.store();
     }
 
