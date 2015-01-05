@@ -437,31 +437,38 @@ public class PreNotificationControl extends AbstractControl
             StringWriter wtext2 = new StringWriter();
             Velocity.evaluate(context, wtext2, "LOG", txt);
 
-            sender.sendMail(ls.getEmail(), wtext1.getBuffer().toString(),
-                wtext2.getBuffer().toString(), new TreeSet<MailAnhang>());
-
-            // Mail in die Datenbank schreiben
-            if (ls.getMitglied() != null)
+            try
             {
-              Mail mail = (Mail) Einstellungen.getDBService().createObject(
-                  Mail.class, null);
-              Timestamp ts = new Timestamp(new Date().getTime());
-              mail.setBearbeitung(ts);
-              mail.setBetreff(wtext1.getBuffer().toString());
-              mail.setTxt(wtext2.getBuffer().toString());
-              mail.setVersand(ts);
-              mail.store();
-              MailEmpfaenger empf = (MailEmpfaenger) Einstellungen
-                  .getDBService().createObject(MailEmpfaenger.class, null);
-              empf.setMail(mail);
-              empf.setMitglied(ls.getMitglied());
-              empf.setVersand(ts);
-              empf.store();
+              sender.sendMail(ls.getEmail(), wtext1.getBuffer().toString(),
+                  wtext2.getBuffer().toString(), new TreeSet<MailAnhang>());
+
+              // Mail in die Datenbank schreiben
+              if (ls.getMitglied() != null)
+              {
+                Mail mail = (Mail) Einstellungen.getDBService().createObject(
+                    Mail.class, null);
+                Timestamp ts = new Timestamp(new Date().getTime());
+                mail.setBearbeitung(ts);
+                mail.setBetreff(wtext1.getBuffer().toString());
+                mail.setTxt(wtext2.getBuffer().toString());
+                mail.setVersand(ts);
+                mail.store();
+                MailEmpfaenger empf = (MailEmpfaenger) Einstellungen
+                    .getDBService().createObject(MailEmpfaenger.class, null);
+                empf.setMail(mail);
+                empf.setMitglied(ls.getMitglied());
+                empf.setVersand(ts);
+                empf.store();
+              }
+
+              sentCount++;
+              monitor.log(ls.getEmail() + " - versendet");
             }
-
-            sentCount++;
-            monitor.log(ls.getEmail() + " - versendet");
-
+            catch (Exception e)
+            {
+              Logger.error("Fehler beim Mailversand", e);
+              monitor.log(ls.getEmail() + " - " + e.getMessage());
+            }
           }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
