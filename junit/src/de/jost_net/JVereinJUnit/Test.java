@@ -20,6 +20,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+import de.jost_net.JVereinJUnit.io.AbrechnungSEPA;
 import de.jost_net.JVereinJUnit.io.AltersgruppenParserTest;
 import de.jost_net.JVereinJUnit.io.BankarbeitstageTest;
 import de.jost_net.JVereinJUnit.io.BeitragsUtilTest;
@@ -37,10 +38,10 @@ public class Test
    */
   public static void start() throws Exception
   {
-    Result result = JUnitCore.runClasses(AdressaufbereitungTest.class,
-        AltersgruppenParserTest.class, BankarbeitstageTest.class,
-        BeitragsUtilTest.class, CheckerTest.class, SuchbetragTest.class,
-        TableColumnReplacerTest.class, Settings.class,
+    Result result = JUnitCore.runClasses(AbrechnungSEPA.class,
+        AdressaufbereitungTest.class, AltersgruppenParserTest.class,
+        BankarbeitstageTest.class, BeitragsUtilTest.class, CheckerTest.class,
+        SuchbetragTest.class, TableColumnReplacerTest.class, Settings.class,
         /* ShutdownTest muss der letzte Test sein */ShutdownTest.class);
 
     for (Failure failure : result.getFailures())
