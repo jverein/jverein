@@ -34,7 +34,7 @@ import de.jost_net.JVerein.gui.menu.BuchungsartMenu;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.keys.ArtBuchungsart;
-import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.keys.BuchungsartSort;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.jost_net.JVerein.util.Dateiname;
@@ -152,10 +152,24 @@ public class BuchungsartControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService().createList(
         Buchungsklasse.class);
-    list.setOrder("ORDER BY nummer");
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      list.setOrder("ORDER BY nummer");
+    }
+    else
+    {
+      list.setOrder("ORDER BY bezeichnung");
+    }
     buchungsklasse = new SelectInput(list, getBuchungsart().getBuchungsklasse());
     buchungsklasse.setValue(getBuchungsart().getBuchungsklasse());
-    buchungsklasse.setAttribute("bezeichnung");
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      buchungsklasse.setAttribute("nrbezeichnung");
+    }
+    else
+    {
+      buchungsklasse.setAttribute("bezeichnung");
+    }
     buchungsklasse.setPleaseChoose("Bitte auswählen");
     return buchungsklasse;
   }

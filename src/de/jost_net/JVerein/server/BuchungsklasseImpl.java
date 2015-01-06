@@ -115,6 +115,10 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
   @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
+    if (fieldName.equals("nrbezeichnung"))
+    {
+      return String.valueOf(getNummer()) + " - " + getBezeichnung();
+    }
     return super.getAttribute(fieldName);
   }
 }

@@ -488,4 +488,9 @@ public interface Einstellung extends DBObject, IBankverbindung
   public int getBuchungBuchungsartAuswahl() throws RemoteException;
   
   public void setBuchungBuchungsartAuswahl(int buchungBuchungsartAuswahl) throws RemoteException;
+
+  public int getBuchungsartSort() throws RemoteException;
+
+  public void setBuchungsartSort(int buchungsartsort) throws RemoteException;
+
 }

@@ -1639,5 +1639,21 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute(COL_BUCHUNG_BUCHUNGSART_AUSWAHL, auswahl);
   }
 
-  
+  @Override
+  public int getBuchungsartSort() throws RemoteException
+  {
+    Integer wert = (Integer) getAttribute("buchungsartsort");
+    if (wert == null)
+    {
+      return 1;
+    }
+    return wert.intValue();
+  }
+
+  @Override
+  public void setBuchungsartSort(int buchungsartsort) throws RemoteException
+  {
+    setAttribute("buchungsartsort", buchungsartsort);
+  }
+ 
 }

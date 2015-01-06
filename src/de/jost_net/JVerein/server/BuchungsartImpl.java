@@ -169,7 +169,15 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
   {
     if (fieldName.equals("nrbezeichnung"))
     {
-      return getNummer() + " - " + getBezeichnung();
+      int nr = getNummer();
+      if (nr >= 0)
+      {
+        return nr + " - " + getBezeichnung();
+      }
+      else
+      {
+    	  return getBezeichnung();
+      }
     }
     else if (fieldName.equals("klasse-art-bez"))
     {

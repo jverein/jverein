@@ -78,6 +78,7 @@ public class EinstellungenAnzeigeView extends AbstractView
     // Einstellung zum Buchungsdialog
     right.addLabelPair("Buchungsart Auswahl",
         control.getBuchungBuchungsartAuswahl());
+    right.addLabelPair("Buchungsart Sortierung", control.getBuchungsartSort());
 
     right.addHeadline("* " + "Änderung erfordert Neustart");
     cont.addSeparator();

@@ -53,6 +53,7 @@ import de.jost_net.JVerein.io.BuchungsjournalPDF;
 import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
+import de.jost_net.JVerein.keys.BuchungsartSort;
 import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Buchung;
@@ -448,12 +449,27 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    list.setOrder("ORDER BY nummer");
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      list.setOrder("ORDER BY nummer");
+    }
+    else
+    {
+      list.setOrder("ORDER BY bezeichnung");
+    }
 
     switch (Einstellungen.getEinstellung().getBuchungBuchungsartAuswahl())
     {
       case BuchungBuchungsartAuswahl.ComboBox:
         buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
+        if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+        {
+           ((SelectInput) buchungsart).setAttribute("nrbezeichnung");
+        }
+        else
+        {
+            ((SelectInput) buchungsart).setAttribute("bezeichnung");
+        }
         ((SelectInput) buchungsart).setPleaseChoose("Bitte auswählen");
         break;
       case BuchungBuchungsartAuswahl.SearchInput:
@@ -566,7 +582,14 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    list.setOrder("ORDER BY nummer");
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      list.setOrder("ORDER BY nummer");
+    }
+    else
+    {
+      list.setOrder("ORDER BY bezeichnung");    
+    }
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
         Buchungsart.class, null);
@@ -597,7 +620,15 @@ public class BuchungsControl extends AbstractControl
     suchbuchungsart = new SelectInput(liste, b);
     suchbuchungsart.addListener(new FilterListener());
 
-    suchbuchungsart.setAttribute("bezeichnung");
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      suchbuchungsart.setAttribute("nrbezeichnung");    
+    }
+    else
+    {
+      suchbuchungsart.setAttribute("bezeichnung");
+    }
+
     return suchbuchungsart;
   }
 

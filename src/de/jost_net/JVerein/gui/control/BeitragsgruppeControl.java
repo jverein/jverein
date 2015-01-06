@@ -23,6 +23,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
+import de.jost_net.JVerein.keys.BuchungsartSort;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -188,7 +189,23 @@ public class BeitragsgruppeControl extends AbstractControl
       return buchungsart;
     }
     DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      it.setOrder("ORDER BY nummer");
+    }
+    else
+    {
+      it.setOrder("ORDER BY bezeichnung");
+    }
     buchungsart = new SelectInput(it, getBeitragsgruppe().getBuchungsart());
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    {
+      buchungsart.setAttribute("nrbezeichnung");
+    }
+    else
+    {
+      buchungsart.setAttribute("bezeichnung");	  
+    }
     buchungsart.setPleaseChoose("bitte auswählen");
     return buchungsart;
   }

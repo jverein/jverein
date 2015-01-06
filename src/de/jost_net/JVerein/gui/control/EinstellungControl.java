@@ -35,6 +35,7 @@ import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.ArbeitsstundenModel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
+import de.jost_net.JVerein.keys.BuchungsartSort;
 import de.jost_net.JVerein.keys.SepaMandatIdSource;
 import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -51,6 +52,7 @@ import de.willuhn.jameica.gui.input.DirectoryInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.PasswordInput;
+import de.willuhn.jameica.gui.input.RadioInput;
 import de.willuhn.jameica.gui.input.ScaleInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
@@ -268,6 +270,8 @@ public class EinstellungControl extends AbstractControl
   private ScaleInput sepadatumoffset;
 
   private SelectInput buchungBuchungsartAuswahl;
+  
+  private SelectInput buchungsartsort;
 
   /**
    * Verschlüsselte Datei für besonders sensible Daten (Passwörter)
@@ -1441,6 +1445,17 @@ public class EinstellungControl extends AbstractControl
     return buchungBuchungsartAuswahl;
   }
 
+  public SelectInput getBuchungsartSort() throws RemoteException
+  {
+	if (buchungsartsort != null)
+	{
+	  return buchungsartsort;
+	}
+	buchungsartsort = new SelectInput(BuchungsartSort.getArray(),
+			new BuchungsartSort(Einstellungen.getEinstellung().getBuchungsartSort()));
+	return buchungsartsort;
+  }
+
   public ButtonArea getButton() throws RemoteException
   {
     return new BankverbindungDialogButton(getEinstellung(), getBlz(),
@@ -1681,6 +1696,7 @@ public class EinstellungControl extends AbstractControl
       BuchungBuchungsartAuswahl bbaAuswahl = (BuchungBuchungsartAuswahl) buchungBuchungsartAuswahl
           .getValue();
       e.setBuchungBuchungsartAuswahl(bbaAuswahl.getKey());
+      e.setBuchungsartSort(((BuchungsartSort) buchungsartsort.getValue()).getKey());
 
       e.store();
       Einstellungen.setEinstellung(e);
