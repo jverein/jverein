@@ -131,7 +131,7 @@ public class BuchungsControl extends AbstractControl
 
   private DialogInput mitgliedskonto;
 
-  private Input kommentar;
+  private TextAreaInput kommentar;
 
   // Definition f?r beide Auswahlvarianten (SelectInput und
   // BuchungsartSearchInput)
@@ -435,7 +435,8 @@ public class BuchungsControl extends AbstractControl
     {
       return kommentar;
     }
-    kommentar = new TextInput(getBuchung().getKommentar(), 1024);
+    kommentar = new TextAreaInput(getBuchung().getKommentar(), 1024);
+    kommentar.setHeight(50);
     return kommentar;
   }
 
