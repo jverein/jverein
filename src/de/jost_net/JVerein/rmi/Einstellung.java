@@ -20,7 +20,6 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.io.IBankverbindung;
-import de.jost_net.JVerein.keys.Altermodel;
 import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.willuhn.datasource.rmi.DBObject;
 
@@ -32,8 +31,8 @@ public interface Einstellung extends DBObject, IBankverbindung
   public static final String COL_ARBEITS_MODEL = "arbeitsmodel";
 
   public static final String COL_SEPA_MANDANTID_SOURCE = "mandatid_source";
-  
-  public static final String COL_BUCHUNG_BUCHUNGSART_AUSWAHL =  "buchungbuchungsartauswahl";
+
+  public static final String COL_BUCHUNG_BUCHUNGSART_AUSWAHL = "buchungbuchungsartauswahl";
 
   public void setID() throws RemoteException;
 
@@ -355,7 +354,8 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public Integer getSEPADatumOffset() throws RemoteException;
 
-  public void setSEPADatumOffset(Integer sepadatumoffset) throws RemoteException;
+  public void setSEPADatumOffset(Integer sepadatumoffset)
+      throws RemoteException;
 
   public String getAltersgruppen() throws RemoteException;
 
@@ -484,10 +484,11 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setSepaMandatIdSource(int sepaMandatIdSource)
       throws RemoteException;
-  
+
   public int getBuchungBuchungsartAuswahl() throws RemoteException;
-  
-  public void setBuchungBuchungsartAuswahl(int buchungBuchungsartAuswahl) throws RemoteException;
+
+  public void setBuchungBuchungsartAuswahl(int buchungBuchungsartAuswahl)
+      throws RemoteException;
 
   public int getBuchungsartSort() throws RemoteException;
 
