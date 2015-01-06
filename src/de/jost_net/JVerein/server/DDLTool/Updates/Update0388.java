@@ -30,19 +30,18 @@ import de.jost_net.JVerein.server.DDLTool.Column;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class Update0387 extends AbstractDDLUpdate
+public class Update0388 extends AbstractDDLUpdate
 {
-  public Update0387(String driver, ProgressMonitor monitor, Connection conn)
+  public Update0388(String driver, ProgressMonitor monitor, Connection conn)
   {
     super(driver, monitor, conn);
   }
 
   public void run() throws ApplicationException
   {
-    // Einstellung für die Auswahlliste(n) der Buchungsart
-    // 1 - Standard: Nur Bezeichnung anzeigen, aufsteigend sortiert
-    // 2 - Nummer und Bezeichnung anzeigen, sortiert nach Nummer
-    execute(addColumn("einstellung", new Column("buchungsartsort",
-        COLTYPE.INTEGER, 10, "1", false, false)));
+    // Erweitern der Buchungsklasse: das bisherige Feld für
+    // die Bezeichnung aus z.B. SKR03 deutlich zu kurz
+    execute(alterColumn("buchungsklasse", new Column("bezeichnung",
+        COLTYPE.VARCHAR, 50, null, false, false)));
   }
 }

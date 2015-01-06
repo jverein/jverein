@@ -84,7 +84,7 @@ public class BuchungsklasseControl extends AbstractControl
     {
       return bezeichnung;
     }
-    bezeichnung = new TextInput(getBuchungsklasse().getBezeichnung(), 30);
+    bezeichnung = new TextInput(getBuchungsklasse().getBezeichnung(), 50);
     return bezeichnung;
   }
 
