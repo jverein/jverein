@@ -290,8 +290,11 @@ public class MyExtension implements Extension
       }
       administration.addChild(new MyItem(administration, "Formulare",
           new FormularListeAction(), "layout_co.gif"));
-      administration.addChild(new MyItem(administration, "Lehrgangsarten",
-          new LehrgangsartListeAction(), "x-office-presentation.png"));
+      if (Einstellungen.getEinstellung().getLehrgaenge())
+      {
+         administration.addChild(new MyItem(administration, "Lehrgangsarten",
+             new LehrgangsartListeAction(), "x-office-presentation.png"));
+      }
       administration.addChild(new MyItem(administration, "Import",
           new MitgliedImportAction(), "import_obj.gif"));
       if (Einstellungen.getEinstellung().getZusatzadressen())
