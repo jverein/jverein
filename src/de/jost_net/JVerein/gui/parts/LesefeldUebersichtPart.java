@@ -86,8 +86,10 @@ public class LesefeldUebersichtPart implements Part
 
     // Das erste Mitglied wird ausgewählt, wenn im Contructor keins gewählt
     // wurde.
-    if (selectedMitglied == null)
+    if (selectedMitglied == null && !mitgliederList.isEmpty())
+    {
       selectedMitglied = mitgliederList.get(0);
+    }
     if (selectedMitglied == null)
     {
       Label textLabel = new Label(container.getComposite(), SWT.NONE);
