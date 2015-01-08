@@ -152,9 +152,10 @@ public abstract class AbstractAdresseSucheView extends AbstractView
   public String getHelp()
   {
     return "<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
-        + "<p>Durch einen Klick auf einen Karteireiter werden die Mitglieder "
-        + "angezeigt, deren Familienname mit dem entsprechenden Buchstaben beginnt.</p>"
-        + "<p>Anschließend kann das Mitglied durch einen Doppelklick ausgewählt werden.</p>"
+        + "<p>Geben Sie Filterkriterien ein oder wählen sie aus. Jeweils beim Verlassen eines Filterfeldes "
+        + "wird die Treffermenge aktualisiert.</p>"
+        + "<p>Anschließend kann das Mitglied oder die Adresse durch einen Doppelklick ausgewählt werden.</p>"
+        + "<p>Mit einem Rechtsklick stehen einige Funktionen zum Mitglied/zur Adresse zur Verfügung.</p>"
         + "</form>";
   }
 
