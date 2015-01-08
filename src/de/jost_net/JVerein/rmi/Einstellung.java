@@ -295,6 +295,10 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setSmtpStarttls(Boolean smtp_starttls) throws RemoteException;
 
+  public int getMailVerzoegerung() throws RemoteException;
+
+  public void setMailVerzoegerung(int verzoegerung) throws RemoteException;
+
   public String getMailAlwaysBcc() throws RemoteException;
 
   public void setMailAlwaysBcc(String mail_always_bcc) throws RemoteException;

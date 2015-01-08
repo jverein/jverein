@@ -150,12 +150,15 @@ public class MailSender
 
   private final boolean smtp_starttls;
 
+  private final int verzoegerung;
+
   private IMAPCopyData imapCopyData;
 
   public MailSender(String smtp_host_name, String smtp_port,
       String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,
       String smtp_from_anzeigename, String bcc_address, String cc_address,
-      boolean smtp_ssl, boolean smtp_starttls, IMAPCopyData imapCopyData)
+      boolean smtp_ssl, boolean smtp_starttls, int verzoegerung,
+      IMAPCopyData imapCopyData)
   {
     this.smtp_host_name = smtp_host_name;
     this.smtp_port = smtp_port;
@@ -167,6 +170,7 @@ public class MailSender
     this.cc_address = cc_address;
     this.smtp_ssl = smtp_ssl;
     this.smtp_starttls = smtp_starttls;
+    this.verzoegerung = verzoegerung;
     this.imapCopyData = imapCopyData;
   }
 
@@ -295,6 +299,7 @@ public class MailSender
     {
       copyMessageToImapFolder(msg);
     }
+    Thread.sleep(verzoegerung * 1000);
   }
 
   private void copyMessageToImapFolder(Message message) throws Exception

@@ -184,6 +184,8 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput smtp_starttls;
 
+  private ScaleInput mailverzoegerung;
+
   private TextInput alwaysBccTo;
 
   private TextInput alwaysCcTo;
@@ -512,7 +514,7 @@ public class EinstellungControl extends AbstractControl
         .getSEPADatumOffset(), SWT.HORIZONTAL);
     sepadatumoffset.setScaling(0, 14, 1, 1);
     sepadatumoffset.setName("Zusätzliche SEPA-Vorlaufzeit");
-    RangeListener listener = new RangeListener();
+    SEPADatumOffsetListener listener = new SEPADatumOffsetListener();
     sepadatumoffset.addListener(listener);
     listener.handleEvent(null); // einmal initial ausloesen
     return sepadatumoffset;
@@ -991,6 +993,23 @@ public class EinstellungControl extends AbstractControl
     smtp_starttls = new CheckboxInput(Einstellungen.getEinstellung()
         .getSmtpStarttls());
     return smtp_starttls;
+  }
+
+  public ScaleInput getMailVerzoegerung() throws RemoteException
+  {
+    if (mailverzoegerung != null)
+    {
+      return mailverzoegerung;
+    }
+    mailverzoegerung = new ScaleInput(Einstellungen.getEinstellung()
+        .getMailVerzoegerung());
+    mailverzoegerung.setScaling(0, 10, 1, 1);
+    mailverzoegerung.setComment("");
+    MailVerzoegerungListener listener = new MailVerzoegerungListener();
+    mailverzoegerung.addListener(listener);
+    listener.handleEvent(null); // einmal initial ausloesen
+
+    return mailverzoegerung;
   }
 
   public TextInput getAlwaysBccTo() throws RemoteException
@@ -1886,6 +1905,7 @@ public class EinstellungControl extends AbstractControl
       e.setSmtpFromAnzeigename((String) smtp_from_anzeigename.getValue());
       e.setSmtpSsl((Boolean) smtp_ssl.getValue());
       e.setSmtpStarttls((Boolean) smtp_starttls.getValue());
+      e.setMailVerzoegerung((Integer) mailverzoegerung.getValue());
       e.setMailAlwaysCc((String) alwaysCcTo.getValue());
       e.setMailAlwaysBcc((String) alwaysBccTo.getValue());
 
@@ -2019,9 +2039,9 @@ public class EinstellungControl extends AbstractControl
   }
 
   /**
-   * Hilfsklasse zum Aktualisieren des Kommentars hinter dem Zeitraum.
+   * Hilfsklasse zum Aktualisieren des Kommentars hinter SEPADatumOffset
    */
-  private class RangeListener implements Listener
+  private class SEPADatumOffsetListener implements Listener
   {
     @Override
     public void handleEvent(Event event)
@@ -2036,6 +2056,37 @@ public class EinstellungControl extends AbstractControl
         else
         {
           getSEPADatumOffset().setComment(start + " Tage");
+        }
+      }
+      catch (Exception e)
+      {
+        Logger.error("unable to update comment", e);
+      }
+    }
+  }
+
+  /**
+   * Hilfsklasse zum Aktualisieren des Kommentars von MailVerzoegerung.
+   */
+  private class MailVerzoegerungListener implements Listener
+  {
+    @Override
+    public void handleEvent(Event event)
+    {
+      try
+      {
+        int pause = ((Integer) getMailVerzoegerung().getValue()).intValue();
+        if (pause == 0)
+        {
+          getMailVerzoegerung().setComment("keine Pause");
+        }
+        else if (pause == 1)
+        {
+          getMailVerzoegerung().setComment("1 Sekunde");
+        }
+        else
+        {
+          getMailVerzoegerung().setComment(pause + " Sekunden");
         }
       }
       catch (Exception e)

@@ -995,6 +995,28 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("smtp_starttls", smtp_starttls);
   }
 
+  /**
+   * Pause zwischen dem Versand von Mails in Sekunden
+   */
+  @Override
+  public int getMailVerzoegerung() throws RemoteException
+  {
+    try
+    {
+      return (Integer) getAttribute("mailverzoegerung");
+    }
+    catch (NullPointerException e)
+    {
+      return 5;
+    }
+  }
+
+  @Override
+  public void setMailVerzoegerung(int verzoegerung) throws RemoteException
+  {
+    setAttribute("mailverzoegerung", verzoegerung);
+  }
+
   @Override
   public String getMailAlwaysBcc() throws RemoteException
   {
@@ -1041,7 +1063,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public void setImapAuthUser(String imap_auth_user) throws RemoteException
   {
-    this.imap_auth_pwd=imap_auth_user;
+    this.imap_auth_pwd = imap_auth_user;
     setAttribute("imap_auth_user", imap_auth_user);
 
   }
@@ -1211,7 +1233,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public String getAltersgruppen() throws RemoteException
   {
-   String ag = (String) getAttribute("altersgruppen");
+    String ag = (String) getAttribute("altersgruppen");
     if (ag == null || ag.length() == 0)
     {
       ag = "1-5,6-10,11-17,18-25,26-50,50-100";
@@ -1655,5 +1677,5 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     setAttribute("buchungsartsort", buchungsartsort);
   }
- 
+
 }
