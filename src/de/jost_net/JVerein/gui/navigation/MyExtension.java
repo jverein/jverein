@@ -70,6 +70,7 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoListeAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoMahnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.ProjektListAction;
+import de.jost_net.JVerein.gui.action.ProjektSaldoAction;
 import de.jost_net.JVerein.gui.action.QIFBuchungsImportViewAction;
 import de.jost_net.JVerein.gui.action.SEPAKonvertierungAction;
 import de.jost_net.JVerein.gui.action.SpendenAction;
@@ -199,6 +200,8 @@ public class MyExtension implements Extension
           new BuchungsListeAction(), "preferences-system-windows.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Hibiscus-Buchungen",
           new BuchungsuebernahmeAction(), "hibiscus-icon-64x64.png"));
+      buchfuehrung.addChild(new MyItem(buchfuehrung, "Projekte",
+          new ProjektSaldoAction(), "summe.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungsklassen",
           new BuchungsklasseSaldoAction(), "summe.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahressaldo",
