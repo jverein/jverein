@@ -40,6 +40,6 @@ public class Update0390 extends AbstractDDLUpdate
   public void run() throws ApplicationException
   {
     execute(addColumn("einstellung", new Column("mailverzoegerung",
-        COLTYPE.INTEGER, 10, "5", false, false)));
+        COLTYPE.INTEGER, 10, "0", false, false)));
   }
 }

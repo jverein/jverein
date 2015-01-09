@@ -299,7 +299,7 @@ public class MailSender
     {
       copyMessageToImapFolder(msg);
     }
-    Thread.sleep(verzoegerung * 1000);
+    Thread.sleep(verzoegerung);
   }
 
   private void copyMessageToImapFolder(Message message) throws Exception

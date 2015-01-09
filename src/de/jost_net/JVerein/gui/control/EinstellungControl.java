@@ -1003,7 +1003,7 @@ public class EinstellungControl extends AbstractControl
     }
     mailverzoegerung = new ScaleInput(Einstellungen.getEinstellung()
         .getMailVerzoegerung());
-    mailverzoegerung.setScaling(0, 10, 1, 1);
+    mailverzoegerung.setScaling(0, 10000, 100, 100);
     mailverzoegerung.setComment("");
     MailVerzoegerungListener listener = new MailVerzoegerungListener();
     mailverzoegerung.addListener(listener);
@@ -2080,13 +2080,9 @@ public class EinstellungControl extends AbstractControl
         {
           getMailVerzoegerung().setComment("keine Pause");
         }
-        else if (pause == 1)
-        {
-          getMailVerzoegerung().setComment("1 Sekunde");
-        }
         else
         {
-          getMailVerzoegerung().setComment(pause + " Sekunden");
+          getMailVerzoegerung().setComment(pause + " Millisekunden");
         }
       }
       catch (Exception e)

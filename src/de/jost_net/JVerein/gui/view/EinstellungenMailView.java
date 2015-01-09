@@ -44,7 +44,7 @@ public class EinstellungenMailView extends AbstractView
     cont.addLabelPair("Anzeigename", control.getSmtpFromAnzeigename());
     cont.addLabelPair("SSL verwenden", control.getSmtpSsl());
     cont.addLabelPair("StartTLS verwenden", control.getSmtpStarttls());
-    cont.addLabelPair("Pause zwischen Mailversand in Sek.",
+    cont.addLabelPair("Pause zwischen Mailversand in Millisek.",
         control.getMailVerzoegerung());
     cont.addLabelPair("Immer Cc an Adresse", control.getAlwaysCcTo());
     cont.addLabelPair("Immer Bcc an Adresse", control.getAlwaysBccTo());
