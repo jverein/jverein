@@ -40,6 +40,7 @@ import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
+import de.jost_net.JVerein.gui.formatter.ProjektFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.input.BuchungsartSearchInput;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
@@ -1024,6 +1025,8 @@ public class BuchungsControl extends AbstractControl
       buchungsList.addColumn(new Column("mitgliedskonto", "Mitglied",
           new MitgliedskontoFormatter(), false, Column.ALIGN_AUTO,
           Column.SORT_BY_DISPLAY));
+      buchungsList.addColumn("Projekt", "projekt",
+    	  new ProjektFormatter());
       buchungsList.setMulti(true);
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
@@ -1095,6 +1098,8 @@ public class BuchungsControl extends AbstractControl
           Einstellungen.DECIMALFORMAT));
       splitbuchungsList.addColumn("Mitglied", "mitgliedskonto",
           new MitgliedskontoFormatter());
+      splitbuchungsList.addColumn("Projekt", "projekt",
+    	  new ProjektFormatter());
       splitbuchungsList.setContextMenu(new BuchungMenu(this));
       splitbuchungsList.setRememberColWidths(true);
       splitbuchungsList.setSummary(true);
