@@ -42,13 +42,4 @@ public class StatistikMitgliedView extends AbstractView
     buttons.addButton(control.getStartStatistikButton());
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Statistik</span></p>"
-        + "<p>Durch eine Klick auf Start wird eine Statistik nach Altergruppen und nach "
-        + "Beitragsgruppen im PDF-Format erzeugt. Die Altersgruppen sind "
-        + "bei den Stammdaten vorzugeben.</p></form>";
-  }
 }

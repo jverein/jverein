@@ -42,11 +42,4 @@ public class LehrgangsartListeView extends AbstractView
         "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Lehrgangsarten</span></p>"
-        + "</form>";
-  }
 }

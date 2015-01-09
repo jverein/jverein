@@ -62,11 +62,4 @@ public class BuchungsklasseSaldoView extends AbstractView
     buttons2.addButton(control.getStartAuswertungButton());
     buttons2.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsklassen-Saldo</span></p>"
-        + "</form>";
-  }
 }

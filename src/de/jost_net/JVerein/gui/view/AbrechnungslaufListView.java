@@ -39,13 +39,4 @@ public class AbrechnungslaufListView extends AbstractView
         DokumentationUtil.ABRECHNUNGSLAUF, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Abrechnungsläufe</span></p>"
-        + "<p>Mit einem Rechtsklick wird ein Kontextmenü geöffnet. Damit kann entweder eine "
-        + "Pre-Notification erstellt werden oder ein Abrechnungslauf gelöscht werden.</p>"
-        + "</form>";
-  }
 }

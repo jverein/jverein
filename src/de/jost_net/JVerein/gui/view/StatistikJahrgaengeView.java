@@ -62,11 +62,4 @@ public class StatistikJahrgaengeView extends AbstractView
 
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Statistik Jahrgänge</span></p>"
-        + "<p>Ausgabe von Jahrgangszahlen z. B. für die DOSB-Statistik.</p></form>";
-  }
 }

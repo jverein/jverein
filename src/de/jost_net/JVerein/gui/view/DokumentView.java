@@ -53,10 +53,4 @@ public class DokumentView extends AbstractView
     buttons.addButton(control.getSpeichernButton(verzeichnis + "."));
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Dokument</span></p>";
-  }
 }

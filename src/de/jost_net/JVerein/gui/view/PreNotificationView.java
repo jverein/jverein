@@ -73,11 +73,4 @@ public class PreNotificationView extends AbstractView
     buttons2.paint(tab2.getComposite());
 
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">SEPA Pre-Notification</span> </p>"
-        + "</form>";
-  }
 }

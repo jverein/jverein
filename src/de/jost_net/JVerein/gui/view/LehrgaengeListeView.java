@@ -44,11 +44,4 @@ public class LehrgaengeListeView extends AbstractView
         DokumentationUtil.LEHRGANG, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Lehrgänge</span></p>"
-        + "<p>Mit einem Rechtsklick kann ein Eintrag gelöscht werden.</p></form>";
-  }
 }

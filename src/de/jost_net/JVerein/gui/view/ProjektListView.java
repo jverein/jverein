@@ -42,12 +42,4 @@ public class ProjektListView extends AbstractView
         "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Projekt</span></p>"
-        + "<p>Über Projekte können die Buchungen verschiedener Buchungsarten gruppiert werden.</p>"
-        + "</form>";
-  }
 }

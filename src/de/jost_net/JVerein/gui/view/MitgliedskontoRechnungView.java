@@ -64,12 +64,4 @@ public class MitgliedskontoRechnungView extends AbstractView
     buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Rechnungen ausgeben</span></p>"
-        + "<p>Für den vorgegebenen Zeitraum werden die Rechnungen ausgegeben.</p>"
-        + "</form>";
-  }
 }

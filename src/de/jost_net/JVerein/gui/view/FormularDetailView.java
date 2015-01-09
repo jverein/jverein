@@ -53,14 +53,4 @@ public class FormularDetailView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Formular</span></p>"
-        + "<p>Jedem Formuar ist ein eindeutiger Name zu geben. Die Art ist auszuwählen. "
-        + "Ein Dateiname ist bei der Neuaufnahme eines Formulares anzugeben oder wenn "
-        + "das Formular aktualisiert wird. Das Formular muss im PDF-Format vorliegen.</p>"
-        + "</form>";
-  }
 }

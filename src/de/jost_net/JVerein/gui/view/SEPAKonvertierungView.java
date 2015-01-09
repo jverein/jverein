@@ -59,11 +59,4 @@ public class SEPAKonvertierungView extends AbstractView
         DokumentationUtil.SEPAKONVERTIERUNG, false, "help-browser.png");
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">SEPA-Konvertierung</span></p>"
-        + "<p></p></form>";
-  }
 }

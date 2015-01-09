@@ -54,7 +54,4 @@ public class MailVorlageDetailView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
-  // TODO getHelp()
-
 }

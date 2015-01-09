@@ -588,15 +588,4 @@ public class AuswertungVorlagenCsvView extends AbstractView
   {
     this.vorlageNameLabel.setText(this.fileName + " *");
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Vorlagen für Mitglieder-Auswertung</span></p>"
-        + "<p>Einzelne Felder mit Drag&amp;Drop in die rechte Tabelle ziehen.</p>"
-        + "<p>Löschen mittels Taste ENTF.</p>"
-        + "<p>Umsortieren der Tabelle mit Drag&amp;Drop.</p>"
-        + "<p>Benennen der Felder direkt in der Tabelle.</p>" + "</form>";
-  }
-
 }

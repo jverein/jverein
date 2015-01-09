@@ -44,13 +44,4 @@ public class ZusatzbetraegelisteView extends AbstractView
         DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Zusatzbeträge</span></p>"
-        + "<p>Anzeige der Zusatzbeträge. Filterung auf alle, aktive, noch nicht ausgeführte und zu einem "
-        + "bestimmten Datum ausgeführte Zusatzbeträge. Die angezeigte Liste kann als PDF-Dokument "
-        + "ausgegeben werden.</p></form>";
-  }
 }

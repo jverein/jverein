@@ -42,14 +42,5 @@ public class AuswertungKursteilnehmerView extends AbstractView
         DokumentationUtil.AUSWERTUNGKURSTEILNEHMER, false, "help-browser.png");
     buttons.addButton(control.getStartAuswertungButton());
     buttons.paint(this.getParent());
-
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Auswertung Kursteilnehmer</span></p>"
-        + "<p>Die Kursteilnehmer eines vorgegebenen Zeitraums können im PDF-Format ausgegeben werden.</p>"
-        + "</form>";
   }
 }

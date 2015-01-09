@@ -45,7 +45,4 @@ public class EigenschaftGruppeListeView extends AbstractView
         false, "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  // TODO getHelp()
-
 }

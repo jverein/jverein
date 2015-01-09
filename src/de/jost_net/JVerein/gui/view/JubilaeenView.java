@@ -44,11 +44,4 @@ public class JubilaeenView extends AbstractView
         "go.png");
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Jubiläen</span></p>"
-        + "<p>Ausgabe der Mitgliedsjubilare und der Altersjubilare.</p></form>";
-  }
 }

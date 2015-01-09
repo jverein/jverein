@@ -42,16 +42,4 @@ public class AnfangsbestandListView extends AbstractView
         "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Anfangsbestände</span></p>"
-        + "<p>Für jedes Konto ist zu Beginn des Geschäftsjahres der Anfangsbestand zu "
-        + "speichern. Die Buchungen sind in chronologisch korrekter Reihenfolge vorzunehmen.</p> "
-        + "<p>Durch einen Doppelklick kann ein Anfangsbestand korrigiert werden. Mit einem "
-        + "Klick auf neu wird ein neuer Anfangsbestand aufgenommen. Durch einen Rechtsklick "
-        + "öffnet sich ein Kontextmenü, mit dem ein Anfangsbestand gelöscht werden kann.</p>"
-        + "</form>";
-  }
 }

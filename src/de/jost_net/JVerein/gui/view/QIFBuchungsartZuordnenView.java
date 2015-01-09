@@ -94,13 +94,4 @@ public class QIFBuchungsartZuordnenView extends AbstractView
   {
     importPos = (QIFImportPos) getCurrentObject();
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsarten</span></p>"
-        + "<p>Ordnen Sie alle Buchungsarten des externes Programmes eine Buchungsart in JVerein zu oder"
-        + "sperren Sie die Position für den Import.</p>" + "</form>";
-  }
-
 }

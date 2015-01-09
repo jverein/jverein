@@ -61,12 +61,4 @@ public class ZusatzbetragView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Zusatzbetrag</span></p>"
-        + "<p>Beim Buchungstext können allgemeine Variable verwendet werden. Siehe Hilfe. "
-        + "</p></form>";
-  }
 }

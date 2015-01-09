@@ -66,12 +66,4 @@ public class MitgliedskontoMahnungView extends AbstractView
     buttons.addButton(control.getStartMahnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Mahnungen ausgeben</span></p>"
-        + "<p>Für den vorgegebenen Zeitraum werden die Mahnungen für die noch nicht bezahlten Beträge ausgegeben.</p>"
-        + "</form>";
-  }
 }

@@ -80,11 +80,4 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
         DokumentationUtil.ARBEITSEINSATZ, false, "help-browser.png");
     buttons2.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Jahressaldo</span></p>"
-        + "</form>";
-  }
 }

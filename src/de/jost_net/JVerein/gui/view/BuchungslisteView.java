@@ -101,16 +101,4 @@ public class BuchungslisteView extends AbstractView
         "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungen</span></p>"
-        + "<p>Alle Buchungen aus dem vorgegebenen Zeitraum werden angezeigt. Durch einen "
-        + "Doppelklick auf eine Buchung kann die Buchungsart zugeordnet werden.</p>"
-        + "<p>Bei der Suche nach Beträgen sind folgende Eingaben möglich:</p>"
-        + "<li>18,00 (gleich)</li><li>=18,00 (gleich)</li><li>&gt;18,00 (größer)</li>"
-        + "<li>&gt;=18,00 (größergleich)</li><li>&lt;18,00 (kleiner)</li><li>&lt;=18,00 (kleinergleich)</li>"
-        + "<li>18,00..25,00 (Bereich)</li>" + "</form>";
-  }
 }

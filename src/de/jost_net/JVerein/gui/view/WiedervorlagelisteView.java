@@ -1,5 +1,5 @@
 /**********************************************************************
-* Copyright (c) by Heiner Jostkleigrewe
+ * Copyright (c) by Heiner Jostkleigrewe
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
  * License, or (at your option) any later version.
@@ -30,20 +30,11 @@ public class WiedervorlagelisteView extends AbstractView
   public void bind() throws Exception
   {
     GUI.getView().setTitle("Wiedervorlagen");
-    new WiedervorlageList(new WiedervorlageListeAction()).getWiedervorlageList().paint(
-        this.getParent());
+    new WiedervorlageList(new WiedervorlageListeAction())
+        .getWiedervorlageList().paint(this.getParent());
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.WIEDERVORLAGE, false, "help-browser.png");
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Wiedervorlage</span></p>"
-        + "<p>In dieser Liste werden die Wiedervorlagen aller Mitglieder angezeigt. "
-        + "Durch einen Rechtsklick kann entweder ein Erledigungsvermerk gesetzt werden "
-        + "oder der Wiedervorlagetermin wird gelöscht.</p></form>";
   }
 }

@@ -500,16 +500,6 @@ public class ImportView extends AbstractView
     return eigenschaftCol;
   }
 
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Import</span></p>"
-        + "<p>Import der Daten aus einer CSV-Datei. Der Aufbau der Datei ist in der Hilfe beschrieben.  </p>"
-        + "<p>Mit Drag und Drop die Spaltennamen aus der rechten Liste in die entsprechende Zeile der linken"
-        + " Tabelle ziehen. Mit der Entf Taste koennen falsch gesetzte auch wieder geloescht werden </p>"
-        + "<p>Achtung! Existierende Daten werden gelöscht.</p></form>";
-  }
-
   /**
    * load all Data from Import File
    * 

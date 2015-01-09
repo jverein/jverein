@@ -131,7 +131,7 @@ public class SpendenView extends AbstractView
       buttons.addButton("...oder Überweisung", new Action()
       {
         @Override
-        public void handleAction(Object context) 
+        public void handleAction(Object context)
         {
           try
           {
@@ -157,7 +157,7 @@ public class SpendenView extends AbstractView
       buttons.addButton("...oder SEPA-Überweisung", new Action()
       {
         @Override
-        public void handleAction(Object context) 
+        public void handleAction(Object context)
         {
           try
           {
@@ -182,7 +182,5 @@ public class SpendenView extends AbstractView
       }, null, false, "stock_next.png");
       buttons.paint(getParent());
     }
-
   }
-
 }

@@ -93,14 +93,4 @@ public class QIFMitgliederZuordnenView extends AbstractView
   {
     importPos = (QIFImportPos) getCurrentObject();
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Mitglieder</span></p>"
-        + "<p>Ordnen Sie Mitglieder den externen Namen in den Buchungen zu. "
-        + "Die Buchungen werden dann diesen Mitgliedkonten zugebucht.</p>"
-        + "</form>";
-  }
-
 }

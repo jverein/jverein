@@ -56,11 +56,4 @@ public class AnfangsbestandView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Anfangsbestand</span></p>"
-        + "</form>";
-  }
 }

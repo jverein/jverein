@@ -91,19 +91,5 @@ public class QIFBuchungsImportView extends AbstractView
     buttons.addButton("Buchungen übernehmen", control.getPIFPosBuchenAction(),
         null, false, "document-new.png");
     buttons.paint(this.getParent());
-
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Import</span></p>"
-        + "<p>Buchungen eines externen Programmes wie z.B. Quicken können eingelesen "
-        + "bearbeitet und dann importiert werden.</p>"
-        + "<li>Zuerst alle Dateien importieren</li>"
-        + "<li>Als nächstes Buchungsarten zuordnen</li>"
-        + "<li>Eventuell Mitglieder zuordnen</li>"
-        + "<li>Dem Externen ein JVereinskonto zuordnen</li>"
-        + "<li>Zum Schluss Buchungen übernehmen</li>" + "</form>";
   }
 }

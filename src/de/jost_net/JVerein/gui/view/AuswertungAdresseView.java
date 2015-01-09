@@ -64,13 +64,4 @@ public class AuswertungAdresseView extends AbstractView
     buttons.addButton(control.getStartAdressAuswertungButton());
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Auswertung Adressen</span></p>"
-        + "<p>Der Adressbestand kann nach verschiedenen Kriterien ausgewertet werden. </p>"
-        + "<p>Als Ausgabeformate stehen PDF und CSV zur Verfügung.</p>"
-        + "</form>";
-  }
 }

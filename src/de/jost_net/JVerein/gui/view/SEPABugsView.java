@@ -39,12 +39,4 @@ public class SEPABugsView extends AbstractView
         DokumentationUtil.SEPABUGS, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der SEPA-Fehler</span></p>"
-        + "<p>Mit einem Doppelklick auf eine Zeile können die Fehler korrigiert werden.</p>"
-        + "</form>";
-  }
 }

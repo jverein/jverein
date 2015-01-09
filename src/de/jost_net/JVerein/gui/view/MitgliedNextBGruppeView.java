@@ -49,7 +49,5 @@ public class MitgliedNextBGruppeView extends AbstractView
     buttons.addButton("Speichern", control.getSpeichernAction(), null, false,
         "document-save.png");
     buttons.paint(getParent());
-
   }
-
 }

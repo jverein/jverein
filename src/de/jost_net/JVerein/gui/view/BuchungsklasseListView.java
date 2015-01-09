@@ -42,13 +42,4 @@ public class BuchungsklasseListView extends AbstractView
         "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsklasse</span></p>"
-        + "<p>Buchungsklassen dienen der Gruppierung von Buchungsarten. Z. B. können die "
-        + "Buchungsarten nach Ideeller Betrieb, Wirtschaftlicher Betrieb und Vermögen gruppiert werden.</p>"
-        + "<p>Die Buchungsklassen sind den Buchungsarten zuzuordnen.</p></form>";
-  }
 }

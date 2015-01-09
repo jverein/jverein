@@ -666,21 +666,6 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     cols.arrangeVertically();
   }
 
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Mitglied</span></p>"
-        + "<li>Anrede: Herrn, Frau ...</li>"
-        + "<li>Titel: Dr., Prof. Dr., ...</li>"
-        + "<li>Sofern Auslandsadressen erfasst werden sollen, ist das unter Einstellungen anzuhaken. Dann kann auch der Wohnungsstaat eingegeben werden.</li>"
-        + "<li>Adressierungszusatz: z. B. bei Lieschen Müller</li>"
-        + "<li>Kontoinhaber: Falls das Mitglied nicht Kontoinhaber ist, können die entsprechenden Daten eingegeben werden.</li>"
-        + "<li>Austritt: Das laut Satzung gültige Austrittsdatum.</li>"
-        + "<li>Kündigung: Eingangsdatum der Kündigung.</li>"
-        + "<li>Zusatzabbuchung: Sind für das Mitglied zusätzlich zum Jahresbeitrag weitere Beträge abzubuchen, können die entsprechenden Eingaben gemacht werden.</li>"
-        + "</form>";
-  }
-
   public abstract String getTitle();
 
   public abstract boolean isMitgliedDetail();

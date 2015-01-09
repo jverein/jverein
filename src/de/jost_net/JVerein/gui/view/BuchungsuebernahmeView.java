@@ -34,9 +34,8 @@ public class BuchungsuebernahmeView extends AbstractView
 
     final BuchungsuebernahmeControl control = new BuchungsuebernahmeControl(
         this);
-    
-    control.getKontenList().paint(this.getParent());
 
+    control.getKontenList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
@@ -50,14 +49,5 @@ public class BuchungsuebernahmeView extends AbstractView
       }
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
-        + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
-        + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
-        + "</form>";
   }
 }

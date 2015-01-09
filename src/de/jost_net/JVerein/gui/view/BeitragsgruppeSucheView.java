@@ -45,12 +45,4 @@ public class BeitragsgruppeSucheView extends AbstractView
         "document-new.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Beitragsgruppe</span></p>"
-        + "<p>Alle Beitragsgruppen werden angezeigt. Durch einen Doppelklick kann eine "
-        + "Beitragsgruppe zur Bearbeitung ausgewählt werden.</p></form>";
-  }
 }

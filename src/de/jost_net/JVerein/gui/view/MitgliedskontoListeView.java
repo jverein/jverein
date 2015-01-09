@@ -55,12 +55,4 @@ public class MitgliedskontoListeView extends AbstractView
         DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Liste der Mitgliedskonto-Soll-Buchungen</span></p>"
-        + "<p>Auflistung aller Mitgliedskonto-Soll-Buchungen. Die Daten können nach Datum und "
-        + "Namen (auch Namensfragmente) gefiltert werden.</p></form>";
-  }
 }

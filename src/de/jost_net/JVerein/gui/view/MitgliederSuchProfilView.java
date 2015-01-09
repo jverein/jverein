@@ -62,13 +62,4 @@ public class MitgliederSuchProfilView extends AbstractView
     buttons.paint(this.getParent());
     control.getSuchprofilList().paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Mitglieder-Suchprofile</span></p>"
-        + "<p>Mit einem Rechtsklick auf ein Profil kann es geladen oder gelöscht werden. "
-        + "</p></form>";
-  }
-
 }

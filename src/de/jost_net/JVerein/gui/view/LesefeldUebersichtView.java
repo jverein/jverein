@@ -33,16 +33,4 @@ public class LesefeldUebersichtView extends AbstractView
         (Mitglied) getCurrentObject());
     lesefeldEinstellungPart.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Lesefeld-Definitionen</span></p>"
-        + "<p>Lesefelder werden durch Skripte konfiguriert. Jedes Skript kann für jedes "
-        + "Mitglied aufgerufen werden und erstellt so für jedes Mitglied ein Feld, das "
-        + "nur gelesen werden kann. Skripte können auf alle Daten des jeweiligen "
-        + "Mitgliedes zugreifen und diese weiterverarbeiten.</p>"
-        + "<p>Für mehr Informationen und Beispiele mit Hilfe-Knopf klicken.</p></form>";
-
-  }
 }

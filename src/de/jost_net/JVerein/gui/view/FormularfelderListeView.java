@@ -47,25 +47,14 @@ public class FormularfelderListeView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.FORMULARE, false, "help-browser.png");
-    buttons.addButton("Export", new  FormularfelderExportAction(),
-    		getCurrentObject(), false, "document-save.png");
-    buttons.addButton("Import", new  FormularfelderImportAction(control),
-    		getCurrentObject(), false, "import_obj.gif");
+    buttons.addButton("Export", new FormularfelderExportAction(),
+        getCurrentObject(), false, "document-save.png");
+    buttons.addButton("Import", new FormularfelderImportAction(control),
+        getCurrentObject(), false, "import_obj.gif");
     buttons.addButton("anzeigen", new FormularAnzeigeAction(),
         getCurrentObject(), false, "edit.png");
     buttons.addButton("neu", new FormularfeldAction(), getCurrentObject(),
         false, "document-new.png");
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Formularfelder</span></p>"
-        + "<p>Jedem Formular müssen Formularfelder zugeordnet werden. Mit <i>neu</i> "
-        + "wird ein neues Formularfeld aufgenommen. Mit einem Doppelklick öffnet "
-        + "sich das Bearbeitungsfenster für ein Formularfeld. Durch einen Rechtsklick "
-        + "erscheint ein Kontextmenü. Damit können Formularfelder gelöscht werden.</p>"
-        + "</form>";
   }
 }

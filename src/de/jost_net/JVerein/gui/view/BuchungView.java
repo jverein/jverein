@@ -53,11 +53,4 @@ public class BuchungView extends AbstractView
     buttons.addButton(savButton);
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchung</span></p>"
-        + "<p>Zuordnung einer Buchungsart zu einer Buchung.</p></form>";
-  }
 }

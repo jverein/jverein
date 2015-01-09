@@ -77,27 +77,12 @@ public class AbrechnungSEPAView extends AbstractView
     {
 
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         GUI.startView(SEPABugsView.class.getName(), null);
       }
     }, null, false, "debug_exc.gif");
     buttons.addButton(control.getStartButton());
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Abbuchung</span> </p>"
-        + "<p>Zunächst ist der Modus auszuwählen. Die Auswahlmöglichkeiten "
-        + "richten sich nach dem ausgewählten Beitragsmodell (siehe Einstellungen).</p>"
-        + "<p>Der Stichtag wird  zur Prüfung herangezogen, ob die Mitgliedschaft schon/noch besteht "
-        + "und damit eine Abrechnung generiert muss. Liegt das Eintrittsdatum vor dem Stichtag und "
-        + "das Austrittsdatum nach dem Stichtag, wird das Mitglied berücksichtigt.</p>"
-        + "<p>Der angegebene Verwendungszweck wird bei allen Mitgliedsbeitrags-Buchungen "
-        + "eingetragen. </p>"
-        + "<p>  Es kann angegeben werden, ob Zusatzabbuchungen und Kursteilnehmer berücksichtigt "
-        + " werden sollen.</p></form>";
   }
 }

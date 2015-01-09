@@ -43,17 +43,8 @@ public class KontoauszugView extends AbstractView
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.KONTOAUSZUG, false, "help-browser.png");
     buttons.addButton(control.getStartKontoauszugButton(
-        this.getCurrentObject(),
-        (Date) control.getVondatum("kontoauszug").getValue(),
-        (Date) control.getBisdatum("kontoauszug").getValue()));
+        this.getCurrentObject(), (Date) control.getVondatum("kontoauszug")
+            .getValue(), (Date) control.getBisdatum("kontoauszug").getValue()));
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Kontoauszug</span></p>"
-        + "<p>Alle Buchungen des Mitgliedskontos werden in einem Kontoauszug im PDF-Format ausgegegen.</p>"
-        + "</form>";
   }
 }

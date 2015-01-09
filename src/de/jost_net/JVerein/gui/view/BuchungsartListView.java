@@ -48,20 +48,22 @@ public class BuchungsartListView extends AbstractView
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
-    	 try {
-			control.getBuchungsartList();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			GUI.getStatusBar().setErrorText(e.getMessage());
-		}
+        try
+        {
+          control.getBuchungsartList();
+        }
+        catch (RemoteException e)
+        {
+          // TODO Auto-generated catch block
+          GUI.getStatusBar().setErrorText(e.getMessage());
+        }
       }
     }, null, true, "system-search.png");
     buttons1.addButton(button);
     buttons1.paint(this.getParent());
-    
+
     LabelGroup group2 = new LabelGroup(getParent(), "Liste", true);
     group2.addPart(control.getBuchungsartList());
-    
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
@@ -70,16 +72,5 @@ public class BuchungsartListView extends AbstractView
     buttons.addButton("neu", new BuchungsartAction(), null, false,
         "document-new.png");
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Buchungsart</span></p>"
-        + "<p>Die Nummer und die Bezeichung der Buchungsart sind zu erfassen.</p>"
-        + "<p>Bei der Vergabe der Nummern sollten Nummernkreise für Eingaben "
-        + "und Ausgaben gebildet werden. Beispielsweise die 1000er Nummern "
-        + "für Einnahmen und die 2000er Nummern für Ausgaben. Die Sortierung "
-        + "der Buchungsauswertung erfolgt nach diesen Nummern.</p>" + "</form>";
   }
 }

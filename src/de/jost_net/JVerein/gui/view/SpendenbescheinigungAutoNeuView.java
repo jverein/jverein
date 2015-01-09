@@ -49,11 +49,4 @@ public class SpendenbescheinigungAutoNeuView extends AbstractView
         DokumentationUtil.SPENDENBESCHEINIGUNG, false, "help-browser.png");
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Spendenbescheinigungen</span></p>"
-        + "</form>";
-  }
 }

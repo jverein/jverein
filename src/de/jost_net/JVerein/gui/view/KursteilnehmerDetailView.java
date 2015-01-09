@@ -59,8 +59,8 @@ public class KursteilnehmerDetailView extends AbstractView
     grGrund.addInput(control.getIBAN());
     grGrund.addInput(control.getBIC());
     grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),
-        control.getBlz(), control.getKonto(), control.getBIC(),
-        control.getIBAN()));
+        control.getBlz(), control.getKonto(), control.getBIC(), control
+            .getIBAN()));
     // grGrund.addLabelPair("BLZ"),
     // control.getBlz());
     // grGrund.addLabelPair("Konto"),
@@ -91,6 +91,4 @@ public class KursteilnehmerDetailView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-  // TODO getHelp()
-
 }

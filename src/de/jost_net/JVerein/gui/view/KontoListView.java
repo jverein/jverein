@@ -41,18 +41,8 @@ public class KontoListView extends AbstractView
         DokumentationUtil.KONTEN, false, "help-browser.png");
     buttons.addButton("Hibiscus-Konten-Import", new HibiscusKontenImportAction(
         control), null, false, "go.png");
-    buttons.addButton("neu", new KontoAction(), null, false, "document-new.png");
+    buttons
+        .addButton("neu", new KontoAction(), null, false, "document-new.png");
     buttons.paint(this.getParent());
-  }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Konten</span></p>"
-        + "<p>Konten können entweder von Hibuscus übernommen werden oder durch einen "
-        + "Klick auf neu aufgenommen werden.</p>"
-        + "<p>Durch einen Rechtsklick auf ein Konto kann entweder der Anfangsbestand des "
-        + "Kontos zu einem Zeitpunkt eingegeben werden oder das Konto kann gelöscht werden, "
-        + "sofern keine Buchungen für das Konto existieren.</p></form>";
   }
 }

@@ -98,18 +98,4 @@ public class AuswertungMitgliedView extends AbstractView
     buttons.addButton(control.getStartAuswertungButton());
     buttons.paint(getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Auswertung Mitglieder</span></p>"
-        + "<p>Der Mitgliederbestand kann nach Geburtsdatum, Eintrittsdatum, "
-        + "Austrittsdatum und Beitragsgruppen selektiert werden. Werden "
-        + "keine Angaben zum Austrittsdatum gemacht, werden nur Mitglieder "
-        + "ausgewertet, die nicht ausgetreten sind.</p>"
-        + "<p>Die Sortierung kann nach Name-Vorname, Eintrittsdatum oder "
-        + "Austrittsdatum erfolgen.</p>"
-        + "<p>Als Ausgabeformate stehen PDF und CSV zur Verfügung.</p>"
-        + "</form>";
-  }
 }

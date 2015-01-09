@@ -148,17 +148,6 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     }
   }
 
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Mitgliedersuche</span></p>"
-        + "<p>Geben Sie Filterkriterien ein oder wählen sie aus. Jeweils beim Verlassen eines Filterfeldes "
-        + "wird die Treffermenge aktualisiert.</p>"
-        + "<p>Anschließend kann das Mitglied oder die Adresse durch einen Doppelklick ausgewählt werden.</p>"
-        + "<p>Mit einem Rechtsklick stehen einige Funktionen zum Mitglied/zur Adresse zur Verfügung.</p>"
-        + "</form>";
-  }
-
   public abstract String getTitle();
 
   public abstract void getFilter() throws RemoteException;

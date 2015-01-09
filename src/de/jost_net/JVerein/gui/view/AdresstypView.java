@@ -51,13 +51,4 @@ public class AdresstypView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Adresstypen</span></p>"
-        + "<p>JVerein gibt die Adresstypen Mitglied und Spender automatisch vor. Weitere Adresstypen "
-        + "(Beispiele: Lieferanten, Trainer) können eingerichtet werden.</p>"
-        + "</form>";
-  }
 }

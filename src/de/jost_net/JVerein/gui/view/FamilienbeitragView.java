@@ -39,12 +39,4 @@ public class FamilienbeitragView extends AbstractView
         DokumentationUtil.ANFANGSBESTAENDE, false, "help-browser.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Familienbeiträge</span></p>"
-        + "<p>Doppelklick öffnet das Mitglied. Rechtsklick bietet die Möglichkeit, das Mitglied aus dem Famlilienverband zu entfernen.</p>"
-        + "</form>";
-  }
 }

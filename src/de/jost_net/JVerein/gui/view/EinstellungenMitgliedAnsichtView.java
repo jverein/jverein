@@ -126,11 +126,4 @@ public class EinstellungenMitgliedAnsichtView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Einstellungen Mitglied Ansicht</span></p>"
-        + "</form>";
-  }
 }

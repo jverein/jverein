@@ -60,11 +60,4 @@ public class EinstellungenAllgemeinView extends AbstractView
     }, null, true, "document-save.png");
     buttons.paint(this.getParent());
   }
-
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Einstellungen</span></p>"
-        + "</form>";
-  }
 }
