@@ -20,8 +20,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.rmi.RemoteException;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
@@ -212,31 +212,64 @@ public class MitgliederStatistik
   private int getAltersgruppe(VonBis vb, String geschlecht, Date stichtag)
       throws RemoteException
   {
-    Calendar calVon = Calendar.getInstance();
-    calVon.setTime(stichtag);
-    calVon.add(Calendar.YEAR, vb.getBis() * -1);
-    calVon.set(Calendar.MONTH, Calendar.JANUARY);
-    calVon.set(Calendar.DAY_OF_MONTH, 1);
-    calVon.set(Calendar.HOUR, 0);
-    calVon.set(Calendar.MINUTE, 0);
-    calVon.set(Calendar.SECOND, 0);
-    calVon.set(Calendar.MILLISECOND, 0);
+    GregorianCalendar cal = new GregorianCalendar();
+    cal.setTime(stichtag);
+    boolean schalttag = false;
+
+    /**
+     * Pruefung, ob 29. Februar als Stichtag gewaehlt wurde
+     */
+    if (cal.get(GregorianCalendar.MONTH) == GregorianCalendar.FEBRUARY
+        && cal.get(GregorianCalendar.DAY_OF_MONTH) == 29)
+    {
+      schalttag = true;
+    }
+
+    GregorianCalendar calVon = (GregorianCalendar) cal.clone();
+    calVon.add(GregorianCalendar.YEAR, (vb.getBis() + 1) * -1);
+
+    /**
+     * Im Normalfall (Stichtag != 29.02.), muss immer ein Tag addiert werden, da
+     * sonst ein Tag zu viel - naemlich das gesetzte Stichtagsdatum - mit
+     * erfasst wuerde. Ebenfalls muss ein Tag addiert werden, wenn ein Schalttag
+     * gesetzt ist und gleichzeitig calVon ein Schaltjahr ist. In den
+     * verbleibenden Faellen (wenn Schalttag gesetzt ist und calVon) kein
+     * Schaltjahr ist, muss nichts getan werden, da automatisch der 01.03
+     * referenziert wird.
+     */
+    if ((calVon.isLeapYear(calVon.get(GregorianCalendar.YEAR)) && schalttag)
+        || !schalttag)
+    {
+      calVon.add(GregorianCalendar.DATE, 1);
+    }
     java.sql.Date vd = new java.sql.Date(calVon.getTimeInMillis());
 
-    Calendar calBis = Calendar.getInstance();
-    calBis.setTime(stichtag);
-    calBis.add(Calendar.YEAR, vb.getVon() * -1);
-    calBis.set(Calendar.MONTH, Calendar.DECEMBER);
-    calBis.set(Calendar.DAY_OF_MONTH, 31);
+    GregorianCalendar calBis = (GregorianCalendar) cal.clone();
+    calBis.add(GregorianCalendar.YEAR, vb.getVon() * -1);
+
+    /**
+     * Im Fall, dass calBis kein Schaltjahr ist und der 29. Februar als Stichtag
+     * gesetzt ist, muss ein Tag subrahiert werden, da calVon dann den 01.03.
+     * referenziert (und noch mit erfassen wuerde), ansonsten muss nichts
+     * gemacht werden.
+     */
+    if (schalttag && !calBis.isLeapYear(calBis.get(GregorianCalendar.YEAR)))
+    {
+      calBis.add(GregorianCalendar.DATE, -1);
+    }
+    java.sql.Date bd = new java.sql.Date(calBis.getTimeInMillis());
 
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     list.addFilter("geburtsdatum >= ?", new Object[] { vd });
-    list.addFilter("geburtsdatum <= ?",
-        new Object[] { new java.sql.Date(calBis.getTimeInMillis()) });
+    list.addFilter("geburtsdatum <= ?", new Object[] { bd });
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
-    list.addFilter("(eintritt is null or eintritt <= ?)",
-        new Object[] { stichtag });
+
+    /**
+     * Filter bereits ueber "setNurAktive" gesetzt
+     */
+    // list.addFilter("(eintritt is null or eintritt <= ?)", new Object[] {
+    // stichtag });
 
     if (geschlecht != null
         && (geschlecht.equals(GeschlechtInput.MAENNLICH) || geschlecht
@@ -262,8 +295,13 @@ public class MitgliederStatistik
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
-    list.addFilter("(eintritt is null or eintritt <= ?)",
-        new Object[] { stichtag });
+
+    /**
+     * Filter bereits ueber "setNurAktive" gesetzt
+     */
+    // list.addFilter("(eintritt is null or eintritt <= ?)",
+    // new Object[] { stichtag });
+
     if (bg != null)
     {
       list.addFilter("beitragsgruppe = ?",
