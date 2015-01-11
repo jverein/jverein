@@ -84,6 +84,9 @@ public class MitgliedLastschriftAction implements Action
         sl = (SepaLastschrift) Settings.getDBService().createObject(
             SepaLastschrift.class, null);
 
+        // Gläubiger-ID
+        sl.setCreditorId(Einstellungen.getEinstellung().getGlaeubigerID());
+
         // Kontodaten: Name, BIC, IBAN
         sl.setGegenkontoName(mZ.getKontoinhaber(1));
         sl.setGegenkontoBLZ(mZ.getBic());
