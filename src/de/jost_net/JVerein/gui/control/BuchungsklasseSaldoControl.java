@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.parts.BuchungsklasseSaldoList;
 import de.jost_net.JVerein.io.BuchungsklasseSaldoZeile;
+import de.jost_net.JVerein.io.BuchungsklassesaldoCSV;
 import de.jost_net.JVerein.io.BuchungsklassesaldoPDF;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -55,6 +56,10 @@ public class BuchungsklasseSaldoControl extends AbstractControl
   private DateInput datumbis;
 
   private Settings settings = null;
+
+  final static String AuswertungPDF = "PDF";
+
+  final static String AuswertungCSV = "CSV";
 
   public BuchungsklasseSaldoControl(AbstractView view)
   {
@@ -112,9 +117,23 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       @Override
       public void handleAction(Object context) throws ApplicationException
       {
-        starteAuswertung();
+        starteAuswertung(AuswertungPDF);
       }
     }, null, true, "pdf.png"); // "true" defines this button as the default
+    // button
+    return b;
+  }
+
+  public Button getStartAuswertungCSVButton()
+  {
+    Button b = new Button("CSV", new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        starteAuswertung(AuswertungCSV);
+      }
+    }, null, true, "csv.jpg"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -167,7 +186,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     return saldoList.getSaldoList();
   }
 
-  private void starteAuswertung() throws ApplicationException
+  // THL pdf cvs umschalter
+  private void starteAuswertung(String type) throws ApplicationException
   {
     try
     {
@@ -185,7 +205,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
         fd.setFilterPath(path);
       }
       fd.setFileName(new Dateiname("buchungsklassensaldo", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+          .getEinstellung().getDateinamenmuster(), type).get());
 
       final String s = fd.open();
 
@@ -196,8 +216,9 @@ public class BuchungsklasseSaldoControl extends AbstractControl
 
       final File file = new File(s);
       settings.setAttribute("lastdir", file.getParent());
-      auswertungSaldoPDF(zeile, file, (Date) getDatumvon().getValue(),
-          (Date) getDatumbis().getValue());
+
+      auswertungSaldo(zeile, file, (Date) getDatumvon().getValue(),
+          (Date) getDatumbis().getValue(), type);
     }
     catch (RemoteException e)
     {
@@ -206,9 +227,9 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
   }
 
-  private void auswertungSaldoPDF(
-      final ArrayList<BuchungsklasseSaldoZeile> zeile, final File file,
-      final Date datumvon, final Date datumbis)
+  private void auswertungSaldo(final ArrayList<BuchungsklasseSaldoZeile> zeile,
+      final File file, final Date datumvon, final Date datumbis,
+      final String type)
   {
     BackgroundTask t = new BackgroundTask()
     {
@@ -217,7 +238,11 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         try
         {
-          new BuchungsklassesaldoPDF(zeile, file, datumvon, datumbis);
+          // mit Java 1.7 k?nnte man hier eine Swich Anweisung nehmen.
+          if (type.equals(AuswertungCSV))
+            new BuchungsklassesaldoCSV(zeile, file, datumvon, datumbis);
+          else if (type.equals(AuswertungPDF))
+            new BuchungsklassesaldoPDF(zeile, file, datumvon, datumbis);
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -241,4 +266,5 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     };
     Application.getController().start(t);
   }
+
 }
