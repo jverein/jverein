@@ -69,7 +69,14 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
         GenericIterator gi = PseudoIterator.fromArray(zeile
             .toArray(new GenericObject[zeile.size()]));
 
-        saldoList = new TablePart(gi, null);
+        saldoList = new TablePart(gi, null)
+        {
+          @Override
+          protected void orderBy(int index)
+          {
+            return;
+          }
+        };
         saldoList.addColumn("Buchungsklasse", "buchungsklassenbezeichnung",
             null, false);
         saldoList.addColumn("Buchungsart", "buchungsartbezeichnung");

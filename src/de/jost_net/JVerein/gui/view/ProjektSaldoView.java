@@ -34,8 +34,7 @@ public class ProjektSaldoView extends AbstractView
   {
     GUI.getView().setTitle("Projekte-Saldo");
 
-    final ProjektSaldoControl control = new ProjektSaldoControl(
-        this);
+    final ProjektSaldoControl control = new ProjektSaldoControl(this);
 
     LabelGroup group = new LabelGroup(getParent(), "Zeitraum");
     group.addLabelPair("von", control.getDatumvon());
@@ -58,7 +57,7 @@ public class ProjektSaldoView extends AbstractView
 
     ButtonArea buttons2 = new ButtonArea();
     buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.JAHRESSALDO, false, "help-browser.png");
+        DokumentationUtil.PROJEKTE, false, "help-browser.png");
     buttons2.addButton(control.getStartAuswertungButton());
     buttons2.paint(this.getParent());
   }
