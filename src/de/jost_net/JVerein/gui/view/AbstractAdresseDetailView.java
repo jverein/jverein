@@ -195,9 +195,11 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     }
     buttons.addButton("Mail", new MitgliedMailSendenAction(),
         getCurrentObject(), false, "mail-message-new.png");
-    buttons.addButton("neue Mail",
-        isMitgliedDetail() ? new MitgliedDetailAction()
-            : new AdresseDetailAction(), null, false, "document-new.png");
+    // buttons.addButton("neue Mail", new MailDetailAction(),
+    // control.getCurrentObject(), false, "document-new.png");
+    buttons.addButton("neu", (isMitgliedDetail() ? new MitgliedDetailAction()
+        : new AdresseDetailAction()), null, false, "document-new.png");
+
     buttons.addButton("löschen",
         (isMitgliedDetail() ? new MitgliedDeleteAction()
             : new AdresseDeleteAction()), control.getCurrentObject(), false,
