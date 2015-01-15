@@ -2660,26 +2660,26 @@ public class MitgliedControl extends AbstractControl
 
   public Button getZusatzbetragNeu()
   {
-    return new Button("Neuer Zusatzbetrag", new ZusatzbetraegeAction(getMitglied()), null,
-        false, "document-new.png");
+    return new Button("Neuer Zusatzbetrag", new ZusatzbetraegeAction(
+        getMitglied()), null, false, "document-new.png");
   }
 
   public Button getWiedervorlageNeu()
   {
-    return new Button("Neue Wiedervorlage", new WiedervorlageAction(getMitglied()), null,
-        false, "document-new.png");
+    return new Button("Neue Wiedervorlage", new WiedervorlageAction(
+        getMitglied()), null, false, "document-new.png");
   }
 
   public Button getArbeitseinsatzNeu()
   {
-    return new Button("Neuer Arbeitseinsatz", new ArbeitseinsatzAction(getMitglied()), null,
-        false, "document-new.png");
+    return new Button("Neuer Arbeitseinsatz", new ArbeitseinsatzAction(
+        getMitglied()), null, false, "document-new.png");
   }
 
   public Button getLehrgangNeu()
   {
-    return new Button("Neuer Lehrgang", new LehrgangAction(getMitglied()), null, false,
-        "document-new.png");
+    return new Button("Neuer Lehrgang", new LehrgangAction(getMitglied()),
+        null, false, "document-new.png");
   }
 
   public TablePart getMitgliedTable(int atyp, Action detailaction)
@@ -3353,6 +3353,7 @@ public class MitgliedControl extends AbstractControl
         s = s + "." + ausw.getDateiendung();
       }
       final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
 
       final ArrayList<Mitglied> flist = list;
       ausw.beforeGo();
@@ -3437,6 +3438,7 @@ public class MitgliedControl extends AbstractControl
         s = s + "." + ausw.getDateiendung();
       }
       final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
 
       final ArrayList<Mitglied> flist = list;
       ausw.beforeGo();
@@ -3493,8 +3495,6 @@ public class MitgliedControl extends AbstractControl
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
     fd.setFilterExtensions(new String[] { "*.PDF" });
-    Settings settings = new Settings(this.getClass());
-
     String path = settings
         .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
@@ -3516,6 +3516,8 @@ public class MitgliedControl extends AbstractControl
     }
 
     final File file = new File(s);
+    settings.setAttribute("lastdir", file.getParent());
+
     final Date sticht = (Date) stichtag.getValue();
 
     BackgroundTask t = new BackgroundTask()
