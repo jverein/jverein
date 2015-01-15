@@ -201,7 +201,7 @@ public class MyExtension implements Extension
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Hibiscus-Buchungen",
           new BuchungsuebernahmeAction(), "hibiscus-icon-64x64.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Projekte",
-          new ProjektSaldoAction(), "summe.png"));
+          new ProjektSaldoAction(), "projects.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungsklassen",
           new BuchungsklasseSaldoAction(), "summe.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahressaldo",
