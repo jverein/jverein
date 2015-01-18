@@ -20,11 +20,17 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
 import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
+import de.jost_net.JVerein.gui.dialogs.ZusatzbetragVorlageDialog;
+import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
+import de.willuhn.jameica.system.OperationCanceledException;
+import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
 
 public class ZusatzbetragView extends AbstractView
 {
@@ -42,10 +48,49 @@ public class ZusatzbetragView extends AbstractView
     group.addLabelPair("Endedatum", control.getEndedatum());
     group.addLabelPair("Buchungstext", control.getBuchungstext());
     group.addLabelPair("Betrag", control.getBetrag());
+    LabelGroup group2 = new LabelGroup(getParent(), "Vorlagen");
+    group2.addLabelPair("Als Vorlage speichern", control.getVorlage());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
+    buttons.addButton("Vorlagen", new Action()
+    {
+      @Override
+      public void handleAction(Object context) throws ApplicationException
+      {
+        try
+        {
+          ZusatzbetragVorlageDialog zbvd = new ZusatzbetragVorlageDialog();
+          ZusatzbetragVorlage zbv = zbvd.open();
+          control.getBetrag().setValue(zbv.getBetrag());
+          control.getBuchungstext().setValue(zbv.getBuchungstext());
+          control.getEndedatum().setValue(zbv.getEndedatum());
+          control.getFaelligkeit().setValue(zbv.getFaelligkeit());
+          control.getIntervall().setValue(zbv.getIntervall());
+          for (Object obj : control.getIntervall().getList())
+          {
+            IntervallZusatzzahlung ivz = (IntervallZusatzzahlung) obj;
+            if (zbv.getIntervall() == ivz.getKey())
+            {
+              control.getIntervall().setPreselected(ivz);
+              break;
+            }
+          }
+          control.getStartdatum(false).setValue(zbv.getStartdatum());
+        }
+        catch (OperationCanceledException e)
+        {
+          // Nothing to do
+        }
+        catch (Exception e)
+        {
+          Logger.error("ZusatzbetragVorlageDialog kann nicht geöffnet werden",
+              e);
+        }
+      }
+
+    });
     buttons.addButton("Mitglied", new MitgliedDetailAction(), control
         .getZusatzbetrag().getMitglied(), false, "system-users.png");
     buttons.addButton("löschen", new ZusatzbetraegeDeleteAction(),

@@ -44,6 +44,7 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
+import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -93,7 +94,15 @@ public class ZusatzbetragControl extends AbstractControl
 
   private SelectInput ausfuehrungSuch = null;
 
+  private SelectInput vorlage = null;
+
   private TablePart zusatzbetraegeList;
+
+  private String NEIN = "nein";
+
+  private String MITDATUM = "ja, mit Datum";
+
+  private String OHNEDATUM = "ja, ohne Datum";
 
   public ZusatzbetragControl(AbstractView view)
   {
@@ -324,6 +333,16 @@ public class ZusatzbetragControl extends AbstractControl
     return ausfuehrungSuch;
   }
 
+  public SelectInput getVorlage()
+  {
+    if (vorlage != null)
+    {
+      return vorlage;
+    }
+    vorlage = new SelectInput(new Object[] { NEIN, MITDATUM, OHNEDATUM }, NEIN);
+    return vorlage;
+  }
+
   public void handleStore()
   {
     try
@@ -339,6 +358,21 @@ public class ZusatzbetragControl extends AbstractControl
       Double d = (Double) getBetrag().getValue();
       z.setBetrag(d.doubleValue());
       z.store();
+      if (vorlage.getValue() == MITDATUM || vorlage.getValue() == OHNEDATUM)
+      {
+        ZusatzbetragVorlage zv = (ZusatzbetragVorlage) Einstellungen
+            .getDBService().createObject(ZusatzbetragVorlage.class, null);
+        zv.setIntervall(z.getIntervall());
+        zv.setBuchungstext(z.getBuchungstext());
+        zv.setBetrag(z.getBetrag());
+        if (vorlage.getValue() == MITDATUM)
+        {
+          zv.setEndedatum(z.getEndedatum());
+          zv.setFaelligkeit(z.getFaelligkeit());
+          zv.setStartdatum(z.getStartdatum());
+        }
+        zv.store();
+      }
       GUI.getStatusBar().setSuccessText("Zusatzbetrag gespeichert");
     }
     catch (ApplicationException e)
