@@ -41,7 +41,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
 
   public final static String BUCHUNGSNUMMER = "Buchungsnummer";
 
-  private String selected = null;
+  private String selected = DATUM;
 
   private SelectInput sortierung = null;
 
@@ -91,7 +91,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
       return this.sortierung;
     }
     this.sortierung = new SelectInput(new Object[] { DATUM, DATUM_NAME,
-        BUCHUNGSNUMMER }, null);
+        BUCHUNGSNUMMER }, DATUM);
     this.sortierung.setName("Sortierung");
     this.sortierung.addListener(new Listener()
     {
