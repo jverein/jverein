@@ -50,7 +50,7 @@ public class BuchungsjournalSortDialog extends AbstractDialog<String>
     super(position);
 
     setTitle("Buchungsjournal-Sortierung");
-    setSize(300, 180);
+    setSize(300, 200);
   }
 
   @Override
