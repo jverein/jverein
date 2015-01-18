@@ -26,7 +26,7 @@ package de.jost_net.JVerein.keys;
 import java.util.ArrayList;
 
 /**
- * Schlüssel Zahlungsweg
+ * Schlüssel Sortierung der Buchungsart; Form der Anzeige
  */
 public class BuchungsartSort
 {
@@ -34,6 +34,8 @@ public class BuchungsartSort
   public static final int NACH_BEZEICHNUNG = 1;
 
   public static final int NACH_NUMMER = 2;
+
+  public static final int NACH_BEZEICHNUNG_NR = 3;
 
   private int buchungsartsort;
 
@@ -60,6 +62,8 @@ public class BuchungsartSort
         return "Nach Bezeichnung";
       case NACH_NUMMER:
         return "Nach Nummer";
+      case NACH_BEZEICHNUNG_NR:
+        return "Nach Bezeichnung mit Nummer";
       default:
         return null;
     }
@@ -70,6 +74,7 @@ public class BuchungsartSort
     ArrayList<BuchungsartSort> ret = new ArrayList<BuchungsartSort>();
     ret.add(new BuchungsartSort(NACH_BEZEICHNUNG));
     ret.add(new BuchungsartSort(NACH_NUMMER));
+    ret.add(new BuchungsartSort(NACH_BEZEICHNUNG_NR));
     return ret;
   }
 

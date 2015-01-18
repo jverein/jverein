@@ -198,13 +198,17 @@ public class BeitragsgruppeControl extends AbstractControl
       it.setOrder("ORDER BY bezeichnung");
     }
     buchungsart = new SelectInput(it, getBeitragsgruppe().getBuchungsart());
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    switch (Einstellungen.getEinstellung().getBuchungsartSort())
     {
-      buchungsart.setAttribute("nrbezeichnung");
-    }
-    else
-    {
-      buchungsart.setAttribute("bezeichnung");	  
+      case BuchungsartSort.NACH_NUMMER:
+        buchungsart.setAttribute("nrbezeichnung");
+    	break;
+      case BuchungsartSort.NACH_BEZEICHNUNG_NR:
+        buchungsart.setAttribute("bezeichnungnr");
+    	break;
+      default:
+    	buchungsart.setAttribute("bezeichnung");
+    	break;	
     }
     buchungsart.setPleaseChoose("bitte auswählen");
     return buchungsart;

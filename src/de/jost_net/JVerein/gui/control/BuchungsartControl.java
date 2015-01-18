@@ -162,14 +162,19 @@ public class BuchungsartControl extends AbstractControl
     }
     buchungsklasse = new SelectInput(list, getBuchungsart().getBuchungsklasse());
     buchungsklasse.setValue(getBuchungsart().getBuchungsklasse());
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    switch (Einstellungen.getEinstellung().getBuchungsartSort())
     {
-      buchungsklasse.setAttribute("nrbezeichnung");
+      case BuchungsartSort.NACH_NUMMER:
+        buchungsklasse.setAttribute("nrbezeichnung");
+        break;
+      case BuchungsartSort.NACH_BEZEICHNUNG_NR:
+    	buchungsklasse.setAttribute("bezeichnungnr");
+        break;
+      default:
+    	buchungsklasse.setAttribute("bezeichnung");
+    	break;
     }
-    else
-    {
-      buchungsklasse.setAttribute("bezeichnung");
-    }
+
     buchungsklasse.setPleaseChoose("Bitte auswählen");
     return buchungsklasse;
   }

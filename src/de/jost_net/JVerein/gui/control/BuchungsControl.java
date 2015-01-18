@@ -463,13 +463,17 @@ public class BuchungsControl extends AbstractControl
     {
       case BuchungBuchungsartAuswahl.ComboBox:
         buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
-        if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+        switch (Einstellungen.getEinstellung().getBuchungsartSort())
         {
-           ((SelectInput) buchungsart).setAttribute("nrbezeichnung");
-        }
-        else
-        {
+          case BuchungsartSort.NACH_NUMMER: 
+            ((SelectInput) buchungsart).setAttribute("nrbezeichnung");
+            break;
+          case BuchungsartSort.NACH_BEZEICHNUNG_NR:
+            ((SelectInput) buchungsart).setAttribute("bezeichnungnr");
+        	break;
+          default:
             ((SelectInput) buchungsart).setAttribute("bezeichnung");
+            break;
         }
         ((SelectInput) buchungsart).setPleaseChoose("Bitte auswählen");
         break;
@@ -621,13 +625,17 @@ public class BuchungsControl extends AbstractControl
     suchbuchungsart = new SelectInput(liste, b);
     suchbuchungsart.addListener(new FilterListener());
 
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    switch (Einstellungen.getEinstellung().getBuchungsartSort())
     {
-      suchbuchungsart.setAttribute("nrbezeichnung");    
-    }
-    else
-    {
-      suchbuchungsart.setAttribute("bezeichnung");
+      case BuchungsartSort.NACH_NUMMER:
+        suchbuchungsart.setAttribute("nrbezeichnung");
+        break;
+      case BuchungsartSort.NACH_BEZEICHNUNG_NR:
+        suchbuchungsart.setAttribute("bezeichnungnr");
+        break;
+      default:
+        suchbuchungsart.setAttribute("bezeichnung");
+        break;
     }
 
     return suchbuchungsart;
