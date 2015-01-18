@@ -189,7 +189,7 @@ public class BeitragsgruppeControl extends AbstractControl
       return buchungsart;
     }
     DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
     {
       it.setOrder("ORDER BY nummer");
     }
@@ -202,13 +202,13 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       case BuchungsartSort.NACH_NUMMER:
         buchungsart.setAttribute("nrbezeichnung");
-    	break;
+        break;
       case BuchungsartSort.NACH_BEZEICHNUNG_NR:
         buchungsart.setAttribute("bezeichnungnr");
-    	break;
+        break;
       default:
-    	buchungsart.setAttribute("bezeichnung");
-    	break;	
+        buchungsart.setAttribute("bezeichnung");
+        break;
     }
     buchungsart.setPleaseChoose("bitte auswählen");
     return buchungsart;
