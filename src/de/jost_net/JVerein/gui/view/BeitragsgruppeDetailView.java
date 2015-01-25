@@ -43,6 +43,12 @@ public class BeitragsgruppeDetailView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Beitrag");
     group.addLabelPair("Bezeichnung", control.getBezeichnung(true));
+
+    if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen())
+    {
+      group.addLabelPair("Sekundäre Beitragsgruppe", control.getSekundaer());
+    }
+
     switch (Einstellungen.getEinstellung().getBeitragsmodel())
     {
       case GLEICHERTERMINFUERALLE:

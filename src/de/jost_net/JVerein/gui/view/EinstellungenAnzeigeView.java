@@ -50,6 +50,8 @@ public class EinstellungenAnzeigeView extends AbstractView
     left.addLabelPair("Sterbedatum", control.getSterbedatum());
     left.addLabelPair("Kommunikationsdaten anzeigen",
         control.getKommunikationsdaten());
+    left.addLabelPair("Sekundäre Beitragsgruppen anzeigen" + "*",
+        control.getSekundaereBeitragsgruppen());
     left.addLabelPair("Zusatzbeträge anzeigen" + "*", control.getZusatzbetrag());
     left.addLabelPair("Zusatzbeträge auch für Ausgetretene *",
         control.getZusatzbetragAusgetretene());

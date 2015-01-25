@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
+import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.BuchungsartSort;
@@ -32,6 +33,7 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
+import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -45,6 +47,8 @@ public class BeitragsgruppeControl extends AbstractControl
   private TablePart beitragsgruppeList;
 
   private Input bezeichnung;
+
+  private CheckboxInput sekundaer;
 
   private DecimalInput betrag;
 
@@ -92,6 +96,16 @@ public class BeitragsgruppeControl extends AbstractControl
       bezeichnung.focus();
     }
     return bezeichnung;
+  }
+
+  public CheckboxInput getSekundaer() throws RemoteException
+  {
+    if (sekundaer != null)
+    {
+      return sekundaer;
+    }
+    sekundaer = new CheckboxInput(getBeitragsgruppe().getSekundaer());
+    return sekundaer;
   }
 
   public DecimalInput getBetrag() throws RemoteException
@@ -220,6 +234,7 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       Beitragsgruppe b = getBeitragsgruppe();
       b.setBezeichnung((String) getBezeichnung(false).getValue());
+      b.setSekundaer((Boolean) sekundaer.getValue());
       switch (Einstellungen.getEinstellung().getBeitragsmodel())
       {
         case GLEICHERTERMINFUERALLE:
@@ -308,7 +323,7 @@ public class BeitragsgruppeControl extends AbstractControl
           "arbeitseinsatzbetrag", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
     }
-    beitragsgruppeList.addColumn("Buchungsart", "buchungsart");
+    beitragsgruppeList.addColumn("Buchungsart", "buchungsart", new BuchungsartFormatter());
     beitragsgruppeList.setContextMenu(new BeitragsgruppeMenu());
     return beitragsgruppeList;
   }

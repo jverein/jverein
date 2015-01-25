@@ -560,6 +560,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
         cols.addInput(control.getSterbetag());
       }
       cols.arrangeVertically();
+      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen())
+      {
+        container.addPart(control.getMitgliedSekundaereBeitragsgruppeView());
+      }
 
       // Wenn es mindestens eine Beitragsgruppe mit Beitragsart
       // "Familie: Zahler"

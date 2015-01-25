@@ -110,6 +110,8 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput kommunikationsdaten;
 
+  private CheckboxInput sekundaerebeitragsgruppen;
+
   private CheckboxInput zusatzbetrag;
 
   private CheckboxInput vermerke;
@@ -562,6 +564,17 @@ public class EinstellungControl extends AbstractControl
     kommunikationsdaten = new CheckboxInput(Einstellungen.getEinstellung()
         .getKommunikationsdaten());
     return kommunikationsdaten;
+  }
+
+  public CheckboxInput getSekundaereBeitragsgruppen() throws RemoteException
+  {
+    if (sekundaerebeitragsgruppen != null)
+    {
+      return sekundaerebeitragsgruppen;
+    }
+    sekundaerebeitragsgruppen = new CheckboxInput(Einstellungen
+        .getEinstellung().getSekundaereBeitragsgruppen());
+    return sekundaerebeitragsgruppen;
   }
 
   public CheckboxInput getZusatzbetrag() throws RemoteException
@@ -1694,6 +1707,8 @@ public class EinstellungControl extends AbstractControl
       e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
       e.setSterbedatum((Boolean) sterbedatum.getValue());
       e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
+      e.setSekundaereBeitragsgruppen((Boolean) sekundaerebeitragsgruppen
+          .getValue());
       e.setZusatzbetrag((Boolean) zusatzbetrag.getValue());
       e.setZusatzbetragAusgetretene((Boolean) zusatzbetragAusgetretene
           .getValue());

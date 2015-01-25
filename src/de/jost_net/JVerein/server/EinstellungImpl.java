@@ -515,6 +515,20 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public Boolean getSekundaereBeitragsgruppen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("sekundaerebeitragsgruppen"));
+  }
+
+  @Override
+  public void setSekundaereBeitragsgruppen(Boolean sekundaerebeitragsgruppen)
+      throws RemoteException
+  {
+    setAttribute("sekundaerebeitragsgruppen",
+        Boolean.valueOf(sekundaerebeitragsgruppen));
+  }
+
+  @Override
   public Boolean getZusatzbetrag() throws RemoteException
   {
     return Util.getBoolean(getAttribute("zusatzabbuchung"));

@@ -67,6 +67,7 @@ import de.jost_net.JVerein.gui.menu.WiedervorlageMenu;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
 import de.jost_net.JVerein.gui.parts.Familienverband;
 import de.jost_net.JVerein.gui.parts.MitgliedNextBGruppePart;
+import de.jost_net.JVerein.gui.parts.MitgliedSekundaereBeitragsgruppePart;
 import de.jost_net.JVerein.gui.view.AbstractAdresseDetailView;
 import de.jost_net.JVerein.gui.view.AuswertungVorlagenCsvView;
 import de.jost_net.JVerein.gui.view.IAuswertung;
@@ -93,6 +94,7 @@ import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.MitgliedNextBGruppe;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
+import de.jost_net.JVerein.rmi.SekundaereBeitragsgruppe;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -241,9 +243,13 @@ public class MitgliedControl extends AbstractControl
 
   private SelectInput beitragsgruppe;
 
+  private TreePart sekundaerebeitragsgruppe;
+
   private DecimalInput individuellerbeitrag;
 
   private Familienverband famverb;
+
+  private MitgliedSekundaereBeitragsgruppePart mitgliedSekundaereBeitragsgruppeView;
 
   private MitgliedNextBGruppePart zukueftigeBeitraegeView;
 
@@ -346,6 +352,8 @@ public class MitgliedControl extends AbstractControl
   private int jjahr = 0;
 
   private TablePart beitragsTabelle;
+
+  private ArrayList<SekundaereBeitragsgruppe> listeSeB;
 
   // Zeitstempel merken, wann der Letzte refresh ausgeführt wurde.
   private long lastrefresh = 0;
@@ -1195,6 +1203,7 @@ public class MitgliedControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService().createList(
         Beitragsgruppe.class);
+    list.addFilter("(sekundaer is null or sekundaer=?)", false);
     list.setOrder("ORDER BY bezeichnung");
     if (!allgemein)
     {
@@ -1283,6 +1292,70 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return beitragsgruppe;
+  }
+
+  public MitgliedSekundaereBeitragsgruppePart getMitgliedSekundaereBeitragsgruppeView()
+  {
+    if (null == mitgliedSekundaereBeitragsgruppeView)
+      mitgliedSekundaereBeitragsgruppeView = new MitgliedSekundaereBeitragsgruppePart(
+          this);
+    return mitgliedSekundaereBeitragsgruppeView;
+  }
+
+  public TreePart getSekundaereBeitragsgruppe() throws RemoteException
+  {
+    if (sekundaerebeitragsgruppe != null)
+    {
+      return sekundaerebeitragsgruppe;
+    }
+    listeSeB = new ArrayList<SekundaereBeitragsgruppe>();
+    DBIterator bei = Einstellungen.getDBService().createList(
+        Beitragsgruppe.class);
+    bei.addFilter("sekundaer=?", true);
+    bei.setOrder("ORDER BY bezeichnung");
+    while (bei.hasNext())
+    {
+      Beitragsgruppe b = (Beitragsgruppe) bei.next();
+      DBIterator sebei = Einstellungen.getDBService().createList(
+          SekundaereBeitragsgruppe.class);
+      sebei.addFilter("mitglied=?", getMitglied().getID());
+      sebei.addFilter("beitragsgruppe=?", b.getID());
+      if (sebei.hasNext())
+      {
+        SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) sebei.next();
+        listeSeB.add(sb);
+      }
+      else
+      {
+        SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) Einstellungen
+            .getDBService().createObject(SekundaereBeitragsgruppe.class, null);
+        sb.setMitglied(Integer.parseInt(getMitglied().getID()));
+        sb.setBeitragsgruppe(Integer.parseInt(b.getID()));
+        listeSeB.add(sb);
+      }
+    }
+    sekundaerebeitragsgruppe = new TreePart(listeSeB, null);
+    sekundaerebeitragsgruppe.addColumn("Beitragsgruppe",
+        "beitragsgruppebezeichnung");
+    sekundaerebeitragsgruppe.setCheckable(true);
+    sekundaerebeitragsgruppe.setMulti(true);
+    sekundaerebeitragsgruppe.setFormatter(new TreeFormatter()
+    {
+      @Override
+      public void format(TreeItem item)
+      {
+        SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) item.getData();
+        try
+        {
+          item.setChecked(!sb.isNewObject());
+        }
+        catch (RemoteException e)
+        {
+          Logger.error("Fehler beim TreeFormatter", e);
+        }
+      }
+    });
+    return sekundaerebeitragsgruppe;
   }
 
   public DecimalInput getIndividuellerBeitrag() throws RemoteException
@@ -3253,6 +3326,29 @@ public class MitgliedControl extends AbstractControl
               break;
           }
           zf.store();
+        }
+      }
+      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen())
+      {
+        // Schritt 1: Die selektierten sekundären Beitragsgruppe prüfen, ob sie
+        // bereits gespeichert sind. Ggfls. speichern.
+        List items = sekundaerebeitragsgruppe.getItems();
+        for (Object o1 : items)
+        {
+          SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) o1;
+          if (sb.isNewObject())
+          {
+            sb.store();
+          }
+        }
+        // Schritt 2: Die sekundären Beitragsgruppe in der Liste, die nicht mehr
+        // selektiert sind, müssen gelöscht werden.
+        for (SekundaereBeitragsgruppe sb : listeSeB)
+        {
+          if (!sb.isNewObject() && !items.contains(sb))
+          {
+            sb.delete();
+          }
         }
       }
       String successtext = "";

@@ -134,6 +134,18 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
   }
 
   @Override
+  public Boolean getSekundaer() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("sekundaer"));
+  }
+
+  @Override
+  public void setSekundaer(Boolean sekundaer) throws RemoteException
+  {
+    setAttribute("sekundaer", Boolean.valueOf(sekundaer));
+  }
+
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");

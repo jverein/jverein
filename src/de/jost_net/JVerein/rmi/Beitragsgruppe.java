@@ -27,6 +27,10 @@ public interface Beitragsgruppe extends DBObject
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;
 
+  public Boolean getSekundaer() throws RemoteException;
+
+  public void setSekundaer(Boolean sekundaer) throws RemoteException;
+
   public double getBetrag() throws RemoteException;
 
   public void setBetrag(double betrag) throws RemoteException;

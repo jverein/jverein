@@ -140,6 +140,11 @@ public interface Einstellung extends DBObject, IBankverbindung
   public void setKommunikationsdaten(Boolean kommunikationsdaten)
       throws RemoteException;
 
+  public Boolean getSekundaereBeitragsgruppen() throws RemoteException;
+
+  public void setSekundaereBeitragsgruppen(Boolean sekundaerebeitragsgruppen)
+      throws RemoteException;
+
   public Boolean getZusatzbetrag() throws RemoteException;
 
   public void setZusatzbetrag(Boolean zusatzbetrag) throws RemoteException;
