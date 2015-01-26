@@ -37,7 +37,7 @@ import de.willuhn.util.ApplicationException;
 
 /**
  * Listet Namen der definierten Lesefelder und zeigt der Inhalt dieser
- * Lesefelder für ein auswählebares Mitglied an. Für jedes Lesefeld wird ein
+ * Lesefelder für ein auswählbares Mitglied an. Für jedes Lesefeld wird ein
  * Bearbeiten- und Löschen-Knopf angezeigt. Als Part implementiert um es ggf.
  * einfach verschieben zu können.
  * 
@@ -76,6 +76,10 @@ public class LesefeldUebersichtPart implements Part
 
     // Hole alle Mitglieder aus Datenbank um sie später anzuzeigen.
     DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    // TODO Wenn es "zu viele" Mitglieder gibt, ist ein SelectInput
+    // nicht geeignet. Es sollte eine andere Art der Auswahl eingebaut
+    // werden.
+    it.setOrder("order by name, vorname");
     // optional könnten Filter eingebaut werden:
     // it.addFilter("plz='" + (String) plz.getValue() + "'");
     ArrayList<Mitglied> mitgliederList = new ArrayList<Mitglied>();
