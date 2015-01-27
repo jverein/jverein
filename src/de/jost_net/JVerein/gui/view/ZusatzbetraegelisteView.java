@@ -39,9 +39,9 @@ public class ZusatzbetraegelisteView extends AbstractView
     control.getZusatzbetraegeList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
-    buttons.addButton(control.getPDFAusgabeButton());
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
+    buttons.addButton(control.getPDFAusgabeButton());
     buttons.paint(this.getParent());
   }
 }

@@ -62,10 +62,4 @@ public class ProjektSaldoView extends AbstractView
     buttons2.paint(this.getParent());
   }
 
-  @Override
-  public String getHelp()
-  {
-    return "<form><p><span color=\"header\" font=\"header\">Projekte-Saldo</span></p>"
-        + "</form>";
-  }
 }

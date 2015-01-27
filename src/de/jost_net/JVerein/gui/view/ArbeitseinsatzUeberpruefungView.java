@@ -73,11 +73,11 @@ public class ArbeitseinsatzUeberpruefungView extends AbstractView
 
     control.getArbeitseinsatzUeberpruefungList().paint(getParent());
     ButtonArea buttons2 = new ButtonArea();
+    buttons2.addButton("Hilfe", new DokumentationAction(),
+        DokumentationUtil.ARBEITSEINSATZ, false, "help-browser.png");
     buttons2.addButton(control.getPDFAusgabeButton());
     buttons2.addButton(control.getCSVAusgabeButton());
     buttons2.addButton(control.getArbeitseinsatzAusgabeButton());
-    buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ARBEITSEINSATZ, false, "help-browser.png");
     buttons2.paint(this.getParent());
   }
 }
