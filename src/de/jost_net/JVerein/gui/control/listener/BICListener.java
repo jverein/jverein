@@ -42,7 +42,9 @@ public class BICListener implements Listener
   {
     if (bic.getValue() != null)
     {
-      Bank b = Banken.getBankByBIC((String) bic.getValue());
+      String bi = ((String) bic.getValue()).toUpperCase();
+      bic.setValue( bi );
+      Bank b = Banken.getBankByBIC( bi );
       if (b != null)
       {
         bic.setComment(b.getBezeichnung());
