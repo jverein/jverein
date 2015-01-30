@@ -72,4 +72,9 @@ public interface Abrechnungslauf extends DBObject
 
   public void setAbbuchungsausgabe(Integer abbuchungsausgabe)
       throws RemoteException;
+
+  public Boolean getAbgeschlossen() throws RemoteException;
+
+  public void setAbgeschlossen(Boolean abgeschlossen) throws RemoteException;
+
 }

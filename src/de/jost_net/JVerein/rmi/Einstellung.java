@@ -503,4 +503,8 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setBuchungsartSort(int buchungsartsort) throws RemoteException;
 
+  public Boolean getAbrlAbschliessen() throws RemoteException;
+
+  public void setAbrlAbschliessen(Boolean beleg) throws RemoteException;
+
 }

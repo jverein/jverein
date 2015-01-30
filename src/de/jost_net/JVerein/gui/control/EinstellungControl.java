@@ -276,6 +276,8 @@ public class EinstellungControl extends AbstractControl
 
   private SelectInput buchungsartsort;
 
+  private CheckboxInput abrlabschliessen;
+
   /**
    * Verschlüsselte Datei für besonders sensible Daten (Passwörter)
    */
@@ -1669,6 +1671,18 @@ public class EinstellungControl extends AbstractControl
     return zusatzbetragAusgetretene;
   }
 
+  public CheckboxInput getAbrlAbschliessen() throws RemoteException
+  {
+    if (abrlabschliessen != null)
+    {
+      return abrlabschliessen;
+    }
+    abrlabschliessen = new CheckboxInput(Einstellungen.getEinstellung()
+        .getAbrlAbschliessen());
+    abrlabschliessen.setName("Funktion einschalten");
+    return abrlabschliessen;
+  }
+
   public void handleStoreAllgemein()
   {
     try
@@ -1769,6 +1783,7 @@ public class EinstellungControl extends AbstractControl
       SEPALandObject slo = (SEPALandObject) getDefaultSEPALand().getValue();
       e.setDefaultLand(slo.getLand().getKennzeichen());
       e.setSEPADatumOffset((Integer) sepadatumoffset.getValue());
+      e.setAbrlAbschliessen((Boolean) abrlabschliessen.getValue());
       e.store();
       Einstellungen.setEinstellung(e);
 

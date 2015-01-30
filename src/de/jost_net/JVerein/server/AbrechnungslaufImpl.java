@@ -259,4 +259,17 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     }
     return super.getAttribute(fieldName);
   }
+
+  @Override
+  public Boolean getAbgeschlossen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("abgeschlossen"));
+  }
+
+  @Override
+  public void setAbgeschlossen(Boolean abgeschlossen) throws RemoteException
+  {
+    setAttribute("abgeschlossen", abgeschlossen);
+  }
+
 }

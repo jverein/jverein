@@ -42,6 +42,7 @@ public class EinstellungenAbrechnungView extends AbstractView
     cont.addInput(control.getSEPADatumOffset());
     cont.addInput(control.getDefaultSEPALand());
     cont.addLabelPair("Arbeitsstunden Model", control.getArbeitsstundenmodel());
+    cont.addLabelPair("Abrechnungslauf abschließen", control.getAbrlAbschliessen());
     cont.addSeparator();
     cont.addHeadline("ACHTUNG! Nur ändern, wenn noch keine SEPA-Lastschriften durchgeführt wurden!");
     cont.addLabelPair("Quelle für SEPA-Mandatsreferenz (*)",

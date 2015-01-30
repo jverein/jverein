@@ -16,10 +16,18 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.menu;
 
+import java.rmi.RemoteException;
+
+import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.action.AbrechnungslaufAbschliessenAction;
 import de.jost_net.JVerein.gui.action.AbrechnungslaufDeleteAction;
 import de.jost_net.JVerein.gui.action.PreNotificationAction;
+import de.jost_net.JVerein.rmi.Abrechnungslauf;
+import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
+import de.willuhn.jameica.gui.parts.ContextMenuItem;
+import de.willuhn.logging.Logger;
 
 /**
  * Kontext-Menu zu den Abrechnungsläufen
@@ -32,9 +40,51 @@ public class AbrechnungslaufMenu extends ContextMenu
    */
   public AbrechnungslaufMenu()
   {
-    addItem(new CheckedContextMenuItem("Pre-Notification",
+    addItem(new AbgeschlossenDisabledItem("Pre-Notification",
         new PreNotificationAction(), "document-new.png"));
-    addItem(new CheckedContextMenuItem("löschen...",
+    addItem(new AbgeschlossenDisabledItem("löschen...",
         new AbrechnungslaufDeleteAction(), "user-trash.png"));
+    try {
+      if (Einstellungen.getEinstellung().getAbrlAbschliessen())
+      {
+        addItem(ContextMenuItem.SEPARATOR);
+        addItem(new AbgeschlossenDisabledItem("abschließen...",
+            new AbrechnungslaufAbschliessenAction(), "lock.png"));
+      }
+    } catch (RemoteException e) {
+      Logger.error("unable to extend context menu");
+    }
   }
+
+  private static class AbgeschlossenDisabledItem extends CheckedContextMenuItem
+  {
+
+    private AbgeschlossenDisabledItem(String text, Action action, String icon)
+    {
+      super(text, action, icon);
+    }
+
+    @Override
+    public boolean isEnabledFor(Object o)
+    {
+      if (o instanceof Abrechnungslauf)
+      {
+        Abrechnungslauf abrl = (Abrechnungslauf) o;
+        try {
+			if (abrl.getAbgeschlossen())
+			{
+			  return false;
+			}
+			else
+			{
+			  return true;
+			}
+		} catch (RemoteException e) {
+			return false;
+		}
+      }
+      return super.isEnabledFor(o);
+    }
+  }
+
 }

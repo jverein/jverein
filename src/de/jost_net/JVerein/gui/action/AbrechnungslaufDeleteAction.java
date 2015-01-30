@@ -53,6 +53,13 @@ public class AbrechnungslaufDeleteAction implements Action
         return;
       }
 
+      // Prüfe, ob der Abrechnungslauf als abgeschlossen gekennzeichnet ist.
+      // In diesem Fall darf er nicht gelöscht werden!
+      if (abrl.getAbgeschlossen())
+      {
+    	throw new ApplicationException("Abgeschlossene Abrechnungsläufe können nicht gelöscht werden!");
+      }
+
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle(String.format("Abrechnungslauf %s löschen", abrl.getID()));
       d.setText("Wollen Sie diesen Abrechnungslauf wirklich löschen?");

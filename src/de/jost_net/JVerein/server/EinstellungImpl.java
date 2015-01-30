@@ -1692,4 +1692,16 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("buchungsartsort", buchungsartsort);
   }
 
+  @Override
+  public Boolean getAbrlAbschliessen() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("abrlabschliessen"));
+  }
+
+  @Override
+  public void setAbrlAbschliessen(Boolean abschliessen) throws RemoteException
+  {
+    setAttribute("abrlabschliessen", Boolean.valueOf(abschliessen));
+  }
+
 }
