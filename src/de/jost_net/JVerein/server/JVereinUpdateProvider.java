@@ -156,6 +156,11 @@ public class JVereinUpdateProvider
         // 2.7.0-devel 480 installiert.
         return 372;
       }
+      rs = stmt.executeQuery("select * from DATABASECHANGELOG where id = '98'");
+      if (rs.next())
+      {
+        return 362;
+      }
       else
       {
         return 360;
