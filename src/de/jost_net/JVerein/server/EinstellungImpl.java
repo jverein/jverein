@@ -1178,9 +1178,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public String getMailSignatur() throws RemoteException
+  public String getMailSignatur(Boolean separator) throws RemoteException
   {
-    return (String) getAttribute("mailsignatur");
+    String signatur = (String) getAttribute("mailsignatur");
+    if (signatur == null)
+    {
+      return "";
+    }
+    // Siehe RFC 3676, 4.3. Usenet Signature Convention
+    if (separator && ! signatur.startsWith("-- \n"))
+    {
+      return "-- \n" + signatur;
+    }
+    return signatur;
   }
 
   @Override

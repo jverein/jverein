@@ -345,7 +345,7 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setImapSentFolder(String imap_sent_folder) throws RemoteException;
 
-  public String getMailSignatur() throws RemoteException;
+  public String getMailSignatur(Boolean separator) throws RemoteException;
 
   public void setMailSignatur(String mailsignatur) throws RemoteException;
 

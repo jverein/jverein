@@ -1140,7 +1140,7 @@ public class EinstellungControl extends AbstractControl
       return mailsignatur;
     }
     mailsignatur = new TextAreaInput(Einstellungen.getEinstellung()
-        .getMailSignatur(), 1000);
+        .getMailSignatur(false), 1000);
     mailsignatur.setHeight(50);
     return mailsignatur;
   }

@@ -398,7 +398,7 @@ public class MailControl extends AbstractControl
   {
     final String betr = getBetreffString();
     final String txt = getTxtString()
-        + Einstellungen.getEinstellung().getMailSignatur();
+        + Einstellungen.getEinstellung().getMailSignatur(true);
     BackgroundTask t = new BackgroundTask()
     {
 
