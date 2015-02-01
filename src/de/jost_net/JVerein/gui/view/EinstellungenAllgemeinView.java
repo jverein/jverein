@@ -21,6 +21,7 @@ import de.jost_net.JVerein.gui.control.EinstellungControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
+import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 
@@ -41,8 +42,9 @@ public class EinstellungenAllgemeinView extends AbstractView
     cont.addLabelPair("Straße", control.getStrasse());
     cont.addLabelPair("PLZ", control.getPlz());
     cont.addLabelPair("Ort", control.getOrt());
+    TextInput bic = control.getBic(); // vor IBAN initialisieren, das IBAN eine Referenz auf bic benötigt!
     cont.addLabelPair("IBAN", control.getIban());
-    cont.addLabelPair("BIC", control.getBic());
+    cont.addLabelPair("BIC", bic);
     cont.addPart(control.getButton());
     cont.addLabelPair("Gläubiger-ID", control.getGlaeubigerID());
 
