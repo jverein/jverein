@@ -39,10 +39,8 @@ public class Update0396 extends AbstractDDLUpdate
 
   public void run() throws ApplicationException
   {
-
     // Eine kurze, interne Notiz zur Beitragsgruppe
-    execute(addColumn("beitragsgruppe", new Column("notiz",
-            COLTYPE.VARCHAR, 200, null, false, false)), false);
-
+    execute(addColumn("beitragsgruppe", new Column("notiz", COLTYPE.VARCHAR,
+        200, null, false, false)));
   }
 }
