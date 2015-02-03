@@ -296,6 +296,18 @@ public class BeitragsgruppeImpl extends AbstractDBObject implements
   }
 
   @Override
+  public String getNotiz() throws RemoteException
+  {
+    return (String) getAttribute("notiz");
+  }
+
+  @Override
+  public void setNotiz(String notiz) throws RemoteException
+  {
+    setAttribute("notiz", notiz);
+  }
+
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);

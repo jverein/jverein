@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
+import de.jost_net.JVerein.gui.formatter.NotizFormatter;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.BuchungsartSort;
@@ -37,6 +38,7 @@ import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
+import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.logging.Logger;
@@ -69,6 +71,8 @@ public class BeitragsgruppeControl extends AbstractControl
   private DecimalInput arbeitseinsatzbetrag;
 
   private SelectInput buchungsart;
+
+  private TextAreaInput notiz;
 
   public BeitragsgruppeControl(AbstractView view)
   {
@@ -228,6 +232,18 @@ public class BeitragsgruppeControl extends AbstractControl
     return buchungsart;
   }
 
+  public TextAreaInput getNotiz() throws RemoteException
+  {
+    if (notiz != null)
+    {
+      return notiz;
+    }
+    notiz = new TextAreaInput(getBeitragsgruppe().getNotiz(), 200);
+    notiz.setName("Notiz");
+    notiz.setHeight(50);
+    return notiz;
+  }
+
   public void handleStore()
   {
     try
@@ -269,6 +285,7 @@ public class BeitragsgruppeControl extends AbstractControl
       b.setArbeitseinsatzStunden(d.doubleValue());
       d = (Double) getArbeitseinsatzBetrag().getValue();
       b.setArbeitseinsatzBetrag(d.doubleValue());
+      b.setNotiz((String) getNotiz().getValue());
       b.store();
       GUI.getStatusBar().setSuccessText("Beitragsgruppe gespeichert");
     }
@@ -324,6 +341,7 @@ public class BeitragsgruppeControl extends AbstractControl
               Einstellungen.DECIMALFORMAT));
     }
     beitragsgruppeList.addColumn("Buchungsart", "buchungsart", new BuchungsartFormatter());
+    beitragsgruppeList.addColumn("Notiz", "notiz", new NotizFormatter(40));
     beitragsgruppeList.setContextMenu(new BeitragsgruppeMenu());
     return beitragsgruppeList;
   }

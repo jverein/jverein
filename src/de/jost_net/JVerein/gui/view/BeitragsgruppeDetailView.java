@@ -78,6 +78,8 @@ public class BeitragsgruppeDetailView extends AbstractView
       groupAe.addLabelPair("Betrag", control.getArbeitseinsatzBetrag());
     }
 
+    group.addLabelPair("Notiz", control.getNotiz());
+
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
