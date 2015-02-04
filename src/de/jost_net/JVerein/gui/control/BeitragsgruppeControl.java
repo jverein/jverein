@@ -250,7 +250,14 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       Beitragsgruppe b = getBeitragsgruppe();
       b.setBezeichnung((String) getBezeichnung(false).getValue());
-      b.setSekundaer((Boolean) sekundaer.getValue());
+      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen())
+      {
+        b.setSekundaer((Boolean) sekundaer.getValue());
+      }
+      else
+      {
+        b.setSekundaer(false);
+      }
       switch (Einstellungen.getEinstellung().getBeitragsmodel())
       {
         case GLEICHERTERMINFUERALLE:
