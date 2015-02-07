@@ -43,6 +43,7 @@ import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Arbeitseinsatz;
+import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
@@ -50,6 +51,7 @@ import de.jost_net.JVerein.rmi.Lehrgang;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.rmi.SekundaereBeitragsgruppe;
 import de.jost_net.JVerein.rmi.Wiedervorlage;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -289,15 +291,18 @@ public class PersonalbogenAction implements Action
     {
       rpt.addColumn("Eintritt", Element.ALIGN_LEFT);
       rpt.addColumn(m.getEintritt(), Element.ALIGN_LEFT);
-      rpt.addColumn("Beitragsgruppe", Element.ALIGN_LEFT);
-      String beitragsgruppe = m.getBeitragsgruppe().getBezeichnung()
-          + " - "
-          + Einstellungen.DECIMALFORMAT.format(BeitragsUtil.getBeitrag(
-              Einstellungen.getEinstellung().getBeitragsmodel(),
-              m.getZahlungstermin(), m.getZahlungsrhythmus().getKey(),
-              m.getBeitragsgruppe(), new Date(), m.getEintritt(),
-              m.getAustritt())) + " EUR";
-      rpt.addColumn(beitragsgruppe, Element.ALIGN_LEFT);
+      printBeitragsgruppe(rpt, m, m.getBeitragsgruppe(), false);
+      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen())
+      {
+        DBIterator sb = Einstellungen.getDBService().createList(
+            SekundaereBeitragsgruppe.class);
+        sb.addFilter("mitglied = ?", m.getID());
+        while (sb.hasNext())
+        {
+          SekundaereBeitragsgruppe sebe = (SekundaereBeitragsgruppe) sb.next();
+          printBeitragsgruppe(rpt, m, sebe.getBeitragsgruppe(), true);
+        }
+      }
 
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
       {
@@ -368,6 +373,20 @@ public class PersonalbogenAction implements Action
     rpt.addColumn("Datum letzte Änderung", Element.ALIGN_LEFT);
     rpt.addColumn(m.getLetzteAenderung(), Element.ALIGN_LEFT);
     rpt.closeTable();
+  }
+
+  private void printBeitragsgruppe(Reporter rpt, Mitglied m, Beitragsgruppe bg,
+      boolean sek) throws RemoteException
+  {
+    rpt.addColumn((sek ? "Sekundäre " : "") + "Beitragsgruppe",
+        Element.ALIGN_LEFT);
+    String beitragsgruppe = bg.getBezeichnung()
+        + " - "
+        + Einstellungen.DECIMALFORMAT.format(BeitragsUtil.getBeitrag(
+            Einstellungen.getEinstellung().getBeitragsmodel(),
+            m.getZahlungstermin(), m.getZahlungsrhythmus().getKey(), bg,
+            new Date(), m.getEintritt(), m.getAustritt())) + " EUR";
+    rpt.addColumn(beitragsgruppe, Element.ALIGN_LEFT);
   }
 
   private void generiereZusatzbetrag(Reporter rpt, Mitglied m)
