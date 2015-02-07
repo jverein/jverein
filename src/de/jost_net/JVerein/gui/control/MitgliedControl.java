@@ -2628,6 +2628,10 @@ public class MitgliedControl extends AbstractControl
           getKtoiPlz().setValue(getPlz().getValue());
           getKtoiOrt().setValue(getOrt().getValue());
           getKtoiEmail().setValue(getEmail().getValue());
+          if (Einstellungen.getEinstellung().getAuslandsadressen())
+          {
+            getKtoiStaat().setValue(getStaat().getValue());
+          }
         }
         catch (RemoteException e)
         {
