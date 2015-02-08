@@ -18,9 +18,11 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.rmi.Formular;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -76,7 +78,13 @@ public class FormularImpl extends AbstractDBObject implements Formular
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException("Bitte Bezeichnung eingeben");
+        throw new ApplicationException("Bitte eine eindeutige Bezeichnung eingeben");
+      }
+      DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+      it.addFilter("bezeichnung = ?", getBezeichnung());
+      if (it.hasNext())
+      {
+        throw new ApplicationException("Diese Bezeichnung wird schon verwendet, bitte eine Andere verwenden.");
       }
     }
     catch (RemoteException e)
