@@ -67,6 +67,10 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
   {
     try
     {
+      if (getDatum() == null)
+      {
+        throw new ApplicationException("Datum fehlt");
+      }
       if (getZweck1().length() == 0)
       {
         throw new ApplicationException("Verwendungszweck fehlt");
