@@ -13,7 +13,6 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
 import de.willuhn.jameica.gui.input.ImageInput;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.system.OperationCanceledException;
 
 /**
  * Anzeige eines QR-Codes
@@ -24,22 +23,23 @@ public class QRCodeImageDialog extends AbstractDialog<Object>
 
   /**
    * @param position
-   * @throws IOException 
+   * @throws IOException
    * @throws RemoteException
    */
-  public QRCodeImageDialog(int position, BufferedImage qrcode) throws IOException
+  public QRCodeImageDialog(int position, BufferedImage qrcode)
+      throws IOException
   {
     super(position);
     setTitle("QR-Code");
     setSize(330, 400);
-    
+
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ImageIO.write( qrcode, "jpg", baos );
+    ImageIO.write(qrcode, "jpg", baos);
     baos.flush();
     byte[] imageInByte = baos.toByteArray();
     baos.close();
 
-    image = new ImageInput(imageInByte,300,300);
+    image = new ImageInput(imageInByte, 300, 300);
   }
 
   @Override
@@ -49,11 +49,10 @@ public class QRCodeImageDialog extends AbstractDialog<Object>
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("schlieﬂen", new Action()
     {
-
       @Override
       public void handleAction(Object context)
       {
-        throw new OperationCanceledException();
+        close();
       }
     });
     buttons.paint(parent);
@@ -64,6 +63,4 @@ public class QRCodeImageDialog extends AbstractDialog<Object>
   {
     return null;
   }
-
-
 }
