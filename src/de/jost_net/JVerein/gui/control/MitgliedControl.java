@@ -1801,6 +1801,7 @@ public class MitgliedControl extends AbstractControl
     famiter.addFilter("zahlerid = ? or zahlerid = ? or id = ? or id = ?",
         getMitglied().getID(), getMitglied().getZahlerID(), getMitglied()
             .getID(), getMitglied().getZahlerID());
+    famiter.setOrder("ORDER BY name, vorname");
     while (famiter.hasNext())
     {
       Mitglied m = (Mitglied) famiter.next();
