@@ -61,6 +61,8 @@ public class DokumentationUtil
 
   public static final String EIGENSCHAFTGRUPPE = PRE + "Eigenschaften-Gruppe";
 
+  public static final String FAMILIENBEITRAG = PRE + "Familientarife";
+
   public static final String FELDDEFINITIONEN = PRE + "Felddefinitionen";
 
   public static final String LESEFELDER = PRE + "Lesefelder";
