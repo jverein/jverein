@@ -36,6 +36,7 @@ import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.keys.Ausgabeart;
+import de.jost_net.JVerein.keys.Ausgabesortierung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
@@ -166,35 +167,77 @@ public abstract class AbstractMitgliedskontoDokument
     if (currentObject instanceof Mitgliedskonto[])
     {
       Mitgliedskonto[] mkn = (Mitgliedskonto[]) currentObject;
-      Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
-      {
 
-        @Override
-        public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
-        {
-          try
+      Ausgabesortierung as = (Ausgabesortierung) control.getAusgabesortierung()
+          .getValue();
+      switch (as)
+      {
+        case NAME:
+          // Sortiere nach Nachname und Vorname
+          Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
           {
-            int c = mk1.getMitglied().getName()
-                .compareTo(mk2.getMitglied().getName());
-            if (c != 0)
+
+            @Override
+            public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
             {
-              return c;
+              try
+              {
+                int c = mk1.getMitglied().getName()
+                    .compareTo(mk2.getMitglied().getName());
+                if (c != 0)
+                {
+                  return c;
+                }
+                c = mk1.getMitglied().getVorname()
+                    .compareTo(mk2.getMitglied().getVorname());
+                if (c != 0)
+                {
+                  return c;
+                }
+                return mk1.getMitglied().getID()
+                    .compareTo(mk2.getMitglied().getID());
+              }
+              catch (RemoteException e)
+              {
+                throw new RuntimeException(e);
+              }
             }
-            c = mk1.getMitglied().getVorname()
-                .compareTo(mk2.getMitglied().getVorname());
-            if (c != 0)
-            {
-              return c;
-            }
-            return mk1.getMitglied().getID()
-                .compareTo(mk2.getMitglied().getID());
-          }
-          catch (RemoteException e)
+          });
+          break;
+        case PLZ:
+          // Sortiere nach PLZ und Straﬂe
+          Arrays.sort(mkn, new Comparator<Mitgliedskonto>()
           {
-            throw new RuntimeException(e);
-          }
-        }
-      });
+
+            @Override
+            public int compare(Mitgliedskonto mk1, Mitgliedskonto mk2)
+            {
+              try
+              {
+                int c = mk1.getMitglied().getPlz()
+                    .compareTo(mk2.getMitglied().getPlz());
+                if (c != 0)
+                {
+                  return c;
+                }
+                c = mk1.getMitglied().getStrasse()
+                    .compareTo(mk2.getMitglied().getStrasse());
+                if (c != 0)
+                {
+                  return c;
+                }
+                return mk1.getMitglied().getID()
+                    .compareTo(mk2.getMitglied().getID());
+              }
+              catch (RemoteException e)
+              {
+                throw new RuntimeException(e);
+              }
+            }
+          });
+          break;
+      }
+
       try
       {
         ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();

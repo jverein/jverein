@@ -49,6 +49,7 @@ public class MitgliedskontoRechnungView extends AbstractView
     }
     cont.addLabelPair("Formular", control.getFormular(FormularArt.RECHNUNG));
     cont.addInput(control.getAusgabeart());
+    cont.addInput(control.getAusgabesortierung());
 
     cont.addHeadline("Mail");
     cont.addInput(control.getBetreff(MitgliedskontoControl.TYP.RECHNUNG.name()));

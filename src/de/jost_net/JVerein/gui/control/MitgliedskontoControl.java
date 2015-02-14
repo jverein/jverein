@@ -41,6 +41,7 @@ import de.jost_net.JVerein.io.Kontoauszug;
 import de.jost_net.JVerein.io.Mahnungsausgabe;
 import de.jost_net.JVerein.io.Rechnungsausgabe;
 import de.jost_net.JVerein.keys.Ausgabeart;
+import de.jost_net.JVerein.keys.Ausgabesortierung;
 import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -148,6 +149,8 @@ public class MitgliedskontoControl extends AbstractControl
   private CheckboxInput ohneabbucher = null;
 
   private SelectInput ausgabeart = null;
+
+  private SelectInput ausgabesortierung = null;
 
   private TextInput suchname = null;
 
@@ -451,6 +454,18 @@ public class MitgliedskontoControl extends AbstractControl
         Ausgabeart.valueOf(settings.getString("ausgabeart", "DRUCK")));
     ausgabeart.setName("Ausgabe");
     return ausgabeart;
+  }
+
+  public SelectInput getAusgabesortierung()
+  {
+    if (ausgabesortierung != null)
+    {
+      return ausgabesortierung;
+    }
+    ausgabesortierung = new SelectInput(Ausgabesortierung.values(),
+        Ausgabesortierung.getByKey(settings.getInt("ausgabesortierung", 1)));
+    ausgabesortierung.setName("Sortierung");
+    return ausgabesortierung;
   }
 
   public TextInput getBetreff(String verwendung)
@@ -839,6 +854,9 @@ public class MitgliedskontoControl extends AbstractControl
   {
     Ausgabeart aa = (Ausgabeart) getAusgabeart().getValue();
     settings.setAttribute("ausgabeart", aa.toString());
+    Ausgabesortierung as = (Ausgabesortierung) getAusgabesortierung()
+        .getValue();
+    settings.setAttribute("ausgabesortierung", as.getKey());
     settings.setAttribute(TYP.RECHNUNG.name() + ".mail.betreff",
         (String) getBetreff(TYP.RECHNUNG.name()).getValue());
     settings.setAttribute(TYP.RECHNUNG.name() + ".mail.text",
