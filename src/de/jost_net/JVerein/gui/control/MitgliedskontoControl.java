@@ -728,31 +728,33 @@ public class MitgliedskontoControl extends AbstractControl
     {
       StringTokenizer tok = new StringTokenizer((String) suchname.getValue(),
           " ,-");
-      boolean hasElements = tok.hasMoreElements();
-      if (hasElements && where.length() > 0)
-      {
-        where += "and ";
-      }
-      if (hasElements)
-      {
-        where += "(";
-      }
       int count = 0;
+      String filter = "";
       while (tok.hasMoreElements())
       {
-        if (count > 0)
+        String nextToken = tok.nextToken();
+        if (nextToken.length() > 3)
         {
-          where += "OR ";
+          if (count > 0)
+          {
+            filter += "OR ";
+          }
+          count++;
+          filter += "upper(mitglied.name) like upper(?) or upper(mitglied.vorname) like upper(?) or upper(zweck1) like upper(?) ";
+          String token = "%" + nextToken + "%";
+          param.add(token);
+          param.add(token);
+          param.add(token);
         }
-        count++;
-        where += "upper(mitglied.name) like upper(?) or upper(mitglied.vorname) like upper(?) or upper(zweck1) like upper(?) ";
-        String token = "%" + tok.nextToken() + "%";
-        param.add(token);
-        param.add(token);
-        param.add(token);
       }
-      if (hasElements)
+      if (count > 0)
       {
+        if (where.length() > 0)
+        {
+          where += "and ";
+        }
+        where += "(";
+        where += filter;
         where += ") ";
       }
     }
