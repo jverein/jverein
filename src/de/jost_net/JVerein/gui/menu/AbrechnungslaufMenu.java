@@ -21,6 +21,7 @@ import java.rmi.RemoteException;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AbrechnungslaufAbschliessenAction;
 import de.jost_net.JVerein.gui.action.AbrechnungslaufDeleteAction;
+import de.jost_net.JVerein.gui.action.AbrechnungslaufDetailAction;
 import de.jost_net.JVerein.gui.action.PreNotificationAction;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.willuhn.jameica.gui.Action;
@@ -40,18 +41,23 @@ public class AbrechnungslaufMenu extends ContextMenu
    */
   public AbrechnungslaufMenu()
   {
+    addItem(new ContextMenuItem("Bearbeiten",
+        new AbrechnungslaufDetailAction(), "edit.png"));
     addItem(new AbgeschlossenDisabledItem("Pre-Notification",
         new PreNotificationAction(), "document-new.png"));
     addItem(new AbgeschlossenDisabledItem("löschen...",
         new AbrechnungslaufDeleteAction(), "user-trash.png"));
-    try {
+    try
+    {
       if (Einstellungen.getEinstellung().getAbrlAbschliessen())
       {
         addItem(ContextMenuItem.SEPARATOR);
         addItem(new AbgeschlossenDisabledItem("abschließen...",
             new AbrechnungslaufAbschliessenAction(), "lock.png"));
       }
-    } catch (RemoteException e) {
+    }
+    catch (RemoteException e)
+    {
       Logger.error("unable to extend context menu");
     }
   }
@@ -70,18 +76,21 @@ public class AbrechnungslaufMenu extends ContextMenu
       if (o instanceof Abrechnungslauf)
       {
         Abrechnungslauf abrl = (Abrechnungslauf) o;
-        try {
-			if (abrl.getAbgeschlossen())
-			{
-			  return false;
-			}
-			else
-			{
-			  return true;
-			}
-		} catch (RemoteException e) {
-			return false;
-		}
+        try
+        {
+          if (abrl.getAbgeschlossen())
+          {
+            return false;
+          }
+          else
+          {
+            return true;
+          }
+        }
+        catch (RemoteException e)
+        {
+          return false;
+        }
       }
       return super.isEnabledFor(o);
     }

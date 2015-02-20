@@ -272,4 +272,16 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
     setAttribute("abgeschlossen", abgeschlossen);
   }
 
+  @Override
+  public String getBemerkung() throws RemoteException
+  {
+    return (String) getAttribute("bemerkung");
+  }
+
+  @Override
+  public void setBemerkung(String bemerkung) throws RemoteException
+  {
+    setAttribute("bemerkung", bemerkung);
+  }
+
 }

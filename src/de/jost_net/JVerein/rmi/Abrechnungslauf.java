@@ -77,4 +77,8 @@ public interface Abrechnungslauf extends DBObject
 
   public void setAbgeschlossen(Boolean abgeschlossen) throws RemoteException;
 
+  public String getBemerkung() throws RemoteException;
+
+  public void setBemerkung(String bemerkung) throws RemoteException;
+
 }
