@@ -1306,6 +1306,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       this.setVermerk2("Vermerk 2");
       this.setVorname("Willi");
       this.setZahlungsrhythmus(12);
+      this.setZahlungstermin(Zahlungstermin.VIERTELJAEHRLICH1.getKey());
       this.setZahlungsweg(1);
       this.setZahlungsweg(Zahlungstermin.HALBJAEHRLICH4.getKey());
     }
