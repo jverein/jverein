@@ -23,31 +23,31 @@ package de.jost_net.JVerein.keys;
 public enum Zahlungstermin
 {
 
-  MONATLICH(1, "Monatlich", new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }), //
-  VIERTELJAEHRLICH1(31, "Vierteljährlich (Jan./Apr./Juli/Okt)", //
+  MONATLICH(1, "monatlich", new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }), //
+  VIERTELJAEHRLICH1(31, "vierteljährlich (Jan./Apr./Juli/Okt)", //
       new int[] { 1, 4, 7, 10 }), //
-  VIERTELJAEHRLICH2(32, "Vierteljährlich (Feb./Mai /Aug./Nov.)", //
+  VIERTELJAEHRLICH2(32, "vierteljährlich (Feb./Mai /Aug./Nov.)", //
       new int[] { 2, 5, 8, 11 }), //
-  VIERTELJAEHRLICH3(33, "Vierteljährlich (März/Juni/Sep./Dez.)", //
+  VIERTELJAEHRLICH3(33, "vierteljährlich (März/Juni/Sep./Dez.)", //
       new int[] { 3, 6, 9, 12 }), //
-  HALBJAEHRLICH1(61, "Halbjährlich (Jan./Juli)", new int[] { 1, 7 }), //
-  HALBJAEHRLICH2(62, "Halbjährlich (Feb./Aug.)", new int[] { 2, 8 }), //
-  HALBJAEHRLICH3(63, "Halbjährlich (März/Sep.)", new int[] { 3, 9 }), //
-  HALBJAEHRLICH4(64, "Halbjährlich (Apr./Okt.)", new int[] { 4, 10 }), //
-  HALBJAEHRLICH5(65, "Halbjährlich (Mai /Nov.)", new int[] { 5, 11 }), //
-  HALBJAEHRLICH6(66, "Halbjährlich (Juni/Dez.)", new int[] { 6, 12 }), //
-  JAERHLICH01(1201, "Jährlich (Jan.)", new int[] { 1 }), //
-  JAERHLICH02(1202, "Jährlich (Feb.)", new int[] { 2 }), //
-  JAERHLICH03(1203, "Jährlich (März)", new int[] { 3 }), //
-  JAERHLICH04(1204, "Jährlich (Apr.)", new int[] { 4 }), //
-  JAERHLICH05(1205, "Jährlich (Mai )", new int[] { 5 }), //
-  JAERHLICH06(1206, "Jährlich (Juni)", new int[] { 6 }), //
-  JAERHLICH07(1207, "Jährlich (Juli)", new int[] { 7 }), //
-  JAERHLICH08(1208, "Jährlich (Aug.)", new int[] { 8 }), //
-  JAERHLICH09(1209, "Jährlich (Sep.)", new int[] { 9 }), //
-  JAERHLICH10(1210, "Jährlich (Okt.)", new int[] { 10 }), //
-  JAERHLICH11(1211, "Jährlich (Nov.)", new int[] { 11 }), //
-  JAERHLICH12(1212, "Jährlich (Dez.)", new int[] { 12 });
+  HALBJAEHRLICH1(61, "halbjährlich (Jan./Juli)", new int[] { 1, 7 }), //
+  HALBJAEHRLICH2(62, "halbjährlich (Feb./Aug.)", new int[] { 2, 8 }), //
+  HALBJAEHRLICH3(63, "halbjährlich (März/Sep.)", new int[] { 3, 9 }), //
+  HALBJAEHRLICH4(64, "halbjährlich (Apr./Okt.)", new int[] { 4, 10 }), //
+  HALBJAEHRLICH5(65, "halbjährlich (Mai /Nov.)", new int[] { 5, 11 }), //
+  HALBJAEHRLICH6(66, "halbjährlich (Juni/Dez.)", new int[] { 6, 12 }), //
+  JAERHLICH01(1201, "jährlich (Jan.)", new int[] { 1 }), //
+  JAERHLICH02(1202, "jährlich (Feb.)", new int[] { 2 }), //
+  JAERHLICH03(1203, "jährlich (März)", new int[] { 3 }), //
+  JAERHLICH04(1204, "jährlich (Apr.)", new int[] { 4 }), //
+  JAERHLICH05(1205, "jährlich (Mai )", new int[] { 5 }), //
+  JAERHLICH06(1206, "jährlich (Juni)", new int[] { 6 }), //
+  JAERHLICH07(1207, "jährlich (Juli)", new int[] { 7 }), //
+  JAERHLICH08(1208, "jährlich (Aug.)", new int[] { 8 }), //
+  JAERHLICH09(1209, "jährlich (Sep.)", new int[] { 9 }), //
+  JAERHLICH10(1210, "jährlich (Okt.)", new int[] { 10 }), //
+  JAERHLICH11(1211, "jährlich (Nov.)", new int[] { 11 }), //
+  JAERHLICH12(1212, "jährlich (Dez.)", new int[] { 12 });
 
   private final String text;
 
