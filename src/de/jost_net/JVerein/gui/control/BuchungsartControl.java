@@ -245,7 +245,7 @@ public Part getBuchungsartList() throws RemoteException
     DBService service = Einstellungen.getDBService();
     DBIterator buchungsarten = service.createList(Buchungsart.class);
     buchungsarten.addFilter("nummer >= 0");
-	if ((String) getSuchtext().getValue() != "") {
+	if (!getSuchtext().getValue().equals("")) {
 		String text = "%" + ((String) getSuchtext().getValue()).toUpperCase() + "%";
 		buchungsarten.addFilter("(UPPER(bezeichnung) like ? or nummer like ?)",
 				new Object[] { text, text });

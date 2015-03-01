@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.dialogs.ZusatzbetragVorlageDialog;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -66,8 +65,6 @@ public class ZusatzbetragVorlageControl extends AbstractControl
   private TablePart zusatzbetraegeList;
 
   public ZusatzbetragVorlage auswahl;
-
-  ZusatzbetragVorlageDialog zbvd;
 
   public ZusatzbetragVorlageControl(AbstractView view)
   {
@@ -258,7 +255,6 @@ public class ZusatzbetragVorlageControl extends AbstractControl
         public void handleAction(Object context) throws ApplicationException
         {
           auswahl = (ZusatzbetragVorlage) context;
-          zbvd.close();
         }
       });
       zusatzbetraegeList.addColumn("Startdatum", "startdatum",

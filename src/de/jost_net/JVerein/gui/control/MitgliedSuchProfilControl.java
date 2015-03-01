@@ -127,14 +127,14 @@ public class MitgliedSuchProfilControl extends AbstractControl
       }
       catch (ObjectNotFoundException e)
       {
-    	// Was nun?
+        // Was nun?
       }
       if (sp1.getID() == null)
       {
-    	// Es gibt kein Suchprofil mit der angegebenen ID bzw. die
-    	// ID ist null. Nicht weiter schlimm, wir verfahren einfach wie
-    	// beim "Speichern unter" 
-    	saveas = true;  
+        // Es gibt kein Suchprofil mit der angegebenen ID bzw. die
+        // ID ist null. Nicht weiter schlimm, wir verfahren einfach wie
+        // beim "Speichern unter"
+        saveas = true;
       }
       if (saveas)
       {
@@ -161,15 +161,15 @@ public class MitgliedSuchProfilControl extends AbstractControl
         // Die ID ist nicht im Inhalt enthalten, da zu diesem Zeitpunkt
         // noch nicht bekannt. Macht aber nichts, da wir die ID einfach
         // direkt aus dem Primärschlüsselfeld des Datensatzes verwenden
-        storeSettings(s, sp1); 
+        storeSettings(s, sp1);
         sp1.store();
         s.setAttribute("id", sp1.getID());
       }
-      else 
+      else
       {
-    	// Überschreiben eines vorhandenen Suchprofils
+        // Überschreiben eines vorhandenen Suchprofils
         s.setAttribute("id", sp1.getID());
-        storeSettings(s, sp1); 
+        storeSettings(s, sp1);
         sp1.store();
       }
 
@@ -181,7 +181,7 @@ public class MitgliedSuchProfilControl extends AbstractControl
       }
       else
       {
-        GUI.getStatusBar().setSuccessText("Profil aktualisiert");   	  
+        GUI.getStatusBar().setSuccessText("Profil aktualisiert");
       }
 
     }

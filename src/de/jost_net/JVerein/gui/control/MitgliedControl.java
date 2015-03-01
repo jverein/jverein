@@ -3337,6 +3337,7 @@ public class MitgliedControl extends AbstractControl
       {
         // Schritt 1: Die selektierten sekundären Beitragsgruppe prüfen, ob sie
         // bereits gespeichert sind. Ggfls. speichern.
+        @SuppressWarnings("rawtypes")
         List items = sekundaerebeitragsgruppe.getItems();
         for (Object o1 : items)
         {

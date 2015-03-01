@@ -358,7 +358,8 @@ public class ZusatzbetragControl extends AbstractControl
       Double d = (Double) getBetrag().getValue();
       z.setBetrag(d.doubleValue());
       z.store();
-      if (vorlage.getValue() == MITDATUM || vorlage.getValue() == OHNEDATUM)
+      if (vorlage.getValue().equals(MITDATUM)
+          || vorlage.getValue().equals(OHNEDATUM))
       {
         ZusatzbetragVorlage zv = (ZusatzbetragVorlage) Einstellungen
             .getDBService().createObject(ZusatzbetragVorlage.class, null);

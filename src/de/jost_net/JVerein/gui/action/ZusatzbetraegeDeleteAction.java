@@ -47,7 +47,7 @@ public class ZusatzbetraegeDeleteAction implements Action
         z = (Zusatzbetrag[]) context;
       }
     }
-    else
+    if (z == null)
     {
       throw new ApplicationException("Keinen Zusatzbetrag ausgewählt");
     }
