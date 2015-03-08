@@ -1309,29 +1309,33 @@ public class MitgliedControl extends AbstractControl
       return sekundaerebeitragsgruppe;
     }
     listeSeB = new ArrayList<SekundaereBeitragsgruppe>();
-    DBIterator bei = Einstellungen.getDBService().createList(
-        Beitragsgruppe.class);
-    bei.addFilter("sekundaer=?", true);
-    bei.setOrder("ORDER BY bezeichnung");
-    while (bei.hasNext())
+    if (!getMitglied().isNewObject())
     {
-      Beitragsgruppe b = (Beitragsgruppe) bei.next();
-      DBIterator sebei = Einstellungen.getDBService().createList(
-          SekundaereBeitragsgruppe.class);
-      sebei.addFilter("mitglied=?", getMitglied().getID());
-      sebei.addFilter("beitragsgruppe=?", b.getID());
-      if (sebei.hasNext())
+      DBIterator bei = Einstellungen.getDBService().createList(
+          Beitragsgruppe.class);
+      bei.addFilter("sekundaer=?", true);
+      bei.setOrder("ORDER BY bezeichnung");
+      while (bei.hasNext())
       {
-        SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) sebei.next();
-        listeSeB.add(sb);
-      }
-      else
-      {
-        SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) Einstellungen
-            .getDBService().createObject(SekundaereBeitragsgruppe.class, null);
-        sb.setMitglied(Integer.parseInt(getMitglied().getID()));
-        sb.setBeitragsgruppe(Integer.parseInt(b.getID()));
-        listeSeB.add(sb);
+        Beitragsgruppe b = (Beitragsgruppe) bei.next();
+        DBIterator sebei = Einstellungen.getDBService().createList(
+            SekundaereBeitragsgruppe.class);
+        sebei.addFilter("mitglied=?", getMitglied().getID());
+        sebei.addFilter("beitragsgruppe=?", b.getID());
+        if (sebei.hasNext())
+        {
+          SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) sebei.next();
+          listeSeB.add(sb);
+        }
+        else
+        {
+          SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) Einstellungen
+              .getDBService()
+              .createObject(SekundaereBeitragsgruppe.class, null);
+          sb.setMitglied(Integer.parseInt(getMitglied().getID()));
+          sb.setBeitragsgruppe(Integer.parseInt(b.getID()));
+          listeSeB.add(sb);
+        }
       }
     }
     sekundaerebeitragsgruppe = new TreePart(listeSeB, null);
@@ -3546,7 +3550,6 @@ public class MitgliedControl extends AbstractControl
       ausw.beforeGo();
       BackgroundTask t = new BackgroundTask()
       {
-
         @Override
         public void run(ProgressMonitor monitor) throws ApplicationException
         {

@@ -271,9 +271,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
               .getExterneMitgliedsnummer() : "");
         }
 
-        report.addColumn(
-            beitragsgruppebemerkung.toString() + eigenschaften.toString()
-                + zelle, Element.ALIGN_LEFT);
+        report.addColumn(beitragsgruppebemerkung.toString() + " "
+            + eigenschaften.toString() + " " + zelle, Element.ALIGN_LEFT);
       }
       report.closeTable();
 
