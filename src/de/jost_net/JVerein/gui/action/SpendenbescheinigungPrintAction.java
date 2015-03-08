@@ -1131,63 +1131,41 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     if (Einstellungen.getEinstellung().getVorlaeufig())
     {
-      String txt = "Wir sind wegen "
-          + Einstellungen.getEinstellung().getBeguenstigterzweck()
-          + " durch vorläufige Bescheinigung des Finanzamtes "
+      // Verein neu gegründet, hat noch keinen Bescheid
+      String txt = "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
+          + "AO wurde vom Finanzamt "
           + Einstellungen.getEinstellung().getFinanzamt()
           + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()
-          + " vom "
+          + ", mit Bescheid vom "
           + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
               .getBescheiddatum())
-          + " ab "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getVorlaeufigab())
-          + " als steuerbegünstigten Zwecken dienend anerkannt.";
+          + " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
+          + Einstellungen.getEinstellung().getBeguenstigterzweck();
       rpt.add(txt, 8);
     }
     else
     {
-      if (true) // Verein existiert und hat einen Bescheid bekommen
-      {
-        String txt = "Wir sind wegen "
-            + Einstellungen.getEinstellung().getBeguenstigterzweck()
-            + " nach dem Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid "
-            + "des Finanzamtes "
-            + Einstellungen.getEinstellung().getFinanzamt()
-            + ", StNr. "
-            + Einstellungen.getEinstellung().getSteuernummer()
-            + ", vom "
-            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-                .getBescheiddatum())
-            + " für den letzten Veranlagungszeitraum "
-            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-                .getVeranlagungVon())
-            + " bis "
-            + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-                .getVeranlagungBis())
-            + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach "
-            + "§ 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
-        rpt.add(txt, 8);
-      }
-      // else
-      // Verein neu gegründet, hat noch keinen Bescheid
-      // {
-      // String txt =
-      // "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
-      // + "AO wurde vom Finanzamt "
-      // + Einstellungen.getEinstellung().getFinanzamt()
-      // + ", StNr. "
-      // + Einstellungen.getEinstellung().getSteuernummer()
-      // + ", mit Bescheid vom "
-      // + new
-      // JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-      // .getBescheiddatum())
-      // +
-      // " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
-      // + Einstellungen.getEinstellung().getBeguenstigterzweck();
-      // rpt.add(txt, 8);
-      // }
+      // Verein existiert und hat einen Bescheid bekommen
+      String txt = "Wir sind wegen "
+          + Einstellungen.getEinstellung().getBeguenstigterzweck()
+          + " nach dem Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid "
+          + "des Finanzamtes "
+          + Einstellungen.getEinstellung().getFinanzamt()
+          + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer()
+          + ", vom "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getBescheiddatum())
+          + " für den letzten Veranlagungszeitraum "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getVeranlagungVon())
+          + " bis "
+          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
+              .getVeranlagungBis())
+          + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach "
+          + "§ 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
+      rpt.add(txt, 8);
     }
     rpt.add("\nEs wird bestätigt, dass die Zuwendung nur zur "
         + Einstellungen.getEinstellung().getBeguenstigterzweck()
