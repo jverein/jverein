@@ -1222,33 +1222,17 @@ public class SpendenbescheinigungPrintAction implements Action
         8);
 
     rpt.add("\nHinweis:", 9);
-    if (Einstellungen.getEinstellung().getVorlaeufig())
-    {
-      rpt.add(
-          "Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
-              + "oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
-              + "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene "
-              + "Steuer (§ 10b Absatz 4 EStG, § 9 Absatz 3 KStG, § 9 Nummer 5 GewStG)."
-              + "\n\n"
-              + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
-              + "Zuwendung anerkannt, wenn das Datum der vorläufigen Bescheinigung länger als "
-              + "3 Jahre seit Ausstellung der Bestätigung zurückliegt "
-              + "(BMF vom 15.12.1994 -BStBl I Seite 884).", 8);
-    }
-    else
-    {
-      rpt.add(
-          "Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
-              + "oder wer veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
-              + "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene "
-              + "Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG)."
-              + "\n\n"
-              + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
-              + "Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre "
-              + "bzw. das Datum der Freistellung der Einhaltung der satzungsgemäßen Voraussetzungen "
-              + "nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt "
-              + "(§ 63 Abs. 5 AO).", 8);
-    }
+    rpt.add(
+    	"Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt "
+          + "oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung "
+          + "angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene "
+          + "Steuer (§ 10b Absatz 4 EStG, § 9 Absatz 3 KStG, § 9 Nummer 5 GewStG)."
+          + "\n\n"
+          + "Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der "
+          + "Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre "
+          + "bzw. das Datum der Feststellung der Einhaltung der satzungsmäßigen Voraussetzungen "
+          + "nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt "
+          + "(§ 63 Abs. 5 AO).", 8);
 
     /* Es sind mehrere Spenden für diese Spendenbescheinigung vorhanden */
     if (isSammelbestaetigung)
