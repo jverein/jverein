@@ -409,7 +409,8 @@ public class ArbeitseinsatzControl extends AbstractControl
           ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file), csvp);
 
           final String[] header = new String[] { "name", "vorname", "strasse",
-              "adressierungszusatz", "plz", "ort", "anrede", "soll", "ist",
+              "adressierungszusatz", "plz", "ort", "anrede", "telefonprivat",
+              "telefondienstlich", "handy", "email", "soll", "ist",
               "differenz", "stundensatz", "gesamtbetrag" };
           writer.writeHeader(header);
           // set up some data to write
@@ -425,11 +426,15 @@ public class ArbeitseinsatzControl extends AbstractControl
             data1.put(header[4], m.getPlz());
             data1.put(header[5], m.getOrt());
             data1.put(header[6], m.getAnrede());
-            data1.put(header[7], z.getAttribute("soll"));
-            data1.put(header[8], z.getAttribute("ist"));
-            data1.put(header[9], z.getAttribute("differenz"));
-            data1.put(header[10], z.getAttribute("stundensatz"));
-            data1.put(header[11], z.getAttribute("gesamtbetrag"));
+            data1.put(header[7], m.getTelefonprivat());
+            data1.put(header[8], m.getTelefondienstlich());
+            data1.put(header[9], m.getHandy());
+            data1.put(header[10], m.getEmail());
+            data1.put(header[11], z.getAttribute("soll"));
+            data1.put(header[12], z.getAttribute("ist"));
+            data1.put(header[13], z.getAttribute("differenz"));
+            data1.put(header[14], z.getAttribute("stundensatz"));
+            data1.put(header[15], z.getAttribute("gesamtbetrag"));
             writer.write(data1, header);
           }
           writer.close();
