@@ -1,0 +1,7 @@
+<info>
+  <name>JUnit</name>
+  <version>4.8.1</version>
+  <description>JUnit is a simple framework to write repeatable tests.</description>
+  <url>http://junit.org</url>
+  <license>Eclipse Public License 1.0 - http://junit.org/license.html</license>
+</info>

@@ -1,0 +1,7 @@
+<info>
+  <name>Joda-Time</name>
+  <version>2.3</version>
+  <description>Joda-Time provides a quality replacement for the Java date and time classes.</description>
+  <url>http://www.joda.org/joda-time/</url>
+  <license>Apache 2 License - https://www.apache.org/licenses/LICENSE-2.0.html</license>
+</info>
