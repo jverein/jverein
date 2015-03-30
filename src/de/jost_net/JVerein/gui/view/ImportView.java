@@ -525,8 +525,9 @@ public class ImportView extends AbstractView
 
         if (importFile.getAbsolutePath().indexOf(' ') > 0)
         {
-          GUI.getStatusBar().setErrorText(
-              "Der Dateiname enthält Leerzeichen. Das ist nicht zulässig!");
+          GUI.getStatusBar()
+              .setErrorText(
+                  "Der Dateiname, bzw. der absolute Pfad, enthält Leerzeichen. Das ist nicht zulässig!");
           return;
         }
 
