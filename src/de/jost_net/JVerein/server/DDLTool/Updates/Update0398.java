@@ -20,33 +20,19 @@ import java.sql.Connection;
 
 import de.jost_net.JVerein.server.DDLTool.AbstractDDLUpdate;
 import de.jost_net.JVerein.server.DDLTool.Column;
-import de.jost_net.JVerein.server.DDLTool.Index;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
 
-public class Update0383 extends AbstractDDLUpdate
+public class Update0398 extends AbstractDDLUpdate
 {
-  public Update0383(String driver, ProgressMonitor monitor, Connection conn)
+  public Update0398(String driver, ProgressMonitor monitor, Connection conn)
   {
     super(driver, monitor, conn);
   }
 
-  @Override
   public void run() throws ApplicationException
   {
-    execute(alterColumn("mitgliednextbgruppe", new Column("mitglied",
-        COLTYPE.BIGINT, 19, null, false, false)));
     execute(alterColumn("mitgliednextbgruppe", new Column("beitragsgruppe",
         COLTYPE.BIGINT, 19, null, false, false)));
-
-    Index idx = new Index("ixMitgliednextbgruppe2", false);
-    Column col = new Column("beitragsgruppe", COLTYPE.INTEGER, 0, null, false,
-        false);
-    idx.add(col);
-    execute(idx.getCreateIndex("mitgliednextbgruppe"));
-
-    // Liquibase id=116
-    execute(createForeignKey("fkMitgliednextbgruppe1", "mitgliednextbgruppe",
-        "beitragsgruppe", "beitragsgruppe", "id", "RESTRICT", "NO ACTION"));
   }
 }
