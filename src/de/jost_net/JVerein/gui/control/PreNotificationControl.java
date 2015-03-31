@@ -429,7 +429,9 @@ public class PreNotificationControl extends AbstractControl
             context.put("dateformat", new JVDateFormatTTMMJJJJ());
             context.put("decimalformat", Einstellungen.DECIMALFORMAT);
             context.put("email", ls.getEmail());
-            Map<String, Object> map = new LastschriftMap().getMap(ls, null);
+
+            Map<String, Object> map = new AllgemeineMap().getMap(null);
+            map = new LastschriftMap().getMap(ls, map);
             VarTools.add(context, map);
 
             StringWriter wtext1 = new StringWriter();
