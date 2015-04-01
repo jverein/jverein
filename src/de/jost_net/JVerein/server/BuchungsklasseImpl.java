@@ -119,6 +119,14 @@ public class BuchungsklasseImpl extends AbstractDBObject implements
     {
       return String.valueOf(getNummer()) + " - " + getBezeichnung();
     }
+    else if (fieldName.equals("bezeichnungnr"))
+    {
+      int nr = getNummer();
+      if (nr >= 0)
+      {
+        return getBezeichnung() + " (" + nr + ")";
+      }
+    }
     return super.getAttribute(fieldName);
   }
 }
