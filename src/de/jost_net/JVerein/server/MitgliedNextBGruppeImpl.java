@@ -68,7 +68,7 @@ public class MitgliedNextBGruppeImpl extends AbstractDBObject implements
   @Override
   public Mitglied getMitglied() throws RemoteException
   {
-    Integer id = (Integer) getAttribute(COL_MITGLIED);
+    Long id = (Long) getAttribute(COL_MITGLIED);
     if (null == id)
       return null;
 
@@ -88,9 +88,11 @@ public class MitgliedNextBGruppeImpl extends AbstractDBObject implements
   @Override
   public Beitragsgruppe getBeitragsgruppe() throws RemoteException
   {
-    Integer id = (Integer) getAttribute(COL_BEITRAGSGRUPPE);
+    Long id = (Long) getAttribute(COL_BEITRAGSGRUPPE);
     if (null == id)
+    {
       return null;
+    }
     return (Beitragsgruppe) Einstellungen.getDBService().createObject(
         Beitragsgruppe.class, id.toString());
   }
