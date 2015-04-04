@@ -35,6 +35,7 @@ import org.apache.velocity.app.Velocity;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -115,7 +116,7 @@ public class ZipMailer
               VelocityContext context = new VelocityContext();
               context.put("dateformat", new JVDateFormatTTMMJJJJ());
               context.put("decimalformat", Einstellungen.DECIMALFORMAT);
-              Map<String, Object> map = m.getMap(null);
+              Map<String, Object> map = new MitgliedMap().getMap(m, null);
               map = new AllgemeineMap().getMap(map);
               VarTools.add(context, map);
 

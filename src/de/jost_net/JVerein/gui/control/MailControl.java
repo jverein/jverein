@@ -33,6 +33,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.action.MailDetailAction;
 import de.jost_net.JVerein.gui.menu.MailAnhangMenu;
@@ -492,7 +493,7 @@ public class MailControl extends AbstractControl
 
   public Map<String, Object> getVariables(Mitglied m) throws RemoteException
   {
-    Map<String, Object> map = m.getMap(null);
+    Map<String, Object> map = new MitgliedMap().getMap(m, null);
     map = new AllgemeineMap().getMap(map);
     return map;
   }

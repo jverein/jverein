@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.view.DokumentationUtil;
 import de.jost_net.JVerein.gui.view.LesefeldDetailView;
@@ -118,7 +119,8 @@ public class LesefeldUebersichtPart implements Part
         selectedMitglied = selected;
         try
         {
-          lesefeldAuswerter.setMap(selectedMitglied.getMap(null, true));
+          lesefeldAuswerter.setMap(new MitgliedMap().getMap(selectedMitglied,
+              null, true));
           lesefeldAuswerter.evalAlleLesefelder();
           List<Lesefeld> lesefelder = lesefeldAuswerter.getLesefelder();
           for (Lesefeld lesefeld : lesefelder)
@@ -148,7 +150,8 @@ public class LesefeldUebersichtPart implements Part
 
     lesefeldAuswerter = new LesefeldAuswerter();
     lesefeldAuswerter.setLesefelderDefinitionsFromDatabase();
-    lesefeldAuswerter.setMap(selectedMitglied.getMap(null, true));
+    lesefeldAuswerter.setMap(new MitgliedMap().getMap(selectedMitglied, null,
+        true));
     lesefeldAuswerter.evalAlleLesefelder();
     List<Lesefeld> lesefelder = lesefeldAuswerter.getLesefelder();
     for (Lesefeld lesefeld : lesefelder)

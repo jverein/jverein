@@ -228,10 +228,6 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public void addVariable(String name, String wert) throws RemoteException;
 
-  public Map<String, Object> getMap(Map<String, Object> map)
-      throws RemoteException;
-
-  public Map<String, Object> getMap(Map<String, Object> map,
-      boolean ohneLesefelder) throws RemoteException;
+  public Map<String, String> getVariablen() throws RemoteException;
 
 }

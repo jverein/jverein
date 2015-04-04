@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -44,7 +45,7 @@ public class FreiesFormularAction implements Action
   /**
    * 
    * @param id
-   *        ID des Formulars
+   *          ID des Formulars
    */
   public FreiesFormularAction(String id)
   {
@@ -63,7 +64,7 @@ public class FreiesFormularAction implements Action
     {
       if (context instanceof Mitglied)
       {
-        m = new Mitglied[] { (Mitglied) context};
+        m = new Mitglied[] { (Mitglied) context };
       }
       else if (context instanceof Mitglied[])
       {
@@ -89,14 +90,15 @@ public class FreiesFormularAction implements Action
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings.getString("lastdir", System.getProperty("user.home"));
+    String path = settings
+        .getString("lastdir", System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("freiesformular", "",
-        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
-    fd.setFilterExtensions(new String[] { "*.PDF"});
+    fd.setFileName(new Dateiname("freiesformular", "", Einstellungen
+        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
     if (s == null || s.length() == 0)
@@ -115,7 +117,7 @@ public class FreiesFormularAction implements Action
     {
       Formular fo = (Formular) Einstellungen.getDBService().createObject(
           Formular.class, id);
-      Map<String, Object> map = mi.getMap(null);
+      Map<String, Object> map = new MitgliedMap().getMap(mi, null);
       map = new AllgemeineMap().getMap(map);
       fa.writeForm(fo, map);
     }

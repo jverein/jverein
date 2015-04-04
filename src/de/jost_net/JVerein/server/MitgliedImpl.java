@@ -16,7 +16,6 @@
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,11 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.Variable.MitgliedVar;
-import de.jost_net.JVerein.Variable.VarTools;
-import de.jost_net.JVerein.gui.input.GeschlechtInput;
 import de.jost_net.JVerein.io.BeitragsUtil;
-import de.jost_net.JVerein.io.VelocityTool;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Datentyp;
@@ -40,8 +35,6 @@ import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
-import de.jost_net.JVerein.rmi.Eigenschaft;
-import de.jost_net.JVerein.rmi.Eigenschaften;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -50,14 +43,10 @@ import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.jost_net.JVerein.util.LesefeldAuswerter;
-import de.jost_net.JVerein.util.StringTool;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.SEPAException.Fehler;
-import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
-import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -68,9 +57,9 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedImpl extends AbstractDBObject implements Mitglied
 {
 
-  private static final long serialVersionUID = 1L;
-
   private transient Map<String, String> variable;
+
+  private static final long serialVersionUID = 1L;
 
   public MitgliedImpl() throws RemoteException
   {
@@ -672,33 +661,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return ret;
   }
 
-  private Object getBankname() throws RemoteException
-  {
-    String bic = getBic();
-    if (null != bic)
-    {
-      Bank bank = Banken.getBankByBIC(bic);
-      if (null != bank)
-        return formatBankname(bank);
-    }
-    String blz = getBlz();
-    if (null != blz)
-    {
-      Bank bank = Banken.getBankByBLZ(blz);
-      if (null != bank)
-        return formatBankname(bank);
-    }
-    return null;
-  }
-
-  private String formatBankname(Bank bank)
-  {
-    String name = bank.getBezeichnung();
-    if (null != name)
-      return name.trim();
-    return null;
-  }
-
   @Override
   public void setBic(String bic) throws RemoteException
   {
@@ -1238,315 +1200,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public Map<String, Object> getMap(Map<String, Object> inma)
-      throws RemoteException
-  {
-    return getMap(inma, false);
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  public Map<String, Object> getMap(Map<String, Object> inma,
-      boolean ohneLesefelder) throws RemoteException
-  {
-    Map<String, Object> map = null;
-    if (inma == null)
-    {
-      map = new HashMap<String, Object>();
-    }
-    else
-    {
-      map = inma;
-    }
-    if (this.getID() == null)
-    {
-      this.setAdressierungszusatz("3. Hinterhof");
-      this.setAdresstyp(1);
-      this.setAnrede("Herrn");
-      this.setAustritt("01.04.2011");
-      DBIterator it = Einstellungen.getDBService().createList(
-          Beitragsgruppe.class);
-      Beitragsgruppe bg = (Beitragsgruppe) it.next();
-      this.setBeitragsgruppe(Integer.parseInt(bg.getID()));
-      this.setBic("XXXXXXXXXXX");
-      this.setBlz("10020030");
-      this.setEingabedatum();
-      this.setEintritt("05.02.1999");
-      this.setEmail("willi.wichtig@jverein.de");
-      this.setExterneMitgliedsnummer("123456");
-      this.setGeburtsdatum("02.03.1980");
-      this.setGeschlecht(GeschlechtInput.MAENNLICH);
-      this.setHandy("0170/123456789");
-      this.setIban("DE89370400440532013000");
-      this.setID("1");
-      this.setIndividuellerBeitrag(123.45);
-      this.setKonto("1234567890");
-      this.setKtoiPersonenart("n");
-      this.setKtoiAnrede("Herrn");
-      this.setKtoiTitel("Dr. Dr.");
-      this.setKtoiName("Wichtig");
-      this.setKtoiVorname("Willi");
-      this.setKtoiStrasse("Bahnhofstr. 22");
-      this.setAdressierungszusatz("Hinterhof bei Lieschen Müller");
-      this.setPlz("12345");
-      this.setOrt("Testenhausen");
-      this.setKuendigung("21.02.2011");
-      this.setLetzteAenderung();
-      this.setName("Wichtig");
-      this.setOrt("Testenhausen");
-      this.setPersonenart("n");
-      this.setPlz("12345");
-      this.setStaat("Deutschland");
-      this.setSterbetag(new Date());
-      this.setStrasse("Hafengasse 124");
-      this.setTelefondienstlich("123455600");
-      this.setTelefonprivat("123456");
-      this.setTitel("Dr.");
-      this.setVermerk1("Vermerk 1");
-      this.setVermerk2("Vermerk 2");
-      this.setVorname("Willi");
-      this.setZahlungsrhythmus(12);
-      this.setZahlungstermin(Zahlungstermin.VIERTELJAEHRLICH1.getKey());
-      this.setZahlungsweg(1);
-      this.setZahlungsweg(Zahlungstermin.HALBJAEHRLICH4.getKey());
-    }
-    map.put(MitgliedVar.ADRESSIERUNGSZUSATZ.getName(),
-        StringTool.toNotNullString(this.getAdressierungszusatz()));
-    map.put(MitgliedVar.ADRESSTYP.getName(),
-        StringTool.toNotNullString(this.getAdresstyp().getID()));
-    map.put(MitgliedVar.ANREDE.getName(),
-        StringTool.toNotNullString(this.getAnrede()));
-    map.put(MitgliedVar.ANREDE_FOERMLICH.getName(),
-        Adressaufbereitung.getAnredeFoermlich(this));
-    map.put(MitgliedVar.ANREDE_DU.getName(),
-        Adressaufbereitung.getAnredeDu(this));
-    map.put(MitgliedVar.AUSTRITT.getName(),
-        Datum.formatDate(this.getAustritt()));
-    map.put(
-        MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
-        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(this.getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
-    map.put(
-        MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
-        this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(this.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
-    try
-    {
-      map.put(
-          MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
-          this.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-              .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
-                  .getBeitragsmodel(), this.getZahlungstermin(), this
-                  .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe(),
-                  new Date(), this.getEintritt(), this.getAustritt())) : "");
-    }
-    catch (NullPointerException e)
-    {
-      System.out.println(getName());
-    }
-    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), this
-        .getBeitragsgruppe() != null ? this.getBeitragsgruppe()
-        .getBezeichnung() : "");
-    map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
-        this.getBeitragsgruppe() != null ? this.getBeitragsgruppe().getID()
-            : "");
-    map.put(MitgliedVar.MANDATDATUM.getName(), this.getMandatDatum());
-    map.put(MitgliedVar.MANDATID.getName(), this.getMandatID());
-    map.put(MitgliedVar.BIC.getName(), this.getBic());
-    map.put(MitgliedVar.BLZ.getName(), this.getBlz());
-    map.put(MitgliedVar.EINGABEDATUM.getName(),
-        Datum.formatDate(this.getEingabedatum()));
-    map.put(MitgliedVar.EINTRITT.getName(),
-        Datum.formatDate(this.getEintritt()));
-    map.put(MitgliedVar.EMAIL.getName(), this.getEmail());
-    map.put(MitgliedVar.EMPFAENGER.getName(),
-        Adressaufbereitung.getAdressfeld(this));
-    map.put(MitgliedVar.EXTERNE_MITGLIEDSNUMMER.getName(),
-        this.getExterneMitgliedsnummer());
-    map.put(MitgliedVar.GEBURTSDATUM.getName(),
-        Datum.formatDate(this.getGeburtsdatum()));
-    map.put(MitgliedVar.GESCHLECHT.getName(), this.getGeschlecht());
-    map.put(MitgliedVar.HANDY.getName(), this.getHandy());
-    map.put(MitgliedVar.IBANMASKIERT.getName(),
-        VarTools.maskieren(this.getIban()));
-    map.put(MitgliedVar.IBAN.getName(), this.getIban());
-    map.put(MitgliedVar.ID.getName(), this.getID());
-    map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
-        Einstellungen.DECIMALFORMAT.format(this.getIndividuellerBeitrag()));
-    map.put(MitgliedVar.BANKNAME.getName(), this.getBankname());
-    map.put(MitgliedVar.KONTO.getName(), this.getKonto());
-    map.put(MitgliedVar.KONTOINHABER_ADRESSIERUNGSZUSATZ.getName(),
-        this.getKtoiAdressierungszusatz());
-    map.put(MitgliedVar.KONTOINHABER_ANREDE.getName(), this.getKtoiAnrede());
-    map.put(MitgliedVar.KONTOINHABER_EMAIL.getName(), this.getKtoiEmail());
-    map.put(MitgliedVar.KONTOINHABER_NAME.getName(), this.getKtoiName());
-    map.put(MitgliedVar.KONTOINHABER_ORT.getName(), this.getKtoiOrt());
-    map.put(MitgliedVar.KONTOINHABER_PERSONENART.getName(),
-        this.getKtoiPersonenart());
-    map.put(MitgliedVar.KONTOINHABER_PLZ.getName(), this.getKtoiPlz());
-    map.put(MitgliedVar.KONTOINHABER_STAAT.getName(), this.getKtoiStaat());
-    map.put(MitgliedVar.KONTOINHABER_STRASSE.getName(), this.getKtoiStrasse());
-    map.put(MitgliedVar.KONTOINHABER_TITEL.getName(), this.getKtoiTitel());
-    map.put(MitgliedVar.KONTOINHABER_VORNAME.getName(), this.getKtoiVorname());
-    map.put(MitgliedVar.KUENDIGUNG.getName(),
-        Datum.formatDate(this.getKuendigung()));
-    map.put(MitgliedVar.LETZTEAENDERUNG.getName(),
-        Datum.formatDate(this.getLetzteAenderung()));
-    map.put(MitgliedVar.NAME.getName(), this.getName());
-    map.put(MitgliedVar.NAMEVORNAME.getName(),
-        Adressaufbereitung.getNameVorname(this));
-    map.put(MitgliedVar.ORT.getName(), this.getOrt());
-    map.put(MitgliedVar.PERSONENART.getName(), this.getPersonenart());
-    map.put(MitgliedVar.PLZ.getName(), this.getPlz());
-    map.put(MitgliedVar.STAAT.getName(), this.getStaat());
-    map.put(MitgliedVar.STERBETAG.getName(),
-        Datum.formatDate(this.getSterbetag()));
-    map.put(MitgliedVar.STRASSE.getName(), this.getStrasse());
-    map.put(MitgliedVar.TELEFONDIENSTLICH.getName(),
-        this.getTelefondienstlich());
-    map.put(MitgliedVar.TELEFONPRIVAT.getName(), this.getTelefonprivat());
-    map.put(MitgliedVar.TITEL.getName(), this.getTitel());
-    map.put(MitgliedVar.VERMERK1.getName(), this.getVermerk1());
-    map.put(MitgliedVar.VERMERK2.getName(), this.getVermerk2());
-    map.put(MitgliedVar.VORNAME.getName(), this.getVorname());
-    map.put(MitgliedVar.VORNAMENAME.getName(),
-        Adressaufbereitung.getVornameName(this));
-    map.put(MitgliedVar.ZAHLERID.getName(), this.getZahlerID());
-    map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(), this.getZahlungsrhythmus()
-        + "");
-    map.put(MitgliedVar.ZAHLUNGSRHYTHMUS.getName(), this.getZahlungsrhythmus()
-        + "");
-    map.put(MitgliedVar.ZAHLUNGSTERMIN.getName(),
-        this.getZahlungstermin() != null ? this.getZahlungstermin().getText()
-            : "");
-    map.put(MitgliedVar.ZAHLUNGSWEG.getName(), this.getZahlungsweg() + "");
-
-    String zahlungsweg = "";
-    switch (this.getZahlungsweg())
-    {
-      case Zahlungsweg.BASISLASTSCHRIFT:
-      {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", this.getKonto());
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{BLZ\\}", this.getBlz());
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{BIC\\}", this.getBic());
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{IBAN\\}", this.getIban());
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{MANDATID\\}",
-            this.getMandatID());
-        break;
-      }
-      case Zahlungsweg.BARZAHLUNG:
-      {
-        zahlungsweg = Einstellungen.getEinstellung().getRechnungTextBar();
-        break;
-      }
-      case Zahlungsweg.ÜBERWEISUNG:
-      {
-        zahlungsweg = Einstellungen.getEinstellung()
-            .getRechnungTextUeberweisung();
-        break;
-      }
-    }
-    try
-    {
-      zahlungsweg = VelocityTool.eval(map, zahlungsweg);
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-    map.put(MitgliedVar.ZAHLUNGSWEGTEXT.getName(), zahlungsweg);
-
-    HashMap<String, String> format = new HashMap<String, String>();
-    DBIterator itfd = Einstellungen.getDBService().createList(
-        Felddefinition.class);
-    while (itfd.hasNext())
-    {
-      Felddefinition fd = (Felddefinition) itfd.next();
-      DBIterator itzus = Einstellungen.getDBService().createList(
-          Zusatzfelder.class);
-      itzus.addFilter("mitglied = ? and felddefinition = ? ", new Object[] {
-          getID(), fd.getID() });
-      Zusatzfelder z = null;
-      if (itzus.hasNext())
-      {
-        z = (Zusatzfelder) itzus.next();
-      }
-      else
-      {
-        z = (Zusatzfelder) Einstellungen.getDBService().createObject(
-            Zusatzfelder.class, null);
-      }
-
-      switch (fd.getDatentyp())
-      {
-        case Datentyp.DATUM:
-          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
-              Datum.formatDate(z.getFeldDatum()));
-          format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "DATE");
-          break;
-        case Datentyp.JANEIN:
-          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
-              z.getFeldJaNein() ? "X" : " ");
-          break;
-        case Datentyp.GANZZAHL:
-          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
-              z.getFeldGanzzahl() + "");
-          format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "INTEGER");
-          break;
-        case Datentyp.WAEHRUNG:
-          if (z.getFeldWaehrung() != null)
-          {
-            map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(),
-                Einstellungen.DECIMALFORMAT.format(z.getFeldWaehrung()));
-            format.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "DOUBLE");
-          }
-          else
-          {
-            map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), "");
-          }
-          break;
-        case Datentyp.ZEICHENFOLGE:
-          map.put(Einstellungen.ZUSATZFELD_PRE + fd.getName(), z.getFeld());
-          break;
-      }
-    }
-
-    DBIterator iteig = Einstellungen.getDBService().createList(
-        Eigenschaft.class);
-    while (iteig.hasNext())
-    {
-      Eigenschaft eig = (Eigenschaft) iteig.next();
-      DBIterator iteigm = Einstellungen.getDBService().createList(
-          Eigenschaften.class);
-      iteigm.addFilter("mitglied = ? and eigenschaft = ?",
-          new Object[] { this.getID(), eig.getID() });
-      String val = "";
-      if (iteigm.size() > 0)
-      {
-        val = "X";
-      }
-      map.put("mitglied_eigenschaft_" + eig.getBezeichnung(), val);
-    }
-
-    for (String varname : variable.keySet())
-    {
-      map.put(varname, variable.get(varname));
-    }
-
-    if (!ohneLesefelder)
-    {
-      // Füge Lesefelder diesem Mitglied-Objekt hinzu.
-      LesefeldAuswerter l = new LesefeldAuswerter();
-      l.setLesefelderDefinitionsFromDatabase();
-      l.setMap(map);
-      map.putAll(l.getLesefelderMap());
-    }
-
-    return map;
-  }
-
-  @Override
   public boolean isAngemeldet(Date stichtag) throws RemoteException
   {
     return ((getEintritt() != null || getEintritt().before(stichtag))
@@ -1616,6 +1269,18 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     return super.getAttribute(fieldName);
   }
 
+  @Override
+  public void addVariable(String name, String wert)
+  {
+    variable.put(name, wert);
+  }
+
+  @Override
+  public Map<String, String> getVariablen()
+  {
+    return variable;
+  }
+
   private Date toDate(String datum)
   {
     Date d = null;
@@ -1629,12 +1294,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       //
     }
     return d;
-  }
-
-  @Override
-  public void addVariable(String name, String wert)
-  {
-    variable.put(name, wert);
   }
 
 }

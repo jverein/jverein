@@ -366,7 +366,7 @@ public class ZusatzbetragControl extends AbstractControl
         zv.setIntervall(z.getIntervall());
         zv.setBuchungstext(z.getBuchungstext());
         zv.setBetrag(z.getBetrag());
-        if (vorlage.getValue() == MITDATUM)
+        if (vorlage.getValue().equals(MITDATUM))
         {
           zv.setEndedatum(z.getEndedatum());
           zv.setFaelligkeit(z.getFaelligkeit());

@@ -31,6 +31,7 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.gui.view.IAuswertung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
@@ -152,7 +153,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
         Logger.debug(s);
       }
 
-      Map<String, Object> map = m.getMap(null);
+      Map<String, Object> map = new MitgliedMap().getMap(m, null);
       // check headerKeys against map
       for (String key : headerKeys)
       {
@@ -169,7 +170,8 @@ public class MitgliedAuswertungCSV implements IAuswertung
 
       for (Mitglied mit : list)
       {
-        writer.write(mit.getMap(null), headerKeys, processors);
+        writer.write(new MitgliedMap().getMap(mit, null), headerKeys,
+            processors);
       }
       writer.close();
       FileViewer.show(file);
@@ -186,7 +188,7 @@ public class MitgliedAuswertungCSV implements IAuswertung
   {
     try
     {
-      return m.getMap(null).keySet().toArray(new String[0]);
+      return new MitgliedMap().getMap(m, null).keySet().toArray(new String[0]);
     }
     catch (RemoteException e)
     {

@@ -27,6 +27,7 @@ import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.LastschriftMap;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoVar;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
@@ -66,7 +67,7 @@ public class FormularAnzeigeAction implements Action
       Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
           Mitglied.class, null);
 
-      Map<String, Object> map = m.getMap(null);
+      Map<String, Object> map = new MitgliedMap().getMap(m, null);
 
       Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
           Lastschrift.class, null);

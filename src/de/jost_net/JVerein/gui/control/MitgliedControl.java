@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Messaging.FamilienbeitragMessage;
 import de.jost_net.JVerein.Queries.MitgliedQuery;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.gui.action.ArbeitseinsatzAction;
 import de.jost_net.JVerein.gui.action.LehrgangAction;
 import de.jost_net.JVerein.gui.action.LesefelddefinitionenAction;
@@ -1774,7 +1775,8 @@ public class MitgliedControl extends AbstractControl
     if (getMitglied().getID() == null)
       return null;
 
-    lesefeldAuswerter.setMap(getMitglied().getMap(null, true));
+    lesefeldAuswerter.setMap(new MitgliedMap()
+        .getMap(getMitglied(), null, true));
 
     lesefelder = new Input[lesefeldAuswerter.countLesefelder()];
 

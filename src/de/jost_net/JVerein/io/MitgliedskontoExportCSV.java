@@ -27,6 +27,7 @@ import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -120,7 +121,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
             Mitglied.class, null);
       }
 
-      Map<String, Object> map = m.getMap(null);
+      Map<String, Object> map = new MitgliedMap().getMap(m, null);
       map = new MitgliedskontoMap().getMap(mk, map);
       String[] header = createHeader(map);
       Logger.debug("Header");
@@ -134,7 +135,8 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
 
       for (Mitgliedskonto mkto : mkonten)
       {
-        Map<String, Object> mp = mkto.getMitglied().getMap(null);
+        Map<String, Object> mp = new MitgliedMap().getMap(mkto.getMitglied(),
+            null);
         map = new MitgliedskontoMap().getMap(mkto, mp);
         writer.write(map, header, processors);
         monitor.log("Export: "

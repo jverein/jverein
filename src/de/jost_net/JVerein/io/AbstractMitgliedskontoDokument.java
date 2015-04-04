@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.Variable.MitgliedskontoMap;
 import de.jost_net.JVerein.gui.control.MitgliedskontoControl;
 import de.jost_net.JVerein.keys.Ausgabeart;
@@ -275,7 +276,7 @@ public abstract class AbstractMitgliedskontoDokument
   {
     Map<String, Object> map = new MitgliedskontoMap().getMap(mk, null);
     Mitglied m = mk.get(0).getMitglied();
-    map = m.getMap(map);
+    map = new MitgliedMap().getMap(m, map);
     map = new AllgemeineMap().getMap(map);
     fa.writeForm(fo, map);
   }

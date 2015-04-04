@@ -61,6 +61,7 @@ import org.supercsv.io.CsvListWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -157,7 +158,7 @@ public class AuswertungVorlagenCsvView extends AbstractView
 
     Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
         Mitglied.class, null);
-    Set<String> keysUnsorted = m.getMap(null).keySet();
+    Set<String> keysUnsorted = new MitgliedMap().getMap(m, null).keySet();
     java.util.List<String> keysSorted = new ArrayList<String>(keysUnsorted);
     java.util.Collections.sort(keysSorted);
 
