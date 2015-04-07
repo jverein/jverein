@@ -178,6 +178,7 @@ public class FormularAufbereitung
     }
     buendig = links;
     String stringVal = getString(val);
+    stringVal = stringVal.replace("\\n", "\n");
     stringVal = stringVal.replaceAll("\r\n", "\n");
     String[] ss = stringVal.split("\n");
     for (String s : ss)
