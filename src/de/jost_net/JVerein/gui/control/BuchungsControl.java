@@ -450,7 +450,7 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
     {
       list.setOrder("ORDER BY nummer");
     }
@@ -465,12 +465,12 @@ public class BuchungsControl extends AbstractControl
         buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
         switch (Einstellungen.getEinstellung().getBuchungsartSort())
         {
-          case BuchungsartSort.NACH_NUMMER: 
+          case BuchungsartSort.NACH_NUMMER:
             ((SelectInput) buchungsart).setAttribute("nrbezeichnung");
             break;
           case BuchungsartSort.NACH_BEZEICHNUNG_NR:
             ((SelectInput) buchungsart).setAttribute("bezeichnungnr");
-        	break;
+            break;
           default:
             ((SelectInput) buchungsart).setAttribute("bezeichnung");
             break;
@@ -479,7 +479,7 @@ public class BuchungsControl extends AbstractControl
         break;
       case BuchungBuchungsartAuswahl.SearchInput:
       default: // default soll SearchInput sein. Eigentlich sollten die
-               // Settings immer gesetzt sein, aber man weiss ja nie.
+        // Settings immer gesetzt sein, aber man weiss ja nie.
         buchungsart = new BuchungsartSearchInput();
         ((BuchungsartSearchInput) buchungsart).setAttribute("nrbezeichnung");
         ((BuchungsartSearchInput) buchungsart)
@@ -587,13 +587,13 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
     {
       list.setOrder("ORDER BY nummer");
     }
     else
     {
-      list.setOrder("ORDER BY bezeichnung");    
+      list.setOrder("ORDER BY bezeichnung");
     }
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
@@ -1033,8 +1033,7 @@ public class BuchungsControl extends AbstractControl
       buchungsList.addColumn(new Column("mitgliedskonto", "Mitglied",
           new MitgliedskontoFormatter(), false, Column.ALIGN_AUTO,
           Column.SORT_BY_DISPLAY));
-      buchungsList.addColumn("Projekt", "projekt",
-    	  new ProjektFormatter());
+      buchungsList.addColumn("Projekt", "projekt", new ProjektFormatter());
       buchungsList.setMulti(true);
       buchungsList.setContextMenu(new BuchungMenu(this));
       buchungsList.setRememberColWidths(true);
@@ -1106,8 +1105,7 @@ public class BuchungsControl extends AbstractControl
           Einstellungen.DECIMALFORMAT));
       splitbuchungsList.addColumn("Mitglied", "mitgliedskonto",
           new MitgliedskontoFormatter());
-      splitbuchungsList.addColumn("Projekt", "projekt",
-    	  new ProjektFormatter());
+      splitbuchungsList.addColumn("Projekt", "projekt", new ProjektFormatter());
       splitbuchungsList.setContextMenu(new BuchungMenu(this));
       splitbuchungsList.setRememberColWidths(true);
       splitbuchungsList.setSummary(true);
@@ -1578,7 +1576,8 @@ public class BuchungsControl extends AbstractControl
           }
           catch (Exception e)
           {
-            // Wenn hier ein Fehler auftrat, deregistrieren wir uns wieder
+            // Wenn hier ein Fehler auftrat, deregistrieren wir uns
+            // wieder
             Logger.error("unable to refresh Splitbuchungen", e);
             Application.getMessagingFactory().unRegisterMessageConsumer(
                 BuchungMessageConsumer.this);
