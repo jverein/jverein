@@ -140,7 +140,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
 
     ButtonArea b = new ButtonArea();
 
-    b.addButton(i18n.tr("übernehmen"), new Action()
+    b.addButton("übernehmen", new Action()
     {
 
       @Override
@@ -167,7 +167,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
       }
     }, null, false, "emblem-default.png");
 
-    b.addButton(i18n.tr("entfernen"), new Action()
+    b.addButton("entfernen", new Action()
     {
 
       @Override
@@ -180,7 +180,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     b.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.MITGLIEDSKONTO_AUSWAHL, false, "help-browser.png");
 
-    b.addButton(i18n.tr("abbrechen"), new Action()
+    b.addButton("abbrechen", new Action()
     {
 
       @Override
