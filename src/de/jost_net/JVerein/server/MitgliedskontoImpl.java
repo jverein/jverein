@@ -101,7 +101,6 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
   @Override
   protected Class<?> getForeignObject(String arg0)
   {
-    System.out.println(arg0);
     if ("mitglied".equals(arg0))
     {
       return Mitglied.class;
