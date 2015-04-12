@@ -49,4 +49,9 @@ public interface Mitgliedskonto extends DBObject
   public Double getBetrag() throws RemoteException;
 
   public Double getIstSumme() throws RemoteException;
+
+  public Buchungsart getBuchungsart() throws RemoteException;
+
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException;
+
 }

@@ -23,6 +23,7 @@ import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.willuhn.datasource.db.AbstractDBObject;
@@ -100,6 +101,7 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
   @Override
   protected Class<?> getForeignObject(String arg0)
   {
+    System.out.println(arg0);
     if ("mitglied".equals(arg0))
     {
       return Mitglied.class;
@@ -107,6 +109,10 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
     if ("abrechnungslauf".equals(arg0))
     {
       return Abrechnungslauf.class;
+    }
+    if ("buchungsart".equals(arg0))
+    {
+      return Buchungsart.class;
     }
     return null;
   }
@@ -122,6 +128,18 @@ public class MitgliedskontoImpl extends AbstractDBObject implements
       throws RemoteException
   {
     setAttribute("abrechnungslauf", new Integer(abrechnungslauf.getID()));
+  }
+
+  @Override
+  public Buchungsart getBuchungsart() throws RemoteException
+  {
+    return (Buchungsart) getAttribute("buchungsart");
+  }
+
+  @Override
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException
+  {
+    setAttribute("buchungsart", new Long(buchungsart.getID()));
   }
 
   @Override

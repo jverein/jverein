@@ -40,8 +40,8 @@ import de.jost_net.JVerein.gui.action.BuchungAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
-import de.jost_net.JVerein.gui.formatter.ProjektFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
+import de.jost_net.JVerein.gui.formatter.ProjektFormatter;
 import de.jost_net.JVerein.gui.input.BuchungsartSearchInput;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
@@ -410,6 +410,11 @@ public class BuchungsControl extends AbstractControl
               getName().setValue(Adressaufbereitung.getNameVorname(m2));
               getDatum().setValue(new Date());
             }
+          }
+          if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
+          {
+            Mitgliedskonto mk = (Mitgliedskonto) mitgliedskonto.getValue();
+            getBuchungsart().setValue(mk.getBuchungsart());
           }
         }
         catch (RemoteException e)

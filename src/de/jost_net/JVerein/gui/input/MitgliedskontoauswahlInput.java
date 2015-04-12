@@ -44,12 +44,6 @@ public class MitgliedskontoauswahlInput
 
   private Mitglied mitglied = null;
 
-  public MitgliedskontoauswahlInput(Buchung[] buchungen) throws RemoteException
-  {
-    this.buchungen = buchungen;
-    this.konto = buchungen[0].getMitgliedskonto();
-  }
-
   public MitgliedskontoauswahlInput(Buchung buchung) throws RemoteException
   {
     buchungen = new Buchung[1];
@@ -136,6 +130,8 @@ public class MitgliedskontoauswahlInput
             buchungen[0].setZweck(konto.getZweck1());
             buchungen[0].setBetrag(konto.getBetrag());
             buchungen[0].setDatum(new Date());
+            buchungen[0]
+                .setBuchungsart(new Long(konto.getBuchungsart().getID()));
           }
         }
         else if (event.data instanceof Mitglied)
