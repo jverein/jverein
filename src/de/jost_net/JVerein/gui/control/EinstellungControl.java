@@ -42,6 +42,8 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.server.EinstellungImpl;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
+import de.jost_net.OBanToo.SEPA.Land.SEPALaender;
+import de.jost_net.OBanToo.SEPA.Land.SEPALand;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
@@ -1176,7 +1178,9 @@ public class EinstellungControl extends AbstractControl
     {
       return sepaland;
     }
-    sepaland = new SEPALandInput();
+    SEPALand sl = SEPALaender.getLand(Einstellungen.getEinstellung()
+        .getDefaultLand());
+    sepaland = new SEPALandInput(sl);
     return sepaland;
   }
 
