@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.action.AbrechnungslaufBuchungenAction;
 import de.jost_net.JVerein.gui.formatter.AbrechnungsmodusFormatter;
 import de.jost_net.JVerein.gui.formatter.JaNeinFormatter;
 import de.jost_net.JVerein.gui.menu.AbrechnungslaufMenu;
@@ -48,7 +49,7 @@ import de.willuhn.util.ApplicationException;
 public class AbrechnungslaufControl extends AbstractControl
 {
 
-  private de.willuhn.jameica.system.Settings settings;
+  private final de.willuhn.jameica.system.Settings settings;
 
   private Abrechnungslauf abrl;
 
@@ -352,7 +353,8 @@ public class AbrechnungslaufControl extends AbstractControl
 
     if (abrechnungslaufList == null)
     {
-      abrechnungslaufList = new TablePart(abrechnungslaeufe, null);
+      abrechnungslaufList = new TablePart(abrechnungslaeufe,
+          new AbrechnungslaufBuchungenAction());
       abrechnungslaufList.addColumn("Nr", "nr");
       abrechnungslaufList.addColumn("Datum", "datum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
