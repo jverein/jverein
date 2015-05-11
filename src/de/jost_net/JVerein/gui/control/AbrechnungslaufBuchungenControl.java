@@ -134,7 +134,7 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
     {
       SollbuchungsList = new TablePart(SollBuchungen,
           new MitgliedDetailAction());
-      SollbuchungsList.addColumn("F?lligkeit", "datum", new DateFormatter(
+      SollbuchungsList.addColumn("Fälligkeit", "datum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
 
       SollbuchungsList.addColumn("Mitglied", "mitglied");
