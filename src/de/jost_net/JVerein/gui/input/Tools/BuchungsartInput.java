@@ -6,7 +6,6 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.BuchungsartSearchInput;
 import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.keys.BuchungsartSort;
-import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.input.AbstractInput;
@@ -15,7 +14,7 @@ import de.willuhn.jameica.gui.input.SelectInput;
 public class BuchungsartInput
 {
   public AbstractInput getBuchungsartInput(AbstractInput buchungsart,
-      Buchung buchung) throws RemoteException
+      Buchungsart bart) throws RemoteException
   {
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
@@ -31,7 +30,7 @@ public class BuchungsartInput
     switch (Einstellungen.getEinstellung().getBuchungBuchungsartAuswahl())
     {
       case BuchungBuchungsartAuswahl.ComboBox:
-        buchungsart = new SelectInput(list, buchung.getBuchungsart());
+        buchungsart = new SelectInput(list, bart);
         switch (Einstellungen.getEinstellung().getBuchungsartSort())
         {
           case BuchungsartSort.NACH_NUMMER:
@@ -54,7 +53,7 @@ public class BuchungsartInput
         ((BuchungsartSearchInput) buchungsart)
             .setSearchString("Zum Suchen tippen ...");
     }
-    buchungsart.setValue(buchung.getBuchungsart());
+    buchungsart.setValue(bart);
     return buchungsart;
   }
 
