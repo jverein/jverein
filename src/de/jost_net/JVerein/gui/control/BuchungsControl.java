@@ -42,9 +42,9 @@ import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.formatter.ProjektFormatter;
-import de.jost_net.JVerein.gui.input.BuchungsartSearchInput;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
+import de.jost_net.JVerein.gui.input.Tools.BuchungsartInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.gui.parts.SplitbuchungListTablePart;
@@ -53,7 +53,6 @@ import de.jost_net.JVerein.io.BuchungAuswertungPDF;
 import de.jost_net.JVerein.io.BuchungsjournalPDF;
 import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
-import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.keys.BuchungsartSort;
 import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.keys.Zahlungsweg;
@@ -456,46 +455,8 @@ public class BuchungsControl extends AbstractControl
     {
       return buchungsart;
     }
-    DBIterator list = Einstellungen.getDBService()
-        .createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
-    {
-      list.setOrder("ORDER BY nummer");
-    }
-    else
-    {
-      list.setOrder("ORDER BY bezeichnung");
-    }
-
-    switch (Einstellungen.getEinstellung().getBuchungBuchungsartAuswahl())
-    {
-      case BuchungBuchungsartAuswahl.ComboBox:
-        buchungsart = new SelectInput(list, getBuchung().getBuchungsart());
-        switch (Einstellungen.getEinstellung().getBuchungsartSort())
-        {
-          case BuchungsartSort.NACH_NUMMER:
-            ((SelectInput) buchungsart).setAttribute("nrbezeichnung");
-            break;
-          case BuchungsartSort.NACH_BEZEICHNUNG_NR:
-            ((SelectInput) buchungsart).setAttribute("bezeichnungnr");
-            break;
-          default:
-            ((SelectInput) buchungsart).setAttribute("bezeichnung");
-            break;
-        }
-        ((SelectInput) buchungsart).setPleaseChoose("Bitte auswählen");
-        break;
-      case BuchungBuchungsartAuswahl.SearchInput:
-      default: // default soll SearchInput sein. Eigentlich sollten die
-        // Settings immer gesetzt sein, aber man weiss ja nie.
-        buchungsart = new BuchungsartSearchInput();
-        ((BuchungsartSearchInput) buchungsart).setAttribute("nrbezeichnung");
-        ((BuchungsartSearchInput) buchungsart)
-            .setSearchString("Zum Suchen tippen ...");
-    }
-
-    buchungsart.setValue(getBuchung().getBuchungsart());
-    return buchungsart;
+    return new BuchungsartInput()
+        .getBuchungsartInput(buchungsart, getBuchung());
   }
 
   public Input getProjekt() throws RemoteException
