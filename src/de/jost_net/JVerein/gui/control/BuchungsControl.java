@@ -455,8 +455,9 @@ public class BuchungsControl extends AbstractControl
     {
       return buchungsart;
     }
-    return new BuchungsartInput().getBuchungsartInput(buchungsart, getBuchung()
-        .getBuchungsart());
+    buchungsart = new BuchungsartInput().getBuchungsartInput(buchungsart,
+        getBuchung().getBuchungsart());
+    return buchungsart;
   }
 
   public Input getProjekt() throws RemoteException

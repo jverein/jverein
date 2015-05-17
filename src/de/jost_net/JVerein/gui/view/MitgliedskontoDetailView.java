@@ -48,6 +48,7 @@ public class MitgliedskontoDetailView extends AbstractView
     grBuchung.addLabelPair("Zahlungsweg", control.getZahlungsweg());
     control.getBetrag().setMandatory(true);
     grBuchung.addLabelPair("Betrag", control.getBetrag());
+    grBuchung.addLabelPair("Buchungsart", control.getBuchungsart());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

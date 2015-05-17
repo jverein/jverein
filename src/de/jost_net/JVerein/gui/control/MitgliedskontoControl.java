@@ -36,6 +36,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Messaging.MitgliedskontoMessage;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
 import de.jost_net.JVerein.gui.input.FormularInput;
+import de.jost_net.JVerein.gui.input.Tools.BuchungsartInput;
 import de.jost_net.JVerein.gui.menu.MitgliedskontoMenu;
 import de.jost_net.JVerein.io.Kontoauszug;
 import de.jost_net.JVerein.io.Mahnungsausgabe;
@@ -44,6 +45,7 @@ import de.jost_net.JVerein.keys.Ausgabeart;
 import de.jost_net.JVerein.keys.Ausgabesortierung;
 import de.jost_net.JVerein.keys.FormularArt;
 import de.jost_net.JVerein.keys.Zahlungsweg;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -61,9 +63,11 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.TreeFormatter;
+import de.willuhn.jameica.gui.input.AbstractInput;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
+import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
@@ -117,6 +121,8 @@ public class MitgliedskontoControl extends AbstractControl
   private SelectInput zahlungsweg;
 
   private DecimalInput betrag;
+
+  private AbstractInput buchungsart;
 
   private FormularInput formular = null;
 
@@ -274,6 +280,17 @@ public class MitgliedskontoControl extends AbstractControl
     }
     betrag = new DecimalInput(b, Einstellungen.DECIMALFORMAT);
     return betrag;
+  }
+
+  public Input getBuchungsart() throws RemoteException
+  {
+    if (buchungsart != null && !buchungsart.getControl().isDisposed())
+    {
+      return buchungsart;
+    }
+    buchungsart = new BuchungsartInput().getBuchungsartInput(buchungsart,
+        getMitgliedskonto().getBuchungsart());
+    return buchungsart;
   }
 
   public FormularInput getFormular(FormularArt mahnung) throws RemoteException
@@ -502,6 +519,9 @@ public class MitgliedskontoControl extends AbstractControl
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       mkto.setZahlungsweg(zw.getKey());
       mkto.setZweck1((String) getZweck1().getValue());
+      Buchungsart bart = (Buchungsart) getBuchungsart().getValue();
+      System.out.println(bart.getBezeichnung());
+      mkto.setBuchungsart((Buchungsart) getBuchungsart().getValue());
       mkto.store();
       GUI.getStatusBar().setSuccessText("Mitgliedskonto gespeichert");
     }
