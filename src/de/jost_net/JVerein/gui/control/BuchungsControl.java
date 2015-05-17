@@ -414,7 +414,10 @@ public class BuchungsControl extends AbstractControl
           if (mitgliedskonto.getValue() instanceof Mitgliedskonto)
           {
             Mitgliedskonto mk = (Mitgliedskonto) mitgliedskonto.getValue();
-            getBuchungsart().setValue(mk.getBuchungsart());
+            if (getBuchungsart().getValue() == null)
+            {
+              getBuchungsart().setValue(mk.getBuchungsart());
+            }
           }
         }
         catch (RemoteException e)

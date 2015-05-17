@@ -144,7 +144,7 @@ public class MitgliedskontoauswahlInput
       }
       catch (RemoteException er)
       {
-        String error = "Fehler bei des Mitgliedskontos";
+        String error = "Fehler bei Zuordnung des Mitgliedskontos";
         Logger.error(error, er);
         GUI.getStatusBar().setErrorText(error);
       }
