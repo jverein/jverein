@@ -51,7 +51,7 @@ public class MitgliedskontoDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.KURSTEILNEHMER, false, "help-browser.png");
+        DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
     buttons.addButton("speichern", new Action()
     {
 
