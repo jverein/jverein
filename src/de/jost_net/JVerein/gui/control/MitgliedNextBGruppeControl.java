@@ -225,7 +225,8 @@ public class MitgliedNextBGruppeControl extends AbstractControl
     mitgliedsBeitragsgruppe.setBeitragsgruppe((Beitragsgruppe) beitragsgruppe
         .getValue());
     mitgliedsBeitragsgruppe.store();
-    GUI.getStatusBar().setSuccessText("Beitragsgruppe gespeichert!!");
+    GUI.getStatusBar()
+        .setSuccessText("Zukünftige Beitragsgruppe gespeichert!!");
   }
 
 }
