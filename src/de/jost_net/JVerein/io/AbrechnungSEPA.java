@@ -542,6 +542,11 @@ public class AbrechnungSEPA
         monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
         Mitglied m = (Mitglied) list.next();
 
+        if (m.getVorname().equals("Rainer"))
+        {
+          System.out.println(m.toString());
+        }
+
         JVereinZahler z = abrechnungMitgliederSub(param, lastschrift, monitor,
             abrl, konto, m, m.getBeitragsgruppe(), true);
 
@@ -556,7 +561,14 @@ public class AbrechnungSEPA
               monitor, abrl, konto, m, sb.getBeitragsgruppe(), false);
           if (z2 != null)
           {
-            z.add(z2);
+            if (z != null)
+            {
+              z.add(z2);
+            }
+            else
+            {
+              z = z2;
+            }
           }
         }
         if (z != null)
