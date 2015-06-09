@@ -17,6 +17,8 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -802,13 +804,15 @@ public class MitgliedskontoControl extends AbstractControl
               {
                 diff = (DIFFERENZ) differenz.getValue();
               }
-              if (DIFFERENZ.FEHLBETRAG == diff
-                  && mk.getIstSumme() >= mk.getBetrag())
+              BigDecimal ist = new BigDecimal(mk.getIstSumme());
+              ist = ist.setScale(2, RoundingMode.HALF_UP);
+              BigDecimal soll = new BigDecimal(mk.getBetrag());
+              soll = soll.setScale(2, RoundingMode.HALF_UP);
+              if (DIFFERENZ.FEHLBETRAG == diff && ist.compareTo(soll) >= 0)
               {
                 continue;
               }
-              if (DIFFERENZ.UEBERZAHLUNG == diff
-                  && mk.getIstSumme() <= mk.getBetrag())
+              if (DIFFERENZ.UEBERZAHLUNG == diff && ist.compareTo(soll) <= 0)
               {
                 continue;
               }
