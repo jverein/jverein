@@ -172,6 +172,11 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public Boolean getMitgliedfoto() throws RemoteException;
 
+  // TODO Für Versionsbau deaktiviert
+  // public void setInventar(Boolean inventar) throws RemoteException;
+
+  // public Boolean getInventar() throws RemoteException;
+
   public void setZusatzadressen(Boolean zusatzadressen) throws RemoteException;
 
   public Boolean getZusatzadressen() throws RemoteException;

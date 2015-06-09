@@ -613,6 +613,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     setAttribute("mitgliedfoto", Boolean.valueOf(mitgliedfoto));
   }
 
+  // TODO für Versionsbau deaktivert.
+  // @Override
+  // public Boolean getInventar() throws RemoteException
+  // {
+  // return Util.getBoolean(getAttribute("inventar"));
+  // }
+
+  // @Override
+  // public void setInventar(Boolean inventar) throws RemoteException
+  // {
+  // setAttribute("inventar", Boolean.valueOf(inventar));
+  // }
+
   @Override
   public boolean getUseLesefelder() throws RemoteException
   {
@@ -1186,7 +1199,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       return "";
     }
     // Siehe RFC 3676, 4.3. Usenet Signature Convention
-    if (separator && ! signatur.startsWith("-- \n"))
+    if (separator && !signatur.startsWith("-- \n"))
     {
       return "-- \n" + signatur;
     }

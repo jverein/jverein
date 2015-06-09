@@ -64,6 +64,8 @@ public class EinstellungenAnzeigeView extends AbstractView
     left.addLabelPair("Juristische Personen erlaubt",
         control.getJuristischePersonen());
     left.addLabelPair("Mitgliedsfoto *", control.getMitgliedfoto());
+    // TODO Für Versionsbau deaktiviert
+    // left.addLabelPair("Inventarverwaltung *", control.getInventar());
     SimpleContainer right = new SimpleContainer(cols1.getComposite());
     right.addLabelPair("Lesefelder anzeigen *", control.getUseLesefelder());
     right.addLabelPair("zusätzliche Adressen *", control.getZusatzadressen());

@@ -291,12 +291,19 @@ public class MyExtension implements Extension
         administration.addChild(new MyItem(administration, "Lesefelder",
             new LesefelddefinitionenAction(null), "category_obj.gif"));
       }
+      // TODO deaktiviert für Versionsbau
+      // if (Einstellungen.getEinstellung().getInventar())
+      // {
+      // administration.addChild(new MyItem(administration,
+      // "Inventar-Lager", new InventarLagerortListeAction(),
+      // "category_obj.gif"));
+      // }
       administration.addChild(new MyItem(administration, "Formulare",
           new FormularListeAction(), "layout_co.gif"));
       if (Einstellungen.getEinstellung().getLehrgaenge())
       {
-         administration.addChild(new MyItem(administration, "Lehrgangsarten",
-             new LehrgangsartListeAction(), "x-office-presentation.png"));
+        administration.addChild(new MyItem(administration, "Lehrgangsarten",
+            new LehrgangsartListeAction(), "x-office-presentation.png"));
       }
       administration.addChild(new MyItem(administration, "Import",
           new MitgliedImportAction(), "import_obj.gif"));

@@ -128,6 +128,8 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput mitgliedfoto;
 
+  private CheckboxInput inventar;
+
   private CheckboxInput uselesefelder;
 
   private CheckboxInput zusatzadressen;
@@ -656,6 +658,17 @@ public class EinstellungControl extends AbstractControl
         .getMitgliedfoto());
     return mitgliedfoto;
   }
+
+  // TODO deaktiviert für Versionsbau
+  // public CheckboxInput getInventar() throws RemoteException
+  // {
+  // if (inventar != null)
+  // {
+  // return inventar;
+  // }
+  // inventar = new CheckboxInput(Einstellungen.getEinstellung().getInventar());
+  // return inventar;
+  // }
 
   public CheckboxInput getUseLesefelder() throws RemoteException
   {
@@ -1736,6 +1749,8 @@ public class EinstellungControl extends AbstractControl
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
+      // TODO deaktiviert für Versionsbau
+      // e.setInventar((Boolean) inventar.getValue());
       e.setUseLesefelder((Boolean) uselesefelder.getValue());
       e.setZusatzadressen((Boolean) zusatzadressen.getValue());
       e.setAuslandsadressen((Boolean) auslandsadressen.getValue());

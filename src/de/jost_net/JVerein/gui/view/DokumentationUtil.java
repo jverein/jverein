@@ -73,6 +73,8 @@ public class DokumentationUtil
 
   public static final String IMPORT = PRE + "Import";
 
+  public static final String INVENTAR = PRE + "Inventar";
+
   public static final String JUBILAEEN = PRE + "Jubiläen";
 
   public static final String LEHRGANG = PRE + "Lehrgänge";
