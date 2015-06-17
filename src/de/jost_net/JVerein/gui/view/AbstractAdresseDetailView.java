@@ -61,19 +61,31 @@ import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.gui.util.TabGroup;
+import de.willuhn.logging.Logger;
 
 public abstract class AbstractAdresseDetailView extends AbstractView
 {
 
   // Statische Variable, die den zuletzt ausgewählten Tab speichert.
   private static int tabindex = -1;
+   
+  // Die aufgerufene Funktion: B=Bearbeiten, N=Neu, D=Duplizieren
+  int funktion='B';
 
   final MitgliedControl control = new MitgliedControl(this);
 
   @Override
   public void bind() throws Exception
   {
-    GUI.getView().setTitle(getTitle());
+	// Funktion ermitteln	
+	if(control.getMitgliedsnummer().getValue()==null){
+	  if (control.getName(false).getValue() == null)
+	    funktion='N';
+	  else 
+	    funktion='D';
+	}
+
+	zeichneUeberschrift();    // Einschub Ende
 
     final MitgliedskontoControl controlMk = new MitgliedskontoControl(this);
 
@@ -211,6 +223,11 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       public void handleAction(Object context)
       {
         control.handleStore();
+        try {
+		  zeichneUeberschrift();
+		} catch (RemoteException e) {
+		      Logger.error("Fehler", e);
+		}
       }
     }, null, true, "document-save.png");
     buttons.paint(parent);
@@ -672,6 +689,42 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     cols.arrangeVertically();
   }
 
+  /**
+   * Zeichnet den Mitglieds-/Adressnamen in die Überschriftszeile
+   */
+  private void zeichneUeberschrift() throws RemoteException
+  {
+	String mgname = "";
+    if(funktion == 'N')
+	   mgname="- Neuanlage - ";
+    if(funktion == 'D')
+        mgname="- Duplizieren - ";
+   
+    if(funktion == 'B' && isMitgliedDetail()){
+       if (Einstellungen.getEinstellung().getExterneMitgliedsnummer()){
+	      mgname = (String) control.getExterneMitgliedsnummer().getValue();
+          if (mgname == null || mgname.isEmpty())
+	         mgname = "?";
+       mgname = mgname + " - ";   
+       }
+       else
+	      mgname = (String) control.getMitgliedsnummer().getValue() + " - ";
+    }   
+    
+    if (control.getName(false).getValue()!=null)
+       if (((String) control.getName(false).getValue()).isEmpty() == false){
+	      mgname = mgname + (String) control.getName(false).getValue();
+	      if( ((String) control.getTitel().getValue()).isEmpty() == false)
+		     mgname = mgname + ", " + (String) control.getTitel().getValue() + " "
+		             + (String) control.getVorname().getValue();
+	      else
+	         if ( ((String) control.getVorname().getValue()).isEmpty() == false)
+		        mgname = mgname + ", " + (String) control.getVorname().getValue();
+	   }
+	GUI.getView().setTitle(getTitle()+ " (" + mgname.trim() + ")");
+  }
+
+  
   public abstract String getTitle();
 
   public abstract boolean isMitgliedDetail();
