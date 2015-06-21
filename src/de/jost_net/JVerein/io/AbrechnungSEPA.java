@@ -964,7 +964,7 @@ public class AbrechnungSEPA
       mk.setDatum(datum);
       mk.setMitglied(mitglied);
       mk.setZweck1(zweck1);
-      if (beitragsgruppe != null)
+      if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
       {
         mk.setBuchungsart(beitragsgruppe.getBuchungsart());
       }
