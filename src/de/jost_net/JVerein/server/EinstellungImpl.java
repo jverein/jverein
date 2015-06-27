@@ -29,14 +29,10 @@ import de.jost_net.JVerein.keys.Beitragsmodel;
 import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
-import de.jost_net.OBanToo.SEPA.BIC;
-import de.jost_net.OBanToo.SEPA.IBAN;
-import de.jost_net.OBanToo.SEPA.SEPAException;
+import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
-import de.willuhn.jameica.hbci.HBCI;
-import de.willuhn.jameica.hbci.rmi.Konto;
 import de.willuhn.jameica.security.Wallet;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
@@ -58,7 +54,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
    * settings speichert Benutzer-Präferenzen in einer config-Datei. Sie
    * unterscheiden sich also auf jedem System und hängen nicht an der DB.
    */
-  private Settings settings;
+  private final Settings settings;
 
   /**
    * Verschlüsselte Datei für besonders sensible Daten (Passwörter)
@@ -1194,7 +1190,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public String getMailSignatur(Boolean separator) throws RemoteException
   {
     String signatur = (String) getAttribute("mailsignatur");
-    if (signatur == null)
+    if (signatur == null || signatur.trim().length() == 0)
     {
       return "";
     }
