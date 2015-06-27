@@ -292,6 +292,9 @@ public class MailSender
     // Put parts in message
     msg.setContent(multipart);
 
+    // need to set "sent" date explicitly
+    msg.setSentDate(new Date());
+
     Transport.send(msg);
 
     // Copy to IMAP sent folder
@@ -337,9 +340,6 @@ public class MailSender
         imapCopyData.getImap_auth_user(), imapCopyData.getImap_auth_pwd());
 
     Folder folder = store.getFolder(imapCopyData.getImap_sent_folder());
-
-    // need to set "sent" date explicitly
-    message.setSentDate(new Date());
 
     // save in IMAP folder
     folder.appendMessages(new Message[] { message });
