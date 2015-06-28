@@ -1225,7 +1225,7 @@ public class EinstellungControl extends AbstractControl
       return altersjubilaeen;
     }
     altersjubilaeen = new TextInput(Einstellungen.getEinstellung()
-        .getAltersjubilaeen(), 50);
+        .getAltersjubilaeen(), 200);
     return altersjubilaeen;
   }
 
