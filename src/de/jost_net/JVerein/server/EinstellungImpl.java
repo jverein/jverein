@@ -30,9 +30,13 @@ import de.jost_net.JVerein.keys.BuchungBuchungsartAuswahl;
 import de.jost_net.JVerein.rmi.Einstellung;
 import de.jost_net.JVerein.rmi.Felddefinition;
 import de.jost_net.JVerein.rmi.Konto;
+import de.jost_net.OBanToo.SEPA.BIC;
+import de.jost_net.OBanToo.SEPA.IBAN;
+import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.jameica.hbci.HBCI;
 import de.willuhn.jameica.security.Wallet;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.Settings;
@@ -420,7 +424,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
       Logger.debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
       if (konten.hasNext())
       {
-        return (Konto) konten.next();
+        return (de.willuhn.jameica.hbci.rmi.Konto) konten.next();
       }
       else
       {
