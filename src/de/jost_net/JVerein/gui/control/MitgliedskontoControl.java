@@ -521,9 +521,10 @@ public class MitgliedskontoControl extends AbstractControl
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       mkto.setZahlungsweg(zw.getKey());
       mkto.setZweck1((String) getZweck1().getValue());
-      Buchungsart bart = (Buchungsart) getBuchungsart().getValue();
-      System.out.println(bart.getBezeichnung());
-      mkto.setBuchungsart((Buchungsart) getBuchungsart().getValue());
+      if (getBuchungsart().getValue() != null)
+      {
+        mkto.setBuchungsart((Buchungsart) getBuchungsart().getValue());
+      }
       mkto.store();
       GUI.getStatusBar().setSuccessText("Mitgliedskonto gespeichert");
     }
