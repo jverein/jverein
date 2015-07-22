@@ -540,9 +540,20 @@ public class BuchungsControl extends AbstractControl
     {
       return suchprojekt;
     }
+    ArrayList<Projekt> projektliste = new ArrayList<Projekt>();
+    Projekt p1 = (Projekt) Einstellungen.getDBService().createObject(
+        Projekt.class, null);
+    p1.setBezeichnung("Ohne Projekt");
+    projektliste.add(p1);
+
     DBIterator list = Einstellungen.getDBService().createList(Projekt.class);
     list.setOrder("ORDER BY bezeichnung");
-    suchprojekt = new SelectInput(list, null);
+    while (list.hasNext())
+    {
+      projektliste.add((Projekt) list.next());
+    }
+
+    suchprojekt = new SelectInput(projektliste, null);
     suchprojekt.addListener(new FilterListener());
     suchprojekt.setAttribute("bezeichnung");
     suchprojekt.setPleaseChoose("keine Einschränkung");

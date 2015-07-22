@@ -150,7 +150,14 @@ public class BuchungQuery
 
     if (projekt != null)
     {
-      it.addFilter("projekt = ?", projekt.getID());
+      if (projekt.getID() == null)
+      {
+        it.addFilter("projekt is null");
+      }
+      else
+      {
+        it.addFilter("projekt = ?", projekt.getID());
+      }
     }
 
     if (betrag != null && betrag.length() > 0)
