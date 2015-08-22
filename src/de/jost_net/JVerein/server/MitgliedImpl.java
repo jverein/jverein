@@ -1067,9 +1067,9 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   }
 
   @Override
-  public void setIndividuellerBeitrag(double d) throws RemoteException
+  public void setIndividuellerBeitrag(Double d) throws RemoteException
   {
-    setAttribute("individuellerbeitrag", new Double(d));
+    setAttribute("individuellerbeitrag", d);
   }
 
   @Override

@@ -177,7 +177,7 @@ public interface Mitglied extends DBObject, ILastschrift
 
   public Double getIndividuellerBeitrag() throws RemoteException;
 
-  public void setIndividuellerBeitrag(double individuellerbeitrag)
+  public void setIndividuellerBeitrag(Double individuellerbeitrag)
       throws RemoteException;
 
   public Long getZahlerID() throws RemoteException;

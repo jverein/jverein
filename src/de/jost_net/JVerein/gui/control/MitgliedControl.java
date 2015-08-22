@@ -3145,7 +3145,15 @@ public class MitgliedControl extends AbstractControl
       }
       if (Einstellungen.getEinstellung().getIndividuelleBeitraege())
       {
-        m.setIndividuellerBeitrag((Double) getIndividuellerBeitrag().getValue());
+        if (getIndividuellerBeitrag().getValue() != null)
+        {
+          m.setIndividuellerBeitrag((Double) getIndividuellerBeitrag()
+              .getValue());
+        }
+        else
+        {
+          m.setIndividuellerBeitrag(null);
+        }
       }
       Zahlungsweg zw = (Zahlungsweg) getZahlungsweg().getValue();
       m.setZahlungsweg(zw.getKey());
