@@ -32,7 +32,7 @@ public class JaNeinFormatter implements Formatter
       Byte b = (Byte) o;
       if (b.equals(new Byte("1")))
       {
-        return "X";
+        return "Ja";
       }
     }
     if (o instanceof Boolean)
@@ -40,7 +40,7 @@ public class JaNeinFormatter implements Formatter
       Boolean b = (Boolean) o;
       if (b)
       {
-        return "X";
+        return "Ja";
       }
     }
     if (o instanceof String)
@@ -48,9 +48,9 @@ public class JaNeinFormatter implements Formatter
       String s = (String) o;
       if (s.equalsIgnoreCase("TRUE"))
       {
-        return "X";
+        return "Ja";
       }
     }
-    return " ";
+    return "Nein";
   }
 }
