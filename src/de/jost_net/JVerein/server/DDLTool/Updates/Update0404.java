@@ -14,20 +14,25 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.input;
+package de.jost_net.JVerein.server.DDLTool.Updates;
 
-import de.jost_net.JVerein.gui.control.listener.EMailListener;
-import de.willuhn.jameica.gui.input.TextInput;
+import java.sql.Connection;
 
-public class EmailInput extends TextInput
+import de.jost_net.JVerein.server.DDLTool.AbstractDDLUpdate;
+import de.jost_net.JVerein.server.DDLTool.Column;
+import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
+
+public class Update0404 extends AbstractDDLUpdate
 {
-
-  public EmailInput(String value)
+  public Update0404(String driver, ProgressMonitor monitor, Connection conn)
   {
-    super(value, 255);
-    setName("EMail");
-    EMailListener l = new EMailListener(this);
-    addListener(l);
-    l.handleEvent(null);
+    super(driver, monitor, conn);
+  }
+
+  public void run() throws ApplicationException
+  {
+    execute(alterColumn("kursteilnehmer", new Column("email", COLTYPE.VARCHAR,
+        255, null, false, false)));
   }
 }
