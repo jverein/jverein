@@ -1678,6 +1678,7 @@ public class MitgliedControl extends AbstractControl
     }
     DBIterator it = Einstellungen.getDBService().createList(
         Felddefinition.class);
+    it.setOrder("order by label");
     int anzahl = it.size();
     if (anzahl == 0)
     {
