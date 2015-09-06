@@ -111,8 +111,7 @@ public class Familienverband implements Part
       TabGroup tg2 = new TabGroup(tab, "Zahlendes Familienmitglied");
       // erstelle neuen zahler: (force == true)
       control.getZahler(true).setComment(
-
-      "Nur für Beitragsgruppenart: \"Familie: Angehörige\"");
+          "Nur für Beitragsgruppenart: \"Familie: Angehörige\"");
       tg2.addLabelPair("Zahler", control.getZahler());
 
       if (gruppe != null)
