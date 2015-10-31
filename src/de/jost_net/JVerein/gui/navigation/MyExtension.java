@@ -72,7 +72,6 @@ import de.jost_net.JVerein.gui.action.MitgliedskontoRechnungAction;
 import de.jost_net.JVerein.gui.action.ProjektListAction;
 import de.jost_net.JVerein.gui.action.ProjektSaldoAction;
 import de.jost_net.JVerein.gui.action.QIFBuchungsImportViewAction;
-import de.jost_net.JVerein.gui.action.SEPAKonvertierungAction;
 import de.jost_net.JVerein.gui.action.SpendenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungListeAction;
 import de.jost_net.JVerein.gui.action.StatistikJahrgaengeAction;
@@ -312,8 +311,6 @@ public class MyExtension implements Extension
         administration.addChild(new MyItem(administration, "Adresstypen",
             new AdresstypListAction(), "layout_co.gif"));
       }
-      administration.addChild(new MyItem(administration, "SEPA-Konvertierung",
-          new SEPAKonvertierungAction(), "sepa.png"));
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
           null);

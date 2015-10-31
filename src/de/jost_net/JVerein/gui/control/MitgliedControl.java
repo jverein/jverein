@@ -204,10 +204,6 @@ public class MitgliedControl extends AbstractControl
 
   private TextInput iban;
 
-  private TextInput blz;
-
-  private TextInput konto;
-
   private PersonenartInput ktoipersonenart;
 
   private TextInput ktoianrede;
@@ -772,8 +768,6 @@ public class MitgliedControl extends AbstractControl
       getLetzteLastschrift().setValue(null);
       getBic().setValue(null);
       getIban().setValue(null);
-      getBlz().setValue(null);
-      getKonto().setValue(null);
       getKtoiPersonenart().setValue(null);
       getKtoiAnrede().setValue(null);
       getKtoiTitel().setValue(null);
@@ -832,36 +826,6 @@ public class MitgliedControl extends AbstractControl
         .getZahlungstermin());
     zahlungstermin.setName("Zahlungstermin");
     return zahlungstermin;
-  }
-
-  public TextInput getBlz() throws RemoteException
-  {
-    if (blz != null)
-    {
-      return blz;
-    }
-    blz = new TextInput(getMitglied().getBlz(), 8);
-    blz.setName("BLZ");
-    blz.setMandatory(getMitglied().getZahlungsweg() == null
-        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
-    BLZListener l = new BLZListener();
-    blz.addListener(l);
-    l.handleEvent(null); // Einmal initial ausfuehren
-    return blz;
-  }
-
-  public TextInput getKonto() throws RemoteException
-  {
-    if (konto != null)
-    {
-      return konto;
-    }
-    konto = new TextInput(getMitglied().getKonto(), 12);
-    konto.setName("Konto");
-    konto
-        .setMandatory(getMitglied().getZahlungsweg() == null
-            || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
-    return konto;
   }
 
   public TextInput getBic() throws RemoteException
@@ -3168,7 +3132,6 @@ public class MitgliedControl extends AbstractControl
       m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setMandatVersion((Integer) getMandatVersion().getValue());
       m.setMandatSequence((MandatSequence) getMandatSequence().getValue());
-      m.setBlz((String) getBlz().getValue());
       m.setBic((String) getBic().getValue());
       m.setIban((String) getIban().getValue());
       m.setEintritt((Date) getEintritt().getValue());
@@ -3196,7 +3159,6 @@ public class MitgliedControl extends AbstractControl
 
         m.setGeschlecht((String) getGeschlecht().getValue());
       }
-      m.setKonto((String) getKonto().getValue());
       m.setKtoiAdressierungszusatz((String) getKtoiAdressierungszusatz()
           .getValue());
       m.setKtoiAnrede((String) getKtoiAnrede().getValue());
@@ -3676,28 +3638,6 @@ public class MitgliedControl extends AbstractControl
     {
       zusatzfelderabfrage.setText(String.format("%d Felder ausgewählt",
           selected));
-    }
-  }
-
-  /**
-   * Sucht das Geldinstitut zur eingegebenen BLZ und zeigt es als Kommentar
-   * hinter dem BLZ-Feld an.
-   */
-  private class BLZListener implements Listener
-  {
-
-    @Override
-    public void handleEvent(Event event)
-    {
-      try
-      {
-        String blz = (String) getBlz().getValue();
-        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
-      }
-      catch (RemoteException e)
-      {
-        Logger.error("error while updating blz comment", e);
-      }
     }
   }
 

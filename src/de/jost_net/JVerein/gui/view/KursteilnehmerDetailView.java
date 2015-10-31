@@ -20,7 +20,6 @@ import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
 import de.jost_net.JVerein.gui.control.KursteilnehmerControl;
-import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -58,13 +57,6 @@ public class KursteilnehmerDetailView extends AbstractView
     grGrund.addInput(control.getMandatDatum());
     grGrund.addInput(control.getIBAN());
     grGrund.addInput(control.getBIC());
-    grGrund.addPart(new BankverbindungDialogButton(control.getKursteilnehmer(),
-        control.getBlz(), control.getKonto(), control.getBIC(), control
-            .getIBAN()));
-    // grGrund.addLabelPair("BLZ"),
-    // control.getBlz());
-    // grGrund.addLabelPair("Konto"),
-    // control.getKonto());
     grGrund.addLabelPair("Betrag", control.getBetrag());
 
     LabelGroup grStatistik = new LabelGroup(scrolled.getComposite(),

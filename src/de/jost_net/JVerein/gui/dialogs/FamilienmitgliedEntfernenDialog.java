@@ -55,12 +55,12 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     control.setMitglied(fbn.getMitglied());
     try
     {
-      String kto = (String) control.getKonto().getValue();
+      String kto = (String) control.getIban().getValue();
       if (kto.length() == 0)
       {
         FamilienbeitragNode zahler = (FamilienbeitragNode) fbn.getParent();
-        control.getKonto().setValue(zahler.getMitglied().getKonto());
-        control.getBlz().setValue(zahler.getMitglied().getBlz());
+        control.getIban().setValue(zahler.getMitglied().getIban());
+        control.getBic().setValue(zahler.getMitglied().getBic());
         // control.getKontoinhaber().setValue(
         // zahler.getMitglied().getKontoinhaber());
       }
@@ -78,8 +78,8 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
     lgBeitragsgruppe.addLabelPair("Beitragsgruppe",
         control.getBeitragsgruppe(false));
     LabelGroup lgBank = new LabelGroup(parent, "Bankverbindung");
-    lgBank.addLabelPair("Konto", control.getKonto());
-    lgBank.addLabelPair("Bankleitzahl", control.getBlz());
+    lgBank.addLabelPair("IBAN", control.getIban());
+    lgBank.addLabelPair("BIC", control.getBic());
     // lgBank.addLabelPair("Kontoinhaber", control.getKontoinhaber());
     ButtonArea b = new ButtonArea();
     b.addButton("weiter", new Action()
@@ -98,8 +98,6 @@ public class FamilienmitgliedEntfernenDialog extends AbstractDialog<String>
           Beitragsgruppe bg = (Beitragsgruppe) control.getBeitragsgruppe(false)
               .getValue();
           m.setBeitragsgruppe(new Integer(bg.getID()));
-          m.setKonto((String) control.getKonto().getValue());
-          m.setBlz((String) control.getBlz().getValue());
           // m.setKontoinhaber((String) control.getKontoinhaber().getValue());
           m.setZahlerID(null);
           m.setLetzteAenderung();

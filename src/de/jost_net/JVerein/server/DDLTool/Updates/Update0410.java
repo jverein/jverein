@@ -14,18 +14,23 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.gui.action;
+package de.jost_net.JVerein.server.DDLTool.Updates;
 
-import de.jost_net.JVerein.gui.view.SEPAKonvertierungView;
-import de.willuhn.jameica.gui.Action;
-import de.willuhn.jameica.gui.GUI;
+import java.sql.Connection;
 
-public class SEPAKonvertierungAction implements Action
+import de.jost_net.JVerein.server.DDLTool.AbstractDDLUpdate;
+import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
+
+public class Update0410 extends AbstractDDLUpdate
 {
-
-  @Override
-  public void handleAction(Object context) 
+  public Update0410(String driver, ProgressMonitor monitor, Connection conn)
   {
-    GUI.startView(SEPAKonvertierungView.class.getName(), null);
+    super(driver, monitor, conn);
+  }
+
+  public void run() throws ApplicationException
+  {
+    execute(dropColumn("kursteilnehmer", "konto"));
   }
 }

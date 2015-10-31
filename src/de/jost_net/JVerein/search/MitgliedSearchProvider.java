@@ -97,7 +97,7 @@ public class MitgliedSearchProvider implements SearchProvider
             + Adressaufbereitung.getAnschrift(m)
             + (m.getGeburtsdatum() != null ? ", "
                 + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum()) : "")
-            + (m.getKonto() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "
+            + (m.getIban() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "
                 + "BIC" + ": " + m.getBic() : "");
       }
       catch (RemoteException re)

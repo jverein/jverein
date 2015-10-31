@@ -82,7 +82,6 @@ public class MitgliedMap
       Beitragsgruppe bg = (Beitragsgruppe) it.next();
       m.setBeitragsgruppe(Integer.parseInt(bg.getID()));
       m.setBic("XXXXXXXXXXX");
-      m.setBlz("10020030");
       m.setEingabedatum();
       m.setEintritt("05.02.1999");
       m.setEmail("willi.wichtig@jverein.de");
@@ -93,7 +92,6 @@ public class MitgliedMap
       m.setIban("DE89370400440532013000");
       m.setID("1");
       m.setIndividuellerBeitrag(123.45);
-      m.setKonto("1234567890");
       m.setKtoiPersonenart("n");
       m.setKtoiAnrede("Herrn");
       m.setKtoiTitel("Dr. Dr.");
@@ -163,7 +161,6 @@ public class MitgliedMap
     map.put(MitgliedVar.MANDATDATUM.getName(), m.getMandatDatum());
     map.put(MitgliedVar.MANDATID.getName(), m.getMandatID());
     map.put(MitgliedVar.BIC.getName(), m.getBic());
-    map.put(MitgliedVar.BLZ.getName(), m.getBlz());
     map.put(MitgliedVar.EINGABEDATUM.getName(),
         Datum.formatDate(m.getEingabedatum()));
     map.put(MitgliedVar.EINTRITT.getName(), Datum.formatDate(m.getEintritt()));
@@ -182,7 +179,6 @@ public class MitgliedMap
     map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
         Einstellungen.DECIMALFORMAT.format(m.getIndividuellerBeitrag()));
     map.put(MitgliedVar.BANKNAME.getName(), getBankname(m));
-    map.put(MitgliedVar.KONTO.getName(), m.getKonto());
     map.put(MitgliedVar.KONTOINHABER_ADRESSIERUNGSZUSATZ.getName(),
         m.getKtoiAdressierungszusatz());
     map.put(MitgliedVar.KONTOINHABER_ANREDE.getName(), m.getKtoiAnrede());
@@ -231,8 +227,6 @@ public class MitgliedMap
       case Zahlungsweg.BASISLASTSCHRIFT:
       {
         zahlungsweg = Einstellungen.getEinstellung().getRechnungTextAbbuchung();
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{Konto\\}", m.getKonto());
-        zahlungsweg = zahlungsweg.replaceAll("\\$\\{BLZ\\}", m.getBlz());
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{BIC\\}", m.getBic());
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{IBAN\\}", m.getIban());
         zahlungsweg = zahlungsweg.replaceAll("\\$\\{MANDATID\\}",
@@ -356,15 +350,6 @@ public class MitgliedMap
     if (null != bic)
     {
       Bank bank = Banken.getBankByBIC(bic);
-      if (null != bank)
-      {
-        return formatBankname(bank);
-      }
-    }
-    String blz = m.getBlz();
-    if (null != blz)
-    {
-      Bank bank = Banken.getBankByBLZ(blz);
       if (null != bank)
       {
         return formatBankname(bank);

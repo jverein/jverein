@@ -375,18 +375,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public String getBlz() throws RemoteException
-  {
-    return (String) getAttribute("blz");
-  }
-
-  @Override
-  public void setBlz(String blz) throws RemoteException
-  {
-    setAttribute("blz", blz);
-  }
-
-  @Override
   public String getBic() throws RemoteException
   {
     return (String) getAttribute("bic");
@@ -411,8 +399,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public Konto getHibiscusKonto()
-      throws RemoteException
+  public Konto getHibiscusKonto() throws RemoteException
   {
     try
     {
@@ -447,18 +434,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setGlaeubigerID(String glaeubigerid) throws RemoteException
   {
     setAttribute("glaeubigerid", glaeubigerid);
-  }
-
-  @Override
-  public String getKonto() throws RemoteException
-  {
-    return (String) getAttribute("konto");
-  }
-
-  @Override
-  public void setKonto(String konto) throws RemoteException
-  {
-    setAttribute("konto", konto);
   }
 
   @Override

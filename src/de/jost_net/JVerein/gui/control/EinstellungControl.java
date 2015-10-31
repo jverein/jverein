@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.dialogs.BankverbindungDialogButton;
 import de.jost_net.JVerein.gui.input.BICInput;
 import de.jost_net.JVerein.gui.input.EmailInput;
 import de.jost_net.JVerein.gui.input.IBANInput;
@@ -58,7 +57,6 @@ import de.willuhn.jameica.gui.input.ScaleInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
-import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.security.Wallet;
 import de.willuhn.jameica.system.Settings;
@@ -100,10 +98,6 @@ public class EinstellungControl extends AbstractControl
 
   private TextInput glaeubigerid;
 
-  private TextInput blz;
-
-  private TextInput konto;
-
   private CheckboxInput geburtsdatumpflicht;
 
   private CheckboxInput eintrittsdatumpflicht;
@@ -127,8 +121,6 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput juristischepersonen;
 
   private CheckboxInput mitgliedfoto;
-
-  private CheckboxInput inventar;
 
   private CheckboxInput uselesefelder;
 
@@ -483,33 +475,6 @@ public class EinstellungControl extends AbstractControl
         .getGlaeubigerID(), 35);
     glaeubigerid.setMandatory(true);
     return glaeubigerid;
-  }
-
-  public TextInput getBlz() throws RemoteException
-  {
-    if (blz != null)
-    {
-      return blz;
-    }
-    blz = new TextInput(Einstellungen.getEinstellung().getBlz(), 8);
-    blz.setMandatory(true);
-    BLZListener l = new BLZListener();
-
-    blz.addListener(l);
-    l.handleEvent(null);
-    return blz;
-  }
-
-  public TextInput getKonto() throws RemoteException
-  {
-    if (konto != null)
-    {
-      return konto;
-    }
-    konto = new TextInput(Einstellungen.getEinstellung().getKonto(), 12);
-    konto.setMandatory(true);
-    konto.setComment("für die Abbuchung");
-    return konto;
   }
 
   public ScaleInput getSEPADatumOffset() throws RemoteException
@@ -1507,12 +1472,6 @@ public class EinstellungControl extends AbstractControl
     return buchungsartsort;
   }
 
-  public ButtonArea getButton() throws RemoteException
-  {
-    return new BankverbindungDialogButton(getEinstellung(), getBlz(),
-        getKonto(), getBic(), getIban());
-  }
-
   // // public void handleStore()
   // {
   // try
@@ -2062,28 +2021,6 @@ public class EinstellungControl extends AbstractControl
     catch (ApplicationException e)
     {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-  }
-
-  /**
-   * Sucht das Geldinstitut zur eingegebenen BLZ und zeigt es als Kommentar
-   * hinter dem BLZ-Feld an.
-   */
-  private class BLZListener implements Listener
-  {
-
-    @Override
-    public void handleEvent(Event event)
-    {
-      try
-      {
-        String blz = (String) getBlz().getValue();
-        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
-      }
-      catch (RemoteException e)
-      {
-        Logger.error("error while updating blz comment", e);
-      }
     }
   }
 

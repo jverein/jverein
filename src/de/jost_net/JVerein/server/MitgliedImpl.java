@@ -204,11 +204,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
         }
       }
     }
-    if (getBic() == null || getBic().length() == 0)
-    {
-      setKonto(null);
-      setBlz(null);
-    }
     if (getZahlungsrhythmus() == null)
     {
       throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
@@ -682,40 +677,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setIban(String iban) throws RemoteException
   {
     setAttribute("iban", iban);
-  }
-
-  @Override
-  public String getBlz() throws RemoteException
-  {
-    String ret = (String) getAttribute("blz");
-    if (ret == null)
-    {
-      return "";
-    }
-    return ret;
-  }
-
-  @Override
-  public void setBlz(String blz) throws RemoteException
-  {
-    setAttribute("blz", blz);
-  }
-
-  @Override
-  public String getKonto() throws RemoteException
-  {
-    String ret = (String) getAttribute("konto");
-    if (ret == null)
-    {
-      return "";
-    }
-    return ret;
-  }
-
-  @Override
-  public void setKonto(String konto) throws RemoteException
-  {
-    setAttribute("konto", konto);
   }
 
   @Override

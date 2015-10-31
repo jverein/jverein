@@ -364,30 +364,6 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
   }
 
   @Override
-  public String getBlz() throws RemoteException
-  {
-    return (String) getAttribute("blz");
-  }
-
-  @Override
-  public void setBlz(String blz) throws RemoteException
-  {
-    setAttribute("blz", blz);
-  }
-
-  @Override
-  public String getKonto() throws RemoteException
-  {
-    return (String) getAttribute("konto");
-  }
-
-  @Override
-  public void setKonto(String konto) throws RemoteException
-  {
-    setAttribute("konto", konto);
-  }
-
-  @Override
   public Date getGeburtsdatum() throws RemoteException
   {
     return (Date) getAttribute("geburtsdatum");

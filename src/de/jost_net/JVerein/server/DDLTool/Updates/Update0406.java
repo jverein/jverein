@@ -14,21 +14,23 @@
  * heiner@jverein.de
  * www.jverein.de
  **********************************************************************/
-package de.jost_net.JVerein.io;
+package de.jost_net.JVerein.server.DDLTool.Updates;
 
-import java.rmi.RemoteException;
+import java.sql.Connection;
 
-import de.willuhn.datasource.rmi.DBObject;
+import de.jost_net.JVerein.server.DDLTool.AbstractDDLUpdate;
+import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
-public interface IBankverbindung extends DBObject
+public class Update0406 extends AbstractDDLUpdate
 {
+  public Update0406(String driver, ProgressMonitor monitor, Connection conn)
+  {
+    super(driver, monitor, conn);
+  }
 
-  public String getBic() throws RemoteException;
-
-  public void setBic(String bic) throws RemoteException;
-
-  public String getIban() throws RemoteException;
-
-  public void setIban(String iban) throws RemoteException;
-
+  public void run() throws ApplicationException
+  {
+    execute(dropColumn("einstellung", "konto"));
+  }
 }

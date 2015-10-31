@@ -99,10 +99,6 @@ public class KursteilnehmerControl extends AbstractControl
 
   private IBANInput iban;
 
-  private TextInput blz;
-
-  private TextInput konto;
-
   private DateInput geburtsdatum = null;
 
   private GeschlechtInput geschlecht;
@@ -338,31 +334,6 @@ public class KursteilnehmerControl extends AbstractControl
     iban.setName("IBAN");
     iban.setMandatory(true);
     return iban;
-  }
-
-  public TextInput getBlz() throws RemoteException
-  {
-    if (blz != null)
-    {
-      return blz;
-    }
-    blz = new TextInput(getKursteilnehmer().getBlz(), 8);
-    blz.setMandatory(true);
-    BLZListener l = new BLZListener();
-    blz.addListener(l);
-    l.handleEvent(null); // Einmal initial ausfuehren
-    return blz;
-  }
-
-  public TextInput getKonto() throws RemoteException
-  {
-    if (konto != null)
-    {
-      return konto;
-    }
-    konto = new TextInput(getKursteilnehmer().getKonto(), 12);
-    konto.setMandatory(true);
-    return konto;
   }
 
   public DecimalInput getBetrag() throws RemoteException
@@ -675,10 +646,8 @@ public class KursteilnehmerControl extends AbstractControl
       k.setEmail((String) getEmail().getValue());
       k.setVZweck1((String) getVZweck1().getValue());
       k.setMandatDatum((Date) getMandatDatum().getValue());
-      k.setBlz((String) getBlz().getValue());
-      k.setKonto((String) getKonto().getValue());
-      k.setIban((String)getIBAN().getValue());
-      k.setBic((String)getBIC().getValue());
+      k.setIban((String) getIBAN().getValue());
+      k.setBic((String) getBIC().getValue());
       k.setBetrag((Double) getBetrag().getValue());
       k.setGeburtsdatum((Date) getGeburtsdatum().getValue());
       k.setGeschlecht((String) getGeschlecht().getValue());
@@ -698,28 +667,6 @@ public class KursteilnehmerControl extends AbstractControl
       String fehler = "Fehler bei Speichern des Kursteilnehmers";
       Logger.error(fehler, e);
       GUI.getStatusBar().setErrorText(fehler);
-    }
-  }
-
-  /**
-   * Sucht das Geldinstitut zur eingegebenen BLZ und zeigt es als Kommentar
-   * hinter dem BLZ-Feld an.
-   */
-  private class BLZListener implements Listener
-  {
-
-    @Override
-    public void handleEvent(Event event)
-    {
-      try
-      {
-        String blz = (String) getBlz().getValue();
-        getBlz().setComment(Einstellungen.getNameForBLZ(blz));
-      }
-      catch (RemoteException e)
-      {
-        Logger.error("error while updating blz comment", e);
-      }
     }
   }
 

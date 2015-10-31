@@ -53,9 +53,6 @@ import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.server.MitgliedUtils;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
-import de.jost_net.OBanToo.SEPA.BIC;
-import de.jost_net.OBanToo.SEPA.IBAN;
-import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -203,10 +200,12 @@ public class Import
       }
       else if (ba.length() > 30)
       {
-        progMonitor.log(String.format(
-            "%s, %s: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
-            this.getResultFrom(results, InternalColumns.NACHNAME),
-            this.getResultFrom(results, InternalColumns.VORNAME)));
+        progMonitor
+            .log(String
+                .format(
+                    "%s, %s: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
+                    this.getResultFrom(results, InternalColumns.NACHNAME),
+                    this.getResultFrom(results, InternalColumns.VORNAME)));
       }
 
       if (btr == null || btr.length() == 0)
@@ -553,11 +552,13 @@ public class Import
         }
         catch (Exception e)
         {
-          progMonitor.log(String.format(
-              "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= %s, NAME= %s: %s",
-              getResultFrom(results, InternalColumns.MITGLIEDSNR),
-              getResultFrom(results, InternalColumns.NACHNAME),
-              e.getMessage()));
+          progMonitor
+              .log(String
+                  .format(
+                      "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= %s, NAME= %s: %s",
+                      getResultFrom(results, InternalColumns.MITGLIEDSNR),
+                      getResultFrom(results, InternalColumns.NACHNAME),
+                      e.getMessage()));
           return false;
         }
 
@@ -661,8 +662,6 @@ public class Import
 
     /* Setze Konto und Zahlungsvorgaenge */
     int zahlweg = Zahlungsweg.BARZAHLUNG;
-    String blz = getResultFrom(results, InternalColumns.BLZ);
-    String ktnr = getResultFrom(results, InternalColumns.KONTONR);
     String bic = getResultFrom(results, InternalColumns.BIC);
     String iban = getResultFrom(results, InternalColumns.IBAN);
     String zahlart = getResultFrom(results, InternalColumns.ZAHLART);
@@ -671,33 +670,6 @@ public class Import
     if (zahlungstermin != null && zahlungstermin.length() > 0)
     {
       m.setZahlungstermin(new Integer(zahlungstermin));
-    }
-    if (blz.length() > 0 && ktnr.length() > 0 && iban.length() == 0
-        && bic.length() == 0)
-    {
-      try
-      {
-        IBAN ib = new IBAN(ktnr, blz, Einstellungen.getEinstellung()
-            .getDefaultLand());
-        if (ib.getCode().getStatus() == 1 || ib.getCode().getStatus() == 2)
-        {
-          iban = ib.getIBAN();
-        }
-        else
-        {
-          progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
-              + ib.getCode().getMessage());
-          throw new ApplicationException();
-        }
-        BIC bi = new BIC(ktnr, blz, "DE");
-        bic = bi.getBIC();
-      }
-      catch (SEPAException e)
-      {
-        e.printStackTrace();
-        progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
-            + e.getMessage());
-      }
     }
 
     if (zahlart.equalsIgnoreCase("l")
@@ -709,20 +681,20 @@ public class Import
 
       /*
        * Wenn als Zahlungsweg Abbuchung definiert ist muss es auch eine
-       * Bankverbindung existieren (BIC und IBAN oder übergangsweise BLZ und
-       * Konto)
+       * Bankverbindung existieren (BIC und IBAN )
        */
       zahlweg = Zahlungsweg.BASISLASTSCHRIFT;
 
-      boolean altebankverbindung = blz.length() > 0 && ktnr.length() > 0;
       boolean neuebankverbindung = iban != null && bic != null
           && iban.length() > 0 && bic.length() > 0;
 
-      if (!altebankverbindung && !neuebankverbindung)
+      if (!neuebankverbindung)
       {
-        progMonitor.log(String.format(
-            "Bei %s ist als Zahlungsart Basislastschrift gesetzt aber weder neue Bankverbindung (IBAN/BIC) noch (BLZ/Konto) vorhanden",
-            Adressaufbereitung.getNameVorname(m)));
+        progMonitor
+            .log(String
+                .format(
+                    "Bei %s ist als Zahlungsart Basislastschrift gesetzt aber keine Bankverbindung (IBAN/BIC) vorhanden",
+                    Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
     }
@@ -742,9 +714,6 @@ public class Import
           "%s: ungueltige Zahlungsart. Bar wird angenommen.",
           Adressaufbereitung.getNameVorname(m)));
     }
-
-    m.setBlz(blz);
-    m.setKonto(ktnr);
     m.setBic(bic);
     m.setIban(iban);
     m.setMandatVersion(1);
@@ -803,9 +772,11 @@ public class Import
     {
       if (austritt == null)
       {
-        progMonitor.log(String.format(
-            "%s: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
-            Adressaufbereitung.getNameVorname(m)));
+        progMonitor
+            .log(String
+                .format(
+                    "%s: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
+                    Adressaufbereitung.getNameVorname(m)));
         m.setAustritt(sterbeTag);
       }
     }
@@ -842,9 +813,11 @@ public class Import
       }
       else
       {
-        progMonitor.log(String.format(
-            "Individueller Beitrag fuer %s enthält keine gültige Formatierung und wird verworfen.",
-            Adressaufbereitung.getNameVorname(m)));
+        progMonitor
+            .log(String
+                .format(
+                    "Individueller Beitrag fuer %s enthält keine gültige Formatierung und wird verworfen.",
+                    Adressaufbereitung.getNameVorname(m)));
       }
     }
 
@@ -861,9 +834,11 @@ public class Import
       }
       else
       {
-        progMonitor.log(String.format(
-            "Personenart für %s enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
-            Adressaufbereitung.getNameVorname(m)));
+        progMonitor
+            .log(String
+                .format(
+                    "Personenart für %s enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
+                    Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
 
@@ -887,9 +862,11 @@ public class Import
       }
       else
       {
-        progMonitor.log(String.format(
-            "Zahlungsrythmus bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
-            Adressaufbereitung.getNameVorname(m)));
+        progMonitor
+            .log(String
+                .format(
+                    "Zahlungsrythmus bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
+                    Adressaufbereitung.getNameVorname(m)));
         m.setZahlungsrhythmus(new Integer(12));
       }
     }
@@ -907,9 +884,11 @@ public class Import
       }
       else
       {
-        progMonitor.log(String.format(
-            "Adresstyp bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
-            Adressaufbereitung.getNameVorname(m)));
+        progMonitor
+            .log(String
+                .format(
+                    "Adresstyp bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
+                    Adressaufbereitung.getNameVorname(m)));
         m.setAdresstyp(new Integer(1));
       }
     }

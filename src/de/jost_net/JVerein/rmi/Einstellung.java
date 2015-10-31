@@ -109,18 +109,6 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public String getGlaeubigerID() throws RemoteException;
 
-  @Override
-  public String getBlz() throws RemoteException;
-
-  @Override
-  public void setBlz(String blz) throws RemoteException;
-
-  @Override
-  public String getKonto() throws RemoteException;
-
-  @Override
-  public void setKonto(String konto) throws RemoteException;
-
   public Boolean getGeburtsdatumPflicht() throws RemoteException;
 
   public void setGeburtsdatumPflicht(Boolean geburtsdatumpflicht)
