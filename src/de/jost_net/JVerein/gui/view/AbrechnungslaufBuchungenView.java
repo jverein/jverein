@@ -69,6 +69,7 @@ public class AbrechnungslaufBuchungenView extends AbstractView
     control.getSollbuchungsList().paint(this.getParent());
 
     ButtonArea buttons = new ButtonArea();
+    buttons.addButton(control.getStartListeButton());
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ABRECHNUNGSLAUF, false, "help-browser.png");
     buttons.paint(this.getParent());
@@ -83,7 +84,7 @@ public class AbrechnungslaufBuchungenView extends AbstractView
     sd = (GridData) spalte.getComposite().getLayoutData();
 
     if (breite == 0)
-    { // der ganze Beh?lter
+    { // der ganze Behälter
       sd.grabExcessHorizontalSpace = true;
       sd.horizontalSpan = 1;
     }

@@ -18,26 +18,40 @@
  ***********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.io.File;
 import java.rmi.RemoteException;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.formatter.ZahlungswegFormatter;
+import de.jost_net.JVerein.io.AbrechnungslaufPDF;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
+import de.willuhn.jameica.gui.Action;
+import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.IntegerInput;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.Column;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.system.Application;
+import de.willuhn.jameica.system.BackgroundTask;
+import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
+import de.willuhn.util.ProgressMonitor;
 
 public class AbrechnungslaufBuchungenControl extends AbstractControl
 {
@@ -122,18 +136,22 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
     //
   }
 
-  public Part getSollbuchungsList() throws RemoteException
+  private DBIterator getIterator(int lauf) throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator SollBuchungen = service.createList(Mitgliedskonto.class);
+    DBIterator it = service.createList(Mitgliedskonto.class);
 
-    SollBuchungen.addFilter("ABRECHNUNGSLAUF = (?)", lauf.getValue());
-    SollBuchungen.setOrder("ORDER BY mitglied");
+    it.addFilter("ABRECHNUNGSLAUF = (?)", lauf);
+    it.setOrder("ORDER BY mitglied");
+    return it;
+  }
 
+  public Part getSollbuchungsList() throws RemoteException
+  {
+    DBIterator it = getIterator((Integer) lauf.getValue());
     if (SollbuchungsList == null)
     {
-      SollbuchungsList = new TablePart(SollBuchungen,
-          new MitgliedDetailAction());
+      SollbuchungsList = new TablePart(it, new MitgliedDetailAction());
       SollbuchungsList.addColumn("Fälligkeit", "datum", new DateFormatter(
           new JVDateFormatTTMMJJJJ()));
 
@@ -152,12 +170,100 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
     else
     {
       SollbuchungsList.removeAll();
-      while (SollBuchungen.hasNext())
+      while (it.hasNext())
       {
-        SollbuchungsList.addItem(SollBuchungen.next());
+        SollbuchungsList.addItem(it.next());
       }
     }
     return SollbuchungsList;
+  }
+
+  public Button getStartListeButton()
+  {
+    Button b = new Button("Abrechnungslaufliste", new Action()
+    {
+
+      @Override
+      public void handleAction(Object context)
+      {
+        starteAuswertung();
+      }
+    }, null, true, "pdf.png"); // "true" defines this button as the default
+    return b;
+  }
+
+  private void starteAuswertung()
+  {
+
+    try
+    {
+      DBIterator it = getIterator((Integer) lauf.getValue());
+
+      FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
+      fd.setText("Ausgabedatei wählen.");
+
+      String path = settings.getString("lastdir",
+          System.getProperty("user.home"));
+      if (path != null && path.length() > 0)
+      {
+        fd.setFilterPath(path);
+      }
+      fd.setFileName(new Dateiname("abrechnungslauf", "", Einstellungen
+          .getEinstellung().getDateinamenmuster(), "PDF").get());
+
+      final String s = fd.open();
+
+      if (s == null || s.length() == 0)
+      {
+        return;
+      }
+
+      final File file = new File(s);
+      settings.setAttribute("lastdir", file.getParent());
+
+      auswertungPDF(it, file, abrl);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  private void auswertungPDF(final DBIterator it, final File file,
+      final Abrechnungslauf lauf)
+  {
+    BackgroundTask t = new BackgroundTask()
+    {
+
+      @Override
+      public void run(ProgressMonitor monitor) throws ApplicationException
+      {
+        try
+        {
+          GUI.getStatusBar().setSuccessText("Auswertung gestartet");
+          new AbrechnungslaufPDF(it, file, lauf);
+        }
+        catch (ApplicationException ae)
+        {
+          Logger.error("Fehler", ae);
+          GUI.getStatusBar().setErrorText(ae.getMessage());
+          throw ae;
+        }
+      }
+
+      @Override
+      public void interrupt()
+      {
+        //
+      }
+
+      @Override
+      public boolean isInterrupted()
+      {
+        return false;
+      }
+    };
+    Application.getController().start(t);
   }
 
 }
