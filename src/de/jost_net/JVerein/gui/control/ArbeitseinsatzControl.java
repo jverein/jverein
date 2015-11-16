@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.rmi.RemoteException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +36,7 @@ import com.itextpdf.text.Element;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.ArbeitseinsatzUeberpruefungInput;
+import de.jost_net.JVerein.gui.parts.ArbeitseinsatzPart;
 import de.jost_net.JVerein.gui.parts.ArbeitseinsatzUeberpruefungList;
 import de.jost_net.JVerein.io.ArbeitseinsatzZeile;
 import de.jost_net.JVerein.io.FileViewer;
@@ -46,7 +46,6 @@ import de.jost_net.JVerein.rmi.Arbeitseinsatz;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Dateiname;
-import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericIterator;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -56,10 +55,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
-import de.willuhn.jameica.gui.input.DateInput;
-import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
@@ -70,16 +66,11 @@ import de.willuhn.util.ProgressMonitor;
 
 public class ArbeitseinsatzControl extends AbstractControl
 {
+  private ArbeitseinsatzPart part = null;
 
   private Settings settings = null;
 
-  private DateInput datum = null;
-
-  private DecimalInput stunden = null;
-
   private Arbeitseinsatz aeins = null;
-
-  private TextInput bemerkung = null;
 
   private ArbeitseinsatzUeberpruefungList arbeitseinsatzueberpruefungList;
 
@@ -104,44 +95,14 @@ public class ArbeitseinsatzControl extends AbstractControl
     return aeins;
   }
 
-  public DateInput getDatum() throws RemoteException
+  public ArbeitseinsatzPart getPart()
   {
-    if (datum != null)
+    if (part != null)
     {
-      return datum;
+      return part;
     }
-
-    Date d = getArbeitseinsatz().getDatum();
-    if (d == null)
-    {
-      d = new Date();
-    }
-    this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle("Datum");
-    this.datum.setText("Datum Arbeitseinsatz wählen");
-    return datum;
-  }
-
-  public DecimalInput getStunden() throws RemoteException
-  {
-    if (stunden != null)
-    {
-      return stunden;
-    }
-    stunden = new DecimalInput(getArbeitseinsatz().getStunden(),
-        new DecimalFormat("###,###.##"));
-    return stunden;
-  }
-
-  public TextInput getBemerkung() throws RemoteException
-  {
-    if (bemerkung != null)
-    {
-      return bemerkung;
-    }
-    bemerkung = new TextInput(getArbeitseinsatz().getBemerkung(), 50);
-    bemerkung.setName("Bemerkung");
-    return bemerkung;
+    part = new ArbeitseinsatzPart(getArbeitseinsatz());
+    return part;
   }
 
   public ArbeitseinsatzUeberpruefungInput getAuswertungSchluessel()
@@ -160,9 +121,9 @@ public class ArbeitseinsatzControl extends AbstractControl
     try
     {
       Arbeitseinsatz ae = getArbeitseinsatz();
-      ae.setDatum((Date) getDatum().getValue());
-      ae.setStunden((Double) getStunden().getValue());
-      ae.setBemerkung((String) getBemerkung().getValue());
+      ae.setDatum((Date) part.getDatum().getValue());
+      ae.setStunden((Double) part.getStunden().getValue());
+      ae.setBemerkung((String) part.getBemerkung().getValue());
       ae.store();
       GUI.getStatusBar().setSuccessText("Arbeitseinsatz gespeichert");
     }

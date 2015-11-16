@@ -18,11 +18,11 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.ArbeitseinsatzControl;
+import de.jost_net.JVerein.gui.parts.ArbeitseinsatzPart;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
 
 public class ArbeitseinsatzDetailView extends AbstractView
 {
@@ -34,10 +34,8 @@ public class ArbeitseinsatzDetailView extends AbstractView
 
     final ArbeitseinsatzControl control = new ArbeitseinsatzControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Arbeitseinsatz");
-    group.addLabelPair("Datum", control.getDatum());
-    group.addLabelPair("Stunden", control.getStunden());
-    group.addInput(control.getBemerkung());
+    ArbeitseinsatzPart part = control.getPart();
+    part.paint(getParent());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

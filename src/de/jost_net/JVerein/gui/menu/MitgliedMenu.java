@@ -22,6 +22,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.AdresseDetailAction;
 import de.jost_net.JVerein.gui.action.FreiesFormularAction;
 import de.jost_net.JVerein.gui.action.KontoauszugAction;
+import de.jost_net.JVerein.gui.action.MitgliedArbeitseinsatzZuordnungAction;
 import de.jost_net.JVerein.gui.action.MitgliedDeleteAction;
 import de.jost_net.JVerein.gui.action.MitgliedDuplizierenAction;
 import de.jost_net.JVerein.gui.action.MitgliedEigenschaftZuordnungAction;
@@ -109,10 +110,15 @@ public class MitgliedMenu extends ContextMenu
         new MitgliedMailSendenAction(), "mail-message-new.png"));
     addItem(new CheckedContextMenuItem("vCard-Datei",
         new MitgliedVCardDateiAction(), "vcard.png"));
-    addItem(new CheckedSingleContextMenuItem("vCard QR-Code", new MitgliedVCardQRCodeAction(),
-        "qr.png"));
+    addItem(new CheckedSingleContextMenuItem("vCard QR-Code",
+        new MitgliedVCardQRCodeAction(), "qr.png"));
     addItem(new CheckedContextMenuItem("Eigenschaften",
         new MitgliedEigenschaftZuordnungAction(), "settings.gif"));
+    if (Einstellungen.getEinstellung().getArbeitseinsatz())
+    {
+      addItem(new CheckedContextMenuItem("Arbeitseinsätze zuweisen",
+          new MitgliedArbeitseinsatzZuordnungAction(), "shovel.png"));
+    }
     addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
         "rechnung.png"));
     addItem(new CheckedSingleContextMenuItem("Spendenbescheinigung",
