@@ -21,13 +21,13 @@ import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
 import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
 import de.jost_net.JVerein.gui.dialogs.ZusatzbetragVorlageDialog;
+import de.jost_net.JVerein.gui.parts.ZusatzbetragPart;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
-import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -41,15 +41,8 @@ public class ZusatzbetragView extends AbstractView
     GUI.getView().setTitle("Zusatzbetrag");
     final ZusatzbetragControl control = new ZusatzbetragControl(this);
 
-    LabelGroup group = new LabelGroup(getParent(), "Zusatzbetrag");
-    group.addLabelPair("Startdatum", control.getStartdatum(true));
-    group.addLabelPair("nächste Fälligkeit", control.getFaelligkeit());
-    group.addLabelPair("Intervall", control.getIntervall());
-    group.addLabelPair("Endedatum", control.getEndedatum());
-    group.addLabelPair("Buchungstext", control.getBuchungstext());
-    group.addLabelPair("Betrag", control.getBetrag());
-    LabelGroup group2 = new LabelGroup(getParent(), "Vorlagen");
-    group2.addLabelPair("Als Vorlage speichern", control.getVorlage());
+    final ZusatzbetragPart part = control.getZusatzbetragPart();
+    part.paint(getParent());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
@@ -63,21 +56,21 @@ public class ZusatzbetragView extends AbstractView
         {
           ZusatzbetragVorlageDialog zbvd = new ZusatzbetragVorlageDialog();
           ZusatzbetragVorlage zbv = zbvd.open();
-          control.getBetrag().setValue(zbv.getBetrag());
-          control.getBuchungstext().setValue(zbv.getBuchungstext());
-          control.getEndedatum().setValue(zbv.getEndedatum());
-          control.getFaelligkeit().setValue(zbv.getFaelligkeit());
-          control.getIntervall().setValue(zbv.getIntervall());
-          for (Object obj : control.getIntervall().getList())
+          part.getBetrag().setValue(zbv.getBetrag());
+          part.getBuchungstext().setValue(zbv.getBuchungstext());
+          part.getEndedatum().setValue(zbv.getEndedatum());
+          part.getFaelligkeit().setValue(zbv.getFaelligkeit());
+          part.getIntervall().setValue(zbv.getIntervall());
+          for (Object obj : part.getIntervall().getList())
           {
             IntervallZusatzzahlung ivz = (IntervallZusatzzahlung) obj;
             if (zbv.getIntervall() == ivz.getKey())
             {
-              control.getIntervall().setPreselected(ivz);
+              part.getIntervall().setPreselected(ivz);
               break;
             }
           }
-          control.getStartdatum(false).setValue(zbv.getStartdatum());
+          part.getStartdatum(false).setValue(zbv.getStartdatum());
         }
         catch (OperationCanceledException e)
         {

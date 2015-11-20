@@ -38,6 +38,7 @@ import com.itextpdf.text.Element;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeAction;
 import de.jost_net.JVerein.gui.menu.ZusatzbetraegeMenu;
+import de.jost_net.JVerein.gui.parts.ZusatzbetragPart;
 import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -58,13 +59,9 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
 import de.willuhn.jameica.gui.formatter.Formatter;
-import de.willuhn.jameica.gui.input.DateInput;
-import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
-import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
-import de.willuhn.jameica.hbci.HBCIProperties;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
 import de.willuhn.logging.Logger;
@@ -76,33 +73,13 @@ public class ZusatzbetragControl extends AbstractControl
 
   private de.willuhn.jameica.system.Settings settings;
 
-  private DateInput faelligkeit = null;
-
-  private TextInput buchungstext;
-
-  private DecimalInput betrag;
-
   private Zusatzbetrag zuab;
 
-  private DateInput startdatum;
-
-  private SelectInput intervall;
-
-  private DateInput endedatum;
-
-  private DateInput ausfuehrung = null;
+  private ZusatzbetragPart part;
 
   private SelectInput ausfuehrungSuch = null;
 
-  private SelectInput vorlage = null;
-
   private TablePart zusatzbetraegeList;
-
-  private String NEIN = "nein";
-
-  private String MITDATUM = "ja, mit Datum";
-
-  private String OHNEDATUM = "ja, ohne Datum";
 
   public ZusatzbetragControl(AbstractView view)
   {
@@ -121,164 +98,14 @@ public class ZusatzbetragControl extends AbstractControl
     return zuab;
   }
 
-  public DateInput getFaelligkeit() throws RemoteException
+  public ZusatzbetragPart getZusatzbetragPart()
   {
-    if (faelligkeit != null)
+    if (part != null)
     {
-      return faelligkeit;
+      return part;
     }
-
-    Date d = getZusatzbetrag().getFaelligkeit();
-
-    this.faelligkeit = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.faelligkeit.setTitle("Fälligkeit");
-    this.faelligkeit.setText("Bitte Fälligkeitsdatum wählen");
-    this.faelligkeit.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) faelligkeit.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
-    return faelligkeit;
-  }
-
-  public TextInput getBuchungstext() throws RemoteException
-  {
-    if (buchungstext != null)
-    {
-      return buchungstext;
-    }
-    buchungstext = new TextInput(getZusatzbetrag().getBuchungstext(), 140);
-    buchungstext.setMandatory(true);
-    buchungstext.setValidChars(HBCIProperties.HBCI_DTAUS_VALIDCHARS);
-    return buchungstext;
-  }
-
-  public DecimalInput getBetrag() throws RemoteException
-  {
-    if (betrag != null)
-    {
-      return betrag;
-    }
-    betrag = new DecimalInput(getZusatzbetrag().getBetrag(),
-        Einstellungen.DECIMALFORMAT);
-    betrag.setMandatory(true);
-    return betrag;
-  }
-
-  public DateInput getStartdatum(boolean withFocus) throws RemoteException
-  {
-    if (startdatum != null)
-    {
-      return startdatum;
-    }
-
-    Date d = getZusatzbetrag().getStartdatum();
-    this.startdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.startdatum.setTitle("Startdatum");
-    this.startdatum.setText("Bitte Startdatum wählen");
-    this.startdatum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) startdatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-        startdatum.setValue(date);
-        if (faelligkeit.getValue() == null)
-        {
-          faelligkeit.setValue(startdatum.getValue());
-        }
-      }
-    });
-    if (withFocus)
-    {
-      startdatum.focus();
-    }
-    return startdatum;
-  }
-
-  public SelectInput getIntervall() throws RemoteException
-  {
-    if (intervall != null)
-    {
-      return intervall;
-    }
-    Integer i = getZusatzbetrag().getIntervall();
-    if (i == null)
-    {
-      i = Integer.valueOf(0);
-    }
-    this.intervall = new SelectInput(IntervallZusatzzahlung.getArray(),
-        new IntervallZusatzzahlung(i));
-    return intervall;
-  }
-
-  public DateInput getEndedatum() throws RemoteException
-  {
-    if (endedatum != null)
-    {
-      return endedatum;
-    }
-
-    Date d = getZusatzbetrag().getEndedatum();
-    this.endedatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.endedatum.setTitle("Endedatum");
-    this.endedatum.setText("Bitte Endedatum wählen");
-    this.endedatum.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) endedatum.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
-    return endedatum;
-  }
-
-  public DateInput getAusfuehrung() throws RemoteException
-  {
-    if (ausfuehrung != null)
-    {
-      return ausfuehrung;
-    }
-
-    Date d = getZusatzbetrag().getAusfuehrung();
-
-    this.ausfuehrung = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.ausfuehrung.setTitle("Ausführung");
-    this.ausfuehrung.setText("Bitte Ausführungsdatum wählen");
-    this.ausfuehrung.addListener(new Listener()
-    {
-
-      @Override
-      public void handleEvent(Event event)
-      {
-        Date date = (Date) ausfuehrung.getValue();
-        if (date == null)
-        {
-          return;
-        }
-      }
-    });
-    ausfuehrung.setEnabled(false);
-    return ausfuehrung;
+    part = new ZusatzbetragPart(getZusatzbetrag());
+    return part;
   }
 
   public SelectInput getAusfuehrungSuch() throws RemoteException
@@ -333,40 +160,35 @@ public class ZusatzbetragControl extends AbstractControl
     return ausfuehrungSuch;
   }
 
-  public SelectInput getVorlage()
-  {
-    if (vorlage != null)
-    {
-      return vorlage;
-    }
-    vorlage = new SelectInput(new Object[] { NEIN, MITDATUM, OHNEDATUM }, NEIN);
-    return vorlage;
-  }
-
   public void handleStore()
   {
     try
     {
       Zusatzbetrag z = getZusatzbetrag();
-      z.setFaelligkeit((Date) getFaelligkeit().getValue());
-      z.setStartdatum((Date) getStartdatum(false).getValue());
-      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getIntervall()
-          .getValue();
+      z.setFaelligkeit((Date) getZusatzbetragPart().getFaelligkeit().getValue());
+      z.setStartdatum((Date) getZusatzbetragPart().getStartdatum(false)
+          .getValue());
+      IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getZusatzbetragPart()
+          .getIntervall().getValue();
       z.setIntervall(iz.getKey());
-      z.setEndedatum((Date) getEndedatum().getValue());
-      z.setBuchungstext((String) getBuchungstext().getValue());
-      Double d = (Double) getBetrag().getValue();
+      z.setEndedatum((Date) getZusatzbetragPart().getEndedatum().getValue());
+      z.setBuchungstext((String) getZusatzbetragPart().getBuchungstext()
+          .getValue());
+      Double d = (Double) getZusatzbetragPart().getBetrag().getValue();
       z.setBetrag(d.doubleValue());
       z.store();
-      if (vorlage.getValue().equals(MITDATUM)
-          || vorlage.getValue().equals(OHNEDATUM))
+      if (getZusatzbetragPart().getVorlage().getValue()
+          .equals(ZusatzbetragPart.MITDATUM)
+          || getZusatzbetragPart().getVorlage().getValue()
+              .equals(ZusatzbetragPart.OHNEDATUM))
       {
         ZusatzbetragVorlage zv = (ZusatzbetragVorlage) Einstellungen
             .getDBService().createObject(ZusatzbetragVorlage.class, null);
         zv.setIntervall(z.getIntervall());
         zv.setBuchungstext(z.getBuchungstext());
         zv.setBetrag(z.getBetrag());
-        if (vorlage.getValue().equals(MITDATUM))
+        if (getZusatzbetragPart().getVorlage().getValue()
+            .equals(ZusatzbetragPart.MITDATUM))
         {
           zv.setEndedatum(z.getEndedatum());
           zv.setFaelligkeit(z.getFaelligkeit());

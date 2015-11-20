@@ -17,9 +17,9 @@
 package de.jost_net.JVerein.gui.action;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.gui.dialogs.MitgliedArbeitseinsatzZuordnungDialog;
-import de.jost_net.JVerein.rmi.Arbeitseinsatz;
+import de.jost_net.JVerein.gui.dialogs.MitgliedZusatzbetragZuordnungDialog;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
@@ -28,9 +28,9 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
- * Arbeitseinsätze den Mitgliedern zuordnen.
+ * Zusatzbeträge den Mitgliedern zuordnen.
  */
-public class MitgliedArbeitseinsatzZuordnungAction implements Action
+public class MitgliedZusatzbetraegeZuordnungAction implements Action
 {
 
   @Override
@@ -51,25 +51,29 @@ public class MitgliedArbeitseinsatzZuordnungAction implements Action
       m = (Mitglied[]) context;
     }
 
-    MitgliedArbeitseinsatzZuordnungDialog maz = new MitgliedArbeitseinsatzZuordnungDialog(
+    MitgliedZusatzbetragZuordnungDialog mzb = new MitgliedZusatzbetragZuordnungDialog(
         AbstractDialog.POSITION_CENTER);
     try
     {
-      Arbeitseinsatz part = maz.open();
+      Zusatzbetrag part = mzb.open();
       int count = 0;
       for (Mitglied mit : m)
       {
-        Arbeitseinsatz ae = (Arbeitseinsatz) Einstellungen.getDBService()
-            .createObject(Arbeitseinsatz.class, null);
-        ae.setDatum(part.getDatum());
-        ae.setMitglied(Integer.parseInt(mit.getID()));
-        ae.setStunden(part.getStunden());
-        ae.setBemerkung(part.getBemerkung());
-        ae.store();
+        Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService()
+            .createObject(Zusatzbetrag.class, null);
+        zb.setAusfuehrung(part.getAusfuehrung());
+        zb.setBetrag(part.getBetrag());
+        zb.setBuchungstext(part.getBuchungstext());
+        zb.setEndedatum(part.getEndedatum());
+        zb.setFaelligkeit(part.getFaelligkeit());
+        zb.setIntervall(part.getIntervall());
+        zb.setMitglied(Integer.parseInt(mit.getID()));
+        zb.setStartdatum(part.getStartdatum());
+        zb.store();
         count++;
       }
       GUI.getStatusBar().setSuccessText(
-          String.format("%d Zusatzbeträge gespeichert.", count));
+          String.format("%d Arbeitseinsätze gespeichert.", count));
     }
     catch (ApplicationException e)
     {

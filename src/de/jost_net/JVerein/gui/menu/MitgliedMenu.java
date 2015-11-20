@@ -31,6 +31,7 @@ import de.jost_net.JVerein.gui.action.MitgliedLastschriftAction;
 import de.jost_net.JVerein.gui.action.MitgliedMailSendenAction;
 import de.jost_net.JVerein.gui.action.MitgliedVCardDateiAction;
 import de.jost_net.JVerein.gui.action.MitgliedVCardQRCodeAction;
+import de.jost_net.JVerein.gui.action.MitgliedZusatzbetraegeZuordnungAction;
 import de.jost_net.JVerein.gui.action.PersonalbogenAction;
 import de.jost_net.JVerein.gui.action.SpendenbescheinigungAction;
 import de.jost_net.JVerein.gui.view.MitgliedDetailView;
@@ -119,6 +120,8 @@ public class MitgliedMenu extends ContextMenu
       addItem(new CheckedContextMenuItem("Arbeitseinsätze zuweisen",
           new MitgliedArbeitseinsatzZuordnungAction(), "shovel.png"));
     }
+    addItem(new CheckedContextMenuItem("Zusatzbeträge zuweisen",
+        new MitgliedZusatzbetraegeZuordnungAction(), "coins.gif"));
     addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
         "rechnung.png"));
     addItem(new CheckedSingleContextMenuItem("Spendenbescheinigung",
