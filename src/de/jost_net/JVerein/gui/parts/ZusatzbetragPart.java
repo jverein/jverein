@@ -45,8 +45,6 @@ public class ZusatzbetragPart implements Part
 
   private DecimalInput betrag;
 
-  private Zusatzbetrag zuab;
-
   private DateInput startdatum;
 
   private SelectInput intervall;
@@ -54,14 +52,6 @@ public class ZusatzbetragPart implements Part
   private DateInput endedatum;
 
   private DateInput ausfuehrung = null;
-
-  private SelectInput vorlage = null;
-
-  public static final String NEIN = "nein";
-
-  public static final String MITDATUM = "ja, mit Datum";
-
-  public static final String OHNEDATUM = "ja, ohne Datum";
 
   public ZusatzbetragPart(Zusatzbetrag zusatzbetrag)
   {
@@ -78,8 +68,6 @@ public class ZusatzbetragPart implements Part
     group.addLabelPair("Endedatum", getEndedatum());
     group.addLabelPair("Buchungstext", getBuchungstext());
     group.addLabelPair("Betrag", getBetrag());
-    LabelGroup group2 = new LabelGroup(parent, "Vorlagen");
-    group2.addLabelPair("Als Vorlage speichern", getVorlage());
 
   }
 
@@ -241,16 +229,6 @@ public class ZusatzbetragPart implements Part
     });
     ausfuehrung.setEnabled(false);
     return ausfuehrung;
-  }
-
-  public SelectInput getVorlage()
-  {
-    if (vorlage != null)
-    {
-      return vorlage;
-    }
-    vorlage = new SelectInput(new Object[] { NEIN, MITDATUM, OHNEDATUM }, NEIN);
-    return vorlage;
   }
 
 }

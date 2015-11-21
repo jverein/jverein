@@ -16,10 +16,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
-import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.dialogs.MitgliedZusatzbetragZuordnungDialog;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
@@ -52,28 +50,11 @@ public class MitgliedZusatzbetraegeZuordnungAction implements Action
     }
 
     MitgliedZusatzbetragZuordnungDialog mzb = new MitgliedZusatzbetragZuordnungDialog(
-        AbstractDialog.POSITION_CENTER);
+        AbstractDialog.POSITION_CENTER, m);
     try
     {
-      Zusatzbetrag part = mzb.open();
-      int count = 0;
-      for (Mitglied mit : m)
-      {
-        Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService()
-            .createObject(Zusatzbetrag.class, null);
-        zb.setAusfuehrung(part.getAusfuehrung());
-        zb.setBetrag(part.getBetrag());
-        zb.setBuchungstext(part.getBuchungstext());
-        zb.setEndedatum(part.getEndedatum());
-        zb.setFaelligkeit(part.getFaelligkeit());
-        zb.setIntervall(part.getIntervall());
-        zb.setMitglied(Integer.parseInt(mit.getID()));
-        zb.setStartdatum(part.getStartdatum());
-        zb.store();
-        count++;
-      }
-      GUI.getStatusBar().setSuccessText(
-          String.format("%d Arbeitseinsätze gespeichert.", count));
+      String message = mzb.open();
+      GUI.getStatusBar().setSuccessText(message);
     }
     catch (ApplicationException e)
     {

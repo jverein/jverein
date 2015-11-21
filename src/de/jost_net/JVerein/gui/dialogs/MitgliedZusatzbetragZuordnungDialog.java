@@ -25,30 +25,35 @@ import org.eclipse.swt.widgets.Composite;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.parts.ZusatzbetragPart;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
+import de.willuhn.jameica.gui.dialogs.SimpleDialog;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
+import de.willuhn.util.ApplicationException;
 
 /**
  * Dialog zur Zuordnung von Zusatzbeträgen
  */
-public class MitgliedZusatzbetragZuordnungDialog extends
-    AbstractDialog<Zusatzbetrag>
+public class MitgliedZusatzbetragZuordnungDialog extends AbstractDialog<String>
 {
   private ZusatzbetragPart part;
 
-  private Zusatzbetrag zusatzbetrag;
+  private Mitglied[] m;
+
+  private String message = "";
 
   /**
    * @param position
    */
-  public MitgliedZusatzbetragZuordnungDialog(int position)
+  public MitgliedZusatzbetragZuordnungDialog(int position, Mitglied[] m)
   {
     super(position);
     setTitle("Zuordnung Zusatzbetrag");
+    this.m = m;
   }
 
   @Override
@@ -65,26 +70,48 @@ public class MitgliedZusatzbetragZuordnungDialog extends
       @Override
       public void handleAction(Object context)
       {
+        int count = 0;
         try
         {
-          zusatzbetrag = (Zusatzbetrag) Einstellungen.getDBService()
-              .createObject(Zusatzbetrag.class, null);
-          zusatzbetrag.setAusfuehrung((Date) part.getAusfuehrung().getValue());
-          zusatzbetrag.setBetrag((Double) part.getBetrag().getValue());
-          zusatzbetrag.setBuchungstext((String) part.getBuchungstext()
-              .getValue());
-          zusatzbetrag.setEndedatum((Date) part.getEndedatum().getValue());
-          zusatzbetrag.setFaelligkeit((Date) part.getFaelligkeit().getValue());
-          IntervallZusatzzahlung iz = (IntervallZusatzzahlung) part
-              .getIntervall().getValue();
-          zusatzbetrag.setIntervall(iz.getKey());
-          zusatzbetrag
-              .setStartdatum((Date) part.getStartdatum(true).getValue());
+          for (Mitglied mit : m)
+          {
+            Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService()
+                .createObject(Zusatzbetrag.class, null);
+            zb.setAusfuehrung((Date) part.getAusfuehrung().getValue());
+            zb.setBetrag((Double) part.getBetrag().getValue());
+            zb.setBuchungstext((String) part.getBuchungstext().getValue());
+            zb.setEndedatum((Date) part.getEndedatum().getValue());
+            zb.setFaelligkeit((Date) part.getFaelligkeit().getValue());
+            IntervallZusatzzahlung iz = (IntervallZusatzzahlung) part
+                .getIntervall().getValue();
+            zb.setIntervall(iz.getKey());
+            zb.setMitglied(Integer.parseInt(mit.getID()));
+            zb.setStartdatum((Date) part.getStartdatum(true).getValue());
+            zb.store();
+            count++;
+          }
+          message = String.format("%d Arbeitseinsätze gespeichert.", count);
         }
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
         }
+        catch (ApplicationException e)
+        {
+          SimpleDialog sd = new SimpleDialog(AbstractDialog.POSITION_CENTER);
+          sd.setText(e.getMessage());
+          sd.setTitle("Fehler");
+          try
+          {
+            sd.open();
+          }
+          catch (Exception e1)
+          {
+            Logger.error("Fehler", e1);
+          }
+          return;
+        }
+
         close();
       }
     }, null, true);
@@ -104,8 +131,8 @@ public class MitgliedZusatzbetragZuordnungDialog extends
    * @see de.willuhn.jameica.gui.dialogs.AbstractDialog#getData()
    */
   @Override
-  public Zusatzbetrag getData() throws Exception
+  public String getData() throws Exception
   {
-    return zusatzbetrag;
+    return message;
   }
 }

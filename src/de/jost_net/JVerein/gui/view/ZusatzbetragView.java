@@ -28,6 +28,7 @@ import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.OperationCanceledException;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -43,6 +44,9 @@ public class ZusatzbetragView extends AbstractView
 
     final ZusatzbetragPart part = control.getZusatzbetragPart();
     part.paint(getParent());
+
+    LabelGroup group2 = new LabelGroup(getParent(), "Vorlagen");
+    group2.addLabelPair("Als Vorlage speichern", control.getVorlage());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

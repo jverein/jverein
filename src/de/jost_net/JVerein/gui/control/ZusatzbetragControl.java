@@ -77,9 +77,17 @@ public class ZusatzbetragControl extends AbstractControl
 
   private ZusatzbetragPart part;
 
+  private SelectInput vorlage = null;
+
   private SelectInput ausfuehrungSuch = null;
 
   private TablePart zusatzbetraegeList;
+
+  public static final String NEIN = "nein";
+
+  public static final String MITDATUM = "ja, mit Datum";
+
+  public static final String OHNEDATUM = "ja, ohne Datum";
 
   public ZusatzbetragControl(AbstractView view)
   {
@@ -106,6 +114,16 @@ public class ZusatzbetragControl extends AbstractControl
     }
     part = new ZusatzbetragPart(getZusatzbetrag());
     return part;
+  }
+
+  public SelectInput getVorlage()
+  {
+    if (vorlage != null)
+    {
+      return vorlage;
+    }
+    vorlage = new SelectInput(new Object[] { NEIN, MITDATUM, OHNEDATUM }, NEIN);
+    return vorlage;
   }
 
   public SelectInput getAusfuehrungSuch() throws RemoteException
@@ -177,18 +195,15 @@ public class ZusatzbetragControl extends AbstractControl
       Double d = (Double) getZusatzbetragPart().getBetrag().getValue();
       z.setBetrag(d.doubleValue());
       z.store();
-      if (getZusatzbetragPart().getVorlage().getValue()
-          .equals(ZusatzbetragPart.MITDATUM)
-          || getZusatzbetragPart().getVorlage().getValue()
-              .equals(ZusatzbetragPart.OHNEDATUM))
+      if (getVorlage().getValue().equals(MITDATUM)
+          || getVorlage().getValue().equals(OHNEDATUM))
       {
         ZusatzbetragVorlage zv = (ZusatzbetragVorlage) Einstellungen
             .getDBService().createObject(ZusatzbetragVorlage.class, null);
         zv.setIntervall(z.getIntervall());
         zv.setBuchungstext(z.getBuchungstext());
         zv.setBetrag(z.getBetrag());
-        if (getZusatzbetragPart().getVorlage().getValue()
-            .equals(ZusatzbetragPart.MITDATUM))
+        if (getVorlage().getValue().equals(MITDATUM))
         {
           zv.setEndedatum(z.getEndedatum());
           zv.setFaelligkeit(z.getFaelligkeit());
