@@ -134,6 +134,8 @@ public class EinstellungControl extends AbstractControl
 
   private CheckboxInput individuellebeitraege;
 
+  private CheckboxInput kursteilnehmergebgespflicht;
+
   private TextInput rechnungtextabbuchung;
 
   private TextInput rechnungtextueberweisung;
@@ -622,6 +624,17 @@ public class EinstellungControl extends AbstractControl
     mitgliedfoto = new CheckboxInput(Einstellungen.getEinstellung()
         .getMitgliedfoto());
     return mitgliedfoto;
+  }
+
+  public CheckboxInput getKursteilnehmerGebGesPflicht() throws RemoteException
+  {
+    if (kursteilnehmergebgespflicht != null)
+    {
+      return kursteilnehmergebgespflicht;
+    }
+    kursteilnehmergebgespflicht = new CheckboxInput(Einstellungen
+        .getEinstellung().getKursteilnehmerGebGesPflicht());
+    return kursteilnehmergebgespflicht;
   }
 
   // TODO deaktiviert für Versionsbau
@@ -1705,6 +1718,8 @@ public class EinstellungControl extends AbstractControl
       e.setVermerke((Boolean) vermerke.getValue());
       e.setWiedervorlage((Boolean) wiedervorlage.getValue());
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
+      e.setKursteilnehmerGebGesPflicht((Boolean) kursteilnehmergebgespflicht
+          .getValue());
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());

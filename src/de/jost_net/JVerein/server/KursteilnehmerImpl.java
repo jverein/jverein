@@ -91,9 +91,12 @@ public class KursteilnehmerImpl extends AbstractDBObject implements
     {
       throw new ApplicationException("Bitte Datum des Mandats eingeben");
     }
-    if (getGeburtsdatum() == null)
+    if (Einstellungen.getEinstellung().getKursteilnehmerGebGesPflicht())
     {
-      throw new ApplicationException("Bitte Geburtsdatum eingeben");
+      if (getGeburtsdatum() == null)
+      {
+        throw new ApplicationException("Bitte Geburtsdatum eingeben");
+      }
     }
     if (getIban() == null || getIban().length() == 0)
     {

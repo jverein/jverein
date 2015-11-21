@@ -16,6 +16,7 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.view;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDeleteAction;
 import de.jost_net.JVerein.gui.action.KursteilnehmerDetailAction;
@@ -59,11 +60,14 @@ public class KursteilnehmerDetailView extends AbstractView
     grGrund.addInput(control.getBIC());
     grGrund.addLabelPair("Betrag", control.getBetrag());
 
-    LabelGroup grStatistik = new LabelGroup(scrolled.getComposite(),
-        "Statistik");
-    grStatistik.getComposite().setSize(290, 190);
-    grStatistik.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
-    grStatistik.addLabelPair("Geschlecht", control.getGeschlecht());
+    if (Einstellungen.getEinstellung().getKursteilnehmerGebGesPflicht())
+    {
+      LabelGroup grStatistik = new LabelGroup(scrolled.getComposite(),
+          "Statistik");
+      grStatistik.getComposite().setSize(290, 190);
+      grStatistik.addLabelPair("Geburtsdatum", control.getGeburtsdatum());
+      grStatistik.addLabelPair("Geschlecht", control.getGeschlecht());
+    }
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

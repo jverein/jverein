@@ -149,6 +149,11 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setKursteilnehmer(Boolean kursteilnehmer) throws RemoteException;
 
+  public Boolean getKursteilnehmerGebGesPflicht() throws RemoteException;
+
+  public void setKursteilnehmerGebGesPflicht(Boolean kursteilnehmergebgespflicht)
+      throws RemoteException;
+
   public Boolean getLehrgaenge() throws RemoteException;
 
   public void setJuristischePersonen(Boolean juristischePersonen)

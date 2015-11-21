@@ -551,6 +551,20 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public Boolean getKursteilnehmerGebGesPflicht() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("kursteilnehmergebgespflicht"));
+  }
+
+  @Override
+  public void setKursteilnehmerGebGesPflicht(Boolean kursteilnehmergebgespflicht)
+      throws RemoteException
+  {
+    setAttribute("kursteilnehmergebgespflicht",
+        Boolean.valueOf(kursteilnehmergebgespflicht));
+  }
+
+  @Override
   public Boolean getLehrgaenge() throws RemoteException
   {
     return Util.getBoolean(getAttribute("lehrgaenge"));

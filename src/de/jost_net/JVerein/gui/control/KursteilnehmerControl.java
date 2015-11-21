@@ -649,8 +649,11 @@ public class KursteilnehmerControl extends AbstractControl
       k.setIban((String) getIBAN().getValue());
       k.setBic((String) getBIC().getValue());
       k.setBetrag((Double) getBetrag().getValue());
-      k.setGeburtsdatum((Date) getGeburtsdatum().getValue());
-      k.setGeschlecht((String) getGeschlecht().getValue());
+      if (Einstellungen.getEinstellung().getGeburtsdatumPflicht())
+      {
+        k.setGeburtsdatum((Date) getGeburtsdatum().getValue());
+        k.setGeschlecht((String) getGeschlecht().getValue());
+      }
       if (k.getID() == null)
       {
         k.setEingabedatum();

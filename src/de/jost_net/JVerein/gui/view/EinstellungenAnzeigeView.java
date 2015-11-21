@@ -60,6 +60,8 @@ public class EinstellungenAnzeigeView extends AbstractView
         control.getWiedervorlage());
     left.addLabelPair("Kursteilnehmer anzeigen" + "*",
         control.getKursteilnehmer());
+    left.addLabelPair("Kursteilnehmer Geburtsdatum und Geschlecht Pflichtfeld",
+        control.getKursteilnehmerGebGesPflicht());
     left.addLabelPair("Lehrgänge anzeigen" + "*", control.getLehrgaenge());
     left.addLabelPair("Juristische Personen erlaubt",
         control.getJuristischePersonen());
