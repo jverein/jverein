@@ -147,11 +147,7 @@ public class SpendenbescheinigungPrintAction implements Action
     {
       String path = Einstellungen.getEinstellung()
           .getSpendenbescheinigungverzeichnis();
-      if (path == null)
-      {
-        path = settings.getString("lastdir", System.getProperty("user.home"));
-      }
-      else if (path.length() == 0)
+      if (path == null || path.length() == 0)
       {
         path = settings.getString("lastdir", System.getProperty("user.home"));
       }
