@@ -205,6 +205,7 @@ public class MailSender
     }
 
     props.put("mail.smtp.host", smtp_host_name);
+    props.put("mail.smtp.localhost", "localhost");
     props.put("mail.debug", "true");
     props.put("mail.smtp.port", smtp_port);
     props.put("mail.mime.charset", ISO_8859_15);
@@ -272,13 +273,47 @@ public class MailSender
     }
     msg.setSubject(subject);
 
+    // Man koennte dies auch per Checkbox im Formular abfragen
+    boolean html = text.toLowerCase().contains("<html");
+
     MimeBodyPart messageBodyPart = new MimeBodyPart();
     messageBodyPart.addHeader("Content-Encoding", ISO_8859_15);
-    // Fill the message
-    messageBodyPart.setText(text, ISO_8859_15);
+    Multipart multipart = new MimeMultipart("mixed");
 
-    Multipart multipart = new MimeMultipart();
-    multipart.addBodyPart(messageBodyPart);
+    // Fill the message
+    if (html)
+    {
+      messageBodyPart.setText(text, ISO_8859_15, "html");
+
+      Multipart alternativeMessagesMultipart = new MimeMultipart("alternative");
+
+      MimeBodyPart altMessageBodyPart = new MimeBodyPart();
+      altMessageBodyPart.addHeader("Content-Encoding", ISO_8859_15);
+      altMessageBodyPart
+          .setText(
+              "Um diese Email richtig darstellen zu können, erlauben Sie bitte in Ihrem Emailprogramm die Darstellung von HTML-Emails.\n"
+                  + text
+                      .replaceAll(
+                          "(?s)<\\s*?(script|Script|SCRIPT).*?>.*?</\\s*?(script|Script|SCRIPT)\\s*?>",
+                          "")
+                      .replaceAll(
+                          "(?s)<\\s*?(style|Style|STYLE).*?>.*?</\\s*?(style|Style|STYLE)\\s*?>",
+                          "").replaceAll("<.*?>", "")
+                      .replaceAll("\\n{4,}", "\n\n\n").replaceAll("\\t", ""),
+              ISO_8859_15);
+
+      alternativeMessagesMultipart.addBodyPart(altMessageBodyPart);
+      alternativeMessagesMultipart.addBodyPart(messageBodyPart);
+
+      MimeBodyPart alternativeMessagesBodyPart = new MimeBodyPart();
+      alternativeMessagesBodyPart.setContent(alternativeMessagesMultipart);
+      multipart.addBodyPart(alternativeMessagesBodyPart);
+    }
+    else
+    {
+      messageBodyPart.setText(text, ISO_8859_15);
+      multipart.addBodyPart(messageBodyPart);
+    }
 
     for (MailAnhang ma : anhang)
     {
