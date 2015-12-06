@@ -16,16 +16,20 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control.listener;
 
+import java.rmi.RemoteException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.input.IBANInput;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.BankenDaten.Bank;
 import de.jost_net.OBanToo.SEPA.BankenDaten.Banken;
 import de.willuhn.jameica.gui.input.TextInput;
+import de.willuhn.logging.Logger;
 
 /**
  * Sucht das Geldinstitut zur eingegebenen IBAN und zeigt es als Kommentar
@@ -55,6 +59,9 @@ public class IBANListener implements Listener
     {
       return;
     }
+    // Wurde eine alte Bankverbindung mit BLZ und Kontonummer eingegeben?
+    checkAlteBankverbindung();
+
     String ib = (String) iban.getValue();
     if (ib == null)
     {
@@ -99,5 +106,42 @@ public class IBANListener implements Listener
     }
     Bank b = Banken.getBankByBIC((String) iban.getValue());
     iban.setComment(b != null ? b.getBezeichnung() : "");
+  }
+
+  private void checkAlteBankverbindung()
+  {
+    String ib = (String) iban.getValue();
+    if (ib.length() < 10)
+    {
+      return; // Wert zu kurz
+    }
+    for (int i = 0; i > 8; i++)
+    {
+      if (ib.charAt(i) < '0' || ib.charAt(i) > '9')
+      {
+        return;
+      }
+    }
+    if (ib.charAt(8) != ' ')
+    {
+      return;
+    }
+    String blz = ib.substring(0, 8);
+    String konto = ib.substring(9, ib.length());
+    try
+    {
+      IBAN ibankonv = new IBAN(konto, blz, Einstellungen.getEinstellung()
+          .getDefaultLand());
+      iban.setValue(ibankonv.getIBAN());
+      bic.setValue(ibankonv.getBIC());
+    }
+    catch (RemoteException e)
+    {
+      Logger.error("Fehler", e);
+    }
+    catch (SEPAException e)
+    {
+      Logger.error("Fehler", e);
+    }
   }
 }
