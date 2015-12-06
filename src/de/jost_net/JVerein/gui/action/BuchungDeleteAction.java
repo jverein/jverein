@@ -83,6 +83,7 @@ public class BuchungDeleteAction implements Action
         Logger.error("Fehler beim Löschen der Buchung", e);
         return;
       }
+      int count = 0;
       for (Buchung bu : b)
       {
         Jahresabschluss ja = bu.getJahresabschluss();
@@ -95,6 +96,7 @@ public class BuchungDeleteAction implements Action
         if (bu.getSplitId() == null)
         {
           bu.delete();
+          count++;
         }
         else
         {
@@ -102,8 +104,16 @@ public class BuchungDeleteAction implements Action
           Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
         }
       }
-      GUI.getStatusBar().setSuccessText(
-          "Buchung" + (b.length > 1 ? "en" : "") + " gelöscht.");
+      if (count > 0)
+      {
+        GUI.getStatusBar().setSuccessText(
+            String.format("%d Buchung" + (b.length != 1 ? "en" : "")
+                + " gelöscht.", count));
+      }
+      else
+      {
+        GUI.getStatusBar().setErrorText("Keine Buchung gelöscht");
+      }
     }
     catch (RemoteException e)
     {
