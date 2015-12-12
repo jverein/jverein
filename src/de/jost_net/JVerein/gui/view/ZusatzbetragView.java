@@ -19,19 +19,14 @@ package de.jost_net.JVerein.gui.view;
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.gui.action.ZusatzbetraegeDeleteAction;
+import de.jost_net.JVerein.gui.action.ZusatzbetragVorlageAuswahlAction;
 import de.jost_net.JVerein.gui.control.ZusatzbetragControl;
-import de.jost_net.JVerein.gui.dialogs.ZusatzbetragVorlageDialog;
 import de.jost_net.JVerein.gui.parts.ZusatzbetragPart;
-import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
-import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.jameica.system.OperationCanceledException;
-import de.willuhn.logging.Logger;
-import de.willuhn.util.ApplicationException;
 
 public class ZusatzbetragView extends AbstractView
 {
@@ -51,43 +46,7 @@ public class ZusatzbetragView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
-    buttons.addButton("Vorlagen", new Action()
-    {
-      @Override
-      public void handleAction(Object context) throws ApplicationException
-      {
-        try
-        {
-          ZusatzbetragVorlageDialog zbvd = new ZusatzbetragVorlageDialog();
-          ZusatzbetragVorlage zbv = zbvd.open();
-          part.getBetrag().setValue(zbv.getBetrag());
-          part.getBuchungstext().setValue(zbv.getBuchungstext());
-          part.getEndedatum().setValue(zbv.getEndedatum());
-          part.getFaelligkeit().setValue(zbv.getFaelligkeit());
-          part.getIntervall().setValue(zbv.getIntervall());
-          for (Object obj : part.getIntervall().getList())
-          {
-            IntervallZusatzzahlung ivz = (IntervallZusatzzahlung) obj;
-            if (zbv.getIntervall() == ivz.getKey())
-            {
-              part.getIntervall().setPreselected(ivz);
-              break;
-            }
-          }
-          part.getStartdatum(false).setValue(zbv.getStartdatum());
-        }
-        catch (OperationCanceledException e)
-        {
-          // Nothing to do
-        }
-        catch (Exception e)
-        {
-          Logger.error("ZusatzbetragVorlageDialog kann nicht geöffnet werden",
-              e);
-        }
-      }
-
-    });
+    buttons.addButton("Vorlagen", new ZusatzbetragVorlageAuswahlAction(part));
     buttons.addButton("Mitglied", new MitgliedDetailAction(), control
         .getZusatzbetrag().getMitglied(), false, "system-users.png");
     buttons.addButton("löschen", new ZusatzbetraegeDeleteAction(),

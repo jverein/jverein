@@ -23,6 +23,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.action.ZusatzbetragVorlageAuswahlAction;
 import de.jost_net.JVerein.gui.parts.ZusatzbetragPart;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Mitglied;
@@ -115,6 +116,8 @@ public class MitgliedZusatzbetragZuordnungDialog extends AbstractDialog<String>
         close();
       }
     }, null, true);
+    buttons.addButton("Vorlagen", new ZusatzbetragVorlageAuswahlAction(part));
+
     buttons.addButton("abbrechen", new Action()
     {
       @Override
