@@ -53,7 +53,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     DBIterator list = Einstellungen.getDBService().createList(
         Kursteilnehmer.class);
     list.addFilter(
-        "LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR blz LIKE ? OR konto LIKE ? OR iban LIKE ? OR BIC like ?",
+        "LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR iban LIKE ? OR BIC like ?",
         text, text, text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
