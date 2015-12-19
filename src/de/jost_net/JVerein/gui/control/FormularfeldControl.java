@@ -116,10 +116,6 @@ public class FormularfeldControl extends AbstractControl
 
   public static final String ZAHLUNGSRHYTHMUS = "Zahlungsrhythmus";
 
-  public static final String BLZ = "Bankleitzahl";
-
-  public static final String KONTO = "Konto";
-
   public static final String KONTOINHABER = "Kontoinhaber";
 
   public static final String GEBURTSDATUM = "Geburtsdatum";
