@@ -33,6 +33,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Variable.AbrechnungsParameterMap;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -619,11 +620,23 @@ public class AbrechnungSEPA
     }
     counter++;
 
+    String vzweck = param.verwendungszweck;
+    Map<String, Object> map = new AllgemeineMap().getMap(null);
+    map = new MitgliedMap().getMap(m, map);
+    map = new AbrechnungsParameterMap().getMap(param, map);
+    try
+    {
+      vzweck = VelocityTool.eval(map, vzweck);
+    }
+    catch (IOException e)
+    {
+      Logger.error("Fehler bei der Aufbereitung der Variablen", e);
+    }
+
     writeMitgliedskonto(m,
         m.getMandatSequence().getTxt().equals("FRST") ? param.faelligkeit1
-            : param.faelligkeit2,
-        primaer ? param.verwendungszweck : bg.getBezeichnung(), betr, abrl,
-        m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
+            : param.faelligkeit2, primaer ? vzweck : bg.getBezeichnung(), betr,
+        abrl, m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
         bg.getBuchungsart());
     if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
     {
@@ -712,6 +725,7 @@ public class AbrechnungSEPA
         String vzweck = z.getBuchungstext();
         Map<String, Object> map = new AllgemeineMap().getMap(null);
         map = new MitgliedMap().getMap(m, map);
+        map = new AbrechnungsParameterMap().getMap(param, map);
         try
         {
           vzweck = VelocityTool.eval(map, vzweck);
