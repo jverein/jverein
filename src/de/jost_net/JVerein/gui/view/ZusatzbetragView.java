@@ -46,7 +46,8 @@ public class ZusatzbetragView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
-    buttons.addButton("Vorlagen", new ZusatzbetragVorlageAuswahlAction(part));
+    buttons.addButton("Vorlagen", new ZusatzbetragVorlageAuswahlAction(part),
+        null, false, "template-icon.png");
     buttons.addButton("Mitglied", new MitgliedDetailAction(), control
         .getZusatzbetrag().getMitglied(), false, "system-users.png");
     buttons.addButton("löschen", new ZusatzbetraegeDeleteAction(),

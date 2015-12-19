@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
@@ -89,6 +90,10 @@ public class ZusatzbetragVorlageImpl extends AbstractDBObject implements
   @Override
   protected Class<?> getForeignObject(String arg0)
   {
+    if (arg0.equals("buchungsart"))
+    {
+      return Buchungsart.class;
+    }
     return null;
   }
 
@@ -171,6 +176,18 @@ public class ZusatzbetragVorlageImpl extends AbstractDBObject implements
   public void setEndedatum(Date value) throws RemoteException
   {
     setAttribute("endedatum", value);
+  }
+
+  @Override
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException
+  {
+    setAttribute("buchungsart", buchungsart);
+  }
+
+  @Override
+  public Buchungsart getBuchungsart() throws RemoteException
+  {
+    return (Buchungsart) getAttribute("buchungsart");
   }
 
   @Override

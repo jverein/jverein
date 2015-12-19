@@ -47,6 +47,7 @@ public class ZusatzbetragVorlageAuswahlAction implements Action
       part.getEndedatum().setValue(zbv.getEndedatum());
       part.getFaelligkeit().setValue(zbv.getFaelligkeit());
       part.getIntervall().setValue(zbv.getIntervall());
+      part.getBuchungsart().setValue(zbv.getBuchungsart());
       for (Object obj : part.getIntervall().getList())
       {
         IntervallZusatzzahlung ivz = (IntervallZusatzzahlung) obj;

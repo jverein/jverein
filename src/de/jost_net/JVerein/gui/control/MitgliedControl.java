@@ -1845,6 +1845,7 @@ public class MitgliedControl extends AbstractControl
     zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
     zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
+    zusatzbetraegeList.addColumn("Buchungsart", "buchungsart");
     zusatzbetraegeList
         .setContextMenu(new ZusatzbetraegeMenu(zusatzbetraegeList));
     return zusatzbetraegeList;

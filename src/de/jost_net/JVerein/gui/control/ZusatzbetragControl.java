@@ -43,6 +43,7 @@ import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.Reporter;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
@@ -193,6 +194,11 @@ public class ZusatzbetragControl extends AbstractControl
       z.setBuchungstext((String) getZusatzbetragPart().getBuchungstext()
           .getValue());
       Double d = (Double) getZusatzbetragPart().getBetrag().getValue();
+      if (getZusatzbetragPart().getBuchungsart().getValue() != null)
+      {
+        z.setBuchungsart((Buchungsart) getZusatzbetragPart().getBuchungsart()
+            .getValue());
+      }
       z.setBetrag(d.doubleValue());
       z.store();
       if (getVorlage().getValue().equals(MITDATUM)
@@ -209,6 +215,7 @@ public class ZusatzbetragControl extends AbstractControl
           zv.setFaelligkeit(z.getFaelligkeit());
           zv.setStartdatum(z.getStartdatum());
         }
+        zv.setBuchungsart(z.getBuchungsart());
         zv.store();
       }
       GUI.getStatusBar().setSuccessText("Zusatzbetrag gespeichert");
@@ -268,6 +275,7 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
       zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
           "", Einstellungen.DECIMALFORMAT));
+      zusatzbetraegeList.addColumn("Buchungsart", "buchungsart");
       zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
           zusatzbetraegeList));
       zusatzbetraegeList.setRememberColWidths(true);

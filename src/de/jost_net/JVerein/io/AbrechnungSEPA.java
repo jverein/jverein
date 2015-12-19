@@ -34,6 +34,7 @@ import com.itextpdf.text.DocumentException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
+import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.Abrechnungsausgabe;
 import de.jost_net.JVerein.keys.Abrechnungsmodi;
@@ -45,6 +46,7 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Abrechnungslauf;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
 import de.jost_net.JVerein.rmi.Kursteilnehmer;
 import de.jost_net.JVerein.rmi.Lastschrift;
@@ -621,7 +623,8 @@ public class AbrechnungSEPA
         m.getMandatSequence().getTxt().equals("FRST") ? param.faelligkeit1
             : param.faelligkeit2,
         primaer ? param.verwendungszweck : bg.getBezeichnung(), betr, abrl,
-        m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto, bg);
+        m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
+        bg.getBuchungsart());
     if (m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
     {
       try
@@ -708,6 +711,7 @@ public class AbrechnungSEPA
         counter++;
         String vzweck = z.getBuchungstext();
         Map<String, Object> map = new AllgemeineMap().getMap(null);
+        map = new MitgliedMap().getMap(m, map);
         try
         {
           vzweck = VelocityTool.eval(map, vzweck);
@@ -779,7 +783,8 @@ public class AbrechnungSEPA
         writeMitgliedskonto(m,
             m.getMandatSequence().getTxt().equals("FRST") ? param.faelligkeit1
                 : param.faelligkeit2, vzweck, z.getBetrag(), abrl,
-            m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto, null);
+            m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT, konto,
+            z.getBuchungsart());
       }
     }
   }
@@ -947,7 +952,7 @@ public class AbrechnungSEPA
 
   private void writeMitgliedskonto(Mitglied mitglied, Date datum,
       String zweck1, double betrag, Abrechnungslauf abrl, boolean haben,
-      Konto konto, Beitragsgruppe beitragsgruppe) throws ApplicationException,
+      Konto konto, Buchungsart buchungsart) throws ApplicationException,
       RemoteException
   {
     Mitgliedskonto mk = null;
@@ -964,9 +969,9 @@ public class AbrechnungSEPA
       mk.setDatum(datum);
       mk.setMitglied(mitglied);
       mk.setZweck1(zweck1);
-      if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
+      if (buchungsart != null)
       {
-        mk.setBuchungsart(beitragsgruppe.getBuchungsart());
+        mk.setBuchungsart(buchungsart);
       }
       mk.store();
     }
@@ -985,10 +990,9 @@ public class AbrechnungSEPA
       {
         buchung.setMitgliedskonto(mk);
       }
-      if (beitragsgruppe != null && beitragsgruppe.getBuchungsart() != null)
+      if (buchungsart != null)
       {
-        buchung
-            .setBuchungsart(new Long(beitragsgruppe.getBuchungsart().getID()));
+        buchung.setBuchungsart(new Long(buchungsart.getID()));
       }
       buchung.store();
     }

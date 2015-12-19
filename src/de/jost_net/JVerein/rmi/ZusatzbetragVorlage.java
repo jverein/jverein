@@ -49,4 +49,9 @@ public interface ZusatzbetragVorlage extends DBObject
   public Date getEndedatum() throws RemoteException;
 
   public void setEndedatum(Date value) throws RemoteException;
+
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException;
+
+  public Buchungsart getBuchungsart() throws RemoteException;
+
 }

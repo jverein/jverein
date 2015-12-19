@@ -23,9 +23,9 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.BeitragsgruppeDetailAction;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.NotizFormatter;
+import de.jost_net.JVerein.gui.input.BuchungsartInput;
 import de.jost_net.JVerein.gui.menu.BeitragsgruppeMenu;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
-import de.jost_net.JVerein.keys.BuchungsartSort;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -34,6 +34,7 @@ import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
+import de.willuhn.jameica.gui.input.AbstractInput;
 import de.willuhn.jameica.gui.input.CheckboxInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.Input;
@@ -70,7 +71,7 @@ public class BeitragsgruppeControl extends AbstractControl
 
   private DecimalInput arbeitseinsatzbetrag;
 
-  private SelectInput buchungsart;
+  private AbstractInput buchungsart;
 
   private TextAreaInput notiz;
 
@@ -200,35 +201,14 @@ public class BeitragsgruppeControl extends AbstractControl
     return arbeitseinsatzbetrag;
   }
 
-  public SelectInput getBuchungsart() throws RemoteException
+  public AbstractInput getBuchungsart() throws RemoteException
   {
     if (buchungsart != null)
     {
       return buchungsart;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
-    {
-      it.setOrder("ORDER BY nummer");
-    }
-    else
-    {
-      it.setOrder("ORDER BY bezeichnung");
-    }
-    buchungsart = new SelectInput(it, getBeitragsgruppe().getBuchungsart());
-    switch (Einstellungen.getEinstellung().getBuchungsartSort())
-    {
-      case BuchungsartSort.NACH_NUMMER:
-        buchungsart.setAttribute("nrbezeichnung");
-        break;
-      case BuchungsartSort.NACH_BEZEICHNUNG_NR:
-        buchungsart.setAttribute("bezeichnungnr");
-        break;
-      default:
-        buchungsart.setAttribute("bezeichnung");
-        break;
-    }
-    buchungsart.setPleaseChoose("bitte auswählen");
+    buchungsart = new BuchungsartInput().getBuchungsartInput(buchungsart,
+        getBeitragsgruppe().getBuchungsart());
     return buchungsart;
   }
 
@@ -347,7 +327,8 @@ public class BeitragsgruppeControl extends AbstractControl
           "arbeitseinsatzbetrag", new CurrencyFormatter("",
               Einstellungen.DECIMALFORMAT));
     }
-    beitragsgruppeList.addColumn("Buchungsart", "buchungsart", new BuchungsartFormatter());
+    beitragsgruppeList.addColumn("Buchungsart", "buchungsart",
+        new BuchungsartFormatter());
     beitragsgruppeList.addColumn("Notiz", "notiz", new NotizFormatter(40));
     beitragsgruppeList.setContextMenu(new BeitragsgruppeMenu());
     return beitragsgruppeList;

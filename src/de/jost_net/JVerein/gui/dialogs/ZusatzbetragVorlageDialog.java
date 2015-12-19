@@ -103,6 +103,7 @@ public class ZusatzbetragVorlageDialog extends
     tab.addColumn("Buchungstext", "buchungstext");
     tab.addColumn("Betrag", "betrag", new CurrencyFormatter("",
         Einstellungen.DECIMALFORMAT));
+    tab.addColumn("Buchungsart", "buchungsart");
     tab.setContextMenu(new ZusatzbetragVorlageMenu());
     tab.setRememberColWidths(true);
     tab.setRememberOrder(true);

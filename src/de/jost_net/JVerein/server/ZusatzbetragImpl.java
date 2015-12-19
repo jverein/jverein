@@ -21,6 +21,7 @@ import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.Datum;
@@ -121,6 +122,10 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
     if ("mitglied".equals(arg0))
     {
       return Mitglied.class;
+    }
+    if (arg0.equals("buchungsart"))
+    {
+      return Buchungsart.class;
     }
     return null;
   }
@@ -228,6 +233,18 @@ public class ZusatzbetragImpl extends AbstractDBObject implements Zusatzbetrag
   public void setAusfuehrung(Date ausfuehrung) throws RemoteException
   {
     setAttribute("ausfuehrung", ausfuehrung);
+  }
+
+  @Override
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException
+  {
+    setAttribute("buchungsart", buchungsart);
+  }
+
+  @Override
+  public Buchungsart getBuchungsart() throws RemoteException
+  {
+    return (Buchungsart) getAttribute("buchungsart");
   }
 
   @Override

@@ -42,9 +42,9 @@ import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
 import de.jost_net.JVerein.gui.formatter.MitgliedskontoFormatter;
 import de.jost_net.JVerein.gui.formatter.ProjektFormatter;
+import de.jost_net.JVerein.gui.input.BuchungsartInput;
 import de.jost_net.JVerein.gui.input.KontoauswahlInput;
 import de.jost_net.JVerein.gui.input.MitgliedskontoauswahlInput;
-import de.jost_net.JVerein.gui.input.Tools.BuchungsartInput;
 import de.jost_net.JVerein.gui.menu.BuchungMenu;
 import de.jost_net.JVerein.gui.parts.BuchungListTablePart;
 import de.jost_net.JVerein.gui.parts.SplitbuchungListTablePart;
@@ -134,7 +134,7 @@ public class BuchungsControl extends AbstractControl
 
   private TextAreaInput kommentar;
 
-  // Definition f?r beide Auswahlvarianten (SelectInput und
+  // Definition für beide Auswahlvarianten (SelectInput und
   // BuchungsartSearchInput)
   private AbstractInput buchungsart;
 

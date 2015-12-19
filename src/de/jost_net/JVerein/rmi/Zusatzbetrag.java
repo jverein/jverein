@@ -62,4 +62,8 @@ public interface Zusatzbetrag extends DBObject
   public void naechsteFaelligkeit() throws RemoteException;
 
   public void vorherigeFaelligkeit() throws RemoteException;
+
+  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException;
+
+  public Buchungsart getBuchungsart() throws RemoteException;
 }

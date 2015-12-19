@@ -24,16 +24,17 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.BuchungsartInput;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.input.AbstractInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.jameica.hbci.HBCIProperties;
 
 public class ZusatzbetragPart implements Part
 {
@@ -53,6 +54,8 @@ public class ZusatzbetragPart implements Part
 
   private DateInput ausfuehrung = null;
 
+  private AbstractInput buchungsart;
+
   public ZusatzbetragPart(Zusatzbetrag zusatzbetrag)
   {
     this.zusatzbetrag = zusatzbetrag;
@@ -68,7 +71,7 @@ public class ZusatzbetragPart implements Part
     group.addLabelPair("Endedatum", getEndedatum());
     group.addLabelPair("Buchungstext", getBuchungstext());
     group.addLabelPair("Betrag", getBetrag());
-
+    group.addLabelPair("Buchungsart", getBuchungsart());
   }
 
   public DateInput getFaelligkeit() throws RemoteException
@@ -107,7 +110,6 @@ public class ZusatzbetragPart implements Part
     }
     buchungstext = new TextInput(zusatzbetrag.getBuchungstext(), 140);
     buchungstext.setMandatory(true);
-    buchungstext.setValidChars(HBCIProperties.HBCI_DTAUS_VALIDCHARS);
     return buchungstext;
   }
 
@@ -231,4 +233,14 @@ public class ZusatzbetragPart implements Part
     return ausfuehrung;
   }
 
+  public AbstractInput getBuchungsart() throws RemoteException
+  {
+    if (buchungsart != null)
+    {
+      return buchungsart;
+    }
+    buchungsart = new BuchungsartInput().getBuchungsartInput(buchungsart,
+        zusatzbetrag.getBuchungsart());
+    return buchungsart;
+  }
 }

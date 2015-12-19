@@ -23,7 +23,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.input.BuchungsartInput;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.ZusatzbetragVorlage;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -34,6 +36,7 @@ import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.CurrencyFormatter;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
+import de.willuhn.jameica.gui.input.AbstractInput;
 import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.DecimalInput;
 import de.willuhn.jameica.gui.input.SelectInput;
@@ -61,6 +64,8 @@ public class ZusatzbetragVorlageControl extends AbstractControl
   private SelectInput intervall;
 
   private DateInput endedatum;
+
+  private AbstractInput buchungsart;
 
   private TablePart zusatzbetraegeList;
 
@@ -186,6 +191,17 @@ public class ZusatzbetragVorlageControl extends AbstractControl
     return intervall;
   }
 
+  public AbstractInput getBuchungsart() throws RemoteException
+  {
+    if (buchungsart != null)
+    {
+      return buchungsart;
+    }
+    buchungsart = new BuchungsartInput().getBuchungsartInput(buchungsart,
+        getZusatzbetragVorlage().getBuchungsart());
+    return buchungsart;
+  }
+
   public DateInput getEndedatum() throws RemoteException
   {
     if (endedatum != null)
@@ -226,6 +242,11 @@ public class ZusatzbetragVorlageControl extends AbstractControl
       z.setBuchungstext((String) getBuchungstext().getValue());
       Double d = (Double) getBetrag().getValue();
       z.setBetrag(d.doubleValue());
+      if (getBuchungsart().getValue() != null)
+      {
+        z.setBuchungsart((Buchungsart) getBuchungsart().getValue());
+      }
+
       z.store();
       GUI.getStatusBar().setSuccessText("Zusatzbetrag-Vorlage gespeichert");
     }
