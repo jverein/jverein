@@ -46,6 +46,7 @@ public class PreNotificationView extends AbstractView
 
     tabMailPDF.addHeadline("Parameter");
     tabMailPDF.addInput(control.getOutput());
+    tabMailPDF.addInput(control.getPdfModus());
     tabMailPDF.addLabelPair("Formular",
         control.getFormular(FormularArt.SEPA_PRENOTIFICATION));
 

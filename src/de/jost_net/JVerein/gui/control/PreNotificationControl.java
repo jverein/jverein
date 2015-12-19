@@ -88,6 +88,16 @@ public class PreNotificationControl extends AbstractControl
 
   public static final String PDF2 = "PDF (Alle)";
 
+  private SelectInput pdfModus = null;
+
+  public static final String NICHT_EINZELN = "eine PDF-Datei";
+
+  public static final String EINZELN_NUMMERIERT = "einzelne PDF-Dateien, nummeriert";
+
+  public static final String EINZELN_MITGLIEDSNUMMER = "einzelne PDF-Dateien, mit Mitgliedsnummer";
+
+  public static final String EINZELN_NUMMERIERT_UND_MNR = "einzelne PDF-Dateien, nummeriert mit Mitgliedsnummer";
+
   private FormularInput formular = null;
 
   private FormularAufbereitung fa;
@@ -114,6 +124,20 @@ public class PreNotificationControl extends AbstractControl
     folder = new TabFolder(parent, SWT.NONE);
     folder.setSelection(settings.getInt("tab.selection", 0));
     return folder;
+  }
+
+  public SelectInput getPdfModus()
+  {
+    if (pdfModus != null)
+    {
+      return pdfModus;
+    }
+    Object[] values = new Object[] { NICHT_EINZELN, EINZELN_NUMMERIERT,
+        EINZELN_MITGLIEDSNUMMER, EINZELN_NUMMERIERT_UND_MNR };
+    pdfModus = new SelectInput(values, settings.getString("pdfModus",
+        NICHT_EINZELN));
+    pdfModus.setName("PDF als");
+    return pdfModus;
   }
 
   public SelectInput getOutput()
@@ -214,17 +238,21 @@ public class PreNotificationControl extends AbstractControl
         try
         {
           String val = (String) getOutput().getValue();
+          String pdfMode = (String) getPdfModus().getValue();
+
           settings.setAttribute("output", val);
+          settings.setAttribute("pdfModus", pdfMode);
           settings.setAttribute("mail.subject", (String) mailsubject.getValue());
           settings.setAttribute("mail.body", (String) mailbody.getValue());
           settings.setAttribute("tab.selection", folder.getSelectionIndex());
+
           if (val.equals(PDF1))
           {
-            generierePDF(currentObject, false);
+            generierePDF(currentObject, false, pdfMode);
           }
           if (val.equals(PDF2))
           {
-            generierePDF(currentObject, true);
+            generierePDF(currentObject, true, pdfMode);
           }
           if (val.equals(EMAIL))
           {
@@ -276,9 +304,17 @@ public class PreNotificationControl extends AbstractControl
     return button;
   }
 
-  private void generierePDF(Object currentObject, boolean mitMail)
-      throws IOException
+  private void generierePDF(Object currentObject, boolean mitMail,
+      String pdfMode) throws IOException
   {
+    boolean einzelnePdfs = false;
+    if (pdfMode.equals(EINZELN_NUMMERIERT)
+        || pdfMode.equals(EINZELN_MITGLIEDSNUMMER)
+        || pdfMode.equals(EINZELN_NUMMERIERT_UND_MNR))
+    {
+      einzelnePdfs = true;
+    }
+
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
@@ -311,7 +347,10 @@ public class PreNotificationControl extends AbstractControl
     }
     Formular fo = (Formular) Einstellungen.getDBService().createObject(
         Formular.class, form.getID());
-    fa = new FormularAufbereitung(file);
+    if (!einzelnePdfs)
+    {
+      fa = new FormularAufbereitung(file);
+    }
     DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
     it.addFilter("abrechnungslauf = ?", abrl.getID());
     if (!mitMail)
@@ -319,11 +358,45 @@ public class PreNotificationControl extends AbstractControl
       it.addFilter("(email is null or length(email)=0)");
     }
     it.setOrder("order by name, vorname");
+
+    int dateinummer = 0;
+    String postfix = ".PDF";
+    String prefix = s.substring(0, s.length() - postfix.length());
+
     while (it.hasNext())
     {
       Lastschrift ls = (Lastschrift) it.next();
+
+      if (einzelnePdfs)
+      {
+        // schalte Dateinamen um
+        StringBuilder sb = new StringBuilder(prefix);
+        if (pdfMode.equals(EINZELN_MITGLIEDSNUMMER)
+            || pdfMode.equals(EINZELN_NUMMERIERT_UND_MNR))
+        {
+          sb.append("_");
+          sb.append(ls.getMitglied().getID());
+        }
+        if (pdfMode.equals(EINZELN_NUMMERIERT)
+            || pdfMode.equals(EINZELN_NUMMERIERT_UND_MNR))
+        {
+          sb.append(String.format("_%05d", dateinummer));
+        }
+        sb.append(postfix);
+
+        final File fx = new File(sb.toString());
+        fa = new FormularAufbereitung(fx);
+      }
+
       aufbereitenFormular(ls, fo);
+
+      if (einzelnePdfs)
+      {
+        fa.closeFormular();
+      }
+      dateinummer++;
     }
+
     fa.showFormular();
 
   }
