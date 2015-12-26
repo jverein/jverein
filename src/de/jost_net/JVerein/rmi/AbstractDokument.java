@@ -23,9 +23,9 @@ import de.willuhn.datasource.rmi.DBObject;
 
 public interface AbstractDokument extends DBObject
 {
-  public Integer getReferenz() throws RemoteException;
+  public Long getReferenz() throws RemoteException;
 
-  public void setReferenz(Integer referenz) throws RemoteException;
+  public void setReferenz(Long referenz) throws RemoteException;
 
   public Date getDatum() throws RemoteException;
 

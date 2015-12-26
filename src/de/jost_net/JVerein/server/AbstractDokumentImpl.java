@@ -64,13 +64,13 @@ public abstract class AbstractDokumentImpl extends AbstractDBObject implements
   }
 
   @Override
-  public Integer getReferenz() throws RemoteException
+  public Long getReferenz() throws RemoteException
   {
-    return (Integer) getAttribute("referenz");
+    return (Long) getAttribute("referenz");
   }
 
   @Override
-  public void setReferenz(Integer referenz) throws RemoteException
+  public void setReferenz(Long referenz) throws RemoteException
   {
     setAttribute("referenz", referenz);
   }
