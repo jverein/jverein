@@ -18,11 +18,11 @@ package de.jost_net.JVerein.gui.view;
 
 import de.jost_net.JVerein.gui.action.DokumentationAction;
 import de.jost_net.JVerein.gui.control.DokumentControl;
+import de.jost_net.JVerein.gui.parts.DokumentPart;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.ButtonArea;
 import de.willuhn.jameica.gui.util.LabelGroup;
-import de.willuhn.jameica.gui.util.ScrolledContainer;
 
 public class DokumentView extends AbstractView
 {
@@ -41,12 +41,11 @@ public class DokumentView extends AbstractView
 
     final DokumentControl control = new DokumentControl(this, verzeichnis, true);
 
-    ScrolledContainer scrolled = new ScrolledContainer(getParent());
-
-    LabelGroup grDokument = new LabelGroup(scrolled.getComposite(), "Dokument");
+    LabelGroup grDokument = new LabelGroup(getParent(), "Dokument");
     grDokument.addLabelPair("Datei", control.getDatei());
-    grDokument.addLabelPair("Datum", control.getDatum());
-    grDokument.addLabelPair("Bemerkung", control.getBemerkung());
+    final DokumentPart part = control.getDokumentPart();
+    part.paint(getParent());
+
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
         DokumentationUtil.BUCHUNGEN, false, "help-browser.png");

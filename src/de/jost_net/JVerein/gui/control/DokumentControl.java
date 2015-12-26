@@ -26,7 +26,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Messaging.DokumentMessage;
 import de.jost_net.JVerein.gui.menu.DokumentMenu;
+import de.jost_net.JVerein.gui.parts.DokumentPart;
 import de.jost_net.JVerein.gui.view.DokumentView;
 import de.jost_net.JVerein.rmi.AbstractDokument;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -38,13 +40,14 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
-import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.FileInput;
-import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
+import de.willuhn.jameica.messaging.Message;
+import de.willuhn.jameica.messaging.MessageConsumer;
 import de.willuhn.jameica.messaging.QueryMessage;
 import de.willuhn.jameica.system.Application;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class DokumentControl extends AbstractControl
@@ -52,9 +55,7 @@ public class DokumentControl extends AbstractControl
 
   private AbstractDokument doc;
 
-  private DateInput datum = null;
-
-  private TextInput bemerkung;
+  private DokumentPart dopa;
 
   private FileInput datei;
 
@@ -67,6 +68,8 @@ public class DokumentControl extends AbstractControl
   private String verzeichnis;
 
   private boolean enabled;
+
+  private DokumentMessageConsumer mc = null;
 
   public DokumentControl(AbstractView view, String verzeichnis, boolean enabled)
   {
@@ -85,33 +88,6 @@ public class DokumentControl extends AbstractControl
     return doc;
   }
 
-  public DateInput getDatum() throws RemoteException
-  {
-    if (datum != null)
-    {
-      return datum;
-    }
-    Date d = getDokument().getDatum();
-    if (d == null)
-    {
-      d = new Date();
-    }
-    this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.datum.setTitle("Datum");
-    this.datum.setText("Bitte Datum wählen");
-    return datum;
-  }
-
-  public TextInput getBemerkung() throws RemoteException
-  {
-    if (bemerkung != null)
-    {
-      return bemerkung;
-    }
-    bemerkung = new TextInput(getDokument().getBemerkung(), 50);
-    return bemerkung;
-  }
-
   public FileInput getDatei()
   {
     if (datei != null)
@@ -120,6 +96,16 @@ public class DokumentControl extends AbstractControl
     }
     datei = new FileInput("", false);
     return datei;
+  }
+
+  public DokumentPart getDokumentPart() throws RemoteException
+  {
+    if (dopa != null)
+    {
+      return dopa;
+    }
+    dopa = new DokumentPart(getDokument());
+    return dopa;
   }
 
   public Button getNeuButton(final AbstractDokument doc)
@@ -183,10 +169,10 @@ public class DokumentControl extends AbstractControl
       Application.getMessagingFactory()
           .getMessagingQueue("jameica.messaging.put").sendSyncMessage(qm);
       // Satz in die DB schreiben
-      doc.setBemerkung((String) getBemerkung().getValue());
+      doc.setBemerkung((String) dopa.getBemerkung().getValue());
       String uuid = qm.getData().toString();
       doc.setUUID(uuid);
-      doc.setDatum((Date) getDatum().getValue());
+      doc.setDatum((Date) dopa.getDatum().getValue());
       doc.store();
       // Zusätzliche Eigenschaft speichern
       Map<String, String> map = new HashMap<String, String>();
@@ -222,6 +208,9 @@ public class DokumentControl extends AbstractControl
     docsList.setContextMenu(new DokumentMenu(enabled));
     docsList.setRememberOrder(true);
     docsList.setSummary(true);
+    this.mc = new DokumentMessageConsumer();
+    Application.getMessagingFactory().registerMessageConsumer(this.mc);
+
     return docsList;
   }
 
@@ -234,6 +223,69 @@ public class DokumentControl extends AbstractControl
     while (docs.hasNext())
     {
       docsList.addItem(docs.next());
+    }
+  }
+
+  /**
+   * Wird benachrichtigt um die Anzeige zu aktualisieren.
+   */
+  private class DokumentMessageConsumer implements MessageConsumer
+  {
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#autoRegister()
+     */
+    @Override
+    public boolean autoRegister()
+    {
+      return false;
+    }
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#getExpectedMessageTypes()
+     */
+    @Override
+    public Class<?>[] getExpectedMessageTypes()
+    {
+      return new Class[] { DokumentMessage.class };
+    }
+
+    /**
+     * @see de.willuhn.jameica.messaging.MessageConsumer#handleMessage(de.willuhn.jameica.messaging.Message)
+     */
+    @Override
+    public void handleMessage(final Message message) throws Exception
+    {
+      GUI.getDisplay().syncExec(new Runnable()
+      {
+
+        @Override
+        public void run()
+        {
+          try
+          {
+            DokumentMessage dm = (DokumentMessage) message;
+            doc = (AbstractDokument) dm.getObject();
+
+            if (docsList == null)
+            {
+              // Eingabe-Feld existiert nicht. Also abmelden
+              Application.getMessagingFactory().unRegisterMessageConsumer(
+                  DokumentMessageConsumer.this);
+              return;
+            }
+            refreshTable();
+          }
+          catch (Exception e)
+          {
+            // Wenn hier ein Fehler auftrat, deregistrieren wir uns
+            // wieder
+            Logger.error("Dokumenteliste konnte nicht aktualisiert werden", e);
+            Application.getMessagingFactory().unRegisterMessageConsumer(
+                DokumentMessageConsumer.this);
+          }
+        }
+      });
     }
   }
 

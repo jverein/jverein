@@ -97,7 +97,7 @@ public class BuchungPart implements Part
             "Dokumente");
         BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
             .createObject(BuchungDokument.class, null);
-        budo.setReferenz(new Integer(bu.getID()));
+        budo.setReferenz(new Long(bu.getID()));
         DokumentControl dcontrol = new DokumentControl(view, "buchungen",
             !buchungabgeschlossen);
         grDokument.addPart(dcontrol.getDokumenteList(budo));

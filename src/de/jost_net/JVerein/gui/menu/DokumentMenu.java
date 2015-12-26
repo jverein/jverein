@@ -17,6 +17,7 @@
 package de.jost_net.JVerein.gui.menu;
 
 import de.jost_net.JVerein.gui.action.DokumentDeleteAction;
+import de.jost_net.JVerein.gui.action.DokumentInfoBearbeitenAction;
 import de.jost_net.JVerein.gui.action.DokumentShowAction;
 import de.willuhn.jameica.gui.parts.CheckedContextMenuItem;
 import de.willuhn.jameica.gui.parts.ContextMenu;
@@ -33,6 +34,8 @@ public class DokumentMenu extends ContextMenu
     new ContextMenuItem();
     addItem(new CheckedContextMenuItem("anzeigen", new DokumentShowAction(),
         "show.png"));
+    addItem(new CheckedContextMenuItem("Infos bearbeiten",
+        new DokumentInfoBearbeitenAction(), "edit.png"));
     if (enabled)
     {
       addItem(ContextMenuItem.SEPARATOR);
