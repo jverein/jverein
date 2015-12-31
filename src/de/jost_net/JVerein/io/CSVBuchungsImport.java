@@ -80,8 +80,12 @@ public class CSVBuchungsImport implements Importer
               Buchung.class, null);
           try
           {
-            bu.setAuszugsnummer(results.getInt(BuchungVar.AUSZUGSNUMMER
-                .getName()));
+            int auszugsnummer = results.getInt(BuchungVar.AUSZUGSNUMMER
+                .getName());
+            if (auszugsnummer > 0)
+            {
+              bu.setAuszugsnummer(auszugsnummer);
+            }
           }
           catch (SQLException e)
           {
@@ -106,7 +110,11 @@ public class CSVBuchungsImport implements Importer
           }
           try
           {
-            bu.setBlattnummer(results.getInt(BuchungVar.BLATTNUMMER.getName()));
+            int blattnummer = results.getInt(BuchungVar.BLATTNUMMER.getName());
+            if (blattnummer > 0)
+            {
+              bu.setBlattnummer(blattnummer);
+            }
           }
           catch (SQLException e)
           {
@@ -157,12 +165,12 @@ public class CSVBuchungsImport implements Importer
             DBIterator bit = Einstellungen.getDBService().createList(
                 Buchungsart.class);
             bit.addFilter("nummer = ?", bart);
-            Buchungsart b1 = (Buchungsart) bit.next();
-            if (bit.size() == 0)
+            if (bit.size() != 1)
             {
               throw new ApplicationException(String.format(
                   "Buchungsart %d existiert nicht in JVerein!", bart));
             }
+            Buchungsart b1 = (Buchungsart) bit.next();
             bu.setBuchungsart(new Long(b1.getID()));
           }
           catch (SQLException e)
