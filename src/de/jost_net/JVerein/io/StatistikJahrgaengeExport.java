@@ -118,6 +118,7 @@ public abstract class StatistikJahrgaengeExport implements Exporter
         statistik.put(jg, dsbj);
       }
       dsbj.incrementGesamt();
+      dsbj.incrementOhne();
       mitglj.next();
     }
 
