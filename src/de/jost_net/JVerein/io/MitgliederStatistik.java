@@ -83,6 +83,7 @@ public class MitgliederStatistik
         VonBis vb = ap.getNext();
         addAltersgruppe(reporter, vb, stichtag);
       }
+      addAltersgruppe(reporter, new VonBis(-1, -1), stichtag);
       addAltersgruppe(reporter, new VonBis(0, 199), stichtag);
       reporter.closeTable();
 
@@ -153,7 +154,11 @@ public class MitgliederStatistik
   private void addAltersgruppe(Reporter reporter, VonBis vb, Date stichtag)
       throws RemoteException
   {
-    if (vb.getVon() == 0 && vb.getBis() == 199)
+    if (vb.getVon() == -1)
+    {
+      reporter.addColumn("ohne Geburtsdatum", Element.ALIGN_LEFT);
+    }
+    else if (vb.getVon() == 0 && vb.getBis() == 199)
     {
       reporter.addColumn("Insgesamt", Element.ALIGN_LEFT);
     }
@@ -260,8 +265,15 @@ public class MitgliederStatistik
     java.sql.Date bd = new java.sql.Date(calBis.getTimeInMillis());
 
     DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
-    list.addFilter("geburtsdatum >= ?", new Object[] { vd });
-    list.addFilter("geburtsdatum <= ?", new Object[] { bd });
+    if (vb.getVon() == -1)
+    {
+      list.addFilter("geburtsdatum is null");
+    }
+    else if(vb.getBis() != 199)
+    {
+      list.addFilter("geburtsdatum >= ?", new Object[] { vd });
+      list.addFilter("geburtsdatum <= ?", new Object[] { bd });
+    }
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
 
