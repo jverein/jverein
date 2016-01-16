@@ -602,6 +602,11 @@ public class MitgliedControl extends AbstractControl
       {
         if (event.type == SWT.FocusOut)
         {
+          String hplz = (String) plz.getValue();
+          if (hplz.equals(""))
+          {
+            return;
+          }
           try
           {
             DBIterator it = Einstellungen.getDBService().createList(
