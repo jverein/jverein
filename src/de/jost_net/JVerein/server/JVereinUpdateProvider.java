@@ -131,42 +131,59 @@ public class JVereinUpdateProvider
     {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt
-          .executeQuery("select * from DATABASECHANGELOG where id = '117'");
+          .executeQuery("select ID,ORDEREXECUTED from DATABASECHANGELOG where ORDEREXECUTED = (select max(ORDEREXECUTED) from DATABASECHANGELOG)");
       if (rs.next())
       {
-        // Wenn es den Datensatz mit der id 117 gibt, ist JVerein 2.8.1
-        // installiert.
-        return 385;
-      }
-
-      rs = stmt
-          .executeQuery("select * from DATABASECHANGELOG where id = '113'");
-      if (rs.next())
-      {
-        // Wenn es den Datensatz mit der id 113 gibt, ist mindestens JVerein
-        // 2.8.0 installiert.
-        return 381;
-      }
-
-      rs = stmt
-          .executeQuery("select * from DATABASECHANGELOG where id = '106'");
-      if (rs.next())
-      {
-        // Wenn es den Datensatz mit der id 106 gibt, ist mindestens JVerein
-        // 2.7.0-devel 480 installiert.
-        return 372;
-      }
-
-      rs = stmt
-          .executeQuery("select * from DATABASECHANGELOG where id = '100'");
-      if (rs.next())
-      {
-        return 364;
-      }
-      rs = stmt.executeQuery("select * from DATABASECHANGELOG where id = '98'");
-      if (rs.next())
-      {
-        return 362;
+        int liquibaseID = rs.getInt(1);
+        switch (liquibaseID)
+        {
+          case 96:
+            return 360;
+          case 97:
+            return 361;
+          case 98:
+            return 362;
+          case 99:
+            return 363;
+          case 100:
+            return 364;
+          case 101:
+            return 365;
+          case 102:
+            return 367;
+          case 103:
+            return 368;
+          case 104:
+            return 369; // Jverein 2.7.0-devel 479
+          case 105:
+            return 370; // JVerein 2.7.0-devel 480
+          case 106:
+            return 371;
+          case 107:
+            return 372;
+          case 108:
+            return 376;
+          case 109:
+            return 377;
+          case 110:
+            return 378;
+          case 111:
+            return 379;
+          case 112:
+            return 380;
+          case 113:
+            return 381; // Jverein 2.8.0
+          case 114:
+            return 382;
+          case 115:
+            return 383;
+          case 116:
+            return 384;
+          case 117:
+            return 385; // JVerein 2.8.1 default: return 0;
+          default:
+            return 0;
+        }
       }
       else
       {

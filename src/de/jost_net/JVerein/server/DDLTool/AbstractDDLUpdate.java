@@ -106,7 +106,6 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
       String msg = "JVerein-DB-Update: " + newVersion;
       monitor.setStatusText(msg);
       Logger.info(msg);
-      Logger.error(msg);
       Statement stmt = conn.createStatement();
       int anzahl = stmt.executeUpdate("UPDATE version SET version = "
           + newVersion + " WHERE id = 1");
