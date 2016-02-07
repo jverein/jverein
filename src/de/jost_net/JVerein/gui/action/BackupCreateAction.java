@@ -91,9 +91,9 @@ public class BackupCreateAction implements Action
   Class<?>[] tab = { AbrechnungslaufImpl.class, AdresstypImpl.class,
       BuchungsklasseImpl.class, EigenschaftGruppeImpl.class,
       EinstellungImpl.class, FelddefinitionImpl.class, FormularImpl.class,
-      FormularfeldImpl.class, JahresabschlussImpl.class, KontoImpl.class,
-      KursteilnehmerImpl.class, LehrgangsartImpl.class, LesefeldImpl.class,
-      MailImpl.class, MailAnhangImpl.class, MailVorlageImpl.class,
+      FormularfeldImpl.class, KontoImpl.class, KursteilnehmerImpl.class,
+      LehrgangsartImpl.class, LesefeldImpl.class, MailImpl.class,
+      MailAnhangImpl.class, MailVorlageImpl.class,
       MitgliedNextBGruppeImpl.class, ProjektImpl.class,
       QIFImportHeadImpl.class, QIFImportPosImpl.class,
       AnfangsbestandImpl.class, Buchungsart.class, EigenschaftImpl.class,
@@ -102,8 +102,9 @@ public class BackupCreateAction implements Action
       SpendenbescheinigungImpl.class, WiedervorlageImpl.class,
       ZusatzbetragImpl.class, ZusatzbetragAbrechnungslauf.class,
       ZusatzfelderImpl.class, ArbeitseinsatzImpl.class, BuchungImpl.class,
-      BuchungDokumentImpl.class, EigenschaftenImpl.class,
-      LastschriftImpl.class, LehrgangImpl.class, MailEmpfaengerImpl.class };
+      BuchungDokumentImpl.class, JahresabschlussImpl.class,
+      EigenschaftenImpl.class, LastschriftImpl.class, LehrgangImpl.class,
+      MailEmpfaengerImpl.class };
 
   /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
