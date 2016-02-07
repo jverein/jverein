@@ -9,7 +9,6 @@ import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.constraint.UniqueHashCode;
 import org.supercsv.cellprocessor.ift.CellProcessor;
-import org.supercsv.exception.SuperCSVException;
 import org.supercsv.io.CsvMapReader;
 import org.supercsv.io.ICsvMapReader;
 import org.supercsv.prefs.CsvPreference;
@@ -31,13 +30,13 @@ public class ATBankdatei
   public ATBankdatei(InputStream is) throws IOException
   {
     CsvPreference pref = CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE;
-    pref.setDelimiterChar(';');
     csvreader = new CsvMapReader(new InputStreamReader(is), pref);
-    header = csvreader.getCSVHeader(true);
+    header = csvreader.getHeader(true);
+
     processors = getProcessors();
   }
 
-  public ATBank next() throws SuperCSVException, IOException
+  public ATBank next() throws IOException
   {
     Map<String, ? super Object> bankMap;
     if ((bankMap = csvreader.read(header, processors)) != null)

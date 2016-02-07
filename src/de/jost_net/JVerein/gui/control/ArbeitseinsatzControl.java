@@ -365,9 +365,8 @@ public class ArbeitseinsatzControl extends AbstractControl
       {
         try
         {
-          CsvPreference csvp = CsvPreference.EXCEL_PREFERENCE;
-          csvp.setDelimiterChar(';');
-          ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file), csvp);
+          ICsvMapWriter writer = new CsvMapWriter(new FileWriter(file),
+              CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
           final String[] header = new String[] { "name", "vorname", "strasse",
               "adressierungszusatz", "plz", "ort", "anrede", "telefonprivat",
