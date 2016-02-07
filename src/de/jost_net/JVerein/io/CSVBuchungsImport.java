@@ -26,11 +26,13 @@ import java.util.Date;
 import java.util.Properties;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.Variable.BuchungVar;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Konto;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
@@ -196,6 +198,7 @@ public class CSVBuchungsImport implements Importer
                 BuchungVar.ZWECK1.getName()));
           }
           bu.store();
+          Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
         }
         catch (Exception e)
         {
@@ -205,6 +208,7 @@ public class CSVBuchungsImport implements Importer
       results.close();
       stmt.close();
       conn.close();
+
     }
     catch (Exception e)
     {

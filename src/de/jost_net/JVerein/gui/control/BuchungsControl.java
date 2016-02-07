@@ -1021,6 +1021,8 @@ public class BuchungsControl extends AbstractControl
       buchungsList.setRememberOrder(true);
       buchungsList.setRememberState(true);
       buchungsList.setSummary(true);
+      this.mc = new BuchungMessageConsumer();
+      Application.getMessagingFactory().registerMessageConsumer(this.mc);
     }
     else
     {
@@ -1124,6 +1126,20 @@ public class BuchungsControl extends AbstractControl
       refreshSplitbuchungen();
     }
     return splitbuchungsList;
+  }
+
+  public void refreshBuchungen() throws RemoteException
+  {
+    if (buchungsList == null)
+    {
+      return;
+    }
+    buchungsList.removeAll();
+
+    for (Buchung b : query.get())
+    {
+      buchungsList.addItem(b);
+    }
   }
 
   public void refreshSplitbuchungen() throws RemoteException
@@ -1546,14 +1562,14 @@ public class BuchungsControl extends AbstractControl
         {
           try
           {
-            if (splitbuchungsList == null)
+            if (buchungsList == null)
             {
               // Eingabe-Feld existiert nicht. Also abmelden
               Application.getMessagingFactory().unRegisterMessageConsumer(
                   BuchungMessageConsumer.this);
               return;
             }
-            refreshSplitbuchungen();
+            refreshBuchungen();
           }
           catch (Exception e)
           {
@@ -1566,6 +1582,65 @@ public class BuchungsControl extends AbstractControl
         }
       });
     }
-  }
 
+    /**
+     * Wird benachrichtigt um die Anzeige zu aktualisieren.
+     */
+    private class SplitBuchungMessageConsumer implements MessageConsumer
+    {
+
+      /**
+       * @see de.willuhn.jameica.messaging.MessageConsumer#autoRegister()
+       */
+      @Override
+      public boolean autoRegister()
+      {
+        return false;
+      }
+
+      /**
+       * @see de.willuhn.jameica.messaging.MessageConsumer#getExpectedMessageTypes()
+       */
+      @Override
+      public Class<?>[] getExpectedMessageTypes()
+      {
+        return new Class[] { BuchungMessage.class };
+      }
+
+      /**
+       * @see de.willuhn.jameica.messaging.MessageConsumer#handleMessage(de.willuhn.jameica.messaging.Message)
+       */
+      @Override
+      public void handleMessage(final Message message) throws Exception
+      {
+        GUI.getDisplay().syncExec(new Runnable()
+        {
+
+          @Override
+          public void run()
+          {
+            try
+            {
+              if (splitbuchungsList == null)
+              {
+                // Eingabe-Feld existiert nicht. Also abmelden
+                Application.getMessagingFactory().unRegisterMessageConsumer(
+                    SplitBuchungMessageConsumer.this);
+                return;
+              }
+              refreshSplitbuchungen();
+            }
+            catch (Exception e)
+            {
+              // Wenn hier ein Fehler auftrat, deregistrieren wir uns
+              // wieder
+              Logger.error("unable to refresh Splitbuchungen", e);
+              Application.getMessagingFactory().unRegisterMessageConsumer(
+                  SplitBuchungMessageConsumer.this);
+            }
+          }
+        });
+      }
+    }
+  }
 }
