@@ -24,6 +24,8 @@ import java.util.StringTokenizer;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Eigenschaft;
 import de.jost_net.JVerein.rmi.EigenschaftGruppe;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
+import de.willuhn.logging.Logger;
 
 public class EigenschaftenUtil
 {
@@ -43,11 +45,18 @@ public class EigenschaftenUtil
     StringTokenizer st = new StringTokenizer(eigenschaften, ",");
     while (st.hasMoreTokens())
     {
-      Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService().createObject(
-          Eigenschaft.class, st.nextToken());
-      EigenschaftGruppe eg = ei.getEigenschaftGruppe();
-      gruppen.put(eg.getID(), eg);
-      eigenschaftenList.add(ei);
+      try
+      {
+        Eigenschaft ei = (Eigenschaft) Einstellungen.getDBService()
+            .createObject(Eigenschaft.class, st.nextToken());
+        EigenschaftGruppe eg = ei.getEigenschaftGruppe();
+        gruppen.put(eg.getID(), eg);
+        eigenschaftenList.add(ei);
+      }
+      catch (ObjectNotFoundException e)
+      {
+        Logger.error("Eigenschaft wurde zwischenzeitlich gelöscht");
+      }
     }
 
   }
@@ -57,14 +66,13 @@ public class EigenschaftenUtil
     ArrayList<EigenschaftGruppe> ret = new ArrayList<EigenschaftGruppe>();
     for (String key : gruppen.keySet())
     {
-      ret.add((EigenschaftGruppe) Einstellungen.getDBService().createObject(
-          EigenschaftGruppe.class, key));
+      ret.add((EigenschaftGruppe) Einstellungen.getDBService()
+          .createObject(EigenschaftGruppe.class, key));
     }
     return ret;
   }
 
-  public ArrayList<Eigenschaft> get(EigenschaftGruppe eg)
-      throws RemoteException
+  public ArrayList<Eigenschaft> get(EigenschaftGruppe eg) throws RemoteException
   {
     ArrayList<Eigenschaft> ret = new ArrayList<Eigenschaft>();
     for (Eigenschaft ei : eigenschaftenList)
