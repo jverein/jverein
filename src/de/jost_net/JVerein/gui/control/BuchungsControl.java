@@ -186,8 +186,8 @@ public class BuchungsControl extends AbstractControl
     buchung = (Buchung) getCurrentObject();
     if (buchung == null)
     {
-      buchung = (Buchung) Einstellungen.getDBService().createObject(
-          Buchung.class, null);
+      buchung = (Buchung) Einstellungen.getDBService()
+          .createObject(Buchung.class, null);
     }
     return buchung;
   }
@@ -226,8 +226,8 @@ public class BuchungsControl extends AbstractControl
       return konto;
     }
     String kontoid = getVorauswahlKontoId();
-    konto = new KontoauswahlInput(getBuchung().getKonto()).getKontoAuswahl(
-        false, kontoid, false, false);
+    konto = new KontoauswahlInput(getBuchung().getKonto())
+        .getKontoAuswahl(false, kontoid, false, false);
     if (withFocus)
     {
       konto.focus();
@@ -282,7 +282,8 @@ public class BuchungsControl extends AbstractControl
     {
       intBlattnummer = null;
     }
-    blattnummer = new IntegerInput(intBlattnummer != null ? intBlattnummer : -1);
+    blattnummer = new IntegerInput(
+        intBlattnummer != null ? intBlattnummer : -1);
     return blattnummer;
   }
 
@@ -506,8 +507,8 @@ public class BuchungsControl extends AbstractControl
           {
             for (SepaSammelUeberweisungBuchung ssub : su.getBuchungen())
             {
-              Buchung b = (Buchung) Einstellungen.getDBService().createObject(
-                  Buchung.class, null);
+              Buchung b = (Buchung) Einstellungen.getDBService()
+                  .createObject(Buchung.class, null);
               b.setAuszugsnummer(master.getAuszugsnummer());
               b.setBetrag(ssub.getBetrag() * -1);
               b.setBlattnummer(master.getBlattnummer());
@@ -541,8 +542,8 @@ public class BuchungsControl extends AbstractControl
       return suchprojekt;
     }
     ArrayList<Projekt> projektliste = new ArrayList<Projekt>();
-    Projekt p1 = (Projekt) Einstellungen.getDBService().createObject(
-        Projekt.class, null);
+    Projekt p1 = (Projekt) Einstellungen.getDBService()
+        .createObject(Projekt.class, null);
     p1.setBezeichnung("Ohne Projekt");
     projektliste.add(p1);
 
@@ -568,7 +569,8 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
+    if (Einstellungen.getEinstellung()
+        .getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
     {
       list.setOrder("ORDER BY nummer");
     }
@@ -577,14 +579,14 @@ public class BuchungsControl extends AbstractControl
       list.setOrder("ORDER BY bezeichnung");
     }
     ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
-    Buchungsart b1 = (Buchungsart) Einstellungen.getDBService().createObject(
-        Buchungsart.class, null);
+    Buchungsart b1 = (Buchungsart) Einstellungen.getDBService()
+        .createObject(Buchungsart.class, null);
     b1.setNummer(-2);
     b1.setBezeichnung("Alle Buchungsarten");
     b1.setArt(-2);
     liste.add(b1);
-    Buchungsart b2 = (Buchungsart) Einstellungen.getDBService().createObject(
-        Buchungsart.class, null);
+    Buchungsart b2 = (Buchungsart) Einstellungen.getDBService()
+        .createObject(Buchungsart.class, null);
     b2.setNummer(-1);
     b2.setBezeichnung("Ohne Buchungsart");
     b2.setArt(-1);
@@ -631,8 +633,8 @@ public class BuchungsControl extends AbstractControl
     Date d = null;
     try
     {
-      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("vondatum",
-          "01.01.2006"));
+      d = new JVDateFormatTTMMJJJJ()
+          .parse(settings.getString("vondatum", "01.01.2006"));
     }
     catch (ParseException e)
     {
@@ -655,8 +657,8 @@ public class BuchungsControl extends AbstractControl
     Date d = null;
     try
     {
-      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("bisdatum",
-          "31.12.2006"));
+      d = new JVDateFormatTTMMJJJJ()
+          .parse(settings.getString("bisdatum", "31.12.2006"));
     }
     catch (ParseException e)
     {
@@ -909,14 +911,10 @@ public class BuchungsControl extends AbstractControl
       settings.setAttribute("suchkontoid", "");
     }
     Buchungsart b = (Buchungsart) getSuchBuchungsart().getValue();
-    if (b != null && b.getNummer() >= 0)
+    if (b != null && b.getNummer() != 0)
     {
       b = (Buchungsart) getSuchBuchungsart().getValue();
       settings.setAttribute(BuchungsControl.BUCHUNGSART, b.getNummer());
-    }
-    else
-    {
-      settings.setAttribute(BuchungsControl.BUCHUNGSART, -2);
     }
     Projekt p = (Projekt) getSuchProjekt().getValue();
     if (p != null)
@@ -931,12 +929,12 @@ public class BuchungsControl extends AbstractControl
     settings.setAttribute("suchtext", (String) getSuchtext().getValue());
     settings.setAttribute("suchbetrag", (String) getSuchBetrag().getValue());
 
-    query = new BuchungQuery(dv, db, k, b, p,
-        (String) getSuchtext().getValue(), (String) getSuchBetrag().getValue());
+    query = new BuchungQuery(dv, db, k, b, p, (String) getSuchtext().getValue(),
+        (String) getSuchBetrag().getValue());
     if (buchungsList == null)
     {
-      buchungsList = new BuchungListTablePart(query.get(), new BuchungAction(
-          false));
+      buchungsList = new BuchungListTablePart(query.get(),
+          new BuchungAction(false));
       buchungsList.addColumn("Nr", "id-int");
       buchungsList.addColumn("S", "splitid", new Formatter()
       {
@@ -967,8 +965,8 @@ public class BuchungsControl extends AbstractControl
           return "";
         }
       });
-      buchungsList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      buchungsList.addColumn("Datum", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       // buchungsList.addColumn(new Column("auszugsnummer", "Auszug",
       // new Formatter()
       // {
@@ -1009,8 +1007,8 @@ public class BuchungsControl extends AbstractControl
       });
       buchungsList.addColumn("Buchungsart", "buchungsart",
           new BuchungsartFormatter());
-      buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-          Einstellungen.DECIMALFORMAT));
+      buchungsList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       buchungsList.addColumn(new Column("mitgliedskonto", "Mitglied",
           new MitgliedskontoFormatter(), false, Column.ALIGN_AUTO,
           Column.SORT_BY_DISPLAY));
@@ -1076,16 +1074,16 @@ public class BuchungsControl extends AbstractControl
           return SplitbuchungTyp.get(typ);
         }
       });
-      splitbuchungsList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      splitbuchungsList.addColumn("Datum", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       splitbuchungsList.addColumn("Auszug", "auszugsnummer");
       splitbuchungsList.addColumn("Blatt", "blattnummer");
       splitbuchungsList.addColumn("Name", "name");
       splitbuchungsList.addColumn("Verwendungszweck", "zweck");
       splitbuchungsList.addColumn("Buchungsart", "buchungsart",
           new BuchungsartFormatter());
-      splitbuchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-          Einstellungen.DECIMALFORMAT));
+      splitbuchungsList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       splitbuchungsList.addColumn("Mitglied", "mitgliedskonto",
           new MitgliedskontoFormatter());
       splitbuchungsList.addColumn("Projekt", "projekt", new ProjektFormatter());
@@ -1161,8 +1159,8 @@ public class BuchungsControl extends AbstractControl
 
     try
     {
-      DBIterator list = Einstellungen.getDBService().createList(
-          Buchungsart.class);
+      DBIterator list = Einstellungen.getDBService()
+          .createList(Buchungsart.class);
       if (query.getBuchungsart() != null
           && query.getBuchungsart().getArt() != -2)
       {
@@ -1198,8 +1196,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungen", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungen", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -1235,8 +1233,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungen", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "CSV").get());
+      fd.setFileName(new Dateiname("buchungen", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "CSV").get());
 
       final String s = fd.open();
 
@@ -1317,8 +1315,8 @@ public class BuchungsControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungsjournal", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("buchungsjournal", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -1475,11 +1473,9 @@ public class BuchungsControl extends AbstractControl
         Jahresabschluss ja = getBuchung().getJahresabschluss();
         if (ja != null)
         {
-          GUI.getStatusBar().setErrorText(
-              String.format(
-                  "Buchung wurde bereits am %s von %s abgeschlossen.",
-                  new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                  ja.getName()));
+          GUI.getStatusBar().setErrorText(String.format(
+              "Buchung wurde bereits am %s von %s abgeschlossen.",
+              new JVDateFormatTTMMJJJJ().format(ja.getDatum()), ja.getName()));
           return true;
         }
       }
@@ -1565,8 +1561,8 @@ public class BuchungsControl extends AbstractControl
             if (buchungsList == null)
             {
               // Eingabe-Feld existiert nicht. Also abmelden
-              Application.getMessagingFactory().unRegisterMessageConsumer(
-                  BuchungMessageConsumer.this);
+              Application.getMessagingFactory()
+                  .unRegisterMessageConsumer(BuchungMessageConsumer.this);
               return;
             }
             refreshBuchungen();
@@ -1576,8 +1572,8 @@ public class BuchungsControl extends AbstractControl
             // Wenn hier ein Fehler auftrat, deregistrieren wir uns
             // wieder
             Logger.error("unable to refresh Splitbuchungen", e);
-            Application.getMessagingFactory().unRegisterMessageConsumer(
-                BuchungMessageConsumer.this);
+            Application.getMessagingFactory()
+                .unRegisterMessageConsumer(BuchungMessageConsumer.this);
           }
         }
       });
@@ -1635,8 +1631,8 @@ public class BuchungsControl extends AbstractControl
               // Wenn hier ein Fehler auftrat, deregistrieren wir uns
               // wieder
               Logger.error("unable to refresh Splitbuchungen", e);
-              Application.getMessagingFactory().unRegisterMessageConsumer(
-                  SplitBuchungMessageConsumer.this);
+              Application.getMessagingFactory()
+                  .unRegisterMessageConsumer(SplitBuchungMessageConsumer.this);
             }
           }
         });
