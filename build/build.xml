@@ -15,6 +15,9 @@
 		<loadproperties srcfile="${build.dir}/build.properties" />
 
 		<path id="compilepath">
+			<fileset dir="lib">
+				<include name="**/*.jar" />
+			</fileset>
 			<fileset dir="../hibiscus/lib">
 				<include name="**/*.jar" />
 			</fileset>
@@ -33,9 +36,6 @@
 				<exclude name="swt/macos/**" />
 				<exclude name="swt/win32/**" />
 				<exclude name="swt/win64/**" />
-			</fileset>
-			<fileset dir="lib">
-				<include name="**/*.jar" />
 			</fileset>
 		</path>
 
