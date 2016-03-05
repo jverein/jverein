@@ -32,6 +32,7 @@ import java.util.Properties;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -93,8 +94,8 @@ public class DefaultZusatzbetraegeImport implements Importer
           if (Character.getNumericValue(meta.getColumnName(1).charAt(0)) == -1)
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-            monitor
-                .setStatusText("Eingelesene Datei beginnt mit UTF-8 BOM. Bitte entfernen. Abbruch!");
+            monitor.setStatusText(
+                "Eingelesene Datei beginnt mit UTF-8 BOM. Bitte entfernen. Abbruch!");
             fehlerInUeberschrift = true;
           }
 
@@ -119,24 +120,24 @@ public class DefaultZusatzbetraegeImport implements Importer
       if (b_mitgliedsnummer && b_extmitgliedsnummer)
       {
         monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-        monitor
-            .setStatusText("Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Ext_Mitglieds_Nr zur Zuordnung des Mitglieds enthalten. Es ist beides vorhanden. Abbruch!");
+        monitor.setStatusText(
+            "Spaltenüberschrift muss entweder nur Mitglieds_Nr oder Ext_Mitglieds_Nr zur Zuordnung des Mitglieds enthalten. Es ist beides vorhanden. Abbruch!");
         fehlerInUeberschrift = true;
       }
       if ((b_mitgliedsnummer || b_extmitgliedsnummer)
           && (b_nachname || b_vorname))
       {
         monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-        monitor
-            .setStatusText("Spaltenüberschrift muss entweder Angaben zur Mitgliedsnummer oder Nachname und Vorname zur Zuordnung des Mitglieds enthalten. Es ist beides vorhanden. Abbruch!");
+        monitor.setStatusText(
+            "Spaltenüberschrift muss entweder Angaben zur Mitgliedsnummer oder Nachname und Vorname zur Zuordnung des Mitglieds enthalten. Es ist beides vorhanden. Abbruch!");
         fehlerInUeberschrift = true;
       }
       if (b_mitgliedsnummer == false && b_extmitgliedsnummer == false
           && (b_nachname == false || b_vorname == false))
       {
         monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-        monitor
-            .setStatusText("Spaltenüberschrift muss entweder Mitglieds_Nr, Ext_Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds enhalten. Es ist keine Information vorhanden. Abbruch!");
+        monitor.setStatusText(
+            "Spaltenüberschrift muss entweder Mitglieds_Nr, Ext_Mitglieds_Nr oder Nachname/Vorname zur Zuordnung des Mitglieds enhalten. Es ist keine Information vorhanden. Abbruch!");
         fehlerInUeberschrift = true;
       }
       if (fehlerInUeberschrift)
@@ -148,8 +149,8 @@ public class DefaultZusatzbetraegeImport implements Importer
       List<Zusatzbetrag> zusatzbetraegeList = new ArrayList<Zusatzbetrag>();
       if (fehlerInUeberschrift == false)
       {
-        monitor
-            .setStatusText("Überprüfung der Spaltenüberschriften erfolgreich abgeschlossen.");
+        monitor.setStatusText(
+            "Überprüfung der Spaltenüberschriften erfolgreich abgeschlossen.");
 
         int anz = 0;
         boolean fehlerInDaten = false;
@@ -158,8 +159,8 @@ public class DefaultZusatzbetraegeImport implements Importer
           anz++;
           monitor.setPercentComplete(10);
 
-          DBIterator list = Einstellungen.getDBService().createList(
-              Mitglied.class);
+          DBIterator list = Einstellungen.getDBService()
+              .createList(Mitglied.class);
           if (b_mitgliedsnummer)
           {
             list.addFilter("id = ? ", results.getString(columnMitgliedsnummer));
@@ -196,16 +197,16 @@ public class DefaultZusatzbetraegeImport implements Importer
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
             monitor.setStatusText(String.format(
-                 "Für die Importzeile %d (%s) kein Mitglied in JVerein-Datenbank gefunden. Abbruch!",
-                 anz, mitgliedIdString));
+                "Für die Importzeile %d (%s) kein Mitglied in JVerein-Datenbank gefunden. Abbruch!",
+                anz, mitgliedIdString));
             fehlerInDaten = true;
           }
           else if (list.size() > 1)
           {
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
             monitor.setStatusText(String.format(
-                 "Für die Importzeile %d (%s) mehr als ein Mitglied gefunden. Abbruch!",
-                 anz, mitgliedIdString));
+                "Für die Importzeile %d (%s) mehr als ein Mitglied gefunden. Abbruch!",
+                anz, mitgliedIdString));
             fehlerInDaten = true;
           }
           else
@@ -219,8 +220,8 @@ public class DefaultZusatzbetraegeImport implements Importer
             if (betrag == 0)
             {
               monitor.setStatusText(String.format(
-                 "Für die Importzeile %d (%s) konnte die Fließkommazahl in der Spalte Betrag nicht verarbeitet werden. Zahl muss größer 0 sein. Abbruch!",
-                 anz, mitgliedIdString));
+                  "Für die Importzeile %d (%s) konnte die Fließkommazahl in der Spalte Betrag nicht verarbeitet werden. Zahl muss größer 0 sein. Abbruch!",
+                  anz, mitgliedIdString));
               fehlerInDaten = true;
             }
             zus.setBetrag(betrag);
@@ -235,8 +236,8 @@ public class DefaultZusatzbetraegeImport implements Importer
             zus.setBuchungstext(buchungstext);
             try
             {
-              Date d = de.jost_net.JVerein.util.Datum.toDate(results
-                  .getString("Fälligkeit"));
+              Date d = de.jost_net.JVerein.util.Datum
+                  .toDate(results.getString("Fälligkeit"));
               zus.setFaelligkeit(d);
               zus.setStartdatum(d);
             }
@@ -262,19 +263,38 @@ public class DefaultZusatzbetraegeImport implements Importer
               String datum = results.getString("Endedatum");
               if (datum.length() > 0)
               {
-                Date d = de.jost_net.JVerein.util.Datum.toDate(results
-                    .getString("Endedatum"));
+                Date d = de.jost_net.JVerein.util.Datum
+                    .toDate(results.getString("Endedatum"));
                 zus.setEndedatum(d);
               }
             }
             catch (ParseException e)
             {
               monitor.setStatusText(String.format(
-                   "Für die Importzeile %d (%s) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
-                   anz, mitgliedIdString));
+                  "Für die Importzeile %d (%s) konnte das Datum in der Spalte Fälligkeit nicht verarbeitet werden. Abbruch!",
+                  anz, mitgliedIdString));
               fehlerInDaten = true;
             }
-
+            try
+            {
+              String buchungsart = results.getString("Buchungsart");
+              DBIterator it = Einstellungen.getDBService()
+                  .createList(Buchungsart.class);
+              it.addFilter("nummer = ?", buchungsart);
+              if (it.size() == 0)
+              {
+                monitor.setStatusText(String.format(
+                    "Buchungsart mit der Nummer %s nicht gefunden",
+                    buchungsart));
+                fehlerInDaten = true;
+              }
+              Buchungsart bu = (Buchungsart) it.next();
+              zus.setBuchungsart(bu);
+            }
+            catch (SQLException e)
+            {
+              //
+            }
             zusatzbetraegeList.add(zus);
           }
 
@@ -289,8 +309,8 @@ public class DefaultZusatzbetraegeImport implements Importer
           for (Zusatzbetrag zusatzbetrag : zusatzbetraegeList)
           {
             anz++;
-            monitor.setPercentComplete(10 + (count * 90 / zusatzbetraegeList
-                .size()));
+            monitor.setPercentComplete(
+                10 + (count * 90 / zusatzbetraegeList.size()));
             zusatzbetrag.store();
             monitor.setStatusText(String.format(
                 "Zusatzbeitrag für Mitglied %s erfolgreich importiert.",
@@ -302,7 +322,8 @@ public class DefaultZusatzbetraegeImport implements Importer
         {
           // if(fehlerInDaten)
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
-          throw new ApplicationException("Fehler in Daten. Import abgebrochen.");
+          throw new ApplicationException(
+              "Fehler in Daten. Import abgebrochen.");
         }
       }
 
@@ -310,14 +331,14 @@ public class DefaultZusatzbetraegeImport implements Importer
     catch (RemoteException e)
     {
       Logger.error("Fehler", e);
-      throw new ApplicationException("Fehler beim Importieren: "
-          + e.getMessage());
+      throw new ApplicationException(
+          "Fehler beim Importieren: " + e.getMessage());
     }
     catch (SQLException e)
     {
       Logger.error("Fehler", e);
-      throw new ApplicationException("Fehler beim Importieren:"
-          + e.getMessage());
+      throw new ApplicationException(
+          "Fehler beim Importieren:" + e.getMessage());
     }
     catch (ClassNotFoundException e)
     {
