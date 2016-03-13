@@ -19,14 +19,12 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 
-import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.gui.dialogs.BuchungsartZuordnungDialog;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -94,25 +92,23 @@ public class BuchungBuchungsartZuordnungAction implements Action
           {
             buchung.setBuchungsart(new Long(ba.getID()));
             buchung.store();
-            Application.getMessagingFactory().sendMessage(
-                new BuchungMessage(buchung));
           }
         }
         control.getBuchungsList();
         String protecttext = "";
         if (counter > 0)
         {
-          protecttext = String.format(
-              ", %d Buchungen wurden nicht überschrieben. ", counter);
+          protecttext = String
+              .format(", %d Buchungen wurden nicht überschrieben. ", counter);
         }
-        GUI.getStatusBar().setSuccessText(
-            "Buchungsarten zugeordnet" + protecttext);
+        GUI.getStatusBar()
+            .setSuccessText("Buchungsarten zugeordnet" + protecttext);
       }
       catch (Exception e)
       {
         Logger.error("Fehler", e);
-        GUI.getStatusBar().setErrorText(
-            "Fehler bei der Zuordnung der Buchungsart");
+        GUI.getStatusBar()
+            .setErrorText("Fehler bei der Zuordnung der Buchungsart");
         return;
       }
     }
