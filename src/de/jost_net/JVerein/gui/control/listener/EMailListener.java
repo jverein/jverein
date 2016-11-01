@@ -16,12 +16,12 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control.listener;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.gui.input.EmailInput;
-import de.jost_net.JVerein.util.Checker;
 import de.willuhn.jameica.gui.GUI;
 
 /**
@@ -53,7 +53,7 @@ public class EMailListener implements Listener
     {
       return;
     }
-    if (!Checker.isValidEmailAddress(em))
+    if (!EmailValidator.getInstance().isValid(em))
     {
       GUI.getStatusBar().setErrorText("Mailadresse ist ungültig");
     }

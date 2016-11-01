@@ -20,11 +20,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.rmi.RemoteException;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import de.jost_net.JVerein.util.Checker;
 
 @RunWith(JUnit4.class)
 public class CheckerTest
@@ -32,55 +31,55 @@ public class CheckerTest
   @Test
   public void test01() throws RemoteException
   {
-    assertTrue(Checker.isValidEmailAddress("willi.wichtig@jverein.de"));
+    assertTrue(
+        EmailValidator.getInstance().isValid("willi.wichtig@jverein.de"));
   }
 
   @Test
   public void test02() throws RemoteException
   {
-    assertTrue(!Checker.isValidEmailAddress(null));
-  }
-
-  @Test
-  public void test03() throws RemoteException
-  {
-    assertTrue(!Checker.isValidEmailAddress(" willi.wichtig@jverein.de"));
-  }
-
-  @Test
-  public void test04() throws RemoteException
-  {
-    assertTrue(!Checker.isValidEmailAddress("willi.wichtig@jverein.de "));
+    assertTrue(!EmailValidator.getInstance().isValid(null));
   }
 
   @Test
   public void test05() throws RemoteException
   {
-    assertTrue(!Checker.isValidEmailAddress("willi wichtig@jverein.de"));
+    assertTrue(
+        !EmailValidator.getInstance().isValid("willi wichtig@jverein.de"));
   }
 
   @Test
   public void test06() throws RemoteException
   {
-    assertTrue(!Checker.isValidEmailAddress("willi@wichtig@jverein.de"));
+    assertTrue(
+        !EmailValidator.getInstance().isValid("willi@wichtig@jverein.de"));
   }
 
   @Test
   public void test07() throws RemoteException
   {
-    assertTrue(!Checker.isValidEmailAddress("willi.wichtig.jverein.de"));
+    assertTrue(
+        !EmailValidator.getInstance().isValid("willi.wichtig.jverein.de"));
   }
 
   @Test
   public void test08() throws RemoteException
   {
-    assertTrue(!Checker.isValidEmailAddress("willi.wichtig@jvereinde"));
+    assertTrue(
+        !EmailValidator.getInstance().isValid("willi.wichtig@jvereinde"));
   }
 
   @Test
   public void test09() throws RemoteException
   {
-    assertTrue(!Checker.isValidEmailAddress("willi.wichtig.@jverein.de"));
+    assertTrue(
+        !EmailValidator.getInstance().isValid("willi.wichtig.@jverein.de"));
+  }
+
+  @Test
+  public void test10() throws RemoteException
+  {
+    assertTrue(EmailValidator.getInstance().isValid("jupp.schmitz@köln.de"));
   }
 
 }

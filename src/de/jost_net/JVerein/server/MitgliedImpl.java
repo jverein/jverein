@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.BeitragsUtil;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -40,7 +42,6 @@ import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
-import de.jost_net.JVerein.util.Checker;
 import de.jost_net.JVerein.util.Datum;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.OBanToo.SEPA.BIC;
@@ -151,7 +152,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (getEmail() != null && getEmail().length() > 0)
     {
-      if (!Checker.isValidEmailAddress(getEmail()))
+      if (!EmailValidator.getInstance().isValid(getEmail()))
       {
         throw new ApplicationException("Ungültige Email-Adresse.");
       }
@@ -165,10 +166,11 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (getAdresstyp().getJVereinid() == 1
         && getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT
-        && BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
-            .getBeitragsmodel(), this.getZahlungstermin(), this
-            .getZahlungsrhythmus().getKey(), this.getBeitragsgruppe(),
-            new Date(), getEintritt(), getAustritt()) > 0)
+        && BeitragsUtil.getBeitrag(
+            Einstellungen.getEinstellung().getBeitragsmodel(),
+            this.getZahlungstermin(), this.getZahlungsrhythmus().getKey(),
+            this.getBeitragsgruppe(), new Date(), getEintritt(),
+            getAustritt()) > 0)
     {
       if (getBic() == null || getBic().length() == 0 || getIban() == null
           || getIban().length() == 0)
@@ -206,8 +208,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (getZahlungsrhythmus() == null)
     {
-      throw new ApplicationException("Ungültiger Zahlungsrhytmus: "
-          + getZahlungsrhythmus());
+      throw new ApplicationException(
+          "Ungültiger Zahlungsrhytmus: " + getZahlungsrhythmus());
     }
     if (getSterbetag() != null && getAustritt() == null)
     {
@@ -221,8 +223,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       if (getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
       {
         // ja
-        DBIterator famang = Einstellungen.getDBService().createList(
-            Mitglied.class);
+        DBIterator famang = Einstellungen.getDBService()
+            .createList(Mitglied.class);
         famang.addFilter("zahlerid = " + getID());
         famang.addFilter("austritt is null");
         if (famang.hasNext())
@@ -233,7 +235,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       }
     }
     if (getBeitragsgruppe() != null
-        && getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER
+        && getBeitragsgruppe()
+            .getBeitragsArt() == ArtBeitragsart.FAMILIE_ANGEHOERIGER
         && getZahlerID() == null)
     {
       throw new ApplicationException("Bitte Zahler auswählen!");
@@ -248,8 +251,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
    * @throws RemoteException
    * @throws ApplicationException
    */
-  private void checkExterneMitgliedsnummer() throws RemoteException,
-      ApplicationException
+  private void checkExterneMitgliedsnummer()
+      throws RemoteException, ApplicationException
   {
     if (getAdresstyp().getJVereinid() != 1)
       return;
@@ -261,8 +264,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throw new ApplicationException("Externe Mitgliedsnummer fehlt");
     }
 
-    DBIterator mitglieder = Einstellungen.getDBService().createList(
-        Mitglied.class);
+    DBIterator mitglieder = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     mitglieder.addFilter("id != ?", getID());
     mitglieder.addFilter("externemitgliedsnummer = ?",
         getExterneMitgliedsnummer());
@@ -835,8 +838,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public String getKontoinhaber(int art) throws RemoteException
   {
-    Mitglied m2 = (Mitglied) Einstellungen.getDBService().createObject(
-        Mitglied.class, getID());
+    Mitglied m2 = (Mitglied) Einstellungen.getDBService()
+        .createObject(Mitglied.class, getID());
     if (m2.getKtoiVorname() != null && m2.getKtoiVorname().length() > 0)
     {
       m2.setVorname(getKtoiVorname());
@@ -1188,8 +1191,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     else if (fieldName.startsWith("zusatzfelder_"))
     {
-      DBIterator it = Einstellungen.getDBService().createList(
-          Felddefinition.class);
+      DBIterator it = Einstellungen.getDBService()
+          .createList(Felddefinition.class);
       it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
       Felddefinition fd = (Felddefinition) it.next();
       it = Einstellungen.getDBService().createList(Zusatzfelder.class);
