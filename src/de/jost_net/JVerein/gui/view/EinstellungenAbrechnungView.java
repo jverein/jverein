@@ -36,15 +36,18 @@ public class EinstellungenAbrechnungView extends AbstractView
 
     ScrolledContainer cont = new ScrolledContainer(getParent());
 
-    cont.addLabelPair("Beitragsmodel", control.getBeitragsmodel());
+    cont.addLabelPair("Beitragsmodell", control.getBeitragsmodel());
     cont.addInput(control.getZahlungsrhytmus());
     cont.addInput(control.getZahlungsweg());
     cont.addInput(control.getSEPADatumOffset());
     cont.addInput(control.getDefaultSEPALand());
-    cont.addLabelPair("Arbeitsstunden Model", control.getArbeitsstundenmodel());
-    cont.addLabelPair("Abrechnungslauf abschließen", control.getAbrlAbschliessen());
+    cont.addLabelPair("Arbeitsstunden Modell",
+        control.getArbeitsstundenmodel());
+    cont.addLabelPair("Abrechnungslauf abschließen",
+        control.getAbrlAbschliessen());
     cont.addSeparator();
-    cont.addHeadline("ACHTUNG! Nur ändern, wenn noch keine SEPA-Lastschriften durchgeführt wurden!");
+    cont.addHeadline(
+        "ACHTUNG! Nur ändern, wenn noch keine SEPA-Lastschriften durchgeführt wurden!");
     cont.addLabelPair("Quelle für SEPA-Mandatsreferenz (*)",
         control.getSepamandatidsourcemodel());
 
