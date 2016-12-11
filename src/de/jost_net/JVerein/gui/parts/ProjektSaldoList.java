@@ -66,8 +66,8 @@ public class ProjektSaldoList extends TablePart implements Part
 
       if (saldoList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile
-            .toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator
+            .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 
         saldoList = new TablePart(gi, null)
         {
@@ -79,10 +79,12 @@ public class ProjektSaldoList extends TablePart implements Part
         };
         saldoList.addColumn("Projekt", "projektbezeichnung", null, false);
         saldoList.addColumn("Buchungsart", "buchungsartbezeichnung");
-        saldoList.addColumn("Einnahmen", "einnahmen", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Ausgaben", "ausgaben", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn("Einnahmen", "einnahmen",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        saldoList.addColumn("Ausgaben", "ausgaben",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
         saldoList.addColumn("Umbuchungen", "umbuchungen",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
@@ -146,19 +148,20 @@ public class ProjektSaldoList extends TablePart implements Part
     };
 
     DBService service = Einstellungen.getDBService();
-    DBIterator projekteIt = service.createList(Projekt.class);
+    DBIterator<Projekt> projekteIt = service.createList(Projekt.class);
     projekteIt.setOrder("ORDER BY bezeichnung");
     while (projekteIt.hasNext())
     {
       projekt = (Projekt) projekteIt.next();
       String sql = "select count(*) from buchung "
           + "where datum >= ? and datum <= ?  " + "and projekt = ?";
-      int anz = (Integer) service.execute(sql, new Object[] { datumvon,
-          datumbis, projekt.getID() }, rsi);
+      int anz = (Integer) service.execute(sql,
+          new Object[] { datumvon, datumbis, projekt.getID() }, rsi);
       if (anz > 0)
       {
         zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.HEADER, projekt));
-        DBIterator buchungsartenIt = service.createList(Buchungsart.class);
+        DBIterator<Buchungsart> buchungsartenIt = service
+            .createList(Buchungsart.class);
         buchungsartenIt.setOrder("ORDER BY nummer");
         suBukEinnahmen = new Double(0);
         suBukAusgaben = new Double(0);
@@ -186,20 +189,19 @@ public class ProjektSaldoList extends TablePart implements Part
             ausgaben = (Double) service.execute(sql, new Object[] { datumvon,
                 datumbis, projekt.getID(), buchungsart.getID(), 1 }, rsd);
             suBukAusgaben += ausgaben;
-            umbuchungen = (Double) service.execute(sql, new Object[] {
-                datumvon, datumbis, projekt.getID(), buchungsart.getID(), 2 },
-                rsd);
+            umbuchungen = (Double) service.execute(sql, new Object[] { datumvon,
+                datumbis, projekt.getID(), buchungsart.getID(), 2 }, rsd);
             suBukUmbuchungen += umbuchungen;
             zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.DETAIL,
                 buchungsart, einnahmen, ausgaben, umbuchungen));
           }
         }
-        zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.SALDOFOOTER, "Saldo"
-            + " " + projekt.getBezeichnung(), suBukEinnahmen, suBukAusgaben,
-            suBukUmbuchungen));
+        zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.SALDOFOOTER,
+            "Saldo" + " " + projekt.getBezeichnung(), suBukEinnahmen,
+            suBukAusgaben, suBukUmbuchungen));
         zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.SALDOGEWINNVERLUST,
-            "Gewinn/Verlust" + " " + projekt.getBezeichnung(), suBukEinnahmen
-                + suBukAusgaben + suBukUmbuchungen));
+            "Gewinn/Verlust" + " " + projekt.getBezeichnung(),
+            suBukEinnahmen + suBukAusgaben + suBukUmbuchungen));
         suEinnahmen += suBukEinnahmen;
         suAusgaben += suBukAusgaben;
         suUmbuchungen += suBukUmbuchungen;
@@ -209,18 +211,18 @@ public class ProjektSaldoList extends TablePart implements Part
     zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.GESAMTSALDOFOOTER,
         "Saldo alle Projekte", suEinnahmen, suAusgaben, suUmbuchungen));
     zeile.add(new ProjektSaldoZeile(ProjektSaldoZeile.GESAMTSALDOGEWINNVERLUST,
-        "Gewinn/Verlust alle Projekte", suEinnahmen + suAusgaben
-            + suUmbuchungen));
+        "Gewinn/Verlust alle Projekte",
+        suEinnahmen + suAusgaben + suUmbuchungen));
 
     String sql = "select count(*) from buchung where datum >= ? and datum <= ?  "
         + "and buchung.buchungsart is null and not buchung.projekt is null";
-    Integer anzahl = (Integer) service.execute(sql, new Object[] { datumvon,
-        datumbis }, rsi);
+    Integer anzahl = (Integer) service.execute(sql,
+        new Object[] { datumvon, datumbis }, rsi);
     if (anzahl > 0)
     {
-      zeile.add(new ProjektSaldoZeile(
-          ProjektSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN,
-          "Anzahl Buchungen ohne Buchungsart: " + anzahl.toString()));
+      zeile.add(
+          new ProjektSaldoZeile(ProjektSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN,
+              "Anzahl Buchungen ohne Buchungsart: " + anzahl.toString()));
     }
     return zeile;
   }

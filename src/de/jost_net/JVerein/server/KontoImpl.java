@@ -61,8 +61,9 @@ public class KontoImpl extends AbstractDBObject implements Konto
     try
     {
       plausi();
-      DBIterator it = Einstellungen.getDBService().createList(Konto.class);
-      it.addFilter("nummer = ?", new Object[] { getNummer()});
+      DBIterator<Konto> it = Einstellungen.getDBService()
+          .createList(Konto.class);
+      it.addFilter("nummer = ?", new Object[] { getNummer() });
       if (it.size() > 0)
       {
         throw new ApplicationException("Konto existiert bereits");
@@ -175,15 +176,17 @@ public class KontoImpl extends AbstractDBObject implements Konto
   }
 
   @Override
-  public DBIterator getKontenEinesJahres(Geschaeftsjahr gj)
+  public DBIterator<Konto> getKontenEinesJahres(Geschaeftsjahr gj)
       throws RemoteException
   {
-    DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
+    DBIterator<Konto> konten = Einstellungen.getDBService()
+        .createList(Konto.class);
     konten.addFilter("(eroeffnung is null or eroeffnung <= ?)",
-        new Object[] { gj.getEndeGeschaeftsjahr()});
-    konten.addFilter("(aufloesung is null or year(aufloesung) = ? or "
-        + "aufloesung >= ? )", new Object[] { gj.getBeginnGeschaeftsjahrjahr(),
-        gj.getEndeGeschaeftsjahr()});
+        new Object[] { gj.getEndeGeschaeftsjahr() });
+    konten.addFilter(
+        "(aufloesung is null or year(aufloesung) = ? or " + "aufloesung >= ? )",
+        new Object[] { gj.getBeginnGeschaeftsjahrjahr(),
+            gj.getEndeGeschaeftsjahr() });
     konten.setOrder("order by bezeichnung");
     return konten;
   }

@@ -47,8 +47,8 @@ public abstract class KontenrahmenExport implements Exporter
   {
     this.file = file;
     open();
-    DBIterator klassen = Einstellungen.getDBService().createList(
-        Buchungsklasse.class);
+    DBIterator<Buchungsklasse> klassen = Einstellungen.getDBService()
+        .createList(Buchungsklasse.class);
     klassen.setOrder("order by nummer");
     if (klassen.size() == 0)
     {
@@ -59,12 +59,12 @@ public abstract class KontenrahmenExport implements Exporter
       Buchungsklasse klasse = (Buchungsklasse) klassen.next();
       addKlasse(klasse);
 
-      DBIterator buchungsarten = Einstellungen.getDBService().createList(
-          Buchungsart.class);
+      DBIterator<Buchungsart> buchungsarten = Einstellungen.getDBService()
+          .createList(Buchungsart.class);
       buchungsarten.addFilter("buchungsklasse = ?", klasse.getID());
       while (buchungsarten.hasNext())
       {
-        Buchungsart buchungsart = (Buchungsart) buchungsarten.next();
+        Buchungsart buchungsart = buchungsarten.next();
         addBuchungsart(buchungsart);
       }
     }

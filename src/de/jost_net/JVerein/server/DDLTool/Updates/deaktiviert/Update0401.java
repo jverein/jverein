@@ -32,6 +32,7 @@ public class Update0401 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     Table table = new Table("inventar");
@@ -43,10 +44,10 @@ public class Update0401 extends AbstractDDLUpdate
     Column lagerort = new Column("lagerort", COLTYPE.BIGINT, 1, null, true,
         false);
     table.add(lagerort);
-    table.add(new Column("anschaffungsdatum", COLTYPE.DATE, 1, null, true,
-        false));
-    table.add(new Column("anschaffungswert", COLTYPE.DOUBLE, 1, null, true,
-        false));
+    table.add(
+        new Column("anschaffungsdatum", COLTYPE.DATE, 1, null, true, false));
+    table.add(
+        new Column("anschaffungswert", COLTYPE.DOUBLE, 1, null, true, false));
     table.setPrimaryKey(primco);
 
     execute(createTable(table));

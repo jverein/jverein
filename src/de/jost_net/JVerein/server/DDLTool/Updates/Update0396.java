@@ -37,10 +37,11 @@ public class Update0396 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Eine kurze, interne Notiz zur Beitragsgruppe
-    execute(addColumn("beitragsgruppe", new Column("notiz", COLTYPE.VARCHAR,
-        200, null, false, false)));
+    execute(addColumn("beitragsgruppe",
+        new Column("notiz", COLTYPE.VARCHAR, 200, null, false, false)));
   }
 }

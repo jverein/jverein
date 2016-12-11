@@ -63,7 +63,7 @@ public class FormularAufbereitung
    * Öffnet die Datei und startet die PDF-Generierung
    * 
    * @param f
-   *        Die Datei, in die geschrieben werden soll
+   *          Die Datei, in die geschrieben werden soll
    * @throws RemoteException
    */
   public FormularAufbereitung(final File f) throws RemoteException
@@ -103,10 +103,10 @@ public class FormularAufbereitung
         PdfContentByte contentByte = writer.getDirectContent();
         contentByte.addTemplate(page, 0, 0);
 
-        DBIterator it = Einstellungen.getDBService().createList(
-            Formularfeld.class);
+        DBIterator<Formularfeld> it = Einstellungen.getDBService()
+            .createList(Formularfeld.class);
         it.addFilter("formular = ? and seite = ?",
-            new Object[] { formular.getID(), i});
+            new Object[] { formular.getID(), i });
         while (it.hasNext())
         {
           Formularfeld f = (Formularfeld) it.next();
@@ -157,9 +157,8 @@ public class FormularAufbereitung
         }
         catch (ApplicationException ae)
         {
-          Application.getMessagingFactory().sendMessage(
-              new StatusBarMessage(ae.getLocalizedMessage(),
-                  StatusBarMessage.TYPE_ERROR));
+          Application.getMessagingFactory().sendMessage(new StatusBarMessage(
+              ae.getLocalizedMessage(), StatusBarMessage.TYPE_ERROR));
         }
       }
     });

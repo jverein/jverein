@@ -116,9 +116,10 @@ public class AnfangsbestandControl extends AbstractControl
     try
     {
       Anfangsbestand a = getAnfangsbestand();
-      DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
-      konten.addFilter("nummer = ?", new Object[] { (String) getKonto()
-          .getValue() });
+      DBIterator<Konto> konten = Einstellungen.getDBService()
+          .createList(Konto.class);
+      konten.addFilter("nummer = ?",
+          new Object[] { (String) getKonto().getValue() });
       if (konten.size() == 0)
       {
         throw new RemoteException("Konto nicht gefunden");
@@ -128,7 +129,7 @@ public class AnfangsbestandControl extends AbstractControl
         throw new RemoteException(
             "Mehrere Konten mit gleicher Nummer sind nicht zulässig!");
       }
-      Konto k = (Konto) konten.next();
+      Konto k = konten.next();
       a.setKonto(k);
       a.setDatum((Date) getDatum(false).getValue());
       a.setBetrag((Double) getBetrag().getValue());
@@ -150,16 +151,17 @@ public class AnfangsbestandControl extends AbstractControl
   public Part getAnfangsbestandList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator anfangsbestaende = service.createList(Anfangsbestand.class);
+    DBIterator<Anfangsbestand> anfangsbestaende = service
+        .createList(Anfangsbestand.class);
     anfangsbestaende.setOrder("ORDER BY konto, datum desc");
 
     anfangsbestandList = new TablePart(anfangsbestaende,
         new AnfangsbestandDetailAction());
     anfangsbestandList.addColumn("Konto", "kontotext");
-    anfangsbestandList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    anfangsbestandList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    anfangsbestandList.addColumn("Datum", "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    anfangsbestandList.addColumn("Betrag", "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     anfangsbestandList.setRememberColWidths(true);
     anfangsbestandList.setContextMenu(new AnfangsbestandMenu());
     anfangsbestandList.setRememberOrder(true);
@@ -170,8 +172,8 @@ public class AnfangsbestandControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     anfangsbestandList.removeAll();
-    DBIterator anfangsbestaende = Einstellungen.getDBService().createList(
-        Anfangsbestand.class);
+    DBIterator<Anfangsbestand> anfangsbestaende = Einstellungen.getDBService()
+        .createList(Anfangsbestand.class);
     anfangsbestaende.setOrder("ORDER BY konto, datum desc");
     while (anfangsbestaende.hasNext())
     {

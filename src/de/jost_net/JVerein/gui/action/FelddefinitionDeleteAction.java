@@ -50,17 +50,16 @@ public class FelddefinitionDeleteAction implements Action
     try
     {
       Felddefinition fd = (Felddefinition) context;
-      DBIterator it = Einstellungen.getDBService().createList(
-          Zusatzfelder.class);
-      it.addFilter("felddefinition=?", new Object[] { fd.getID()});
+      DBIterator<Zusatzfelder> it = Einstellungen.getDBService()
+          .createList(Zusatzfelder.class);
+      it.addFilter("felddefinition=?", new Object[] { fd.getID() });
       if (fd.isNewObject())
       {
         return;
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle("Felddefinition löschen");
-      d.setText("Das Feld ist bei "
-          + it.size()
+      d.setText("Das Feld ist bei " + it.size()
           + " Mitgliedern gespeichert. Wollen Sie diese Felddefinition wirklich löschen?");
 
       try
@@ -78,9 +77,9 @@ public class FelddefinitionDeleteAction implements Action
       }
       while (it.hasNext())
       {
-        Zusatzfelder zf1 = (Zusatzfelder) it.next();
-        Zusatzfelder zf2 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-            Zusatzfelder.class, zf1.getID());
+        Zusatzfelder zf1 = it.next();
+        Zusatzfelder zf2 = (Zusatzfelder) Einstellungen.getDBService()
+            .createObject(Zusatzfelder.class, zf1.getID());
         zf2.delete();
       }
       fd.delete();

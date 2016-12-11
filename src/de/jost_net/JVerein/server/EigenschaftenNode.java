@@ -82,11 +82,12 @@ public class EigenschaftenNode implements GenericObjectNode
     }
     childrens = new ArrayList<GenericObjectNode>();
     nodetype = ROOT;
-    DBIterator it = Einstellungen.getDBService().createList(
-        EigenschaftGruppe.class);
+    DBIterator<EigenschaftGruppe> it = Einstellungen.getDBService()
+        .createList(EigenschaftGruppe.class);
     if (ohnePflicht)
     {
-      it.addFilter("(PFLICHT <> true OR PFLICHT IS NULL) AND (MAX1 <> true OR MAX1 IS NULL)");
+      it.addFilter(
+          "(PFLICHT <> true OR PFLICHT IS NULL) AND (MAX1 <> true OR MAX1 IS NULL)");
     }
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
@@ -105,9 +106,10 @@ public class EigenschaftenNode implements GenericObjectNode
     childrens = new ArrayList<GenericObjectNode>();
     this.eigenschaftgruppe = eg;
     nodetype = EIGENSCHAFTGRUPPE;
-    DBIterator it = Einstellungen.getDBService().createList(Eigenschaft.class);
+    DBIterator<Eigenschaft> it = Einstellungen.getDBService()
+        .createList(Eigenschaft.class);
     it.addFilter("eigenschaftgruppe = ?",
-        new Object[] { eigenschaftgruppe.getID()});
+        new Object[] { eigenschaftgruppe.getID() });
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
@@ -115,10 +117,10 @@ public class EigenschaftenNode implements GenericObjectNode
       Eigenschaften eigenschaften = null;
       if (mitglied != null)
       {
-        DBIterator it2 = Einstellungen.getDBService().createList(
-            Eigenschaften.class);
-        it2.addFilter("mitglied = ? AND eigenschaft = ?", new Object[] {
-            mitglied.getID(), eigenschaft.getID()});
+        DBIterator<Eigenschaften> it2 = Einstellungen.getDBService()
+            .createList(Eigenschaften.class);
+        it2.addFilter("mitglied = ? AND eigenschaft = ?",
+            new Object[] { mitglied.getID(), eigenschaft.getID() });
         if (it2.hasNext())
         {
           eigenschaften = (Eigenschaften) it2.next();
@@ -151,7 +153,8 @@ public class EigenschaftenNode implements GenericObjectNode
     {
       return null;
     }
-    return PseudoIterator.fromArray(childrens.toArray(new GenericObject[childrens.size()]));
+    return PseudoIterator
+        .fromArray(childrens.toArray(new GenericObject[childrens.size()]));
   }
 
   public boolean removeChild(GenericObjectNode child)

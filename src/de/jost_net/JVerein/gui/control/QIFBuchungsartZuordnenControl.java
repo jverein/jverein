@@ -94,7 +94,8 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     if (null == cbMitgliedZuordnenErlaubt)
     {
       cbMitgliedZuordnenErlaubt = new CheckboxInput(true);
-      cbMitgliedZuordnenErlaubt.setComment("Darf diese Buchungsart im Mitgliedskonto buchen?");
+      cbMitgliedZuordnenErlaubt
+          .setComment("Darf diese Buchungsart im Mitgliedskonto buchen?");
     }
     return cbMitgliedZuordnenErlaubt;
   }
@@ -219,8 +220,8 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       throws RemoteException
   {
     String qifBuchart = importPos.getQIFBuchart();
-    iteratorQIFImportPosList = Einstellungen.getDBService().createList(
-        QIFImportPos.class);
+    iteratorQIFImportPosList = Einstellungen.getDBService()
+        .createList(QIFImportPos.class);
     if (null != qifBuchart)
       iteratorQIFImportPosList.addFilter(QIFImportPos.COL_QIF_BUCHART + " = ?",
           qifBuchart);
@@ -236,10 +237,12 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     {
       return buchungsartInput;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchungsart.class);
+    DBIterator<Buchungsart> list = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     list.join("buchungsklasse");
     list.addFilter("buchungsklasse.id = buchungsart.buchungsklasse");
-    list.setOrder("ORDER BY buchungsklasse.bezeichnung, buchungsart.art, buchungsart.bezeichnung");
+    list.setOrder(
+        "ORDER BY buchungsklasse.bezeichnung, buchungsart.art, buchungsart.bezeichnung");
     buchungsartInput = new SelectInput(list, getAktuelleBuchart());
     buchungsartInput.setAttribute("klasse-art-bez");
     buchungsartInput.setPleaseChoose("Bitte auswählen");
@@ -305,8 +308,8 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       return true;
     }
 
-    private void speichernNeueBuchungsart() throws RemoteException,
-        ApplicationException
+    private void speichernNeueBuchungsart()
+        throws RemoteException, ApplicationException
     {
       iteratorQIFImportPosList.begin();
       while (iteratorQIFImportPosList.hasNext())
@@ -337,7 +340,8 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
    */
   private GenericIterator getDistinctQIFBuchartList() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(QIFImportPos.class);
+    DBIterator<QIFImportPos> it = Einstellungen.getDBService()
+        .createList(QIFImportPos.class);
     it.setOrder("ORDER BY " + QIFImportPos.COL_QIF_BUCHART + ","
         + QIFImportPos.COL_POSID);
 
@@ -380,7 +384,8 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       distinctBuchartListTable.setRememberColWidths(true);
       distinctBuchartListTable.setRememberOrder(true);
       distinctBuchartListTable.setFormatter(new BuchartListTableFormater());
-      distinctBuchartListTable.addSelectionListener(new BuchartListSelectionListener());
+      distinctBuchartListTable
+          .addSelectionListener(new BuchartListSelectionListener());
     }
     return distinctBuchartListTable;
   }

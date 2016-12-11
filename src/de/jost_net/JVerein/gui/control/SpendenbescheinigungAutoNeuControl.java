@@ -71,8 +71,9 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
       return jahr;
     }
     Calendar cal = Calendar.getInstance();
-    jahr = new SelectInput(new Object[] { cal.get(Calendar.YEAR),
-        cal.get(Calendar.YEAR) - 1 }, cal.get(Calendar.YEAR));
+    jahr = new SelectInput(
+        new Object[] { cal.get(Calendar.YEAR), cal.get(Calendar.YEAR) - 1 },
+        cal.get(Calendar.YEAR));
     jahr.addListener(new Listener()
     {
 
@@ -81,8 +82,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
       {
         try
         {
-          spbTree.setRootObject(new SpendenbescheinigungNode(
-              (Integer) getJahr().getValue()));
+          spbTree.setRootObject(
+              new SpendenbescheinigungNode((Integer) getJahr().getValue()));
         }
         catch (RemoteException e)
         {
@@ -100,7 +101,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     {
       return formularEinzel;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+    DBIterator<Formular> it = Einstellungen.getDBService()
+        .createList(Formular.class);
     it.addFilter("art = ?",
         new Object[] { FormularArt.SPENDENBESCHEINIGUNG.getKey() });
     formularEinzel = new SelectInput(it, null);
@@ -113,7 +115,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
     {
       return formularSammel;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+    DBIterator<Formular> it = Einstellungen.getDBService()
+        .createList(Formular.class);
     it.addFilter("art = ?",
         new Object[] { FormularArt.SAMMELSPENDENBESCHEINIGUNG.getKey() });
     formularSammel = new SelectInput(it, null);
@@ -153,11 +156,11 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             spbescheinigung.setSpendenart(Spendenart.GELDSPENDE);
             spbescheinigung.setMitglied(sp1.getMitglied());
             spbescheinigung.setZeile1(sp1.getMitglied().getAnrede());
-            spbescheinigung.setZeile2(Adressaufbereitung.getVornameName(sp1
-                .getMitglied()));
+            spbescheinigung.setZeile2(
+                Adressaufbereitung.getVornameName(sp1.getMitglied()));
             spbescheinigung.setZeile3(sp1.getMitglied().getStrasse());
-            spbescheinigung.setZeile4(sp1.getMitglied().getPlz() + " "
-                + sp1.getMitglied().getOrt());
+            spbescheinigung.setZeile4(
+                sp1.getMitglied().getPlz() + " " + sp1.getMitglied().getOrt());
             spbescheinigung.setErsatzAufwendungen(false);
             spbescheinigung.setBescheinigungsdatum(new Date());
             spbescheinigung.setSpendedatum(new Date());
@@ -174,9 +177,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
             // Nun noch das korrekte Formular setzen
             if (spbescheinigung.getBuchungen().size() > 1)
             {
-              spbescheinigung
-                  .setFormular((Formular) getFormularSammelbestaetigung()
-                      .getValue());
+              spbescheinigung.setFormular(
+                  (Formular) getFormularSammelbestaetigung().getValue());
             }
             else
             {
@@ -201,8 +203,8 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 
   public Part getSpendenbescheinigungTree() throws RemoteException
   {
-    spbTree = new TreePart(new SpendenbescheinigungNode((Integer) getJahr()
-        .getValue()), null);
+    spbTree = new TreePart(
+        new SpendenbescheinigungNode((Integer) getJahr().getValue()), null);
     return spbTree;
   }
 

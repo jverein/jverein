@@ -37,13 +37,13 @@ public class JVereinAdressbuch implements Addressbook
   }
 
   @Override
-  public List<MitgliedAddress> findAddresses(String text)
-      throws RemoteException
+  public List<MitgliedAddress> findAddresses(String text) throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> it = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     String su = "%" + text.toLowerCase() + "%";
-    it.addFilter("(lower(name) like ? or lower(vorname) like ?)", new Object[] {
-        su, su });
+    it.addFilter("(lower(name) like ? or lower(vorname) like ?)",
+        new Object[] { su, su });
     it.addFilter("(iban is not null and length(iban)>0)");
     ArrayList<MitgliedAddress> list = new ArrayList<MitgliedAddress>();
     while (it.hasNext())

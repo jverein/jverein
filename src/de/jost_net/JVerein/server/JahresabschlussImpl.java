@@ -31,8 +31,8 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class JahresabschlussImpl extends AbstractDBObject implements
-    Jahresabschluss
+public class JahresabschlussImpl extends AbstractDBObject
+    implements Jahresabschluss
 {
 
   private static final long serialVersionUID = 1L;
@@ -59,9 +59,9 @@ public class JahresabschlussImpl extends AbstractDBObject implements
   {
     try
     {
-      DBIterator it = Einstellungen.getDBService().createList(
-          Jahresabschluss.class);
-      it.addFilter("von > ?", new Object[] { getVon()});
+      DBIterator<Jahresabschluss> it = Einstellungen.getDBService()
+          .createList(Jahresabschluss.class);
+      it.addFilter("von > ?", new Object[] { getVon() });
       if (it.hasNext())
       {
         throw new ApplicationException(
@@ -94,20 +94,20 @@ public class JahresabschlussImpl extends AbstractDBObject implements
       Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
           null);
       Geschaeftsjahr gj = new Geschaeftsjahr(getVon());
-      DBIterator it = k.getKontenEinesJahres(gj);
+      DBIterator<Konto> it = k.getKontenEinesJahres(gj);
       while (it.hasNext())
       {
         Konto k1 = (Konto) it.next();
-        DBIterator anfangsbestaende = Einstellungen.getDBService().createList(
-            Anfangsbestand.class);
-        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID()});
+        DBIterator<Anfangsbestand> anfangsbestaende = Einstellungen
+            .getDBService().createList(Anfangsbestand.class);
+        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID() });
         anfangsbestaende.addFilter("datum >= ?",
-            new Object[] { gj.getBeginnGeschaeftsjahr()});
+            new Object[] { gj.getBeginnGeschaeftsjahr() });
         if (!anfangsbestaende.hasNext())
         {
-          throw new ApplicationException(String.format(
-              "Für Konto %s %s fehlt der Anfangsbestand.", k1.getNummer(),
-              k1.getBezeichnung()));
+          throw new ApplicationException(
+              String.format("Für Konto %s %s fehlt der Anfangsbestand.",
+                  k1.getNummer(), k1.getBezeichnung()));
         }
       }
     }
@@ -131,9 +131,10 @@ public class JahresabschlussImpl extends AbstractDBObject implements
 
   private boolean hasBuchungenOhneBuchungsart() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
-    it.addFilter("datum >= ?", new Object[] { getVon()});
-    it.addFilter("datum <= ?", new Object[] { getBis()});
+    DBIterator<Buchung> it = Einstellungen.getDBService()
+        .createList(Buchung.class);
+    it.addFilter("datum >= ?", new Object[] { getVon() });
+    it.addFilter("datum <= ?", new Object[] { getBis() });
     it.addFilter("buchungsart is null");
     return it.hasNext();
   }

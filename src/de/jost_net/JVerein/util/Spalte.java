@@ -64,6 +64,7 @@ public class Spalte
     return this.spaltenname.equals(o.spaltenname);
   }
 
+  @Override
   public int hashCode()
   {
     return spaltenname.hashCode();

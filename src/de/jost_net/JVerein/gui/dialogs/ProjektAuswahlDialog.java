@@ -91,7 +91,8 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     {
       return this.projekte;
     }
-    DBIterator pj = Einstellungen.getDBService().createList(Projekt.class);
+    DBIterator<Projekt> pj = Einstellungen.getDBService()
+        .createList(Projekt.class);
     pj.setOrder("ORDER BY bezeichnung");
     this.projekte = new SelectInput(pj, null);
     this.projekte.setName("Projekt");

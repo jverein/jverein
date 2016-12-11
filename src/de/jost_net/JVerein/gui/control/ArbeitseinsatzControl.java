@@ -145,14 +145,14 @@ public class ArbeitseinsatzControl extends AbstractControl
     {
       return suchjahr;
     }
-    DBIterator list = Einstellungen.getDBService().createList(
-        Arbeitseinsatz.class);
+    DBIterator<Arbeitseinsatz> list = Einstellungen.getDBService()
+        .createList(Arbeitseinsatz.class);
     list.setOrder("ORDER BY datum");
     Arbeitseinsatz ae = null;
     Calendar von = Calendar.getInstance();
     if (list.hasNext())
     {
-      ae = (Arbeitseinsatz) list.next();
+      ae = list.next();
       von.setTime(ae.getDatum());
     }
     Calendar bis = Calendar.getInstance();
@@ -242,14 +242,14 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
@@ -275,8 +275,8 @@ public class ArbeitseinsatzControl extends AbstractControl
         try
         {
           FileOutputStream fos = new FileOutputStream(file);
-          Reporter reporter = new Reporter(fos, String.format(
-              "Arbeitseinsätze %d", jahr), sub, it.size());
+          Reporter reporter = new Reporter(fos,
+              String.format("Arbeitseinsätze %d", jahr), sub, it.size());
           reporter.addHeaderColumn("Mitglied", Element.ALIGN_LEFT, 60,
               BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("Sollstunden", Element.ALIGN_RIGHT, 30,
@@ -335,14 +335,14 @@ public class ArbeitseinsatzControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("arbeitseinsaetze", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "CSV").get());
+    fd.setFileName(new Dateiname("arbeitseinsaetze", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "CSV").get());
     fd.setFilterExtensions(new String[] { "*.CSV" });
 
     String s = fd.open();
@@ -370,8 +370,8 @@ public class ArbeitseinsatzControl extends AbstractControl
 
           final String[] header = new String[] { "name", "vorname", "strasse",
               "adressierungszusatz", "plz", "ort", "anrede", "telefonprivat",
-              "telefondienstlich", "handy", "email", "soll", "ist",
-              "differenz", "stundensatz", "gesamtbetrag" };
+              "telefondienstlich", "handy", "email", "soll", "ist", "differenz",
+              "stundensatz", "gesamtbetrag" };
           writer.writeHeader(header);
           // set up some data to write
           while (it.hasNext())
@@ -487,8 +487,8 @@ public class ArbeitseinsatzControl extends AbstractControl
     ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
         .getInfo();
 
-    GenericIterator gi = PseudoIterator.fromArray(zeile
-        .toArray(new GenericObject[zeile.size()]));
+    GenericIterator gi = PseudoIterator
+        .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
     return gi;
   }
 
@@ -497,8 +497,8 @@ public class ArbeitseinsatzControl extends AbstractControl
     try
     {
       settings.setAttribute("jahr", (Integer) getSuchJahr().getValue());
-      settings.setAttribute("schluessel", (Integer) getAuswertungSchluessel()
-          .getValue());
+      settings.setAttribute("schluessel",
+          (Integer) getAuswertungSchluessel().getValue());
 
       if (arbeitseinsatzueberpruefungList == null)
       {
@@ -508,8 +508,8 @@ public class ArbeitseinsatzControl extends AbstractControl
       }
       else
       {
-        arbeitseinsatzueberpruefungList.setJahr((Integer) getSuchJahr()
-            .getValue());
+        arbeitseinsatzueberpruefungList
+            .setJahr((Integer) getSuchJahr().getValue());
         arbeitseinsatzueberpruefungList
             .setSchluessel((Integer) getAuswertungSchluessel().getValue());
         ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList

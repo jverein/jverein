@@ -30,10 +30,11 @@ public class Update0379 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Liquibase id=111
-    execute(addColumn("einstellung", new Column("sepadatumoffset",
-        COLTYPE.INTEGER, 10, "0", false, false)));
+    execute(addColumn("einstellung",
+        new Column("sepadatumoffset", COLTYPE.INTEGER, 10, "0", false, false)));
   }
 }

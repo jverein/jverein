@@ -146,7 +146,7 @@ public class MitgliedskontoControl extends AbstractControl
   public enum TYP
   {
     RECHNUNG, MAHNUNG
-  };
+  }
 
   private String datumverwendung = null;
 
@@ -262,9 +262,9 @@ public class MitgliedskontoControl extends AbstractControl
       z = getMitgliedskonto().getZahlungsweg();
     }
     zahlungsweg = new SelectInput(Zahlungsweg.getArray(),
-        z == null ? new Zahlungsweg(Einstellungen.getEinstellung()
-            .getZahlungsweg()) : new Zahlungsweg(getMitgliedskonto()
-            .getZahlungsweg()));
+        z == null
+            ? new Zahlungsweg(Einstellungen.getEinstellung().getZahlungsweg())
+            : new Zahlungsweg(getMitgliedskonto().getZahlungsweg()));
     zahlungsweg.setName("Zahlungsweg");
     return zahlungsweg;
   }
@@ -426,8 +426,8 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return differenz;
     }
-    DIFFERENZ defaultwert = DIFFERENZ.fromString(settings.getString(
-        "differenz", DIFFERENZ.EGAL.toString()));
+    DIFFERENZ defaultwert = DIFFERENZ
+        .fromString(settings.getString("differenz", DIFFERENZ.EGAL.toString()));
     return getDifferenz(defaultwert);
   }
 
@@ -564,15 +564,15 @@ public class MitgliedskontoControl extends AbstractControl
       }
     };
     mitgliedskontoTree.addColumn("Name, Vorname", "name");
-    mitgliedskontoTree.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    mitgliedskontoTree.addColumn("Datum", "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     mitgliedskontoTree.addColumn("Zweck1", "zweck1");
     mitgliedskontoTree.addColumn("Zahlungsweg", "zahlungsweg",
         new ZahlungswegFormatter());
-    mitgliedskontoTree.addColumn("Soll", "soll", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
-    mitgliedskontoTree.addColumn("Ist", "ist", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    mitgliedskontoTree.addColumn("Soll", "soll",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+    mitgliedskontoTree.addColumn("Ist", "ist",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     mitgliedskontoTree.addColumn("Differenz", "differenz",
         new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     mitgliedskontoTree.setContextMenu(new MitgliedskontoMenu());
@@ -594,13 +594,13 @@ public class MitgliedskontoControl extends AbstractControl
     if (mitgliedskontoList == null)
     {
       mitgliedskontoList = new TablePart(mitgliedskonten, action);
-      mitgliedskontoList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      mitgliedskontoList.addColumn("Datum", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       mitgliedskontoList.addColumn("Abrechnungslauf", "abrechnungslauf");
       mitgliedskontoList.addColumn("Name", "mitglied");
       mitgliedskontoList.addColumn("Zweck", "zweck1");
-      mitgliedskontoList.addColumn("Betrag", "betrag", new CurrencyFormatter(
-          "", Einstellungen.DECIMALFORMAT));
+      mitgliedskontoList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       mitgliedskontoList.addColumn("Zahlungseingang", "istsumme",
           new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       mitgliedskontoList.setContextMenu(menu);
@@ -624,7 +624,7 @@ public class MitgliedskontoControl extends AbstractControl
       throws RemoteException
   {
     this.action = action;
-    GenericIterator mitglieder = getMitgliedIterator();
+    GenericIterator<Mitglied> mitglieder = getMitgliedIterator();
     if (mitgliedskontoList2 == null)
     {
       mitgliedskontoList2 = new TablePart(mitglieder, action);
@@ -649,7 +649,7 @@ public class MitgliedskontoControl extends AbstractControl
 
   private void refreshMitgliedkonto2() throws RemoteException
   {
-    GenericIterator mitglieder = getMitgliedIterator();
+    GenericIterator<Mitglied> mitglieder = getMitgliedIterator();
     mitgliedskontoList2.removeAll();
     while (mitglieder.hasNext())
     {
@@ -657,10 +657,10 @@ public class MitgliedskontoControl extends AbstractControl
     }
   }
 
-  private GenericIterator getMitgliedIterator() throws RemoteException
+  private GenericIterator<Mitglied> getMitgliedIterator() throws RemoteException
   {
-    DBIterator mitglieder = Einstellungen.getDBService().createList(
-        Mitglied.class);
+    DBIterator<Mitglied> mitglieder = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     // MitgliedUtils.setMitgliedOderSpender(mitglieder);
     if (suchname2 != null && suchname2.getValue() != null)
     {
@@ -677,8 +677,8 @@ public class MitgliedskontoControl extends AbstractControl
           where.append("or ");
         }
         first = false;
-        where
-            .append("upper(name) like upper(?) or upper(vorname) like upper(?) ");
+        where.append(
+            "upper(name) like upper(?) or upper(vorname) like upper(?) ");
         String o = tok.nextToken();
         if ((Boolean) getSpezialSuche().getValue())
         {
@@ -791,8 +791,8 @@ public class MitgliedskontoControl extends AbstractControl
         {
 
           @Override
-          public Object extract(ResultSet rs) throws RemoteException,
-              SQLException
+          public Object extract(ResultSet rs)
+              throws RemoteException, SQLException
           {
             ArrayList<Mitgliedskonto> ergebnis = new ArrayList<Mitgliedskonto>();
             while (rs.next())
@@ -819,8 +819,8 @@ public class MitgliedskontoControl extends AbstractControl
               }
               ergebnis.add(mk);
             }
-            return PseudoIterator.fromArray(ergebnis
-                .toArray(new GenericObject[ergebnis.size()]));
+            return PseudoIterator.fromArray(
+                ergebnis.toArray(new GenericObject[ergebnis.size()]));
           }
         });
 
@@ -1026,8 +1026,8 @@ public class MitgliedskontoControl extends AbstractControl
           {
             // Wenn hier ein Fehler auftrat, deregistrieren wir uns wieder
             Logger.error("unable to refresh saldo", e);
-            Application.getMessagingFactory().unRegisterMessageConsumer(
-                MitgliedskontoMessageConsumer.this);
+            Application.getMessagingFactory()
+                .unRegisterMessageConsumer(MitgliedskontoMessageConsumer.this);
           }
         }
 

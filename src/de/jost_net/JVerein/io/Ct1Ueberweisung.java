@@ -89,7 +89,7 @@ public class Ct1Ueberweisung
     ueb.setName(Einstellungen.getEinstellung().getName());
     ueb.setSammelbuchung(false);
 
-    DBIterator it = getIterator(abrl);
+    DBIterator<Lastschrift> it = getIterator(abrl);
     while (it.hasNext())
     {
       Lastschrift ls = (Lastschrift) it.next();
@@ -113,7 +113,7 @@ public class Ct1Ueberweisung
     {
       de.willuhn.jameica.hbci.rmi.Konto hibk = Einstellungen.getEinstellung()
           .getHibiscusKonto();
-      DBIterator it = getIterator(abrl);
+      DBIterator<Lastschrift> it = getIterator(abrl);
       AuslandsUeberweisung[] ueberweisungen = new AuslandsUeberweisung[it
           .size()];
       int i = 0;
@@ -121,20 +121,20 @@ public class Ct1Ueberweisung
       while (it.hasNext())
       {
         Lastschrift ls = (Lastschrift) it.next();
-        DBService service = (DBService) Application.getServiceFactory().lookup(
-            HBCI.class, "database");
+        DBService service = (DBService) Application.getServiceFactory()
+            .lookup(HBCI.class, "database");
 
-        AuslandsUeberweisung ue = (AuslandsUeberweisung) service.createObject(
-            AuslandsUeberweisung.class, null);
+        AuslandsUeberweisung ue = (AuslandsUeberweisung) service
+            .createObject(AuslandsUeberweisung.class, null);
         ue.setBetrag(0.01);
-        HibiscusAddress ad = (HibiscusAddress) service.createObject(
-            HibiscusAddress.class, null);
+        HibiscusAddress ad = (HibiscusAddress) service
+            .createObject(HibiscusAddress.class, null);
         ad.setBic(ls.getBIC());
         ad.setIban(ls.getIBAN());
         ue.setGegenkonto(ad);
         ue.setEndtoEndId(ls.getMandatID());
-        ue.setGegenkontoName(StringTool.getStringWithMaxLength(
-            Zeichen.convert(ls.getName()), 255));
+        ue.setGegenkontoName(StringTool
+            .getStringWithMaxLength(Zeichen.convert(ls.getName()), 255));
         ue.setTermin(faell);
         ue.setZweck(StringTool.getStringWithMaxLength(
             Zeichen.convert(eval(ls, verwendungszweck)), 140));
@@ -156,9 +156,11 @@ public class Ct1Ueberweisung
     return 1;
   }
 
-  private DBIterator getIterator(Abrechnungslauf abrl) throws RemoteException
+  private DBIterator<Lastschrift> getIterator(Abrechnungslauf abrl)
+      throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    DBIterator<Lastschrift> it = Einstellungen.getDBService()
+        .createList(Lastschrift.class);
     it.addFilter("abrechnungslauf = ?", abrl.getID());
     it.setOrder("order by name, vorname");
     return it;

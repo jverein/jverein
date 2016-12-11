@@ -53,16 +53,14 @@ public class BeitragsgruppeDeleteAction implements Action
       {
         return;
       }
-      DBIterator mitgl = Einstellungen.getDBService()
+      DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
       mitgl.addFilter("beitragsgruppe = ?", new Object[] { bg.getID() });
       if (mitgl.size() > 0)
       {
-        throw new ApplicationException(
-            String
-                .format(
-                    "Beitragsgruppe '%s' kann nicht gelöscht werden. %d Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
-                    bg.getBezeichnung(), mitgl.size()));
+        throw new ApplicationException(String.format(
+            "Beitragsgruppe '%s' kann nicht gelöscht werden. %d Mitglied(er) sind dieser Beitragsgruppe zugeordnet.",
+            bg.getBezeichnung(), mitgl.size()));
       }
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       d.setTitle("Beitragsgruppe löschen");
@@ -78,8 +76,7 @@ public class BeitragsgruppeDeleteAction implements Action
       }
       catch (Exception e)
       {
-        Logger.error(String.format(
-            "Fehler beim Löschen der Beitragsgruppe: %s",
+        Logger.error(String.format("Fehler beim Löschen der Beitragsgruppe: %s",
             new Object[] { e.getMessage() }));
         return;
       }

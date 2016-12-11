@@ -160,15 +160,16 @@ public class LehrgangsartControl extends AbstractControl
   public Part getLehrgangsartList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator formulare = service.createList(Lehrgangsart.class);
-    formulare.setOrder("ORDER BY bezeichnung");
+    DBIterator<Lehrgangsart> lehrgangsarten = service
+        .createList(Lehrgangsart.class);
+    lehrgangsarten.setOrder("ORDER BY bezeichnung");
 
-    lehrgangsartList = new TablePart(formulare, new LehrgangsartAction());
+    lehrgangsartList = new TablePart(lehrgangsarten, new LehrgangsartAction());
     lehrgangsartList.addColumn("Bezeichnung", "bezeichnung");
-    lehrgangsartList.addColumn("von/am", "von", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    lehrgangsartList.addColumn("bis", "bis", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    lehrgangsartList.addColumn("von/am", "von",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    lehrgangsartList.addColumn("bis", "bis",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     lehrgangsartList.addColumn("Veranstalter", "veranstalter");
     lehrgangsartList.setRememberColWidths(true);
     lehrgangsartList.setContextMenu(new LehrgangsartMenu());
@@ -180,8 +181,8 @@ public class LehrgangsartControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     lehrgangsartList.removeAll();
-    DBIterator lehrgangsarten = Einstellungen.getDBService().createList(
-        Lehrgangsart.class);
+    DBIterator<Lehrgangsart> lehrgangsarten = Einstellungen.getDBService()
+        .createList(Lehrgangsart.class);
     lehrgangsarten.setOrder("ORDER BY bezeichnung");
     while (lehrgangsarten.hasNext())
     {

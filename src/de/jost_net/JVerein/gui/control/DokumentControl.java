@@ -196,13 +196,13 @@ public class DokumentControl extends AbstractControl
   public Part getDokumenteList(AbstractDokument doc) throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator docs = service.createList(doc.getClass());
+    DBIterator<AbstractDokument> docs = service.createList(doc.getClass());
     docs.addFilter("referenz = ?", new Object[] { doc.getReferenz() });
     docs.setOrder("ORDER BY datum desc");
 
     docsList = new TablePart(docs, null /* new KontoAction() */);
-    docsList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    docsList.addColumn("Datum", "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     docsList.addColumn("Bemerkung", "bemerkung");
     docsList.setRememberColWidths(true);
     docsList.setContextMenu(new DokumentMenu(enabled));
@@ -217,7 +217,8 @@ public class DokumentControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     docsList.removeAll();
-    DBIterator docs = Einstellungen.getDBService().createList(doc.getClass());
+    DBIterator<AbstractDokument> docs = Einstellungen.getDBService()
+        .createList(doc.getClass());
     docs.addFilter("referenz = ?", new Object[] { doc.getReferenz() });
     docs.setOrder("ORDER BY datum desc");
     while (docs.hasNext())
@@ -270,8 +271,8 @@ public class DokumentControl extends AbstractControl
             if (docsList == null)
             {
               // Eingabe-Feld existiert nicht. Also abmelden
-              Application.getMessagingFactory().unRegisterMessageConsumer(
-                  DokumentMessageConsumer.this);
+              Application.getMessagingFactory()
+                  .unRegisterMessageConsumer(DokumentMessageConsumer.this);
               return;
             }
             refreshTable();
@@ -281,8 +282,8 @@ public class DokumentControl extends AbstractControl
             // Wenn hier ein Fehler auftrat, deregistrieren wir uns
             // wieder
             Logger.error("Dokumenteliste konnte nicht aktualisiert werden", e);
-            Application.getMessagingFactory().unRegisterMessageConsumer(
-                DokumentMessageConsumer.this);
+            Application.getMessagingFactory()
+                .unRegisterMessageConsumer(DokumentMessageConsumer.this);
           }
         }
       });

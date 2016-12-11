@@ -75,13 +75,13 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
           EigenschaftenAuswahlParameter param = ead.open();
           for (EigenschaftenNode node : param.getEigenschaften())
           {
-            DBIterator it = Einstellungen.getDBService().createList(
-                Eigenschaften.class);
-            it.addFilter("eigenschaft = ?", new Object[] { node
-                .getEigenschaft().getID() });
+            DBIterator<Eigenschaften> it = Einstellungen.getDBService()
+                .createList(Eigenschaften.class);
+            it.addFilter("eigenschaft = ?",
+                new Object[] { node.getEigenschaft().getID() });
             while (it.hasNext())
             {
-              Eigenschaften ei = (Eigenschaften) it.next();
+              Eigenschaften ei = it.next();
               control.getMitgliedMitMail().setChecked(ei.getMitglied(), true);
             }
           }
@@ -178,8 +178,8 @@ public class MailEmpfaengerAuswahlDialog extends AbstractDialog<Object>
           {
             Mitglied m = (Mitglied) o;
             if (m.getAdresstyp().getJVereinid() != 1
-                || (m.getAdresstyp().getJVereinid() == 1 && m
-                    .isAngemeldet(stichtag)))
+                || (m.getAdresstyp().getJVereinid() == 1
+                    && m.isAngemeldet(stichtag)))
             {
               control.getMitgliedMitMail().setChecked(o, true);
             }

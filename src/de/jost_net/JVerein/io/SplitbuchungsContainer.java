@@ -32,8 +32,8 @@ public class SplitbuchungsContainer
 
   private static ArrayList<Buchung> splitbuchungen = null;
 
-  public static void init(Buchung b) throws RemoteException,
-      ApplicationException
+  public static void init(Buchung b)
+      throws RemoteException, ApplicationException
   {
     splitbuchungen = new ArrayList<Buchung>();
     // Wenn eine gesplittete Buchung aufgerufen wird, wird die Hauptbuchung
@@ -48,15 +48,16 @@ public class SplitbuchungsContainer
       b.setSplitId(new Long(b.getID()));
       SplitbuchungsContainer.add(b);
     }
-    DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+    DBIterator<Buchung> it = Einstellungen.getDBService()
+        .createList(Buchung.class);
     it.addFilter("splitid = ?", b.getID());
 
     if (!it.hasNext())
     {
       // Wenn keine Buchung gefunden wurde, gibt es auch keine Gegenbuchung.
       // Dann wird die jetzt erstellt.
-      Buchung b2 = (Buchung) Einstellungen.getDBService().createObject(
-          Buchung.class, null);
+      Buchung b2 = (Buchung) Einstellungen.getDBService()
+          .createObject(Buchung.class, null);
       b2.setArt(b.getArt());
       b2.setAuszugsnummer(b.getAuszugsnummer());
       b2.setBetrag(b.getBetrag() * -1);
@@ -84,8 +85,7 @@ public class SplitbuchungsContainer
     return splitbuchungen;
   }
 
-  public static void add(Buchung b) throws RemoteException,
-      ApplicationException
+  public static void add(Buchung b) throws RemoteException, ApplicationException
   {
     b.plausi();
     b.setSpeicherung(false);
@@ -138,15 +138,15 @@ public class SplitbuchungsContainer
     {
       return;
     }
-    BigDecimal gegen = getSumme(SplitbuchungTyp.GEGEN).multiply(
-        new BigDecimal(-1));
+    BigDecimal gegen = getSumme(SplitbuchungTyp.GEGEN)
+        .multiply(new BigDecimal(-1));
     if (!getSumme(SplitbuchungTyp.HAUPT).equals(gegen))
     {
       throw new RemoteException(
           "Die Minusbuchung muss den gleichen Betrag mit umgekehrtem Vorzeichen wie die Hauptbuchung haben.");
     }
-    BigDecimal differenz = getSumme(SplitbuchungTyp.HAUPT).subtract(
-        getSumme(SplitbuchungTyp.SPLIT));
+    BigDecimal differenz = getSumme(SplitbuchungTyp.HAUPT)
+        .subtract(getSumme(SplitbuchungTyp.SPLIT));
     if (!differenz.equals(new BigDecimal(0).setScale(2)))
     {
       throw new RemoteException(

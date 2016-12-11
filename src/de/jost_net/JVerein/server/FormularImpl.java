@@ -63,11 +63,13 @@ public class FormularImpl extends AbstractDBObject implements Formular
       {
         throw new ApplicationException("Bitte gültigen Dateinamen angeben!");
       }
-      DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+      DBIterator<Formular> it = Einstellungen.getDBService()
+          .createList(Formular.class);
       it.addFilter("bezeichnung = ?", getBezeichnung());
       if (it.hasNext())
       {
-        throw new ApplicationException("Diese Bezeichnung wird schon verwendet, bitte eine Andere verwenden.");
+        throw new ApplicationException(
+            "Diese Bezeichnung wird schon verwendet, bitte eine Andere verwenden.");
       }
     }
     catch (RemoteException e)
@@ -84,7 +86,8 @@ public class FormularImpl extends AbstractDBObject implements Formular
     {
       if (getBezeichnung() == null || getBezeichnung().length() == 0)
       {
-        throw new ApplicationException("Bitte eine eindeutige Bezeichnung eingeben");
+        throw new ApplicationException(
+            "Bitte eine eindeutige Bezeichnung eingeben");
       }
     }
     catch (RemoteException e)

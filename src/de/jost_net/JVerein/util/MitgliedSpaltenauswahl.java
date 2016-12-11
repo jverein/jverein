@@ -41,13 +41,15 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("ID", "idint", false, true);
     try
     {
-	  if (Einstellungen.getEinstellung().getExterneMitgliedsnummer()) {
-	    add("externe Mitgliedsnummer", "externemitgliedsnummer", false, false);
-	  }
-	} 
+      if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+      {
+        add("externe Mitgliedsnummer", "externemitgliedsnummer", false, false);
+      }
+    }
     catch (RemoteException re)
     {
-	}
+      //
+    }
     add("Anrede", "anrede", false, true);
     add("Titel", "titel", false, true);
     add("Name", "name", true, true);
@@ -80,30 +82,33 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Kontoinhaber Email", "ktoiemail", false, true);
     add("Mandat Version", "mandatversion", false, true);
     add("Mandat Sequence", "mandatsequence", false, true);
-    add("Geburtsdatum", "geburtsdatum", true, new DateFormatter(
-        new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+    add("Geburtsdatum", "geburtsdatum", true,
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     add("Alter", "alter", false, true);
     add("Geschlecht", "geschlecht", false, true);
     add("Telefon privat", "telefonprivat", true, true);
     add("Telefon dienstlich", "telefondienstlich", false, true);
     add("Handy", "handy", false, true);
     add("Email", "email", false, true);
-    add("Eintritt", "eintritt", true, new DateFormatter(
-        new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, false);
+    add("Eintritt", "eintritt", true,
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
+        false);
     add("Beitragsgruppe", "beitragsgruppe", false,
         new BeitragsgruppeFormatter(), Column.ALIGN_LEFT, false);
-    add("Austritt", "austritt", true, new DateFormatter(
-        new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, false);
-    add("Kündigung", "kuendigung", false, new DateFormatter(
-        new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, false);
-    add("Eingabedatum", "eingabedatum", false, new DateFormatter(
-        new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
-    add("letzte Änderung", "letzteaenderung", false, new DateFormatter(
-        new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+    add("Austritt", "austritt", true,
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
+        false);
+    add("Kündigung", "kuendigung", false,
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
+        false);
+    add("Eingabedatum", "eingabedatum", false,
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+    add("letzte Änderung", "letzteaenderung", false,
+        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     try
     {
-      DBIterator it = Einstellungen.getDBService().createList(
-          Felddefinition.class);
+      DBIterator<Felddefinition> it = Einstellungen.getDBService()
+          .createList(Felddefinition.class);
       while (it.hasNext())
       {
         Felddefinition fd = (Felddefinition) it.next();

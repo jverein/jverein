@@ -47,19 +47,19 @@ public class FormularDuplizierenAction implements Action
     try
     {
       Formular f1 = (Formular) context;
-      Formular f2 = (Formular) Einstellungen.getDBService().createObject(
-          Formular.class, f1.getID());
+      Formular f2 = (Formular) Einstellungen.getDBService()
+          .createObject(Formular.class, f1.getID());
       f2.setID(null);
       f2.setBezeichnung(findeBezeichnung(f1.getBezeichnung()));
       f2.store();
-      DBIterator it = Einstellungen.getDBService().createList(
-          Formularfeld.class);
+      DBIterator<Formularfeld> it = Einstellungen.getDBService()
+          .createList(Formularfeld.class);
       it.addFilter("formular=?", f1.getID());
       while (it.hasNext())
       {
-        Formularfeld ff1 = (Formularfeld) it.next();
-        Formularfeld ff2 = (Formularfeld) Einstellungen.getDBService().createObject(
-            Formularfeld.class, ff1.getID());
+        Formularfeld ff1 = it.next();
+        Formularfeld ff2 = (Formularfeld) Einstellungen.getDBService()
+            .createObject(Formularfeld.class, ff1.getID());
         ff2.setID(null);
         ff2.setFormular(f2);
         ff2.store();
@@ -87,7 +87,8 @@ public class FormularDuplizierenAction implements Action
       for (int n = 1; n < Integer.MAX_VALUE; n++)
       {
         ret = bezeichnung + " (" + n + ")";
-        DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+        DBIterator<Formular> it = Einstellungen.getDBService()
+            .createList(Formular.class);
         it.addFilter("bezeichnung = ?", ret);
         if (it.size() == 0)
         {

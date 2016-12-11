@@ -73,7 +73,8 @@ public class JahressaldoList extends TablePart implements Part
 
       if (saldoList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
+        GenericIterator gi = PseudoIterator
+            .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 
         saldoList = new TablePart(gi, null);
         saldoList.addColumn("Kontonummer", "kontonummer", null, false,
@@ -82,15 +83,18 @@ public class JahressaldoList extends TablePart implements Part
         saldoList.addColumn("Anfangsbestand", "anfangsbestand",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        saldoList.addColumn("Einnahmen", "einnahmen", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
-        saldoList.addColumn("Ausgaben", "ausgaben", new CurrencyFormatter("",
-            Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn("Einnahmen", "einnahmen",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
+        saldoList.addColumn("Ausgaben", "ausgaben",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
         saldoList.addColumn("Umbuchungen", "umbuchungen",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
-        saldoList.addColumn("Endbestand", "endbestand", new CurrencyFormatter(
-            "", Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+        saldoList.addColumn("Endbestand", "endbestand",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
         saldoList.addColumn("Bemerkung", "bemerkung");
         saldoList.setRememberColWidths(true);
         saldoList.setSummary(false);
@@ -116,7 +120,7 @@ public class JahressaldoList extends TablePart implements Part
     ArrayList<SaldoZeile> zeile = new ArrayList<SaldoZeile>();
     Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
         null);
-    DBIterator konten = k.getKontenEinesJahres(gj);
+    DBIterator<Konto> konten = k.getKontenEinesJahres(gj);
     double anfangsbestand = 0;
     double einnahmen = 0;
     double ausgaben = 0;

@@ -68,8 +68,8 @@ public class MailemfaengerDeleteAction implements Action
       {
         return;
       }
-      Mitglied mitglied = (Mitglied) Einstellungen.getDBService().createObject(
-          Mitglied.class, mc.getMitglied().getID());
+      Mitglied mitglied = (Mitglied) Einstellungen.getDBService()
+          .createObject(Mitglied.class, mc.getMitglied().getID());
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
       if (mail == null)
       {
@@ -77,9 +77,8 @@ public class MailemfaengerDeleteAction implements Action
       }
       d.setTitle("Mail" + (mail.length > 1 ? "s" : "") + " von "
           + Adressaufbereitung.getVornameName(mitglied) + " löschen");
-      d.setText("Wollen Sie diese Mail" + (mail.length > 1 ? "s" : "")
-          + " von " + Adressaufbereitung.getVornameName(mitglied)
-          + " wirklich löschen?");
+      d.setText("Wollen Sie diese Mail" + (mail.length > 1 ? "s" : "") + " von "
+          + Adressaufbereitung.getVornameName(mitglied) + " wirklich löschen?");
 
       try
       {
@@ -96,13 +95,13 @@ public class MailemfaengerDeleteAction implements Action
       }
       for (Mail ma : mail)
       {
-        DBIterator me = Einstellungen.getDBService().createList(
-            MailEmpfaenger.class);
+        DBIterator<MailEmpfaenger> me = Einstellungen.getDBService()
+            .createList(MailEmpfaenger.class);
         me.addFilter("mail = ?", ma.getID());
         me.addFilter("mitglied = ?", mc.getMitglied().getID());
         while (me.hasNext())
         {
-          MailEmpfaenger me2 = (MailEmpfaenger) me.next();
+          MailEmpfaenger me2 = me.next();
           MailEmpfaenger me3 = (MailEmpfaenger) Einstellungen.getDBService()
               .createObject(MailEmpfaenger.class, me2.getID());
           me3.delete();
@@ -111,7 +110,7 @@ public class MailemfaengerDeleteAction implements Action
       }
       GUI.getStatusBar().setSuccessText(
 
-      "Mail" + (mail.length > 1 ? "s" : "") + " gelöscht.");
+          "Mail" + (mail.length > 1 ? "s" : "") + " gelöscht.");
     }
     catch (RemoteException e)
     {

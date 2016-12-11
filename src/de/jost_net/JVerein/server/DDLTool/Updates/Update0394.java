@@ -31,6 +31,7 @@ public class Update0394 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     Table t = new Table("sekundaerebeitragsgruppe");

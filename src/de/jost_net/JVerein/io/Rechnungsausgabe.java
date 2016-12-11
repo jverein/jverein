@@ -40,8 +40,8 @@ public class Rechnungsausgabe extends AbstractMitgliedskontoDokument
     {
       throw new IOException("kein Rechnungsformular ausgewählt");
     }
-    Formular formular = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, form.getID());
+    Formular formular = (Formular) Einstellungen.getDBService()
+        .createObject(Formular.class, form.getID());
 
     // Wurde ein Object übergeben?
     if (control.getCurrentObject() != null)
@@ -52,8 +52,8 @@ public class Rechnungsausgabe extends AbstractMitgliedskontoDokument
     else
     {
       // Nein: Sammeldruck aus der MitgliedskontoRechnungView
-      DBIterator it = Einstellungen.getDBService().createList(
-          Mitgliedskonto.class);
+      DBIterator<Mitgliedskonto> it = Einstellungen.getDBService()
+          .createList(Mitgliedskonto.class);
       Date d = null;
       if (control.getVondatum(control.getDatumverwendung()).getValue() != null)
       {
@@ -68,8 +68,8 @@ public class Rechnungsausgabe extends AbstractMitgliedskontoDokument
       }
       else
       {
-        control.getSettings().setAttribute(
-            control.getDatumverwendung() + "datumvon", "");
+        control.getSettings()
+            .setAttribute(control.getDatumverwendung() + "datumvon", "");
       }
       if (control.getBisdatum(control.getDatumverwendung()).getValue() != null)
       {
@@ -84,8 +84,8 @@ public class Rechnungsausgabe extends AbstractMitgliedskontoDokument
       }
       else
       {
-        control.getSettings().setAttribute(
-            control.getDatumverwendung() + "datumbis", "");
+        control.getSettings()
+            .setAttribute(control.getDatumverwendung() + "datumbis", "");
       }
       if ((Boolean) control.getOhneAbbucher().getValue())
       {

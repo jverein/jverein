@@ -31,12 +31,13 @@ public class Update0385 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Liquibase id=117
     Index index = new Index("ixSuchprofil1", true);
-    Column colbezeichnung = new Column("bezeichnung", COLTYPE.VARCHAR, 50,
-        null, false, false);
+    Column colbezeichnung = new Column("bezeichnung", COLTYPE.VARCHAR, 50, null,
+        false, false);
     Column colclazz = new Column("clazz", COLTYPE.VARCHAR, 50, null, false,
         false);
     index.add(colbezeichnung);

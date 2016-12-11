@@ -134,8 +134,8 @@ public class PreNotificationControl extends AbstractControl
     }
     Object[] values = new Object[] { NICHT_EINZELN, EINZELN_NUMMERIERT,
         EINZELN_MITGLIEDSNUMMER, EINZELN_NUMMERIERT_UND_MNR };
-    pdfModus = new SelectInput(values, settings.getString("pdfModus",
-        NICHT_EINZELN));
+    pdfModus = new SelectInput(values,
+        settings.getString("pdfModus", NICHT_EINZELN));
     pdfModus.setName("PDF als");
     return pdfModus;
   }
@@ -204,8 +204,8 @@ public class PreNotificationControl extends AbstractControl
     {
       return ct1ausgabe;
     }
-    Abrechnungsausgabe aus = Abrechnungsausgabe.getByKey(settings.getInt(
-        "ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
+    Abrechnungsausgabe aus = Abrechnungsausgabe.getByKey(
+        settings.getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     if (aus != Abrechnungsausgabe.SEPA_DATEI
         && aus != Abrechnungsausgabe.HIBISCUS)
     {
@@ -222,7 +222,8 @@ public class PreNotificationControl extends AbstractControl
     {
       return verwendungszweck;
     }
-    verwendungszweck = new TextInput(settings.getString("verwendungszweck", ""));
+    verwendungszweck = new TextInput(
+        settings.getString("verwendungszweck", ""));
     verwendungszweck.setName("Verwendungszweck");
     return verwendungszweck;
   }
@@ -242,7 +243,8 @@ public class PreNotificationControl extends AbstractControl
 
           settings.setAttribute("output", val);
           settings.setAttribute("pdfModus", pdfMode);
-          settings.setAttribute("mail.subject", (String) mailsubject.getValue());
+          settings.setAttribute("mail.subject",
+              (String) mailsubject.getValue());
           settings.setAttribute("mail.body", (String) mailbody.getValue());
           settings.setAttribute("tab.selection", folder.getSelectionIndex());
 
@@ -318,14 +320,14 @@ public class PreNotificationControl extends AbstractControl
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("prenotification", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname("prenotification", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
@@ -345,13 +347,14 @@ public class PreNotificationControl extends AbstractControl
     {
       throw new IOException("kein SEPA Pre-Notification-Formular ausgewählt");
     }
-    Formular fo = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, form.getID());
+    Formular fo = (Formular) Einstellungen.getDBService()
+        .createObject(Formular.class, form.getID());
     if (!einzelnePdfs)
     {
       fa = new FormularAufbereitung(file);
     }
-    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    DBIterator<Lastschrift> it = Einstellungen.getDBService()
+        .createList(Lastschrift.class);
     it.addFilter("abrechnungslauf = ?", abrl.getID());
     if (!mitMail)
     {
@@ -405,8 +408,8 @@ public class PreNotificationControl extends AbstractControl
   {
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
     File file = null;
-    Abrechnungsausgabe aa = Abrechnungsausgabe.getByKey(settings.getInt(
-        "ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
+    Abrechnungsausgabe aa = Abrechnungsausgabe.getByKey(
+        settings.getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     if (aa == Abrechnungsausgabe.SEPA_DATEI)
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -417,8 +420,8 @@ public class PreNotificationControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("1ctueberweisung", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "XML").get());
+      fd.setFileName(new Dateiname("1ctueberweisung", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "XML").get());
       fd.setFilterExtensions(new String[] { "*.XML" });
 
       String s = fd.open();
@@ -436,8 +439,8 @@ public class PreNotificationControl extends AbstractControl
     }
     String faelligkeitsdatum = settings.getString("faelligkeitsdatum", null);
     Date faell = Datum.toDate(faelligkeitsdatum);
-    Abrechnungsausgabe ct1ausgabe = Abrechnungsausgabe.getByKey(settings
-        .getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
+    Abrechnungsausgabe ct1ausgabe = Abrechnungsausgabe.getByKey(
+        settings.getInt("ct1ausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     String verwendungszweck = settings.getString("verwendungszweck", "");
     Ct1Ueberweisung ct1ueberweisung = new Ct1Ueberweisung();
     int anzahl = ct1ueberweisung.write(abrl, file, faell, ct1ausgabe,
@@ -448,7 +451,8 @@ public class PreNotificationControl extends AbstractControl
   private void generiereEMail(Object currentObject) throws IOException
   {
     Abrechnungslauf abrl = (Abrechnungslauf) currentObject;
-    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    DBIterator<Lastschrift> it = Einstellungen.getDBService()
+        .createList(Lastschrift.class);
     it.addFilter("abrechnungslauf = ?", abrl.getID());
     it.addFilter("email is not null and length(email) > 0");
     it.setOrder("order by name, vorname");
@@ -465,7 +469,7 @@ public class PreNotificationControl extends AbstractControl
     fa.writeForm(fo, map);
   }
 
-  private void sendeMail(final DBIterator it, final String betr,
+  private void sendeMail(final DBIterator<Lastschrift> it, final String betr,
       final String txt) throws RemoteException
   {
 
@@ -477,17 +481,18 @@ public class PreNotificationControl extends AbstractControl
       {
         try
         {
-          MailSender sender = new MailSender(Einstellungen.getEinstellung()
-              .getSmtpServer(), Einstellungen.getEinstellung().getSmtpPort(),
-              Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
-                  .getEinstellung().getSmtpAuthPwd(), Einstellungen
-                  .getEinstellung().getSmtpFromAddress(), Einstellungen
-                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
-                  .getEinstellung().getMailAlwaysBcc(), Einstellungen
-                  .getEinstellung().getMailAlwaysCc(), Einstellungen
-                  .getEinstellung().getSmtpSsl(), Einstellungen
-                  .getEinstellung().getSmtpStarttls(), Einstellungen
-                  .getEinstellung().getMailVerzoegerung(),
+          MailSender sender = new MailSender(
+              Einstellungen.getEinstellung().getSmtpServer(),
+              Einstellungen.getEinstellung().getSmtpPort(),
+              Einstellungen.getEinstellung().getSmtpAuthUser(),
+              Einstellungen.getEinstellung().getSmtpAuthPwd(),
+              Einstellungen.getEinstellung().getSmtpFromAddress(),
+              Einstellungen.getEinstellung().getSmtpFromAnzeigename(),
+              Einstellungen.getEinstellung().getMailAlwaysBcc(),
+              Einstellungen.getEinstellung().getMailAlwaysCc(),
+              Einstellungen.getEinstellung().getSmtpSsl(),
+              Einstellungen.getEinstellung().getSmtpStarttls(),
+              Einstellungen.getEinstellung().getMailVerzoegerung(),
               Einstellungen.getImapCopyData());
 
           Velocity.init();
@@ -521,8 +526,8 @@ public class PreNotificationControl extends AbstractControl
               // Mail in die Datenbank schreiben
               if (ls.getMitglied() != null)
               {
-                Mail mail = (Mail) Einstellungen.getDBService().createObject(
-                    Mail.class, null);
+                Mail mail = (Mail) Einstellungen.getDBService()
+                    .createObject(Mail.class, null);
                 Timestamp ts = new Timestamp(new Date().getTime());
                 mail.setBearbeitung(ts);
                 mail.setBetreff(wtext1.getBuffer().toString());
@@ -548,8 +553,8 @@ public class PreNotificationControl extends AbstractControl
           }
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor.setStatusText(String.format("Anzahl verschickter Mails: %d",
-              sentCount));
+          monitor.setStatusText(
+              String.format("Anzahl verschickter Mails: %d", sentCount));
           GUI.getStatusBar().setSuccessText(
               "Mail" + (sentCount > 1 ? "s" : "") + " verschickt");
           GUI.getCurrentView().reload();

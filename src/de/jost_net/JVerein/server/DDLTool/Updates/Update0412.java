@@ -37,10 +37,11 @@ public class Update0412 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Buchungsart in den Zusatzbeträgen
-    execute(addColumn("zusatzabbuchung", new Column("buchungsart",
-        COLTYPE.BIGINT, 0, "NULL", false, false)));
+    execute(addColumn("zusatzabbuchung",
+        new Column("buchungsart", COLTYPE.BIGINT, 0, "NULL", false, false)));
   }
 }

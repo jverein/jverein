@@ -99,7 +99,8 @@ public class LehrgangControl extends AbstractControl
     {
       return lehrgangsart;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Lehrgangsart.class);
+    DBIterator<Lehrgangsart> it = Einstellungen.getDBService()
+        .createList(Lehrgangsart.class);
     it.setOrder("order by bezeichnung");
     lehrgangsart = new SelectInput(it, getLehrgang().getLehrgangsart());
     lehrgangsart.setPleaseChoose("Bitte auswählen");
@@ -184,7 +185,8 @@ public class LehrgangControl extends AbstractControl
     {
       return suchlehrgangsart;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Lehrgangsart.class);
+    DBIterator<Lehrgangsart> it = Einstellungen.getDBService()
+        .createList(Lehrgangsart.class);
     it.setOrder("order by bezeichnung");
     Lehrgangsart letztesuche = null;
     try
@@ -290,10 +292,10 @@ public class LehrgangControl extends AbstractControl
         return;
       }
       lehrgaengeList.removeAll();
-      DBIterator lehrgaenge = getIterator();
+      DBIterator<Lehrgang> lehrgaenge = getIterator();
       while (lehrgaenge.hasNext())
       {
-        Lehrgang lg = (Lehrgang) lehrgaenge.next();
+        Lehrgang lg = lehrgaenge.next();
         lehrgaengeList.addItem(lg);
       }
     }
@@ -303,10 +305,10 @@ public class LehrgangControl extends AbstractControl
     }
   }
 
-  private DBIterator getIterator() throws RemoteException
+  private DBIterator<Lehrgang> getIterator() throws RemoteException
   {
-    DBIterator lehrgaenge = Einstellungen.getDBService().createList(
-        Lehrgang.class);
+    DBIterator<Lehrgang> lehrgaenge = Einstellungen.getDBService()
+        .createList(Lehrgang.class);
     if (getSuchLehrgangsart().getValue() != null)
     {
       Lehrgangsart la = (Lehrgangsart) getSuchLehrgangsart().getValue();
@@ -314,13 +316,13 @@ public class LehrgangControl extends AbstractControl
     }
     if (getDatumvon().getValue() != null)
     {
-      lehrgaenge.addFilter("von >= ?", new Object[] { (Date) getDatumvon()
-          .getValue() });
+      lehrgaenge.addFilter("von >= ?",
+          new Object[] { (Date) getDatumvon().getValue() });
     }
     if (getDatumbis().getValue() != null)
     {
-      lehrgaenge.addFilter("bis <= ?", new Object[] { (Date) getDatumbis()
-          .getValue() });
+      lehrgaenge.addFilter("bis <= ?",
+          new Object[] { (Date) getDatumbis().getValue() });
     }
     return lehrgaenge;
   }
@@ -376,7 +378,7 @@ public class LehrgangControl extends AbstractControl
 
   public Part getLehrgaengeList() throws RemoteException
   {
-    DBIterator lehrgaenge = getIterator();
+    DBIterator<Lehrgang> lehrgaenge = getIterator();
     if (lehrgaengeList == null)
     {
       lehrgaengeList = new TablePart(lehrgaenge, new LehrgangAction(null));
@@ -402,10 +404,10 @@ public class LehrgangControl extends AbstractControl
         }
       });
       lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
-      lehrgaengeList.addColumn("von/am", "von", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
-      lehrgaengeList.addColumn("bis", "bis", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      lehrgaengeList.addColumn("von/am", "von",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      lehrgaengeList.addColumn("bis", "bis",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       lehrgaengeList.addColumn("Veranstalter", "veranstalter");
       lehrgaengeList.addColumn("Ergebnis", "ergebnis");
       lehrgaengeList.setContextMenu(new LehrgangMenu());

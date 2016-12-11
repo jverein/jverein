@@ -471,7 +471,8 @@ public class AbrechnungSEPA
     if (param.abbuchungsmodus != Abrechnungsmodi.KEINBEITRAG)
     {
       // Alle Mitglieder lesen
-      DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+      DBIterator<Mitglied> list = Einstellungen.getDBService()
+          .createList(Mitglied.class);
       MitgliedUtils.setMitglied(list);
 
       // Das Mitglied muss bereits eingetreten sein
@@ -546,8 +547,8 @@ public class AbrechnungSEPA
         JVereinZahler z = abrechnungMitgliederSub(param, lastschrift, monitor,
             abrl, konto, m, m.getBeitragsgruppe(), true);
 
-        DBIterator sekundaer = Einstellungen.getDBService()
-            .createList(SekundaereBeitragsgruppe.class);
+        DBIterator<SekundaereBeitragsgruppe> sekundaer = Einstellungen
+            .getDBService().createList(SekundaereBeitragsgruppe.class);
         sekundaer.addFilter("mitglied=?", m.getID());
         while (sekundaer.hasNext())
         {
@@ -670,7 +671,7 @@ public class AbrechnungSEPA
         if (m.getBeitragsgruppe()
             .getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
         {
-          DBIterator angeh = Einstellungen.getDBService()
+          DBIterator<Mitglied> angeh = Einstellungen.getDBService()
               .createList(Mitglied.class);
           angeh.addFilter("zahlerid = ?", m.getID());
           String an = "";
@@ -703,7 +704,7 @@ public class AbrechnungSEPA
       ProgressMonitor monitor)
       throws NumberFormatException, IOException, ApplicationException
   {
-    DBIterator list = Einstellungen.getDBService()
+    DBIterator<Zusatzbetrag> list = Einstellungen.getDBService()
         .createList(Zusatzbetrag.class);
     while (list.hasNext())
     {
@@ -811,7 +812,7 @@ public class AbrechnungSEPA
       JVereinBasislastschrift lastschrift)
       throws ApplicationException, IOException
   {
-    DBIterator list = Einstellungen.getDBService()
+    DBIterator<Kursteilnehmer> list = Einstellungen.getDBService()
         .createList(Kursteilnehmer.class);
     list.addFilter("abbudatum is null");
     while (list.hasNext())
@@ -1022,7 +1023,7 @@ public class AbrechnungSEPA
       throws ApplicationException, RemoteException, SEPAException
   {
     // Variante 1: IBAN
-    DBIterator it = Einstellungen.getDBService().createList(Konto.class);
+    DBIterator<Konto> it = Einstellungen.getDBService().createList(Konto.class);
     it.addFilter("nummer = ?", Einstellungen.getEinstellung().getIban());
     if (it.size() == 1)
     {

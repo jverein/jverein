@@ -69,7 +69,8 @@ public abstract class StatistikJahrgaengeExport implements Exporter
     /*
      * Teil 1: natürliche Personen
      */
-    DBIterator mitgl = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setNurAktive(mitgl, stichtag);
     MitgliedUtils.setMitglied(mitgl);
     MitgliedUtils.setMitgliedNatuerlichePerson(mitgl);
@@ -104,7 +105,8 @@ public abstract class StatistikJahrgaengeExport implements Exporter
     /*
      * Teil 2: Juristische Personen
      */
-    DBIterator mitglj = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> mitglj = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setNurAktive(mitglj, stichtag);
     MitgliedUtils.setMitglied(mitglj);
     MitgliedUtils.setMitgliedJuristischePerson(mitglj);
@@ -132,8 +134,8 @@ public abstract class StatistikJahrgaengeExport implements Exporter
     return "statistikjahrgaenge";
   }
 
-  protected abstract void open() throws DocumentException,
-      FileNotFoundException;
+  protected abstract void open()
+      throws DocumentException, FileNotFoundException;
 
   protected abstract void close() throws IOException, DocumentException;
 

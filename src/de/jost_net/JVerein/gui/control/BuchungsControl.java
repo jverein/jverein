@@ -467,7 +467,8 @@ public class BuchungsControl extends AbstractControl
     {
       return projekt;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Projekt.class);
+    DBIterator<Projekt> list = Einstellungen.getDBService()
+        .createList(Projekt.class);
     list.setOrder("ORDER BY bezeichnung");
     projekt = new SelectInput(list, getBuchung().getProjekt());
     projekt.setValue(getBuchung().getProjekt());
@@ -547,11 +548,12 @@ public class BuchungsControl extends AbstractControl
     p1.setBezeichnung("Ohne Projekt");
     projektliste.add(p1);
 
-    DBIterator list = Einstellungen.getDBService().createList(Projekt.class);
+    DBIterator<Projekt> list = Einstellungen.getDBService()
+        .createList(Projekt.class);
     list.setOrder("ORDER BY bezeichnung");
     while (list.hasNext())
     {
-      projektliste.add((Projekt) list.next());
+      projektliste.add(list.next());
     }
 
     suchprojekt = new SelectInput(projektliste, null);
@@ -567,7 +569,7 @@ public class BuchungsControl extends AbstractControl
     {
       return suchbuchungsart;
     }
-    DBIterator list = Einstellungen.getDBService()
+    DBIterator<Buchungsart> list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
     if (Einstellungen.getEinstellung()
         .getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
@@ -593,7 +595,7 @@ public class BuchungsControl extends AbstractControl
     liste.add(b2);
     while (list.hasNext())
     {
-      liste.add((Buchungsart) list.next());
+      liste.add(list.next());
     }
     int bwert = settings.getInt(BUCHUNGSART, -2);
     Buchungsart b = null;
@@ -1159,7 +1161,7 @@ public class BuchungsControl extends AbstractControl
 
     try
     {
-      DBIterator list = Einstellungen.getDBService()
+      DBIterator<Buchungsart> list = Einstellungen.getDBService()
           .createList(Buchungsart.class);
       if (query.getBuchungsart() != null
           && query.getBuchungsart().getArt() != -2)
@@ -1176,7 +1178,7 @@ public class BuchungsControl extends AbstractControl
       ArrayList<Buchungsart> buchungsarten = new ArrayList<Buchungsart>();
       while (list.hasNext())
       {
-        buchungsarten.add((Buchungsart) list.next());
+        buchungsarten.add(list.next());
       }
       if (buchungsarten.size() > 1)
       {
@@ -1249,6 +1251,7 @@ public class BuchungsControl extends AbstractControl
       BackgroundTask t = new BackgroundTask()
       {
 
+        @SuppressWarnings("unused")
         @Override
         public void run(ProgressMonitor monitor) throws ApplicationException
         {
@@ -1342,6 +1345,7 @@ public class BuchungsControl extends AbstractControl
     BackgroundTask t = new BackgroundTask()
     {
 
+      @SuppressWarnings("unused")
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {
@@ -1384,6 +1388,7 @@ public class BuchungsControl extends AbstractControl
     BackgroundTask t = new BackgroundTask()
     {
 
+      @SuppressWarnings("unused")
       @Override
       public void run(ProgressMonitor monitor) throws ApplicationException
       {

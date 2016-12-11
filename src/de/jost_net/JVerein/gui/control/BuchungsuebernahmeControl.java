@@ -67,12 +67,12 @@ public class BuchungsuebernahmeControl extends AbstractControl
   {
     List<Uebernahmekonto> ueko = new ArrayList<Uebernahmekonto>();
     DBService service = Einstellungen.getDBService();
-    DBIterator kontenit = service.createList(Konto.class);
+    DBIterator<Konto> kontenit = service.createList(Konto.class);
     kontenit.addFilter("hibiscusid > 0");
     kontenit.setOrder("ORDER BY nummer");
     while (kontenit.hasNext())
     {
-      Konto k = (Konto) kontenit.next();
+      Konto k = kontenit.next();
       Uebernahmekonto ue = new Uebernahmekonto();
       ue.setNummer(k.getNummer());
 
@@ -91,14 +91,14 @@ public class BuchungsuebernahmeControl extends AbstractControl
           return Integer.valueOf(rs.getInt(1));
         }
       };
-      ue.setJVereinMaxBuchungID((Integer) Einstellungen.getDBService().execute(
-          sql, new Object[] {}, rs));
+      ue.setJVereinMaxBuchungID((Integer) Einstellungen.getDBService()
+          .execute(sql, new Object[] {}, rs));
 
       try
       {
         de.willuhn.jameica.hbci.rmi.Konto hk = (de.willuhn.jameica.hbci.rmi.Konto) Einstellungen
-            .getHibiscusDBService().createObject(
-                de.willuhn.jameica.hbci.rmi.Konto.class,
+            .getHibiscusDBService()
+            .createObject(de.willuhn.jameica.hbci.rmi.Konto.class,
                 k.getHibiscusId().toString());
         ue.setHibiscusKontonummer(hk.getIban());
 
@@ -141,7 +141,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
     kontenit.setOrder("ORDER BY nummer");
     while (kontenit.hasNext())
     {
-      Konto k = (Konto) kontenit.next();
+      Konto k = kontenit.next();
       Uebernahmekonto ue = new Uebernahmekonto();
       ue.setNummer(k.getNummer());
       ue.setHibiscusKontonummer("");
@@ -155,8 +155,8 @@ public class BuchungsuebernahmeControl extends AbstractControl
     kontenlist.addColumn("Nummer", "nummer");
     kontenlist.addColumn("JVerein max. Buchungsnummer", "jVereinMaxBuchungID");
     kontenlist.addColumn("Hibiscus-Kontonummer", "hibiscusKontonummer");
-    kontenlist
-        .addColumn("Hibiscus max. Buchungsnummer", "hibiscusMaxBuchungID");
+    kontenlist.addColumn("Hibiscus max. Buchungsnummer",
+        "hibiscusMaxBuchungID");
     kontenlist.addColumn("Bemerkung", "bemerkung");
 
     kontenlist.setRememberColWidths(true);

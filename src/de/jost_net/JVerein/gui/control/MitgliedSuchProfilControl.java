@@ -77,7 +77,7 @@ public class MitgliedSuchProfilControl extends AbstractControl
   public Part getSuchprofilList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator profile = service.createList(Suchprofil.class);
+    DBIterator<Suchprofil> profile = service.createList(Suchprofil.class);
     profile.setOrder("ORDER BY bezeichnung");
 
     profillist = new TablePart(profile, new SuchprofilLadenAction());
@@ -98,7 +98,7 @@ public class MitgliedSuchProfilControl extends AbstractControl
     }
     profillist.removeAll();
 
-    DBIterator it = getIterator();
+    DBIterator<Suchprofil> it = getIterator();
     while (it.hasNext())
     {
       Suchprofil sp = (Suchprofil) it.next();
@@ -106,10 +106,10 @@ public class MitgliedSuchProfilControl extends AbstractControl
     }
   }
 
-  private DBIterator getIterator() throws RemoteException
+  private DBIterator<Suchprofil> getIterator() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator profile = service.createList(Suchprofil.class);
+    DBIterator<Suchprofil> profile = service.createList(Suchprofil.class);
     profile.setOrder("ORDER BY bezeichnung");
     return profile;
   }
@@ -122,8 +122,8 @@ public class MitgliedSuchProfilControl extends AbstractControl
       Suchprofil sp1 = null;
       try
       {
-        sp1 = (Suchprofil) Einstellungen.getDBService().createObject(
-            Suchprofil.class, s.getString("id", null));
+        sp1 = (Suchprofil) Einstellungen.getDBService()
+            .createObject(Suchprofil.class, s.getString("id", null));
       }
       catch (ObjectNotFoundException e)
       {
@@ -146,8 +146,8 @@ public class MitgliedSuchProfilControl extends AbstractControl
         {
           Object o = td.open();
           getProfilname().setValue(o);
-          sp1 = (Suchprofil) Einstellungen.getDBService().createObject(
-              Suchprofil.class, null);
+          sp1 = (Suchprofil) Einstellungen.getDBService()
+              .createObject(Suchprofil.class, null);
         }
         catch (OperationCanceledException e)
         {
@@ -202,8 +202,8 @@ public class MitgliedSuchProfilControl extends AbstractControl
    * @param sp1
    *          Das Model
    */
-  private void storeSettings(Settings s, Suchprofil sp1) throws IOException,
-      RemoteException
+  private void storeSettings(Settings s, Suchprofil sp1)
+      throws IOException, RemoteException
   {
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
     Properties prop = getSettings2Properties(s);
@@ -270,8 +270,8 @@ public class MitgliedSuchProfilControl extends AbstractControl
             if (profillist == null)
             {
               // Eingabe-Feld existiert nicht. Also abmelden
-              Application.getMessagingFactory().unRegisterMessageConsumer(
-                  SuchprofilMessageConsumer.this);
+              Application.getMessagingFactory()
+                  .unRegisterMessageConsumer(SuchprofilMessageConsumer.this);
               return;
             }
             refreshSuchprofilList();
@@ -280,8 +280,8 @@ public class MitgliedSuchProfilControl extends AbstractControl
           {
             // Wenn hier ein Fehler auftrat, deregistrieren wir uns wieder
             Logger.error("unable to refresh Suchprofile", e);
-            Application.getMessagingFactory().unRegisterMessageConsumer(
-                SuchprofilMessageConsumer.this);
+            Application.getMessagingFactory()
+                .unRegisterMessageConsumer(SuchprofilMessageConsumer.this);
           }
         }
       });

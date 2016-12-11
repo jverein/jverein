@@ -60,7 +60,7 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
   {
     try
     {
-      DBIterator dbIterator = selektiereMitgliederZumAendern();
+      DBIterator<MitgliedNextBGruppe> dbIterator = selektiereMitgliederZumAendern();
       return dbIterator.hasNext();
     }
     catch (RemoteException ex)
@@ -70,13 +70,14 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
     return false;
   }
 
-  private DBIterator selektiereMitgliederZumAendern() throws RemoteException
+  private DBIterator<MitgliedNextBGruppe> selektiereMitgliederZumAendern()
+      throws RemoteException
   {
-    DBIterator dbIterator = Einstellungen.getDBService().createList(
-        MitgliedNextBGruppe.class);
+    DBIterator<MitgliedNextBGruppe> dbIterator = Einstellungen.getDBService()
+        .createList(MitgliedNextBGruppe.class);
     dbIterator.addFilter(MitgliedNextBGruppe.COL_AB_DATUM + " <= current_date");
-    dbIterator.setOrder("order by " + MitgliedNextBGruppe.COL_AB_DATUM
-        + " desc");
+    dbIterator
+        .setOrder("order by " + MitgliedNextBGruppe.COL_AB_DATUM + " desc");
     return dbIterator;
   }
 
@@ -139,11 +140,10 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
   {
     boolean datenVorhanden = false;
     aenderungsListenPart.removeAll();
-    DBIterator dbIterator = selektiereMitgliederZumAendern();
+    DBIterator<MitgliedNextBGruppe> dbIterator = selektiereMitgliederZumAendern();
     while (dbIterator.hasNext())
     {
-      MitgliedNextBGruppe mitgliedBeitraege = (MitgliedNextBGruppe) dbIterator
-          .next();
+      MitgliedNextBGruppe mitgliedBeitraege = dbIterator.next();
       aenderungsListenPart.addItem(mitgliedBeitraege);
       datenVorhanden = true;
     }
@@ -222,8 +222,7 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
         startTransaktion();
 
         @SuppressWarnings("unchecked")
-        List<MitgliedNextBGruppe> liste = aenderungsListenPart
-            .getItems();
+        List<MitgliedNextBGruppe> liste = aenderungsListenPart.getItems();
         for (MitgliedNextBGruppe mitgliedBeitraege : liste)
         {
           aenderBeitragsGruppe(mitgliedBeitraege);
@@ -282,8 +281,8 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
   {
     try
     {
-      transaktionObjekt = Einstellungen.getDBService().createObject(
-          MitgliedNextBGruppe.class, null);
+      transaktionObjekt = Einstellungen.getDBService()
+          .createObject(MitgliedNextBGruppe.class, null);
       transaktionObjekt.transactionBegin();
     }
     catch (RemoteException ex)

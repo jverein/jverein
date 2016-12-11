@@ -63,25 +63,27 @@ public class JahressaldoControl extends AbstractControl
     settings.setStoreWhenRead(true);
   }
 
-  public SelectInput getSuchJahr() throws RemoteException,
-      ApplicationException, ParseException
+  public SelectInput getSuchJahr()
+      throws RemoteException, ApplicationException, ParseException
   {
     if (suchjahr != null)
     {
       return suchjahr;
     }
-    DBIterator list = Einstellungen.getDBService().createList(Buchung.class);
+    DBIterator<Buchung> list = Einstellungen.getDBService()
+        .createList(Buchung.class);
     list.setOrder("ORDER BY datum");
     Buchung b = null;
     Calendar von = Calendar.getInstance();
     if (list.hasNext())
     {
-      b = (Buchung) list.next();
+      b = list.next();
       von.setTime(new Geschaeftsjahr(b.getDatum()).getBeginnGeschaeftsjahr());
     }
     else
     {
-      throw new ApplicationException("Abbruch! Es existiert noch keine Buchung");
+      throw new ApplicationException(
+          "Abbruch! Es existiert noch keine Buchung");
     }
     Calendar bis = Calendar.getInstance();
     ArrayList<Integer> jahre = new ArrayList<Integer>();
@@ -125,13 +127,13 @@ public class JahressaldoControl extends AbstractControl
 
       if (saldoList == null)
       {
-        saldoList = new JahressaldoList(null, new Geschaeftsjahr(
-            (Integer) getSuchJahr().getValue()));
+        saldoList = new JahressaldoList(null,
+            new Geschaeftsjahr((Integer) getSuchJahr().getValue()));
       }
       else
       {
-        saldoList.setGeschaeftsjahr(new Geschaeftsjahr(
-            (Integer) getSuchJahr().getValue()));
+        saldoList.setGeschaeftsjahr(
+            new Geschaeftsjahr((Integer) getSuchJahr().getValue()));
         ArrayList<SaldoZeile> zeile = saldoList.getInfo();
         saldoList.removeAll();
         for (SaldoZeile sz : zeile)
@@ -188,13 +190,13 @@ public class JahressaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException("Fehler beim Aufbau des Reports: "
-          + e.getMessage());
+      throw new ApplicationException(
+          "Fehler beim Aufbau des Reports: " + e.getMessage());
     }
     catch (ParseException e)
     {
-      throw new ApplicationException("Fehler beim Aufbau des Reports: "
-          + e.getMessage());
+      throw new ApplicationException(
+          "Fehler beim Aufbau des Reports: " + e.getMessage());
     }
   }
 

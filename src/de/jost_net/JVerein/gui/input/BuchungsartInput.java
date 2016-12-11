@@ -31,9 +31,10 @@ public class BuchungsartInput
   public AbstractInput getBuchungsartInput(AbstractInput buchungsart,
       Buchungsart bart) throws RemoteException
   {
-    DBIterator list = Einstellungen.getDBService()
+    DBIterator<Buchungsart> list = Einstellungen.getDBService()
         .createList(Buchungsart.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
+    if (Einstellungen.getEinstellung()
+        .getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
     {
       list.setOrder("ORDER BY nummer");
     }

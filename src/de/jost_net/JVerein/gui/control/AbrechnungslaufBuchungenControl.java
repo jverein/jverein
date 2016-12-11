@@ -136,10 +136,11 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
     //
   }
 
-  private DBIterator getIterator(int lauf) throws RemoteException
+  private DBIterator<Mitgliedskonto> getIterator(int lauf)
+      throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator it = service.createList(Mitgliedskonto.class);
+    DBIterator<Mitgliedskonto> it = service.createList(Mitgliedskonto.class);
 
     it.addFilter("ABRECHNUNGSLAUF = (?)", lauf);
     it.setOrder("ORDER BY mitglied");
@@ -148,19 +149,19 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
 
   public Part getSollbuchungsList() throws RemoteException
   {
-    DBIterator it = getIterator((Integer) lauf.getValue());
+    DBIterator<Mitgliedskonto> it = getIterator((Integer) lauf.getValue());
     if (SollbuchungsList == null)
     {
       SollbuchungsList = new TablePart(it, new MitgliedDetailAction());
-      SollbuchungsList.addColumn("Fälligkeit", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      SollbuchungsList.addColumn("Fälligkeit", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
 
       SollbuchungsList.addColumn("Mitglied", "mitglied");
       SollbuchungsList.addColumn("Zweck", "zweck1");
-      SollbuchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-          Einstellungen.DECIMALFORMAT));
-      SollbuchungsList.addColumn("Eingang", "istsumme", new CurrencyFormatter(
-          "", Einstellungen.DECIMALFORMAT));
+      SollbuchungsList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
+      SollbuchungsList.addColumn("Eingang", "istsumme",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       SollbuchungsList.addColumn("Zahlungsweg", "zahlungsweg",
           new ZahlungswegFormatter(), false, Column.ALIGN_LEFT);
       SollbuchungsList.setRememberColWidths(true);
@@ -197,7 +198,7 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
 
     try
     {
-      DBIterator it = getIterator((Integer) lauf.getValue());
+      DBIterator<Mitgliedskonto> it = getIterator((Integer) lauf.getValue());
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
       fd.setText("Ausgabedatei wählen.");
@@ -208,8 +209,8 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abrechnungslauf", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("abrechnungslauf", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -229,8 +230,8 @@ public class AbrechnungslaufBuchungenControl extends AbstractControl
     }
   }
 
-  private void auswertungPDF(final DBIterator it, final File file,
-      final Abrechnungslauf lauf)
+  private void auswertungPDF(final DBIterator<Mitgliedskonto> it,
+      final File file, final Abrechnungslauf lauf)
   {
     BackgroundTask t = new BackgroundTask()
     {

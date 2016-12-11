@@ -50,22 +50,22 @@ public abstract class AltersjubilaeumsExport implements Exporter
 
   @Override
   public void doExport(Object[] objects, IOFormat format, File file,
-      ProgressMonitor monitor) throws ApplicationException, DocumentException,
-      IOException
+      ProgressMonitor monitor)
+      throws ApplicationException, DocumentException, IOException
   {
     this.file = file;
     MitgliedControl control = (MitgliedControl) objects[0];
     jahr = control.getJJahr();
     Logger.debug(String.format("Altersjubiläumexport, Jahr=%d", jahr));
     open();
-    JubilaeenParser jp = new JubilaeenParser(Einstellungen.getEinstellung()
-        .getAltersjubilaeen());
+    JubilaeenParser jp = new JubilaeenParser(
+        Einstellungen.getEinstellung().getAltersjubilaeen());
     while (jp.hasNext())
     {
       int jubi = jp.getNext();
       startJahrgang(jubi);
 
-      DBIterator mitgl = Einstellungen.getDBService()
+      DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
           .createList(Mitglied.class);
       MitgliedUtils.setNurAktive(mitgl);
       MitgliedUtils.setMitglied(mitgl);
@@ -103,11 +103,11 @@ public abstract class AltersjubilaeumsExport implements Exporter
 
   protected abstract void endeJahrgang() throws DocumentException;
 
-  protected abstract void open() throws DocumentException,
-      FileNotFoundException;
+  protected abstract void open()
+      throws DocumentException, FileNotFoundException;
 
   protected abstract void add(Mitglied m) throws RemoteException;
 
-  protected abstract void close() throws IOException, DocumentException,
-      ApplicationException;
+  protected abstract void close()
+      throws IOException, DocumentException, ApplicationException;
 }

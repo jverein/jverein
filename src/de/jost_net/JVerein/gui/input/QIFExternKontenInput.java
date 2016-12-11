@@ -110,9 +110,9 @@ public class QIFExternKontenInput extends SelectInput
     return list.isEmpty();
   }
 
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<QIFImportHead> init() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService()
+    DBIterator<QIFImportHead> it = Einstellungen.getDBService()
         .createList(QIFImportHead.class);
     it.setOrder("Order by " + QIFImportHead.COL_NAME);
     return it;

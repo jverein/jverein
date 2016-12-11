@@ -184,20 +184,21 @@ public class ZusatzbetragControl extends AbstractControl
     try
     {
       Zusatzbetrag z = getZusatzbetrag();
-      z.setFaelligkeit((Date) getZusatzbetragPart().getFaelligkeit().getValue());
-      z.setStartdatum((Date) getZusatzbetragPart().getStartdatum(false)
-          .getValue());
+      z.setFaelligkeit(
+          (Date) getZusatzbetragPart().getFaelligkeit().getValue());
+      z.setStartdatum(
+          (Date) getZusatzbetragPart().getStartdatum(false).getValue());
       IntervallZusatzzahlung iz = (IntervallZusatzzahlung) getZusatzbetragPart()
           .getIntervall().getValue();
       z.setIntervall(iz.getKey());
       z.setEndedatum((Date) getZusatzbetragPart().getEndedatum().getValue());
-      z.setBuchungstext((String) getZusatzbetragPart().getBuchungstext()
-          .getValue());
+      z.setBuchungstext(
+          (String) getZusatzbetragPart().getBuchungstext().getValue());
       Double d = (Double) getZusatzbetragPart().getBetrag().getValue();
       if (getZusatzbetragPart().getBuchungsart().getValue() != null)
       {
-        z.setBuchungsart((Buchungsart) getZusatzbetragPart().getBuchungsart()
-            .getValue());
+        z.setBuchungsart(
+            (Buchungsart) getZusatzbetragPart().getBuchungsart().getValue());
       }
       z.setBetrag(d.doubleValue());
       z.store();
@@ -234,7 +235,7 @@ public class ZusatzbetragControl extends AbstractControl
 
   public Part getZusatzbetraegeList() throws RemoteException
   {
-    DBIterator zusatzbetraege = getIterator();
+    DBIterator<Zusatzbetrag> zusatzbetraege = getIterator();
 
     if (zusatzbetraegeList == null)
     {
@@ -270,14 +271,14 @@ public class ZusatzbetragControl extends AbstractControl
       zusatzbetraegeList.addColumn("letzte Ausführung", "ausfuehrung",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       zusatzbetraegeList.addColumn("Intervall", "intervalltext");
-      zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      zusatzbetraegeList.addColumn("Endedatum", "endedatum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
-      zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
-          "", Einstellungen.DECIMALFORMAT));
+      zusatzbetraegeList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       zusatzbetraegeList.addColumn("Buchungsart", "buchungsart");
-      zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
-          zusatzbetraegeList));
+      zusatzbetraegeList
+          .setContextMenu(new ZusatzbetraegeMenu(zusatzbetraegeList));
       zusatzbetraegeList.setRememberColWidths(true);
       zusatzbetraegeList.setRememberOrder(true);
       zusatzbetraegeList.setSummary(true);
@@ -298,10 +299,10 @@ public class ZusatzbetragControl extends AbstractControl
     return zusatzbetraegeList;
   }
 
-  private DBIterator getIterator() throws RemoteException
+  private DBIterator<Zusatzbetrag> getIterator() throws RemoteException
   {
-    DBIterator zusatzbetraege = Einstellungen.getDBService().createList(
-        Zusatzbetrag.class);
+    DBIterator<Zusatzbetrag> zusatzbetraege = Einstellungen.getDBService()
+        .createList(Zusatzbetrag.class);
     zusatzbetraege.join("mitglied");
     zusatzbetraege.addFilter("zusatzabbuchung.mitglied = mitglied.id");
     if (this.ausfuehrungSuch.getText().equals("Alle"))
@@ -320,8 +321,8 @@ public class ZusatzbetragControl extends AbstractControl
     {
       try
       {
-        Date d = new JVDateFormatTTMMJJJJ().parse(this.ausfuehrungSuch
-            .getText());
+        Date d = new JVDateFormatTTMMJJJJ()
+            .parse(this.ausfuehrungSuch.getText());
         java.sql.Date sqd = new java.sql.Date(d.getTime());
         zusatzbetraege.addFilter("ausfuehrung = ?", new Object[] { sqd });
       }
@@ -376,14 +377,14 @@ public class ZusatzbetragControl extends AbstractControl
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("zusatzbetraege", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname("zusatzbetraege", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
@@ -396,7 +397,7 @@ public class ZusatzbetragControl extends AbstractControl
       s = s + ".PDF";
     }
     final File file = new File(s);
-    final DBIterator it = getIterator();
+    final DBIterator<Zusatzbetrag> it = getIterator();
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
@@ -412,8 +413,8 @@ public class ZusatzbetragControl extends AbstractControl
               BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("Startdatum", Element.ALIGN_LEFT, 30,
               BaseColor.LIGHT_GRAY);
-          reporter.addHeaderColumn("nächste Fälligkeit", Element.ALIGN_LEFT,
-              30, BaseColor.LIGHT_GRAY);
+          reporter.addHeaderColumn("nächste Fälligkeit", Element.ALIGN_LEFT, 30,
+              BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("letzte Ausführung", Element.ALIGN_LEFT, 30,
               BaseColor.LIGHT_GRAY);
           reporter.addHeaderColumn("Intervall", Element.ALIGN_LEFT, 30,

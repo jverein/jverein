@@ -71,18 +71,18 @@ public class JahresabschlussDeleteAction implements Action
       {
         Logger.error(
 
-        "Fehler beim Löschen des Jahresabschlusses", e);
+            "Fehler beim Löschen des Jahresabschlusses", e);
         return;
       }
       a.delete();
-      DBIterator it = Einstellungen.getDBService().createList(
-          Anfangsbestand.class);
-      it.addFilter("datum = ?", new Object[] { Datum.addTage(a.getBis(), 1)});
+      DBIterator<Anfangsbestand> it = Einstellungen.getDBService()
+          .createList(Anfangsbestand.class);
+      it.addFilter("datum = ?", new Object[] { Datum.addTage(a.getBis(), 1) });
       while (it.hasNext())
       {
-        Anfangsbestand a1 = (Anfangsbestand) it.next();
-        Anfangsbestand a2 = (Anfangsbestand) Einstellungen.getDBService().createObject(
-            Anfangsbestand.class, a1.getID());
+        Anfangsbestand a1 = it.next();
+        Anfangsbestand a2 = (Anfangsbestand) Einstellungen.getDBService()
+            .createObject(Anfangsbestand.class, a1.getID());
         a2.delete();
       }
       GUI.getStatusBar().setSuccessText("Jahresabschluss gelöscht.");

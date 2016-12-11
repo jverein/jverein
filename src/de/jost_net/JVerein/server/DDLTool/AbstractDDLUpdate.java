@@ -27,7 +27,7 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
   public enum DRIVER
   {
     H2, MYSQL
-  };
+  }
 
   public enum COLTYPE
   {
@@ -107,11 +107,12 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
       monitor.setStatusText(msg);
       Logger.info(msg);
       Statement stmt = conn.createStatement();
-      int anzahl = stmt.executeUpdate("UPDATE version SET version = "
-          + newVersion + " WHERE id = 1");
+      int anzahl = stmt.executeUpdate(
+          "UPDATE version SET version = " + newVersion + " WHERE id = 1");
       if (anzahl == 0)
       {
-        stmt.executeUpdate("INSERT INTO version VALUES (1, " + newVersion + ")");
+        stmt.executeUpdate(
+            "INSERT INTO version VALUES (1, " + newVersion + ")");
       }
       stmt.close();
     }
@@ -145,8 +146,8 @@ public abstract class AbstractDDLUpdate implements IDDLUpdate
         {
           sb.append(i.getCreateString());
         }
-        sb.append("PRIMARY KEY (" + table.getPrimaryKey()[0].getName()
-            + "));\n");
+        sb.append(
+            "PRIMARY KEY (" + table.getPrimaryKey()[0].getName() + "));\n");
         break;
       case MYSQL:
         sb.append("CREATE TABLE " + table.getName() + "(");

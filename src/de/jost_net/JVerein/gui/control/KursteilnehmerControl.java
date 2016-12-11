@@ -231,8 +231,8 @@ public class KursteilnehmerControl extends AbstractControl
     {
       return adressierungszusatz;
     }
-    adressierungszusatz = new TextInput(getKursteilnehmer()
-        .getAdressierungszusatz(), 40);
+    adressierungszusatz = new TextInput(
+        getKursteilnehmer().getAdressierungszusatz(), 40);
     adressierungszusatz.setName("Adressierungszusatz");
     return adressierungszusatz;
   }
@@ -494,7 +494,7 @@ public class KursteilnehmerControl extends AbstractControl
   {
     saveDefaults();
 
-    DBIterator kursteilnehmer = getIterator();
+    DBIterator<Kursteilnehmer> kursteilnehmer = getIterator();
     part = new TablePart(kursteilnehmer, new KursteilnehmerDetailAction());
 
     part.addColumn("Name", "name");
@@ -505,13 +505,13 @@ public class KursteilnehmerControl extends AbstractControl
     part.addColumn("Verwendungszweck", "vzweck1");
     part.addColumn("BIC", "bic");
     part.addColumn("IBAN", "iban");
-    part.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    part.addColumn("Betrag", "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     part.addColumn("Mandats-ID", "mandatid");
-    part.addColumn("Eingabedatum", "eingabedatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    part.addColumn("Abbuchungsdatum", "abbudatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    part.addColumn("Eingabedatum", "eingabedatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    part.addColumn("Abbuchungsdatum", "abbudatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     part.setContextMenu(new KursteilnehmerMenu(part));
 
     return part;
@@ -528,10 +528,10 @@ public class KursteilnehmerControl extends AbstractControl
         return;
       }
       part.removeAll();
-      DBIterator kursteilnehmer = getIterator();
+      DBIterator<Kursteilnehmer> kursteilnehmer = getIterator();
       while (kursteilnehmer.hasNext())
       {
-        Kursteilnehmer kt = (Kursteilnehmer) kursteilnehmer.next();
+        Kursteilnehmer kt = kursteilnehmer.next();
         part.addItem(kt);
       }
     }
@@ -676,7 +676,7 @@ public class KursteilnehmerControl extends AbstractControl
   private void starteAuswertung()
   {
     // Alle Kursteilnehmer lesen
-    final DBIterator list;
+    final DBIterator<Kursteilnehmer> list;
     try
     {
       saveDefaults();
@@ -709,8 +709,8 @@ public class KursteilnehmerControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("kursteilnehmer", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("kursteilnehmer", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -748,7 +748,7 @@ public class KursteilnehmerControl extends AbstractControl
             rpt.createHeader();
             while (list.hasNext())
             {
-              Kursteilnehmer kt = (Kursteilnehmer) list.next();
+              Kursteilnehmer kt = list.next();
               rpt.addColumn(kt.getAbbudatum(), Element.ALIGN_LEFT);
               rpt.addColumn(kt.getName(), Element.ALIGN_LEFT);
               rpt.addColumn(kt.getVZweck1(), Element.ALIGN_LEFT);
@@ -806,10 +806,10 @@ public class KursteilnehmerControl extends AbstractControl
     }
   }
 
-  private DBIterator getIterator() throws RemoteException
+  private DBIterator<Kursteilnehmer> getIterator() throws RemoteException
   {
-    DBIterator kursteilnehmer = Einstellungen.getDBService().createList(
-        Kursteilnehmer.class);
+    DBIterator<Kursteilnehmer> kursteilnehmer = Einstellungen.getDBService()
+        .createList(Kursteilnehmer.class);
     String suchN = (String) getSuchname().getValue();
     if (suchN != null && suchN.length() > 0)
     {

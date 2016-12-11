@@ -23,4 +23,5 @@ import de.willuhn.jameica.plugin.AbstractPlugin;
  */
 public class JVereinJUnitPlugin extends AbstractPlugin
 {
+  //
 }

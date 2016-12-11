@@ -50,10 +50,12 @@ public class BuchungSearchProvider implements SearchProvider
     }
 
     String text = "%" + search.toLowerCase() + "%";
-    DBIterator list = Einstellungen.getDBService().createList(Buchung.class);
-    list.addFilter("LOWER(name) LIKE ? OR betrag like ? OR "
-        + "LOWER(zweck) LIKE ? OR LOWER(kommentar) LIKE ?", text, text, text,
-        text);
+    DBIterator<Buchung> list = Einstellungen.getDBService()
+        .createList(Buchung.class);
+    list.addFilter(
+        "LOWER(name) LIKE ? OR betrag like ? OR "
+            + "LOWER(zweck) LIKE ? OR LOWER(kommentar) LIKE ?",
+        text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())

@@ -37,12 +37,13 @@ public class Update0387 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Einstellung für die Auswahlliste(n) der Buchungsart
     // 1 - Standard: Nur Bezeichnung anzeigen, aufsteigend sortiert
     // 2 - Nummer und Bezeichnung anzeigen, sortiert nach Nummer
-    execute(addColumn("einstellung", new Column("buchungsartsort",
-        COLTYPE.INTEGER, 10, "1", false, false)));
+    execute(addColumn("einstellung",
+        new Column("buchungsartsort", COLTYPE.INTEGER, 10, "1", false, false)));
   }
 }

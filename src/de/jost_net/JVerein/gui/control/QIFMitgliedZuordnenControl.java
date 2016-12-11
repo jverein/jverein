@@ -68,7 +68,7 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
 
   private CheckboxInput alleMitgliederInput;
 
-  private DBIterator iteratorQIFImportPosList;
+  private DBIterator<QIFImportPos> iteratorQIFImportPosList;
 
   private QIFImportPos qifImportPos;
 
@@ -213,22 +213,23 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
     if (mitgliederGeladen)
       return;
 
-    DBIterator iteratorMitglieder = ladeMitgliederPassendFuerExternenNamen(externerName);
+    DBIterator<Mitglied> iteratorMitglieder = ladeMitgliederPassendFuerExternenNamen(
+        externerName);
     int iAnzahl = iteratorMitglieder.size();
     Logger.info("Mitglieder zur Auswahl geladen. Anzahl : " + iAnzahl);
 
     SelectInput selMitglied = getMitgliederInput();
     selMitglied.setList(PseudoIterator.asList(iteratorMitglieder));
-    selMitglied.setComment(Integer.toString(iAnzahl)
-        + " Mitglieder zur Auswahl möglich..");
+    selMitglied.setComment(
+        Integer.toString(iAnzahl) + " Mitglieder zur Auswahl möglich..");
     mitgliederGeladen = true;
   }
 
-  private DBIterator ladeMitgliederPassendFuerExternenNamen(String externerName)
-      throws RemoteException
+  private DBIterator<Mitglied> ladeMitgliederPassendFuerExternenNamen(
+      String externerName) throws RemoteException
   {
-    DBIterator iteratorMitglieder = Einstellungen.getDBService().createList(
-        Mitglied.class);
+    DBIterator<Mitglied> iteratorMitglieder = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     if (getCBValueAlleMitgliederZeigen() == false)
     {
       iteratorMitglieder.addFilter(getWhere(externerName));
@@ -261,8 +262,8 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
       throws RemoteException
   {
     String name = importPos.getName();
-    iteratorQIFImportPosList = Einstellungen.getDBService().createList(
-        QIFImportPos.class);
+    iteratorQIFImportPosList = Einstellungen.getDBService()
+        .createList(QIFImportPos.class);
     iteratorQIFImportPosList.addFilter(QIFImportPos.COL_NAME + " is not null ");
     iteratorQIFImportPosList.addFilter(QIFImportPos.COL_NAME + " = ?", name);
     iteratorQIFImportPosList.addFilter(QIFImportPos.COL_MITGLIEDBAR + " = ? ",
@@ -306,8 +307,8 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
       }
       catch (RemoteException ex)
       {
-        throw new ApplicationException(
-            "Mitglied kann nicht gespeichert werden", ex);
+        throw new ApplicationException("Mitglied kann nicht gespeichert werden",
+            ex);
       }
     }
 
@@ -357,7 +358,8 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
    */
   private GenericIterator getDistinctQIFNameList() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(QIFImportPos.class);
+    DBIterator<QIFImportPos> it = Einstellungen.getDBService()
+        .createList(QIFImportPos.class);
     it.addFilter(QIFImportPos.COL_NAME + " is not null ");
     it.addFilter(QIFImportPos.COL_MITGLIEDBAR + " = ? ",
         QIFImportPos.MITGLIEDBAR_JA);

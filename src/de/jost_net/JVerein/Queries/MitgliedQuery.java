@@ -72,8 +72,8 @@ public class MitgliedQuery
     sql += "from mitglied ";
     Settings settings = control.getSettings();
     char synonym = 'a';
-    DBIterator fdit = Einstellungen.getDBService().createList(
-        Felddefinition.class);
+    DBIterator<Felddefinition> fdit = Einstellungen.getDBService()
+        .createList(Felddefinition.class);
     if (settings.getInt("zusatzfelder.selected", 0) > fdit.size())
     {
       settings.setAttribute("zusatzfelder.selected", 0);
@@ -87,8 +87,9 @@ public class MitgliedQuery
         {
           case Datentyp.ZEICHENFOLGE:
           {
-            String value = settings.getString("zusatzfeld." + i + ".value",
-                null).replace('*', '%');
+            String value = settings
+                .getString("zusatzfeld." + i + ".value", null)
+                .replace('*', '%');
             String cond = settings.getString("zusatzfeld." + i + ".cond", null);
             if (value != null && value.length() > 0)
             {
@@ -134,9 +135,8 @@ public class MitgliedQuery
             if (value != Integer.MIN_VALUE)
             {
               sql += "join zusatzfelder " + synonym + " on " + synonym
-                  + ".mitglied = mitglied.id  and " + synonym
-                  + ".FELDGANZZAHL " + cond + " ? and " + synonym
-                  + ".felddefinition = ? ";
+                  + ".mitglied = mitglied.id  and " + synonym + ".FELDGANZZAHL "
+                  + cond + " ? and " + synonym + ".felddefinition = ? ";
               bedingungen.add(value);
               bedingungen.add(definition);
               synonym++;
@@ -399,8 +399,8 @@ public class MitgliedQuery
         ArrayList<Mitglied> list = new ArrayList<Mitglied>();
         while (rs.next())
         {
-          list.add((Mitglied) service.createObject(Mitglied.class,
-              rs.getString(1)));
+          list.add(
+              (Mitglied) service.createObject(Mitglied.class, rs.getString(1)));
         }
         return list;
       }
@@ -427,8 +427,8 @@ public class MitgliedQuery
     {
       bedingungen.add(new Integer(bg.getID()));
     }
-    return (ArrayList<Mitglied>) service
-        .execute(sql, bedingungen.toArray(), rs);
+    return (ArrayList<Mitglied>) service.execute(sql, bedingungen.toArray(),
+        rs);
   }
 
   private void addCondition(String condition)

@@ -57,7 +57,8 @@ public class AbrechnungslaufDeleteAction implements Action
       // In diesem Fall darf er nicht gelöscht werden!
       if (abrl.getAbgeschlossen())
       {
-    	throw new ApplicationException("Abgeschlossene Abrechnungsläufe können nicht gelöscht werden!");
+        throw new ApplicationException(
+            "Abgeschlossene Abrechnungsläufe können nicht gelöscht werden!");
       }
 
       YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
@@ -77,20 +78,22 @@ public class AbrechnungslaufDeleteAction implements Action
         Logger.error("Fehler beim Löschen eines Abrechnungslaufes", e);
         return;
       }
-      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+      DBIterator<Buchung> it = Einstellungen.getDBService()
+          .createList(Buchung.class);
       it.addFilter("abrechnungslauf = ?", new Object[] { abrl.getID() });
       while (it.hasNext())
       {
-        Buchung bu = (Buchung) it.next();
-        Buchung b = (Buchung) Einstellungen.getDBService().createObject(
-            Buchung.class, bu.getID());
+        Buchung bu = it.next();
+        Buchung b = (Buchung) Einstellungen.getDBService()
+            .createObject(Buchung.class, bu.getID());
         Jahresabschluss ja = b.getJahresabschluss();
         if (ja != null)
         {
-          throw new ApplicationException(String.format(
-              "Buchung wurde bereits am %s von %s abgeschlossen.",
-              new Object[] { new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
-                  ja.getName() }));
+          throw new ApplicationException(
+              String.format("Buchung wurde bereits am %s von %s abgeschlossen.",
+                  new Object[] {
+                      new JVDateFormatTTMMJJJJ().format(ja.getDatum()),
+                      ja.getName() }));
         }
         b.setMitgliedskontoID(null);
         b.store();
@@ -101,13 +104,14 @@ public class AbrechnungslaufDeleteAction implements Action
       while (it.hasNext())
       {
         Mitgliedskonto mkt = (Mitgliedskonto) it.next();
-        DBIterator it2 = Einstellungen.getDBService().createList(Buchung.class);
+        DBIterator<Buchung> it2 = Einstellungen.getDBService()
+            .createList(Buchung.class);
         it2.addFilter("mitgliedskonto = ?", new Object[] { mkt.getID() });
         while (it2.hasNext())
         {
-          Buchung bu = (Buchung) it2.next();
-          Buchung b = (Buchung) Einstellungen.getDBService().createObject(
-              Buchung.class, bu.getID());
+          Buchung bu = it2.next();
+          Buchung b = (Buchung) Einstellungen.getDBService()
+              .createObject(Buchung.class, bu.getID());
           b.setMitgliedskontoID(null);
           b.store();
         }
@@ -115,8 +119,8 @@ public class AbrechnungslaufDeleteAction implements Action
             .createObject(Mitgliedskonto.class, mkt.getID());
         mk.delete();
       }
-      it = Einstellungen.getDBService().createList(
-          ZusatzbetragAbrechnungslauf.class);
+      it = Einstellungen.getDBService()
+          .createList(ZusatzbetragAbrechnungslauf.class);
       it.addFilter("abrechnungslauf = ?", abrl.getID());
       while (it.hasNext())
       {

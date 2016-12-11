@@ -50,8 +50,8 @@ public class KursteilnehmerSearchProvider implements SearchProvider
     }
 
     String text = "%" + search.toLowerCase() + "%";
-    DBIterator list = Einstellungen.getDBService().createList(
-        Kursteilnehmer.class);
+    DBIterator<Kursteilnehmer> list = Einstellungen.getDBService()
+        .createList(Kursteilnehmer.class);
     list.addFilter(
         "LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR iban LIKE ? OR BIC like ?",
         text, text, text, text);

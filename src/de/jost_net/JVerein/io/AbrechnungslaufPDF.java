@@ -38,7 +38,7 @@ import de.willuhn.util.ApplicationException;
 public class AbrechnungslaufPDF
 {
 
-  public AbrechnungslaufPDF(DBIterator it, final File file,
+  public AbrechnungslaufPDF(DBIterator<Mitgliedskonto> it, final File file,
       final Abrechnungslauf lauf) throws ApplicationException
   {
     try
@@ -65,7 +65,7 @@ public class AbrechnungslaufPDF
 
       while (it.hasNext())
       {
-        Mitgliedskonto mk = (Mitgliedskonto) it.next();
+        Mitgliedskonto mk = it.next();
 
         reporter.addColumn(new JVDateFormatTTMMJJJJ().format(mk.getDatum()),
             Element.ALIGN_LEFT);

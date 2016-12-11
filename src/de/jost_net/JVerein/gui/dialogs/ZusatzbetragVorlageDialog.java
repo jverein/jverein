@@ -36,9 +36,9 @@ import de.willuhn.jameica.system.OperationCanceledException;
 
 /**
  * Ein Dialog, zur Auswahl und Bearbeitung von Zusatzbetrag-Vorlagen
- * */
-public class ZusatzbetragVorlageDialog extends
-    AbstractDialog<ZusatzbetragVorlage>
+ */
+public class ZusatzbetragVorlageDialog
+    extends AbstractDialog<ZusatzbetragVorlage>
 {
 
   private ZusatzbetragVorlage selected = null;
@@ -81,8 +81,8 @@ public class ZusatzbetragVorlageDialog extends
     {
       return this.tab;
     }
-    DBIterator dbi = Einstellungen.getDBService().createList(
-        ZusatzbetragVorlage.class);
+    DBIterator<ZusatzbetragVorlage> dbi = Einstellungen.getDBService()
+        .createList(ZusatzbetragVorlage.class);
     dbi.setOrder("order by buchungstext");
     this.tab = new TablePart(dbi, new Action()
     {
@@ -93,16 +93,16 @@ public class ZusatzbetragVorlageDialog extends
         close();
       }
     });
-    tab.addColumn("Startdatum", "startdatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    tab.addColumn("nächste Fälligkeit", "faelligkeit", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    tab.addColumn("Startdatum", "startdatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    tab.addColumn("nächste Fälligkeit", "faelligkeit",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     tab.addColumn("Intervall", "intervalltext");
-    tab.addColumn("Endedatum", "endedatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    tab.addColumn("Endedatum", "endedatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     tab.addColumn("Buchungstext", "buchungstext");
-    tab.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    tab.addColumn("Betrag", "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     tab.addColumn("Buchungsart", "buchungsart");
     tab.setContextMenu(new ZusatzbetragVorlageMenu());
     tab.setRememberColWidths(true);

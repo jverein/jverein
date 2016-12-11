@@ -51,9 +51,9 @@ public class KontoInput extends SelectInput
    * @return Liste der Konten.
    * @throws RemoteException
    */
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<Konto> init() throws RemoteException
   {
-    DBIterator it = Settings.getDBService().createList(Konto.class);
+    DBIterator<Konto> it = Settings.getDBService().createList(Konto.class);
     it.setOrder("ORDER BY blz, kontonummer");
     List<Konto> l = new ArrayList<Konto>();
     while (it.hasNext())
@@ -78,7 +78,8 @@ public class KontoInput extends SelectInput
     try
     {
       Konto k = (Konto) bean;
-      boolean disabled = (k.getFlags() & Konto.FLAG_DISABLED) == Konto.FLAG_DISABLED;
+      boolean disabled = (k.getFlags()
+          & Konto.FLAG_DISABLED) == Konto.FLAG_DISABLED;
       StringBuffer sb = new StringBuffer();
       if (disabled)
         sb.append("[");

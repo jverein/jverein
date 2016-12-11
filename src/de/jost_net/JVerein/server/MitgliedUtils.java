@@ -19,41 +19,43 @@ package de.jost_net.JVerein.server;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.datasource.rmi.DBIterator;
 
 public class MitgliedUtils
 {
 
-  public static void setNurAktive(DBIterator it, Date datum)
+  public static void setNurAktive(DBIterator<Mitglied> it, Date datum)
       throws RemoteException
   {
-    it.addFilter("(eintritt is null or eintritt <= ?)", new Object[] { datum});
-    it.addFilter("(austritt is null or austritt > ?)", new Object[] { datum});
+    it.addFilter("(eintritt is null or eintritt <= ?)", new Object[] { datum });
+    it.addFilter("(austritt is null or austritt > ?)", new Object[] { datum });
   }
 
-  public static void setNurAktive(DBIterator it) throws RemoteException
+  public static void setNurAktive(DBIterator<Mitglied> it)
+      throws RemoteException
   {
     setNurAktive(it, new Date());
   }
 
-  public static void setMitglied(DBIterator it) throws RemoteException
+  public static void setMitglied(DBIterator<Mitglied> it) throws RemoteException
   {
     it.addFilter("adresstyp = 1");
   }
 
-  public static void setMitgliedOderSpender(DBIterator it)
+  public static void setMitgliedOderSpender(DBIterator<Mitglied> it)
       throws RemoteException
   {
     it.addFilter("(adresstyp = 1 or adresstyp = 2)");
   }
 
-  public static void setMitgliedNatuerlichePerson(DBIterator it)
+  public static void setMitgliedNatuerlichePerson(DBIterator<Mitglied> it)
       throws RemoteException
   {
     it.addFilter("personenart = 'n'");
   }
 
-  public static void setMitgliedJuristischePerson(DBIterator it)
+  public static void setMitgliedJuristischePerson(DBIterator<Mitglied> it)
       throws RemoteException
   {
     it.addFilter("personenart = 'j'");

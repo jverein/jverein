@@ -117,7 +117,7 @@ public class MailVorlageControl extends AbstractControl
       return mailvorlageList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator fdef = service.createList(MailVorlage.class);
+    DBIterator<MailVorlage> fdef = service.createList(MailVorlage.class);
     mailvorlageList = new TablePart(fdef, new MailVorlageDetailAction());
     mailvorlageList.addColumn("Betreff", "betreff");
     mailvorlageList.setContextMenu(new MailVorlageMenu());

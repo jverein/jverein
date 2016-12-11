@@ -20,16 +20,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Enumeration;
 
-import net.n3.nanoxml.IXMLElement;
-import net.n3.nanoxml.IXMLParser;
-import net.n3.nanoxml.StdXMLReader;
-import net.n3.nanoxml.XMLParserFactory;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
+import net.n3.nanoxml.IXMLElement;
+import net.n3.nanoxml.IXMLParser;
+import net.n3.nanoxml.StdXMLReader;
+import net.n3.nanoxml.XMLParserFactory;
 
 public class KontenrahmenImportXML implements Importer
 {
@@ -38,8 +38,8 @@ public class KontenrahmenImportXML implements Importer
   public void doImport(Object context, IOFormat format, File file,
       String encoding, ProgressMonitor monitor) throws Exception
   {
-    DBIterator it = Einstellungen.getDBService().createList(
-        Buchungsklasse.class);
+    DBIterator<Buchungsklasse> it = Einstellungen.getDBService()
+        .createList(Buchungsklasse.class);
     if (it.size() > 0)
     {
       throw new ApplicationException(

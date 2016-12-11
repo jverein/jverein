@@ -108,8 +108,8 @@ public class Import
    * @throws ApplicationException
    */
   private HashMap<String, Integer> aufbauenBeitragsgruppenAusImport(
-      final ResultSet results) throws SQLException, RemoteException,
-      ApplicationException
+      final ResultSet results)
+      throws SQLException, RemoteException, ApplicationException
   {
 
     HashMap<String, Double> bestehendeBeitragsgruppen = new HashMap<String, Double>();
@@ -119,8 +119,8 @@ public class Import
       /* find all existing groups in the dataset */
       while (results.next())
       {
-        bestehendeBeitragsgruppen.put(this.getResultFrom(results,
-            InternalColumns.BEITRAGSART),
+        bestehendeBeitragsgruppen.put(
+            this.getResultFrom(results, InternalColumns.BEITRAGSART),
             new Double(this.getResultFrom(results, InternalColumns.BEITRAG)
                 .replace(',', '.')));
       }
@@ -164,8 +164,8 @@ public class Import
         .createObject(Beitragsgruppe.class, null);
 
     /* if beitragsgruppe larger than 30 signs it will be cuted */
-    b.setBezeichnung(beitragsgruppe.length() > 30 ? beitragsgruppe.substring(0,
-        29) : beitragsgruppe);
+    b.setBezeichnung(beitragsgruppe.length() > 30
+        ? beitragsgruppe.substring(0, 29) : beitragsgruppe);
     b.setBetrag(beitrag);
     b.store();
 
@@ -192,20 +192,17 @@ public class Import
       // Zeige Benutzer genauen Fehler.
       if (ba == null || ba.length() == 0)
       {
-        progMonitor.log(String.format(
-            "%s, %s: keine Angaben zur Beitragsart_1",
+        progMonitor.log(String.format("%s, %s: keine Angaben zur Beitragsart_1",
             this.getResultFrom(results, InternalColumns.NACHNAME),
             this.getResultFrom(results, InternalColumns.VORNAME)));
         groupsAreValid = false;
       }
       else if (ba.length() > 30)
       {
-        progMonitor
-            .log(String
-                .format(
-                    "%s, %s: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
-                    this.getResultFrom(results, InternalColumns.NACHNAME),
-                    this.getResultFrom(results, InternalColumns.VORNAME)));
+        progMonitor.log(String.format(
+            "%s, %s: maximale Laenge von 30 Zeichen in Beitragsart_1 ueberschritten, wird automatisch gekuerzt",
+            this.getResultFrom(results, InternalColumns.NACHNAME),
+            this.getResultFrom(results, InternalColumns.VORNAME)));
       }
 
       if (btr == null || btr.length() == 0)
@@ -260,8 +257,8 @@ public class Import
       {
         Date curDate = new Date(System.currentTimeMillis());
         // only the last two digets of the year
-        String year = curDate.toString().substring(
-            curDate.toString().lastIndexOf(" ") + 2);
+        String year = curDate.toString()
+            .substring(curDate.toString().lastIndexOf(" ") + 2);
         // compare them an than decide
         if ((new Integer(year)).compareTo(new Integer(parts[2])) < 0)
         {
@@ -270,8 +267,8 @@ public class Import
         else
         {
           parts[2] = "20" + parts[2];
-          progMonitor.log(String.format(
-              "Fuer %s wurde das 21 Jahrhundert angenommen", dotDate));
+          progMonitor.log(String
+              .format("Fuer %s wurde das 21 Jahrhundert angenommen", dotDate));
         }
       }
 
@@ -295,7 +292,7 @@ public class Import
   {
     try
     {
-      DBIterator it = Einstellungen.getDBService()
+      DBIterator<Eigenschaft> it = Einstellungen.getDBService()
           .createList(Eigenschaft.class);
       it.addFilter("bezeichnung = ?", new Object[] { eigenschaft });
       if (it.hasNext())
@@ -362,8 +359,8 @@ public class Import
   {
     String resultValue = "";
 
-    if (column.isNecessary()
-        || (!column.isNecessary() && colMap.containsKey(column.getColumnName())))
+    if (column.isNecessary() || (!column.isNecessary()
+        && colMap.containsKey(column.getColumnName())))
     {
       try
       {
@@ -393,9 +390,9 @@ public class Import
       }
       catch (SQLException e)
       {
-        progMonitor.log(String.format(
-            "Fehler beim lesen der Importdatei in der Spalte: %s",
-            colMap.get(column.getColumnName())));
+        progMonitor.log(
+            String.format("Fehler beim lesen der Importdatei in der Spalte: %s",
+                colMap.get(column.getColumnName())));
         throw new SQLException();
       }
     }
@@ -410,8 +407,8 @@ public class Import
    * @throws RemoteException
    */
   public boolean importFile(final ResultSet results, final int nrOfResults,
-      final Map<String, String> colMap) throws RemoteException,
-      ApplicationException
+      final Map<String, String> colMap)
+      throws RemoteException, ApplicationException
   {
     if (results == null)
     {
@@ -447,11 +444,12 @@ public class Import
 
       /* create groups in the db save them locally for the import process */
       results.beforeFirst();
-      HashMap<String, Integer> beitragsgruppen = aufbauenBeitragsgruppenAusImport(results);
+      HashMap<String, Integer> beitragsgruppen = aufbauenBeitragsgruppenAusImport(
+          results);
 
       /* Zusatzfelder ermitteln und in Liste ablegen */
-      DBIterator it = Einstellungen.getDBService().createList(
-          Felddefinition.class);
+      DBIterator<Felddefinition> it = Einstellungen.getDBService()
+          .createList(Felddefinition.class);
       LinkedList<Felddefinition> zusfeld = new LinkedList<Felddefinition>();
       for (int i = 0; i < it.size(); i++)
       {
@@ -504,8 +502,8 @@ public class Import
         progMonitor.setPercentComplete(anz * 100 / nrOfResults);
 
         /* import new member */
-        Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-            Mitglied.class, null);
+        Mitglied m = (Mitglied) Einstellungen.getDBService()
+            .createObject(Mitglied.class, null);
 
         try
         {
@@ -513,10 +511,10 @@ public class Import
         }
         catch (ParseException e1)
         {
-          progMonitor.log("ID= "
-              + getResultFrom(results, InternalColumns.MITGLIEDSNR) + " NAME= "
-              + getResultFrom(results, InternalColumns.NACHNAME) + " "
-              + e1.getMessage());
+          progMonitor
+              .log("ID= " + getResultFrom(results, InternalColumns.MITGLIEDSNR)
+                  + " NAME= " + getResultFrom(results, InternalColumns.NACHNAME)
+                  + " " + e1.getMessage());
           return false;
         }
 
@@ -552,13 +550,11 @@ public class Import
         }
         catch (Exception e)
         {
-          progMonitor
-              .log(String
-                  .format(
-                      "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= %s, NAME= %s: %s",
-                      getResultFrom(results, InternalColumns.MITGLIEDSNR),
-                      getResultFrom(results, InternalColumns.NACHNAME),
-                      e.getMessage()));
+          progMonitor.log(String.format(
+              "Datensatz unvollstaending (Eigenschaften) -> Import wird abgebrochen: ID= %s, NAME= %s: %s",
+              getResultFrom(results, InternalColumns.MITGLIEDSNR),
+              getResultFrom(results, InternalColumns.NACHNAME),
+              e.getMessage()));
           return false;
         }
 
@@ -585,8 +581,8 @@ public class Import
    * 
    */
   private void importMitglied(final ResultSet results, final Mitglied m,
-      final Map<String, Integer> beitragsGruppen) throws RemoteException,
-      SQLException, ApplicationException, ParseException
+      final Map<String, Integer> beitragsGruppen)
+      throws RemoteException, SQLException, ApplicationException, ParseException
   {
     m.setAdresstyp(1);
 
@@ -642,8 +638,8 @@ public class Import
     }
     m.setGeschlecht(geschlecht);
 
-    String gebDatum = formatDate(getResultFrom(results,
-        InternalColumns.GEBDATUM));
+    String gebDatum = formatDate(
+        getResultFrom(results, InternalColumns.GEBDATUM));
     if (gebDatum.length() == 0)
     {
       gebDatum = null;
@@ -672,8 +668,7 @@ public class Import
       m.setZahlungstermin(new Integer(zahlungstermin));
     }
 
-    if (zahlart.equalsIgnoreCase("l")
-        || zahlart.equalsIgnoreCase("lastschrift")
+    if (zahlart.equalsIgnoreCase("l") || zahlart.equalsIgnoreCase("lastschrift")
         || zahlart.equalsIgnoreCase("abbuchung")
         || zahlart.equalsIgnoreCase("bankeinzug")
         || zahlart.equalsIgnoreCase("s")) // SPG-Verein, SEPA-Lastschrift
@@ -690,11 +685,9 @@ public class Import
 
       if (!neuebankverbindung)
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Bei %s ist als Zahlungsart Basislastschrift gesetzt aber keine Bankverbindung (IBAN/BIC) vorhanden",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Bei %s ist als Zahlungsart Basislastschrift gesetzt aber keine Bankverbindung (IBAN/BIC) vorhanden",
+            Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
     }
@@ -710,9 +703,9 @@ public class Import
     }
     else
     {
-      progMonitor.log(String.format(
-          "%s: ungueltige Zahlungsart. Bar wird angenommen.",
-          Adressaufbereitung.getNameVorname(m)));
+      progMonitor
+          .log(String.format("%s: ungueltige Zahlungsart. Bar wird angenommen.",
+              Adressaufbereitung.getNameVorname(m)));
     }
     m.setBic(bic);
     m.setIban(iban);
@@ -723,25 +716,26 @@ public class Import
       m.setMandatDatum(Datum.toDate(formatDate(m_d)));
     }
     m.setZahlungsweg(zahlweg);
-    m.setKtoiPersonenart(getResultFrom(results, InternalColumns.KTOIPERSONENART));
+    m.setKtoiPersonenart(
+        getResultFrom(results, InternalColumns.KTOIPERSONENART));
     m.setKtoiAnrede(getResultFrom(results, InternalColumns.KTOIANREDE));
     m.setKtoiTitel(getResultFrom(results, InternalColumns.KTOITITEL));
     m.setKtoiName(getResultFrom(results, InternalColumns.KTOINAME));
     m.setKtoiVorname(getResultFrom(results, InternalColumns.KTOIVORNAME));
     m.setKtoiStrasse(getResultFrom(results, InternalColumns.KTOISTRASSE));
-    m.setKtoiAdressierungszusatz(getResultFrom(results,
-        InternalColumns.KTOIADRESSIERUNGSZUSATZ));
+    m.setKtoiAdressierungszusatz(
+        getResultFrom(results, InternalColumns.KTOIADRESSIERUNGSZUSATZ));
     m.setKtoiPlz(getResultFrom(results, InternalColumns.KTOIPLZ));
     m.setKtoiOrt(getResultFrom(results, InternalColumns.KTOIORT));
     m.setKtoiStaat(getResultFrom(results, InternalColumns.KTOISTAAT));
     m.setKtoiEmail(getResultFrom(results, InternalColumns.KTOIEMAIL));
-    Integer bg = beitragsGruppen.get(getResultFrom(results,
-        InternalColumns.BEITRAGSART));
+    Integer bg = beitragsGruppen
+        .get(getResultFrom(results, InternalColumns.BEITRAGSART));
     m.setBeitragsgruppe(bg);
 
     /* Setze verschiedene Ein/Ausdritt etc Daten */
-    String eintritt = formatDate(getResultFrom(results,
-        InternalColumns.EINTRITTSDATUM));
+    String eintritt = formatDate(
+        getResultFrom(results, InternalColumns.EINTRITTSDATUM));
     if (eintritt.length() == 0)
     {
       eintritt = null;
@@ -754,16 +748,16 @@ public class Import
     }
     m.setEintritt(eintritt);
 
-    String austritt = formatDate(getResultFrom(results,
-        InternalColumns.AUSTRITTSDATUM));
+    String austritt = formatDate(
+        getResultFrom(results, InternalColumns.AUSTRITTSDATUM));
     if (austritt.length() == 0)
     {
       austritt = null;
     }
     m.setAustritt(austritt);
 
-    String sterbeTag = formatDate(getResultFrom(results,
-        InternalColumns.STERBEDATUM));
+    String sterbeTag = formatDate(
+        getResultFrom(results, InternalColumns.STERBEDATUM));
     if (sterbeTag.length() == 0)
     {
       sterbeTag = null;
@@ -772,18 +766,16 @@ public class Import
     {
       if (austritt == null)
       {
-        progMonitor
-            .log(String
-                .format(
-                    "%s: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "%s: beim einem definierten Sterbedatum muss es auch ein Austrittsdatum geben, setze Austrittsdatum gleich dem Sterbedatum",
+            Adressaufbereitung.getNameVorname(m)));
         m.setAustritt(sterbeTag);
       }
     }
     m.setSterbetag(sterbeTag);
 
-    String kuendigung = formatDate(getResultFrom(results,
-        InternalColumns.KUENDIGUNGSDATUM));
+    String kuendigung = formatDate(
+        getResultFrom(results, InternalColumns.KUENDIGUNGSDATUM));
     if (kuendigung.length() == 0)
     {
       kuendigung = null;
@@ -813,11 +805,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Individueller Beitrag fuer %s enthält keine gültige Formatierung und wird verworfen.",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Individueller Beitrag fuer %s enthält keine gültige Formatierung und wird verworfen.",
+            Adressaufbereitung.getNameVorname(m)));
       }
     }
 
@@ -834,11 +824,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Personenart für %s enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Personenart für %s enthält keine gültige Formatierung. Es dürfen nur Wörter verwendet werden, die mit einem j fuer juristische Personen oder n fuer natürliche Personen beginnen. Bei leerem Inhalt wird der Standardwert n verwendet",
+            Adressaufbereitung.getNameVorname(m)));
         throw new ApplicationException();
       }
 
@@ -862,11 +850,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Zahlungsrythmus bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Zahlungsrythmus bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 12 Monate",
+            Adressaufbereitung.getNameVorname(m)));
         m.setZahlungsrhythmus(new Integer(12));
       }
     }
@@ -884,11 +870,9 @@ public class Import
       }
       else
       {
-        progMonitor
-            .log(String
-                .format(
-                    "Adresstyp bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
-                    Adressaufbereitung.getNameVorname(m)));
+        progMonitor.log(String.format(
+            "Adresstyp bei: %s ist entweder leer oder besteht nicht nur aus Zahlen, setze auf 1 (Mitglied)",
+            Adressaufbereitung.getNameVorname(m)));
         m.setAdresstyp(new Integer(1));
       }
     }
@@ -906,8 +890,8 @@ public class Import
 
     if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
     {
-      m.setExterneMitgliedsnummer(new String(getResultFrom(results,
-          InternalColumns.MITGLIEDSNR)));
+      m.setExterneMitgliedsnummer(
+          new String(getResultFrom(results, InternalColumns.MITGLIEDSNR)));
     }
 
     try
@@ -916,8 +900,8 @@ public class Import
     }
     catch (ApplicationException e)
     {
-      progMonitor.log(Adressaufbereitung.getNameVorname(m) + ": "
-          + e.getMessage());
+      progMonitor
+          .log(Adressaufbereitung.getNameVorname(m) + ": " + e.getMessage());
       throw e;
     }
   }
@@ -933,8 +917,8 @@ public class Import
    */
   private void importZusatzfelder(final ResultSet results,
       final Zusatzfelder zusatzfeld, final Mitglied curMitglied,
-      final Felddefinition f) throws RemoteException, SQLException,
-      ApplicationException
+      final Felddefinition f)
+      throws RemoteException, SQLException, ApplicationException
   {
     zusatzfeld.setMitglied(new Integer(curMitglied.getID()));
     zusatzfeld.setFelddefinition(new Integer(f.getID()));
@@ -951,10 +935,10 @@ public class Import
           }
           catch (ParseException e)
           {
-            throw new ApplicationException(String.format(
-                "%s : ungültiges Datumsformat %s: %s",
-                Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
-                inhalt));
+            throw new ApplicationException(
+                String.format("%s : ungültiges Datumsformat %s: %s",
+                    Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                    inhalt));
           }
         }
         else
@@ -971,10 +955,10 @@ public class Import
           }
           catch (NumberFormatException e)
           {
-            throw new ApplicationException(String.format(
-                "%s: ungültiges Datenformat %s: %s",
-                Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
-                inhalt));
+            throw new ApplicationException(
+                String.format("%s: ungültiges Datenformat %s: %s",
+                    Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                    inhalt));
           }
         }
         else
@@ -994,10 +978,10 @@ public class Import
         }
         else
         {
-          throw new ApplicationException(String.format(
-              "%s: ungültiges Datenformat %s: %s",
-              Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
-              inhalt));
+          throw new ApplicationException(
+              String.format("%s: ungültiges Datenformat %s: %s",
+                  Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                  inhalt));
         }
         break;
       case Datentyp.WAEHRUNG:
@@ -1010,10 +994,10 @@ public class Import
           }
           catch (NumberFormatException e)
           {
-            throw new ApplicationException(String.format(
-                "%s: ungültiges Datenformat %s: %s",
-                Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
-                inhalt));
+            throw new ApplicationException(
+                String.format("%s: ungültiges Datenformat %s: %s",
+                    Adressaufbereitung.getNameVorname(curMitglied), f.getName(),
+                    inhalt));
           }
         }
         else
@@ -1036,112 +1020,125 @@ public class Import
     try
     {
       // Arbeitseinsätze
-      DBIterator list = Einstellungen.getDBService().createList(
-          Arbeitseinsatz.class);
-      while (list.hasNext())
+      DBIterator<Arbeitseinsatz> listarbeitseinsaetze = Einstellungen
+          .getDBService().createList(Arbeitseinsatz.class);
+      while (listarbeitseinsaetze.hasNext())
       {
-        Arbeitseinsatz a = (Arbeitseinsatz) list.next();
+        Arbeitseinsatz a = (Arbeitseinsatz) listarbeitseinsaetze.next();
         a.delete();
       }
       // Lastschriften
-      list = Einstellungen.getDBService().createList(Lastschrift.class);
-      while (list.hasNext())
+      DBIterator<Lastschrift> listlastschriften = Einstellungen.getDBService()
+          .createList(Lastschrift.class);
+      while (listlastschriften.hasNext())
       {
-        Lastschrift l = (Lastschrift) list.next();
+        Lastschrift l = listlastschriften.next();
         l.delete();
       }
       // Lehrgänge
-      list = Einstellungen.getDBService().createList(Lehrgang.class);
-      while (list.hasNext())
+      DBIterator<Lehrgang> listlehrgaenge = Einstellungen.getDBService()
+          .createList(Lehrgang.class);
+      while (listlehrgaenge.hasNext())
       {
-        Lehrgang l = (Lehrgang) list.next();
+        Lehrgang l = listlehrgaenge.next();
         l.delete();
       }
       // Mailempfänger
-      list = Einstellungen.getDBService().createList(MailEmpfaenger.class);
-      while (list.hasNext())
+      DBIterator<MailEmpfaenger> listmailempfaenger = Einstellungen
+          .getDBService().createList(MailEmpfaenger.class);
+      while (listmailempfaenger.hasNext())
       {
-        MailEmpfaenger m = (MailEmpfaenger) list.next();
+        MailEmpfaenger m = listmailempfaenger.next();
         m.delete();
       }
       // Mitgliedsfoto
-      list = Einstellungen.getDBService().createList(Mitgliedfoto.class);
-      while (list.hasNext())
+      DBIterator<Mitgliedfoto> listmitgliedfoto = Einstellungen.getDBService()
+          .createList(Mitgliedfoto.class);
+      while (listmitgliedfoto.hasNext())
       {
-        Mitgliedfoto m = (Mitgliedfoto) list.next();
+        Mitgliedfoto m = listmitgliedfoto.next();
         m.delete();
       }
       // Mitgliedskonto
-      list = Einstellungen.getDBService().createList(Mitgliedskonto.class);
-      while (list.hasNext())
+      DBIterator<Mitgliedskonto> listmitgliedskonten = Einstellungen
+          .getDBService().createList(Mitgliedskonto.class);
+      while (listmitgliedskonten.hasNext())
       {
-        Mitgliedskonto m = (Mitgliedskonto) list.next();
+        Mitgliedskonto m = listmitgliedskonten.next();
         m.delete();
       }
       // Spendenbescheinigung
-      list = Einstellungen.getDBService()
-          .createList(Spendenbescheinigung.class);
-      while (list.hasNext())
+      DBIterator<Spendenbescheinigung> listspendenbescheinigungen = Einstellungen
+          .getDBService().createList(Spendenbescheinigung.class);
+      while (listspendenbescheinigungen.hasNext())
       {
-        Spendenbescheinigung s = (Spendenbescheinigung) list.next();
+        Spendenbescheinigung s = listspendenbescheinigungen.next();
         s.delete();
       }
       // Zusatzbetraege
-      list = Einstellungen.getDBService().createList(Zusatzbetrag.class);
-      while (list.hasNext())
+      DBIterator<Zusatzbetrag> listzusatzbetraege = Einstellungen.getDBService()
+          .createList(Zusatzbetrag.class);
+      while (listzusatzbetraege.hasNext())
       {
-        Zusatzbetrag z = (Zusatzbetrag) list.next();
+        Zusatzbetrag z = listzusatzbetraege.next();
         z.delete();
       }
       // Zusatzfelder
-      list = Einstellungen.getDBService().createList(Zusatzfelder.class);
-      while (list.hasNext())
+      DBIterator<Zusatzfelder> listzusatzfelder = Einstellungen.getDBService()
+          .createList(Zusatzfelder.class);
+      while (listzusatzfelder.hasNext())
       {
-        Zusatzfelder z = (Zusatzfelder) list.next();
+        Zusatzfelder z = listzusatzfelder.next();
         z.delete();
       }
 
       // Wiedervorlage
-      list = Einstellungen.getDBService().createList(Wiedervorlage.class);
-      while (list.hasNext())
+      DBIterator<Wiedervorlage> listwiedervorlagen = Einstellungen
+          .getDBService().createList(Wiedervorlage.class);
+      while (listwiedervorlagen.hasNext())
       {
-        Wiedervorlage w = (Wiedervorlage) list.next();
+        Wiedervorlage w = listwiedervorlagen.next();
         w.delete();
       }
       // Eigenschaften
-      list = Einstellungen.getDBService().createList(Eigenschaften.class);
-      while (list.hasNext())
+      DBIterator<Eigenschaften> listeigenschaften = Einstellungen.getDBService()
+          .createList(Eigenschaften.class);
+      while (listeigenschaften.hasNext())
       {
-        Eigenschaften e = (Eigenschaften) list.next();
+        Eigenschaften e = listeigenschaften.next();
         e.delete();
       }
       // Eigenschaft
-      list = Einstellungen.getDBService().createList(Eigenschaft.class);
-      while (list.hasNext())
+      DBIterator<Eigenschaft> listeigenschaft = Einstellungen.getDBService()
+          .createList(Eigenschaft.class);
+      while (listeigenschaft.hasNext())
       {
-        Eigenschaft e = (Eigenschaft) list.next();
+        Eigenschaft e = listeigenschaft.next();
         e.delete();
       }
       // Eigenschaftgruppe
-      list = Einstellungen.getDBService().createList(EigenschaftGruppe.class);
-      while (list.hasNext())
+      DBIterator<EigenschaftGruppe> listeigenschaftgruppe = Einstellungen
+          .getDBService().createList(EigenschaftGruppe.class);
+      while (listeigenschaftgruppe.hasNext())
       {
-        EigenschaftGruppe e = (EigenschaftGruppe) list.next();
+        EigenschaftGruppe e = listeigenschaftgruppe.next();
         e.delete();
       }
       // Mitglieder
-      list = Einstellungen.getDBService().createList(Mitglied.class);
-      MitgliedUtils.setMitglied(list);
-      while (list.hasNext())
+      DBIterator<Mitglied> listmitglied = Einstellungen.getDBService()
+          .createList(Mitglied.class);
+      MitgliedUtils.setMitglied(listmitglied);
+      while (listmitglied.hasNext())
       {
-        Mitglied m = (Mitglied) list.next();
+        Mitglied m = listmitglied.next();
         m.delete();
       }
       // Beitragsgruppe
-      list = Einstellungen.getDBService().createList(Beitragsgruppe.class);
-      while (list.hasNext())
+      DBIterator<Beitragsgruppe> listbeitragsgruppe = Einstellungen
+          .getDBService().createList(Beitragsgruppe.class);
+      while (listbeitragsgruppe.hasNext())
       {
-        Beitragsgruppe b = (Beitragsgruppe) list.next();
+        Beitragsgruppe b = listbeitragsgruppe.next();
         b.delete();
       }
     }

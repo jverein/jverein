@@ -34,6 +34,7 @@ public class LizenzAction implements Action
   /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
    */
+  @Override
   public void handleAction(Object context) throws ApplicationException
   {
     GUI.startView(LizenzView.class.getName(), null);

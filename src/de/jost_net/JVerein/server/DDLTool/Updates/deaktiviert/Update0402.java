@@ -32,6 +32,7 @@ public class Update0402 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     Table table = new Table("inventarausleihe");
@@ -43,8 +44,8 @@ public class Update0402 extends AbstractDDLUpdate
     Column mitglied = new Column("mitglied", COLTYPE.BIGINT, 1, null, true,
         false);
     table.add(mitglied);
-    table.add(new Column("nichtmitglied", COLTYPE.VARCHAR, 200, null, true,
-        false));
+    table.add(
+        new Column("nichtmitglied", COLTYPE.VARCHAR, 200, null, true, false));
     table.add(new Column("von", COLTYPE.DATE, 1, null, true, false));
     table.add(new Column("bis", COLTYPE.BIGINT, 1, null, true, false));
     table.add(new Column("rueckgabe", COLTYPE.DATE, 1, null, true, false));

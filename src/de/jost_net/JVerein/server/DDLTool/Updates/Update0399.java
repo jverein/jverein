@@ -38,11 +38,12 @@ public class Update0399 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Buchungsart in das Mitgliedskonto aufnehmen
-    execute(addColumn("mitgliedskonto", new Column("buchungsart",
-        COLTYPE.BIGINT, 0, null, false, false)));
+    execute(addColumn("mitgliedskonto",
+        new Column("buchungsart", COLTYPE.BIGINT, 0, null, false, false)));
 
     Index idx = new Index("ixMitgliedskonto3", false);
     Column col = new Column("buchungsart", COLTYPE.BIGINT, 0, null, false,

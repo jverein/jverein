@@ -93,7 +93,7 @@ public class SEPABugsControl extends AbstractControl
   {
     ArrayList<Bug> bugs = new ArrayList<Bug>();
 
-    DBIterator it = getBaseIteratorMitglied();
+    DBIterator<Mitglied> it = getBaseIteratorMitglied();
 
     while (it.hasNext())
     {
@@ -101,8 +101,8 @@ public class SEPABugsControl extends AbstractControl
       if ((m.getBeitragsgruppe().getBetrag() > 0
           || m.getBeitragsgruppe().getBetragMonatlich() > 0
           || m.getBeitragsgruppe().getBetragVierteljaehrlich() > 0
-          || m.getBeitragsgruppe().getBetragHalbjaehrlich() > 0 || m
-          .getBeitragsgruppe().getBetragJaehrlich() > 0)
+          || m.getBeitragsgruppe().getBetragHalbjaehrlich() > 0
+          || m.getBeitragsgruppe().getBetragJaehrlich() > 0)
           && m.getZahlungsweg() == Zahlungsweg.BASISLASTSCHRIFT)
       {
         plausi(bugs, m);
@@ -111,6 +111,7 @@ public class SEPABugsControl extends AbstractControl
     return bugs;
   }
 
+  @SuppressWarnings("unused")
   private void plausi(List<Bug> bugs, ILastschrift ls) throws RemoteException
   {
     if (ls.getMandatDatum().equals(Einstellungen.NODATE))
@@ -122,7 +123,8 @@ public class SEPABugsControl extends AbstractControl
     else if (ls.getMandatDatum().after(new Date()))
     {
       bugs.add(new Bug(ls,
-          "Das Mandatsdatum liegt in der Zukunft. Keine Lastschrift", Bug.HINT));
+          "Das Mandatsdatum liegt in der Zukunft. Keine Lastschrift",
+          Bug.HINT));
     }
 
     try
@@ -154,16 +156,16 @@ public class SEPABugsControl extends AbstractControl
     if (ls.getLetzteLastschrift() != null
         && ls.getLetzteLastschrift().before(sepagueltigkeit))
     {
-      bugs.add(new Bug(
-          ls,
+      bugs.add(new Bug(ls,
           "Letzte Lastschrift ist älter als 36 Monate. Neues Mandat anfordern und eingeben.",
           Bug.ERROR));
     }
   }
 
-  private DBIterator getBaseIteratorMitglied() throws RemoteException
+  private DBIterator<Mitglied> getBaseIteratorMitglied() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> it = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     it.addFilter("(austritt is null or austritt > ?)", new Date());
     it.addFilter("adresstyp = 1");
     return it;

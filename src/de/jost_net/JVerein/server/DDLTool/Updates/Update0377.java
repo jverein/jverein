@@ -30,10 +30,11 @@ public class Update0377 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Liquibase id=109
-    execute(addColumn("mitglied", new Column("zahlungstermin", COLTYPE.INTEGER,
-        0, null, false, false)));
+    execute(addColumn("mitglied",
+        new Column("zahlungstermin", COLTYPE.INTEGER, 0, null, false, false)));
   }
 }

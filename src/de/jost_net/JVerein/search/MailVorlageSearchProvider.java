@@ -50,7 +50,8 @@ public class MailVorlageSearchProvider implements SearchProvider
     }
 
     String text = "%" + search.toLowerCase() + "%";
-    DBIterator list = Einstellungen.getDBService().createList(MailVorlage.class);
+    DBIterator<MailVorlage> list = Einstellungen.getDBService()
+        .createList(MailVorlage.class);
     list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();

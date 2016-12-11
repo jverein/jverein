@@ -49,7 +49,8 @@ public class WiedervorlageList extends TablePart implements Part
   public Part getWiedervorlageList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator wiedervorlagen = service.createList(Wiedervorlage.class);
+    DBIterator<Wiedervorlage> wiedervorlagen = service
+        .createList(Wiedervorlage.class);
     wiedervorlagen.setOrder("ORDER BY datum DESC");
 
     if (wiedervorlageList == null)
@@ -77,8 +78,8 @@ public class WiedervorlageList extends TablePart implements Part
           return name;
         }
       });
-      wiedervorlageList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      wiedervorlageList.addColumn("Datum", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       wiedervorlageList.addColumn("Vermerk", "vermerk");
       wiedervorlageList.addColumn("Erledigung", "erledigung",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));

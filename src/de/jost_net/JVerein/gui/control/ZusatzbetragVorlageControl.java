@@ -264,8 +264,8 @@ public class ZusatzbetragVorlageControl extends AbstractControl
 
   public Part getZusatzbetraegeVorlageList() throws RemoteException
   {
-    DBIterator zusatzbetragsvorlagen = Einstellungen.getDBService().createList(
-        ZusatzbetragVorlage.class);
+    DBIterator<ZusatzbetragVorlage> zusatzbetragsvorlagen = Einstellungen
+        .getDBService().createList(ZusatzbetragVorlage.class);
     zusatzbetragsvorlagen.setOrder("ORDER BY buchungstext");
 
     if (zusatzbetraegeList == null)
@@ -283,11 +283,11 @@ public class ZusatzbetragVorlageControl extends AbstractControl
       zusatzbetraegeList.addColumn("nächste Fälligkeit", "faelligkeit",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       zusatzbetraegeList.addColumn("Intervall", "intervalltext");
-      zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      zusatzbetraegeList.addColumn("Endedatum", "endedatum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
-      zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
-          "", Einstellungen.DECIMALFORMAT));
+      zusatzbetraegeList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       // zusatzbetraegeList.setContextMenu(new ZusatzbetraegeMenu(
       // zusatzbetraegeList));
       zusatzbetraegeList.setRememberColWidths(true);

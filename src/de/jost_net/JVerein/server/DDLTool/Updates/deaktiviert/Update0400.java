@@ -31,13 +31,14 @@ public class Update0400 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     Table table = new Table("inventarlagerort");
     Column primco = new Column("id", COLTYPE.BIGINT, 19, null, false, true);
     table.add(primco);
-    table.add(new Column("bezeichnung", COLTYPE.VARCHAR, 200, null, false,
-        false));
+    table.add(
+        new Column("bezeichnung", COLTYPE.VARCHAR, 200, null, false, false));
     table.setPrimaryKey(primco);
 
     execute(createTable(table));

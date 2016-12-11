@@ -100,11 +100,11 @@ public class AbrechnungSEPAParam
       // DB-Service holen
       try
       {
-        service = (DBService) Application.getServiceFactory().lookup(
-            HBCI.class, "database");
-        DBIterator konten = service.createList(Konto.class);
-        Logger.debug("Vereinskonto: "
-            + Einstellungen.getEinstellung().getIban());
+        service = (DBService) Application.getServiceFactory().lookup(HBCI.class,
+            "database");
+        DBIterator<Konto> konten = service.createList(Konto.class);
+        Logger
+            .debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
         while (konten.hasNext())
         {
           konto = (Konto) konten.next();

@@ -40,7 +40,7 @@ import de.willuhn.util.ApplicationException;
 
 public class FormularfelderExportAction implements Action
 {
-	
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -57,13 +57,14 @@ public class FormularfelderExportAction implements Action
 
     try
     {
-    	DBService service = Einstellungen.getDBService();
-      DBIterator formularfelder = service.createList(Formularfeld.class);
+      DBService service = Einstellungen.getDBService();
+      DBIterator<Formularfeld> formularfelder = service
+          .createList(Formularfeld.class);
       formularfelder.addFilter("formular = ?", new Object[] { f.getID() });
       ArrayList<Formularfeld> fflist = new ArrayList<Formularfeld>();
       while (formularfelder.hasNext())
       {
-      	Formularfeld ff = (Formularfeld) formularfelder.next(); 
+        Formularfeld ff = formularfelder.next();
         fflist.add(ff);
       }
 
@@ -83,7 +84,8 @@ public class FormularfelderExportAction implements Action
     catch (Exception e)
     {
       Logger.error("Fehler", e);
-      GUI.getStatusBar().setErrorText("Fehler beim Exportieren der Formularfelder");
+      GUI.getStatusBar()
+          .setErrorText("Fehler beim Exportieren der Formularfelder");
     }
   }
 }

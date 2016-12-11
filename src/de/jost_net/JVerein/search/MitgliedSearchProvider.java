@@ -53,10 +53,12 @@ public class MitgliedSearchProvider implements SearchProvider
       return null;
 
     String text = "%" + search.toLowerCase() + "%";
-    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
-    list.addFilter("LOWER(name) LIKE ? OR " + "LOWER(vorname) LIKE ? OR "
-        + "ort LIKE ? OR " + "bic LIKE ? OR " + "iban LIKE ?", text, text,
-        text, text, text);
+    DBIterator<Mitglied> list = Einstellungen.getDBService()
+        .createList(Mitglied.class);
+    list.addFilter(
+        "LOWER(name) LIKE ? OR " + "LOWER(vorname) LIKE ? OR "
+            + "ort LIKE ? OR " + "bic LIKE ? OR " + "iban LIKE ?",
+        text, text, text, text, text);
 
     ArrayList<MyResult> results = new ArrayList<MyResult>();
     while (list.hasNext())
@@ -92,11 +94,11 @@ public class MitgliedSearchProvider implements SearchProvider
     {
       try
       {
-        return Adressaufbereitung.getNameVorname(m)
-            + ", "
+        return Adressaufbereitung.getNameVorname(m) + ", "
             + Adressaufbereitung.getAnschrift(m)
-            + (m.getGeburtsdatum() != null ? ", "
-                + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum()) : "")
+            + (m.getGeburtsdatum() != null
+                ? ", " + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum())
+                : "")
             + (m.getIban() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "
                 + "BIC" + ": " + m.getBic() : "");
       }

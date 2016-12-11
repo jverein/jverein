@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.SpendenbescheinigungVar;
 import de.jost_net.JVerein.keys.HerkunftSpende;
@@ -39,9 +38,10 @@ import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 
-public class SpendenbescheinigungImpl extends AbstractDBObject implements
-    Spendenbescheinigung
+public class SpendenbescheinigungImpl extends AbstractDBObject
+    implements Spendenbescheinigung
 {
 
   private static final long serialVersionUID = -1861750218155086064L;
@@ -503,13 +503,14 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     if (getSpendenart() == Spendenart.GELDSPENDE && buchungen == null)
     {
       buchungen = new ArrayList<Buchung>();
-      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+      DBIterator<Buchung> it = Einstellungen.getDBService()
+          .createList(Buchung.class);
       it.addFilter("spendenbescheinigung = ?", getID());
       it.setOrder("ORDER BY datum asc");
       double summe = 0.0;
       while (it.hasNext())
       {
-        Buchung bu = (Buchung) it.next();
+        Buchung bu = it.next();
         buchungen.add(bu);
         summe += bu.getBetrag();
       }
@@ -594,8 +595,8 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
     try
     {
       String betraginworten = GermanNumber.toString(dWert.longValue());
-      map.put(SpendenbescheinigungVar.BETRAGINWORTEN.getName(), "*"
-          + betraginworten + "*");
+      map.put(SpendenbescheinigungVar.BETRAGINWORTEN.getName(),
+          "*" + betraginworten + "*");
     }
     catch (Exception e)
     {
@@ -630,9 +631,9 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         .getSpendenbescheinigungPrintBuchungsart();
     map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
         getBezeichnungSachzuwendung());
-    map.put(
-        SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
-        getUnterlagenWertermittlung() ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
+    map.put(SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
+        getUnterlagenWertermittlung()
+            ? "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor."
             : "");
     // Unterscheidung bis 2012 / ab 2013
     if (gc.get(GregorianCalendar.YEAR) <= 2012)
@@ -648,20 +649,17 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
       switch (getHerkunftSpende())
       {
         case HerkunftSpende.BETRIEBSVERMOEGEN:
-          map.put(
-              SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
+          map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
               "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Betriebsvermögen und ist"
                   + newLineStr
                   + "mit dem Entnahmewert (ggf. mit dem niedrigeren gemeinen Wert) bewertet.");
           break;
         case HerkunftSpende.PRIVATVERMOEGEN:
-          map.put(
-              SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
+          map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
               "Die Sachzuwendung stammt nach den Angaben des Zuwendenden aus dem Privatvermögen.");
           break;
         case HerkunftSpende.KEINEANGABEN:
-          map.put(
-              SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
+          map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
               "Der Zuwendende hat trotz Aufforderung keine Angaben zur Herkunft der Sachzuwendung gemacht.");
           break;
       }
@@ -731,9 +729,11 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         bl.append(newLineStr);
         bl.append("Legende:");
         bl.append(newLineStr);
-        bl.append("(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen");
+        bl.append(
+            "(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen");
         bl.append(newLineStr);
-        bl.append("(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
+        bl.append(
+            "(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen");
         bl.append(newLineStr);
       }
       else
@@ -800,8 +800,9 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
           }
           else
           {
-            bl.append(StringTool.rpad(
-                StringTool.lpad("nein", colVerzichtLen / 2 - 2), colVerzichtLen));
+            bl.append(
+                StringTool.rpad(StringTool.lpad("nein", colVerzichtLen / 2 - 2),
+                    colVerzichtLen));
           }
           bl.append("  ");
           String str = Einstellungen.DECIMALFORMAT.format(b.getBetrag());
@@ -819,12 +820,12 @@ public class SpendenbescheinigungImpl extends AbstractDBObject implements
         bl.append(newLineStr);
         // bl.append(StringTool.rpad("-",
         // colDatumLen+2+colArtLen+2+colVerzichtLen, "-"));
-        // bl.append("  ");
+        // bl.append(" ");
         // bl.append(StringTool.rpad("-", colBetragLen, "-"));
         // bl.append(newLineStr);
 
-        bl.append(StringTool.rpad("Gesamtsumme:", colDatumLen + 2 + colArtLen
-            + 2 + colVerzichtLen));
+        bl.append(StringTool.rpad("Gesamtsumme:",
+            colDatumLen + 2 + colArtLen + 2 + colVerzichtLen));
         bl.append("  ");
         String str = Einstellungen.DECIMALFORMAT.format(getBetrag());
         bl.append(StringTool.lpad(str, colBetragLen));

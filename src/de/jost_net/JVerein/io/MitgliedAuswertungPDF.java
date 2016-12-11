@@ -66,7 +66,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
     this.adresstyp = (Adresstyp) control.getAdresstyp().getValue();
     if (adresstyp == null)
     {
-      DBIterator it = Einstellungen.getDBService().createList(Adresstyp.class);
+      DBIterator<Adresstyp> it = Einstellungen.getDBService()
+          .createList(Adresstyp.class);
       it.addFilter("jvereinid=1");
       adresstyp = (Adresstyp) it.next();
     }
@@ -138,8 +139,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
       Date d = (Date) control.getStichtag(false).getValue();
       params.put("Stichtag", new JVDateFormatTTMMJJJJ().format(d));
     }
-    for (int i = 0; i < control.getSettings()
-        .getInt("zusatzfelder.selected", 0); i++)
+    for (int i = 0; i < control.getSettings().getInt("zusatzfelder.selected",
+        0); i++)
     {
       if (!control.getSettings().getString("zusatzfeld." + i + ".value", "")
           .equals(""))
@@ -176,17 +177,18 @@ public class MitgliedAuswertungPDF implements IAuswertung
           BaseColor.LIGHT_GRAY);
       if (adresstyp.getJVereinid() == 1)
       {
-        report.addHeaderColumn("Eintritt / \nAustritt / \nKündigung"
-            + (Einstellungen.getEinstellung().getSterbedatum() ? ("/\n"
-                + "Sterbedatum") : ""), Element.ALIGN_CENTER, 30,
-            BaseColor.LIGHT_GRAY);
+        report.addHeaderColumn(
+            "Eintritt / \nAustritt / \nKündigung"
+                + (Einstellungen.getEinstellung().getSterbedatum()
+                    ? ("/\n" + "Sterbedatum") : ""),
+            Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       }
-      report
-          .addHeaderColumn(
+      report.addHeaderColumn(
 
-              "Beitragsgruppe /\nEigenschaften"
-                  + (Einstellungen.getEinstellung().getExterneMitgliedsnummer() ? "\nMitgliedsnummer"
-                      : ""), Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
+          "Beitragsgruppe /\nEigenschaften"
+              + (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
+                  ? "\nMitgliedsnummer" : ""),
+          Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
       for (int i = 0; i < list.size(); i++)
@@ -250,8 +252,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
               .append(m.getBeitragsgruppe().getBezeichnung());
         }
         StringBuilder eigenschaften = new StringBuilder();
-        ArrayList<String> eig = new EigenschaftenTool().getEigenschaften(m
-            .getID());
+        ArrayList<String> eig = new EigenschaftenTool()
+            .getEigenschaften(m.getID());
         for (int i2 = 0; i2 < eig.size(); i2 = i2 + 2)
         {
           if (i2 == 0)
@@ -267,8 +269,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
         zelle = "";
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
-          zelle += (m.getExterneMitgliedsnummer() != null ? m
-              .getExterneMitgliedsnummer() : "");
+          zelle += (m.getExterneMitgliedsnummer() != null
+              ? m.getExterneMitgliedsnummer() : "");
         }
 
         report.addColumn(beitragsgruppebemerkung.toString() + " "
@@ -276,12 +278,13 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       report.closeTable();
 
-      report.add(new Paragraph(String.format("Anzahl %d: %s", list.size(),
-          adresstyp.getBezeichnungPlural()), FontFactory.getFont(
-          FontFactory.HELVETICA, 8)));
+      report.add(new Paragraph(
+          String.format("Anzahl %d: %s", list.size(),
+              adresstyp.getBezeichnungPlural()),
+          FontFactory.getFont(FontFactory.HELVETICA, 8)));
 
-      report.add(new Paragraph("Parameter", FontFactory.getFont(
-          FontFactory.HELVETICA, 12)));
+      report.add(new Paragraph("Parameter",
+          FontFactory.getFont(FontFactory.HELVETICA, 12)));
 
       report.addHeaderColumn("Parameter", Element.ALIGN_RIGHT, 100,
           BaseColor.LIGHT_GRAY);

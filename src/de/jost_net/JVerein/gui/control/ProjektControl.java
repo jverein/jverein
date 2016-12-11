@@ -102,7 +102,7 @@ public class ProjektControl extends AbstractControl
   public Part getProjektList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator projekte = service.createList(Projekt.class);
+    DBIterator<Projekt> projekte = service.createList(Projekt.class);
     projekte.setOrder("ORDER BY bezeichnung");
 
     projektList = new TablePart(projekte, new ProjektAction());

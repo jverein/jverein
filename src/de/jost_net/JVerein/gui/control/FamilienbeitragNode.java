@@ -55,20 +55,21 @@ public class FamilienbeitragNode implements GenericObjectNode
     this.parent = null;
     this.type = ROOT;
     this.children = new ArrayList<FamilienbeitragNode>();
-    DBIterator it = Einstellungen.getDBService().createList(
-        Beitragsgruppe.class);
+    DBIterator<Beitragsgruppe> it = Einstellungen.getDBService()
+        .createList(Beitragsgruppe.class);
     it.addFilter("beitragsart = ?",
         new Object[] { ArtBeitragsart.FAMILIE_ZAHLER.getKey() });
     while (it.hasNext())
     {
-      Beitragsgruppe bg = (Beitragsgruppe) it.next();
-      DBIterator it2 = Einstellungen.getDBService().createList(Mitglied.class);
+      Beitragsgruppe bg = it.next();
+      DBIterator<Mitglied> it2 = Einstellungen.getDBService()
+          .createList(Mitglied.class);
       it2.addFilter("beitragsgruppe = ?", new Object[] { bg.getID() });
       it2.addFilter("austritt is null");
       it2.setOrder("ORDER BY name, vorname");
       while (it2.hasNext())
       {
-        Mitglied m = (Mitglied) it2.next();
+        Mitglied m = it2.next();
         FamilienbeitragNode fbn = new FamilienbeitragNode(this, m);
         children.add(fbn);
       }
@@ -83,13 +84,13 @@ public class FamilienbeitragNode implements GenericObjectNode
     this.id = mitglied.getID();
     this.type = ZAHLER;
     this.children = new ArrayList<FamilienbeitragNode>();
-    DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> it = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     it.addFilter("zahlerid = ?", new Object[] { m.getID() });
     it.addFilter("austritt is null");
     while (it.hasNext())
     {
-      FamilienbeitragNode fbn = new FamilienbeitragNode(this,
-          (Mitglied) it.next(), 1);
+      FamilienbeitragNode fbn = new FamilienbeitragNode(this, it.next(), 1);
       children.add(fbn);
     }
   }
@@ -149,10 +150,10 @@ public class FamilienbeitragNode implements GenericObjectNode
       }
       JVDateFormatTTMMJJJJ jvttmmjjjj = new JVDateFormatTTMMJJJJ();
       return Adressaufbereitung.getNameVorname(mitglied)
-          + (mitglied.getGeburtsdatum() != null ? ", "
-              + jvttmmjjjj.format(mitglied.getGeburtsdatum()) : "")
-          + (mitglied.getIban().length() > 0 ? ", " + mitglied.getBic() + ", "
-              + mitglied.getIban() : "");
+          + (mitglied.getGeburtsdatum() != null
+              ? ", " + jvttmmjjjj.format(mitglied.getGeburtsdatum()) : "")
+          + (mitglied.getIban().length() > 0
+              ? ", " + mitglied.getBic() + ", " + mitglied.getIban() : "");
     }
     catch (RemoteException e)
     {
@@ -196,8 +197,8 @@ public class FamilienbeitragNode implements GenericObjectNode
   {
     if (children != null)
     {
-      return PseudoIterator.fromArray(children
-          .toArray(new GenericObject[children.size()]));
+      return PseudoIterator
+          .fromArray(children.toArray(new GenericObject[children.size()]));
     }
     return null;
   }

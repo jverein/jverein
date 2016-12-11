@@ -59,8 +59,8 @@ public class FormularfelderImportCSV implements Importer
   {
     try
     {
-      DBIterator list = Einstellungen.getDBService().createList(
-          Formularfeld.class);
+      DBIterator<Formularfeld> list = Einstellungen.getDBService()
+          .createList(Formularfeld.class);
       list.addFilter("formular = ?", f.getID());
       while (list.hasNext())
       {
@@ -87,8 +87,8 @@ public class FormularfelderImportCSV implements Importer
     Formular f = (Formular) context;
     try
     {
-      Logger.info("Importiere Formularfelder für Formular "
-          + f.getBezeichnung());
+      Logger
+          .info("Importiere Formularfelder für Formular " + f.getBezeichnung());
     }
     catch (RemoteException re)
     {

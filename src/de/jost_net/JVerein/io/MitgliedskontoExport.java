@@ -70,7 +70,8 @@ public abstract class MitgliedskontoExport implements Exporter
     selectedMitglied = (Mitglied) objects[4];
     open();
 
-    DBIterator mitgl = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     if (null != selectedMitglied)
       mitgl.addFilter("id = ? ", selectedMitglied.getID());
     mitgl.setOrder("ORDER BY name, vorname");
@@ -106,11 +107,11 @@ public abstract class MitgliedskontoExport implements Exporter
 
   protected abstract void endeMitglied() throws DocumentException;
 
-  protected abstract void open() throws DocumentException,
-      FileNotFoundException;
+  protected abstract void open()
+      throws DocumentException, FileNotFoundException;
 
   protected abstract void add(Mitgliedskonto mk) throws RemoteException;
 
-  protected abstract void close(ProgressMonitor monitor) throws IOException,
-      DocumentException;
+  protected abstract void close(ProgressMonitor monitor)
+      throws IOException, DocumentException;
 }

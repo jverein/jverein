@@ -157,7 +157,7 @@ public class FormularControl extends AbstractControl
   public Part getFormularList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator formulare = service.createList(Formular.class);
+    DBIterator<Formular> formulare = service.createList(Formular.class);
     formulare.setOrder("ORDER BY art, bezeichnung");
 
     formularList = new TablePart(formulare, new FormularAction());
@@ -174,8 +174,8 @@ public class FormularControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     formularList.removeAll();
-    DBIterator formulare = Einstellungen.getDBService().createList(
-        Formular.class);
+    DBIterator<Formular> formulare = Einstellungen.getDBService()
+        .createList(Formular.class);
     formulare.setOrder("ORDER BY art, bezeichnung");
     while (formulare.hasNext())
     {

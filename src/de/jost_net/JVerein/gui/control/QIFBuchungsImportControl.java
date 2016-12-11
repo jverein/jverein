@@ -298,10 +298,11 @@ public class QIFBuchungsImportControl extends AbstractControl
   private void aktuallisierePosListe(QIFImportHead head) throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator kontoPosIterator = service.createList(QIFImportPos.class);
+    DBIterator<QIFImportPos> kontoPosIterator = service
+        .createList(QIFImportPos.class);
     kontoPosIterator.addFilter(QIFImportPos.COL_HEADID + " = " + head.getID());
-    kontoPosIterator.setOrder("ORDER BY " + QIFImportPos.COL_DATUM + ","
-        + QIFImportPos.COL_POSID);
+    kontoPosIterator.setOrder(
+        "ORDER BY " + QIFImportPos.COL_DATUM + "," + QIFImportPos.COL_POSID);
 
     qifImportPosList.removeAll();
     double saldo = head.getStartSaldo();
@@ -323,8 +324,8 @@ public class QIFBuchungsImportControl extends AbstractControl
   {
     ArrayList<QIFImportPos> zeile = new ArrayList<QIFImportPos>();
 
-    GenericIterator gi = PseudoIterator.fromArray(zeile
-        .toArray(new GenericObject[zeile.size()]));
+    GenericIterator gi = PseudoIterator
+        .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
     return gi;
   }
 
@@ -536,14 +537,14 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     public void unregisterMe()
     {
-      Application.getMessagingFactory().unRegisterMessageConsumer(
-          QIFImportHeaderMessageConsumer.this);
+      Application.getMessagingFactory()
+          .unRegisterMessageConsumer(QIFImportHeaderMessageConsumer.this);
     }
 
     public void registerMe()
     {
-      Application.getMessagingFactory().registerMessageConsumer(
-          QIFImportHeaderMessageConsumer.this);
+      Application.getMessagingFactory()
+          .registerMessageConsumer(QIFImportHeaderMessageConsumer.this);
     }
 
     @Override
@@ -618,8 +619,8 @@ public class QIFBuchungsImportControl extends AbstractControl
       }
     }
 
-    private void speichernJahresabschluss() throws RemoteException,
-        ApplicationException
+    private void speichernJahresabschluss()
+        throws RemoteException, ApplicationException
     {
       int aktJahr = getAktJahr();
       for (SaldoJahr jahr : jahresListe)
@@ -631,11 +632,11 @@ public class QIFBuchungsImportControl extends AbstractControl
       }
     }
 
-    private void speichernJahresabschluss(int jahr) throws RemoteException,
-        ApplicationException
+    private void speichernJahresabschluss(int jahr)
+        throws RemoteException, ApplicationException
     {
-      Jahresabschluss abschluss = (Jahresabschluss) Einstellungen
-          .getDBService().createObject(Jahresabschluss.class, null);
+      Jahresabschluss abschluss = (Jahresabschluss) Einstellungen.getDBService()
+          .createObject(Jahresabschluss.class, null);
       abschluss.setDatum(new Date());
       abschluss.setVon(getJahresStart(jahr));
       abschluss.setBis(getJahresEnde(jahr));
@@ -666,8 +667,8 @@ public class QIFBuchungsImportControl extends AbstractControl
       return datum.get(Calendar.YEAR);
     }
 
-    private void buchungenUebernehmen() throws RemoteException,
-        ApplicationException
+    private void buchungenUebernehmen()
+        throws RemoteException, ApplicationException
     {
       GUI.getStatusBar().startProgress();
       for (QIFImportHead importHead : importHeadList)
@@ -681,9 +682,10 @@ public class QIFBuchungsImportControl extends AbstractControl
         throws RemoteException, ApplicationException
     {
       Konto konto = importHead.getKonto();
-      zeigeMeldung("Buchungen werden übernommen für Konto : "
-          + konto.getBezeichnung());
-      DBIterator iteratorQIFImportPos = loadExterneBuchungen(importHead);
+      zeigeMeldung(
+          "Buchungen werden übernommen für Konto : " + konto.getBezeichnung());
+      DBIterator<QIFImportPos> iteratorQIFImportPos = loadExterneBuchungen(
+          importHead);
       speichernKontoeroeffnung(konto, importHead);
       speichernAnfangsbestand(importHead.getStartSaldo(), konto,
           (QIFImportPos) iteratorQIFImportPos.next());
@@ -722,8 +724,8 @@ public class QIFBuchungsImportControl extends AbstractControl
         speichernAnfangsbestand(aktSaldo, konto, importPos);
     }
 
-    private void mitgliedsKontoSpeichern(QIFImportPos importPos, Buchung buchung)
-        throws RemoteException, ApplicationException
+    private void mitgliedsKontoSpeichern(QIFImportPos importPos,
+        Buchung buchung) throws RemoteException, ApplicationException
     {
       Mitglied mitglied = importPos.getMitglied();
       if (null == mitglied)
@@ -812,31 +814,25 @@ public class QIFBuchungsImportControl extends AbstractControl
       return true;
     }
 
-    private DBIterator loadExterneBuchungen(QIFImportHead importHead)
-        throws RemoteException
+    private DBIterator<QIFImportPos> loadExterneBuchungen(
+        QIFImportHead importHead) throws RemoteException
     {
-      DBIterator iterator = Einstellungen.getDBService().createList(
-          QIFImportPos.class);
+      DBIterator<QIFImportPos> iterator = Einstellungen.getDBService()
+          .createList(QIFImportPos.class);
       iterator.addFilter(QIFImportPos.COL_HEADID + "= ?", importHead.getID());
-      iterator.setOrder("order by " + QIFImportPos.COL_DATUM + ","
-          + QIFImportPos.COL_POSID);
+      iterator.setOrder(
+          "order by " + QIFImportPos.COL_DATUM + "," + QIFImportPos.COL_POSID);
       return iterator;
     }
 
     private void frageBenutzer() throws ApplicationException
     {
-      super
-          .frageBenutzer(
-              "Externe Buchungen importieren",
-              "Sollen die externen Buchungen nach JVerein übernommen werden?\n"
-                  + "Anzahl Konten : "
-                  + importHeadList.size()
-                  + "\n"
-                  + "Anzahl Buchungen : "
-                  + buchungen
-                  + "\n\n"
-                  + "Sie sollten alle QIF Dateien importiert haben bevor diese Funktion gestartet wird,\n"
-                  + "weil für alte Buchungsjahre ein Jahresabschluss gemacht wird.");
+      super.frageBenutzer("Externe Buchungen importieren",
+          "Sollen die externen Buchungen nach JVerein übernommen werden?\n"
+              + "Anzahl Konten : " + importHeadList.size() + "\n"
+              + "Anzahl Buchungen : " + buchungen + "\n\n"
+              + "Sie sollten alle QIF Dateien importiert haben bevor diese Funktion gestartet wird,\n"
+              + "weil für alte Buchungsjahre ein Jahresabschluss gemacht wird.");
     }
 
     private void init()
@@ -854,7 +850,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     }
 
-    private void zeigeMeldung(String meldetext) 
+    private void zeigeMeldung(String meldetext)
     {
       GUI.getStatusBar().setSuccessText(meldetext);
     }
@@ -863,11 +859,11 @@ public class QIFBuchungsImportControl extends AbstractControl
     {
       zeigeMeldung("Prüfe externe Buchungspositionen ..");
 
-      DBIterator posIterator = Einstellungen.getDBService().createList(
-          QIFImportPos.class);
+      DBIterator<QIFImportPos> posIterator = Einstellungen.getDBService()
+          .createList(QIFImportPos.class);
       while (posIterator.hasNext())
       {
-        QIFImportPos importPos = (QIFImportPos) posIterator.next();
+        QIFImportPos importPos = posIterator.next();
         pruefenPosDaten(importPos);
       }
       if (buchungen == 0)
@@ -893,12 +889,11 @@ public class QIFBuchungsImportControl extends AbstractControl
         datumEnde = buchungsDatum;
     }
 
-    private void pruefenHeadDaten() throws RemoteException,
-        ApplicationException
+    private void pruefenHeadDaten() throws RemoteException, ApplicationException
     {
       zeigeMeldung("Prüfe Externe Daten ..");
-      DBIterator headIterator = Einstellungen.getDBService().createList(
-          QIFImportHead.class);
+      DBIterator<QIFImportHead> headIterator = Einstellungen.getDBService()
+          .createList(QIFImportHead.class);
       while (headIterator.hasNext())
       {
         QIFImportHead importHead = (QIFImportHead) headIterator.next();
@@ -927,8 +922,8 @@ public class QIFBuchungsImportControl extends AbstractControl
         throws RemoteException, ApplicationException
     {
       zeigeMeldung("Prüfe JVereins Konto Anfangsbestand ..");
-      DBIterator iteratorBuchungsListe = Einstellungen.getDBService()
-          .createList(Anfangsbestand.class);
+      DBIterator<QIFImportHead> iteratorBuchungsListe = Einstellungen
+          .getDBService().createList(Anfangsbestand.class);
       iteratorBuchungsListe.addFilter("KONTO = ?", konto.getID());
       int anzahl = iteratorBuchungsListe.size();
       if (anzahl > 0)
@@ -937,11 +932,11 @@ public class QIFBuchungsImportControl extends AbstractControl
                 + konto.getBezeichnung() + " hat bereits Anfangsbestand");
     }
 
-    private void pruefeKontoIstLeer(Konto konto) throws RemoteException,
-        ApplicationException
+    private void pruefeKontoIstLeer(Konto konto)
+        throws RemoteException, ApplicationException
     {
       zeigeMeldung("Prüfe JVereins Konten ..");
-      DBIterator iteratorBuchungsListe = Einstellungen.getDBService()
+      DBIterator<Buchung> iteratorBuchungsListe = Einstellungen.getDBService()
           .createList(Buchung.class);
       iteratorBuchungsListe.addFilter("KONTO = ?", konto.getID());
       int anzahl = iteratorBuchungsListe.size();
@@ -1071,7 +1066,7 @@ public class QIFBuchungsImportControl extends AbstractControl
     return new Action()
     {
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         GUI.startSync(new AktuellenImportLoeschen());
       }
@@ -1083,7 +1078,7 @@ public class QIFBuchungsImportControl extends AbstractControl
     return new Action()
     {
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         GUI.startSync(new AlleImportsLoeschen());
       }
@@ -1095,21 +1090,21 @@ public class QIFBuchungsImportControl extends AbstractControl
     @Override
     void prozess() throws RemoteException, ApplicationException
     {
-      DBIterator itHeader = checkHeader();
+      DBIterator<QIFImportHead> itHeader = checkHeader();
       frageBenutzer(itHeader);
       loeschen(itHeader);
       headerAktuallisieren();
     }
 
-    private void loeschen(DBIterator itHeader) throws RemoteException,
-        ApplicationException
+    private void loeschen(DBIterator<QIFImportHead> itHeader)
+        throws RemoteException, ApplicationException
     {
       loeschenPositionen();
       loeschenHeader(itHeader);
     }
 
-    private void loeschenHeader(DBIterator itHeader) throws RemoteException,
-        ApplicationException
+    private void loeschenHeader(DBIterator<QIFImportHead> itHeader)
+        throws RemoteException, ApplicationException
     {
       while (itHeader.hasNext())
       {
@@ -1118,11 +1113,11 @@ public class QIFBuchungsImportControl extends AbstractControl
       }
     }
 
-    private void loeschenPositionen() throws RemoteException,
-        ApplicationException
+    private void loeschenPositionen()
+        throws RemoteException, ApplicationException
     {
-      DBIterator iterator = Einstellungen.getDBService().createList(
-          QIFImportPos.class);
+      DBIterator<QIFImportPos> iterator = Einstellungen.getDBService()
+          .createList(QIFImportPos.class);
       while (iterator.hasNext())
       {
         QIFImportPos pos = (QIFImportPos) iterator.next();
@@ -1130,18 +1125,18 @@ public class QIFBuchungsImportControl extends AbstractControl
       }
     }
 
-    private void frageBenutzer(DBIterator itHeader) throws RemoteException,
-        ApplicationException
+    private void frageBenutzer(DBIterator<QIFImportHead> itHeader)
+        throws RemoteException, ApplicationException
     {
       super.frageBenutzer("Alle Imports löschen",
           "Sollen alle " + itHeader.size() + " Imports gelöscht werden?");
     }
 
-    private DBIterator checkHeader() throws RemoteException,
-        ApplicationException
+    private DBIterator<QIFImportHead> checkHeader()
+        throws RemoteException, ApplicationException
     {
-      DBIterator iterator = Einstellungen.getDBService().createList(
-          QIFImportHead.class);
+      DBIterator<QIFImportHead> iterator = Einstellungen.getDBService()
+          .createList(QIFImportHead.class);
       if (iterator.size() == 0)
         throw new ApplicationException(
             "Es gibt keine Imports die gelöscht werden könnten.");
@@ -1162,8 +1157,8 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     private void loeschen() throws RemoteException, ApplicationException
     {
-      DBIterator iterator = Einstellungen.getDBService().createList(
-          QIFImportPos.class);
+      DBIterator<QIFImportPos> iterator = Einstellungen.getDBService()
+          .createList(QIFImportPos.class);
       iterator.addFilter(QIFImportPos.COL_HEADID + " = ?",
           headerSelected.getID());
       while (iterator.hasNext())
@@ -1176,10 +1171,9 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     private void frageBenutzer() throws RemoteException, ApplicationException
     {
-      super.frageBenutzer(
-          "Externe Buchungen löschen",
-          "Sollen die importierten Daten des Kontos "
-              + headerSelected.getName() + " gelöscht werden?");
+      super.frageBenutzer("Externe Buchungen löschen",
+          "Sollen die importierten Daten des Kontos " + headerSelected.getName()
+              + " gelöscht werden?");
     }
 
     private void checkAuswahl() throws ApplicationException
@@ -1276,15 +1270,15 @@ public class QIFBuchungsImportControl extends AbstractControl
       }
       catch (Exception ex)
       {
-        throw new ApplicationException("Benutzerdialog '" + titel
-            + "' kann nicht gezeigt werden.", ex);
+        throw new ApplicationException(
+            "Benutzerdialog '" + titel + "' kann nicht gezeigt werden.", ex);
       }
     }
 
     protected void headerAktuallisieren()
     {
-      Application.getMessagingFactory().sendMessage(
-          new QIFImportHeaderMessage());
+      Application.getMessagingFactory()
+          .sendMessage(new QIFImportHeaderMessage());
     }
 
     abstract void prozess() throws RemoteException, ApplicationException;

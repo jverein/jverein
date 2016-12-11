@@ -37,11 +37,12 @@ public class Update0389 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Erweitern der Buchungsart: das bisherig Feld für
     // die Bezeichnung aus z.B. SKR03 deutlich zu kurz
-    execute(alterColumn("buchungsart", new Column("bezeichnung",
-        COLTYPE.VARCHAR, 80, null, false, false)));
+    execute(alterColumn("buchungsart",
+        new Column("bezeichnung", COLTYPE.VARCHAR, 80, null, false, false)));
   }
 }

@@ -67,8 +67,8 @@ public class EigenschaftControl extends AbstractControl
     eigenschaft = (Eigenschaft) getCurrentObject();
     if (eigenschaft == null)
     {
-      eigenschaft = (Eigenschaft) Einstellungen.getDBService().createObject(
-          Eigenschaft.class, null);
+      eigenschaft = (Eigenschaft) Einstellungen.getDBService()
+          .createObject(Eigenschaft.class, null);
     }
     return eigenschaft;
   }
@@ -89,8 +89,8 @@ public class EigenschaftControl extends AbstractControl
     {
       return eigenschaftgruppe;
     }
-    DBIterator list = Einstellungen.getDBService().createList(
-        EigenschaftGruppe.class);
+    DBIterator<EigenschaftGruppe> list = Einstellungen.getDBService()
+        .createList(EigenschaftGruppe.class);
     list.setOrder("ORDER BY bezeichnung");
     eigenschaftgruppe = new SelectInput(list,
         getEigenschaft().getEigenschaftGruppe());
@@ -137,7 +137,8 @@ public class EigenschaftControl extends AbstractControl
   public Part getEigenschaftList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator eigenschaften = service.createList(Eigenschaft.class);
+    DBIterator<Eigenschaft> eigenschaften = service
+        .createList(Eigenschaft.class);
     eigenschaften.setOrder("ORDER BY bezeichnung");
 
     if (eigenschaftList == null)

@@ -50,7 +50,8 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
   {
     try
     {
-      DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+      DBIterator<Mitglied> list = Einstellungen.getDBService()
+          .createList(Mitglied.class);
       list.addFilter("geburtsdatum is not null");
       list.addFilter("(austritt is null or austritt > ?)", new Date());
       Calendar calf = Calendar.getInstance();
@@ -60,7 +61,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
       List<Appointment> result = new LinkedList<Appointment>();
       while (list.hasNext())
       {
-        Mitglied m = (Mitglied) list.next();
+        Mitglied m = list.next();
         calm.setTime(m.getGeburtsdatum());
         calf.setTime(from);
         calf.set(Calendar.DAY_OF_MONTH, calm.get(Calendar.DAY_OF_MONTH));
@@ -71,13 +72,13 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
 
         if (calf.getTime().after(from) && calf.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calf.getTime(), calf
-              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calf.getTime(),
+              calf.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
         else if (calt.getTime().after(from) && calt.getTime().before(to))
         {
-          result.add(new MyAppointment(m, calt.getTime(), calt
-              .get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          result.add(new MyAppointment(m, calt.getTime(),
+              calt.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
         }
       }
       return result;

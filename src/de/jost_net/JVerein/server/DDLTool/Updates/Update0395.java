@@ -37,6 +37,7 @@ public class Update0395 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
 
@@ -44,11 +45,11 @@ public class Update0395 extends AbstractDDLUpdate
     // er nicht mehr über die Oberfläche gelöscht werden kann
     // Zusätzlich gibt es noch ein neues Bemerkungsfeld
 
-    execute(addColumn("abrechnungslauf", new Column("bemerkung",
-              COLTYPE.VARCHAR, 80, null, false, false)));
+    execute(addColumn("abrechnungslauf",
+        new Column("bemerkung", COLTYPE.VARCHAR, 80, null, false, false)));
 
-    execute(addColumn("abrechnungslauf", new Column("abgeschlossen",
-              COLTYPE.BOOLEAN, 0, "FALSE", true, false)));
+    execute(addColumn("abrechnungslauf",
+        new Column("abgeschlossen", COLTYPE.BOOLEAN, 0, "FALSE", true, false)));
 
     // Ein- uns Ausschalten der Abschließen-Funktion ermöglichen
     // Hat keine Auswirkung auf bereits abhgeschlossene Abrechnungsläufe,

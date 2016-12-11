@@ -53,8 +53,8 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
     }
     try
     {
-      DBIterator list = Einstellungen.getDBService().createList(
-          de.jost_net.JVerein.rmi.Wiedervorlage.class);
+      DBIterator<Wiedervorlage> list = Einstellungen.getDBService()
+          .createList(Wiedervorlage.class);
       Calendar cal = Calendar.getInstance();
       cal.setTime(from);
       if (from != null)
@@ -67,7 +67,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
       List<Appointment> result = new LinkedList<Appointment>();
       while (list.hasNext())
       {
-        result.add(new MyAppointment((Wiedervorlage) list.next()));
+        result.add(new MyAppointment(list.next()));
       }
       return result;
     }

@@ -77,8 +77,8 @@ public class MitgliedMap
       m.setAdresstyp(1);
       m.setAnrede("Herrn");
       m.setAustritt("01.04.2011");
-      DBIterator it = Einstellungen.getDBService().createList(
-          Beitragsgruppe.class);
+      DBIterator<Beitragsgruppe> it = Einstellungen.getDBService()
+          .createList(Beitragsgruppe.class);
       Beitragsgruppe bg = (Beitragsgruppe) it.next();
       m.setBeitragsgruppe(Integer.parseInt(bg.getID()));
       m.setBic("XXXXXXXXXXX");
@@ -131,31 +131,30 @@ public class MitgliedMap
         Adressaufbereitung.getAnredeFoermlich(m));
     map.put(MitgliedVar.ANREDE_DU.getName(), Adressaufbereitung.getAnredeDu(m));
     map.put(MitgliedVar.AUSTRITT.getName(), Datum.formatDate(m.getAustritt()));
-    map.put(
-        MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
-        m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT.format(m
-            .getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
-    map.put(
-        MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
-        m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT.format(m
-            .getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
+    map.put(MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
+        m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(m.getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
+    map.put(MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
+        m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
+            .format(m.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
     try
     {
-      map.put(
-          MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
-          m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-              .format(BeitragsUtil.getBeitrag(Einstellungen.getEinstellung()
-                  .getBeitragsmodel(), m.getZahlungstermin(), m
-                  .getZahlungsrhythmus().getKey(), m.getBeitragsgruppe(),
-                  new Date(), m.getEintritt(), m.getAustritt())) : "");
+      map.put(MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
+          m.getBeitragsgruppe() != null
+              ? Einstellungen.DECIMALFORMAT.format(BeitragsUtil.getBeitrag(
+                  Einstellungen.getEinstellung().getBeitragsmodel(),
+                  m.getZahlungstermin(), m.getZahlungsrhythmus().getKey(),
+                  m.getBeitragsgruppe(), new Date(), m.getEintritt(),
+                  m.getAustritt()))
+              : "");
     }
     catch (NullPointerException e)
     {
       Logger.error("NullPointerException:" + m.getName());
     }
-    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(), m
-        .getBeitragsgruppe() != null ? m.getBeitragsgruppe().getBezeichnung()
-        : "");
+    map.put(MitgliedVar.BEITRAGSGRUPPE_BEZEICHNUNG.getName(),
+        m.getBeitragsgruppe() != null ? m.getBeitragsgruppe().getBezeichnung()
+            : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_ID.getName(),
         m.getBeitragsgruppe() != null ? m.getBeitragsgruppe().getID() : "");
     map.put(MitgliedVar.MANDATDATUM.getName(), m.getMandatDatum());
@@ -173,7 +172,8 @@ public class MitgliedMap
         Datum.formatDate(m.getGeburtsdatum()));
     map.put(MitgliedVar.GESCHLECHT.getName(), m.getGeschlecht());
     map.put(MitgliedVar.HANDY.getName(), m.getHandy());
-    map.put(MitgliedVar.IBANMASKIERT.getName(), VarTools.maskieren(m.getIban()));
+    map.put(MitgliedVar.IBANMASKIERT.getName(),
+        VarTools.maskieren(m.getIban()));
     map.put(MitgliedVar.IBAN.getName(), m.getIban());
     map.put(MitgliedVar.ID.getName(), m.getID());
     map.put(MitgliedVar.INDIVIDUELLERBEITRAG.getName(),
@@ -203,7 +203,8 @@ public class MitgliedMap
     map.put(MitgliedVar.PERSONENART.getName(), m.getPersonenart());
     map.put(MitgliedVar.PLZ.getName(), m.getPlz());
     map.put(MitgliedVar.STAAT.getName(), m.getStaat());
-    map.put(MitgliedVar.STERBETAG.getName(), Datum.formatDate(m.getSterbetag()));
+    map.put(MitgliedVar.STERBETAG.getName(),
+        Datum.formatDate(m.getSterbetag()));
     map.put(MitgliedVar.STRASSE.getName(), m.getStrasse());
     map.put(MitgliedVar.TELEFONDIENSTLICH.getName(), m.getTelefondienstlich());
     map.put(MitgliedVar.TELEFONPRIVAT.getName(), m.getTelefonprivat());
@@ -214,9 +215,10 @@ public class MitgliedMap
     map.put(MitgliedVar.VORNAMENAME.getName(),
         Adressaufbereitung.getVornameName(m));
     map.put(MitgliedVar.ZAHLERID.getName(), m.getZahlerID());
-    map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(), m.getZahlungsrhythmus() + "");
-    map.put(MitgliedVar.ZAHLUNGSRHYTHMUS.getName(), m.getZahlungsrhythmus()
-        + "");
+    map.put(MitgliedVar.ZAHLUNGSRHYTMUS.getName(),
+        m.getZahlungsrhythmus() + "");
+    map.put(MitgliedVar.ZAHLUNGSRHYTHMUS.getName(),
+        m.getZahlungsrhythmus() + "");
     map.put(MitgliedVar.ZAHLUNGSTERMIN.getName(),
         m.getZahlungstermin() != null ? m.getZahlungstermin().getText() : "");
     map.put(MitgliedVar.ZAHLUNGSWEG.getName(), m.getZahlungsweg() + "");
@@ -256,13 +258,13 @@ public class MitgliedMap
     map.put(MitgliedVar.ZAHLUNGSWEGTEXT.getName(), zahlungsweg);
 
     HashMap<String, String> format = new HashMap<String, String>();
-    DBIterator itfd = Einstellungen.getDBService().createList(
-        Felddefinition.class);
+    DBIterator<Felddefinition> itfd = Einstellungen.getDBService()
+        .createList(Felddefinition.class);
     while (itfd.hasNext())
     {
       Felddefinition fd = (Felddefinition) itfd.next();
-      DBIterator itzus = Einstellungen.getDBService().createList(
-          Zusatzfelder.class);
+      DBIterator<Zusatzfelder> itzus = Einstellungen.getDBService()
+          .createList(Zusatzfelder.class);
       itzus.addFilter("mitglied = ? and felddefinition = ? ",
           new Object[] { m.getID(), fd.getID() });
       Zusatzfelder z = null;
@@ -272,8 +274,8 @@ public class MitgliedMap
       }
       else
       {
-        z = (Zusatzfelder) Einstellungen.getDBService().createObject(
-            Zusatzfelder.class, null);
+        z = (Zusatzfelder) Einstellungen.getDBService()
+            .createObject(Zusatzfelder.class, null);
       }
 
       switch (fd.getDatentyp())
@@ -310,13 +312,13 @@ public class MitgliedMap
       }
     }
 
-    DBIterator iteig = Einstellungen.getDBService().createList(
-        Eigenschaft.class);
+    DBIterator<Eigenschaft> iteig = Einstellungen.getDBService()
+        .createList(Eigenschaft.class);
     while (iteig.hasNext())
     {
       Eigenschaft eig = (Eigenschaft) iteig.next();
-      DBIterator iteigm = Einstellungen.getDBService().createList(
-          Eigenschaften.class);
+      DBIterator<Eigenschaften> iteigm = Einstellungen.getDBService()
+          .createList(Eigenschaften.class);
       iteigm.addFilter("mitglied = ? and eigenschaft = ?",
           new Object[] { m.getID(), eig.getID() });
       String val = "";

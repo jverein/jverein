@@ -106,8 +106,8 @@ public class FelddefinitionControl extends AbstractControl
     {
       return datentyp;
     }
-    datentyp = new SelectInput(Datentyp.getArray(), new Datentyp(
-        getFelddefinition().getDatentyp()));
+    datentyp = new SelectInput(Datentyp.getArray(),
+        new Datentyp(getFelddefinition().getDatentyp()));
     return datentyp;
   }
 
@@ -158,7 +158,7 @@ public class FelddefinitionControl extends AbstractControl
       return felddefinitionList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator fdef = service.createList(Felddefinition.class);
+    DBIterator<Felddefinition> fdef = service.createList(Felddefinition.class);
     felddefinitionList = new TablePart(fdef, new FelddefinitionDetailAction());
     felddefinitionList.addColumn("Name", "name");
     felddefinitionList.addColumn("Label", "label");
@@ -186,8 +186,9 @@ public class FelddefinitionControl extends AbstractControl
       return;
     }
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    DBIterator it = Einstellungen.getDBService().createList(Zusatzfelder.class);
-    it.addFilter("felddefinition = ?", new Object[] { f.getID()});
+    DBIterator<Zusatzfelder> it = Einstellungen.getDBService()
+        .createList(Zusatzfelder.class);
+    it.addFilter("felddefinition = ?", new Object[] { f.getID() });
     switch (f.getDatentyp())
     {
       case Datentyp.ZEICHENFOLGE:
@@ -220,14 +221,14 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.DATUM:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               try
               {
                 Date datum = sdf.parse(z.getFeld());
                 if (!checkOnly)
                 {
-                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                      Zusatzfelder.class, z.getID());
+                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                      .createObject(Zusatzfelder.class, z.getID());
                   z1.setFeldDatum(datum);
                   z1.setFeld(null);
                   z1.store();
@@ -242,14 +243,14 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.GANZZAHL:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               try
               {
                 int i = Integer.parseInt(z.getFeld());
                 if (!checkOnly)
                 {
-                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                      Zusatzfelder.class, z.getID());
+                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                      .createObject(Zusatzfelder.class, z.getID());
                   z1.setFeldGanzzahl(i);
                   z1.setFeld(null);
                   z1.store();
@@ -264,7 +265,7 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.JANEIN:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               String b = z.getFeld();
               Boolean bool = null;
               if (b == null || b.equals("") || b.equalsIgnoreCase("false")
@@ -282,8 +283,8 @@ public class FelddefinitionControl extends AbstractControl
               }
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeldJaNein(bool);
                 z1.setFeld(null);
                 z1.store();
@@ -294,14 +295,14 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.WAEHRUNG:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               try
               {
                 Number doub = Einstellungen.DECIMALFORMAT.parse(z.getFeld());
                 if (!checkOnly)
                 {
-                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                      Zusatzfelder.class, z.getID());
+                  Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                      .createObject(Zusatzfelder.class, z.getID());
                   z1.setFeldWaehrung(new BigDecimal(doub.doubleValue()));
                   z1.setFeld(null);
                   z1.store();
@@ -321,11 +322,11 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.ZEICHENFOLGE:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeld(new JVDateFormatTTMMJJJJ().format(z.getFeldDatum()));
                 z1.setFeldDatum(null);
                 z1.store();
@@ -342,11 +343,11 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.ZEICHENFOLGE:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeld(z.getFeldGanzzahl() + "");
                 z1.setFeldGanzzahl(null);
                 z1.store();
@@ -363,11 +364,11 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.ZEICHENFOLGE:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
                 z1.setFeld(z.getFeldJaNein() ? "ja" : "nein");
                 z1.setFeldJaNein(null);
                 z1.store();
@@ -384,12 +385,13 @@ public class FelddefinitionControl extends AbstractControl
           case Datentyp.ZEICHENFOLGE:
             while (it.hasNext())
             {
-              Zusatzfelder z = (Zusatzfelder) it.next();
+              Zusatzfelder z = it.next();
               if (!checkOnly)
               {
-                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                    Zusatzfelder.class, z.getID());
-                z1.setFeld(Einstellungen.DECIMALFORMAT.format(z.getFeldWaehrung()));
+                Zusatzfelder z1 = (Zusatzfelder) Einstellungen.getDBService()
+                    .createObject(Zusatzfelder.class, z.getID());
+                z1.setFeld(
+                    Einstellungen.DECIMALFORMAT.format(z.getFeldWaehrung()));
                 z1.setFeldWaehrung(null);
                 z1.store();
               }
@@ -409,7 +411,8 @@ public class FelddefinitionControl extends AbstractControl
     {
       case 1:
         throw new RemoteException(
-            "Typkonvertierung kann nicht durchgeführt werden. Inhalt: }" + wert);
+            "Typkonvertierung kann nicht durchgeführt werden. Inhalt: }"
+                + wert);
       case 2:
         throw new RemoteException(
             "Die Konvertierung der Datentypen ist nicht vorgesehen. Ggfls. zunächst in Zeichenfolge umwandeln.");

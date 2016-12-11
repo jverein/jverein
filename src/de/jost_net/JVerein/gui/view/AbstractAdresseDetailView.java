@@ -98,7 +98,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
 
-    DBIterator zhl = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> zhl = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setNurAktive(zhl);
     MitgliedUtils.setMitglied(zhl);
     zhl.setOrder("ORDER BY name, vorname");
@@ -140,7 +141,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     anzahlSpalten = Einstellungen.getEinstellung()
         .getAnzahlSpaltenZusatzfelder();
     showInTab = Einstellungen.getEinstellung().getZeigeZusatzfelderInTab();
-    zeichneZusatzfelder(showInTab ? folder : oben.getComposite(), anzahlSpalten);
+    zeichneZusatzfelder(showInTab ? folder : oben.getComposite(),
+        anzahlSpalten);
 
     showInTab = Einstellungen.getEinstellung().getZeigeLehrgaengeInTab();
     zeichneLehrgaenge(showInTab ? folder : oben.getComposite());
@@ -201,9 +203,9 @@ public abstract class AbstractAdresseDetailView extends AbstractView
           control.getCurrentObject(), false, "rechnung.png"));
       // R.M. 27.01.2013 Mitglieder sollten aus dem Dialog raus kopiert werden
       // können
-      buttons.addButton(new Button("duplizieren",
-          new MitgliedDuplizierenAction(), control.getCurrentObject(), false,
-          "copy_v2.png"));
+      buttons
+          .addButton(new Button("duplizieren", new MitgliedDuplizierenAction(),
+              control.getCurrentObject(), false, "copy_v2.png"));
     }
     buttons.addButton("Mail", new MitgliedMailSendenAction(),
         getCurrentObject(), false, "mail-message-new.png");
@@ -214,8 +216,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
 
     buttons.addButton("löschen",
         (isMitgliedDetail() ? new MitgliedDeleteAction()
-            : new AdresseDeleteAction()), control.getCurrentObject(), false,
-        "user-trash.png");
+            : new AdresseDeleteAction()),
+        control.getCurrentObject(), false, "user-trash.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -261,7 +263,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
     if (isMitgliedDetail()
         && Einstellungen.getEinstellung().getArbeitseinsatz())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, "Arbeitseinsatz");
+      Container cont = getTabOrLabelContainer(parentComposite,
+          "Arbeitseinsatz");
 
       ButtonArea buttonsarbeins = new ButtonArea();
       buttonsarbeins.addButton(control.getArbeitseinsatzNeu());
@@ -426,9 +429,10 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     if (!control.getMitglied().isNewObject())
     {
-      Container cont = getTabOrLabelContainer(parentComposite, "Mitgliedskonto");
-      controlMk.getMitgliedskontoTree(control.getMitglied()).paint(
-          cont.getComposite());
+      Container cont = getTabOrLabelContainer(parentComposite,
+          "Mitgliedskonto");
+      controlMk.getMitgliedskontoTree(control.getMitglied())
+          .paint(cont.getComposite());
     }
   }
 
@@ -475,8 +479,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       }
     }
 
-    LabelGroup bankverbindung = control.getBankverbindungLabelGroup(container
-        .getComposite());
+    LabelGroup bankverbindung = control
+        .getBankverbindungLabelGroup(container.getComposite());
     // bankverbindung
     // .getComposite()
     // .setVisible(
@@ -588,8 +592,8 @@ public abstract class AbstractAdresseDetailView extends AbstractView
       // oder "Familie: Angehöriger" gibt, zeige Familienverband-Part.
       // Dieser Familien-Part soll über die komplette Breite angezeigt werden,
       // kann daher nicht im SimpleVerticalContainer angezeigt werden.
-      DBIterator it = Einstellungen.getDBService().createList(
-          Beitragsgruppe.class);
+      DBIterator<Beitragsgruppe> it = Einstellungen.getDBService()
+          .createList(Beitragsgruppe.class);
       it.addFilter("beitragsart = ? or beitragsart = ?",
           ArtBeitragsart.FAMILIE_ZAHLER.getKey(),
           ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey());

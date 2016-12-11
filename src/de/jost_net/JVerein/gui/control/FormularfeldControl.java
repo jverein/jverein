@@ -253,16 +253,16 @@ public class FormularfeldControl extends AbstractControl
         || formular.getArt() == FormularArt.RECHNUNG
         || formular.getArt() == FormularArt.MAHNUNG)
     {
-      DBIterator itlesefelder = Einstellungen.getDBService().createList(
-          Lesefeld.class);
+      DBIterator<Lesefeld> itlesefelder = Einstellungen.getDBService()
+          .createList(Lesefeld.class);
       while (itlesefelder.hasNext())
       {
-        Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
+        Lesefeld lesefeld = itlesefelder.next();
         namen.add(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung());
       }
 
-      DBIterator zusatzfelder = Einstellungen.getDBService().createList(
-          Felddefinition.class);
+      DBIterator<Felddefinition> zusatzfelder = Einstellungen.getDBService()
+          .createList(Felddefinition.class);
       while (zusatzfelder.hasNext())
       {
         Felddefinition zusatzfeld = (Felddefinition) zusatzfelder.next();
@@ -373,11 +373,13 @@ public class FormularfeldControl extends AbstractControl
   public Part getFormularfeldList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator formularfelder = service.createList(Formularfeld.class);
+    DBIterator<Formularfeld> formularfelder = service
+        .createList(Formularfeld.class);
     formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
     formularfelder.setOrder("ORDER BY seite, x, y");
 
-    formularfelderList = new TablePart(formularfelder, new FormularfeldAction());
+    formularfelderList = new TablePart(formularfelder,
+        new FormularfeldAction());
     formularfelderList.addColumn("Name", "name");
     formularfelderList.addColumn("Seite", "seite");
     formularfelderList.addColumn("von links", "x");
@@ -395,8 +397,8 @@ public class FormularfeldControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     formularfelderList.removeAll();
-    DBIterator formularfelder = Einstellungen.getDBService().createList(
-        Formularfeld.class);
+    DBIterator<Formularfeld> formularfelder = Einstellungen.getDBService()
+        .createList(Formularfeld.class);
     formularfelder.addFilter("formular = ?", new Object[] { formular.getID() });
     formularfelder.setOrder("ORDER BY x, y");
     while (formularfelder.hasNext())

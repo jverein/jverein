@@ -63,27 +63,29 @@ public class AboutView extends AbstractDialog<Object>
 
     LabelGroup group = new LabelGroup(parent, "Information");
 
-    AbstractPlugin p = Application.getPluginLoader().getPlugin(
-        JVereinPlugin.class);
+    AbstractPlugin p = Application.getPluginLoader()
+        .getPlugin(JVereinPlugin.class);
 
-    group.addLabelPair("Version", new LabelInput(""
-        + p.getManifest().getVersion()));
+    group.addLabelPair("Version",
+        new LabelInput("" + p.getManifest().getVersion()));
 
-    group.addLabelPair("Build-Date", new LabelInput(""
-        + p.getManifest().getBuildDate()));
+    group.addLabelPair("Build-Date",
+        new LabelInput("" + p.getManifest().getBuildDate()));
 
-    group.addLabelPair("Build-Nr", new LabelInput(""
-        + p.getManifest().getBuildnumber()));
+    group.addLabelPair("Build-Nr",
+        new LabelInput("" + p.getManifest().getBuildnumber()));
 
-    Version v = (Version) Einstellungen.getDBService().createObject(
-        Version.class, "1");
-    group
-        .addLabelPair("Datenbank-Version", new LabelInput("" + v.getVersion()));
-    group.addLabelPair("Arbeitsverzeichnis", new LabelInput(""
-        + p.getResources().getWorkPath()));
+    Version v = (Version) Einstellungen.getDBService()
+        .createObject(Version.class, "1");
+    group.addLabelPair("Datenbank-Version",
+        new LabelInput("" + v.getVersion()));
+    group.addLabelPair("Arbeitsverzeichnis",
+        new LabelInput("" + p.getResources().getWorkPath()));
 
     ButtonArea buttons = group.createButtonArea(1);
-    buttons.addButton(i18n.tr("Schlieﬂen"),new Action() {
+    buttons.addButton(i18n.tr("Schlieﬂen"), new Action()
+    {
+      @Override
       public void handleAction(Object context) throws ApplicationException
       {
         close();

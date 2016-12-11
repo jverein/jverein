@@ -55,7 +55,8 @@ public class Buchungsuebernahme
       // Protokollliste initialisieren
       buchungen = new ArrayList<Buchung>();
       // Über alle Hibiscus-Konten (aus JVerein-Sicht) iterieren
-      DBIterator hibkto = Einstellungen.getDBService().createList(Konto.class);
+      DBIterator<Konto> hibkto = Einstellungen.getDBService()
+          .createList(Konto.class);
       hibkto.addFilter("hibiscusid > 0");
       while (hibkto.hasNext())
       {
@@ -103,8 +104,8 @@ public class Buchungsuebernahme
     };
     Integer maximum = (Integer) service.execute(sql, new Object[] {}, rs);
 
-    DBIterator itjahresabschl = Einstellungen.getDBService().createList(
-        Jahresabschluss.class);
+    DBIterator<Jahresabschluss> itjahresabschl = Einstellungen.getDBService()
+        .createList(Jahresabschluss.class);
     itjahresabschl.setOrder("order by bis desc");
     Jahresabschluss ja = null;
     if (itjahresabschl.hasNext())
@@ -112,9 +113,9 @@ public class Buchungsuebernahme
       ja = (Jahresabschluss) itjahresabschl.next();
     }
 
-    DBService hibservice = (DBService) Application.getServiceFactory().lookup(
-        HBCI.class, "database");
-    DBIterator hibbuchungen = hibservice.createList(Umsatz.class);
+    DBService hibservice = (DBService) Application.getServiceFactory()
+        .lookup(HBCI.class, "database");
+    DBIterator<Umsatz> hibbuchungen = hibservice.createList(Umsatz.class);
     if (maximum.intValue() > 0)
     {
       hibbuchungen.addFilter("id > ?", maximum);

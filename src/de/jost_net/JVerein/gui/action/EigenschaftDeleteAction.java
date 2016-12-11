@@ -57,13 +57,12 @@ public class EigenschaftDeleteAction implements Action
 
       SimpleDialog d = new SimpleDialog(SimpleDialog.POSITION_CENTER);
       d.setTitle("Eigenschaft löschen");
-      DBIterator it = Einstellungen.getDBService().createList(
-          Eigenschaften.class);
+      DBIterator<Eigenschaften> it = Einstellungen.getDBService()
+          .createList(Eigenschaften.class);
       it.addFilter("eigenschaft = ?", new Object[] { ei.getID() });
-      d.setText(String
-          .format(
-              "Die Eigenschaft kann nicht gelöscht werden. Sie ist noch mit %d Mitglied(ern) verknüpft.",
-              it.size()));
+      d.setText(String.format(
+          "Die Eigenschaft kann nicht gelöscht werden. Sie ist noch mit %d Mitglied(ern) verknüpft.",
+          it.size()));
       try
       {
         if (it.size() > 0)

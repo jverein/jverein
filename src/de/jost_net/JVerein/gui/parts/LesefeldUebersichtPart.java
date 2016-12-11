@@ -76,7 +76,8 @@ public class LesefeldUebersichtPart implements Part
     container.addHeadline("Lesefelder");
 
     // Hole alle Mitglieder aus Datenbank um sie später anzuzeigen.
-    DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> it = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     // TODO Wenn es "zu viele" Mitglieder gibt, ist ein SelectInput
     // nicht geeignet. Es sollte eine andere Art der Auswahl eingebaut
     // werden.
@@ -86,7 +87,7 @@ public class LesefeldUebersichtPart implements Part
     ArrayList<Mitglied> mitgliederList = new ArrayList<Mitglied>();
     while (it.hasNext())
     {
-      mitgliederList.add((Mitglied) it.next());
+      mitgliederList.add(it.next());
     }
 
     // Das erste Mitglied wird ausgewählt, wenn im Contructor keins gewählt
@@ -119,8 +120,8 @@ public class LesefeldUebersichtPart implements Part
         selectedMitglied = selected;
         try
         {
-          lesefeldAuswerter.setMap(new MitgliedMap().getMap(selectedMitglied,
-              null, true));
+          lesefeldAuswerter
+              .setMap(new MitgliedMap().getMap(selectedMitglied, null, true));
           lesefeldAuswerter.evalAlleLesefelder();
           List<Lesefeld> lesefelder = lesefeldAuswerter.getLesefelder();
           for (Lesefeld lesefeld : lesefelder)
@@ -150,8 +151,8 @@ public class LesefeldUebersichtPart implements Part
 
     lesefeldAuswerter = new LesefeldAuswerter();
     lesefeldAuswerter.setLesefelderDefinitionsFromDatabase();
-    lesefeldAuswerter.setMap(new MitgliedMap().getMap(selectedMitglied, null,
-        true));
+    lesefeldAuswerter
+        .setMap(new MitgliedMap().getMap(selectedMitglied, null, true));
     lesefeldAuswerter.evalAlleLesefelder();
     List<Lesefeld> lesefelder = lesefeldAuswerter.getLesefelder();
     for (Lesefeld lesefeld : lesefelder)
@@ -180,8 +181,8 @@ public class LesefeldUebersichtPart implements Part
       throws RemoteException
   {
     // Lesefeld Beschreibung
-    final Label label = GUI.getStyleFactory().createLabel(
-        lesefelderListeLayout.getComposite(), SWT.NONE);
+    final Label label = GUI.getStyleFactory()
+        .createLabel(lesefelderListeLayout.getComposite(), SWT.NONE);
     label.setText(lesefeld.getBezeichnung());
 
     // Lesefeld Inhalt

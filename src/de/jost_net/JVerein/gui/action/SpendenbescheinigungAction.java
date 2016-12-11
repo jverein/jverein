@@ -52,8 +52,8 @@ public class SpendenbescheinigungAction implements Action
       }
       else
       {
-        spb = (Spendenbescheinigung) Einstellungen.getDBService().createObject(
-            Spendenbescheinigung.class, null);
+        spb = (Spendenbescheinigung) Einstellungen.getDBService()
+            .createObject(Spendenbescheinigung.class, null);
 
         if (context != null && (context instanceof Mitglied))
         {
@@ -95,8 +95,8 @@ public class SpendenbescheinigungAction implements Action
             /* Ermitteln der Buchungen zu der neuen Spendenbescheinigung */
             Date minDatum = Calendar.getInstance().getTime();
             Date maxDatum = Calendar.getInstance().getTime();
-            DBIterator itMk = Einstellungen.getDBService().createList(
-                Mitgliedskonto.class);
+            DBIterator<Mitgliedskonto> itMk = Einstellungen.getDBService()
+                .createList(Mitgliedskonto.class);
             itMk.addFilter("mitglied = ?", new Object[] { mkn.getID() });
             // it.addFilter("spendenbescheinigung = ?",
             // new Object[] { null });
@@ -104,17 +104,17 @@ public class SpendenbescheinigungAction implements Action
 
             while (itMk.hasNext())
             {
-              Mitgliedskonto mk = (Mitgliedskonto) itMk.next();
+              Mitgliedskonto mk = itMk.next();
 
-              DBIterator it = Einstellungen.getDBService().createList(
-                  Buchung.class);
+              DBIterator<Buchung> it = Einstellungen.getDBService()
+                  .createList(Buchung.class);
               it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
               it.addFilter("spendenbescheinigung is null");
               it.setOrder("ORDER BY datum asc");
 
               while (it.hasNext())
               {
-                Buchung bu = (Buchung) it.next();
+                Buchung bu = it.next();
                 if (bu.getSpendenbescheinigung() == null)
                 {
                   if (bu.getBuchungsart().getSpende())

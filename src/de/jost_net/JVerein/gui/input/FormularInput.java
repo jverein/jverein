@@ -46,18 +46,19 @@ public class FormularInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static GenericIterator init(FormularArt mahnung)
+  private static GenericIterator<Formular> init(FormularArt mahnung)
       throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+    DBIterator<Formular> it = Einstellungen.getDBService()
+        .createList(Formular.class);
     it.addFilter("art = ?", mahnung.getKey());
     return it;
   }
 
   private static GenericObject initdefault(String id) throws RemoteException
   {
-    Formular f = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, id);
+    Formular f = (Formular) Einstellungen.getDBService()
+        .createObject(Formular.class, id);
     return f;
   }
 

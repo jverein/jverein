@@ -121,8 +121,8 @@ public class MitgliedNextBGruppeControl extends AbstractControl
     }
     Mitglied mitglied = getMitglied();
     if (null != mitglied)
-      mitgliedsName.setValue(mitglied.getAttribute(mitglied
-          .getPrimaryAttribute()));
+      mitgliedsName
+          .setValue(mitglied.getAttribute(mitglied.getPrimaryAttribute()));
     return mitgliedsName;
   }
 
@@ -169,8 +169,8 @@ public class MitgliedNextBGruppeControl extends AbstractControl
     {
       return beitragsgruppe;
     }
-    DBIterator list = Einstellungen.getDBService().createList(
-        Beitragsgruppe.class);
+    DBIterator<Beitragsgruppe> list = Einstellungen.getDBService()
+        .createList(Beitragsgruppe.class);
     list.setOrder("ORDER BY bezeichnung");
     if (isFamilienMitglied())
     {
@@ -183,8 +183,8 @@ public class MitgliedNextBGruppeControl extends AbstractControl
           ArtBeitragsart.FAMILIE_ZAHLER.getKey(),
           ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey());
     }
-    beitragsgruppe = new SelectInput(list, getMitgliedNextBGruppe()
-        .getBeitragsgruppe());
+    beitragsgruppe = new SelectInput(list,
+        getMitgliedNextBGruppe().getBeitragsgruppe());
     beitragsgruppe.setName("Beitragsgruppe");
     beitragsgruppe.setMandatory(true);
     beitragsgruppe.setAttribute("bezeichnung");
@@ -214,16 +214,16 @@ public class MitgliedNextBGruppeControl extends AbstractControl
     };
   }
 
-  private void speichernBeitragsGruppe() throws RemoteException,
-      ApplicationException
+  private void speichernBeitragsGruppe()
+      throws RemoteException, ApplicationException
   {
     MitgliedNextBGruppe mitgliedsBeitragsgruppe = getMitgliedNextBGruppe();
     mitgliedsBeitragsgruppe.setMitglied(getMitglied());
-    mitgliedsBeitragsgruppe.setBemerkung((String) getBemerkungsInput()
-        .getValue());
+    mitgliedsBeitragsgruppe
+        .setBemerkung((String) getBemerkungsInput().getValue());
     mitgliedsBeitragsgruppe.setAbDatum((Date) getAbDatumInput().getValue());
-    mitgliedsBeitragsgruppe.setBeitragsgruppe((Beitragsgruppe) beitragsgruppe
-        .getValue());
+    mitgliedsBeitragsgruppe
+        .setBeitragsgruppe((Beitragsgruppe) beitragsgruppe.getValue());
     mitgliedsBeitragsgruppe.store();
     GUI.getStatusBar()
         .setSuccessText("Zukünftige Beitragsgruppe gespeichert!!");

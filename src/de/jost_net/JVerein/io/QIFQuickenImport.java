@@ -192,8 +192,8 @@ public class QIFQuickenImport implements Importer
    * @throws RemoteException
    * @throws ApplicationException
    */
-  private void inhaltEinlesen(ProgressMonitor monitor) throws RemoteException,
-      ApplicationException
+  private void inhaltEinlesen(ProgressMonitor monitor)
+      throws RemoteException, ApplicationException
   {
     QIFBlock qifBlock = new QIFBlock();
     QIFType qifTyp = null;
@@ -231,8 +231,8 @@ public class QIFQuickenImport implements Importer
         {
           if (typeListe.isEmpty() == false)
           {
-            Logger
-                .error("Die Datei enthält mehrere Konten. Weil Quicken Fehler bei solchen Exporten hat unterstützen wir dies nicht!");
+            Logger.error(
+                "Die Datei enthält mehrere Konten. Weil Quicken Fehler bei solchen Exporten hat unterstützen wir dies nicht!");
             throw new ApplicationException(
                 "Datei enthält Daten von mehreren Konten!! Bitte jedes Konto einzelen Exportieren!!");
           }
@@ -271,17 +271,17 @@ public class QIFQuickenImport implements Importer
 
   private void monitorFertig(ProgressMonitor monitor)
   {
-    monitor.setStatusText(String.format(
-        "Fertig! Importiert wurden %d Konten mit %d Buchungen.", anzahlKonten,
-        anzahlBuchungen));
+    monitor.setStatusText(
+        String.format("Fertig! Importiert wurden %d Konten mit %d Buchungen.",
+            anzahlKonten, anzahlBuchungen));
     monitor.setStatus(ProgressMonitor.STATUS_DONE);
   }
 
   private void monitorSpeichern(ProgressMonitor monitor)
   {
-    monitor.setStatusText(String.format(
-        "Importiere %d Konten mit %d Buchungen..", anzahlKonten,
-        anzahlBuchungen));
+    monitor
+        .setStatusText(String.format("Importiere %d Konten mit %d Buchungen..",
+            anzahlKonten, anzahlBuchungen));
     if (prozentFertig < 100)
     {
       if (anzahlBuchungen % 100 == 0)
@@ -310,16 +310,16 @@ public class QIFQuickenImport implements Importer
     ++anzahlBuchungen;
   }
 
-  private void loeschenAlteKontoDaten(QIFType qifType) throws RemoteException,
-      ApplicationException
+  private void loeschenAlteKontoDaten(QIFType qifType)
+      throws RemoteException, ApplicationException
   {
-    DBIterator headerList = Einstellungen.getDBService().createList(
-        QIFImportHead.class);
+    DBIterator<QIFImportHead> headerList = Einstellungen.getDBService()
+        .createList(QIFImportHead.class);
     headerList.addFilter(QIFImportHead.COL_NAME + " = ?",
         qifType.getKontoName());
     while (headerList.hasNext())
     {
-      QIFImportHead importHead = (QIFImportHead) headerList.next();
+      QIFImportHead importHead = headerList.next();
       loeschenQIFImportPos(importHead);
       importHead.delete();
     }
@@ -328,7 +328,8 @@ public class QIFQuickenImport implements Importer
   private void loeschenQIFImportPos(QIFImportHead importHead)
       throws RemoteException, ApplicationException
   {
-    DBIterator it = Einstellungen.getDBService().createList(QIFImportPos.class);
+    DBIterator<QIFImportPos> it = Einstellungen.getDBService()
+        .createList(QIFImportPos.class);
     it.addFilter(QIFImportPos.COL_HEADID + " = ?", importHead.getID());
     while (it.hasNext())
     {
@@ -396,7 +397,8 @@ public class QIFQuickenImport implements Importer
     }
     catch (ParseException ex)
     {
-      throw new ApplicationException("Falsches Datumsformat gelesen : " + datum);
+      throw new ApplicationException(
+          "Falsches Datumsformat gelesen : " + datum);
     }
   }
 

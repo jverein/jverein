@@ -137,11 +137,11 @@ public class MitgliedskontoMenu extends ContextMenu
         MitgliedskontoNode mkn = (MitgliedskontoNode) o;
         if (mkn.getType() == MitgliedskontoNode.SOLL)
         {
-          DBIterator it;
+          DBIterator<Buchung> it;
           try
           {
             it = Einstellungen.getDBService().createList(Buchung.class);
-            it.addFilter("mitgliedskonto = ?", new Object[] { mkn.getID()});
+            it.addFilter("mitgliedskonto = ?", new Object[] { mkn.getID() });
             if (it.size() == 0)
             {
               return true;

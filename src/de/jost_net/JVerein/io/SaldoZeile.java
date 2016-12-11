@@ -64,14 +64,13 @@ public class SaldoZeile implements GenericObject
   {
     this.konto = konto;
     DBService service = Einstellungen.getDBService();
-    DBIterator anf = service.createList(Anfangsbestand.class);
-    anf.addFilter("konto = ? ", new Object[] { konto.getID()});
-    anf.addFilter(
-        "datum >= ? AND datum <= ?",
-        new Object[] { gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr()});
+    DBIterator<Anfangsbestand> anf = service.createList(Anfangsbestand.class);
+    anf.addFilter("konto = ? ", new Object[] { konto.getID() });
+    anf.addFilter("datum >= ? AND datum <= ?", new Object[] {
+        gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr() });
     if (anf.hasNext())
     {
-      Anfangsbestand a = (Anfangsbestand) anf.next();
+      Anfangsbestand a = anf.next();
       anfangsbestand = a.getBetrag();
     }
     else
@@ -97,14 +96,17 @@ public class SaldoZeile implements GenericObject
       }
     };
     einnahmen = (Double) service.execute(sql,
-        new Object[] { gj.getBeginnGeschaeftsjahr(),
-            gj.getEndeGeschaeftsjahr(), konto.getID(), 0}, rs);
+        new Object[] { gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
+            konto.getID(), 0 },
+        rs);
     ausgaben = (Double) service.execute(sql,
-        new Object[] { gj.getBeginnGeschaeftsjahr(),
-            gj.getEndeGeschaeftsjahr(), konto.getID(), 1}, rs);
+        new Object[] { gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
+            konto.getID(), 1 },
+        rs);
     umbuchungen = (Double) service.execute(sql,
-        new Object[] { gj.getBeginnGeschaeftsjahr(),
-            gj.getEndeGeschaeftsjahr(), konto.getID(), 2}, rs);
+        new Object[] { gj.getBeginnGeschaeftsjahr(), gj.getEndeGeschaeftsjahr(),
+            konto.getID(), 2 },
+        rs);
     endbestand = anfangsbestand + einnahmen + ausgaben + umbuchungen;
   }
 
@@ -154,7 +156,7 @@ public class SaldoZeile implements GenericObject
   public String[] getAttributeNames()
   {
     return new String[] { "kontonummer", "kontobezeichnung", "anfangsbestand",
-        "einnahmen", "ausgaben", "umbuchungen", "endbestand", "bemerkung"};
+        "einnahmen", "ausgaben", "umbuchungen", "endbestand", "bemerkung" };
   }
 
   @Override

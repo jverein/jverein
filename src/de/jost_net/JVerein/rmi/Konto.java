@@ -45,7 +45,7 @@ public interface Konto extends DBObject
 
   public void setHibiscusId(Integer HibiscusId) throws RemoteException;
 
-  public DBIterator getKontenEinesJahres(Geschaeftsjahr gj)
+  public DBIterator<Konto> getKontenEinesJahres(Geschaeftsjahr gj)
       throws RemoteException;
 
 }

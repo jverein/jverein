@@ -159,7 +159,7 @@ public class DefaultZusatzbetraegeImport implements Importer
           anz++;
           monitor.setPercentComplete(10);
 
-          DBIterator list = Einstellungen.getDBService()
+          DBIterator<Mitglied> list = Einstellungen.getDBService()
               .createList(Mitglied.class);
           if (b_mitgliedsnummer)
           {
@@ -278,7 +278,7 @@ public class DefaultZusatzbetraegeImport implements Importer
             try
             {
               String buchungsart = results.getString("Buchungsart");
-              DBIterator it = Einstellungen.getDBService()
+              DBIterator<Buchungsart> it = Einstellungen.getDBService()
                   .createList(Buchungsart.class);
               it.addFilter("nummer = ?", buchungsart);
               if (it.size() == 0)
@@ -288,7 +288,7 @@ public class DefaultZusatzbetraegeImport implements Importer
                     buchungsart));
                 fehlerInDaten = true;
               }
-              Buchungsart bu = (Buchungsart) it.next();
+              Buchungsart bu = it.next();
               zus.setBuchungsart(bu);
             }
             catch (SQLException e)

@@ -404,9 +404,9 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
     try
     {
       // DB-Service holen
-      DBService service = (DBService) Application.getServiceFactory().lookup(
-          HBCI.class, "database");
-      DBIterator konten = service.createList(Konto.class);
+      DBService service = (DBService) Application.getServiceFactory()
+          .lookup(HBCI.class, "database");
+      DBIterator<Konto> konten = service.createList(Konto.class);
       konten.addFilter("iban = ?", Einstellungen.getEinstellung().getIban());
       Logger.debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
       if (konten.hasNext())
@@ -557,8 +557,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public void setKursteilnehmerGebGesPflicht(Boolean kursteilnehmergebgespflicht)
-      throws RemoteException
+  public void setKursteilnehmerGebGesPflicht(
+      Boolean kursteilnehmergebgespflicht) throws RemoteException
   {
     setAttribute("kursteilnehmergebgespflicht",
         Boolean.valueOf(kursteilnehmergebgespflicht));
@@ -1330,8 +1330,8 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   {
     if (hasZus == null)
     {
-      DBIterator it = Einstellungen.getDBService().createList(
-          Felddefinition.class);
+      DBIterator<Felddefinition> it = Einstellungen.getDBService()
+          .createList(Felddefinition.class);
       hasZus = new Boolean(it.size() > 0);
     }
     return hasZus;
@@ -1665,8 +1665,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
-  public void setSEPADatumOffset(Integer sepadatumoffset)
-      throws RemoteException
+  public void setSEPADatumOffset(Integer sepadatumoffset) throws RemoteException
   {
     setAttribute("sepadatumoffset", sepadatumoffset);
   }

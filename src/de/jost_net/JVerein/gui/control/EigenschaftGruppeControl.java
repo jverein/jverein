@@ -135,13 +135,15 @@ public class EigenschaftGruppeControl extends AbstractControl
     }
 
     DBService service = Einstellungen.getDBService();
-    DBIterator eigenschaftgruppe = service.createList(EigenschaftGruppe.class);
+    DBIterator<EigenschaftGruppe> eigenschaftgruppe = service
+        .createList(EigenschaftGruppe.class);
     eigenschaftgruppe.setOrder("ORDER BY bezeichnung");
 
     eigenschaftgruppeList = new TablePart(eigenschaftgruppe,
         new EigenschaftGruppeDetailAction(false));
     eigenschaftgruppeList.addColumn("Bezeichnung", "bezeichnung");
-    eigenschaftgruppeList.addColumn("Pflicht", "pflicht", new JaNeinFormatter());
+    eigenschaftgruppeList.addColumn("Pflicht", "pflicht",
+        new JaNeinFormatter());
     eigenschaftgruppeList.addColumn("max. 1 Eigenschaft", "max1",
         new JaNeinFormatter());
     eigenschaftgruppeList.setContextMenu(new EigenschaftGruppeMenu());

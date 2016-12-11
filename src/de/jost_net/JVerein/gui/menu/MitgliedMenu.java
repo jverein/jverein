@@ -81,7 +81,8 @@ public class MitgliedMenu extends ContextMenu
           try
           {
             SimpleDialog sd = new SimpleDialog(SimpleDialog.POSITION_CENTER);
-            sd.setText("Bitte die für Mitglieder erforderlichen Daten nacherfassen.");
+            sd.setText(
+                "Bitte die für Mitglieder erforderlichen Daten nacherfassen.");
             sd.setSideImage(SWTUtil.getImage("dialog-warning-large.png"));
             sd.setSize(400, 150);
             sd.setTitle("Daten nacherfassen");
@@ -130,7 +131,8 @@ public class MitgliedMenu extends ContextMenu
         new PersonalbogenAction(), "rechnung.png"));
     addItem(new CheckedSingleContextMenuItem("Manuelle Lastschrift ...",
         new MitgliedLastschriftAction(), "rechnung.png"));
-    DBIterator it = Einstellungen.getDBService().createList(Formular.class);
+    DBIterator<Formular> it = Einstellungen.getDBService()
+        .createList(Formular.class);
     it.addFilter("art = ?",
         new Object[] { FormularArt.FREIESFORMULAR.getKey() });
     while (it.hasNext())

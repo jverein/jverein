@@ -60,7 +60,8 @@ public class Einstellungen
   /**
    * Int formatter.
    */
-  public final static DecimalFormat INTFORMAT = new DecimalFormat("###,###,###");
+  public final static DecimalFormat INTFORMAT = new DecimalFormat(
+      "###,###,###");
 
   /**
    * Our currency name.
@@ -88,45 +89,45 @@ public class Einstellungen
     DECIMALFORMAT.setMaximumFractionDigits(2);
     try
     {
-      einstellung = (Einstellung) getDBService().createObject(
-          Einstellung.class, "1");
+      einstellung = (Einstellung) getDBService().createObject(Einstellung.class,
+          "1");
     }
     catch (RemoteException e)
     {
       // Einstellungssatz existiert noch nicht. Deshalb neuen Satz anlegen
       try
       {
-        einstellung = (Einstellung) getDBService().createObject(
-            Einstellung.class, null);
+        einstellung = (Einstellung) getDBService()
+            .createObject(Einstellung.class, null);
         // Mit den folgenden Statements wird das Object initialisiert. Sofern
         // noch alte Einstellungen in den Property-Datei vorhanden sind, werden
         // diese verwendet. Ansonsten die Default-Werte.
-        einstellung.setGeburtsdatumPflicht(settings.getBoolean(
-            "geburtsdatum.pflicht", true));
-        einstellung.setEintrittsdatumPflicht(settings.getBoolean(
-            "eintrittsdatum.pflicht", true));
+        einstellung.setGeburtsdatumPflicht(
+            settings.getBoolean("geburtsdatum.pflicht", true));
+        einstellung.setEintrittsdatumPflicht(
+            settings.getBoolean("eintrittsdatum.pflicht", true));
         einstellung.setSterbedatum(settings.getBoolean("sterbedatum", false));
-        einstellung.setKommunikationsdaten(settings.getBoolean(
-            "kommunikationsdaten.einblenden", true));
-        einstellung.setZusatzbetrag(settings.getBoolean(
-            "zusatzabbuchung.einblenden", true));
-        einstellung.setVermerke(settings
-            .getBoolean("vermerke.einblenden", true));
-        einstellung.setWiedervorlage(settings.getBoolean(
-            "wiedervorlage.einblenden", true));
-        einstellung.setKursteilnehmer(settings.getBoolean(
-            "kursteilnehmer.einblenden", true));
-        einstellung.setExterneMitgliedsnummer(settings.getBoolean(
-            "externemitgliedsnummer.verwenden", false));
+        einstellung.setKommunikationsdaten(
+            settings.getBoolean("kommunikationsdaten.einblenden", true));
+        einstellung.setZusatzbetrag(
+            settings.getBoolean("zusatzabbuchung.einblenden", true));
+        einstellung
+            .setVermerke(settings.getBoolean("vermerke.einblenden", true));
+        einstellung.setWiedervorlage(
+            settings.getBoolean("wiedervorlage.einblenden", true));
+        einstellung.setKursteilnehmer(
+            settings.getBoolean("kursteilnehmer.einblenden", true));
+        einstellung.setExterneMitgliedsnummer(
+            settings.getBoolean("externemitgliedsnummer.verwenden", false));
 
         einstellung.setBeitragsmodel(settings.getInt("beitragsmodel",
             Beitragsmodel.GLEICHERTERMINFUERALLE.getKey()));
         einstellung.setArbeitsstundenmodel(settings.getInt(
             Einstellung.COL_ARBEITS_MODEL, ArbeitsstundenModel.STANDARD));
-        einstellung.setDateinamenmuster(settings.getString("dateinamenmuster",
-            "a$s$-d$-z$"));
-        einstellung.setBeginnGeschaeftsjahr(settings.getString(
-            "beginngeschaeftsjahr", "01.01."));
+        einstellung.setDateinamenmuster(
+            settings.getString("dateinamenmuster", "a$s$-d$-z$"));
+        einstellung.setBeginnGeschaeftsjahr(
+            settings.getString("beginngeschaeftsjahr", "01.01."));
         einstellung.setAltersModel(settings.getInt(Einstellung.COL_ALTER_MODEL,
             Altermodel.AKTUELLES_DATUM));
         einstellung.setSepaMandatIdSource(settings.getInt(
@@ -163,8 +164,8 @@ public class Einstellungen
       // client, the factory returns the remote dbService from the
       // Jameica server.
       // The name and class of the service is defined in plugin.xml
-      db = (DBService) Application.getServiceFactory().lookup(
-          JVereinPlugin.class, "database");
+      db = (DBService) Application.getServiceFactory()
+          .lookup(JVereinPlugin.class, "database");
       return db;
     }
     catch (Exception e)
@@ -241,12 +242,13 @@ public class Einstellungen
     boolean bbeitragsgruppe = false;
     try
     {
-      DBIterator st = getDBService().createList(Einstellung.class);
+      DBIterator<Einstellung> st = getDBService().createList(Einstellung.class);
       if (st.size() > 0)
       {
         beigen = true;
       }
-      DBIterator bg = getDBService().createList(Beitragsgruppe.class);
+      DBIterator<Beitragsgruppe> bg = getDBService()
+          .createList(Beitragsgruppe.class);
       if (bg.size() > 0)
       {
         bbeitragsgruppe = true;
@@ -267,12 +269,12 @@ public class Einstellungen
    */
   public static IMAPCopyData getImapCopyData() throws RemoteException
   {
-    IMAPCopyData imapCopyData = new IMAPCopyData(getEinstellung()
-        .getCopyToImapFolder(), getEinstellung().getImapAuthUser(),
-        getEinstellung().getImapAuthPwd(), getEinstellung().getImapHost(),
-        getEinstellung().getImapPort(), getEinstellung().getImapSsl(),
-        getEinstellung().getImapStartTls(), getEinstellung()
-            .getImapSentFolder());
+    IMAPCopyData imapCopyData = new IMAPCopyData(
+        getEinstellung().getCopyToImapFolder(),
+        getEinstellung().getImapAuthUser(), getEinstellung().getImapAuthPwd(),
+        getEinstellung().getImapHost(), getEinstellung().getImapPort(),
+        getEinstellung().getImapSsl(), getEinstellung().getImapStartTls(),
+        getEinstellung().getImapSentFolder());
     return imapCopyData;
   }
 }

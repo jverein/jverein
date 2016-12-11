@@ -84,8 +84,8 @@ public class InventarLagerortControl extends AbstractControl
       return suchBezeichnung;
     }
 
-    this.suchBezeichnung = new TextInput(settings.getString("suchbezeichnung",
-        "*"), 200);
+    this.suchBezeichnung = new TextInput(
+        settings.getString("suchbezeichnung", "*"), 200);
     this.suchBezeichnung.setName("Bezeichnung");
     return suchBezeichnung;
   }
@@ -121,10 +121,10 @@ public class InventarLagerortControl extends AbstractControl
         return;
       }
       lagerorteList.removeAll();
-      DBIterator lagerorte = getIterator();
+      DBIterator<InventarLagerort> lagerorte = getIterator();
       while (lagerorte.hasNext())
       {
-        InventarLagerort lo = (InventarLagerort) lagerorte.next();
+        InventarLagerort lo = lagerorte.next();
         lagerorteList.addItem(lo);
       }
     }
@@ -134,14 +134,14 @@ public class InventarLagerortControl extends AbstractControl
     }
   }
 
-  private DBIterator getIterator() throws RemoteException
+  private DBIterator<InventarLagerort> getIterator() throws RemoteException
   {
-    DBIterator lagerorte = Einstellungen.getDBService().createList(
-        InventarLagerort.class);
+    DBIterator<InventarLagerort> lagerorte = Einstellungen.getDBService()
+        .createList(InventarLagerort.class);
     if (getSuchbezeichnung().getValue() != null)
     {
-      lagerorte.addFilter("bezeichnung like ?", "%"
-          + getSuchbezeichnung().getValue() + "%");
+      lagerorte.addFilter("bezeichnung like ?",
+          "%" + getSuchbezeichnung().getValue() + "%");
     }
     return lagerorte;
   }
@@ -169,7 +169,7 @@ public class InventarLagerortControl extends AbstractControl
 
   public Part getLagerorteList() throws RemoteException
   {
-    DBIterator lagerorte = getIterator();
+    DBIterator<InventarLagerort> lagerorte = getIterator();
     if (lagerorteList == null)
     {
       lagerorteList = new TablePart(lagerorte, new InventarLagerortAction());

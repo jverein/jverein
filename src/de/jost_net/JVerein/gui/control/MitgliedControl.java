@@ -405,7 +405,8 @@ public class MitgliedControl extends AbstractControl
       settings.setAttribute("status.mitglied", "");
       settings.setAttribute("zusatzfelder.selected", 0);
     }
-    DBIterator at = Einstellungen.getDBService().createList(Adresstyp.class);
+    DBIterator<Adresstyp> at = Einstellungen.getDBService()
+        .createList(Adresstyp.class);
     switch (typ)
     {
       case 1:
@@ -420,8 +421,8 @@ public class MitgliedControl extends AbstractControl
 
     if (typ == 1)
     {
-      Adresstyp def = (Adresstyp) Einstellungen.getDBService().createObject(
-          Adresstyp.class, "1");
+      Adresstyp def = (Adresstyp) Einstellungen.getDBService()
+          .createObject(Adresstyp.class, "1");
       suchadresstyp = new SelectInput(at, def);
     }
     else
@@ -467,7 +468,8 @@ public class MitgliedControl extends AbstractControl
     {
       return adresstyp;
     }
-    DBIterator at = Einstellungen.getDBService().createList(Adresstyp.class);
+    DBIterator<Adresstyp> at = Einstellungen.getDBService()
+        .createList(Adresstyp.class);
     at.addFilter("jvereinid != 1 or jvereinid is null");
     at.setOrder("order by bezeichnung");
     adresstyp = new SelectInput(at, getMitglied().getAdresstyp());
@@ -481,8 +483,8 @@ public class MitgliedControl extends AbstractControl
     {
       return externemitgliedsnummer;
     }
-    externemitgliedsnummer = new TextInput(getMitglied()
-        .getExterneMitgliedsnummer(), 50);
+    externemitgliedsnummer = new TextInput(
+        getMitglied().getExterneMitgliedsnummer(), 50);
     externemitgliedsnummer.setName("Ext. Mitgliedsnummer");
     externemitgliedsnummer.setMandatory(isExterneMitgliedsnummerMandatory());
     return externemitgliedsnummer;
@@ -609,12 +611,12 @@ public class MitgliedControl extends AbstractControl
           }
           try
           {
-            DBIterator it = Einstellungen.getDBService().createList(
-                Mitglied.class);
+            DBIterator<Mitglied> it = Einstellungen.getDBService()
+                .createList(Mitglied.class);
             it.addFilter("plz='" + (String) plz.getValue() + "'");
             if (it.hasNext())
             {
-              Mitglied mplz = (Mitglied) it.next();
+              Mitglied mplz = it.next();
               ort.setValue(mplz.getOrt());
             }
           }
@@ -666,8 +668,8 @@ public class MitgliedControl extends AbstractControl
     this.geburtsdatum.setTitle("Geburtsdatum");
     this.geburtsdatum.setText("Bitte Geburtsdatum wählen");
     zeigeAlter(d);
-    this.geburtsdatum.setMandatory(Einstellungen.getEinstellung()
-        .getGeburtsdatumPflicht());
+    this.geburtsdatum
+        .setMandatory(Einstellungen.getEinstellung().getGeburtsdatumPflicht());
     return geburtsdatum;
   }
 
@@ -702,13 +704,13 @@ public class MitgliedControl extends AbstractControl
     }
     if (getMitglied().getZahlungsweg() != null)
     {
-      zahlungsweg = new SelectInput(Zahlungsweg.getArray(), new Zahlungsweg(
-          getMitglied().getZahlungsweg().intValue()));
+      zahlungsweg = new SelectInput(Zahlungsweg.getArray(),
+          new Zahlungsweg(getMitglied().getZahlungsweg().intValue()));
     }
     else
     {
-      zahlungsweg = new SelectInput(Zahlungsweg.getArray(), new Zahlungsweg(
-          Einstellungen.getEinstellung().getZahlungsweg()));
+      zahlungsweg = new SelectInput(Zahlungsweg.getArray(),
+          new Zahlungsweg(Einstellungen.getEinstellung().getZahlungsweg()));
     }
     zahlungsweg.setName("Zahlungsweg");
     zahlungsweg.addListener(new Listener()
@@ -720,7 +722,8 @@ public class MitgliedControl extends AbstractControl
         if (event != null && event.type == SWT.Selection)
         {
           Zahlungsweg zahlungswegValue = (Zahlungsweg) zahlungsweg.getValue();
-          boolean isLastschrift = zahlungswegValue.getKey() == Zahlungsweg.BASISLASTSCHRIFT;
+          boolean isLastschrift = zahlungswegValue
+              .getKey() == Zahlungsweg.BASISLASTSCHRIFT;
 
           // Optimalerweise mit Prüfung auf zahlungsweg.hasChanged() und
           // zahlungsweg.getOldValue == BASISLASTSCHRIFT
@@ -730,8 +733,8 @@ public class MitgliedControl extends AbstractControl
           {
             YesNoDialog dialog = new YesNoDialog(YesNoDialog.POSITION_CENTER);
             dialog.setTitle("Bankverbindungsdaten");
-            dialog
-                .setText("Die Bankverbindung wird beim gewählten Zahlungsweg nicht benötigt.\n"
+            dialog.setText(
+                "Die Bankverbindung wird beim gewählten Zahlungsweg nicht benötigt.\n"
                     + "Sollen eventuell vorhandene Werte gelöscht werden?");
             boolean delete = false;
             try
@@ -763,9 +766,8 @@ public class MitgliedControl extends AbstractControl
   {
     try
     {
-      getZahlungsrhythmus().setValue(
-          new Zahlungsrhythmus(Einstellungen.getEinstellung()
-              .getZahlungsrhytmus()));
+      getZahlungsrhythmus().setValue(new Zahlungsrhythmus(
+          Einstellungen.getEinstellung().getZahlungsrhytmus()));
       getMandatID().setValue(null);
       getMandatDatum().setValue(null);
       getMandatVersion().setValue(null);
@@ -814,8 +816,8 @@ public class MitgliedControl extends AbstractControl
     else
     {
       zahlungsrhytmus = new SelectInput(Zahlungsrhythmus.getArray(),
-          new Zahlungsrhythmus(Einstellungen.getEinstellung()
-              .getZahlungsrhytmus()));
+          new Zahlungsrhythmus(
+              Einstellungen.getEinstellung().getZahlungsrhytmus()));
     }
     zahlungsrhytmus.setName("Zahlungsrhytmus");
     return zahlungsrhytmus;
@@ -827,8 +829,8 @@ public class MitgliedControl extends AbstractControl
     {
       return zahlungstermin;
     }
-    zahlungstermin = new SelectInput(Zahlungstermin.values(), getMitglied()
-        .getZahlungstermin());
+    zahlungstermin = new SelectInput(Zahlungstermin.values(),
+        getMitglied().getZahlungstermin());
     zahlungstermin.setName("Zahlungstermin");
     return zahlungstermin;
   }
@@ -840,8 +842,8 @@ public class MitgliedControl extends AbstractControl
       return bic;
     }
     bic = new BICInput(getMitglied().getBic());
-    bic.setMandatory(getMitglied().getZahlungsweg() == null
-        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
+    bic.setMandatory(getMitglied().getZahlungsweg() == null || getMitglied()
+        .getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
     return bic;
   }
 
@@ -891,8 +893,8 @@ public class MitgliedControl extends AbstractControl
       {
         try
         {
-          getMitglied().setMandatVersion(
-              (Integer) getMandatVersion().getValue());
+          getMitglied()
+              .setMandatVersion((Integer) getMandatVersion().getValue());
           mandatid.setValue(getMitglied().getMandatID());
         }
         catch (RemoteException e)
@@ -911,8 +913,8 @@ public class MitgliedControl extends AbstractControl
     {
       return mandatsequence;
     }
-    mandatsequence = new SelectInput(MandatSequence.values(), getMitglied()
-        .getMandatSequence());
+    mandatsequence = new SelectInput(MandatSequence.values(),
+        getMitglied().getMandatSequence());
     mandatsequence.setEnabled(false);
     mandatsequence.setName("Sequenz");
     return mandatsequence;
@@ -939,8 +941,8 @@ public class MitgliedControl extends AbstractControl
       return iban;
     }
     iban = new IBANInput(getMitglied().getIban(), getBic());
-    iban.setMandatory(getMitglied().getZahlungsweg() == null
-        || getMitglied().getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
+    iban.setMandatory(getMitglied().getZahlungsweg() == null || getMitglied()
+        .getZahlungsweg().intValue() == Zahlungsweg.BASISLASTSCHRIFT);
     return iban;
   }
 
@@ -1037,8 +1039,8 @@ public class MitgliedControl extends AbstractControl
     {
       return ktoiadressierungszusatz;
     }
-    ktoiadressierungszusatz = new TextInput(getMitglied()
-        .getKtoiAdressierungszusatz(), 40);
+    ktoiadressierungszusatz = new TextInput(
+        getMitglied().getKtoiAdressierungszusatz(), 40);
     ktoiadressierungszusatz.setName("Adressierungszusatz");
     return ktoiadressierungszusatz;
   }
@@ -1160,8 +1162,8 @@ public class MitgliedControl extends AbstractControl
     this.eintritt.setTitle("Eintrittsdatum");
     this.eintritt.setName("Eintrittsdatum");
     this.eintritt.setText("Bitte Eintrittsdatum wählen");
-    this.eintritt.setMandatory(Einstellungen.getEinstellung()
-        .getEintrittsdatumPflicht());
+    this.eintritt.setMandatory(
+        Einstellungen.getEinstellung().getEintrittsdatumPflicht());
     return eintritt;
   }
 
@@ -1171,8 +1173,8 @@ public class MitgliedControl extends AbstractControl
     {
       return beitragsgruppe;
     }
-    DBIterator list = Einstellungen.getDBService().createList(
-        Beitragsgruppe.class);
+    DBIterator<Beitragsgruppe> list = Einstellungen.getDBService()
+        .createList(Beitragsgruppe.class);
     list.addFilter("(sekundaer is null or sekundaer=?)", false);
     list.setOrder("ORDER BY bezeichnung");
     if (!allgemein)
@@ -1231,8 +1233,8 @@ public class MitgliedControl extends AbstractControl
             getMitglied().setZahlerID(null);
             if (zahler != null)
             {
-              zahler.setValue(Einstellungen.getDBService().createObject(
-                  Mitglied.class, ""));
+              zahler.setValue(Einstellungen.getDBService()
+                  .createObject(Mitglied.class, ""));
               zahler.setEnabled(false);
             }
           }
@@ -1281,15 +1283,15 @@ public class MitgliedControl extends AbstractControl
     listeSeB = new ArrayList<SekundaereBeitragsgruppe>();
     if (!getMitglied().isNewObject())
     {
-      DBIterator bei = Einstellungen.getDBService().createList(
-          Beitragsgruppe.class);
+      DBIterator<Beitragsgruppe> bei = Einstellungen.getDBService()
+          .createList(Beitragsgruppe.class);
       bei.addFilter("sekundaer=?", true);
       bei.setOrder("ORDER BY bezeichnung");
       while (bei.hasNext())
       {
-        Beitragsgruppe b = (Beitragsgruppe) bei.next();
-        DBIterator sebei = Einstellungen.getDBService().createList(
-            SekundaereBeitragsgruppe.class);
+        Beitragsgruppe b = bei.next();
+        DBIterator<SekundaereBeitragsgruppe> sebei = Einstellungen
+            .getDBService().createList(SekundaereBeitragsgruppe.class);
         sebei.addFilter("mitglied=?", getMitglied().getID());
         sebei.addFilter("beitragsgruppe=?", b.getID());
         if (sebei.hasNext())
@@ -1338,8 +1340,8 @@ public class MitgliedControl extends AbstractControl
     {
       return individuellerbeitrag;
     }
-    individuellerbeitrag = new DecimalInput(getMitglied()
-        .getIndividuellerBeitrag(), Einstellungen.DECIMALFORMAT);
+    individuellerbeitrag = new DecimalInput(
+        getMitglied().getIndividuellerBeitrag(), Einstellungen.DECIMALFORMAT);
     individuellerbeitrag.setName("individueller Beitrag");
     return individuellerbeitrag;
   }
@@ -1350,8 +1352,8 @@ public class MitgliedControl extends AbstractControl
     {
       return auswertungUeberschrift;
     }
-    auswertungUeberschrift = new TextInput(settings.getString(
-        "auswertung.ueberschrift", ""));
+    auswertungUeberschrift = new TextInput(
+        settings.getString("auswertung.ueberschrift", ""));
     auswertungUeberschrift.setName("Überschrift");
     return auswertungUeberschrift;
   }
@@ -1368,17 +1370,17 @@ public class MitgliedControl extends AbstractControl
     {
       try
       {
-        bg = (Beitragsgruppe) Einstellungen.getDBService().createObject(
-            Beitragsgruppe.class, beitragsgru);
+        bg = (Beitragsgruppe) Einstellungen.getDBService()
+            .createObject(Beitragsgruppe.class, beitragsgru);
       }
       catch (ObjectNotFoundException e)
       {
-        bg = (Beitragsgruppe) Einstellungen.getDBService().createObject(
-            Beitragsgruppe.class, null);
+        bg = (Beitragsgruppe) Einstellungen.getDBService()
+            .createObject(Beitragsgruppe.class, null);
       }
     }
-    DBIterator list = Einstellungen.getDBService().createList(
-        Beitragsgruppe.class);
+    DBIterator<Beitragsgruppe> list = Einstellungen.getDBService()
+        .createList(Beitragsgruppe.class);
     list.setOrder("ORDER BY bezeichnung");
     beitragsgruppeausw = new SelectInput(list, bg);
     beitragsgruppeausw.setName("Beitragsgruppe");
@@ -1434,8 +1436,8 @@ public class MitgliedControl extends AbstractControl
     StringBuffer cond = new StringBuffer();
 
     // Beitragsgruppen ermitteln, die Zahler für andere Mitglieder sind
-    DBIterator bg = Einstellungen.getDBService().createList(
-        Beitragsgruppe.class);
+    DBIterator<Beitragsgruppe> bg = Einstellungen.getDBService()
+        .createList(Beitragsgruppe.class);
     bg.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER.getKey());
     while (bg.hasNext())
     {
@@ -1443,11 +1445,12 @@ public class MitgliedControl extends AbstractControl
       {
         cond.append(" OR ");
       }
-      Beitragsgruppe beitragsgruppe = (Beitragsgruppe) bg.next();
+      Beitragsgruppe beitragsgruppe = bg.next();
       cond.append("beitragsgruppe = ");
       cond.append(beitragsgruppe.getID());
     }
-    DBIterator zhl = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> zhl = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     zhl.addFilter(cond.toString());
     MitgliedUtils.setNurAktive(zhl);
     MitgliedUtils.setMitglied(zhl);
@@ -1623,7 +1626,8 @@ public class MitgliedControl extends AbstractControl
     {
       return foto;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Mitgliedfoto.class);
+    DBIterator<Mitgliedfoto> it = Einstellungen.getDBService()
+        .createList(Mitgliedfoto.class);
     it.addFilter("mitglied = ?", new Object[] { mitglied.getID() });
     Mitgliedfoto fo = null;
     if (it.size() > 0)
@@ -1645,8 +1649,8 @@ public class MitgliedControl extends AbstractControl
     {
       return zusatzfelder;
     }
-    DBIterator it = Einstellungen.getDBService().createList(
-        Felddefinition.class);
+    DBIterator<Felddefinition> it = Einstellungen.getDBService()
+        .createList(Felddefinition.class);
     it.setOrder("order by label");
     int anzahl = it.size();
     if (anzahl == 0)
@@ -1658,21 +1662,21 @@ public class MitgliedControl extends AbstractControl
     int i = 0;
     while (it.hasNext())
     {
-      Felddefinition fd = (Felddefinition) it.next();
-      zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
-          Zusatzfelder.class, null);
+      Felddefinition fd = it.next();
+      zf = (Zusatzfelder) Einstellungen.getDBService()
+          .createObject(Zusatzfelder.class, null);
       zf.setFelddefinition(Integer.parseInt(fd.getID()));
 
       if (getMitglied().getID() != null)
       {
-        DBIterator it2 = Einstellungen.getDBService().createList(
-            Zusatzfelder.class);
+        DBIterator<Zusatzfelder> it2 = Einstellungen.getDBService()
+            .createList(Zusatzfelder.class);
         it2.addFilter("mitglied=?", new Object[] { getMitglied().getID() });
         it2.addFilter("felddefinition=?", new Object[] { fd.getID() });
         if (it2.size() > 0)
         {
           zf.setMitglied(Integer.parseInt(getMitglied().getID()));
-          zf = (Zusatzfelder) it2.next();
+          zf = it2.next();
         }
       }
       switch (fd.getDatentyp())
@@ -1745,8 +1749,8 @@ public class MitgliedControl extends AbstractControl
     if (getMitglied().getID() == null)
       return null;
 
-    lesefeldAuswerter.setMap(new MitgliedMap()
-        .getMap(getMitglied(), null, true));
+    lesefeldAuswerter
+        .setMap(new MitgliedMap().getMap(getMitglied(), null, true));
 
     lesefelder = new Input[lesefeldAuswerter.countLesefelder()];
 
@@ -1773,14 +1777,14 @@ public class MitgliedControl extends AbstractControl
       return;
     familienangehoerige.removeAll();
     DBService service = Einstellungen.getDBService();
-    DBIterator famiter = service.createList(Mitglied.class);
+    DBIterator<Mitglied> famiter = service.createList(Mitglied.class);
     famiter.addFilter("zahlerid = ? or zahlerid = ? or id = ? or id = ?",
-        getMitglied().getID(), getMitglied().getZahlerID(), getMitglied()
-            .getID(), getMitglied().getZahlerID());
+        getMitglied().getID(), getMitglied().getZahlerID(),
+        getMitglied().getID(), getMitglied().getZahlerID());
     famiter.setOrder("ORDER BY name, vorname");
     while (famiter.hasNext())
     {
-      Mitglied m = (Mitglied) famiter.next();
+      Mitglied m = famiter.next();
       // Wenn der Iterator auf das aktuelle Mitglied zeigt,
       // nutze stattdessen getMitglied() damit nicht das alte, unveränderte
       // Mitglied
@@ -1831,25 +1835,26 @@ public class MitgliedControl extends AbstractControl
       return zusatzbetraegeList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator zusatzbetraege = service.createList(Zusatzbetrag.class);
+    DBIterator<Zusatzbetrag> zusatzbetraege = service
+        .createList(Zusatzbetrag.class);
     zusatzbetraege.addFilter("mitglied = " + getMitglied().getID());
     zusatzbetraegeList = new TablePart(zusatzbetraege,
         new ZusatzbetraegeAction(getMitglied()));
     zusatzbetraegeList.setRememberColWidths(true);
     zusatzbetraegeList.setRememberOrder(true);
 
-    zusatzbetraegeList.addColumn("Startdatum", "startdatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    zusatzbetraegeList.addColumn("Startdatum", "startdatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("nächste Fälligkeit", "faelligkeit",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("letzte Ausführung", "ausfuehrung",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("Intervall", "intervalltext");
-    zusatzbetraegeList.addColumn("Endedatum", "endedatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    zusatzbetraegeList.addColumn("Endedatum", "endedatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("Buchungstext", "buchungstext");
-    zusatzbetraegeList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    zusatzbetraegeList.addColumn("Betrag", "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     zusatzbetraegeList.addColumn("Buchungsart", "buchungsart");
     zusatzbetraegeList
         .setContextMenu(new ZusatzbetraegeMenu(zusatzbetraegeList));
@@ -1863,18 +1868,19 @@ public class MitgliedControl extends AbstractControl
       return wiedervorlageList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator wiedervorlagen = service.createList(Wiedervorlage.class);
+    DBIterator<Zusatzbetrag> wiedervorlagen = service
+        .createList(Wiedervorlage.class);
     wiedervorlagen.addFilter("mitglied = " + getMitglied().getID());
-    wiedervorlageList = new TablePart(wiedervorlagen, new WiedervorlageAction(
-        getMitglied()));
+    wiedervorlageList = new TablePart(wiedervorlagen,
+        new WiedervorlageAction(getMitglied()));
     wiedervorlageList.setRememberColWidths(true);
     wiedervorlageList.setRememberOrder(true);
 
-    wiedervorlageList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    wiedervorlageList.addColumn("Datum", "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     wiedervorlageList.addColumn("Vermerk", "vermerk");
-    wiedervorlageList.addColumn("Erledigung", "erledigung", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    wiedervorlageList.addColumn("Erledigung", "erledigung",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     wiedervorlageList.setContextMenu(new WiedervorlageMenu(wiedervorlageList));
     return wiedervorlageList;
   }
@@ -1886,7 +1892,7 @@ public class MitgliedControl extends AbstractControl
       return mailList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator me = service.createList(Mail.class);
+    DBIterator<Mail> me = service.createList(Mail.class);
     me.join("mailempfaenger");
     me.addFilter("mailempfaenger.mail = mail.id");
     me.addFilter("mailempfaenger.mitglied = ?", getMitglied().getID());
@@ -1894,10 +1900,10 @@ public class MitgliedControl extends AbstractControl
     mailList.setRememberColWidths(true);
     mailList.setRememberOrder(true);
 
-    mailList.addColumn("Bearbeitung", "bearbeitung", new DateFormatter(
-        new JVDateFormatTIMESTAMP()));
-    mailList.addColumn("Versand", "versand", new DateFormatter(
-        new JVDateFormatTIMESTAMP()));
+    mailList.addColumn("Bearbeitung", "bearbeitung",
+        new DateFormatter(new JVDateFormatTIMESTAMP()));
+    mailList.addColumn("Versand", "versand",
+        new DateFormatter(new JVDateFormatTIMESTAMP()));
     mailList.addColumn("Betreff", "betreff");
     mailList.setContextMenu(new MitgliedMailMenu(this));
     return mailList;
@@ -1910,7 +1916,8 @@ public class MitgliedControl extends AbstractControl
       return arbeitseinsatzList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator arbeitseinsaetze = service.createList(Arbeitseinsatz.class);
+    DBIterator<Arbeitseinsatz> arbeitseinsaetze = service
+        .createList(Arbeitseinsatz.class);
     arbeitseinsaetze.addFilter("mitglied = " + getMitglied().getID());
     arbeitseinsaetze.setOrder("ORDER by datum desc");
     arbeitseinsatzList = new TablePart(arbeitseinsaetze,
@@ -1919,10 +1926,10 @@ public class MitgliedControl extends AbstractControl
     arbeitseinsatzList.setRememberOrder(true);
     arbeitseinsatzList.setContextMenu(new ArbeitseinsatzMenu());
 
-    arbeitseinsatzList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    arbeitseinsatzList.addColumn("Stunden", "stunden", new CurrencyFormatter(
-        "", Einstellungen.DECIMALFORMAT));
+    arbeitseinsatzList.addColumn("Datum", "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    arbeitseinsatzList.addColumn("Stunden", "stunden",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     arbeitseinsatzList.addColumn("Bemerkung", "bemerkung");
     // wiedervorlageList.setContextMenu(new
     // WiedervorlageMenu(wiedervorlageList));
@@ -1936,7 +1943,7 @@ public class MitgliedControl extends AbstractControl
       return lehrgaengeList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator lehrgaenge = service.createList(Lehrgang.class);
+    DBIterator<Lehrgang> lehrgaenge = service.createList(Lehrgang.class);
     lehrgaenge.addFilter("mitglied = " + getMitglied().getID());
     lehrgaengeList = new TablePart(lehrgaenge,
         new LehrgangAction(getMitglied()));
@@ -1944,10 +1951,10 @@ public class MitgliedControl extends AbstractControl
     lehrgaengeList.setRememberOrder(true);
 
     lehrgaengeList.addColumn("Lehrgangsart", "lehrgangsart");
-    lehrgaengeList.addColumn("von/am", "von", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    lehrgaengeList.addColumn("bis", "bis", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    lehrgaengeList.addColumn("von/am", "von",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    lehrgaengeList.addColumn("bis", "bis",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     lehrgaengeList.addColumn("Veranstalter", "veranstalter");
     lehrgaengeList.addColumn("Ergebnis", "ergebnis");
     lehrgaengeList.setContextMenu(new LehrgangMenu());
@@ -2489,8 +2496,8 @@ public class MitgliedControl extends AbstractControl
 
     for (String vorlagecsv : vorlagencsvList)
     {
-      objectList.add(new MitgliedAuswertungCSV(vorlagencsvverzeichnis
-          + File.separator + vorlagecsv));
+      objectList.add(new MitgliedAuswertungCSV(
+          vorlagencsvverzeichnis + File.separator + vorlagecsv));
     }
 
     ausgabe = new SelectInput(objectList.toArray(), null);
@@ -2547,9 +2554,9 @@ public class MitgliedControl extends AbstractControl
     {
       return status;
     }
-    status = new SelectInput(new String[] { "Angemeldet", "Abgemeldet",
-        "An- und Abgemeldete" }, settings.getString("status.mitglied",
-        "Angemeldet"));
+    status = new SelectInput(
+        new String[] { "Angemeldet", "Abgemeldet", "An- und Abgemeldete" },
+        settings.getString("status.mitglied", "Angemeldet"));
     status.setName("Mitgliedschaft");
     return status;
   }
@@ -2601,8 +2608,8 @@ public class MitgliedControl extends AbstractControl
         {
           getKtoiName().setValue(getName(false).getValue());
           getKtoiStrasse().setValue(getStrasse().getValue());
-          getKtoiAdressierungszusatz().setValue(
-              getAdressierungszusatz().getValue());
+          getKtoiAdressierungszusatz()
+              .setValue(getAdressierungszusatz().getValue());
           getKtoiPlz().setValue(getPlz().getValue());
           getKtoiOrt().setValue(getOrt().getValue());
           getKtoiEmail().setValue(getEmail().getValue());
@@ -2709,38 +2716,42 @@ public class MitgliedControl extends AbstractControl
 
   public Button getLesefelderEdit()
   {
-    return new Button("Bearbeiten", new LesefelddefinitionenAction(
-        getMitglied()), null, false, "edit.png");
+    return new Button("Bearbeiten",
+        new LesefelddefinitionenAction(getMitglied()), null, false, "edit.png");
   }
 
   public Button getZusatzbetragNeu()
   {
-    return new Button("Neuer Zusatzbetrag", new ZusatzbetraegeAction(
-        getMitglied()), null, false, "document-new.png");
+    return new Button("Neuer Zusatzbetrag",
+        new ZusatzbetraegeAction(getMitglied()), null, false,
+        "document-new.png");
   }
 
   public Button getWiedervorlageNeu()
   {
-    return new Button("Neue Wiedervorlage", new WiedervorlageAction(
-        getMitglied()), null, false, "document-new.png");
+    return new Button("Neue Wiedervorlage",
+        new WiedervorlageAction(getMitglied()), null, false,
+        "document-new.png");
   }
 
   public Button getArbeitseinsatzNeu()
   {
-    return new Button("Neuer Arbeitseinsatz", new ArbeitseinsatzAction(
-        getMitglied()), null, false, "document-new.png");
+    return new Button("Neuer Arbeitseinsatz",
+        new ArbeitseinsatzAction(getMitglied()), null, false,
+        "document-new.png");
   }
 
   public Button getLehrgangNeu()
   {
-    return new Button("Neuer Lehrgang", new LehrgangAction(getMitglied()),
-        null, false, "document-new.png");
+    return new Button("Neuer Lehrgang", new LehrgangAction(getMitglied()), null,
+        false, "document-new.png");
   }
 
   public TablePart getMitgliedTable(int atyp, Action detailaction)
       throws RemoteException
   {
-    part = new TablePart(new MitgliedQuery(this, false).get(atyp), detailaction);
+    part = new TablePart(new MitgliedQuery(this, false).get(atyp),
+        detailaction);
     new MitgliedSpaltenauswahl().setColumns(part, atyp);
     part.setContextMenu(new MitgliedMenu(detailaction));
     part.setMulti(true);
@@ -2778,8 +2789,8 @@ public class MitgliedControl extends AbstractControl
   {
     if (status != null)
     {
-      settings.setAttribute("status.mitglied", (String) getMitgliedStatus()
-          .getValue());
+      settings.setAttribute("status.mitglied",
+          (String) getMitgliedStatus().getValue());
     }
 
     if (geburtsdatumvon != null)
@@ -2998,8 +3009,8 @@ public class MitgliedControl extends AbstractControl
     }
     eigenschaftenTree = new TreePart(new EigenschaftenNode(mitglied), null);
     eigenschaftenTree.setCheckable(true);
-    eigenschaftenTree.addSelectionListener(new EigenschaftListener(
-        eigenschaftenTree));
+    eigenschaftenTree
+        .addSelectionListener(new EigenschaftListener(eigenschaftenTree));
     eigenschaftenTree.setFormatter(new EigenschaftTreeFormatter());
     return eigenschaftenTree;
   }
@@ -3013,12 +3024,12 @@ public class MitgliedControl extends AbstractControl
       if (eigenschaftenTree != null)
       {
         HashMap<String, Boolean> pflichtgruppen = new HashMap<String, Boolean>();
-        DBIterator it = Einstellungen.getDBService().createList(
-            EigenschaftGruppe.class);
+        DBIterator<EigenschaftGruppe> it = Einstellungen.getDBService()
+            .createList(EigenschaftGruppe.class);
         it.addFilter("pflicht = ?", new Object[] { Boolean.TRUE });
         while (it.hasNext())
         {
-          EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
+          EigenschaftGruppe eg = it.next();
           pflichtgruppen.put(eg.getID(), Boolean.valueOf(false));
         }
         for (Object o1 : eigenschaftenTree.getItems())
@@ -3051,7 +3062,7 @@ public class MitgliedControl extends AbstractControl
         it.addFilter("max1 = ?", new Object[] { Boolean.TRUE });
         while (it.hasNext())
         {
-          EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
+          EigenschaftGruppe eg = it.next();
           max1gruppen.put(eg.getID(), Boolean.valueOf(false));
         }
         for (Object o1 : eigenschaftenTree.getItems())
@@ -3067,11 +3078,9 @@ public class MitgliedControl extends AbstractControl
               {
                 if (m1)
                 {
-                  throw new ApplicationException(
-                      String
-                          .format(
-                              "In der Eigenschaftengruppe '%s' mehr als ein Eintrag markiert!",
-                              ei.getEigenschaftGruppe().getBezeichnung()));
+                  throw new ApplicationException(String.format(
+                      "In der Eigenschaftengruppe '%s' mehr als ein Eintrag markiert!",
+                      ei.getEigenschaftGruppe().getBezeichnung()));
                 }
                 else
                 {
@@ -3118,8 +3127,8 @@ public class MitgliedControl extends AbstractControl
       {
         if (getIndividuellerBeitrag().getValue() != null)
         {
-          m.setIndividuellerBeitrag((Double) getIndividuellerBeitrag()
-              .getValue());
+          m.setIndividuellerBeitrag(
+              (Double) getIndividuellerBeitrag().getValue());
         }
         else
         {
@@ -3146,8 +3155,8 @@ public class MitgliedControl extends AbstractControl
       {
         if (externemitgliedsnummer != null)
         {
-          m.setExterneMitgliedsnummer((String) getExterneMitgliedsnummer()
-              .getValue());
+          m.setExterneMitgliedsnummer(
+              (String) getExterneMitgliedsnummer().getValue());
         }
       }
       else
@@ -3165,8 +3174,8 @@ public class MitgliedControl extends AbstractControl
 
         m.setGeschlecht((String) getGeschlecht().getValue());
       }
-      m.setKtoiAdressierungszusatz((String) getKtoiAdressierungszusatz()
-          .getValue());
+      m.setKtoiAdressierungszusatz(
+          (String) getKtoiAdressierungszusatz().getValue());
       m.setKtoiAnrede((String) getKtoiAnrede().getValue());
       m.setKtoiEmail((String) getKtoiEmail().getValue());
       m.setKtoiName((String) getKtoiName().getValue());
@@ -3204,12 +3213,12 @@ public class MitgliedControl extends AbstractControl
           && Einstellungen.getEinstellung().getMitgliedfoto())
       {
         Mitgliedfoto f = null;
-        DBIterator it = Einstellungen.getDBService().createList(
-            Mitgliedfoto.class);
+        DBIterator<Mitgliedfoto> it = Einstellungen.getDBService()
+            .createList(Mitgliedfoto.class);
         it.addFilter("mitglied = ?", new Object[] { m.getID() });
         if (it.size() > 0)
         {
-          f = (Mitgliedfoto) it.next();
+          f = it.next();
           if (foto == null)
           {
             f.delete();
@@ -3222,8 +3231,8 @@ public class MitgliedControl extends AbstractControl
         }
         else
         {
-          f = (Mitgliedfoto) Einstellungen.getDBService().createObject(
-              Mitgliedfoto.class, null);
+          f = (Mitgliedfoto) Einstellungen.getDBService()
+              .createObject(Mitgliedfoto.class, null);
           f.setMitglied(m);
           f.setFoto((byte[]) foto.getValue());
           f.store();
@@ -3233,12 +3242,12 @@ public class MitgliedControl extends AbstractControl
       {
         if (!getMitglied().isNewObject())
         {
-          DBIterator it = Einstellungen.getDBService().createList(
-              Eigenschaften.class);
+          DBIterator<Eigenschaften> it = Einstellungen.getDBService()
+              .createList(Eigenschaften.class);
           it.addFilter("mitglied = ?", new Object[] { getMitglied().getID() });
           while (it.hasNext())
           {
-            Eigenschaften ei = (Eigenschaften) it.next();
+            Eigenschaften ei = it.next();
             ei.delete();
           }
         }
@@ -3264,24 +3273,24 @@ public class MitgliedControl extends AbstractControl
         for (Input ti : zusatzfelder)
         {
           // Felddefinition ermitteln
-          DBIterator it0 = Einstellungen.getDBService().createList(
-              Felddefinition.class);
+          DBIterator<Felddefinition> it0 = Einstellungen.getDBService()
+              .createList(Felddefinition.class);
           it0.addFilter("label = ?", new Object[] { ti.getName() });
-          Felddefinition fd = (Felddefinition) it0.next();
+          Felddefinition fd = it0.next();
           // Ist bereits ein Datensatz für diese Definiton vorhanden ?
-          DBIterator it = Einstellungen.getDBService().createList(
-              Zusatzfelder.class);
+          DBIterator<Zusatzfelder> it = Einstellungen.getDBService()
+              .createList(Zusatzfelder.class);
           it.addFilter("mitglied =?", new Object[] { m.getID() });
           it.addFilter("felddefinition=?", new Object[] { fd.getID() });
           Zusatzfelder zf = null;
           if (it.size() > 0)
           {
-            zf = (Zusatzfelder) it.next();
+            zf = it.next();
           }
           else
           {
-            zf = (Zusatzfelder) Einstellungen.getDBService().createObject(
-                Zusatzfelder.class, null);
+            zf = (Zusatzfelder) Einstellungen.getDBService()
+                .createObject(Zusatzfelder.class, null);
           }
           zf.setMitglied(new Integer(m.getID()));
           zf.setFelddefinition(new Integer(fd.getID()));
@@ -3366,11 +3375,11 @@ public class MitgliedControl extends AbstractControl
   public TreePart getEigenschaftenAuswahlTree(String vorbelegung,
       boolean ohnePflicht) throws RemoteException
   {
-    eigenschaftenAuswahlTree = new TreePart(new EigenschaftenNode(vorbelegung,
-        ohnePflicht), null);
+    eigenschaftenAuswahlTree = new TreePart(
+        new EigenschaftenNode(vorbelegung, ohnePflicht), null);
     eigenschaftenAuswahlTree.setCheckable(true);
-    eigenschaftenAuswahlTree.addSelectionListener(new EigenschaftListener(
-        eigenschaftenAuswahlTree));
+    eigenschaftenAuswahlTree.addSelectionListener(
+        new EigenschaftListener(eigenschaftenAuswahlTree));
     eigenschaftenAuswahlTree.setFormatter(new EigenschaftTreeFormatter());
     return eigenschaftenAuswahlTree;
   }
@@ -3424,8 +3433,9 @@ public class MitgliedControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("auswertung", dateinamensort, Einstellungen
-          .getEinstellung().getDateinamenmuster(), ausw.getDateiendung()).get());
+      fd.setFileName(new Dateiname("auswertung", dateinamensort,
+          Einstellungen.getEinstellung().getDateinamenmuster(),
+          ausw.getDateiendung()).get());
       fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
 
       String s = fd.open();
@@ -3509,8 +3519,9 @@ public class MitgliedControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("adressauswertung", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), ausw.getDateiendung()).get());
+      fd.setFileName(new Dateiname("adressauswertung", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(),
+          ausw.getDateiendung()).get());
       fd.setFilterExtensions(new String[] { "*." + ausw.getDateiendung() });
 
       String s = fd.open();
@@ -3579,14 +3590,14 @@ public class MitgliedControl extends AbstractControl
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
     fd.setFilterExtensions(new String[] { "*.PDF" });
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("statistik", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname("statistik", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
     String s = fd.open();
 
@@ -3642,8 +3653,8 @@ public class MitgliedControl extends AbstractControl
     }
     else
     {
-      zusatzfelderabfrage.setText(String.format("%d Felder ausgewählt",
-          selected));
+      zusatzfelderabfrage
+          .setText(String.format("%d Felder ausgewählt", selected));
     }
   }
 
@@ -3709,7 +3720,8 @@ public class MitgliedControl extends AbstractControl
     {
       EigenschaftenNode eigenschaftitem = (EigenschaftenNode) item.getData();
       if (eigenschaftitem.getNodeType() == EigenschaftenNode.ROOT
-          || eigenschaftitem.getNodeType() == EigenschaftenNode.EIGENSCHAFTGRUPPE)
+          || eigenschaftitem
+              .getNodeType() == EigenschaftenNode.EIGENSCHAFTGRUPPE)
       {
         //
       }
@@ -3829,8 +3841,8 @@ public class MitgliedControl extends AbstractControl
           {
             // Wenn hier ein Fehler auftrat, deregistrieren wir uns wieder
             Logger.error("unable to refresh saldo", e);
-            Application.getMessagingFactory().unRegisterMessageConsumer(
-                FamilienbeitragMessageConsumer.this);
+            Application.getMessagingFactory()
+                .unRegisterMessageConsumer(FamilienbeitragMessageConsumer.this);
           }
         }
       });
@@ -3865,14 +3877,15 @@ public class MitgliedControl extends AbstractControl
     beitragsTabelle.removeAll();
 
     DBService service = Einstellungen.getDBService();
-    DBIterator datenIterator = service.createList(MitgliedNextBGruppe.class);
+    DBIterator<MitgliedNextBGruppe> datenIterator = service
+        .createList(MitgliedNextBGruppe.class);
     datenIterator.addFilter(MitgliedNextBGruppe.COL_MITGLIED + " = ? ",
         getMitglied().getID());
     datenIterator.setOrder("order by " + MitgliedNextBGruppe.COL_AB_DATUM);
 
     while (datenIterator.hasNext())
     {
-      MitgliedNextBGruppe m = (MitgliedNextBGruppe) datenIterator.next();
+      MitgliedNextBGruppe m = datenIterator.next();
       beitragsTabelle.addItem(m);
     }
   }

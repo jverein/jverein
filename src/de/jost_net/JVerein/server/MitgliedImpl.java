@@ -223,7 +223,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       if (getBeitragsgruppe().getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
       {
         // ja
-        DBIterator famang = Einstellungen.getDBService()
+        DBIterator<Mitglied> famang = Einstellungen.getDBService()
             .createList(Mitglied.class);
         famang.addFilter("zahlerid = " + getID());
         famang.addFilter("austritt is null");
@@ -264,7 +264,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
       throw new ApplicationException("Externe Mitgliedsnummer fehlt");
     }
 
-    DBIterator mitglieder = Einstellungen.getDBService()
+    DBIterator<Mitglied> mitglieder = Einstellungen.getDBService()
         .createList(Mitglied.class);
     mitglieder.addFilter("id != ?", getID());
     mitglieder.addFilter("externemitgliedsnummer = ?",
@@ -588,7 +588,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public MandatSequence getMandatSequence() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Lastschrift.class);
+    DBIterator<Lastschrift> it = Einstellungen.getDBService()
+        .createList(Lastschrift.class);
     it.addFilter("mandatid = ?", getMandatID());
     if (it.size() == 0)
     {
@@ -1191,7 +1192,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     else if (fieldName.startsWith("zusatzfelder_"))
     {
-      DBIterator it = Einstellungen.getDBService()
+      DBIterator<Felddefinition> it = Einstellungen.getDBService()
           .createList(Felddefinition.class);
       it.addFilter("name = ?", new Object[] { fieldName.substring(13) });
       Felddefinition fd = (Felddefinition) it.next();

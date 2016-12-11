@@ -37,6 +37,7 @@ public class Update0390 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     execute(addColumn("einstellung", new Column("mailverzoegerung",

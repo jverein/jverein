@@ -128,7 +128,7 @@ public class BuchungQuery
   {
     final DBService service = Einstellungen.getDBService();
 
-    DBIterator it = service.createList(Buchung.class);
+    DBIterator<Buchung> it = service.createList(Buchung.class);
     it.addFilter("datum >= ? ", datumvon);
     it.addFilter("datum <= ? ", datumbis);
 
@@ -253,9 +253,8 @@ public class BuchungQuery
         new JVDateFormatTTMMJJJJ().format(getDatumbis()));
     if (getKonto() != null)
     {
-      subtitle += " "
-          + String.format("für Konto %s - %s", getKonto().getNummer(),
-              getKonto().getBezeichnung());
+      subtitle += " " + String.format("für Konto %s - %s",
+          getKonto().getNummer(), getKonto().getBezeichnung());
     }
     if (getProjekt() != null)
     {

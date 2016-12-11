@@ -31,6 +31,7 @@ public class Update0361 extends AbstractDDLUpdate
     System.out.println(driver);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Liquibase id=97

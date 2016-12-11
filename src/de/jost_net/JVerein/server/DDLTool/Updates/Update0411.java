@@ -37,6 +37,7 @@ public class Update0411 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Kursteilnehmer: Geburtsdatum und Geschlecht Pflicht

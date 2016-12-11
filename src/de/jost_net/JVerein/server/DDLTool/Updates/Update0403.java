@@ -30,9 +30,10 @@ public class Update0403 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
-    execute(alterColumn("mitglied", new Column("ktoiemail", COLTYPE.VARCHAR,
-        255, null, false, false)));
+    execute(alterColumn("mitglied",
+        new Column("ktoiemail", COLTYPE.VARCHAR, 255, null, false, false)));
   }
 }

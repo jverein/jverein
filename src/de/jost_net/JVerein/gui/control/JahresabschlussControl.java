@@ -102,22 +102,23 @@ public class JahresabschlussControl extends AbstractControl
 
   private Date computeVonDatum() throws RemoteException, ParseException
   {
-    DBIterator it = Einstellungen.getDBService().createList(
-        Jahresabschluss.class);
+    DBIterator<Jahresabschluss> it = Einstellungen.getDBService()
+        .createList(Jahresabschluss.class);
     it.setOrder("ORDER BY bis DESC");
     if (it.hasNext())
     {
-      Jahresabschluss ja = (Jahresabschluss) it.next();
+      Jahresabschluss ja = it.next();
       Calendar cal = Calendar.getInstance();
       cal.setTime(ja.getBis());
       cal.add(Calendar.DAY_OF_MONTH, 1);
       return cal.getTime();
     }
-    it = Einstellungen.getDBService().createList(Buchung.class);
-    it.setOrder("ORDER BY datum");
-    if (it.hasNext())
+    DBIterator<Buchung> itbu = Einstellungen.getDBService()
+        .createList(Buchung.class);
+    itbu.setOrder("ORDER BY datum");
+    if (itbu.hasNext())
     {
-      Buchung b = (Buchung) it.next();
+      Buchung b = itbu.next();
       Geschaeftsjahr gj = new Geschaeftsjahr(b.getDatum());
       return gj.getBeginnGeschaeftsjahr();
     }
@@ -176,8 +177,8 @@ public class JahresabschlussControl extends AbstractControl
     }
     try
     {
-      jahresabschlusssaldoList = new JahressaldoList(null, new Geschaeftsjahr(
-          (Date) getVon().getValue())).getSaldoList();
+      jahresabschlusssaldoList = new JahressaldoList(null,
+          new Geschaeftsjahr((Date) getVon().getValue())).getSaldoList();
     }
     catch (ApplicationException e)
     {
@@ -205,8 +206,8 @@ public class JahresabschlussControl extends AbstractControl
       ja.store();
       if ((Boolean) getAnfangsbestaende().getValue())
       {
-        JahressaldoList jsl = new JahressaldoList(null, new Geschaeftsjahr(
-            ja.getVon()));
+        JahressaldoList jsl = new JahressaldoList(null,
+            new Geschaeftsjahr(ja.getVon()));
         ArrayList<SaldoZeile> zeilen = jsl.getInfo();
         for (SaldoZeile z : zeilen)
         {
@@ -214,8 +215,8 @@ public class JahresabschlussControl extends AbstractControl
           if (ktonr.length() > 0)
           {
             Double endbestand = (Double) z.getAttribute("endbestand");
-            Anfangsbestand anf = (Anfangsbestand) Einstellungen.getDBService().createObject(
-                Anfangsbestand.class, null);
+            Anfangsbestand anf = (Anfangsbestand) Einstellungen.getDBService()
+                .createObject(Anfangsbestand.class, null);
             Konto konto = (Konto) z.getAttribute("konto");
             anf.setBetrag(endbestand);
             anf.setDatum(Datum.addTage(ja.getBis(), 1));
@@ -248,16 +249,17 @@ public class JahresabschlussControl extends AbstractControl
   public Part getJahresabschlussList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator jahresabschluesse = service.createList(Jahresabschluss.class);
+    DBIterator<Jahresabschluss> jahresabschluesse = service
+        .createList(Jahresabschluss.class);
     jahresabschluesse.setOrder("ORDER BY von desc");
 
     jahresabschlussList = new TablePart(jahresabschluesse, null);
-    jahresabschlussList.addColumn("von", "von", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    jahresabschlussList.addColumn("bis", "bis", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    jahresabschlussList.addColumn("Datum", "datum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    jahresabschlussList.addColumn("von", "von",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    jahresabschlussList.addColumn("bis", "bis",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    jahresabschlussList.addColumn("Datum", "datum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     jahresabschlussList.addColumn("Name", "name");
     jahresabschlussList.setRememberColWidths(true);
     jahresabschlussList.setContextMenu(new JahresabschlussMenu());
@@ -269,8 +271,8 @@ public class JahresabschlussControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     jahresabschlussList.removeAll();
-    DBIterator jahresabschluesse = Einstellungen.getDBService().createList(
-        Jahresabschluss.class);
+    DBIterator<Jahresabschluss> jahresabschluesse = Einstellungen.getDBService()
+        .createList(Jahresabschluss.class);
     jahresabschluesse.setOrder("ORDER BY von desc");
     while (jahresabschluesse.hasNext())
     {

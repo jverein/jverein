@@ -38,9 +38,9 @@ import de.willuhn.jameica.system.OperationCanceledException;
 /**
  * Ein Dialog, ueber den man eine Sammelüberweisung zur Übernahme zur
  * Splitbuchung
- * */
-public class SammelueberweisungAuswahlDialog extends
-    AbstractDialog<SepaSammelUeberweisung>
+ */
+public class SammelueberweisungAuswahlDialog
+    extends AbstractDialog<SepaSammelUeberweisung>
 {
 
   private SepaSammelUeberweisung selected = null;
@@ -87,8 +87,8 @@ public class SammelueberweisungAuswahlDialog extends
     {
       return this.sammelueberweisung;
     }
-    DBIterator sue = Einstellungen.getHibiscusDBService().createList(
-        SepaSammelUeberweisung.class);
+    DBIterator<SepaSammelUeberweisung> sue = Einstellungen
+        .getHibiscusDBService().createList(SepaSammelUeberweisung.class);
     Calendar cal = Calendar.getInstance();
     cal.setTime(master.getDatum());
     cal.add(Calendar.WEEK_OF_YEAR, -2);
@@ -97,17 +97,17 @@ public class SammelueberweisungAuswahlDialog extends
     this.sammelueberweisung = new TablePart(sue, new Action()
     {
       @Override
-      public void handleAction(Object context) 
+      public void handleAction(Object context)
       {
         selected = (SepaSammelUeberweisung) context;
         close();
       }
     });
-    this.sammelueberweisung.addColumn("Termin", "termin", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    this.sammelueberweisung.addColumn("Termin", "termin",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     this.sammelueberweisung.addColumn("Bezeichnung", "bezeichnung");
-    this.sammelueberweisung.addColumn("Summe", "summe", new CurrencyFormatter(
-        "", Einstellungen.DECIMALFORMAT));
+    this.sammelueberweisung.addColumn("Summe", "summe",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     return this.sammelueberweisung;
   }
 }

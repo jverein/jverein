@@ -136,8 +136,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return spendenart;
     }
-    spendenart = new SelectInput(Spendenart.getArray(), new Spendenart(
-        getSpendenbescheinigung().getSpendenart()));
+    spendenart = new SelectInput(Spendenart.getArray(),
+        new Spendenart(getSpendenbescheinigung().getSpendenart()));
     spendenart.addListener(new Listener()
     {
 
@@ -155,11 +155,11 @@ public class SpendenbescheinigungControl extends AbstractControl
     try
     {
       Spendenart spa = (Spendenart) getSpendenart().getValue();
-      getBezeichnungSachzuwendung().setEnabled(
-          spa.getKey() == Spendenart.SACHSPENDE);
+      getBezeichnungSachzuwendung()
+          .setEnabled(spa.getKey() == Spendenart.SACHSPENDE);
       getHerkunftSpende().setEnabled(spa.getKey() == Spendenart.SACHSPENDE);
-      getUnterlagenWertermittlung().setEnabled(
-          spa.getKey() == Spendenart.SACHSPENDE);
+      getUnterlagenWertermittlung()
+          .setEnabled(spa.getKey() == Spendenart.SACHSPENDE);
     }
     catch (RemoteException e)
     {
@@ -257,8 +257,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return bescheinigungsdatum;
     }
-    bescheinigungsdatum = new DateInput(getSpendenbescheinigung()
-        .getBescheinigungsdatum());
+    bescheinigungsdatum = new DateInput(
+        getSpendenbescheinigung().getBescheinigungsdatum());
     return bescheinigungsdatum;
   }
 
@@ -287,8 +287,7 @@ public class SpendenbescheinigungControl extends AbstractControl
     if (getSpendenbescheinigung().getBuchungen() != null
         && getSpendenbescheinigung().getBuchungen().size() > 1)
     {
-      formular = new FormularInput(FormularArt.SAMMELSPENDENBESCHEINIGUNG,
-          def);
+      formular = new FormularInput(FormularArt.SAMMELSPENDENBESCHEINIGUNG, def);
     }
     else
     {
@@ -303,8 +302,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return ersatzaufwendungen;
     }
-    ersatzaufwendungen = new CheckboxInput(getSpendenbescheinigung()
-        .getErsatzAufwendungen());
+    ersatzaufwendungen = new CheckboxInput(
+        getSpendenbescheinigung().getErsatzAufwendungen());
     return ersatzaufwendungen;
   }
 
@@ -314,8 +313,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return bezeichnungsachzuwendung;
     }
-    bezeichnungsachzuwendung = new TextInput(getSpendenbescheinigung()
-        .getBezeichnungSachzuwendung(), 100);
+    bezeichnungsachzuwendung = new TextInput(
+        getSpendenbescheinigung().getBezeichnungSachzuwendung(), 100);
     enableSachspende();
     return bezeichnungsachzuwendung;
   }
@@ -338,8 +337,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     {
       return unterlagenwertermittlung;
     }
-    unterlagenwertermittlung = new CheckboxInput(getSpendenbescheinigung()
-        .getUnterlagenWertermittlung());
+    unterlagenwertermittlung = new CheckboxInput(
+        getSpendenbescheinigung().getUnterlagenWertermittlung());
     enableSachspende();
     return unterlagenwertermittlung;
   }
@@ -374,8 +373,8 @@ public class SpendenbescheinigungControl extends AbstractControl
           return "";
         }
       });
-      buchungsList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      buchungsList.addColumn("Datum", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       buchungsList.addColumn("Auszug", "auszugsnummer");
       buchungsList.addColumn("Blatt", "blattnummer");
       buchungsList.addColumn("Name", "name");
@@ -398,8 +397,8 @@ public class SpendenbescheinigungControl extends AbstractControl
       });
       buchungsList.addColumn("Buchungsart", "buchungsart",
           new BuchungsartFormatter());
-      buchungsList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-          Einstellungen.DECIMALFORMAT));
+      buchungsList.addColumn("Betrag", "betrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       buchungsList.addColumn("Mitglied", "mitgliedskonto",
           new MitgliedskontoFormatter());
       buchungsList.setMulti(true);
@@ -443,13 +442,13 @@ public class SpendenbescheinigungControl extends AbstractControl
       spb.setBescheinigungsdatum((Date) getBescheinigungsdatum().getValue());
       spb.setBetrag((Double) getBetrag().getValue());
       spb.setErsatzAufwendungen((Boolean) getErsatzAufwendungen().getValue());
-      spb.setBezeichnungSachzuwendung((String) getBezeichnungSachzuwendung()
-          .getValue());
+      spb.setBezeichnungSachzuwendung(
+          (String) getBezeichnungSachzuwendung().getValue());
       spb.setFormular((Formular) getFormular().getValue());
       HerkunftSpende hsp = (HerkunftSpende) getHerkunftSpende().getValue();
       spb.setHerkunftSpende(hsp.getKey());
-      spb.setUnterlagenWertermittlung((Boolean) getUnterlagenWertermittlung()
-          .getValue());
+      spb.setUnterlagenWertermittlung(
+          (Boolean) getUnterlagenWertermittlung().getValue());
       spb.store();
 
       GUI.getStatusBar().setSuccessText("Spendenbescheinigung gespeichert");
@@ -484,8 +483,8 @@ public class SpendenbescheinigungControl extends AbstractControl
           Spendenbescheinigung spb = getSpendenbescheinigung();
           if (spb.isNewObject())
           {
-            GUI.getStatusBar().setErrorText(
-                "Spendenbescheinigung bitte erst speichern!");
+            GUI.getStatusBar()
+                .setErrorText("Spendenbescheinigung bitte erst speichern!");
             return;
           }
           FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -498,15 +497,15 @@ public class SpendenbescheinigungControl extends AbstractControl
           }
           if (spb.getMitglied() != null)
           {
-            fd.setFileName(new Dateiname(spb.getMitglied(), spb
-                .getBescheinigungsdatum(), "Spendenbescheinigung",
+            fd.setFileName(new Dateiname(spb.getMitglied(),
+                spb.getBescheinigungsdatum(), "Spendenbescheinigung",
                 Einstellungen.getEinstellung().getDateinamenmusterSpende(),
                 "pdf").get());
           }
           else
           {
-            fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(), spb
-                .getBescheinigungsdatum(), "Spendenbescheinigung",
+            fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(),
+                spb.getBescheinigungsdatum(), "Spendenbescheinigung",
                 Einstellungen.getEinstellung().getDateinamenmusterSpende(),
                 "pdf").get());
           }
@@ -574,8 +573,8 @@ public class SpendenbescheinigungControl extends AbstractControl
     Spendenbescheinigung spb = getSpendenbescheinigung();
     if (spb.isNewObject())
     {
-      GUI.getStatusBar().setErrorText(
-          "Spendenbescheinigung bitte erst speichern!");
+      GUI.getStatusBar()
+          .setErrorText("Spendenbescheinigung bitte erst speichern!");
       return;
     }
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
@@ -588,15 +587,17 @@ public class SpendenbescheinigungControl extends AbstractControl
     }
     if (spb.getMitglied() != null)
     {
-      fd.setFileName(new Dateiname(spb.getMitglied(), spb
-          .getBescheinigungsdatum(), "Spendenbescheinigung", Einstellungen
-          .getEinstellung().getDateinamenmusterSpende(), "pdf").get());
+      fd.setFileName(new Dateiname(spb.getMitglied(),
+          spb.getBescheinigungsdatum(), "Spendenbescheinigung",
+          Einstellungen.getEinstellung().getDateinamenmusterSpende(), "pdf")
+              .get());
     }
     else
     {
-      fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(), spb
-          .getBescheinigungsdatum(), "Spendenbescheinigung", Einstellungen
-          .getEinstellung().getDateinamenmusterSpende(), "pdf").get());
+      fd.setFileName(new Dateiname(spb.getZeile1(), spb.getZeile2(),
+          spb.getBescheinigungsdatum(), "Spendenbescheinigung",
+          Einstellungen.getEinstellung().getDateinamenmusterSpende(), "pdf")
+              .get());
     }
     fd.setFilterExtensions(new String[] { "*.pdf" });
 
@@ -620,8 +621,8 @@ public class SpendenbescheinigungControl extends AbstractControl
       return;
     }
 
-    Formular fo = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, spendeformular.getID());
+    Formular fo = (Formular) Einstellungen.getDBService()
+        .createObject(Formular.class, spendeformular.getID());
     Map<String, Object> map = getSpendenbescheinigung().getMap(null);
     map = new AllgemeineMap().getMap(map);
     FormularAufbereitung fa = new FormularAufbereitung(file);
@@ -633,7 +634,7 @@ public class SpendenbescheinigungControl extends AbstractControl
   public Part getSpendenbescheinigungList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator spendenbescheinigungen = service
+    DBIterator<Spendenbescheinigung> spendenbescheinigungen = service
         .createList(Spendenbescheinigung.class);
     spendenbescheinigungen.setOrder("ORDER BY bescheinigungsdatum desc");
 
@@ -641,10 +642,10 @@ public class SpendenbescheinigungControl extends AbstractControl
         new SpendenbescheinigungAction());
     spbList.addColumn("Bescheinigungsdatum", "bescheinigungsdatum",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    spbList.addColumn("Spendedatum", "spendedatum", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    spbList.addColumn("Betrag", "betrag", new CurrencyFormatter("",
-        Einstellungen.DECIMALFORMAT));
+    spbList.addColumn("Spendedatum", "spendedatum",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    spbList.addColumn("Betrag", "betrag",
+        new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     spbList.addColumn("Zeile 1", "zeile1");
     spbList.addColumn("Zeile 2", "zeile2");
     spbList.addColumn("Zeile 3", "zeile3");
@@ -664,8 +665,8 @@ public class SpendenbescheinigungControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     spbList.removeAll();
-    DBIterator spendenbescheinigungen = Einstellungen.getDBService()
-        .createList(Spendenbescheinigung.class);
+    DBIterator<Spendenbescheinigung> spendenbescheinigungen = Einstellungen
+        .getDBService().createList(Spendenbescheinigung.class);
     spendenbescheinigungen.setOrder("ORDER BY bescheinigungsdatum desc");
     while (spendenbescheinigungen.hasNext())
     {

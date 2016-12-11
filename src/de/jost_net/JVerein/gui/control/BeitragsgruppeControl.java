@@ -130,8 +130,8 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return betragmonatlich;
     }
-    betragmonatlich = new DecimalInput(
-        getBeitragsgruppe().getBetragMonatlich(), Einstellungen.DECIMALFORMAT);
+    betragmonatlich = new DecimalInput(getBeitragsgruppe().getBetragMonatlich(),
+        Einstellungen.DECIMALFORMAT);
     return betragmonatlich;
   }
 
@@ -141,8 +141,9 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return betragvierteljaehrlich;
     }
-    betragvierteljaehrlich = new DecimalInput(getBeitragsgruppe()
-        .getBetragVierteljaehrlich(), Einstellungen.DECIMALFORMAT);
+    betragvierteljaehrlich = new DecimalInput(
+        getBeitragsgruppe().getBetragVierteljaehrlich(),
+        Einstellungen.DECIMALFORMAT);
     return betragvierteljaehrlich;
   }
 
@@ -152,8 +153,9 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return betraghalbjaehrlich;
     }
-    betraghalbjaehrlich = new DecimalInput(getBeitragsgruppe()
-        .getBetragHalbjaehrlich(), Einstellungen.DECIMALFORMAT);
+    betraghalbjaehrlich = new DecimalInput(
+        getBeitragsgruppe().getBetragHalbjaehrlich(),
+        Einstellungen.DECIMALFORMAT);
     return betraghalbjaehrlich;
   }
 
@@ -163,8 +165,8 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return betragjaehrlich;
     }
-    betragjaehrlich = new DecimalInput(
-        getBeitragsgruppe().getBetragJaehrlich(), Einstellungen.DECIMALFORMAT);
+    betragjaehrlich = new DecimalInput(getBeitragsgruppe().getBetragJaehrlich(),
+        Einstellungen.DECIMALFORMAT);
     return betragjaehrlich;
   }
 
@@ -174,8 +176,8 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return beitragsart;
     }
-    beitragsart = new SelectInput(ArtBeitragsart.values(), getBeitragsgruppe()
-        .getBeitragsArt());
+    beitragsart = new SelectInput(ArtBeitragsart.values(),
+        getBeitragsgruppe().getBeitragsArt());
     return beitragsart;
   }
 
@@ -185,8 +187,9 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return arbeitseinsatzstunden;
     }
-    arbeitseinsatzstunden = new DecimalInput(getBeitragsgruppe()
-        .getArbeitseinsatzStunden(), new DecimalFormat("###,###.##"));
+    arbeitseinsatzstunden = new DecimalInput(
+        getBeitragsgruppe().getArbeitseinsatzStunden(),
+        new DecimalFormat("###,###.##"));
     return arbeitseinsatzstunden;
   }
 
@@ -196,8 +199,9 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       return arbeitseinsatzbetrag;
     }
-    arbeitseinsatzbetrag = new DecimalInput(getBeitragsgruppe()
-        .getArbeitseinsatzBetrag(), new DecimalFormat("###,###.##"));
+    arbeitseinsatzbetrag = new DecimalInput(
+        getBeitragsgruppe().getArbeitseinsatzBetrag(),
+        new DecimalFormat("###,###.##"));
     return arbeitseinsatzbetrag;
   }
 
@@ -260,7 +264,8 @@ public class BeitragsgruppeControl extends AbstractControl
       // if (ba.getKey() == ArtBeitragsart.FAMILIE_ANGEHOERIGER && d != 0)
       // {
       // throw new ApplicationException(
-      // "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00 eingeben.");
+      // "Familien-Angehörige sind beitragsbefreit. Bitte als Betrag 0,00
+      // eingeben.");
       // }
       b.setBeitragsArt(ba.getKey());
       Buchungsart bua = (Buchungsart) getBuchungsart().getValue();
@@ -295,7 +300,8 @@ public class BeitragsgruppeControl extends AbstractControl
       return beitragsgruppeList;
     }
     DBService service = Einstellungen.getDBService();
-    DBIterator beitragsgruppen = service.createList(Beitragsgruppe.class);
+    DBIterator<Beitragsgruppe> beitragsgruppen = service
+        .createList(Beitragsgruppe.class);
     beitragsgruppeList = new TablePart(beitragsgruppen,
         new BeitragsgruppeDetailAction());
     beitragsgruppeList.addColumn("Bezeichnung", "bezeichnung");
@@ -303,15 +309,15 @@ public class BeitragsgruppeControl extends AbstractControl
     {
       case GLEICHERTERMINFUERALLE:
       case MONATLICH12631:
-        beitragsgruppeList.addColumn("Betrag", "betrag", new CurrencyFormatter(
-            "", Einstellungen.DECIMALFORMAT));
+        beitragsgruppeList.addColumn("Betrag", "betrag",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
         break;
       case FLEXIBEL:
         beitragsgruppeList.addColumn("Betrag monatlich", "betragmonatlich",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
         beitragsgruppeList.addColumn("Betrag viertelj.",
-            "betragvierteljaehrlich", new CurrencyFormatter("",
-                Einstellungen.DECIMALFORMAT));
+            "betragvierteljaehrlich",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
         beitragsgruppeList.addColumn("Betrag halbj.", "betraghalbjaehrlich",
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
         beitragsgruppeList.addColumn("Betrag jährlich", "betragjaehrlich",
@@ -321,11 +327,11 @@ public class BeitragsgruppeControl extends AbstractControl
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
       beitragsgruppeList.addColumn("Arbeitseinsatz-Stunden",
-          "arbeitseinsatzstunden", new CurrencyFormatter("",
-              Einstellungen.DECIMALFORMAT));
+          "arbeitseinsatzstunden",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
       beitragsgruppeList.addColumn("Arbeitseinsatz-Stundensatz",
-          "arbeitseinsatzbetrag", new CurrencyFormatter("",
-              Einstellungen.DECIMALFORMAT));
+          "arbeitseinsatzbetrag",
+          new CurrencyFormatter("", Einstellungen.DECIMALFORMAT));
     }
     beitragsgruppeList.addColumn("Buchungsart", "buchungsart",
         new BuchungsartFormatter());

@@ -138,9 +138,8 @@ public class AbrechnungslaufControl extends AbstractControl
     {
       return faelligkeit1;
     }
-    faelligkeit1 = new LabelInput(
-        new JVDateFormatTTMMJJJJ().format(getAbrechnungslaeufe()
-            .getFaelligkeit()));
+    faelligkeit1 = new LabelInput(new JVDateFormatTTMMJJJJ()
+        .format(getAbrechnungslaeufe().getFaelligkeit()));
     faelligkeit1.setName("Fälligkeit 1");
     return faelligkeit1;
   }
@@ -151,9 +150,8 @@ public class AbrechnungslaufControl extends AbstractControl
     {
       return faelligkeit2;
     }
-    faelligkeit2 = new LabelInput(
-        new JVDateFormatTTMMJJJJ().format(getAbrechnungslaeufe()
-            .getFaelligkeit2()));
+    faelligkeit2 = new LabelInput(new JVDateFormatTTMMJJJJ()
+        .format(getAbrechnungslaeufe().getFaelligkeit2()));
     faelligkeit2.setName("Fälligkeit 2");
     return faelligkeit2;
   }
@@ -164,8 +162,8 @@ public class AbrechnungslaufControl extends AbstractControl
     {
       return stichtag;
     }
-    stichtag = new LabelInput(
-        new JVDateFormatTTMMJJJJ().format(getAbrechnungslaeufe().getStichtag()));
+    stichtag = new LabelInput(new JVDateFormatTTMMJJJJ()
+        .format(getAbrechnungslaeufe().getStichtag()));
     stichtag.setName("Stichtag");
     return stichtag;
   }
@@ -329,8 +327,8 @@ public class AbrechnungslaufControl extends AbstractControl
       try
       {
         al.store();
-        GUI.getStatusBar().setSuccessText(
-            "Bemerkung zum Abrechnungslauf gespeichert");
+        GUI.getStatusBar()
+            .setSuccessText("Bemerkung zum Abrechnungslauf gespeichert");
       }
       catch (ApplicationException e)
       {
@@ -348,7 +346,8 @@ public class AbrechnungslaufControl extends AbstractControl
   public Part getAbrechungslaeufeList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator abrechnungslaeufe = service.createList(Abrechnungslauf.class);
+    DBIterator<Abrechnungslauf> abrechnungslaeufe = service
+        .createList(Abrechnungslauf.class);
     abrechnungslaeufe.setOrder("ORDER BY datum DESC");
 
     if (abrechnungslaufList == null)
@@ -356,16 +355,16 @@ public class AbrechnungslaufControl extends AbstractControl
       abrechnungslaufList = new TablePart(abrechnungslaeufe,
           new AbrechnungslaufBuchungenAction());
       abrechnungslaufList.addColumn("Nr", "nr");
-      abrechnungslaufList.addColumn("Datum", "datum", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn("Datum", "datum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Modus", "modus",
           new AbrechnungsmodusFormatter(), false, Column.ALIGN_LEFT);
       abrechnungslaufList.addColumn("Fälligkeit 1", "faelligkeit",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Fälligkeit 2", "faelligkeit2",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      abrechnungslaufList.addColumn("Stichtag", "stichtag", new DateFormatter(
-          new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn("Stichtag", "stichtag",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Eingabedatum", "eingabedatum",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Zahlungsgrund", "zahlungsgrund");

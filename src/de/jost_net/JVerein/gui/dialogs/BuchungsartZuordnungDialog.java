@@ -127,7 +127,8 @@ public class BuchungsartZuordnungDialog extends AbstractDialog<Buchungsart>
     {
       return buchungsarten;
     }
-    DBIterator it = Einstellungen.getDBService().createList(Buchungsart.class);
+    DBIterator<Buchungsart> it = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     it.setOrder("ORDER BY nummer");
     buchungsarten = new SelectInput(it, null);
     buchungsarten.setValue(null);

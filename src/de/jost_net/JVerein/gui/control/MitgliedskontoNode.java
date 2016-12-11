@@ -80,8 +80,8 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.ist = new Double(0);
     this.children = new ArrayList<MitgliedskontoNode>();
     this.id = m.getID();
-    DBIterator it = Einstellungen.getDBService().createList(
-        Mitgliedskonto.class);
+    DBIterator<Mitgliedskonto> it = Einstellungen.getDBService()
+        .createList(Mitgliedskonto.class);
     it.addFilter("mitglied = ?", new Object[] { m.getID() });
     if (von != null)
     {
@@ -123,7 +123,8 @@ public class MitgliedskontoNode implements GenericObjectNode
     if (this.type == SOLL)
     {
       this.children = new ArrayList<MitgliedskontoNode>();
-      DBIterator it = Einstellungen.getDBService().createList(Buchung.class);
+      DBIterator<Buchung> it = Einstellungen.getDBService()
+          .createList(Buchung.class);
       it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });
       it.setOrder("order by datum desc");
       ist = 0d;
@@ -261,8 +262,8 @@ public class MitgliedskontoNode implements GenericObjectNode
   {
     if (children != null)
     {
-      return PseudoIterator.fromArray(children
-          .toArray(new GenericObject[children.size()]));
+      return PseudoIterator
+          .fromArray(children.toArray(new GenericObject[children.size()]));
     }
     return null;
   }

@@ -45,7 +45,8 @@ public class AdresstypListView extends AbstractView
     buttons.addButton("neu", new AdresstypAction(), null, false,
         "document-new.png");
 
-    DBIterator it = Einstellungen.getDBService().createList(Adresstyp.class);
+    DBIterator<Adresstyp> it = Einstellungen.getDBService()
+        .createList(Adresstyp.class);
     it.addFilter("jvereinid >= 1 and jvereinid <= 2");
     if (it.size() == 0)
     {

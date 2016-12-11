@@ -215,8 +215,8 @@ public class ImportView extends AbstractView
      * optional
      */
     /* define SWT Elements */
-    final Table necTable = new Table(this.getParent(), SWT.SINGLE | SWT.BORDER
-        | SWT.FULL_SELECTION);
+    final Table necTable = new Table(this.getParent(),
+        SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION);
     necTable.clearAll();
     necTable.setLinesVisible(true);
     GridData necData = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -414,12 +414,13 @@ public class ImportView extends AbstractView
           {
 
             Import imp = new Import(monitor);
-            imp.importFile(csvConn.getData(), csvConn.getNumberOfRows(), colMap);
+            imp.importFile(csvConn.getData(), csvConn.getNumberOfRows(),
+                colMap);
 
             monitor.setPercentComplete(100);
             monitor.setStatus(ProgressMonitor.STATUS_DONE);
-            GUI.getStatusBar().setSuccessText(
-                String.format("Daten importiert aus %s", s));
+            GUI.getStatusBar()
+                .setSuccessText(String.format("Daten importiert aus %s", s));
             GUI.getCurrentView().reload();
           }
           else
@@ -433,9 +434,9 @@ public class ImportView extends AbstractView
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error opening reading objects from " + s, sqlE);
-          ApplicationException ae = new ApplicationException(String.format(
-              "Fehler beim Importieren der Daten aus %s, %s", s,
-              sqlE.getMessage()));
+          ApplicationException ae = new ApplicationException(
+              String.format("Fehler beim Importieren der Daten aus %s, %s", s,
+                  sqlE.getMessage()));
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
@@ -525,9 +526,8 @@ public class ImportView extends AbstractView
 
         if (importFile.getAbsolutePath().indexOf(' ') > 0)
         {
-          GUI.getStatusBar()
-              .setErrorText(
-                  "Der Dateiname, bzw. der absolute Pfad, enthält Leerzeichen. Das ist nicht zulässig!");
+          GUI.getStatusBar().setErrorText(
+              "Der Dateiname, bzw. der absolute Pfad, enthält Leerzeichen. Das ist nicht zulässig!");
           return;
         }
 
@@ -560,8 +560,8 @@ public class ImportView extends AbstractView
         }
         else
         {
-          GUI.getStatusBar().setErrorText(
-              "Fehler - Formatierungsfehler in der Import Datei");
+          GUI.getStatusBar()
+              .setErrorText("Fehler - Formatierungsfehler in der Import Datei");
         }
       }
       else
@@ -609,8 +609,8 @@ public class ImportView extends AbstractView
     }
 
     /* Additional fields */
-    DBIterator it = Einstellungen.getDBService().createList(
-        Felddefinition.class);
+    DBIterator<Felddefinition> it = Einstellungen.getDBService()
+        .createList(Felddefinition.class);
     for (int i = 0; i < it.size(); i++)
     {
       String addColumn = ((Felddefinition) it.next()).getName();
@@ -662,8 +662,8 @@ public class ImportView extends AbstractView
 
     if (s == null || s.length() == 0)
     {
-      GUI.getStatusBar().setErrorText(
-          "Abbruch - Es wurde keine gueltige Datei gewaehlt");
+      GUI.getStatusBar()
+          .setErrorText("Abbruch - Es wurde keine gueltige Datei gewaehlt");
       return null;
     }
 
@@ -699,8 +699,8 @@ public class ImportView extends AbstractView
 
     if (importColumns.size() == 0)
     {
-      GUI.getStatusBar().setErrorText(
-          "Konnte keine Spalten in der Import-Datei finden");
+      GUI.getStatusBar()
+          .setErrorText("Konnte keine Spalten in der Import-Datei finden");
       return;
     }
 

@@ -55,7 +55,7 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
   {
     this.file = file;
     setzeParameterDerListe(objects);
-    DBIterator mitgliederListe = ladeMitgliederAktivImGewaehltenJahr();
+    DBIterator<Mitglied> mitgliederListe = ladeMitgliederAktivImGewaehltenJahr();
 
     JubilaeenParser jp = holeJubelJahreAusEinstellungen();
 
@@ -72,8 +72,8 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
     close();
   }
 
-  private void sucheMitgliederFuerJahrgang(int jubi, DBIterator mitgliederListe)
-      throws RemoteException
+  private void sucheMitgliederFuerJahrgang(int jubi,
+      DBIterator<Mitglied> mitgliederListe) throws RemoteException
   {
     mitgliederListe.begin();
     while (mitgliederListe.hasNext())
@@ -93,7 +93,7 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
     return jubelHelfer.hatMitgliedJubileum(jubi);
   }
 
-  private DBIterator ladeMitgliederAktivImGewaehltenJahr()
+  private DBIterator<Mitglied> ladeMitgliederAktivImGewaehltenJahr()
       throws RemoteException
   {
     Calendar cal = Calendar.getInstance();
@@ -101,8 +101,8 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
     cal.set(Calendar.MONTH, Calendar.DECEMBER);
     cal.set(Calendar.DAY_OF_MONTH, 31);
 
-    DBIterator mitgliederListe = Einstellungen.getDBService().createList(
-        Mitglied.class);
+    DBIterator<Mitglied> mitgliederListe = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setNurAktive(mitgliederListe, cal.getTime());
     MitgliedUtils.setMitglied(mitgliederListe);
     mitgliederListe.setOrder("order by eintritt");
@@ -145,8 +145,8 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
 
   protected abstract void endeJahrgang() throws DocumentException;
 
-  protected abstract void open() throws DocumentException,
-      FileNotFoundException;
+  protected abstract void open()
+      throws DocumentException, FileNotFoundException;
 
   protected abstract void add(Mitglied m) throws RemoteException;
 

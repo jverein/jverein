@@ -31,10 +31,12 @@ public class Update0386 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
- 
-    execute(addColumn("einstellung", new Column(Einstellung.COL_BUCHUNG_BUCHUNGSART_AUSWAHL,
-        COLTYPE.INTEGER, 10, "0", false, false)));
+
+    execute(addColumn("einstellung",
+        new Column(Einstellung.COL_BUCHUNG_BUCHUNGSART_AUSWAHL, COLTYPE.INTEGER,
+            10, "0", false, false)));
   }
 }

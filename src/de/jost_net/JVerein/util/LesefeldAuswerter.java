@@ -116,9 +116,8 @@ public class LesefeldAuswerter
       }
       catch (EvalError e)
       {
-        Logger.error(
-            "Interner Fehler beim Auswerten eines Skriptes: \""
-                + e.getMessage() + "\".", e);
+        Logger.error("Interner Fehler beim Auswerten eines Skriptes: \""
+            + e.getMessage() + "\".", e);
       }
     }
 
@@ -141,11 +140,11 @@ public class LesefeldAuswerter
    */
   public void setLesefelderDefinitionsFromDatabase() throws RemoteException
   {
-    DBIterator itlesefelder = Einstellungen.getDBService().createList(
-        Lesefeld.class);
+    DBIterator<Lesefeld> itlesefelder = Einstellungen.getDBService()
+        .createList(Lesefeld.class);
     while (itlesefelder.hasNext())
     {
-      Lesefeld lesefeld = (Lesefeld) itlesefelder.next();
+      Lesefeld lesefeld = itlesefelder.next();
       lesefelder.add(lesefeld);
     }
   }
@@ -191,8 +190,8 @@ public class LesefeldAuswerter
       map.put(Einstellungen.LESEFELD_PRE + lesefeld.getBezeichnung(),
           lesefeld.getEvaluatedContent());
     }
-    Logger.debug(String.format("Lesefeld-Variablen für Mitglied %s:",
-    		vornamename));
+    Logger.debug(
+        String.format("Lesefeld-Variablen für Mitglied %s:", vornamename));
     for (String key : map.keySet())
     {
       Logger.debug(key + "=" + map.get(key));
@@ -249,8 +248,8 @@ public class LesefeldAuswerter
     }
     catch (EvalError e)
     {
-      Logger.error("Fehler beim Auswerten des Skriptes: \"" + e.getMessage()
-          + "\".", e);
+      Logger.error(
+          "Fehler beim Auswerten des Skriptes: \"" + e.getMessage() + "\".", e);
       return null;
     }
     return lesefeld;

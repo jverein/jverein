@@ -37,9 +37,10 @@ public class Update0403 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
-    execute(addColumn("einstellung", new Column("inventar", COLTYPE.BOOLEAN,
-        10, null, false, false)));
+    execute(addColumn("einstellung",
+        new Column("inventar", COLTYPE.BOOLEAN, 10, null, false, false)));
   }
 }

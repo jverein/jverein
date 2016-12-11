@@ -30,6 +30,7 @@ public class Update0402 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     execute(alterColumn("einstellung", new Column("smtp_from_address",

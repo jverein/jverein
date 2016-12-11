@@ -79,7 +79,8 @@ public class AdresstypControl extends AbstractControl
     {
       return bezeichnungplural;
     }
-    bezeichnungplural = new TextInput(getAdresstyp().getBezeichnungPlural(), 30);
+    bezeichnungplural = new TextInput(getAdresstyp().getBezeichnungPlural(),
+        30);
     return bezeichnungplural;
   }
 
@@ -114,7 +115,7 @@ public class AdresstypControl extends AbstractControl
   public Part getAdresstypList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator adresstypen = service.createList(Adresstyp.class);
+    DBIterator<Adresstyp> adresstypen = service.createList(Adresstyp.class);
     adresstypen.setOrder("ORDER BY bezeichnung");
 
     adresstypList = new TablePart(adresstypen, new AdresstypAction());

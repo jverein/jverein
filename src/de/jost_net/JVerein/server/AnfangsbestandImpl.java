@@ -31,8 +31,8 @@ import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class AnfangsbestandImpl extends AbstractDBObject implements
-    Anfangsbestand
+public class AnfangsbestandImpl extends AbstractDBObject
+    implements Anfangsbestand
 {
 
   private static final long serialVersionUID = 1L;
@@ -112,20 +112,19 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
   {
     try
     {
-      Date beginngeschaeftsjahr = new JVDateFormatTTMMJJJJ()
-          .parse(Einstellungen.getEinstellung().getBeginnGeschaeftsjahr()
-              + "2009");
-      DBIterator it = Einstellungen.getDBService().createList(
-          Anfangsbestand.class);
+      Date beginngeschaeftsjahr = new JVDateFormatTTMMJJJJ().parse(
+          Einstellungen.getEinstellung().getBeginnGeschaeftsjahr() + "2009");
+      DBIterator<Anfangsbestand> it = Einstellungen.getDBService()
+          .createList(Anfangsbestand.class);
       it.addFilter("konto = ?", new Object[] { getKonto().getID() });
       it.addFilter("datum >= ?", new Object[] { getDatum() });
       it.setOrder("order by datum desc");
       if (it.size() > 0)
       {
         Anfangsbestand anf = (Anfangsbestand) it.next();
-        throw new ApplicationException(String.format(
-            "Datum muss nach dem %s liegen",
-            new JVDateFormatTTMMJJJJ().format(anf.getDatum())));
+        throw new ApplicationException(
+            String.format("Datum muss nach dem %s liegen",
+                new JVDateFormatTTMMJJJJ().format(anf.getDatum())));
       }
       it = Einstellungen.getDBService().createList(Anfangsbestand.class);
       it.addFilter("konto = ?", new Object[] { getKonto().getID() });
@@ -225,8 +224,8 @@ public class AnfangsbestandImpl extends AbstractDBObject implements
   @Override
   public Jahresabschluss getJahresabschluss() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(
-        Jahresabschluss.class);
+    DBIterator<Jahresabschluss> it = Einstellungen.getDBService()
+        .createList(Jahresabschluss.class);
     it.addFilter("von <= ?", new Object[] { getDatum() });
     it.addFilter("bis >= ?", new Object[] { getDatum() });
     if (it.hasNext())

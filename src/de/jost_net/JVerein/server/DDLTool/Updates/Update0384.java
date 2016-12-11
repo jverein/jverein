@@ -31,14 +31,15 @@ public class Update0384 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Liquibase id=116
     Table table = new Table("suchprofil");
     Column primco = new Column("id", COLTYPE.BIGINT, 19, null, false, true);
     table.add(primco);
-    table
-        .add(new Column("bezeichnung", COLTYPE.VARCHAR, 50, null, false, false));
+    table.add(
+        new Column("bezeichnung", COLTYPE.VARCHAR, 50, null, false, false));
     table.add(new Column("inhalt", COLTYPE.LONGBLOB, 0, null, false, false));
     table.add(new Column("clazz", COLTYPE.VARCHAR, 255, null, false, false));
     table.setPrimaryKey(primco);

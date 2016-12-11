@@ -119,7 +119,8 @@ public class BuchungsklasseControl extends AbstractControl
   public Part getBuchungsklasseList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator buchungsklassen = service.createList(Buchungsklasse.class);
+    DBIterator<Buchungsklasse> buchungsklassen = service
+        .createList(Buchungsklasse.class);
     buchungsklassen.addFilter("nummer >= 0");
     buchungsklassen.setOrder("ORDER BY nummer");
 

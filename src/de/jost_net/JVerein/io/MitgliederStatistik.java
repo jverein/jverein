@@ -76,8 +76,8 @@ public class MitgliederStatistik
           BaseColor.LIGHT_GRAY);
       reporter.createHeader(70f, Element.ALIGN_LEFT);
 
-      AltersgruppenParser ap = new AltersgruppenParser(Einstellungen
-          .getEinstellung().getAltersgruppen());
+      AltersgruppenParser ap = new AltersgruppenParser(
+          Einstellungen.getEinstellung().getAltersgruppen());
       while (ap.hasNext())
       {
         VonBis vb = ap.getNext();
@@ -103,8 +103,8 @@ public class MitgliederStatistik
           BaseColor.LIGHT_GRAY);
       reporter.createHeader(70f, Element.ALIGN_LEFT);
 
-      DBIterator beitragsgruppen = Einstellungen.getDBService().createList(
-          Beitragsgruppe.class);
+      DBIterator<Beitragsgruppe> beitragsgruppen = Einstellungen.getDBService()
+          .createList(Beitragsgruppe.class);
       beitragsgruppen.setOrder("order by bezeichnung");
       while (beitragsgruppen.hasNext())
       {
@@ -118,8 +118,8 @@ public class MitgliederStatistik
       {
         JVDateFormatTTMMJJJJ ttmmjj = new JVDateFormatTTMMJJJJ();
         Geschaeftsjahr gj = new Geschaeftsjahr(stichtag);
-        Paragraph pGuV = new Paragraph("\n"
-            + String.format("Anmeldungen/Abmeldungen (%s - %s)",
+        Paragraph pGuV = new Paragraph(
+            "\n" + String.format("Anmeldungen/Abmeldungen (%s - %s)",
                 ttmmjj.format(gj.getBeginnGeschaeftsjahr()),
                 ttmmjj.format(gj.getEndeGeschaeftsjahr())),
             FontFactory.getFont(FontFactory.HELVETICA, 11));
@@ -170,10 +170,12 @@ public class MitgliederStatistik
     }
     reporter.addColumn(getAltersgruppe(vb, null, stichtag) + "",
         Element.ALIGN_RIGHT);
-    reporter.addColumn(getAltersgruppe(vb, GeschlechtInput.MAENNLICH, stichtag)
-        + "", Element.ALIGN_RIGHT);
-    reporter.addColumn(getAltersgruppe(vb, GeschlechtInput.WEIBLICH, stichtag)
-        + "", Element.ALIGN_RIGHT);
+    reporter.addColumn(
+        getAltersgruppe(vb, GeschlechtInput.MAENNLICH, stichtag) + "",
+        Element.ALIGN_RIGHT);
+    reporter.addColumn(
+        getAltersgruppe(vb, GeschlechtInput.WEIBLICH, stichtag) + "",
+        Element.ALIGN_RIGHT);
     reporter.addColumn(
         getAltersgruppe(vb, GeschlechtInput.OHNEANGABE, stichtag) + "",
         Element.ALIGN_RIGHT);
@@ -264,12 +266,13 @@ public class MitgliederStatistik
     }
     java.sql.Date bd = new java.sql.Date(calBis.getTimeInMillis());
 
-    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> list = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     if (vb.getVon() == -1)
     {
       list.addFilter("geburtsdatum is null");
     }
-    else if(vb.getBis() != 199)
+    else if (vb.getBis() != 199)
     {
       list.addFilter("geburtsdatum >= ?", new Object[] { vd });
       list.addFilter("geburtsdatum <= ?", new Object[] { bd });
@@ -283,9 +286,8 @@ public class MitgliederStatistik
     // list.addFilter("(eintritt is null or eintritt <= ?)", new Object[] {
     // stichtag });
 
-    if (geschlecht != null
-        && (geschlecht.equals(GeschlechtInput.MAENNLICH) || geschlecht
-            .equals(GeschlechtInput.WEIBLICH)))
+    if (geschlecht != null && (geschlecht.equals(GeschlechtInput.MAENNLICH)
+        || geschlecht.equals(GeschlechtInput.WEIBLICH)))
     {
       list.addFilter("geschlecht = ?", new Object[] { geschlecht });
     }
@@ -304,7 +306,8 @@ public class MitgliederStatistik
   private int getBeitragsgruppe(Beitragsgruppe bg, String geschlecht,
       Date stichtag) throws RemoteException
   {
-    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> list = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setNurAktive(list, stichtag);
     MitgliedUtils.setMitglied(list);
 
@@ -319,9 +322,8 @@ public class MitgliederStatistik
       list.addFilter("beitragsgruppe = ?",
           new Object[] { new Integer(bg.getID()) });
     }
-    if (geschlecht != null
-        && (geschlecht.equals(GeschlechtInput.MAENNLICH) || geschlecht
-            .equals(GeschlechtInput.WEIBLICH)))
+    if (geschlecht != null && (geschlecht.equals(GeschlechtInput.MAENNLICH)
+        || geschlecht.equals(GeschlechtInput.WEIBLICH)))
     {
       list.addFilter("geschlecht = ?", new Object[] { geschlecht });
     }
@@ -338,7 +340,8 @@ public class MitgliederStatistik
 
   private int getAnmeldungen(Geschaeftsjahr gj) throws RemoteException
   {
-    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> list = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setMitglied(list);
     list.addFilter("eintritt >= ? ",
         new Object[] { gj.getBeginnGeschaeftsjahr() });
@@ -349,7 +352,8 @@ public class MitgliederStatistik
 
   private int getAbmeldungen(Geschaeftsjahr gj) throws RemoteException
   {
-    DBIterator list = Einstellungen.getDBService().createList(Mitglied.class);
+    DBIterator<Mitglied> list = Einstellungen.getDBService()
+        .createList(Mitglied.class);
     MitgliedUtils.setMitglied(list);
     list.addFilter("austritt >= ? ",
         new Object[] { gj.getBeginnGeschaeftsjahr() });

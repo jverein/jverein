@@ -69,10 +69,10 @@ public class KontoList extends TablePart implements Part
    * @return Liste der Konten.
    * @throws RemoteException
    */
-  private static DBIterator init(boolean onlyHibiscus, boolean nurAktuelleKonten)
-      throws RemoteException
+  private static DBIterator<Konto> init(boolean onlyHibiscus,
+      boolean nurAktuelleKonten) throws RemoteException
   {
-    DBIterator i = Einstellungen.getDBService().createList(Konto.class);
+    DBIterator<Konto> i = Einstellungen.getDBService().createList(Konto.class);
     if (onlyHibiscus)
     {
       i.addFilter("hibiscusid > -1");

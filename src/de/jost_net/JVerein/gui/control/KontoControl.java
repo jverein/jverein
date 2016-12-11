@@ -136,8 +136,9 @@ public class KontoControl extends AbstractControl
       {
         try
         {
-          preselected = (de.willuhn.jameica.hbci.rmi.Konto) Settings.getDBService().createObject(
-              de.willuhn.jameica.hbci.rmi.Konto.class, hibid);
+          preselected = (de.willuhn.jameica.hbci.rmi.Konto) Settings
+              .getDBService()
+              .createObject(de.willuhn.jameica.hbci.rmi.Konto.class, hibid);
         }
         catch (ObjectNotFoundException e)
         {
@@ -171,7 +172,8 @@ public class KontoControl extends AbstractControl
       }
       else
       {
-        de.willuhn.jameica.hbci.rmi.Konto hkto = (de.willuhn.jameica.hbci.rmi.Konto) getHibiscusId().getValue();
+        de.willuhn.jameica.hbci.rmi.Konto hkto = (de.willuhn.jameica.hbci.rmi.Konto) getHibiscusId()
+            .getValue();
         k.setHibiscusId(Integer.parseInt(hkto.getID()));
       }
       k.store();
@@ -194,7 +196,7 @@ public class KontoControl extends AbstractControl
   public Part getKontenList() throws RemoteException
   {
     DBService service = Einstellungen.getDBService();
-    DBIterator konten = service.createList(Konto.class);
+    DBIterator<Konto> konten = service.createList(Konto.class);
     konten.setOrder("ORDER BY nummer");
 
     kontenList = new TablePart(konten, new KontoAction());
@@ -221,10 +223,10 @@ public class KontoControl extends AbstractControl
         return "nein";
       }
     }, false, Column.ALIGN_LEFT);
-    kontenList.addColumn("Konto-Eröffnung", "eroeffnung", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
-    kontenList.addColumn("Konto-Auflösung", "aufloesung", new DateFormatter(
-        new JVDateFormatTTMMJJJJ()));
+    kontenList.addColumn("Konto-Eröffnung", "eroeffnung",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
+    kontenList.addColumn("Konto-Auflösung", "aufloesung",
+        new DateFormatter(new JVDateFormatTTMMJJJJ()));
     kontenList.setRememberColWidths(true);
     kontenList.setContextMenu(new KontoMenu());
     kontenList.setRememberOrder(true);
@@ -235,7 +237,8 @@ public class KontoControl extends AbstractControl
   public void refreshTable() throws RemoteException
   {
     kontenList.removeAll();
-    DBIterator konten = Einstellungen.getDBService().createList(Konto.class);
+    DBIterator<Konto> konten = Einstellungen.getDBService()
+        .createList(Konto.class);
     konten.setOrder("ORDER BY nummer");
     while (konten.hasNext())
     {

@@ -114,14 +114,14 @@ public class BuchungsHeaderControl extends AbstractControl
   private DatenSammler ermittleSaldos(DatenSammler sammler)
       throws RemoteException
   {
-    DBIterator iteratorBuchungen = Einstellungen.getDBService().createList(
-        Buchung.class);
+    DBIterator<Buchung> iteratorBuchungen = Einstellungen.getDBService()
+        .createList(Buchung.class);
     iteratorBuchungen.addFilter("konto = ?", sammler.konto.getID());
     iteratorBuchungen.addFilter("datum >= ?", sammler.gibStartDatum());
 
     while (iteratorBuchungen.hasNext())
     {
-      Buchung buchung = (Buchung) iteratorBuchungen.next();
+      Buchung buchung = iteratorBuchungen.next();
       sammler.addBuchung(buchung);
     }
     return sammler;
@@ -129,18 +129,16 @@ public class BuchungsHeaderControl extends AbstractControl
 
   private DatenSammler ladeAnfangsBestand(Konto konto) throws RemoteException
   {
-    DBIterator iteratorAnfangsBestand = Einstellungen.getDBService()
-        .createList(Anfangsbestand.class);
+    DBIterator<Anfangsbestand> iteratorAnfangsBestand = Einstellungen
+        .getDBService().createList(Anfangsbestand.class);
     iteratorAnfangsBestand.addFilter("Konto = ?", konto.getID());
     iteratorAnfangsBestand.setOrder("order by datum desc");
 
     DatenSammler sammler = new DatenSammler(konto);
     if (iteratorAnfangsBestand.hasNext())
-      sammler.setAnfangsBestandAktJahr((Anfangsbestand) iteratorAnfangsBestand
-          .next());
+      sammler.setAnfangsBestandAktJahr(iteratorAnfangsBestand.next());
     if (iteratorAnfangsBestand.hasNext())
-      sammler.setAnfangsBestandVorJahr((Anfangsbestand) iteratorAnfangsBestand
-          .next());
+      sammler.setAnfangsBestandVorJahr(iteratorAnfangsBestand.next());
 
     return sammler;
   }
@@ -260,8 +258,7 @@ public class BuchungsHeaderControl extends AbstractControl
       saldo = 0d;
     }
 
-    public void setAnfangsBestand(Anfangsbestand bestand)
-        throws RemoteException
+    public void setAnfangsBestand(Anfangsbestand bestand) throws RemoteException
     {
       anfangsBestand = bestand;
       if (null != bestand)

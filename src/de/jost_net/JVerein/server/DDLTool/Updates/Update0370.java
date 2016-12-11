@@ -30,10 +30,11 @@ public class Update0370 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     // Liquibase id=105
-    execute(renameColumn("qifimportpos", "posid", new Column("id",
-        COLTYPE.BIGINT, 19, null, false, false)));
+    execute(renameColumn("qifimportpos", "posid",
+        new Column("id", COLTYPE.BIGINT, 19, null, false, false)));
   }
 }

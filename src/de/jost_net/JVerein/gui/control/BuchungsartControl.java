@@ -78,8 +78,8 @@ public class BuchungsartControl extends AbstractControl
 
   private CheckboxInput spende;
 
-  private TextInput suchtext; 
-  
+  private TextInput suchtext;
+
   private Buchungsart buchungsart;
 
   public BuchungsartControl(AbstractView view)
@@ -129,8 +129,8 @@ public class BuchungsartControl extends AbstractControl
     {
       return art;
     }
-    art = new SelectInput(ArtBuchungsart.getArray(), new ArtBuchungsart(
-        getBuchungsart().getArt()));
+    art = new SelectInput(ArtBuchungsart.getArray(),
+        new ArtBuchungsart(getBuchungsart().getArt()));
     return art;
   }
 
@@ -150,9 +150,10 @@ public class BuchungsartControl extends AbstractControl
     {
       return buchungsklasse;
     }
-    DBIterator list = Einstellungen.getDBService().createList(
-        Buchungsklasse.class);
-    if (Einstellungen.getEinstellung().getBuchungsartSort() == BuchungsartSort.NACH_NUMMER) 
+    DBIterator<Buchungsklasse> list = Einstellungen.getDBService()
+        .createList(Buchungsklasse.class);
+    if (Einstellungen.getEinstellung()
+        .getBuchungsartSort() == BuchungsartSort.NACH_NUMMER)
     {
       list.setOrder("ORDER BY nummer");
     }
@@ -160,7 +161,8 @@ public class BuchungsartControl extends AbstractControl
     {
       list.setOrder("ORDER BY bezeichnung");
     }
-    buchungsklasse = new SelectInput(list, getBuchungsart().getBuchungsklasse());
+    buchungsklasse = new SelectInput(list,
+        getBuchungsart().getBuchungsklasse());
     buchungsklasse.setValue(getBuchungsart().getBuchungsklasse());
     switch (Einstellungen.getEinstellung().getBuchungsartSort())
     {
@@ -168,11 +170,11 @@ public class BuchungsartControl extends AbstractControl
         buchungsklasse.setAttribute("nrbezeichnung");
         break;
       case BuchungsartSort.NACH_BEZEICHNUNG_NR:
-    	buchungsklasse.setAttribute("bezeichnungnr");
+        buchungsklasse.setAttribute("bezeichnungnr");
         break;
       default:
-    	buchungsklasse.setAttribute("bezeichnung");
-    	break;
+        buchungsklasse.setAttribute("bezeichnung");
+        break;
     }
 
     buchungsklasse.setPleaseChoose("Bitte auswählen");
@@ -237,68 +239,73 @@ public class BuchungsartControl extends AbstractControl
     suchtext = new TextInput(settings.getString("suchtext", ""), 35);
     return suchtext;
   }
-  
+
   @SuppressWarnings("unchecked")
-public Part getBuchungsartList() throws RemoteException
+  public Part getBuchungsartList() throws RemoteException
   {
 
     DBService service = Einstellungen.getDBService();
-    DBIterator buchungsarten = service.createList(Buchungsart.class);
+    DBIterator<Buchungsart> buchungsarten = service
+        .createList(Buchungsart.class);
     buchungsarten.addFilter("nummer >= 0");
-	if (!getSuchtext().getValue().equals("")) {
-		String text = "%" + ((String) getSuchtext().getValue()).toUpperCase() + "%";
-		buchungsarten.addFilter("(UPPER(bezeichnung) like ? or nummer like ?)",
-				new Object[] { text, text });
-	}
+    if (!getSuchtext().getValue().equals(""))
+    {
+      String text = "%" + ((String) getSuchtext().getValue()).toUpperCase()
+          + "%";
+      buchungsarten.addFilter("(UPPER(bezeichnung) like ? or nummer like ?)",
+          new Object[] { text, text });
+    }
     buchungsarten.setOrder("ORDER BY nummer");
 
     if (buchungsartList == null)
     {
-    
-    buchungsartList = new TablePart(buchungsarten, new BuchungsartAction());
-    buchungsartList.addColumn("Nummer", "nummer");
-    buchungsartList.addColumn("Bezeichnung", "bezeichnung");
-    buchungsartList.addColumn("Art", "art", new Formatter()
-    {
-      @Override
-      public String format(Object o)
-      {
-        if (o == null)
-        {
-          return "";
-        }
-        if (o instanceof Integer)
-        {
-          Integer art = (Integer) o;
-          switch (art.intValue())
-          {
-            case 0:
-              return "Einnahme";
-            case 1:
-              return "Ausgabe";
-            case 2:
-              return "Umbuchung";
-          }
-        }
-        return "ungültig";
-      }
-    }, false, Column.ALIGN_LEFT);
-    buchungsartList.addColumn("Buchungsklasse", "buchungsklasse");
-    buchungsartList.addColumn("Spende", "spende", new JaNeinFormatter());
-    buchungsartList.setContextMenu(new BuchungsartMenu());
-    buchungsartList.setRememberColWidths(true);
-    buchungsartList.setRememberOrder(true);
-    buchungsartList.setRememberState(true);
-    buchungsartList.setSummary(true);
-    }
-    else {
-    	buchungsartList.removeAll();
 
-        for (Buchungsart bu : (List<Buchungsart>)PseudoIterator.asList(buchungsarten))
+      buchungsartList = new TablePart(buchungsarten, new BuchungsartAction());
+      buchungsartList.addColumn("Nummer", "nummer");
+      buchungsartList.addColumn("Bezeichnung", "bezeichnung");
+      buchungsartList.addColumn("Art", "art", new Formatter()
+      {
+        @Override
+        public String format(Object o)
         {
-          buchungsartList.addItem(bu);
+          if (o == null)
+          {
+            return "";
+          }
+          if (o instanceof Integer)
+          {
+            Integer art = (Integer) o;
+            switch (art.intValue())
+            {
+              case 0:
+                return "Einnahme";
+              case 1:
+                return "Ausgabe";
+              case 2:
+                return "Umbuchung";
+            }
+          }
+          return "ungültig";
         }
-        buchungsartList.sort();
+      }, false, Column.ALIGN_LEFT);
+      buchungsartList.addColumn("Buchungsklasse", "buchungsklasse");
+      buchungsartList.addColumn("Spende", "spende", new JaNeinFormatter());
+      buchungsartList.setContextMenu(new BuchungsartMenu());
+      buchungsartList.setRememberColWidths(true);
+      buchungsartList.setRememberOrder(true);
+      buchungsartList.setRememberState(true);
+      buchungsartList.setSummary(true);
+    }
+    else
+    {
+      buchungsartList.removeAll();
+
+      for (Buchungsart bu : (List<Buchungsart>) PseudoIterator
+          .asList(buchungsarten))
+      {
+        buchungsartList.addItem(bu);
+      }
+      buchungsartList.sort();
     }
     return buchungsartList;
   }
@@ -329,14 +336,14 @@ public Part getBuchungsartList() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
     fd.setText("Ausgabedatei wählen.");
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname("buchungsarten", "", Einstellungen
-        .getEinstellung().getDateinamenmuster(), "PDF").get());
+    fd.setFileName(new Dateiname("buchungsarten", "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
     fd.setFilterExtensions(new String[] { "*.PDF" });
 
     String s = fd.open();
@@ -349,8 +356,8 @@ public Part getBuchungsartList() throws RemoteException
       s = s + ".PDF";
     }
     final File file = new File(s);
-    final DBIterator it = Einstellungen.getDBService().createList(
-        Buchungsart.class);
+    final DBIterator<Buchungsart> it = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
     it.setOrder("ORDER BY nummer");
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
@@ -375,7 +382,7 @@ public Part getBuchungsartList() throws RemoteException
           reporter.createHeader();
           while (it.hasNext())
           {
-            Buchungsart b = (Buchungsart) it.next();
+            Buchungsart b = it.next();
             reporter.addColumn(b.getNummer() + "", Element.ALIGN_RIGHT);
             reporter.addColumn(b.getBezeichnung(), Element.ALIGN_LEFT);
             String arttxt = "";

@@ -33,9 +33,9 @@ public class JVereinKontoInput extends SelectInput
     this.setPleaseChoose("Wähle ein JVerein Konto");
   }
 
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<Konto> init() throws RemoteException
   {
-    DBIterator it = Einstellungen.getDBService().createList(Konto.class);
+    DBIterator<Konto> it = Einstellungen.getDBService().createList(Konto.class);
     it.setOrder("Order by bezeichnung");
     return it;
   }

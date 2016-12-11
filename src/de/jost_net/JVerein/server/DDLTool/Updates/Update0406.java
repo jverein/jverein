@@ -29,6 +29,7 @@ public class Update0406 extends AbstractDDLUpdate
     super(driver, monitor, conn);
   }
 
+  @Override
   public void run() throws ApplicationException
   {
     execute(dropColumn("einstellung", "konto"));
