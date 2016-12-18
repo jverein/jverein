@@ -24,13 +24,15 @@ import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.MitgliedNextBGruppe;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.ObjectNotFoundException;
+import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 /**
  * @author Rolf Mamat
  */
-public class MitgliedNextBGruppeImpl extends AbstractDBObject implements
-    MitgliedNextBGruppe
+public class MitgliedNextBGruppeImpl extends AbstractDBObject
+    implements MitgliedNextBGruppe
 {
   private static final long serialVersionUID = -3249102287706112933L;
 
@@ -70,10 +72,21 @@ public class MitgliedNextBGruppeImpl extends AbstractDBObject implements
   {
     Long id = (Long) getAttribute(COL_MITGLIED);
     if (null == id)
+    {
       return null;
+    }
+    Mitglied m = null;
+    try
+    {
+      m = (Mitglied) Einstellungen.getDBService().createObject(Mitglied.class,
+          id.toString());
+    }
+    catch (ObjectNotFoundException e)
+    {
+      Logger.warn("MitgliedNextBGruppe ohne Mitglied");
+    }
+    return m;
 
-    return (Mitglied) Einstellungen.getDBService().createObject(Mitglied.class,
-        id.toString());
   }
 
   @Override
@@ -93,8 +106,8 @@ public class MitgliedNextBGruppeImpl extends AbstractDBObject implements
     {
       return null;
     }
-    return (Beitragsgruppe) Einstellungen.getDBService().createObject(
-        Beitragsgruppe.class, id.toString());
+    return (Beitragsgruppe) Einstellungen.getDBService()
+        .createObject(Beitragsgruppe.class, id.toString());
   }
 
   @Override
