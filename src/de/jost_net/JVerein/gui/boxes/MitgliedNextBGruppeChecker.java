@@ -53,6 +53,26 @@ public class MitgliedNextBGruppeChecker extends AbstractBox
 
   public MitgliedNextBGruppeChecker()
   {
+    try
+    {
+      DBIterator<MitgliedNextBGruppe> it = Einstellungen.getDBService()
+          .createList(MitgliedNextBGruppe.class);
+      while (it.hasNext())
+      {
+        MitgliedNextBGruppe mnb = it.next();
+        if (mnb.getMitglied() == null)
+        {
+          MitgliedNextBGruppe mnb2 = Einstellungen.getDBService()
+              .createObject(MitgliedNextBGruppe.class, mnb.getID());
+          mnb2.delete();
+        }
+      }
+    }
+    catch (Exception e)
+    {
+      Logger.error("Fehler beim löschen ", e);
+      e.printStackTrace();
+    }
     isAktiv = mussMitgliedGeaendertWerden();
   }
 

@@ -83,7 +83,7 @@ public class MitgliedNextBGruppeImpl extends AbstractDBObject
     }
     catch (ObjectNotFoundException e)
     {
-      Logger.warn("MitgliedNextBGruppe ohne Mitglied");
+      Logger.warn("MitgliedNextBGruppe ohne Mitglied " + getID());
     }
     return m;
 
