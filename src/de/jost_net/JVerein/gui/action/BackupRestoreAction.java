@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -32,7 +31,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.JVereinPlugin;
 import de.jost_net.JVerein.rmi.Adresstyp;
-import de.jost_net.JVerein.rmi.EigenschaftGruppe;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.JVDateFormatJJJJMMTT;
 import de.willuhn.datasource.BeanUtil;
@@ -44,9 +42,10 @@ import de.willuhn.datasource.serialize.Reader;
 import de.willuhn.datasource.serialize.XmlReader;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
-import de.willuhn.jameica.gui.dialogs.SimpleDialog;
+import de.willuhn.jameica.hbci.rmi.Protokoll;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
+import de.willuhn.logging.Level;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
@@ -65,21 +64,20 @@ public class BackupRestoreAction implements Action
   {
     try
     {
-      DBIterator it = Einstellungen.getDBService().createList(Mitglied.class);
-      if (it.size() > 0)
+      if (Einstellungen.getDBService().createList(Mitglied.class).size() > 0)
       {
-        SimpleDialog dialog = new SimpleDialog(SimpleDialog.POSITION_CENTER);
-        dialog.setTitle("Fehler");
-        dialog.setText("Datenbank ist nicht leer!");
-        dialog.open();
+        String text = "Die JVerein-Datenbank enthält bereits Daten.\n"
+            + "Das Backup kann nur in eine neue JVerein-Installation importiert werden.";
+        Application.getCallback().notifyUser(text);
         return;
       }
 
       // Vom System eingefügte Sätze löschen. Ansonsten gibt es duplicate keys
-      it = Einstellungen.getDBService().createList(Adresstyp.class);
-      while (it.hasNext())
+      DBIterator<Adresstyp> itatyp = Einstellungen.getDBService()
+          .createList(Adresstyp.class);
+      while (itatyp.hasNext())
       {
-        Adresstyp a = (Adresstyp) it.next();
+        Adresstyp a = (Adresstyp) itatyp.next();
         a.delete();
       }
 
@@ -90,8 +88,8 @@ public class BackupRestoreAction implements Action
     }
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-    fd.setFileName("jverein-" + new JVDateFormatJJJJMMTT().format(new Date())
-        + ".xml");
+    fd.setFileName(
+        "jverein-" + new JVDateFormatJJJJMMTT().format(new Date()) + ".xml");
     fd.setFilterExtensions(new String[] { "*.xml" });
     fd.setText("Bitte wählen Sie die Backup-Datei aus");
     String f = fd.open();
@@ -122,17 +120,6 @@ public class BackupRestoreAction implements Action
         final ClassLoader loader = Application.getPluginLoader()
             .getPlugin(JVereinPlugin.class).getManifest().getClassLoader();
 
-        try
-        {
-          EigenschaftGruppe eg = (EigenschaftGruppe) Einstellungen
-              .getDBService().createObject(EigenschaftGruppe.class, "1");
-          eg.delete();
-        }
-        catch (RemoteException e1)
-        {
-          Logger.error("EigenschaftGruppe mit id=1 kann nicht gelöscht werden");
-        }
-
         Reader reader = null;
         try
         {
@@ -140,14 +127,14 @@ public class BackupRestoreAction implements Action
           reader = new XmlReader(is, new ObjectFactory()
           {
 
-            @Override
-            public GenericObject create(String type, String id,
-                @SuppressWarnings("rawtypes") Map values) throws Exception
+            public GenericObject create(String type, String id, Map values)
+                throws Exception
             {
               AbstractDBObject object = (AbstractDBObject) Einstellungen
-                  .getDBService().createObject(loader.loadClass(type), null);
+                  .getDBService().createObject(
+                      (Class<AbstractDBObject>) loader.loadClass(type), null);
               object.setID(id);
-              Iterator<?> i = values.keySet().iterator();
+              Iterator i = values.keySet().iterator();
               while (i.hasNext())
               {
                 String name = (String) i.next();
@@ -155,6 +142,7 @@ public class BackupRestoreAction implements Action
               }
               return object;
             }
+
           });
 
           long count = 1;
@@ -167,16 +155,30 @@ public class BackupRestoreAction implements Action
             }
             catch (Exception e)
             {
-              Logger.error("unable to import " + o.getClass().getName() + ":"
-                  + o.getID() + ", skipping", e);
-              monitor.log(String.format(" %s fehlerhaft: %s, überspringe ",
-                  new Object[] { BeanUtil.toString(o), e.getMessage() }));
+              if (o instanceof Protokoll)
+              {
+                // Bei den Protokollen kann das passieren. Denn beim Import der
+                // Datei werden vorher
+                // die Konten importiert. Und deren Anlage fuehrt auch bereits
+                // zur Erstellung von
+                // Protokollen, deren IDs dann im Konflikt zu diesen hier
+                // stehen.
+                Logger.write(Level.DEBUG, "unable to import "
+                    + o.getClass().getName() + ":" + o.getID() + ", skipping",
+                    e);
+              }
+              else
+              {
+                Logger.error("unable to import " + o.getClass().getName() + ":"
+                    + o.getID() + ", skipping", e);
+                monitor.log(String.format("  %s fehlerhaft %s, überspringe",
+                    BeanUtil.toString(o), e.getMessage()));
+              }
             }
             if (count++ % 100 == 0)
-            {
               monitor.addPercentComplete(1);
-            }
           }
+
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
           monitor.setStatusText("Backup importiert");
           monitor.setPercentComplete(100);
@@ -196,8 +198,8 @@ public class BackupRestoreAction implements Action
               Logger.info("backup imported");
             }
             catch (Exception e)
-            {/* useless */
-            }
+            {
+              /* useless */}
           }
         }
       }

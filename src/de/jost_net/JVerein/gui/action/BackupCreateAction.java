@@ -70,6 +70,7 @@ import de.jost_net.JVerein.util.JVDateFormatJJJJMMTT;
 import de.willuhn.datasource.BeanUtil;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.datasource.serialize.Writer;
 import de.willuhn.datasource.serialize.XmlWriter;
 import de.willuhn.jameica.gui.Action;
@@ -88,24 +89,6 @@ public class BackupCreateAction implements Action
 {
   // Die Versionstabelle wird nicht mit kopiert
 
-  Class<?>[] tab = { AbrechnungslaufImpl.class, AdresstypImpl.class,
-      BuchungsklasseImpl.class, EigenschaftGruppeImpl.class,
-      EinstellungImpl.class, FelddefinitionImpl.class, FormularImpl.class,
-      FormularfeldImpl.class, KontoImpl.class, KursteilnehmerImpl.class,
-      LehrgangsartImpl.class, LesefeldImpl.class, MailImpl.class,
-      MailAnhangImpl.class, MailVorlageImpl.class,
-      MitgliedNextBGruppeImpl.class, ProjektImpl.class,
-      QIFImportHeadImpl.class, QIFImportPosImpl.class,
-      AnfangsbestandImpl.class, Buchungsart.class, EigenschaftImpl.class,
-      Beitragsgruppe.class, MitgliedImpl.class, MitgliedDokumentImpl.class,
-      MitgliedfotoImpl.class, MitgliedskontoImpl.class,
-      SpendenbescheinigungImpl.class, WiedervorlageImpl.class,
-      ZusatzbetragImpl.class, ZusatzbetragAbrechnungslauf.class,
-      ZusatzfelderImpl.class, ArbeitseinsatzImpl.class, BuchungImpl.class,
-      BuchungDokumentImpl.class, JahresabschlussImpl.class,
-      EigenschaftenImpl.class, LastschriftImpl.class, LehrgangImpl.class,
-      MailEmpfaengerImpl.class };
-
   /**
    * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
    */
@@ -117,7 +100,8 @@ public class BackupCreateAction implements Action
     fd.setFileName("jverein-backup-"
         + new JVDateFormatJJJJMMTT().format(new Date()) + ".xml");
     fd.setFilterExtensions(new String[] { "*.xml" });
-    fd.setText("Bitte wählen Sie die Datei, in der das Backup gespeichert wird");
+    fd.setText(
+        "Bitte wählen Sie die Datei, in der das Backup gespeichert wird");
     String f = fd.open();
     if (f == null || f.length() == 0)
       return;
@@ -125,9 +109,8 @@ public class BackupCreateAction implements Action
     final File file = new File(f);
     try
     {
-      if (file.exists()
-          && !Application.getCallback().askUser(
-              "Datei existiert bereits. Überschreiben?"))
+      if (file.exists() && !Application.getCallback()
+          .askUser("Datei existiert bereits. Überschreiben?"))
         return;
     }
     catch (ApplicationException ae)
@@ -159,18 +142,176 @@ public class BackupCreateAction implements Action
         {
           Logger.info("creating xml backup to " + file.getAbsolutePath());
 
-          writer = new XmlWriter(new BufferedOutputStream(new FileOutputStream(
-              file)));
+          writer = new XmlWriter(
+              new BufferedOutputStream(new FileOutputStream(file)));
 
-          for (Class<?> clazz : tab)
-          {
-            backup(clazz, writer, monitor);
-            monitor.addPercentComplete(100 / tab.length);
-          }
+          monitor.setStatusText("Speichere Abrechnungslauf-Informationen");
+          backup(AbrechnungslaufImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
 
+          monitor.setStatusText("Speichere Adresstypen");
+          backup(AdresstypImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Buchungsklassen");
+          backup(BuchungsklasseImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Eigenschaftengruppen");
+          backup(EigenschaftGruppeImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Einstellungen");
+          backup(EinstellungImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Felddefinitionen");
+          backup(FelddefinitionImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Formulare");
+          backup(FormularImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Formularfelder");
+          backup(FormularfeldImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Konten");
+          backup(KontoImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Kursteilnehmer");
+          backup(KursteilnehmerImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Lehrgangsarten");
+          backup(LehrgangsartImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Lesefelder");
+          backup(LesefeldImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Mails");
+          backup(MailImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Mailanhänge");
+          backup(MailAnhangImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Mailvorlagen");
+          backup(MailVorlageImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText(
+              "Speichere Informationen über zukünftige Beitragsgruppen");
+          backup(MitgliedNextBGruppeImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Projekte");
+          backup(ProjektImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Informationen über QIF-Header");
+          backup(QIFImportHeadImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Informationen über QIF-Positionen");
+          backup(QIFImportPosImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Anfangsbestände");
+          backup(AnfangsbestandImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Buchungsarten");
+          backup(Buchungsart.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Eingenschaften");
+          backup(EigenschaftImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Beitragsgruppen");
+          backup(Beitragsgruppe.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Mitglieder");
+          backup(MitgliedImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Dokumente der Mitglieder");
+          backup(MitgliedDokumentImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Fotos der Mitglieder");
+          backup(MitgliedfotoImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Mitgliedskonten");
+          backup(MitgliedskontoImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Spendenbescheinigungen");
+          backup(SpendenbescheinigungImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Wiedervorlagen");
+          backup(WiedervorlageImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Zusatzbeträge");
+          backup(ZusatzbetragImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText(
+              "Speichere Informatioen über Abrechnungsläufe von Zusatzbeträgen");
+          backup(ZusatzbetragAbrechnungslauf.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Zusatzfelder");
+          backup(ZusatzfelderImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Arbeitseinsätze");
+          backup(ArbeitseinsatzImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Buchungen");
+          backup(BuchungImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Dokumente zu Buchungen");
+          backup(BuchungDokumentImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Jahresabschlüsse");
+          backup(JahresabschlussImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Eigenschaften der Mitglieder");
+          backup(EigenschaftenImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Lastschriften");
+          backup(LastschriftImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Lehrgänge");
+          backup(LehrgangImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          monitor.setStatusText("Speichere Mailempfänger");
+          backup(MailEmpfaengerImpl.class, writer, monitor);
+          monitor.addPercentComplete(2);
+
+          // Die Versionstabelle wird nicht mit kopiert
+
+          monitor.setStatus(ProgressMonitor.STATUS_DONE);
           monitor.setStatusText("Backup erstellt");
           monitor.setPercentComplete(100);
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
         }
         catch (Exception e)
         {
@@ -186,8 +327,8 @@ public class BackupCreateAction implements Action
               Logger.info("backup created");
             }
             catch (Exception e)
-            {/* useless */
-            }
+            {
+              /* useless */}
           }
         }
       }
@@ -213,19 +354,11 @@ public class BackupCreateAction implements Action
     });
   }
 
-  /**
-   * Hilfsfunktion.
-   * 
-   * @param type
-   * @param writer
-   * @param monitor
-   * @throws Exception
-   */
-  private static void backup(Class<?> type, Writer writer,
+  private static void backup(Class<? extends DBObject> type, Writer writer,
       ProgressMonitor monitor) throws Exception
   {
     DBIterator list = Einstellungen.getDBService().createList(type);
-    list.setOrder("ORDER by id");
+    list.setOrder("order by id");
     long count = 1;
     while (list.hasNext())
     {
@@ -241,8 +374,8 @@ public class BackupCreateAction implements Action
       {
         Logger.error("error while writing object " + BeanUtil.toString(o)
             + " - skipping", e);
-        monitor.log(String.format("  %s fehlerhaft: %s, überspringe",
-            new Object[] { BeanUtil.toString(o), e.getMessage() }));
+        monitor.log(String.format("  %s fehlerhaft (%s), überspringe",
+            BeanUtil.toString(o), e.getMessage()));
       }
     }
   }
