@@ -66,7 +66,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
 
   private CheckboxInput cbMitgliedZuordnenErlaubt;
 
-  private DBIterator iteratorQIFImportPosList;
+  private DBIterator<QIFImportPos> iteratorQIFImportPosList;
 
   private QIFImportPos qifImportPos;
 
