@@ -357,7 +357,7 @@ public class BackupCreateAction implements Action
   private static void backup(Class<? extends DBObject> type, Writer writer,
       ProgressMonitor monitor) throws Exception
   {
-    DBIterator list = Einstellungen.getDBService().createList(type);
+    DBIterator<?> list = Einstellungen.getDBService().createList(type);
     list.setOrder("order by id");
     long count = 1;
     while (list.hasNext())
