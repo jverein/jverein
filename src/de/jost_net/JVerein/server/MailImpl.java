@@ -60,7 +60,7 @@ public class MailImpl extends AbstractDBObject implements Mail
   }
 
   @Override
-  protected void insertCheck() throws ApplicationException
+  public void insertCheck() throws ApplicationException
   {
     try
     {

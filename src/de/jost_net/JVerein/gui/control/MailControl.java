@@ -301,9 +301,7 @@ public class MailControl extends AbstractControl
             }
             catch (Exception e)
             {
-              Logger.error(
-
-                  "Fehler beim Senden der Mail", e);
+              Logger.error("Fehler beim Senden der Mail", e);
               return;
             }
           }
@@ -330,6 +328,21 @@ public class MailControl extends AbstractControl
       {
         try
         {
+          Mail mail = getMail();
+          if (mail.getBetreff() == null || mail.getBetreff().length() == 0)
+          {
+            throw new ApplicationException("Bitte Betreff eingeben");
+          }
+          if (mail.getTxt() == null || mail.getTxt().length() == 0)
+          {
+            throw new ApplicationException("Bitte Text eingeben");
+          }
+          if (mail.getTxt().length() > 10000)
+          {
+            throw new ApplicationException(
+                "Maximale Länge des Textes 10.000 Zeichen");
+          }
+
           boolean mailAlreadySent = false;
           for (final MailEmpfaenger empf : getMail().getEmpfaenger())
           {
