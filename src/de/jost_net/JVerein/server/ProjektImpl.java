@@ -17,8 +17,11 @@
 package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Projekt;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -27,6 +30,9 @@ public class ProjektImpl extends AbstractDBObject implements Projekt
 {
 
   private static final long serialVersionUID = 1L;
+
+  private static final String STARTDATUM = "startdatum";
+  private static final String ENDEDATUM = "endedatum";
 
   public ProjektImpl() throws RemoteException
   {
@@ -72,6 +78,11 @@ public class ProjektImpl extends AbstractDBObject implements Projekt
     {
       throw new ApplicationException("Bitte Bezeichnung eingeben");
     }
+
+    if ( isStartDatumGesetzt() && isEndeDatumGesetzt() && getEndeDatum().before( getStartDatum() ) )
+    {
+      throw new ApplicationException( "Endedatum muss nach dem Startdatum liegen" );
+    }
   }
 
   @Override
@@ -99,9 +110,78 @@ public class ProjektImpl extends AbstractDBObject implements Projekt
   }
 
   @Override
+  public Date getStartDatum() throws RemoteException {
+    Date d = (Date) getAttribute(STARTDATUM);
+    if ( d == null ) {
+        return Einstellungen.NODATE;
+    }
+
+    return d;
+  }
+
+  @Override
+  public void setStartDatum( Date startDatum ) throws RemoteException
+  {
+    setAttribute( STARTDATUM, startDatum );
+  }
+
+  @Override
+  public void setStartDatum( String startDatum ) throws RemoteException
+  {
+    setAttribute( STARTDATUM, toDate(startDatum) );
+  }
+
+  @Override
+  public Date getEndeDatum() throws RemoteException
+  {
+    Date d = (Date) getAttribute(ENDEDATUM);
+    if( d == null ) {
+        return Einstellungen.NODATE;
+    }
+    return d;
+  }
+
+  @Override
+  public void setEndeDatum( Date endeDatum ) throws RemoteException
+  {
+    setAttribute(ENDEDATUM, endeDatum);
+  }
+
+  @Override
+  public void setEndeDatum(String endeDatum) throws RemoteException
+  {
+    setAttribute(ENDEDATUM, toDate(endeDatum));
+  }
+
+  @Override
+  public boolean isStartDatumGesetzt() throws RemoteException {
+      return getAttribute( STARTDATUM ) != null;
+  }
+
+  @Override
+  public boolean isEndeDatumGesetzt() throws RemoteException {
+      return getAttribute( ENDEDATUM ) != null;
+  }
+
+  @Override
   public Object getAttribute(String fieldName) throws RemoteException
   {
     return super.getAttribute(fieldName);
+  }
+
+  private Date toDate(String datum)
+  {
+    Date d = null;
+
+    try
+    {
+      d = new JVDateFormatTTMMJJJJ().parse(datum);
+    }
+    catch (Exception e)
+    {
+      //
+    }
+    return d;
   }
 
 }

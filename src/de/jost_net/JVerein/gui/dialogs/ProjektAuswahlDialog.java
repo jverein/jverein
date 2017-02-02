@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.Action;
@@ -43,11 +44,14 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
 
   private SelectInput projekte = null;
 
-  public ProjektAuswahlDialog(int position)
+  Buchung[] buchungen = null;
+
+  public ProjektAuswahlDialog(int position, Buchung[] buchungen)
   {
     super(position);
+    this.buchungen = buchungen;
 
-    setTitle("Projekt auswählen");
+    setTitle("Projekt auswâ€hlen");
     setSize(450, 150);
   }
 
@@ -93,6 +97,21 @@ public class ProjektAuswahlDialog extends AbstractDialog<Projekt>
     }
     DBIterator<Projekt> pj = Einstellungen.getDBService()
         .createList(Projekt.class);
+    String select = "((startdatum is null or startdatum <= ?) and (endedatum is null or endedatum >= ?)) ";
+
+    if (buchungen != null)
+    {
+      /*
+       * UND-Verknüpfung der Datumsbereiche, damit nur Projekte angezeigt
+       * werden, die für die Auswahl gültig sind
+       */
+      for (Buchung buchung : buchungen)
+      {
+        pj.addFilter(select,
+            new Object[] { buchung.getDatum(), buchung.getDatum() });
+      }
+    }
+
     pj.setOrder("ORDER BY bezeichnung");
     this.projekte = new SelectInput(pj, null);
     this.projekte.setName("Projekt");

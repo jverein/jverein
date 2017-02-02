@@ -17,6 +17,7 @@
 package de.jost_net.JVerein.rmi;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.willuhn.datasource.rmi.DBObject;
 
@@ -26,4 +27,19 @@ public interface Projekt extends DBObject
 
   public void setBezeichnung(String bezeichnung) throws RemoteException;
 
+  public Date getStartDatum() throws RemoteException;
+
+  public void setStartDatum(Date startDatum) throws RemoteException;
+
+  public void setStartDatum(String startDatum) throws RemoteException;
+
+  public Date getEndeDatum() throws RemoteException;
+
+  public void setEndeDatum(Date endeDatum) throws RemoteException;
+
+  public void setEndeDatum(String endeDatum) throws RemoteException;
+
+  public boolean isStartDatumGesetzt() throws RemoteException;
+
+  public boolean isEndeDatumGesetzt() throws RemoteException;
 }

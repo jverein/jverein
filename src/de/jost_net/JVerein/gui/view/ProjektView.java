@@ -36,6 +36,8 @@ public class ProjektView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Projekt");
     group.addLabelPair("Bezeichnung", control.getBezeichnung());
+    group.addLabelPair("Startdatum", control.getStartDatum());
+    group.addLabelPair("Endedatum", control.getEndeDatum());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

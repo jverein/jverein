@@ -17,17 +17,20 @@
 package de.jost_net.JVerein.gui.control;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ProjektAction;
 import de.jost_net.JVerein.gui.menu.ProjektMenu;
 import de.jost_net.JVerein.rmi.Projekt;
+import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.DBService;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.Part;
+import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.Input;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.TablePart;
@@ -42,6 +45,10 @@ public class ProjektControl extends AbstractControl
   private TablePart projektList;
 
   private Input bezeichnung;
+
+  private DateInput startDatum;
+
+  private DateInput endeDatum;
 
   private Projekt projekt;
 
@@ -72,6 +79,44 @@ public class ProjektControl extends AbstractControl
     return bezeichnung;
   }
 
+  public Input getStartDatum() throws RemoteException
+  {
+    if (startDatum != null)
+    {
+      return startDatum;
+    }
+
+    Date d = getProjekt().getStartDatum();
+    if (d.equals( Einstellungen.NODATE ))
+    {
+      d = null;
+    }
+    startDatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    startDatum.setName("Startdatum");
+    startDatum.setTitle("Startdatum");
+    startDatum.setText("Bitte Startdatum w?hlen");
+    return startDatum;
+  }
+
+  public Input getEndeDatum() throws RemoteException
+  {
+    if (endeDatum != null)
+    {
+        return endeDatum;
+    }
+
+    Date d = getProjekt().getEndeDatum();
+    if (d.equals( Einstellungen.NODATE ))
+    {
+        d = null;
+    }
+    endeDatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    endeDatum.setName("Endedatum");
+    endeDatum.setTitle("Endedatum");
+    endeDatum.setText("Bitte Endedatum w?hlen");
+    return endeDatum;
+  }
+
   /**
    * This method stores the project using the current values.
    */
@@ -81,6 +126,9 @@ public class ProjektControl extends AbstractControl
     {
       Projekt p = getProjekt();
       p.setBezeichnung((String) getBezeichnung().getValue());
+      p.setStartDatum( (Date) getStartDatum().getValue() );
+      p.setEndeDatum( (Date) getEndeDatum().getValue() );
+
       try
       {
         p.store();
@@ -107,6 +155,8 @@ public class ProjektControl extends AbstractControl
 
     projektList = new TablePart(projekte, new ProjektAction());
     projektList.addColumn("Bezeichnung", "bezeichnung");
+    projektList.addColumn("Startdatum", "startdatum");
+    projektList.addColumn("Endedatum", "endedatum");
     projektList.setContextMenu(new ProjektMenu());
     projektList.setRememberColWidths(true);
     projektList.setRememberOrder(true);

@@ -469,6 +469,8 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator<Projekt> list = Einstellungen.getDBService()
         .createList(Projekt.class);
+    Date buchungsDatum = getBuchung().getDatum() == null ? new Date() : getBuchung().getDatum();
+    list.addFilter( "((startdatum is null or startdatum <= ?) and (endedatum is null or endedatum >= ?))", new Object[] {buchungsDatum, buchungsDatum} );
     list.setOrder("ORDER BY bezeichnung");
     projekt = new SelectInput(list, getBuchung().getProjekt());
     projekt.setValue(getBuchung().getProjekt());

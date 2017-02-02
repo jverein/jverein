@@ -117,6 +117,24 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
       throw new ApplicationException(
           "Buchung kann nicht gespeichert werden. Zeitraum ist bereits abgeschlossen!");
     }
+
+    /* Pr?fung des Projektes */
+    Projekt projekt = getProjekt();
+    if ( projekt != null ) {
+        Date startDatum = projekt.getStartDatum();
+        Date endeDatum = projekt.getEndeDatum();
+
+        if ( startDatum != null && startDatum.after( getDatum() ) ) {
+            throw new ApplicationException(
+                    "Buchungsdatum liegt vor dem Projektbeginn!");
+        }
+
+        if ( endeDatum != null && endeDatum.before( getDatum() ) ) {
+            throw new ApplicationException(
+                    "Buchungsdatum liegt nach dem Projektende!");
+        }
+    }
+
     if (!getSpeicherung() && getBuchungsart() == null)
     {
       throw new ApplicationException("Buchungsart fehlt bei Splitbuchung!");

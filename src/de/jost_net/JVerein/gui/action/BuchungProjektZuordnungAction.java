@@ -68,7 +68,7 @@ public class BuchungProjektZuordnungAction implements Action
       try
       {
         ProjektAuswahlDialog pad = new ProjektAuswahlDialog(
-            AbstractDialog.POSITION_CENTER);
+            AbstractDialog.POSITION_CENTER, b);
         Projekt open = pad.open();
 
         if (open == null)
