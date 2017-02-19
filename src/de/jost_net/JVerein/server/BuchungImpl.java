@@ -124,12 +124,12 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
         Date startDatum = projekt.getStartDatum();
         Date endeDatum = projekt.getEndeDatum();
 
-        if ( startDatum != null && startDatum.after( getDatum() ) ) {
+        if ( startDatum != null && !Einstellungen.NODATE.equals( startDatum ) && startDatum.after( getDatum() ) ) {
             throw new ApplicationException(
                     "Buchungsdatum liegt vor dem Projektbeginn!");
         }
 
-        if ( endeDatum != null && endeDatum.before( getDatum() ) ) {
+        if ( endeDatum != null && !Einstellungen.NODATE.equals( endeDatum ) && endeDatum.before( getDatum() ) ) {
             throw new ApplicationException(
                     "Buchungsdatum liegt nach dem Projektende!");
         }
