@@ -46,9 +46,3 @@ Kontakt
 - Web: http://www.jverein.de
 - Facebook: https://www.facebook.com/JVerein
 - eMail: Heiner Jostkleigrewe heiner(at)jost-net.de 
-=======
-# JVerein - Benutzerhandbuch
-
-In diesem Benutzerhandbuch werden alle Funktionen von JVerein beschrieben.
-
->>>>>>> branch 'master' of https://github.com/jverein/jverein.git
