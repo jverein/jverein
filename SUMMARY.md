@@ -2,6 +2,6 @@
 
 * [Einführung](README.md)
 * [Mitglieder](mitglieder.md)
-* Spendenbescheinigung
-* Suchprofil
+* [Spendenbescheinigung](spendenbescheinigung.md)
+* [Suchprofil](suchprofil.md)
 
