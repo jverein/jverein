@@ -1,5 +1,7 @@
 # Summary
 
 * [Einführung](README.md)
-* Mitglieder
+* [Mitglieder](mitglieder.md)
+* Spendenbescheinigung
+* Suchprofil
 
