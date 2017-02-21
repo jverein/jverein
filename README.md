@@ -1,3 +1,4 @@
-# My Awesome Book
+# JVerein - Benutzerhandbuch
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+In diesem Benutzerhandbuch werden alle Funktionen von JVerein beschrieben.
+
