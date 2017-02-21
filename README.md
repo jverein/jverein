@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [JVerein](http://www.jverein.de) JVerein ist eine Open-Source-Vereinsverwaltung mit einer Anbindung an die ebenfalls unter Open-Source-Lizenz stehende Homebankingsoftware Hibiscus.
 Die Implementierung erfolgt mit Java. Der Ablauf auf vielen Plattformen ist damit gewährleistet. Als GUI-Framework kommt Jameica zum Einsatz. 
 
@@ -46,3 +47,9 @@ Kontakt
 - Web: http://www.jverein.de
 - Facebook: https://www.facebook.com/JVerein
 - eMail: Heiner Jostkleigrewe heiner(at)jost-net.de 
+=======
+# JVerein - Benutzerhandbuch
+
+In diesem Benutzerhandbuch werden alle Funktionen von JVerein beschrieben.
+
+>>>>>>> branch 'master' of https://github.com/jverein/jverein.git
