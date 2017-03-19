@@ -42,6 +42,7 @@ import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.Dateiname;
+import de.jost_net.JVerein.util.JVDateFormatJJJJ;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
@@ -163,9 +164,8 @@ public class SpendenbescheinigungPrintAction implements Action
           Formular spendeformular = spb.getFormular();
           if (spendeformular == null)
           {
-            GUI.getStatusBar()
-                .setErrorText(
-                    "Nicht alle Spendenbescheinigungen haben ein gültiges Formular!");
+            GUI.getStatusBar().setErrorText(
+                "Nicht alle Spendenbescheinigungen haben ein gültiges Formular!");
             return;
           }
         }
@@ -222,8 +222,8 @@ public class SpendenbescheinigungPrintAction implements Action
         }
         else
         {
-          Formular fo = (Formular) Einstellungen.getDBService().createObject(
-              Formular.class, spb.getFormular().getID());
+          Formular fo = (Formular) Einstellungen.getDBService()
+              .createObject(Formular.class, spb.getFormular().getID());
           Map<String, Object> map = spb.getMap(null);
           map = new AllgemeineMap().getMap(map);
           FormularAufbereitung fa = new FormularAufbereitung(file);
@@ -275,15 +275,13 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (isSammelbestaetigung)
     {
-      rpt.add(
-          "Sammelbestätigung über "
-              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+      rpt.add("Sammelbestätigung über "
+          + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     }
     else
     {
-      rpt.add(
-          "Bestätigung über "
-              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+      rpt.add("Bestätigung über "
+          + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     }
 
     rpt.add(
@@ -316,9 +314,8 @@ public class SpendenbescheinigungPrintAction implements Action
         BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     rpt.addColumn(
-        "*"
-            + Einstellungen.DECIMALFORMAT.format(map
-                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        "*" + Einstellungen.DECIMALFORMAT
+            .format(map.get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
         Element.ALIGN_CENTER);
     rpt.addColumn(
         (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
@@ -402,7 +399,8 @@ public class SpendenbescheinigungPrintAction implements Action
       {
         rpt.add(
             "Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen: "
-                + "\n\n", 9);
+                + "\n\n",
+            9);
       }
     }
     if (!Einstellungen.getEinstellung().getVorlaeufig())
@@ -411,12 +409,10 @@ public class SpendenbescheinigungPrintAction implements Action
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
-          + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
+          + Einstellungen.getEinstellung().getFinanzamt() + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer() + ", vom "
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getBescheiddatum())
           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
       rpt.add(txt, 9);
     }
@@ -426,15 +422,13 @@ public class SpendenbescheinigungPrintAction implements Action
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " durch vorläufige Bescheinigung des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
-          + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
+          + Einstellungen.getEinstellung().getFinanzamt() + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer() + ", vom "
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getBescheiddatum())
           + " ab "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getVorlaeufigab())
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getVorlaeufigab())
           + " als steuerbegünstigten Zwecken dienend anerkannt.";
       rpt.add(txt, 9);
     }
@@ -458,8 +452,10 @@ public class SpendenbescheinigungPrintAction implements Action
           9);
     }
 
-    rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
-        + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()), 9);
+    rpt.add(
+        "\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
+            + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()),
+        9);
 
     rpt.add(
         "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
@@ -484,14 +480,11 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.newPage();
       rpt.add(getAussteller(), 13);
       rpt.add(new Paragraph(" "));
-      rpt.add(
-          "Anlage zur Sammelbestätigung vom "
-              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
-                  .getName()), 11);
-      rpt.add(
-          "für den Zeitraum vom "
-              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
-                  .getName()), 11);
+      rpt.add("Anlage zur Sammelbestätigung vom " + (String) map
+          .get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 11);
+      rpt.add("für den Zeitraum vom "
+          + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
+          11);
 
       rpt.add(new Paragraph(" "));
 
@@ -572,8 +565,8 @@ public class SpendenbescheinigungPrintAction implements Action
    * @throws DocumentException
    */
   private void generiereSpendenbescheinigungStandardAb2013(
-      Spendenbescheinigung spb, String fileName) throws IOException,
-      DocumentException
+      Spendenbescheinigung spb, String fileName)
+      throws IOException, DocumentException
   {
     final File file = new File(fileName);
     FileOutputStream fos = new FileOutputStream(file);
@@ -595,15 +588,13 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (isSammelbestaetigung)
     {
-      rpt.add(
-          "Sammelbestätigung über "
-              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+      rpt.add("Sammelbestätigung über "
+          + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     }
     else
     {
-      rpt.add(
-          "Bestätigung über "
-              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+      rpt.add("Bestätigung über "
+          + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     }
 
     rpt.add(
@@ -644,9 +635,8 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     rpt.createHeader();
     rpt.addColumn(
-        "*"
-            + Einstellungen.DECIMALFORMAT.format(map
-                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        "*" + Einstellungen.DECIMALFORMAT
+            .format(map.get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
         Element.ALIGN_CENTER);
     rpt.addColumn(
         (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
@@ -736,14 +726,14 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk(
           "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ", FontFactory
-          .getFont(FontFactory.HELVETICA_BOLD, 9)));
-      p.add(new Chunk(verzichtJa, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
-          10)));
-      p.add(new Chunk("   Nein ", FontFactory.getFont(
-          FontFactory.HELVETICA_BOLD, 9)));
-      p.add(new Chunk(verzichtNein, FontFactory.getFont(
-          FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk(" Ja ",
+          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk(verzichtJa,
+          FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk("   Nein ",
+          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk(verzichtNein,
+          FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
       rpt.add(p);
     }
@@ -756,12 +746,10 @@ public class SpendenbescheinigungPrintAction implements Action
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
-          + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
+          + Einstellungen.getEinstellung().getFinanzamt() + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer() + ", vom "
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getBescheiddatum())
           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
       rpt.add(txt, 8);
     }
@@ -770,15 +758,13 @@ public class SpendenbescheinigungPrintAction implements Action
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " durch vorläufige Bescheinigung des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
-          + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
+          + Einstellungen.getEinstellung().getFinanzamt() + ", StNr. "
+          + Einstellungen.getEinstellung().getSteuernummer() + ", vom "
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getBescheiddatum())
           + " ab "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getVorlaeufigab())
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getVorlaeufigab())
           + " als begünstigten Zwecken dienend anerkannt.";
       rpt.add(txt, 8);
     }
@@ -804,8 +790,8 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_JUSTIFIED);
       p.setFirstLineIndent((float) -18.5);
       p.setIndentationLeft((float) 18.5);
-      p.add(new Chunk(mitgliedBetraege, FontFactory.getFont(
-          FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk(mitgliedBetraege,
+          FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk(
           "   Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist."));
       rpt.add(p);
@@ -829,8 +815,10 @@ public class SpendenbescheinigungPrintAction implements Action
 
     }
 
-    rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
-        + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()), 9);
+    rpt.add(
+        "\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
+            + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()),
+        9);
 
     rpt.add(
         "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
@@ -854,14 +842,11 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.newPage();
       rpt.add(getAussteller(), 13);
       rpt.add(new Paragraph(" "));
-      rpt.add(
-          "Anlage zur Sammelbestätigung vom "
-              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
-                  .getName()), 11);
-      rpt.add(
-          "für den Zeitraum vom "
-              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
-                  .getName()), 11);
+      rpt.add("Anlage zur Sammelbestätigung vom " + (String) map
+          .get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 11);
+      rpt.add("für den Zeitraum vom "
+          + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
+          11);
 
       rpt.add(new Paragraph(" "));
 
@@ -922,7 +907,8 @@ public class SpendenbescheinigungPrintAction implements Action
       // // Nun noch die Legende
       // rpt.add("Legende:", 8);
       // rpt.add(
-      // "(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen",
+      // "(a): Es handelt sich nicht um den Verzicht auf Erstattung von
+      // Aufwendungen",
       // 8);
       // rpt.add(
       // "(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen",
@@ -945,8 +931,8 @@ public class SpendenbescheinigungPrintAction implements Action
    * @throws DocumentException
    */
   private void generiereSpendenbescheinigungStandardAb2014(
-      Spendenbescheinigung spb, String fileName) throws IOException,
-      DocumentException
+      Spendenbescheinigung spb, String fileName)
+      throws IOException, DocumentException
   {
     final File file = new File(fileName);
     FileOutputStream fos = new FileOutputStream(file);
@@ -968,15 +954,13 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (isSammelbestaetigung)
     {
-      rpt.add(
-          "Sammelbestätigung über "
-              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+      rpt.add("Sammelbestätigung über "
+          + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     }
     else
     {
-      rpt.add(
-          "Bestätigung über "
-              + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
+      rpt.add("Bestätigung über "
+          + map.get(SpendenbescheinigungVar.SPENDEART.getName()), 13);
     }
 
     rpt.add(
@@ -1017,9 +1001,8 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     rpt.createHeader();
     rpt.addColumn(
-        "*"
-            + Einstellungen.DECIMALFORMAT.format(map
-                .get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
+        "*" + Einstellungen.DECIMALFORMAT
+            .format(map.get(SpendenbescheinigungVar.BETRAG.getName())) + "*",
         Element.ALIGN_CENTER);
     rpt.addColumn(
         (String) map.get(SpendenbescheinigungVar.BETRAGINWORTEN.getName()),
@@ -1110,14 +1093,14 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk(
           "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ", FontFactory
-          .getFont(FontFactory.HELVETICA_BOLD, 8)));
-      p.add(new Chunk(verzichtJa, FontFactory.getFont(FontFactory.ZAPFDINGBATS,
-          10)));
-      p.add(new Chunk("   Nein ", FontFactory.getFont(
-          FontFactory.HELVETICA_BOLD, 9)));
-      p.add(new Chunk(verzichtNein, FontFactory.getFont(
-          FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk(" Ja ",
+          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8)));
+      p.add(new Chunk(verzichtJa,
+          FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk("   Nein ",
+          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk(verzichtNein,
+          FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
       rpt.add(p);
     }
@@ -1130,12 +1113,11 @@ public class SpendenbescheinigungPrintAction implements Action
       // Verein neu gegründet, hat noch keinen Bescheid
       String txt = "Die Einhaltung der satzungsgemäßen Voraussetzungen nach den §§ 51, 59, 60 und 61 "
           + "AO wurde vom Finanzamt "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
+          + Einstellungen.getEinstellung().getFinanzamt() + ", StNr. "
           + Einstellungen.getEinstellung().getSteuernummer()
           + ", mit Bescheid vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getBescheiddatum())
           + " nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung "
           + Einstellungen.getEinstellung().getBeguenstigterzweck();
       rpt.add(txt, 8);
@@ -1146,19 +1128,17 @@ public class SpendenbescheinigungPrintAction implements Action
       String txt = "Wir sind wegen "
           + Einstellungen.getEinstellung().getBeguenstigterzweck()
           + " nach dem Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid "
-          + "des Finanzamtes "
-          + Einstellungen.getEinstellung().getFinanzamt()
-          + ", StNr. "
-          + Einstellungen.getEinstellung().getSteuernummer()
+          + "des Finanzamtes " + Einstellungen.getEinstellung().getFinanzamt()
+          + ", StNr. " + Einstellungen.getEinstellung().getSteuernummer()
           + ", vom "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getBescheiddatum())
+          + new JVDateFormatTTMMJJJJ()
+              .format(Einstellungen.getEinstellung().getBescheiddatum())
           + " für den letzten Veranlagungszeitraum "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getVeranlagungVon())
+          + new JVDateFormatJJJJ()
+              .format(Einstellungen.getEinstellung().getVeranlagungVon())
           + " bis "
-          + new JVDateFormatTTMMJJJJ().format(Einstellungen.getEinstellung()
-              .getVeranlagungBis())
+          + new JVDateFormatJJJJ()
+              .format(Einstellungen.getEinstellung().getVeranlagungBis())
           + " nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach "
           + "§ 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit.";
       rpt.add(txt, 8);
@@ -1185,8 +1165,8 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_JUSTIFIED);
       p.setFirstLineIndent((float) -18.5);
       p.setIndentationLeft((float) 18.5);
-      p.add(new Chunk(mitgliedBetraege, FontFactory.getFont(
-          FontFactory.ZAPFDINGBATS, 10)));
+      p.add(new Chunk(mitgliedBetraege,
+          FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk(
           "   Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist."));
       rpt.add(p);
@@ -1210,8 +1190,10 @@ public class SpendenbescheinigungPrintAction implements Action
 
     }
 
-    rpt.add("\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
-        + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()), 9);
+    rpt.add(
+        "\n\n" + Einstellungen.getEinstellung().getOrt() + ", "
+            + new JVDateFormatTTMMJJJJ().format(spb.getBescheinigungsdatum()),
+        9);
 
     rpt.add(
         "\n\n\n\n.................................................................................\nUnterschrift des Zuwendungsempfängers",
@@ -1228,7 +1210,8 @@ public class SpendenbescheinigungPrintAction implements Action
             + "Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre "
             + "bzw. das Datum der Feststellung der Einhaltung der satzungsmäßigen Voraussetzungen "
             + "nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt "
-            + "(§ 63 Abs. 5 AO).", 7);
+            + "(§ 63 Abs. 5 AO).",
+        7);
 
     /* Es sind mehrere Spenden für diese Spendenbescheinigung vorhanden */
     if (isSammelbestaetigung)
@@ -1238,14 +1221,11 @@ public class SpendenbescheinigungPrintAction implements Action
       rpt.newPage();
       rpt.add(getAussteller(), 13);
       rpt.add(new Paragraph(" "));
-      rpt.add(
-          "Anlage zur Sammelbestätigung vom "
-              + (String) map.get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM
-                  .getName()), 11);
-      rpt.add(
-          "für den Zeitraum vom "
-              + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM
-                  .getName()), 11);
+      rpt.add("Anlage zur Sammelbestätigung vom " + (String) map
+          .get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 11);
+      rpt.add("für den Zeitraum vom "
+          + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
+          11);
 
       rpt.add(new Paragraph(" "));
 
@@ -1306,7 +1286,8 @@ public class SpendenbescheinigungPrintAction implements Action
       // // Nun noch die Legende
       // rpt.add("Legende:", 8);
       // rpt.add(
-      // "(a): Es handelt sich nicht um den Verzicht auf Erstattung von Aufwendungen",
+      // "(a): Es handelt sich nicht um den Verzicht auf Erstattung von
+      // Aufwendungen",
       // 8);
       // rpt.add(
       // "(b): Es handelt sich um den Verzicht auf Erstattung von Aufwendungen",
