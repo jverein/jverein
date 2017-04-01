@@ -22,11 +22,11 @@ import java.io.IOException;
 import java.io.Writer;
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.rmi.Buchungsart;
+import de.jost_net.JVerein.rmi.Buchungsklasse;
 import net.n3.nanoxml.IXMLElement;
 import net.n3.nanoxml.XMLElement;
 import net.n3.nanoxml.XMLWriter;
-import de.jost_net.JVerein.rmi.Buchungsart;
-import de.jost_net.JVerein.rmi.Buchungsklasse;
 
 public class KontenrahmenExportXML extends KontenrahmenExport
 {

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.LastschriftMap;
@@ -43,6 +42,7 @@ import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
+import jonelo.NumericalChameleon.SpokenNumbers.GermanNumber;
 
 public class FormularAnzeigeAction implements Action
 {

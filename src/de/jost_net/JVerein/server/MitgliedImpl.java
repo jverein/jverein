@@ -101,6 +101,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
   }
 
+  @SuppressWarnings("unused")
   private void plausi() throws RemoteException, ApplicationException
   {
     checkExterneMitgliedsnummer();

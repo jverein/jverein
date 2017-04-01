@@ -19,8 +19,6 @@ package de.jost_net.JVereinJUnit.io;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -32,6 +30,7 @@ import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.willuhn.util.ApplicationException;
+import junit.framework.Assert;
 
 @RunWith(JUnit4.class)
 public class BeitragsUtilTest

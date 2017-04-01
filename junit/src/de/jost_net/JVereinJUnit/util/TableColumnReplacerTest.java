@@ -16,12 +16,11 @@
  **********************************************************************/
 package de.jost_net.JVereinJUnit.util;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import de.jost_net.JVerein.util.TableColumnReplacer;
+import junit.framework.Assert;
 
 public class TableColumnReplacerTest
 {
