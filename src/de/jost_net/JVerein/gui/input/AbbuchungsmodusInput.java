@@ -52,6 +52,7 @@ public class AbbuchungsmodusInput extends SelectInput
       case FLEXIBEL:
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ALLE));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ABGEMELDETEMITGLIEDER));
         break;
       case MONATLICH12631:
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.JAHAVIMO));
@@ -63,6 +64,7 @@ public class AbbuchungsmodusInput extends SelectInput
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VI));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MO));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ABGEMELDETEMITGLIEDER));
         break;
     }
     return PseudoIterator.fromArray(l.toArray(new AbbuchungsmodusObject[l

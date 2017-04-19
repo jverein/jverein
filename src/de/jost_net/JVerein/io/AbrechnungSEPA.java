@@ -250,8 +250,18 @@ public class AbrechnungSEPA
       list.addFilter("(eintritt <= ? or eintritt is null) ",
           new Object[] { new java.sql.Date(param.stichtag.getTime()) });
       // Das Mitglied darf noch nicht ausgetreten sein
-      list.addFilter("(austritt is null or austritt > ?)",
-          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+      // Bei Abbuchungen im Laufe des Jahres können optional nur die
+      // Mitglieder berücksichtigt werden, die schon abgemeldet sind.
+      if (param.abbuchungsmodus != Abrechnungsmodi.ABGEMELDETEMITGLIEDER)
+      {
+	      list.addFilter("(austritt is null or austritt > ?)",
+	          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+      }
+      else
+      {
+	      list.addFilter("(austritt > ?)",
+	          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+      }
       // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
       if (param.vondatum != null)
