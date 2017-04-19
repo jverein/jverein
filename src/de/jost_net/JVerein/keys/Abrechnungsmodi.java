@@ -42,6 +42,8 @@ public class Abrechnungsmodi
   public static final int MO = 12;
 
   public static final int EINGETRETENEMITGLIEDER = 99;
+  
+  public static final int ABGEMELDETEMITGLIEDER = 100;
 
   private int abrechnungsmodus;
 
@@ -86,6 +88,8 @@ public class Abrechnungsmodi
         return "Vierteljahres- und Monatsbeiträge";
       case EINGETRETENEMITGLIEDER:
         return "eingetretene Mitglieder";
+      case ABGEMELDETEMITGLIEDER:
+          return "abgemeldete Mitglieder";
       default:
         return null;
     }
