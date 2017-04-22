@@ -176,6 +176,23 @@ public class AbrechnungslaufImpl extends AbstractDBObject implements
   }
 
   @Override
+  public Date getAustrittsdatum() throws RemoteException
+  {
+    Date d = (Date) getAttribute("austrittsdatum");
+    if (d == null)
+    {
+      return Einstellungen.NODATE;
+    }
+    return d;
+  }
+
+  @Override
+  public void setAustrittsdatum(Date austrittsdatum) throws RemoteException
+  {
+    setAttribute("austrittsdatum", austrittsdatum);
+  }
+
+  @Override
   public String getZahlungsgrund() throws RemoteException
   {
     return (String) getAttribute("zahlungsgrund");

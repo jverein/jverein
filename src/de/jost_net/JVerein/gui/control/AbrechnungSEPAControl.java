@@ -69,6 +69,8 @@ public class AbrechnungSEPAControl extends AbstractControl
 
   private DateInput vondatum = null;
 
+  private DateInput bisdatum = null;
+
   private TextInput zahlungsgrund;
 
   private CheckboxInput zusatzbetrag;
@@ -122,6 +124,16 @@ public class AbrechnungSEPAControl extends AbstractControl
         {
           vondatum.setEnabled(true);
           vondatum.setValue(new Date());
+        }
+        if (m.intValue() != Abrechnungsmodi.ABGEMELDETEMITGLIEDER)
+        {
+          bisdatum.setValue(null);
+          bisdatum.setEnabled(false);
+        }
+        else
+        {
+          bisdatum.setEnabled(true);
+          bisdatum.setValue(new Date());
         }
       }
     });
@@ -188,6 +200,20 @@ public class AbrechnungSEPAControl extends AbstractControl
     this.vondatum.setText("Bitte Anfangsdatum der Abrechnung wählen");
     this.vondatum.setEnabled(false);
     return vondatum;
+  }
+
+  public DateInput getBisdatum()
+  {
+    if (bisdatum != null)
+    {
+      return bisdatum;
+    }
+    Date d = null;
+    this.bisdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.bisdatum.setTitle("Enddatum Abrechnung");
+    this.bisdatum.setText("Bitte maximales Austrittsdatum für die Abrechnung wählen");
+    this.bisdatum.setEnabled(false);
+    return bisdatum;
   }
 
   public TextInput getZahlungsgrund()
@@ -340,6 +366,11 @@ public class AbrechnungSEPAControl extends AbstractControl
       if (modus == Abrechnungsmodi.EINGETRETENEMITGLIEDER && vondatum == null)
       {
         throw new ApplicationException("von-Datum fehlt");
+      }
+      Date bisdatum = (Date) getBisdatum().getValue();
+      if (modus == Abrechnungsmodi.ABGEMELDETEMITGLIEDER && bisdatum == null)
+      {
+        throw new ApplicationException("bis-Datum fehlt");
       }
     }
     aa = (Abrechnungsausgabe) this.getAbbuchungsausgabe().getValue();
