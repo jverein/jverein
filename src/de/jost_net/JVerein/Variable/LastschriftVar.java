@@ -24,6 +24,7 @@ public enum LastschriftVar
   ANREDE_DU("lastschrift_anrede_du"), //
   ANREDE_FOERMLICH("lastschrift_anrede_foermlich"), //
   PERSONENART("lastschrift_personenart"), //
+  GESCHLECHT("lastschrift_geschlecht"), //
   ANREDE("lastschrift_anrede"), //
   TITEL("lastschrift_titel"), //
   NAME("lastschrift_name"), //

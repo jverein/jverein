@@ -89,6 +89,7 @@ public class LastschriftMap
           abrl.getFaelligkeit2());
     }
     map.put(LastschriftVar.PERSONENART.getName(), ls.getPersonenart());
+    map.put(LastschriftVar.GESCHLECHT.getName(), ls.getGeschlecht());
     map.put(LastschriftVar.ANREDE.getName(), ls.getAnrede());
     map.put(LastschriftVar.ANREDE_DU.getName(),
         Adressaufbereitung.getAnredeDu(ls));
