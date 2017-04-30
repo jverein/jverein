@@ -50,7 +50,7 @@ import de.willuhn.logging.Logger;
 
 public class MailSender
 {
-  private static final String ISO_8859_15 = "ISO-8859-15";
+  private static final String UTF_8 = "UTF-8";
 
   public static class IMAPCopyData
   {
@@ -208,8 +208,8 @@ public class MailSender
     props.put("mail.smtp.localhost", "localhost");
     props.put("mail.debug", "true");
     props.put("mail.smtp.port", smtp_port);
-    props.put("mail.mime.charset", ISO_8859_15);
-    System.setProperty("mail.mime.charset", "ISO-8859-15");
+    props.put("mail.mime.charset", UTF_8);
+    System.setProperty("mail.mime.charset", UTF_8);
 
     if (smtp_ssl)
     {
@@ -277,18 +277,18 @@ public class MailSender
     boolean html = text.toLowerCase().contains("<html");
 
     MimeBodyPart messageBodyPart = new MimeBodyPart();
-    messageBodyPart.addHeader("Content-Encoding", ISO_8859_15);
+    messageBodyPart.addHeader("Content-Encoding", UTF_8);
     Multipart multipart = new MimeMultipart("mixed");
 
     // Fill the message
     if (html)
     {
-      messageBodyPart.setText(text, ISO_8859_15, "html");
+      messageBodyPart.setText(text, UTF_8, "html");
 
       Multipart alternativeMessagesMultipart = new MimeMultipart("alternative");
 
       MimeBodyPart altMessageBodyPart = new MimeBodyPart();
-      altMessageBodyPart.addHeader("Content-Encoding", ISO_8859_15);
+      altMessageBodyPart.addHeader("Content-Encoding", UTF_8);
       altMessageBodyPart
           .setText(
               "Um diese Email richtig darstellen zu können, erlauben Sie bitte in Ihrem Emailprogramm die Darstellung von HTML-Emails.\n"
@@ -300,7 +300,7 @@ public class MailSender
                           "(?s)<\\s*?(style|Style|STYLE).*?>.*?</\\s*?(style|Style|STYLE)\\s*?>",
                           "").replaceAll("<.*?>", "")
                       .replaceAll("\\n{4,}", "\n\n\n").replaceAll("\\t", ""),
-              ISO_8859_15);
+                      UTF_8);
 
       alternativeMessagesMultipart.addBodyPart(altMessageBodyPart);
       alternativeMessagesMultipart.addBodyPart(messageBodyPart);
@@ -311,7 +311,7 @@ public class MailSender
     }
     else
     {
-      messageBodyPart.setText(text, ISO_8859_15);
+      messageBodyPart.setText(text, UTF_8);
       multipart.addBodyPart(messageBodyPart);
     }
 
