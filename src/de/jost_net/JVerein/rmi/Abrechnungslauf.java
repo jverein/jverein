@@ -52,6 +52,10 @@ public interface Abrechnungslauf extends DBObject
 
   public void setEingabedatum(Date eingabedatum) throws RemoteException;
 
+  public Date getAustrittsdatum() throws RemoteException;
+
+  public void setAustrittsdatum(Date austrittsdatum) throws RemoteException;
+
   public String getZahlungsgrund() throws RemoteException;
 
   public void setZahlungsgrund(String zahlungsgrund) throws RemoteException;

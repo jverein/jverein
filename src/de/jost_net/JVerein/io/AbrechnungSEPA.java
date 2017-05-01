@@ -251,7 +251,14 @@ public class AbrechnungSEPA
           new Object[] { new java.sql.Date(param.stichtag.getTime()) });
       // Das Mitglied darf noch nicht ausgetreten sein
       list.addFilter("(austritt is null or austritt > ?)",
-          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+	      new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+      // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
+      // berücksichtigt, die bis zu einem bestimmten Zeitpunkt ausgetreten sind.
+      if (param.bisdatum != null)
+      {
+	      list.addFilter("(austritt <= ?)",
+	          new Object[] { new java.sql.Date(param.bisdatum.getTime()) });
+      }
       // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
       if (param.vondatum != null)
@@ -728,6 +735,7 @@ public class AbrechnungSEPA
     abrl.setFaelligkeit2(param.faelligkeit2);
     abrl.setDtausdruck(param.sepaprint);
     abrl.setEingabedatum(param.vondatum);
+    abrl.setAustrittsdatum(param.bisdatum);
     abrl.setKursteilnehmer(param.kursteilnehmer);
     abrl.setModus(param.abbuchungsmodus);
     abrl.setStichtag(param.stichtag);

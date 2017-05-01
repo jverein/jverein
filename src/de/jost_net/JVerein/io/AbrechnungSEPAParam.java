@@ -50,6 +50,8 @@ public class AbrechnungSEPAParam
 
   public final Date vondatum;
 
+  public final Date bisdatum;
+
   public final String verwendungszweck;
 
   public final Boolean zusatzbetraege;
@@ -85,6 +87,7 @@ public class AbrechnungSEPAParam
     abbuchungsausgabe = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
         .getValue();
     vondatum = (Date) ac.getVondatum().getValue();
+    bisdatum = (Date) ac.getBisdatum().getValue();
     verwendungszweck = (String) ac.getZahlungsgrund().getValue();
     zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();
     kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();

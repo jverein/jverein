@@ -69,6 +69,8 @@ public class AbrechnungslaufControl extends AbstractControl
 
   private LabelInput eingabedatum;
 
+  private LabelInput austrittsdatum;
+
   private LabelInput zahlungsgrund;
 
   private LabelInput zusatzabrechnungen;
@@ -179,6 +181,18 @@ public class AbrechnungslaufControl extends AbstractControl
     eingabedatum = new LabelInput(new JVDateFormatTTMMJJJJ().format(ed));
     eingabedatum.setName("Eingabedatum");
     return eingabedatum;
+  }
+
+  public LabelInput getAustrittsdatum() throws RemoteException
+  {
+    if (austrittsdatum != null)
+    {
+      return austrittsdatum;
+    }
+    Date ed = getAbrechnungslaeufe().getAustrittsdatum();
+    austrittsdatum = new LabelInput(new JVDateFormatTTMMJJJJ().format(ed));
+    austrittsdatum.setName("Austrittsdatum");
+    return austrittsdatum;
   }
 
   public LabelInput getZahlungsgrund() throws RemoteException
@@ -366,6 +380,8 @@ public class AbrechnungslaufControl extends AbstractControl
       abrechnungslaufList.addColumn("Stichtag", "stichtag",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Eingabedatum", "eingabedatum",
+          new DateFormatter(new JVDateFormatTTMMJJJJ()));
+      abrechnungslaufList.addColumn("Austrittsdatum", "austrittsdatum",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Zahlungsgrund", "zahlungsgrund");
       abrechnungslaufList.addColumn("Zusatzbeträge", "zusatzbetraege",
