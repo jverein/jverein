@@ -19,112 +19,112 @@ package de.jost_net.JVerein.gui.view;
 public class DokumentationUtil
 {
 
-  private static final String PRE = "http://www.jverein.de/wiki/index.php?title=";
+  private static final String PRE = "https://jverein.gitbooks.io/jverein-handbuch/content/";
 
-  public static final String ADRESSEN = PRE + "Adressen";
+  public static final String ADRESSEN = PRE + "adressen.html";
 
-  public static final String ABRECHNUNG = PRE + "Abrechnung";
+  public static final String ABRECHNUNG = PRE + "abrechnung.html";
 
-  public static final String ABRECHNUNGSLAUF = PRE + "Abrechnungslauf";
+  public static final String ABRECHNUNGSLAUF = PRE + "abrechnungslauf.html";
 
-  public static final String ADRESSTYPEN = PRE + "Adresstypen";
+  public static final String ADRESSTYPEN = PRE + "adresstypen.html";
 
-  public static final String ARBEITSEINSATZ = PRE + "Arbeitseinsatz";
+  public static final String ARBEITSEINSATZ = PRE + "arbeitseinsatz.html";
 
-  public static final String RECHNUNG = PRE + "Rechnungen";
+  public static final String RECHNUNG = PRE + "rechnungen.html";
 
-  public static final String MAHNUNG = PRE + "Mitgliedskonto#Mahnung";
+  public static final String MAHNUNG = PRE + "mahnungen.html";
 
-  public static final String PRENOTIFICATION = PRE + "Pre-Notification";
+  public static final String PRENOTIFICATION = PRE + "pre-notification.html";
 
-  public static final String SEPABUGS = PRE + "SEPABugs";
-
-  public static final String SEPAKONVERTIERUNG = PRE + "SEPA_Einführung";
+  public static final String SEPABUGS = PRE + "sepa-bugs.html";
 
   public static final String AUSWERTUNGKURSTEILNEHMER = PRE
-      + "Auswertung_Kursteilnehmer";
+      + "auswertung-kursteilnehmer.html";
 
   public static final String AUSWERTUNGMITGLIEDER = PRE
-      + "Auswertung_Mitglieder";
+      + "auswertung-mitglieder.html";
 
-  public static final String BEITRAGSGRUPPEN = PRE + "Beitragsgruppen";
+  public static final String BEITRAGSGRUPPEN = PRE + "beitragsgruppen.html";
 
-  public static final String BUCHUNGSART = PRE + "Buchungsart";
+  public static final String BUCHUNGSART = PRE + "buchungsart.html";
 
-  public static final String BUCHUNGSIMPORT = PRE + "Buchungsimport";
+  public static final String BUCHUNGSIMPORT = PRE + "buchungsimport.html";
 
-  public static final String BUCHUNGSUEBERNAHME = PRE + "Buchungsübernahme";
+  public static final String BUCHUNGSUEBERNAHME = PRE
+      + "buchungsubernahme.html";
 
-  public static final String BUCHUNGSKLASSEN = PRE + "Buchungsklasse";
+  public static final String BUCHUNGSKLASSEN = PRE + "buchungsklasse.html";
 
-  public static final String EIGENSCHAFT = PRE + "Eigenschaften";
+  public static final String EIGENSCHAFT = PRE + "eigenschaften.html";
 
-  public static final String EIGENSCHAFTGRUPPE = PRE + "Eigenschaften-Gruppe";
+  public static final String EIGENSCHAFTGRUPPE = PRE
+      + "eigenschaften-gruppen.html";
 
-  public static final String FAMILIENBEITRAG = PRE + "Familientarife";
+  public static final String FAMILIENBEITRAG = PRE + "familientarife.html";
 
-  public static final String FELDDEFINITIONEN = PRE + "Felddefinitionen";
+  public static final String FELDDEFINITIONEN = PRE + "felddefinitionen.html";
 
-  public static final String LESEFELDER = PRE + "Lesefelder";
+  public static final String LESEFELDER = PRE + "lesefelder.html";
 
-  public static final String FORMULARE = PRE + "Formulare";
+  public static final String FORMULARE = PRE + "formulare.html";
 
-  public static final String EINSTELLUNGEN = PRE + "Einstellungen";
+  public static final String EINSTELLUNGEN = PRE + "einstellungen.html";
 
-  public static final String IMPORT = PRE + "Import";
+  public static final String IMPORT = PRE + "import.html";
 
-  public static final String INVENTAR = PRE + "Inventar";
+  public static final String JUBILAEEN = PRE + "jubilaen.html";
 
-  public static final String JUBILAEEN = PRE + "Jubiläen";
+  public static final String LEHRGANG = PRE + "lehrgange.html";
 
-  public static final String LEHRGANG = PRE + "Lehrgänge";
+  public static final String KONTENRAHMEN = PRE
+      + "kontenrahmen-import-export.html";
 
-  public static final String KONTENRAHMEN = PRE + "Kontenrahmen_Export_Import";
+  public static final String KONTOAUSZUG = PRE + "kontoauszug.html";
 
-  public static final String KONTOAUSZUG = PRE + "Kontoauszug";
+  public static final String MAIL = PRE + "mail.html";
 
-  public static final String MAIL = PRE + "Mail";
-
-  public static final String MITGLIED = PRE + "Mitglieder";
+  public static final String MITGLIED = PRE + "mitglieder.html";
 
   public static final String MITGLIEDSKONTO_AUSWAHL = PRE
-      + "Mitgliedskonto#Buchungen_dem_Mitgliedskonto_zuordnen";
+      + "mitgliedskonto.html#mitgliedskontozuordnen";
 
   public static final String MITGLIEDSKONTO_UEBERSICHT = PRE
-      + "Mitgliedskonto#Mitgliedskonten.C3.BCbersicht";
+      + "mitgliedskonto.html#mitgliedskontouebersicht";
 
-  public static final String KURSTEILNEHMER = PRE + "Kursteilnehmer";
+  public static final String KURSTEILNEHMER = PRE + "kursteilnehmer.html";
 
-  public static final String PROJEKTE = PRE + "Projekte";
+  public static final String PROJEKTE = PRE + "projekte.html";
 
-  public static final String STATISTIKMITGLIEDER = PRE + "Statistik";
+  public static final String STATISTIKMITGLIEDER = PRE + "statistik.html";
 
-  public static final String STATISTIKJAHRGAENGE = PRE + "StatistikJahrgaenge";
+  public static final String STATISTIKJAHRGAENGE = PRE
+      + "statistik-jahrgange.html";
 
-  public static final String SUCHPROFIL = PRE + "Suchprofil";
+  public static final String SUCHPROFIL = PRE + "suchprofil.html";
 
-  public static final String WIEDERVORLAGE = PRE + "Wiedervorlage";
+  public static final String WIEDERVORLAGE = PRE + "wiedervorlage.html";
 
-  public static final String ZUSATZBETRAEGE = PRE + "Zusatzbeträge";
+  public static final String ZUSATZBETRAEGE = PRE + "zusatzbetrage.html";
 
   public static final String ZUSATZBETRAEGEIMPORT = PRE
-      + "Zusatzbeträge_importieren";
+      + "zusatzbetrage-importieren.html";
 
-  public static final String KONTEN = PRE + "Konten";
+  public static final String KONTEN = PRE + "konten.html";
 
-  public static final String ANFANGSBESTAENDE = PRE + "Anfangsbestände";
+  public static final String ANFANGSBESTAENDE = PRE + "anfangsbestand.html";
 
-  public static final String BUCHUNGEN = PRE + "Buchungen";
+  public static final String BUCHUNGEN = PRE + "buchungen.html";
 
-  public static final String SPLITBUCHUNG = PRE + "Splitbuchung";
+  public static final String SPLITBUCHUNG = PRE + "splittbuchungen.html";
 
-  public static final String JAHRESSALDO = PRE + "Jahressaldo";
+  public static final String JAHRESSALDO = PRE + "jahressaldo.html";
 
-  public static final String JAHRESABSCHLUSS = PRE + "Jahresabschluss";
+  public static final String JAHRESABSCHLUSS = PRE + "jahresabschluss.html";
 
   public static final String SPENDENBESCHEINIGUNG = PRE
-      + "Spendenbescheinigung";
+      + "spendenbescheinigung.html";
 
-  public static final String QIFIMPORT = PRE + "QIFImport";
+  public static final String QIFIMPORT = PRE + "qif-import.html";
 
 }
