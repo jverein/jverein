@@ -25,6 +25,7 @@ public enum AbrechnungsParameterVar
   FAELLIGKEIT2("abrechnungsparameter_faelligkeit2"), //
   STICHTAG("abrechnungsparameter_stichtag"), //
   VONDATUM("abrechnungsparameter_vondatum"), //
+  BISDATUM("abrechnungsparameter_bisdatum"), //
   VERWENDUNGSZWECK("abrechnungsparameter_verwendungszweck"), //
   ZUSATZBETRAEGE("abrechnungsparameter_zusatzbetraege"), //
   KURSTEILNEHMER("abrechnungsparameter_kursteilnehmer"), //
