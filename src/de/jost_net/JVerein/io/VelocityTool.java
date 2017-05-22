@@ -26,7 +26,6 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
-import de.jost_net.JVerein.Variable.VarTools;
 import de.willuhn.logging.Logger;
 
 public class VelocityTool
@@ -43,13 +42,11 @@ public class VelocityTool
     }
   }
 
-  private static VelocityContext context = new VelocityContext();
-
   public static String eval(Map<String, Object> map, String text)
       throws ParseErrorException, MethodInvocationException,
       ResourceNotFoundException, IOException
   {
-    VarTools.add(context, map);
+    VelocityContext context = new VelocityContext(map);
     StringWriter wtext = new StringWriter();
     Velocity.evaluate(context, wtext, "LOG", text);
     return wtext.getBuffer().toString();
