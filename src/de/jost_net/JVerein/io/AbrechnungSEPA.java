@@ -401,10 +401,8 @@ public class AbrechnungSEPA
     }
     counter++;
 
-    String vzweck = param.verwendungszweck;
-    Map<String, Object> map = new AllgemeineMap().getMap(null);
-    map = new MitgliedMap().getMap(m, map);
-    map = new AbrechnungsParameterMap().getMap(param, map);
+    String vzweck = abrl.getZahlungsgrund();
+    Map<String, Object> map = new MitgliedMap().getMap(m, null);
     try
     {
       vzweck = VelocityTool.eval(map, vzweck);
@@ -707,7 +705,7 @@ public class AbrechnungSEPA
       for (SepaSammelLastschrift s : sammler)
       {
         // Hier noch die eigene Bezeichnung einfuegen
-        String vzweck = param.verwendungszweck + " "
+        String vzweck = getVerwendungszweck(param) + " "
             + s.getBezeichnung().substring(0, s.getBezeichnung().indexOf(" "))
             + " vom " + new JVDateFormatDATETIME().format(new Date());
         s.setBezeichnung(vzweck);
@@ -721,6 +719,21 @@ public class AbrechnungSEPA
     catch (SEPAException e)
     {
       throw new ApplicationException(e);
+    }
+  }
+
+  private String getVerwendungszweck(AbrechnungSEPAParam param) throws RemoteException
+  {
+    Map<String, Object> map = new AllgemeineMap().getMap(null);
+    map = new AbrechnungsParameterMap().getMap(param, map);
+    try
+    {
+      return VelocityTool.eval(map, param.verwendungszweck);
+    }
+    catch (IOException e)
+    {
+      Logger.error("Fehler bei der Aufbereitung der Variablen", e);
+      return param.verwendungszweck;
     }
   }
 
@@ -739,7 +752,7 @@ public class AbrechnungSEPA
     abrl.setKursteilnehmer(param.kursteilnehmer);
     abrl.setModus(param.abbuchungsmodus);
     abrl.setStichtag(param.stichtag);
-    abrl.setZahlungsgrund(param.verwendungszweck);
+    abrl.setZahlungsgrund(getVerwendungszweck(param));
     abrl.setZusatzbetraege(param.zusatzbetraege);
     abrl.setAbgeschlossen(false);
     abrl.store();
