@@ -26,6 +26,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.ZusatzbetragVorlageAuswahlAction;
 import de.jost_net.JVerein.gui.parts.ZusatzbetragPart;
 import de.jost_net.JVerein.keys.IntervallZusatzzahlung;
+import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Zusatzbetrag;
 import de.willuhn.jameica.gui.Action;
@@ -60,8 +61,8 @@ public class MitgliedZusatzbetragZuordnungDialog extends AbstractDialog<String>
   @Override
   protected void paint(Composite parent) throws Exception
   {
-    Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService().createObject(
-        Zusatzbetrag.class, null);
+    Zusatzbetrag zb = (Zusatzbetrag) Einstellungen.getDBService()
+        .createObject(Zusatzbetrag.class, null);
     part = new ZusatzbetragPart(zb);
     part.paint(parent);
 
@@ -88,6 +89,7 @@ public class MitgliedZusatzbetragZuordnungDialog extends AbstractDialog<String>
             zb.setIntervall(iz.getKey());
             zb.setMitglied(Integer.parseInt(mit.getID()));
             zb.setStartdatum((Date) part.getStartdatum(true).getValue());
+            zb.setBuchungsart((Buchungsart) part.getBuchungsart().getValue());
             zb.store();
             count++;
           }
