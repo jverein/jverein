@@ -20,11 +20,15 @@ public enum AllgemeineVar
 {
   AKTUELLERMONAT("aktuellermonat"), //
   AKTUELLESJAHR("aktuellesjahr"), //
+  NURMONAT("nurmonat"), //
+  NURTAG("nurtag"), //
   FOLGEJAHR("folgejahr"), //
   FOLGEMONAT("folgemonat"), //
   TAGESDATUM("tagesdatum"), //
-  VORMONAT("vormonat"),
-  VORJAHR("vorjahr"); //
+  TAGESDATUMTT("tagesdatumtt"), //
+  TAGESDATUMMM("tagesdatummm"), //
+  TAGESDATUMJJJJ("tagesdatumjjjj"), //
+  VORMONAT("vormonat"), VORJAHR("vorjahr"); //
 
   private String name;
 

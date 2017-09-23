@@ -22,7 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.jost_net.JVerein.util.JVDateFormatJJJJ;
+import de.jost_net.JVerein.util.JVDateFormatMM;
 import de.jost_net.JVerein.util.JVDateFormatMMJJJJ;
+import de.jost_net.JVerein.util.JVDateFormatTT;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 
 public class AllgemeineMap
@@ -31,6 +33,10 @@ public class AllgemeineMap
   private JVDateFormatTTMMJJJJ ttmmjjjj = new JVDateFormatTTMMJJJJ();
 
   private JVDateFormatMMJJJJ mmjjjj = new JVDateFormatMMJJJJ();
+
+  private JVDateFormatTT tt = new JVDateFormatTT();
+
+  private JVDateFormatMM mm = new JVDateFormatMM();
 
   private JVDateFormatJJJJ jjjj = new JVDateFormatJJJJ();
 
@@ -51,16 +57,21 @@ public class AllgemeineMap
       map = inma;
     }
     map.put(AllgemeineVar.TAGESDATUM.getName(), ttmmjjjj.format(new Date()));
+    map.put(AllgemeineVar.TAGESDATUMTT.getName(), tt.format(new Date()));
+    map.put(AllgemeineVar.TAGESDATUMMM.getName(), mm.format(new Date()));
+    map.put(AllgemeineVar.TAGESDATUMJJJJ.getName(), jjjj.format(new Date()));
     map.put(AllgemeineVar.AKTUELLESJAHR.getName(), jjjj.format(new Date()));
     map.put(AllgemeineVar.AKTUELLERMONAT.getName(), mmjjjj.format(new Date()));
 
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MONTH, 1);
-    map.put(AllgemeineVar.FOLGEMONAT.getName(), mmjjjj.format(calendar.getTime()));
+    map.put(AllgemeineVar.FOLGEMONAT.getName(),
+        mmjjjj.format(calendar.getTime()));
 
     calendar = Calendar.getInstance();
     calendar.add(Calendar.MONTH, -1);
-    map.put(AllgemeineVar.VORMONAT.getName(), mmjjjj.format(calendar.getTime()));
+    map.put(AllgemeineVar.VORMONAT.getName(),
+        mmjjjj.format(calendar.getTime()));
 
     calendar = Calendar.getInstance();
     calendar.add(Calendar.YEAR, 1);
@@ -68,7 +79,7 @@ public class AllgemeineMap
 
     calendar = Calendar.getInstance();
     calendar.add(Calendar.YEAR, -1);
-    map.put(AllgemeineVar.VORJAHR.getName(), jjjj.format( calendar.getTime()));
+    map.put(AllgemeineVar.VORJAHR.getName(), jjjj.format(calendar.getTime()));
 
     return map;
   }

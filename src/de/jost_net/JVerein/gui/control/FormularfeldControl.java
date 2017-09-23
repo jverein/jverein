@@ -79,6 +79,12 @@ public class FormularfeldControl extends AbstractControl
 
   public static final String TAGESDATUM = "Tagesdatum";
 
+  public static final String TAGESDATUMTT = "Tagesdatum TT";
+
+  public static final String TAGESDATUMMM = "Tagesdatum MM";
+
+  public static final String TAGESDATUMJJJJ = "Tagesdatum JJJJ";
+
   public static final String ZAHLUNGSGRUND = "Zahlungsgrund";
 
   public static final String ZAHLUNGSGRUND1 = "Zahlungsgrund 1";

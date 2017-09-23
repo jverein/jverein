@@ -37,6 +37,9 @@ import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
+import de.jost_net.JVerein.util.JVDateFormatJJJJ;
+import de.jost_net.JVerein.util.JVDateFormatMM;
+import de.jost_net.JVerein.util.JVDateFormatTT;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.StringTool;
 import de.willuhn.jameica.gui.Action;
@@ -64,13 +67,13 @@ public class FormularAnzeigeAction implements Action
     try
     {
       final File file = File.createTempFile("formular", ".pdf");
-      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-          Mitglied.class, null);
+      Mitglied m = (Mitglied) Einstellungen.getDBService()
+          .createObject(Mitglied.class, null);
 
       Map<String, Object> map = new MitgliedMap().getMap(m, null);
 
-      Lastschrift ls = (Lastschrift) Einstellungen.getDBService().createObject(
-          Lastschrift.class, null);
+      Lastschrift ls = (Lastschrift) Einstellungen.getDBService()
+          .createObject(Lastschrift.class, null);
       map = new LastschriftMap().getMap(ls, map);
 
       map = new AllgemeineMap().getMap(map);
@@ -109,6 +112,9 @@ public class FormularAnzeigeAction implements Action
           "Abbuchung von Konto 1234567, BLZ: 10020030");
       map.put(FormularfeldControl.TAGESDATUM,
           new JVDateFormatTTMMJJJJ().format(new Date()));
+      map.put(FormularfeldControl.TAGESDATUMTT, new JVDateFormatTT());
+      map.put(FormularfeldControl.TAGESDATUMMM, new JVDateFormatMM());
+      map.put(FormularfeldControl.TAGESDATUMJJJJ, new JVDateFormatJJJJ());
 
       Spendenbescheinigung spb = (Spendenbescheinigung) Einstellungen
           .getDBService().createObject(Spendenbescheinigung.class, null);
@@ -168,8 +174,8 @@ public class FormularAnzeigeAction implements Action
       bl.append("  ");
       bl.append(StringTool.rpad("Beitrag", colArtLen));
       bl.append("  ");
-      bl.append(StringTool.rpad(
-          StringTool.lpad("nein", colVerzichtLen / 2 - 2), colVerzichtLen));
+      bl.append(StringTool.rpad(StringTool.lpad("nein", colVerzichtLen / 2 - 2),
+          colVerzichtLen));
       bl.append("  ");
       String str = Einstellungen.DECIMALFORMAT.format(15.0);
       bl.append(StringTool.lpad(str, colBetragLen));
@@ -195,8 +201,8 @@ public class FormularAnzeigeAction implements Action
       bl.append(StringTool.rpad("-", colBetragLen, "-"));
       bl.append(newLineStr);
 
-      bl.append(StringTool.rpad("Gesamtsumme:", colDatumLen + 2 + colArtLen + 2
-          + colVerzichtLen));
+      bl.append(StringTool.rpad("Gesamtsumme:",
+          colDatumLen + 2 + colArtLen + 2 + colVerzichtLen));
       bl.append("  ");
       str = Einstellungen.DECIMALFORMAT.format(15.0 + 1234.96);
       bl.append(StringTool.lpad(str, colBetragLen));
@@ -206,8 +212,7 @@ public class FormularAnzeigeAction implements Action
           "gebrauchter Tisch");
       map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
           HerkunftSpende.get(1));
-      map.put(
-          SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
+      map.put(SpendenbescheinigungVar.UNTERLAGENWERTERMITTUNG.getName(),
           "Geeignete Unterlagen, die zur Wertermittlung gedient haben, z. B. Rechnung, Gutachten, liegen vor.");
 
       map.put(FormularfeldControl.BUCHUNGSDATUM, new Date());
