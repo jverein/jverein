@@ -30,11 +30,9 @@ import java.util.TreeSet;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.MimetypesFileTypeMap;
-import javax.mail.Authenticator;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.Transport;
@@ -128,10 +126,6 @@ public class MailSender
     }
   }
 
-  private final String smtp_host_name;
-
-  private final String smtp_port;
-
   private final String smtp_auth_user;
 
   private final String smtp_auth_pwd;
@@ -146,13 +140,11 @@ public class MailSender
   /** If set, all mails will be sent to this BCC, too */
   private final String cc_address;
 
-  private final boolean smtp_ssl;
-
-  private final boolean smtp_starttls;
-
   private final int verzoegerung;
 
   private IMAPCopyData imapCopyData;
+
+  private final Session session;
 
   public MailSender(String smtp_host_name, String smtp_port,
       String smtp_auth_user, String smtp_auth_pwd, String smtp_from_address,
@@ -160,18 +152,64 @@ public class MailSender
       boolean smtp_ssl, boolean smtp_starttls, int verzoegerung,
       IMAPCopyData imapCopyData)
   {
-    this.smtp_host_name = smtp_host_name;
-    this.smtp_port = smtp_port;
-    this.smtp_auth_user = smtp_auth_user;
-    this.smtp_auth_pwd = smtp_auth_pwd;
     this.smtp_from_address = smtp_from_address;
     this.smtp_from_anzeigename = smtp_from_anzeigename;
     this.bcc_address = bcc_address;
     this.cc_address = cc_address;
-    this.smtp_ssl = smtp_ssl;
-    this.smtp_starttls = smtp_starttls;
     this.verzoegerung = verzoegerung;
     this.imapCopyData = imapCopyData;
+
+    Properties props = new Properties();
+    if (smtp_auth_user != null && smtp_auth_user.length() != 0
+        && smtp_auth_pwd != null && smtp_auth_pwd.length() != 0)
+    {
+      props.put("mail.smtp.auth", "true");
+      this.smtp_auth_user = smtp_auth_user;
+      this.smtp_auth_pwd = smtp_auth_pwd;
+    }
+    else
+    {
+      props.put("mail.smtp.auth", "false");
+      this.smtp_auth_user = null;
+      this.smtp_auth_pwd = null;
+    }
+    props.put("mail.smtp.host", smtp_host_name);
+    props.put("mail.smtp.localhost", "localhost");
+    if (Application.getConfig().getLogLevel().equals(Level.DEBUG.getName()))
+    {
+      props.put("mail.debug", "true");
+    }
+    props.put("mail.smtp.port", smtp_port);
+    props.put("mail.mime.charset", UTF_8);
+    System.setProperty("mail.mime.charset", UTF_8);
+    if (smtp_ssl)
+    {
+      props.put("mail.smtp.ssl.enable", "true");
+    }
+    if (smtp_starttls)
+    {
+      props.put("mail.smtp.starttls.enable", "true");
+      props.put("mail.smtp.tls", "true");
+    }
+    if (imapCopyData != null && imapCopyData.copy_to_imap_folder)
+    {
+      props.put("mail.imap.host", imapCopyData.getImap_host());
+      props.put("mail.imap.port", imapCopyData.getImap_port());
+      String protocol = "imap";
+      if (imapCopyData.isImap_ssl())
+      {
+        protocol = "imaps";
+        props.put("mail.imap.ssl.enable", "true");
+      }
+      else if (imapCopyData.isImap_starttls())
+      {
+        props.put("mail.imap.starttls.enable", "true");
+        props.put("mail.imap.tls", "true");
+      }
+      props.put("mail.store.protocol", protocol);
+    }
+
+    this.session = Session.getInstance(props);
   }
 
   // Send to a single recipient
@@ -188,62 +226,6 @@ public class MailSender
   public void sendMail(String[] emailadresses, String subject, String text,
       TreeSet<MailAnhang> anhang) throws Exception
   {
-    Properties props = new Properties();
-    if (smtp_auth_user == null || smtp_auth_user.length() == 0)
-    {
-      props.put("mail.smtp.auth", "false");
-    }
-
-    if (smtp_auth_pwd == null || smtp_auth_pwd.length() == 0)
-    {
-      props.put("mail.smtp.auth", "false");
-    }
-    else
-    {
-      props.put("mail.smtp.auth", "true");
-      props.put("mail.smtp.password", smtp_auth_pwd);
-    }
-
-    props.put("mail.smtp.host", smtp_host_name);
-    props.put("mail.smtp.localhost", "localhost");
-    props.put("mail.debug", "true");
-    props.put("mail.smtp.port", smtp_port);
-    props.put("mail.mime.charset", UTF_8);
-    System.setProperty("mail.mime.charset", UTF_8);
-
-    if (smtp_ssl)
-    {
-      java.security.Security
-          .addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-      props.setProperty("mail.smtp.socketFactory.class",
-          "javax.net.ssl.SSLSocketFactory");
-      props.setProperty("mail.smtp.socketFactory.fallback", "false");
-    }
-    props.setProperty("mail.smtp.port", smtp_port);
-    props.setProperty("mail.smtp.socketFactory.port", smtp_port);
-    if (smtp_starttls)
-    {
-      props.put("mail.smtp.starttls.enable", "true");
-      props.put("mail.smtp.tls", "true");
-    }
-    Session session = null;
-
-    if (smtp_auth_user != null)
-    {
-      session = Session.getDefaultInstance(props, new SMTPAuthenticator());
-    }
-    else
-    {
-      session = Session.getDefaultInstance(props);
-    }
-    if (Application.getConfig().getLogLevel().equals(Level.DEBUG.getName()))
-    {
-      session.setDebug(true);
-    }
-    else
-    {
-      session.setDebug(false);
-    }
     Message msg = new MimeMessage(session);
     /*
      * msg.addHeader("Disposition-Notification-To", smtp_from_address);
@@ -330,7 +312,7 @@ public class MailSender
     // need to set "sent" date explicitly
     msg.setSentDate(new Date());
 
-    Transport.send(msg);
+    Transport.send(msg, smtp_auth_user, smtp_auth_pwd);
 
     // Copy to IMAP sent folder
     if (imapCopyData != null && imapCopyData.copy_to_imap_folder)
@@ -342,68 +324,12 @@ public class MailSender
 
   private void copyMessageToImapFolder(Message message) throws Exception
   {
-    Properties props = new Properties();
-    props.put("mail.debug", "true");
-    props.put("mail.imap.host", imapCopyData.getImap_host());
-    props.put("mail.imap.port", imapCopyData.getImap_port());
-
-    String protocol = "imap";
-
-    if (imapCopyData.isImap_ssl())
-    {
-      protocol = "imaps";
-      java.security.Security
-          .addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-      props.setProperty("mail.imap.socketFactory.class",
-          "javax.net.ssl.SSLSocketFactory");
-      props.setProperty("mail.imap.socketFactory.port",
-          imapCopyData.getImap_port());
-      props.setProperty("mail.imap.socketFactory.fallback", "false");
-    }
-    else if (imapCopyData.isImap_starttls())
-    {
-      props.put("mail.imap.starttls.enable", "true");
-      props.put("mail.imap.tls", "true");
-    }
-
-    props.put("mail.store.protocol", protocol);
-
-    Session session = Session.getInstance(props, new IMAPAuthenticator());
-
-    Store store = session.getStore(protocol);
+    Store store = session.getStore();
     store.connect(imapCopyData.getImap_host(),
         imapCopyData.getImap_auth_user(), imapCopyData.getImap_auth_pwd());
-
     Folder folder = store.getFolder(imapCopyData.getImap_sent_folder());
-
-    // save in IMAP folder
     folder.appendMessages(new Message[] { message });
-
     store.close();
-  }
-
-  private class SMTPAuthenticator extends Authenticator
-  {
-
-    @Override
-    public PasswordAuthentication getPasswordAuthentication()
-    {
-      String username = smtp_auth_user;
-      String password = smtp_auth_pwd;
-      return new PasswordAuthentication(username, password);
-    }
-  }
-
-  private class IMAPAuthenticator extends Authenticator
-  {
-
-    @Override
-    public PasswordAuthentication getPasswordAuthentication()
-    {
-      String username = imapCopyData.getImap_auth_user();
-      String password = imapCopyData.getImap_auth_pwd();
-      return new PasswordAuthentication(username, password);
-    }
   }
 
   private static class ByteArrayDataSource implements DataSource
