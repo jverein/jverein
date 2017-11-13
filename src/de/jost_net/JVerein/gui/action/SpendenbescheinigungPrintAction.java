@@ -1091,7 +1091,7 @@ public class SpendenbescheinigungPrintAction implements Action
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk(
           "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ", Reporter.getFreeSansBold(8)));
+      p.add(new Chunk(" Ja ", Reporter.getFreeSansBold(9)));
       p.add(new Chunk(verzichtJa,
           FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("   Nein ", Reporter.getFreeSansBold(9)));
