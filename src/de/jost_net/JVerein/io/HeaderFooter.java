@@ -20,8 +20,6 @@ package de.jost_net.JVerein.io;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
@@ -109,8 +107,7 @@ class HeaderFooter extends PdfPageEventHelper
     ColumnText.showTextAligned(
         pc,
         Element.ALIGN_CENTER,
-        new Phrase(footer + " " + pagenumber, FontFactory.getFont(
-            FontFactory.HELVETICA, 7, Font.NORMAL)), (left + right) / 2,
-        bottom - 18, 0);
+        new Phrase(footer + " " + pagenumber, Reporter.getFreeSans(7)),
+        (left + right) / 2, bottom - 18, 0);
   }
 }

@@ -403,7 +403,7 @@ public class PersonalbogenAction implements Action
     it.setOrder("ORDER BY faelligkeit DESC");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph("Zusatzbetrag"));
+      rpt.add(new Paragraph("Zusatzbetrag", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Start", Element.ALIGN_LEFT, 30,
           BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("nächste Fäll.", Element.ALIGN_LEFT, 30,
@@ -442,7 +442,7 @@ public class PersonalbogenAction implements Action
     it.setOrder("order by datum desc");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph("Mitgliedskonto"));
+      rpt.add(new Paragraph("Mitgliedskonto", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 12, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30,
           BaseColor.LIGHT_GRAY);
@@ -483,7 +483,7 @@ public class PersonalbogenAction implements Action
   private void generiereVermerke(Reporter rpt, Mitglied m)
       throws DocumentException, RemoteException
   {
-    rpt.add(new Paragraph("Vermerke"));
+    rpt.add(new Paragraph("Vermerke", Reporter.getFreeSans(12)));
     rpt.addHeaderColumn("Text", Element.ALIGN_LEFT, 100, BaseColor.LIGHT_GRAY);
     rpt.createHeader();
     if (m.getVermerk1() != null && m.getVermerk1().length() > 0)
@@ -507,7 +507,7 @@ public class PersonalbogenAction implements Action
     it.setOrder("order by datum desc");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph("Wiedervorlage"));
+      rpt.add(new Paragraph("Wiedervorlage", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 50,
           BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Vermerk", Element.ALIGN_LEFT, 100,
@@ -536,7 +536,7 @@ public class PersonalbogenAction implements Action
     it.setOrder("order by von");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph("Lehrgänge"));
+      rpt.add(new Paragraph("Lehrgänge", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Lehrgangsart", Element.ALIGN_LEFT, 50,
           BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("am/vom", Element.ALIGN_LEFT, 30,
@@ -568,7 +568,7 @@ public class PersonalbogenAction implements Action
     it.setOrder("order by label");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph("Zusatzfelder"));
+      rpt.add(new Paragraph("Zusatzfelder", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Feld", Element.ALIGN_LEFT, 50, BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Inhalt", Element.ALIGN_LEFT, 130,
           BaseColor.LIGHT_GRAY);
@@ -620,7 +620,7 @@ public class PersonalbogenAction implements Action
         .execute(sql, new Object[] { m.getID() }, rs);
     if (idliste.size() > 0)
     {
-      rpt.add(new Paragraph("Eigenschaften"));
+      rpt.add(new Paragraph("Eigenschaften", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Eigenschaftengruppe", Element.ALIGN_LEFT, 100,
           BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Eigenschaft", Element.ALIGN_LEFT, 100,
@@ -654,7 +654,7 @@ public class PersonalbogenAction implements Action
     it.setOrder("ORDER BY datum");
     if (it.size() > 0)
     {
-      rpt.add(new Paragraph("Arbeitseinsätze"));
+      rpt.add(new Paragraph("Arbeitseinsätze", Reporter.getFreeSans(12)));
       rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 30,
           BaseColor.LIGHT_GRAY);
       rpt.addHeaderColumn("Stunden", Element.ALIGN_LEFT, 30,

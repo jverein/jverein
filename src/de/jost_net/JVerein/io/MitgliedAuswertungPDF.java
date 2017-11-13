@@ -25,7 +25,6 @@ import java.util.TreeMap;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -281,10 +280,9 @@ public class MitgliedAuswertungPDF implements IAuswertung
       report.add(new Paragraph(
           String.format("Anzahl %d: %s", list.size(),
               adresstyp.getBezeichnungPlural()),
-          FontFactory.getFont(FontFactory.HELVETICA, 8)));
+          Reporter.getFreeSans(8)));
 
-      report.add(new Paragraph("Parameter",
-          FontFactory.getFont(FontFactory.HELVETICA, 12)));
+      report.add(new Paragraph("Parameter", Reporter.getFreeSans(12)));
 
       report.addHeaderColumn("Parameter", Element.ALIGN_RIGHT, 100,
           BaseColor.LIGHT_GRAY);

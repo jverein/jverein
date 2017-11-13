@@ -25,7 +25,6 @@ import java.util.GregorianCalendar;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -61,7 +60,7 @@ public class MitgliederStatistik
       Reporter reporter = new Reporter(fos, "Mitgliederstatistik", subtitle, 3);
 
       Paragraph pAltersgruppen = new Paragraph("\n" + "Altersgruppen",
-          FontFactory.getFont(FontFactory.HELVETICA, 11));
+          Reporter.getFreeSans(11));
       reporter.add(pAltersgruppen);
 
       reporter.addHeaderColumn("Altersgruppe", Element.ALIGN_CENTER, 100,
@@ -88,7 +87,7 @@ public class MitgliederStatistik
       reporter.closeTable();
 
       Paragraph pBeitragsgruppen = new Paragraph("\n" + "Beitragsgruppen",
-          FontFactory.getFont(FontFactory.HELVETICA, 11));
+          Reporter.getFreeSans(11));
       reporter.add(pBeitragsgruppen);
 
       reporter.addHeaderColumn("Beitragsgruppe", Element.ALIGN_CENTER, 100,
@@ -122,7 +121,7 @@ public class MitgliederStatistik
             "\n" + String.format("Anmeldungen/Abmeldungen (%s - %s)",
                 ttmmjj.format(gj.getBeginnGeschaeftsjahr()),
                 ttmmjj.format(gj.getEndeGeschaeftsjahr())),
-            FontFactory.getFont(FontFactory.HELVETICA, 11));
+            Reporter.getFreeSans(11));
         reporter.add(pGuV);
         reporter.addHeaderColumn("Text", Element.ALIGN_CENTER, 100,
             BaseColor.LIGHT_GRAY);
