@@ -28,6 +28,7 @@ import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.action.MitgliedDetailAction;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.util.Datum;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.calendar.Appointment;
 import de.willuhn.jameica.gui.calendar.AppointmentProvider;
@@ -54,31 +55,24 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
           .createList(Mitglied.class);
       list.addFilter("geburtsdatum is not null");
       list.addFilter("(austritt is null or austritt > ?)", new Date());
-      Calendar calf = Calendar.getInstance();
-      Calendar calt = Calendar.getInstance();
-      Calendar calm = Calendar.getInstance();
+      Calendar cal = Calendar.getInstance(); // Geburtstag des Mitglieds (lfd.
+                                             // Jahr)
 
       List<Appointment> result = new LinkedList<Appointment>();
       while (list.hasNext())
       {
         Mitglied m = list.next();
-        calm.setTime(m.getGeburtsdatum());
-        calf.setTime(from);
-        calf.set(Calendar.DAY_OF_MONTH, calm.get(Calendar.DAY_OF_MONTH));
-        calf.set(Calendar.MONTH, calm.get(Calendar.MONTH));
-        calt.setTime(to);
-        calt.set(Calendar.DAY_OF_MONTH, calm.get(Calendar.DAY_OF_MONTH));
-        calt.set(Calendar.MONTH, calm.get(Calendar.MONTH));
-
-        if (calf.getTime().after(from) && calf.getTime().before(to))
+        cal.setTime(m.getGeburtsdatum());
+        cal.setTime(m.getGeburtsdatum());
+        for (int i = Datum.getJahr(from); i <= Datum.getJahr(to); i++)
         {
-          result.add(new MyAppointment(m, calf.getTime(),
-              calf.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
-        }
-        else if (calt.getTime().after(from) && calt.getTime().before(to))
-        {
-          result.add(new MyAppointment(m, calt.getTime(),
-              calt.get(Calendar.YEAR) - calm.get(Calendar.YEAR)));
+          cal.set(Calendar.YEAR, i);
+          int alter = i - Datum.getJahr(m.getGeburtsdatum());
+          if (alter > 0 && !cal.getTime().before(from)
+              && !cal.getTime().after(to))
+          {
+            result.add(new MyAppointment(m, cal.getTime(), alter));
+          }
         }
       }
       return result;

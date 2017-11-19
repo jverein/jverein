@@ -193,4 +193,11 @@ public class Datum
       return null;
     return new Integer(alter);
   }
+
+  public final static int getJahr(Date datum)
+  {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(datum);
+    return cal.get(Calendar.YEAR);
+  }
 }
