@@ -89,7 +89,7 @@ public class MitgliedskontoControl extends AbstractControl
 {
   public enum DIFFERENZ
   {
-    EGAL("egal"), FEHLBETRAG("Fehlbetrag"), UEBERZAHLUNG("‹berzahlung");
+    EGAL("egal"), FEHLBETRAG("Fehlbetrag"), UEBERZAHLUNG("√úberzahlung");
     private final String titel;
 
     private DIFFERENZ(String titel)
@@ -215,7 +215,7 @@ public class MitgliedskontoControl extends AbstractControl
 
     this.datum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.datum.setTitle("Datum");
-    this.datum.setText("Bitte Datum w‰hlen");
+    this.datum.setText("Bitte Datum w√§hlen");
     this.datum.addListener(new Listener()
     {
 
@@ -334,7 +334,7 @@ public class MitgliedskontoControl extends AbstractControl
 
     this.vondatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.vondatum.setTitle("Anfangsdatum");
-    this.vondatum.setText("Bitte Anfangsdatum w‰hlen");
+    this.vondatum.setText("Bitte Anfangsdatum w√§hlen");
     vondatum.addListener(new FilterListener());
     return vondatum;
   }
@@ -361,7 +361,7 @@ public class MitgliedskontoControl extends AbstractControl
     }
     this.bisdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.bisdatum.setTitle("Endedatum");
-    this.bisdatum.setText("Bitte Endedatum w‰hlen");
+    this.bisdatum.setText("Bitte Endedatum w√§hlen");
     bisdatum.addListener(new FilterListener());
     return bisdatum;
   }
