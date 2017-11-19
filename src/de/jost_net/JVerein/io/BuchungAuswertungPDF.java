@@ -27,7 +27,6 @@ import java.util.List;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.Einstellungen;
@@ -168,7 +167,7 @@ public class BuchungAuswertungPDF
     if (einzel)
     {
       Paragraph pBuchungsart = new Paragraph(bua.getBezeichnung(),
-          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
+          Reporter.getFreeSansBold(10));
       reporter.add(pBuchungsart);
     }
     double buchungsartSumme = 0;

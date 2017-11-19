@@ -167,7 +167,20 @@ public class FormularAufbereitung
   private void goFormularfeld(PdfContentByte contentByte, Formularfeld feld,
       Object val) throws DocumentException, IOException
   {
-    BaseFont bf = BaseFont.createFont(feld.getFont(), BaseFont.CP1250, false);
+    BaseFont bf = null;
+    if (feld.getFont().startsWith("FreeSans"))
+    {
+      String filename = "/fonts/FreeSans";
+      if (feld.getFont().length() > 8)
+      {
+        filename += feld.getFont().substring(9);
+      }
+      bf = BaseFont.createFont(filename+".ttf", BaseFont.IDENTITY_H, true);
+    }
+    else
+    {
+      bf = BaseFont.createFont(feld.getFont(), BaseFont.CP1250, false);
+    }
 
     float x = mm2point(feld.getX().floatValue());
     float y = mm2point(feld.getY().floatValue());

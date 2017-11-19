@@ -319,6 +319,10 @@ public class FormularfeldControl extends AbstractControl
       return font;
     }
     ArrayList<String> fonts = new ArrayList<String>();
+    fonts.add("FreeSans");
+    fonts.add("FreeSans-Bold");
+    fonts.add("FreeSans-BoldOblique");
+    fonts.add("FreeSans-Oblique");
     fonts.add(BaseFont.HELVETICA);
     fonts.add(BaseFont.HELVETICA_BOLD);
     fonts.add(BaseFont.HELVETICA_BOLDOBLIQUE);

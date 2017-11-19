@@ -35,6 +35,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.HyphenationAuto;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -66,6 +67,26 @@ public class Reporter
   private PdfPTable table;
 
   private HyphenationAuto hyph;
+
+  public static Font getFreeSans(float size, BaseColor color)
+  {
+    return FontFactory.getFont("/fonts/FreeSans.ttf", BaseFont.IDENTITY_H, size, Font.UNDEFINED, color);
+  }
+
+  public static Font getFreeSans(float size)
+  {
+    return getFreeSans(size, null);
+  }
+
+  public static Font getFreeSansBold(float size, BaseColor color)
+  {
+    return FontFactory.getFont("/fonts/FreeSansBold.ttf", BaseFont.IDENTITY_H, size, Font.UNDEFINED, color);
+  }
+
+  public static Font getFreeSansBold(float size)
+  {
+    return getFreeSansBold(size, null);
+  }
 
   public Reporter(OutputStream out, String title, String subtitle,
       int maxRecords) throws DocumentException
@@ -120,13 +141,11 @@ public class Reporter
 
     if (title.length() > 0)
     {
-      Paragraph pTitle = new Paragraph(title, FontFactory.getFont(
-          FontFactory.HELVETICA_BOLD, 13));
+      Paragraph pTitle = new Paragraph(title, getFreeSansBold(13));
       pTitle.setAlignment(Element.ALIGN_CENTER);
       rpt.add(pTitle);
 
-      Paragraph psubTitle = new Paragraph(subtitle, FontFactory.getFont(
-          FontFactory.HELVETICA_BOLD, 10));
+      Paragraph psubTitle = new Paragraph(subtitle, getFreeSansBold(10));
       psubTitle.setAlignment(Element.ALIGN_CENTER);
       rpt.add(psubTitle);
     }
@@ -147,8 +166,7 @@ public class Reporter
 
   public void add(String text, int size) throws DocumentException
   {
-    Paragraph p = new Paragraph(text, FontFactory.getFont(
-        FontFactory.HELVETICA_BOLD, size));
+    Paragraph p = new Paragraph(text, getFreeSansBold(size));
     p.setAlignment(Element.ALIGN_LEFT);
     rpt.add(p);
   }
@@ -409,12 +427,12 @@ public class Reporter
     if (silbentrennung)
     {
       cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-          FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
+          getFreeSans(8)).setHyphenation(hyph)));
     }
     else
     {
       cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-          FontFactory.getFont(FontFactory.HELVETICA, 8))));
+          getFreeSans(8))));
     }
     cell.setHorizontalAlignment(align);
     cell.setBackgroundColor(backgroundcolor);
@@ -425,7 +443,7 @@ public class Reporter
       BaseColor backgroundcolor, int colspan)
   {
     PdfPCell cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-        FontFactory.getFont(FontFactory.HELVETICA, 8)).setHyphenation(hyph)));
+        getFreeSans(8)).setHyphenation(hyph)));
     cell.setHorizontalAlignment(align);
     cell.setBackgroundColor(backgroundcolor);
     cell.setColspan(colspan);
@@ -458,13 +476,11 @@ public class Reporter
     Font f = null;
     if (value >= 0)
     {
-      f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL,
-          BaseColor.BLACK);
+      f = getFreeSans(8, BaseColor.BLACK);
     }
     else
     {
-      f = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL,
-          BaseColor.RED);
+      f = getFreeSans(8, BaseColor.RED);
     }
     PdfPCell cell = new PdfPCell(new Phrase(
         Einstellungen.DECIMALFORMAT.format(value), f));

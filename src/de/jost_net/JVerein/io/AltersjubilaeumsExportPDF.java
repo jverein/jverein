@@ -25,7 +25,6 @@ import java.rmi.RemoteException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -93,8 +92,7 @@ public class AltersjubilaeumsExportPDF extends AltersjubilaeumsExport
   {
     Logger.debug(String.format("Altersjubiläum, Jahrgang=%d", jahrgang));
     Paragraph pHeader = new Paragraph("\n"
-        + String.format("%d. Geburtstag", jahrgang), FontFactory.getFont(
-        FontFactory.HELVETICA, 11));
+        + String.format("%d. Geburtstag", jahrgang), Reporter.getFreeSans(11));
     reporter.add(pHeader);
     reporter.addHeaderColumn("Geburtsdatum", Element.ALIGN_CENTER, 50,
         BaseColor.LIGHT_GRAY);

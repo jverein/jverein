@@ -446,7 +446,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (isSammelbestaetigung)
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add(
           "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.",
           9);
@@ -479,14 +479,14 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.newPage();
       rpt.add(getAussteller(), 13);
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add("Anlage zur Sammelbestätigung vom " + (String) map
           .get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 11);
       rpt.add("für den Zeitraum vom "
           + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
           11);
 
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
 
       rpt.addHeaderColumn("Datum", Element.ALIGN_LEFT, 100,
           BaseColor.LIGHT_GRAY);
@@ -538,7 +538,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.closeTable();
       // Etwas Abstand
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       // Nun noch die Legende
       rpt.add("Legende:", 8);
       rpt.add(
@@ -722,16 +722,14 @@ public class SpendenbescheinigungPrintAction implements Action
     if (!isSammelbestaetigung)
     {
       Paragraph p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
+      p.setFont(Reporter.getFreeSans(9));
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk(
           "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ",
-          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk(" Ja ", Reporter.getFreeSansBold(9)));
       p.add(new Chunk(verzichtJa,
           FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
-      p.add(new Chunk("   Nein ",
-          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk("   Nein ", Reporter.getFreeSansBold(9)));
       p.add(new Chunk(verzichtNein,
           FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
@@ -739,7 +737,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
     }
     if (!Einstellungen.getEinstellung().getVorlaeufig())
     {
@@ -779,14 +777,14 @@ public class SpendenbescheinigungPrintAction implements Action
         mitgliedBetraege = (char) 53; // X
       }
       Paragraph p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
+      p.setFont(Reporter.getFreeSans(9));
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk("\n"));
       p.add(new Chunk(
           "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitgliedsbeiträge steuerlich nicht abziehbar sind:"));
       rpt.add(p);
       p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 9));
+      p.setFont(Reporter.getFreeSans(9));
       p.setAlignment(Element.ALIGN_JUSTIFIED);
       p.setFirstLineIndent((float) -18.5);
       p.setIndentationLeft((float) 18.5);
@@ -799,7 +797,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (isSammelbestaetigung)
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add(
           "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.\n",
           8);
@@ -809,7 +807,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add("\n\n", 8);
       rpt.add("\n", 9);
 
@@ -841,14 +839,14 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.newPage();
       rpt.add(getAussteller(), 13);
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add("Anlage zur Sammelbestätigung vom " + (String) map
           .get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 11);
       rpt.add("für den Zeitraum vom "
           + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
           11);
 
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
 
       /* Kopfzeile */
       rpt.addHeaderColumn("Datum der\nZuwendung", Element.ALIGN_LEFT, 150,
@@ -1089,16 +1087,14 @@ public class SpendenbescheinigungPrintAction implements Action
     if (!isSammelbestaetigung)
     {
       Paragraph p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 8));
+      p.setFont(Reporter.getFreeSans(8));
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk(
           "Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: "));
-      p.add(new Chunk(" Ja ",
-          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8)));
+      p.add(new Chunk(" Ja ", Reporter.getFreeSansBold(9)));
       p.add(new Chunk(verzichtJa,
           FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
-      p.add(new Chunk("   Nein ",
-          FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+      p.add(new Chunk("   Nein ", Reporter.getFreeSansBold(9)));
       p.add(new Chunk(verzichtNein,
           FontFactory.getFont(FontFactory.ZAPFDINGBATS, 10)));
       p.add(new Chunk("\n\n"));
@@ -1106,7 +1102,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
     }
     if (Einstellungen.getEinstellung().getVorlaeufig())
     {
@@ -1154,14 +1150,14 @@ public class SpendenbescheinigungPrintAction implements Action
         mitgliedBetraege = (char) 53; // X
       }
       Paragraph p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 8));
+      p.setFont(Reporter.getFreeSans(8));
       p.setAlignment(Element.ALIGN_LEFT);
       p.add(new Chunk("\n"));
       p.add(new Chunk(
           "Nur für steuerbegünstigte Einrichtungen, bei denen die Mitgliedsbeiträge steuerlich nicht abziehbar sind:"));
       rpt.add(p);
       p = new Paragraph();
-      p.setFont(FontFactory.getFont(FontFactory.HELVETICA, 8));
+      p.setFont(Reporter.getFreeSans(8));
       p.setAlignment(Element.ALIGN_JUSTIFIED);
       p.setFirstLineIndent((float) -18.5);
       p.setIndentationLeft((float) 18.5);
@@ -1174,7 +1170,7 @@ public class SpendenbescheinigungPrintAction implements Action
 
     if (isSammelbestaetigung)
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add(
           "Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen oder ähnliches ausgestellt wurden und werden.\n",
           8);
@@ -1184,7 +1180,7 @@ public class SpendenbescheinigungPrintAction implements Action
     }
     else
     {
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add("\n\n", 8);
       rpt.add("\n", 9);
 
@@ -1220,14 +1216,14 @@ public class SpendenbescheinigungPrintAction implements Action
 
       rpt.newPage();
       rpt.add(getAussteller(), 13);
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
       rpt.add("Anlage zur Sammelbestätigung vom " + (String) map
           .get(SpendenbescheinigungVar.BESCHEINIGUNGDATUM.getName()), 11);
       rpt.add("für den Zeitraum vom "
           + (String) map.get(SpendenbescheinigungVar.SPENDENZEITRAUM.getName()),
           11);
 
-      rpt.add(new Paragraph(" "));
+      rpt.add(new Paragraph(" ", Reporter.getFreeSans(12)));
 
       /* Kopfzeile */
       rpt.addHeaderColumn("Datum der\nZuwendung", Element.ALIGN_LEFT, 150,
