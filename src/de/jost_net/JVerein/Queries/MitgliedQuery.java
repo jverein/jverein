@@ -275,7 +275,8 @@ public class MitgliedQuery
     String tmpSuchname = (String) control.getSuchname().getValue();
     if (!batch && tmpSuchname.length() > 0)
     {
-      addCondition("(lower(name) like '" + tmpSuchname.toLowerCase() + "%')");
+      addCondition("(lower(name) like ?)");
+      bedingungen.add(tmpSuchname.toLowerCase() + "%");
     }
 
     if (control.getGeburtsdatumvon().getValue() != null)
