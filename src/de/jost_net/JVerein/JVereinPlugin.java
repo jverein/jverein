@@ -23,6 +23,7 @@ import de.jost_net.JVerein.io.UmsatzMessageConsumer;
 import de.jost_net.JVerein.rmi.JVereinDBService;
 import de.jost_net.JVerein.server.JVereinDBServiceImpl;
 import de.jost_net.JVerein.util.HelpConsumer;
+import de.jost_net.JVerein.util.MemoryAnalyzer;
 import de.willuhn.jameica.gui.extension.ExtensionRegistry;
 import de.willuhn.jameica.messaging.LookupService;
 import de.willuhn.jameica.messaging.MessageConsumer;
@@ -59,6 +60,11 @@ public class JVereinPlugin extends AbstractPlugin
     super();
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
+    if (settings.getBoolean("memlogger", false))
+    {
+      MemoryAnalyzer mem = new MemoryAnalyzer();
+      mem.start();
+    }
   }
 
   /**
@@ -100,8 +106,8 @@ public class JVereinPlugin extends AbstractPlugin
     {
 
       @Override
-      public void call(JVereinDBService service) throws ApplicationException,
-          RemoteException
+      public void call(JVereinDBService service)
+          throws ApplicationException, RemoteException
       {
         service.checkConsistency();
       }
@@ -177,8 +183,8 @@ public class JVereinPlugin extends AbstractPlugin
      * @throws ApplicationException
      * @throws RemoteException
      */
-    public void call(JVereinDBService service) throws ApplicationException,
-        RemoteException;
+    public void call(JVereinDBService service)
+        throws ApplicationException, RemoteException;
   }
 
   /**
@@ -209,8 +215,8 @@ public class JVereinPlugin extends AbstractPlugin
     catch (Exception e)
     {
       Logger.error("Fehler beim Methodenaufruf", e);
-      throw new ApplicationException(
-          "Fehler beim Initialisieren der Datenbank", e);
+      throw new ApplicationException("Fehler beim Initialisieren der Datenbank",
+          e);
     }
     finally
     {
@@ -234,8 +240,8 @@ public class JVereinPlugin extends AbstractPlugin
     {
       return false;
     }
-    if (Application.getPluginLoader().getPlugin(
-        "de.willuhn.jameica.messaging.Plugin") != null)
+    if (Application.getPluginLoader()
+        .getPlugin("de.willuhn.jameica.messaging.Plugin") != null)
     {
       Logger.info("Archiv-Plugin ist lokal installiert");
       return true;
