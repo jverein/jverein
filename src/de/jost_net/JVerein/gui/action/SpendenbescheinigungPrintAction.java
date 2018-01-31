@@ -154,7 +154,7 @@ public class SpendenbescheinigungPrintAction implements Action
       }
 
       settings.setAttribute("lastdir", path);
-      path = path.endsWith("\\") ? path : path + "\\";
+      path = path.endsWith(File.separator) ? path : path + File.separator;
       if (!standardPdf)
       {
         // Check ob auch für alle Spendenbescheinigungen ein Forumular
