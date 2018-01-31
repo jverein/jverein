@@ -112,8 +112,9 @@ public class MailControl extends AbstractControl
     {
       DBIterator<MailEmpfaenger> it = Einstellungen.getDBService()
           .createList(MailEmpfaenger.class);
+      it.join("MITGLIED");
       it.addFilter("mail = ?", new Object[] { getMail().getID() });
-      it.setOrder("order by name, vorname");
+      it.setOrder("order by mitglied.name, mitglied.vorname");
       TreeSet<MailEmpfaenger> empf = new TreeSet<MailEmpfaenger>();
       while (it.hasNext())
       {
