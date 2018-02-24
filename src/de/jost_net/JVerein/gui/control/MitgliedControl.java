@@ -1871,6 +1871,7 @@ public class MitgliedControl extends AbstractControl
     DBIterator<Zusatzbetrag> wiedervorlagen = service
         .createList(Wiedervorlage.class);
     wiedervorlagen.addFilter("mitglied = " + getMitglied().getID());
+    wiedervorlagen.setOrder("ORDER BY datum DESC");
     wiedervorlageList = new TablePart(wiedervorlagen,
         new WiedervorlageAction(getMitglied()));
     wiedervorlageList.setRememberColWidths(true);
