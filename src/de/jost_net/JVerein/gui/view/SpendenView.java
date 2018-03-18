@@ -35,9 +35,8 @@ import de.willuhn.jameica.gui.util.SWTUtil;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 import de.willuhn.jameica.hbci.Settings;
 import de.willuhn.jameica.hbci.rmi.AuslandsUeberweisung;
-import de.willuhn.jameica.hbci.rmi.Dauerauftrag;
+import de.willuhn.jameica.hbci.rmi.SepaDauerauftrag;
 import de.willuhn.jameica.hbci.rmi.Turnus;
-import de.willuhn.jameica.hbci.rmi.Ueberweisung;
 import de.willuhn.jameica.messaging.StatusBarMessage;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.logging.Logger;
@@ -62,17 +61,17 @@ public class SpendenView extends AbstractView
 
       Container container = new SimpleContainer(comp);
       container.addHeadline("Warum eigentlich?" + "  ");
-      container
-          .addText(
-              "JVerein wird in meiner Freizeit entwickelt. Ursprünglich habe ich es entwickelt, da mir bei der "
-                  + "Übernahme meiner Tätigkeit als Kassierer eines Vereins keine geeignete Software zur Verfügung stand, die unter "
-                  + "LINUX ablauffähig ist. Später habe ich mich entschlossen JVerein als OpenSource zur Verfügung zu stellen. "
-                  + "Inzwischen nutzen ca. 2000 - 3000 Vereine (geschätzt aufgrund der Downloadzahlen und der Zuschriften) JVerein. "
-                  + "Es sind jede Menge Funktionalitäten zusätzlich entwickelt worden. Benutzer sind der Meinung, dass JVerein "
-                  + "den Vergleich mit professionellen Lösungen für viel Geld nicht scheuen muss. "
-                  + "\n\nZur Deckung der Kosten für Web-Server und Hardware, bitte ich um einen kleinen Beitrag. Der kann entweder "
-                  + "einmalig oder laufend geleistet werden. Nicht vergessen: Auftrag in Hibiscus abschicken."
-                  + "\n\nVielen Dank!\n\nHeiner Jostkleigrewe", true);
+      container.addText(
+          "JVerein wird in meiner Freizeit entwickelt. Ursprünglich habe ich es entwickelt, da mir bei der "
+              + "Übernahme meiner Tätigkeit als Kassierer eines Vereins keine geeignete Software zur Verfügung stand, die unter "
+              + "LINUX ablauffähig ist. Später habe ich mich entschlossen JVerein als OpenSource zur Verfügung zu stellen. "
+              + "Inzwischen nutzen ca. 2000 - 3000 Vereine (geschätzt aufgrund der Downloadzahlen und der Zuschriften) JVerein. "
+              + "Es sind jede Menge Funktionalitäten zusätzlich entwickelt worden. Benutzer sind der Meinung, dass JVerein "
+              + "den Vergleich mit professionellen Lösungen für viel Geld nicht scheuen muss. "
+              + "\n\nZur Deckung der Kosten für Web-Server und Hardware, bitte ich um einen kleinen Beitrag. Der kann entweder "
+              + "einmalig oder laufend geleistet werden. Nicht vergessen: Auftrag in Hibiscus abschicken."
+              + "\n\nVielen Dank!\n\nHeiner Jostkleigrewe",
+          true);
 
       Canvas c = SWTUtil.getCanvas(comp, SWTUtil.getImage("JVerein.png"),
           SWT.TOP | SWT.LEFT);
@@ -85,7 +84,8 @@ public class SpendenView extends AbstractView
       final char[] blz = new char[] { '2', '0', '0', '4', '1', '1', '1', '1' };
 
       final char[] iban = new char[] { 'D', 'E', '1', '5', '2', '0', '0', '4',
-          '1', '1', '1', '1', '0', '5', '6', '9', '1', '5', '3', '0', '0', '0' };
+          '1', '1', '1', '1', '0', '5', '6', '9', '1', '5', '3', '0', '0',
+          '0' };
       final char[] bic = new char[] { 'C', 'O', 'B', 'A', 'D', 'E', 'H', 'D',
           'X', 'X', 'X' };
 
@@ -99,8 +99,8 @@ public class SpendenView extends AbstractView
         {
           try
           {
-            Dauerauftrag d = (Dauerauftrag) Settings.getDBService()
-                .createObject(Dauerauftrag.class, null);
+            SepaDauerauftrag d = (SepaDauerauftrag) Settings.getDBService()
+                .createObject(SepaDauerauftrag.class, null);
             d.setGegenkontoBLZ(new String(blz));
             d.setGegenkontoNummer(new String(kto));
             d.setGegenkontoName(name);
@@ -110,50 +110,25 @@ public class SpendenView extends AbstractView
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, 7);
             d.setErsteZahlung(cal.getTime());
-            Turnus turnus = (Turnus) Settings.getDBService().createObject(
-                Turnus.class, null);
+            Turnus turnus = (Turnus) Settings.getDBService()
+                .createObject(Turnus.class, null);
             turnus.setIntervall(1);
             turnus.setTag(cal.get(Calendar.DAY_OF_MONTH));
             turnus.setZeiteinheit(Turnus.ZEITEINHEIT_MONATLICH);
             d.setTurnus(turnus);
-            new de.willuhn.jameica.hbci.gui.action.DauerauftragNew()
+            new de.willuhn.jameica.hbci.gui.action.SepaDauerauftragNew()
                 .handleAction(d);
           }
           catch (Exception e)
           {
             Logger.error("unable to create dauerauftrag", e);
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage("Fehler beim Anlegen des Dauerauftrages: "
-                    + e.getMessage(), StatusBarMessage.TYPE_ERROR));
+            Application.getMessagingFactory()
+                .sendMessage(new StatusBarMessage(
+                    "Fehler beim Anlegen des Dauerauftrages: " + e.getMessage(),
+                    StatusBarMessage.TYPE_ERROR));
           }
         }
       }, null, false, "emblem-special.png");
-      buttons.addButton("...oder Überweisung", new Action()
-      {
-        @Override
-        public void handleAction(Object context)
-        {
-          try
-          {
-            Ueberweisung u = (Ueberweisung) Settings.getDBService()
-                .createObject(Ueberweisung.class, null);
-            u.setGegenkontoBLZ(new String(blz));
-            u.setGegenkontoNummer(new String(kto));
-            u.setGegenkontoName(name);
-            u.setZweck("Beitrag Weiterentwicklung");
-            u.setZweck2("JVerein");
-            new de.willuhn.jameica.hbci.gui.action.UeberweisungNew()
-                .handleAction(u);
-          }
-          catch (Exception e)
-          {
-            Logger.error("unable to create ueberweisung", e);
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage("Fehler beim Anlegen der Überweisung: "
-                    + e.getMessage(), StatusBarMessage.TYPE_ERROR));
-          }
-        }
-      }, null, false, "stock_next.png");
       buttons.addButton("...oder SEPA-Überweisung", new Action()
       {
         @Override
@@ -173,10 +148,9 @@ public class SpendenView extends AbstractView
           catch (Exception e)
           {
             Logger.error("unable to create sepa ueberweisung", e);
-            Application.getMessagingFactory().sendMessage(
-                new StatusBarMessage(
-                    "Fehler beim Anlegen der SEPA-Überweisung: "
-                        + e.getMessage(), StatusBarMessage.TYPE_ERROR));
+            Application.getMessagingFactory().sendMessage(new StatusBarMessage(
+                "Fehler beim Anlegen der SEPA-Überweisung: " + e.getMessage(),
+                StatusBarMessage.TYPE_ERROR));
           }
         }
       }, null, false, "stock_next.png");
