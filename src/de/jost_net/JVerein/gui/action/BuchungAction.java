@@ -60,11 +60,11 @@ public class BuchungAction implements Action
     }
     try
     {
-      if (b.getSplitId() == null || splitbuchung)
+      if (b.getSplitId() == null || splitbuchung && !b.isToDelete())
       {
         GUI.startView(BuchungView.class.getName(), b);
       }
-      else
+      else if (!b.isToDelete())
       {
         SplitbuchungsContainer.init(b);
         GUI.startView(SplitBuchungView.class.getName(), b);

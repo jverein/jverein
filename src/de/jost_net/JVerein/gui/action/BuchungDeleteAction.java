@@ -34,6 +34,13 @@ import de.willuhn.util.ApplicationException;
  */
 public class BuchungDeleteAction implements Action
 {
+  private boolean splitbuchung;
+
+  public BuchungDeleteAction(boolean splitbuchung)
+  {
+    this.splitbuchung = splitbuchung;
+  }
+
   @Override
   public void handleAction(Object context) throws ApplicationException
   {
@@ -98,10 +105,11 @@ public class BuchungDeleteAction implements Action
           bu.delete();
           count++;
         }
-        else
+        else if (splitbuchung)
         {
           bu.setDelete(true);
           Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
+          count++;
         }
       }
       if (count > 0)

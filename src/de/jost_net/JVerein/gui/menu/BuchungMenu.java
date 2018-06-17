@@ -41,42 +41,19 @@ import de.willuhn.logging.Logger;
  */
 public class BuchungMenu extends ContextMenu
 {
-
   /**
    * Erzeugt ein Kontext-Menu fuer die Liste der Buchungen.
    */
-  public BuchungMenu()
-  {
-    this(null);
-  }
 
   public BuchungMenu(BuchungsControl control)
   {
-    boolean splitbuchung = false;
-    if (control != null)
-    {
-      try
-      {
-        if (control.getBuchung().getSplitId() != null)
-        {
-          splitbuchung = true;
-        }
-      }
-      catch (RemoteException e)
-      {
-        Logger.error("Fehler", e);
-      }
-    }
-    if (!splitbuchung)
-    {
-      addItem(new ContextMenuItem("neue Buchung", new BuchungNeuAction(),
-          "document-new.png"));
-    }
+    addItem(new ContextMenuItem("neue Buchung", new BuchungNeuAction(),
+        "document-new.png"));
     addItem(new CheckedSingleContextMenuItem("bearbeiten", new BuchungAction(
-        splitbuchung), "edit.png"));
-    addItem(new BuchungItem("duplizieren", new BuchungDuplizierenAction(),
+        false), "edit.png"));
+    addItem(new SingleBuchungItem("duplizieren", new BuchungDuplizierenAction(),
         "copy_v2.png"));
-    addItem(new BuchungItem("Splitbuchung", new SplitBuchungAction(),
+    addItem(new SingleBuchungItem("Splitbuchung", new SplitBuchungAction(),
         "edit.png"));
     addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
@@ -87,18 +64,13 @@ public class BuchungMenu extends ContextMenu
         new BuchungProjektZuordnungAction(control), "projects.png"));
     addItem(new CheckedContextMenuItem("Kontoauszug zuordnen",
         new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));
-    addItem(new CheckedContextMenuItem("löschen...", new BuchungDeleteAction(),
+    addItem(new BuchungItem("löschen...", new BuchungDeleteAction(false),
         "user-trash.png"));
   }
 
-  private static class BuchungItem extends CheckedContextMenuItem
+  private static class SingleBuchungItem extends CheckedSingleContextMenuItem
   {
-
-    /**
-     * @param text
-     * @param action
-     */
-    private BuchungItem(String text, Action action, String icon)
+    private SingleBuchungItem(String text, Action action, String icon)
     {
       super(text, action, icon);
     }
@@ -111,22 +83,50 @@ public class BuchungMenu extends ContextMenu
         Buchung b = (Buchung) o;
         try
         {
-          if (b.getSplitId() == null)
-          {
-            return true;
-          }
-          else
-          {
-            return false;
-          }
+          return b.getSplitId() == null;
         }
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
         }
       }
-      return super.isEnabledFor(o);
+      return false;
     }
   }
 
+  private static class BuchungItem extends CheckedContextMenuItem
+  {
+    private BuchungItem(String text, Action action, String icon)
+    {
+      super(text, action, icon);
+    }
+
+    @Override
+    public boolean isEnabledFor(Object o)
+    {
+      try
+      {
+        if (o instanceof Buchung)
+        {
+          return ((Buchung) o).getSplitId() == null;
+        }
+        if (o instanceof Buchung[])
+        {
+          for (Buchung bu : ((Buchung[]) o))
+          {
+            if (bu.getSplitId() != null)
+            {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+      catch (RemoteException e)
+      {
+        Logger.error("Fehler", e);
+      }
+      return false;
+    }
+  }
 }
