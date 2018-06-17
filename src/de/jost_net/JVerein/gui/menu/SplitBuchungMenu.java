@@ -72,17 +72,16 @@ public class SplitBuchungMenu extends ContextMenu
     {
       if (o instanceof Buchung)
       {
-        Buchung b = (Buchung) o;
         try
         {
-          return !b.isToDelete();
+          return !((Buchung) o).isToDelete();
         }
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
         }
       }
-      return super.isEnabledFor(o);
+      return false;
     }
   }
 
@@ -108,7 +107,7 @@ public class SplitBuchungMenu extends ContextMenu
           Logger.error("Fehler", e);
         }
       }
-      return super.isEnabledFor(o);
+      return false;
     }
   }
 
@@ -133,7 +132,7 @@ public class SplitBuchungMenu extends ContextMenu
           }
           catch (RemoteException e)
           {
-            String fehler = "Fehler beim Löschen der Buchung.";
+            String fehler = "Fehler beim Wiederherstellen der Buchung.";
             GUI.getStatusBar().setErrorText(fehler);
             Logger.error(fehler, e);
           }
@@ -146,17 +145,16 @@ public class SplitBuchungMenu extends ContextMenu
     {
       if (o instanceof Buchung)
       {
-        Buchung b = (Buchung) o;
         try
         {
-          return b.isToDelete();
+          return ((Buchung) o).isToDelete();
         }
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
         }
       }
-      return super.isEnabledFor(o);
+      return false;
     }
   }
 }
