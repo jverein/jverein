@@ -37,8 +37,8 @@
 	  class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
   </services>
 	
-  <requires jameica="2.6+">
-    <import plugin="hibiscus" version="2.6.19+"/>
+  <requires jameica="2.8+">
+    <import plugin="hibiscus" version="2.8+"/>
   </requires>
 	
 </plugin>
