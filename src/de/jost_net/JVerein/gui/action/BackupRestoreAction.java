@@ -127,6 +127,7 @@ public class BackupRestoreAction implements Action
           reader = new XmlReader(is, new ObjectFactory()
           {
 
+            @Override
             public GenericObject create(String type, String id, Map values)
                 throws Exception
             {
