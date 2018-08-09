@@ -42,7 +42,8 @@ public class AbbuchungsmodusInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<AbbuchungsmodusObject> init()
+      throws RemoteException
   {
     ArrayList<AbbuchungsmodusObject> l = new ArrayList<AbbuchungsmodusObject>();
     l.add(new AbbuchungsmodusObject(Abrechnungsmodi.KEINBEITRAG));
@@ -51,7 +52,8 @@ public class AbbuchungsmodusInput extends SelectInput
       case GLEICHERTERMINFUERALLE:
       case FLEXIBEL:
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ALLE));
-        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+        l.add(
+            new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ABGEMELDETEMITGLIEDER));
         break;
       case MONATLICH12631:
@@ -63,12 +65,13 @@ public class AbbuchungsmodusInput extends SelectInput
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.HA));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.VI));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.MO));
-        l.add(new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
+        l.add(
+            new AbbuchungsmodusObject(Abrechnungsmodi.EINGETRETENEMITGLIEDER));
         l.add(new AbbuchungsmodusObject(Abrechnungsmodi.ABGEMELDETEMITGLIEDER));
         break;
     }
-    return PseudoIterator.fromArray(l.toArray(new AbbuchungsmodusObject[l
-        .size()]));
+    return PseudoIterator
+        .fromArray(l.toArray(new AbbuchungsmodusObject[l.size()]));
   }
 
   /**
