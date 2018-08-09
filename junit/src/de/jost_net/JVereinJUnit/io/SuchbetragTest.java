@@ -101,6 +101,7 @@ public class SuchbetragTest
     Assert.assertEquals(Suchstrategie.BEREICH, sb.getSuchstrategie());
   }
 
+  @SuppressWarnings("unused")
   @Test
   public void test09() throws Exception
   {
@@ -115,6 +116,7 @@ public class SuchbetragTest
     }
   }
 
+  @SuppressWarnings("unused")
   @Test
   public void test10() throws Exception
   {
@@ -129,6 +131,7 @@ public class SuchbetragTest
     }
   }
 
+  @SuppressWarnings("unused")
   @Test
   public void test11() throws Exception
   {
@@ -143,6 +146,7 @@ public class SuchbetragTest
     }
   }
 
+  @SuppressWarnings("unused")
   @Test
   public void test12() throws Exception
   {
