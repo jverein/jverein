@@ -52,8 +52,8 @@ public class DBTool2
               rsC.getString("TYPE_NAME"), rsC.getString("COLUMN_SIZE"),
               rsC.getString("IS_NULLABLE"), rsC.getString("IS_AUTOINCREMENT"));
         }
-        ResultSet rsI = meta.getIndexInfo("%", "%",
-            rsT.getString("TABLE_NAME"), false, true);
+        ResultSet rsI = meta.getIndexInfo("%", "%", rsT.getString("TABLE_NAME"),
+            false, true);
         while (rsI.next())
         {
           pw.format("I %s\n", rsI.getString("COLUMN_NAME"));
@@ -94,13 +94,14 @@ public class DBTool2
     }
   }
 
-  public Connection getConnection(String url) throws ClassNotFoundException,
-      SQLException
+  public Connection getConnection(String url)
+      throws ClassNotFoundException, SQLException
   {
     Class.forName("org.h2.Driver");
     return DriverManager.getConnection(url, "jverein", "jverein");
   }
 
+  @SuppressWarnings("unused")
   public static void main(String[] a)
   {
     new DBTool2(
