@@ -105,6 +105,7 @@ public class DBTool
         "jverein");
   }
 
+  @SuppressWarnings("unused")
   public static void main(String[] a)
   {
     new DBTool();
