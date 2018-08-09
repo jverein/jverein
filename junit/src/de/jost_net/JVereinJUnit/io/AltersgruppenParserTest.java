@@ -51,6 +51,7 @@ public class AltersgruppenParserTest
     assertEquals(100, vb.getBis());
   }
 
+  @SuppressWarnings("unused")
   @Test
   public void test02() throws ApplicationException
   {
