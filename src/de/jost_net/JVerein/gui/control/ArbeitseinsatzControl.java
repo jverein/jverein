@@ -482,12 +482,13 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   }
 
-  private GenericIterator getIterator() throws RemoteException
+  private GenericIterator<ArbeitseinsatzZeile> getIterator()
+      throws RemoteException
   {
     ArrayList<ArbeitseinsatzZeile> zeile = arbeitseinsatzueberpruefungList
         .getInfo();
 
-    GenericIterator gi = PseudoIterator
+    GenericIterator<ArbeitseinsatzZeile> gi = PseudoIterator
         .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
     return gi;
   }
