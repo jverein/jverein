@@ -74,7 +74,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   @Override
   protected void open()
   {
-    //
+    mitglieder = new ArrayList<Mitglied>();
   }
 
   @Override
