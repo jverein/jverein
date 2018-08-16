@@ -16,14 +16,16 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.action;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.jost_net.JVerein.Einstellungen;
-import de.jost_net.JVerein.io.FileViewer;
 import de.jost_net.JVerein.io.VCardTool;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.util.Dateiname;
@@ -31,10 +33,10 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
-import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
+import de.willuhn.util.Settings;
 import ezvcard.Ezvcard;
 import ezvcard.VCardVersion;
 
@@ -72,8 +74,8 @@ public class MitgliedVCardDateiAction implements Action
         {
           fd.setFilterPath(path);
         }
-        fd.setFileName(new Dateiname("vCards", "", Einstellungen
-            .getEinstellung().getDateinamenmuster(), "VCF").get());
+        fd.setFileName(new Dateiname("vCards", "",
+            Einstellungen.getEinstellung().getDateinamenmuster(), "VCF").get());
         fd.setFilterExtensions(new String[] { "*.VCF" });
 
         String s = fd.open();
@@ -86,6 +88,8 @@ public class MitgliedVCardDateiAction implements Action
           s = s + ".VCF";
         }
         final File file = new File(s);
+        final BufferedWriter w = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
         final ArrayList<Mitglied> mitglieder = mitgl;
         settings.setAttribute("lastdir", file.getParent());
         BackgroundTask t = new BackgroundTask()
@@ -96,8 +100,8 @@ public class MitgliedVCardDateiAction implements Action
           {
             try
             {
-              Ezvcard.write(VCardTool.getVCards(mitglieder)).version(VCardVersion.V3_0).go(file);
-              FileViewer.show(file);
+              Ezvcard.write(VCardTool.getVCards(mitglieder))
+                  .version(VCardVersion.V4_0).go(w);
             }
             catch (Exception re)
             {
@@ -120,7 +124,7 @@ public class MitgliedVCardDateiAction implements Action
           }
         };
         Application.getController().start(t);
-       }
+      }
       else
       {
         throw new ApplicationException("Kein Mitglied ausgewählt");

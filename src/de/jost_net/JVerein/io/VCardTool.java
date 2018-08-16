@@ -37,7 +37,7 @@ import ezvcard.property.Uid;
 public class VCardTool
 {
 
-  public static ArrayList<VCard> getVCards(ArrayList<Mitglied> mitglieder)
+  public static VCard[] getVCards(ArrayList<Mitglied> mitglieder)
       throws RemoteException
   {
     ArrayList<VCard> ret = new ArrayList<VCard>();
@@ -65,6 +65,10 @@ public class VCardTool
       {
         vcard.setGender(Gender.female());
       }
+      if (m.getGeschlecht().equalsIgnoreCase("o"))
+      {
+        vcard.setGender(Gender.other());
+      }
       if (m.getPersonenart().equals("n"))
       {
         StructuredName n = new StructuredName();
@@ -82,7 +86,7 @@ public class VCardTool
       adr.setPostalCode(m.getPlz());
       adr.setCountry(m.getStaat());
       adr.setLabel(Adressaufbereitung.getAdressfeld(m));
-      adr.addType(AddressType.HOME);
+      adr.getTypes().add(AddressType.HOME);
       vcard.addAddress(adr);
 
       if (m.getTelefondienstlich().length() > 0)
@@ -104,15 +108,14 @@ public class VCardTool
       }
       // vcard.setCategories("widgetphile", "biker", "vCard expert");
 
-      // File file = new File("portrait.jpg");
-      // Photo photo = new Photo(file, ImageType.JPEG);
-      // vcard.addPhoto(photo);
-
       Uid uid = new Uid(m.getID());
       vcard.setUid(uid);
       vcard.setRevision(Revision.now());
+
       ret.add(vcard);
     }
-    return ret;
+    VCard list2[] = new VCard[ret.size()];
+    list2 = ret.toArray(list2);
+    return list2;
   }
 }
