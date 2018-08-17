@@ -85,6 +85,18 @@ public class SplitbuchungsContainer
     return splitbuchungen;
   }
 
+  public static Buchung getMaster() throws RemoteException
+  {
+    for (Buchung b : splitbuchungen)
+    {
+      if (b.getSplitTyp() == SplitbuchungTyp.HAUPT)
+      {
+        return b;
+      }
+    }
+    throw new RemoteException("Hauptbuchung fehlt");
+  }
+
   public static void add(Buchung b) throws RemoteException, ApplicationException
   {
     b.plausi();

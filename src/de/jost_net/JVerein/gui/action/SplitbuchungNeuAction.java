@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.gui.view.BuchungView;
+import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
@@ -31,19 +32,10 @@ public class SplitbuchungNeuAction implements Action
   @Override
   public void handleAction(Object context)
   {
-    Buchung buch;
-    Buchung master = null;
-    if (context instanceof Buchung)
-    {
-      master = (Buchung) context;
-    }
-    if (master == null)
-    {
-      return;
-    }
     try
     {
-      buch = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
+      Buchung master = SplitbuchungsContainer.getMaster();
+      Buchung buch = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
           null);
       buch.setAuszugsnummer(master.getAuszugsnummer());
       buch.setBlattnummer(master.getBlattnummer());

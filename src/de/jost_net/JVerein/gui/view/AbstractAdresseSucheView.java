@@ -108,6 +108,12 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     buttons.paint(this.getParent());
   }
 
+  @Override
+  public void unbind()
+  {
+    p.removeAll();
+  }
+
   public void TabRefresh()
   {
     try
