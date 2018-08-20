@@ -90,15 +90,15 @@ public class BuchungslisteView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
+        DokumentationUtil.BUCHUNGEN, false, "question-circle.png");
     buttons.addButton("Import", new BuchungImportAction(), null, false,
-        "import_obj.gif");
+        "file-import.png");
     buttons.addButton(control.getStartCSVAuswertungButton());
     buttons.addButton(control.getStartAuswertungBuchungsjournalButton());
     buttons.addButton(control.getStartAuswertungEinzelbuchungenButton());
     buttons.addButton(control.getStartAuswertungSummenButton());
     buttons.addButton("neu", new BuchungNeuAction(), control, false,
-        "document-new.png");
+        "file.png");
     buttons.paint(this.getParent());
   }
 }

@@ -51,7 +51,8 @@ public class MyItem implements NavigationItem
     this(item, navitext, action, null);
   }
 
-  public MyItem(NavigationItem item, String navitext, Action action, String icon)
+  public MyItem(NavigationItem item, String navitext, Action action,
+      String icon)
   {
     this.parent = item;
     this.action = action;
@@ -68,7 +69,7 @@ public class MyItem implements NavigationItem
   {
     if (action == null)
     {
-      return SWTUtil.getImage(icon != null ? icon : "folder.png");
+      return SWTUtil.getImage(icon != null ? icon : "folder1.png");
     }
     else
     {
@@ -84,7 +85,7 @@ public class MyItem implements NavigationItem
   {
     if (action == null)
     {
-      return SWTUtil.getImage(icon != null ? icon : "folder-open.png");
+      return SWTUtil.getImage(icon != null ? icon : "folder1-open.png");
     }
     else
     {
@@ -181,8 +182,8 @@ public class MyItem implements NavigationItem
   {
     List list = PseudoIterator.asList(this.parent.getPath());
     list.add(this);
-    return PseudoIterator.fromArray((NavigationItem[]) list
-        .toArray(new NavigationItem[list.size()]));
+    return PseudoIterator.fromArray(
+        (NavigationItem[]) list.toArray(new NavigationItem[list.size()]));
   }
 
   /**

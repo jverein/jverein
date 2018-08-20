@@ -33,14 +33,14 @@ public class DokumentMenu extends ContextMenu
   {
     new ContextMenuItem();
     addItem(new CheckedContextMenuItem("anzeigen", new DokumentShowAction(),
-        "show.png"));
+        "eye.png"));
     addItem(new CheckedContextMenuItem("Infos bearbeiten",
         new DokumentInfoBearbeitenAction(), "edit.png"));
     if (enabled)
     {
       addItem(ContextMenuItem.SEPARATOR);
       addItem(new CheckedContextMenuItem("löschen...",
-          new DokumentDeleteAction(), "user-trash.png"));
+          new DokumentDeleteAction(), "trash-alt.png"));
     }
   }
 }

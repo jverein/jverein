@@ -66,7 +66,7 @@ public class MailAuswahlMenu extends ContextMenu
 
       }
 
-    }, "variable_view.gif"));
+    }, "bookmark.png"));
     addItem(new CheckedContextMenuItem("Vorschau", new Action()
     {
 
@@ -93,6 +93,6 @@ public class MailAuswahlMenu extends ContextMenu
 
     }, "edit.png" /* "mail-message-new.png" */));
     addItem(new CheckedContextMenuItem("entfernen",
-        new MailAuswahlDeleteAction(control), "user-trash.png"));
+        new MailAuswahlDeleteAction(control), "trash-alt.png"));
   }
 }

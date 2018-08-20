@@ -39,7 +39,7 @@ public class BuchungsuebernahmeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGSUEBERNAHME, false, "help-browser.png");
+        DokumentationUtil.BUCHUNGSUEBERNAHME, false, "question-circle.png");
     buttons.addButton("Übernahme", new Action()
     {
       @Override
@@ -47,7 +47,7 @@ public class BuchungsuebernahmeView extends AbstractView
       {
         new Buchungsuebernahme();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

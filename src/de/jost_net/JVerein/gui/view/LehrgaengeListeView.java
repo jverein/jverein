@@ -41,7 +41,7 @@ public class LehrgaengeListeView extends AbstractView
     control.getLehrgaengeList().paint(this.getParent());
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.LEHRGANG, false, "help-browser.png");
+        DokumentationUtil.LEHRGANG, false, "question-circle.png");
     buttons.paint(this.getParent());
   }
 }

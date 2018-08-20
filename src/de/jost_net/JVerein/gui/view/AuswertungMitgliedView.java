@@ -93,7 +93,7 @@ public class AuswertungMitgliedView extends AbstractView
     // Button-Bereich
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "help-browser.png");
+        DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "question-circle.png");
     buttons.addButton(control.getVorlagenCsvEditButton());
     buttons.addButton(control.getStartAuswertungButton());
     buttons.paint(getParent());

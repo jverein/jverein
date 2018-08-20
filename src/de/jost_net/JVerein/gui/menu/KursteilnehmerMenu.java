@@ -35,10 +35,10 @@ public class KursteilnehmerMenu extends ContextMenu
   public KursteilnehmerMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("Abbuchungsdatum löschen...",
-        new KursteilnehmerAbuResetAction(table), "user-trash.png"));
+        new KursteilnehmerAbuResetAction(table), "trash-alt.png"));
     addItem(new CheckedContextMenuItem("Zum Mitglied machen",
-        new KursteilnehmerWirdMitgliedAction(), "system-users.png"));
+        new KursteilnehmerWirdMitgliedAction(), "exchange-alt.png"));
     addItem(new CheckedContextMenuItem("löschen...",
-        new KursteilnehmerDeleteAction(), "user-trash.png"));
+        new KursteilnehmerDeleteAction(), "trash-alt.png"));
   }
 }

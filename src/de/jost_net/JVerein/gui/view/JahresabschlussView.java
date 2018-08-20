@@ -45,7 +45,7 @@ public class JahresabschlussView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.JAHRESABSCHLUSS, false, "help-browser.png");
+        DokumentationUtil.JAHRESABSCHLUSS, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -54,7 +54,7 @@ public class JahresabschlussView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

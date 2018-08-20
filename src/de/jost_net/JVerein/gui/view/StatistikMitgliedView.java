@@ -38,7 +38,7 @@ public class StatistikMitgliedView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.STATISTIKMITGLIEDER, false, "help-browser.png");
+        DokumentationUtil.STATISTIKMITGLIEDER, false, "question-circle.png");
     buttons.addButton(control.getStartStatistikButton());
     buttons.paint(this.getParent());
   }

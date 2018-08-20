@@ -52,7 +52,8 @@ public class EinstellungenAnzeigeView extends AbstractView
         control.getKommunikationsdaten());
     left.addLabelPair("Sekundäre Beitragsgruppen anzeigen" + "*",
         control.getSekundaereBeitragsgruppen());
-    left.addLabelPair("Zusatzbeträge anzeigen" + "*", control.getZusatzbetrag());
+    left.addLabelPair("Zusatzbeträge anzeigen" + "*",
+        control.getZusatzbetrag());
     left.addLabelPair("Zusatzbeträge auch für Ausgetretene *",
         control.getZusatzbetragAusgetretene());
     left.addLabelPair("Vermerke anzeigen", control.getVermerke());
@@ -90,7 +91,7 @@ public class EinstellungenAnzeigeView extends AbstractView
     cont.addSeparator();
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");
+        DokumentationUtil.EINSTELLUNGEN, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -99,7 +100,7 @@ public class EinstellungenAnzeigeView extends AbstractView
       {
         control.handleStoreAnzeige();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

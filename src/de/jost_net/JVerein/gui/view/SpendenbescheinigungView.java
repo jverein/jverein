@@ -99,7 +99,7 @@ public class SpendenbescheinigungView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.SPENDENBESCHEINIGUNG, false, "help-browser.png");
+        DokumentationUtil.SPENDENBESCHEINIGUNG, false, "question-circle.png");
     buttons.addButton(control.getPDFStandardButton());
     buttons.addButton(control.getPDFIndividuellButton());
     buttons.addButton("neu", new SpendenbescheinigungAction(), null, false,
@@ -112,7 +112,7 @@ public class SpendenbescheinigungView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

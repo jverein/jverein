@@ -73,8 +73,8 @@ public class ProjektSaldoControl extends AbstractControl
     Date d = new Date();
     try
     {
-      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("von", "01.01"
-          + cal.get(Calendar.YEAR)));
+      d = new JVDateFormatTTMMJJJJ()
+          .parse(settings.getString("von", "01.01" + cal.get(Calendar.YEAR)));
     }
     catch (ParseException e)
     {
@@ -94,8 +94,8 @@ public class ProjektSaldoControl extends AbstractControl
     Date d = new Date();
     try
     {
-      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("bis", "31.12."
-          + cal.get(Calendar.YEAR)));
+      d = new JVDateFormatTTMMJJJJ()
+          .parse(settings.getString("bis", "31.12." + cal.get(Calendar.YEAR)));
     }
     catch (ParseException e)
     {
@@ -114,7 +114,7 @@ public class ProjektSaldoControl extends AbstractControl
       {
         starteAuswertung();
       }
-    }, null, true, "pdf.png"); // "true" defines this button as the default
+    }, null, true, "file-pdf.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -141,8 +141,8 @@ public class ProjektSaldoControl extends AbstractControl
 
       if (saldoList == null)
       {
-        saldoList = new ProjektSaldoList(null,
-            (Date) datumvon.getValue(), (Date) datumbis.getValue());
+        saldoList = new ProjektSaldoList(null, (Date) datumvon.getValue(),
+            (Date) datumbis.getValue());
       }
       else
       {
@@ -161,8 +161,8 @@ public class ProjektSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(String.format("Fehler aufgetreten %s",
-          e.getMessage()));
+      throw new ApplicationException(
+          String.format("Fehler aufgetreten %s", e.getMessage()));
     }
     return saldoList.getSaldoList();
   }
@@ -184,8 +184,8 @@ public class ProjektSaldoControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("projektsaldo", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("projektsaldo", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
 
       final String s = fd.open();
 
@@ -201,14 +201,13 @@ public class ProjektSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(String.format(
-          "Fehler beim Aufbau des Reports: %s", e.getMessage()));
+      throw new ApplicationException(
+          String.format("Fehler beim Aufbau des Reports: %s", e.getMessage()));
     }
   }
 
-  private void auswertungSaldoPDF(
-      final ArrayList<ProjektSaldoZeile> zeile, final File file,
-      final Date datumvon, final Date datumbis)
+  private void auswertungSaldoPDF(final ArrayList<ProjektSaldoZeile> zeile,
+      final File file, final Date datumvon, final Date datumbis)
   {
     BackgroundTask t = new BackgroundTask()
     {

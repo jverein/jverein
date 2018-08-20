@@ -259,7 +259,7 @@ public class ImportView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.IMPORT, false, "help-browser.png");
+        DokumentationUtil.IMPORT, false, "question-circle.png");
 
     /* Import Button */
     de.willuhn.jameica.gui.parts.Button importbt = new de.willuhn.jameica.gui.parts.Button(

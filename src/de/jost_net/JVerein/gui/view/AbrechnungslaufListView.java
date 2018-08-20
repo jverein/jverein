@@ -36,7 +36,7 @@ public class AbrechnungslaufListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABRECHNUNGSLAUF, false, "help-browser.png");
+        DokumentationUtil.ABRECHNUNGSLAUF, false, "question-circle.png");
     buttons.paint(this.getParent());
   }
 }

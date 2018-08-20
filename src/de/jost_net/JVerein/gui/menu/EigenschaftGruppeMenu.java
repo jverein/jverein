@@ -34,8 +34,8 @@ public class EigenschaftGruppeMenu extends ContextMenu
   public EigenschaftGruppeMenu()
   {
     addItem(new ContextMenuItem("neu", new EigenschaftGruppeDetailAction(true),
-        "document-new.png"));
+        "file.png"));
     addItem(new CheckedContextMenuItem("löschen...",
-        new EigenschaftGruppeDeleteAction(), "user-trash.png"));
+        new EigenschaftGruppeDeleteAction(), "trash-alt.png"));
   }
 }

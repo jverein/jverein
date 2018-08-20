@@ -45,22 +45,22 @@ public class SplitBuchungMenu extends ContextMenu
 
   public SplitBuchungMenu(BuchungsControl control)
   {
-    addItem(new CheckedSplitBuchungItem("bearbeiten", new BuchungAction(
-        true), "edit.png"));
+    addItem(new CheckedSplitBuchungItem("bearbeiten", new BuchungAction(true),
+        "edit.png"));
     addItem(new CheckedSplitBuchungItem("Buchungsart zuordnen",
         new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
     addItem(new CheckedSplitBuchungItem("Mitgliedskonto zuordnen",
-        new BuchungMitgliedskontoZuordnungAction(control),
-        "human_folder_public.png"));
+        new BuchungMitgliedskontoZuordnungAction(control), "exchange-alt.png"));
     addItem(new CheckedSplitBuchungItem("Projekt zuordnen",
-        new BuchungProjektZuordnungAction(control), "projects.png"));
+        new BuchungProjektZuordnungAction(control), "exchange-alt.png"));
     addItem(new CheckedSplitBuchungItem("Kontoauszug zuordnen",
         new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));
     addItem(new DeleteSplitBuchungItem());
     addItem(new RestoreSplitBuchungItem());
   }
 
-  private static class CheckedSplitBuchungItem extends CheckedSingleContextMenuItem
+  private static class CheckedSplitBuchungItem
+      extends CheckedSingleContextMenuItem
   {
     private CheckedSplitBuchungItem(String text, Action action, String icon)
     {
@@ -89,7 +89,7 @@ public class SplitBuchungMenu extends ContextMenu
   {
     private DeleteSplitBuchungItem()
     {
-      super("löschen...", new BuchungDeleteAction(true), "user-trash.png");
+      super("löschen...", new BuchungDeleteAction(true), "trash-alt.png");
     }
 
     @Override
@@ -128,7 +128,8 @@ public class SplitBuchungMenu extends ContextMenu
           {
             Buchung bu = (Buchung) context;
             bu.setDelete(false);
-            Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
+            Application.getMessagingFactory()
+                .sendMessage(new BuchungMessage(bu));
           }
           catch (RemoteException e)
           {
@@ -137,7 +138,7 @@ public class SplitBuchungMenu extends ContextMenu
             Logger.error(fehler, e);
           }
         }
-      }, "edit-undo.png");
+      }, "undo.png");
     }
 
     @Override

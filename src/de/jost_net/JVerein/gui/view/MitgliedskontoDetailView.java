@@ -52,7 +52,8 @@ public class MitgliedskontoDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
+        DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false,
+        "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -61,7 +62,7 @@ public class MitgliedskontoDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

@@ -34,8 +34,8 @@ public class WiedervorlageMenu extends ContextMenu
   public WiedervorlageMenu(TablePart table)
   {
     addItem(new CheckedContextMenuItem("erledigt",
-        new WiedervorlageErledigungAction(table), "emblem-default.png"));
+        new WiedervorlageErledigungAction(table), "check.png"));
     addItem(new CheckedContextMenuItem("löschen...",
-        new WiedervorlageDeleteAction(), "user-trash.png"));
+        new WiedervorlageDeleteAction(), "trash-alt.png"));
   }
 }

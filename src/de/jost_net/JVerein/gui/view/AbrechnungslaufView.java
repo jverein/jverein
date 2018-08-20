@@ -69,7 +69,7 @@ public class AbrechnungslaufView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABRECHNUNGSLAUF, false, "help-browser.png");
+        DokumentationUtil.ABRECHNUNGSLAUF, false, "question-circle.png");
     buttons.addButton("Speichern", new Action()
     {
       @Override
@@ -77,7 +77,7 @@ public class AbrechnungslaufView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 

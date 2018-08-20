@@ -82,9 +82,9 @@ public class BeitragsgruppeDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BEITRAGSGRUPPEN, false, "help-browser.png");
+        DokumentationUtil.BEITRAGSGRUPPEN, false, "question-circle.png");
     buttons.addButton("suche", new BeitragsgruppeSucheAction(), null, false,
-        "system-search.png");
+        "search.png");
     buttons.addButton("speichern", new Action()
     {
       @Override
@@ -92,7 +92,7 @@ public class BeitragsgruppeDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 

@@ -100,10 +100,9 @@ public class ExportDialog extends AbstractDialog<Object>
   protected void paint(Composite parent) throws Exception
   {
     Container group = new SimpleContainer(parent);
-    group
-        .addText(
-            i18n.tr("Bitte wählen Sie das gewünschte Dateiformat aus für den Export aus"),
-            true);
+    group.addText(i18n.tr(
+        "Bitte wählen Sie das gewünschte Dateiformat aus für den Export aus"),
+        true);
 
     Input formats = getExporterList();
     group.addLabelPair(i18n.tr("Verfügbare Formate:"), formats);
@@ -116,7 +115,7 @@ public class ExportDialog extends AbstractDialog<Object>
     }
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(), helplink, false,
-        "help-browser.png");
+        "question-circle.png");
     Button button = new Button(i18n.tr("Export starten"), new Action()
     {
 
@@ -136,7 +135,7 @@ public class ExportDialog extends AbstractDialog<Object>
       {
         close();
       }
-    }, null, false, "process-stop.png");
+    }, null, false, "stop-circle.png");
     group.addButtonArea(buttons);
 
     getShell()
@@ -159,8 +158,8 @@ public class ExportDialog extends AbstractDialog<Object>
     catch (Exception e)
     {
       Logger.error("error while saving export file", e);
-      throw new ApplicationException(
-          i18n.tr("Fehler beim Starten des Exports"), e);
+      throw new ApplicationException(i18n.tr("Fehler beim Starten des Exports"),
+          e);
     }
 
     if (exp == null || exp.exporter == null)
@@ -171,18 +170,18 @@ public class ExportDialog extends AbstractDialog<Object>
     settings.setAttribute("lastformat", exp.format.getName());
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText(i18n
-        .tr("Bitte geben Sie eine Datei ein, in die die Daten exportiert werden sollen."));
+    fd.setText(i18n.tr(
+        "Bitte geben Sie eine Datei ein, in die die Daten exportiert werden sollen."));
     fd.setOverwrite(true);
     String[] se = exp.format.getFileExtensions();
     String ext = se == null ? "" : se[0];
     ext = ext.replaceAll("\\*.", ""); // "*." entfernen
 
-    fd.setFileName(new Dateiname(exp.exporter.getDateiname(), "", "a$-d$z$",
-        ext).get());
+    fd.setFileName(
+        new Dateiname(exp.exporter.getDateiname(), "", "a$-d$z$", ext).get());
 
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
     {
       fd.setFilterPath(path);
@@ -219,8 +218,8 @@ public class ExportDialog extends AbstractDialog<Object>
           exporter.doExport(objects, format, file, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText(
-              String.format("Daten exportiert nach %s", s));
+          GUI.getStatusBar()
+              .setSuccessText(String.format("Daten exportiert nach %s", s));
           monitor.setStatusText(String.format("Daten exportiert nach %s", s));
 
           if (open)
@@ -239,8 +238,8 @@ public class ExportDialog extends AbstractDialog<Object>
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while writing objects to " + s, e);
-          ApplicationException ae = new ApplicationException(String.format(
-              "Fehler beim Exportieren der Daten in %s", s), e);
+          ApplicationException ae = new ApplicationException(
+              String.format("Fehler beim Exportieren der Daten in %s", s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;

@@ -60,7 +60,7 @@ public class AuswertungAdresseView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "help-browser.png");
+        DokumentationUtil.AUSWERTUNGMITGLIEDER, false, "question-circle.png");
     buttons.addButton(control.getStartAdressAuswertungButton());
     buttons.paint(getParent());
   }

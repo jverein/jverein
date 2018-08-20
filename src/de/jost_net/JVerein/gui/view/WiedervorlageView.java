@@ -41,9 +41,9 @@ public class WiedervorlageView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.WIEDERVORLAGE, false, "help-browser.png");
-    buttons.addButton("Mitglied", new MitgliedDetailAction(), control
-        .getWiedervorlage().getMitglied(), false, "system-users.png");
+        DokumentationUtil.WIEDERVORLAGE, false, "question-circle.png");
+    buttons.addButton("Mitglied", new MitgliedDetailAction(),
+        control.getWiedervorlage().getMitglied(), false, "user-friends.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -52,7 +52,7 @@ public class WiedervorlageView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(getParent());
   }
 }

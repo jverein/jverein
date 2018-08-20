@@ -47,10 +47,9 @@ public class QIFBuchungsartZuordnenView extends AbstractView
         this);
 
     SimpleContainer maincontainer = new SimpleContainer(getParent(), true, 1);
-    maincontainer
-        .addText(
-            "Ordnen Sie jeder Buchungsarten des externen Programmes eine Buchungsart aus JVerein zu.",
-            true, Color.COMMENT);
+    maincontainer.addText(
+        "Ordnen Sie jeder Buchungsarten des externen Programmes eine Buchungsart aus JVerein zu.",
+        true, Color.COMMENT);
     LabelGroup lblGroup = new LabelGroup(maincontainer.getComposite(), "");
     lblGroup.addLabelPair("JVerein Buchungsart",
         detailControl.getBuchungsartInput());
@@ -61,13 +60,13 @@ public class QIFBuchungsartZuordnenView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.QIFIMPORT, false, "help-browser.png");
+        DokumentationUtil.QIFIMPORT, false, "question-circle.png");
     buttons.addButton("Speichern", detailControl.getSpeichernAction(), null,
-        false, "document-save.png");
+        false, "save.png");
     buttons.paint(getParent());
 
-    TabFolder folder = new TabFolder(maincontainer.getComposite(), SWT.V_SCROLL
-        | SWT.BORDER);
+    TabFolder folder = new TabFolder(maincontainer.getComposite(),
+        SWT.V_SCROLL | SWT.BORDER);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
     {

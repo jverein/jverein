@@ -100,16 +100,16 @@ public class MyExtension implements Extension
     {
       NavigationItem jverein = (NavigationItem) extendable;
       jverein.addChild(new MyItem(jverein, "Mitglieder",
-          new MitgliedSucheAction(), "system-users.png"));
+          new MitgliedSucheAction(), "user-friends.png"));
       if (Einstellungen.getEinstellung().getZusatzadressen())
       {
         jverein.addChild(new MyItem(jverein, "Adressen",
-            new AdressenSucheAction(), "system-users.png"));
+            new AdressenSucheAction(), "user-friends.png"));
       }
       if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         jverein.addChild(new MyItem(jverein, "Kursteilnehmer",
-            new KursteilnehmerSucheAction(), "system-users.png"));
+            new KursteilnehmerSucheAction(), "user-friends.png"));
       }
       DBIterator<Beitragsgruppe> it = Einstellungen.getDBService()
           .createList(Beitragsgruppe.class);
@@ -118,95 +118,95 @@ public class MyExtension implements Extension
       if (it.size() > 0)
       {
         jverein.addChild(new MyItem(jverein, "Familienbeitrag",
-            new FamilienbeitragAction(), "family-icon.png"));
+            new FamilienbeitragAction(), "users.png"));
       }
 
       NavigationItem abrechnung = null;
       abrechnung = new MyItem(abrechnung, "Abrechnung", null);
       abrechnung.addChild(new MyItem(abrechnung, "Abrechnung",
-          new AbrechnungSEPAAction(), "accessories-calculator.png"));
+          new AbrechnungSEPAAction(), "calculator.png"));
       abrechnung.addChild(new MyItem(abrechnung, "Abrechnungslauf",
-          new AbrechnunslaufListAction(), "accessories-calculator.png"));
+          new AbrechnunslaufListAction(), "calculator.png"));
       jverein.addChild(abrechnung);
 
       jverein.addChild(new MyItem(jverein, "Mitgliedskonten",
-          new MitgliedskontoListeAction(), "human_folder_public.png"));
+          new MitgliedskontoListeAction(), "exchange-alt.png"));
       jverein.addChild(new MyItem(jverein, "Rechnungen",
-          new MitgliedskontoRechnungAction(), "invoice.png"));
+          new MitgliedskontoRechnungAction(), "file-invoice.png"));
       jverein.addChild(new MyItem(jverein, "Mahnungen",
-          new MitgliedskontoMahnungAction(), "rechnung.png"));
+          new MitgliedskontoMahnungAction(), "file-invoice.png"));
       if (Einstellungen.getEinstellung().getArbeitseinsatz())
       {
         jverein.addChild(new MyItem(jverein, "Arbeitseinsätze prüfen",
-            new ArbeitseinsatzUeberpruefungAction(), "shovel.png"));
+            new ArbeitseinsatzUeberpruefungAction(), "screwdriver.png"));
       }
 
       if (Einstellungen.getEinstellung().getZusatzbetrag())
       {
         jverein.addChild(new MyItem(jverein, "Zusatzbeträge",
-            new ZusatzbetraegeListeAction(), "zusatzbetraege.png"));
+            new ZusatzbetraegeListeAction(), "euro-sign.png"));
         jverein.addChild(new MyItem(jverein, "Zusatzbeträge importieren",
-            new ZusatzbetraegeImportAction(), "zusatzbetraege.png"));
+            new ZusatzbetraegeImportAction(), "file-import.png"));
       }
       if (Einstellungen.getEinstellung().getWiedervorlage())
       {
         jverein.addChild(new MyItem(jverein, "Wiedervorlage",
-            new WiedervorlageListeAction(), "office-calendar.png"));
+            new WiedervorlageListeAction(), "calendar-alt.png"));
       }
       if (Einstellungen.getEinstellung().getLehrgaenge())
       {
         jverein.addChild(new MyItem(jverein, "Lehrgänge",
-            new LehrgaengeListeAction(), "x-office-presentation.png"));
+            new LehrgaengeListeAction(), "chalkboard-teacher.png"));
       }
       jverein.addChild(new MyItem(jverein, "Spendenbescheinigungen",
-          new SpendenbescheinigungListeAction(), "rechnung.png"));
+          new SpendenbescheinigungListeAction(), "file-invoice.png"));
 
       NavigationItem auswertung = null;
       auswertung = new MyItem(auswertung, "Auswertungen", null);
       auswertung.addChild(new MyItem(auswertung, "Mitglieder",
-          new AuswertungMitgliedAction(), "list_users.gif"));
+          new AuswertungMitgliedAction(), "receipt.png"));
       auswertung.addChild(new MyItem(auswertung, "Adressen",
-          new AuswertungAdressenAction(), "list_users.gif"));
+          new AuswertungAdressenAction(), "receipt.png"));
       auswertung.addChild(new MyItem(auswertung, "Jubiläen",
-          new JubilaeenAction(), "document-open.png"));
+          new JubilaeenAction(), "file.png"));
       if (Einstellungen.getEinstellung().getKursteilnehmer())
       {
         auswertung.addChild(new MyItem(auswertung, "Kursteilnehmer",
-            new AuswertungKursteilnehmerAction(), "list_users.gif"));
+            new AuswertungKursteilnehmerAction(), "receipt.png"));
       }
       auswertung.addChild(new MyItem(auswertung, "Statistik",
-          new StatistikMitgliedAction(), "chart16.png"));
+          new StatistikMitgliedAction(), "chart-line.png"));
       auswertung.addChild(new MyItem(auswertung, "Statistik Jahrgänge",
-          new StatistikJahrgaengeAction(), "chart16.png"));
+          new StatistikJahrgaengeAction(), "chart-line.png"));
 
       jverein.addChild(auswertung);
 
       NavigationItem mail = null;
       mail = new MyItem(mail, "Mail", null);
       mail.addChild(
-          new MyItem(mail, "Mails", new MailListeAction(), "email.png"));
+          new MyItem(mail, "Mails", new MailListeAction(), "envelope.png"));
       mail.addChild(new MyItem(mail, "Mail-Vorlagen", new MailVorlagenAction(),
-          "email.png"));
+          "envelope.png"));
       jverein.addChild(mail);
 
       NavigationItem buchfuehrung = null;
       buchfuehrung = new MyItem(buchfuehrung, "Buchführung", null);
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Konten",
-          new KontoListAction(), "system-file-manager.png"));
+          new KontoListAction(), "list.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Anfangsbestände",
-          new AnfangsbestandListAction(), "tab-new.png"));
+          new AnfangsbestandListAction(), "square.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungen",
-          new BuchungsListeAction(), "preferences-system-windows.png"));
+          new BuchungsListeAction(), "euro-sign.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Hibiscus-Buchungen",
           new BuchungsuebernahmeAction(), "hibiscus-icon-64x64.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Projekte",
-          new ProjektSaldoAction(), "projects.png"));
+          new ProjektSaldoAction(), "exchange-alt.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Buchungsklassen",
-          new BuchungsklasseSaldoAction(), "summe.png"));
+          new BuchungsklasseSaldoAction(), "euro-sign.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahressaldo",
-          new JahressaldoAction(), "summe.png"));
+          new JahressaldoAction(), "euro-sign.png"));
       buchfuehrung.addChild(new MyItem(buchfuehrung, "Jahresabschlüsse",
-          new JahresabschlussListAction(), "summe.png"));
+          new JahresabschlussListAction(), "euro-sign.png"));
       jverein.addChild(buchfuehrung);
 
       NavigationItem administration = null;
@@ -215,80 +215,78 @@ public class MyExtension implements Extension
       NavigationItem administrationEinstellungen = null;
       administrationEinstellungen = new MyItem(administrationEinstellungen,
           "Einstellungen", null);
-      administrationEinstellungen.addChild(new MyItem(
-          administrationEinstellungen, "Allgemein",
-          new AdministrationEinstellungenAllgemeinAction(), "settings.gif"));
+      administrationEinstellungen
+          .addChild(new MyItem(administrationEinstellungen, "Allgemein",
+              new AdministrationEinstellungenAllgemeinAction(), "wrench.png"));
       administrationEinstellungen
           .addChild(new MyItem(administrationEinstellungen, "Anzeige",
-              new AdministrationEinstellungenAnzeigeAction(), "settings.gif"));
+              new AdministrationEinstellungenAnzeigeAction(), "wrench.png"));
       administrationEinstellungen.addChild(
           new MyItem(administrationEinstellungen, "Mitglieder Spalten",
               new AdministrationEinstellungenMitgliederSpaltenAction(),
-              "settings.gif"));
+              "wrench.png"));
       administrationEinstellungen.addChild(
           new MyItem(administrationEinstellungen, "Mitglieder Ansicht",
               new AdministrationEinstellungenMitgliedAnsichtAction(),
-              "settings.gif"));
-      administrationEinstellungen.addChild(new MyItem(
-          administrationEinstellungen, "Abrechnung",
-          new AdministrationEinstellungenAbrechnungAction(), "settings.gif"));
-      administrationEinstellungen.addChild(new MyItem(
-          administrationEinstellungen, "Dateinamen",
-          new AdministrationEinstellungenDateinamenAction(), "settings.gif"));
+              "wrench.png"));
+      administrationEinstellungen
+          .addChild(new MyItem(administrationEinstellungen, "Abrechnung",
+              new AdministrationEinstellungenAbrechnungAction(), "wrench.png"));
+      administrationEinstellungen
+          .addChild(new MyItem(administrationEinstellungen, "Dateinamen",
+              new AdministrationEinstellungenDateinamenAction(), "wrench.png"));
       administrationEinstellungen.addChild(
           new MyItem(administrationEinstellungen, "Spendenbescheinigungen",
               new AdministrationEinstellungenSpendenbescheinigungenAction(),
-              "settings.gif"));
+              "wrench.png"));
       administrationEinstellungen.addChild(new MyItem(
           administrationEinstellungen, "Buchführung",
-          new AdministrationEinstellungenBuchfuehrungAction(), "settings.gif"));
-      administrationEinstellungen.addChild(new MyItem(
-          administrationEinstellungen, "Rechnungen",
-          new AdministrationEinstellungenRechnungenAction(), "settings.gif"));
+          new AdministrationEinstellungenBuchfuehrungAction(), "wrench.png"));
+      administrationEinstellungen
+          .addChild(new MyItem(administrationEinstellungen, "Rechnungen",
+              new AdministrationEinstellungenRechnungenAction(), "wrench.png"));
       administrationEinstellungen
           .addChild(new MyItem(administrationEinstellungen, "Mail",
-              new AdministrationEinstellungenMailAction(), "settings.gif"));
-      administrationEinstellungen.addChild(new MyItem(
-          administrationEinstellungen, "Statistik",
-          new AdministrationEinstellungenStatistikAction(), "settings.gif"));
+              new AdministrationEinstellungenMailAction(), "wrench.png"));
+      administrationEinstellungen
+          .addChild(new MyItem(administrationEinstellungen, "Statistik",
+              new AdministrationEinstellungenStatistikAction(), "wrench.png"));
       administration.addChild(administrationEinstellungen);
 
       administration.addChild(new MyItem(administration, "Beitragsgruppen",
-          new BeitragsgruppeSucheAction(), "breakpoint_view.gif"));
+          new BeitragsgruppeSucheAction(), "clone.png"));
 
       NavigationItem einstellungenbuchfuehrung = null;
       einstellungenbuchfuehrung = new MyItem(einstellungenbuchfuehrung,
           "Buchführung", null);
-      einstellungenbuchfuehrung
-          .addChild(new MyItem(einstellungenbuchfuehrung, "Buchungsklassen",
-              new BuchungsklasseListAction(), "activity_category.gif"));
-      einstellungenbuchfuehrung
-          .addChild(new MyItem(einstellungenbuchfuehrung, "Buchungsarten",
-              new BuchungsartListAction(), "activity_category.gif"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          "Buchungsklassen", new BuchungsklasseListAction(), "ellipsis-v.png"));
+      einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
+          "Buchungsarten", new BuchungsartListAction(), "ellipsis-v.png"));
       einstellungenbuchfuehrung
           .addChild(new MyItem(einstellungenbuchfuehrung, "Kontenrahmen-Export",
-              new KontenrahmenExportAction(), "activity_category.gif"));
+              new KontenrahmenExportAction(), "ellipsis-v.png"));
       einstellungenbuchfuehrung
           .addChild(new MyItem(einstellungenbuchfuehrung, "Kontenrahmen-Import",
-              new KontenrahmenImportAction(), "activity_category.gif"));
+              new KontenrahmenImportAction(), "ellipsis-v.png"));
       einstellungenbuchfuehrung
           .addChild(new MyItem(einstellungenbuchfuehrung, "QIF Datei-Import",
-              new QIFBuchungsImportViewAction(), "import_obj.gif"));
+              new QIFBuchungsImportViewAction(), "file-import.png"));
       einstellungenbuchfuehrung.addChild(new MyItem(einstellungenbuchfuehrung,
-          "Projekte", new ProjektListAction(), "projects.png"));
+          "Projekte", new ProjektListAction(), "exchange-alt.png"));
       administration.addChild(einstellungenbuchfuehrung);
 
       administration
           .addChild(new MyItem(administration, "Eigenschaften-Gruppen",
-              new EigenschaftGruppeListeAction(), "activity_category.gif"));
+              new EigenschaftGruppeListeAction(), "ellipsis-v.png"));
       administration.addChild(new MyItem(administration, "Eigenschaften",
-          new EigenschaftListeAction(), "activity_category.gif"));
+          new EigenschaftListeAction(), "ellipsis-v.png"));
       administration.addChild(new MyItem(administration, "Felddefinitionen",
-          new FelddefinitionenAction(), "category_obj.gif"));
+          new FelddefinitionenAction(), "list.png"));
       if (Einstellungen.getEinstellung().getUseLesefelder())
       {
         administration.addChild(new MyItem(administration, "Lesefelder",
-            new LesefelddefinitionenAction(null), "category_obj.gif"));
+            new LesefelddefinitionenAction(null), "list.png"));
       }
       // TODO deaktiviert für Versionsbau
       // if (Einstellungen.getEinstellung().getInventar())
@@ -298,34 +296,33 @@ public class MyExtension implements Extension
       // "category_obj.gif"));
       // }
       administration.addChild(new MyItem(administration, "Formulare",
-          new FormularListeAction(), "layout_co.gif"));
+          new FormularListeAction(), "columns.png"));
       if (Einstellungen.getEinstellung().getLehrgaenge())
       {
         administration.addChild(new MyItem(administration, "Lehrgangsarten",
-            new LehrgangsartListeAction(), "x-office-presentation.png"));
+            new LehrgangsartListeAction(), "chalkboard-teacher.png"));
       }
       administration.addChild(new MyItem(administration, "Import",
-          new MitgliedImportAction(), "import_obj.gif"));
+          new MitgliedImportAction(), "file-import.png"));
       if (Einstellungen.getEinstellung().getZusatzadressen())
       {
         administration.addChild(new MyItem(administration, "Adresstypen",
-            new AdresstypListAction(), "layout_co.gif"));
+            new AdresstypListAction(), "columns.png"));
       }
       NavigationItem einstellungenerweitert = null;
       einstellungenerweitert = new MyItem(einstellungenerweitert, "Erweitert",
           null);
-      einstellungenerweitert.addChild(
-          new MyItem(einstellungenerweitert, "Diagnose-Backup erstellen",
-              new BackupCreateAction(), "thread_obj.gif"));
+      einstellungenerweitert.addChild(new MyItem(einstellungenerweitert,
+          "Diagnose-Backup erstellen", new BackupCreateAction(), "save.png"));
       einstellungenerweitert.addChild(
           new MyItem(einstellungenerweitert, "Diagnose-Backup importieren",
-              new BackupRestoreAction(), "thread2_obj.gif"));
+              new BackupRestoreAction(), "undo.png"));
       administration.addChild(einstellungenerweitert);
       jverein.addChild(administration);
       jverein.addChild(new MyItem(jverein, "Dokumentation",
-          new DokumentationAction(), "help_view.gif"));
+          new DokumentationAction(), "question-circle.png"));
       jverein.addChild(new MyItem(jverein, "Spende für JVerein",
-          new SpendenAction(), "emblem-special.png"));
+          new SpendenAction(), "coins.png"));
       jverein.addChild(
           new MyItem(jverein, "Über", new AboutAction(), "gtk-info.png"));
     }

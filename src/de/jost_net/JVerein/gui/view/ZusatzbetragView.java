@@ -45,13 +45,13 @@ public class ZusatzbetragView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ZUSATZBETRAEGE, false, "help-browser.png");
+        DokumentationUtil.ZUSATZBETRAEGE, false, "question-circle.png");
     buttons.addButton("Vorlagen", new ZusatzbetragVorlageAuswahlAction(part),
-        null, false, "template-icon.png");
-    buttons.addButton("Mitglied", new MitgliedDetailAction(), control
-        .getZusatzbetrag().getMitglied(), false, "system-users.png");
+        null, false, "clone.png");
+    buttons.addButton("Mitglied", new MitgliedDetailAction(),
+        control.getZusatzbetrag().getMitglied(), false, "user-friends.png");
     buttons.addButton("löschen", new ZusatzbetraegeDeleteAction(),
-        control.getZusatzbetrag(), false, "user-trash.png");
+        control.getZusatzbetrag(), false, "trash-alt.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -60,7 +60,7 @@ public class ZusatzbetragView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(getParent());
   }
 }

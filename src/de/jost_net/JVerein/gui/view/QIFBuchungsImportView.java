@@ -71,19 +71,19 @@ public class QIFBuchungsImportView extends AbstractView
 
     LabelGroup poslistGroup = new LabelGroup(getParent(),
         "Importierbare Buchungen im gewählten Konto...", true);
-    control.getImportKontoPosList(new QIFBuchungsartAction()).paint(
-        poslistGroup.getComposite());
+    control.getImportKontoPosList(new QIFBuchungsartAction())
+        .paint(poslistGroup.getComposite());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.QIFIMPORT, false, "help-browser.png");
+        DokumentationUtil.QIFIMPORT, false, "question-circle.png");
     buttons.addButton("Datei einlesen", new QIFDateiEinlesenAction(), null,
-        false, "import_obj.gif");
+        false, "file-import.png");
     buttons.addButton("Import löschen",
         control.getAktuellenImportLoeschenAction(), null, false,
-        "user-trash.png");
-    buttons.addButton("Imports löschen",
-        control.getAlleImportsLoeschenAction(), null, false, "list-remove.png");
+        "trash-alt.png");
+    buttons.addButton("Imports löschen", control.getAlleImportsLoeschenAction(),
+        null, false, "list-remove.png");
     buttons.addButton("Buchungsarten zuordnen", new QIFBuchungsartAction(),
         null, false, "zuordnung.png");
     buttons.addButton("Mitglieder zuordnen", new QIFMitgliederAction(), null,

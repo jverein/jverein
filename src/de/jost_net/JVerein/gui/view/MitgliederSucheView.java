@@ -124,7 +124,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
       {
         try
         {
-          Settings s = control.getSettings(); 
+          Settings s = control.getSettings();
           s.setAttribute("id", "");
           s.setAttribute("profilname", "");
 
@@ -150,7 +150,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
         }
 
       }
-    }, null, false, "clear.gif"));
+    }, null, false, "eraser.png"));
   }
 
   @Override
@@ -163,7 +163,7 @@ public class MitgliederSucheView extends AbstractAdresseSucheView
   public Button getHilfeButton()
   {
     return new Button("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIED, false, "help-browser.png");
+        DokumentationUtil.MITGLIED, false, "question-circle.png");
   }
 
 }

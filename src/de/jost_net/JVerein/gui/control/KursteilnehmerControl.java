@@ -551,7 +551,7 @@ public class KursteilnehmerControl extends AbstractControl
       {
         starteAuswertung();
       }
-    }, null, true, "go.png"); // "true" defines this button as the default
+    }, null, true, "walking.png"); // "true" defines this button as the default
     // button
     return b;
   }

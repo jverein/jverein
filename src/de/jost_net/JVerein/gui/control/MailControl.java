@@ -316,7 +316,7 @@ public class MailControl extends AbstractControl
           throw new ApplicationException("Fehler beim Senden der Mail");
         }
       }
-    }, null, true, "mail-message-new.png");
+    }, null, true, "envelope-open.png");
     return b;
   }
 
@@ -381,7 +381,7 @@ public class MailControl extends AbstractControl
           throw new ApplicationException("Fehler beim Senden der Mail");
         }
       }
-    }, null, false, "mail-message-new.png");
+    }, null, false, "envelope-open.png");
     return b;
   }
 
@@ -395,7 +395,7 @@ public class MailControl extends AbstractControl
       {
         handleStore(false);
       }
-    }, null, true, "mail-message-new.png");
+    }, null, true, "envelope-open.png");
     return b;
   }
 
@@ -416,17 +416,19 @@ public class MailControl extends AbstractControl
   private void sendeMail(final boolean erneutSenden) throws RemoteException
   {
     String text = getTxtString();
-    if (text.toLowerCase().contains("<html") && text.toLowerCase().contains("</body")) 
+    if (text.toLowerCase().contains("<html")
+        && text.toLowerCase().contains("</body"))
     {
-    	// MailSignatur ohne Separator mit vorangestellten hr in den body einbauen
-   		text = text.substring(0, text.toLowerCase().indexOf("</body")-1);
-       	text = text + "<hr />" + Einstellungen.getEinstellung().getMailSignatur(false);
-       	text = text + "</body></html>";
+      // MailSignatur ohne Separator mit vorangestellten hr in den body einbauen
+      text = text.substring(0, text.toLowerCase().indexOf("</body") - 1);
+      text = text + "<hr />"
+          + Einstellungen.getEinstellung().getMailSignatur(false);
+      text = text + "</body></html>";
     }
     else
-    {	
-    	// MailSignatur mit Separator einfach anh?ngen
-    	text = text + Einstellungen.getEinstellung().getMailSignatur(true);
+    {
+      // MailSignatur mit Separator einfach anh?ngen
+      text = text + Einstellungen.getEinstellung().getMailSignatur(true);
     }
     final String txt = text;
     final String betr = getBetreffString();

@@ -34,8 +34,8 @@ public class EigenschaftMenu extends ContextMenu
   public EigenschaftMenu()
   {
     addItem(new ContextMenuItem("neu", new EigenschaftDetailAction(true),
-        "document-new.png"));
+        "file.png"));
     addItem(new CheckedContextMenuItem("löschen...",
-        new EigenschaftDeleteAction(), "user-trash.png"));
+        new EigenschaftDeleteAction(), "trash-alt.png"));
   }
 }

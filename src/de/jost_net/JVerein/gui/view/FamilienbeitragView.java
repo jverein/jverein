@@ -36,7 +36,7 @@ public class FamilienbeitragView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FAMILIENBEITRAG, false, "help-browser.png");
+        DokumentationUtil.FAMILIENBEITRAG, false, "hquestion-circle.png");
     buttons.paint(this.getParent());
   }
 }

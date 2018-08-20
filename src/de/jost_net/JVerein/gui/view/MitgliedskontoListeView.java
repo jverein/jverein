@@ -50,9 +50,11 @@ public class MitgliedskontoListeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false, "help-browser.png");
-    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(
-        EXPORT_TYP.MITGLIEDSKONTO, null), control, false, "document-save.png"));
+        DokumentationUtil.MITGLIEDSKONTO_UEBERSICHT, false,
+        "question-circle.png");
+    buttons.addButton(new Button("Export",
+        new MitgliedskontoExportAction(EXPORT_TYP.MITGLIEDSKONTO, null),
+        control, false, "save.png"));
     buttons.paint(this.getParent());
   }
 }

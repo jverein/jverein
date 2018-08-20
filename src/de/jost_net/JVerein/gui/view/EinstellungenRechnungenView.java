@@ -37,12 +37,13 @@ public class EinstellungenRechnungenView extends AbstractView
     ScrolledContainer cont = new ScrolledContainer(getParent());
 
     cont.addLabelPair("Text Abbuchung", control.getRechnungTextAbbuchung());
-    cont.addLabelPair("Text Überweisung", control.getRechnungTextUeberweisung());
+    cont.addLabelPair("Text Überweisung",
+        control.getRechnungTextUeberweisung());
     cont.addLabelPair("Text Bar", control.getRechnungTextBar());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");
+        DokumentationUtil.EINSTELLUNGEN, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -51,7 +52,7 @@ public class EinstellungenRechnungenView extends AbstractView
       {
         control.handleStoreRechnungen();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

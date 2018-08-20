@@ -59,7 +59,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
       {
         new Buchungsuebernahme();
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 

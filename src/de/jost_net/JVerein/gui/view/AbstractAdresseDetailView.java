@@ -189,35 +189,35 @@ public abstract class AbstractAdresseDetailView extends AbstractView
   {
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIED, false, "help-browser.png");
+        DokumentationUtil.MITGLIED, false, "question-circle.png");
     if (!control.getMitglied().isNewObject())
     {
       MitgliedskontoControl mkcontrol = new MitgliedskontoControl(this);
       mkcontrol.getStartKontoauszugButton(control.getMitglied(), null, null);
       buttons.addButton(new Button("Kontoauszug", new KontoauszugAction(),
-          control.getMitglied(), false, "rechnung.png"));
+          control.getMitglied(), false, "file-invoice.png"));
     }
     if (isMitgliedDetail())
     {
       buttons.addButton(new Button("Personalbogen", new PersonalbogenAction(),
-          control.getCurrentObject(), false, "rechnung.png"));
+          control.getCurrentObject(), false, "receipt.png"));
       // R.M. 27.01.2013 Mitglieder sollten aus dem Dialog raus kopiert werden
       // können
       buttons
           .addButton(new Button("duplizieren", new MitgliedDuplizierenAction(),
-              control.getCurrentObject(), false, "copy_v2.png"));
+              control.getCurrentObject(), false, "copy.png"));
     }
     buttons.addButton("Mail", new MitgliedMailSendenAction(),
-        getCurrentObject(), false, "mail-message-new.png");
+        getCurrentObject(), false, "envelope-open.png");
     // buttons.addButton("neue Mail", new MailDetailAction(),
     // control.getCurrentObject(), false, "document-new.png");
     buttons.addButton("neu", (isMitgliedDetail() ? new MitgliedDetailAction()
-        : new AdresseDetailAction()), null, false, "document-new.png");
+        : new AdresseDetailAction()), null, false, "file.png");
 
     buttons.addButton("löschen",
         (isMitgliedDetail() ? new MitgliedDeleteAction()
             : new AdresseDeleteAction()),
-        control.getCurrentObject(), false, "user-trash.png");
+        control.getCurrentObject(), false, "trash-alt.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -234,7 +234,7 @@ public abstract class AbstractAdresseDetailView extends AbstractView
           Logger.error("Fehler", e);
         }
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(parent);
   }
 

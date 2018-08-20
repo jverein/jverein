@@ -163,9 +163,8 @@ public class LesefeldUebersichtPart implements Part
     // BUTTON AREA
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.LESEFELDER, false, "help-browser.png");
-    buttons.addButton("neu", new NewLesefeldAction(), null, false,
-        "document-new.png");
+        DokumentationUtil.LESEFELDER, false, "question-circle.png");
+    buttons.addButton("neu", new NewLesefeldAction(), null, false, "file.png");
     buttons.paint(parent);
     // END BUTTON AREA
   }

@@ -32,6 +32,6 @@ public class ArbeitseinsatzMenu extends ContextMenu
   public ArbeitseinsatzMenu()
   {
     addItem(new CheckedContextMenuItem("löschen...",
-        new ArbeitseinsatzDeleteAction(), "user-trash.png"));
+        new ArbeitseinsatzDeleteAction(), "trash-alt.png"));
   }
 }

@@ -38,13 +38,13 @@ public class FormularMenu extends ContextMenu
   public FormularMenu(FormularControl control)
   {
     addItem(new CheckedContextMenuItem("Formularfelder",
-        new FormularfelderListeAction(), "rechnung.png"));
+        new FormularfelderListeAction(), "file-invoice.png"));
     addItem(new CheckedContextMenuItem("anzeigen", new FormularAnzeigeAction(),
         "edit.png"));
     addItem(new CheckedSingleContextMenuItem("duplizieren",
-        new FormularDuplizierenAction(control), "copy_v2.png"));
+        new FormularDuplizierenAction(control), "copy.png"));
     addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem("löschen...",
-        new FormularDeleteAction(), "user-trash.png"));
+    addItem(new CheckedContextMenuItem("löschen...", new FormularDeleteAction(),
+        "trash-alt.png"));
   }
 }

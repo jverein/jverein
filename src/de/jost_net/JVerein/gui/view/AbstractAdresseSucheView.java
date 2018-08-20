@@ -53,8 +53,10 @@ public abstract class AbstractAdresseSucheView extends AbstractView
   public void bind() throws Exception
   {
     GUI.getView().setTitle(getTitle());
-    this.setCurrentObject(Einstellungen.getDBService().createObject(
-        Mitglied.class, null)); // leeres Object erzeugen
+    this.setCurrentObject(
+        Einstellungen.getDBService().createObject(Mitglied.class, null)); // leeres
+                                                                          // Object
+                                                                          // erzeugen
 
     DBService service = Einstellungen.getDBService();
     String sql = "select count(*) from beitragsgruppe";
@@ -67,8 +69,8 @@ public abstract class AbstractAdresseSucheView extends AbstractView
         return Long.valueOf(rs.getLong(1));
       }
     };
-    Long anzahlbeitragsgruppe = (Long) service
-        .execute(sql, new Object[] {}, rs);
+    Long anzahlbeitragsgruppe = (Long) service.execute(sql, new Object[] {},
+        rs);
     if (anzahlbeitragsgruppe.longValue() == 0)
     {
       new LabelInput("Noch keine Beitragsgruppe erfaßt. Bitte unter "
@@ -102,8 +104,7 @@ public abstract class AbstractAdresseSucheView extends AbstractView
     buttons.addButton(getHilfeButton());
     if (anzahlbeitragsgruppe > 0)
     {
-      buttons.addButton("neu", getDetailAction(), null, false,
-          "document-new.png");
+      buttons.addButton("neu", getDetailAction(), null, false, "file.png");
     }
     buttons.paint(this.getParent());
   }

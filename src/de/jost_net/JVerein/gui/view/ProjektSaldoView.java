@@ -48,7 +48,7 @@ public class ProjektSaldoView extends AbstractView
       {
         control.getSaldoList();
       }
-    }, null, true, "system-search.png");
+    }, null, true, "search.png");
     buttons.addButton(button);
     buttons.paint(this.getParent());
 
@@ -57,7 +57,7 @@ public class ProjektSaldoView extends AbstractView
 
     ButtonArea buttons2 = new ButtonArea();
     buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.PROJEKTE, false, "help-browser.png");
+        DokumentationUtil.PROJEKTE, false, "question-circle.png");
     buttons2.addButton(control.getStartAuswertungButton());
     buttons2.paint(this.getParent());
   }

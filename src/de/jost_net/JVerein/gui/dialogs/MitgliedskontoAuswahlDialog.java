@@ -165,7 +165,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
         }
         return;
       }
-    }, null, false, "emblem-default.png");
+    }, null, false, "check.png");
 
     b.addButton("entfernen", new Action()
     {
@@ -176,9 +176,9 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
         choosen = null;
         close();
       }
-    }, null, false, "edit-undo.png");
+    }, null, false, "undo.png");
     b.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIEDSKONTO_AUSWAHL, false, "help-browser.png");
+        DokumentationUtil.MITGLIEDSKONTO_AUSWAHL, false, "question-circle.png");
 
     b.addButton("abbrechen", new Action()
     {
@@ -188,7 +188,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
       {
         close();
       }
-    }, null, false, "process-stop.png");
+    }, null, false, "stop-circle.png");
     b.paint(parent);
   }
 

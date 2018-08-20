@@ -369,7 +369,7 @@ public class ZusatzbetragControl extends AbstractControl
               "Fehler beim Start der PDF-Ausgabe der Zusatzbeträge");
         }
       }
-    }, null, true, "acroread.png");
+    }, null, true, "file-pdf.png");
     return b;
   }
 

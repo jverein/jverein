@@ -78,8 +78,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     Date d = new Date();
     try
     {
-      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("von", "01.01"
-          + cal.get(Calendar.YEAR)));
+      d = new JVDateFormatTTMMJJJJ()
+          .parse(settings.getString("von", "01.01" + cal.get(Calendar.YEAR)));
     }
     catch (ParseException e)
     {
@@ -99,8 +99,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     Date d = new Date();
     try
     {
-      d = new JVDateFormatTTMMJJJJ().parse(settings.getString("bis", "31.12."
-          + cal.get(Calendar.YEAR)));
+      d = new JVDateFormatTTMMJJJJ()
+          .parse(settings.getString("bis", "31.12." + cal.get(Calendar.YEAR)));
     }
     catch (ParseException e)
     {
@@ -119,7 +119,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         starteAuswertung(AuswertungPDF);
       }
-    }, null, true, "pdf.png"); // "true" defines this button as the default
+    }, null, true, "file-pdf.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -133,7 +133,7 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         starteAuswertung(AuswertungCSV);
       }
-    }, null, true, "csv.jpg"); // "true" defines this button as the default
+    }, null, true, "code.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -180,8 +180,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(String.format("Fehler aufgetreten %s",
-          e.getMessage()));
+      throw new ApplicationException(
+          String.format("Fehler aufgetreten %s", e.getMessage()));
     }
     return saldoList.getSaldoList();
   }
@@ -204,8 +204,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("buchungsklassensaldo", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), type).get());
+      fd.setFileName(new Dateiname("buchungsklassensaldo", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), type).get());
 
       final String s = fd.open();
 
@@ -222,8 +222,8 @@ public class BuchungsklasseSaldoControl extends AbstractControl
     }
     catch (RemoteException e)
     {
-      throw new ApplicationException(String.format(
-          "Fehler beim Aufbau des Reports: %s", e.getMessage()));
+      throw new ApplicationException(
+          String.format("Fehler beim Aufbau des Reports: %s", e.getMessage()));
     }
   }
 

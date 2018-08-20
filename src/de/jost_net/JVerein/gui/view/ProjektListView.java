@@ -37,7 +37,7 @@ public class ProjektListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.PROJEKTE, false, "help-browser.png");
+        DokumentationUtil.PROJEKTE, false, "question-circle.png");
     buttons.addButton("neu", new ProjektAction(), null, false,
         "document-new.png");
     buttons.paint(this.getParent());

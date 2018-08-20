@@ -71,11 +71,11 @@ public class KursteilnehmerDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.KURSTEILNEHMER, false, "help-browser.png");
+        DokumentationUtil.KURSTEILNEHMER, false, "question-circle.png");
     buttons.addButton("neu", new KursteilnehmerDetailAction(), null, false,
         "document-new.png");
     buttons.addButton("löschen", new KursteilnehmerDeleteAction(),
-        control.getCurrentObject(), false, "user-trash.png");
+        control.getCurrentObject(), false, "trash-alt.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -84,7 +84,7 @@ public class KursteilnehmerDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

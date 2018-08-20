@@ -535,7 +535,7 @@ public class SpendenbescheinigungControl extends AbstractControl
               "Fehler bei der Aufbereitung der Spendenbescheinigung");
         }
       }
-    }, getSpendenbescheinigung(), false, "acroread.png");
+    }, getSpendenbescheinigung(), false, "file-pdf.png");
     return b;
   }
 
@@ -564,7 +564,7 @@ public class SpendenbescheinigungControl extends AbstractControl
               "Fehler bei der Aufbereitung der Spendenbescheinigung");
         }
       }
-    }, null, false, "acroread.png");
+    }, null, false, "file-pdf.png");
     return b;
   }
 

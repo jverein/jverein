@@ -35,8 +35,8 @@ public class AbrechnungslaufBuchungenMenu extends ContextMenu
   public AbrechnungslaufBuchungenMenu()
   {
     addItem(new CheckedContextMenuItem("Sollbuchung bearbeiten",
-        new PreNotificationAction(), "document-new.png"));
+        new PreNotificationAction(), "file.png"));
     addItem(new CheckedContextMenuItem("Sollbuchung löschen",
-        new AbrechnungslaufDeleteAction(), "user-trash.png"));
+        new AbrechnungslaufDeleteAction(), "trash-alt.png"));
   }
 }

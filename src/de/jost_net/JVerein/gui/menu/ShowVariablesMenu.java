@@ -54,8 +54,8 @@ public class ShowVariablesMenu extends ContextMenu
    * soll.
    * 
    * @param pre
-   *        Text, der vor den Eintrag in den Zwischen speicher kopiert werden
-   *        soll.
+   *          Text, der vor den Eintrag in den Zwischen speicher kopiert werden
+   *          soll.
    */
   public void setPrependCopyText(String pre)
   {
@@ -69,8 +69,8 @@ public class ShowVariablesMenu extends ContextMenu
    * soll.
    * 
    * @param append
-   *        Text, der hinter den Eintrag in den Zwischen speicher kopiert werden
-   *        soll.
+   *          Text, der hinter den Eintrag in den Zwischen speicher kopiert
+   *          werden soll.
    */
   public void setAppendCopyText(String append)
   {
@@ -97,12 +97,13 @@ public class ShowVariablesMenu extends ContextMenu
           if (textData.length() > 0)
           {
             TextTransfer textTransfer = TextTransfer.getInstance();
-            cb.setContents(new Object[] { prependCopyText + textData
-                + appendCopyText}, new Transfer[] { textTransfer});
+            cb.setContents(
+                new Object[] { prependCopyText + textData + appendCopyText },
+                new Transfer[] { textTransfer });
           }
         }
       }
     };
-    addItem(new CheckedContextMenuItem("kopieren", copy, "copy_edit.png"));
+    addItem(new CheckedContextMenuItem("kopieren", copy, "copy.png"));
   }
 }

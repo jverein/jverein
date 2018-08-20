@@ -133,7 +133,7 @@ public class DokumentControl extends AbstractControl
       {
         speichern(verzeichnis);
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     return speichernButton;
   }
 

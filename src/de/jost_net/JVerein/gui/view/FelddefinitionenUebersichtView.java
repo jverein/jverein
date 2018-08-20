@@ -37,7 +37,7 @@ public class FelddefinitionenUebersichtView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FELDDEFINITIONEN, false, "help-browser.png");
+        DokumentationUtil.FELDDEFINITIONEN, false, "question-circle.png");
     buttons.addButton("neu", new FelddefinitionDetailAction(), null, false,
         "document-new.png");
     buttons.paint(this.getParent());

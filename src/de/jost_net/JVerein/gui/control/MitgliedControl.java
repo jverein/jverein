@@ -2592,7 +2592,7 @@ public class MitgliedControl extends AbstractControl
               "Fehler beim Start der Mitgliederauswertung");
         }
       }
-    }, null, true, "go.png"); // "true" defines this button as the default
+    }, null, true, "walking.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -2626,7 +2626,7 @@ public class MitgliedControl extends AbstractControl
               "Fehler beim Start der Mitgliederauswertung");
         }
       }
-    }, null, true, "go.png"); // "true" defines this button as the default
+    }, null, true, "walking.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -2649,8 +2649,8 @@ public class MitgliedControl extends AbstractControl
         }
         GUI.startView(MitgliederSuchProfilView.class.getName(), settings);
       }
-    }, null, true, "checked_user.png"); // "true" defines this button as the
-                                        // default button
+    }, null, true, "user-check.png"); // "true" defines this button as the
+                                      // default button
     return b;
   }
 
@@ -2673,7 +2673,7 @@ public class MitgliedControl extends AbstractControl
               "Fehler beim Start der Adressauswertung");
         }
       }
-    }, null, true, "go.png"); // "true" defines this button as the default
+    }, null, true, "walking.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -2695,7 +2695,7 @@ public class MitgliedControl extends AbstractControl
           throw new ApplicationException(e);
         }
       }
-    }, null, true, "go.png"); // "true" defines this button as the default
+    }, null, true, "walking.png"); // "true" defines this button as the default
     // button
     return b;
   }
@@ -2709,7 +2709,7 @@ public class MitgliedControl extends AbstractControl
       {
         GUI.startView(AuswertungVorlagenCsvView.class.getName(), null);
       }
-    }, null, false, "csv.jpg");
+    }, null, false, "code.png");
     // button
     return b;
 
@@ -2724,28 +2724,25 @@ public class MitgliedControl extends AbstractControl
   public Button getZusatzbetragNeu()
   {
     return new Button("Neuer Zusatzbetrag",
-        new ZusatzbetraegeAction(getMitglied()), null, false,
-        "document-new.png");
+        new ZusatzbetraegeAction(getMitglied()), null, false, "file.png");
   }
 
   public Button getWiedervorlageNeu()
   {
     return new Button("Neue Wiedervorlage",
-        new WiedervorlageAction(getMitglied()), null, false,
-        "document-new.png");
+        new WiedervorlageAction(getMitglied()), null, false, "file.png");
   }
 
   public Button getArbeitseinsatzNeu()
   {
     return new Button("Neuer Arbeitseinsatz",
-        new ArbeitseinsatzAction(getMitglied()), null, false,
-        "document-new.png");
+        new ArbeitseinsatzAction(getMitglied()), null, false, "file.png");
   }
 
   public Button getLehrgangNeu()
   {
     return new Button("Neuer Lehrgang", new LehrgangAction(getMitglied()), null,
-        false, "document-new.png");
+        false, "file.png");
   }
 
   public TablePart getMitgliedTable(int atyp, Action detailaction)

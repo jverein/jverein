@@ -37,15 +37,15 @@ public class SpendenbescheinigungMenu extends ContextMenu
   public SpendenbescheinigungMenu()
   {
     addItem(new CheckedContextMenuItem("Drucken (Standard)",
-        new SpendenbescheinigungPrintAction(true), "acroread.png"));
+        new SpendenbescheinigungPrintAction(true), "file-pdf.png"));
     addItem(new CheckedContextMenuItem("Drucken (individuell)",
-        new SpendenbescheinigungPrintAction(false), "acroread.png"));
+        new SpendenbescheinigungPrintAction(false), "file-pdf.png"));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new DuplicateMenuItem("als Vorlage für neue Spende",
-        new SpendenbescheinigungDuplizierenAction(), "edit-copy.png"));
+        new SpendenbescheinigungDuplizierenAction(), "copy.png"));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem("löschen...",
-        new SpendenbescheinigungDeleteAction(), "user-trash.png"));
+        new SpendenbescheinigungDeleteAction(), "trash-alt.png"));
   }
 
   private static class DuplicateMenuItem extends CheckedContextMenuItem
@@ -55,7 +55,7 @@ public class SpendenbescheinigungMenu extends ContextMenu
      * @param text
      * @param action
      * @param icon
-     *        Optionale Angabe eines Icons.
+     *          Optionale Angabe eines Icons.
      */
     private DuplicateMenuItem(String text, Action action, String icon)
     {

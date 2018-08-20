@@ -32,6 +32,6 @@ public class BeitragsgruppeMenu extends ContextMenu
   public BeitragsgruppeMenu()
   {
     addItem(new CheckedContextMenuItem("löschen...",
-        new BeitragsgruppeDeleteAction(), "user-trash.png"));
+        new BeitragsgruppeDeleteAction(), "trash-alt.png"));
   }
 }

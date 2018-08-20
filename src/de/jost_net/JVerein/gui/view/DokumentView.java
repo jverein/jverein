@@ -39,7 +39,8 @@ public class DokumentView extends AbstractView
   {
     GUI.getView().setTitle("Dokument");
 
-    final DokumentControl control = new DokumentControl(this, verzeichnis, true);
+    final DokumentControl control = new DokumentControl(this, verzeichnis,
+        true);
 
     LabelGroup grDokument = new LabelGroup(getParent(), "Dokument");
     grDokument.addLabelPair("Datei", control.getDatei());
@@ -48,7 +49,7 @@ public class DokumentView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGEN, false, "help-browser.png");
+        DokumentationUtil.BUCHUNGEN, false, "question-circle.png");
     buttons.addButton(control.getSpeichernButton(verzeichnis + "."));
     buttons.paint(this.getParent());
   }

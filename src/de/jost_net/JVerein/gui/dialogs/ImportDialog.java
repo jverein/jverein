@@ -118,7 +118,7 @@ public class ImportDialog extends AbstractDialog<Object>
     }
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(), helplink, false,
-        "help-browser.png");
+        "question-circle.png");
 
     Button button = new Button("Import starten", new Action()
     {
@@ -128,7 +128,7 @@ public class ImportDialog extends AbstractDialog<Object>
       {
         doImport();
       }
-    }, null, true, "import_obj.gif");
+    }, null, true, "file-import.png");
     button.setEnabled(!(formats instanceof LabelInput));
     buttons.addButton(button);
     buttons.addButton("Abbrechen", new Action()
@@ -139,7 +139,7 @@ public class ImportDialog extends AbstractDialog<Object>
       {
         throw new OperationCanceledException();
       }
-    }, null, false, "process-stop.png");
+    }, null, false, "stop-circle.png");
     group.addButtonArea(buttons);
     getShell()
         .setMinimumSize(getShell().computeSize(WINDOW_WIDTH, SWT.DEFAULT));
@@ -182,13 +182,13 @@ public class ImportDialog extends AbstractDialog<Object>
     settings.setAttribute("lastformat", imp.format.getName());
 
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-    fd.setText(i18n
-        .tr("Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
+    fd.setText(i18n.tr(
+        "Bitte wählen Sie die Datei aus, welche für den Import verwendet werden soll."));
     fd.setFilterNames(getFilterNames(imp));
     fd.setFilterExtensions(imp.format.getFileExtensions());
 
-    String path = settings
-        .getString("lastdir", System.getProperty("user.home"));
+    String path = settings.getString("lastdir",
+        System.getProperty("user.home"));
     if (path != null && path.length() > 0)
       fd.setFilterPath(path);
 
@@ -230,8 +230,8 @@ public class ImportDialog extends AbstractDialog<Object>
           importer.doImport(context, format, file, enc, monitor);
           monitor.setPercentComplete(100);
           monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          GUI.getStatusBar().setSuccessText(
-              String.format("Daten importiert aus %s", s));
+          GUI.getStatusBar()
+              .setSuccessText(String.format("Daten importiert aus %s", s));
           GUI.getCurrentView().reload();
         }
         catch (ApplicationException ae)
@@ -245,8 +245,8 @@ public class ImportDialog extends AbstractDialog<Object>
         {
           monitor.setStatus(ProgressMonitor.STATUS_ERROR);
           Logger.error("error while reading objects from " + s, e);
-          ApplicationException ae = new ApplicationException(String.format(
-              "Fehler beim Importieren der Daten aus %s", s), e);
+          ApplicationException ae = new ApplicationException(
+              String.format("Fehler beim Importieren der Daten aus %s", s), e);
           monitor.setStatusText(ae.getMessage());
           GUI.getStatusBar().setErrorText(ae.getMessage());
           throw ae;
@@ -295,9 +295,9 @@ public class ImportDialog extends AbstractDialog<Object>
       IOFormat[] formats = imp.getIOFormats(type);
       if (formats == null || formats.length == 0)
       {
-        Logger.debug("importer " + imp.getName()
-            + " provides no import formats for " + type.getName()
-            + ", skipping");
+        Logger.debug(
+            "importer " + imp.getName() + " provides no import formats for "
+                + type.getName() + ", skipping");
         continue;
       }
       for (int j = 0; j < formats.length; ++j)

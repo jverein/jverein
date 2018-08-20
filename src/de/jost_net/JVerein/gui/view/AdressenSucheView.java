@@ -62,6 +62,6 @@ public class AdressenSucheView extends AbstractAdresseSucheView
   public Button getHilfeButton()
   {
     return new Button("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ADRESSEN, false, "help-browser.png");
+        DokumentationUtil.ADRESSEN, false, "question-circle.png");
   }
 }

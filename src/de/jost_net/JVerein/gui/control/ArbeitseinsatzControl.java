@@ -188,7 +188,7 @@ public class ArbeitseinsatzControl extends AbstractControl
               "Fehler beim Start der PDF-Ausgabe der Arbeitseinsatzüberprüfung");
         }
       }
-    }, null, true, "acroread.png");
+    }, null, true, "file-pdf.png");
     return b;
   }
 
@@ -211,7 +211,7 @@ public class ArbeitseinsatzControl extends AbstractControl
               "Fehler beim Start der CSV-Ausgabe der Arbeitseinsatzüberprüfung");
         }
       }
-    }, null, true, "csv_text.png");
+    }, null, true, "code.png");
     return b;
   }
 
@@ -234,7 +234,7 @@ public class ArbeitseinsatzControl extends AbstractControl
               "Fehler beim der Zusatzbetragsgenerierung");
         }
       }
-    }, null, true, "zusatzbetraege.png");
+    }, null, true, "euro-sign.png");
     return b;
   }
 

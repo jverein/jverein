@@ -40,7 +40,7 @@ public class MitgliederSuchProfilView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.SUCHPROFIL, false, "help-browser.png");
+        DokumentationUtil.SUCHPROFIL, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -49,7 +49,7 @@ public class MitgliederSuchProfilView extends AbstractView
       {
         control.handleStore(false);
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.addButton("speichern unter", new Action()
     {
 
@@ -58,7 +58,7 @@ public class MitgliederSuchProfilView extends AbstractView
       {
         control.handleStore(true);
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
     control.getSuchprofilList().paint(this.getParent());
   }

@@ -42,15 +42,16 @@ public class AbrechnungSEPAView extends AbstractView
         control.getFaelligkeit1());
     group.addLabelPair("Fälligkeit SEPA (Folge-/Letzte-Lastschrift)",
         control.getFaelligkeit2());
-    if (Einstellungen.getEinstellung().getBeitragsmodel() == Beitragsmodel.FLEXIBEL)
+    if (Einstellungen.getEinstellung()
+        .getBeitragsmodel() == Beitragsmodel.FLEXIBEL)
     {
       group.addLabelPair("Abrechnungsmonat", control.getAbrechnungsmonat());
     }
     group.addLabelPair("Stichtag", control.getStichtag());
     group.addLabelPair("Von Eingabedatum", control.getVondatum());
     group.addLabelPair("Bis Austrittsdatum", control.getBisdatum());
-    group
-        .addLabelPair("Zahlungsgrund für Beiträge", control.getZahlungsgrund());
+    group.addLabelPair("Zahlungsgrund für Beiträge",
+        control.getZahlungsgrund());
     group.addLabelPair("Zusatzbeträge", control.getZusatzbetrag());
     if (!Einstellungen.getEinstellung().getZusatzbetrag())
     {
@@ -66,14 +67,13 @@ public class AbrechnungSEPAView extends AbstractView
     }
     group.addLabelPair("Abbuchungsausgabe", control.getAbbuchungsausgabe());
     group.addSeparator();
-    group
-        .addText(
-            "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
-            true);
+    group.addText(
+        "*) für die Berechnung, ob ein Mitglied bereits eingetreten oder ausgetreten ist. ",
+        true);
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABRECHNUNG, false, "help-browser.png");
+        DokumentationUtil.ABRECHNUNG, false, "question-circle.png");
     buttons.addButton("Fehler/Warnungen/Hinweise", new Action()
     {
 
@@ -82,7 +82,7 @@ public class AbrechnungSEPAView extends AbstractView
       {
         GUI.startView(SEPABugsView.class.getName(), null);
       }
-    }, null, false, "debug_exc.gif");
+    }, null, false, "bug.png");
     buttons.addButton(control.getStartButton());
     buttons.paint(this.getParent());
   }

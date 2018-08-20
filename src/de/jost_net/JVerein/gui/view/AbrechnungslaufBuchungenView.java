@@ -71,12 +71,12 @@ public class AbrechnungslaufBuchungenView extends AbstractView
     ButtonArea buttons = new ButtonArea();
     buttons.addButton(control.getStartListeButton());
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.ABRECHNUNGSLAUF, false, "help-browser.png");
+        DokumentationUtil.ABRECHNUNGSLAUF, false, "question-circle.png");
     buttons.paint(this.getParent());
   }
 
-  SimpleContainer machSpalte(Container cont, int breite, int anzSpalten, int min)
-      throws ApplicationException
+  SimpleContainer machSpalte(Container cont, int breite, int anzSpalten,
+      int min) throws ApplicationException
   {
     GridLayout sl;
     GridData sd;

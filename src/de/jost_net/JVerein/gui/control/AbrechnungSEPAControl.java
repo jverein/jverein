@@ -162,12 +162,13 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
     Calendar cal = Calendar.getInstance();
     Bankarbeitstage bat = new Bankarbeitstage();
-    cal = bat.getCalendar(cal, 5 + Einstellungen.getEinstellung()
-        .getSEPADatumOffset());
-    this.faelligkeit1 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
+    cal = bat.getCalendar(cal,
+        5 + Einstellungen.getEinstellung().getSEPADatumOffset());
+    this.faelligkeit1 = new DateInput(cal.getTime(),
+        new JVDateFormatTTMMJJJJ());
     this.faelligkeit1.setTitle("Fälligkeit SEPA-Lastschrift / Erst+einmalig");
-    this.faelligkeit1
-        .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Erst+einmalig) wählen");
+    this.faelligkeit1.setText(
+        "Bitte Fälligkeitsdatum der SEPA-Lastschrift (Erst+einmalig) wählen");
     return faelligkeit1;
   }
 
@@ -179,9 +180,10 @@ public class AbrechnungSEPAControl extends AbstractControl
     }
     Calendar cal = Calendar.getInstance();
     Bankarbeitstage bat = new Bankarbeitstage();
-    cal = bat.getCalendar(cal, 2 + Einstellungen.getEinstellung()
-        .getSEPADatumOffset());
-    this.faelligkeit2 = new DateInput(cal.getTime(), new JVDateFormatTTMMJJJJ());
+    cal = bat.getCalendar(cal,
+        2 + Einstellungen.getEinstellung().getSEPADatumOffset());
+    this.faelligkeit2 = new DateInput(cal.getTime(),
+        new JVDateFormatTTMMJJJJ());
     this.faelligkeit2.setTitle("Fälligkeit SEPA-Lastschrift / Folge");
     this.faelligkeit2
         .setText("Bitte Fälligkeitsdatum der SEPA-Lastschrift (Folge) wählen");
@@ -211,7 +213,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     Date d = null;
     this.bisdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.bisdatum.setTitle("Enddatum Abrechnung");
-    this.bisdatum.setText("Bitte maximales Austrittsdatum für die Abrechnung wählen");
+    this.bisdatum
+        .setText("Bitte maximales Austrittsdatum für die Abrechnung wählen");
     this.bisdatum.setEnabled(false);
     return bisdatum;
   }
@@ -234,8 +237,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return zusatzbetrag;
     }
-    zusatzbetrag = new CheckboxInput(settings.getBoolean("zusatzbetraege",
-        false));
+    zusatzbetrag = new CheckboxInput(
+        settings.getBoolean("zusatzbetraege", false));
     return zusatzbetrag;
   }
 
@@ -245,8 +248,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return kursteilnehmer;
     }
-    kursteilnehmer = new CheckboxInput(settings.getBoolean("kursteilnehmer",
-        false));
+    kursteilnehmer = new CheckboxInput(
+        settings.getBoolean("kursteilnehmer", false));
     return kursteilnehmer;
   }
 
@@ -256,8 +259,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return kompakteabbuchung;
     }
-    kompakteabbuchung = new CheckboxInput(settings.getBoolean(
-        "kompakteabbuchung", false));
+    kompakteabbuchung = new CheckboxInput(
+        settings.getBoolean("kompakteabbuchung", false));
     return kompakteabbuchung;
   }
 
@@ -277,8 +280,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     {
       return ausgabe;
     }
-    Abrechnungsausgabe aus = Abrechnungsausgabe.getByKey(settings.getInt(
-        "abrechnungsausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
+    Abrechnungsausgabe aus = Abrechnungsausgabe.getByKey(settings
+        .getInt("abrechnungsausgabe", Abrechnungsausgabe.SEPA_DATEI.getKey()));
     if (aus != Abrechnungsausgabe.SEPA_DATEI
         && aus != Abrechnungsausgabe.HIBISCUS)
     {
@@ -308,7 +311,7 @@ public class AbrechnungSEPAControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 
@@ -318,8 +321,8 @@ public class AbrechnungSEPAControl extends AbstractControl
     File sepafilercur;
     settings.setAttribute("zahlungsgrund", (String) zahlungsgrund.getValue());
     settings.setAttribute("zusatzbetraege", (Boolean) zusatzbetrag.getValue());
-    settings
-        .setAttribute("kursteilnehmer", (Boolean) kursteilnehmer.getValue());
+    settings.setAttribute("kursteilnehmer",
+        (Boolean) kursteilnehmer.getValue());
     settings.setAttribute("kompakteabbuchung",
         (Boolean) kompakteabbuchung.getValue());
     settings.setAttribute("sepaprint", (Boolean) sepaprint.getValue());
@@ -386,8 +389,8 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchungFRST", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "XML").get());
+      fd.setFileName(new Dateiname("abbuchungFRST", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "XML").get());
       String file = fd.open();
 
       if (file == null || file.length() == 0)
@@ -396,8 +399,8 @@ public class AbrechnungSEPAControl extends AbstractControl
       }
       sepafilefrst = new File(file);
 
-      fd.setFileName(new Dateiname("abbuchungRCUR", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "XML").get());
+      fd.setFileName(new Dateiname("abbuchungRCUR", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "XML").get());
       file = fd.open();
 
       if (file == null || file.length() == 0)
@@ -438,13 +441,13 @@ public class AbrechnungSEPAControl extends AbstractControl
       {
         fd.setFilterPath(path);
       }
-      fd.setFileName(new Dateiname("abbuchungFRST", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("abbuchungFRST", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
       pdffileFRST = fd.open();
       // Wir merken uns noch das Verzeichnis fürs nächste mal
       File fiFRST = new File(pdffileFRST);
-      fd.setFileName(new Dateiname("abbuchungRCUR", "", Einstellungen
-          .getEinstellung().getDateinamenmuster(), "PDF").get());
+      fd.setFileName(new Dateiname("abbuchungRCUR", "",
+          Einstellungen.getEinstellung().getDateinamenmuster(), "PDF").get());
       pdffileRCUR = fd.open();
       // Wir merken uns noch das Verzeichnis fürs nächste mal
       settings.setAttribute("lastdir.pdf", fiFRST.getParent());
@@ -475,13 +478,10 @@ public class AbrechnungSEPAControl extends AbstractControl
 
             monitor.setPercentComplete(100);
             monitor.setStatus(ProgressMonitor.STATUS_DONE);
-            GUI.getStatusBar()
-                .setSuccessText(
-                    String
-                        .format(
-                            "Abrechnung durchgeführt., SEPA-Dateien %s, %s geschrieben.",
-                            abupar.sepafileFRST.getAbsolutePath(),
-                            abupar.sepafileRCUR.getAbsolutePath()));
+            GUI.getStatusBar().setSuccessText(String.format(
+                "Abrechnung durchgeführt., SEPA-Dateien %s, %s geschrieben.",
+                abupar.sepafileFRST.getAbsolutePath(),
+                abupar.sepafileRCUR.getAbsolutePath()));
             GUI.getCurrentView().reload();
           }
           catch (ApplicationException ae)
@@ -498,9 +498,10 @@ public class AbrechnungSEPAControl extends AbstractControl
             monitor.setStatus(ProgressMonitor.STATUS_ERROR);
             Logger.error(String.format("error while reading objects from %s",
                 abupar.sepafileFRST.getAbsolutePath()), e);
-            ApplicationException ae = new ApplicationException(String.format(
-                "Fehler beim erstellen der Abbuchungsdatei: %s",
-                abupar.sepafileFRST.getAbsolutePath()), e);
+            ApplicationException ae = new ApplicationException(
+                String.format("Fehler beim erstellen der Abbuchungsdatei: %s",
+                    abupar.sepafileFRST.getAbsolutePath()),
+                e);
             monitor.setStatusText(ae.getMessage());
             GUI.getStatusBar().setErrorText(ae.getMessage());
             throw ae;

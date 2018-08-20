@@ -58,7 +58,7 @@ public class BuchungsartListView extends AbstractView
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "system-search.png");
+    }, null, true, "search.png");
     buttons1.addButton(button);
     buttons1.paint(this.getParent());
 
@@ -67,10 +67,9 @@ public class BuchungsartListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGSART, false, "help-browser.png");
+        DokumentationUtil.BUCHUNGSART, false, "question-circle.png");
     buttons.addButton(control.getPDFAusgabeButton());
-    buttons.addButton("neu", new BuchungsartAction(), null, false,
-        "document-new.png");
+    buttons.addButton("neu", new BuchungsartAction(), null, false, "file.png");
     buttons.paint(this.getParent());
   }
 }

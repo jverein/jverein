@@ -48,24 +48,23 @@ public class BuchungMenu extends ContextMenu
   public BuchungMenu(BuchungsControl control)
   {
     addItem(new ContextMenuItem("neue Buchung", new BuchungNeuAction(),
-        "document-new.png"));
-    addItem(new CheckedSingleContextMenuItem("bearbeiten", new BuchungAction(
-        false), "edit.png"));
+        "file.png"));
+    addItem(new CheckedSingleContextMenuItem("bearbeiten",
+        new BuchungAction(false), "edit.png"));
     addItem(new SingleBuchungItem("duplizieren", new BuchungDuplizierenAction(),
-        "copy_v2.png"));
+        "copy.png"));
     addItem(new SingleBuchungItem("Splitbuchung", new SplitBuchungAction(),
         "edit.png"));
     addItem(new CheckedContextMenuItem("Buchungsart zuordnen",
-        new BuchungBuchungsartZuordnungAction(control), "zuordnung.png"));
+        new BuchungBuchungsartZuordnungAction(control), "exchange-alt.png"));
     addItem(new CheckedContextMenuItem("Mitgliedskonto zuordnen",
-        new BuchungMitgliedskontoZuordnungAction(control),
-        "human_folder_public.png"));
+        new BuchungMitgliedskontoZuordnungAction(control), "exchange-alt.png"));
     addItem(new CheckedContextMenuItem("Projekt zuordnen",
-        new BuchungProjektZuordnungAction(control), "projects.png"));
+        new BuchungProjektZuordnungAction(control), "exchange-alt.png"));
     addItem(new CheckedContextMenuItem("Kontoauszug zuordnen",
-        new BuchungKontoauszugZuordnungAction(control), "zuordnung.png"));
+        new BuchungKontoauszugZuordnungAction(control), "exchange-alt.png"));
     addItem(new BuchungItem("löschen...", new BuchungDeleteAction(false),
-        "user-trash.png"));
+        "trash-alt.png"));
   }
 
   private static class SingleBuchungItem extends CheckedSingleContextMenuItem

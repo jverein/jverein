@@ -36,7 +36,7 @@ public class SEPABugsView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.SEPABUGS, false, "help-browser.png");
+        DokumentationUtil.SEPABUGS, false, "question-circle.png");
     buttons.paint(this.getParent());
   }
 }

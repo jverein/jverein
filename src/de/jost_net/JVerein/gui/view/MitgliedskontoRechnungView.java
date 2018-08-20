@@ -52,16 +52,18 @@ public class MitgliedskontoRechnungView extends AbstractView
     cont.addInput(control.getAusgabesortierung());
 
     cont.addHeadline("Mail");
-    cont.addInput(control.getBetreff(MitgliedskontoControl.TYP.RECHNUNG.name()));
+    cont.addInput(
+        control.getBetreff(MitgliedskontoControl.TYP.RECHNUNG.name()));
     cont.addLabelPair("Text",
         control.getTxt(MitgliedskontoControl.TYP.RECHNUNG.name()));
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.RECHNUNG, false, "help-browser.png");
-    buttons.addButton(new Button("Export", new MitgliedskontoExportAction(
-        EXPORT_TYP.RECHNUNGEN, getCurrentObject()), control, false,
-        "document-save.png"));
+        DokumentationUtil.RECHNUNG, false, "question-circle.png");
+    buttons.addButton(new Button("Export",
+        new MitgliedskontoExportAction(EXPORT_TYP.RECHNUNGEN,
+            getCurrentObject()),
+        control, false, "save.png"));
     buttons.addButton(control.getStartRechnungButton(this.getCurrentObject()));
     buttons.paint(this.getParent());
   }

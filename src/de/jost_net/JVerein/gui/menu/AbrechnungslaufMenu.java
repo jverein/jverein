@@ -41,12 +41,12 @@ public class AbrechnungslaufMenu extends ContextMenu
    */
   public AbrechnungslaufMenu()
   {
-    addItem(new ContextMenuItem("Bearbeiten",
-        new AbrechnungslaufDetailAction(), "edit.png"));
+    addItem(new ContextMenuItem("Bearbeiten", new AbrechnungslaufDetailAction(),
+        "edit.png"));
     addItem(new AbgeschlossenDisabledItem("Pre-Notification",
-        new PreNotificationAction(), "document-new.png"));
+        new PreNotificationAction(), "file.png"));
     addItem(new AbgeschlossenDisabledItem("löschen...",
-        new AbrechnungslaufDeleteAction(), "user-trash.png"));
+        new AbrechnungslaufDeleteAction(), "trash-alt.png"));
     try
     {
       if (Einstellungen.getEinstellung().getAbrlAbschliessen())

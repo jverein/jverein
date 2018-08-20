@@ -59,13 +59,14 @@ public class EinstellungenMailView extends AbstractView
     cont.addLabelPair("IMAP Passwort", control.getImapAuthPwd());
     cont.addLabelPair("IMAP SSL verwenden", control.getImap_ssl());
     cont.addLabelPair("IMAP StartTLS verwenden", control.getImap_starttls());
-    cont.addLabelPair("IMAP 'Gesendete'-Ordername", control.getImapSentFolder());
+    cont.addLabelPair("IMAP 'Gesendete'-Ordername",
+        control.getImapSentFolder());
     cont.addSeparator();
     cont.addLabelPair("Signatur", control.getMailSignatur());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");
+        DokumentationUtil.EINSTELLUNGEN, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -74,7 +75,7 @@ public class EinstellungenMailView extends AbstractView
       {
         control.handleStoreMail();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

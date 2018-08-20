@@ -40,7 +40,7 @@ public class BuchungsklasseView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.BUCHUNGSKLASSEN, false, "help-browser.png");
+        DokumentationUtil.BUCHUNGSKLASSEN, false, "question-circle.png");
 
     buttons.addButton("speichern", new Action()
     {
@@ -49,7 +49,7 @@ public class BuchungsklasseView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

@@ -38,11 +38,11 @@ public class KontoListView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.KONTEN, false, "help-browser.png");
-    buttons.addButton("Hibiscus-Konten-Import", new HibiscusKontenImportAction(
-        control), null, false, "go.png");
-    buttons
-        .addButton("neu", new KontoAction(), null, false, "document-new.png");
+        DokumentationUtil.KONTEN, false, "question-circle.png");
+    buttons.addButton("Hibiscus-Konten-Import",
+        new HibiscusKontenImportAction(control), null, false, "walking.png");
+    buttons.addButton("neu", new KontoAction(), null, false,
+        "document-new.png");
     buttons.paint(this.getParent());
   }
 }

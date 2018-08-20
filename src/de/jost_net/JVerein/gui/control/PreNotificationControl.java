@@ -267,7 +267,7 @@ public class PreNotificationControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 
@@ -302,7 +302,7 @@ public class PreNotificationControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 

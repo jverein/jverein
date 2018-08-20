@@ -87,16 +87,16 @@ public class LesefeldDetailView extends AbstractView implements Listener
       {
         updateScriptResult();
       }
-    }, null, false, "view-refresh.png");
+    }, null, false, "sync.png");
     buttonArea.addButton(button);
     button = new Button("Variablen anzeigen (F6)",
         new OpenInsertVariableDialogAction(), null, false, "zuordnung.png");
     buttonArea.addButton(button);
     button = new Button("Speichern und zurück", new SaveLesefeldAction(), null,
-        false, "document-save.png");
+        false, "save.png");
     buttonArea.addButton(button);
     button = new Button("Abbrechen und zurück", new AbortEditLesefeldAction(),
-        null, false, "process-stop.png");
+        null, false, "stop-circle.png");
     buttonArea.addButton(button);
     buttonArea.paint(this.getParent());
   }
@@ -122,12 +122,11 @@ public class LesefeldDetailView extends AbstractView implements Listener
         if (lesefeld.getBezeichnung().equals(textInputScriptName.getValue()))
         {
           String currentid = lesefeld.getID();
-          if (this.lesefeld == null
-              || (this.lesefeld != null && !this.lesefeld.getID()
-                  .equalsIgnoreCase((currentid))))
+          if (this.lesefeld == null || (this.lesefeld != null
+              && !this.lesefeld.getID().equalsIgnoreCase((currentid))))
           {
-            GUI.getStatusBar().setErrorText(
-                "Bitte eindeutigen Skript-Namen eingeben!");
+            GUI.getStatusBar()
+                .setErrorText("Bitte eindeutigen Skript-Namen eingeben!");
             return false;
           }
         }
@@ -135,13 +134,13 @@ public class LesefeldDetailView extends AbstractView implements Listener
 
       // erstelle neues lesefeld, wenn nötig.
       if (lesefeld == null)
-        lesefeld = (Lesefeld) Einstellungen.getDBService().createObject(
-            Lesefeld.class, null);
+        lesefeld = (Lesefeld) Einstellungen.getDBService()
+            .createObject(Lesefeld.class, null);
 
       lesefeld.setBezeichnung((String) textInputScriptName.getValue());
       lesefeld.setScript((String) textAreaInputScriptCode.getValue());
-      lesefeld.setEvaluatedContent((String) textAreaInputScriptResult
-          .getValue());
+      lesefeld
+          .setEvaluatedContent((String) textAreaInputScriptResult.getValue());
     }
     catch (RemoteException e)
     {
@@ -249,8 +248,8 @@ public class LesefeldDetailView extends AbstractView implements Listener
         catch (RemoteException e)
         {
           Logger.error("Fehler", e);
-          GUI.getStatusBar().setErrorText(
-              "Skript kann nicht gespeichert werden.");
+          GUI.getStatusBar()
+              .setErrorText("Skript kann nicht gespeichert werden.");
           Logger.error("Skript kann nicht gespeichert werden.", e);
         }
       }

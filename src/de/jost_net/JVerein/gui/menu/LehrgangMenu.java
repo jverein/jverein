@@ -31,7 +31,7 @@ public class LehrgangMenu extends ContextMenu
    */
   public LehrgangMenu()
   {
-    addItem(new CheckedContextMenuItem("löschen...",
-        new LehrgangDeleteAction(), "user-trash.png"));
+    addItem(new CheckedContextMenuItem("löschen...", new LehrgangDeleteAction(),
+        "trash-alt.png"));
   }
 }

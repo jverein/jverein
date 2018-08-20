@@ -32,6 +32,6 @@ public class SuchprofilMenu extends ContextMenu
     addItem(new CheckedContextMenuItem("laden", new SuchprofilLadenAction(),
         "document-open.png"));
     addItem(new CheckedContextMenuItem("löschen...",
-        new SuchprofilDeleteAction(control), "user-trash.png"));
+        new SuchprofilDeleteAction(control), "trash-alt.png"));
   }
 }

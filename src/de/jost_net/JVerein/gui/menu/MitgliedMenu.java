@@ -66,9 +66,9 @@ public class MitgliedMenu extends ContextMenu
     addItem(new CheckedSingleContextMenuItem("bearbeiten", detailaction,
         "edit.png"));
     addItem(new CheckedSingleContextMenuItem("duplizieren",
-        new MitgliedDuplizierenAction(), "copy_v2.png"));
+        new MitgliedDuplizierenAction(), "copy.png"));
     addItem(new CheckedContextMenuItem("in Zwischenablage kopieren",
-        new MitgliedInZwischenablageKopierenAction(), "copy_edit.gif"));
+        new MitgliedInZwischenablageKopierenAction(), "copy.png"));
     if (detailaction instanceof AdresseDetailAction)
     {
       addItem(new CheckedContextMenuItem("zu Mitglied umwandeln", new Action()
@@ -103,34 +103,34 @@ public class MitgliedMenu extends ContextMenu
             throw new ApplicationException(e);
           }
         }
-      }, "change.gif"));
+      }, "arrows-alt-h.png"));
     }
     addItem(new CheckedSingleContextMenuItem("löschen...",
-        new MitgliedDeleteAction(), "user-trash.png"));
+        new MitgliedDeleteAction(), "trash-alt.png"));
     addItem(ContextMenuItem.SEPARATOR);
     addItem(new CheckedContextMenuItem("Mail senden ...",
-        new MitgliedMailSendenAction(), "mail-message-new.png"));
+        new MitgliedMailSendenAction(), "envelope-open.png"));
     addItem(new CheckedContextMenuItem("vCard-Datei",
-        new MitgliedVCardDateiAction(), "vcard.png"));
+        new MitgliedVCardDateiAction(), "address-card.png"));
     addItem(new CheckedSingleContextMenuItem("vCard QR-Code",
-        new MitgliedVCardQRCodeAction(), "qr.png"));
+        new MitgliedVCardQRCodeAction(), "qr-code.png"));
     addItem(new CheckedContextMenuItem("Eigenschaften",
-        new MitgliedEigenschaftZuordnungAction(), "settings.gif"));
+        new MitgliedEigenschaftZuordnungAction(), "check-double.png"));
     if (Einstellungen.getEinstellung().getArbeitseinsatz())
     {
       addItem(new CheckedContextMenuItem("Arbeitseinsätze zuweisen",
-          new MitgliedArbeitseinsatzZuordnungAction(), "shovel.png"));
+          new MitgliedArbeitseinsatzZuordnungAction(), "screwdriver.png"));
     }
     addItem(new CheckedContextMenuItem("Zusatzbeträge zuweisen",
-        new MitgliedZusatzbetraegeZuordnungAction(), "coins.gif"));
+        new MitgliedZusatzbetraegeZuordnungAction(), "coins.png"));
     addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
         "rechnung.png"));
     addItem(new CheckedSingleContextMenuItem("Spendenbescheinigung",
-        new SpendenbescheinigungAction(), "rechnung.png"));
+        new SpendenbescheinigungAction(), "file-invoice.png"));
     addItem(new CheckedContextMenuItem("Personalbogen",
-        new PersonalbogenAction(), "rechnung.png"));
+        new PersonalbogenAction(), "file-invoice.png"));
     addItem(new CheckedSingleContextMenuItem("Manuelle Lastschrift ...",
-        new MitgliedLastschriftAction(), "rechnung.png"));
+        new MitgliedLastschriftAction(), "file-invoice.png"));
     DBIterator<Formular> it = Einstellungen.getDBService()
         .createList(Formular.class);
     it.addFilter("art = ?",
@@ -139,7 +139,7 @@ public class MitgliedMenu extends ContextMenu
     {
       Formular f = (Formular) it.next();
       addItem(new CheckedContextMenuItem(f.getBezeichnung(),
-          new FreiesFormularAction(f.getID()), "rechnung.png"));
+          new FreiesFormularAction(f.getID()), "file-invoice.png"));
     }
   }
 }

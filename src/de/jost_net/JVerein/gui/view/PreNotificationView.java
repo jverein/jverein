@@ -57,7 +57,7 @@ public class PreNotificationView extends AbstractView
 
     ButtonArea buttons1 = new ButtonArea();
     buttons1.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.PRENOTIFICATION, false, "help-browser.png");
+        DokumentationUtil.PRENOTIFICATION, false, "question-circle.png");
     buttons1.addButton(control.getStartButton(this.getCurrentObject()));
     buttons1.paint(tabMailPDF.getComposite());
 
@@ -68,9 +68,9 @@ public class PreNotificationView extends AbstractView
     tab2.addInput(control.getVerwendungszweck());
     ButtonArea buttons2 = new ButtonArea();
     buttons2.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.PRENOTIFICATION, false, "help-browser.png");
-    buttons2.addButton(control.getStart1ctUeberweisungButton(this
-        .getCurrentObject()));
+        DokumentationUtil.PRENOTIFICATION, false, "question-circle.png");
+    buttons2.addButton(
+        control.getStart1ctUeberweisungButton(this.getCurrentObject()));
     buttons2.paint(tab2.getComposite());
 
   }

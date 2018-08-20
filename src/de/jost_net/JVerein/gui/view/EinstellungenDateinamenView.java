@@ -44,7 +44,7 @@ public class EinstellungenDateinamenView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EINSTELLUNGEN, false, "help-browser.png");
+        DokumentationUtil.EINSTELLUNGEN, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -53,7 +53,7 @@ public class EinstellungenDateinamenView extends AbstractView
       {
         control.handleStoreDateinamen();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

@@ -469,8 +469,11 @@ public class BuchungsControl extends AbstractControl
     }
     DBIterator<Projekt> list = Einstellungen.getDBService()
         .createList(Projekt.class);
-    Date buchungsDatum = getBuchung().getDatum() == null ? new Date() : getBuchung().getDatum();
-    list.addFilter( "((startdatum is null or startdatum <= ?) and (endedatum is null or endedatum >= ?))", new Object[] {buchungsDatum, buchungsDatum} );
+    Date buchungsDatum = getBuchung().getDatum() == null ? new Date()
+        : getBuchung().getDatum();
+    list.addFilter(
+        "((startdatum is null or startdatum <= ?) and (endedatum is null or endedatum >= ?))",
+        new Object[] { buchungsDatum, buchungsDatum });
     list.setOrder("ORDER BY bezeichnung");
     projekt = new SelectInput(list, getBuchung().getProjekt());
     projekt.setValue(getBuchung().getProjekt());
@@ -686,7 +689,7 @@ public class BuchungsControl extends AbstractControl
       {
         starteAuswertung(true);
       }
-    }, null, true, "pdf.png"); // "true" defines this button as the default
+    }, null, true, "file-pdf.png"); // "true" defines this button as the default
     return b;
   }
 
@@ -700,7 +703,7 @@ public class BuchungsControl extends AbstractControl
       {
         starteCSVExport();
       }
-    }, null, true, "csv.jpg"); // "true" defines this button as the default
+    }, null, true, "code.png"); // "true" defines this button as the default
     return b;
   }
 
@@ -714,7 +717,7 @@ public class BuchungsControl extends AbstractControl
       {
         starteAuswertung(false);
       }
-    }, null, true, "pdf.png"); // "true" defines this button as the default
+    }, null, true, "file-pdf.png"); // "true" defines this button as the default
     return b;
   }
 
@@ -728,7 +731,7 @@ public class BuchungsControl extends AbstractControl
       {
         starteAuswertungBuchungsjournal();
       }
-    }, null, true, "pdf.png"); // "true" defines this button as the default
+    }, null, true, "file-pdf.png"); // "true" defines this button as the default
     return b;
   }
 
@@ -1023,7 +1026,8 @@ public class BuchungsControl extends AbstractControl
       buchungsList.setRememberOrder(true);
       buchungsList.setRememberState(true);
       buchungsList.addFeature(new FeatureSummary());
-      Application.getMessagingFactory().registerMessageConsumer(new BuchungMessageConsumer());
+      Application.getMessagingFactory()
+          .registerMessageConsumer(new BuchungMessageConsumer());
     }
     else
     {
@@ -1093,7 +1097,8 @@ public class BuchungsControl extends AbstractControl
       splitbuchungsList.setContextMenu(new SplitBuchungMenu(this));
       splitbuchungsList.setRememberColWidths(true);
       splitbuchungsList.addFeature(new FeatureSummary());
-      Application.getMessagingFactory().registerMessageConsumer(new SplitBuchungMessageConsumer());
+      Application.getMessagingFactory()
+          .registerMessageConsumer(new SplitBuchungMessageConsumer());
       splitbuchungsList.setFormatter(new TableFormatter()
       {
         /**
@@ -1626,8 +1631,8 @@ public class BuchungsControl extends AbstractControl
             if (splitbuchungsList == null)
             {
               // Eingabe-Feld existiert nicht. Also abmelden
-              Application.getMessagingFactory().unRegisterMessageConsumer(
-                  SplitBuchungMessageConsumer.this);
+              Application.getMessagingFactory()
+                  .unRegisterMessageConsumer(SplitBuchungMessageConsumer.this);
               return;
             }
             refreshSplitbuchungen();

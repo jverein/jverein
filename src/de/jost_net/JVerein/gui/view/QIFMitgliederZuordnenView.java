@@ -58,15 +58,15 @@ public class QIFMitgliederZuordnenView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.QIFIMPORT, false, "help-browser.png");
-    buttons.addButton("Zuordnung Speichern",
-        detailControl.getSpeichernAction(), null, false, "document-save.png");
+        DokumentationUtil.QIFIMPORT, false, "hquestion-circle.png");
+    buttons.addButton("Zuordnung Speichern", detailControl.getSpeichernAction(),
+        null, false, "save.png");
     buttons.addButton("Zuordnung Entfernen",
-        detailControl.getZuordnenEntfernenAction(), null, false, "clear.gif");
+        detailControl.getZuordnenEntfernenAction(), null, false, "eraser.png");
     buttons.paint(getParent());
 
-    TabFolder folder = new TabFolder(maincontainer.getComposite(), SWT.V_SCROLL
-        | SWT.BORDER);
+    TabFolder folder = new TabFolder(maincontainer.getComposite(),
+        SWT.V_SCROLL | SWT.BORDER);
     folder.setLayoutData(new GridData(GridData.FILL_BOTH));
     folder.setBackground(Color.BACKGROUND.getSWTColor());
     {

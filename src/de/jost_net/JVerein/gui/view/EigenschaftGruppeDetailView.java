@@ -42,9 +42,9 @@ public class EigenschaftGruppeDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.EIGENSCHAFTGRUPPE, false, "help-browser.png");
+        DokumentationUtil.EIGENSCHAFTGRUPPE, false, "question-circle.png");
     buttons.addButton("suche", new EigenschaftGruppeListeAction(), null, false,
-        "system-search.png");
+        "search.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -53,7 +53,7 @@ public class EigenschaftGruppeDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

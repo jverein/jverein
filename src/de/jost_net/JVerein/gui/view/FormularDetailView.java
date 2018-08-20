@@ -41,7 +41,7 @@ public class FormularDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.FORMULARE, false, "help-browser.png");
+        DokumentationUtil.FORMULARE, false, "question-circle.png");
     buttons.addButton("speichern", new Action()
     {
 
@@ -50,7 +50,7 @@ public class FormularDetailView extends AbstractView
       {
         control.handleStore();
       }
-    }, null, true, "document-save.png");
+    }, null, true, "save.png");
     buttons.paint(this.getParent());
   }
 }

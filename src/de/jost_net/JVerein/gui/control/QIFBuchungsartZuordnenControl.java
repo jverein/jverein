@@ -85,7 +85,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
   private void init()
   {
     imageOk = SWTUtil.getImage("ok.png");
-    imageError = SWTUtil.getImage("process-stop.png");
+    imageError = SWTUtil.getImage("stop-circle.png");
     imageLocked = SWTUtil.getImage("locked.png");
   }
 

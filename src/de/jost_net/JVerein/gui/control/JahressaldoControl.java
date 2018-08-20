@@ -109,7 +109,7 @@ public class JahressaldoControl extends AbstractControl
       {
         starteAuswertung();
       }
-    }, null, true, "pdf.png"); // "true" defines this button as the default
+    }, null, true, "file-pdf.png"); // "true" defines this button as the default
     // button
     return b;
   }

@@ -39,7 +39,8 @@ public class AuswertungKursteilnehmerView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.AUSWERTUNGKURSTEILNEHMER, false, "help-browser.png");
+        DokumentationUtil.AUSWERTUNGKURSTEILNEHMER, false,
+        "question-circle.png");
     buttons.addButton(control.getStartAuswertungButton());
     buttons.paint(this.getParent());
   }

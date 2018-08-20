@@ -30,11 +30,11 @@ public class WiedervorlagelisteView extends AbstractView
   public void bind() throws Exception
   {
     GUI.getView().setTitle("Wiedervorlagen");
-    new WiedervorlageList(new WiedervorlageListeAction())
-        .getWiedervorlageList().paint(this.getParent());
+    new WiedervorlageList(new WiedervorlageListeAction()).getWiedervorlageList()
+        .paint(this.getParent());
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.WIEDERVORLAGE, false, "help-browser.png");
+        DokumentationUtil.WIEDERVORLAGE, false, "question-circle.png");
     buttons.paint(this.getParent());
   }
 }

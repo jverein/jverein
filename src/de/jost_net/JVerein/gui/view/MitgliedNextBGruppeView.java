@@ -45,9 +45,9 @@ public class MitgliedNextBGruppeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MITGLIED, false, "help-browser.png");
+        DokumentationUtil.MITGLIED, false, "question-circle.png");
     buttons.addButton("Speichern", control.getSpeichernAction(), null, false,
-        "document-save.png");
+        "save.png");
     buttons.paint(getParent());
   }
 }

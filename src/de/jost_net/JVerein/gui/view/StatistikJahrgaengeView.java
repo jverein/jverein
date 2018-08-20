@@ -43,19 +43,15 @@ public class StatistikJahrgaengeView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.JUBILAEEN, false, "help-browser.png");
-    Button btnStart = new Button("Start",
-        new StatistikJahrgaengeExportAction(), control.getJubeljahr(), true,
-        "go.png");
+        DokumentationUtil.JUBILAEEN, false, "question-circle.png");
+    Button btnStart = new Button("Start", new StatistikJahrgaengeExportAction(),
+        control.getJubeljahr(), true, "walking.png");
     if (!Einstellungen.getEinstellung().getGeburtsdatumPflicht())
     {
       btnStart.setEnabled(false);
-      Application
-          .getMessagingFactory()
-          .sendMessage(
-              new StatusBarMessage(
-                  "Einstellungen->Anzeige->Geburtsdatum: keine Pflicht. Die Statistik kann nicht erstellt werden.",
-                  StatusBarMessage.TYPE_ERROR));
+      Application.getMessagingFactory().sendMessage(new StatusBarMessage(
+          "Einstellungen->Anzeige->Geburtsdatum: keine Pflicht. Die Statistik kann nicht erstellt werden.",
+          StatusBarMessage.TYPE_ERROR));
 
     }
     buttons.addButton(btnStart);

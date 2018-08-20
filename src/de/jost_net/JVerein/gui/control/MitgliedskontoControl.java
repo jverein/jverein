@@ -850,7 +850,7 @@ public class MitgliedskontoControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 
@@ -873,7 +873,7 @@ public class MitgliedskontoControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 
@@ -914,7 +914,7 @@ public class MitgliedskontoControl extends AbstractControl
           GUI.getStatusBar().setErrorText(e.getMessage());
         }
       }
-    }, null, true, "go.png");
+    }, null, true, "walking.png");
     return button;
   }
 
@@ -959,14 +959,14 @@ public class MitgliedskontoControl extends AbstractControl
       switch (mkn.getType())
       {
         case MitgliedskontoNode.MITGLIED:
-          item.setImage(0, SWTUtil.getImage("user_suit.png"));
+          item.setImage(0, SWTUtil.getImage("user.png"));
           break;
         case MitgliedskontoNode.SOLL:
-          item.setImage(0, SWTUtil.getImage("accessories-calculator.png"));
+          item.setImage(0, SWTUtil.getImage("calculator.png"));
           item.setExpanded(false);
           break;
         case MitgliedskontoNode.IST:
-          item.setImage(0, SWTUtil.getImage("bundle-16x16x32b.png"));
+          item.setImage(0, SWTUtil.getImage("object-group.png"));
           break;
       }
     }

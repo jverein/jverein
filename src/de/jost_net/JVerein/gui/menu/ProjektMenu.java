@@ -32,6 +32,6 @@ public class ProjektMenu extends ContextMenu
   public ProjektMenu()
   {
     addItem(new CheckedContextMenuItem("löschen...", new ProjektDeleteAction(),
-        "user-trash.png"));
+        "trash-alt.png"));
   }
 }

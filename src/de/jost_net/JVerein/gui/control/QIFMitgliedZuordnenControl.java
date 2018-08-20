@@ -87,7 +87,7 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
   private void init()
   {
     imageOk = SWTUtil.getImage("ok.png");
-    imageError = SWTUtil.getImage("process-stop.png");
+    imageError = SWTUtil.getImage("stop-circle.png");
     mitgliederGeladen = false;
   }
 

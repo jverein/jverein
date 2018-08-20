@@ -34,8 +34,8 @@ public class Mitgliedskonto2Menu extends ContextMenu
   public Mitgliedskonto2Menu()
   {
     addItem(new CheckedContextMenuItem("Rechnung...",
-        new MitgliedskontoRechnungAction(), "rechnung.png"));
+        new MitgliedskontoRechnungAction(), "file-invoice.png"));
     addItem(new CheckedContextMenuItem("Mahnung...",
-        new MitgliedskontoMahnungAction(), "rechnung.png"));
+        new MitgliedskontoMahnungAction(), "file-invoice.png"));
   }
 }

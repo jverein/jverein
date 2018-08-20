@@ -124,8 +124,8 @@ public class MailDetailView extends AbstractView
         Settings settings = new Settings(this.getClass());
         settings.setStoreWhenRead(true);
         FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-        fd.setFilterPath(settings.getString("lastdir",
-            System.getProperty("user.home")));
+        fd.setFilterPath(
+            settings.getString("lastdir", System.getProperty("user.home")));
         fd.setText("Bitte wählen Sie einen Anhang aus.");
         String f = fd.open();
         if (f != null)
@@ -134,8 +134,8 @@ public class MailDetailView extends AbstractView
           {
             MailAnhang anh = (MailAnhang) Einstellungen.getDBService()
                 .createObject(MailAnhang.class, null);
-            anh.setDateiname(f.substring(f.lastIndexOf(System
-                .getProperty("file.separator")) + 1));
+            anh.setDateiname(f.substring(
+                f.lastIndexOf(System.getProperty("file.separator")) + 1));
             File file = new File(f);
             FileInputStream fis = new FileInputStream(file);
             byte[] buffer = new byte[(int) file.length()];
@@ -157,7 +157,7 @@ public class MailDetailView extends AbstractView
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),
-        DokumentationUtil.MAIL, false, "help-browser.png");
+        DokumentationUtil.MAIL, false, "question-circle.png");
     buttons.addButton(control.getMailSpeichernButton());
     buttons.addButton(control.getMailReSendButton());
     buttons.addButton(control.getMailSendButton());
