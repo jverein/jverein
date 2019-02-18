@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) by Heiner Jostkleigrewe
+ * Copyright (c) by Heiner Jostkleigrewe, Leonardo Mörlein
  * This program is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
  * License, or (at your option) any later version.
@@ -747,40 +747,6 @@ public class MitgliedskontoControl extends AbstractControl
           + "mitgliedskonto.datum <= ? ";
       param.add(bd);
     }
-    if (suchname != null && suchname.getValue() != null)
-    {
-      StringTokenizer tok = new StringTokenizer((String) suchname.getValue(),
-          " ,-");
-      int count = 0;
-      String filter = "";
-      while (tok.hasMoreElements())
-      {
-        String nextToken = tok.nextToken();
-        if (nextToken.length() > 3)
-        {
-          if (count > 0)
-          {
-            filter += "OR ";
-          }
-          count++;
-          filter += "upper(mitglied.name) like upper(?) or upper(mitglied.vorname) like upper(?) or upper(zweck1) like upper(?) ";
-          String token = "%" + nextToken + "%";
-          param.add(token);
-          param.add(token);
-          param.add(token);
-        }
-      }
-      if (count > 0)
-      {
-        if (where.length() > 0)
-        {
-          where += "and ";
-        }
-        where += "(";
-        where += filter;
-        where += ") ";
-      }
-    }
     if (where.length() > 0)
     {
       sql += "WHERE " + where;
@@ -795,6 +761,12 @@ public class MitgliedskontoControl extends AbstractControl
               throws RemoteException, SQLException
           {
             ArrayList<Mitgliedskonto> ergebnis = new ArrayList<Mitgliedskonto>();
+
+            // In case the text search input is used, we calculate
+            // an "equality" score for each Mitgliedskonto (aka
+            // Mitgliedskontobuchung) entry. Only the entries with
+            // score == maxScore will be shown.
+            Integer maxScore = 0;
             while (rs.next())
             {
               Mitgliedskonto mk = (Mitgliedskonto) Einstellungen.getDBService()
@@ -817,6 +789,39 @@ public class MitgliedskontoControl extends AbstractControl
               {
                 continue;
               }
+
+              if (suchname != null && suchname.getValue() != null)
+              {
+                StringTokenizer tok = new StringTokenizer(
+                    (String) suchname.getValue(), " ,-");
+                Integer score = 0;
+                while (tok.hasMoreElements())
+                {
+                  String nextToken = tok.nextToken();
+                  if (nextToken.length() > 3)
+                  {
+                    score += scoreWord(nextToken, mk.getMitglied().getName());
+                    score += scoreWord(nextToken,
+                        mk.getMitglied().getVorname());
+                    score += scoreWord(nextToken, mk.getZweck1());
+                  }
+                }
+
+                if (maxScore < score)
+                {
+                  maxScore = score;
+                  // We found a Mitgliedskonto matching with a higher equality
+                  // score, so we drop all previous matches, because they were
+                  // less equal.
+                  ergebnis.clear();
+                }
+                else if (maxScore > score)
+                {
+                  // This match is worse, so skip it.
+                  continue;
+                }
+              }
+
               ergebnis.add(mk);
             }
             return PseudoIterator.fromArray(
@@ -825,6 +830,41 @@ public class MitgliedskontoControl extends AbstractControl
         });
 
     return mitgliedskonten;
+  }
+
+  public Integer scoreWord(String word, String in)
+  {
+    word = reduceWord(word);
+
+    Integer wordScore = 0;
+    StringTokenizer tok = new StringTokenizer(in, " ,-");
+
+    while (tok.hasMoreElements())
+    {
+      String nextToken = tok.nextToken();
+      nextToken = reduceWord(nextToken);
+
+      // Full match is twice worth
+      if (nextToken.equals(word))
+      {
+        wordScore += 2;
+      }
+      else if (nextToken.contains(word))
+      {
+        wordScore += 1;
+      }
+    }
+
+    return wordScore;
+  }
+
+  public String reduceWord(String word)
+  {
+    // We replace "ue" -> "u" and "ü" -> "u", because some bank institutions
+    // remove the dots "ü" -> "u". So we get "u" == "ü" == "ue".
+    return word.toLowerCase().replaceAll("ä", "a").replaceAll("ae", "a")
+        .replaceAll("ö", "o").replaceAll("oe", "o").replaceAll("ü", "u")
+        .replaceAll("ue", "u").replaceAll("ß", "s").replaceAll("ss", "s");
   }
 
   public Button getStartRechnungButton(final Object currentObject)
