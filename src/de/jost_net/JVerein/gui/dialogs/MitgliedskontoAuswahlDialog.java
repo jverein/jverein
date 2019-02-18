@@ -65,7 +65,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     settings.setStoreWhenRead(true);
 
-    this.setSize(600, 700);
+    this.setSize(900, 700);
     this.setTitle("Mitgliedskonto-Auswahl");
     this.buchung = buchung;
     control = new MitgliedskontoControl(null);
