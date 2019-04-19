@@ -164,6 +164,10 @@ public class Buchungsuebernahme
             zweck += "\r\n" + s.trim();
           }
         }
+        if (zweck.length() > 500)
+        {
+          zweck = zweck.substring(0, 500);
+        }
         b.setZweck(zweck);
         b.setDatum(u.getDatum());
         b.setArt(u.getArt());
