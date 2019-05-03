@@ -3207,8 +3207,8 @@ public class MitgliedControl extends AbstractControl
       m.setLetzteAenderung();
       m.store();
 
-      if (m.getAdresstyp().getJVereinid() == 1
-          && Einstellungen.getEinstellung().getMitgliedfoto())
+      boolean ist_mitglied = m.getAdresstyp().getJVereinid() == 1;
+      if (Einstellungen.getEinstellung().getMitgliedfoto() && ist_mitglied)
       {
         Mitgliedfoto f = null;
         DBIterator<Mitgliedfoto> it = Einstellungen.getDBService()
@@ -3323,7 +3323,7 @@ public class MitgliedControl extends AbstractControl
           zf.store();
         }
       }
-      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen())
+      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen() && ist_mitglied)
       {
         // Schritt 1: Die selektierten sekundären Beitragsgruppe prüfen, ob sie
         // bereits gespeichert sind. Ggfls. speichern.
