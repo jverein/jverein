@@ -164,7 +164,7 @@ public class Buchungsuebernahme
             zweck += "\r\n" + s.trim();
           }
         }
-        if (zweck.length() > 500)
+        if (zweck != null && zweck.length() > 500)
         {
           zweck = zweck.substring(0, 500);
         }
