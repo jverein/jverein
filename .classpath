@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="src" path="/jameica"/>
 	<classpathentry kind="lib" path="lib/nc.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javax.mail-1.5.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javax.mail-1.6.2.jar"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/hibiscus"/>
 	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
 	<classpathentry exported="true" kind="lib" path="/hibiscus/lib/obantoo-bin-2.1.12.jar"/>
