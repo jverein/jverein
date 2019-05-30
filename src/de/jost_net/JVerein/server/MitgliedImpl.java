@@ -1167,8 +1167,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public boolean isAngemeldet(Date stichtag) throws RemoteException
   {
-    return ((getEintritt() != null || getEintritt().before(stichtag))
-        && getAustritt() == null || getAustritt().after(stichtag));
+    return getEintritt() != null && !stichtag.before(getEintritt())
+        && (getAustritt() == null || getAustritt().after(stichtag));
   }
 
   @Override
