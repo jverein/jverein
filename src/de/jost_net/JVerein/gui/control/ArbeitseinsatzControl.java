@@ -262,7 +262,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       s = s + ".PDF";
     }
     final File file = new File(s);
-    final GenericIterator it = getIterator();
+    final GenericIterator<ArbeitseinsatzZeile> it = getIterator();
     final int jahr = (Integer) getSuchJahr().getValue();
     final String sub = getAuswertungSchluessel().getText();
     settings.setAttribute("lastdir", file.getParent());
@@ -355,7 +355,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       s = s + ".CSV";
     }
     final File file = new File(s);
-    final GenericIterator it = getIterator();
+    final GenericIterator<ArbeitseinsatzZeile> it = getIterator();
     settings.setAttribute("lastdir", file.getParent());
     BackgroundTask t = new BackgroundTask()
     {
@@ -428,7 +428,7 @@ public class ArbeitseinsatzControl extends AbstractControl
 
   private void starteArbeitseinsatzGenerierung() throws RemoteException
   {
-    final GenericIterator it = getIterator();
+    final GenericIterator<ArbeitseinsatzZeile> it = getIterator();
     final int jahr = (Integer) getSuchJahr().getValue();
 
     BackgroundTask t = new BackgroundTask()

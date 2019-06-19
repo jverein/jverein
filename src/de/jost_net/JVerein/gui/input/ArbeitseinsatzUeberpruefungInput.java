@@ -36,8 +36,7 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
 
   public static final int ALLE = 4;
 
-  public ArbeitseinsatzUeberpruefungInput(int schluessel)
-      throws RemoteException
+  public ArbeitseinsatzUeberpruefungInput(int schluessel) throws RemoteException
   {
     super(init(), new ArbeitseinsatzUeberpruefungObject(schluessel));
   }
@@ -46,15 +45,16 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<ArbeitseinsatzUeberpruefungObject> init()
+      throws RemoteException
   {
     ArrayList<ArbeitseinsatzUeberpruefungObject> l = new ArrayList<ArbeitseinsatzUeberpruefungObject>();
     l.add(new ArbeitseinsatzUeberpruefungObject(MINDERLEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(PASSENDELEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(MEHRLEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(ALLE));
-    return PseudoIterator.fromArray(l
-        .toArray(new ArbeitseinsatzUeberpruefungObject[l.size()]));
+    return PseudoIterator
+        .fromArray(l.toArray(new ArbeitseinsatzUeberpruefungObject[l.size()]));
   }
 
   /**
@@ -63,16 +63,15 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
   @Override
   public Object getValue()
   {
-    ArbeitseinsatzUeberpruefungObject o = (ArbeitseinsatzUeberpruefungObject) super
-        .getValue();
+    ArbeitseinsatzUeberpruefungObject o = (ArbeitseinsatzUeberpruefungObject) super.getValue();
     return o.schluessel;
   }
 
   /**
    * Hilfs-Objekt zur Anzeige der Labels.
    */
-  private static class ArbeitseinsatzUeberpruefungObject implements
-      GenericObject
+  private static class ArbeitseinsatzUeberpruefungObject
+      implements GenericObject
   {
 
     public int schluessel;
