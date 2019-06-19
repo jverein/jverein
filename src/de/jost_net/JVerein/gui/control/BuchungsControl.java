@@ -66,6 +66,7 @@ import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.rmi.Projekt;
 import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
+import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
@@ -148,6 +149,8 @@ public class BuchungsControl extends AbstractControl
 
   private SelectInput suchprojekt;
 
+  private SelectInput hasmitglied;
+
   private DateInput vondatum = null;
 
   private DateInput bisdatum = null;
@@ -167,6 +170,8 @@ public class BuchungsControl extends AbstractControl
   public static final String BUCHUNGSART = "suchbuchungsart";
 
   public static final String PROJEKT = "suchprojekt";
+
+  public static final String MITGLIEDZUGEORDNET = "suchmitgliedzugeordnet";
 
   private Vector<Listener> changeKontoListener = new Vector<Listener>();
 
@@ -917,6 +922,12 @@ public class BuchungsControl extends AbstractControl
     {
       settings.setAttribute("suchkontoid", "");
     }
+    MitgliedZustand m = (MitgliedZustand) getSuchMitgliedZugeordnet()
+        .getValue();
+    if (m != null)
+    {
+      settings.setAttribute(MITGLIEDZUGEORDNET, m.getText());
+    }
     Buchungsart b = (Buchungsart) getSuchBuchungsart().getValue();
     if (b != null && b.getNummer() != 0)
     {
@@ -937,7 +948,7 @@ public class BuchungsControl extends AbstractControl
     settings.setAttribute("suchbetrag", (String) getSuchBetrag().getValue());
 
     query = new BuchungQuery(dv, db, k, b, p, (String) getSuchtext().getValue(),
-        (String) getSuchBetrag().getValue());
+        (String) getSuchBetrag().getValue(), m.getValue());
     if (buchungsList == null)
     {
       buchungsList = new BuchungListTablePart(query.get(),
@@ -1648,5 +1659,151 @@ public class BuchungsControl extends AbstractControl
         }
       });
     }
+  }
+
+  public Input getSuchMitgliedZugeordnet()
+  {
+    if (hasmitglied != null)
+    {
+      return hasmitglied;
+    }
+
+    ArrayList<MitgliedZustand> liste = new ArrayList<MitgliedZustand>();
+
+    MitgliedZustand ja = new MitgliedZustand(true, "Ja");
+    liste.add(ja);
+
+    MitgliedZustand nein = new MitgliedZustand(false, "Nein");
+    liste.add(nein);
+
+    MitgliedZustand beide = new MitgliedZustand(null, "Beide");
+    liste.add(beide);
+
+    String bwert = settings.getString(MITGLIEDZUGEORDNET, "Beide");
+    MitgliedZustand b = ja;
+    for (int i = 0; i < liste.size(); i++)
+    {
+      if (liste.get(i).getText().equals(bwert))
+      {
+        b = liste.get(i);
+        break;
+      }
+    }
+
+    hasmitglied = new SelectInput(liste, b);
+    hasmitglied.addListener(new FilterListener());
+
+    return hasmitglied;
+  }
+
+  /**
+   * Hilfsklasse zur Anzeige der Importer.
+   */
+  private class MitgliedZustand
+      implements GenericObject, Comparable<MitgliedZustand>
+  {
+
+    private Boolean value = null;
+
+    private String text = null;
+
+    private MitgliedZustand(Boolean value, String text)
+    {
+      this.value = value;
+      this.text = text;
+    }
+
+    public Boolean getValue()
+    {
+      return value;
+    }
+
+    public void setValue(Boolean value)
+    {
+      this.value = value;
+    }
+
+    public String getText()
+    {
+      return text;
+    }
+
+    public void setText(String text)
+    {
+      this.text = text;
+    }
+
+    /**
+     * @see de.willuhn.datasource.GenericObject#getAttribute(java.lang.String)
+     */
+    @Override
+    public Object getAttribute(String arg0)
+    {
+      return getText();
+    }
+
+    /**
+     * @see de.willuhn.datasource.GenericObject#getAttributeNames()
+     */
+    @Override
+    public String[] getAttributeNames()
+    {
+      return new String[] { "name" };
+    }
+
+    /**
+     * @see de.willuhn.datasource.GenericObject#getID()
+     */
+    @Override
+    public String getID()
+    {
+      String repr = "null";
+      if (getValue() != null)
+        Boolean.toString(getValue());
+
+      return getText() + "#" + repr;
+    }
+
+    /**
+     * @see de.willuhn.datasource.GenericObject#getPrimaryAttribute()
+     */
+    @Override
+    public String getPrimaryAttribute()
+    {
+      return "name";
+    }
+
+    /**
+     * @see de.willuhn.datasource.GenericObject#equals(de.willuhn.datasource.GenericObject)
+     */
+    @Override
+    public boolean equals(GenericObject arg0) throws RemoteException
+    {
+      if (arg0 == null)
+        return false;
+      return this.getID().equals(arg0.getID());
+    }
+
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(MitgliedZustand o)
+    {
+      if (o == null)
+      {
+        return -1;
+      }
+      try
+      {
+        return this.getText().compareTo((o).getText());
+      }
+      catch (Exception e)
+      {
+        // Tss, dann halt nicht
+      }
+      return 0;
+    }
+
   }
 }

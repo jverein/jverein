@@ -56,6 +56,7 @@ public class BuchungslisteView extends AbstractView
       left.addLabelPair("Buchungsart", control.getSuchBuchungsart());
       left.addLabelPair("Projekt", control.getSuchProjekt());
       left.addLabelPair("Betrag", control.getSuchBetrag());
+      left.addLabelPair("Mitglied zugeordnet?", control.getSuchMitgliedZugeordnet());
       right.addLabelPair("von Datum", control.getVondatum());
       right.addLabelPair("bis Datum", control.getBisdatum());
       right.addLabelPair("enthaltener Text", control.getSuchtext());

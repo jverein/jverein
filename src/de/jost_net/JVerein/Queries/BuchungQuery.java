@@ -49,6 +49,8 @@ public class BuchungQuery
 
   private List<Buchung> ergebnis;
 
+  private Boolean hasMitglied;
+
   private static final int ORDER_UMSATZID = 0;
 
   private static final int ORDER_DATUM = 1;
@@ -62,7 +64,8 @@ public class BuchungQuery
   private int order = ORDER_UMSATZID;
 
   public BuchungQuery(Date datumvon, Date datumbis, Konto konto,
-      Buchungsart buchungsart, Projekt projekt, String text, String betrag)
+      Buchungsart buchungsart, Projekt projekt, String text, String betrag,
+      Boolean hasMitglied)
   {
     this.datumvon = datumvon;
     this.datumbis = datumbis;
@@ -71,11 +74,22 @@ public class BuchungQuery
     this.projekt = projekt;
     this.text = text;
     this.betrag = betrag;
+    this.hasMitglied = hasMitglied;
   }
 
   public void setOrderID()
   {
     order = ORDER_ID;
+  }
+
+  public Boolean getHasMitglied()
+  {
+    return hasMitglied;
+  }
+
+  public void setHasMitglied(Boolean hasMitglied)
+  {
+    this.hasMitglied = hasMitglied;
   }
 
   public void setOrderDatum()
@@ -145,6 +159,18 @@ public class BuchungQuery
       else if (buchungart.getNummer() >= 0)
       {
         it.addFilter("buchungsart = ? ", buchungart.getID());
+      }
+    }
+
+    if (hasMitglied != null)
+    {
+      if (hasMitglied)
+      {
+        it.addFilter("mitgliedskonto is not null");
+      }
+      else
+      {
+        it.addFilter("mitgliedskonto is null");
       }
     }
 
