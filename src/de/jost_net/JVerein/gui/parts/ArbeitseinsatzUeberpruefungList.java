@@ -47,7 +47,8 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
   private int schluessel;
 
-  public ArbeitseinsatzUeberpruefungList(Action action, int jahr, int schluessel)
+  public ArbeitseinsatzUeberpruefungList(Action action, int jahr,
+      int schluessel)
   {
     super(action);
     this.jahr = jahr;
@@ -63,8 +64,8 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
 
       if (arbeitseinsatzueberpruefungList == null)
       {
-        GenericIterator gi = PseudoIterator.fromArray(zeile
-            .toArray(new GenericObject[zeile.size()]));
+        GenericIterator<ArbeitseinsatzZeile> gi = PseudoIterator
+            .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 
         arbeitseinsatzueberpruefungList = new TablePart(gi,
             new MitgliedDetailAction());
@@ -83,8 +84,9 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
             new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
             Column.ALIGN_RIGHT);
         arbeitseinsatzueberpruefungList.addColumn("Gesamtbetrag",
-            "gesamtbetrag", new CurrencyFormatter("",
-                Einstellungen.DECIMALFORMAT), false, Column.ALIGN_RIGHT);
+            "gesamtbetrag",
+            new CurrencyFormatter("", Einstellungen.DECIMALFORMAT), false,
+            Column.ALIGN_RIGHT);
         arbeitseinsatzueberpruefungList.setRememberColWidths(true);
         arbeitseinsatzueberpruefungList.setSummary(true);
       }

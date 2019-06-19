@@ -35,13 +35,14 @@ import de.willuhn.logging.Logger;
  */
 public class BuchungsartSearchInput extends SearchInput
 {
+  @Override
   @SuppressWarnings("rawtypes")
   public List startSearch(String text)
   {
     try
     {
-      DBIterator result = Einstellungen.getDBService().createList(
-          Buchungsart.class);
+      DBIterator result = Einstellungen.getDBService()
+          .createList(Buchungsart.class);
       if (text != null)
       {
         text = "%" + text.toUpperCase() + "%";
