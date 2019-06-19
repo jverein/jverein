@@ -61,6 +61,8 @@ public class BuchungQuery
 
   private static final int ORDER_ID = 4;
 
+  private static final int ORDER_DATUM_ID = 5;
+
   private int order = ORDER_UMSATZID;
 
   public BuchungQuery(Date datumvon, Date datumbis, Konto konto,
@@ -95,6 +97,11 @@ public class BuchungQuery
   public void setOrderDatum()
   {
     order = ORDER_DATUM;
+  }
+
+  public void setOrderDatumID()
+  {
+    order = ORDER_DATUM_ID;
   }
 
   public void setOrderDatumAuszugsnummerBlattnummer()
@@ -265,7 +272,12 @@ public class BuchungQuery
         it.setOrder("ORDER BY id");
         break;
       }
-
+      case ORDER_DATUM_ID:
+      {
+        it.setOrder("ORDER BY datum, id");
+        break;
+      }
+ 
     }
 
     this.ergebnis = PseudoIterator.asList(it);

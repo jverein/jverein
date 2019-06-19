@@ -48,7 +48,7 @@
 
 	<target name="compile" depends="init, clean">
 		<mkdir dir="${class.dir}" />
-		<javac debug="true" includeantruntime="false" debuglevel="lines,vars,source" source="1.6" target="1.6" encoding="${define.encoding}" deprecation="true" destdir="${class.dir}" srcdir="${src.dir}">
+		<javac debug="true" includeantruntime="false" debuglevel="lines,vars,source" source="${define.java.version}" target="${define.java.version}" encoding="${define.encoding}" deprecation="true" destdir="${class.dir}" srcdir="${src.dir}">
 			<classpath refid="compilepath" />
 		</javac>
 	</target>
@@ -87,7 +87,7 @@
 
 	<target name="javadoc" depends="init" description="creates the api doc">
 		<mkdir dir="${project.javadoc}" />
-		<javadoc destdir="${project.javadoc}" packagenames="${define.package}.*" encoding="ISO8859-1">
+		<javadoc destdir="${project.javadoc}" packagenames="${define.package}.*" encoding="${define.encoding}">
 			<classpath refid="compilepath" />
 			<sourcepath>
 				<pathelement location="${src.dir}" />

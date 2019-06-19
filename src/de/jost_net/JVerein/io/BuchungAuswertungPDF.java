@@ -76,7 +76,10 @@ public class BuchungAuswertungPDF
 
       for (Buchungsart bua : buchungsarten)
       {
-        query.setOrderDatum();
+        if (einzel)
+        {
+          query.setOrderDatumID();
+        }
         List<Buchung> liste = getBuchungenEinerBuchungsart(query.get(), bua);
         createTableContent(reporter, bua, liste, einzel);
       }
@@ -85,6 +88,7 @@ public class BuchungAuswertungPDF
         if (einzel)
         {
           createTableHeaderEinzel(reporter);
+          reporter.addColumn("", Element.ALIGN_RIGHT);
           reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("", Element.ALIGN_LEFT);
           reporter.addColumn("", Element.ALIGN_LEFT);
@@ -131,7 +135,9 @@ public class BuchungAuswertungPDF
   private void createTableHeaderEinzel(Reporter reporter)
       throws DocumentException
   {
-    reporter.addHeaderColumn("Datum", Element.ALIGN_CENTER, 40,
+    reporter.addHeaderColumn("Nummer", Element.ALIGN_CENTER, 22,
+        BaseColor.LIGHT_GRAY);
+    reporter.addHeaderColumn("Datum", Element.ALIGN_CENTER, 28,
         BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn("Auszug", Element.ALIGN_CENTER, 20,
         BaseColor.LIGHT_GRAY);
@@ -139,10 +145,9 @@ public class BuchungAuswertungPDF
         BaseColor.LIGHT_GRAY);
     reporter.addHeaderColumn("Zahlungsgrund", Element.ALIGN_CENTER, 100,
         BaseColor.LIGHT_GRAY);
-    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 50,
+    reporter.addHeaderColumn("Betrag", Element.ALIGN_CENTER, 40,
         BaseColor.LIGHT_GRAY);
     reporter.createHeader();
-
   }
 
   private void createTableHeaderSumme(Reporter reporter)
@@ -180,8 +185,9 @@ public class BuchungAuswertungPDF
     {
       if (einzel)
       {
+        reporter.addColumn(b.getID(), Element.ALIGN_RIGHT);
         reporter.addColumn(new JVDateFormatTTMMJJJJ().format(b.getDatum()),
-            Element.ALIGN_LEFT);
+            Element.ALIGN_CENTER);
         if (b.getAuszugsnummer() != null)
         {
           reporter.addColumn(b.getAuszugsnummer() + "/"
@@ -212,19 +218,17 @@ public class BuchungAuswertungPDF
     }
     if (einzel)
     {
+      reporter.addColumn("", Element.ALIGN_RIGHT);
+      reporter.addColumn("", Element.ALIGN_CENTER);
+      reporter.addColumn("", Element.ALIGN_LEFT);
+      reporter.addColumn("", Element.ALIGN_LEFT);
       if (buchungen.size() == 0)
       {
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("keine Buchung", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn("", Element.ALIGN_LEFT);
       }
       else
       {
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
-        reporter.addColumn("", Element.ALIGN_LEFT);
         reporter.addColumn(String.format("Summe %s", bua.getBezeichnung()),
             Element.ALIGN_LEFT);
         summe += buchungsartSumme;

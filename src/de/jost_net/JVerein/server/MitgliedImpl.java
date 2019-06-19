@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.validator.routines.EmailValidator;
-
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.BeitragsUtil;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
@@ -43,6 +41,7 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
 import de.jost_net.JVerein.util.Datum;
+import de.jost_net.JVerein.util.EmailValidator;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
@@ -153,7 +152,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
     }
     if (getEmail() != null && getEmail().length() > 0)
     {
-      if (!EmailValidator.getInstance().isValid(getEmail()))
+      if (!EmailValidator.isValid(getEmail()))
       {
         throw new ApplicationException("Ungültige Email-Adresse.");
       }
@@ -1168,8 +1167,8 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   @Override
   public boolean isAngemeldet(Date stichtag) throws RemoteException
   {
-    return ((getEintritt() != null || getEintritt().before(stichtag))
-        && getAustritt() == null || getAustritt().after(stichtag));
+    return getEintritt() != null && !stichtag.before(getEintritt())
+        && (getAustritt() == null || getAustritt().after(stichtag));
   }
 
   @Override
