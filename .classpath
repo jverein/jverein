@@ -10,8 +10,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
 	<classpathentry exported="true" kind="lib" path="/hibiscus/lib/obantoo-bin-2.1.12.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/bsh-core-2.0b4.jar"/>
-	<classpathentry exported="true" kind="lib" path="/hibiscus/lib/itext-pdfa-5.5.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="/hibiscus/lib/itextpdf-5.5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/csvjdbc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itext-hyph-xml.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jollyday-0.4.7.jar"/>
@@ -28,7 +26,5 @@
 	<classpathentry exported="true" kind="lib" path="lib/jsoup-1.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/vinnie-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ez-vcard-0.9.5.jar"/>
-	<classpathentry kind="lib" path="/hibiscus/lib/itext-pdfa-5.5.2.jar"/>
-	<classpathentry kind="lib" path="/hibiscus/lib/itextpdf-5.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
