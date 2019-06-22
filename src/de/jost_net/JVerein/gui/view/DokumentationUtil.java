@@ -19,7 +19,7 @@ package de.jost_net.JVerein.gui.view;
 public class DokumentationUtil
 {
 
-  private static final String PRE = "https://jverein.gitbooks.io/jverein-handbuch/content/";
+  private static final String PRE = "https://doku.jverein.de/";
 
   public static final String ADRESSEN = PRE + "adressen.html";
 
